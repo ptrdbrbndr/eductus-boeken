@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Structures of the Life-World &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Schutz en Luckmann stellen dat de alledaagse wereld waarin mensen wakker worden, werken en met elkaar omgaan een vaste opbouw heeft die aan iedere…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-721">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">721 &middot; Geschiedenis en samenleving</p>
+    <h1>The Structures of the Life-World</h1>
+    <p class="lede">Alfred Schutz en Thomas Luckmann, 1973</p>
+    <p class="stats">
+      <span><b>1788</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="721"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Schutz en Luckmann stellen dat de alledaagse wereld waarin mensen wakker worden, werken en met elkaar omgaan een vaste opbouw heeft die aan iedere wetenschap voorafgaat, en dat die opbouw stap voor stap te beschrijven valt. De leefwereld wordt niet in twijfel getrokken zolang het gewone handelen slaagt: zij geldt tot nader order, is gelaagd naar tijd, ruimte en nabijheid van anderen, en wordt ontsloten door een voorraad kennis die iemand voor het grootste deel van anderen heeft overgenomen. Wie samenleving en handelen wil verklaren, moet volgens hen eerst deze structuren blootleggen, omdat sociologische begrippen anders constructies blijven die zweven boven een werkelijkheid die zij niet raken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek dat de auteur niet heeft afgemaakt</h3>
+      <p>Alfred Schutz was jurist, werkte in Wenen en later in New York bij een bankiershuis, en beoefende de sociale wetenschap in de avonduren en aan de New School for Social Research. In 1932 verscheen <i>Der sinnhafte Aufbau der sozialen Welt</i>, waarin hij de fenomenologie van Husserl verbond met de eis van Max Weber dat sociologie het handelen verklaart vanuit de betekenis die de handelende persoon eraan geeft. Het werk over de structuren van de leefwereld was bedoeld als afronding daarvan.</p>
+      <p>Bij zijn dood in 1959 lagen er een opzet en een reeks notitieboeken. Thomas Luckmann werkte die uit tot een boek dat in 1973 in het Engels verscheen, twee jaar vóór de Duitse uitgave. In de inleiding zet Luckmann uiteen wat hij aantrof en waar hij zelf heeft geschreven. Een tweede deel, over handelen, plannen en de sociale persoon, volgde in 1984 in het Duits.</p>
+      <h3>De natuurlijke houding</h3>
+      <p>Het uitgangspunt is de natuurlijke houding: de gewone instelling waarin het bestaan van de wereld en van andere mensen geen vraag is. Schutz draait daarbij de beroemde greep van Husserl om. De fenomenoloog schort het geloof in de werkelijkheid op om haar te onderzoeken; in het dagelijks leven schort men juist de twijfel op. Wat gisteren werkte, werkt vandaag weer, tot het tegendeel blijkt.</p>
+      <p>Wat die houding bijeenhoudt is het praktische motief: mensen zijn in de wereld om erin te werken, en die betrokkenheid bepaalt wat er scherp in beeld staat en wat vaag blijft. Daarnaast erkennen Schutz en Luckmann andere gebieden met een eigen soort werkelijkheid, zoals de droom, het spel, het kunstwerk, de godsdienst en de wetenschappelijke beschouwing. De overgang ertussen verloopt met een schok, want de vanzelfsprekendheid van het ene gebied geldt in het andere niet.</p>
+      <h3>Gelaagd naar tijd, ruimte en medemens</h3>
+      <p>De leefwereld is niet overal even dichtbij. Ruimtelijk onderscheiden de auteurs de wereld binnen feitelijk bereik, het gebied dat vroeger binnen bereik lag en herstelbaar is, en het gebied dat nog nooit bereikt is maar bereikbaar zou zijn. Wat binnen handbereik ligt, kan worden aangeraakt en veranderd; alles daarbuiten is bekend uit herinnering of van horen zeggen.</p>
+      <p>In de tijd lopen de innerlijke duur van het beleven, de wereldtijd van dag en nacht en de kloktijd van afspraken door elkaar heen; het eindige leven vormt daarbij de buitenste grens. Sociaal loopt de reeks van medemensen met wie iemand oog in oog staat, via tijdgenoten die hij nooit ontmoet, naar voorgangers die er niet meer zijn en opvolgers die er nog niet zijn. Naarmate de afstand groeit, wordt de ander minder persoon en meer type: de conducteur, de ambtenaar, de kiezer.</p>
+      <h3>De kennisvoorraad</h3>
+      <p>Iedereen legt in de loop van een leven een voorraad kennis aan, opgebouwd uit eerdere ervaringen en gerangschikt volgens de eigen levensloop. Het grootste deel ervan is routine: vaardigheden die zonder aandacht verlopen, gebruiksregels voor terugkerende situaties, gewoonten die geen overweging meer vragen. Nieuwe ervaringen worden geordend met typeringen, dat wil zeggen dat een geval wordt behandeld als een geval van een soort en niet als iets nieuws.</p>
+      <p>Twee aannames dragen dat geheel. De eerste is dat het zo doorgaat: wat tot nu toe gold, blijft gelden. De tweede is dat wat eerder lukte, opnieuw kan lukken onder ongeveer gelijke omstandigheden. Wat op enig moment aandacht krijgt, wordt geregeld door relevantie, en Schutz onderscheidt daarbij de relevantie die een onderwerp opdringt, de relevantie die bepaalt welke kennis erbij wordt gehaald, en de relevantie die uit motieven en plannen voortkomt. Pas als de routine hapert, komt een stuk van de voorraad als probleem in beeld.</p>
+      <h3>Wat mensen samen aannemen</h3>
+      <p>Dat mensen in dezelfde wereld leven, berust op een dubbele aanname die Schutz de wederkerigheid van perspectieven noemt. De eerste helft: standpunten zijn verwisselbaar, dus wie op de plaats van de ander zou staan, zou de dingen zien zoals de ander ze ziet. De tweede helft: verschillen in levensloop doen er voor het praktische doel niet toe, zodat beiden de dingen op dezelfde manier belangrijk vinden. Deze aanname wordt zelden uitgesproken en zelden gecontroleerd.</p>
+      <p>Kennis is bovendien ongelijk verdeeld. Niemand weet alles, iedereen weet iets beter dan de rest, en het meeste wat mensen weten hebben zij nooit zelf nagegaan maar op gezag aangenomen, via taal, opvoeding en beroepsopleiding. De taal zelf is een opslagplaats van typeringen: wie een woord leert, neemt een indeling van de wereld over die door voorgangers is gemaakt. Het laatste deel van het boek verbindt de kennisvoorraad op die manier met de samenleving.</p>
+      <h3>Wat eruit voortkwam</h3>
+      <p>De doorwerking is groter dan het lezerspubliek van het boek. Peter Berger en Thomas Luckmann schreven met <i>The Social Construction of Reality</i> (1966) een toegankelijke uitwerking van dezelfde uitgangspunten en brachten het denken van Schutz onder een breed publiek. Harold Garfinkel maakte er met de etnomethodologie een onderzoekspraktijk van, waarin proefpersonen de vanzelfsprekendheden van alledag opzettelijk doorbreken om zichtbaar te maken hoeveel er stilzwijgend wordt aangenomen.</p>
+      <p>Ook buiten de sociologie is de invloed merkbaar, in de bestudering van beroepen en instellingen en in onderzoek naar de omgang met techniek. Het boek zelf bleef het minst gelezen deel van die erfenis: het is droog, herhalend en schematisch.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">leefwereld</td><td>De alledaagse wereld zoals die vóór alle wetenschap wordt beleefd, met de vanzelfsprekendheden die het gewone handelen dragen.</td></tr>
+          <tr><td class="term">natuurlijke houding</td><td>De gewone instelling waarin het bestaan van de wereld en van andere mensen geen vraag is.</td></tr>
+          <tr><td class="term">opschorting van de twijfel</td><td>De omkering van de fenomenologische greep: in het dagelijks leven wordt niet het geloof in de wereld opgeschort maar de twijfel eraan.</td></tr>
+          <tr><td class="term">praktisch motief</td><td>De gerichtheid op werken en ingrijpen die bepaalt wat er in de leefwereld scherp in beeld komt en wat vaag blijft.</td></tr>
+          <tr><td class="term">kennisvoorraad</td><td>Het geheel van ervaringen, vaardigheden en gebruiksregels dat iemand in de loop van een leven opbouwt en meedraagt.</td></tr>
+          <tr><td class="term">typering</td><td>Het behandelen van een geval als geval van een bekende soort, waardoor het herkenbaar en hanteerbaar wordt.</td></tr>
+          <tr><td class="term">relevantie</td><td>De ordening die bepaalt wat aandacht krijgt, welke kennis erbij wordt gehaald en welk motief daarachter zit.</td></tr>
+          <tr><td class="term">zones van bereik</td><td>De indeling van de omgeving in wat feitelijk bereikbaar is, wat vroeger bereikbaar was en wat bereikbaar zou kunnen worden.</td></tr>
+          <tr><td class="term">wederkerigheid van perspectieven</td><td>De stilzwijgende aanname dat standpunten verwisselbaar zijn en dat verschillen in levensloop voor het doel van het moment niet meetellen.</td></tr>
+          <tr><td class="term">eindige zinsprovincie</td><td>Een gebied met een eigen soort werkelijkheid, zoals droom, spel of wetenschap, waartussen de overgang met een schok verloopt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan: geen waarnemingen, geen vraaggesprekken, geen tellingen, geen historisch materiaal. De methode is beschrijvend. De auteurs ontleden wat elke volwassene in de eigen ervaring kan nagaan en proberen die ontleding zo te ordenen dat de onderdelen elkaar niet tegenspreken. De maatstaf is herkenbaarheid en samenhang, en de auteurs zeggen dat ook. De lijnen lopen terug naar Husserl, met name naar diens late werk over de crisis van de Europese wetenschappen, naar Bergson voor de tijdsbeleving, naar William James voor de gedachte van deelwerkelijkheden, en naar Weber voor de eis dat handelen vanuit de betekenis voor de handelende persoon wordt begrepen.</p>
+      <p>De empirische winst van het boek ligt in wat anderen ermee deden. De etnomethodologie van Garfinkel gaf de vanzelfsprekendheid van alledag een toetsbare vorm door haar opzettelijk te verstoren en te kijken hoe mensen de orde herstellen. Dat is een aanwijzing dat de beschrijving iets vasthoudt wat werkelijk bestaat. De begrippen zelf blijven daarbij vooral ordenend: zij zeggen waar bij een verschijnsel op te letten valt en voorspellen niet wanneer het optreedt of hoe sterk.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het eerste bezwaar betreft de status van de tekst. Schutz stierf in 1959; wat er lag was een opzet met notitieboeken. Luckmann heeft die tot lopend proza gemaakt, hiaten aangevuld en gedeelten zelf geschreven. Hij geeft daar in de inleiding rekenschap van, maar bij een boek waarin de precieze formulering het argument draagt, blijft de vraag wat van Schutz komt en wat van zijn uitwerker. Een uitspraak toeschrijven aan Schutz vraagt hier meer voorzichtigheid dan bij het werk dat hij zelf publiceerde.</p>
+      <p>Het tweede bezwaar is de vorm van het betoog. De structuren worden gepresenteerd als algemeen menselijk, terwijl geschiedenis, klasse, sekse en machtsverschil vrijwel niet voorkomen. Jürgen Habermas nam in <i>Theorie des kommunikativen Handelns</i> (1981) het begrip leefwereld over en verweet de fenomenologische versie tegelijk dat zij de leefwereld tot cultuur versmalt en de instellingen en de persoonsvorming buiten beschouwing laat. Ook de aanname van wederkerige perspectieven laat zich lezen als een prettige gedachte die in een ongelijke samenleving juist niet opgaat: dat standpunten verwisselbaar zijn, geldt voor de bewaker en de gevangene niet in dezelfde mate.</p>
+      <p>Het derde bezwaar is de toetsbaarheid. Omdat de beschrijving berust op zelfwaarneming en op wat redelijkerwijs valt na te gaan, is er nauwelijks een waarneming denkbaar die het geheel zou weerleggen. Dat maakt het werk bruikbaar als woordenboek en ongeschikt als theorie in de strikte zin. Daar komt de leesbaarheid bij: de tekst hanteert een dichte, uit het Duits vertaalde terminologie, herhaalt de eigen indelingen vaak en geeft weinig voorbeelden, zodat de meeste lezers meer hebben aan de latere bewerking van Berger en Luckmann dan aan het origineel.</p>
+      <p>Tot slot is de belofte maar half ingelost. Het boek stelt de leefwereld voor als fundament voor een betere sociale wetenschap en laat het bij de fundering; de brug naar onderzoek is door anderen geslagen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij het onderzoeken van een werkpraktijk eerst naar wat er niet wordt uitgelegd omdat het vanzelf spreekt; daar zit de meeste kennis.</li>
+        <li>Vraag bij een misverstand na welke kennisvoorraad de ander meebrengt, in plaats van de eigen ordening als de gedeelde te veronderstellen.</li>
+        <li>Let bij het ontwerpen van formulieren en procedures op de typeringen die erin zijn ingebakken, en op de gevallen die daar niet in passen.</li>
+        <li>Onderbreek een routine bewust om zichtbaar te maken welke afspraken er stilzwijgend aan ten grondslag liggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Structures of the Life-World</i> (vertaald uit het Duits door Richard M. Zaner en H. Tristram Engelhardt jr., Northwestern University Press, Evanston, 1973, xxxvi + 335 blz., ISBN 9780810106222). De Duitse uitgave verscheen als <i>Strukturen der Lebenswelt</i> (Luchterhand, Neuwied en Darmstadt, 1975); een tweede deel volgde in het Duits in 1984 en in het Engels in 1989 bij dezelfde uitgever. Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, die van Schutz alleen Engels, Duits en Bulgaars werk bevat; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Postuum voltooid hoofdwerk van de Oostenrijks-Amerikaanse socioloog Alfred Schutz (1899-1959), uitgewerkt door zijn leerling Thomas Luckmann (1927-2016). Het beschrijft de opbouw van de wereld van alledag: hoe die wereld vanzelfsprekend blijft zolang het gewone handelen slaagt, hoe zij gelaagd is naar wat binnen bereik ligt in ruimte en tijd, hoe medemensen van dichtbij tot volstrekt anoniem oplopen, en hoe iedereen een voorraad kennis meedraagt die grotendeels van anderen is overgenomen en zelden op de proef wordt gesteld.</p><p>Het boek staat aan het begin van de kennissociologie van Berger en Luckmann en van de etnomethodologie. Het bevat geen onderzoeksgegevens en geen enkele meting; het is een beschrijvende ontleding in de traditie van Husserl, met Weber op de achtergrond. Wie precisie zoekt over begrippen als vanzelfsprekendheid, routine en typering vindt die hier; wie toetsbare uitspraken zoekt, vindt ze niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>fenomenologie</li><li>sociologie</li><li>alledaagse werkelijkheid</li><li>kennissociologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="562"><a href="562.html">Public Opinion</a>. Lippmann beschrijft stereotypen als kant-en-klare beelden waarmee mensen de wereld ordenen; dat is de typering van Schutz, toegepast op de pers.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman geeft aan het routinematige, ongecontroleerde denken een experimentele onderbouwing die bij Schutz ontbreekt.</li>
+          <li value="565"><a href="565.html">Simulacres et simulation</a>. Baudrillard behandelt hetzelfde thema, de werkelijkheid van wat voor werkelijk doorgaat, met een tegenovergesteld temperament.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

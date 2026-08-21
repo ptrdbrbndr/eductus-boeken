@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oriëntalisme &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Said stelt dat het westerse spreken over het Oosten geen optelsom van losse waarnemingen is, maar een samenhangend stelsel van teksten, leerstoelen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-720">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">720 &middot; Geschiedenis en samenleving</p>
+    <h1>Oriëntalisme</h1>
+    <p class="lede">Edward Said, 1978</p>
+    <p class="stats">
+      <span><b>1828</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="720"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Said stelt dat het westerse spreken over het Oosten geen optelsom van losse waarnemingen is, maar een samenhangend stelsel van teksten, leerstoelen, ambten en aannames dat zijn eigen onderwerp voortbrengt. De Oriënt van de oriëntalisten is in dat stelsel gemaakt: een tegenbeeld waarin Europa alles legde wat het zichzelf niet toeschreef, en dat vervolgens aan de bewoners van het gebied werd opgelegd als hun aard. Kennis en heerschappij lopen daarbij door elkaar heen. De filoloog, de reiziger, de romanschrijver en de bestuursambtenaar putten uit dezelfde voorraad beelden, en de geleerdheid die zegt te beschrijven, levert tegelijk de begrippen waarmee overheersing zich verantwoordt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie betekenissen van één woord</h3>
+      <p>In de inleiding onderscheidt Said drie zaken die het woord oriëntalisme aanduidt. Ten eerste een academisch vak: wie onderwijs geeft, schrijft of onderzoek doet over de Oriënt, is een oriëntalist. Ten tweede een denkstijl die berust op een scheiding tussen Oost en West en die scheiding als vertrekpunt neemt, in gedichten, romans, staatkundige beschouwingen en woordenboeken. Ten derde, en daar draait het boek om, een instelling met een eigen huishouding: leerstoelen, genootschappen, tijdschriften, adviesdiensten en bestuurskantoren die de Oriënt behandelen door er uitspraken over te doen, er les over te geven en er gezag over te voeren.</p>
+      <p>De sleutelzin luidt dat de Oriënt is georiëntaliseerd. Het gebied bestond en de mensen bestonden, maar het beeld dat Europa ervan maakte kwam uit Europa zelf en werd daarna aan het gebied opgelegd. De systematische vorm daarvan dateert Said rond het einde van de achttiende eeuw, met de Franse inval in Egypte van 1798 als scharnierpunt.</p>
+      <h3>Balfour en Cromer: kennis die bestuurt</h3>
+      <p>Het eerste hoofdstuk opent met een toespraak van Arthur Balfour in het Lagerhuis in 1910 over de Britse aanwezigheid in Egypte, en met <i>Modern Egypt</i> (1908) van Lord Cromer, jarenlang de feitelijke bestuurder van dat land. Balfour betoogde dat de Britten de Egyptische beschaving beter kenden dan de Egyptenaren zelf en dat die kennis het bestuur wettigde. Cromer beschreef de oosterling als onnauwkeurig in het redeneren en niet in staat tot logische orde, tegenover de Engelsman die zich aan feiten houdt.</p>
+      <p>Said gebruikt beide om te laten zien hoe kennis en heerschappij in elkaar grijpen. Wie beweert te weten wat een volk is, kan in dezelfde adem beweren dat het zichzelf niet kan besturen. De kennis functioneert daarbij niet als dekmantel achteraf, want zij levert de begrippen waarmee de bestuurders hun eigen handelen begrijpen.</p>
+      <h3>Verbeelde geografie en de tekstuele houding</h3>
+      <p>Voor de lange lijn gaat Said terug tot de Griekse tragedie en langs Dante, die Mohammed in de hel plaatst, naar de verzamelaars van de zeventiende en achttiende eeuw. Hij noemt dat verbeelde geografie: het trekken van een grens tussen een vertrouwd binnen en een vreemd buiten, waarbij het buiten wordt gevuld met eigenschappen die het binnen van zichzelf afwijst. Daarbij hoort de tekstuele houding, de neiging om de werkelijkheid te bekijken door de boeken die er eerder over verschenen en die boeken meer gezag toe te kennen dan de waarneming.</p>
+      <p>Napoleons expeditie van 1798 nam een staf geleerden mee en leverde de <i>Description de l'Égypte</i> op, een reeks delen waarin het land in kaart, tekening en tekst werd gevat. Het graven van het Suezkanaal door Ferdinand de Lesseps leest Said als dezelfde beweging in aarde en water: het Oosten toegankelijk maken volgens een westers plan.</p>
+      <h3>Van filologie naar reisverhaal</h3>
+      <p>Het tweede hoofdstuk volgt de negentiende eeuw. Silvestre de Sacy bracht orde aan door bloemlezingen en handboeken samen te stellen, zodat de Oriënt beschikbaar kwam in uittreksels. Ernest Renan bouwde daarop een taalwetenschap die de semitische talen als stilstaand en de indo-europese als beweeglijk voorstelde, met gevolgen die ver buiten de taalkunde reikten.</p>
+      <p>Daarnaast staan de mannen die er zelf heen gingen. Edward William Lane woonde in Caïro en publiceerde in 1836 <i>An Account of the Manners and Customs of the Modern Egyptians</i>, decennialang de standaardbron, waarin de waarnemer zichzelf buiten beeld houdt. Chateaubriand, Nerval, Flaubert en Richard Burton reisden met een ander oogmerk en zochten in het Oosten wat Europa hun onthield. Hun bladzijden over danseressen en woestijnnachten leest Said als de andere helft van hetzelfde bedrijf, waarin verlangen en gezag elkaar aanvullen.</p>
+      <h3>Oriëntalisme nu</h3>
+      <p>Het derde hoofdstuk voert het onderscheid tussen latent en manifest oriëntalisme in. Latent is de vaste onderlaag: het Oosten als vrouwelijk, zinnelijk, statisch en uit zichzelf niet tot verandering in staat. Manifest is wat er in een bepaalde periode wordt beweerd, en dat wisselt met de politieke omstandigheden. De onderlaag blijft volgens Said opvallend stabiel terwijl de meningen erboven veranderen.</p>
+      <p>Na 1945 verschuift het zwaartepunt van Parijs en Londen naar de Verenigde Staten, waar het vak opgaat in regiostudies en beleidsadvies. Said bespreekt Louis Massignon en H.A.R. Gibb als geleerden van formaat met elk een eigen versie van dezelfde aannames, en wijst Bernard Lewis aan als voorbeeld van iemand die wetenschappelijk gezag inzet in dagbladpolemiek. Het slot gaat over het beeld van de Arabier in Amerikaanse media na 1967 en 1973 en over Palestina, waarbij Said zijn eigen positie niet verbergt.</p>
+      <h3>Het gereedschap en de open vraag</h3>
+      <p>Het begrippenapparaat komt van elders. Van Michel Foucault leent Said het begrip discours, een geordend geheel van uitspraken dat bepaalt wat er over een onderwerp gezegd kan worden. Van Antonio Gramsci komt hegemonie, overheersing die via instemming werkt. Tegelijk houdt Said vast aan de filologische leeswijze van Erich Auerbach, met aandacht voor de afzonderlijke schrijver en diens strategische plaatsing tegenover het onderwerp.</p>
+      <p>Wat er in plaats van het oriëntalisme moet komen, beantwoordt het boek terughoudend. Said pleit voor kennis die haar eigen wereldse positie meeneemt en die de bestudeerden als sprekende mensen behandelt. In het nawoord uit 1995 en het voorwoord uit 2003 komt hij terug op de ontvangst en verzet hij zich tegen de lezing dat zijn boek een aanklacht tegen het Westen als zodanig zou zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">oriëntalisme</td><td>Het geheel van vakbeoefening, denkstijl en instellingen waarmee het Westen de Oriënt heeft beschreven en behandeld.</td></tr>
+          <tr><td class="term">verbeelde geografie</td><td>De denkbeeldige grens tussen een vertrouwd gebied en een vreemd gebied, waarbij het vreemde de eigenschappen krijgt die het vertrouwde van zichzelf afwijst.</td></tr>
+          <tr><td class="term">tekstuele houding</td><td>De neiging om de werkelijkheid te lezen door eerder verschenen boeken en die boeken meer te geloven dan de eigen waarneming.</td></tr>
+          <tr><td class="term">latent oriëntalisme</td><td>De onderlaag van aannames over het Oosten die door de eeuwen heen nauwelijks verandert.</td></tr>
+          <tr><td class="term">manifest oriëntalisme</td><td>Wat er in een bepaalde periode daadwerkelijk over het Oosten wordt beweerd, wisselend per tijd, land en auteur.</td></tr>
+          <tr><td class="term">discours</td><td>Van Foucault geleend begrip voor een geordend geheel van uitspraken dat bepaalt wat er over een onderwerp gezegd kan worden.</td></tr>
+          <tr><td class="term">hegemonie</td><td>Van Gramsci geleend begrip voor overheersing die niet op dwang berust maar op instemming met een vanzelfsprekend geworden zienswijze.</td></tr>
+          <tr><td class="term">strategische plaatsing</td><td>De positie die een schrijver in zijn tekst tegenover het onderwerp inneemt, af te lezen aan toon, afstand en aanspraak op gezag.</td></tr>
+          <tr><td class="term">wereldsheid</td><td>Saids term voor het gegeven dat elke tekst uit een bepaalde plaats, tijd en belangenpositie voortkomt en die herkomst meedraagt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal bestaat uit teksten: vakstudies, woordenboeken en grammatica's, romans en reisverslagen, brieven, parlementaire toespraken en bestuursverslagen. Saids werkwijze is nauwkeurig lezen. Hij citeert, laat zien welke woorden terugkeren, wie van wie overschrijft en hoe een oordeel uit 1830 in 1950 opnieuw opduikt. Voor de samenhang binnen het Franse, Britse en later Amerikaanse corpus is dat overtuigend, omdat de verwijzingen tussen de auteurs onderling talrijk en controleerbaar zijn.</p>
+      <p>Zwakker is de stap van tekst naar bestuur. Dat oriëntalistische kennis het kolonialisme mede mogelijk maakte, wordt aannemelijk gemaakt door teksten naast elkaar te leggen en niet door archiefonderzoek naar besluitvorming. Said laat zien dat Cromer en Balfour in dezelfde termen spraken als de geleerden; wat de geleerden feitelijk aan het bestuur leverden en wat het bestuur van hen vroeg, blijft grotendeels bij vermoeden. Het corpus is bovendien gekozen: Britse, Franse en Amerikaanse bronnen over het Midden-Oosten en de islam, terwijl India, China en Japan vrijwel ontbreken.</p>
+      <p>Het boek zoekt daarnaast niet naar tegenvoorbeelden. Geleerden die zich tegen het gangbare beeld keerden, worden bij hetzelfde stelsel ingelijfd, zodat moeilijk is aan te wijzen welke bevinding de stelling zou weerleggen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Bernard Lewis, in het boek zelf als voorbeeld opgevoerd, antwoordde in 1982 in The New York Review of Books met het stuk The Question of Orientalism. Zijn zwaarste punt is de Duitse traditie. De Duitse arabistiek, indologie en semitistiek van de negentiende eeuw behoorden tot de beste van Europa, terwijl Duitsland in het Midden-Oosten geen koloniën had. Loopt de band tussen kennis en overheersing zo strak als Said stelt, dan is dat geval lastig te verklaren. Lewis wees verder op vertaal- en dateringsfouten en op het gevolg voor het vak, waarin het woord oriëntalist onbruikbaar werd als aanduiding voor iemand die oosterse talen bestudeert. Said antwoordde in hetzelfde blad en hield vol dat juist Lewis liet zien hoezeer die geleerdheid politiek was.</p>
+      <p>Robert Irwin werkte dat feitelijke bezwaar uit in <i>For Lust of Knowing: The Orientalists and Their Enemies</i> (2006), in de Verenigde Staten verschenen als <i>Dangerous Knowledge</i>. Irwin schreef een tegengeschiedenis waarin de meeste oriëntalisten zonderlingen, geestelijken en filologen zijn met weinig invloed op enig bestuur, en somt bij Said onjuistheden, verkeerde toeschrijvingen en aanwijzingen van ongelezen boeken op. Zijn oordeel is dat Said een vak beschrijft waarvan hij de dagelijkse praktijk niet kende.</p>
+      <p>Uit een andere hoek kwam het verwijt dat Said doet wat hij aanklaagt. De Syrische filosoof Sadik Jalal al-Azm noemde dat in 1981 oriëntalisme in omgekeerde richting: tegenover de verzonnen Oriënt komt een even eenvormig Westen te staan dat van de Griekse tragedie tot het Amerikaanse buitenlandbeleid hetzelfde zou hebben gedacht. Aijaz Ahmad wees er in <i>In Theory</i> (1992) op dat het boek twee onverenigbare methodes gebruikt: bij Foucault verdwijnt de schrijver in het discours, terwijl Saids eigen leeswijze op individuele auteurs en hun stijl berust.</p>
+      <p>Wat het boek nalaat is een antwoord op de vraag hoe betere kennis van andere samenlevingen eruitziet; ook blijft liggen wat mensen in de bestudeerde gebieden in dezelfde eeuwen zelf schreven. In de ontvangst leidde dat tot precies het gebruik waartegen Said zich verzette: oriëntalisme als etiket om een studie af te wijzen zonder haar te lezen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een beschrijving van een vreemde groep na welke genoemde eigenschappen precies de tegenpool vormen van het zelfbeeld van de beschrijver.</li>
+        <li>Volg de voetnoten: veel oordelen over andere volken blijken uit eerdere boeken overgeschreven en niet op waarneming gebaseerd.</li>
+        <li>Let bij landenanalyse en beleidsadvies op de plaatsen waar kennis over een gebied en gezag over dat gebied in dezelfde handen liggen.</li>
+        <li>Houd het bezwaar van Lewis erbij: een verband tussen kennis en macht moet per geval worden aangewezen, en de Duitse oriëntalistiek zonder koloniën is daarbij de eerste toetssteen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Oriëntalisme</i> (vertaald door Wiecher Hulst, Athenaeum, Polak &amp; Van Gennep, Amsterdam, 2021, 517 blz., ISBN 9789025314064). Oorspronkelijk verschenen als <i>Orientalism</i> (Pantheon Books, New York, 1978, xiii + 368 blz., ISBN 9780394428147); de gangbare Engelse heruitgave met het nawoord uit 1995 en het voorwoord uit 2003 verscheen bij Penguin (Londen, 2003, 396 blz.). Een eerdere Nederlandse vertaling verscheen als <i>Oriëntalisten</i> bij Mets &amp; Schilt (Amsterdam, 2005, 479 blz., ISBN 9789053303962), met een nawoord van Sjoerd de Jong.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Studie van de Palestijns-Amerikaanse literatuurwetenschapper Edward Said (1935-2003) over de manier waarop westerse geleerden, reizigers, schrijvers en bestuurders sinds ongeveer 1800 over het Oosten hebben geschreven. Said leest de filologen Silvestre de Sacy en Ernest Renan, de Egyptekenner Edward William Lane, reizigers als Chateaubriand, Nerval en Flaubert en twintigste-eeuwse geleerden als Louis Massignon, H.A.R. Gibb en Bernard Lewis, naast toespraken en bestuursverslagen van Arthur Balfour en Lord Cromer. Zijn conclusie: al die teksten putten uit dezelfde voorraad beelden en vormen samen een bedrijf dat het Oosten tegelijk beschrijft en vastlegt.</p><p>Het boek maakte van oriëntalisme een verwijt en van postkoloniale studies een vakgebied. Het wordt sinds de verschijning ook bestreden, om feitelijke fouten, om het weglaten van de Duitse en Russische traditie, en om het beeld van een Westen dat in Saids bladzijden even eenvormig oogt als de Oriënt die het zou hebben verzonnen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>oriëntalisme</li><li>postkoloniale studies</li><li>kennis en macht</li><li>midden-oosten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="523"><a href="523.html">I Write What I Like</a>. Biko beschrijft van binnenuit wat Said van buitenaf ontleedt: hoe het beeld dat de overheerser hanteert, in de overheerste zelf gaat zitten.</li>
+          <li value="521"><a href="521.html">Indigenous and Popular Thinking in América</a>. Kusch levert vanuit Latijns-Amerika een even verstrekkende kritiek op Europese denkcategorieën, met een heel andere methode.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Herman en Chomsky onderzoeken eenzelfde filtering van beelden in de Amerikaanse pers, en doen dat met tellingen in plaats van tekstlezing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

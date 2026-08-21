@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 687 titels in 20 rubrieken.
+augustus 2026: 696 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -20,17 +20,17 @@ bij de volgende build verloren.
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 713 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 700, 704, 713 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 695, 696, 697, 714 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 695, 696, 697, 714, 720, 721, 722, 723 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 710, 711, 712 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 699 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 699, 701, 702, 703 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 698 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -135190,6 +135190,1161 @@ leerstellige inbedding.
 doorgang vast, waarbij hij de verschijnselen psychologisch duidde die
 Underhill godsdienstig las.
 
+## 700. The Embodied Mind
+
+Francisco Varela, Evan Thompson en Eleanor Rosch, 1991. *The Embodied Mind:
+Cognitive Science and Human Experience* (MIT Press, Cambridge MA, 1991, 308
+blz., ISBN 9780262720212). Herziene editie 2016 met nieuwe inleidingen van
+Thompson en Rosch en een voorwoord van Jon Kabat-Zinn (ISBN 9780262529365).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; van
+Varela staat daar wel *De boom der kennis*, geschreven met Humberto Maturana
+(Contact, Amsterdam, 1989). De samenvatting is op de Engelse editie gebaseerd.
+Rubriek: brein en lichaam.
+Tags: `cognitiewetenschap`, `enactivisme`, `belichaamde cognitie`,
+`boeddhisme`, `fenomenologie`
+
+Drie auteurs met verschillende achtergronden schreven samen het boek dat de
+term enactie in de cognitiewetenschap heeft gebracht: de Chileense bioloog
+Francisco Varela, bekend van de theorie van autopoiese, de filosoof Evan
+Thompson en de psycholoog Eleanor Rosch, die eerder de prototypetheorie van
+categorisering ontwikkelde. Hun voorstel luidt dat kennen ontstaat in de
+omgang van een lichaam met zijn omgeving, en dat waarnemen en handelen elkaar
+voortbrengen in plaats van elkaar op te volgen.
+
+Wat het boek in 1991 ongebruikelijk maakte, was het tweede spoor. De auteurs
+betogen dat een wetenschap van de geest de geleefde ervaring nodig heeft, en
+dat de boeddhistische aandachtstraditie daarvoor een geschoolde methode
+aanbiedt. Die combinatie leverde zowel invloed als bezwaar op: enactivisme
+groeide uit tot een onderzoeksprogramma, terwijl de boeddhistische component
+tot op vandaag betwist wordt, onder meer door Thompson zelf in later werk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Cognitie is volgens Varela, Thompson en Rosch geen
+afspiegeling van een wereld die al klaarligt, en evenmin de projectie van een
+geest die zijn wereld verzint. Waarnemen en handelen brengen elkaar voort: een
+organisme legt in zijn omgang met de omgeving vast wat voor dit soort lichaam
+telt als kleur, als voedsel of als hindernis, en die omgeving legt tegelijk
+vast wat het organisme worden kan. Dat noemen zij enactie. Daaraan koppelen
+zij een tweede stelling die in de cognitiewetenschap van 1991 zeldzaam was:
+een wetenschap van de geest die de geleefde ervaring buiten de deur houdt
+ondermijnt zichzelf, en de boeddhistische aandachtstraditie biedt een
+geoefende manier om die ervaring te onderzoeken waarover de westerse filosofie
+niet beschikt.
+
+#### De gang van het boek
+
+**De cirkel waarin het onderzoek staat**
+
+Het eerste deel, The Departing Ground, opent met wat de auteurs een
+fundamentele cirkel noemen. Wie de geest onderzoekt doet dat met een geest,
+zodat instrument en onderwerp samenvallen. De cognitiewetenschap van de jaren
+tachtig had daar volgens hen geen antwoord op: die beschreef denken als
+informatieverwerking en liet de vraag hoe ervaring van binnenuit is liggen, of
+verklaarde haar tot bijproduct. Het boek probeert dat gat te vullen met een
+geoefende manier van kijken in plaats van met nog een theorie.
+
+Husserl en de fenomenologie komen langs als de westerse poging die het dichtst
+in de buurt kwam. Het bezwaar van de auteurs luidt dat Husserls reflectie een
+theoretische bezigheid bleef, uitgevoerd aan een schrijftafel, zonder oefening
+die het waarnemen zelf verandert. Daartegenover plaatsen zij de
+aandachtstraditie, waarin het onderzoeken van ervaring een vaardigheid is die
+jaren kost en die volgens hen tot andere bevindingen leidt dan de leunstoel.
+
+**Het cognitivisme en het zelf dat niet gevonden wordt**
+
+Het tweede deel behandelt de heersende leer: de geest als symboolverwerkend
+systeem, cognitie als berekening over representaties van een gegeven wereld.
+De auteurs erkennen wat die aanpak heeft opgeleverd en wijzen op het punt waar
+zij naar hun oordeel vastloopt. Het hoofdstuk The I of the Storm confronteert
+die leer met een oude waarneming uit het boeddhisme. Wie in de eigen ervaring
+zoekt naar een blijvend zelf, vindt gewaarwordingen, gevoelens, waarnemingen,
+neigingen en bewustzijn, de vijf skandha's, en geen drager daarachter.
+
+Uit die twee bronnen halen de auteurs dezelfde conclusie: het samenhangende
+zelf is een voortdurende constructie. De westerse wetenschap komt er langs
+analytische weg, de aandachtstraditie langs oefening. Waar de wetenschap
+volgens hen tekortschiet, is in het omgaan met de ontdekking. Zij laat de
+bevinding op papier staan en verandert er niets door, terwijl de
+aandachtstraditie er een praktijk aan verbindt.
+
+**Emergentie en netwerken**
+
+Het derde deel bespreekt het connectionisme, dat in de jaren tachtig het
+cognitivisme uitdaagde. In neurale netwerken zit geen centrale plek waar de
+betekenis wordt vastgesteld; wat als eigenschap verschijnt komt op uit de
+samenwerking van eenvoudige eenheden. Varela had die gedachte al biologisch
+uitgewerkt in de theorie van autopoiese: een levend systeem is een netwerk dat
+voortdurend zijn eigen bestanddelen en zijn eigen grens voortbrengt.
+
+Het hoofdstuk Selfless Minds trekt de lijn door naar de geest. Als er geen
+centrale instantie is, ontstaat het gevoel van een ik uit een samenspel van
+deelprocessen, ongeveer zoals een golfpatroon uit water ontstaat. De auteurs
+noemen dat een emergent zelf: werkzaam en aanwijsbaar in gedrag, zonder vaste
+kern waar het aan vastzit.
+
+**De middenweg: enactie**
+
+Het vierde deel bevat de eigenlijke voorstelling van zaken. De auteurs lenen
+van Richard Bernstein de uitdrukking cartesiaanse angst voor het gevoel dat er
+alleen keus is tussen een vaste buitenwereld die kennis draagt en een
+innerlijke leegte waarin alles subjectief wordt. Enactie is hun poging om die
+keuze te ontlopen. Kleur dient als proefgeval: kleurcategorieën laten zich
+niet aflezen uit golflengten alleen, en evenmin uit taalgewoonte alleen. Zij
+komen tot stand in de wisselwerking tussen een zenuwstelsel met een bepaalde
+bouw en een omgeving met een geschiedenis.
+
+Het evolutionaire hoofdstuk zet daar natuurlijke drift naast, een lezing van
+de evolutie waarin niet elke eigenschap een oplossing voor een gesteld
+probleem is. Wat overleeft, is wat toereikend blijft; binnen die ruime marge
+legt een soort al lopend een pad vast. De omgeving is dan geen vast gegeven
+waar organismen zich naar voegen, want de organismen bepalen door hun
+aanwezigheid mee welke omgeving er is.
+
+**Werelden zonder grond**
+
+Het slotdeel gaat naar Nagarjuna en de madhyamaka-school. Diens leer van
+sunyata, in het boek vertaald als grondeloosheid, ontkent zowel dat dingen een
+eigen wezen hebben als dat er niets is. Alles ontstaat in afhankelijkheid van
+iets anders. De auteurs zien in die redenering dezelfde beweging als in hun
+eigen betoog: geen geest die de wereld draagt, geen wereld die de geest
+draagt, en toch geen leegte waarin niets telt.
+
+Het laatste hoofdstuk, Laying Down a Path in Walking, trekt daar een ethische
+lijn uit. Grondeloosheid leidt in het westen makkelijk tot nihilisme,
+schrijven zij, en zij verwijzen naar Nishitani en de Kyoto-school voor een
+andere afloop. Wie de grondeloosheid geoefend meemaakt in plaats van haar te
+bedenken, zou volgens hen minder aan zichzelf vastzitten en daardoor
+beschikbaarder worden voor anderen. Dat is de zwakst onderbouwde en tegelijk
+meest uitgesproken claim van het boek.
+
+**Wat er daarna van kwam**
+
+Het boek is het beginpunt geworden van wat nu enactivisme heet, een van de
+stromingen binnen de belichaamde cognitie. Varela werkte de methodische kant
+uit in zijn voorstel voor neurofenomenologie uit 1996, waarin geschoolde
+eerste-persoonsverslagen en hersenmetingen elkaar wederzijds zouden moeten
+beperken. Thompson zette de biologische lijn voort in *Mind in Life* (2007).
+De term belichaamde cognitie raakte in de jaren negentig ingeburgerd, mede
+door dit boek.
+
+In 2016 verscheen een herziene editie waarin Thompson en Rosch elk een nieuwe
+inleiding schreven; Varela was in 2001 overleden. Thompson nam daar en in *Why
+I Am Not a Buddhist* (2020) afstand van de manier waarop wetenschap en
+boeddhisme in de tussenliggende jaren aan elkaar waren gekoppeld, ook in het
+eigen werk. Die zelfcorrectie hoort bij de ontvangst van dit boek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| enactie | Het voortbrengen van een wereld in de omgang ermee: waarnemen en handelen bepalen elkaar in plaats van elkaar op te volgen. |
+| autopoiese | Varela's term met Maturana voor een systeem dat zijn eigen bestanddelen en zijn eigen grens voortdurend voortbrengt. |
+| structurele koppeling | De geschiedenis van wederzijdse aanpassing tussen een organisme en zijn omgeving, waardoor beide worden wat zij zijn. |
+| natuurlijke drift | Hun lezing van evolutie waarin overleven alleen toereikendheid vraagt, zodat vorm binnen ruime marges ook door toeval en geschiedenis wordt bepaald. |
+| cartesiaanse angst | Van Richard Bernstein geleende naam voor de vrees dat er alleen keus is tussen een vaste grond buiten ons en willekeur. |
+| grondeloosheid | Hun vertaling van sunyata: niets heeft een eigen, op zichzelf staand wezen, en alles ontstaat in afhankelijkheid van iets anders. |
+| mindfulness en awareness | De boeddhistische oefening in opmerkzaamheid die zij voorstellen als geschoolde methode om ervaring te onderzoeken. |
+| skandha's | De vijf verzamelingen van gewaarwording, gevoel, waarneming, neiging en bewustzijn waarin de ervaring uiteenvalt zonder dat er een zelf achter verschijnt. |
+| afhankelijk ontstaan | Het boeddhistische pratityasamutpada: verschijnselen komen op in onderlinge afhankelijkheid, zonder eerste of dragende oorzaak. |
+
+#### Waar het argument op rust
+
+Het boek is voor het grootste deel een betoog en geen verslag van eigen
+proeven. Waar het op empirie steunt, gaat het om bestaand werk: het onderzoek
+naar kleurcategorisering waarin fysiologie en taalgebruik elkaar niet dekken,
+de klassieke proef van Held en Hein uit 1963 waarin jonge katten die zelf
+liepen wel normaal leerden zien en katten die passief werden meegereden niet,
+het connectionistische modelleerwerk van de jaren tachtig, en Rosch' eigen
+onderzoek naar categorisering. De biologische onderbouwing komt uit de theorie
+van autopoiese die Maturana en Varela in de jaren zeventig hadden
+gepubliceerd.
+
+De boeddhistische kant rust op teksten en op praktijk, en dat zeggen de
+auteurs ook. Zij lezen Nagarjuna via de commentaartraditie en beroepen zich op
+de Abhidharma-analyse van de ervaring. Metingen aan mediterenden komen er niet
+aan te pas; die kwamen pas in de jaren daarna op gang. Voor de centrale claim,
+dat geoefende zelfwaarneming andere gegevens oplevert dan gewone introspectie,
+levert het boek geen gegevens maar een programma. Varela heeft dat programma
+later zelf als openstaande opgave benoemd.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de koppeling tussen twee soorten aanspraken. Dat
+er in de ervaring geen blijvend zelf te vinden is, en dat de
+cognitiewetenschap geen centrale instantie in de hersenen aantreft, zijn twee
+verschillende bevindingen; de gelijkenis tussen beide is geen argument voor
+een van beide. Kenners van de boeddhistische tekstgeschiedenis hebben er
+bovendien op gewezen dat het boek een aandachtsoefening uit de
+theravada-traditie combineert met de filosofie van de madhyamaka alsof het één
+leer betreft, en dat de weergave van sunyata dichter bij twintigste-eeuwse
+westerse lezingen staat dan bij de oorspronkelijke discussies.
+
+Methodisch belooft het boek meer dan het levert. Het bepleit geschoolde
+eerste-persoonsverslagen en voert die zelf niet uit. De neurofenomenologie die
+Varela in 1996 voorstelde is daarna wel beproefd, maar het bekende bezwaar
+bleef staan: een correlatie tussen een verslag van binnenuit en een patroon in
+hersenactiviteit legt uit dat twee dingen samen optreden, en verklaart nog
+niet waarom het ene met het andere gepaard gaat.
+
+Vakinhoudelijk zijn er twee andere klachten. Evolutiebiologen namen
+natuurlijke drift niet over, omdat het de rol van selectie sterker terugdringt
+dan de gegevens vragen. En de term enactie is zo ruim geworden dat er
+inmiddels heel verschillende stellingen onder vallen: dat cognitie lichamelijk
+is, dat zij situatie-afhankelijk is, en dat zij zonder inwendige
+representaties beschrijfbaar is. Dat laatste is het meest omstreden. Wie met
+voorspellende modellen van de hersenen werkt, houdt vast aan inwendige
+modellen en beschouwt de afwijzing daarvan als een stap die uit de argumenten
+van het boek niet volgt.
+
+#### Wat er concreet mee te doen is
+
+- Lees deel vier en vijf als het eigenlijke betoog; de eerste drie delen zijn
+de stand van zaken uit 1991 en zijn deels ingehaald.
+- Houd de twee sporen uit elkaar bij het beoordelen: het
+cognitiewetenschappelijke voorstel staat of valt niet met de boeddhistische
+lezing.
+- Gebruik het kleurvoorbeeld als toets bij andere debatten over waarneming:
+welk aandeel komt van de bouw van het zenuwstelsel, welk aandeel van de
+geschiedenis van de omgeving.
+- Neem bij belangstelling voor de methodische kant het latere werk over
+neurofenomenologie erbij, want dit boek geeft daarvoor alleen de opdracht.
+
+#### Wat je hierna leest
+
+- 333. Altered Traits. Goleman en Davidson brengen in kaart wat
+meditatieonderzoek na dit boek daadwerkelijk heeft gemeten, en waar de
+metingen tegenvallen.
+- 528. An Introduction to Zen Buddhism. Suzuki's inleiding laat zien hoe het
+zenboeddhisme in het westen werd gepresenteerd, de traditie waarop dit boek
+voortbouwt.
+- 322. An Immense World. Ed Yong beschrijft hoe verschillende dierlijke
+zintuigstelsels verschillende werelden voortbrengen, het biologische materiaal
+achter de stelling van enactie.
+
+## 701. Philosophy in a New Key
+
+Susanne Langer, 1942. *Philosophy in a New Key: A Study in the Symbolism of
+Reason, Rite, and Art* (Harvard University Press, Cambridge MA, 1942, xiv +
+313 blz.; goedkope pocketeditie bij Mentor/New American Library vanaf 1948;
+derde druk 1957, ISBN 9780674665033). Van het volledige boek bestaat geen
+Nederlandse vertaling; wel zijn twee hoofdstukken eruit opgenomen in *Over de
+betekenis van muziek*, samen met vier hoofdstukken uit *Feeling and Form*,
+vertaald door Thomas Crombez en bezorgd door Henk van Bakel (Letterwerk,
+Borgerhout, 2023, 198 blz., ISBN 9789464598315). De samenvatting is op de
+Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `symbooltheorie`, `esthetica`, `muziekfilosofie`, `mythe en ritueel`,
+`taalfilosofie`
+
+Susanne Langer schreef tijdens de oorlogsjaren een boek over de vraag wat
+betekenis is, en gaf daarmee een generatie musicologen, kunsthistorici en
+antropologen een woordenschat. Haar stelling luidt dat de mens een
+symboolmakend dier is en dat symboliseren een eerste behoefte is, niet een
+verfijning die na het overleven komt. Naast de taal, die stap voor stap
+betekenis opbouwt, staat een tweede soort symboliek die haar betekenis in één
+keer toont: beeld, ritueel, mythe en vooral muziek.
+
+Het boek werd in pocket een verkoopsucces en bleef decennia in gebruik buiten
+de filosofie, terwijl de vakfilosofie het na 1960 links liet liggen. Sinds
+enkele jaren staat Langer weer in de handboeken, met een eigen lemma in de
+Stanford Encyclopedia en een Nederlandstalige bloemlezing uit 2023. Wie het
+leest, treft heldere analyse aan en een antropologisch fundament dat door
+later veldwerk is achterhaald.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Langer stelt dat de behoefte om te symboliseren een grondtrek
+van de mens is, even oorspronkelijk als de behoefte aan voedsel, en dat de
+filosofie daarom van vraagstelling moet veranderen. Betekenis valt volgens
+haar niet samen met beweren. Naast de discursieve symboliek van taal en
+logica, die betekenis stap voor stap opbouwt en zich laat vertalen, bestaat er
+presentatieve symboliek, die haar betekenis in één samenhangend geheel toont
+en zich niet in woorden laat overzetten. Ritueel, mythe, beeldende kunst en
+vooral muziek zijn daar vormen van. Wat zich niet laat zeggen is daarmee nog
+niet onuitsprekelijk, en dat is haar antwoord op de slotzin van Wittgensteins
+*Tractatus*.
+
+#### De gang van het boek
+
+**De nieuwe toonsoort**
+
+De titel komt uit een muzikale vergelijking. Een vakgebied verandert volgens
+Langer niet doordat er antwoorden bijkomen, maar doordat een nieuwe
+grondgedachte de vragen zelf verzet, zoals een stuk in een andere toonsoort
+anders klinkt met dezelfde noten. De oude toonsoort was volgens haar de
+kennisleer met haar vragen over zintuiglijke gegevens en feiten. De nieuwe is
+de symboliek: de vraag hoe mensen betekenis maken, in taal en daarbuiten.
+
+Haar leermeesters staan er zichtbaar in. Het boek is opgedragen aan Alfred
+North Whitehead, bij wie zij in Harvard studeerde. Van Ernst Cassirer neemt
+zij het idee van symbolische vormen over, van Wittgensteins *Tractatus* de
+gedachte dat een symbool zijn onderwerp weergeeft doordat het er dezelfde vorm
+mee deelt, en van haar logicaleraar Henry Sheffer de strengheid van de formele
+analyse. Langer was zelf gepromoveerd logicus en had een leerboek symbolische
+logica geschreven.
+
+**Symbolische omvorming als basisbehoefte**
+
+Het scharnier van het betoog is het onderscheid tussen teken en symbool. Een
+teken kondigt iets aan en zet tot handelen aan: de bel betekent voedsel. Een
+symbool staat voor iets zonder dat het ding aanwezig hoeft te zijn, en maakt
+denken over afwezige zaken mogelijk. Dieren gebruiken tekens; het geven van
+namen is volgens Langer de menselijke stap, en de dierproeven van haar tijd
+waarin men mensapen taal probeerde bij te brengen dienen haar als
+ondersteuning.
+
+Daaruit volgt haar antropologische claim. De overvloed aan beelden, verhalen
+en handelingen die geen praktisch nut hebben, is geen luxe die overblijft
+nadat de honger gestild is. Het brein zet indrukken voortdurend om in
+symbolen, ook zonder opdracht, en droom en ritueel zijn daar even goede
+voorbeelden van als wetenschap.
+
+**Discursief en presentatief**
+
+Het hoofdstuk dat als kern van het boek geldt, onderscheidt twee soorten
+symboliek. Discursieve vormen hebben een woordenschat, een volgorde en een
+grammatica; hun betekenis wordt opgebouwd en laat zich in andere woorden
+weergeven. Presentatieve vormen bieden hun betekenis als geheel aan: een
+schilderij heeft geen woordenboek, en de delen ervan hebben geen betekenis los
+van het geheel.
+
+De winst van dat onderscheid zit in wat het over de taal zegt. Taal is volgens
+Langer een sterk maar beperkt instrument: zij is gebouwd voor het benoemen van
+dingen en verhoudingen, en het gevoelsleven verloopt te vloeiend om in die
+vorm te passen. Wie besluit dat gevoel daarom buiten het bereik van kennis
+valt, verwart de grens van één symboolsoort met de grens van de betekenis.
+
+**Ritueel en mythe**
+
+Twee hoofdstukken over levenssymbolen behandelen sacrament en mythe. Langer
+bestrijdt de gedachte dat een regendans een mislukte poging tot weerbeheersing
+is, gedaan door mensen die de oorzaken niet kenden. Het ritueel voltrekt
+volgens haar een houding: het geeft vorm aan de verhouding tot iets wat de
+deelnemers niet in de hand hebben, en het verloop van de handeling is de
+betekenis ervan.
+
+Mythe krijgt dezelfde behandeling. Zij leest mythen als vroege manieren om de
+ervaring te ordenen, waaruit later zowel religie als kunst is voortgekomen, en
+zij volgt de overgang van sprookje naar godenverhaal naar wijsgerige gedachte.
+De vergelijkende gegevens die zij gebruikt komen uit de antropologie van de
+jaren twintig en dertig, wat het zwakste onderdeel van het boek is geworden.
+
+**Muziek als onvoltooid symbool**
+
+Het hoofdstuk over muziek is het meest gelezen deel. Langer verwerpt zowel de
+opvatting dat muziek het gevoel van de componist uitdrukt of dat van de
+luisteraar opwekt, als de zuiver formalistische opvatting dat een muziekstuk
+alleen over zijn eigen structuur gaat. Haar voorstel luidt dat de
+bewegingsvorm van muziek, met spanning en ontspanning, aanloop en oplossing,
+versnelling en stilstand, gelijkvormig is aan de vorm van het gevoelsleven.
+Muziek toont hoe voelen verloopt.
+
+Omdat die gelijkvormigheid geen vaste verwijzing oplevert, noemt zij muziek
+een onvoltooid symbool: het heeft de vorm van betekenis zonder een vastgelegde
+inhoud, en daarom kan hetzelfde stuk verschillende luisteraars iets anders
+tonen zonder dat een van hen zich vergist. Uit die gedachte groeide haar
+latere kunsttheorie in *Feeling and Form* uit 1953.
+
+**Het weefsel van betekenis**
+
+Het slothoofdstuk zet de opdracht uit die zij de filosofie meegeeft: het
+onderzoek naar betekenis in al haar functies, van benoemen en beweren tot
+tonen en oproepen. Filosofie is voor Langer niet het vergaren van feiten maar
+het uitzoeken wat de gehanteerde begrippen inhouden.
+
+Zij heeft dat programma zelf uitgevoerd. *Feeling and Form* werkte de
+kunsttheorie uit en het driedelige *Mind: An Essay on Human Feeling*,
+verschenen tussen 1967 en 1982, probeerde het gevoelsbegrip biologisch te
+funderen. Dat late werk vond veel minder lezers dan het boek uit 1942.
+
+**Bereik en vergetelheid**
+
+Het boek werd in goedkope pocketuitgave een van de best verkochte filosofische
+titels van naoorlogs Amerika en bereikte lezers in de musicologie, de
+kunsteducatie, de religiewetenschap en de antropologie. In de vakfilosofie
+ging het anders. Na 1960 richtte de analytische traditie zich op verwijzing,
+waarheid en taalanalyse, en daarin was voor niet-talige symboliek weinig
+plaats.
+
+Nelson Goodman, die met haar in aanraking was geweest, leverde in *Languages
+of Art* uit 1968 een uitgewerkte theorie van symboolsystemen die haar aanpak
+in de vakdiscussie verving. Sinds ongeveer 2010 keert Langer terug in de
+handboeken, gedragen door belangstelling voor belichaamde cognitie en voor de
+geschiedenis van de vroege analytische filosofie in Amerika.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| symbolische omvorming | Het voortdurende omzetten van indrukken in symbolen, dat Langer als grondfunctie van het menselijk brein beschouwt. |
+| teken | Iets wat de aanwezigheid van iets anders aankondigt en tot handelen aanzet, zoals een geluid dat voedsel aankondigt. |
+| symbool | Een drager van betekenis die het denken over iets afwezigs mogelijk maakt en geen reactie voorschrijft. |
+| discursieve vorm | Symboliek met woordenschat en volgorde, zoals taal en logica, waarvan de betekenis stap voor stap wordt opgebouwd. |
+| presentatieve vorm | Symboliek die haar betekenis als ondeelbaar geheel toont, zoals een beeld, een ritueel of een muziekstuk. |
+| onvoltooid symbool | Haar aanduiding voor muziek: een vorm die betekenis draagt zonder vastgelegde inhoud. |
+| significante vorm | Van de kunstkritiek geleende term voor de vorm die het gevoelsleven weergeeft zonder het te benoemen. |
+| levenssymbool | Beeld of handeling waarin een gemeenschap haar verhouding tot geboorte, dood en lot vormgeeft, wortel van sacrament en mythe. |
+| de nieuwe toonsoort | Haar naam voor de omslag waarin symboliek de leidende vraag van de menswetenschappen werd. |
+
+#### Waar het argument op rust
+
+Langer voert geen onderzoek uit; zij analyseert begrippen en toetst die aan
+voorbeelden. Haar bouwstenen zijn de logica van haar tijd, Cassirers
+*Philosophie der symbolischen Formen*, Whiteheads opvatting van waarneming, en
+de vergelijkende gegevens over ritueel en mythe die in de jaren dertig
+voorhanden waren. De sterkte van het boek zit in de zorgvuldigheid waarmee zij
+het onderscheid tussen teken en symbool doorvoert en in de nauwkeurige
+beschrijving van wat muziek doet; die beschrijving is nog steeds bruikbaar,
+ook voor wie haar verklaring afwijst.
+
+De zwakke schakel is de gelijkvormigheid tussen muzikale vorm en gevoelsvorm.
+Langer geeft daarvoor geen toetsbare maat: nergens staat wat zou moeten worden
+vastgesteld om te weten of de vorm van een passage werkelijk overeenkomt met
+de vorm van een gevoel. Ook de antropologische onderbouwing is niet meer
+houdbaar; zij steunt op vergelijkend werk uit de studeerkamer, geschreven vóór
+het veldwerk dat de veronderstelde eenvormigheid van vroege denkvormen heeft
+ondergraven.
+
+#### Wat er tegen in te brengen valt
+
+De centrale claim over muziek is nooit precies gemaakt en daardoor moeilijk te
+weerleggen. Latere esthetici in de analytische traditie, onder wie Peter Kivy,
+hielden vol dat de bewering over gelijkvormigheid tussen klank en gevoel bij
+nader inzien leeg blijft: zij verklaart niets wat een nauwkeurige beschrijving
+van de muziek zelf niet ook verklaart. Nelson Goodman verving de hele aanpak
+door een theorie waarin precies wordt vastgelegd hoe verschillende
+symboolsystemen werken.
+
+Een tweede bezwaar betreft de fundering. Langer bouwt op de opvatting uit
+Wittgensteins *Tractatus* dat een symbool weergeeft doordat het vorm deelt met
+het weergegevene. Wittgenstein liet die opvatting zelf varen, en toen zij in
+de vakdiscussie wegviel verloor Langers onderscheid de logische steun waarop
+het rustte. Wat overbleef was een beschrijvende indeling, waardevol als
+ordening en zwak als verklaring.
+
+Ten derde is haar materiaal over mythe en ritueel gedateerd, en spreekt zij
+over vroege culturen in bewoordingen die de antropologie heeft verlaten. Wie
+het boek nu leest, moet die hoofdstukken lezen als tijdsbeeld. Bij de huidige
+herwaardering past ten slotte terughoudendheid: Langer wordt geregeld
+ingelijfd bij belichaamde cognitie en affecttheorie, terwijl haar eigen kader
+neokantiaans is en van andere veronderstellingen uitgaat.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het onderscheid discursief en presentatief bij het beoordelen van
+een uiting: wordt hier iets beweerd, of wordt iets getoond dat zich niet in
+beweringen laat overzetten.
+- Lees hoofdstuk acht over muziek los van de rest; dat is het deel dat het
+langst is blijven staan en dat in het Nederlands beschikbaar is.
+- Behandel de hoofdstukken over mythe en ritueel als geschiedenis van het vak
+en zoek er hedendaags antropologisch werk bij.
+- Toets de stelling aan een eigen voorbeeld: schrijf op wat een muziekstuk
+laat horen en let op waar de woorden tekortschieten.
+
+#### Wat je hierna leest
+
+- 357. De mens en zijn symbolen. Jung en zijn medewerkers behandelen dezelfde
+stof, symbool, droom en mythe, vanuit de dieptepsychologie in plaats van de
+logica.
+- 410. the hero with a thousand faces. Campbell zoekt in mythen naar één
+patroon; Langer levert het begrippenkader waarmee zo'n zoektocht te beoordelen
+valt.
+- 54. Amusing Ourselves to Death. Postman betoogt dat het overheersende medium
+bepaalt welke betekenis een cultuur kan uitdrukken, een latere toepassing van
+hetzelfde uitgangspunt.
+
+## 702. Fenomenologie van de waarneming
+
+Maurice Merleau-Ponty, 1945. *Phénoménologie de la perception* (Gallimard,
+Parijs, 1945). Er bestaat een Nederlandse vertaling: *Fenomenologie van de
+waarneming*, vertaald door Douwe Tiemersma en Rens Vlasblom, voor het eerst
+uitgebracht in 1997 en herwerkt uitgegeven door Boom (Amsterdam, reeks Grote
+Klassieken, 2009 en 2017, 640 blz., ISBN 9789024415878). Engelstalige
+vertalingen: Colin Smith (Routledge, 1962) en Donald Landes (Routledge, 2012,
+ISBN 9780415834339). Van dezelfde auteur verschenen in het Nederlands ook *De
+wereld waarnemen* (Boom, 2003) en *Oog en geest* (Parrèsia, 2012). Rubriek:
+filosofie en mystiek.
+Tags: `fenomenologie`, `waarneming`, `lichaam`, `existentiefilosofie`,
+`klassieker`
+
+Het hoofdwerk van Maurice Merleau-Ponty (1908-1961) verscheen in 1945 en
+verlegde de fenomenologie van het bewustzijn naar het lichaam. Zijn
+uitgangspunt is dat waarnemen geen registratie van losse prikkels is die het
+verstand daarna ordent. Wie beschrijft wat er werkelijk in de ervaring
+gebeurt, treft altijd al een geheel aan: een figuur die zich tegen een
+achtergrond aftekent, gezien vanuit een lichaam dat ergens staat en dat weet
+hoe het zich moet bewegen.
+
+Merleau-Ponty werkt dat uit aan klinisch en psychologisch materiaal van zijn
+tijd, van fantoomledematen tot de hersenbeschadigde patiënt Schneider en de
+proeven met omkerende brillen. Het boek geldt als klassieker en heeft
+doorgewerkt in de kritiek op de vroege kunstmatige intelligentie, in de
+cognitiewetenschap en in het denken over vaardigheid. Zijn eigen latere
+aantekeningen bevatten een scherpe kanttekening bij het uitgangspunt van het
+boek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Merleau-Ponty verdedigt dat de waarneming geen
+kennisverrichting is die zich in het hoofd afspeelt, maar de manier waarop een
+lichaam in de wereld is. Het lichaam is in zijn beschrijving geen instrument
+dat het bewustzijn bedient en evenmin een ding tussen de dingen: het is het
+gezichtspunt waardoor er überhaupt dingen zijn, met een eigen weten dat aan
+elke overweging voorafgaat. Daaruit volgt zijn stelling tegen twee heersende
+opvattingen tegelijk. Het empirisme bouwt de waarneming op uit gewaarwordingen
+die in de ervaring nooit zijn aangetroffen, en het intellectualisme laat het
+verstand een wereld samenstellen die het waarnemen dan al niet meer nodig
+heeft. Beide slaan de laag over waarin betekenis al aanwezig is voordat er
+geoordeeld wordt.
+
+#### De gang van het boek
+
+**Waar het boek zich tegen keert**
+
+De inleiding rekent af met wat Merleau-Ponty de constantiehypothese noemt: de
+aanname dat er een vaste verhouding bestaat tussen prikkel en gewaarwording,
+zodat het waarnemen uit elementaire bouwstenen kan worden opgetrokken. Zulke
+bouwstenen komen in de ervaring niet voor. Wat zich het eerst aandient is een
+figuur tegen een achtergrond, en die samenhang is geen optelsom.
+
+Tegen het intellectualisme, waarmee hij vooral op Descartes en Kant doelt,
+brengt hij in dat het de wereld door het denken laat samenstellen en daarmee
+de waarneming van haar eigen aandeel berooft. Beide posities hebben volgens
+hem dezelfde fout: zij vertrekken vanaf de wereld zoals de wetenschap die
+beschrijft en construeren daaruit terug hoe de ervaring wel moet zijn, in
+plaats van te beschrijven wat er gebeurt.
+
+**Het eigen lichaam**
+
+Het eerste deel van het boek gaat over het eigen lichaam. Merleau-Ponty laat
+zien dat het lichaam zich anders gedraagt dan andere voorwerpen: het is altijd
+aanwezig, het kan niet op afstand bekeken worden, en de hand die aanraakt kan
+zelf worden aangeraakt. Hij spreekt van een lichaamsschema, een voortdurend
+besef van houding en bereik dat niet uit waarnemingen wordt afgeleid maar het
+waarnemen mogelijk maakt.
+
+Het fantoomlidmaat dient als bewijsvoering. Iemand die een arm verloren heeft,
+voelt die arm nog, reikt ernaar en rekent erop. Een zuiver fysiologische
+verklaring schiet daarin tekort, en een zuiver psychologische ook, want de
+patiënt weet dat de arm weg is. Merleau-Ponty leest het verschijnsel als
+aanhoudende gerichtheid: het lichaam blijft ingesteld op een wereld waarin die
+arm nog dienst deed.
+
+**Het geval Schneider**
+
+Het langst uitgewerkte voorbeeld is de patiënt die in de literatuur Schneider
+heet, een soldaat met een hersenbeschadiging door granaatscherven, beschreven
+door Adhémar Gelb en Kurt Goldstein. Schneider voert vertrouwde handelingen
+zonder haperen uit: hij pakt zijn zakdoek, slaat een mug weg, werkt in de
+fabriek. Op verzoek een beweging maken zonder aanleiding lukt hem niet, en
+zijn hand aanwijzen die hij zojuist gebruikte evenmin.
+
+Uit dat verschil haalt Merleau-Ponty zijn begrip motorische intentionaliteit.
+Er bestaat een gerichtheid die in het bewegen zelf zit en die niet door een
+voorstelling wordt aangestuurd. Wie een deurklink pakt, berekent niets. Bij
+Schneider is die laag intact gebleven terwijl het vermogen om zich een
+beweging voor te stellen is uitgevallen, en dat pleit volgens hem tegen een
+model waarin elke handeling van een inwendige voorstelling afhangt.
+
+**De waargenomen wereld**
+
+Het tweede deel behandelt ruimte, diepte, beweging, het ding en de natuurlijke
+wereld, en ook de ervaring van anderen. Merleau-Ponty gebruikt daarbij de
+proeven met omkerende brillen van George Stratton uit het einde van de
+negentiende eeuw, waarin proefpersonen na dagen dragen weer normaal handelen
+in een omgekeerd beeld. Dat is voor hem geen kwestie van omrekenen, maar van
+een lichaam dat opnieuw een greep op de omgeving vindt.
+
+Ook de zogeheten constantieverschijnselen krijgen die uitleg. Een wit vel
+blijft wit in de schemer en een mens blijft even groot als hij weg loopt, en
+dat komt doordat de waarneming van meet af aan op dingen is gericht en niet op
+de beelden op het netvlies. Objectiviteit is in dit boek een verworvenheid:
+zij wordt bereikt vanuit een standpunt en houdt de sporen van dat standpunt.
+
+**Vrijheid en tijd**
+
+Het derde deel gaat over het voor-zichzelf-zijn en het in-de-wereld-zijn: de
+cogito, de tijdelijkheid en de vrijheid. Merleau-Ponty aanvaardt Descartes'
+zekerheid van het denken maar plaatst haar in een lichaam met een
+geschiedenis. Tijd is bij hem geen reeks van momenten die langskomt, maar de
+manier waarop een heden zijn verleden bij zich draagt en zich naar een
+toekomst uitstrekt.
+
+Het slothoofdstuk over vrijheid is gericht tegen de opvatting van Sartre dat
+de mens volstrekt vrij is. Volgens Merleau-Ponty bestaat vrijheid alleen in
+een situatie die al betekenis draagt: een helling is zwaar of licht in
+verhouding tot wat een lichaam kan. De beroemde formulering aan het slot luidt
+dat de mens veroordeeld is tot betekenis, omdat er geen ervaring is waarin nog
+niets betekent.
+
+**De vaktaal in gewone woorden**
+
+Fenomenologie betekent hier: nauwkeurig beschrijven hoe iets zich in de
+ervaring aandient, zonder meteen te vragen wat het volgens de natuurwetenschap
+is. De reductie, bij Husserl het tussen haakjes zetten van alle aannames over
+het bestaan van de wereld, krijgt in het voorwoord een beroemde beperking: de
+belangrijkste les van de reductie is dat een volledige reductie onmogelijk is,
+omdat het beschrijven zelf vanuit de wereld gebeurt.
+
+Intentionaliteit betekent gerichtheid: bewustzijn is altijd bewustzijn van
+iets. Merleau-Ponty voegt daar de motorische variant aan toe, gerichtheid in
+het bewegen. Sedimentatie staat voor het bezinken van eerder verworven
+vermogens tot vanzelfsprekend kunnen, zoals bij het leren fietsen.
+In-de-wereld-zijn, ontleend aan Heidegger, betekent dat mens en wereld niet
+als twee gescheiden grootheden te beschrijven zijn.
+
+**Doorwerking en de latere Merleau-Ponty**
+
+Het boek is buiten de filosofie gaan werken. Hubert Dreyfus gebruikte de
+analyse van vaardigheid in zijn kritiek op de vroege kunstmatige
+intelligentie, en het onderscheid tussen handelen zonder voorstelling en
+handelen met voorstelling keert terug in het onderzoek naar expertise, sport
+en dans. In de cognitiewetenschap geldt Merleau-Ponty als de voorloper van de
+belichaamde en enactieve benaderingen.
+
+Merleau-Ponty zelf was niet tevreden. In de werkaantekeningen bij het
+onvoltooide *Le visible et l'invisible* schrijft hij dat de problemen die in
+de *Phénoménologie* blijven staan onoplosbaar zijn omdat hij daar nog uitgaat
+van het onderscheid tussen bewustzijn en object. In dat late werk zocht hij
+een andere taal, met begrippen als het vlees, om die tegenstelling helemaal
+achter zich te laten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| fenomenologie | Het nauwkeurig beschrijven van hoe iets zich in de ervaring voordoet, vóór elke verklaring in natuurwetenschappelijke termen. |
+| eigen lichaam | Het lichaam zoals het van binnenuit geleefd wordt, dat het gezichtspunt vormt vanwaaruit er een wereld is. |
+| lichaamsschema | Het doorlopende, niet uitgesproken besef van houding, ledematen en bereik dat handelen mogelijk maakt. |
+| motorische intentionaliteit | Gerichtheid die in de beweging zelf besloten ligt, zonder dat er een voorstelling van de handeling aan voorafgaat. |
+| constantiehypothese | De door hem bestreden aanname dat elke prikkel een vaste gewaarwording oplevert, waaruit de waarneming zou zijn opgebouwd. |
+| figuur en achtergrond | Uit de gestaltpsychologie overgenomen grondvorm van elke waarneming: iets tekent zich af tegen iets anders. |
+| in-de-wereld-zijn | Van Heidegger geleende uitdrukking voor het feit dat mens en wereld niet los van elkaar te beschrijven zijn. |
+| sedimentatie | Het bezinken van geleerde vaardigheden tot vanzelfsprekend kunnen, waardoor een verworven vermogen deel van het lichaam wordt. |
+| situatie | De reeds betekenisvolle omstandigheid waarin vrijheid alleen kan werken, tegenover Sartres volstrekte vrijheid. |
+
+#### Waar het argument op rust
+
+Merleau-Ponty voert geen eigen onderzoek uit; hij herleest de klinische en
+experimentele literatuur van zijn tijd. Het gaat om de gestaltpsychologie van
+Wertheimer, Koffka en Gurwitsch, om de fantoomledematen uit de neurologische
+literatuur, om de proeven met omkerende brillen van Stratton, en vooral om de
+casus Schneider zoals Gelb en Goldstein die vanaf 1918 beschreven. Dat
+materiaal wordt zorgvuldig gebruikt: hij zoekt gevallen waarin de gangbare
+verklaringen elkaar tegenspreken en laat zien dat een beschrijving vanuit het
+geleefde lichaam beide waarnemingen kan opnemen.
+
+De bewijskracht heeft daardoor twee grenzen. De gegevens zijn niet van hemzelf
+en hij kan ze niet nagaan, en zijn methode is beschrijvend: een
+fenomenologische beschrijving overtuigt doordat een lezer haar herkent, en dat
+is een zwakkere toets dan een proefopzet. Waar hij tegen bestaande theorie
+ingaat, is het argument sterk; waar hij positief formuleert wat het lichaam
+doet, blijft het bij een beschrijving die zich moeilijk laat weerleggen.
+
+#### Wat er tegen in te brengen valt
+
+Het meest concrete bezwaar betreft de hoeksteen van het betoog. De casus
+Schneider is sinds de jaren vijftig herhaaldelijk in twijfel getrokken: de
+verslaglegging van Gelb en Goldstein is onvolledig, de onderzoeken zijn niet
+herhaald, en het is onduidelijk hoeveel van het beeld door hun eigen theorie
+is gevormd. Joseph Marotta en Marlene Behrmann hebben de casus in 2004 in
+*Neuropsychologia* opnieuw beoordeeld en betoogd dat Schneider beter als een
+geval van integratieve agnosie te beschrijven valt dan als het schoolvoorbeeld
+waarvoor hij doorging. Merleau-Ponty's scherpste onderscheid rust daarmee op
+een wankele bron.
+
+Feministische filosofen hebben het lichaam van dit boek als neutraal
+gepresenteerd maar in feite mannelijk genoemd. Iris Marion Young liet in 1980
+zien dat de beschreven vanzelfsprekende greep op de wereld niet opgaat voor
+lichamen die geleerd hebben zich in te houden, en Judith Butler wees er in
+1989 op dat het hoofdstuk over seksualiteit een bepaalde ervaring als de
+normale behandelt. Die kritiek raakt de aanspraak op algemeenheid, niet de
+methode zelf.
+
+Verder is er het oordeel van de auteur over zijn eigen boek. In de
+werkaantekeningen bij zijn laatste, onvoltooide werk noemt hij het
+uitgangspunt van de *Phénoménologie* ontoereikend omdat het de tegenstelling
+tussen bewustzijn en object nog vooronderstelt. Ten slotte is er de
+toegankelijkheid: ruim zeshonderd bladzijden dichte beschrijving, met termen
+die pas in de loop van het boek scherp worden. Wie het als eerste kennismaking
+met de fenomenologie ter hand neemt, loopt vast.
+
+#### Wat er concreet mee te doen is
+
+- Begin met het voorwoord en met het eerste deel over het eigen lichaam; de
+rest wordt daarna leesbaar.
+- Lees de Nederlandse uitgave van Boom naast een inleiding, want de vaktermen
+worden in de tekst zelf nauwelijks toegelicht.
+- Toets de analyse van vaardigheid aan een eigen bezigheid: let op waar het
+denken over de beweging het uitvoeren juist verstoort.
+- Zoek bij het hoofdstuk over Schneider de latere neuropsychologische
+beoordeling erbij, zodat duidelijk is wat het voorbeeld nog draagt.
+
+#### Wat je hierna leest
+
+- 541. Behavior: The Control of Perception. Powers beschrijft waarneming als
+regelkring in plaats van als afbeelding, een technische uitwerking van een
+verwant uitgangspunt.
+- 322. An Immense World. Ed Yong toont hoe elk zintuigstelsel zijn eigen
+wereld opent, materiaal dat de stelling over waarneming en lichaam invult.
+- 441. The Inner Game of Tennis. Gallwey beschrijft in de praktijk van het
+tennis wat hier motorische intentionaliteit heet: het lichaam dat zonder
+instructie zijn greep vindt.
+
+## 703. Shamanic Voices
+
+Joan Halifax, 1979. *Shamanic Voices: A Survey of Visionary Narratives* (E.P.
+Dutton, New York, 1979; heruitgave bij Arkana/Penguin, 1991, xi + 266 blz. met
+zestien pagina's platen, ISBN 9780140193480). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; van Halifax staan daar wel *Als
+sterven dichtbij komt* (Ten Have, 2009), *De laatste woorden van liefde*
+(Asoka, 2014) en *Kantelpunten* (Asoka, 2020). De samenvatting is op de
+Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `sjamanisme`, `antropologie`, `visioenen`, `bloemlezing`,
+`religiewetenschap`
+
+Joan Halifax, opgeleid als medisch antropoloog en in de jaren zeventig
+betrokken bij onderzoek naar lsd bij stervenden, bracht in dit boek
+getuigenissen van sjamanen bijeen. Zij verzamelde ze deels tijdens eigen
+veldwerk bij de Dogon in Mali en de Huichol in Mexico, deels uit oudere
+etnografieën en moeilijk vindbare bronnen. In negen thematische afdelingen
+komen onder anderen Black Elk, Maria Sabina, Isaac Tens en Manuel Córdova-Ríos
+aan het woord over initiatie, ziekte, reizen naar andere werelden en genezing.
+
+De opzet is die van een bloemlezing met inleidende teksten. Halifax leest de
+verslagen als varianten van één patroon: crisis, ontbinding, hergeboorte en de
+gewonde genezer. Dat kader gaf het boek bereik in de alternatieve beweging van
+de jaren tachtig en leverde later bezwaar op. Antropologen bekritiseerden
+zowel de aanname van een wereldwijd sjamanisme als de weg waarlangs veel van
+deze teksten tot westerse lezers kwamen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Halifax stelt dat de ervaringen van sjamanen uit ver
+uiteenliggende culturen een herkenbaar patroon vertonen, en dat dat patroon
+het best zichtbaar wordt wanneer de sjamanen zelf aan het woord komen in
+plaats van beschreven te worden. Haar bloemlezing wil laten zien dat roeping
+vrijwel altijd begint met een crisis, dat de ingewijde in een visioen zijn
+eigen ontbinding en hergeboorte meemaakt, en dat het genezend vermogen uit die
+doorleefde ontwrichting voortkomt. Achter die ordening ligt een sterkere
+aanname: dat het hier om een grondvorm van menselijke ervaring gaat die de
+moderne westerse cultuur is kwijtgeraakt en waarvan zij iets kan terugwinnen.
+
+#### De gang van het boek
+
+**Wat voor boek dit is**
+
+*Shamanic Voices* is een bloemlezing, geen studie. Halifax verzamelt verslagen
+in de eerste persoon en zet die in negen afdelingen bij elkaar, telkens
+voorafgegaan door een korte inleiding waarin zij het verband legt. De
+verslagen komen uit twee bronnen: gesprekken die zij tijdens eigen veldwerk
+voerde, en gepubliceerd etnografisch materiaal, reisverslagen en
+zendingsrapporten waarin sjamanen aan het woord waren gekomen.
+
+De sprekers komen van vier werelddelen. Er zijn Siberische en Noord-Aziatische
+getuigenissen, Noord-Amerikaanse zoals die van Black Elk en Leonard Crow Dog,
+Midden- en Zuid-Amerikaanse zoals die van de Mazateekse Maria Sabina en van
+Manuel Córdova-Ríos uit het Amazonegebied, en gevallen uit de noordwestkust
+van Canada zoals de Gitksan-genezer Isaac Tens. Een westerse leerling, Prem
+Das, sluit de reeks af met een verslag van zijn opleiding bij Huichol-leraren.
+
+**Nierika als beeld**
+
+Het boek opent met Into the Nieríka en eindigt met Lifting up the Nieríka.
+Nierika is een Huichol-woord dat Halifax vertaalt als de opening of het
+venster tussen de gewone wereld en de wereld van de visioenen; het staat ook
+voor de geweven of geschilderde voorstelling waarin die doorgang wordt
+afgebeeld.
+
+Zij gebruikt dat woord als raamwerk voor het geheel. Alle afdelingen samen
+beschrijven volgens haar de gang door zo'n opening en weer terug: het openen
+bij de initiatie, het passeren tijdens de reis, en het openhouden ten behoeve
+van de gemeenschap. Dat is een leeswijze die zij aan één cultuur ontleent en
+over het hele materiaal legt.
+
+**De initiatiecrisis**
+
+Het zwaartepunt ligt bij de roeping. In verslag na verslag begint het
+sjamaanschap met iets wat van buiten komt en niet gewenst is: een ziekte die
+de dorpsgenezers niet kunnen behandelen, een aanval van bewusteloosheid, een
+blikseminslag, aanhoudende dromen. Isaac Tens vertelt hoe hij bij het hout
+halen buiten bewustzijn raakte, hoe zijn lichaam schokte en er zang uit hem
+kwam die hij niet kende.
+
+Uit Siberië komen de verslagen waarin de ingewijde zijn eigen ontleding
+meemaakt: het lichaam wordt uit elkaar genomen, de botten worden geteld,
+ontbrekende delen worden vervangen, waarna hij opnieuw wordt samengesteld.
+Halifax vat dat samen met de uitdrukking gewonde genezer: het vermogen om
+anderen te helpen komt uit een eigen doorstane ontwrichting voort, en de
+behandelaar is iemand die de gang zelf heeft afgelegd.
+
+**Reis, visioen en zang**
+
+De middenafdelingen behandelen wat er tijdens de trance gebeurt. Er zijn
+reizen naar boven- en onderwerelden langs een wereldas, ontmoetingen met
+hulpgeesten in dierlijke gedaante, en de zoektocht naar een visioen die bij
+verschillende Noord-Amerikaanse volken tot de opleiding hoort, met vasten en
+afzondering.
+
+Een aparte afdeling gaat over zang. Liederen worden in het visioen ontvangen
+en zijn daarna eigendom van de sjamaan; zij worden bij genezingen gebruikt en
+soms doorgegeven. Halifax laat die liederen zoveel mogelijk in vertaling
+afdrukken, wat het boek zijn karakter van bronnenverzameling geeft. Een
+laatste afdeling behandelt dromen als tweede toegangsweg, minder heftig dan de
+initiatie maar volgens de sprekers even geldig.
+
+**Genezing**
+
+De afdeling over geneeskunde toont de sjamaan aan het werk: het opsporen van
+de oorzaak, het uitzuigen of verwijderen van een ziekmakend object, het
+terughalen van een verloren ziel, en het gebruik van planten. Maria Sabina's
+velada met paddenstoelen hoort daarbij, en peyote komt terug bij de
+Huichol-getuigenissen.
+
+Halifax benadrukt dat de genezer in deze verhalen zelden alleen met een
+lichaam bezig is. De behandeling betrekt de gemeenschap, brengt schuld en
+conflict ter sprake en verloopt in het openbaar. Dat is waarschijnlijk het
+duurzaamste inzicht van het boek, en het wordt door de verslagen zelf gedragen
+in plaats van door haar kader.
+
+**Het kader van de samenstelster**
+
+Halifax kwam niet uit de godsdienstwetenschap maar uit een omgeving waarin
+veranderde bewustzijnstoestanden klinisch werden bestudeerd. Zij werkte met de
+psychiater Stanislav Grof, met wie zij getrouwd was, aan onderzoek naar lsd
+bij terminale patiënten, en samen publiceerden zij in 1977 *The Human
+Encounter with Death*. In de jaren zeventig deed zij veldwerk bij de Dogon en
+de Huichol.
+
+Dat verklaart haar leeswijze. Zij herkent in de initiatieverslagen dezelfde
+volgorde van ontbinding en hergeboorte die in die klinische verslagen was
+beschreven, en zij plaatst het geheel in de lijn van Mircea Eliade, Carl Jung
+en Joseph Campbell: sjamanisme als vroegste vorm van een menselijke ervaring
+die overal terugkeert. In 1982 werkte zij dat uit in *Shaman: The Wounded
+Healer*.
+
+**Hoe het gelezen is**
+
+Het boek verscheen in de periode waarin sjamanisme in het westen populair
+werd, tussen de romans van Carlos Castaneda en de cursussen van Michael
+Harner. Het werd daar een standaardwerk, en de heruitgave bij Arkana in 1991
+bevestigde die plaats. In de antropologie liep de waardering anders: daar
+groeide juist in die jaren het verzet tegen de gedachte dat er zoiets als één
+sjamanisme bestaat.
+
+Halifax zelf verlegde haar werk. Zij ging over naar het zenboeddhisme, ontving
+dharma-overdracht van Bernard Glassman, stichtte in 1990 het Upaya Zen Center
+in Santa Fe en werd bekend om haar werk in de stervensbegeleiding. Haar latere
+boeken gaan over sterven, mededogen en de grenzen van hulpverlening; naar het
+sjamanisme keerde zij niet terug.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| nierika | Huichol-woord voor de doorgang tussen de gewone en de visionaire wereld, door Halifax als raamwerk voor het hele boek gebruikt. |
+| sjamaan | In haar gebruik: iemand die door een crisis is ingewijd en die in trance namens de gemeenschap contact zoekt met andere werelden. |
+| initiatiecrisis | De onvrijwillige ziekte, aanval of droomreeks waarmee de roeping in vrijwel alle verslagen begint. |
+| gewonde genezer | Haar verzamelnaam voor de genezer wiens vermogen uit zijn eigen doorstane ontwrichting voortkomt. |
+| ontleding | Het visioen, vooral in Siberische verslagen, waarin het eigen lichaam uit elkaar wordt genomen en opnieuw samengesteld. |
+| wereldas | De verticale verbinding tussen boven-, midden- en onderwereld waarlangs de reis in trance verloopt. |
+| hulpgeest | Meestal dierlijke gestalte die zich tijdens de inwijding aandient en de sjamaan daarna bijstaat. |
+| velada | De nachtelijke genezingsceremonie met paddenstoelen bij de Mazateken, bekend geworden door Maria Sabina. |
+| visioenzoektocht | Het afgezonderde vasten waarmee bij verschillende Noord-Amerikaanse volken om een visioen wordt gevraagd. |
+
+#### Waar het argument op rust
+
+De kracht van het boek zit in het bronmateriaal. Halifax citeert lang en drukt
+de verslagen zoveel mogelijk in hun eigen bewoordingen af, met vermelding van
+herkomst en een literatuurlijst. Voor lezers zonder toegang tot
+vakbibliotheken bracht zij in 1979 teksten bijeen die anders verspreid en
+onvindbaar waren. Wat zij nadrukkelijk niet levert, is een steekproef, een
+telling of een vergelijking: er staat nergens hoe vaak een motief voorkomt,
+uit hoeveel gevallen is gekozen, of welke verslagen niet in het patroon
+pasten.
+
+Bij de herkomst van de teksten past terughoudendheid. Veel getuigenissen
+bereiken de lezer via een westerse tussenpersoon die vertaalde, samenvatte en
+redigeerde. De woorden van Black Elk zijn bekend uit *Black Elk Speaks* van
+John Neihardt uit 1932; toen Raymond DeMallie in 1984 de gespreksverslagen van
+1931 en 1944 publiceerde in *The Sixth Grandfather*, bleek hoezeer Neihardt de
+tekst had gevormd voor een blank lezerspubliek. Het relaas van Manuel
+Córdova-Ríos kwam via F. Bruce Lamb in druk en de betrouwbaarheid daarvan is
+in vakkringen betwist. Maria Sabina werd bekend door een artikel in *Life* van
+R. Gordon Wasson uit 1957, met gevolgen voor haar dorp waarover zij later
+spijt uitsprak.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt het kader. De gedachte dat sjamanisme één
+wereldwijd verschijnsel is, komt uit de vergelijkende godsdienstwetenschap en
+vooral uit Mircea Eliade's studie uit 1951. Alice Beck Kehoe heeft die aanname
+in *Shamans and Religion* uit 2000 uitvoerig bestreden: het woord komt uit één
+taalgebied in Siberië, de praktijken die eronder worden gebracht verschillen
+sterk in doel, opleiding en maatschappelijke plaats, en de eenmaking berust op
+literatuurstudie in plaats van op veldwerk. Zij noemt de westerse
+belangstelling voor sjamanisme bovendien neerbuigend, omdat die levende
+culturen behandelt als bewaarplaats van iets archaïsch dat het westen nodig
+heeft.
+
+Daaraan vast zit het probleem van de bemiddeling. Wie een bloemlezing met
+stemmen belooft, moet duidelijk maken hoeveel van die stem via een vertaler,
+een redacteur en een lezerspubliek is gelopen. Halifax vermeldt haar bronnen
+maar problematiseert die keten nauwelijks, terwijl juist bij haar bekendste
+sprekers de tekstgeschiedenis omstreden is.
+
+Ten derde maakt haar psychologische leeswijze het materiaal gelijkvormiger dan
+het is. Wie op zoek gaat naar crisis, ontbinding en hergeboorte, vindt die
+reeks in vrijwel elk verslag terug, en niets in het boek toetst of gevallen
+die niet passen zijn weggelaten. Wat in de bronnen zelf verschillend is, de
+rol in de gemeenschap, de opleiding, de betaling, de rivaliteit tussen
+genezers, verdwijnt achter het patroon. Ten slotte is er de kwestie van
+zeggenschap: inheemse organisaties zijn zich in de decennia daarna verzet
+tegen het doorgeven van ceremonieel materiaal aan een westers publiek, en dit
+boek heeft aan die stroom bijgedragen.
+
+#### Wat er concreet mee te doen is
+
+- Lees de getuigenissen zelf en behandel de inleidende teksten als de
+opvatting van de samenstelster.
+- Zoek bij elke spreker uit langs welke weg de tekst is overgeleverd, en wie
+hem heeft opgetekend en vertaald.
+- Neem antropologisch werk van na 1990 erbij voordat er uitspraken over
+sjamanisme in het algemeen uit worden afgeleid.
+- Gebruik het boek als toegang tot de bronnen in de literatuurlijst in plaats
+van als samenvatting van een vakgebied.
+
+#### Wat je hierna leest
+
+- 410. the hero with a thousand faces. Campbell zoekt in mythen naar hetzelfde
+ene patroon; wie de kritiek op Halifax begrijpt, leest hem met dezelfde
+vragen.
+- 275. How to Change Your Mind. Pollan beschrijft hoe het onderzoek naar
+psychedelica in het westen verliep, het veld waar Halifax vandaan kwam.
+- 357. De mens en zijn symbolen. Jung en zijn medewerkers leveren de
+dieptepsychologische lezing van symbool en inwijding waarop haar kader steunt.
+
+## 704. The Antipodes of the Mind
+
+Benny Shanon, 2002. *The Antipodes of the Mind: Charting the Phenomenology of
+the Ayahuasca Experience* (Oxford University Press, Oxford, 2002, 475 blz.,
+ISBN 9780199252923; pocketuitgave 2003, ISBN 9780199252930). Geen Nederlandse
+vertaling gevonden; een zoekopdracht op de naam van de auteur in de catalogus
+van bibliotheek.nl leverde geen enkele titel op. De samenvatting is op de
+Engelse editie gebaseerd. Rubriek: brein en lichaam.
+Tags: `ayahuasca`, `fenomenologie`, `cognitieve psychologie`, `bewustzijn`,
+`veldonderzoek`
+
+Benny Shanon (1948-2025) was hoogleraar cognitieve psychologie aan de
+Hebreeuwse Universiteit van Jeruzalem en besloot te doen wat in zijn vak
+zelden gebeurde: eerst nauwkeurig beschrijven wat er in de ayahuasca-ervaring
+voorvalt, en pas daarna verklaren. Zijn materiaal bestaat uit meer dan
+honderddertig eigen sessies, waarvan de eerste zevenenzestig als kerncorpus
+dienen, uit gesprekken met 178 informanten en uit de gepubliceerde literatuur,
+samen ongeveer 2500 sessies.
+
+Daaruit bouwt hij een indeling van visioenen naar mate van structuur, van
+eenvoudige patronen tot volledige taferelen, met een telling van terugkerende
+inhouden als slangen, katachtigen, paleizen en vorstelijke gestalten. Het boek
+geldt als de uitvoerigste beschrijving van deze ervaring die er is. De
+beperkingen zijn even duidelijk: alles rust op zelfrapportage, er is geen
+hersenonderzoek, geen controlegroep en geen gestandaardiseerde dosering.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Shanon betoogt dat de ayahuasca-ervaring niet als toevallige
+ruis van een ontregeld zenuwstelsel te begrijpen valt, omdat zij een structuur
+vertoont die zich laat beschrijven en ordenen. Bij mensen die elkaar niet
+kennen en uit verschillende culturen komen, keren dezelfde soorten beelden en
+dezelfde volgorde van verschijnselen terug, en dat vraagt volgens hem om een
+verklaring uit de werking van het kenvermogen zelf. Zijn tweede stelling gaat
+verder: een psychologie die alleen de gewone waaktoestand onderzoekt, mist
+gegevens die zij nodig heeft, en een geest die zulke werelden voortbrengt past
+slecht in het beeld van een apparaat dat een gegeven buitenwereld afbeeldt.
+
+#### De gang van het boek
+
+**Het plan van het boek**
+
+Shanon kiest bewust voor de volgorde van de vroege natuurlijke historie: eerst
+verzamelen en ordenen, dan pas theorie. Fenomenologie betekent bij hem de
+beschrijvende betekenis van het woord, dichter bij William James dan bij
+Husserl: het in kaart brengen van wat er in de ervaring voorkomt, met welke
+frequentie en in welk verband. De titel verwijst naar de antipoden, de
+tegenvoeters: gebieden van de geest die even werkelijk zijn als het bekende
+halfrond en zelden bezocht.
+
+Die keuze is de reden dat het boek zo dik werd. Hoofdstukken vullen zich met
+soorten beelden, soorten lichamelijke gewaarwordingen, soorten gedachten en
+soorten na-effecten, telkens met citaten uit verslagen. Pas in het laatste
+deel volgt de theoretische bespreking, en Shanon zegt daar zelf dat de
+beschrijving ook zonder zijn verklaring bruikbaar moet zijn.
+
+**Waar het materiaal vandaan komt**
+
+Het corpus bestaat uit drie lagen. De eerste is Shanon zelf: bij het
+verschijnen had hij meer dan honderddertig sessies achter de rug, waarvan hij
+de eerste zevenenzestig als kerncorpus behandelt, telkens direct achteraf
+vastgelegd volgens een vast stramien. De tweede laag zijn 178 informanten die
+hij gestructureerd en ongestructureerd ondervroeg: zestien inheemse of
+gemengde herkomst, honderdzes stadsbewoners in Zuid-Amerika en zesenvijftig
+mensen van buiten het werelddeel. De derde laag is de gepubliceerde
+literatuur.
+
+Het veldwerk vond plaats in Brazilië, Peru en Colombia, in uiteenlopende
+omstandigheden: inheemse ceremonies, de kerkgenootschappen Santo Daime en
+União do Vegetal, en stedelijke bijeenkomsten zonder religieus kader. Die
+spreiding is opzet: Shanon wil zien welke verschijnselen blijven staan als de
+omgeving verandert.
+
+**De indeling van de visioenen**
+
+Het bekendste onderdeel is de structurele typologie. Shanon ordent de
+visioenen naar toenemende samenhang: van lichtvlekken en geometrische patronen
+achter gesloten ogen, via beelden die zich over de waargenomen omgeving heen
+leggen, naar losse voorwerpen en gestalten, naar volledige taferelen waarin de
+ziener zich bevindt en die hij als een omgeving beleeft.
+
+Daarnaast telt hij de inhouden. Slangen en katachtigen staan bovenaan, gevolgd
+door vogels, paleizen en steden, tronen en vorstelijke figuren, taferelen die
+aan de oudheid doen denken, en bos- en watertaferelen. Dat die inhouden ook
+opkomen bij mensen zonder enige binding met de Amazone-cultuur, is voor hem
+het belangrijkste gegeven van het boek. Hij publiceerde die indeling in
+hetzelfde jaar apart in het *Journal of Consciousness Studies*.
+
+**Wat er buiten het zien gebeurt**
+
+Een groot deel van het boek gaat over niet-visuele verschijnselen, omdat die
+in de literatuur ondergesneeuwd raakten. Shanon beschrijft de lichamelijke
+kant, met misselijkheid en braken als vast onderdeel van de ceremonie,
+veranderingen in het gevoel van lichaamsgrenzen, en wisselingen in de beleving
+van tijd.
+
+Verder behandelt hij de gedachtekant: het gevoel van inzicht, van begrijpen
+zonder woorden, het beleven van betekenis in gewone dingen, en de ervaring van
+contact met iets wat als een ander wezen wordt beleefd. Hij besteedt aandacht
+aan het wegvallen van het gevoel van een ik en aan de na-effecten in de dagen
+en weken erna, waaronder veranderingen in wat mensen belangrijk vinden.
+
+**Zijn theoretische slot**
+
+In het laatste deel keert Shanon zich tegen twee uitleggingen. De eerste
+behandelt de beelden als betekenisloze bijwerking van een verstoorde
+zenuwwerking; daar past volgens hem de regelmaat van de inhouden niet bij. De
+tweede is de letterlijke: de visioenen tonen een andere werkelijkheid. Die
+vraag laat hij nadrukkelijk open, met de opmerking dat zijn eigen neiging
+tijdens het werk is verschoven en dat een beslissing niet uit zijn gegevens
+volgt.
+
+Wat hij wel beweert, is dat het gangbare beeld van de geest als apparaat dat
+een klaarliggende wereld afbeeldt tekortschiet. Een systeem dat uit zichzelf
+samenhangende werelden voortbrengt, is volgens hem beter te begrijpen als iets
+wat zijn werkelijkheid mede voortbrengt. Daarmee sluit hij aan bij de
+discussie die in de cognitiewetenschap van de jaren negentig werd gevoerd over
+belichaamde en voortbrengende opvattingen van cognitie.
+
+**Plaats in het vak en nasleep**
+
+Shanon staat in een dunne lijn van beschrijvend werk over veranderde
+bewustzijnstoestanden, van Heinrich Klüvers vormconstanten bij mescaline uit
+de jaren twintig tot de zelfverslagen van Henri Michaux en het werk van
+Claudio Naranjo. Wat hem onderscheidt is de omvang van het corpus en de poging
+tot een systematische indeling. Voor het onderzoek naar ayahuasca dat na 2000
+op gang kwam is het boek de standaardbeschrijving gebleven waaraan latere
+bevindingen worden afgemeten.
+
+In 2008 publiceerde Shanon een opstel waarin hij veronderstelde dat bepaalde
+bijbelse openbaringsverhalen op het gebruik van psychoactieve planten kunnen
+wijzen. Dat voorstel noemde hij zelf speculatief, en het kreeg veel meer
+aandacht dan zijn eerdere werk. Het heeft de ontvangst van dit boek beïnvloed,
+in de zin dat zijn naam sindsdien vooral met die stelling verbonden is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| fenomenologie | Bij Shanon de beschrijvende inventarisatie van wat er in de ervaring voorkomt, zonder wijsgerige methode van Husserl. |
+| ayahuasca | Amazonisch aftreksel van een liaan met een tweede plant, dat in ceremonieel verband wordt gedronken en visioenen opwekt. |
+| structurele typologie | Zijn indeling van visioenen naar toenemende samenhang, van patronen tot volledige taferelen waarin de ziener zich bevindt. |
+| vormconstante | Terugkerend geometrisch grondpatroon in visioenen, een begrip uit het mescaline-onderzoek van Heinrich Klüver. |
+| ideatie | Zijn verzamelnaam voor de gedachte-inhouden van de ervaring, waaronder het gevoel van inzicht en van begrijpen zonder woorden. |
+| noëtisch | Het kenmerk dat de ervaring als kennisgevend wordt beleefd, ook wanneer er niets aanwijsbaars is geleerd. |
+| kerncorpus | De eerste zevenenzestig eigen sessies die hij volgens een vast stramien vastlegde en waarop de tellingen berusten. |
+| Santo Daime | Braziliaans kerkgenootschap waarin ayahuasca als sacrament wordt gedronken, een van de contexten van zijn veldwerk. |
+| setting | De omgeving en het ceremoniële kader waarin gedronken wordt, waarvan hij aanneemt dat die de inhoud mede bepaalt. |
+
+#### Waar het argument op rust
+
+Naar de maatstaven van dit onderzoeksgebied is het materiaal omvangrijk en
+ongewoon systematisch verzameld. Shanon legde zijn eigen sessies telkens kort
+na afloop vast volgens hetzelfde stramien, ondervroeg 178 mensen uit sterk
+verschillende achtergronden en betrok de bestaande literatuur erbij, samen
+goed voor ongeveer 2500 sessies. Door in uiteenlopende omgevingen te werken,
+van inheemse ceremonies tot stedelijke bijeenkomsten, kon hij nagaan welke
+verschijnselen blijven staan als het kader wisselt. De beschrijvingen zijn
+nauwkeurig en de citaten zijn ruim genoeg om te controleren of zijn
+samenvatting het verslag dekt.
+
+Alles rust echter op zelfrapportage, en dat is de zwakste soort gegeven die er
+is voor uitspraken over regelmaat. Er is geen controlegroep, geen blindering,
+geen meting. De dosering is niet gestandaardiseerd, en het aftreksel wisselt
+sterk in samenstelling en in bijgemengde planten, zodat verschillen tussen
+sessies niet aan de stof kunnen worden toegeschreven. Fysiologische gegevens
+ontbreken volledig. Het gecontroleerde farmacologische onderzoek naar
+ayahuasca kwam in dezelfde jaren op gang, onder meer in Barcelona, en
+beeldvormend onderzoek volgde pas ongeveer tien jaar later; dit boek levert de
+beschrijving waar dat onderzoek naar verwees, en niet de meting.
+
+#### Wat er tegen in te brengen valt
+
+Het methodische hoofdbezwaar is dat de onderzoeker en de onderzochte dezelfde
+persoon zijn. Shanon nam zelf de stof, kende zijn eigen verwachtingen, en
+schreef de verslagen die hij later zou indelen. Van psychedelica is bekend dat
+verwachting en omgeving de inhoud sterk sturen. Een aanzienlijk deel van zijn
+niet-inheemse informanten kwam uit kerkgenootschappen met een vaste beeldtaal
+en een vast verloop van de ceremonie, en reizigers naar het Amazonegebied
+hebben doorgaans gelezen wat zij konden verwachten. De terugkeer van slangen
+en katachtigen kan dus evengoed op gedeelde verhalen berusten als op een
+eigenschap van het kenvermogen, en het boek bevat geen opzet die tussen die
+twee verklaringen kan kiezen.
+
+Daarbij komt dat de indeling door dezelfde persoon is bedacht en toegepast. Er
+zijn geen onafhankelijke codeurs en geen maat voor overeenstemming tussen
+beoordelaars, zodat de frequenties die hij geeft geen metingen zijn maar
+ordeningen achteraf. Ook de steekproef is een gelegenheidssteekproef: wie
+ayahuasca drinkt en bereid is erover te vertellen, vormt geen doorsnede van
+welke bevolking dan ook.
+
+Het derde bezwaar geldt het theoretische slot. De stap van een verzameling
+verslagen naar conclusies over de aard van de geest berust op vergelijking en
+niet op bewijsvoering; wie de beschrijving aanvaardt, is nog nergens toe
+verplicht. Lezers die een uitspraak verwachten over de status van de
+visioenen, treffen een opzettelijk opengelaten vraag aan, wat sommigen als
+zorgvuldigheid en anderen als ontwijking lezen. Zijn latere bijbelhypothese
+uit 2008 heeft dat wantrouwen versterkt, ook al staat die los van dit boek en
+noemde hij haar zelf speculatief.
+
+#### Wat er concreet mee te doen is
+
+- Lees de beschrijvende hoofdstukken en het theoretische slot als twee
+verschillende soorten tekst met een verschillende bewijslast.
+- Behandel de opgegeven frequenties als ordening van een verzameling verslagen
+en niet als meetuitkomsten.
+- Zoek er hedendaags farmacologisch en beeldvormend onderzoek bij; dit boek
+beschrijft de ervaring en zegt niets over werkingsmechanismen.
+- Let bij het lezen van de verslagen op de omgeving waarin ze zijn opgedaan,
+want het ceremoniële kader stuurt de inhoud mee.
+
+#### Wat je hierna leest
+
+- 275. How to Change Your Mind. Pollan geeft de geschiedenis en de hedendaagse
+stand van het onderzoek naar psychedelica, het kader waarbinnen dit boek zijn
+plaats heeft.
+- 331. Projections. Deisseroth laat zien wat hersenonderzoek over veranderde
+waarneming wel en niet kan vaststellen, precies wat hier ontbreekt.
+- 333. Altered Traits. Goleman en Davidson tonen aan meditatieonderzoek hoe
+zelfrapportage en meting elkaar moeten corrigeren.
+
 ## 710. Other Minds: The Octopus, the Sea, and the Deep Origins of Consciousness
 
 Peter Godfrey-Smith, 2016. *Other Minds: The Octopus, the Sea, and the Deep
@@ -136405,6 +137560,948 @@ precies de opgave waarvoor Geertz zijn methode ontwierp.
 symbolen en beelden in het hoofd het publieke handelen sturen, een verwante
 vraag vanuit de politieke journalistiek.
 
+## 720. Oriëntalisme
+
+Edward Said, 1978. *Oriëntalisme* (vertaald door Wiecher Hulst, Athenaeum,
+Polak & Van Gennep, Amsterdam, 2021, 517 blz., ISBN 9789025314064).
+Oorspronkelijk verschenen als *Orientalism* (Pantheon Books, New York, 1978,
+xiii + 368 blz., ISBN 9780394428147); de gangbare Engelse heruitgave met het
+nawoord uit 1995 en het voorwoord uit 2003 verscheen bij Penguin (Londen,
+2003, 396 blz.). Een eerdere Nederlandse vertaling verscheen als
+*Oriëntalisten* bij Mets & Schilt (Amsterdam, 2005, 479 blz., ISBN
+9789053303962), met een nawoord van Sjoerd de Jong. Rubriek: geschiedenis en
+samenleving.
+Tags: `oriëntalisme`, `postkoloniale studies`, `kennis en macht`,
+`midden-oosten`
+
+Studie van de Palestijns-Amerikaanse literatuurwetenschapper Edward Said
+(1935-2003) over de manier waarop westerse geleerden, reizigers, schrijvers en
+bestuurders sinds ongeveer 1800 over het Oosten hebben geschreven. Said leest
+de filologen Silvestre de Sacy en Ernest Renan, de Egyptekenner Edward William
+Lane, reizigers als Chateaubriand, Nerval en Flaubert en twintigste-eeuwse
+geleerden als Louis Massignon, H.A.R. Gibb en Bernard Lewis, naast toespraken
+en bestuursverslagen van Arthur Balfour en Lord Cromer. Zijn conclusie: al die
+teksten putten uit dezelfde voorraad beelden en vormen samen een bedrijf dat
+het Oosten tegelijk beschrijft en vastlegt.
+
+Het boek maakte van oriëntalisme een verwijt en van postkoloniale studies een
+vakgebied. Het wordt sinds de verschijning ook bestreden, om feitelijke
+fouten, om het weglaten van de Duitse en Russische traditie, en om het beeld
+van een Westen dat in Saids bladzijden even eenvormig oogt als de Oriënt die
+het zou hebben verzonnen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Said stelt dat het westerse spreken over het Oosten geen
+optelsom van losse waarnemingen is, maar een samenhangend stelsel van teksten,
+leerstoelen, ambten en aannames dat zijn eigen onderwerp voortbrengt. De
+Oriënt van de oriëntalisten is in dat stelsel gemaakt: een tegenbeeld waarin
+Europa alles legde wat het zichzelf niet toeschreef, en dat vervolgens aan de
+bewoners van het gebied werd opgelegd als hun aard. Kennis en heerschappij
+lopen daarbij door elkaar heen. De filoloog, de reiziger, de romanschrijver en
+de bestuursambtenaar putten uit dezelfde voorraad beelden, en de geleerdheid
+die zegt te beschrijven, levert tegelijk de begrippen waarmee overheersing
+zich verantwoordt.
+
+#### De gang van het boek
+
+**Drie betekenissen van één woord**
+
+In de inleiding onderscheidt Said drie zaken die het woord oriëntalisme
+aanduidt. Ten eerste een academisch vak: wie onderwijs geeft, schrijft of
+onderzoek doet over de Oriënt, is een oriëntalist. Ten tweede een denkstijl
+die berust op een scheiding tussen Oost en West en die scheiding als
+vertrekpunt neemt, in gedichten, romans, staatkundige beschouwingen en
+woordenboeken. Ten derde, en daar draait het boek om, een instelling met een
+eigen huishouding: leerstoelen, genootschappen, tijdschriften, adviesdiensten
+en bestuurskantoren die de Oriënt behandelen door er uitspraken over te doen,
+er les over te geven en er gezag over te voeren.
+
+De sleutelzin luidt dat de Oriënt is georiëntaliseerd. Het gebied bestond en
+de mensen bestonden, maar het beeld dat Europa ervan maakte kwam uit Europa
+zelf en werd daarna aan het gebied opgelegd. De systematische vorm daarvan
+dateert Said rond het einde van de achttiende eeuw, met de Franse inval in
+Egypte van 1798 als scharnierpunt.
+
+**Balfour en Cromer: kennis die bestuurt**
+
+Het eerste hoofdstuk opent met een toespraak van Arthur Balfour in het
+Lagerhuis in 1910 over de Britse aanwezigheid in Egypte, en met *Modern Egypt*
+(1908) van Lord Cromer, jarenlang de feitelijke bestuurder van dat land.
+Balfour betoogde dat de Britten de Egyptische beschaving beter kenden dan de
+Egyptenaren zelf en dat die kennis het bestuur wettigde. Cromer beschreef de
+oosterling als onnauwkeurig in het redeneren en niet in staat tot logische
+orde, tegenover de Engelsman die zich aan feiten houdt.
+
+Said gebruikt beide om te laten zien hoe kennis en heerschappij in elkaar
+grijpen. Wie beweert te weten wat een volk is, kan in dezelfde adem beweren
+dat het zichzelf niet kan besturen. De kennis functioneert daarbij niet als
+dekmantel achteraf, want zij levert de begrippen waarmee de bestuurders hun
+eigen handelen begrijpen.
+
+**Verbeelde geografie en de tekstuele houding**
+
+Voor de lange lijn gaat Said terug tot de Griekse tragedie en langs Dante, die
+Mohammed in de hel plaatst, naar de verzamelaars van de zeventiende en
+achttiende eeuw. Hij noemt dat verbeelde geografie: het trekken van een grens
+tussen een vertrouwd binnen en een vreemd buiten, waarbij het buiten wordt
+gevuld met eigenschappen die het binnen van zichzelf afwijst. Daarbij hoort de
+tekstuele houding, de neiging om de werkelijkheid te bekijken door de boeken
+die er eerder over verschenen en die boeken meer gezag toe te kennen dan de
+waarneming.
+
+Napoleons expeditie van 1798 nam een staf geleerden mee en leverde de
+*Description de l'Égypte* op, een reeks delen waarin het land in kaart,
+tekening en tekst werd gevat. Het graven van het Suezkanaal door Ferdinand de
+Lesseps leest Said als dezelfde beweging in aarde en water: het Oosten
+toegankelijk maken volgens een westers plan.
+
+**Van filologie naar reisverhaal**
+
+Het tweede hoofdstuk volgt de negentiende eeuw. Silvestre de Sacy bracht orde
+aan door bloemlezingen en handboeken samen te stellen, zodat de Oriënt
+beschikbaar kwam in uittreksels. Ernest Renan bouwde daarop een taalwetenschap
+die de semitische talen als stilstaand en de indo-europese als beweeglijk
+voorstelde, met gevolgen die ver buiten de taalkunde reikten.
+
+Daarnaast staan de mannen die er zelf heen gingen. Edward William Lane woonde
+in Caïro en publiceerde in 1836 *An Account of the Manners and Customs of the
+Modern Egyptians*, decennialang de standaardbron, waarin de waarnemer zichzelf
+buiten beeld houdt. Chateaubriand, Nerval, Flaubert en Richard Burton reisden
+met een ander oogmerk en zochten in het Oosten wat Europa hun onthield. Hun
+bladzijden over danseressen en woestijnnachten leest Said als de andere helft
+van hetzelfde bedrijf, waarin verlangen en gezag elkaar aanvullen.
+
+**Oriëntalisme nu**
+
+Het derde hoofdstuk voert het onderscheid tussen latent en manifest
+oriëntalisme in. Latent is de vaste onderlaag: het Oosten als vrouwelijk,
+zinnelijk, statisch en uit zichzelf niet tot verandering in staat. Manifest is
+wat er in een bepaalde periode wordt beweerd, en dat wisselt met de politieke
+omstandigheden. De onderlaag blijft volgens Said opvallend stabiel terwijl de
+meningen erboven veranderen.
+
+Na 1945 verschuift het zwaartepunt van Parijs en Londen naar de Verenigde
+Staten, waar het vak opgaat in regiostudies en beleidsadvies. Said bespreekt
+Louis Massignon en H.A.R. Gibb als geleerden van formaat met elk een eigen
+versie van dezelfde aannames, en wijst Bernard Lewis aan als voorbeeld van
+iemand die wetenschappelijk gezag inzet in dagbladpolemiek. Het slot gaat over
+het beeld van de Arabier in Amerikaanse media na 1967 en 1973 en over
+Palestina, waarbij Said zijn eigen positie niet verbergt.
+
+**Het gereedschap en de open vraag**
+
+Het begrippenapparaat komt van elders. Van Michel Foucault leent Said het
+begrip discours, een geordend geheel van uitspraken dat bepaalt wat er over
+een onderwerp gezegd kan worden. Van Antonio Gramsci komt hegemonie,
+overheersing die via instemming werkt. Tegelijk houdt Said vast aan de
+filologische leeswijze van Erich Auerbach, met aandacht voor de afzonderlijke
+schrijver en diens strategische plaatsing tegenover het onderwerp.
+
+Wat er in plaats van het oriëntalisme moet komen, beantwoordt het boek
+terughoudend. Said pleit voor kennis die haar eigen wereldse positie meeneemt
+en die de bestudeerden als sprekende mensen behandelt. In het nawoord uit 1995
+en het voorwoord uit 2003 komt hij terug op de ontvangst en verzet hij zich
+tegen de lezing dat zijn boek een aanklacht tegen het Westen als zodanig zou
+zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| oriëntalisme | Het geheel van vakbeoefening, denkstijl en instellingen waarmee het Westen de Oriënt heeft beschreven en behandeld. |
+| verbeelde geografie | De denkbeeldige grens tussen een vertrouwd gebied en een vreemd gebied, waarbij het vreemde de eigenschappen krijgt die het vertrouwde van zichzelf afwijst. |
+| tekstuele houding | De neiging om de werkelijkheid te lezen door eerder verschenen boeken en die boeken meer te geloven dan de eigen waarneming. |
+| latent oriëntalisme | De onderlaag van aannames over het Oosten die door de eeuwen heen nauwelijks verandert. |
+| manifest oriëntalisme | Wat er in een bepaalde periode daadwerkelijk over het Oosten wordt beweerd, wisselend per tijd, land en auteur. |
+| discours | Van Foucault geleend begrip voor een geordend geheel van uitspraken dat bepaalt wat er over een onderwerp gezegd kan worden. |
+| hegemonie | Van Gramsci geleend begrip voor overheersing die niet op dwang berust maar op instemming met een vanzelfsprekend geworden zienswijze. |
+| strategische plaatsing | De positie die een schrijver in zijn tekst tegenover het onderwerp inneemt, af te lezen aan toon, afstand en aanspraak op gezag. |
+| wereldsheid | Saids term voor het gegeven dat elke tekst uit een bepaalde plaats, tijd en belangenpositie voortkomt en die herkomst meedraagt. |
+
+#### Waar het argument op rust
+
+Het materiaal bestaat uit teksten: vakstudies, woordenboeken en grammatica's,
+romans en reisverslagen, brieven, parlementaire toespraken en
+bestuursverslagen. Saids werkwijze is nauwkeurig lezen. Hij citeert, laat zien
+welke woorden terugkeren, wie van wie overschrijft en hoe een oordeel uit 1830
+in 1950 opnieuw opduikt. Voor de samenhang binnen het Franse, Britse en later
+Amerikaanse corpus is dat overtuigend, omdat de verwijzingen tussen de auteurs
+onderling talrijk en controleerbaar zijn.
+
+Zwakker is de stap van tekst naar bestuur. Dat oriëntalistische kennis het
+kolonialisme mede mogelijk maakte, wordt aannemelijk gemaakt door teksten
+naast elkaar te leggen en niet door archiefonderzoek naar besluitvorming. Said
+laat zien dat Cromer en Balfour in dezelfde termen spraken als de geleerden;
+wat de geleerden feitelijk aan het bestuur leverden en wat het bestuur van hen
+vroeg, blijft grotendeels bij vermoeden. Het corpus is bovendien gekozen:
+Britse, Franse en Amerikaanse bronnen over het Midden-Oosten en de islam,
+terwijl India, China en Japan vrijwel ontbreken.
+
+Het boek zoekt daarnaast niet naar tegenvoorbeelden. Geleerden die zich tegen
+het gangbare beeld keerden, worden bij hetzelfde stelsel ingelijfd, zodat
+moeilijk is aan te wijzen welke bevinding de stelling zou weerleggen.
+
+#### Wat er tegen in te brengen valt
+
+Bernard Lewis, in het boek zelf als voorbeeld opgevoerd, antwoordde in 1982 in
+The New York Review of Books met het stuk The Question of Orientalism. Zijn
+zwaarste punt is de Duitse traditie. De Duitse arabistiek, indologie en
+semitistiek van de negentiende eeuw behoorden tot de beste van Europa, terwijl
+Duitsland in het Midden-Oosten geen koloniën had. Loopt de band tussen kennis
+en overheersing zo strak als Said stelt, dan is dat geval lastig te verklaren.
+Lewis wees verder op vertaal- en dateringsfouten en op het gevolg voor het
+vak, waarin het woord oriëntalist onbruikbaar werd als aanduiding voor iemand
+die oosterse talen bestudeert. Said antwoordde in hetzelfde blad en hield vol
+dat juist Lewis liet zien hoezeer die geleerdheid politiek was.
+
+Robert Irwin werkte dat feitelijke bezwaar uit in *For Lust of Knowing: The
+Orientalists and Their Enemies* (2006), in de Verenigde Staten verschenen als
+*Dangerous Knowledge*. Irwin schreef een tegengeschiedenis waarin de meeste
+oriëntalisten zonderlingen, geestelijken en filologen zijn met weinig invloed
+op enig bestuur, en somt bij Said onjuistheden, verkeerde toeschrijvingen en
+aanwijzingen van ongelezen boeken op. Zijn oordeel is dat Said een vak
+beschrijft waarvan hij de dagelijkse praktijk niet kende.
+
+Uit een andere hoek kwam het verwijt dat Said doet wat hij aanklaagt. De
+Syrische filosoof Sadik Jalal al-Azm noemde dat in 1981 oriëntalisme in
+omgekeerde richting: tegenover de verzonnen Oriënt komt een even eenvormig
+Westen te staan dat van de Griekse tragedie tot het Amerikaanse
+buitenlandbeleid hetzelfde zou hebben gedacht. Aijaz Ahmad wees er in *In
+Theory* (1992) op dat het boek twee onverenigbare methodes gebruikt: bij
+Foucault verdwijnt de schrijver in het discours, terwijl Saids eigen leeswijze
+op individuele auteurs en hun stijl berust.
+
+Wat het boek nalaat is een antwoord op de vraag hoe betere kennis van andere
+samenlevingen eruitziet; ook blijft liggen wat mensen in de bestudeerde
+gebieden in dezelfde eeuwen zelf schreven. In de ontvangst leidde dat tot
+precies het gebruik waartegen Said zich verzette: oriëntalisme als etiket om
+een studie af te wijzen zonder haar te lezen.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een beschrijving van een vreemde groep na welke genoemde
+eigenschappen precies de tegenpool vormen van het zelfbeeld van de
+beschrijver.
+- Volg de voetnoten: veel oordelen over andere volken blijken uit eerdere
+boeken overgeschreven en niet op waarneming gebaseerd.
+- Let bij landenanalyse en beleidsadvies op de plaatsen waar kennis over een
+gebied en gezag over dat gebied in dezelfde handen liggen.
+- Houd het bezwaar van Lewis erbij: een verband tussen kennis en macht moet
+per geval worden aangewezen, en de Duitse oriëntalistiek zonder koloniën is
+daarbij de eerste toetssteen.
+
+#### Wat je hierna leest
+
+- 523. I Write What I Like. Biko beschrijft van binnenuit wat Said van
+buitenaf ontleedt: hoe het beeld dat de overheerser hanteert, in de
+overheerste zelf gaat zitten.
+- 521. Indigenous and Popular Thinking in América. Kusch levert vanuit
+Latijns-Amerika een even verstrekkende kritiek op Europese denkcategorieën,
+met een heel andere methode.
+- 566. Manufacturing Consent. Herman en Chomsky onderzoeken eenzelfde
+filtering van beelden in de Amerikaanse pers, en doen dat met tellingen in
+plaats van tekstlezing.
+
+## 721. The Structures of the Life-World
+
+Alfred Schutz en Thomas Luckmann, 1973. *The Structures of the Life-World*
+(vertaald uit het Duits door Richard M. Zaner en H. Tristram Engelhardt jr.,
+Northwestern University Press, Evanston, 1973, xxxvi + 335 blz., ISBN
+9780810106222). De Duitse uitgave verscheen als *Strukturen der Lebenswelt*
+(Luchterhand, Neuwied en Darmstadt, 1975); een tweede deel volgde in het Duits
+in 1984 en in het Engels in 1989 bij dezelfde uitgever. Geen Nederlandse
+vertaling gevonden in de catalogus van bibliotheek.nl, die van Schutz alleen
+Engels, Duits en Bulgaars werk bevat; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `fenomenologie`, `sociologie`, `alledaagse werkelijkheid`,
+`kennissociologie`
+
+Postuum voltooid hoofdwerk van de Oostenrijks-Amerikaanse socioloog Alfred
+Schutz (1899-1959), uitgewerkt door zijn leerling Thomas Luckmann (1927-2016).
+Het beschrijft de opbouw van de wereld van alledag: hoe die wereld
+vanzelfsprekend blijft zolang het gewone handelen slaagt, hoe zij gelaagd is
+naar wat binnen bereik ligt in ruimte en tijd, hoe medemensen van dichtbij tot
+volstrekt anoniem oplopen, en hoe iedereen een voorraad kennis meedraagt die
+grotendeels van anderen is overgenomen en zelden op de proef wordt gesteld.
+
+Het boek staat aan het begin van de kennissociologie van Berger en Luckmann en
+van de etnomethodologie. Het bevat geen onderzoeksgegevens en geen enkele
+meting; het is een beschrijvende ontleding in de traditie van Husserl, met
+Weber op de achtergrond. Wie precisie zoekt over begrippen als
+vanzelfsprekendheid, routine en typering vindt die hier; wie toetsbare
+uitspraken zoekt, vindt ze niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Schutz en Luckmann stellen dat de alledaagse wereld waarin
+mensen wakker worden, werken en met elkaar omgaan een vaste opbouw heeft die
+aan iedere wetenschap voorafgaat, en dat die opbouw stap voor stap te
+beschrijven valt. De leefwereld wordt niet in twijfel getrokken zolang het
+gewone handelen slaagt: zij geldt tot nader order, is gelaagd naar tijd,
+ruimte en nabijheid van anderen, en wordt ontsloten door een voorraad kennis
+die iemand voor het grootste deel van anderen heeft overgenomen. Wie
+samenleving en handelen wil verklaren, moet volgens hen eerst deze structuren
+blootleggen, omdat sociologische begrippen anders constructies blijven die
+zweven boven een werkelijkheid die zij niet raken.
+
+#### De gang van het boek
+
+**Een boek dat de auteur niet heeft afgemaakt**
+
+Alfred Schutz was jurist, werkte in Wenen en later in New York bij een
+bankiershuis, en beoefende de sociale wetenschap in de avonduren en aan de New
+School for Social Research. In 1932 verscheen *Der sinnhafte Aufbau der
+sozialen Welt*, waarin hij de fenomenologie van Husserl verbond met de eis van
+Max Weber dat sociologie het handelen verklaart vanuit de betekenis die de
+handelende persoon eraan geeft. Het werk over de structuren van de leefwereld
+was bedoeld als afronding daarvan.
+
+Bij zijn dood in 1959 lagen er een opzet en een reeks notitieboeken. Thomas
+Luckmann werkte die uit tot een boek dat in 1973 in het Engels verscheen, twee
+jaar vóór de Duitse uitgave. In de inleiding zet Luckmann uiteen wat hij
+aantrof en waar hij zelf heeft geschreven. Een tweede deel, over handelen,
+plannen en de sociale persoon, volgde in 1984 in het Duits.
+
+**De natuurlijke houding**
+
+Het uitgangspunt is de natuurlijke houding: de gewone instelling waarin het
+bestaan van de wereld en van andere mensen geen vraag is. Schutz draait
+daarbij de beroemde greep van Husserl om. De fenomenoloog schort het geloof in
+de werkelijkheid op om haar te onderzoeken; in het dagelijks leven schort men
+juist de twijfel op. Wat gisteren werkte, werkt vandaag weer, tot het
+tegendeel blijkt.
+
+Wat die houding bijeenhoudt is het praktische motief: mensen zijn in de wereld
+om erin te werken, en die betrokkenheid bepaalt wat er scherp in beeld staat
+en wat vaag blijft. Daarnaast erkennen Schutz en Luckmann andere gebieden met
+een eigen soort werkelijkheid, zoals de droom, het spel, het kunstwerk, de
+godsdienst en de wetenschappelijke beschouwing. De overgang ertussen verloopt
+met een schok, want de vanzelfsprekendheid van het ene gebied geldt in het
+andere niet.
+
+**Gelaagd naar tijd, ruimte en medemens**
+
+De leefwereld is niet overal even dichtbij. Ruimtelijk onderscheiden de
+auteurs de wereld binnen feitelijk bereik, het gebied dat vroeger binnen
+bereik lag en herstelbaar is, en het gebied dat nog nooit bereikt is maar
+bereikbaar zou zijn. Wat binnen handbereik ligt, kan worden aangeraakt en
+veranderd; alles daarbuiten is bekend uit herinnering of van horen zeggen.
+
+In de tijd lopen de innerlijke duur van het beleven, de wereldtijd van dag en
+nacht en de kloktijd van afspraken door elkaar heen; het eindige leven vormt
+daarbij de buitenste grens. Sociaal loopt de reeks van medemensen met wie
+iemand oog in oog staat, via tijdgenoten die hij nooit ontmoet, naar
+voorgangers die er niet meer zijn en opvolgers die er nog niet zijn. Naarmate
+de afstand groeit, wordt de ander minder persoon en meer type: de conducteur,
+de ambtenaar, de kiezer.
+
+**De kennisvoorraad**
+
+Iedereen legt in de loop van een leven een voorraad kennis aan, opgebouwd uit
+eerdere ervaringen en gerangschikt volgens de eigen levensloop. Het grootste
+deel ervan is routine: vaardigheden die zonder aandacht verlopen,
+gebruiksregels voor terugkerende situaties, gewoonten die geen overweging meer
+vragen. Nieuwe ervaringen worden geordend met typeringen, dat wil zeggen dat
+een geval wordt behandeld als een geval van een soort en niet als iets nieuws.
+
+Twee aannames dragen dat geheel. De eerste is dat het zo doorgaat: wat tot nu
+toe gold, blijft gelden. De tweede is dat wat eerder lukte, opnieuw kan lukken
+onder ongeveer gelijke omstandigheden. Wat op enig moment aandacht krijgt,
+wordt geregeld door relevantie, en Schutz onderscheidt daarbij de relevantie
+die een onderwerp opdringt, de relevantie die bepaalt welke kennis erbij wordt
+gehaald, en de relevantie die uit motieven en plannen voortkomt. Pas als de
+routine hapert, komt een stuk van de voorraad als probleem in beeld.
+
+**Wat mensen samen aannemen**
+
+Dat mensen in dezelfde wereld leven, berust op een dubbele aanname die Schutz
+de wederkerigheid van perspectieven noemt. De eerste helft: standpunten zijn
+verwisselbaar, dus wie op de plaats van de ander zou staan, zou de dingen zien
+zoals de ander ze ziet. De tweede helft: verschillen in levensloop doen er
+voor het praktische doel niet toe, zodat beiden de dingen op dezelfde manier
+belangrijk vinden. Deze aanname wordt zelden uitgesproken en zelden
+gecontroleerd.
+
+Kennis is bovendien ongelijk verdeeld. Niemand weet alles, iedereen weet iets
+beter dan de rest, en het meeste wat mensen weten hebben zij nooit zelf
+nagegaan maar op gezag aangenomen, via taal, opvoeding en beroepsopleiding. De
+taal zelf is een opslagplaats van typeringen: wie een woord leert, neemt een
+indeling van de wereld over die door voorgangers is gemaakt. Het laatste deel
+van het boek verbindt de kennisvoorraad op die manier met de samenleving.
+
+**Wat eruit voortkwam**
+
+De doorwerking is groter dan het lezerspubliek van het boek. Peter Berger en
+Thomas Luckmann schreven met *The Social Construction of Reality* (1966) een
+toegankelijke uitwerking van dezelfde uitgangspunten en brachten het denken
+van Schutz onder een breed publiek. Harold Garfinkel maakte er met de
+etnomethodologie een onderzoekspraktijk van, waarin proefpersonen de
+vanzelfsprekendheden van alledag opzettelijk doorbreken om zichtbaar te maken
+hoeveel er stilzwijgend wordt aangenomen.
+
+Ook buiten de sociologie is de invloed merkbaar, in de bestudering van
+beroepen en instellingen en in onderzoek naar de omgang met techniek. Het boek
+zelf bleef het minst gelezen deel van die erfenis: het is droog, herhalend en
+schematisch.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| leefwereld | De alledaagse wereld zoals die vóór alle wetenschap wordt beleefd, met de vanzelfsprekendheden die het gewone handelen dragen. |
+| natuurlijke houding | De gewone instelling waarin het bestaan van de wereld en van andere mensen geen vraag is. |
+| opschorting van de twijfel | De omkering van de fenomenologische greep: in het dagelijks leven wordt niet het geloof in de wereld opgeschort maar de twijfel eraan. |
+| praktisch motief | De gerichtheid op werken en ingrijpen die bepaalt wat er in de leefwereld scherp in beeld komt en wat vaag blijft. |
+| kennisvoorraad | Het geheel van ervaringen, vaardigheden en gebruiksregels dat iemand in de loop van een leven opbouwt en meedraagt. |
+| typering | Het behandelen van een geval als geval van een bekende soort, waardoor het herkenbaar en hanteerbaar wordt. |
+| relevantie | De ordening die bepaalt wat aandacht krijgt, welke kennis erbij wordt gehaald en welk motief daarachter zit. |
+| zones van bereik | De indeling van de omgeving in wat feitelijk bereikbaar is, wat vroeger bereikbaar was en wat bereikbaar zou kunnen worden. |
+| wederkerigheid van perspectieven | De stilzwijgende aanname dat standpunten verwisselbaar zijn en dat verschillen in levensloop voor het doel van het moment niet meetellen. |
+| eindige zinsprovincie | Een gebied met een eigen soort werkelijkheid, zoals droom, spel of wetenschap, waartussen de overgang met een schok verloopt. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan: geen waarnemingen, geen vraaggesprekken,
+geen tellingen, geen historisch materiaal. De methode is beschrijvend. De
+auteurs ontleden wat elke volwassene in de eigen ervaring kan nagaan en
+proberen die ontleding zo te ordenen dat de onderdelen elkaar niet
+tegenspreken. De maatstaf is herkenbaarheid en samenhang, en de auteurs zeggen
+dat ook. De lijnen lopen terug naar Husserl, met name naar diens late werk
+over de crisis van de Europese wetenschappen, naar Bergson voor de
+tijdsbeleving, naar William James voor de gedachte van deelwerkelijkheden, en
+naar Weber voor de eis dat handelen vanuit de betekenis voor de handelende
+persoon wordt begrepen.
+
+De empirische winst van het boek ligt in wat anderen ermee deden. De
+etnomethodologie van Garfinkel gaf de vanzelfsprekendheid van alledag een
+toetsbare vorm door haar opzettelijk te verstoren en te kijken hoe mensen de
+orde herstellen. Dat is een aanwijzing dat de beschrijving iets vasthoudt wat
+werkelijk bestaat. De begrippen zelf blijven daarbij vooral ordenend: zij
+zeggen waar bij een verschijnsel op te letten valt en voorspellen niet wanneer
+het optreedt of hoe sterk.
+
+#### Wat er tegen in te brengen valt
+
+Het eerste bezwaar betreft de status van de tekst. Schutz stierf in 1959; wat
+er lag was een opzet met notitieboeken. Luckmann heeft die tot lopend proza
+gemaakt, hiaten aangevuld en gedeelten zelf geschreven. Hij geeft daar in de
+inleiding rekenschap van, maar bij een boek waarin de precieze formulering het
+argument draagt, blijft de vraag wat van Schutz komt en wat van zijn
+uitwerker. Een uitspraak toeschrijven aan Schutz vraagt hier meer
+voorzichtigheid dan bij het werk dat hij zelf publiceerde.
+
+Het tweede bezwaar is de vorm van het betoog. De structuren worden
+gepresenteerd als algemeen menselijk, terwijl geschiedenis, klasse, sekse en
+machtsverschil vrijwel niet voorkomen. Jürgen Habermas nam in *Theorie des
+kommunikativen Handelns* (1981) het begrip leefwereld over en verweet de
+fenomenologische versie tegelijk dat zij de leefwereld tot cultuur versmalt en
+de instellingen en de persoonsvorming buiten beschouwing laat. Ook de aanname
+van wederkerige perspectieven laat zich lezen als een prettige gedachte die in
+een ongelijke samenleving juist niet opgaat: dat standpunten verwisselbaar
+zijn, geldt voor de bewaker en de gevangene niet in dezelfde mate.
+
+Het derde bezwaar is de toetsbaarheid. Omdat de beschrijving berust op
+zelfwaarneming en op wat redelijkerwijs valt na te gaan, is er nauwelijks een
+waarneming denkbaar die het geheel zou weerleggen. Dat maakt het werk
+bruikbaar als woordenboek en ongeschikt als theorie in de strikte zin. Daar
+komt de leesbaarheid bij: de tekst hanteert een dichte, uit het Duits
+vertaalde terminologie, herhaalt de eigen indelingen vaak en geeft weinig
+voorbeelden, zodat de meeste lezers meer hebben aan de latere bewerking van
+Berger en Luckmann dan aan het origineel.
+
+Tot slot is de belofte maar half ingelost. Het boek stelt de leefwereld voor
+als fundament voor een betere sociale wetenschap en laat het bij de fundering;
+de brug naar onderzoek is door anderen geslagen.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij het onderzoeken van een werkpraktijk eerst naar wat er niet wordt
+uitgelegd omdat het vanzelf spreekt; daar zit de meeste kennis.
+- Vraag bij een misverstand na welke kennisvoorraad de ander meebrengt, in
+plaats van de eigen ordening als de gedeelde te veronderstellen.
+- Let bij het ontwerpen van formulieren en procedures op de typeringen die
+erin zijn ingebakken, en op de gevallen die daar niet in passen.
+- Onderbreek een routine bewust om zichtbaar te maken welke afspraken er
+stilzwijgend aan ten grondslag liggen.
+
+#### Wat je hierna leest
+
+- 562. Public Opinion. Lippmann beschrijft stereotypen als kant-en-klare
+beelden waarmee mensen de wereld ordenen; dat is de typering van Schutz,
+toegepast op de pers.
+- 55. Thinking, Fast and Slow. Kahneman geeft aan het routinematige,
+ongecontroleerde denken een experimentele onderbouwing die bij Schutz
+ontbreekt.
+- 565. Simulacres et simulation. Baudrillard behandelt hetzelfde thema, de
+werkelijkheid van wat voor werkelijk doorgaat, met een tegenovergesteld
+temperament.
+
+## 722. The Use and Abuse of Biology
+
+Marshall Sahlins, 1976. *The Use and Abuse of Biology: An Anthropological
+Critique of Sociobiology* (University of Michigan Press, Ann Arbor, 1976, 120
+blz., ISBN 9780472087778; latere paperback ISBN 9780472766000, 136 blz.). Een
+Britse uitgave verscheen in de reeks Social Science Paperbacks, ISBN
+9780422762700. Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl, die van Sahlins alleen Engelstalig werk bevat; de samenvatting
+is op de Engelse editie gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `sociobiologie`, `antropologie`, `verwantschap`, `cultuurkritiek`
+
+Kort en fel weerwoord van de Amerikaanse antropoloog Marshall Sahlins
+(1930-2021) op *Sociobiology: The New Synthesis* van E.O. Wilson uit 1975, en
+in het bijzonder op het slothoofdstuk daarvan over de mens. Sahlins voert twee
+argumenten. Het eerste is antropologisch: menselijke verwantschapsstelsels
+volgen nergens de graden van genetische verwantschap, want mensen adopteren,
+rekenen aangetrouwden mee en delen met wie genealogisch ver af staat. Het
+tweede is ideologiekritisch: de sociobiologie projecteert de concurrentie van
+de markteconomie op de natuur en leest haar daar vervolgens uit terug als
+natuurwet.
+
+Het boek van 120 bladzijden hoort bij de eerste golf kritiek op Wilson, naast
+die van de Sociobiology Study Group rond Lewontin en Gould. Het is scherp
+geschreven en het is op één punt beslissend weerlegd: het argument dat mensen
+de verwantschapsbreuken niet kunnen uitrekenen, treft de theorie niet, omdat
+selectie geen rekenwerk vereist.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sahlins stelt dat de sociobiologie de menselijke samenleving
+niet kan verklaren omdat zij het verkeerde niveau aanspreekt. Tussen genen en
+gedrag ligt bij de mens de cultuur, een stelsel van betekenissen dat zijn
+eigen ordening kent en dat bepaalt wie als verwant geldt, wat als voordeel
+telt en welk gedrag lof of straf oplevert. Verwantschap is daarom een
+culturele indeling en geen afspiegeling van genetische afstand, en
+voortplantingssucces is bij de mens een uitkomst van culturele regelingen in
+plaats van de verklaring ervan. Daarbij komt een tweede stelling: de
+sociobiologie ontleent haar beeld van de natuur aan de westerse markteconomie,
+met een lijn van Hobbes via Malthus naar Spencer, en levert daarmee eerder een
+natuurlijke rechtvaardiging van de eigen samenleving dan een verklaring van
+alle andere.
+
+#### De gang van het boek
+
+**Waar het boek op antwoordt**
+
+In 1975 verscheen *Sociobiology: The New Synthesis* van de entomoloog E.O.
+Wilson, een omvangrijk overzicht van het sociale gedrag van dieren dat in het
+slothoofdstuk de mens erbij betrok en de sociale wetenschappen aankondigde als
+toekomstige takken van de biologie. Het theoretische gereedschap kwam van
+William Hamilton, die in 1964 met de inclusieve fitness liet zien hoe hulp aan
+verwanten via gedeelde genen kan lonen, en van Robert Trivers, die het
+wederkerige altruïsme uitwerkte.
+
+De reactie kwam snel en hard, onder meer van de Sociobiology Study Group in
+Boston met Richard Lewontin en Stephen Jay Gould. Sahlins, op dat moment een
+van de bekendste antropologen van de Verenigde Staten en auteur van *Stone Age
+Economics*, schreef binnen een jaar dit boekje. Het is bedoeld als
+vakinhoudelijk weerwoord: hij neemt de theorie serieus genoeg om haar op haar
+sterkste punt aan te vallen, de verwantschapsselectie.
+
+**Twee soorten sociobiologie**
+
+Sahlins begint met een onderscheid dat het debat destijds vertroebelde. Er is
+een populaire variant, met schrijvers als Konrad Lorenz, Robert Ardrey en
+Desmond Morris, waarin instincten als agressie en territoriumdrang dwars door
+de cultuur heen zouden breken. Die variant, zegt Sahlins, is intellectueel
+niet interessant en wordt door de vakbiologen zelf verworpen.
+
+Daarnaast staat de wetenschappelijke variant van Wilson en Hamilton, waarin
+niets door de cultuur heen breekt maar de cultuur zelf als uitkomst van
+genetische belangen wordt voorgesteld. Die verdient een argument, en dat
+argument moet volgens Sahlins bij de verwantschap beginnen, omdat de aanspraak
+van de sociobiologie op de menselijke wetenschappen daar staat of valt.
+
+**Verwantschap is een indeling, geen breuk**
+
+Het antropologische materiaal van anderhalve eeuw laat zien dat
+verwantschapsstelsels overal anders lopen. Sommige samenlevingen noemen alle
+mannen van de generatie van de vader met hetzelfde woord, andere scheiden de
+broer van de vader scherp van de broer van de moeder. Adoptie is wijdverbreid
+en geldt in veel samenlevingen als volwaardig, aangetrouwden tellen mee als
+naaste verwanten, en solidariteit strekt zich uit tot mensen met wie geen
+enkele afstamming te leggen valt.
+
+Sahlins trekt daaruit de gevolgtrekking dat wie in menselijke samenlevingen
+kijkt naar wie voor wie opkomt, geen ordening naar genetische afstand aantreft
+maar een ordening naar culturele categorie. Als de theorie voorspelt dat hulp
+meebeweegt met de graad van verwantschap, dan is de menselijke etnografie een
+aanhoudend tegenvoorbeeld. Hij voegt daaraan het argument toe dat de meeste
+talen de breuken en verhoudingen missen waarmee zo'n graad überhaupt
+uitgedrukt zou kunnen worden.
+
+**Cultuur als het menselijke aanpassingsvermogen**
+
+Tegenover het sociobiologische schema zet Sahlins de stelling dat cultuur bij
+de mens de plaats inneemt van het instinct. Cultuur werkt met tekens waarvan
+het verband met de zaak willekeurig is, en die willekeur maakt dat een
+samenleving betekenissen kan vasthouden die met overleven of voortplanting
+niets te maken hebben en er zelfs tegenin gaan: celibaat, vasten, oorlog om
+eer, verspilling bij begrafenissen.
+
+Daaruit volgt de omkering van de causale richting. Wie in een samenleving veel
+nakomelingen krijgt, dankt dat aan de plaats die hij in die samenleving
+inneemt, en die plaats wordt door culturele regels bepaald.
+Voortplantingssucces is dan een gevolg van de sociale ordening en niet de
+verborgen reden ervan.
+
+**Waar de theorie zelf vandaan komt**
+
+Het tweede deel van het boek verschuift van de vraag of de sociobiologie klopt
+naar de vraag waar zij vandaan komt. Sahlins schetst een lijn van Hobbes, via
+de politieke economie van Adam Smith en de bevolkingsleer van Malthus, naar
+Darwin en Spencer. Malthus leverde Darwin het beeld van schaarste en
+concurrentie; dat beeld was ontleend aan de Engelse samenleving van die tijd.
+
+De natuur die daaruit tevoorschijn komt, lijkt op een markt: eigenbelang,
+concurrentie om schaarse middelen, boekhouding van kosten en baten. Wanneer de
+biologie dat beeld vervolgens op de menselijke samenleving toepast, keert de
+eigen maatschappijopvatting terug in de gedaante van een natuurwet. Sahlins
+noemt dat een kringloop waarin de westerse samenleving zichzelf in de natuur
+herkent en die herkenning daarna als bewijs opvoert.
+
+**Wat er van het boek overbleef**
+
+Sahlins bleef deze lijn zijn leven lang volgen, van *Culture and Practical
+Reason* uit hetzelfde jaar tot *The Western Illusion of Human Nature* uit
+2008, waarin hij het beeld van de mens als eigenbelang zoekend wezen als een
+westerse bijzonderheid behandelt. Het debat zelf liep anders af dan hij
+voorzag: de biologische benadering van menselijk gedrag verdween niet maar
+splitste zich in gedragsecologie, evolutionaire psychologie en modellen van
+gen-cultuurcoëvolutie.
+
+Wat overeind bleef, is de waarschuwing tegen het vertalen van culturele
+verwantschapstermen in genealogische afstanden zonder etnografische controle,
+en tegen het lezen van marktgedrag in de natuur. Wat sneuvelde, is het
+argument over het rekenen. Het boek wordt daardoor zowel geciteerd als
+voorbeeld van gegronde vakkritiek als van een misverstand over hoe selectie
+werkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| sociobiologie | De studie van de biologische grondslagen van sociaal gedrag, door Wilson in 1975 tot samenhangend programma gemaakt en uitgebreid naar de mens. |
+| verwantschapsselectie | De gedachte dat hulp aan bloedverwanten loont omdat verwanten een deel van dezelfde genen dragen. |
+| inclusieve fitness | Het voortplantingssucces van een individu plus het effect dat het heeft op het succes van verwanten, gewogen naar hun verwantschapsgraad. |
+| verwantschapsgraad | De maat die aangeeft welk deel van de genen twee verwanten door afstamming gemeen hebben, in de theorie aangeduid met r. |
+| vulgaire sociobiologie | Sahlins' aanduiding voor de populaire variant waarin instincten dwars door de cultuur heen zouden breken, zoals bij Lorenz, Ardrey en Morris. |
+| classificatorische verwantschap | Verwantschapstermen die hele groepen samennemen, bijvoorbeeld door alle mannen van de vadergeneratie vader te noemen. |
+| culturele rede | Sahlins' term voor de eigen ordening van betekenissen die bepaalt wat in een samenleving als voordeel, verwantschap of eer geldt. |
+| willekeur van het teken | Het uitgangspunt uit de taalwetenschap dat het verband tussen teken en zaak niet uit de natuur volgt, door Sahlins toegepast op cultuur als geheel. |
+| antropomorfe projectie | Het toeschrijven van menselijke, in dit geval economische, verhoudingen aan de natuur, waarna die natuur als voorbeeld voor de mens wordt aangevoerd. |
+
+#### Waar het argument op rust
+
+Het bewijsmateriaal is de vergelijkende etnografie:
+verwantschapsterminologieën, adoptiepraktijken, huwelijksregels en vormen van
+onderlinge hulp uit uiteenlopende samenlevingen, zoals die in de antropologie
+sinds Morgan zijn verzameld. Dat materiaal is echt en de variatie erin is
+groot, wat de kern van Sahlins' punt draagt: menselijke
+verwantschapscategorieën vallen niet samen met genealogische afstand. Nieuw
+veldwerk voert het boek niet aan, en de gevallen worden in enkele zinnen
+afgedaan, zonder tellingen die laten zien hoe vaak hulp buiten de
+bloedverwantschap valt.
+
+Voor het tweede argument, de herkomst van de theorie, is het bewijs van een
+andere soort: een ideeëngeschiedenis met Hobbes, Malthus, Darwin en Spencer
+als stations. Die lijn is in de wetenschapsgeschiedenis goed gedocumenteerd,
+met name de invloed van Malthus op Darwin. Wat de lijn niet kan aantonen is
+dat de theorie daarom onjuist is, en dat verschil houdt Sahlins niet steeds
+scherp.
+
+#### Wat er tegen in te brengen valt
+
+Het bekendste bezwaar richt zich op het rekenargument. Richard Dawkins ging er
+in *The Extended Phenotype* (1982) op in en wees erop dat
+verwantschapsselectie van geen enkel dier verlangt dat het breuken uitrekent.
+Een slak berekent haar schelpspiraal evenmin. Selectie werkt op uitkomsten van
+gedrag, ongeacht of het dier of de mens weet waarom het gedrag loont. De
+stelling dat de meeste talen geen breuken kennen, is daarmee waar en niet ter
+zake, en dit is precies de passage waaraan het boek zijn reputatie in
+biologische kring dankt.
+
+Ook het etnografische hoofdargument is minder beslissend gebleken dan het
+leek. Onderzoek in de menselijke gedragsecologie vond in uiteenlopende
+samenlevingen dat hulp, erfenis en zorg statistisch meebewegen met de graad
+van verwantschap, ook waar de plaatselijke verwantschapstaal iets anders zegt.
+Dat mensen adopteren en aangetrouwden meerekenen, weerlegt een statistische
+neiging niet; het laat zien dat de neiging niet alles bepaalt.
+
+Het ideologische argument snijdt bovendien naar twee kanten. Aantonen dat een
+theorie in een bepaalde samenleving is ontstaan, zegt niets over de vraag of
+zij juist is; die redeneerfout heeft een eigen naam. Sahlins' eigen positie,
+cultuur als in laatste instantie zelfstandig gebied, heeft evengoed een
+herkomst, in de Amerikaanse antropologie van Boas en in het structuralisme van
+Lévi-Strauss. Wie de sociobiologie op haar afkomst afrekent, moet die maatstaf
+op zichzelf toepassen.
+
+Tot slot koos Sahlins een doelwit dat toen al zwak stond. Het slothoofdstuk
+van Wilson over de mens was speculatief en dun, en veel van wat er sindsdien
+in dit veld is gebeurd, verliep juist langs een lijn die het scherpe
+onderscheid van Sahlins ondergraaft: modellen van gen-cultuurcoëvolutie,
+waarin cultuur een eigen overervingskanaal met eigen dynamiek is dat toch met
+genetische selectie samenhangt. Het boek is daardoor eerder een document uit
+een verhitte polemiek dan een houdbare weerlegging, terwijl de waarschuwing
+tegen naïeve vertaling van verwantschapstermen wel is blijven staan.
+
+#### Wat er concreet mee te doen is
+
+- Controleer bij elke uitspraak over familiegedrag of de gebruikte
+verwantschapstermen genealogisch zijn bedoeld of cultureel, want die twee
+lopen zelden gelijk.
+- Scheid de vraag waar een theorie vandaan komt van de vraag of zij klopt, en
+behandel beide apart.
+- Let bij verklaringen die naar de natuur verwijzen op economische beeldspraak
+als concurrentie, investering en opbrengst, en vraag waar die vandaan komt.
+- Neem bij de mens voortplantingssucces eerst als mogelijke uitkomst van
+sociale regelingen voordat het als oorzaak ervan wordt opgevoerd.
+
+#### Wat je hierna leest
+
+- 66. The Folly of Fools. Trivers behoort tot de grondleggers van de theorie
+die Sahlins bestrijdt en laat zien hoe die redenering van binnenuit werkt.
+- 339. Behave. Sapolsky geeft de latere stand van zaken over biologie en
+gedrag, met veel meer onderzoek en veel minder stelligheid aan beide kanten.
+- 56. Sapiens. Harari vertelt hetzelfde onderwerp, de plaats van cultuur in de
+menselijke evolutie, in het populaire register waarvoor Sahlins geen geduld
+had.
+
+## 723. Outline of a Theory of Practice
+
+Pierre Bourdieu, 1972. *Outline of a Theory of Practice* (vertaald door
+Richard Nice, Cambridge University Press, 1977, viii + 248 blz., reeks
+Cambridge Studies in Social Anthropology 16, ISBN 9780521291644).
+Oorspronkelijk verschenen als *Esquisse d'une théorie de la pratique, précédé
+de trois études d'ethnologie kabyle* (Librairie Droz, Genève, 1972). De
+Engelse uitgave is een bewerking waarin het theoretische deel is uitgebreid en
+de Kabylische studies zijn ingekort; de beschrijving van het Kabylische huis
+als omgekeerde wereld staat er als bijlage in. Geen Nederlandse vertaling van
+dit boek gevonden in de catalogus van bibliotheek.nl, die wel ander werk van
+Bourdieu in vertaling bevat, waaronder *Opstellen over smaak, habitus en het
+veldbegrip* (Van Gennep, 1989); de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `sociologie`, `habitus`, `antropologie`, `symbolische macht`
+
+Theoretisch hoofdwerk van de Franse socioloog Pierre Bourdieu (1930-2002),
+gebouwd op zijn veldwerk onder de Kabylen in Algerije. Het richt zich tegen
+twee manieren van kijken. De eerste blijft steken in de beleving van de
+betrokkenen zelf; de tweede, die van het structuralisme van Lévi-Strauss,
+maakt een model van regels en behandelt dat model daarna als de oorzaak van
+het gedrag. Bourdieu zet daar de habitus tegenover: een stelsel van
+aangeleerde neigingen, in het lichaam gaan zitten door opvoeding en
+omstandigheden, dat handelen voortbrengt zonder dat er regels worden gevolgd
+of doelen worden berekend.
+
+Het boek voert daarnaast symbolisch kapitaal, symbolisch geweld en doxa in, en
+analyseert giftenruil, huwelijksstrategieën en eer. Het is dicht geschreven,
+met lange zinnen die Bourdieu verdedigde als nodig om met het spreken van
+alledag te breken. De invloed op sociologie, antropologie en onderwijskunde is
+groot; de kritiek gaat vooral over de vraag hoeveel ruimte de habitus
+overlaat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bourdieu stelt dat sociaal handelen noch uit regels noch uit
+berekening te verklaren valt, maar uit ingesleten neigingen die mensen door
+hun opvoeding en levensomstandigheden hebben opgedaan. Die neigingen, samen de
+habitus, brengen handelingen voort die passen bij de omstandigheden zonder dat
+iemand ze bedenkt, en die tegelijk de omstandigheden bevestigen waaruit zij
+zijn ontstaan. Wetenschappelijke modellen van regels zijn daarbij het werk van
+de waarnemer, die de tijd, de aarzeling en het risico uit de praktijk heeft
+weggehaald; wie zo'n model voor de oorzaak van het gedrag houdt, verwart de
+plattegrond met de reis. Daaruit volgt zijn tweede stelling: overheersing
+werkt het duurzaamst wanneer zij de vorm aanneemt van eer, gunst en
+vanzelfsprekendheid, zodat de overheersten haar erkennen zonder haar te
+herkennen.
+
+#### De gang van het boek
+
+**De grenzen van het objectivisme**
+
+Het eerste hoofdstuk onderscheidt drie manieren om sociaal handelen te kennen.
+De eerste is die van de betrokkene zelf, die de wereld als vanzelfsprekend
+neemt en niet ziet hoe zijn vanzelfsprekendheden tot stand kwamen. De tweede
+breekt daarmee en beschrijft de onderliggende betrekkingen:
+verwantschapsstructuren, ruilsystemen, tegenstellingen tussen boven en onder.
+Die tweede stap is nodig, en Bourdieu erkent zijn schuld aan het
+structuralisme.
+
+De derde stap is die van het boek zelf. Zij neemt het model als voorwerp van
+onderzoek en vraagt wat de waarnemer eraan heeft toegevoegd door buiten de
+tijd te gaan staan. De handelende persoon weet niet hoe het afloopt, moet nu
+beslissen en kan zich vergissen; het model kent alle uitkomsten en heeft
+daarmee juist datgene weggenomen wat het handelen zijn vorm geeft.
+
+**Het geschenk en de tijd**
+
+Het scherpste voorbeeld is de giftenruil. Voor de structuralist is een gift
+plus tegengift een ruil, en de regel luidt dat elke gift wordt beantwoord.
+Bourdieu wijst op de tussenliggende tijd. Wie meteen teruggeeft, weigert; wie
+te lang wacht, beledigt. De juiste tussenpoos is precies wat een ruil in een
+geschenk verandert, en die tussenpoos komt in het model niet voor.
+
+Daarbij hoort dat de betrokkenen de ruilverhouding niet mogen benoemen.
+Iedereen weet dat er wordt teruggegeven, en niemand zegt het. De onwetendheid
+is hier praktisch en noodzakelijk: zij houdt de eer overeind. Bourdieu noemt
+dit gezamenlijke wegkijken miskenning, en het is de hoeksteen van zijn latere
+begrip symbolisch geweld.
+
+**Structuren en de habitus**
+
+Het tweede hoofdstuk voert de habitus in als het scharnier tussen
+omstandigheden en handelen. Het is een stelsel van duurzame en overdraagbare
+neigingen: gevormd door de positie waarin iemand opgroeit, meeneembaar naar
+andere gebieden, en werkzaam als voortbrenger van handelingen, oordelen en
+smaken. De habitus is gestructureerd door de omstandigheden en structureert op
+zijn beurt de waarneming ervan.
+
+Daarmee lost Bourdieu naar eigen zeggen op hoe gedrag geregeld kan zijn zonder
+gehoorzaamheid aan regels en doelgericht zonder berekening. Hij spreekt van
+geregelde improvisatie, met de vergelijking van de speler die het spel
+aanvoelt: de goede pass wordt gegeven zonder dat de hoeken worden opgemeten.
+Wat als aanleg oogt, is neergeslagen geschiedenis, en dat de eigen neigingen
+bij de eigen positie passen, blijft daarbij onopgemerkt.
+
+**Praktische logica**
+
+Het derde hoofdstuk beschrijft hoe die neigingen werken. De Kabylische wereld
+is geordend met een handvol tegenstellingen die telkens terugkeren: droog en
+nat, licht en donker, buiten en binnen, mannelijk en vrouwelijk, hoog en laag.
+Dezelfde schema's ordenen de landbouwkalender, het huis, het lichaam en de
+omgang tussen de seksen, zodat elk gebied de andere bevestigt.
+
+Die logica is niet netjes. Zij werkt met globale overeenkomsten, verdraagt
+tegenspraak en kan hetzelfde teken naar gelang de gelegenheid anders
+uitleggen. Dat is volgens Bourdieu geen gebrekkige versie van het denken van
+geleerden maar een andere werking, gericht op handelen onder tijdsdruk. De
+bijlage over het Kabylische huis laat dat in één ruimte zien: het binnenste is
+de omgekeerde wereld van het buiten, en wie er woont, leert de indeling van de
+samenleving door er dagelijks doorheen te lopen.
+
+**Doxa, orthodoxie en de strijd om het vanzelfsprekende**
+
+Het vierde hoofdstuk brengt macht in beeld. Bourdieu noemt doxa het gebied van
+wat zo vanzelf spreekt dat er niet over gesproken wordt: de orde valt samen
+met de natuurlijke gang van zaken en kent geen alternatief. Zodra er
+tegenspraak ontstaat, verschuift dat gebied. Wat eerst onbesproken was, moet
+nu worden verdedigd als orthodoxie, tegenover de heterodoxie die er anders
+over denkt, en juist door die verdediging verliest het zijn
+vanzelfsprekendheid.
+
+In samenlevingen zonder ambtenarij en zonder geschreven recht kan overheersing
+volgens Bourdieu alleen duren wanneer zij persoonlijk en erkend is. Zij neemt
+de vorm aan van gastvrijheid, gunsten, bescherming en eer, en levert
+symbolisch kapitaal op: aanzien dat als eerbetoon wordt beleefd en als schuld
+werkt. Symbolisch geweld is dan de dwang die als eerbewijs wordt aanvaard, en
+die aanvaarding is de reden dat zij standhoudt.
+
+**Het huwelijk als strategie**
+
+Bourdieu toetst dat aan de huwelijksregels. In de literatuur over noordelijk
+Afrika gold het huwelijk met de dochter van de broer van de vader als
+voorschrift. Uit zijn eigen tellingen bleek dat maar een klein deel van de
+huwelijken die vorm had, terwijl de regel wel steeds werd aangehaald zodra er
+verantwoording nodig was.
+
+Zijn conclusie is dat de regel geen oorzaak van het gedrag is maar een middel
+erin. Families kiezen een partij die past bij hun aanzien, hun grond en hun
+bondgenootschappen, en presenteren de uitkomst daarna in de taal van de
+voorgeschreven verbintenis. Officieel maken is zelf een handeling, en de
+afstand tussen de aangehaalde regel en de gevolgde praktijk is voor Bourdieu
+de plaats waar de sociologie moet beginnen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| habitus | Het stelsel van duurzame, overdraagbare neigingen dat door de levensomstandigheden is gevormd en handelingen, oordelen en smaken voortbrengt. |
+| praktijk | Handelen zoals het zich in de tijd voltrekt, met haast, onzekerheid en gedeeltelijke kennis, tegenover het model dat de waarnemer achteraf opstelt. |
+| praktische logica | De ordening die met globale tegenstellingen werkt, tegenspraak verdraagt en op handelen is gericht in plaats van op sluitendheid. |
+| geregelde improvisatie | Gedrag dat regelmatig oogt en toch niet uit regelvolging voortkomt, zoals het spel van een geoefende speler. |
+| doxa | Het gebied van wat zo vanzelf spreekt dat het niet ter sprake komt, waarin de sociale orde en de natuurlijke gang van zaken samenvallen. |
+| orthodoxie en heterodoxie | De uitgesproken verdediging van de bestaande orde en de uitgesproken betwisting ervan, die beide pas ontstaan zodra de doxa is doorbroken. |
+| symbolisch kapitaal | Aanzien, eer en erkenning die als eerbetoon worden beleefd en tegelijk als tegoed werken dat kan worden ingezet. |
+| symbolisch geweld | Overheersing die door de overheersten wordt aanvaard omdat zij de vorm van gunst, eer of vanzelfsprekendheid aanneemt. |
+| miskenning | Het gezamenlijke wegkijken van wat iedereen weet, bijvoorbeeld dat een geschenk een tegengift verlangt, waardoor de verhouding kan blijven bestaan. |
+
+#### Waar het argument op rust
+
+De grondslag is veldwerk. Bourdieu deed in de jaren vijftig en zestig
+onderzoek in Algerije, eerst tijdens zijn diensttijd in de koloniale oorlog en
+daarna als onderzoeker, en verzamelde onder de Kabylen materiaal over
+verwantschap, landbouw, huishouden, giftenruil en eer. Het overtuigendst is
+het waar hij tellingen tegenover de zelfbeschrijving zet: de veelgenoemde
+huwelijksregel blijkt slechts in een minderheid van de gevallen gevolgd, en
+dat verschil draagt een groot deel van het betoog.
+
+De reikwijdte van de gevolgtrekkingen is niettemin veel groter dan de basis.
+Uit één samenleving in een bepaalde periode, bovendien onder koloniale druk,
+wordt een algemene theorie van het handelen afgeleid die daarna op de Franse
+school, de smaak en de kunstwereld is toegepast. Bourdieu heeft die overstap
+in later werk empirisch onderbouwd, met name in het onderzoek naar
+smaakverschillen, maar in dit boek berust de sprong op de aannemelijkheid van
+de redenering. Toetsbare voorspellingen bevat het niet; de habitus wordt
+zichtbaar in het handelen dat hij moet verklaren, wat de kans op
+cirkelredenering groot maakt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de habitus zelf. Richard Jenkins betoogde in zijn
+studie over Bourdieu (1992) dat het begrip determinisme binnenlaat via de
+achterdeur: neigingen worden gevormd door de omstandigheden en brengen
+handelingen voort die diezelfde omstandigheden in stand houden, waardoor
+onduidelijk blijft waar verandering vandaan zou moeten komen. Jeffrey
+Alexander sprak in *Fin de Siècle Social Theory* (1995) van een mislukte
+synthese die in materialisme terugvalt. Bourdieu heeft dat verwijt
+herhaaldelijk afgewezen en gewezen op de speelruimte in de improvisatie, maar
+zijn eigen analyses laten die ruimte zelden zien.
+
+Daarbij komt dat het begrip moeilijk te weerleggen is. Handelt iemand zoals
+bij zijn positie past, dan is dat de habitus; wijkt hij af, dan is het een
+aanpassing aan een ander veld of een verschoven positie. Bernard Lahire voerde
+daartegen aan dat mensen door de vele omgevingen waarin zij verkeren een
+verzameling onderling strijdige neigingen meedragen in plaats van één
+samenhangend stelsel, en dat Bourdieu's model daarvoor te eenvormig is.
+
+Michel de Certeau bracht in *L'invention du quotidien* (1980) een ander
+bezwaar in: door het handelen van gewone mensen uit hun ingesleten neigingen
+te verklaren, verdwijnt hun vindingrijkheid uit beeld, de omweg, de list en
+het gebruik dat mensen maken van middelen die niet voor hen bedoeld zijn. Wat
+bij Bourdieu reproductie heet, is van dichtbij vaak eigenzinnig gebruik.
+
+Verder is er het bereik van het materiaal en de vorm van de tekst. Kabylië in
+de jaren zestig was een boerensamenleving onder koloniaal bestuur en midden in
+een oorlog, en het beeld van een grotendeels ongestoorde doxa past daar niet
+vanzelf bij. De schrijfstijl kost lezers bovendien veel: lange zinnen vol
+nevenschikkingen en zelfbedachte tegenstellingen, waarvan Bourdieu volhield
+dat zij nodig waren om het spreken van alledag te doorbreken, terwijl zij ook
+een deel van de kritiek buiten de deur houden. Wie het betoog wil zonder die
+last, kan beter naar *Le Sens pratique* (1980) grijpen, waarin hij hetzelfde
+materiaal ordelijker heeft bewerkt.
+
+#### Wat er concreet mee te doen is
+
+- Vergelijk bij het onderzoeken van een gebruik altijd de aangehaalde regel
+met de getelde praktijk; het verschil tussen beide is zelf een bevinding.
+- Let op de tijd tussen twee handelingen, bijvoorbeeld tussen dienst en
+wederdienst, want die tussenpoos draagt vaak de betekenis.
+- Vraag bij vlot gedrag van geoefende mensen niet naar de regel die zij volgen
+maar naar de omstandigheden waarin dat gedrag is aangeleerd.
+- Zoek in een organisatie naar wat zo vanzelf spreekt dat er niet over
+vergaderd wordt; wat daar verandert, verandert het meest.
+
+#### Wat je hierna leest
+
+- 55. Thinking, Fast and Slow. Kahneman beschrijft snel, ongecontroleerd
+oordelen als eigenschap van het brein; Bourdieu zoekt dezelfde vlotheid in de
+sociale herkomst van de oordelaar.
+- 274. Outliers. Gladwell vertelt in populaire vorm hoe milieu en gelegenheid
+prestatie vormen, het thema waarvan Bourdieu de theorie levert.
+- 523. I Write What I Like. Biko beschrijft van binnenuit hoe overheersing
+werkt wanneer zij in de overheerste zelf is gaan zitten, wat Bourdieu
+symbolisch geweld noemt.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -136426,17 +138523,18 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid
 nemen` 285 · `afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 ·
 `agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633, 642, 646 · `alcohol`
-4 · `algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222, 524, 631 ·
-`allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 ·
-`amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133,
-134, 136, 158 · `amerikaanse buitenlandpolitiek` 693, 694 · `amerikaanse
-droom` 284 · `amerikaanse geschiedenis` 621, 691 · `Amerikaanse geschiedenis`
-402 · `amerikaanse revolutie` 243 · `Amsterdam` 295 · `anarchisme` 616, 620,
-621, 624, 625, 626 · `anarchokapitalisme` 627, 629 · `anatomie` 241, 412 ·
-`Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
-214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 ·
-`Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie`
-223, 410, 602, 714 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 ·
+4 · `algoritmen` 476, 477, 479 · `alledaags` 89 · `alledaagse werkelijkheid`
+721 · `allegorie` 222, 524, 631 · `allocatie` 507 · `amazon` 257 · `ambacht`
+6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 600 · `Amerika` 114, 431 ·
+`amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse
+buitenlandpolitiek` 693, 694 · `amerikaanse droom` 284 · `amerikaanse
+geschiedenis` 621, 691 · `Amerikaanse geschiedenis` 402 · `amerikaanse
+revolutie` 243 · `Amsterdam` 295 · `anarchisme` 616, 620, 621, 624, 625, 626 ·
+`anarchokapitalisme` 627, 629 · `anatomie` 241, 412 · `Andalusië` 8 · `Andes`
+521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341, 401, 440,
+548 · `angst voor de dood` 377 · `animatie` 41 · `Antarctica` 36 ·
+`anthologie` 189 · `antieke filosofie` 586 · `antropologie` 223, 410, 602,
+703, 714, 722, 723 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 ·
 `apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archeologie`
 600, 712 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
 `Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63 ·
@@ -136444,31 +138542,32 @@ droom` 284 · `amerikaanse geschiedenis` 621, 691 · `Amerikaanse geschiedenis`
 `Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632 · `asymmetrie` 282
 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 · `Australië` 447 ·
 `autobiografie` 358, 440 · `automatisering` 297, 539 · `autonomie` 6, 50 ·
-`autoriteit` 215 · `autotelie` 200 · `backtesten` 482, 502 · `banken en
-verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
+`autoriteit` 215 · `autotelie` 200 · `ayahuasca` 704 · `backtesten` 482, 502 ·
+`banken en verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
 `bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350
 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264
 · `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 ·
 `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
 `belangenverstrengeling` 138, 697 · `beleggen` 21, 64, 144, 233, 277, 351,
 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492,
-496, 498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem`
-418 · `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
-`beschadigd-bestand` 115, 130 · `beschaving` 57, 593 · `beslissen` 55 ·
-`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
-170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
-468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
-`betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
-353 · `beweging` 77, 84 · `bewijs` 63, 658, 660 · `bewustwording` 103 ·
-`bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585, 652, 663, 710, 711,
-713 · `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209
-· `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 ·
-`biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328,
-402, 454, 514, 537, 558, 649, 658, 659, 689 · `biohacking` 316 · `biologie`
-66, 88, 89, 90, 91, 322, 663 · `biologie van gedrag` 273 · `biologische klok`
-326, 329, 552 · `biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86
-· `bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401,
-528 · `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
+496, 498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `belichaamde
+cognitie` 700 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
+· `beroemdheid` 563 · `beschadigd-bestand` 115, 130 · `beschaving` 57, 593 ·
+`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
+`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
+423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
+143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487
+· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63, 658, 660 ·
+`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580,
+585, 652, 663, 704, 710, 711, 713 · `bewustzijnsniveaus` 449 · `bezit` 37 ·
+`bhagavad gita` 569 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 ·
+`bijna-doodervaring` 585 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247,
+266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649, 658, 659, 689 ·
+`biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322, 663 · `biologie van
+gedrag` 273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413 ·
+`blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `bloemlezing` 703 ·
+`blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401, 528, 700 ·
+`bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
 `brieven` 292, 517 · `broers` 10 · `bronnenkritiek` 691 · `bronnenuitgave` 641
 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 · `burgerlijk verzet`
 617 · `burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
@@ -136481,91 +138580,93 @@ verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
 `chronobiologie` 326, 329 · `cia` 693, 695 · `cijfers` 39, 65 ·
 `civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitie` 656 ·
 `cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
-· `cognitieve neurowetenschap` 713 · `cognitieve vertekening` 234 ·
-`cognitieve wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn`
-435 · `collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 713 ·
-`comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156,
-162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555
-· `communisme` 625 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten
-geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688, 690 ·
-`complottheorie` 680 · `concentratie` 70, 441 · `concurrentie` 293 ·
-`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
-`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
-`consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 ·
-`consumptiemaatschappij` 564 · `content` 308 · `content creatie` 365 ·
-`content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15,
-16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475, 550 · `cricket` 174 ·
-`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274, 714 · `cultuurfilosofie` 580 ·
-`cultuurkritiek` 54, 405, 592, 672 · `cursus` 108, 130, 201 ·
-`cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539, 540, 541 ·
-`cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224, 286, 579 ·
-`dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagboekonderzoek` 472 ·
-`dagelijkse gewoontes` 205 · `dagelijkse praktijk` 442 · `dankbaarheid` 129,
-433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten` 166 · `de ander` 574 ·
-`debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 · `degrowth` 298 ·
-`dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
-`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 698 · `denken` 310,
-509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
-`denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
-thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
-· `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
-`dictatuur` 221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 ·
-`dieptepsychologie` 646 · `dieren` 555 · `dierenzintuigen` 322 · `dierkunde`
-710 · `dierlijke-cognitie` 383 · `dierproeven` 330 · `differentiatie` 165 ·
-`digitaal` 81 · `diplomatie` 243 · `direct response` 350 · `DISC` 156, 429 ·
-`discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481, 482, 487,
-488, 545 · `discours` 628 · `disruptie` 293 · `DNA` 419 · `docenten` 116 ·
-`doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
-`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
-`donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
-`doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
-418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360, 646 · `drugs` 568 ·
-`dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61, 618 ·
-`e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298 ·
-`economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478, 625, 627, 683 ·
-`economische geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205, 379 ·
-`eenzaamheid` 7, 96, 98, 111, 288, 302 · `eer` 530, 534 · `eerlijk` 47 ·
-`eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149, 435 · `ego en
-zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
-`eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
-`eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 ·
-`elektrische auto's` 266 · `elites` 682 · `emancipatie` 598 · `EMDR` 386 ·
-`emigratie` 240 · `emotie-eten` 557 · `emoties` 3, 43, 137, 142, 147, 153,
-177, 330, 331, 449, 457, 470, 488, 542 · `empathie` 35, 67, 303, 577 ·
-`energetisch werk` 560 · `energie` 92, 195, 291, 377 · `energiewerk` 432 ·
-`entropie` 539 · `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 ·
-`erfelijkheid` 419 · `erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164
-· `esoterie` 378, 590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642,
-643, 644, 645, 647, 670, 678, 679 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96,
-197, 232 · `essaybundel` 390, 425, 620 · `essays` 523, 656 · `eten` 103 ·
-`ethiek` 282, 299, 413, 574, 612, 665 · `etnografie` 714 · `eurazië` 694 ·
+· `cognitieve neurowetenschap` 713 · `cognitieve psychologie` 704 ·
+`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
+59 · `cognitiewetenschap` 700 · `collectief bewustzijn` 435 · `collectief
+onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 713 · `comfortzone` 187 ·
+`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
+193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625
+· `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
+`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690 · `complottheorie` 680
+· `concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61, 519 ·
+`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
+`conflicthantering` 271 · `conformisme` 211 · `consistentie` 553 ·
+`consumptie` 463 · `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 ·
+`content` 308 · `content creatie` 365 · `content marketing` 369 · `corruptie`
+221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445,
+471, 472, 475, 550 · `cricket` 174 · `crisis` 47 · `CRISPR` 413 · `cultuur`
+68, 274, 714 · `cultuurfilosofie` 580 · `cultuurkritiek` 54, 405, 592, 672,
+722 · `cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 ·
+`cybernetica` 411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus de Grote` 536 ·
+`dagboek` 2, 109, 224, 286, 579 · `dagboekaantekeningen` 226 ·
+`dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
+`dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
+`dataïsme` 236 · `daten` 166 · `de ander` 574 · `debat` 28 · `debuutboek` 226
+· `deeltjesfysica` 648 · `degrowth` 298 · `dekoloniaal denken` 521 ·
+`delegeren` 434 · `deliberate practice` 376 · `dementie` 84, 85, 225 ·
+`democratie` 98, 562, 619, 628, 698 · `denken` 310, 509, 664 · `denkfouten`
+55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 · `denkmodellen` 426 ·
+`depressie` 403 · `derivaten` 494, 495 · `design thinking` 150 ·
+`destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104 · `dialoog`
+335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 · `dictatuur` 221 ·
+`dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieptepsychologie` 646 ·
+`dieren` 555 · `dierenzintuigen` 322 · `dierkunde` 710 · `dierlijke-cognitie`
+383 · `dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `diplomatie`
+243 · `direct response` 350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30,
+106, 133, 137, 146, 445, 462, 480, 481, 482, 487, 488, 545 · `discours` 628 ·
+`disruptie` 293 · `DNA` 419 · `docenten` 116 · `doelen` 58, 136, 158, 542 ·
+`doelen stellen` 367, 427, 448 · `doelgericht-oefenen` 50 · `doelgroep` 446 ·
+`doelstellingen` 256 · `donkere-triade` 124 · `dood` 98, 169, 292, 535 ·
+`doodsangst` 405 · `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324
+· `dopamine` 314, 418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360,
+646 · `drugs` 568 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 ·
+`dystopie` 61, 618 · `e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing`
+309 · `ecologie` 298 · `economie` 65, 98, 217, 251, 297, 347, 423, 450, 452,
+478, 625, 627, 683 · `economische geschiedenis` 155 · `educatief` 327 ·
+`eenvoud` 170, 205, 379 · `eenzaamheid` 7, 96, 98, 111, 288, 302 · `eer` 530,
+534 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102,
+149, 435 · `ego en zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595,
+596, 597, 599, 602 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
+`eigen-oordeel` 58, 546 · `eigenaarschap` 97 · `eindigheid` 442 · `einstein`
+94 · `elektriciteit` 267 · `elektrische auto's` 266 · `elites` 682 ·
+`emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten` 557 ·
+`emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542 ·
+`empathie` 35, 67, 303, 577 · `enactivisme` 700 · `energetisch werk` 560 ·
+`energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
+`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
+`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
+590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642, 643, 644, 645,
+647, 670, 678, 679 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 ·
+`essaybundel` 390, 425, 620 · `essays` 523, 656 · `esthetica` 701 · `eten` 103
+· `ethiek` 282, 299, 413, 574, 612, 665 · `etnografie` 714 · `eurazië` 694 ·
 `europa` 696 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318,
 322, 323, 332, 339, 347, 383, 518, 609, 710, 712 · `evolutiebiologie` 452, 453
 · `evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
-`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
-280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extra
-dimensies` 648 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
-`facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
-`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
-`fantasy` 192, 203 · `farmaceutische industrie` 697 · `fascisme` 698 · `FBI`
-154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541,
-542 · `feiten` 43 · `feminisme` 3, 620, 624 · `fenomenologie` 574, 577, 582 ·
-`fictie` 100, 115 · `film` 41 · `filologie` 641 · `filosofie` 1, 6, 71, 93,
-199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
-436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654 · `filosofie van de
-biologie` 710 · `filosofiegeschiedenis` 269, 639 · `filosofische antropologie`
-584 · `financiële geletterdheid` 163 · `financiële markten` 268, 351, 480,
-481, 483, 499, 501 · `financiële onafhankelijkheid` 264 · `financiele
-vrijheid` 277 · `financiële wiskunde` 497, 507 · `financiële-discipline` 464 ·
-`financiën` 334, 395, 425 · `financiering` 172 · `fitnessbranche` 307, 544 ·
-`flitshandel` 499 · `flow` 78, 187, 200 · `focus` 175, 197, 448, 513 ·
-`folklore` 615, 669 · `fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509
-· `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515
-· `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 ·
-`Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 ·
-`gebed` 83, 259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
-`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425
-· `gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
+`existentialisme` 405 · `existentiefilosofie` 702 · `expeditie` 36 ·
+`experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
+`expertise` 283, 320, 376 · `extra dimensies` 648 · `extraversie` 361 ·
+`fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312,
+422 · `familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis`
+114, 235 · `familieroman` 10 · `fantasy` 192, 203 · `farmaceutische industrie`
+697 · `fascisme` 698 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme`
+619 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 ·
+`fenomenologie` 574, 577, 582, 700, 702, 704, 721 · `fictie` 100, 115 · `film`
+41 · `filologie` 641 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255,
+263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594,
+597, 604, 610, 652, 654 · `filosofie van de biologie` 710 ·
+`filosofiegeschiedenis` 269, 639 · `filosofische antropologie` 584 ·
+`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
+499, 501 · `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 ·
+`financiële wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën`
+334, 395, 425 · `financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel`
+499 · `flow` 78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669 ·
+`fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 ·
+`frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 ·
+`fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
+`gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83,
+259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal`
+176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 ·
+`gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
 `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
 · `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
 `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 · `geest`
@@ -136602,14 +138703,14 @@ drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 ·
 261 · `Griekse oudheid` 530, 531 · `groei` 222 · `groeiaandelen` 474 ·
 `groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
 `grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal` 56 · `grootouders`
-91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen` 30, 476, 477, 478,
-479, 501 · `handelspsychologie` 488, 489 · `handelssysteem` 489, 491 ·
-`handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart` 86, 128 ·
-`Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags
-India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom` 532 ·
-`heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst`
-127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632, 633, 638, 639,
-642, 647 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
+91 · `habitus` 723 · `handboek` 493, 495 · `handel` 80, 251 · `handelen` 30,
+476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
+489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart`
+86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
+`hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
+532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
+`herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632,
+633, 638, 639, 642, 647 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
 `hersenonderzoek` 330, 333, 713 · `hersenspoeling` 384, 668 · `herstel` 87,
 552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527,
 569 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge`
@@ -136652,98 +138753,99 @@ filosofie` 576 · `jaren negentig` 348 · `jaren zestig` 695 · `jaren-tachtig`
 490, 496, 504, 505 · `kapitalisme` 298, 682 · `karakter` 97, 537 · `Karel de
 Grote` 534 · `karma` 184 · `karmel` 573 · `Kasjmir` 180 · `katholicisme` 672 ·
 `keegan` 110 · `Kelly-criterium` 504 · `keltische traditie` 611 · `kennedy`
-690 · `kennedy-moord` 691 · `kennis` 81, 508 · `kennisleer` 525, 587 ·
-`kennistheorie` 654 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
-`kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek`
-167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
-`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
-`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
-`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
-144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626, 699 ·
-`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
-`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
-psychologie` 460 · `klokkenluider` 697 · `klokkenmakerij` 321 · `kolonialisme`
-298, 592 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11,
-13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten` 111 ·
-`korte-vorm` 473 · `kosmologie` 239, 262, 281, 645, 647, 648, 651, 655 ·
-`koude oorlog` 217, 220, 384, 454, 456, 680, 689, 692, 693 ·
-`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
-346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
-· `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
-`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400 ·
-`kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
-498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
-· `kwantummechanica` 362, 655, 711 · `kwantumzwaartekracht` 281 ·
-`kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 ·
-`landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
-`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
-`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
-344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551 · `leidinggeven`
-156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 · `lesmateriaal` 116 ·
-`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
-`levenskunst` 27, 199, 216, 227, 586 · `levenslessen` 285, 447 · `levensloop`
-91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing`
-436 · `lezingen` 169 · `libertarisme` 546, 623, 627, 629 · `lichaam` 80 ·
-`lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 ·
-`lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman`
-180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 · `list` 531 ·
-`literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 ·
-`Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547 ·
-`loslaten` 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `lsd` 695 ·
-`luchtvaart` 422 · `luisteren` 24, 35, 305, 444 · `maatschappijkritiek` 674 ·
-`machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
-617, 622, 683, 684, 685, 698 · `machtspolitiek` 220 · `machtstheorie` 221 ·
-`machtsverhoudingen` 155 · `magie` 613, 632, 634, 637, 638, 639, 641 ·
-`magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
-472 · `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129, 130,
-131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124, 125, 126, 212,
-213, 381, 384, 429, 672, 673, 675, 686 · `mannelijkheid` 3, 406, 407, 408 ·
-`mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
-`manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183,
-279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477, 478 ·
-`marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565,
-566, 666, 673, 674, 686 · `medische ethiek` 416 · `meditatie` 111, 141, 149,
-169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590, 630, 638
-· `meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392
-· `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178,
-185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505,
-671, 697 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126,
-356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
-weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
-`mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
-`metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81, 714 ·
-`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
-`middeleeuwen` 534, 632 · `midlife` 324 · `militaire geschiedenis` 568 ·
-`militaire strategie` 220 · `millennials` 159 · `minderheden` 68 ·
-`minderheidsstandpunt` 711 · `mindful` 103 · `mindfulness` 141, 147, 149, 177,
-333, 401 · `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad`
-254 · `misleiding` 219, 272, 677 · `mislukking` 516 · `missie` 567 ·
-`mitochondriën` 313 · `modellen` 300 · `modelleren` 139 · `modellering` 455 ·
-`moed` 44, 529 · `moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 ·
-`monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Monty-Python` 16 ·
-`moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 · `moraalkritiek` 391 ·
-`moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139, 146, 183, 200, 207,
-315, 427, 468, 469, 472 · `Motley Fool` 474 · `motoren` 6 · `motorfietsen` 325
-· `muziek` 17, 85, 712 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604,
-606, 610, 630, 636, 640, 666, 699 · `mythe` 608 · `mythevorming` 615 ·
-`mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611 · `mythologische
-fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 ·
-`napoleontische oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 ·
-`naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504, 640, 661, 662 ·
-`nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde` 62, 94, 240, 262,
-281, 300, 326, 648, 650, 651, 653, 655, 657 · `navigatie` 321 · `navy seals`
-229, 364 · `nazisme` 223 · `neanderthaler` 712 · `necrofilie` 223 ·
-`nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107,
-108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 ·
-`negatieve emoties` 176 · `negentiende eeuw` 696 · `negentig dagen` 188 ·
-`neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508
-· `neurobiologie` 119 · `neurochirurgie` 49, 414 · `neurologie` 325 ·
-`neuroplasticiteit` 175, 208, 414 · `neurose` 575 · `neurowetenschap` 52, 208,
-238, 275, 314, 326, 330, 331, 333, 339, 340, 386, 418, 513, 585 ·
-`neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age` 149, 435,
-449, 549, 670, 678, 679 · `new thought` 259, 380, 555 · `NeXT` 46 ·
-`Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
+690 · `kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 ·
+`kennisleer` 525, 587 · `kennissociologie` 721 · `kennistheorie` 654 ·
+`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 · `keuzes`
+51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
+`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
+`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
+`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
+`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
+520, 537, 616, 617, 618, 619, 620, 626, 699, 702 · `klein-beginnen` 40 ·
+`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
+`klokkenluider` 697 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea`
+111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57,
+445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
+`kosmologie` 239, 262, 281, 645, 647, 648, 651, 655 · `koude oorlog` 217, 220,
+384, 454, 456, 680, 689, 692, 693 · `krijgsgevangenschap` 31 · `krijgskunde`
+212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek
+geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 ·
+`kunst` 11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 ·
+`kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237, 297, 652 ·
+`kwaad` 404 · `kwaliteit` 1, 400 · `kwantificering` 392 · `kwantitatief
+handelen` 506 · `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485,
+503 · `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362, 655, 711 ·
+`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
+`landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
+manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
+106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218,
+222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551
+· `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
+`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
+`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586 ·
+`levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
+`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
+`libertarisme` 546, 623, 627, 629 · `lichaam` 80, 702 · `lichaamsgericht
+werken` 386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432
+· `licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle`
+278 · `lijden` 48, 73, 160, 310, 390 · `list` 531 · `literair` 110 ·
+`literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 ·
+`longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449
+· `losmaken` 45 · `lotsbestemming` 261 · `lsd` 695 · `luchtvaart` 422 ·
+`luisteren` 24, 35, 305, 444 · `maatschappijkritiek` 674 · `machinaal leren`
+484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440, 617, 622, 683, 684,
+685, 698 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen`
+155 · `magie` 613, 632, 634, 637, 638, 639, 641 · `magisch realisme` 261 ·
+`management` 42, 47, 170, 183, 256, 350, 353, 364, 472 · `managementtheorie`
+547 · `manifest` 629 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433,
+543, 560 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429, 672,
+673, 675, 686 · `mannelijkheid` 3, 406, 407, 408 · `mannen` 7 ·
+`mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 · `manuscript` 359 ·
+`maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308,
+309, 350, 443, 446 · `marktmicrostructuur` 477, 478 · `marxisme` 564 ·
+`McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565, 566, 666, 673, 674,
+686 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208, 228,
+230, 237, 242, 333, 377, 401, 431, 527, 528, 590, 630, 638 · `meesterschap`
+296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392 · `memento mori`
+286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229,
+242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505, 671, 697 · `mens en
+dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 · `mentale
+gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
+372, 373, 374, 545 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320,
+402 · `merken` 279 · `metabolisme` 313 · `metafysica` 102, 518, 584, 587 ·
+`meten` 69, 133 · `methode` 81, 714 · `microbedrijf` 40, 172 · `microbioom`
+417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534, 632 · `midden-oosten` 720
+· `midlife` 324 · `militaire geschiedenis` 568 · `militaire strategie` 220 ·
+`millennials` 159 · `minderheden` 68 · `minderheidsstandpunt` 711 · `mindful`
+103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188,
+387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272, 677 ·
+`mislukking` 516 · `missie` 567 · `mitochondriën` 313 · `modellen` 300 ·
+`modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 ·
+`momentum` 481 · `monniksleven` 230 · `monomythe` 410 · `monopolie` 306 ·
+`monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 ·
+`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 ·
+`motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
+Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85, 712 ·
+`muziekfilosofie` 701 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606,
+610, 630, 636, 640, 666, 699 · `mythe` 608 · `mythe en ritueel` 701 ·
+`mythevorming` 615 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611 ·
+`mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
+`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
+`naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
+640, 661, 662 · `nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde`
+62, 94, 240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657 · `navigatie`
+321 · `navy seals` 229, 364 · `nazisme` 223 · `neanderthaler` 712 ·
+`necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
+104, 105, 106, 107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 ·
+`nederlandstalig` 113 · `negatieve emoties` 176 · `negentiende eeuw` 696 ·
+`negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken`
+24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
+`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
+`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
+418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
+age` 149, 435, 449, 549, 670, 678, 679 · `new thought` 259, 380, 555 · `NeXT`
+46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
 `nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 · `nlp` 123, 125, 139 ·
 `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
 `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
@@ -136774,14 +138876,14 @@ fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 �
 `opoffering` 554 · `opties` 494, 495, 506 · `optimisme` 251 · `optogenetica`
 331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `opwekking` 558 ·
 `orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388,
-422, 468 · `organisatiecultuur` 183, 273, 353 · `orthodontie` 332 · `Orwell`
-54 · `Otto Rank` 405 · `oud china` 272 · `Oude Rome` 328 · `Oudengels` 532 ·
-`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416 · `oudheid` 2,
-247, 292, 536, 537, 588, 589, 641 · `outsourcen` 278 · `overdenken` 148 ·
-`overfitting` 484, 485, 502, 503 · `overgave` 431 · `overleven` 31, 36 ·
-`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367, 438 ·
-`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469, 487 · `overvloed`
-17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
+422, 468 · `organisatiecultuur` 183, 273, 353 · `oriëntalisme` 720 ·
+`orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude
+Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95,
+191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589, 641 · `outsourcen`
+278 · `overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
+`overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
+356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
+487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
 `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
 `parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362, 669, 677 ·
 `parapsychologie` 637 · `parawetenschap` 663 · `passie` 50, 198 · `pastoraat`
@@ -136801,111 +138903,113 @@ fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 �
 filosofie` 194 · `populaire psychologie` 156, 429 · `portefeuille` 474 ·
 `portefeuillebeheer` 507 · `portefeuilletheorie` 503 · `portretten` 75, 94 ·
 `positief denken` 83, 179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506
-· `positieve-psychologie` 207 · `positionering` 443 · `postmarxisme` 628 ·
-`postmodernisme` 565 · `postuum` 49 · `pr` 686 · `Praag` 173 · `praktijk` 459
-· `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82,
-253 · `prestatie` 168, 291, 372, 397, 488, 545 · `prestatiebeoordeling` 256 ·
-`prestatiecultuur` 461 · `prestatieonderzoek` 376 · `prestige` 515 ·
-`preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60,
-65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393, 687
-· `proactief` 25 · `producer` 17 · `product` 446 · `productiviteit` 151, 175,
-197, 207, 244, 276, 278, 290, 311, 400, 434, 442, 448, 512, 552 ·
-`productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 ·
-`programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
-384, 562, 566, 686 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
-126 · `pseudoniem` 378 · `pseudowetenschap` 673 · `psychedelica` 275 ·
-`psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317, 331, 671 ·
-`psychoanalyse` 223, 360, 361, 405, 409, 575, 610 · `psychologie` 23, 28, 29,
-55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250,
-254, 258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457,
-463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582, 665 · `psychologische
-flexibiliteit` 460 · `psychologische functies` 361 · `psychopathie` 429 ·
-`psychose` 671 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
-`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
-`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94, 650, 653 ·
-`queeste` 522 · `quilten` 114 · `quotes` 179 · `racisme` 601, 602 · `radicale
-transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
-`rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `rechtvaardigheid`
-623 · `reclame` 206, 279, 443, 446, 563, 673 · `reeks` 114, 192 ·
-`regimeverandering` 220 · `reïncarnatie` 202, 645 · `reïnventie` 344 ·
-`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
-162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
-165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572, 596, 599, 626 ·
-`religieus naturalisme` 609 · `religieuze beweging` 670 · `religieuze
-symboliek` 409 · `REM` 52 · `remarkable` 446 · `renaissance` 639, 643 ·
-`Renaissance` 15, 241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 ·
-`retorica` 253, 438 · `revisie` 18 · `revolutie` 625 · `ridderepos` 534 ·
-`rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351, 423, 425, 480, 481,
-482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494,
-497, 498, 504, 506 · `ritueel` 404, 590, 608 · `rituelen` 304 · `rivier als
-symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman`
-61, 113, 114, 115, 254, 554 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95,
-467 · `rouwverwerking` 204 · `rozenkruisers` 631, 645 · `ruimte en tijd` 281 ·
-`ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 ·
-`sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98, 319 ·
-`samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517, 535 ·
-`Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155 · `satori` 528 ·
-`scepsis` 63, 585, 675 · `schaalgroei` 434 · `schaalvergroting` 350 ·
-`schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 ·
-`scheiding` 556 · `scheikunde` 92 · `schizofrenie` 671 · `school` 53, 84 ·
-`schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 ·
-`schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145,
-164, 165, 316, 672 · `sekten` 675 · `selectoraattheorie` 221 · `semantiek` 664
-· `seminar` 139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565
-· `sirtuïnen` 415 · `situationisme` 564 · `slaap` 52, 87, 88, 171, 181, 316,
+· `positieve-psychologie` 207 · `positionering` 443 · `postkoloniale studies`
+720 · `postmarxisme` 628 · `postmodernisme` 565 · `postuum` 49 · `pr` 686 ·
+`Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159, 172 ·
+`prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397,
+488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
+`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
+`prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
+25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393, 687 · `proactief` 25 ·
+`producer` 17 · `product` 446 · `productiviteit` 151, 175, 197, 207, 244, 276,
+278, 290, 311, 400, 434, 442, 448, 512, 552 · `productontwerp` 231, 294 ·
+`productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
+`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384, 562, 566, 686 ·
+`propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
+· `pseudowetenschap` 673 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96,
+104, 213, 314, 315, 317, 331, 671 · `psychoanalyse` 223, 360, 361, 405, 409,
+575, 610 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152,
+154, 162, 200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375,
+381, 382, 384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514, 538,
+541, 542, 582, 665 · `psychologische flexibiliteit` 460 · `psychologische
+functies` 361 · `psychopathie` 429 · `psychose` 671 · `psychotherapie` 164,
+227, 386, 406 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
+`publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 ·
+`quantum` 94, 650, 653 · `queeste` 522 · `quilten` 114 · `quotes` 179 ·
+`racisme` 601, 602 · `radicale transparantie` 270 · `RAND` 454, 456 ·
+`Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 ·
+`rechtspraak` 69 · `rechtvaardigheid` 623 · `reclame` 206, 279, 443, 446, 563,
+673 · `reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie` 202, 645 ·
+`reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101,
+120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466
+· `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572,
+596, 599, 626 · `religieus naturalisme` 609 · `religieuze beweging` 670 ·
+`religieuze symboliek` 409 · `religiewetenschap` 703 · `REM` 52 · `remarkable`
+446 · `renaissance` 639, 643 · `Renaissance` 15, 241 · `rente` 38 ·
+`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
+`revolutie` 625 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
+268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer`
+479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404, 590,
+608 · `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
+`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 ·
+`romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 ·
+`rozenkruisers` 631, 645 · `ruimte en tijd` 281 · `ruimtevaart` 266 ·
+`russische literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga`
+533 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
+`samenwerking` 453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa
+Fe Institute` 347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585, 675 ·
+`schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 ·
+`schaarste` 92, 249 · `schaduw` 404 · `scheiding` 556 · `scheikunde` 92 ·
+`schizofrenie` 671 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81,
+436, 511 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121,
+159, 464 · `seksualiteit` 100, 145, 164, 165, 316, 672 · `sekten` 675 ·
+`selectoraattheorie` 221 · `semantiek` 664 · `seminar` 139, 543 · `Shaolin`
+389 · `Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 ·
+`situationisme` 564 · `sjamanisme` 703 · `slaap` 52, 87, 88, 171, 181, 316,
 329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
 besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
 psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `socialisme`
-618 · `sociologie` 300, 622 · `soefisme` 524, 526 · `software` 276, 484 ·
-`somberheid` 119 · `spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta`
-529 · `specialisatie` 349 · `speedreading` 175 · `spel` 550 · `spelen` 32 ·
-`spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456, 656
-· `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
-`spieropbouw` 316 · `spijt` 447 · `spiritisme` 677 · `spiritualiteit` 8, 14,
-27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
-431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679, 699 ·
-`spirituele zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372,
-374, 441 · `sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
-`staartrisico` 494, 496 · `staat` 612 · `staatsgezag` 616 · `staatsgreep` 220
-· `staatskritiek` 621, 622, 623 · `staatsvorming` 622 · `stalking` 214 ·
-`standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 · `startups`
-265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485,
-497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 · `status` 39,
-66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295, 416, 516 ·
-`sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns`
-75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 ·
-`stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30,
-194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279 ·
-`strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
+618 · `sociobiologie` 722 · `sociologie` 300, 622, 721, 723 · `soefisme` 524,
+526 · `software` 276, 484 · `somberheid` 119 · `spanning` 101 · `sparen` 21,
+38, 159, 233, 464 · `Sparta` 529 · `specialisatie` 349 · `speedreading` 175 ·
+`spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
+452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
+`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritisme` 677 ·
+`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
+199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
+604, 614, 679, 699 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
+`sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
+`spreker` 117, 134 · `staartrisico` 494, 496 · `staat` 612 · `staatsgezag` 616
+· `staatsgreep` 220 · `staatskritiek` 621, 622, 623 · `staatsvorming` 622 ·
+`stalking` 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups`
+306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479,
+483, 484, 485, 497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 ·
+`status` 39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
+416, 516 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
+`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
+· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
+30, 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279
+· `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
 426, 440, 443, 450, 451, 456, 694 · `streken` 112 · `stress` 80, 87, 106, 118,
 187, 387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
 `structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
 420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
 `surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
-610, 633, 635, 636 · `symmetrie` 659 · `synchroniciteit` 362 ·
-`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 ·
-`systematisch handelen` 482, 502 · `taal` 26, 27, 436, 594, 664 · `taal en
-macht` 344 · `taaloorsprong` 712 · `tactische empathie` 271 · `talent` 23, 29,
-274 · `taoïsme` 341, 394 · `tarieven` 121 · `tarot` 644 · `teams` 42, 273,
-364, 468 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61,
-92 · `techniekgeschiedenis` 666 · `technische analyse` 483, 500 ·
-`technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
-`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539, 674 ·
-`tegen-productiviteit` 71 · `tegencultuur` 695 · `tegenslag` 30, 111, 174, 570
-· `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54, 674 · `temperament` 33
-· `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid`
-463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644
-· `theologie` 578, 587 · `theosofie` 605, 606, 645 · `therapie` 51, 107, 118,
-119, 120, 121, 122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 ·
-`thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292,
-334, 442, 655 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement`
-311, 448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274,
-362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie`
-374 · `topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495
-· `training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119,
-195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202,
-203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker`
-419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
+610, 633, 635, 636 · `symbolische macht` 723 · `symbooltheorie` 701 ·
+`symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22,
+142 · `systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27,
+436, 594, 664 · `taal en macht` 344 · `taalfilosofie` 701 · `taaloorsprong`
+712 · `tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341, 394 ·
+`tarieven` 121 · `tarot` 644 · `teams` 42, 273, 364, 468 · `teamvorming` 260 ·
+`teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 · `techniekgeschiedenis` 666
+· `technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393, 499 ·
+`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
+`technologiekritiek` 297, 539, 674 · `tegen-productiviteit` 71 ·
+`tegencultuur` 695 · `tegenslag` 30, 111, 174, 570 · `tekenen` 15 ·
+`tekstkwaliteit` 124 · `televisie` 54, 674 · `temperament` 33 · `tempo` 552 ·
+`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
+385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644 · `theologie`
+578, 587 · `theosofie` 605, 606, 645 · `therapie` 51, 107, 118, 119, 120, 121,
+122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 ·
+`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655 ·
+`tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311, 448 ·
+`tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 ·
+`Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 ·
+`topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495 ·
+`training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195,
+229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203,
+248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
+`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
 `tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682 ·
 `typologie` 361 · `ufo` 669, 678 · `ufo's` 615, 675, 676 ·
 `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
@@ -136917,25 +139021,26 @@ macht` 344 · `taaloorsprong` 712 · `tactische empathie` 271 · `talent` 23, 29
 320, 346, 376, 553 · `variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst`
 389 · `vedanta` 518 · `vedische filosofie` 230 · `veedrift` 5 · `veerkracht`
 106, 153, 174, 177, 189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43,
-214 · `veiligheidsmarge` 144 · `veldwerk` 521 · `verandering` 170, 252, 375,
-467 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 ·
-`verbinding` 302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667,
-687, 688, 689, 690, 698 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
-`vergaderingen` 276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie`
-410, 635 · `vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 ·
-`verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56,
-101, 110, 136, 196, 470 · `verhalenbundel` 206 · `verhouding` 113 ·
-`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
-185, 186, 188, 246, 280, 307, 308, 350, 367, 427 · `verkooptrechters` 309 ·
-`verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418 · `verleiding` 381 ·
-`verlichting` 243, 287 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463
-· `vermogen opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163,
-264, 277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde`
-225 · `verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314,
-324, 325, 418, 554, 568, 583 · `vertrouwen` 42, 273, 279, 319 · `vervloekt
-goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
-`verwachtingen` 425 · `verwachtingswaarde` 492 · `verwondering` 227 ·
-`verzekeren` 496 · `verzet` 523 · `vier deugden` 194 · `visioenen` 359 ·
+214 · `veiligheidsmarge` 144 · `veldonderzoek` 704 · `veldwerk` 521 ·
+`verandering` 170, 252, 375, 467 · `verantwoordelijkheid` 42, 72, 73, 74, 93,
+184, 282, 335, 364 · `verbinding` 302, 550 · `verdriet` 111, 227 · `verenigde
+staten` 598, 667, 687, 688, 689, 690, 698 · `Verenigde-Staten` 464 ·
+`vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
+`vergelijkende mythologie` 410, 635 · `vergelijkende religie` 604 ·
+`vergeving` 31, 102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur` 410 ·
+`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470 · `verhalenbundel`
+206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen`
+68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308, 350, 367, 427 ·
+`verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164,
+418 · `verleiding` 381 · `verlichting` 243, 287 · `verlies` 95, 373 ·
+`vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
+`vermogensbeheer` 498 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171,
+387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225 · `verplichting` 9 ·
+`verraad` 534 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554, 568,
+583 · `vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74,
+131 · `vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
+`verwachtingswaarde` 492 · `verwantschap` 722 · `verwondering` 227 ·
+`verzekeren` 496 · `verzet` 523 · `vier deugden` 194 · `visioenen` 359, 703 ·
 `visualisatie` 259, 411, 540 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
 `voeding` 86, 88, 171, 313, 316, 329, 332, 417 · `voedingswetenschap` 417 ·
 `volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
@@ -136949,51 +139054,51 @@ markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339, 711 · `vrijheid
 61, 546, 620, 621, 626 · `vrijmetselarij` 605, 635, 636 · `vroeg christendom`
 614 · `vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
 `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
-`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582 ·
-`wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 · `weerbaarheid`
-194 · `weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
-`wereldbeeld` 234 · `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78, 151,
-252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur` 551 ·
-`werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 ·
-`West-Afrika` 522 · `West-Point` 29 · `westen` 67 · `western` 5 · `westerse
-filosofie` 269, 341 · `wet van aantrekking` 127, 190, 433, 543 · `wetenschap`
-63, 66, 93, 94, 328, 485 · `wetenschap en religie` 609 · `wetenschappers` 239
-· `wetenschapsfilosofie` 483, 650, 653, 654, 664, 711 ·
-`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
-651, 654, 657, 658, 659, 660, 661, 662, 663 · `wetenschapsjournalistiek` 387,
-412 · `wijn` 112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 ·
-`wiskunde` 116, 454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661,
-662 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli`
-362 · `wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 ·
-`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
-`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
-· `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335,
-561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367,
-372, 411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286,
-314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
-`zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 ·
-`zelfexperiment` 316, 318, 417 · `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34,
-58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
-153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184,
-187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213,
-222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398,
-401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513, 540, 543,
-546, 548, 556, 557, 561, 569, 570 · `zelfkennis` 258, 260, 361, 519, 526 ·
-`zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek` 315, 470, 520,
-527, 579 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
-`zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfreferentie` 656 ·
-`zelfregulatie` 153, 165, 177, 541, 542 · `zelfsabotage` 161, 344 · `zelfspot`
-19 · `zelfspraak` 439 · `zelfstandig` 40, 515 · `zelfstandig denken` 211 ·
-`zelfstandig ondernemen` 198 · `zelfstandig starten` 210 · `zelfsturing` 142,
-168 · `zelfuitgegeven` 123, 124, 125, 126 · `zelfverbetering` 243 ·
-`zelfvertrouwen` 157, 187, 312, 365, 440, 441 · `zelfwaarde` 168 ·
-`zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen` 141, 346, 441, 517,
-528, 576 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 · `zestiende eeuw` 573
-· `zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91,
-160, 183, 200, 201, 237, 245, 255, 515, 547 · `zintuigen` 582 · `zitten` 84 ·
-`zorg` 96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 · `zuivere ervaring`
-576 · `zwaar` 143 · `zwaardvechten` 346, 517 · `zwart bewustzijn` 523 ·
-`zwarte gaten` 99, 262, 651
+`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582,
+702 · `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 ·
+`weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart` 251, 334 ·
+`welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 ·
+`wereldorde` 681 · `werk` 70, 78, 151, 252, 466 · `werk en rust` 512 ·
+`werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 · `werkplek` 33,
+43 · `werktempo` 400 · `werkwijze` 16 · `West-Afrika` 522 · `West-Point` 29 ·
+`westen` 67 · `western` 5 · `westerse filosofie` 269, 341 · `wet van
+aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328, 485 ·
+`wetenschap en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie`
+483, 650, 653, 654, 664, 711 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
+413, 419, 633, 642, 647, 649, 651, 654, 657, 658, 659, 660, 661, 662, 663 ·
+`wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid` 596 ·
+`wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509, 649,
+656, 657, 658, 659, 660, 661, 662 · `wisselstroom` 267 · `woede` 119, 120 ·
+`woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok`
+530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 ·
+`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
+182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 ·
+`zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
+540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
+229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
+`zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
+136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166,
+168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196,
+199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310,
+334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432,
+435, 439, 449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570 ·
+`zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403,
+549 · `zelfonderzoek` 315, 470, 520, 527, 579 · `zelfontplooiing` 393 ·
+`zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
+`zelfpublicatie` 174 · `zelfreferentie` 656 · `zelfregulatie` 153, 165, 177,
+541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
+`zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
+198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
+123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312,
+365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
+466 · `zen` 141, 346, 441, 517, 528, 576 · `zenboeddhisme` 205, 379 ·
+`zenuwstelsel` 87 · `zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74,
+180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515,
+547 · `zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
+`zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346,
+517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262, 651
 
 ## Leesroutes
 

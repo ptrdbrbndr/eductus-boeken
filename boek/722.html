@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Use and Abuse of Biology &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sahlins stelt dat de sociobiologie de menselijke samenleving niet kan verklaren omdat zij het verkeerde niveau aanspreekt. Tussen genen en gedrag ligt bij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-722">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">722 &middot; Geschiedenis en samenleving</p>
+    <h1>The Use and Abuse of Biology</h1>
+    <p class="lede">Marshall Sahlins, 1976</p>
+    <p class="stats">
+      <span><b>1704</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="722"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sahlins stelt dat de sociobiologie de menselijke samenleving niet kan verklaren omdat zij het verkeerde niveau aanspreekt. Tussen genen en gedrag ligt bij de mens de cultuur, een stelsel van betekenissen dat zijn eigen ordening kent en dat bepaalt wie als verwant geldt, wat als voordeel telt en welk gedrag lof of straf oplevert. Verwantschap is daarom een culturele indeling en geen afspiegeling van genetische afstand, en voortplantingssucces is bij de mens een uitkomst van culturele regelingen in plaats van de verklaring ervan. Daarbij komt een tweede stelling: de sociobiologie ontleent haar beeld van de natuur aan de westerse markteconomie, met een lijn van Hobbes via Malthus naar Spencer, en levert daarmee eerder een natuurlijke rechtvaardiging van de eigen samenleving dan een verklaring van alle andere.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek op antwoordt</h3>
+      <p>In 1975 verscheen <i>Sociobiology: The New Synthesis</i> van de entomoloog E.O. Wilson, een omvangrijk overzicht van het sociale gedrag van dieren dat in het slothoofdstuk de mens erbij betrok en de sociale wetenschappen aankondigde als toekomstige takken van de biologie. Het theoretische gereedschap kwam van William Hamilton, die in 1964 met de inclusieve fitness liet zien hoe hulp aan verwanten via gedeelde genen kan lonen, en van Robert Trivers, die het wederkerige altruïsme uitwerkte.</p>
+      <p>De reactie kwam snel en hard, onder meer van de Sociobiology Study Group in Boston met Richard Lewontin en Stephen Jay Gould. Sahlins, op dat moment een van de bekendste antropologen van de Verenigde Staten en auteur van <i>Stone Age Economics</i>, schreef binnen een jaar dit boekje. Het is bedoeld als vakinhoudelijk weerwoord: hij neemt de theorie serieus genoeg om haar op haar sterkste punt aan te vallen, de verwantschapsselectie.</p>
+      <h3>Twee soorten sociobiologie</h3>
+      <p>Sahlins begint met een onderscheid dat het debat destijds vertroebelde. Er is een populaire variant, met schrijvers als Konrad Lorenz, Robert Ardrey en Desmond Morris, waarin instincten als agressie en territoriumdrang dwars door de cultuur heen zouden breken. Die variant, zegt Sahlins, is intellectueel niet interessant en wordt door de vakbiologen zelf verworpen.</p>
+      <p>Daarnaast staat de wetenschappelijke variant van Wilson en Hamilton, waarin niets door de cultuur heen breekt maar de cultuur zelf als uitkomst van genetische belangen wordt voorgesteld. Die verdient een argument, en dat argument moet volgens Sahlins bij de verwantschap beginnen, omdat de aanspraak van de sociobiologie op de menselijke wetenschappen daar staat of valt.</p>
+      <h3>Verwantschap is een indeling, geen breuk</h3>
+      <p>Het antropologische materiaal van anderhalve eeuw laat zien dat verwantschapsstelsels overal anders lopen. Sommige samenlevingen noemen alle mannen van de generatie van de vader met hetzelfde woord, andere scheiden de broer van de vader scherp van de broer van de moeder. Adoptie is wijdverbreid en geldt in veel samenlevingen als volwaardig, aangetrouwden tellen mee als naaste verwanten, en solidariteit strekt zich uit tot mensen met wie geen enkele afstamming te leggen valt.</p>
+      <p>Sahlins trekt daaruit de gevolgtrekking dat wie in menselijke samenlevingen kijkt naar wie voor wie opkomt, geen ordening naar genetische afstand aantreft maar een ordening naar culturele categorie. Als de theorie voorspelt dat hulp meebeweegt met de graad van verwantschap, dan is de menselijke etnografie een aanhoudend tegenvoorbeeld. Hij voegt daaraan het argument toe dat de meeste talen de breuken en verhoudingen missen waarmee zo'n graad überhaupt uitgedrukt zou kunnen worden.</p>
+      <h3>Cultuur als het menselijke aanpassingsvermogen</h3>
+      <p>Tegenover het sociobiologische schema zet Sahlins de stelling dat cultuur bij de mens de plaats inneemt van het instinct. Cultuur werkt met tekens waarvan het verband met de zaak willekeurig is, en die willekeur maakt dat een samenleving betekenissen kan vasthouden die met overleven of voortplanting niets te maken hebben en er zelfs tegenin gaan: celibaat, vasten, oorlog om eer, verspilling bij begrafenissen.</p>
+      <p>Daaruit volgt de omkering van de causale richting. Wie in een samenleving veel nakomelingen krijgt, dankt dat aan de plaats die hij in die samenleving inneemt, en die plaats wordt door culturele regels bepaald. Voortplantingssucces is dan een gevolg van de sociale ordening en niet de verborgen reden ervan.</p>
+      <h3>Waar de theorie zelf vandaan komt</h3>
+      <p>Het tweede deel van het boek verschuift van de vraag of de sociobiologie klopt naar de vraag waar zij vandaan komt. Sahlins schetst een lijn van Hobbes, via de politieke economie van Adam Smith en de bevolkingsleer van Malthus, naar Darwin en Spencer. Malthus leverde Darwin het beeld van schaarste en concurrentie; dat beeld was ontleend aan de Engelse samenleving van die tijd.</p>
+      <p>De natuur die daaruit tevoorschijn komt, lijkt op een markt: eigenbelang, concurrentie om schaarse middelen, boekhouding van kosten en baten. Wanneer de biologie dat beeld vervolgens op de menselijke samenleving toepast, keert de eigen maatschappijopvatting terug in de gedaante van een natuurwet. Sahlins noemt dat een kringloop waarin de westerse samenleving zichzelf in de natuur herkent en die herkenning daarna als bewijs opvoert.</p>
+      <h3>Wat er van het boek overbleef</h3>
+      <p>Sahlins bleef deze lijn zijn leven lang volgen, van <i>Culture and Practical Reason</i> uit hetzelfde jaar tot <i>The Western Illusion of Human Nature</i> uit 2008, waarin hij het beeld van de mens als eigenbelang zoekend wezen als een westerse bijzonderheid behandelt. Het debat zelf liep anders af dan hij voorzag: de biologische benadering van menselijk gedrag verdween niet maar splitste zich in gedragsecologie, evolutionaire psychologie en modellen van gen-cultuurcoëvolutie.</p>
+      <p>Wat overeind bleef, is de waarschuwing tegen het vertalen van culturele verwantschapstermen in genealogische afstanden zonder etnografische controle, en tegen het lezen van marktgedrag in de natuur. Wat sneuvelde, is het argument over het rekenen. Het boek wordt daardoor zowel geciteerd als voorbeeld van gegronde vakkritiek als van een misverstand over hoe selectie werkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">sociobiologie</td><td>De studie van de biologische grondslagen van sociaal gedrag, door Wilson in 1975 tot samenhangend programma gemaakt en uitgebreid naar de mens.</td></tr>
+          <tr><td class="term">verwantschapsselectie</td><td>De gedachte dat hulp aan bloedverwanten loont omdat verwanten een deel van dezelfde genen dragen.</td></tr>
+          <tr><td class="term">inclusieve fitness</td><td>Het voortplantingssucces van een individu plus het effect dat het heeft op het succes van verwanten, gewogen naar hun verwantschapsgraad.</td></tr>
+          <tr><td class="term">verwantschapsgraad</td><td>De maat die aangeeft welk deel van de genen twee verwanten door afstamming gemeen hebben, in de theorie aangeduid met r.</td></tr>
+          <tr><td class="term">vulgaire sociobiologie</td><td>Sahlins' aanduiding voor de populaire variant waarin instincten dwars door de cultuur heen zouden breken, zoals bij Lorenz, Ardrey en Morris.</td></tr>
+          <tr><td class="term">classificatorische verwantschap</td><td>Verwantschapstermen die hele groepen samennemen, bijvoorbeeld door alle mannen van de vadergeneratie vader te noemen.</td></tr>
+          <tr><td class="term">culturele rede</td><td>Sahlins' term voor de eigen ordening van betekenissen die bepaalt wat in een samenleving als voordeel, verwantschap of eer geldt.</td></tr>
+          <tr><td class="term">willekeur van het teken</td><td>Het uitgangspunt uit de taalwetenschap dat het verband tussen teken en zaak niet uit de natuur volgt, door Sahlins toegepast op cultuur als geheel.</td></tr>
+          <tr><td class="term">antropomorfe projectie</td><td>Het toeschrijven van menselijke, in dit geval economische, verhoudingen aan de natuur, waarna die natuur als voorbeeld voor de mens wordt aangevoerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijsmateriaal is de vergelijkende etnografie: verwantschapsterminologieën, adoptiepraktijken, huwelijksregels en vormen van onderlinge hulp uit uiteenlopende samenlevingen, zoals die in de antropologie sinds Morgan zijn verzameld. Dat materiaal is echt en de variatie erin is groot, wat de kern van Sahlins' punt draagt: menselijke verwantschapscategorieën vallen niet samen met genealogische afstand. Nieuw veldwerk voert het boek niet aan, en de gevallen worden in enkele zinnen afgedaan, zonder tellingen die laten zien hoe vaak hulp buiten de bloedverwantschap valt.</p>
+      <p>Voor het tweede argument, de herkomst van de theorie, is het bewijs van een andere soort: een ideeëngeschiedenis met Hobbes, Malthus, Darwin en Spencer als stations. Die lijn is in de wetenschapsgeschiedenis goed gedocumenteerd, met name de invloed van Malthus op Darwin. Wat de lijn niet kan aantonen is dat de theorie daarom onjuist is, en dat verschil houdt Sahlins niet steeds scherp.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar richt zich op het rekenargument. Richard Dawkins ging er in <i>The Extended Phenotype</i> (1982) op in en wees erop dat verwantschapsselectie van geen enkel dier verlangt dat het breuken uitrekent. Een slak berekent haar schelpspiraal evenmin. Selectie werkt op uitkomsten van gedrag, ongeacht of het dier of de mens weet waarom het gedrag loont. De stelling dat de meeste talen geen breuken kennen, is daarmee waar en niet ter zake, en dit is precies de passage waaraan het boek zijn reputatie in biologische kring dankt.</p>
+      <p>Ook het etnografische hoofdargument is minder beslissend gebleken dan het leek. Onderzoek in de menselijke gedragsecologie vond in uiteenlopende samenlevingen dat hulp, erfenis en zorg statistisch meebewegen met de graad van verwantschap, ook waar de plaatselijke verwantschapstaal iets anders zegt. Dat mensen adopteren en aangetrouwden meerekenen, weerlegt een statistische neiging niet; het laat zien dat de neiging niet alles bepaalt.</p>
+      <p>Het ideologische argument snijdt bovendien naar twee kanten. Aantonen dat een theorie in een bepaalde samenleving is ontstaan, zegt niets over de vraag of zij juist is; die redeneerfout heeft een eigen naam. Sahlins' eigen positie, cultuur als in laatste instantie zelfstandig gebied, heeft evengoed een herkomst, in de Amerikaanse antropologie van Boas en in het structuralisme van Lévi-Strauss. Wie de sociobiologie op haar afkomst afrekent, moet die maatstaf op zichzelf toepassen.</p>
+      <p>Tot slot koos Sahlins een doelwit dat toen al zwak stond. Het slothoofdstuk van Wilson over de mens was speculatief en dun, en veel van wat er sindsdien in dit veld is gebeurd, verliep juist langs een lijn die het scherpe onderscheid van Sahlins ondergraaft: modellen van gen-cultuurcoëvolutie, waarin cultuur een eigen overervingskanaal met eigen dynamiek is dat toch met genetische selectie samenhangt. Het boek is daardoor eerder een document uit een verhitte polemiek dan een houdbare weerlegging, terwijl de waarschuwing tegen naïeve vertaling van verwantschapstermen wel is blijven staan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Controleer bij elke uitspraak over familiegedrag of de gebruikte verwantschapstermen genealogisch zijn bedoeld of cultureel, want die twee lopen zelden gelijk.</li>
+        <li>Scheid de vraag waar een theorie vandaan komt van de vraag of zij klopt, en behandel beide apart.</li>
+        <li>Let bij verklaringen die naar de natuur verwijzen op economische beeldspraak als concurrentie, investering en opbrengst, en vraag waar die vandaan komt.</li>
+        <li>Neem bij de mens voortplantingssucces eerst als mogelijke uitkomst van sociale regelingen voordat het als oorzaak ervan wordt opgevoerd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Use and Abuse of Biology: An Anthropological Critique of Sociobiology</i> (University of Michigan Press, Ann Arbor, 1976, 120 blz., ISBN 9780472087778; latere paperback ISBN 9780472766000, 136 blz.). Een Britse uitgave verscheen in de reeks Social Science Paperbacks, ISBN 9780422762700. Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, die van Sahlins alleen Engelstalig werk bevat; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kort en fel weerwoord van de Amerikaanse antropoloog Marshall Sahlins (1930-2021) op <i>Sociobiology: The New Synthesis</i> van E.O. Wilson uit 1975, en in het bijzonder op het slothoofdstuk daarvan over de mens. Sahlins voert twee argumenten. Het eerste is antropologisch: menselijke verwantschapsstelsels volgen nergens de graden van genetische verwantschap, want mensen adopteren, rekenen aangetrouwden mee en delen met wie genealogisch ver af staat. Het tweede is ideologiekritisch: de sociobiologie projecteert de concurrentie van de markteconomie op de natuur en leest haar daar vervolgens uit terug als natuurwet.</p><p>Het boek van 120 bladzijden hoort bij de eerste golf kritiek op Wilson, naast die van de Sociobiology Study Group rond Lewontin en Gould. Het is scherp geschreven en het is op één punt beslissend weerlegd: het argument dat mensen de verwantschapsbreuken niet kunnen uitrekenen, treft de theorie niet, omdat selectie geen rekenwerk vereist.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sociobiologie</li><li>antropologie</li><li>verwantschap</li><li>cultuurkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="66"><a href="66.html">The Folly of Fools</a>. Trivers behoort tot de grondleggers van de theorie die Sahlins bestrijdt en laat zien hoe die redenering van binnenuit werkt.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky geeft de latere stand van zaken over biologie en gedrag, met veel meer onderzoek en veel minder stelligheid aan beide kanten.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari vertelt hetzelfde onderwerp, de plaats van cultuur in de menselijke evolutie, in het populaire register waarvoor Sahlins geen geduld had.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

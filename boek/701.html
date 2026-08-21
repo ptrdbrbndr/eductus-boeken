@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Philosophy in a New Key &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Langer stelt dat de behoefte om te symboliseren een grondtrek van de mens is, even oorspronkelijk als de behoefte aan voedsel, en dat de filosofie daarom…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-701">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">701 &middot; Filosofie en mystiek</p>
+    <h1>Philosophy in a New Key</h1>
+    <p class="lede">Susanne Langer, 1942</p>
+    <p class="stats">
+      <span><b>1626</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="701"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Langer stelt dat de behoefte om te symboliseren een grondtrek van de mens is, even oorspronkelijk als de behoefte aan voedsel, en dat de filosofie daarom van vraagstelling moet veranderen. Betekenis valt volgens haar niet samen met beweren. Naast de discursieve symboliek van taal en logica, die betekenis stap voor stap opbouwt en zich laat vertalen, bestaat er presentatieve symboliek, die haar betekenis in één samenhangend geheel toont en zich niet in woorden laat overzetten. Ritueel, mythe, beeldende kunst en vooral muziek zijn daar vormen van. Wat zich niet laat zeggen is daarmee nog niet onuitsprekelijk, en dat is haar antwoord op de slotzin van Wittgensteins <i>Tractatus</i>.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De nieuwe toonsoort</h3>
+      <p>De titel komt uit een muzikale vergelijking. Een vakgebied verandert volgens Langer niet doordat er antwoorden bijkomen, maar doordat een nieuwe grondgedachte de vragen zelf verzet, zoals een stuk in een andere toonsoort anders klinkt met dezelfde noten. De oude toonsoort was volgens haar de kennisleer met haar vragen over zintuiglijke gegevens en feiten. De nieuwe is de symboliek: de vraag hoe mensen betekenis maken, in taal en daarbuiten.</p>
+      <p>Haar leermeesters staan er zichtbaar in. Het boek is opgedragen aan Alfred North Whitehead, bij wie zij in Harvard studeerde. Van Ernst Cassirer neemt zij het idee van symbolische vormen over, van Wittgensteins <i>Tractatus</i> de gedachte dat een symbool zijn onderwerp weergeeft doordat het er dezelfde vorm mee deelt, en van haar logicaleraar Henry Sheffer de strengheid van de formele analyse. Langer was zelf gepromoveerd logicus en had een leerboek symbolische logica geschreven.</p>
+      <h3>Symbolische omvorming als basisbehoefte</h3>
+      <p>Het scharnier van het betoog is het onderscheid tussen teken en symbool. Een teken kondigt iets aan en zet tot handelen aan: de bel betekent voedsel. Een symbool staat voor iets zonder dat het ding aanwezig hoeft te zijn, en maakt denken over afwezige zaken mogelijk. Dieren gebruiken tekens; het geven van namen is volgens Langer de menselijke stap, en de dierproeven van haar tijd waarin men mensapen taal probeerde bij te brengen dienen haar als ondersteuning.</p>
+      <p>Daaruit volgt haar antropologische claim. De overvloed aan beelden, verhalen en handelingen die geen praktisch nut hebben, is geen luxe die overblijft nadat de honger gestild is. Het brein zet indrukken voortdurend om in symbolen, ook zonder opdracht, en droom en ritueel zijn daar even goede voorbeelden van als wetenschap.</p>
+      <h3>Discursief en presentatief</h3>
+      <p>Het hoofdstuk dat als kern van het boek geldt, onderscheidt twee soorten symboliek. Discursieve vormen hebben een woordenschat, een volgorde en een grammatica; hun betekenis wordt opgebouwd en laat zich in andere woorden weergeven. Presentatieve vormen bieden hun betekenis als geheel aan: een schilderij heeft geen woordenboek, en de delen ervan hebben geen betekenis los van het geheel.</p>
+      <p>De winst van dat onderscheid zit in wat het over de taal zegt. Taal is volgens Langer een sterk maar beperkt instrument: zij is gebouwd voor het benoemen van dingen en verhoudingen, en het gevoelsleven verloopt te vloeiend om in die vorm te passen. Wie besluit dat gevoel daarom buiten het bereik van kennis valt, verwart de grens van één symboolsoort met de grens van de betekenis.</p>
+      <h3>Ritueel en mythe</h3>
+      <p>Twee hoofdstukken over levenssymbolen behandelen sacrament en mythe. Langer bestrijdt de gedachte dat een regendans een mislukte poging tot weerbeheersing is, gedaan door mensen die de oorzaken niet kenden. Het ritueel voltrekt volgens haar een houding: het geeft vorm aan de verhouding tot iets wat de deelnemers niet in de hand hebben, en het verloop van de handeling is de betekenis ervan.</p>
+      <p>Mythe krijgt dezelfde behandeling. Zij leest mythen als vroege manieren om de ervaring te ordenen, waaruit later zowel religie als kunst is voortgekomen, en zij volgt de overgang van sprookje naar godenverhaal naar wijsgerige gedachte. De vergelijkende gegevens die zij gebruikt komen uit de antropologie van de jaren twintig en dertig, wat het zwakste onderdeel van het boek is geworden.</p>
+      <h3>Muziek als onvoltooid symbool</h3>
+      <p>Het hoofdstuk over muziek is het meest gelezen deel. Langer verwerpt zowel de opvatting dat muziek het gevoel van de componist uitdrukt of dat van de luisteraar opwekt, als de zuiver formalistische opvatting dat een muziekstuk alleen over zijn eigen structuur gaat. Haar voorstel luidt dat de bewegingsvorm van muziek, met spanning en ontspanning, aanloop en oplossing, versnelling en stilstand, gelijkvormig is aan de vorm van het gevoelsleven. Muziek toont hoe voelen verloopt.</p>
+      <p>Omdat die gelijkvormigheid geen vaste verwijzing oplevert, noemt zij muziek een onvoltooid symbool: het heeft de vorm van betekenis zonder een vastgelegde inhoud, en daarom kan hetzelfde stuk verschillende luisteraars iets anders tonen zonder dat een van hen zich vergist. Uit die gedachte groeide haar latere kunsttheorie in <i>Feeling and Form</i> uit 1953.</p>
+      <h3>Het weefsel van betekenis</h3>
+      <p>Het slothoofdstuk zet de opdracht uit die zij de filosofie meegeeft: het onderzoek naar betekenis in al haar functies, van benoemen en beweren tot tonen en oproepen. Filosofie is voor Langer niet het vergaren van feiten maar het uitzoeken wat de gehanteerde begrippen inhouden.</p>
+      <p>Zij heeft dat programma zelf uitgevoerd. <i>Feeling and Form</i> werkte de kunsttheorie uit en het driedelige <i>Mind: An Essay on Human Feeling</i>, verschenen tussen 1967 en 1982, probeerde het gevoelsbegrip biologisch te funderen. Dat late werk vond veel minder lezers dan het boek uit 1942.</p>
+      <h3>Bereik en vergetelheid</h3>
+      <p>Het boek werd in goedkope pocketuitgave een van de best verkochte filosofische titels van naoorlogs Amerika en bereikte lezers in de musicologie, de kunsteducatie, de religiewetenschap en de antropologie. In de vakfilosofie ging het anders. Na 1960 richtte de analytische traditie zich op verwijzing, waarheid en taalanalyse, en daarin was voor niet-talige symboliek weinig plaats.</p>
+      <p>Nelson Goodman, die met haar in aanraking was geweest, leverde in <i>Languages of Art</i> uit 1968 een uitgewerkte theorie van symboolsystemen die haar aanpak in de vakdiscussie verving. Sinds ongeveer 2010 keert Langer terug in de handboeken, gedragen door belangstelling voor belichaamde cognitie en voor de geschiedenis van de vroege analytische filosofie in Amerika.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">symbolische omvorming</td><td>Het voortdurende omzetten van indrukken in symbolen, dat Langer als grondfunctie van het menselijk brein beschouwt.</td></tr>
+          <tr><td class="term">teken</td><td>Iets wat de aanwezigheid van iets anders aankondigt en tot handelen aanzet, zoals een geluid dat voedsel aankondigt.</td></tr>
+          <tr><td class="term">symbool</td><td>Een drager van betekenis die het denken over iets afwezigs mogelijk maakt en geen reactie voorschrijft.</td></tr>
+          <tr><td class="term">discursieve vorm</td><td>Symboliek met woordenschat en volgorde, zoals taal en logica, waarvan de betekenis stap voor stap wordt opgebouwd.</td></tr>
+          <tr><td class="term">presentatieve vorm</td><td>Symboliek die haar betekenis als ondeelbaar geheel toont, zoals een beeld, een ritueel of een muziekstuk.</td></tr>
+          <tr><td class="term">onvoltooid symbool</td><td>Haar aanduiding voor muziek: een vorm die betekenis draagt zonder vastgelegde inhoud.</td></tr>
+          <tr><td class="term">significante vorm</td><td>Van de kunstkritiek geleende term voor de vorm die het gevoelsleven weergeeft zonder het te benoemen.</td></tr>
+          <tr><td class="term">levenssymbool</td><td>Beeld of handeling waarin een gemeenschap haar verhouding tot geboorte, dood en lot vormgeeft, wortel van sacrament en mythe.</td></tr>
+          <tr><td class="term">de nieuwe toonsoort</td><td>Haar naam voor de omslag waarin symboliek de leidende vraag van de menswetenschappen werd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Langer voert geen onderzoek uit; zij analyseert begrippen en toetst die aan voorbeelden. Haar bouwstenen zijn de logica van haar tijd, Cassirers <i>Philosophie der symbolischen Formen</i>, Whiteheads opvatting van waarneming, en de vergelijkende gegevens over ritueel en mythe die in de jaren dertig voorhanden waren. De sterkte van het boek zit in de zorgvuldigheid waarmee zij het onderscheid tussen teken en symbool doorvoert en in de nauwkeurige beschrijving van wat muziek doet; die beschrijving is nog steeds bruikbaar, ook voor wie haar verklaring afwijst.</p>
+      <p>De zwakke schakel is de gelijkvormigheid tussen muzikale vorm en gevoelsvorm. Langer geeft daarvoor geen toetsbare maat: nergens staat wat zou moeten worden vastgesteld om te weten of de vorm van een passage werkelijk overeenkomt met de vorm van een gevoel. Ook de antropologische onderbouwing is niet meer houdbaar; zij steunt op vergelijkend werk uit de studeerkamer, geschreven vóór het veldwerk dat de veronderstelde eenvormigheid van vroege denkvormen heeft ondergraven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale claim over muziek is nooit precies gemaakt en daardoor moeilijk te weerleggen. Latere esthetici in de analytische traditie, onder wie Peter Kivy, hielden vol dat de bewering over gelijkvormigheid tussen klank en gevoel bij nader inzien leeg blijft: zij verklaart niets wat een nauwkeurige beschrijving van de muziek zelf niet ook verklaart. Nelson Goodman verving de hele aanpak door een theorie waarin precies wordt vastgelegd hoe verschillende symboolsystemen werken.</p>
+      <p>Een tweede bezwaar betreft de fundering. Langer bouwt op de opvatting uit Wittgensteins <i>Tractatus</i> dat een symbool weergeeft doordat het vorm deelt met het weergegevene. Wittgenstein liet die opvatting zelf varen, en toen zij in de vakdiscussie wegviel verloor Langers onderscheid de logische steun waarop het rustte. Wat overbleef was een beschrijvende indeling, waardevol als ordening en zwak als verklaring.</p>
+      <p>Ten derde is haar materiaal over mythe en ritueel gedateerd, en spreekt zij over vroege culturen in bewoordingen die de antropologie heeft verlaten. Wie het boek nu leest, moet die hoofdstukken lezen als tijdsbeeld. Bij de huidige herwaardering past ten slotte terughoudendheid: Langer wordt geregeld ingelijfd bij belichaamde cognitie en affecttheorie, terwijl haar eigen kader neokantiaans is en van andere veronderstellingen uitgaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het onderscheid discursief en presentatief bij het beoordelen van een uiting: wordt hier iets beweerd, of wordt iets getoond dat zich niet in beweringen laat overzetten.</li>
+        <li>Lees hoofdstuk acht over muziek los van de rest; dat is het deel dat het langst is blijven staan en dat in het Nederlands beschikbaar is.</li>
+        <li>Behandel de hoofdstukken over mythe en ritueel als geschiedenis van het vak en zoek er hedendaags antropologisch werk bij.</li>
+        <li>Toets de stelling aan een eigen voorbeeld: schrijf op wat een muziekstuk laat horen en let op waar de woorden tekortschieten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Philosophy in a New Key: A Study in the Symbolism of Reason, Rite, and Art</i> (Harvard University Press, Cambridge MA, 1942, xiv + 313 blz.; goedkope pocketeditie bij Mentor/New American Library vanaf 1948; derde druk 1957, ISBN 9780674665033). Van het volledige boek bestaat geen Nederlandse vertaling; wel zijn twee hoofdstukken eruit opgenomen in <i>Over de betekenis van muziek</i>, samen met vier hoofdstukken uit <i>Feeling and Form</i>, vertaald door Thomas Crombez en bezorgd door Henk van Bakel (Letterwerk, Borgerhout, 2023, 198 blz., ISBN 9789464598315). De samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Susanne Langer schreef tijdens de oorlogsjaren een boek over de vraag wat betekenis is, en gaf daarmee een generatie musicologen, kunsthistorici en antropologen een woordenschat. Haar stelling luidt dat de mens een symboolmakend dier is en dat symboliseren een eerste behoefte is, niet een verfijning die na het overleven komt. Naast de taal, die stap voor stap betekenis opbouwt, staat een tweede soort symboliek die haar betekenis in één keer toont: beeld, ritueel, mythe en vooral muziek.</p><p>Het boek werd in pocket een verkoopsucces en bleef decennia in gebruik buiten de filosofie, terwijl de vakfilosofie het na 1960 links liet liggen. Sinds enkele jaren staat Langer weer in de handboeken, met een eigen lemma in de Stanford Encyclopedia en een Nederlandstalige bloemlezing uit 2023. Wie het leest, treft heldere analyse aan en een antropologisch fundament dat door later veldwerk is achterhaald.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>symbooltheorie</li><li>esthetica</li><li>muziekfilosofie</li><li>mythe en ritueel</li><li>taalfilosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Jung en zijn medewerkers behandelen dezelfde stof, symbool, droom en mythe, vanuit de dieptepsychologie in plaats van de logica.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell zoekt in mythen naar één patroon; Langer levert het begrippenkader waarmee zo'n zoektocht te beoordelen valt.</li>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman betoogt dat het overheersende medium bepaalt welke betekenis een cultuur kan uitdrukken, een latere toepassing van hetzelfde uitgangspunt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
