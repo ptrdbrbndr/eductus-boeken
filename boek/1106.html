@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shobogenzo &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dogen ontkent het onderscheid tussen oefenen en verwerkelijken. Zitten in zazen is bij hem geen middel waarmee ontwaken later bereikt wordt, maar de vorm…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1106">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1106 &middot; Filosofie en mystiek</p>
+    <h1>Shobogenzo</h1>
+    <p class="lede">Dogen Kigen, 1231&ndash;1253</p>
+    <p class="stats">
+      <span><b>1890</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1106"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dogen ontkent het onderscheid tussen oefenen en verwerkelijken. Zitten in zazen is bij hem geen middel waarmee ontwaken later bereikt wordt, maar de vorm waarin ontwaken zich al voltrekt; wie zit om iets binnen te halen heeft het daarmee al gemist. Uit die stelling volgt zijn hele manier van lezen. Klassieke uitspraken die spreken over een weg naar een doel worden bij hem herlezen tot ze over het heden gaan, desnoods tegen de gebruikelijke zinsbouw in, en juist die herlezingen vormen de moeilijkste en de bekendste bladzijden van het werk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Dogen en de vraag waar hij mee begon</h3>
+      <p>Dogen werd in 1200 in een aristocratisch milieu geboren en verloor jong zijn ouders. Hij ging in de leer op de berg Hiei, in de Tendai-school, en liep daar volgens de overlevering vast op een vraag die zijn hele werk stuurt: als alle wezens al boeddha-natuur bezitten, waarom hebben de boeddha's dan geoefend en waarom zou iemand nu nog oefenen.</p>
+      <p>In 1223 reisde hij met Myozen naar China. Bij Tiantong Rujing (1163&ndash;1228), erfgenaam van de Caodong-lijn, vond hij een antwoord dat hij samenvat in de uitdrukking het afvallen van lichaam en geest. In 1227 keerde hij terug, stichtte Kosho-ji bij de hoofdstad en vestigde zich later in de provincie Echizen, waar het klooster vanaf 1246 Eiheiji heet. Hij stierf in 1253. De stukken van de <i>Shobogenzo</i> zijn grotendeels toespraken tot zijn monniken, opgeschreven en later herzien.</p>
+      <h3>Welke Shobogenzo</h3>
+      <p>Er is geen enkelvoudig boek met die titel. Dogen ordende zelf een verzameling van zestig delen en een van vijfenzeventig. Daarnaast is er een verzameling van twaalf delen, waarvan het bestaan pas in 1936 met een handschrift uit Yokoji zeker werd, en een van achtentwintig delen uit het midden van de veertiende eeuw die wel de geheime Shobogenzo wordt genoemd. De vijfennegentigdelige Honzan-editie gaat terug op de samenstelling van Hangyo Kozen aan het eind van de zeventiende eeuw, werd in 1815 gedrukt en in 1906 herzien. Die editie, met de delen op volgorde van ontstaan, volgen de meeste moderne vertalingen.</p>
+      <p>Twee andere werken dragen een verwante titel en worden er geregeld mee verward. De Shinji of Mana Shobogenzo is een verzameling van driehonderd oude gevallen uit de Chinese zentraditie, in het Chinees en zonder commentaar. De <i>Shobogenzo zuimonki</i> is een bundel opgetekende gesprekken die zijn opvolger Ejo bijhield, en is een heel ander boek.</p>
+      <h3>Genjokoan</h3>
+      <p>Genjokoan dateert uit 1233 en werd volgens de overlevering als brief aan een leek geschreven. Dogen zette het later voorin de vijfenzeventigdelige verzameling, en het geldt sindsdien als de ingang tot de rest.</p>
+      <p>De bekendste passage luidt dat de boeddhaweg bestuderen het zelf bestuderen is, dat het zelf bestuderen het zelf vergeten is, en dat het zelf vergeten betekent dat men door de tienduizend dingen bevestigd wordt. Even bepalend is het beeld van het brandhout: brandhout wordt geen as, want brandhout staat in zijn eigen stand en as in de zijne, en zo wordt een mens na de dood ook geen leven weer. Verder de boot waarvan de oever lijkt te bewegen, en de vis die het water nooit uitzwemt en de vogel die de lucht nooit uitvliegt.</p>
+      <p>Wat die beelden gemeen hebben is de afwijzing van tijd als doorgaande lijn waarin iets van de ene toestand in de andere overgaat. Elk moment staat op zijn eigen plaats, en de verwerkelijking bevindt zich in het geval dat zich nu voordoet.</p>
+      <h3>Uji</h3>
+      <p>Uji schreef Dogen in 1240 in Kosho-ji. Hij neemt daarin de alledaagse wending aru toki, ooit of op zeker moment, en leest de twee tekens ervan afzonderlijk als u, zijn, en ji, tijd. Zo gaat de gewoonste inleiding van een verhaal iets anders zeggen: zijn is tijd, en tijd is zijn.</p>
+      <p>De uitwerking staat haaks op de voorstelling van tijd als iets waar de dingen doorheen trekken. Alles wat er is, is tijd, en er is geen tijd die niet iets is. Op de bergtop staan en op de bodem van de zee staan zijn allebei zijn-tijd, en het gisteren waarvan iemand denkt dat het voorbij is, is niet elders opgeslagen. Dogen bestrijdt uitdrukkelijk de gedachte dat tijd alleen maar wegvliegt.</p>
+      <h3>Herlezing van de bronnen</h3>
+      <p>In Busshō neemt Dogen de bekende zin uit de Nirvana-soetra dat alle levende wezens zonder uitzondering boeddha-natuur bezitten, en herleest hem. De tekens die zonder uitzondering bezitten betekenen leest hij als geheel-zijn, zodat de zin gaat luiden dat al wat is levende wezens zijn en dat het geheel van het zijn boeddha-natuur is. Boeddha-natuur is bij hem daarmee geen eigenschap die iemand heeft, en de vraag waarmee hij op de berg Hiei vastliep vervalt.</p>
+      <p>In Sansuikyo, ook uit 1240, doet hij hetzelfde met de zenuitspraak dat de groene bergen voortdurend lopen. Wie dat als beeldspraak wegwuift, zegt Dogen, begrijpt het lopen van de bergen niet en dus ook zijn eigen lopen niet. Zulke ingrepen zijn geen vergissingen tegen de grammatica maar bewuste herlezingen, en ze gebeuren zo vaak dat ze zijn werkwijze zijn.</p>
+      <h3>Het late werk</h3>
+      <p>De verzameling van twaalf delen heeft een andere inzet. Zij gaat over oorzaak en gevolg, over diep vertrouwen in de werking van karma, over de gevolgen van daden over levens heen en over de gedragsregels voor beginnende monniken. Van de bespiegelende toonhoogte van Uji is er weinig te merken.</p>
+      <p>Hakamaya Noriaki, een van de dragers van wat het kritisch boeddhisme is gaan heten, ziet daarin de sleutel: volgens hem is dat twaalfdelige werk de verzameling die Dogen zelf samenstelde, en breekt Dogen er met zijn eerdere stukken, die nog getekend zouden zijn door de leer van het oorspronkelijk ontwaken. Steven Heine en anderen hebben tegengeworpen dat het bewijsmateriaal die stelling niet draagt. Het geschil is niet beslecht, en het bepaalt welke Dogen iemand voor zich krijgt.</p>
+      <h3>De vertalingen</h3>
+      <p>Nishijima en Cross vertaalden de vijfennegentig delen tussen 1994 en 1999 en hielden zich dicht bij de zinsbouw; hun aantekeningen leggen er wel een eigen leerstellig raster overheen. De uitgave van Tanahashi, met een groep Amerikaanse zenleraren, leest vlotter en heeft kaarten, lijnschema's en een woordenlijst. Er zijn verder complete versies van Nishiyama en Stevens (1975) en van Hubert Nearman (2007), plus keuzebundels, onder meer die van Thomas Cleary uit 1986.</p>
+      <p>In het Nederlands is er alleen de selectie van Boudewijn Koole, met inleiding, vertaling en toelichting bij een deel van de stukken. Voor het geheel blijft een van de Engelse uitgaven nodig.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">shobogenzo</td><td>Schatkamer van het oog van de ware leer: in de zentraditie de aanduiding voor wat buiten de geschriften om zou zijn doorgegeven, en bij Dogen de titel van zijn verzameling.</td></tr>
+          <tr><td class="term">zazen</td><td>Het zitten in meditatie; bij Dogen geen oefening naast andere maar de vorm waarin de leer zich voltrekt.</td></tr>
+          <tr><td class="term">shikantaza</td><td>Enkel zitten: zitten zonder onderwerp, zonder koan en zonder doel buiten het zitten zelf.</td></tr>
+          <tr><td class="term">shusho itto</td><td>Oefening en verwerkelijking als één zaak; de stelling dat er tussen beoefenen en ontwaken geen tussenruimte ligt.</td></tr>
+          <tr><td class="term">genjokoan</td><td>Het verwerkelijkte geval: de gedachte dat het raadsel dat opgelost zou moeten worden zich in de huidige omstandigheden al voordoet en daarin ook wordt uitgemaakt.</td></tr>
+          <tr><td class="term">uji</td><td>Zijn-tijd: Dogens samentrekking van bestaan en tijd, gelezen uit de alledaagse uitdrukking aru toki.</td></tr>
+          <tr><td class="term">busshō</td><td>Boeddha-natuur; bij Dogen geen eigenschap die wezens bezitten maar een aanduiding voor het geheel van wat er is.</td></tr>
+          <tr><td class="term">shinjin datsuraku</td><td>Het afvallen van lichaam en geest: de uitdrukking die Dogen aan Rujing toeschrijft voor wat er in het zitten gebeurt.</td></tr>
+          <tr><td class="term">hishiryo</td><td>Niet-denken: de gesteldheid in het zitten die noch denken is noch het onderdrukken van denken.</td></tr>
+          <tr><td class="term">inga</td><td>Oorzaak en gevolg; het diepe vertrouwen daarin is het hoofdonderwerp van de late verzameling van twaalf delen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dogen argumenteert niet zoals een verhandeling argumenteert. Hij haalt soetra's en Chinese zenverslagen aan en leest ze opnieuw, en het gezag van zijn uitspraken hangt aan die traditie en aan zijn eigen lijn tot Rujing. Wie dat gezag niet aanvaardt, houdt een reeks herlezingen over waarvan de geldigheid alleen binnen de traditie is te toetsen.</p>
+      <p>De overlevering van de tekst is beter gedocumenteerd dan de leer. Van de zestig- en vijfenzeventigdelige verzamelingen bestaan vroege handschriften, de twaalfdelige verzameling werd pas in 1936 met een handschrift uit Yokoji bevestigd, en de vijfennegentigdelige rangschikking is zeventiende-eeuws werk dat in 1815 in druk verscheen. Het voorwerp dat men samenvat heeft dus binnen honderd jaar nog van gedaante gewisseld.</p>
+      <p>Ook de kern van Dogens eigen verhaal staat niet vast. De uitdrukking het afvallen van lichaam en geest, waaraan hij zijn ontwaken bij Rujing ophangt, komt in Rujings overgeleverde uitspraken niet in die vorm voor. Onderzoekers hebben erop gewezen dat een bijna gelijkluidende wending, het afvallen van het stof van de geest, wel voorkomt, en dat Dogen die verkeerd verstaan kan hebben. Dat toont hoe smal de basis van het stichtingsverhaal is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De taal is moeilijk en die moeilijkheid is bedoeld. Waar Dogen tegen de gebruikelijke lezing van een Chinese zin ingaat, kan een lezer zonder het origineel niet nagaan wat er gebeurt. Elke vertaling is daarom een uitleg, en de verschillen tussen Nishijima en Cross, Tanahashi en Nearman zijn groot genoeg dat een discussie over wat Dogen zegt vaak een discussie over een vertaler blijkt.</p>
+      <p>De filosoof Dogen is een moderne figuur. Zijn werk bleef eeuwenlang binnen de Soto-school en werd pas in 1815 gedrukt; buiten die kring kwam hij in beeld na het opstel van Watsuji Tetsuro uit 1926, en daarna vooral via de vergelijking met Heidegger. Uji lezen als een verhandeling over tijd is voor een deel een twintigste-eeuwse ordening, en het is de vraag of de monniken aan wie hij het voordroeg het zo hoorden.</p>
+      <p>De vijfennegentigdelige editie waarop de meeste vertalingen rusten is een schoolproduct. Selectie en volgorde dragen leerstellingen mee, en wie die editie als het boek behandelt neemt de Soto-ordening ongemerkt over.</p>
+      <p>Het kritisch boeddhisme van Hakamaya Noriaki en Matsumoto Shiro bestrijdt de gangbare Dogen frontaal. Dat de leer van niet-tweeheid en alomtegenwoordige boeddha-natuur de werking van oorzaak en gevolg ondergraaft en maatschappelijke verantwoordelijkheid verslapt, laat zich niet met een verwijzing naar de traditie afdoen.</p>
+      <p>De hoofdstelling laat zich niet toetsen. Dat oefening en verwerkelijking één zijn wordt voorgedaan en niet aangetoond, en er is geen manier bedacht waarop het onwaar zou kunnen blijken.</p>
+      <p>Westerse lezers slaan gewoonlijk over wat er verder in staat. Dogen schreef ook strenge kloosterregels, uitgebreide voorschriften voor de keuken, en late stukken over wedergeboorte en over de vruchten van daden. De Dogen die als tijdfilosoof circuleert is een uitgedunde versie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin met Genjokoan en Uji en laat de rest wachten; die twee bevatten de manier van doen waar de rest op voortbouwt.</li>
+        <li>Leg bij een moeilijke passage twee vertalingen naast elkaar, bijvoorbeeld Nishijima en Cross tegenover Tanahashi, en let op waar zij uiteenlopen.</li>
+        <li>Houd de verzamelingen uit elkaar: een uitspraak over karma uit de twaalfdelige bundel en een uitspraak over boeddha-natuur uit de vijfenzeventigdelige komen uit verschillende fasen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Shobogenzo</i>, Schatkamer van het oog van de ware leer, tussen 1231 en 1253 in het Japans geschreven. Overgeleverd in verschillende samenstellingen, waaronder een van vijfenzeventig, een van zestig, een van twaalf en een van achtentwintig delen, plus de Honzan-editie van vijfennegentig delen die teruggaat op het werk van Hangyo Kozen aan het eind van de zeventiende eeuw en in 1815 voor het eerst van houtblokken werd gedrukt. Engelse vertalingen: Gudo Nishijima en Chodo Cross, <i>Master Dogen's Shobogenzo</i> (Windbell, 4 delen, 1994&ndash;1999; herzien als <i>Shobogenzo: The True Dharma-Eye Treasury</i>, BDK America, 2007&ndash;2008), en Kazuaki Tanahashi met een groep vertalers, <i>Treasury of the True Dharma Eye</i> (Shambhala, Boston, 2 delen, 2011; eendelige heruitgave 2013, ISBN 978-1-59030-935-3). Er bestaat geen volledige Nederlandse vertaling. Wel een keuze: <i>De Schatkamer van het Oog van de Ware Leer. Een selectie uit de Shobogenzo</i>, ingeleid, vertaald en toegelicht door Boudewijn Koole (Asoka, Rotterdam, 2017, 240 blz., ISBN 978-90-5670-370-7).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dogen (1200&ndash;1253) bracht de Chinese Caodong-lijn naar Japan en stichtte daar wat later de Soto-school ging heten. De <i>Shobogenzo</i> is de verzameling stukken die hij tussen 1231 en zijn dood schreef, in het Japans in plaats van in het Chinees dat toen voor leerteksten gebruikelijk was. Het werk bestaat niet als één boek: er zijn samenstellingen van twaalf, achtentwintig, zestig, vijfenzeventig en vijfennegentig delen, en de laatste dateert uit veel later tijd. De bekendste stukken zijn Genjokoan over oefening en verwerkelijking en Uji over zijn en tijd. Een volledige Nederlandse vertaling bestaat niet; wel een selectie van Boudewijn Koole.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zen</li><li>boeddhisme</li><li>japanse filosofie</li><li>meditatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. De inleiding die zen in het westen bekend maakte. Suzuki schrijft vanuit de Rinzai-lijn en legt de nadruk op de plotselinge doorbraak, precies wat Dogen betwist.</li>
+          <li value="576"><a href="576.html">An Inquiry into the Good</a>. Nishida bouwt vanuit dezelfde Japanse achtergrond een filosofie op in westerse termen; de vergelijking laat zien hoeveel van de filosofische Dogen twintigste-eeuws werk is.</li>
+          <li value="1105"><a href="1105.html">Zhuang Zi</a>. Ook daar wordt de betekenis van vaste uitdrukkingen opzettelijk verschoven om een gewend onderscheid te laten wankelen.</li>
+          <li value="1"><a href="01.html">Zen en de kunst van het motoronderhoud</a>. De titel suggereert een verwantschap die er niet is. Pirsig schrijft over kwaliteit en aandacht in een westerse traditie en zegt in zijn eigen voorwoord dat het boek weinig met zen te maken heeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

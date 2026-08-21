@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Worldly Philosophers &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Heilbroner behandelt de geschiedenis van het economisch denken als een reeks pogingen om één vraag te beantwoorden: hoe houdt een samenleving zichzelf in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-821">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">821 &middot; Geschiedenis en samenleving</p>
+    <h1>The Worldly Philosophers</h1>
+    <p class="lede">Robert L. Heilbroner, 1953 (zevende editie 1999)</p>
+    <p class="stats">
+      <span><b>2034</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="821"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Heilbroner behandelt de geschiedenis van het economisch denken als een reeks pogingen om één vraag te beantwoorden: hoe houdt een samenleving zichzelf in stand waarin niemand opdracht geeft wat er gemaakt moet worden. De grote economen waren volgens hem geen technici maar wereldbeschouwers, die uit het gedrang van markten, fabrieken en armoede een orde probeerden te lezen, en hun denkbeelden hebben de loop van de geschiedenis meer bepaald dan de besluiten van veel staatslieden. Daaruit volgt een tweede stelling, die in de latere edities de boventoon voert: het vak ontleent zijn waarde aan die blik op het geheel, en raakt iets wezenlijks kwijt zodra het zich beperkt tot modelbouw.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom er zolang geen economen waren</h3>
+      <p>Het boek opent met een verwondering. Zesduizend jaar geschreven geschiedenis leverde filosofen, staatslieden en kunstenaars op, maar niemand die de stoffelijke huishouding van een samenleving als raadsel op zichzelf behandelde. Heilbroners antwoord luidt dat er niets te verklaren viel zolang de vraag wie wat maakt werd beantwoord door overlevering of door bevel: in het eerste geval doet de zoon wat de vader deed, in het tweede wijst een farao of een landheer de taken toe. Pas als een derde ordening opkomt, waarin niemand iemand iets opdraagt en het werk toch gedaan wordt omdat ieder zijn eigen voordeel zoekt, ontstaat een verschijnsel dat om uitleg vraagt.</p>
+      <p>Die derde ordening noemt hij het marktstelsel, en de opkomst ervan de economische omwenteling: grond, arbeid en kapitaal werden koopwaar. Dat kostte eeuwen en riep verzet op, want wie zijn plaats verloor had niets meer om op terug te vallen. Heilbroner schetst het vroege fabriekswezen zonder verfraaiing en maakt duidelijk hoe onwaarschijnlijk het was dat iemand in die wanorde een ordening zou aanwijzen.</p>
+      <h3>Adam Smith en de onzichtbare hand</h3>
+      <p>Smith, geboren in 1723 in Kirkcaldy, een stadje van vijftienhonderd zielen waar sommige inwoners nog met spijkers betaalden, komt in beeld als verstrooide hoogleraar met een naam die tot in de boekwinkels reikte. In 1759 verscheen <i>The Theory of Moral Sentiments</i>, over de vraag hoe een wezen dat zijn eigen voordeel zoekt toch morele oordelen kan vellen. Zijn antwoord, het vermogen zich in de ander te verplaatsen, is de achtergrond van zijn latere werk.</p>
+      <p>In <i>The Wealth of Nations</i> uit 1776 staat het samenspel van eigenbelang en mededinging centraal. Wie te veel vraagt verliest klanten, wie te weinig betaalt verliest werkvolk; uit die tegendruk komt een uitkomst die niemand heeft bedoeld. Heilbroner benadrukt wat vaak wordt overgeslagen: Smith wantrouwde de zakenman, en zijn stelsel werkt alleen zolang mensen van hetzelfde vak de mededinging niet onderling uitschakelen.</p>
+      <h3>De sombere voorspellingen van Malthus en Ricardo</h3>
+      <p>Het optimisme houdt één generatie stand. Malthus stelde in 1798 dat de bevolking sneller toeneemt dan de voedselvoorziening, zodat elke verbetering van het lot van de armen zichzelf ongedaan maakt. Ricardo, koopman en effectenhandelaar voordat hij zich op de leer stortte, voegde daar in 1817 aan toe dat de opbrengst van de betere grond als grondrente toevalt aan de eigenaar, die er niets voor doet. Uit die twee stellingen komt een beeld waarin de belangen van landheer, fabrikant en arbeider tegenover elkaar staan.</p>
+      <p>Waar Smith een stelsel had beschreven dat vanzelf welvaart voortbracht, beschreven zijn opvolgers er een dat vanzelf op stilstand en verdeling van armoede uitliep. Heilbroner tekent daarbij de vriendschap tussen Malthus en Ricardo, die het over vrijwel alles oneens waren en toch jarenlang met elkaar bleven schrijven en logeren.</p>
+      <h3>De utopisten en Marx</h3>
+      <p>Robert Owen kreeg de fabrieken van New Lanark in Schotland in handen en maakte er een gemeenschap van met korte werktijden en scholing, terwijl de zaak winst bleef maken; tussen 1815 en 1825 tekenden twintigduizend bezoekers het gastenboek. Toen hij het model in Amerika wilde herhalen, wijdde hij op 4 juli 1826 aan de Wabash in Indiana de kolonie New Harmony in met een onafhankelijkheidsverklaring van eigendom, godsdienst en huwelijk, waarna hij haar aan haar lot overliet. Achthonderd kolonisten stroomden binnen zonder plan of toezicht en het liep af. Fourier ontwierp intussen zijn falansteres tot in de afmetingen van de vertrekken.</p>
+      <p>Marx krijgt het langste hoofdstuk en de zwaarste behandeling. Heilbroner leest hem als de bouwer van een stelsel: de winst komt uit het verschil tussen wat arbeidskracht kost en wat zij voortbrengt, de mededinging dwingt de ondernemer tot machines, de machines drukken de winstvoet, en het stelsel loopt van crisis naar crisis naar concentratie. Hij deelt de conclusie niet, maar noemt de analyse de scherpste die het kapitalisme over zichzelf heeft gekregen.</p>
+      <h3>De Victoriaanse bovenwereld en haar onderwereld</h3>
+      <p>In de tweede helft van de negentiende eeuw wordt het vak deftig. Het hoofdstuk over die tijd zet daar een onderwereld tegenover: buitenstaanders zonder leerstoel die zagen wat de gevestigde leer wegliet. Frédéric Bastiat bracht de spot mee en vroeg zich af wat voor huishouding zich uitslooft om een tunnel door een berg te boren en er aan beide zijden douaniers neerzet. Henry George schreef <i>Progress and Poverty</i> uit verontwaardiging over grondwaarde die stijgt zonder dat iemand er iets voor doet. John A. Hobson herleidde de drang tot koloniale uitbreiding tot het gebrek aan koopkracht thuis en zag daarin een weg naar oorlog.</p>
+      <p>Thorstein Veblen, zoon van Noorse immigranten en levenslang buitenstaander, publiceerde in 1899 <i>The Theory of the Leisure Class</i>. Zijn stelling is dat de rijken zich gedragen als een stam: uitgaven dienen niet om iets te gebruiken maar om te tonen dat men zich verspilling kan veroorloven. In zijn latere werk zet hij de zakenman, die met geld schuift, tegenover de ingenieur, die dingen maakt, en beschuldigt hij de eerste ervan de tweede in de weg te lopen.</p>
+      <h3>Keynes, Schumpeter en het einde van de wereldse wijsbegeerte</h3>
+      <p>Keynes komt in beeld als een man met te veel levens tegelijk: hoogleraar in Cambridge, onderhandelaar in Versailles, speculant, voorzitter van een levensverzekeraar, huisvriend van de Bloomsburykring en getrouwd met de eerste danseres van het gezelschap van Diaghilev. Zijn <i>The General Theory of Employment, Interest and Money</i> uit 1936 is een moeilijk boek zonder het panorama dat lezers van Smith of Marx gewend waren, maar met een stelling die alles omgooide: sparen en investeren worden door verschillende mensen gedaan, dus kan een economie tot rust komen bij blijvende massawerkloosheid, zonder verborgen mechanisme dat haar eruit haalt.</p>
+      <p>Het hoofdstuk over Schumpeter is in de zevende editie toegevoegd; Heilbroner had bij hem in Harvard college gelopen. Schumpeter zag de motor van het stelsel in de ondernemer die met een nieuw product of een nieuwe werkwijze bestaande bedrijven wegvaagt, en noemde dat scheppende vernietiging: onrust is bij hem geen storing maar de werking zelf. Zijn voorspelling was dat het kapitalisme aan zijn successen ten onder zou gaan, doordat het een laag opgeleide critici voortbrengt die zijn grondslagen ondergraven.</p>
+      <p>Het slothoofdstuk vraagt of de wereldse wijsbegeerte voorbij is. Heilbroners antwoord is dat de economie een technisch vak is geworden dat zijn eigen voorwerp uit het oog verliest. Elke analyse rust volgens hem op wat Schumpeter visie noemde, een vooraf gekozen beeld van de werkelijkheid, en juist dat beeld is uit het vak verdwenen terwijl het er nog wel in doorwerkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">wereldse wijsbegeerte</td><td>Heilbroners naam voor de poging om de meest wereldse van alle menselijke bezigheden, het jagen op rijkdom, in een samenhangend beeld van de samenleving onder te brengen.</td></tr>
+          <tr><td class="term">de economische omwenteling</td><td>De eeuwenlange overgang waarin grond, arbeid en kapitaal koopwaar werden en het marktstelsel de plaats innam van gewoonte en bevel.</td></tr>
+          <tr><td class="term">traditie, gebod en markt</td><td>De drie manieren waarop een samenleving kan regelen wie wat maakt: overlevering van vader op zoon, opdracht van bovenaf, of het vooruitzicht op winst.</td></tr>
+          <tr><td class="term">de onzichtbare hand</td><td>Smiths beeld voor het verschijnsel dat mensen die onder mededinging hun eigen voordeel zoeken een uitkomst voortbrengen die niemand heeft bedoeld en die de samenleving dient.</td></tr>
+          <tr><td class="term">bevolkingswet</td><td>De stelling van Malthus dat het aantal mensen sneller toeneemt dan de voedselvoorziening, zodat hogere lonen zichzelf weer wegwerken.</td></tr>
+          <tr><td class="term">grondrente</td><td>Bij Ricardo het inkomen dat aan de eigenaar van de betere grond toevalt zonder inspanning, en daarmee de wig tussen landheer, fabrikant en arbeider.</td></tr>
+          <tr><td class="term">meerwaarde</td><td>Marx' term voor het verschil tussen wat arbeidskracht kost en wat zij voortbrengt, in zijn stelsel de bron van winst en van de tegenstellingen die het geheel ondermijnen.</td></tr>
+          <tr><td class="term">opvallende consumptie</td><td>Veblens term voor uitgaven die niet dienen om iets te gebruiken maar om te laten zien dat men zich verspilling kan veroorloven.</td></tr>
+          <tr><td class="term">scheppende vernietiging</td><td>Schumpeters naam voor de stoot van de ondernemer die bestaande bedrijven, vakkennis en betrekkingen wegvaagt en zo de groei op gang houdt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek doet geen eigen bronnenonderzoek. Heilbroner leest de hoofdwerken zelf en put voor het leven van zijn hoofdpersonen uit bestaande biografieën; achterin staat een leeslijst waarin hij verantwoordt welke uitgaven hij gebruikt. Wat het betoog draagt zijn de vindplaatsen: het spijkergeld van Kirkcaldy, de twintigduizend handtekeningen in het gastenboek van New Lanark, de inwijding van New Harmony, de formule waarmee Keynes zijn lezers afschrikt.</p>
+      <p>Voor de ideeën zelf steunt Heilbroner op citaten uit de oorspronkelijke werken, met de nadruk op de plaatsen waar een denker zijn beeld van de samenleving prijsgeeft. Wat hij niet levert is de afleiding. Van Ricardo krijgt de lezer de uitkomst en niet de redenering die eronder ligt, van Keynes de stelling en niet het model. Wie wil narekenen waarom een prijs is wat hij is, komt hier niet aan zijn trekken; het boek is een geschiedenis van denkbeelden, geen leerboek.</p>
+      <p>Heilbroner heeft de tekst zes keer herzien, tot de zevende editie van 1999. In een van de eerdere voorwoorden schrijft hij dat elke herlezing hem verraste en dat hij het soms met zijn vroegere zelf oneens werd. Dat maakt duidelijk dat de oordelen in het boek van hem zijn en niet die van een vakgebied dat het eens is geworden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is wat er ontbreekt. De omslag naar grensnut en prijsvorming bij Jevons, Menger, Walras en Marshall, waar vrijwel de hele latere economie op rust, krijgt weinig ruimte, en het hoofdstuk waarin de negentiende eeuw wordt afgehandeld verdeelt het vak in een deftige bovenwereld en een aardiger onderwereld van ketters. Die indeling is prettig leesbaar en verschuift de aandacht van de mensen die het vak feitelijk hebben gebouwd naar de mensen die er het aardigst over schreven.</p>
+      <p>De keuze van personen is smal: uitsluitend westerse mannen, en telkens één denker per tijdvak. Instellingen, tijdschriften, geldschieters en de vraag hoe een denkbeeld leerstof wordt blijven buiten beeld, terwijl latere geschiedschrijving van het vak juist daar de nadruk legt. Het anekdotische portret doet soms werk dat het niet kan doen: dat Smith als kind door rondtrekkende zigeuners werd meegenomen is aardig, maar verklaart niets aan zijn stelsel.</p>
+      <p>Heilbroners eigen positie kleurt het boek meer dan hij toegeeft. Hij stond links en had lange tijd sympathie voor een geleide economie, wat in de behandeling van Marx merkbaar is; in januari 1989 schreef hij vervolgens in The New Yorker dat de wedstrijd tussen kapitalisme en socialisme voorbij was en dat het kapitalisme had gewonnen. Lezers links van hem zagen daarin een overgave, lezers rechts van hem vonden dat het inzicht laat kwam.</p>
+      <p>De slotstelling dat de economie haar visie kwijt is wordt eerder uitgesproken dan aangetoond. Heilbroner gaat niet inhoudelijk in op het technische werk dat hij te smal noemt, zodat het verwijt niet te toetsen is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als toegang tot de vraagstelling van een denker en niet als vervanging van diens werk; ga daarna naar de bron zelf.</li>
+        <li>Gebruik het onderscheid tussen overlevering, opdracht en markt om te benoemen hoe in een organisatie feitelijk besloten wordt wie wat doet.</li>
+        <li>Zoek bij elk hoofdstuk op welk verschijnsel de denker als eerste zag, en welk verschijnsel hij daardoor niet meer opmerkte.</li>
+        <li>Neem de zevende editie als de tekst waarover men het heeft; de Nederlandse druk volgt een oudere versie en mist het hoofdstuk over Schumpeter en het herziene slot.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Worldly Philosophers: The Lives, Times and Ideas of the Great Economic Thinkers</i> verscheen in 1953 bij Simon &amp; Schuster in New York. Gebruikt is de herziene zevende editie (Touchstone/Simon &amp; Schuster, 1999, 368 blz., ISBN 9780684862149), waarin een hoofdstuk over Joseph Schumpeter is toegevoegd en het slothoofdstuk is vervangen door <i>The End of the Worldly Philosophy?</i>. Er bestaat een Nederlandse vertaling, <i>De filosofen van het dagelijks brood</i>, voor het eerst uitgegeven bij Paris in Amsterdam in 1955 en later herdrukt bij Muntinga (Amsterdam, 1990, vertaling J.E. Kuiper, 444 blz., ISBN 9789067665124). Die vertaling volgt een oudere editie en mist dus de latere hoofdstukken; de indeling die hieronder wordt aangehouden is die van de Engelse zevende editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Heilbroner vertelt de geschiedenis van het economisch denken als een reeks portretten: Adam Smith, Malthus en Ricardo, de utopisten, Marx, Veblen, Keynes en, vanaf de zevende editie, Schumpeter. Zijn uitgangspunt is dat deze denkers geen rekenmeesters waren maar wereldbeschouwers, die uit het gedrang van markten, fabrieken en armoede een orde probeerden te lezen. Het boek begint daarom niet bij Smith maar bij de vraag waarom er zesduizend jaar lang geen economen waren: zolang gewoonte of bevel bepaalde wie wat maakte, viel er niets te verklaren.</p><p>Sinds 1953 zijn er miljoenen exemplaren van verkocht en het is voor veel studenten de eerste kennismaking met het vak. Wat het niet geeft is de techniek: van de leer van de grensnut en de prijsvorming, de ruggengraat van de moderne economie, blijft weinig over. Het slothoofdstuk voert een eigen stelling: economie is een sociale wijsbegeerte over het kapitalisme geweest en verliest iets wezenlijks nu zij zich als natuurwetenschap gedraagt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>economie</li><li>economische geschiedenis</li><li>kapitalisme</li><li>biografie</li><li>geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. Will Durants <i>The Story of Philosophy</i> doet voor de wijsbegeerte wat dit boek voor de economie doet: leven en leer naast elkaar, met dezelfde toegankelijkheid en hetzelfde bezwaar dat de techniek wegvalt.</li>
+          <li value="251"><a href="251.html">The Rational Optimist</a>. Matt Ridley voert in <i>The Rational Optimist</i> de ruil op als motor van welvaart. Dat is de lijn van Smith, uitgewerkt zonder de twijfel die Heilbroner erbij houdt.</li>
+          <li value="809"><a href="809.html">The Great Crash, 1929</a>. Galbraith beschrijft in <i>The Great Crash 1929</i> de episode waarin zichtbaar werd wat Keynes daarna probeerde te verklaren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

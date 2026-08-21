@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Symbolic Species: The Co-evolution of Language and the Brain &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Deacon stelt dat de mens de enige symbolische diersoort is en dat taal en brein elkaar over honderdduizenden generaties hebben gevormd. Symbolische…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-829">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">829 &middot; Brein en lichaam</p>
+    <h1>The Symbolic Species: The Co-evolution of Language and the Brain</h1>
+    <p class="lede">Terrence W. Deacon, 1997</p>
+    <p class="stats">
+      <span><b>1817</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="829"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Deacon stelt dat de mens de enige symbolische diersoort is en dat taal en brein elkaar over honderdduizenden generaties hebben gevormd. Symbolische verwijzing is bij hem geen ingewikkelder vorm van dierlijke communicatie maar een andere soort verwijzing, die pas werkt wanneer tekens ook naar elkaar verwijzen en samen een stelsel vormen. Die overgang is voor een lerende moeilijk, want zij vraagt dat de vertrouwde koppelingen tussen teken en ding worden losgelaten ten gunste van een net van betrekkingen tussen tekens onderling. Daaruit volgt zijn tweede stelling: een aangeboren grammatica is als verklaring overbodig, omdat talen zich hebben aangepast aan de leerneigingen van kinderbreinen en niet omgekeerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De menselijke tegenstrijdigheid</h3>
+      <p>Het boek bestaat uit drie delen, Language, Brain en Co-evolution, samen veertien hoofdstukken. Het opent met wat Deacon de menselijke tegenstrijdigheid noemt: onze hersenen zijn opgebouwd uit dezelfde onderdelen als die van andere zoogdieren en werken volgens dezelfde beginselen, en toch doet alleen de mens iets waar geen andere soort in de buurt komt. Verklaringen die het verschil in een enkel nieuw onderdeel zoeken, een taalorgaan of een extra module, wijst hij af omdat er anatomisch geen kandidaat voor is.</p>
+      <p>Zijn tegenvoorstel is dat het verschil niet in een onderdeel zit maar in een soort verwijzing die de rest van de bouw meesleept. Daarmee verschuift de vraag: het gaat er niet om welk stukje brein taal doet, maar wat symbolisch verwijzen van een brein vraagt.</p>
+      <h3>Icoon, index en symbool</h3>
+      <p>Deacon leent van de Amerikaanse filosoof Charles Sanders Peirce drie soorten tekens. Een icoon verwijst door gelijkenis: iets wordt voor iets anders aangezien omdat het erop lijkt. Een index verwijst door samenhang in tijd en ruimte: rook wijst naar vuur, een bel wijst naar voer, en die band blijft alleen bestaan zolang de twee samen blijven optreden. Een symbool verwijst op een derde manier, namelijk via de plaats die het inneemt tussen andere symbolen.</p>
+      <p>Het beslissende punt in Deacons lezing is dat deze drie soorten op elkaar stapelen. Indexen zijn opgebouwd uit iconen, symbolen uit indexen. Een woord wijst dus twee kanten op: naar de dingen in de wereld en naar de andere woorden waarmee het een stelsel vormt. Zolang die tweede verwijzing ontbreekt, blijft er van een woord een aangeleerde koppeling over, hoe goed het dier die ook beheerst.</p>
+      <h3>De drempel</h3>
+      <p>Het bewijsmateriaal voor die tweedeling haalt Deacon uit het onderzoek met beeldtekens, lexigrammen, bij chimpansees aan het Language Research Center in Atlanta. Twee dieren, Sherman en Austin, leerden na duizenden oefeningen wat vier jonge kinderen in korte tijd oppikken. Wat hen ophield was volgens Deacon niet geheugen of vlijt, maar het feit dat ze eerst de losse koppelingen tussen teken en beloning moesten laten varen voordat de betrekkingen tussen de tekens zelf zichtbaar werden.</p>
+      <p>Zodra dat lukte, veranderde het beeld: het geleerde werd overdraagbaar en nieuwe tekens gingen sneller. Dat patroon, eerst onevenredig zwaar en daarna licht, is voor Deacon het kenmerk van een drempel en niet van een helling. Bij mensen wordt die drempel al in de vroege kindertijd genomen, met zoveel gemak dat de moeilijkheid ervan ons ontgaat.</p>
+      <h3>Wat een symbolisch brein vraagt</h3>
+      <p>Het tweede deel gaat over hersenevolutie, en hier is Deacon op zijn eigen vakgebied. Hij bestrijdt de gedachte dat het menselijk brein een vergrote apenhersenen is. Wat er verandert is de verhouding tussen delen, en die verhouding wordt bepaald door de tijdregeling van de ontwikkeling: een gebied dat langer doorgroeit stuurt meer uitlopers uit en wint daarmee verbindingen die anders naar buurgebieden zouden zijn gegaan. Dat verdringingsproces, concurrentie tussen zenuwvezels om aansluiting, is bij hem de motor van hersenverandering.</p>
+      <p>Deacon voert daarvoor onder meer zijn eigen werk met verplantingen van foetaal zenuwweefsel tussen soorten aan, waaruit blijkt dat cellen hun verbindingen deels aan hun omgeving ontlenen. De uitkomst die hij nodig heeft is een verhoudingsgewijs vergrote prefrontale cortex, het voorste deel van de hersenschors, dat door zijn overwicht de verwerkingswijze van de rest kleurt. Juist dat overwicht is volgens hem nodig om losse koppelingen te onderdrukken ten gunste van betrekkingen tussen tekens.</p>
+      <h3>Tegen de aangeboren grammatica</h3>
+      <p>Chomsky verklaart het gemak waarmee kinderen taal leren uit een aangeboren universele grammatica: het aanbod dat een kind hoort zou te arm zijn om de regels uit af te leiden, dus moet een deel al aanwezig zijn. Deacon aanvaardt het probleem en verwerpt de oplossing. Zijn antwoord keert de richting om: talen zijn geen vaste voorwerpen die geleerd moeten worden, maar veranderen van geslacht op geslacht, en de vormen die kinderen slecht oppikken verdwijnen vanzelf uit een taal.</p>
+      <p>Wat overblijft is dus per definitie goed leerbaar voor een kinderbrein, en dat wekt de schijn van aangeboren kennis. Deacon spreekt in dit verband van talen die zich aan hun gastheren hebben aangepast, met een vergelijking die aan ziekteverwekkers doet denken. De aangeboren aanleg die hij overhoudt is algemeen van aard: een leerstijl, een aandachtsvoorkeur, een verwerkingsbeperking, geen regelstelsel.</p>
+      <h3>Co-evolutie en het Baldwin-effect</h3>
+      <p>Het derde deel behandelt het kip-en-eiprobleem dat het boek opent. Symbolisch denken vraagt taal, taal vraagt symbolisch denken. Deacon lost dat op met het Baldwin-effect: gedrag dat een soort tijdens het leven aanleert, verandert de omgeving waarin selectie plaatsvindt, zodat aanleg die dat gedrag makkelijker maakt daarna in het voordeel is. Symbolisch gebruik hoefde dus alleen maar moeizaam te beginnen; daarna werkt het als selectiedruk op de hersenen die het uitvoeren.</p>
+      <p>Voor het begin zelf oppert hij een reconstructie: een soort waarin mannen voedsel aanbrengen voor vrouwen en jongen heeft afspraken nodig die niet ter plekke waarneembaar zijn, over wie bij wie hoort en wie wie iets schuldig is. Zulke afspraken zijn met indexen niet uit te drukken en met symbolen wel. De laatste hoofdstukken trekken de lijn door naar bewustzijn en naar wat de symbolische inrichting van een geest kost aan onmiddellijkheid.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">icoon</td><td>Een teken dat naar iets verwijst door gelijkenis, waarbij het verband berust op wat een waarnemer niet onderscheidt.</td></tr>
+          <tr><td class="term">index</td><td>Een teken dat verwijst door samenhang in tijd en ruimte, zoals rook naar vuur, en dat vervaagt zodra die samenhang wegvalt.</td></tr>
+          <tr><td class="term">symbool</td><td>Een teken dat verwijst via zijn plaats tussen andere tekens, zodat het pas werkt binnen een stelsel.</td></tr>
+          <tr><td class="term">symbolische verwijzing</td><td>De dubbele verwijzing van woorden, die zowel naar dingen wijzen als naar elkaar, en die daarmee zinnen mogelijk maakt die nergens naar iets waarneembaars verwijzen.</td></tr>
+          <tr><td class="term">symbolische drempel</td><td>De overgang van indexicaal naar symbolisch leren, die onevenredig zwaar is en daarna het verdere leren juist verlicht.</td></tr>
+          <tr><td class="term">verdringing</td><td>De concurrentie tussen zenuwvezels om aansluiting, waardoor een langer doorgroeiend hersengebied verbindingen wint ten koste van andere.</td></tr>
+          <tr><td class="term">allometrie</td><td>De regelmaat waarmee lichaamsdelen bij verschillende lichaamsgrootten meegroeien, waaraan Deacon afmeet wat aan het mensenbrein afwijkend is.</td></tr>
+          <tr><td class="term">prefrontale cortex</td><td>Het voorste deel van de hersenschors, bij Deacon verhoudingsgewijs vergroot en daardoor bepalend voor de verwerkingswijze van de rest.</td></tr>
+          <tr><td class="term">Baldwin-effect</td><td>Het verschijnsel dat aangeleerd gedrag de omgeving verandert waarin selectie werkt, zodat aanleg voor dat gedrag daarna wordt bevoordeeld.</td></tr>
+          <tr><td class="term">co-evolutie van taal en brein</td><td>De wederzijdse aanpassing waarbij talen leerbaarder worden voor kinderbreinen en breinen beter worden in symbolen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De hoofdstukken over hersenevolutie rusten op vergelijkende gegevens over hersenomvang bij zoogdieren, op ontwikkelingsbiologie en op Deacons eigen onderzoek met verplantingen van foetaal zenuwweefsel tussen soorten. Recensenten uit verschillende hoeken, onder wie de taalkundige James Hurford en de neurobioloog William Calvin, noemden dit het steviger deel van het boek en prezen dat het betoog aan feitelijke anatomie is opgehangen in plaats van aan een gedachtemodel.</p>
+      <p>Het apenmateriaal is uit de tweede hand maar goed gedocumenteerd: het lexigramwerk van Sue Savage-Rumbaugh en collega's met Sherman en Austin is in vakbladen gepubliceerd. Deacon gebruikt het niet als bewijs dat apen taal hebben, maar juist om te laten zien waar zij vastlopen, en dat is een voorzichtiger gebruik dan in veel populaire boeken over dierentaal.</p>
+      <p>Het verhaal over de oorsprong is van een andere orde. Dat symbolen zijn ontstaan om afspraken over paarvorming en wederkerige verplichting vast te leggen, is een reconstructie waarvoor geen fossiel of experiment beslissend kan zijn. Calvin wees er in zijn bespreking op dat Deacon te stellig is waar hij schrijft dat op symbolische communicatie geselecteerd móét zijn; hetzelfde hersencircuit kan om andere redenen zijn ontstaan en taal er als bijvangst bij hebben gekregen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt van taalkundigen. Hurford schreef in de <i>Times Literary Supplement</i> van 23 oktober 1998 dat hij Deacons brede belezenheid bewondert, maar dat het boek filosofische vaktermen op een eigen manier gebruikt: verwijzing betekent bij filosofen het verband tussen taal en wereld, en Deacons formulering dat woorden naar andere woorden verwijzen maakt daar iets anders van zonder het uit te leggen. Hij tekende aan dat leesgroepen die zijn kernschema bespraken er niet uitkwamen, en merkte op dat Deacon geen taalkundige is, wat te zien is aan formuleringen als de lijdende tijd.</p>
+      <p>Daarbij komt dat syntaxis in het boek grotendeels ontbreekt. Wie de aangeboren grammatica verwerpt, moet uitleggen hoe zinsbouw dan wel tot stand komt; Deacon gaat om dat vraagstuk heen en laat het bij de vaststelling dat symbolische verwijzing meer verklaart dan men denkt. Het probleem van de armoede van het aanbod, het gegeven dat kinderen meer regels beheersen dan zij hebben gehoord, wordt eerder omzeild dan beantwoord, en de toon tegen Chomsky is op plaatsen meer polemisch dan betogend.</p>
+      <p>De anatomische pijler is sinds 1997 verzwakt. Vergelijkend onderzoek van Katerina Semendeferi en collega's liet zien dat mensen en mensapen verhoudingsgewijs een even groot voorste hersengebied hebben; gebied 10 van de prefrontale cortex is bij mensen wel relatief groter, maar in een orde van grootte die het gewicht dat Deacon eraan geeft niet draagt. Ralph Holloway bracht daar in 2002 nuances op aan, en de discussie is niet gesloten, maar de stellige versie van Deacons claim staat er zwakker voor dan bij verschijning.</p>
+      <p>Ten slotte is het boek lang, herhalend en soms wollig waar het scherp moet zijn. De sleutelbegrippen worden meermalen opnieuw ingevoerd met een andere formulering, wat het lastig maakt vast te stellen wat er nu precies wordt beweerd. Dat is bij een boek dat op één onderscheid staat of valt een reëel gebrek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een teken na van welk soort het is: gelijkenis, samenhang of plaats in een stelsel. Veel misverstanden over dierentaal en over machinetaal komen voort uit het door elkaar halen van die drie.</li>
+        <li>Behandel de claim dat iets aangeboren is als een vraag naar het alternatief. Deacons omkering laat zien dat een leerbaar patroon ook uit de geschiedenis van het geleerde kan komen.</li>
+        <li>Wees bedacht op leertaken die eerst onevenredig zwaar zijn en daarna licht. Dat patroon wijst op een omslag in de manier van ordenen, niet op traagheid.</li>
+        <li>Controleer bij een boek dat vakgebieden samenbrengt per deel wie het beoordeelt. Hier oordelen hersenonderzoekers gunstiger dan taalkundigen, en dat verschil is inhoudelijk.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Symbolic Species: The Co-evolution of Language and the Brain</i> (W.W. Norton, New York en Londen, 1997, 527 blz., ISBN 9780393038385; paperback 1998, ISBN 9780393317541). Deacon is bioloog-antropoloog en neurowetenschapper, ten tijde van dit boek verbonden aan Boston University en later hoogleraar in Berkeley. Geen Nederlandse vertaling gevonden; de samenvatting is op de Engelse editie gebaseerd. Een bundel met reacties van vakgenoten verscheen in 2012 als <i>The Symbolic Species Evolved</i> (Springer).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Terrence Deacon brengt in dit boek hersenonderzoek, evolutieleer, taalkunde en tekenleer samen rond één vraag: waarom is de mens de enige soort die met symbolen werkt. Hij ontleent aan Charles Sanders Peirce de driedeling icoon, index en symbool, en betoogt dat symbolische verwijzing van een andere orde is dan de koppelingen die dieren leren. Een symbool verwijst pas als het ook naar andere symbolen verwijst; er moet een stelsel zijn voordat een enkel teken werkt. Die overgang noemt hij de symbolische drempel, en apen die met beeldtekens leren werken laten volgens hem zien hoe zwaar die is.</p><p>Uit die analyse komt zijn verwerping van Chomsky's aangeboren universele grammatica voort: talen hebben zich in hun eigen geschiedenis aangepast aan wat kinderbreinen makkelijk oppikken, zodat grammatica aangeboren líjkt. Taalkundigen prezen de hoofdstukken over hersenevolutie en waren aanzienlijk minder overtuigd door het taalkundige deel, waarin syntaxis grotendeels buiten beschouwing blijft. Ook de anatomische pijler onder het betoog, een sterk vergrote prefrontale cortex, is na 1997 door vergelijkend onderzoek verzwakt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>neurowetenschap</li><li>evolutie</li><li>taal</li><li>symboliek</li><li>hersenen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="664"><a href="664.html">Science and Sanity</a>. Korzybski behandelt eveneens de betrekking tussen taal, denken en werkelijkheid, met veel losser bewijs dan Deacon.</li>
+          <li value="383"><a href="383.html">If Nietzsche Were a Narwhal</a>. Gregg keert de vraag om en onderzoekt wat dieren zonder symbolen wel en niet missen.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky levert de bredere biologische achtergrond waarbinnen Deacons hersenevolutie te plaatsen is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

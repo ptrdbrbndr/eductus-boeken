@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Ascent of Man &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bronowski leest de geschiedenis van de mens als een reeks stappen waarin kennis en handvaardigheid elkaar opdrijven, en hij houdt vol dat de wetenschap…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-820">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">820 &middot; Natuur en wetenschap</p>
+    <h1>The Ascent of Man</h1>
+    <p class="lede">Jacob Bronowski, 1973</p>
+    <p class="stats">
+      <span><b>1534</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="820"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bronowski leest de geschiedenis van de mens als een reeks stappen waarin kennis en handvaardigheid elkaar opdrijven, en hij houdt vol dat de wetenschap daarin geen koele buitenstaander is maar een van de meest menselijke bezigheden die er zijn. Daaruit volgt zijn ethische stelling: omdat kennis altijd binnen een zekere speling ligt en nooit volstrekt is, is verdraagzaamheid geen beleefdheid maar een gevolg van hoe kennen werkt. Waar mensen menen volstrekte zekerheid te bezitten en die aan geen toets onderwerpen, komen zij uit bij Auschwitz.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een persoonlijke kijk</h3>
+      <p>De ondertitel van de reeks luidde niet voor niets dat het om een persoonlijke kijk ging. Bronowski schrijft geen handboek en gebruikt geen noten of verwijzingen; hij kiest de gevallen die zijn betoog dragen en vertelt ze staande op de plek waar ze zich afspeelden. Het boek is daardoor eerder een gedachtegang met voorbeelden dan een overzicht.</p>
+      <p>Het leidende woord is opgang. Bronowski bedoelt daarmee geen zedelijke vooruitgang maar een oplopende reeks vermogens: elk stuk gereedschap en elk begrip maakt het volgende mogelijk. Het beeld dat hij daarvoor gebruikt is dat de hand het snijvlak van de geest is.</p>
+      <h3>Gereedschap, oogst en vuur</h3>
+      <p>De eerste vier hoofdstukken gaan over de vroegste techniek. De vuistbijl staat er als het bewijs dat het maken zelf denken is: de maker moet in de steen zien wat er nog niet in zit. Daarna komen de landbouw en de eerste nederzettingen, met de gecultiveerde tarwe als toevalstreffer die de mens aan een plaats bond.</p>
+      <p>In dat hoofdstuk reist Bronowski mee met de Bakhtiari, herdersnomaden in Perzië, die hij beschrijft als mensen die in een steeds terugkerend heden leven en niets kunnen opbouwen omdat alles mee moet. Vervolgens gaan twee hoofdstukken over steen en over metaal: het gewelf en de boog, en daarna vuur, brons, staal en de alchemie, waarin de eerste pogingen zitten om te begrijpen waaruit stoffen bestaan.</p>
+      <h3>Getal, hemel en klokwerk</h3>
+      <p>Het middendeel gaat over de wiskundige greep op de wereld. Bronowski begint bij Pythagoras en bij de vraag waarom sommige toonafstanden samenklinken, en werkt via de meetkundige patronen in de Moorse architectuur naar het begrip symmetrie, dat hij als een van de oudste natuurwetenschappelijke ideeën behandelt.</p>
+      <p>Daarna volgen Galilei, wiens verdediging voor de kerkelijke rechtbank hij als een breuklijn in de Europese geschiedenis leest, en Newton en Einstein naast elkaar in één hoofdstuk over de gedachte dat de wereld volgens vaste wetten loopt. Bronowski laat zien hoe dezelfde vraag naar beweging tweemaal een ander antwoord kreeg.</p>
+      <h3>Macht, afstamming, atoom</h3>
+      <p>Het hoofdstuk over de industriële ontwikkeling behandelt de fabriek en de stoommachine als een omwenteling die niet door geleerden maar door handwerkslieden en ondernemers werd gemaakt. Hier valt de zinsnede over de democratie van het verstand, die volgens Bronowski uit het gedrukte boek voortkomt: kennis die vermenigvuldigd kan worden, laat zich niet aan een stand voorbehouden.</p>
+      <p>Daarna komen Darwin en Wallace, die onafhankelijk van elkaar op hetzelfde antwoord uitkwamen, en een hoofdstuk over de bouw van de stof, van Daltons atoomgewichten via het ordeningsschema van Mendelejev naar de statistische natuurkunde van Boltzmann, die zich in 1906 van het leven beroofde terwijl over het bestaan van atomen nog werd getwist.</p>
+      <h3>Kennis of zekerheid</h3>
+      <p>Het elfde hoofdstuk is het hart van het boek. Bronowski laat het gezicht van een man zien, de Poolse Auschwitz-overlevende Stefan Borgrajewicz, achtereenvolgens weergegeven met verschillende soorten straling en met verschillende technieken, om te tonen dat elke waarneming een grens van scherpte heeft. Van daaruit gaat hij naar de onzekerheidsrelatie van Heisenberg.</p>
+      <p>Die naam vindt hij misleidend. Wij zijn niet onzeker, schrijft hij, onze kennis ligt binnen een zekere speling, en daarom zou het beginsel van verdraagzaamheid moeten heten, zoals een werktuigbouwkundige over toleranties spreekt. Wat in de natuurkunde geldt, geldt volgens hem voor elke uitwisseling tussen mensen: ook in de politiek, de godsdienst en de wetenschap is uitwisseling alleen mogelijk binnen een marge.</p>
+      <p>Het hoofdstuk eindigt bij de vijver bij de crematoria van Auschwitz waarin de as van vermoorde mensen werd geloosd. Dat is niet door gas gedaan, zegt Bronowski daar, maar door aanmatiging, door leerstelligheid en door onwetendheid; zo gedragen mensen zich als zij menen volstrekte kennis te bezitten waaraan de werkelijkheid niets meer kan afdoen. Hij besluit met de zin van Cromwell waarin die zijn tegenstanders smeekt te overwegen dat zij zich zouden kunnen vergissen, en zegt dat hij daar staat als getuige, voor zijn vriend Leo Szilard en voor de leden van zijn familie die daar zijn omgekomen.</p>
+      <h3>Erfelijkheid en de lange kindertijd</h3>
+      <p>De laatste twee hoofdstukken gaan over het leven zelf en over de mens als soort. Van Mendels erwten via de dubbele helix naar de toen nieuwe vragen over ingrijpen in erfelijk materiaal, waarbij Bronowski de nadruk legt op de gedachte dat een levend wezen zichzelf kopieert.</p>
+      <p>Het slot heet naar de lange kindertijd van de mens. Omdat mensen ongewoon lang afhankelijk blijven, is er tijd om te leren wat niet in de aanleg zit, en dat is volgens Bronowski de voorwaarde voor cultuur. Hij eindigt met een klacht: het Westen dreigt zich van de wetenschap af te wenden en de opgang aan anderen over te laten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">opgang</td><td>Bronowski's woord voor de oplopende reeks vermogens waarin elk gereedschap en elk begrip het volgende mogelijk maakt.</td></tr>
+          <tr><td class="term">de hand als snijvlak van de geest</td><td>Zijn stelling dat het maken van iets een vorm van denken is en niet de uitvoering van een gedachte achteraf.</td></tr>
+          <tr><td class="term">beginsel van verdraagzaamheid</td><td>Zijn voorgestelde naam voor de onzekerheidsrelatie, omdat kennis niet onzeker is maar binnen een speling ligt.</td></tr>
+          <tr><td class="term">democratie van het verstand</td><td>De gedachte dat vermenigvuldigbare kennis, te beginnen met het gedrukte boek, niet aan een stand voorbehouden kan blijven.</td></tr>
+          <tr><td class="term">culturele evolutie</td><td>De ontwikkeling van de mens die niet via het lichaam maar via overgedragen kennis en gereedschap verloopt.</td></tr>
+          <tr><td class="term">lange kindertijd</td><td>De ongewoon lange afhankelijkheid van het mensenkind, die volgens Bronowski de ruimte schept om te leren wat niet aangeboren is.</td></tr>
+          <tr><td class="term">kennis tegenover zekerheid</td><td>Het onderscheid tussen wat te toetsen valt en wat als onaantastbaar wordt gesteld, waarop zijn hele ethiek rust.</td></tr>
+          <tr><td class="term">persoonlijke kijk</td><td>De ondertitel van de reeks, waarmee Bronowski aangeeft dat hij een keuze maakt en geen overzicht levert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bronnen op en heeft geen notenapparaat. Wat het in plaats daarvan doet is tonen: de opnamen werden gemaakt op de plaatsen waar het over gaat, van de voorjaarstrek van de Bakhtiari tot IJsland, Machu Picchu en Auschwitz, en het boek volgt die tekst bijna letterlijk. De overtuigingskracht komt dus uit de aanschouwing en uit de samenhang van het betoog, niet uit verantwoording.</p>
+      <p>Waar Bronowski op eigen terrein is, staat hij sterk. Hij was wiskundige, promoveerde op meetkunde en leidde tijdens de oorlog operationeel onderzoek voor het Britse ministerie van binnenlandse veiligheid, waarin bombardementsuitwerking werd doorgerekend. Na de capitulatie ging hij met een Britse missie naar Japan om de gevolgen van de atoombommen vast te leggen. Het hoofdstuk over kennis en zekerheid komt bij hem dus niet uit de studeerkamer.</p>
+      <p>De zwakste onderbouwing zit in de vroegste hoofdstukken. Wat er over de menswording en over de eerste landbouw staat, geeft de stand van 1973 weer; sindsdien zijn zowel de datering als het beeld van hoe landbouw ontstond ingrijpend bijgesteld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het frame van de titel is het grootste bezwaar. Opgang veronderstelt een lijn met een richting, en die lijn loopt bij Bronowski naar het moderne Westen. Culturen die een andere kant op gingen worden daardoor doodlopende zijwegen. De bladzijden over de Bakhtiari, die zouden leven zonder toekomst omdat zij niets kunnen opbouwen, lezen nu neerbuigend, en er ligt geen onderzoek onder dat oordeel.</p>
+      <p>Verwant daaraan is de vrijwel volledige afwezigheid van vrouwen, in de titel en in het verhaal. In een boek over wat de mens tot mens maakt komen de bezigheden waarmee de helft van de mensheid zich bezighield nauwelijks voor.</p>
+      <p>De sprong van de natuurkunde naar de zedenleer is aanvechtbaar, en het is de sprong waar het boek op rust. Dat een meting een speling heeft, is een uitspraak over instrumenten; dat mensen elkaar moeten verdragen, is een norm. Bronowski verbindt ze met een woordspel op tolerantie, en dat is een beeld en geen redenering. Zijn ethische punt blijft overeind zonder de natuurkunde, maar dan zonder de autoriteit die de natuurkunde eraan verleent.</p>
+      <p>Ten slotte is dit uitgeschreven televisie. De hoofdstukken zijn kort, de overgangen zijn retorisch en de argumenten worden zelden tegengesproken. Wie de reeks heeft gezien, hoort de stem erbij en vult veel aan; wie alleen het boek leest, houdt op sommige plaatsen een reeks fraaie beweringen over.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het elfde hoofdstuk apart als het betoog waarvoor het boek bestaat, ook als de rest ongelezen blijft.</li>
+        <li>Toets het onderscheid tussen kennis en zekerheid aan een eigen stellige overtuiging: wat zou haar kunnen weerleggen.</li>
+        <li>Neem de vroege hoofdstukken over menswording en landbouw naast recenter werk, want de feiten daarin zijn vijftig jaar oud.</li>
+        <li>Gebruik de gedachte dat het maken vooraf kan gaan aan het begrijpen bij het beoordelen van vakmanschap en van leerwegen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Het boek bij de gelijknamige televisiereeks in dertien delen die de BBC samen met Time-Life Films maakte en in 1973 uitzond, geschreven en gepresenteerd door Bronowski. David Attenborough gaf er als omroepbestuurder opdracht toe, bedoeld als natuurwetenschappelijke tegenhanger van <i>Civilisation</i> van kunsthistoricus Kenneth Clark uit 1969. De Britse uitgave verscheen bij de BBC in Londen (448 blz.), de Amerikaanse bij Little, Brown in Boston; de tekst volgt de uitzendingen bijna woordelijk. Nederlands verscheen het als <i>De mens in wording. Ontwikkelingsgeschiedenis van de mens van de vroegste tijden tot heden</i>, vertaald door H.J. Bergmans, bij Gaade in Amerongen (1978, 449 blz., ISBN 9060178270). Bronowski overleed in augustus 1974, kort na de reeks.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een geschiedenis van de mens verteld langs zijn gereedschappen en zijn ideeën, van de vuistbijl tot de dubbele helix. Bronowski, wiskundige van huis uit, behandelt uitvindingen niet als toepassingen van kennis maar als de plek waar kennis ontstaat: de hand die iets maakt gaat vooraf aan de theorie die het verklaart. De dertien hoofdstukken volgen de televisieafleveringen en zijn opgenomen op de plaatsen zelf, van de trek van de Bakhtiari tot de moskee van Córdoba.</p><p>Het hoofdstuk waar de reeks om herinnerd wordt is het elfde. Daarin loopt het betoog van Heisenbergs onzekerheidsrelatie, die Bronowski liever het beginsel van verdraagzaamheid noemt, naar de vijver bij Auschwitz waar de as van vermoorde mensen werd geloosd, onder wie leden van zijn eigen familie. Zijn punt: dat is wat er gebeurt als mensen menen over volstrekte zekerheid te beschikken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>beschaving</li><li>evolutie</li><li>techniekgeschiedenis</li><li>televisie</li><li>kennistheorie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan voert hetzelfde pleidooi voor toetsbare kennis, met meer aandacht voor hoe je bijgeloof herkent.</li>
+          <li value="239"><a href="239.html">A Short History of Nearly Everything</a>. Bryson vertelt dezelfde geschiedenis van de wetenschap breder en luchtiger, met de anekdotes die Bronowski weglaat.</li>
+          <li value="819"><a href="819.html">Disturbing the Universe</a>. Dyson rekende in dezelfde oorlog aan dezelfde bombardementen en schreef er later een heel ander soort verantwoording over.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

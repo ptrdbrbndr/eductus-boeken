@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Common Law &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Holmes bestrijdt de opvatting dat het recht een gesloten stelsel is waaruit uitspraken door redenering zijn af te leiden. Zijn openingszin luidt dat het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-827">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">827 &middot; Staat en vrijheid</p>
+    <h1>The Common Law</h1>
+    <p class="lede">Oliver Wendell Holmes Jr., 1881</p>
+    <p class="stats">
+      <span><b>2203</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="827"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Holmes bestrijdt de opvatting dat het recht een gesloten stelsel is waaruit uitspraken door redenering zijn af te leiden. Zijn openingszin luidt dat het leven van het recht geen logica is geweest maar ervaring: de gevoelde noden van de tijd, de heersende zedelijke en staatkundige theorieën, ingevingen over het algemeen belang en zelfs de vooroordelen die rechters met hun tijdgenoten delen hebben meer met de geldende regels te maken gehad dan de sluitrede. Daaruit volgt zijn tweede stelling: het gemene recht heeft zich bewogen van innerlijke schuld naar een uiterlijke maatstaf, waarbij niet telt wat deze persoon bedoelde maar wat een mens van gewone voorzichtigheid zou hebben gedaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het programma van de eerste bladzijde</h3>
+      <p>Holmes kondigt aan dat hij een algemeen beeld van het gemene recht wil geven en dat logica daarvoor niet volstaat. Aantonen dat een stelsel om samenhang een bepaalde uitkomst vereist is iets, zegt hij, maar niet alles. Het recht bevat de geschiedenis van een volk over vele eeuwen en laat zich niet behandelen als een boek met stellingen en gevolgtrekkingen: om te weten wat het is moet men weten wat het geweest is en waar het heen neigt.</p>
+      <p>Daarna waarschuwt hij voor twee fouten. De eerste is te denken dat iets altijd zo is geweest omdat het vertrouwd voorkomt; veel vanzelfsprekendheden zijn moeizaam bevochten. De tweede is te veel van geschiedenis vragen: men begint bij de volgroeide mens, en de vroegste barbaar wiens gewoonten ter sprake komen had ongeveer dezelfde gevoelens en driften als wij.</p>
+      <h3>Van wraak naar aansprakelijkheid</h3>
+      <p>De eerste lezing herleidt de aansprakelijkheid tot de bloedwraak. De veta werd afgekocht met een boete, eerst vrijwillig en daarna verplicht, en die afkoop groeide uit tot de vorderingen die juristen nog kennen. Omdat de vergoeding in de plaats van de wraak kwam, reikte zij aanvankelijk niet verder dan de wraak reikte, en wraak veronderstelt verwijt.</p>
+      <p>Daarnaast staat een oudere gedachte, die hij met voorbeelden uit uiteenlopende stelsels laat zien: het schuldige voorwerp of dier wordt zelf uitgeleverd of vernietigd. De os die iemand doodstoot moet volgens Exodus gestenigd worden terwijl de eigenaar vrijuit gaat; Plutarchus vertelt over de hond die aan een blok van vier el moest worden gebonden; het Engelse recht kende de deodand, waarbij het voorwerp dat de dood veroorzaakte aan de koning verviel, zodat een aanklacht wegens doodslag de waarde ervan moest vermelden.</p>
+      <p>Daar hangt Holmes zijn algemene stelling aan op. Gewoonten, geloof of nood brengen een regel voort; eeuwen later is de aanleiding verdwenen maar de regel gebleven, en vindingrijke geesten bedenken er een nieuwe rechtvaardiging bij. Zelfs de beperkte aansprakelijkheid van reders, waarbij de inzet niet verder gaat dan schip en vracht, ligt volgens hem in de lijn van de uitlevering van het schuldige voorwerp.</p>
+      <h3>De uiterlijke maatstaf in het strafrecht</h3>
+      <p>De tweede lezing bespreekt straf. Holmes zet de vergeldingsleer, die straf als het ongedaan maken van het onrecht ziet, tegenover de voorkomingsleer, die straf rechtvaardigt door het nut ervan. Hij haalt het bezwaar van Kant aan dat de tweede opvatting de mens als middel behandelt en niet als doel, en antwoordt nuchter tot op het onaangename: geen samenleving heeft ooit toegegeven dat zij het welzijn van een enkeling niet aan haar eigen voortbestaan zou mogen opofferen.</p>
+      <p>Daarop volgt het begrip dat het boek bijeenhoudt. De regels van het recht stellen een norm en houden geen rekening met onvermogen, tenzij het gaat om herkende uitzonderingen zoals jeugd of krankzinnigheid; zij nemen aan dat ieder even goed in staat is te doen wat zij gebieden. Vallen zij op de ene groep zwaarder dan op de andere, dan is dat op de zwaksten, want juist wie door aard, onwetendheid of onbezonnenheid geneigd is te falen loopt het meeste gevaar. De verzoening tussen schuld als grondslag en aansprakelijkheid zonder schuld ligt volgens Holmes in de gemiddelde mens, die van gewoon verstand en redelijke voorzichtigheid. Die persoon bestaat niet; hij wordt bij een geschil vertegenwoordigd door de jury.</p>
+      <h3>Onrechtmatige daad en nalatigheid</h3>
+      <p>In de lezingen over de onrechtmatige daad, de schade die iemand een ander buiten enige overeenkomst toebrengt, wordt de maatstaf uitgewerkt. De normen van het recht zijn normen van algemene toepassing, schrijft Holmes, en het recht houdt geen rekening met de eindeloze verscheidenheid van aard, verstand en opvoeding die het innerlijk van eenzelfde handeling bij verschillende mensen zo ongelijk maakt. Het probeert de mensen niet te zien zoals God hen ziet, om twee redenen: iemands vermogens en grenzen zijn niet nauwkeurig te meten, en waar mensen samenleven is een zeker gemiddelde aan gedrag nodig, zodat persoonlijke eigenaardigheden vanaf een bepaald punt worden opgeofferd.</p>
+      <p>Het voorbeeld waarmee hij dat afsluit is berucht om zijn kilte. Wie driftig en onhandig ter wereld komt en voortdurend zichzelf en anderen bezeert, zal in de hemel op zijn aangeboren gebreken worden beoordeeld, maar hier gelden zijn misstappen als misstap. Naarmate ervaring zich ophoopt, voegt hij toe, kan de rechter uit de losse beoordeling door de jury een vaste regel afleiden; zo groeit het gemene recht van geval naar norm.</p>
+      <h3>Bezit, bewaarneming en overeenkomst</h3>
+      <p>Het middendeel behandelt de bewaarnemer, iemand die andermans goed onder zich heeft, en het bezit. Hier keert Holmes zich tegen de Duitse rechtsgeleerdheid. De leer van het bezit is volgens hem in handen van filosofen geraakt en bij Kant en Hegel de hoeksteen van uitgebreide stelsels geworden, uitgewerkt naar Duitse opvattingen over het Romeinse recht. Zijn tegenwerping luidt dat het Engelse recht, verder ontwikkeld dan het Romeinse, op een plan berust dat daarmee niet te rijmen valt, zodat de aanspraak op algemene geldigheid vervalt. Bezit is bij hem een rechtsfeit met gevolgen, geen wil die zich in een zaak verwerkelijkt.</p>
+      <p>Bij de overeenkomst voert hij dezelfde uiterlijke maatstaf door: een verbintenis wordt niet gemeten aan wat partijen in hun hoofd bedoelden maar aan de tekens die zij naar buiten hebben gegeven. Zijn scherpste formulering betreft het gevolg. Het enige algemene gevolg van een rechtens bindende belofte is dat het recht de belover schadevergoeding laat betalen als de beloofde gebeurtenis uitblijft; tot de termijn verstreken is laat het hem met rust, en het staat hem dus vrij zijn overeenkomst te breken. Een overeenkomst is zo het aanvaarden van een risico, en dat gezichtspunt gebruikt Holmes om de omvang van de schadevergoeding te verklaren.</p>
+      <h3>Erfopvolging en overdracht</h3>
+      <p>De laatste twee lezingen gaan over de overgang van rechten en verplichtingen van de ene persoon op de andere, bij overlijden en bij leven. Holmes laat zien hoe het Romeinse denkbeeld dat de erfgenaam de persoon van de overledene voortzet in het Engelse recht is blijven doorwerken in regels die zonder die veronderstelling niet te verklaren zijn. Dat deel is het technischste van het boek en het minst gelezen, maar het levert wel het duidelijkste voorbeeld van een verklaringsvorm die haar grond verloor en toch hele leerstukken bleef bepalen.</p>
+      <h3>Wat er na 1881 van kwam</h3>
+      <p>Het boek maakte Holmes tot een naam. In 1882 werd hij rechter aan het hooggerechtshof van Massachusetts, in 1899 de voorzitter daarvan, en in december 1902 benoemde Theodore Roosevelt hem in het Amerikaanse Hooggerechtshof, waar hij tot zijn aftreden in 1932 bleef. In de lezing <i>The Path of the Law</i> uit 1897 dreef hij zijn uiterlijke gezichtspunt door: men moet het recht bezien met de ogen van de slechte mens, die niet naar zedelijke gronden vraagt maar wil weten wat de rechtbank feitelijk zal doen.</p>
+      <p>Uit zijn tijd in Washington stammen de afwijkende meningen waarop zijn reputatie rust. In Lochner tegen New York (1905) verweet hij de meerderheid dat zij een economische leer in de grondwet las die daar niet in staat. In Schenck tegen de Verenigde Staten (1919) schreef hij de formule van het onmiddellijke en werkelijke gevaar, waarmee veroordelingen van oorlogstegenstanders in stand bleven; later datzelfde jaar verdedigde hij in Abrams tegen de Verenigde Staten de vrije handel in denkbeelden als beste proef op de waarheid.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">gemeen recht</td><td>Het Engelse en Amerikaanse rechtersrecht, gevormd in uitspraken over losse gevallen in plaats van in wetboeken vastgelegd.</td></tr>
+          <tr><td class="term">ervaring tegenover logica</td><td>Holmes' stelling dat regels voortkomen uit de noden en opvattingen van hun tijd en niet uit redenering.</td></tr>
+          <tr><td class="term">uiterlijke maatstaf</td><td>De beoordeling van gedrag aan wat naar buiten blijkt, in plaats van aan de gemoedstoestand van de betrokkene.</td></tr>
+          <tr><td class="term">de gemiddelde mens</td><td>De verzonnen persoon van gewoon verstand en redelijke voorzichtigheid aan wie gedrag wordt afgemeten, in een geschil belichaamd door de jury.</td></tr>
+          <tr><td class="term">deodand</td><td>De oude Engelse regel dat het voorwerp dat iemands dood veroorzaakte aan de kroon verviel, voor Holmes het spoor van aansprakelijkheid die aan het schuldige ding kleefde.</td></tr>
+          <tr><td class="term">uitlevering van de dader</td><td>De regel uit oudere stelsels waarbij de eigenaar het dier of de slaaf die schade aanrichtte kon uitleveren in plaats van zelf te betalen.</td></tr>
+          <tr><td class="term">overblijvende regel</td><td>Een voorschrift waarvan de aanleiding is weggevallen terwijl de vorm blijft, waarna er achteraf nieuwe gronden bij worden verzonnen.</td></tr>
+          <tr><td class="term">overeenkomst als aanvaard risico</td><td>De opvatting dat een belofte niet dwingt tot nakoming maar tot schadevergoeding als de beloofde gebeurtenis uitblijft.</td></tr>
+          <tr><td class="term">de slechte mens</td><td>Het gezichtspunt uit zijn lezing van 1897: wie wil weten wat het recht is, vraagt wat de rechtbank feitelijk zal doen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is historisch en tekstueel. Holmes werkt met oude vorderingen, wetteksten en uitspraken uit het Angelsaksische, Romeinse, Germaanse en Engelse recht, en met de handboeken van zijn tijd, waaronder de omschrijving van moord bij James Fitzjames Stephen. Waar hij een regel niet uit haar eigen tijd kan verklaren, gaat hij terug tot waar zij wel zin had. Dat levert zijn overtuigendste bladzijden op: de stotende os in Exodus, de aangebonden hond bij Plutarchus, de Engelse deodand.</p>
+      <p>Wat hij niet doet is zijn stelling toetsen aan gevallen die haar zouden kunnen weerleggen. De gang van innerlijke schuld naar uiterlijke maatstaf wordt telkens opnieuw toegelicht, nooit tegen een tegenvoorbeeld gehouden, en de keuze van de besproken leerstukken ligt in het verlengde van de uitkomst. Het is een betoog dat overtuigt door herhaling van hetzelfde patroon in wisselende stof.</p>
+      <p>De invloed is beter vast te stellen dan de juistheid. Het boek zette de toon voor de Amerikaanse opvatting dat recht mensenwerk is, en legde de grond onder wat later rechtsrealisme is gaan heten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De geschiedschrijving is op onderdelen achterhaald. Latere rechtshistorici, onder wie de Cambridgese hoogleraar S.F.C. Milsom, hebben erop gewezen dat rechtsgeschiedenis meer dan andere geschiedschrijving vatbaar is voor het terugprojecteren van latere begrippen, en Holmes leest het vroege Engelse recht met de vragen van 1880 in het hoofd. Zijn stelling dat alle aansprakelijkheid uit wraak en uit het schuldige voorwerp is voortgekomen, is als algemene verklaring niet houdbaar gebleken.</p>
+      <p>De wijsbegeerte achter het boek is dunner dan de reputatie doet vermoeden. H.L.A. Hart merkte op dat het historische werk een tijdperk inluidde maar dat de filosofie die Holmes eruit afleidde ondiep was. De uiterlijke maatstaf lost het vraagstuk van de schuld niet op maar verplaatst het: wie bepaalt wat gewone voorzichtigheid is, en waarom mag iemand aansprakelijk zijn zonder verwijt. Holmes antwoordt met het belang van de samenleving en laat het daarbij.</p>
+      <p>Zijn behandeling van de zwakkeren is niet alleen koel maar heeft gevolgen gehad. Holmes stelt zelf vast dat zijn maatstaf het hardst valt op wie door aard, onwetendheid of onbezonnenheid geneigd is te falen, en aanvaardt dat. Diezelfde gedachtegang keert terug in zijn beruchtste uitspraak. In Buck tegen Bell uit 1927 hield het Hooggerechtshof met acht tegen één de Virginische wet in stand die gedwongen sterilisatie toestond, en Holmes schreef voor de meerderheid een opinie van enkele alinea's die eindigde met de zin dat drie geslachten van zwakzinnigen genoeg zijn. Carrie Buck werd gesteriliseerd; latere naspeuringen hebben aannemelijk gemaakt dat noch zij noch haar dochter zwakzinnig was. Onder dergelijke wetten zijn in de Verenigde Staten tienduizenden mensen tegen hun wil onvruchtbaar gemaakt, en de uitspraak is nooit uitdrukkelijk herroepen.</p>
+      <p>Dat maakt de waardering voor de jurist ingewikkeld. Grant Gilmore rekende in de jaren zeventig af met het beeld van Holmes als milde wijze en tekende hem als hard en onverschillig; Albert Alschuler bundelde die kritiek in <i>Law Without Values</i> uit 2000, met als kern dat een rechtsleer die alleen naar gevolgen en machtsverhoudingen kijkt geen grond overhoudt om iets ontoelaatbaar te noemen. In <i>The Common Law</i> is die leegte al zichtbaar: het beschrijft nauwkeurig hoe het recht werkt en zegt niets over wat het zou moeten willen.</p>
+      <p>Ten slotte is het geen makkelijk boek: het veronderstelt bekendheid met oude vorderingen, Latijnse termen en Engelse rechtsfiguren.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een regel die vreemd aandoet welk verdwenen belang zij ooit diende, voordat er een verklaring bij wordt bedacht.</li>
+        <li>Onderscheid bij het beoordelen van gedrag wat iemand bedoelde van wat naar buiten bleek; het recht meet doorgaans het tweede.</li>
+        <li>Houd bij het opstellen van een norm in de gaten wie hem het minst kan halen, en of dat gevolg is bedoeld.</li>
+        <li>Lees de eerste drie lezingen voor het gezichtspunt en de rest als naslag.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Common Law</i> verscheen in 1881 bij Little, Brown, and Company in Boston, xvi en 422 blz. De tekst gaat terug op de Lowell-lezingen, een openbare lezingenreeks die Holmes eind 1880 in Boston hield. Van de twaalf lezingen zijn er elf in het boek terechtgekomen; de twaalfde was een samenvatting van de voorgaande en is weggelaten omdat een lezer het boek voor zich heeft. De volledige tekst is vrij beschikbaar via Project Gutenberg; een goedkope herdruk is die van Dover (ISBN 9780486267463). Een Nederlandse vertaling is niet gevonden, dus deze samenvatting berust op de Engelse tekst. Common law is het Engelse en Amerikaanse recht dat door rechters in uitspraken is gevormd in plaats van door een wetgever in wetboeken vastgelegd; Holmes schrijft over dat rechtersrecht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Holmes opent met de zin waaraan het boek zijn faam dankt: het leven van het recht is geen logica geweest maar ervaring. De behoeften van de tijd, de heersende zedelijke en staatkundige opvattingen, ingevingen over wat de samenleving dient en zelfs de vooroordelen die rechters met hun tijdgenoten delen, hebben volgens hem meer bepaald welke regels gelden dan de sluitrede. Een rechtsstelsel is daarom geen wiskundeboek maar de neerslag van een geschiedenis, en wie een regel wil begrijpen moet weten waar zij vandaan komt.</p><p>De rode draad is een verschuiving: van innerlijke schuld naar een uiterlijke maatstaf. Waar aansprakelijkheid ooit uit wraak voortkwam en dus verwijt veronderstelde, meet het recht volgens Holmes gedrag af aan wat een mens van gewone verstandelijke vermogens en gewone voorzichtigheid zou hebben gedaan. Dat is een verzonnen persoon, en Holmes zegt er zonder omhaal bij dat de maatstaf het hardst aankomt bij wie hem het minst kan halen. Hij werd later rechter in het Amerikaanse Hooggerechtshof, met een nalatenschap die van beroemde afwijkende meningen tot Buck v. Bell reikt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>recht</li><li>rechtsgeschiedenis</li><li>rechtsfilosofie</li><li>aansprakelijkheid</li><li>amerikaanse geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="619"><a href="619.html">The Anti-Federalist Papers</a>. <i>The Anti-Federalist Papers</i> laten zien hoe hetzelfde Amerikaanse stelsel werd bevochten in geschreven grondwetstermen, waar Holmes het bij het rechtersrecht houdt.</li>
+          <li value="623"><a href="623.html">Anarchy, State, and Utopia</a>. Nozick leidt in <i>Anarchy, State, and Utopia</i> rechten juist wel uit beginselen af. Dat is precies de werkwijze die Holmes van tafel veegt.</li>
+          <li value="616"><a href="616.html">No Treason</a>. Spooner betoogt in <i>No Treason</i> dat gezag zonder instemming geen gezag is. Holmes' antwoord, dat geen samenleving haar eigen voortbestaan aan de enkeling ondergeschikt maakt, staat daar recht tegenover.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

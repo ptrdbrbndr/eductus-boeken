@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wise Wound &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shuttle en Redgrove stellen dat de menstruatiecyclus in het Westen uitsluitend wordt bekeken als voorbereiding op zwangerschap, zodat alles wat buiten de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1121">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1121 &middot; Brein en lichaam</p>
+    <h1>The Wise Wound</h1>
+    <p class="lede">Penelope Shuttle en Peter Redgrove, 1978</p>
+    <p class="stats">
+      <span><b>1901</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1121"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shuttle en Redgrove stellen dat de menstruatiecyclus in het Westen uitsluitend wordt bekeken als voorbereiding op zwangerschap, zodat alles wat buiten de vruchtbare fase valt als last, ziekte of vuil geldt. Volgens hen heeft de cyclus twee polen: de ovulatie, die naar buiten en naar de ander is gekeerd, en de menstruatie, die naar binnen keert en gepaard gaat met heviger dromen, ander seksueel gevoel en beeldend materiaal dat op andere dagen niet opkomt. Wat premenstruele spanning heet, is naar hun oordeel grotendeels een echo van het taboe zelf: wat de omgeving verwacht komt bij de vrouw terug als klacht, en die klacht bevestigt de verwachting. En omdat de cultuur die helft van de cyclus heeft weggedrukt, keert zij vermomd terug in heksenprocessen, vampierverhalen en horrorfilms. Wie de eigen cyclus met een dromendagboek volgt, kan dat weggedrukte deel terugnemen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het boek ontstond</h3>
+      <p>Penelope Shuttle (geboren 1947) en Peter Redgrove (1932-2003) waren dichters en levenspartners. Redgrove had in Cambridge natuurwetenschappen gestudeerd en werkte later met de eigenzinnige jungiaanse analyticus John Layard. Het boek groeide over meerdere jaren uit Shuttles zware menstruatieklachten, het dromendagboek dat zij ging bijhouden en Redgroves duiding van dat materiaal.</p>
+      <p>Gollancz bracht het in 1978 uit met een voorwoord van Margaret Drabble. Het werd meteen als taboedoorbrekend herkend en door uiteenlopende schrijvers geprezen. In 1995 volgde een vervolg, <i>Alchemy for Women</i>, over dromen en de vrouwelijke cyclus.</p>
+      <h3>De wetenschap van het bloeden</h3>
+      <p>Het eerste hoofdstuk zet uiteen wat er in de jaren zeventig over de cyclus bekend was: het hormonale verloop, de opeenvolging van fasen, de lichamelijke veranderingen die ermee samengaan. De auteurs betogen dat de geneeskunde die kennis vrijwel uitsluitend vanuit de voortplanting had geordend, waardoor de tweede helft van de cyclus alleen als het uitblijven van zwangerschap in beeld kwam en de klachten die erbij horen als storing golden.</p>
+      <h3>De menstruele epidemie en de howlback</h3>
+      <p>Het tweede hoofdstuk gaat over de omvang waarin menstruatieklachten in die jaren werden gemeld en behandeld. Shuttle en Redgrove lezen dat als een cultureel verschijnsel en munten er de term howlback voor, ontleend aan het rondzingen van een geluidsinstallatie: wat de omgeving van een menstruerende vrouw verwacht, komt bij haar terug als klacht, en die klacht bevestigt vervolgens de verwachting.</p>
+      <p>Zij werken die gedachte uit in drie richtingen, die het hoofdstuk ook als onderdelen aanhoudt: hoe de vrouw zich in zichzelf voelt, hoe zij de mensen om zich heen beinvloedt, en waarvoor de samenleving haar beloont. Het laatste punt is het scherpst: een vrouw die zich premenstrueel klein maakt, wordt daarvoor bevestigd, en dat maakt de klacht lonend.</p>
+      <h3>Animus, dier, anima</h3>
+      <p>Het derde hoofdstuk levert het duidingskader. De auteurs passen de jungiaanse begrippen anima en animus toe op het droommateriaal en betogen dat rond de menstruatie een ander soort droom opkomt: feller, beeldender, met gestalten die als vreemd of dierlijk verschijnen en die zij als de andere kant van de dromer lezen.</p>
+      <h3>Maan, taboe en de ouden</h3>
+      <p>Het vierde hoofdstuk stelt de vraag of de maan menstrueert. De auteurs leggen de gemiddelde cycluslengte naast de maanmaand van ruim negenentwintig dagen, houden de overeenkomst voor meer dan toeval en laten de vroegste tijdrekening eruit voortkomen.</p>
+      <p>Het vijfde hoofdstuk zoekt in de etnografische literatuur naar samenlevingen die de menstruerende vrouw afzonderden, en keert de gangbare uitleg om: waar antropologen onreinheid en angst lazen, lezen Shuttle en Redgrove ontzag voor een toestand die als geladen gold. De afzondering is bij hen oorspronkelijk een terugtrekking en pas later een straf.</p>
+      <h3>Heksen en de spiegel van Dracula</h3>
+      <p>Het zesde hoofdstuk, met de titel <i>Witchcraft: Nine Million Menstrual Murders</i>, leest de heksenvervolging als een veldtocht tegen vrouwen die van de cyclus en van het lichaam wisten. Het zevende hoofdstuk doet hetzelfde met de horrortraditie: de vampier die bloed nodig heeft en alleen 's nachts leeft, en het bezeten meisje in <i>The Exorcist</i>, dat de auteurs als een verhaal over de eerste menstruatie behandelen.</p>
+      <h3>Het praktische deel</h3>
+      <p>Het boek eindigt met aanwijzingen voor eigen gebruik: het bijhouden van een dagboek waarin dromen en cyclusdagen naast elkaar staan, het opzoeken van wat er in de dagen voor en tijdens de menstruatie aan beelden en gevoelens opkomt, en het weigeren van de omschrijving waarin die dagen alleen als last voorkomen. Dat deel heeft de meeste navolging gekregen; de latere literatuur over cyclusbewustzijn stamt er grotendeels van af.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de wijze wond</td><td>De titelfiguur: de menstruatie als bloeding die niet van letsel komt en die volgens de auteurs iets te weten geeft in plaats van iets te beschadigen.</td></tr>
+          <tr><td class="term">howlback</td><td>Hun term voor het rondzingen van het menstruatietaboe, waarbij de verwachting van de omgeving bij de vrouw terugkomt als klacht die de verwachting weer bevestigt.</td></tr>
+          <tr><td class="term">de menstruele epidemie</td><td>Hun aanduiding voor de schaal waarop menstruatieklachten in de jaren zeventig werden gemeld en behandeld, door hen als cultureel verschijnsel gelezen.</td></tr>
+          <tr><td class="term">de twee polen van de cyclus</td><td>Ovulatie en menstruatie als twee tegengestelde toppen, waarvan de westerse cultuur alleen de eerste erkent.</td></tr>
+          <tr><td class="term">menstruatiedroom</td><td>De droom die volgens de auteurs rond de menstruatie opkomt, feller en beeldender dan die van andere dagen in de cyclus.</td></tr>
+          <tr><td class="term">anima en animus</td><td>De jungiaanse begrippen voor het vrouwelijke deel in de man en het mannelijke deel in de vrouw, die de auteurs op het droommateriaal toepassen.</td></tr>
+          <tr><td class="term">menstruatietaboe</td><td>Het geheel van voorschriften waarmee samenlevingen de menstruerende vrouw afzonderen of beperken, door de auteurs als omgekeerd ontzag gelezen.</td></tr>
+          <tr><td class="term">de spiegel van Dracula</td><td>Hun lezing van de vampier en verwante horrorgestalten als vermomde terugkeer van het weggedrukte menstruatiebeeld.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek legt drie soorten materiaal naast elkaar. Het eerste is de hormonale fysiologie zoals die in de jaren zeventig bekend was. Het tweede is etnografisch: oudere veldverslagen over afzondering en inwijding rond de menstruatie. Het derde is een omvangrijk psychoanalytisch corpus, freudiaans en jungiaans. Daarnaast, en in feite als scharnier, staat Shuttles eigen dromendagboek en cyclusverslag. Dat is een geval van één, opgetekend en geduid door de twee mensen wier stelling het moet dragen.</p>
+      <p>Eigen onderzoek ontbreekt. Er is geen reeks proefpersonen, geen vergelijkingsgroep, geen telling van dromen per cyclusdag, geen enkele meting waarmee de kernbewering over de menstruatiedroom te controleren valt. De lezingen van Dracula en <i>The Exorcist</i> verlopen associatief.</p>
+      <p>De psychoanalytische bronnen zijn de zwakste schakel, en dat is sinds 1978 verschoven. Toen golden zij nog als kennis; nu gelden zij dat niet meer. Duidingen van symbolen zijn niet toetsbaar, en de klinische aanspraken van die traditie hebben het waar zij wel zijn getoetst grotendeels niet gehaald. Doordat het boek ze in dezelfde toon presenteert als de fysiologie, lijken de twee soorten uitspraken van gelijke orde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Eerst wat er is blijven staan. De beschrijving van het hormonale verloop is sindsdien veel nauwkeuriger geworden, maar niet omgekeerd: de cyclus wordt aangestuurd door de as van hypothalamus, hypofyse en eierstok, met de hormonen GnRH, FSH, LH, oestradiol en progesteron, en verloopt in een folliculaire fase, de eisprong en een luteale fase. Dat lichaamstemperatuur, slaap en stemming daarmee meebewegen, en bij een deel van de vrouwen sterk, is vastgesteld. De aandrang van de auteurs om de cyclus als iets anders te zien dan uitsluitend een voorbereiding op zwangerschap is door de latere literatuur eerder bevestigd dan weersproken.</p>
+      <p>Wat het niet heeft gehaald, is het getal waar het maanhoofdstuk op rust. De achtentwintig dagen zijn geen norm. Een analyse van 612.613 ovulatoire cycli van 124.648 gebruiksters van een cyclusapp, in 2019 gepubliceerd in <i>npj Digital Medicine</i>, kwam uit op een gemiddelde van 29,3 dagen, met slechts dertien procent van de cycli op precies achtentwintig dagen. De nette samenloop met de maanmaand is dus deels een gevolg van een afgerond gemiddelde. Een onderzoek uit 2019 op 7,5 miljoen cycli van 1,5 miljoen gebruiksters vond geen verband met de maanstand, en een onderzoek uit 2021 op 529 vrouwen evenmin. Ook het gelijklopen van cycli van vrouwen die samenleven, dat in deze literatuur veel is aangehaald na de publicatie van Martha McClintock in <i>Nature</i> (1971), is vanaf 1991 herhaaldelijk niet gereproduceerd; overzichtsartikelen uit 2006 en 2013 concluderen dat het verschijnsel waarschijnlijk niet bestaat.</p>
+      <p>Bij de howlback ligt het gemengd, en het maakt uit welke helft je neemt. Dat verwachting de gemelde klachten stuurt, is aangetoond: Diane Ruble liet in <i>Science</i> (1977) vrouwen geloven dat zij premenstrueel waren terwijl dat niet zo was, en zij rapporteerden meer lichamelijke verschijnselen dan de vrouwen die dachten midden in hun cyclus te zitten. Dat is precies het punt van de auteurs en het staat. De verdergaande stelling, dat de klachten in de kern aangeleerd zijn, houdt geen stand. Peter Schmidt en collega's legden in de <i>New England Journal of Medicine</i> (1998) bij vrouwen met en zonder zware premenstruele klachten de eierstokfunctie stil en gaven daarna oestradiol en progesteron terug; alleen de vrouwen met klachten gingen daarop achteruit, de vergelijkingsgroep onder dezelfde behandeling niet. Dat wijst op een verschil in gevoeligheid voor normale hormoonspiegels. De premenstruele dysfore stoornis is in 2013 in de DSM-5 opgenomen. Wie de klachten geheel als echo van het taboe verklaart, laat juist de vrouwen met de zwaarste klachten met lege handen achter.</p>
+      <p>Twee dingen resteren als bezwaar. Het jungiaanse kader kent vaste psychische eigenschappen aan de seksen toe, werkzaamheid aan het mannelijke en ontvankelijkheid aan het vrouwelijke. Dat is een aanname en geen bevinding, en zij legt een essentialistische bodem onder een boek dat vrouwen juist van een vastgezet beeld van hun lichaam wilde bevrijden. En het getal in de titel van hoofdstuk zes klopt niet, met een factor van ruwweg tweehonderd. De negen miljoen gaat terug op Gottfried Christian Voigt, die in 1784 een veertigtal terechtstellingen in Quedlinburg omrekende naar heel Europa en elf eeuwen; Matilda Joslyn Gage rondde dat in 1893 af. Historici komen op grond van procesdossiers voor de periode van ongeveer 1400 tot 1800 op dertig- tot vijftigduizend terechtstellingen, in verscheidene streken met een aanzienlijk aandeel mannen onder de slachtoffers, en de gedachte dat het vooral vroedvrouwen betrof houdt bij die dossiers geen stand. Daarmee valt de grond weg onder de lezing van de heksenvervolging als vervolging van menstruatiekennis.</p>
+      <p>Wat het boek deed, blijft niettemin van betekenis. In 1978 bestond er nauwelijks een algemeen leesbaar boek dat het verslag van vrouwen over hun eigen cyclus serieus nam. Dat de cyclus meer aanstuurt dan de vruchtbaarheid, dat klachten navraag verdienen in plaats van afdoening, en dat schaamte over menstruatie is aangeleerd: dat zijn punten die dit boek vroeg maakte en die inmiddels gemeengoed zijn. Als document van 1978 en als cultuurgeschiedenis van het taboe is het de moeite waard. Als bron van feiten over de cyclus is het dat niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als cultuurgeschiedenis van het menstruatietaboe en zoek de fysiologie in recentere literatuur op.</li>
+        <li>Houd per hoofdstuk de vraag vast welke bewering uit meting komt en welke uit duiding; de auteurs zetten die twee zonder markering naast elkaar.</li>
+        <li>Wie het dromendagboek wil bijhouden dat het boek voorstelt, kan dat doen zonder de jungiaanse uitleg over te nemen; het bijhouden zelf levert het materiaal.</li>
+        <li>Controleer de historische getallen; de negen miljoen heksen is ruwweg tweehonderd keer te hoog.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Wise Wound: Menstruation and Everywoman</i> (Victor Gollancz, Londen, 1978, 335 blz.), met een voorwoord van Margaret Drabble. In de Verenigde Staten verscheen het boek datzelfde jaar bij Richard Marek in New York onder de titel <i>The Wise Wound: Eve's Curse and Everywoman</i> (335 blz., ISBN 9780399900242). Een herziene uitgave kwam in 1986 bij Paladin Grafton in Londen (365 blz.) en in 1988 bij Grove Press in New York als <i>The Wise Wound: Myths, Realities, and Meanings of Menstruation</i> (358 blz., ISBN 9780802111364); latere herdrukken verschenen bij Marion Boyars, laatstelijk in 2005. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse edities gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Studie van de menstruatiecyclus door twee Britse dichters, voortgekomen uit Penelope Shuttles eigen zware menstruatieklachten en het dromendagboek dat zij daarbij ging bijhouden. Shuttle en Peter Redgrove betogen dat de cyclus twee polen heeft, ovulatie en menstruatie, en dat de westerse cultuur alleen de eerste erkent. Premenstruele spanning verklaren zij voor een groot deel als weerkaatsing van het taboe zelf, en de weggedrukte beeldspraak van de cyclus menen zij terug te zien in de heksenprocessen, in Dracula en in The Exorcist. Het boek doorbrak in 1978 een zwijgen en werd veel gelezen. De duiding is jungiaans en psychoanalytisch, en een aanzienlijk deel van de feitelijke onderbouwing is sindsdien achterhaald.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>menstruatie</li><li>Jungiaanse psychologie</li><li>dromen</li><li>feminisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1117"><a href="1117.html">The Great Cosmic Mother</a>. The Great Cosmic Mother trekt hetzelfde verhaal over taboe, heksenvervolging en patriarchaat door naar de wereldgeschiedenis, met dezelfde onjuiste getallen.</li>
+          <li value="1119"><a href="1119.html">Mysteries of the Dark Moon</a>. Mysteries of the Dark Moon rekent menstruatie en menopauze onder de bloedmysteries en geeft er een astrologische ordening voor.</li>
+          <li value="360"><a href="360.html">Archetypen</a>. Archetypen van Jung geeft de begrippen anima, animus en collectief onbewuste die Shuttle en Redgrove op hun droommateriaal toepassen.</li>
+          <li value="611"><a href="611.html">The White Goddess</a>. The White Goddess is de bron van de drievoudige maangodin waarnaar het hoofdstuk over de maan en de cyclus verwijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

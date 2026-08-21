@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Is Life? The Physical Aspect of the Living Cell &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Schrödinger stelt dat het leven zich met de bekende natuurkunde laat begrijpen, maar dat de gewone statistische natuurkunde daarvoor te grof is. De wetten…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-818">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">818 &middot; Natuur en wetenschap</p>
+    <h1>What Is Life? The Physical Aspect of the Living Cell</h1>
+    <p class="lede">Erwin Schrödinger, 1944</p>
+    <p class="stats">
+      <span><b>1399</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="818"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Schrödinger stelt dat het leven zich met de bekende natuurkunde laat begrijpen, maar dat de gewone statistische natuurkunde daarvoor te grof is. De wetten waarmee natuurkundigen werken zijn gemiddelden over onvoorstelbaar veel deeltjes. De drager van de erfelijkheid is juist heel klein, in de orde van duizend atomen, en gedraagt zich toch eeuwenlang met een regelmaat die geen gemiddelde kan verklaren. Zijn antwoord luidt dat het gen één groot molecuul moet zijn, een aperiodiek kristal, dat zijn stabiliteit ontleent aan de kwantumtheorie en dat in de volgorde van zijn atomen een codeschrift draagt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom een organisme zo groot is</h3>
+      <p>Het boek begint met de vraag omgedraaid: niet waarom atomen zo klein zijn, maar waarom een organisme uit zoveel atomen bestaat. Natuurwetten zijn statistisch, en een gemeten grootheid wijkt van haar gemiddelde af met ongeveer de wortel uit het aantal deeltjes: bij honderd deeltjes een procent of tien, bij een miljoen nog altijd een op de duizend. Wie op regelmaat wil bouwen heeft veel bouwstenen nodig.</p>
+      <p>Paramagnetisme, brownse beweging en diffusie dienen als voorbeeld: van dichtbij onregelmatig, pas op grote schaal een wet. Zintuigen moeten daarom grof zijn, anders meten zij hun eigen warmtebeweging.</p>
+      <h3>Het codeschrift in de chromosomen</h3>
+      <p>Daarna volgt wat er in 1943 over erfelijkheid bekend was. De chromosomen, of vermoedelijk alleen een draad daarin, bevatten in een soort codeschrift het hele ontwikkelingspatroon van het individu. Elke celkern draagt een volledige kopie, wat Schrödinger vergelijkt met generaal Montgomery, die naar verluidt elke soldaat van zijn leger op de hoogte bracht van zijn plannen.</p>
+      <p>Mutaties zijn geen geleidelijke verschuivingen maar sprongen. Röntgenstraling verhoogt het aantal evenredig met de dosis, wat erop wijst dat één treffer volstaat. Uit zulke proeven hadden Max Delbrück, N.W. Timofeeff-Ressovsky en K.G. Zimmer in 1935 een schatting van de omvang van het gen afgeleid, en dat artikel noemt Schrödinger zijn voornaamste bron.</p>
+      <h3>Een stabiliteit die klassiek niet kan</h3>
+      <p>De kern van het betoog staat in het vierde hoofdstuk. Verschillende Habsburgers hadden dezelfde vooruitstekende onderlip, en de Weense academie had die eigenschap aan de hand van portretten door de eeuwen heen gevolgd. De structuur die haar draagt is bij lichaamstemperatuur door tientallen generaties heen doorgegeven zonder te vervormen. Klassiek is dat onverklaarbaar: zo weinig atomen zouden allang door de warmtebeweging zijn dooreengeschud.</p>
+      <p>De kwantumtheorie kan het wel. Atomen zitten in afzonderlijke toestanden, en een sprong naar een andere vergt een drempelenergie. Ligt die drempel hoog genoeg boven de warmte-energie, dan is de sprong zeldzaam en levert hij dezelfde atomen in een andere schikking op. Die sprong is bij Schrödinger de mutatie.</p>
+      <h3>Het aperiodieke kristal</h3>
+      <p>Vanuit dat molecuul komt hij bij het beeld waar het boek om herinnerd wordt. Een kristal groeit door hetzelfde patroon eindeloos te herhalen: veel orde, weinig bericht. Een grote organische molecule bouwt zich op zonder die herhaling, waarbij elk atoom een eigen plaats in het geheel heeft. Zoiets noemt hij een aperiodiek kristal, en zijn stelling luidt dat het gen, of misschien de hele chromosoomdraad, zo'n aperiodieke vaste stof is.</p>
+      <p>Dat het om weinig atomen gaat is dan geen bezwaar meer. Met het morsealfabet leveren twee tekens in groepen van hoogstens vier al dertig berichten op; vijf tekens in groepen tot vijfentwintig lopen in de honderdduizenden biljoenen. Een speldenknop biedt zo ruimte voor een heel ontwikkelingsplan.</p>
+      <h3>Voeden met negatieve entropie</h3>
+      <p>Het zesde hoofdstuk gaat over de tweede hoofdwet. Alles wat gebeurt vergroot de wanorde, en entropie is daarvan de maat: bij Boltzmann is zij k maal de logaritme van het aantal wanordelijke schikkingen. Een levend wezen houdt zich staande door orde aan zijn omgeving te onttrekken: hoog geordend voedsel naar binnen, afgebroken materie en warmte naar buiten. Schrödinger noemde dat zich voeden met negatieve entropie.</p>
+      <p>In een naschrift komt hij daarop terug. Voor natuurkundigen had hij beter over vrije energie kunnen spreken, schrijft hij, maar dat woord zou de leek misleiden. Hij geeft ook toe dat F. Simon hem terecht voorhield dat zijn redenering niet verklaart waarom mensen op organische stoffen leven en niet op kool.</p>
+      <h3>Nieuwe wetten en een slot over het ik</h3>
+      <p>Het laatste hoofdstuk trekt de gevolgtrekking. Levende materie ontsnapt niet aan de natuurkunde, maar zal vermoedelijk andere natuurwetten in het spel brengen die nog niet ontdekt zijn. Waar dode materie orde uit wanorde maakt, door middeling over grote aantallen, maakt het organisme orde uit orde: het kopieert een bestaande structuur.</p>
+      <p>Daarna volgt een epiloog over determinisme en vrije wil die met de rest weinig van doen heeft. Als het lichaam een mechanisme is, wie beslist er dan? Schrödinger antwoordt met de Oepanisjaden: atman is brahman, het bewustzijn is een enkelvoud waarvan het meervoud onbekend is. Hij brengt dat niet als gevolgtrekking maar als overtuiging.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">statistische natuurwet</td><td>Een wet die geldt als gemiddelde over veel deeltjes en met hun aantal nauwkeuriger wordt.</td></tr>
+          <tr><td class="term">codeschrift</td><td>Schrödingers woord voor het patroon in de chromosomen dat de ontwikkeling van het organisme vastlegt.</td></tr>
+          <tr><td class="term">aperiodiek kristal</td><td>Een vaste stof die geordend is zonder zich te herhalen, zodat de volgorde bericht kan dragen.</td></tr>
+          <tr><td class="term">Delbrück-model</td><td>Het gen als één molecuul waarvan de mutatie een kwantumsprong naar een andere schikking is.</td></tr>
+          <tr><td class="term">drempelenergie</td><td>De energie die nodig is om een molecuul in een andere toestand te tillen, wat mutaties zeldzaam maakt.</td></tr>
+          <tr><td class="term">negatieve entropie</td><td>Orde die een organisme aan zijn omgeving onttrekt om zijn eigen wanorde niet te laten oplopen.</td></tr>
+          <tr><td class="term">orde uit orde</td><td>Regelmaat die niet uit middeling komt maar uit het kopiëren van een bestaande structuur.</td></tr>
+          <tr><td class="term">wortel-n-regel</td><td>De vuistregel dat de afwijking van een gemiddelde meegroeit met de wortel uit het aantal deeltjes.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek doet geen eigen onderzoek, en Schrödinger zegt dat in het voorwoord ronduit: hij schrijft buiten zijn vak, met tweedehands kennis, en loopt het risico zich belachelijk te maken. Zijn basis is de genetica van de jaren dertig en vooral het artikel van Delbrück, Timofeeff-Ressovsky en Zimmer uit 1935, dat hij aanwijst als bron van de middelste hoofdstukken en waar ook de schatting van duizend atomen vandaan komt.</p>
+      <p>Het natuurkundige deel is steviger dan het biologische: de wortel-n-regel, de brownse beweging, de formule van Boltzmann en de kwantumtheorie van de chemische binding waren in 1943 vast bezit. Het zwakke punt zit ertussenin, want dat het gen werkelijk één molecuul was, was toen een aanname en geen meting.</p>
+      <p>De invloed op Watson en Crick is geen legende. Watson beschrijft in <i>The Double Helix</i> hoe dit boekje hem van de vogelkunde naar het gen bracht, en Crick heeft meermalen gezegd dat het hem van de natuurkunde naar de biologie deed overstappen; zijn brief daarover uit 1953 ligt in Dublin. Weinig populariserende teksten hebben een zo aanwijsbare uitwerking gehad.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar komt van Max Perutz, die in een herdenkingsbundel uit 1989 schreef dat wat waar was in dit boek niet nieuw was, en dat het meeste van wat nieuw was al bij verschijning bekend stond als onjuist. Hermann Muller had de eigenschappen van een erfelijkheidsmolecuul in de jaren twintig al beschreven. Perutz voegde eraan toe dat de tegenspraak tussen leven en statistische natuurkunde wordt opgelost door de scheikunde, een vak dat Schrödinger nauwelijks noemt.</p>
+      <p>Op het beslissende punt zat hij mis. Over het gen schrijft hij dat het waarschijnlijk een groot eiwitmolecuul is, en dat dit de mening van vooraanstaande genetici was. Het werk van Oswald Avery, dat in datzelfde jaar 1944 liet zien dat erfelijke eigenschappen met nucleïnezuur zijn over te dragen, ontbreekt. Het beeld hield stand, de stof niet.</p>
+      <p>De verwachting dat er andere natuurwetten nodig zouden zijn is niet uitgekomen. De moleculaire biologie die na 1953 op gang kwam heeft het met gewone scheikunde afgekund. Ook de term negatieve entropie is ongelukkig gekozen, wat Schrödinger in zijn eigen naschrift half toegeeft; wie er nu mee werkt bedoelt vrije energie.</p>
+      <p>Verder beantwoordt het boek zijn titelvraag niet: wat eruit komt is een voorwaarde waaraan de drager van erfelijkheid moet voldoen, geen omschrijving van leven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als document uit 1943: de waarde zit in de vraagstelling, niet in de feiten.</li>
+        <li>Houd het onderscheid tussen orde uit wanorde en orde uit orde vast; het is ook buiten de biologie bruikbaar.</li>
+        <li>Controleer bij populaire teksten over entropie of er eigenlijk vrije energie wordt bedoeld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen bij Cambridge University Press in 1944, naar drie openbare lezingen die Schrödinger in februari 1943 hield in Trinity College Dublin, onder auspiciën van het Dublin Institute for Advanced Studies waarvan hij directeur theoretische natuurkunde was. Het boekje telt een kleine honderd bladzijden. Vanaf 1967 verscheen het gebundeld met <i>Mind and Matter</i> (1958, naar lezingen in Trinity College Cambridge van oktober 1956). De nu gangbare uitgave is <i>What Is Life? with Mind and Matter and Autobiographical Sketches</i> in de reeks Canto Classics van Cambridge, met een voorwoord van Roger Penrose uit 1991 en een heruitgave uit 2012 (ISBN 9781107604667). Een Nederlandse vertaling is niet te vinden: de Nederlandse bibliotheekcatalogus voert van dit boek alleen de Engelse editie. Deze samenvatting is op de Engelse tekst gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een natuurkundige die zich buiten zijn vak waagt en dat in het voorwoord ook toegeeft. Schrödinger vraagt hoe het kan dat de erfelijkheid zich eeuwenlang met grote precisie doorgeeft, terwijl de drager ervan zo klein is dat de statistische wetten van de natuurkunde er geen greep op hebben. Zijn antwoord: het gen is één groot molecuul, een aperiodiek kristal, dat zijn stabiliteit ontleent aan de kwantumtheorie en dat in de volgorde van zijn atomen een codeschrift draagt.</p><p>Het tweede deel gaat over entropie. Een organisme houdt zijn ordelijke toestand in stand door orde aan zijn omgeving te onttrekken, wat Schrödinger zich voeden met negatieve entropie noemde. Watson en Crick hebben allebei gezegd dat dit boekje hen naar de biologie bracht. Veel van wat erin staat is inmiddels achterhaald, om te beginnen zijn gok dat het gen een eiwit is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>biologie</li><li>genetica</li><li>entropie</li><li>kwantummechanica</li><li>wetenschapsgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="539"><a href="539.html">The Human Use of Human Beings</a>. Wiener gebruikt entropie op dezelfde manier als maat voor orde, maar dan voor berichten en machines in plaats van cellen.</li>
+          <li value="413"><a href="413.html">A Crack in Creation</a>. Doudna en Sternberg laten zien wat er van het codeschrift geworden is nu het te herschrijven valt.</li>
+          <li value="820"><a href="820.html">The Ascent of Man</a>. Bronowski behandelt dezelfde stap van Mendel naar de dubbele helix, in een breder verhaal over kennis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

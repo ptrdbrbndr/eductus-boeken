@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Isis Thesis &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="King betoogt dat de grote Egyptische dodenteksten een gecodeerd verslag van moleculaire biologie bevatten. De goden staan volgens haar voor genen en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1120">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1120 &middot; Filosofie en mystiek</p>
+    <h1>The Isis Thesis</h1>
+    <p class="lede">Judy Kay King, 2004</p>
+    <p class="stats">
+      <span><b>1896</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1120"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>King betoogt dat de grote Egyptische dodenteksten een gecodeerd verslag van moleculaire biologie bevatten. De goden staan volgens haar voor genen en eiwitten, het hiernamaals voor het kwantumdomein, en de doorgang van Osiris door de nacht voor de levenscyclus van een virus dat erfelijk materiaal tussen soorten overdraagt. Wie die code kent, leest in achthonderdzeventig tekens uit acht teksten de beschrijving van een biologische overgang die de mens na de dood zou kunnen kiezen. De hele redenering rust op overeenkomsten die King zelf legt tussen twee tekensystemen, en staat of valt met de vraag wat zulke overeenkomsten waard zijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie het boek schreef en hoe het verscheen</h3>
+      <p>Judy Kay King is geboren in Detroit, studeerde af aan Oakland University in Michigan en gaf twintig jaar les in literatuur, mythologie en creatief schrijven aan een college. Zij heeft geen opleiding in de egyptologie of in de biologie. <i>The Isis Thesis</i> verscheen in december 2004 bij Envision Editions, Ltd. in Gaylord, Michigan, een uitgeverij die alleen boeken van King in het fonds heeft.</p>
+      <p>In hetzelfde jaar bracht zij <i>The Road from Orion</i> uit, een roman waarin dezelfde these in verhaalvorm zit. In 2015 volgde <i>Balls of Fire: A Science of Life and Death</i>, dat de redenering uitbreidt naar cultuurgeschiedenis en sport. De these staat dus in drie boeken en op de site isisthesis.com, alle van dezelfde hand.</p>
+      <h3>De methode: tekens lezen als biologie</h3>
+      <p>King noemt haar aanpak biosemiotiek: de studie van tekens en betekenisoverdracht in levende systemen. Zij leunt daarbij op het tekenbegrip van Charles Sanders Peirce, waarin een teken altijd via een uitlegger naar een object verwijst, en op de redeneervorm die Peirce abductie noemde, het bedenken van de best passende verklaring voor een waarneming.</p>
+      <p>De opbouw van haar model beschrijft zij stap voor stap. Zij las de piramideteksten en de sarcofaagteksten herhaaldelijk door, ordende daarin honderdacht terugkerende thema's, dichtte die samen tot dertig ideeënstrengen, en leidde daaruit een biologisch model af van wat zij primaire tekens noemt. Dat model toetste zij vervolgens aan zes latere bronnen: de Amduat, het Poortenboek, het Boek van de Twee Wegen, de Edifice van Taharqa bij het heilige meer van Karnak, de Papyrus van Ani en de Thebaanse recensie van het Dodenboek. Waar het model niet paste, paste zij het model aan.</p>
+      <h3>Het biologische model</h3>
+      <p>De biologische spil is bacteriofaag lambda, een virus dat de darmbacterie Escherichia coli infecteert. Lambda kent twee levenswijzen. In de lysogene toestand bouwt het virus zijn erfelijk materiaal in het genoom van de gastheer in en lift daar slapend mee; in de lytische toestand vermenigvuldigt het zich en breekt de cel open. De omslag tussen die twee is in de moleculaire biologie een van de best onderzochte schakelmechanismen.</p>
+      <p>King leest de dood en het weer opstaan van Osiris als die omslag, en de reis door het dodenrijk als horizontale genoverdracht: de uitwisseling van erfelijk materiaal buiten de voortplanting om, bij bacteriën een alledaags verschijnsel. Daarnaast koppelt zij de handelingen van de goden aan het gennetwerk voor glycolyse en gisting, de route waarlangs cellen zonder zuurstof energie winnen. Lambda hoort volgens haar tot het menselijke darmmicrobioom, waarmee het middel voor de overgang binnen het lichaam zelf aanwezig zou zijn.</p>
+      <h3>Het dodenrijk als kwantumdomein</h3>
+      <p>De tweede pijler is natuurkundig. De Duat, het gebied waar de zonnegod 's nachts doorheen trekt, stelt King gelijk aan het kwantumdomein. De teksten beschrijven in haar lezing geen geloofsvoorstelling over het hiernamaals, maar een reëel te kiezen route: een optie voor evolutie na de dood, waarbij het erfelijk materiaal van de overledene via het virus in een andere vorm doorgaat.</p>
+      <p>Zij trekt die lijn door naar de religiegeschiedenis. Christelijke figuren zouden op hun beurt Egyptische figuren spiegelen, zodat religie eeuwenlang een biologische kennis heeft bewaard zonder haar te begrijpen. De titel verwijst naar Isis, die in de Egyptische overlevering de verstrooide delen van Osiris verzamelt en hem weer verwekkend tot leven brengt, in Kings lezing de handeling waarmee het erfelijk materiaal wordt hersteld.</p>
+      <h3>Hoe het boek is uitgevoerd</h3>
+      <p>Het is een lijvig werk van 412 bladzijden met tabellen van gedecodeerde tekens, verwijzingen naar de gebruikte tekstuitgaven en, volgens de flaptekst, driehonderdachttien verwijzingen naar wetenschappelijke literatuur. Egyptologische transliteratie en moleculair-biologische vaktaal staan naast elkaar op dezelfde bladzijde.</p>
+      <p>Dat maakt het boek zwaar toegankelijk. De weinige lezersreacties die er zijn, achttien beoordelingen op Goodreads, komen erop neer dat men er een woordenboek en een naslagwerk over vaktermen bij nodig heeft. Een register van gedecodeerde tekens vormt de ruggengraat; de lezer wordt geacht die tabellen als bewijsmateriaal te aanvaarden.</p>
+      <h3>Wat er na 2004 gebeurde</h3>
+      <p>King legde haar these op 25 oktober 2006 voor aan een egyptologisch publiek, tijdens het tweede internationale congres voor jonge egyptologen aan de Universiteit van Lissabon. Tussen 2005 en 2021 publiceerde zij een reeks artikelen over hetzelfde onderwerp, onder titels als <i>Biosemiotics in Ancient Egyptian Texts</i> en <i>A Trace of Emergence: Human Social Behavior as a Sign of Microbial Metabolism</i>.</p>
+      <p>Die artikelen verschenen in de interdisciplinaire congrestijdschriften van Common Ground Research Networks, onder meer het <i>International Journal of the Humanities</i> en het <i>International Journal of Interdisciplinary Cultural Studies</i>, en dus niet in egyptologische of biologische vakbladen. Het aantal citaties dat academische zoekmachines bij die stukken tellen, blijft in de enkele cijfers steken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">biosemiotiek</td><td>De studie van tekens en betekenisoverdracht in levende systemen, die King van cellen naar Egyptische teksten overzet.</td></tr>
+          <tr><td class="term">abductie</td><td>De redeneervorm van Peirce waarbij men de best passende verklaring voor een waarneming bedenkt, zonder dat die verklaring daarmee al getoetst is.</td></tr>
+          <tr><td class="term">horizontale genoverdracht</td><td>Het doorgeven van erfelijk materiaal tussen organismen buiten de voortplanting om, bij bacteriën en virussen een gewoon verschijnsel.</td></tr>
+          <tr><td class="term">bacteriofaag lambda</td><td>Een virus dat de darmbacterie Escherichia coli infecteert en dat in Kings model achter de figuur van Osiris schuilgaat.</td></tr>
+          <tr><td class="term">lysogene levenswijze</td><td>De toestand waarin het virus zijn erfelijk materiaal in het genoom van de gastheer inbouwt en daar slapend meelift.</td></tr>
+          <tr><td class="term">lytische levenswijze</td><td>De toestand waarin het virus zich vermenigvuldigt en de gastheercel openbreekt.</td></tr>
+          <tr><td class="term">glycolyse en gisting</td><td>De route waarlangs cellen zonder zuurstof energie uit suiker winnen, door King gekoppeld aan de handelingen van de goden.</td></tr>
+          <tr><td class="term">Duat</td><td>Het Egyptische dodenrijk waar de zonnegod de twaalf nachtelijke uren doorbrengt, door King gelijkgesteld aan het kwantumdomein.</td></tr>
+          <tr><td class="term">Amduat</td><td>Letterlijk 'dat wat in de Duat is', een koninklijke graftekst uit het Nieuwe Rijk die de nachtreis van de zonnegod uur voor uur beschrijft.</td></tr>
+          <tr><td class="term">Edifice van Taharqa</td><td>Een bouwwerk uit de vijfentwintigste dynastie bij het heilige meer van Karnak met scènes van de zonnecyclus, een van de acht bronnen die King gebruikt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het argument rust op tabellen van overeenkomsten die King zelf heeft opgesteld. Zij werkt met gepubliceerde vertalingen van de teksten en zet daar per teken een biologische lezing naast; het getal achthonderdzeventig is de optelsom van die lezingen. De opzet van het onderzoek is op zichzelf verdedigbaar: eerst een model bouwen op de oudste bronnen, dan kijken of het ook op zes latere bronnen past. Een toets werkt echter alleen wanneer er een uitkomst denkbaar is waarbij het model zakt. Het boek noemt niet wat als misser zou hebben gegolden, en beschrijft juist dat het model bij tegenvallende passages werd bijgesteld.</p>
+      <p>Over de inhoud is buiten King om vrijwel niets geschreven. In bibliotheekcatalogi, boekendatabanken en academische zoekmachines is geen bespreking in een egyptologisch tijdschrift te vinden, en evenmin een reactie van een moleculair bioloog. Wat wel te vinden is, zijn winkelbeschrijvingen die de flaptekst herhalen, haar eigen website en haar eigen artikelen. Dat is een vaststelling over de omvang van de discussie en geen oordeel over de inhoud, maar het betekent wel dat een lezer nergens een onafhankelijke controle van de decoderingen kan raadplegen.</p>
+      <p>Het enige moment waarop het werk aan vakgenoten werd voorgelegd, was een lezing op het tweede internationale congres voor jonge egyptologen in Lissabon in oktober 2006. Van een vervolg in de vakliteratuur is geen spoor. De prijzen die rond haar werk worden genoemd, een eerste plaats bij Reader Views en een finaleplaats bij de Foreword INDIEFAB Awards in 2015, betreffen het latere <i>Balls of Fire</i> en zijn onderscheidingen voor boeken in eigen beheer, waarbij op verzorging en leesbaarheid wordt gelet en niet op de houdbaarheid van de claim.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de methode zelf. De Egyptische dodenteksten bevatten duizenden afbeeldingen en woorden, en veel tekens hebben in de egyptologie meerdere gedocumenteerde betekenissen. De moleculaire biologie levert aan de andere kant honderden benoemde moleculen, processen en toestanden. Twee verzamelingen van die omvang zijn vrijwel altijd met een hoog aantal treffers op elkaar te leggen, zeker wanneer de lezer per teken mag kiezen welke betekenis meetelt. Zonder een vooraf vastgelegde regel voor wat een mislukte koppeling is, meet het getal achthonderdzeventig de grootte van beide verzamelingen en geen verband ertussen.</p>
+      <p>Abductie, de redeneervorm die King als methode opgeeft, levert kandidaat-verklaringen op. Peirce zette deductie en inductie er juist achteraan omdat een abductie daarna nog getoetst moet worden. Het boek blijft bij de passende lezing staan en biedt geen onafhankelijke proef, bijvoorbeeld een toetsbare voorspelling over een tekst die zij nog niet had gelezen.</p>
+      <p>Dan het probleem van de herkomst. Genen, virussen en de kwantummechanica zijn begrippen die na 1850 zijn geformuleerd. Wil een Egyptische priester ze hebben versleuteld, dan moet hij over een kennisbron hebben beschikt waarvan verder niets is teruggevonden: geen instrumenten, geen andere teksten, geen weg waarlangs die kennis in Egypte terecht kan zijn gekomen. Het boek laat dat gat open. Een bewering die zo'n bron nodig heeft, draagt op dat punt de volledige bewijslast.</p>
+      <p>Tegenover Kings lezing staat een vakmatige lezing die zij niet weerlegt. Egyptologen als Erik Hornung en Jan Assmann lezen de Amduat en het Poortenboek als een beschrijving van de nachtreis van de zonnegod door de Duat en van de wedergeboorte van de overledene, ingebed in een dateerbare grafcultuur, en zij bouwen die lezing op grammatica, parallelle handschriften en archeologische context. King gaat die filologie niet te lijf; haar lezing loopt ernaast. Een decodering die de gangbare lezing onaangeroerd laat, voegt een tweede laag toe zonder een reden te geven om die te verkiezen.</p>
+      <p>Ten slotte het woord peer-reviewed, dat rond dit werk veel valt. De tijdschriften van Common Ground Research Networks horen bij een reeks betaalde congressen en werken met publicatiekosten voor de auteur. Dat is een andere zeef dan beoordeling door egyptologen of moleculair biologen, en het label zegt op zichzelf niets over aanvaarding in een van beide vakgebieden. Het boek staat bovendien in een lange traditie die Hornung egyptosofie noemde: een verbeeld Egypte dat als bron van verborgen oerkennis wordt opgevoerd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke ontcijferingsclaim wat als tegenbewijs zou tellen; komt daar geen antwoord op, dan zegt het aantal treffers weinig.</li>
+        <li>Tel hoe groot de twee verzamelingen zijn die op elkaar worden gelegd, voordat je onder de indruk raakt van het aantal overeenkomsten.</li>
+        <li>Zoek bij de aanduiding peer-reviewed op om welk tijdschrift, welke uitgever en welk vakgebied het gaat.</li>
+        <li>Leg er een egyptologische vertaling met commentaar van de Amduat naast, om te zien wat de vakliteratuur uit dezelfde tekst haalt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Isis Thesis: A Study Decoding 870 Ancient Egyptian Signs</i> (Envision Editions, Ltd., Gaylord, Michigan, 2004, 412 blz., ISBN 9780976281405). Envision Editions voert uitsluitend titels van King zelf, zodat het boek als zelfpublicatie geldt. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Judy Kay King, twintig jaar docent literatuur en mythologie aan een Amerikaans college, betoogt in dit boek in eigen beheer dat acht grote Egyptische dodenteksten een gecodeerd verslag van moleculaire biologie bevatten. De goden staan volgens haar voor genen en eiwitten, het dodenrijk voor het kwantumdomein, en de nachtelijke doorgang van Osiris voor de levenscyclus van bacteriofaag lambda, een virus dat erfelijk materiaal tussen soorten overdraagt. Zij komt tot achthonderdzeventig tekens waarvoor zij een biologische lezing vond. In de egyptologie is het werk niet opgepakt: er is geen bespreking in een vaktijdschrift te vinden, en de artikelen waarmee zij haar these vervolgde verschenen in interdisciplinaire congrestijdschriften van een commerciële uitgever. De kern van het bezwaar zit in de methode, die twee zeer grote tekenverzamelingen op elkaar legt zonder vooraf vast te leggen wat als misser zou tellen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>egypte</li><li>esoterie</li><li>pseudowetenschap</li><li>biologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="611"><a href="611.html">The White Goddess</a>. Graves bouwt met eenzelfde soort sleutel een sluitend systeem uit mythologische bronnen; goed materiaal om te zien hoe zo'n methode zichzelf bevestigt.</li>
+          <li value="615"><a href="615.html">Passport to Magonia</a>. Vallée laat zien hoe overeenkomsten tussen verhalen uit verschillende tijden ontstaan zonder dat er een gemeenschappelijke bron achter zit.</li>
+          <li value="647"><a href="647.html">The Forbidden Universe</a>. Picknett en Prince rekken een echt wetenschapshistorisch debat op met onbewezen schakels, een verwante manier van redeneren.</li>
+          <li value="1122"><a href="1122.html">The Temples of Light</a>. Hoffman verbindt dezelfde Egyptische plaatsen aan een moderne leer, langs de weg van een doorgegeven bron in plaats van een decodering.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

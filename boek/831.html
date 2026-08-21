@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My System &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nimzowitsch stelt dat schaakstrategie te leren is omdat zij uit een beperkt aantal elementen bestaat, elk met eigen wetten die los van elkaar te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-831">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">831 &middot; Naslag en praktijk</p>
+    <h1>My System</h1>
+    <p class="lede">Aron Nimzowitsch, 1925</p>
+    <p class="stats">
+      <span><b>1395</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="831"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nimzowitsch stelt dat schaakstrategie te leren is omdat zij uit een beperkt aantal elementen bestaat, elk met eigen wetten die los van elkaar te bestuderen zijn. Wie die elementen beheerst, kan ze in het positiespel samenbrengen, en daar draait alles om één gedachte die hij als zijn vondst presenteert: eerst voorkomen wat de tegenstander wil, pas daarna zelf iets ondernemen. Het centrum hoeft daarbij niet met eigen pionnen bezet te worden, het kan van een afstand door stukken beheerst worden. Dat laatste is de breuk met de leer van Tarrasch waaraan het boek zijn plaats in de schaakgeschiedenis dankt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een leerboek dat de chaos wil ordenen</h3>
+      <p>In het voorwoord van augustus 1925 zegt Nimzowitsch waar hij trots op is: hij heeft de chaos teruggebracht tot een aantal regels met onderling verband, en daarmee naar eigen zeggen het eerste echte leerboek van het schaakspel geschreven en niet slechts van de openingen. Hij verdedigt er meteen twee keuzes die critici hem zouden nadragen. De eerste is zijn toon: hij weigert het droge lesboek en vergelijkt met opzet met het dagelijks leven, want de vrijpion heeft voor hem een ziel zoals een mens die heeft, met wensen die sluimeren en angsten waarvan de pion zelf nauwelijks weet. De tweede is zijn materiaal: de voorbeeldpartijen zijn grotendeels van hemzelf.</p>
+      <h3>Deel een: de elementen</h3>
+      <p>Negen hoofdstukken behandelen elk één element. Ontwikkeling omschrijft hij als het opmarcheren van de troepen naar de grenslijn, waarbij een pionzet op zichzelf geen ontwikkelingszet is maar hooguit een hulpmiddel daartoe. Bij de open lijn gaat het over hoe zo'n lijn ontstaat, wat het doel van een operatie erlangs is en over het steunpunt, een stuk dat op vijandelijk gebied door een eigen pion gedekt staat. Daarna volgen de zevende en achtste rij, de vrijpion, het ruilen, de eindspelstrategie met centralisatie als eerste beginsel, de penning, het aftrekschaak en de pionketen. Die keten behandelt hij als een bouwsel met een basis, de achterste pion, en daaruit leidt hij af dat de aanval tegen die basis gericht hoort te zijn en niet tegen de top.</p>
+      <h3>De vrijpion als misdadiger</h3>
+      <p>Het hoofdstuk over de vrijpion is het bekendste van het boek. Een vrijpion moet worden stilgezet door er een stuk vlak voor te plaatsen, en dat blokkerende stuk heeft volgens Nimzowitsch twee taken: het houdt de pion tegen en ontleent tegelijk aan zijn beschutte plek een eigen werking. Daarna volgen de strijd tegen de blokkeerder en de vraag wanneer een vrijpion moet oprukken. Zijn spreuk erover, eerst beperken, dan blokkeren en ten slotte vernietigen, staat in het Duits in het gedeelte over de dubbelpion en de beperking en is dus van hemzelf, al wordt hij vaak aan anderen toegeschreven.</p>
+      <h3>Deel twee: positiespel, profylaxe en overbescherming</h3>
+      <p>Het tweede deel opent met een hoofdstuk over profylaxe en het centrum, waarin hij eerst opruimt wat hij het ongedierte in het positionele denken noemt en daarna zijn eigen opvatting neerzet: positiespel is voorkomen. Als tweede eis stelt hij de gezamenlijke beweeglijkheid van de eigen pionmassa. Daarna volgen de dubbelpion en de beperking, met de mysterieuze torenzet; de geïsoleerde damepion met haar afstammelingen, de hangende pionnen en het loperpaar; de overbescherming; en het manoeuvreren tegen zwaktes op beide vleugels.</p>
+      <h3>De bijlage over de schaakomwenteling</h3>
+      <p>Als bijlage neemt hij zijn opstel over de geschiedenis van de schaakomwenteling van 1911 tot 1914 op, met daarin herdrukt zijn artikel uit de Wiener Schachzeitung van 1913 tegen Tarrasch' <i>Die Moderne Schachpartie</i>. Hij zegt de polemische scherpte eruit te hebben gehaald en Tarrasch minder als persoon dan als schoolhoofd te bedoelen, en schrijft er tegelijk bij dat niemand in de hele schaakgeschiedenis zo is bejegend als hij. Het stuk bevat zijn aanval op wat hij de rekenkundige opvatting van het centrum noemt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">profylaxe</td><td>Het van tevoren onmogelijk maken van de bevrijdende zetten van de tegenstander, voor Nimzowitsch de kern van positiespel.</td></tr>
+          <tr><td class="term">overbescherming</td><td>Een sterk eigen punt met meer stukken dekken dan strikt nodig is, waarna die stukken zelf kracht aan dat punt ontlenen.</td></tr>
+          <tr><td class="term">blokkade</td><td>Het stilzetten van een vijandelijke pion door er een stuk onmiddellijk voor te plaatsen.</td></tr>
+          <tr><td class="term">vrijpion</td><td>Een pion die geen vijandelijke pion meer voor zich of op de buurlijnen heeft en daarom naar promotie kan lopen.</td></tr>
+          <tr><td class="term">steunpunt</td><td>Een stuk dat in een open lijn op vijandelijk gebied staat en daar door een eigen pion gedekt wordt.</td></tr>
+          <tr><td class="term">de mysterieuze torenzet</td><td>Een toren op een nog gesloten lijn zetten, enkel om de tegenstander van zijn bevrijdende pionopmars af te houden.</td></tr>
+          <tr><td class="term">basis van de pionketen</td><td>De achterste pion van een schuin verbonden reeks, volgens Nimzowitsch het juiste doelwit van de aanval.</td></tr>
+          <tr><td class="term">isolani</td><td>Een geïsoleerde damepion, in het middenspel een aanvalswapen en in het eindspel een zwakte.</td></tr>
+          <tr><td class="term">beperking</td><td>Het onderdrukken van de bevrijdende opmars van een vijandelijke pionmassa, de eerste stap van zijn drieslag over de vrijpion.</td></tr>
+          <tr><td class="term">centralisatie</td><td>Het naar het midden brengen van koning en stukken, dat hij als eerste beginsel van de eindspelstrategie behandelt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het gezag van het boek berust op twee dingen, en op geen van beide op onderzoek. Het eerste is de speelsterkte van de schrijver: Nimzowitsch behoorde omstreeks 1930 tot de sterkste spelers ter wereld, won Karlsbad 1929 en eerder Marienbad 1925, Dresden 1926 en Hannover 1926, en de openingen die uit zijn opvattingen voortkwamen, met het Nimzo-Indisch voorop, staan tot vandaag in het gangbare repertoire. Het tweede is de innerlijke samenhang van het stelsel: hij laat zien dat losse regels in elkaar grijpen, en die redenering kan de lezer aan het bord naslaan.</p>
+      <p>Het bewijsmateriaal bestaat vrijwel geheel uit partijen die hij zelf speelde en zelf annoteerde. Dat erkent hij in het voorwoord en hij verdedigt het ook, maar het betekent dat zijn stelsel wordt getoond op stellingen die hij zelf heeft opgezocht. Statistiek, tegenvoorbeelden of partijen waarin het stelsel faalde ontbreken.</p>
+      <p>Wie het boek in een oudere Engelse uitgave leest, leest een verkorte Nimzowitsch. De vertaling van 1929 liet passages weg die de vertaler ongepast of irrelevant achtte, en pas de uitgaven van 2007 en 2016 gaan terug op de volledige Duitse tekst. Voor uitspraken over zijn toon en zijn zelfbeeld maakt dat verschil.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een handboek en geen leesboek. Het argument zit in de diagrammen en de varianten, en het is bedoeld om met een bord ernaast te worden doorgewerkt, element voor element; een samenvatting kan de begrippen doorgeven maar niet de vaardigheid. De notatie en de terminologie zijn die van de jaren twintig en de moeilijkheidsgraad loopt met opzet op. Wie het als verhaal leest, houdt er weinig aan over.</p>
+      <p>Inhoudelijk is de zwaarste kritiek dat de overbescherming niet houdbaar is gebleken als grondgedachte van alle strategie, hoe bruikbaar zij in afzonderlijke stellingen ook is. Yasser Seirawan noemde die opvatting overdreven en tekende aan dat profylactisch spel al voor Nimzowitsch werd gespeeld, zodat de vondst eerder in de naamgeving zit dan in de praktijk. Nigel Short noemde het boek ronduit vervelend. John Watson komt tot het genuanceerde oordeel dat lang niet alles de tijd heeft doorstaan, en dat juist dat een reden is om het te lezen, omdat weinig boeken deze vragen stellen.</p>
+      <p>Verder is de toon een probleem op zich. Nimzowitsch schrijft over zijn eigen aandeel in de omwenteling van 1911 tot 1914 als slachtoffer en als winnaar tegelijk, en zijn afrekening met Tarrasch krijgt een plaats in een leerboek waar zij inhoudelijk niet thuishoort. Dat het boek nauwelijks over eindspelen gaat en geen openingsrepertoire geeft, volgt uit zijn opzet maar blijft een beperking.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Werk het boek door met een bord of scherm ernaast, één element per zitting, en speel de varianten na in plaats van ze te lezen.</li>
+        <li>Stel bij elke stelling eerst de profylactische vraag: wat wil de tegenstander, en is dat te verhinderen.</li>
+        <li>Lees de pionnenstructuur voordat de stukken aan de beurt zijn: waar staat de basis van de keten, welke pion is geïsoleerd, welke is vrij.</li>
+        <li>Controleer welke uitgave in handen is; de oudere Engelse drukken zijn ingekort.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Mein System: Ein Lehrbuch des Schachspiels auf ganz neuartiger Grundlage</i> verscheen in Berlijn in vijf afleveringen; de eerste werd in oktober 1925 aangekondigd, de gebonden uitgave kwam op 20 februari 1927 uit. De eerste Engelse vertaling, <i>My System</i> (G. Bell and Sons, Londen, 1929), was van Arthur Hereford Wykeham George onder het pseudoniem Philip Hereford; die tekst lag decennialang aan alle Engelse en Amerikaanse herdrukken ten grondslag, maar liet passages weg die de vertaler ongepast of overbodig vond. Twee latere vertalingen gelden nu als de gangbare: Quality Chess (Göteborg, 2007, vertaling Ian Adams, ISBN 9789197600538) en de gecombineerde uitgave <i>My System &amp; Chess Praxis</i> (New In Chess, 2016, vertaling Robert Sherwood, 560 blz., ISBN 9789056916596), die ook de monografie <i>The Blockade</i> en het opstel <i>On the History of the Chess Revolution 1911-1914</i> bevat. In Nederlandse schaakkringen wordt het boek als <i>Mijn systeem</i> aangeduid, maar een Nederlandse boekuitgave was in de doorzochte catalogi en schaakwinkels niet te vinden; de samenvatting berust op de Engelse vertalingen, met de Duitse tekst voor de kernzinnen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Aron Nimzowitsch (1886-1935), in Riga geboren en vanaf 1922 Deens staatsburger, schreef met dit boek het leerboek van de hypermoderne school. Zijn opzet is de chaos van het schaakspel terug te brengen tot een handvol elementen met eigen wetten: het centrum en de ontwikkeling, de open lijn, de zevende rij, de vrijpion, het ruilen, de penning, het aftrekschaak en de pionketen. Daarop bouwt hij het tweede deel, over positiespel, met de begrippen waaraan zijn naam vastzit: profylaxe, het van tevoren onmogelijk maken van wat de tegenstander wil, en overbescherming, het meer dan noodzakelijk dekken van een sterk eigen punt. Beroemd is zijn regel voor de vrijpion, een misdadiger die eerst beperkt, dan geblokkeerd en ten slotte vernietigd hoort te worden.</p><p>De breuk met Siegbert Tarrasch zit in het centrum: dat hoeft volgens Nimzowitsch niet door eigen pionnen bezet te worden, het kan van een afstand door stukken beheerst worden. Het boek is polemisch, grillig en vol vergelijkingen met het dagelijks leven, en het bewijsmateriaal bestaat vrijwel geheel uit zijn eigen partijen. Niet alles heeft standgehouden; over de overbescherming als grondgedachte van alle strategie zijn latere meesters het oneens, en Nigel Short noemde het boek ronduit vervelend. Dat het bij de klassiekers hoort, spreekt vrijwel niemand tegen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>schaken</li><li>strategie</li><li>studieboek</li><li>hypermoderne school</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="456"><a href="456.html">The Compleat Strategyst</a>. The Compleat Strategyst doet met de speltheorie wat Nimzowitsch met het schaakspel doet: een terrein terugbrengen tot een handvol elementaire gevallen die apart geoefend kunnen worden.</li>
+          <li value="346"><a href="346.html">The Book of Five Rings</a>. The Book of Five Rings is hetzelfde genre uit een andere eeuw: een meester die zijn eigen stelsel opschrijft als leerboek, met dezelfde stelligheid en dezelfde afhankelijkheid van zijn eigen ervaring.</li>
+          <li value="392"><a href="392.html">The Score</a>. The Score gaat over wat spellen met de aandacht doen en waarom heldere regels zo aantrekkelijk zijn; dat verklaart iets van de aantrekkingskracht die een stelsel als dit uitoefent.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

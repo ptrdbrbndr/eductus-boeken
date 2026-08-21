@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saturn: A New Look at an Old Devil &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Greene betoogt dat Saturnus in de horoscoop niet staat voor pech of straf maar voor een innerlijk proces dat elk mens doormaakt: het gebied waar iemand…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1118">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1118 &middot; Filosofie en mystiek</p>
+    <h1>Saturn: A New Look at an Old Devil</h1>
+    <p class="lede">Liz Greene, 1976</p>
+    <p class="stats">
+      <span><b>1896</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1118"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Greene betoogt dat Saturnus in de horoscoop niet staat voor pech of straf maar voor een innerlijk proces dat elk mens doormaakt: het gebied waar iemand zich geblokkeerd voelt, is het gebied waar hij gedwongen wordt zelf te maken wat hij van buiten niet kreeg, en dat is volgens haar de enige weg waarlangs bewustzijn en vrijheid ontstaan. De pijn die de traditie aan Saturnus toeschreef geldt bij haar als de prijs van zelfkennis, en die prijs is volgens haar noch toevallig noch te ontlopen. Daarmee verschuift zij de hele astrologie: de geboortehoroscoop is voor haar geen kaart van een vaststaand lot, maar een beeld van de weerstand waarlangs iemand zich moet ontvouwen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van boosdoener naar het Beest</h3>
+      <p>De inleiding zet het beeld neer waarmee het hele boek werkt: het sprookje van Belle en het Beest. Dat de lelijke, angstaanjagende figuur aan het eind de prins blijkt, voelt volgens Greene juist omdat sprookjes innerlijke ervaringen in beeld brengen. Zij verwijt de moderne astrologie dat zij die dubbelheid kwijt is: er zijn nog steeds goede en slechte planeten, eerlijke en oneerlijke horoscopen.</p>
+      <p>In de oude leer heet Saturnus de grote malefic, de zwaarste van de twee schadelijke planeten, met Mars als de kleinere. Zijn deugden zijn saai, zijn ondeugden werken via angst, en hij geldt als brenger van beperking, hard werken en zelfverloochening. Greene houdt die beschrijving overeind maar draait het teken om: niets brengt een mens zo snel in beweging als frustratie, en die is de gift van Saturnus. Zij verbindt dat met twee begrippen van Jung, de schaduw en het Zelf, en met de alchemie, waarin de grondstof waarin het goud verborgen lag Saturnus heette en tegelijk de alchemist zelf was.</p>
+      <h3>Vier hoofdstukken langs de elementen</h3>
+      <p>De eerste vier hoofdstukken behandelen de plaats van Saturnus in de dierenriem en in de twaalf huizen. Een teken is een van de twaalf gelijke stukken waarin de jaarlijkse baan van de zon wordt verdeeld; een huis is een van de twaalf stukken waarin de dagelijkse omwenteling van de aarde de horoscoop verdeelt, gerekend vanaf de oostelijke horizon op het geboortemoment. Tekens gaan over de aard van een eigenschap, huizen over het levensgebied waarin die zich toont. Greene groepeert ze per element, en beschrijft daardoor steeds eerst het levensterrein en pas daarna wat de belemmering daar aanricht.</p>
+      <p>Het vierde huis dient als voorbeeld. Dat huis gaat over herkomst, gezin en het gevoel van veiligheid dat is gevormd voordat iemand oud genoeg was om te kiezen. Saturnus daar valt volgens haar samen met kilte, gezag zonder liefde, afwezigheid, of een vader die er wel is maar niets kan geven. De kern van haar redenering volgt daarop: doordat de omgeving een bestanddeel achterhoudt, wordt de betrokkene gedwongen dat zelf te maken, en wat hij dan opbouwt kan hem niet meer worden afgenomen.</p>
+      <h3>De aspecten</h3>
+      <p>Het vijfde hoofdstuk gaat over de aspecten, de hoeken die twee planeten aan de hemel met elkaar maken. In de oude indeling gelden hoeken uit een deling door drie als gunstig en die uit een deling door twee als ongunstig. Greene verwerpt die indeling: geen energie is op zichzelf goed of slecht, en juist de hoeken die inspanning kosten brengen groei.</p>
+      <p>Het contact tussen zon en Saturnus krijgt de meeste ruimte. De zon staat bij haar voor het bewuste ik; wie dat contact heeft moet zijn identiteit zelf verwerven, want wat hij van anderen krijgt stelt hem teleur. Zij noemt zowel groot succes als zware mislukking, en merkt op dat het aspect veel voorkomt bij mensen met een drankprobleem, in het bijzonder de oppositie. Ook hier keert de vader terug: die verhouding is volgens haar bij dit contact vrijwel altijd belast, door kilte dan wel door zwakte of ziekte. Namen noemt het boek bijna niet; alleen Hitler komt langs, met een sterk geplaatste Saturnus in Leeuw op het midhemelpunt.</p>
+      <h3>Synastrie: twee horoscopen naast elkaar</h3>
+      <p>Het zesde hoofdstuk is met bijna vijftig bladzijden het langste en gaat over synastrie, het naast elkaar leggen van twee geboortehoroscopen om te zien welke planeet van de een een gevoelig punt van de ander raakt. Greene leest zulke contacten als projectie: de partner wordt de drager van wat de ander in zichzelf niet wil zien. Een Saturnuscontact voelt daarom zwaar en levert tegelijk het meeste op, omdat niets de schaduw zo snel naar boven haalt als iemand die erop gaat staan.</p>
+      <p>Zij past dat toe op de contacten met zon, maan, Mercurius, Venus, Mars en de buitenplaneten. Uranus, Neptunus en Pluto staan bij haar voor collectieve krachten, en de Saturnische partner ervaart de ander dan als bedreiging en aantrekking tegelijk. Uit dit hoofdstuk komt ook de meest gedateerde laag van het boek naar voren: Greene schrijft dat de zon vooral bij mannen het bewuste ik weergeeft en dat veel vrouwen zich langs gevoel en instinct tot het leven verhouden.</p>
+      <h3>Wat het boek niet doet</h3>
+      <p>Opvallend voor een astrologieboek is wat ontbreekt. Voorspelling komt er nauwelijks in voor. Het woord transit, de doorgang van een planeet langs een punt in de geboortehoroscoop en de gebruikelijke basis van astrologische vooruitblikken, komt in het hele boek maar een handvol keren voor, meestal terloops. Er is geen hoofdstuk over de Saturnusterugkeer rond het negenentwintigste jaar, hoewel zij die wel noemt.</p>
+      <p>Greene zegt in hoofdstuk een waarom. De vormkant van Saturnus, zijn samenhang met vertraging en tegenslag op stoffelijk gebied, is volgens haar in de handboeken al voldoende beschreven; wat haar bezighoudt is de betekenis. Daarmee verplaatst zij het toetsbare deel van haar vak, gebeurtenissen die na te lopen zijn, naar innerlijke ervaring die dat niet is.</p>
+      <h3>Slot: psychologie als sleutel tot astrologie</h3>
+      <p>In het slothoofdstuk maakt Greene haar programma expliciet. De psychologie is de jongste wetenschap en de astrologie de oudste, en de eerste kan de tweede uit haar impasse helpen. Zij noemt de astrologie technisch bijgebleven maar menselijk achtergebleven, nog steeds vastzittend aan schadelijke planeten en oordelen over goed en slecht karakter.</p>
+      <p>Daar staat een opmerkelijke toegeving tegenover. Datgene wat de psychologie het zelf noemt, schrijft zij, is niet gevonden tussen de tekens en symbolen van de horoscoop; het is er wel doorheen werkzaam, maar het staat buiten het kader. Robert Hand plaatst het boek in zijn voorwoord uit 2011 in de geschiedenis van het vak: pas in de twintigste eeuw werd de horoscoop, via Alan Leo, Dane Rudhyar en daarna Greene, een kaart van ontwikkeling in plaats van van bestemming.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">teken</td><td>Een van de twaalf gelijke delen waarin de jaarlijkse baan van de zon wordt verdeeld, verbonden met de aard van een eigenschap.</td></tr>
+          <tr><td class="term">huis</td><td>Een van de twaalf delen waarin de horoscoop wordt verdeeld vanaf de oostelijke horizon, verbonden met het levensterrein waarop iets speelt.</td></tr>
+          <tr><td class="term">aspect</td><td>De hoek die twee planeten vanuit de aarde gezien maken; vierkant en oppositie golden als moeizaam.</td></tr>
+          <tr><td class="term">malefic</td><td>De term uit de oude astrologie voor een planeet die schade zou brengen; Saturnus gold als de grootste van de twee.</td></tr>
+          <tr><td class="term">synastrie</td><td>De vergelijking van twee geboortehoroscopen om te zien welke punten van de een door planeten van de ander worden geraakt.</td></tr>
+          <tr><td class="term">schaduw</td><td>Het begrip van Jung voor de eigenschappen die iemand niet bij zichzelf wil zien en daarom bij anderen aanwijst.</td></tr>
+          <tr><td class="term">het Zelf</td><td>Bij Jung het beeld van volledigheid waarin ook de afgewezen kanten een plaats hebben, anders dan volmaaktheid.</td></tr>
+          <tr><td class="term">projectie</td><td>Het toeschrijven van eigen onbewuste inhoud aan een ander, in dit boek de verklaring voor de wrijving in Saturnische relaties.</td></tr>
+          <tr><td class="term">Heer van het Karma</td><td>De oude bijnaam voor Saturnus, die Greene overneemt als beeld maar niet als lotsbeschikking.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er zit geen enkel getal in dit boek. Geen steekproef, geen frequentie, geen horoscoopverzameling met geboortegegevens, geen vergelijkingsgroep. Wat het argument draagt is de innerlijke samenhang van de jungiaanse leeswijze, de herkenbaarheid van de beschrijvingen, en de praktijk van Greene zelf, die toen als astroloog en later als analytisch psycholoog werkte. Zij beroept zich op wat zij naar eigen zeggen bij mensen heeft gezien, zonder dat materiaal te tonen.</p>
+      <p>Één bewering is in beginsel wel te toetsen en wordt niet getoetst. Greene schrijft dat Saturnus in de huizen duidelijker zichtbaar is dan in de tekens, en gebruikt dat om het vierde huis zwaarder te wegen dan Kreeft. Dat verschil zou met geboortegegevens en vragenlijsten na te lopen zijn, net als haar herhaalde koppeling van zon-Saturnuscontacten aan een afwezige of teleurstellende vader. De historische onderbouwing in het voorwoord van Robert Hand is wel controleerbaar, maar betreft de ontwikkeling van een vak en niet de vraag of dat vak klopt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De aanspraak waar de astrologie op rust is herhaaldelijk getoetst en niet bevestigd. Shawn Carlson publiceerde in 1985 in <i>Nature</i> (deel 318, blz. 419 tot 425) een dubbelblinde proef waarin door astrologische verenigingen aangewezen astrologen geboortehoroscopen moesten koppelen aan persoonlijkheidsprofielen; het resultaat lag op kansniveau. Die studie is later bestreden, onder meer door Suitbert Ertel, die vond dat opzet en verwerking gebreken vertoonden en dat de astrologen het beter deden dan Carlson concludeerde, zodat zij minder sluitend is dan zij vaak wordt genoemd. Geoffrey Dean en Ivan Kelly volgden in 2003 in <i>Journal of Consciousness Studies</i> ruim tweeduizend mensen die in dezelfde week van 1958 waren geboren op honderdtien kenmerken die astrologen aan de horoscoop koppelen, en vonden tussen die tijdgenoten geen gelijkenis.</p>
+      <p>Greene verplaatst het accent zelf, en dat is haar eerlijkste zet en tegelijk haar kwetsbaarste. Zij zegt dat de vormkant van Saturnus haar niet interesseert en dat het haar om betekenis gaat, en in het slothoofdstuk schrijft zij dat het zelf niet tussen de symbolen van de horoscoop is aangetroffen. Daarmee is de horoscoop bij haar geen bron van kennis meer maar een woordenschat. De vraag die dan open blijft, is wat de stand van Saturnus toevoegt aan een jungiaanse levensbeschouwing zonder horoscoop.</p>
+      <p>De duidingen zijn zo ruim geformuleerd dat een tegenvoorbeeld nauwelijks te bedenken is. Greene noemt bij vrijwel elke plaatsing beide uitersten: iemand is aan zijn familie gebonden of hij haat haar, hij is uitermate eerzuchtig of hij houdt vol geen eerzucht te hebben. Zij benoemt dat zelf als de dubbelzinnigheid van Saturnus. Het gevolg is dat lezers zich vrijwel altijd herkennen. Bertram Forer liet in 1949 zien dat mensen algemene karakterbeschrijvingen aannemen als persoonlijk raak, en de opbouw van deze hoofdstukken maakt dat mechanisme moeilijk te vermijden.</p>
+      <p>De veronderstellingen over man en vrouw zijn die van 1976 en zijn ook binnen de jungiaanse psychologie omstreden geraakt. Wat het boek daadwerkelijk levert is een leesbare en soms scherpe beschrijving van schaamte, angst en het opbouwen van eigenwaarde na een tekort. Die beschrijving staat of valt niet met de planeet. Dat is de sterkste lof en tegelijk het sterkste bezwaar dat ertegen in te brengen valt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken over de elementen als karakterbeschrijving en tel hoe vaak beide uitersten van een eigenschap worden genoemd.</li>
+        <li>Houd het voorwoord van Robert Hand uit 2011 gescheiden van de tekst van Greene uit 1976; het is een plaatsing achteraf.</li>
+        <li>Zoek de begrippen schaduw, projectie en het Zelf op bij Jung zelf voordat de astrologische toepassing wordt beoordeeld.</li>
+        <li>Wie de vaderbewering wil narekenen, heeft geboortegegevens en een vergelijkingsgroep nodig.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Saturn: A New Look at an Old Devil</i> (Samuel Weiser, New York, 1976, 200 blz., ISBN 0-87728-306-5). Heruitgave bij Red Wheel/Weiser in 2011 met een voorwoord van Robert Hand, en in 2021 in de Weiser Classics-reeks (ISBN 978-1-57863-735-5). Nederlandse uitgave: <i>Saturnus: een nieuwe kijk op een oude boosdoener</i>, vertaald door Piet Hein Geurink (Schors, Amsterdam, 1984; latere druk 2001, 243 blz., ISBN 978-90-6378-272-6).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Greene neemt de planeet die in de oude astrologie voor tegenslag, beperking en angst staat, en leest haar met de begrippen van Carl Jung als het punt waar iemand gedwongen wordt zelf op te bouwen wat de omgeving hem onthield. Het boek behandelt Saturnus per sterrenbeeld en per huis, gegroepeerd naar de vier elementen, daarna in aspect met de andere planeten, en tot slot in de vergelijking van twee horoscopen. Voorspellen doet zij niet: transits en toekomstige gebeurtenissen komen er nauwelijks in voor. Het werk geldt als een van de boeken die de westerse astrologie hebben verschoven van lotsvoorspelling naar zelfonderzoek. Robert Hand plaatst het in zijn voorwoord bij de heruitgave van 2011 uitdrukkelijk in die lijn.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>astrologie</li><li>jung</li><li>dieptepsychologie</li><li>symboliek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="646"><a href="646.html">The Pregnant Darkness</a>. Monika Wikman, <i>The Pregnant Darkness</i>: dezelfde jungiaanse leeswijze van alchemie en droom, zonder de horoscoop.</li>
+          <li value="632"><a href="632.html">The Complete Picatrix</a>. <i>The Complete Picatrix</i>: de middeleeuwse astrologie die Greene afwijst, met planeten die goed of slecht zijn.</li>
+          <li value="1119"><a href="1119.html">Mysteries of the Dark Moon</a>. Demetra George, <i>Mysteries of the Dark Moon</i>: dezelfde beweging, toegepast op de donkere maanfase.</li>
+          <li value="836"><a href="836.html">The Finding of the Third Eye</a>. Vera Stanley Alder, <i>The Finding of the Third Eye</i>: astrologie als typenleer in een theosofisch kader, veertig jaar eerder.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

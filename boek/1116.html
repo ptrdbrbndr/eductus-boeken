@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het labyrint der eenzaamheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Paz stelt dat de Mexicaan achter een masker leeft omdat zijn geschiedenis hem geen andere houding heeft gelaten. De verovering maakte van hem de zoon van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1116">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1116 &middot; Geschiedenis en samenleving</p>
+    <h1>Het labyrint der eenzaamheid</h1>
+    <p class="lede">Octavio Paz, 1950</p>
+    <p class="stats">
+      <span><b>1703</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1116"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Paz stelt dat de Mexicaan achter een masker leeft omdat zijn geschiedenis hem geen andere houding heeft gelaten. De verovering maakte van hem de zoon van een geschonden moeder, la Chingada, en van een vader die hij niet erkent; de onafhankelijkheid en de hervormingen van de negentiende eeuw sneden hem los van de koloniale orde zonder er iets voor terug te geven. Wat overbleef is wantrouwen, geslotenheid en het vermogen om zichzelf te veinzen. Alleen in het feest, in de omgang met de dood en in de revolutie breekt die geslotenheid open, kort en gewelddadig. Eenzaamheid is in dit boek geen Mexicaanse eigenaardigheid maar de toestand van de mens, waarvan Mexico de scherpste vorm laat zien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De pachuco in Los Angeles</h3>
+      <p>Het eerste essay begint bij een waarneming die Paz in de Verenigde Staten deed, waar hij midden jaren veertig verbleef. De pachuco, de jonge Mexicaanse Amerikaan met zijn opvallende pak, heeft zijn herkomst verloren zonder Amerikaan te zijn geworden. Hij maakt zich met kleding en houding tot een figuur die niet over het hoofd te zien is, en zoekt volgens Paz de aandacht en de klap die erop volgt.</p>
+      <p>Paz gebruikt hem als grensgeval. Een Mexicaan wordt zichtbaar op het moment dat hij ergens niet thuishoort, en de vraag wat hij is, dringt zich pas buiten Mexico op. Het essay opent daarmee ook de kwestie van het boek: bestaat er zoiets als de Mexicaan, of wordt hij door de vraag zelf opgeroepen.</p>
+      <h3>Maskers</h3>
+      <p>Het tweede essay beschrijft de Mexicaan als gesloten mens. Hij houdt zijn gezicht in de plooi, geeft niets prijs en spreekt in beleefdheidsvormen die niets meedelen. Paz noemt dat hermetisme.</p>
+      <p>Bij die houding hoort een woordenschat die hij uitvoerig uitwerkt. Rajarse, openbarsten, is het ergste wat een man kan overkomen; de macho is degene die anderen openbreekt zonder zelf open te gaan. Daarnaast staat het verbergen door te verdwijnen, tot aan het ninguneo: iemand tot een niemand maken door hem niet op te merken, waarna er een don Nadie overblijft.</p>
+      <h3>Het feest en de dood</h3>
+      <p>Het derde essay behandelt het Mexicaanse feest als uitbarsting. Een dorp geeft in één nacht uit wat het in een jaar verdient; op 15 september wordt de kreet van de onafhankelijkheid geschreeuwd; er wordt gedronken, gevochten en gezongen. Paz leest dat als het enige toegestane moment waarop de gesloten mens uit zichzelf treedt.</p>
+      <p>Daaraan koppelt hij de Dag van de Doden en de spot met de dood die in Mexico gebruikelijk is. Zijn stelling is dat die spot geen vertrouwdheid verraadt maar het tegendeel: voor de Azteek had de dood een plaats in een sluitende orde en voor de christen een oordeel, terwijl de dood van de moderne Mexicaan even betekenisloos is geworden als zijn leven. De grap is dan een manier om er niet naar te hoeven kijken.</p>
+      <h3>De zonen van la Malinche</h3>
+      <p>Het bekendste essay vertrekt bij één werkwoord. Chingar en zijn vele afleidingen draaien om openbreken, forceren en schenden; de Chingada is de vrouw die dat is aangedaan. Wanneer Mexicanen zich in de nacht van de onafhankelijkheid zonen van la Chingada noemen, zeggen zij volgens Paz iets over hun afkomst.</p>
+      <p>La Malinche, de vrouw die voor Cortés tolkte en zijn kind kreeg, is die moeder. Zij gaf zich, en daarom wordt zij verworpen; malinchismo is in Mexico het verwijt dat iemand het buitenlandse verkiest. De vader, de veroveraar, wordt evenmin erkend. Wat overblijft is een verweesde: iemand die zijn beide ouders ontkent en daardoor alleen staat. Tegenover de geschonden moeder plaatst Paz de maagd van Guadalupe, de moeder die wel aanvaard kan worden.</p>
+      <h3>Verovering, kolonie, hervorming</h3>
+      <p>De historische essays lopen van de val van Tenochtitlan tot de negentiende eeuw. Paz beschrijft het katholicisme van de koloniale tijd als een dak dat de verslagen goden opnam en de veroverden een plaats gaf, hoe ondergeschikt ook, in een orde die sluitend was.</p>
+      <p>De Reforma van Juárez brak dat dak af. Mexico werd volgens Paz een land met geleende vormen: liberale grondwetten, en onder Porfirio Díaz een ingevoerd positivisme dat de werkelijke verhoudingen bedekte. Het volk bleef achter zonder de oude orde en zonder toegang tot de nieuwe.</p>
+      <h3>De revolutie als terugkeer</h3>
+      <p>De revolutie van 1910 is in dit boek geen ingevoerde leer maar een uitbarsting zonder programma, waarin Mexico naar zichzelf terugkeerde. Paz ziet dat het duidelijkst bij Zapata en de dorpen die hun grond terugeisten: geen nieuw stelsel, maar het herstel van een oude vorm van bezit.</p>
+      <p>Wat erop volgde beoordeelt hij nuchterder. Uit de revolutie kwam een partijstaat voort en een laag intellectuelen die daarin een ambt kregen. In het essay over de Mexicaanse intelligentsia rekent Paz af met de gedachte dat denkers zich met het regeren kunnen inlaten zonder hun taak op te geven.</p>
+      <h3>De dialectiek van de eenzaamheid</h3>
+      <p>De bijlage verbreedt het boek van Mexico naar de mens. Geboren worden is losgesneden worden; de mens leeft in het besef van een verloren eenheid en zoekt die in liefde, in gemeenschap en in het feest terug te vinden. Die momenten zijn kort en dat is geen gebrek van Mexico.</p>
+      <p>Daarmee komt de titel op zijn plaats. Het labyrint is niet Mexicaans maar menselijk; Mexico is het geval waarin de wanden het dichtst bij elkaar staan. Wie alleen de eerste essays leest, houdt een karakterschets over; wie het slot meeneemt, ziet dat Paz een algemene stelling verdedigt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">pachuco</td><td>De jonge Mexicaanse Amerikaan in het zuidwesten van de Verenigde Staten die zich door kleding en houding buiten beide culturen plaatst.</td></tr>
+          <tr><td class="term">hermetismo</td><td>De geslotenheid waarmee de Mexicaan zich volgens Paz tegen de buitenwereld afschermt.</td></tr>
+          <tr><td class="term">rajarse</td><td>Openbarsten of zich laten openen, in Paz' lezing het ergste dat een man kan overkomen.</td></tr>
+          <tr><td class="term">ninguneo</td><td>Van een ander een niemand maken door hem niet op te merken, waarna er een don Nadie overblijft.</td></tr>
+          <tr><td class="term">la Chingada</td><td>De geschonden moeder; Mexicanen noemen zichzelf en hun tegenstanders haar zonen.</td></tr>
+          <tr><td class="term">malinchismo</td><td>Het verwijt dat iemand het buitenlandse boven het eigene verkiest, genoemd naar la Malinche.</td></tr>
+          <tr><td class="term">fiesta</td><td>Het feest als uitbarsting waarin de gesloten mens zich voor korte tijd verliest en zichzelf ruïneert.</td></tr>
+          <tr><td class="term">orfandad</td><td>Verweesdheid: de toestand van wie zowel de veroveraar als de geschonden moeder als ouder afwijst.</td></tr>
+          <tr><td class="term">soledad</td><td>Eenzaamheid, bij Paz zowel de Mexicaanse toestand als de grondtoestand van de mens die uit een eenheid is losgesneden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op taal, literatuur en waarneming. Het sterkste hoofdstuk, dat over la Malinche, is opgebouwd uit één werkwoord en zijn afleidingen: Paz laat zien hoe chingar in het Mexicaanse Spaans een heel veld van openbreken en schenden bestrijkt en leidt daaruit een verhouding tot afkomst af. Dat is een lezing van gebruik, geen meting.</p>
+      <p>Er komt geen enquête in voor, geen veldwerk, geen enkel getal. Paz staat in de lijn van Samuel Ramos, die in <i>El perfil del hombre y la cultura en México</i> (1934) al een minderwaardigheidsgevoel bij de Mexicaan diagnosticeerde, en hij leent losjes uit de psychoanalyse en het surrealisme. Wie wil weten hoeveel Mexicanen zich herkennen in het beschreven masker, vindt daarover niets.</p>
+      <p>De historische essays staan er beter voor. De val van Tenochtitlan, de plaats van de kerk in de koloniale orde, de breuk van de Reforma, het positivisme onder Díaz en het karakter van de opstand van 1910 volgen de gangbare geschiedschrijving. De zwakke schakel zit tussen die twee helften: de sprong van wat er is gebeurd naar wat een volk daardoor voelt.</p>
+      <p>Paz heeft de reikwijdte van zijn eigen boek later ingeperkt. In <i>Posdata</i> (1970), geschreven na het neerslaan van de studentenbeweging op het plein van Tlatelolco in 1968, en in het vraaggesprek met Claude Fell uit 1975 zei hij dat hij geen psychologie van de Mexicaan had willen schrijven en dat het boek eerder een vorm van zelfonderzoek was.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het hoofdbezwaar geldt de figuur zelf. Paz behandelt de Mexicaan als één persoon met één binnenleven. Roger Bartra betoogde in <i>La jaula de la melancolía</i> (1987) dat die Mexicaan alleen in de literatuur bestaat en dat het beeld de staat die uit de revolutie voortkwam goed uitkwam: een zwaarmoedig en berustend volk heeft een vaderlijke regering nodig. Zijn beeld daarvoor is de axolotl, het dier dat nooit salamander wordt.</p>
+      <p>Klasse en streek verdwijnen. De boer in Chiapas, de fabrieksarbeider in Monterrey en de intellectueel in Mexico-Stad zijn in dit boek dezelfde figuur. Het indiaanse Mexico komt vooral als verleden voor en niet als miljoenen levende sprekers van eigen talen.</p>
+      <p>Het essay over la Malinche is het meest aangevochten. De vrouw is bij Paz ofwel de geschonden moeder ofwel de gesloten en lijdzame; la Malinche is verraadster omdat zij zich gaf. Chicana-schrijfsters, onder wie Gloria Anzaldúa in <i>Borderlands/La Frontera</i> (1987), keerden die lezing om: een als schatting weggegeven slavin had geen positie van waaruit zij iemand kon verraden, en het verraad zit in de vertelling, niet in haar.</p>
+      <p>Ook het openingsessay kreeg tegenwind. Chicano-schrijvers vonden de pachuco van Paz een geval dat van buitenaf wordt beschreven, als verschijnsel, zonder dat hem gevraagd wordt wat hij aan het doen is.</p>
+      <p>Methodisch is het boek niet te weerleggen. Als alles masker is, bevestigt zowel openheid als geslotenheid de stelling, en er is geen waarneming denkbaar die Paz ongelijk zou geven. Een lezer die iets wil toetsen kan alleen instemmen of niet.</p>
+      <p>En er is wat het boek niet doet. Over de economie staat er vrijwel niets, over de landverhoudingen weinig, en over het Mexico dat vertrekt om geld te verdienen in plaats van om zichzelf te zoeken helemaal niets.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het eerste essay en de bijlage achter elkaar; dan wordt zichtbaar dat Mexico bij Paz het voorbeeld is en de eenzaamheid het onderwerp.</li>
+        <li>Houd de historische hoofdstukken en de psychologische gescheiden: de eerste zijn na te gaan, de tweede niet.</li>
+        <li>Zet Bartra ernaast voordat de karakterschets wordt overgenomen, en Anzaldúa bij het hoofdstuk over la Malinche.</li>
+        <li>Let bij vertalingen op welke editie voorligt: de tekst van 1959 wijkt af van die van 1950, en latere uitgaven bundelen er losse stukken bij.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>El laberinto de la soledad</i> verscheen in 1950 bij het tijdschrift Cuadernos Americanos in Mexico-Stad; de herziene en uitgebreide tweede uitgave kwam in 1959 bij Fondo de Cultura Económica en is de tekst die sindsdien gelezen wordt. Engels: <i>The Labyrinth of Solitude: Life and Thought in Mexico</i> (vertaling Lysander Kemp, Grove Press, New York, 1961). Nederlandse uitgave: <i>Het labyrint der eenzaamheid</i>, vertaald door Robert Lemm, met een tekst van de vertaler en een bibliografie (De Arbeiderspers, Amsterdam, 1975, 258 blz.; tweede druk 1990, ISBN 9789029533386). Latere Spaanse en Engelse edities bundelen er <i>Posdata</i> (1970) en het vraaggesprek met Claude Fell uit 1975 bij.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Negen essays waarin de Mexicaanse dichter Octavio Paz (1914-1998) probeert te zeggen wat een Mexicaan is. Hij begint bij de pachuco, de jonge Mexicaanse Amerikaan in Los Angeles die zich door zijn kleding zichtbaar maakt en tegelijk onbereikbaar, en werkt van daaruit terug naar het masker, het feest, de Dag van de Doden, la Malinche en de geschiedenis van verovering, onafhankelijkheid en revolutie.</p><p>Paz schreef het boek in Parijs, in de jaren dat hij daar bij de Mexicaanse diplomatieke dienst werkte, en publiceerde het in 1950; de uitgebreide versie van 1959 geldt als de standaardtekst. Het werd het meest besproken essay over Mexico dat er bestaat en tegelijk het meest bestreden, omdat Paz zijn beeld staaft met taal, literatuur en eigen waarneming en niet met onderzoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>essay</li><li>identiteit</li><li>kolonialisme</li><li>cultuurfilosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1115"><a href="1115.html">Aztec Thought and Culture</a>. León-Portilla reconstrueert het denken van de wereld die in Paz' eerste hoofdstukken ten onder gaat.</li>
+          <li value="521"><a href="521.html">Indigenous and Popular Thinking in América</a>. Kusch stelt dezelfde vraag naar een eigen Amerikaans denken, maar zoekt het antwoord bij levende boeren in plaats van in de taal.</li>
+          <li value="1111"><a href="1111.html">The Invention of Africa</a>. Mudimbe laat voor Afrika zien hoe een werelddeel als categorie wordt uitgevonden, wat een scherpe toets is voor Paz' Mexicaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

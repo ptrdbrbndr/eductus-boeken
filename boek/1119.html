@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mysteries of the Dark Moon &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="George stelt dat de westerse cultuur alleen de wassende en volle helft van elke cyclus erkent en de afnemende en donkere helft behandelt als verlies,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1119">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1119 &middot; Filosofie en mystiek</p>
+    <h1>Mysteries of the Dark Moon</h1>
+    <p class="lede">Demetra George, 1992</p>
+    <p class="stats">
+      <span><b>1883</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1119"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>George stelt dat de westerse cultuur alleen de wassende en volle helft van elke cyclus erkent en de afnemende en donkere helft behandelt als verlies, ziekte of falen, terwijl geen cyclus zonder die fase opnieuw kan beginnen. In de maanmaand gaat het om de balsemieke fase en om de drie dagen waarin de maan onzichtbaar is; in een mensenleven om rouw, depressie, woede, menopauze en sterven. De godinnen die in de overlevering met dat deel van de cyclus verbonden zijn, van Nyx en de Erinyen tot Medusa, Lilith en Hekate, zijn volgens haar in de loop van de geschiedenis tot monsters en demonen gemaakt, en dat is dezelfde beweging waarmee vrouwen hun eigen donkere fasen leerden vrezen. Het boek wil die fase terugnemen als een deel van de cyclus dat te begrijpen en te doorstaan is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De schrijfster en de opzet</h3>
+      <p>Demetra George (geboren 1946) is astrologe en heeft een mastergraad in klassieke talen van de Universiteit van Oregon. Zij publiceerde in 1986 met Douglas Bloch <i>Asteroid Goddesses</i>, over de vier eerst ontdekte planetoiden Ceres, Pallas, Juno en Vesta in de horoscoop, en legde zich later toe op de Hellenistische astrologie en op het vertalen van Griekse astrologische teksten.</p>
+      <p><i>Mysteries of the Dark Moon</i> verscheen in 1992 en telt drie delen met negen hoofdstukken. Het eerste deel herziet het beeld van het donker, het tweede behandelt de godinnen die ermee verbonden zijn, het derde geeft riten. Het boek beweegt voortdurend tussen drie registers: astronomie en astrologische rekenwijze, mythologie, en aanwijzingen voor eigen gebruik.</p>
+      <h3>Deel een: het donker opnieuw bekeken</h3>
+      <p>Het eerste hoofdstuk zet de astronomie uiteen. De maan doorloopt in ongeveer negenentwintig en een halve dag een omloop ten opzichte van de zon; de astroloog Dane Rudhyar verdeelde die omloop in 1967 in acht fasen van vijfenveertig graden, van nieuwe maan via wassende sikkel, eerste kwartier, bolle maan, volle maan, afnemende maan en laatste kwartier naar de balsemieke fase. Die laatste fase, de vijfenveertig graden vlak voor de volgende nieuwe maan, is bij George de kern van het boek: daar wordt het oude losgelaten en het zaad voor de volgende cyclus gevormd.</p>
+      <p>Het tweede hoofdstuk introduceert de donkere godin als gestalte, het derde geeft wat George een lunaire geschiedenis van het vrouwelijke noemt: een verhaal over duizenden jaren waarin een godinnenreligie eerst heerste, daarna door patriarchale culturen werd verdrongen en nu terugkeert. Dat hoofdstuk draagt het historische gewicht van het boek.</p>
+      <h3>Deel twee: de godinnen van de donkere maan</h3>
+      <p>Het vierde hoofdstuk behandelt Nyx, de Griekse godin van de nacht, en haar dochters: de Moiren die de levensdraad meten, de Erinyen die wraak nemen op bloedschuld, Nemesis en Eris. Het vijfde gaat over Medusa, het zesde over Lilith. Hier staat George het dichtst bij haar bronnen; zij leest de Griekse teksten nauwkeurig en volgt hoe een figuur in de overlevering van gevreesde naar verachte gestalte verschuift.</p>
+      <p>De uitgeversflap noemt daarnaast Kali, Hekate en Morgana als namen van dezelfde donkere godin. Dat is ook de stelling van het boek: het gaat om één gestalte onder verschillende namen, die overal dezelfde plaats in de cyclus inneemt.</p>
+      <h3>Deel drie: riten van wedergeboorte</h3>
+      <p>Het zevende hoofdstuk behandelt menstruatie en menopauze als bloedmysteries, overgangen die volgens George in oudere samenlevingen met inwijding werden begeleid en in de moderne westerse samenleving zonder vorm zijn gebleven. Het achtste gaat over de inwijdingsmysterien van Demeter en Persephone in Eleusis, waarin een afdaling in de onderwereld en een terugkeer besloten liggen.</p>
+      <p>Het negende en laatste hoofdstuk is praktisch: het beschrijft wat George de helende kracht van de maanduisternis noemt, met riten, een terugtrekking tijdens de donkere maandagen en aanwijzingen om verlies, woede en somberheid als fase van een cyclus te ordenen in plaats van als iets dat is misgegaan.</p>
+      <h3>De astrologische techniek</h3>
+      <p>Door het boek heen loopt een technisch stelsel dat uitleg vraagt. De geboortemaanfase is de fase waarin iemand is geboren; George leest die als een van acht persoonlijkheidstypen. De voortschrijdende maanfasencyclus berust op de rekenwijze waarin elke dag na de geboorte voor een levensjaar staat, waardoor de acht fasen samen een boog van ongeveer negenentwintig en een half jaar over een mensenleven leggen; wie in de voortschrijdende balsemieke fase zit, zou jarenlang met afsluiten bezig zijn.</p>
+      <p>De Zwarte Maan is geen hemellichaam maar een berekend punt: het verste punt van de maanbaan ten opzichte van de aarde, het apogeum, in deze traditie met Lilith vereenzelvigd. Daarnaast gebruikt George planetoiden die naar duistere godinnen zijn vernoemd, waaronder Lilith met catalogusnummer 1181, in 1927 ontdekt tussen Mars en Jupiter, en verder Medusa, Nephthys, Persephone, Hekate en Oya.</p>
+      <h3>Wat het boek aanbiedt</h3>
+      <p>De praktische inzet is steeds dezelfde: een woordenschat en een volgorde voor perioden waar de westerse cultuur weinig taal voor heeft. Een verlies, een scheiding, een ziekte of de jaren na een sterfgeval krijgen in dit stelsel een plaats in een cyclus, met een verwacht einde, en de somberheid die erbij hoort geldt als deel van het proces en niet als gebrek aan de persoon.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">donkere maan</td><td>De dagen rond de nieuwe maan waarin de maan vanaf de aarde niet te zien is, bij George het dieptepunt en het keerpunt van de cyclus.</td></tr>
+          <tr><td class="term">balsemieke fase</td><td>De achtste en laatste van de acht maanfasen, de vijfenveertig graden vlak voor de nieuwe maan, waarin volgens George wordt losgelaten en het zaad voor de volgende cyclus wordt gevormd.</td></tr>
+          <tr><td class="term">lunatiecyclus</td><td>De omloop van de maan ten opzichte van de zon, door de astroloog Dane Rudhyar in 1967 verdeeld in acht fasen van vijfenveertig graden.</td></tr>
+          <tr><td class="term">geboortemaanfase</td><td>De maanfase waarin iemand is geboren, door George gelezen als een van acht persoonlijkheidstypen.</td></tr>
+          <tr><td class="term">voortschrijdende maanfasencyclus</td><td>Astrologische rekenwijze waarin elke dag na de geboorte voor een levensjaar staat, zodat de acht fasen samen ongeveer negenentwintig en een half jaar beslaan.</td></tr>
+          <tr><td class="term">Zwarte Maan</td><td>Geen hemellichaam maar een berekend punt: het apogeum van de maanbaan, het verste punt ten opzichte van de aarde, dat in deze traditie met Lilith wordt vereenzelvigd.</td></tr>
+          <tr><td class="term">asteroide Lilith</td><td>Planetoide 1181, in 1927 tussen Mars en Jupiter ontdekt, die George in de horoscoop leest als aanduiding van onderdrukte woede en zelfverbanning.</td></tr>
+          <tr><td class="term">de donkere godin</td><td>Verzamelnaam voor godinnen die met nacht, dood, seksualiteit en het onbewuste verbonden zijn en die volgens George uit één oudere gestalte voortkomen.</td></tr>
+          <tr><td class="term">bloedmysteries</td><td>De overgangen van menarche, geboorte en menopauze, door George als inwijdingen behandeld die om een vorm vragen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op twee soorten materiaal die zonder onderscheid naast elkaar worden gelegd. Het eerste zijn de mythologische bronnen. Daar is George het sterkst: zij heeft een klassieke opleiding, leest de Griekse teksten nauwkeurig en laat over het algemeen zien waar een gestalte vandaan komt en hoe het beeld ervan in de overlevering verschuift. Het tweede is de astrologische leer. De achtdeling van de maanmaand komt van Rudhyar uit 1967, de betekenissen van de fasen, van de Zwarte Maan en van de planetoiden zijn toegeschreven betekenissen uit de traditie. Er is niets gemeten en er valt niets aan te toetsen; wat als onderbouwing dient, zijn voorbeelden uit haar eigen praktijk, zonder vergelijkingsgroep en zonder telling.</p>
+      <p>Het historische hoofdstuk drie neemt zijn stof uit de godinnenliteratuur van de jaren zeventig en tachtig, in het spoor van Marija Gimbutas. De stelling dat de duistere godinnen weggezette resten zijn van één oudere grote godin is een aanname van die literatuur en geen uitkomst van filologie of archeologie. Lilith is daarvan het duidelijkste geval. De oudste sporen zijn Mesopotamische demonen, <i>lilû</i> en <i>lilītu</i>; de Hebreeuwse Bijbel noemt de naam éénmaal, in Jesaja 34:14, als schepsel van de woestenij; en de gestalte van Adams eerste vrouw duikt pas op in het <i>Alfabet van Ben Sira</i>, een satirische Hebreeuwse tekst uit ruwweg de achtste tot de tiende eeuw. In die lijn zit geen godin die tot demon zou zijn gedegradeerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het eerste bezwaar is het zwaarste: astrologie heeft in gecontroleerd onderzoek geen voorspellende waarde laten zien. Shawn Carlson liet in <i>Nature</i> (1985) astrologen dubbelblind geboortehoroscopen koppelen aan persoonlijkheidsprofielen; zij deden het niet beter dan het toeval. Geoffrey Dean en Ivan Kelly vergeleken ruim tweeduizend mensen die in maart 1958 binnen enkele dagen van elkaar in Londen waren geboren, over meer dan honderd kenmerken, en vonden niet de gelijkenis die de astrologie voorspelt. Astrologen hebben beide onderzoeken bestreden en er herberekeningen tegenover gezet, maar er is geen herhaalbaar resultaat dat wel een effect aantoont. Het stelsel van fasen, punten en planetoiden in dit boek is dus een symbooltaal en geen beschrijving van oorzaken.</p>
+      <p>Daar komt een bezwaar bij dat ook binnen de astrologie zelf geldt. De Zwarte Maan is geen voorwerp maar een berekende stand, en er zijn twee gangbare rekenwijzen, het gemiddelde en het werkelijke apogeum, die niet samenvallen; verschillende programma's geven daardoor voor dezelfde geboorte een andere stand. De zogenoemde Dark Moon Lilith, die in dezelfde literatuur meeloopt, gaat terug op de bewering van Georg Waldemath uit 1898 dat hij een tweede maan van de aarde had waargenomen. Die waarneming is nooit bevestigd en het voorwerp bestaat niet. Een duiding die op zulke punten rust, valt niet na te rekenen.</p>
+      <p>Het derde bezwaar betreft de omgang met mythologie. Hoofdstuk drie presenteert een millennialange golfbeweging van godinnenreligie, patriarchale omslag en terugkeer als iets dat is gebeurd; dat model wordt door archeologen afgewezen, om de redenen die bij <i>The Great Cosmic Mother</i> staan. Bovendien brengt het boek godinnen uit Griekenland, Mesopotamie, India, Egypte, West-Afrika en de Keltische overlevering onder één noemer, terwijl die gestalten uit samenlevingen komen die duizenden jaren en duizenden kilometers uiteen liggen en elk in hun eigen traditie een andere rol vervulden. Kali is in de hindoetraditie geen weggedrukt overblijfsel maar een godin met een eigen, gedocumenteerde cultusgeschiedenis.</p>
+      <p>Wat het boek wel doet, verdient een aparte vermelding. Laat men de historische en de astrologische aanspraken weg, dan blijft een ordening over voor perioden waar weinig taal voor bestaat: rouw, somberheid, menopauze, het einde van een verhouding, de jaren na een verlies. De achtdelige cyclus geeft zo'n periode een plaats, een verwacht verloop en een einde, en het boek zegt met zoveel woorden dat een donkere fase geen tekortschieten van de persoon is. Dat is een symbolische en troostende werking, geen astronomische. Wat het boek nergens doet, is zijn eigen stelsel afzetten tegen de mogelijkheid dat de stand van de maan er niets mee te maken heeft.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem het als symbolisch raamwerk voor rouw, verlies en overgangsfasen, en niet als beschrijving van wat maan of planetoide met iemand doet.</li>
+        <li>Scheid bij het lezen de mythologische hoofdstukken, waar George het dichtst bij haar bronnen blijft, van het historische hoofdstuk drie, dat op omstreden literatuur berust.</li>
+        <li>Wie de acht fasen als ordening van een moeilijke periode wil gebruiken, kan dat losmaken van de horoscoop: afbouw, leegte en nieuwe aanzet zijn ook zonder astronomie te volgen.</li>
+        <li>Zoek bij elke godin die het boek noemt de eigen geschiedenis van die gestalte op; die wijkt vaak af van de rol die het boek haar geeft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Mysteries of the Dark Moon: The Healing Power of the Dark Goddess</i> (HarperSanFrancisco, San Francisco, 1992, 304 blz., ISBN 9780062503701). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Astrologisch en mythologisch werk over de donkere maanfase, de dagen waarin de maan vanaf de aarde niet te zien is. Demetra George leest die fase als het noodzakelijke dieptepunt van elke cyclus en verbindt haar met godinnen die in de overlevering als duister of gevaarlijk gelden: Nyx en haar dochters, Medusa, Lilith, Hekate en Persephone. Het boek legt de achtdelige maanfasenleer van de astroloog Dane Rudhyar uit, behandelt de Zwarte Maan en een reeks asteroiden, en besluit met riten voor rouw, verlies en overgangsfasen. Het historische hoofdstuk leunt op de literatuur over een voorhistorische godinnenreligie die archeologen afwijzen, en de astrologie waarop het stelsel rust heeft in gecontroleerd onderzoek geen voorspellende waarde laten zien. Als symbolisch raamwerk voor donkere perioden is het boek beter te begrijpen dan als beschrijving van hoe de wereld werkt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>astrologie</li><li>godin</li><li>mythologie</li><li>esoterie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1118"><a href="1118.html">Saturn: A New Look at an Old Devil</a>. Saturn: A New Look at an Old Devil van Liz Greene doet vijftien jaar eerder hetzelfde met de planeet die in de oude astrologie voor het kwade stond, en leest het duistere als leermeester in plaats van als straf.</li>
+          <li value="1117"><a href="1117.html">The Great Cosmic Mother</a>. The Great Cosmic Mother levert het geschiedverhaal waar hoofdstuk drie van dit boek op steunt, met dezelfde bezwaren.</li>
+          <li value="1121"><a href="1121.html">The Wise Wound</a>. The Wise Wound behandelt de menstruatiecyclus die George onder de bloedmysteries rekent, met een jungiaanse in plaats van een astrologische duiding.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

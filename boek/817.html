@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Behavioural Investing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Montier stelt dat het beleggingsproces van de doorsnee grote vermogensbeheerder is opgebouwd rond precies die handelingen waarin de menselijke geest…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-817">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">817 &middot; Naslag en praktijk</p>
+    <h1>Behavioural Investing</h1>
+    <p class="lede">James Montier, 2007</p>
+    <p class="stats">
+      <span><b>1435</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="817"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Montier stelt dat het beleggingsproces van de doorsnee grote vermogensbeheerder is opgebouwd rond precies die handelingen waarin de menselijke geest aantoonbaar faalt, en dat de gebruikelijke reactie daarop, zich bewust worden van de eigen denkfouten, niet werkt. Dertig jaar onderzoek naar besluitvorming laat zien dat kennis van een vertekening die vertekening niet opheft. Wat overblijft is gedragsregels vastleggen in een proces dat de belegger op het beslissende moment overstemt, volgens hem waardegericht en waar mogelijk mechanisch.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Acht afdelingen, vierenvijftig notities</h3>
+      <p>Het boek bundelt korte stukken uit Global Equity Strategy, de onderzoeksuitgave die Montier voor institutionele klanten maakte. Elk hoofdstuk opent met opsommingstekens die de conclusie vooraf geven. De acht afdelingen lopen van gewone denkfouten via de zeven zonden en het tegenvoorstel naar zeepbellen, ontkrachte overtuigingen, ondernemingsbestuur en geluk. Hoofdstukken zijn los te lezen, wat het als naslagwerk bruikbaar maakt en herhaling meebrengt.</p>
+      <h3>Systeem X en systeem C</h3>
+      <p>De psychologische onderbouw staat in de eerste zes hoofdstukken. Systeem X is snel, associatief en gevoelsmatig, en gelooft iets al zodra het dat wenst. Systeem C is traag, logisch en stapsgewijs, en vraagt bewijs. Het eerste is de fabrieksinstelling, het tweede kost moeite. Daaromheen komen de denkfouten langs: succes aan eigen kunde en tegenslag aan pech toeschrijven, de illusie van controle, en terugkoppeling die in de markt zo vertraagd is dat leren nauwelijks lukt.</p>
+      <h3>De test onder driehonderd fondsbeheerders</h3>
+      <p>Het scharnier is hoofdstuk zeven, met de uitkomsten van een test van zeventien vragen die Montier aan bijna driehonderd beroepsbeleggers in Europa, de Verenigde Staten en Azië voorlegde. Vierenzeventig procent vond zichzelf bovengemiddeld goed in het eigen werk, en bijna niemand ondergemiddeld. Vijfennegentig procent zakte voor de kaartentest van Wason, waarin de meesten de kaart omdraaien die hun regel kan bevestigen in plaats van de kaart die hem kan weerleggen.</p>
+      <p>Verder kwamen langs: het probleem van Linda uit het werk van Tversky en Kahneman, waarin mensen een combinatie van twee eigenschappen waarschijnlijker achten dan één ervan; verankering aan de laatste vier cijfers van het eigen telefoonnummer; en het schoonheidswedstrijdspel van Keynes, waarin drie van duizend deelnemers het juiste antwoord vonden.</p>
+      <h3>De zeven zonden van vermogensbeheer</h3>
+      <p>De derde afdeling, oorspronkelijk een notitie uit 2005, is het bekendste deel. Montier ontleedt een verzonnen doorsnee vermogensbeheerder en vindt zeven ingebouwde handicaps: voorspellen (hoogmoed), de illusie van kennis (vraatzucht), bedrijven bezoeken (wellust), slimmer willen zijn dan de rest (afgunst), korte horizonnen (hebzucht), alles geloven wat je leest (luiheid) en beslissen in groepen (toorn).</p>
+      <p>Bij elke zonde staat materiaal. Economen voorspellen inflatie door de recente inflatie door te trekken; obligatievoorspellers zaten volgens zijn tabel zelfs de richting mis, want in vijfenvijftig procent van de gevallen waarin zij een rentestijging verwachtten daalde de rente. Achtenzestig procent van de analisten achtte zichzelf bovengemiddeld in het ramen van winsten. Wie om een betrouwbaarheidsinterval van achtennegentig procent wordt gevraagd, zit er in dertig tot veertig procent van de gevallen buiten. En de gemiddelde bezitsduur van een aandeel aan de New Yorkse beurs was elf maanden, wat volgens Montier speculatie is en geen beleggen.</p>
+      <h3>Het tegenvoorstel: een proces in plaats van inzicht</h3>
+      <p>De vierde afdeling, The Tao of Investing, levert de lijst met wat wel te doen valt. Montier leunt op drie eisen van John Minahan: weet waarom je denkt de markt te kunnen verslaan, onderzoek waar je resultaat vandaan komt, en houd bij of die bron opdroogt. Daarnaast komen de gedeelde trekken van langdurig geslaagde waardebeleggers langs: geconcentreerde portefeuilles, bereidheid contanten aan te houden, lange horizonnen, aanvaarding van slechte jaren en de bereidheid een fonds voor nieuw geld te sluiten.</p>
+      <p>Het scherpste hoofdstuk is een pleidooi voor eenvoudige rekenmodellen. In de meta-analyse van Grove en collega's, over meer dan honderddertig studies uiteenlopend van beroepskeuze tot de diagnose van hartaanvallen, kwam de menselijke beoordelaar gemiddeld op 66,5 procent juiste uitkomsten en het model op 73,2 procent. Acht studies vielen in het voordeel van de mens uit, en in alle acht had die mens informatie die het model miste. Zelfs deelnemers die de modeluitkomst als hulpmiddel kregen, presteerden slechter dan het model alleen. Montier bekent dat hij anderhalf jaar lang zijn eigen model overrulede en er door verslagen werd.</p>
+      <h3>Zeepbellen, mythes, ethiek en geluk</h3>
+      <p>De laatste vier afdelingen zijn losser van opzet. De zeepbellenhoofdstukken volgen het vijffasenschema dat via Kindleberger van Hyman Minsky komt: verstoring, kredietschepping, roes, kritieke fase en afkeer, met laboratoriumproeven ernaast waarin deelnemers dezelfde zeepbel produceren zodra zij mogen handelen. In de afdeling met ontkrachte overtuigingen serveert hij het kapitaalgoederenprijsmodel af en verwijt hij risicobeheerders dat zij de koersschommeling meten in plaats van de kans om geld kwijt te raken.</p>
+      <p>Daarna verlaat het boek de markten. Montier trekt uit Abu Ghraib een les over ondernemingsbestuur via het gevangenisexperiment van Zimbardo en de proeven van Milgram, en besluit met twee hoofdstukken over geluk en over de vraag waarom bezit minder oplevert dan ervaring.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">cognitieve vertekening</td><td>Een systematische denkfout die iedereen maakt en die, anders dan onwetendheid, niet verdwijnt zodra men ervan weet.</td></tr>
+          <tr><td class="term">systeem X</td><td>Montiers naam voor de snelle, associatieve en gevoelsmatige manier van verwerken.</td></tr>
+          <tr><td class="term">systeem C</td><td>De trage, logische manier van verwerken, die moeite kost en om bewijs vraagt.</td></tr>
+          <tr><td class="term">overmoed</td><td>Vaker verrast worden dan men verwacht; deskundigen hebben er meer last van dan leken.</td></tr>
+          <tr><td class="term">bevestigingsvertekening</td><td>De gewoonte informatie te zoeken die het eigen standpunt steunt, waar Popper tegenbewijs voorschreef.</td></tr>
+          <tr><td class="term">verankering</td><td>Bij onzekerheid vasthouden aan een willekeurig getal dat toevallig voorhanden is.</td></tr>
+          <tr><td class="term">de zeven zonden van vermogensbeheer</td><td>Montiers ordening van de ingebouwde handicaps van het gangbare beleggingsproces, elk aan een hoofdzonde verbonden.</td></tr>
+          <tr><td class="term">eenvoudig rekenmodel</td><td>Een vaste formule die de beslissing neemt; volgens het onderzoek een plafond waar de mens vanaf trekt en geen vloer waarop hij bouwt.</td></tr>
+          <tr><td class="term">veiligheidsmarge</td><td>Het verschil tussen wat iets waard lijkt en wat ervoor betaald wordt, de reden dat waardebeleggen volgens Graham werkt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing komt uit twee bronnen. De eerste is de gepubliceerde psychologische literatuur, die Montier ruim en met naam en jaartal aanhaalt: Tversky en Kahneman, de meta-analyse van Grove, het ijkingsonderzoek van Russo en Schoemaker onder ruim duizend deelnemers, de kopieerproef van Langer, Dunning over de onbekwame die zijn onbekwaamheid niet ziet, Tetlock over de uitvluchten van deskundigen. Dat deel is na te lopen.</p>
+      <p>De tweede bron is eigen materiaal: de test onder bijna driehonderd fondsbeheerders, het schoonheidswedstrijdspel onder duizend klanten, en de reeksen van het onderzoeksbureau van Dresdner Kleinwort over de trefzekerheid van economen, obligatievoorspellers, strategen en analisten. Die gegevens zijn niet door vakgenoten beoordeeld en de deelnemers zijn geen aselecte steekproef maar de klanten die op zijn bijeenkomsten afkwamen. Het patroon is telkens hetzelfde en daardoor overtuigend; de precieze percentages verdienen voorzichtigheid.</p>
+      <p>Voor het waardegerichte tegenvoorstel leunt hij op eigen achterwaartse toetsen op koersgegevens per regio. Die toetsen lopen tot ongeveer 2007.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een gebundeld naslagwerk en geen geschreven boek. Ruim zevenhonderd bladzijden losse notities betekent herhaling: dezelfde onderzoeken, grafieken en grappen keren terug, de indeling in acht afdelingen suggereert een ordening die de tekst niet waarmaakt, en de afdeling over geluk hoort in een ander boek. Het werkt goed om in op te zoeken en slecht om achter elkaar te lezen, en veronderstelt kennis van markten en jaarrekeningen.</p>
+      <p>Inhoudelijk weegt de leeftijd van de onderbouwing het zwaarst. Een deel van de psychologie waarop Montier bouwt ligt sinds ongeveer 2011 onder vuur. Het gevangenisexperiment van Zimbardo, dat hier het hoofdstuk over ondernemingsbestuur draagt, geldt inmiddels als methodisch onhoudbaar, en van meer aangehaalde proeven staat de herhaalbaarheid ter discussie. Een boek dat zijn beroepsgroep verwijt verhalen te geloven, gelooft zelf verhalen uit de sociale psychologie waarvan de cijfers niet standhielden.</p>
+      <p>Verder is Montier overtuigder van zijn oplossing dan zijn argument toestaat. Hij toont aan dat mensen slecht voorspellen en dat modellen het beter doen, en noemt waardebeleggen dan de logische uitkomst. Dat is ook een voorspelling, op reeksen tot 2007. Het decennium daarna was het slechtste voor waardestrategieën sinds men die meet, en het boek biedt geen manier om te zien wanneer de eigen regel niet meer opgaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg beleggingsregels vooraf vast en beoordeel achteraf de naleving, niet de uitkomst.</li>
+        <li>Werk met behaalde winsten en gerealiseerde koersen in plaats van met ramingen.</li>
+        <li>Zoek bij een standpunt de sterkste tegenstander op en toets of de zwakke plek te benoemen valt.</li>
+        <li>Beperk het aantal gegevens waarop een beslissing rust; meer informatie verhoogt de zekerheid sneller dan de trefzekerheid.</li>
+        <li>Houd bij hoe vaak het handmatig overrulen van een model achteraf beter uitpakte.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Behavioural Investing: A Practitioner's Guide to Applying Behavioural Finance</i> (Wiley, reeks Wiley Finance, 2007, ruim 700 blz., ISBN 9780470516706). Montier heeft drie boeken met bijna dezelfde naam, wat verwarring geeft. <i>Behavioural Finance: Insights into Irrational Minds and Markets</i> (Wiley, 2002) is een korte inleiding op het vakgebied; dit boek uit 2007 is de dikke praktijkgids, een bundeling van vierenvijftig notities die hij tussen ongeveer 2002 en 2007 schreef voor Global Equity Strategy bij Dresdner Kleinwort Wasserstein; <i>The Little Book of Behavioural Investing: How Not to Be Your Own Worst Enemy</i> (Wiley, 2010, ongeveer 200 blz.) is de populaire samenvatting daarvan, in de Amerikaanse uitvoering gespeld als <i>Behavioral</i>. Bij een titel die als behavorial investing wordt opgeschreven, in de rubriek naslag en praktijk, gaat het om de praktijkgids uit 2007. Montier schreef verder <i>Value Investing: Tools and Techniques for Intelligent Investment</i> (Wiley, 2009) en werkt sinds 2009 bij vermogensbeheerder GMO. Een Nederlandse vertaling is niet gevonden; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>James Montier verzamelde in dit boek vierenvijftig onderzoeksnotities die hij als aandelenstrateeg voor zijn klanten schreef. De opzet is die van een aanklacht tegen het gangbare beleggingsproces van grote vermogensbeheerders. Dat proces, betoogt hij, is precies rond de handelingen gebouwd waar mensen psychologisch het slechtst in zijn: vooruitzien, informatie stapelen, bedrijfsdirecties spreken en in commissies beslissen. Hij vat dat samen in de zeven zonden van vermogensbeheer, elk met een hoofdzonde erbij, van voorspellen als hoogmoed tot groepsbeslissingen als toorn.</p><p>Het tweede deel van het boek geeft het alternatief: een vastgelegd, waardegericht proces dat de eigen oordelen zoveel mogelijk buiten spel zet, desnoods met een eenvoudig rekenmodel. Daarna volgen afdelingen over zeepbellen, over vaste overtuigingen die de cijfers niet halen, over ethiek in ondernemingsbestuur en tot slot over geluk. De toon is die van een strateeg die zijn eigen beroepsgroep hard aanpakt, met veel grafieken en een uitgebreide literatuurlijst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>denkfouten</li><li>gedragspsychologie</li><li>waardebeleggen</li><li>naslagwerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Thinking, Fast and Slow geeft het onderzoek waar Montier uit put, met dezelfde tweedeling tussen snel en traag denken.</li>
+          <li value="487"><a href="487.html">Trading in the Zone</a>. Trading in the Zone behandelt hetzelfde probleem voor de losse handelaar: regels vooraf, geen oordeel tijdens.</li>
+          <li value="815"><a href="815.html">Expected Returns</a>. Expected Returns geeft de cijfermatige kant van de voorspelbaarheid die Montier vanuit de psychologie benadert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

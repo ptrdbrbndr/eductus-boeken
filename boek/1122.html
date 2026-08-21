@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Temples of Light &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hoffman voert dertien Egyptische plaatsen op als leraren waarmee de lezer een werkrelatie kan aangaan, en biedt per plaats meditaties, ademoefeningen en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1122">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1122 &middot; Filosofie en mystiek</p>
+    <h1>The Temples of Light</h1>
+    <p class="lede">Danielle Rama Hoffman, 2009</p>
+    <p class="stats">
+      <span><b>1847</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1122"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hoffman voert dertien Egyptische plaatsen op als leraren waarmee de lezer een werkrelatie kan aangaan, en biedt per plaats meditaties, ademoefeningen en schrijfopdrachten aan die volgens haar de geheimgehouden inwijdingsriten van de Egyptische mysteriescholen heropenen. De leringen zijn doorgegeven materiaal: zij zegt ze te hebben ontvangen in een lijn die op de god Thoth teruggaat. Het boek doet daarmee twee dingen tegelijk. Het levert een uitvoerbaar oefenprogramma, en het doet een historische bewering over wat er in die tempels gebeurde waarvoor het geen enkele bron aanvoert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee spiralen en veertien hoofdstukken</h3>
+      <p>Na een voorwoord van Nicki Scully volgen een verantwoording van de schrijfster over hoe het materiaal tot stand kwam, een inleiding, een gebruiksaanwijzing en een aanroeping. Daarna valt het boek in twee delen uiteen. Deel een heet <i>Heart Expansion Ascension Spiral</i> en loopt van Memphis tot Kom Ombo; deel twee heet <i>Inner Temple Ascension Spiral</i> en loopt van Dendera tot het slothoofdstuk.</p>
+      <p>Achterin staan een bijlage met de beoogde opbrengsten per tempel, een verklarende woordenlijst, een lijst met verdere cursussen en producten, noten, een leeslijst, een register en een gebruiksaanwijzing voor de bijgeleverde cd. Die cd bevat een geleide reis van vijftig minuten bij de Sfinx.</p>
+      <h3>De dertien plaatsen en hun thema's</h3>
+      <p>Elk hoofdstuk koppelt een plaats aan een thema. Memphis staat voor het nemen van eigen gezag, Sakkara voor symboolkennis en overvloed, Abydos voor volledig in het leven staan, de Sfinx voor het binnenhalen van kennis, de Grote Piramide voor eenheid, Philae voor liefde, Kom Ombo voor neutraliteit en Dendera voor instinctieve vreugde.</p>
+      <p>Het tweede deel voert Elephantine op als plaats van zielsontwikkeling, Karnak als plaats van innerlijke resonantie met een reis naar het heilige meer, Abu Simbel als plaats van het goddelijke denken, en de tempel van Luxor als plaats waar Osiris ontwaakt. Hoofdstuk dertien behandelt het klooster van Sint-Catharina in de Sinaï als sterrenpoort van ritmische vrede. Hoofdstuk veertien gaat over de levende tempel, waarmee zij het lichaam en het dagelijkse leven van de lezer bedoelt.</p>
+      <h3>Hoe een hoofdstuk werkt</h3>
+      <p>Het Abydos-hoofdstuk laat de opzet het duidelijkst zien. De lezer begint met een tekenoefening: leg een vel papier op de afbeelding van de Flower of Life en trek de lijnen over. Daarna volgt een lichaamsoefening rond het derde oog en de pijnappelklier, en dan de eerste geleide reis, waarin de lezer zich in een kamer van de tempel voorstelt met een lichtstraal die door een opening in het plafond valt en langs het lichaam omhoog trekt.</p>
+      <p>Vervolgens komen rekoefeningen voor de wervelkolom als voorbereiding op de tweede reis, het oprichten van de djed-pijler, gevolgd door een schrijfoefening om de ervaring vast te leggen en een korte versie van beide reizen voor dagelijks gebruik. Andere hoofdstukken volgen hetzelfde patroon met eigen middelen: navelademhaling om contact te maken met de ka bij Sakkara, het natekenen van piramideteksten, een klankoefening bij Philae, een verbeeldingsoefening om angst te ontbinden bij Dendera, een lijst van vijf terugkerende patronen bij Elephantine.</p>
+      <h3>Waar de leringen vandaan komen</h3>
+      <p>Hoffman werkt sinds 1994 als genezeres en lerares in metafysica, studeerde twaalf jaar bij Nicki Scully en rekent zichzelf tot een lijn van Thoth. Zij begeleidt reizen naar Egyptische tempels; de oefeningen komen uit die praktijk voort. Haar verantwoording vooraf beschrijft de leringen als ontvangen materiaal, doorgegeven van gene zijde.</p>
+      <p>In haar latere boeken maakt zij dat uitdrukkelijk: <i>The Council of Light</i> en <i>The Tablets of Light</i> presenteren zich als woordelijke doorgiften van Thoth en van een groep lichtwezens. Wie <i>The Temples of Light</i> beoordeelt, beoordeelt in de eerste plaats een gechannelde bron en geen onderzoeksresultaat.</p>
+      <h3>Het wereldbeeld eromheen</h3>
+      <p>De oefeningen staan in een kader van trillingsniveaus die omhoog kunnen. De overgang van het Vissentijdperk naar het Watermantijdperk levert de urgentie: de leringen zouden nu vrijkomen omdat de mensheid die overgang maakt. Sleutelbegrippen zijn de sahu, bij haar het volledig verwerkelijkte zelf, de ka als energielichaam, de djed-pijler als ruggengraat van Osiris en de Flower of Life als patroon van eenheid.</p>
+      <p>De verschuiving die het boek belooft, wordt in paren beschreven: van angst naar gelukzaligheid, van machteloosheid naar eigen gezag. De thema's die aan de plaatsen hangen, geld, liefde, doel en gezondheid, komen uit het hedendaagse zelfhulprepertoire en niet uit Egyptische bronnen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">initiatie</td><td>Bij Hoffman een geleide meditatie die volgens haar dezelfde overgang bewerkt als een inwijdingsrite in een oude tempel.</td></tr>
+          <tr><td class="term">journey</td><td>Haar aanduiding voor een uitgeschreven geleide reis waarin de lezer zich in een tempelruimte verplaatst en daar een handeling ondergaat.</td></tr>
+          <tr><td class="term">sahu</td><td>Bij Hoffman het volledig verwerkelijkte zelf; in de egyptologie staat het woord voor het gebalsemde, verheerlijkte lichaam van de dode.</td></tr>
+          <tr><td class="term">ka</td><td>In Egyptische teksten de levenskracht of dubbelganger die na de dood in het graf verzorging nodig heeft; bij Hoffman het energielichaam.</td></tr>
+          <tr><td class="term">djed-pijler</td><td>Een zuilvormig symbool dat in Egyptische bronnen met de ruggengraat van Osiris en met duurzaamheid wordt verbonden.</td></tr>
+          <tr><td class="term">Flower of Life</td><td>Een patroon van overlappende cirkels dat in de moderne heilige geometrie voor eenheid staat en dat Hoffman als scheppingszaad opvoert.</td></tr>
+          <tr><td class="term">mysteriescholen</td><td>De veronderstelde inwijdingsscholen van het oude Egypte waarin de leringen van dit boek volgens haar werden bewaard.</td></tr>
+          <tr><td class="term">Watermantijdperk</td><td>Astrologische aanduiding voor het tijdvak dat volgens het boek nu aanbreekt en dat de leringen zou vrijgeven.</td></tr>
+          <tr><td class="term">levende tempel</td><td>Het lichaam en het dagelijkse leven van de lezer, in het slothoofdstuk als veertiende tempel opgevoerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Voor de oefeningen zelf voert het boek geen bewijs aan en pretendeert dat ook niet. Ze zijn ontstaan in Hoffmans eigen praktijk en op reizen met groepen, en worden aangeboden als iets om te doen. Wat de lezer eraan heeft, is op die manier alleen aan de eigen ervaring af te meten. Op Goodreads staat het boek op 4,33 bij achtenveertig beoordelingen; dat cijfer meet de tevredenheid van mensen die de oefeningen gebruiken en zegt niets over de historische beweringen eromheen.</p>
+      <p>Die beweringen zijn wel te toetsen, en dan lopen boek en archeologie uiteen. De dertien plaatsen komen uit sterk uiteenlopende tijden en religies. Sakkara is een dodenstad met de trappiramide van Djoser uit omstreeks 2650 voor Christus en de piramideteksten in de piramide van Unas uit omstreeks 2350 voor Christus, dus een begraafplaats en geen tempel van overvloed. Philae, Kom Ombo en Dendera zijn Ptolemeïsche en Romeinse bouwwerken uit de laatste eeuwen voor en de eerste eeuw na Christus, eeuwen na de faraonische bloeitijd; Philae werd in de jaren zeventig steen voor steen naar het eiland Agilkia verplaatst vanwege de Aswandam. Abu Simbel dateert van Ramses II in de dertiende eeuw voor Christus en werd tussen 1964 en 1968 verplaatst.</p>
+      <p>Het scherpst is het verschil bij twee onderdelen waarop het boek zwaar leunt. De Flower of Life-figuren in Abydos staan in rode oker op twee zuilen van het Osireion, naast Griekse graffiti; ze horen niet bij het oorspronkelijke decoratieprogramma van de tempel van Seti I uit de dertiende eeuw voor Christus en worden op zijn vroegst in de Perzisch-Ptolemeïsche tijd en waarschijnlijk in de Grieks-Romeinse periode gedateerd. De naam Flower of Life is bovendien modern en raakte pas ingeburgerd door <i>The Ancient Secret of the Flower of Life</i> van Drunvalo Melchizedek uit 1999. En het klooster van Sint-Catharina in de Sinaï is een christelijke stichting, gebouwd onder keizer Justinianus in het midden van de zesde eeuw na Christus, zonder band met Egyptische tempeldienst.</p>
+      <p>Niet alles in het boek is verzonnen. De djed-pijler wordt in Egyptische bronnen met de ruggengraat van Osiris verbonden, en het oprichten van de djed was een bestaand ritueel binnen het Choiak-feest. De ka is een gedocumenteerd begrip, en de piramideteksten staan werkelijk in Sakkara. Hoffman knoopt daar eigen oefeningen aan vast, en dat onderscheid tussen een echt oud element en een moderne oefening eromheen wordt in de tekst nergens gemaakt.</p>
+      <p>Over de status van een gechannelde bron valt weinig te bewijzen, en dat is precies het punt. Er is geen procedure denkbaar waarmee een juiste doorgifte van een onjuiste te onderscheiden is. Wie het materiaal aanvaardt, doet dat op gezag van de schrijfster; wie het afwijst, kan daar evenmin een toets tegenover zetten. Als grond voor een uitspraak over het verleden levert het daarom niets op.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste bewering staat op de achterflap: het zouden riten zijn die eeuwenlang geheim werden gehouden. Voor die herkomst geeft het boek geen bron, geen tekst en geen vindplaats. Zonder herkomst is er geen reden om de oefeningen aan het oude Egypte toe te schrijven in plaats van aan de schrijfster, en de tekst laat die vraag onbesproken.</p>
+      <p>Het idee van Egyptische mysteriescholen met een inwijdingsweg is zelf een latere constructie. Erik Hornung heeft in <i>The Secret Lore of Egypt</i> uit 1999 laten zien hoe dat beeld in de Grieks-Romeinse tijd begon, in de renaissance werd uitgebouwd en in de moderne esoterie werd voltooid; hij noemt die traditie egyptosofie en zet haar tegenover het Egypte van de bronnen. Faraonische teksten kennen tempeldienst door een priesterschap, reinheidsvoorschriften en beperkte toegang tot het heiligdom, maar geen inwijdingsschool zoals dit boek die veronderstelt.</p>
+      <p>De koppeling van thema aan plaats is nergens uit de inscripties af te leiden. Kom Ombo is een dubbeltempel voor Sobek en Haroeris, wat met neutrale energie niets te maken heeft; Sakkara is een necropolis en geen plaats van overvloed. Bij Dendera ligt het dichter bij elkaar, omdat Hathor daar met muziek, vreugde en liefde wordt verbonden, maar dat is de uitzondering en niet het patroon. Wie deze duidingen overneemt, leert iets over de leer van de schrijfster en niets over de plaatsen.</p>
+      <p>Ook de begrippen schuiven op. Sahu staat in de egyptologische literatuur voor het gebalsemde, verheerlijkte lichaam van de dode; bij Hoffman is het het volledig verwerkelijkte zelf van een levende. Het Watermantijdperk komt uit de negentiende- en twintigste-eeuwse astrologie en heeft geen vastgestelde begindatum. Dat de leringen nu zouden vrijkomen omdat dat tijdperk aanbreekt, is een bewering zonder grond waarop zij te controleren valt.</p>
+      <p>Wat het boek wel doet, doet het consequent: de oefeningen zijn duidelijk beschreven, herhaalbaar en op zichzelf ongevaarlijk. Het risico zit in de verpakking. De lezer krijgt een geschiedbeeld mee dat niet klopt, en het boek loopt via een slotlijst met verdere cursussen, producten en reizen door naar een betaald aanbod. Wie de meditaties wil gebruiken kan dat doen; het geschiedbeeld hoort daar niet bij overgenomen te worden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken als oefenmateriaal van de schrijfster, en niet als beschrijving van wat er in de tempels gebeurde.</li>
+        <li>Zoek per plaats op wie de tempel bouwde en in welke eeuw, voordat je de duiding uit het boek overneemt.</li>
+        <li>Vraag bij elke doorgegeven bron wat het verschil zou zijn tussen een juiste en een onjuiste doorgifte.</li>
+        <li>Pak een vertaling met commentaar van de Amduat of het Dodenboek erbij om te zien wat er over Egyptische dodencultuur bekend is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Temples of Light: An Initiatory Journey into the Heart Teachings of the Egyptian Mystery Schools</i> (Bear &amp; Company, Rochester, Vermont, 2009, 256 blz., ISBN 9781591430995), met een voorwoord van Nicki Scully, een kleurkatern van zestien bladzijden en een cd van vijftig minuten. De ondertitel luidt <i>An Initiatory Journey</i>, niet <i>An Initiatic Journey</i>. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Werkboek van de Amerikaanse lerares in metafysica Danielle Rama Hoffman, die dertien Egyptische plaatsen behandelt als bondgenoten waarmee de lezer een persoonlijke band kan aangaan. Per plaats staan er geleide meditaties en adem-, teken- en schrijfoefeningen, van Memphis en Sakkara tot Abu Simbel, Luxor en het klooster van Sint-Catharina in de Sinaï. Hoffman presenteert de leringen als doorgegeven materiaal uit een lijn die op de god Thoth teruggaat, en beschrijft ze als de heropening van geheimgehouden inwijdingsriten van Egyptische mysteriescholen. De historische onderbouwing daarvan ontbreekt: de thema's die zij aan de plaatsen hangt staan los van wat de inscripties zeggen, het klooster in de Sinaï is een christelijke stichting uit de zesde eeuw, en het inwijdingsschema van de mysteriescholen is een latere Europese voorstelling. Als oefenprogramma is het boek te gebruiken; als beschrijving van het oude Egypte niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>egypte</li><li>channeling</li><li>new age</li><li>meditatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1120"><a href="1120.html">The Isis Thesis</a>. King legt dezelfde Egyptische bronnen een moderne betekenis op, langs de weg van een decodering in plaats van een doorgifte.</li>
+          <li value="677"><a href="677.html">The Siren Call of Hungry Ghosts</a>. Fisher trok als een van de weinigen in dit veld de verifieerbare details van gechannelde gidsen na en beschrijft wat daarvan overbleef.</li>
+          <li value="679"><a href="679.html">Earth: Pleiadian Keys to the Living Library</a>. Marciniak biedt eenzelfde soort doorgegeven leer aan, met claims die eveneens haaks op archeologie en genetica staan.</li>
+          <li value="836"><a href="836.html">The Finding of the Third Eye</a>. Alder schreef een eerdere esoterische handleiding met oefeningen, bruikbaar om te zien hoe dit genre zich over de eeuw ontwikkelde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

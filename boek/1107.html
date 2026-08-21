@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hayy ibn Yaqzan &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ibn Tufayl zet een gedachte-experiment op: een mens die opgroeit zonder taal, ouders, gemeenschap en openbaring bereikt op eigen kracht dezelfde kennis…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1107">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1107 &middot; Filosofie en mystiek</p>
+    <h1>Hayy ibn Yaqzan</h1>
+    <p class="lede">Ibn Tufayl, tussen 1177 en 1182</p>
+    <p class="stats">
+      <span><b>1599</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1107"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ibn Tufayl zet een gedachte-experiment op: een mens die opgroeit zonder taal, ouders, gemeenschap en openbaring bereikt op eigen kracht dezelfde kennis van de werkelijkheid en van God als de gelovigen op het buureiland uit hun profeet putten. Rede en openbaring komen bij hem op hetzelfde punt uit. De keerzijde die hij in het slot toevoegt, weegt minstens zo zwaar: wat Hayy langs die weg bereikt blijkt niet overdraagbaar, en voor gewone mensen blijft de wet van de profeet het beste dat er is.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het voorwoord en de vraag waar het boek uit voortkomt</h3>
+      <p>Het verhaal wordt voorafgegaan door een verhandeling. Een vriend heeft Ibn Tufayl gevraagd wat Ibn Sina bedoelde met de <i>hikma mashriqiyya</i>, de oosterse of verlichtende wijsheid. Ibn Tufayl neemt eerst de stand van zaken door: al-Farabi spreekt zichzelf tegen, Ibn Sina heeft het beste geschreven maar zijn eigen wijsheid niet uitgewerkt, Ibn Bajja is te vroeg gestorven, en al-Ghazali schreef voor verschillende soorten lezers en daardoor niet overal hetzelfde.</p>
+      <p>Het verhaal dat volgt is zijn antwoord: een verslag van wat iemand kan zien aan wie niets is voorgezegd. Het dateert van tussen 1177 en 1182 en is het enige werk van Ibn Tufayl dat bewaard is gebleven, afgezien van een medisch leerdicht.</p>
+      <h3>Twee geboorten en de eerste zeven jaar</h3>
+      <p>Ibn Tufayl geeft twee versies van Hayy's herkomst en kiest niet. In de eerste begint een hoeveelheid klei op een eiland onder de evenaar te gisten; warm en koud, vochtig en droog komen in evenwicht, er ontstaat een holte, en daarin daalt de ziel neer die volgens hem onophoudelijk van God uitgaat. In de tweede baart de zuster van een tiranniek koning in het geheim een zoon bij een man die Yaqzan heet, en zet ze het kind in een dichtgemaakt kistje op zee, waarna het aanspoelt op het eiland. Dat tweede verhaal volgt het patroon van de vondeling in de mand.</p>
+      <p>Een gazelle die haar jong verloren heeft zoogt hem en voedt hem op. Op zijn zevende ziet hij dat hij van de andere dieren verschilt: hij is naakt, hij heeft geen hoorns en geen klauwen, en hij schaamt zich.</p>
+      <h3>Van gebrek naar natuurwetenschap</h3>
+      <p>In de twee zevenjarige perioden daarna, tot zijn eenentwintigste, maakt hij bedekking van bladeren en veren, leert hij vuur beheersen en bouwt hij een onderkomen. Als de gazelle sterft, zoekt hij naar wat er weg is. Hij ontleedt haar, komt uit bij de holte in het hart en besluit dat wat het lichaam bezielde daar zat en verdwenen is.</p>
+      <p>Tussen zijn eenentwintigste en achtentwintigste ordent hij wat hij ziet. Hij ontdekt dat alles een oorzaak heeft, deelt de dieren en planten in naar soort en de lichamen naar vorm, en gaat de hemel bekijken. De hemellichamen houdt hij voor licht, en licht wijst voor hem naar een sterker licht dat de bron van al het overige zou kunnen zijn.</p>
+      <h3>Van de kosmos naar het noodzakelijk zijnde</h3>
+      <p>Tot zijn vijfendertigste houdt hij zich bezig met de bouw en de eindigheid van de kosmos. Hij stelt zichzelf de vraag of de wereld eeuwig is of ooit begonnen, werkt beide mogelijkheden uit, en stelt vast dat ze allebei uitkomen bij een oorzaak die zelf geen lichaam is en niet uit iets anders volgt: het noodzakelijk zijnde.</p>
+      <p>Daarop keert hij zich naar binnen. Het deel van hem dat dit inzicht heeft kan zelf niet stoffelijk zijn, want een stoffelijk vermogen kan het onstoffelijke niet kennen. Daaruit volgt de vraag waar de rest van het verhaal aan hangt: hoe dat deel zich tot het noodzakelijk zijnde verhoudt.</p>
+      <h3>De drie soorten navolging en het schouwen</h3>
+      <p>Tot zijn vijftigste oefent hij zich in <i>tashabbuh</i>, gelijkvormig worden. Eerst aan de dieren: hij houdt zijn lichaam in leven met zo weinig mogelijk, eet rijp fruit en verspreidt de pitten, neemt van wat het overvloedigst is en doodt niets. Dan aan de hemellichamen: hij houdt zich schoon, doet goed aan planten en dieren, draait rondgaande bewegingen en houdt zijn aandacht bij het ene. Ten slotte aan het noodzakelijk zijnde zelf, en dat betekent alle eigenschappen afleggen, ook het besef van zichzelf.</p>
+      <p>Op zijn vijftigste komt het schouwen, dat Ibn Tufayl beschrijft met een zin die hij aan de profeet toeschrijft: wat geen oog heeft gezien en geen oor heeft gehoord en in geen mensenhart is opgekomen. Diezelfde zin staat woordelijk in de eerste brief van Paulus aan de Korintiërs, en de eerste Nederlandse vertaling uit 1672 gebruikte hem als titel.</p>
+      <h3>Absal, Salaman en het nawoord</h3>
+      <p>Op het buureiland leeft een gemeenschap die haar geloof van een profeet heeft. Twee mannen leggen het verschillend uit. Absal zoekt de zin achter de beelden en trekt zich terug om in eenzaamheid verder te komen; Salaman houdt het bij de letter en bij de gemeenschap, en is inmiddels koning. Absal steekt over, ontmoet Hayy, leert hem spreken, en het blijkt dat ze langs verschillende wegen hetzelfde weten.</p>
+      <p>Samen gaan ze naar Salamans eiland. Hayy probeert daar te onderwijzen. De mensen luisteren, schrikken van wat hij zegt en keren terug naar de voorschriften. Hayy verontschuldigt zich, raadt hun aan zich aan hun wet te houden en vertrekt met Absal naar het eiland, waar ze God dienen tot de dood.</p>
+      <p>In het nawoord zegt Ibn Tufayl dat hij de sluier heeft opgelicht omdat er in zijn tijd verkeerde denkbeelden rondgaan die zich voor wijsheid uitgeven, en dat hij zijn onderwerp toch niet onbedekt heeft gelaten: de sluier is dun voor wie er doorheen kan kijken en ondoordringbaar voor de rest.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hikma mashriqiyya</td><td>oosterse of verlichtende wijsheid, de term van Ibn Sina waar het voorwoord naar vraagt en waar het verhaal een uitwerking van wil zijn.</td></tr>
+          <tr><td class="term">wajib al-wujud</td><td>het noodzakelijk zijnde, dat wat niet kan ontbreken en waar al het overige zijn bestaan aan ontleent.</td></tr>
+          <tr><td class="term">tashabbuh</td><td>navolging of gelijkvormig worden, de oefening waarmee Hayy zich achtereenvolgens richt naar de dieren, de hemellichamen en het noodzakelijk zijnde.</td></tr>
+          <tr><td class="term">mushahada</td><td>schouwen, het rechtstreekse zien dat geen redenering meer is en waar het verhaal op uitloopt.</td></tr>
+          <tr><td class="term">spontane generatie</td><td>het toen gangbare idee dat leven uit gistende materie kan ontstaan, waarop het eerste geboorteverhaal berust.</td></tr>
+          <tr><td class="term">levensgeest</td><td>de warme adem in de holte van het hart die volgens Hayy's ontleding van de gazelle het lichaam bezielt en bij de dood verdwijnt.</td></tr>
+          <tr><td class="term">de wet van de profeet</td><td>de voorschriften en beelden waarmee volgens het slot dezelfde waarheid bereikbaar wordt voor mensen die de weg van Hayy niet kunnen gaan.</td></tr>
+          <tr><td class="term">de sluier</td><td>het beeld waarmee hij in het nawoord aangeeft zijn onderwerp wel te tonen maar bedekt te houden voor wie er niet aan toe is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen waarnemingen aan die iemand kan narekenen. Het is een verzinsel dat zo is ingericht dat de uitkomst eruit volgt.</p>
+      <p>Wat er wel in zit is een keten die van stap tot stap te volgen is. Elk inzicht van Hayy komt uit een eerder inzicht voort, en de natuurkunde en sterrenkunde die hij herontdekt zijn die van de twaalfde eeuw. De ontleedscène is niet louter literair: Ibn Tufayl was lijfarts en vertrouweling van de Almohadische heerser Abu Ya'qub Yusuf, en droeg Ibn Rushd bij hem voor.</p>
+      <p>Het sterkste stuk staat in het slot, en het spreekt de opzet tegen. Ibn Tufayl laat zijn eigen proef mislukken: wat op eigen kracht is verworven blijkt niet over te dragen aan wie de weg niet zelf ging. Een auteur die alleen zijn stelling wilde bewijzen had dat weggelaten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het gedachte-experiment is gestapeld. Een kind dat zonder taal en zonder anderen opgroeit herontdekt in vijftig jaar precies de indeling van soorten, de leer van de vier elementen, de sferen en de onstoffelijke oorzaak die Ibn Tufayl zelf al kende. Dat rede en openbaring samenvallen wordt zo niet aangetoond maar ingebouwd. Ook de aanname dat begripsvorming van dit niveau zich zonder taal voltrekt, is sindsdien van vele kanten bestreden.</p>
+      <p>Over de bedoeling van het slot lopen de lezingen ver uiteen. De ene lezing maakt het boek tot een verdediging van een geestelijke elite die de waarheid kent terwijl de massa bij de letter moet blijven. De andere leest het als kritiek op filosofen die denken dat ze een gemeenschap kunnen omvormen. De tekst laat beide toe, en Ibn Tufayl schrijft zelf dat hij zijn onderwerp met opzet bedekt heeft gehouden. Daarmee is elke uitleg onvast, ook de zijne.</p>
+      <p>De Europese nawerking wordt vaak sterker voorgesteld dan de stukken toelaten. Vast staat de weg van de tekst: een Hebreeuwse vertaling met commentaar van Mozes van Narbonne in 1349, de Latijnse editie <i>Philosophus autodidactus</i> van Edward Pococke junior in 1671, een Nederlandse vertaling in 1672 die aan Johan Bouwmeester wordt toegeschreven, Engelse vertalingen uit het Latijn door George Keith in 1674 en George Ashwell in 1686, en in 1708 een vertaling rechtstreeks uit het Arabisch door Simon Ockley. Ook staat vast dat Lessing de Latijnse editie kende.</p>
+      <p>De veelgehoorde stap daarna is minder vast. Dat Locke zijn onbeschreven blad aan dit boek ontleende en dat Defoe er <i>Robinson Crusoe</i> op baseerde, wordt zelden onderbouwd met iets wat Locke of Defoe zelf heeft geschreven. Fedwa Malti-Douglas heeft de toeschrijving aan Defoe in de bundel <i>The World of Ibn Tufayl</i> onder redactie van Lawrence I. Conrad in twijfel getrokken. Dat een boek in omloop was is iets anders dan dat het een idee heeft veroorzaakt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Hayy ibn Yaqzan fi asrar al-hikma al-mashriqiyya</i>, vertaald en ingeleid door Lenn Evan Goodman als <i>Ibn Tufayl's Hayy Ibn Yaqzan: A Philosophical Tale</i> (University of Chicago Press, Chicago, 2009, 280 blz., ISBN 978-0-226-30310-9). Goodmans vertaling verscheen voor het eerst in 1972 bij Twayne in New York. Nederlandse uitgave: <i>Hayy ibn Yaqzan: een filosofische allegorie uit Moors Spanje</i>, uit het Arabisch vertaald en ingeleid door Remke Kruk (Bulaaq, Amsterdam, 2005). De samenvatting volgt de vertaling van Goodman.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een kind groeit alleen op een onbewoond eiland op, wordt gezoogd door een gazelle en komt in vijftig jaar zonder taal, leraar of openbaring tot kennis van de wereld en van God. Ibn Tufayl, arts en vertrouweling aan het Almohadische hof, schreef het verhaal als antwoord op de vraag wat Ibn Sina met oosterse wijsheid bedoelde. Het slot draait de uitkomst om: als Hayy zijn inzicht op het buureiland probeert door te geven, schrikken de mensen terug en raadt hij hun aan zich aan de voorschriften te houden. Het boek werd in 1671 in het Latijn vertaald en daarna in het Nederlands, Engels en Duits, en geldt sindsdien als voorloper van de Europese roman over de eenling op het eiland.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>islamitische filosofie</li><li>allegorie</li><li>kennisleer</li><li>middeleeuwen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1108"><a href="1108.html">Deliverance from Error</a>. al-Ghazali's verslag van zijn eigen zoektocht, dat Ibn Tufayl in zijn voorwoord bespreekt en dat de tegenovergestelde volgorde kiest: eerst de scholen, dan de ondervinding.</li>
+          <li value="526"><a href="526.html">The Alchemy of Happiness</a>. de populaire samenvatting van al-Ghazali's ethiek, waarin dezelfde spanning tussen redenering en ondervinding terugkeert in een toegankelijker vorm.</li>
+          <li value="525"><a href="525.html">The Philosophy of Illumination</a>. Suhrawardi's lichtmetafysica, waarin de aanschouwing van licht dezelfde plaats krijgt als bij Hayy de opgang langs de hemellichamen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

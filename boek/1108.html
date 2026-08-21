@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliverance from Error &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Al-Ghazali stelt dat zekere kennis alleen kennis mag heten wanneer het gekende zo open ligt dat geen twijfel meer mogelijk is, ook niet als iemand voor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1108">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1108 &middot; Filosofie en mystiek</p>
+    <h1>Deliverance from Error</h1>
+    <p class="lede">Abu Hamid al-Ghazali, ca. 1108</p>
+    <p class="stats">
+      <span><b>1817</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1108"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Al-Ghazali stelt dat zekere kennis alleen kennis mag heten wanneer het gekende zo open ligt dat geen twijfel meer mogelijk is, ook niet als iemand voor zijn ogen een stok in een slang zou veranderen. Aan die maat gemeten schieten de drie wegen tekort die hij eerst onderzocht: de geloofsleer, de filosofie en het ismailitische leergezag. Alleen de weg van de soefi's levert wat de andere drie beloven, en dan niet als leerstuk maar als iets wat wordt ondergaan. Wie dat aanvaardt, aanvaardt tegelijk dat de beslissende stap zich aan toetsing van buitenaf onttrekt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanleiding en de maat voor zekerheid</h3>
+      <p>Het boek is geschreven als antwoord aan iemand die had gevraagd naar de doelen van de wetenschappen en de geheimen van de scholen. Al-Ghazali begint met zijn eigen aard: van voor zijn twintigste tot nu, hij is de vijftig gepasseerd, heeft hij zich in elke leer gestort die hij tegenkwam.</p>
+      <p>De aanleiding tot zijn twijfel is de vaststelling dat mensen hun geloof overnemen van hun ouders en leraren. Hij haalt de overlevering aan dat ieder mens met een aanleg geboren wordt en dat zijn ouders er een jood, een christen of een magiër van maken. Dat brengt hem bij de vraag welke van zijn overtuigingen hij ooit zelf heeft nagegaan, en bij zijn maat voor zekere kennis: kennis waarin het gekende zo open ligt dat geen enkele tegenwerping haar kan aantasten.</p>
+      <h3>Twee maanden zonder grond</h3>
+      <p>Aan die maat gemeten houdt hij alleen de zintuiglijke waarneming en de vanzelfsprekende verstandswaarheden over. Vervolgens ondermijnt hij ook die. Het oog ziet de schaduw stilstaan terwijl die beweegt; het ziet de zon zo groot als een muntstuk terwijl de meetkunde uitrekent dat zij groter is dan de aarde. Het verstand betrapt het zintuig dus op onwaarheid.</p>
+      <p>Daarna keert het zintuig zich tegen het verstand: misschien staat achter het verstand nog een rechter die het op dezelfde manier ontmaskert, en dat die zich nog niet vertoond heeft bewijst niet dat hij niet bestaat. De droom komt erbij: in de slaap is alles vast en bij het ontwaken blijkt het niets. Zo kan het wakende leven zich verhouden tot de dood.</p>
+      <p>Hij ziet zelf de val: een tegenwerping wegnemen vraagt om een bewijs, en een bewijs vraagt om eerste beginselen die op dat moment juist in het geding zijn. De toestand duurde bijna twee maanden, waarin hij naar zijn zeggen in feite een scepticus was zonder het te belijden. Wat hem eruit haalde was geen redenering maar een licht dat God in zijn borst wierp.</p>
+      <h3>Geloofsleer en filosofie</h3>
+      <p>Hij verdeelt de zoekers in vier groepen: de theologen, de batinieten met hun leergezag, de filosofen en de soefi's. De geloofsleer, de <i>kalam</i>, is gemaakt om de overgeleverde leerstellingen tegen bestrijders te verdedigen, en daarvoor deugt zij. Voor iemand die zelf niets meer aanneemt deugt zij niet, want zij redeneert vanuit stellingen die de tegenstander toch al aanvaardt.</p>
+      <p>De filosofie las hij naast zijn onderwijs aan driehonderd studenten in Bagdad, en naar eigen zeggen bracht dat hem in minder dan twee jaar tot beheersing ervan, waarna hij er nog ongeveer een jaar over nadacht. Hij verdeelt de filosofen in materialisten, natuurkundigen en godgeleerden, en de vakken in wiskunde, logica, natuurkunde, metafysica, staatkunde en ethiek. Wiskunde en logica raken het geloof niet, en hij waarschuwt uitdrukkelijk voor de gelovige die rekenkunde ontkent om het geloof te redden en het geloof daarmee juist schaadt.</p>
+      <p>Alle bezwaren zitten in de metafysica. Hij telt daar twintig stellingen, waarvan er zeventien ketterij zijn en drie ongeloof: dat de wereld eeuwig is, dat God alleen het algemene kent en niet het bijzondere, en dat er geen lichamelijke opstanding is. Om die twintig punten schreef hij de <i>Tahafut al-falasifa</i>, de onsamenhangendheid van de filosofen.</p>
+      <h3>Het leergezag van de ismailieten</h3>
+      <p>De derde groep, die hij batinieten of ta'limieten noemt, houdt vol dat de waarheid alleen te leren valt van een onfeilbare imam. Hij was door de kalief gevraagd tegen hen te schrijven, in de jaren waarin die leer de leer was van een rivaliserende staat.</p>
+      <p>Zijn tegenzet gaat niet over hun gezagsleer in het algemeen. Hij geeft toe dat een leraar nodig is, en stelt vast dat de leraar Mohammed is. Daarna wijst hij op de praktijk: wie de imam nodig heeft moet hem kunnen bereiken en zijn uitspraak kunnen krijgen, en dat kunnen zij niet, zodat hun beginsel in de praktijk niets oplevert.</p>
+      <h3>Het soefisme, de crisis en het vertrek</h3>
+      <p>Bij de vierde groep leest hij eerst: al-Makki's <i>Qut al-qulub</i>, het werk van al-Muhasibi, de overleveringen over al-Junayd, al-Shibli en Abu Yazid al-Bistami. Hij stelt vast dat het eigene van deze weg niet uit boeken te halen is, want het gaat om <i>dhawq</i>, smaak of rechtstreekse ondervinding, en om <i>hal</i>, de toestand die iemand ondergaat. Weten wat dronkenschap is verschilt van dronken zijn.</p>
+      <p>Daarop volgt de crisis. Vanaf Rajab 488, juli 1095, weifelt hij zes maanden tussen zijn positie en zijn geweten. Zijn tong weigert dienst zodat hij niet meer kan lesgeven, hij kan niet meer eten, en de artsen zeggen dat het uit het hart komt. In Dhu'l-Qa'da 488, november 1095, verlaat hij Bagdad onder het voorwendsel van de bedevaart, na zijn bezit te hebben weggegeven.</p>
+      <p>Hij gaat naar Damascus, waar hij ongeveer twee jaar blijft en zich terugtrekt in de minaret van de moskee, daarna naar Jeruzalem en Hebron en vervolgens naar Mekka en Medina. In die jaren schrijft hij zijn grote werk, de <i>Ihya' ulum al-din</i>, de herleving van de godsdienstwetenschappen.</p>
+      <h3>Profetie en de terugkeer naar de leerstoel</h3>
+      <p>Het laatste deel gaat over de profetie. Zoals het kind eerst alleen waarneemt, daarna onderscheidt en daarna redeneert, zo is er volgens hem boven de rede nog een trap. Hij vergelijkt die met geneeskunde en sterrenkunde: kennis die de rede uit zichzelf niet bereikt en die toch werkt.</p>
+      <p>In Dhu'l-Qa'da 499, juli 1106, keerde hij terug naar het onderwijs, aan de Nizamiyya van Nishapur. Zijn afzondering had elf jaar geduurd. Hij verantwoordt de terugkeer met de lauwheid van het geloof in zijn tijd en met de belofte dat God aan het begin van elke eeuw iemand zendt om de godsdienst te vernieuwen. Hij trad aan een paar maanden voor het begin van de zesde eeuw van de islamitische jaartelling.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">taqlid</td><td>het overnemen van overtuigingen op gezag van ouders en leraren, dat hij tegenover zeker weten stelt.</td></tr>
+          <tr><td class="term">'ilm yaqini</td><td>zekere kennis, waarin het gekende zo open ligt dat geen twijfel meer mogelijk is, ook niet bij een wonder voor de ogen van de kenner.</td></tr>
+          <tr><td class="term">fitra</td><td>de aanleg waarmee volgens de door hem aangehaalde overlevering ieder mens geboren wordt, voordat opvoeding er een bepaalde godsdienst van maakt.</td></tr>
+          <tr><td class="term">kalam</td><td>de islamitische geloofsleer die de leerstellingen met redeneringen verdedigt, volgens hem geschikt voor dat doel en ongeschikt voor de zoeker.</td></tr>
+          <tr><td class="term">falsafa</td><td>de uit het Grieks overgenomen filosofie, door hem verdeeld over zes vakken waarvan alleen de metafysica geloofsproblemen oplevert.</td></tr>
+          <tr><td class="term">ta'lim</td><td>het ismailitische beginsel dat waarheid uitsluitend van een onfeilbare imam te leren valt.</td></tr>
+          <tr><td class="term">dhawq</td><td>smaak of rechtstreekse ondervinding, de kenwijze van de soefi's, die volgens hem niet door studie te verwerven is.</td></tr>
+          <tr><td class="term">hal</td><td>toestand, het tijdelijke ondergaan dat verschilt van de kennis erover, zoals dronken zijn verschilt van weten wat dronkenschap is.</td></tr>
+          <tr><td class="term">nubuwwa</td><td>profetie, door hem beschreven als een trap boven de rede zoals de rede een trap is boven het onderscheidingsvermogen van het kind.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bewijst weinig in de gebruikelijke zin. Het is een verslag, en al-Ghazali zegt zelf dat de beslissende stap alleen door ondervinding te bereiken is. Wie zijn conclusie wil toetsen krijgt van hem het antwoord dat toetsen hier niet aan de orde is.</p>
+      <p>Wat wel na te gaan is, is het feitelijke kader. Zijn leerstoel aan de Nizamiyya in Bagdad, het vertrek in november 1095, de terugkeer in Nishapur in juli 1106 en het aantal van elf jaar staan in de tekst en zijn in de bronnen terug te vinden. De filosofische stellingen die hij hier alleen opsomt, zijn in de <i>Tahafut</i> punt voor punt uitgewerkt, zodat de lezer kan controleren wat hij bedoelt.</p>
+      <p>Het scherpste deel van het boek is de scepsis-redenering, en die staat op eigen benen. De vaststelling dat een bewijs eerste beginselen nodig heeft en dus niet kan helpen wanneer juist die in het geding zijn, is geldig, en zij komt vijf en een halve eeuw voor Descartes. Zijn eigen uitweg, het licht dat God in de borst werpt, is geen weerlegging van dat bezwaar maar de mededeling dat hij het losliet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het is evenzeer een verdedigingsschrift als een levensbeschrijving. Het is ruim tien jaar na de crisis geschreven, door iemand die zijn vertrek uit Bagdad en zijn omgang met de filosofie moest verantwoorden. Zijn mededeling dat hij de filosofie pas bestudeerde nadat zijn godsdienstige vorming voltooid was, richt zich tegen de aantijging van tegenstanders dat het andersom was gegaan. De volgorde in het boek is dus mede polemisch bepaald.</p>
+      <p>De voorstelling van een breuk met de filosofie houdt geen stand. Frank Griffel heeft in <i>Al-Ghazali's Philosophical Theology</i> uit 2009 laten zien hoeveel al-Ghazali van Ibn Sina overnam, in zielsleer, kosmologie en ethiek. Wie alleen dit boek leest, houdt over dat hij de filosofen versloeg; wie zijn overige werk erbij neemt, ziet dat hij hun begrippenapparaat grotendeels binnenhaalde.</p>
+      <p>Aan de drie punten van ongeloof zit een rechtsgevolg vast: wie ze in het openbaar leert geldt volgens hem als afvallige, met de gevolgen die daarbij horen. Dat staat in hetzelfde boek als zijn pleidooi voor mildheid tegenover eenvoudige gelovigen.</p>
+      <p>De stelling dat al-Ghazali de wetenschap in de islamitische wereld om zeep heeft geholpen wordt vaak op dit boek en op de <i>Tahafut</i> gebouwd. Zijn bezwaren gelden de metafysica en niet het rekenwerk: hij plaatst wiskunde en logica uitdrukkelijk buiten het geloofsdebat, en de sterrenkunde in de islamitische wereld ging na hem nog eeuwen door.</p>
+      <p>De belangrijkste zwakte is de sluitende vorm van de conclusie. De weg van de soefi's levert zekerheid, maar alleen aan wie hem gaat, en wie hem niet gaat kan er niets tegen inbrengen. Dat is een merkwaardige uitkomst voor een boek dat begint met de eis dat kennis pas kennis is als geen tegenwerping haar kan aantasten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf van een eigen overtuiging op wie haar het eerst heeft uitgesproken en wanneer zij voor het laatst is nagegaan.</li>
+        <li>Kijk bij een discussie waar de bewijzen stoppen en welke beginselen daaronder onbesproken blijven.</li>
+        <li>Vraag bij een kennisclaim die alleen door eigen ondervinding te toetsen is, wat haar nog zou kunnen weerleggen.</li>
+        <li>Lees dit boek naast nr 526, dat dezelfde leer geeft zonder de weg ernaartoe.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>al-Munqidh min al-dalal</i>, vertaald en van aantekeningen voorzien door R.J. McCarthy als <i>Al-Ghazali's Path to Sufism: His Deliverance from Error</i> (Fons Vitae, Louisville, 2000, 115 blz., ISBN 978-1-887752-30-5); dezelfde vertaling stond eerder in McCarthy's bundel <i>Freedom and Fulfillment</i> (Twayne, Boston, 1980). Oudere Engelse vertaling: W. Montgomery Watt, <i>The Faith and Practice of al-Ghazali</i> (George Allen &amp; Unwin, Londen, 1953). Nederlandse uitgave: <i>Verlost van onzin</i>, vertaald en ingeleid door Cornelis van Lit en Gerko Tempelman (Boom, Amsterdam, 2021, 224 blz., ISBN 978-90-244-3829-7), en eerder <i>De redder uit de dwaling</i>, vertaald door J.H. Kramers (Arbeiderspers, Amsterdam, 1951). De samenvatting volgt de vertaling van Watt, met de vertaling van McCarthy ernaast.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Al-Ghazali was op zijn drieëndertigste hoogleraar aan de Nizamiyya in Bagdad en gaf les aan driehonderd studenten. In dit korte boek beschrijft hij hoe hij twee maanden lang niets meer zeker wist, welke vier wegen naar zekerheid hij daarna heeft onderzocht, en waarom hij in 1095 zijn leerstoel opgaf en elf jaar in afzondering leefde. Het is een van de weinige middeleeuwse teksten waarin iemand zijn eigen twijfel van binnenuit beschrijft. Let op het verschil met nr 526: dat boek geeft zijn leer, dit boek geeft de weg ernaartoe, en het is geschreven ruim tien jaar na de crisis door iemand die zich tegelijk verdedigde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>islam</li><li>soefisme</li><li>autobiografie</li><li>scepsis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="526"><a href="526.html">The Alchemy of Happiness</a>. de populaire samenvatting van al-Ghazali's eigen leer over ziel, kennis en geluk; dit boek beschrijft hoe hij daar terechtkwam, dat boek beschrijft waar hij uitkwam.</li>
+          <li value="1107"><a href="1107.html">Hayy ibn Yaqzan</a>. Ibn Tufayls verhaal, een generatie later in Andalusië, dat al-Ghazali in het voorwoord bespreekt en dat de omgekeerde proef doet: kennis zonder enige leraar.</li>
+          <li value="524"><a href="524.html">The Conference of the Birds</a>. Attars vogeldicht uit dezelfde eeuw, dat de soefiweg in verhaalvorm geeft in plaats van als verslag van één leven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

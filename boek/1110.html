@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Flight of the Garuda &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De liederen brengen de dzogchenleer terug tot één handeling: de geest op zijn eigen natuur richten en die natuur herkennen als leeg van kern, uit zichzelf…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1110">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1110 &middot; Filosofie en mystiek</p>
+    <h1>The Flight of the Garuda</h1>
+    <p class="lede">Shabkar Tsokdruk Rangdrol, 1781-1851</p>
+    <p class="stats">
+      <span><b>1815</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1110"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De liederen brengen de dzogchenleer terug tot één handeling: de geest op zijn eigen natuur richten en die natuur herkennen als leeg van kern, uit zichzelf helder en vanaf het begin vrij. Al het overige, geloften, opbouwfasen, verdienste, rituelen, wordt daarin ondergebracht in plaats van ernaast gezet, en de tekst zegt met zoveel woorden dat wie dit niet herkent met geen enkele andere oefening boven samsara uitkomt. Dat is een aanspraak die zichzelf buiten bereik van tegenspraak plaatst, en de liederen erkennen dat door de lezer op eigen onderzoek terug te werpen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie de auteur is en wat er in de bundel staat</h3>
+      <p>Het colofon van de liederen noemt de dichter de kluizenaar Tsokdruk Rangdrol. Daar gaat in de literatuur van alles mis. Het woord jatang, dat in sommige uitgaven aan de naam vastzit, is geen deel van de naam maar de aanduiding voor een rondtrekkende kluizenaar. Dowman noemt de auteur alleen Shabkar Lama, negentiende eeuw, zonder hem verder te plaatsen, en de bundel staat in catalogi op naam van Dowman zelf.</p>
+      <p>De proloog bij de liederen zegt bovendien dat ze zijn samengesteld op basis van Padmasambhava's <i>Rigpa Ngotrö</i> en van Longchenpa's zeven schatkamers en andere werken. Dat verklaart waarom de tekst soms wordt gepresenteerd als een onderricht van Padmasambhava. De maker is Shabkar (1781-1851), afkomstig uit Amdo, in de Gelugtraditie tot monnik gewijd en voor dzogchen leerling van Chögyal Ngakgi Wangpo. Hij bracht van 1806 tot 1809 drie jaar in retraite door op het eiland Tsonying in het Kokonormeer.</p>
+      <p>In Dowmans bundel staan naast de drieëntwintig liederen nog drie stukken van andere herkomst: een aan Padmasambhava toegeschreven overzicht van de weg, een biechtliturgie die als schatvondst op naam van Guru Chöwang staat, en het bekende wensgebed van Kuntu Zangpo, teruggevonden door Rigdzin Gödem.</p>
+      <h3>De opzet van de liederen</h3>
+      <p>Elk lied begint met een uitroep van verwondering en een aanspraak aan de toehoorders. De eerste twee liederen zetten de stelling neer: de verlichte staat is er altijd al, ligt in de geest van ieder wezen, en toch zoekt men elders. Alle boeddha's van de drie tijden onderwijzen alleen om die natuur te doen herkennen, en daarbuiten onderwijzen zij niets.</p>
+      <p>De beelden zijn eenvoudig en herhalen zich. Wie de wortel van een boom doorhakt ziet duizend takken tegelijk verdorren. Een lamp maakt in één ogenblik een kamer licht die duizend jaar donker heeft gestaan. Melk wordt geen boter zonder karnen. Een geleerde die de negen voertuigen kan bespreken zonder dit te hebben herkend beschrijft een plaats waar hij nooit is geweest.</p>
+      <h3>Het onderzoek naar de geest</h3>
+      <p>De liederen drie en vier geven de kern van de oefening als een reeks vragen. Waar komt deze wetende geest vandaan, uit bergen, water, bomen, wind, uit het zaad van vader en moeder? Waar verblijft hij op dit moment, en als het in het hart is, boven of onder, en welke vorm en kleur heeft hij? Waar gaat hij heen als hij beweegt, door welke zintuigpoort verlaat hij het lichaam, gaat het lichaam mee of alleen de geest? En bij een opkomende gedachte: waar komt die vandaan, waar blijft die, waar gaat die heen.</p>
+      <p>Het antwoord is dat er niets wordt gevonden, en dat dit niet vinden de vondst is. De tekst waarschuwt uitdrukkelijk tegen napraten: iemand anders horen zeggen dat het leeg is, is als horen dat er in een streek geen tijgers zijn. Pas wie het gebied zelf van boven tot onder heeft doorzocht is van de twijfel af.</p>
+      <p>Wat overblijft wordt beschreven met de vlekkeloze kristallen bol: leeg van kern, helder van natuur, onbelemmerd in wat eruit voortkomt.</p>
+      <h3>Wat er daarna te doen valt</h3>
+      <p>Het middendeel gaat over rusten zonder te maken. Laat het verleden liggen zoals een vogel geen spoor in de lucht laat, laat het heden staan als een heldere hemel, snijd de aanvoer naar de toekomst af zoals bij een watermolen. Grove en fijne gedachten mogen komen als dieven in een leeg huis; er valt niets te halen.</p>
+      <p>De liederen geven ook middelen tegen de twee gebreken van de beoefenaar. Bij onrust laat men een lichtbol in het hart afdalen tot in de bodem. Bij suffigheid scherpt men de blik, of men stelt zich de geest als lichtbol voor en stoot de lettergreep PHAT uit, waarna hij als een afgeschoten pijl door de kruin naar buiten schiet en in de ruimte opgaat. De ontwikkeling van het denken wordt geschetst in drie fasen: een bergstroom in een kloof, daarna de gestage Ganges, daarna de zee waarin alle rivieren dezelfde smaak hebben.</p>
+      <h3>Gedrag, plaats en sterven</h3>
+      <p>De laatste liederen gaan over de levenswijze. Zoek angstaanjagende plaatsen op: een diep woud, een lijkenveld, een eiland in een meer, een grot, een verlaten huis, een alleenstaande boom. Maak van je lichaam en van de hele wereld een offergave en bied die aan alle wezens aan, ook aan de schuldeisers en de kwade geesten. Gedraag je daarna als een kind, een dwaas, een leeuw, een garoeda in de lucht, en slaap 's nachts in de natuurlijke staat.</p>
+      <p>Lied tweeëntwintig plaatst de vijf boeddha's van de mandala binnen in de beoefenaar: elk van hen is een van de vergiften dat zichzelf heeft vrijgelaten. Het slotlied maakt van de hele verschijnende wereld het boek met aanwijzingen: de wegen zijn de lijnen van de tekening, de bewegingen van armen en benen zijn handgebaren, eten en drinken is offergave. Het besluit met drie vermogens: wie het meeste kan wordt in dit leven bevrijd, wie minder kan op het moment van sterven, wie het minste kan in de tussentoestand na de dood.</p>
+      <h3>De drie andere teksten</h3>
+      <p>De overige stukken in de bundel doen precies wat de liederen overbodig lijken te maken. Het aan Padmasambhava toegeschreven overzicht zet de weg juist wel in trappen uiteen, van de laagste voertuigen tot het hoogste. De biechtliturgie is een ritueel voor het opruimen van overtredingen. Het wensgebed van Kuntu Zangpo is een aspiratie die in het Nyingma-milieu dagelijks wordt opgezegd.</p>
+      <p>Ze staan er zonder dat Dowman de spanning uitwerkt. Voor een lezer die alleen de liederen leest lijkt dzogchen een leer zonder ritueel; de rest van de bundel laat zien in wat voor omgeving die liederen feitelijk klonken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">dzogchen</td><td>grote volledigheid, de leer dat de natuur van de geest al volmaakt is en dat herkennen ervan volstaat.</td></tr>
+          <tr><td class="term">trekchö</td><td>doorsnijden, de oefening waar deze liederen over gaan: het bouwsel van begrippen loslaten in plaats van bestrijden.</td></tr>
+          <tr><td class="term">rigpa</td><td>wakend gewaarzijn dat zichzelf kent, in de liederen aangeduid als de helderheid van de geest zelf.</td></tr>
+          <tr><td class="term">garoeda</td><td>de mythische vogel die volgroeid uit het ei komt en meteen vliegt, het beeld voor een weg die geen trappen nodig heeft.</td></tr>
+          <tr><td class="term">de drie kenmerken</td><td>leeg van kern, helder van natuur, onbelemmerd in uitdrukking; samengevat in het beeld van de vlekkeloze kristallen bol.</td></tr>
+          <tr><td class="term">rang grol</td><td>zelfbevrijding, ook het tweede deel van Shabkars naam: het vanzelf oplossen van wat opkomt zodra er niets mee wordt gedaan.</td></tr>
+          <tr><td class="term">PHAT</td><td>de uitgestoten lettergreep waarmee de beoefenaar volgens de liederen de suffigheid doorbreekt.</td></tr>
+          <tr><td class="term">bardo</td><td>de tussentoestand na de dood, waar volgens het slotlied wie het in dit leven niet haalt alsnog bevrijd kan worden.</td></tr>
+          <tr><td class="term">terma</td><td>schatvondst, een tekst die volgens de traditie verborgen is geweest en later is teruggevonden; twee van de vier stukken in deze bundel zijn zo overgeleverd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De liederen betogen niet, ze onderrichten. Het enige wat op bewijsvoering lijkt is de opdracht zelf te kijken, met het tijgervoorbeeld als uitleg waarom napraten niet telt. Wat de tekst als uitkomst voorspelt, het niet vinden van een geest met plaats, kleur of vorm, is een uitkomst die iedere onderzoeker krijgt en die daarmee niets onderscheidends bewijst.</p>
+      <p>Wat wel te controleren valt is de overlevering. De liederen staan in Shabkars verzamelde werken, het colofon noemt hem, en de proloog noemt de teksten waarop hij zich baseerde. Er bestaan inmiddels drie onafhankelijke Engelse weergaven, van Dowman, van Erik Pema Kunsang en van de Padma Karpo-groep, en sinds 2021 een Nederlandse rechtstreeks uit het Tibetaans. Dat maakt vergelijking mogelijk.</p>
+      <p>Dowmans uitgave zelf biedt die controle niet. De aantekeningen zijn onderrichtsaantekeningen, geen tekstverantwoording, en er is geen apparaat waarmee een lezer een regel naar het Tibetaans kan terugvolgen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De toeschrijving is redelijk vast maar wordt slecht verantwoord. Dat de liederen van Shabkar zijn blijkt uit het colofon en uit zijn verzamelde werken; dat de lezer van Dowmans uitgave dat kan nagaan, blijkt nergens uit. De combinatie van een auteursnaam op het omslag die van de vertaler is, een auteur die alleen als Shabkar Lama wordt aangeduid, en drie bijgevoegde teksten van andere makers, maakt dat veel lezers niet weten van wie zij wat lezen.</p>
+      <p>In de uitgave van Erik Pema Kunsang staat vooraan een opmerking die aan Dilgo Khyentse Rinpoche wordt toegeschreven en waarin hij, mede namens Dudjom Rinpoche, stelt dat teksten als deze alleen gedeeld zouden moeten worden met wie de aanwijzende overdracht van een bevoegd leraar heeft gekregen. Die opmerking staat in een boek dat in de handel is. De spanning tussen de voorwaarde en de verspreiding wordt in geen van beide uitgaven opgelost.</p>
+      <p>Inhoudelijk zeggen de liederen twee dingen die slecht samengaan. Wie de natuur van de geest herkent heeft aan geloften, opbouwfasen en verdienste niets meer; tegelijk wordt de lezer gewaarschuwd zich niet te gedragen alsof hij die herkenning al heeft. Welke van de twee bij een lezer aankomt, hangt van die lezer af, en dat is binnen de traditie zelf altijd het staande bezwaar tegen leringen van onmiddellijke bevrijding geweest.</p>
+      <p>De Nederlandse uitgave van 2021 heeft eigen bezwaren. In het Boeddhistisch Dagblad werd zij geprezen om de vormgeving en om het feit dat de vertaling rechtstreeks uit het Tibetaans komt, maar de recensent vond de voetnoten summier, miste een historische inleiding en een levensbeschrijving van Shabkar, en merkte op dat de vertaler eigen titels boven de gedichten heeft gezet en ze in drie afdelingen heeft verdeeld zonder die ingrepen te verantwoorden.</p>
+      <p>Ten slotte geldt hier het bezwaar dat Sam van Schaik tegen Dowmans latere Longchenpa-uitgave inbracht: door de leer uit haar Tibetaanse omgeving te lichten ontstaat een dzogchen zonder klooster, zonder inwijding en zonder leraar, die makkelijker leest en minder is dan waar zij vandaan komt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de drieëntwintig liederen eerst achter elkaar, zonder inleiding en zonder aantekeningen.</li>
+        <li>Voer het onderzoek uit de liederen drie en vier daadwerkelijk uit voordat de conclusie eruit wordt overgenomen.</li>
+        <li>Leg bij passages die er toe doen de vertalingen van Dowman en Erik Pema Kunsang naast elkaar.</li>
+        <li>Ga na welke van de vier teksten in de bundel je op dat moment leest en van wie die is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Flight of the Garuda: The Dzogchen Tradition of Tibetan Buddhism</i>, vertaald en toegelicht door Keith Dowman (Wisdom Publications, Boston, 1994, ca. 220 blz., ISBN 978-0-86171-367-7). De bundel bevat naast Shabkars liederen drie andere teksten: <i>Secret Instruction in a Garland of Vision</i> (toegeschreven aan Padmasambhava), <i>Emptying the Depths of Hell</i> (schatvondst van Guru Chöwang, dertiende eeuw) en <i>The Wish-Granting Prayer of Kuntu Zangpo</i> (schatvondst van Rigdzin Gödem, veertiende eeuw). Van alleen de liederen bestaat een tweede Engelse vertaling door Erik Pema Kunsang (Rangjung Yeshe Publications, Kathmandu, vanaf 1984). Nederlandse uitgaven: <i>De vlucht van de garoeda</i>, uit Dowmans Engels vertaald door Robert Hartzema (Karnak, Amsterdam, 1994, ISBN 978-90-6350-067-2), en <i>De vlucht van de Garoeda</i>, rechtstreeks uit het Tibetaans vertaald door Charles Steur (Samsara Books, Amsterdam, 2021, 161 blz., ISBN 978-94-93228-36-8).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Drieëntwintig liederen over de natuur van de geest, op naam van de rondtrekkende Tibetaanse yogi Shabkar Tsokdruk Rangdrol. De garoeda uit de titel is de vogel die volgroeid uit het ei komt en meteen kan vliegen, het beeld voor een weg zonder trappen. De liederen leiden de lezer door een onderzoek naar waar de geest vandaan komt, waar hij zit en waar hij heen gaat, en concluderen dat het niet vinden de vondst is. Wie het boek van Dowman koopt krijgt niet alleen deze liederen: het is een bundel van vier teksten van vier verschillende herkomsten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>meditatie</li><li>poëzie</li><li>mystiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1109"><a href="1109.html">Natural Perfection</a>. Longchenpa's schatkamer van de natuurlijke staat, in dezelfde vertaalhand; de proloog van deze liederen noemt Longchenpa's zeven schatkamers als bron.</li>
+          <li value="1106"><a href="1106.html">Shobogenzo</a>. Dogens zenwerk, dat vanuit een andere traditie dezelfde weigering kent om oefening als middel tot een later resultaat te zien.</li>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. Suzuki's inleiding tot zen uit 1934, een vroeg voorbeeld van dezelfde ingreep: een Aziatische leer in westerse termen presenteren en de kloosterlijke omgeving buiten beeld laten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

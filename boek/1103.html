@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tantraloka &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Abhinavagupta houdt vol dat de hele tantrische openbaring, van het hoogste inzicht dat er niets te doen valt tot de kleinste voorschriften voor een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1103">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1103 &middot; Filosofie en mystiek</p>
+    <h1>Tantraloka</h1>
+    <p class="lede">Abhinavagupta, omstreeks 1000</p>
+    <p class="stats">
+      <span><b>1800</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1103"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Abhinavagupta houdt vol dat de hele tantrische openbaring, van het hoogste inzicht dat er niets te doen valt tot de kleinste voorschriften voor een vuuroffer, één samenhangend stelsel vormt waarvan het enige criterium de herkenning is dat alles Siva is. Hij wil dat aantonen door het handboek te schrijven dat zijn eigen school niet had, met een weg voor elk slag beoefenaar, gerangschikt naar hoe weinig iemand nog hoeft te doen. Het werk is daarmee tegelijk een metafysica, een rituele voorschriftenverzameling en een rangorde van alle schriften die hij kende.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat voor boek dit is</h3>
+      <p>De <i>Tantraloka</i> is een paddhati, een handboek dat de voorschriften van de geopenbaarde tantra's ordent en toepasbaar maakt. Abhinavagupta zegt in de openingsverzen dat er voor de verschillende stromingen tal van zulke handleidingen bestaan maar voor de leer en de praktijk van de Trika niet één, en dat hij daarom een geordend en volledig werk schrijft. Het eerste hoofdstuk telt driehonderddrieëndertig verzen en bevat het geheel in samengebalde vorm; de zesendertig hoofdstukken daarna werken het uit.</p>
+      <p>Hij noemt zijn leraren met naam, onder wie Sambhunatha, van wie hij de kaula-vorm van de Trika ontving, en hij plaatst zich in de lijn van Somananda, Utpaladeva en Laksmanagupta. Zijn eigen aanspraak op gezag is die van de overlevering: er staat volgens hem niets in zijn boek dat niet al in de <i>Malinivijayottara</i> is gegeven of aangeduid. Die tantra geldt in de Trika als de hoogste openbaring.</p>
+      <h3>De ordening naar upaya</h3>
+      <p>De eerste hoofdstukken zijn geordend naar upaya, methode, en de rangorde loopt van boven naar beneden. Hoofdstuk twee behandelt anupaya, de weg zonder weg, waarin voor de hoogst begaafde niets te doen valt omdat de eenheid met Siva er al is. Hoofdstuk drie behandelt sambhavopaya, waarin louter gerichte aandacht zonder onderscheidend denken volstaat. Hoofdstuk vier gaat over saktopaya, waarin het denken zelf wordt ingezet.</p>
+      <p>Vanaf hoofdstuk vijf komt anavopaya aan bod, de weg voor wie zijn adem, zijn zintuigen, mantra's en handelingen als middel nodig heeft. Dat is verreweg het uitvoerigste deel. Hoofdstuk zeven behandelt hoe mantra's en vidya's in de ademcyclus worden ondergebracht. De ordening volgt dus de bekwaamheid van de beoefenaar, en daarin ligt meteen de theologische inzet: alle methoden zijn geldig en zij verschillen alleen in hoeveel er nog moet worden gedaan.</p>
+      <h3>De middenhoofdstukken</h3>
+      <p>In het middendeel worden de banen uitgemeten waarlangs het heelal wordt gedacht: klank, woord, mantra, wereld, werkelijkheidsniveau en tijd. Het stelsel van zesendertig tattva's, van Siva tot de aarde, dient daarbij als schaalverdeling waarop zowel de kosmos als het lichaam van de beoefenaar wordt afgebeeld.</p>
+      <p>Hoofdstuk dertien behandelt saktipata, het neerdalen van de goddelijke kracht, met de graden waarin dat gebeurt. Dat hoofdstuk is het scharnier van het werk: het bepaalt wie voor welke weg in aanmerking komt en het maakt de rangorde van de upaya's tot iets dat de beoefenaar niet zelf kiest. Vanaf hoofdstuk veertien gaat het over inwijding, diksa, in haar vele vormen.</p>
+      <h3>De rituele helft</h3>
+      <p>Van ongeveer hoofdstuk vijftien tot achtentwintig staat het ritueel centraal: dagelijkse verering, mandala's, vuuroffer, de vormen van inwijding voor verschillende soorten kandidaten, rituelen voor stervenden en voor overledenen. Dit is de helft van het boek die door de lezers van de metafysica bijna nooit wordt gelezen.</p>
+      <p>Juist daar ligt de moeilijkste stelling van het werk. Een stelsel waarin alles Siva is en niets onrein, schrijft toch tot in de maatvoering nauwkeurige handelingen voor. Abhinavagupta's antwoord is dat de handeling werkt door het besef dat haar draagt, en dat het ritueel de plaats is waar dat besef geoefend en overgedragen wordt. Het non-dualisme schaft de vorm dus niet af, het herdefinieert waarvoor zij dient.</p>
+      <h3>Hoofdstuk negenentwintig: het kula-ritueel</h3>
+      <p>Het bekendste en meest omstreden hoofdstuk is het negenentwintigste, over het geheime ritueel van de kaula-traditie waarin Sambhunatha hem inwijdde. Daar staan de handelingen beschreven die de brahmaanse reinheidsregels doorbreken, waaronder het gebruik van verboden stoffen en het rituele geslachtsverkeer met een partner.</p>
+      <p>John Dupuche wijdde er een monografie aan met een vertaling en een uitgebreide bespreking. Het hoofdstuk laat zien dat de <i>Tantraloka</i> geen filosofisch traktaat met een rituele bijlage is maar een boek dat vanuit een ingewijde praktijk is geschreven, en dat de metafysica daar niet los van staat.</p>
+      <h3>Het slot</h3>
+      <p>Het zevenendertigste hoofdstuk geeft Abhinavagupta's slotoverzicht van de soorten geschriften en van de rangorde waarin hij ze plaatst, met de kaula-vorm van de Trika bovenaan omdat die volgens hem in een ogenblik van onmiddellijk inzicht wordt overgedragen. Hij besluit het werk met een korte geschiedenis van zijn eigen voorgeslacht.</p>
+      <p>Naast dit werk schreef hij zelf beknoptere versies. De <i>Tantrasara</i> geeft dezelfde stof in proza in tweeëntwintig hoofdstukken en is de gebruikelijke ingang voor wie de <i>Tantraloka</i> zelf niet aankan.</p>
+      <h3>Jayaratha en de vertalingen</h3>
+      <p>Jayaratha, werkzaam in Kashmir in de dertiende eeuw, schreef het lopende commentaar <i>Viveka</i>, dat de verzen ontleedt en de bronnen aanwijst waaruit Abhinavagupta put. In de uitgave van de Kashmir Series of Texts and Studies staan tekst en commentaar samen afgedrukt, en in de praktijk worden zij als één geheel gelezen. Daarbij hoort de aantekening dat Jayaratha ruim tweehonderd jaar later schrijft en op plaatsen reconstrueert wat Abhinavagupta bij zijn lezers bekend veronderstelde.</p>
+      <p>De vertaalgeschiedenis verklaart waarom het werk zo weinig gelezen wordt. Raniero Gnoli leverde in 1972 een Italiaanse vertaling van de grondtekst zonder commentaar, herzien uitgegeven in 1999. Lilian Silburn en André Padoux vertaalden de eerste vijf hoofdstukken in het Frans. Pas in 2023 rondde Mark Dyczkowski, na vijfenveertig jaar werken, een Engelse vertaling van tekst en commentaar samen af, in elf delen met uitgebreide aantekeningen. Voor die tijd was het werk voor wie geen Sanskriet las in de praktijk gesloten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">ahnika</td><td>Letterlijk dagtaak; de naam voor de zevenendertig hoofdstukken, alsof het werk in dagporties wordt doorgenomen.</td></tr>
+          <tr><td class="term">upaya</td><td>Methode; de vier zijn anupaya (geen methode nodig), sambhavopaya, saktopaya en anavopaya, gerangschikt naar hoeveel de beoefenaar nog moet doen.</td></tr>
+          <tr><td class="term">samavesa</td><td>Opgaan of doordrongen worden; de toestand waarin het begrensde bewustzijn met dat van Siva samenvalt, en het doel van alle vier de methoden.</td></tr>
+          <tr><td class="term">saktipata</td><td>Het neerdalen van de goddelijke kracht, in graden, dat bepaalt voor welke weg iemand in aanmerking komt; onderwerp van hoofdstuk dertien.</td></tr>
+          <tr><td class="term">diksa</td><td>Inwijding; in dit stelsel geen plechtigheid achteraf maar de handeling die de banden doorsnijdt en waaraan een groot deel van het boek is gewijd.</td></tr>
+          <tr><td class="term">adhvan</td><td>Baan of weg; de zes ordeningen van klank, woord, mantra, wereld, werkelijkheidsniveau en tijd waarlangs het heelal in het ritueel wordt afgebeeld.</td></tr>
+          <tr><td class="term">tattva</td><td>Werkelijkheidsniveau; het stelsel telt er zesendertig, van Siva bovenaan tot de aarde onderaan.</td></tr>
+          <tr><td class="term">kula en kaula</td><td>De stroming en de praktijk waarin de transgressieve rituelen thuishoren en waarin Abhinavagupta door Sambhunatha werd ingewijd.</td></tr>
+          <tr><td class="term">anuttara</td><td>Het waarboven niets is; de aanduiding van de hoogste werkelijkheid, en de naam van het tweede hoofdstuk.</td></tr>
+          <tr><td class="term">paddhati</td><td>Handboek dat de voorschriften van de geopenbaarde geschriften ordent tot een bruikbare gang van zaken; het genre waartoe de <i>Tantraloka</i> behoort.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Deze samenvatting steunt noodzakelijk op secundaire literatuur en op vertaalde gedeelten. De Sanskriettekst met Jayaratha's commentaar beslaat twaalf gedrukte delen, en een volledige vertaling van tekst en commentaar bestond tot 2023 niet. Wat hier staat berust op de Franse vertaling van de eerste vijf hoofdstukken door Silburn en Padoux, op de Italiaanse vertaling van de grondtekst door Gnoli, op Dupuche's studie van hoofdstuk negenentwintig, op Dyczkowski's vertaling en toelichtingen, en op het onderzoek van Alexis Sanderson en André Padoux. Niemand die dit boek in samenvatting beschrijft, beschrijft het uit eerste hand in zijn geheel.</p>
+      <p>Abhinavagupta's eigen bewijsvoering is schriftgebonden. Hij verdedigt elk standpunt door het op de <i>Malinivijayottara</i> en op de agama's terug te voeren, en Jayaratha's commentaar maakt die verwijzingen zichtbaar door de bronnen te citeren. Dat betekent dat de argumentatie binnen de traditie werkt en dat niets erin bedoeld is om een buitenstaander te overtuigen. Wie de openbaring niet aanvaardt, treft geen zelfstandige redenering aan.</p>
+      <p>Goed vastgesteld zijn de omvang, de indeling, de datering rond het jaar duizend, de leraarslijn en de tekstgeschiedenis vanaf de uitgave in de Kashmir Series. Veel minder goed vastgesteld is hoe het werk in de praktijk is gebruikt, hoeveel mensen ooit de beschreven rituelen hebben uitgevoerd, en in hoeverre de handleiding een bestaande praktijk beschrijft dan wel een ideaal ontwerpt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De naam waaronder dit werk meestal wordt aangeboden is zelf een probleem. 'Kashmir Shaivism' is een moderne verzamelnaam, in ruime omloop sinds het boek van J. C. Chatterji uit 1914, terwijl de <i>Tantraloka</i> tot bepaalde lijnen behoort, de Trika, de Krama en de kaula-stromingen, die elk hun eigen geschriften en praktijken hadden. Sanderson en Muller-Ortega hebben laten zien dat het niet om één stelsel gaat, en dat Abhinavagupta's synthese zelf een verdedigd standpunt is.</p>
+      <p>Zijn aanspraak dat alles al in de <i>Malinivijayottara</i> staat is moeilijk vol te houden. Een groot deel van wat hij uitwerkt, waaronder de kringen van godinnen uit de Krama en de metafysica van de Pratyabhijna, komt aantoonbaar ergens anders vandaan. Sanderson wijst erop dat veel in het werk lang verkeerd is begrepen zolang zijn schriftuurlijke bronnen onbekend waren; de aanspraak op eenheid is dus deels een retorische zet van de auteur.</p>
+      <p>De moderne populaire receptie neemt bijna zonder uitzondering de metafysica over en laat de rest liggen: de inwijding, het mantrastelsel, de reinheidscontext, de rangorde van beoefenaars en de leraar zonder wie niets wordt overgedragen. Wat als tantra in westerse boeken circuleert heeft met de rituele hoofdstukken van dit werk weinig te maken.</p>
+      <p>Hoofdstuk negenentwintig roept vragen op die de tekst niet beantwoordt. De bronnen spreken vanuit de mannelijke beoefenaar, en over de positie van de vrouwelijke partner, over haar instemming en over wat het ritueel voor haar betekende zeggen zij zo goed als niets. Dupuche documenteert het ritueel zorgvuldig en die leemte blijft.</p>
+      <p>Praktisch geldt ten slotte dat er geen begaanbare ingang van één band bestaat. De grondtekst is zonder commentaar op veel plaatsen onleesbaar, en met commentaar loopt het geheel tot elf vertaalde delen op. Wie er echt in wil, wordt vrijwel altijd eerst naar Abhinavagupta's eigen <i>Tantrasara</i> gestuurd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de <i>Tantrasara</i>, Abhinavagupta's eigen prozasamenvatting in tweeëntwintig hoofdstukken, en niet bij dit werk zelf.</li>
+        <li>Lees hoofdstuk 1 apart; het bevat het geheel in samengebalde vorm en is los vertaald beschikbaar.</li>
+        <li>Houd bij elke aangehaalde uitspraak vast van wie zij komt: van Abhinavagupta of van zijn commentator Jayaratha.</li>
+        <li>Wie alleen de metafysica leest, noteert erbij dat ruim de helft van het werk over ritueel gaat en dat die helft is overgeslagen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Tantraloka</i>, met het commentaar <i>Viveka</i> van Jayaratha, uitgegeven in de Kashmir Series of Texts and Studies in twaalf delen (Srinagar, 1918-1938). Volledige Engelse vertaling van tekst en commentaar door Mark S. G. Dyczkowski, <i>Tantraloka: The Light on and of the Tantras</i>, elf delen, in eigen beheer uitgegeven vanaf 2023 (deel 1, over hoofdstuk 1, telt 514 blz.). Er bestaat een volledige Italiaanse vertaling van de grondtekst zonder commentaar door Raniero Gnoli, <i>Luce dei Tantra</i> (Adelphi, Milaan, 1999, 782 blz., eerste versie 1972), en een Franse vertaling van de hoofdstukken 1 tot 5 door Lilian Silburn en André Padoux. Er bestaat geen Nederlandse vertaling; de samenvatting is op vertaalde gedeelten en op secundaire literatuur gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De <i>Tantraloka</i> is het hoofdwerk van Abhinavagupta en daarmee van het non-dualistische sivaïsme van Kashmir: zevenendertig hoofdstukken, ahnika's genoemd, met samen meer dan vijfduizendachthonderd verzen. Abhinavagupta schreef het omstreeks het jaar duizend omdat er voor elke andere stroming wel een handboek bestond en voor de Trika niet. Het loopt van de leer dat er voor de hoogst begaafde niets te doen valt tot en met de maat van een offervuur en de inwijding van een stervende. De dertiende-eeuwse geleerde Jayaratha schreef er het commentaar <i>Viveka</i> bij, dat sindsdien met de tekst wordt meegelezen. Een volledige Engelse vertaling van tekst en commentaar kwam pas in 2023 beschikbaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kashmir-shaivisme</li><li>tantra</li><li>ritueel</li><li>mystiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1100"><a href="1100.html">Pratyabhijnahrdayam: The Secret of Self-Recognition</a>. Het <i>Pratyabhijnahrdayam</i> van Kshemaraja, leerling van Abhinavagupta, geeft de metafysica van dezelfde school in twintig regels in plaats van in zevenendertig hoofdstukken.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Huxley's <i>The Perennial Philosophy</i> toont de leeswijze waar deze tekst het meest onder te lijden heeft: de mystiek eruit lichten en de school, het ritueel en de inwijding weglaten.</li>
+          <li value="639"><a href="639.html">Three Books of Occult Philosophy</a>. Agrippa's <i>Three Books of Occult Philosophy</i> is het westerse tegenbeeld: een even omvangrijke poging om een hele esoterische traditie in één stelselmatig handboek te ordenen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

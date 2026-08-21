@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zhuang Zi &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Zhuangzi zet vraagtekens bij de vaste grond onder elk oordeel. Wat groot heet en wat klein, wat nuttig en wat nutteloos, wat leven en wat dood, hangt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1105">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1105 &middot; Filosofie en mystiek</p>
+    <h1>Zhuang Zi</h1>
+    <p class="lede">Zhuang Zhou (toegeschreven), ca. 4e eeuw v.Chr.; tekst samengesteld tot ca. 3e eeuw v.Chr.</p>
+    <p class="stats">
+      <span><b>1894</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1105"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De <i>Zhuangzi</i> zet vraagtekens bij de vaste grond onder elk oordeel. Wat groot heet en wat klein, wat nuttig en wat nutteloos, wat leven en wat dood, hangt telkens af van het standpunt waarvandaan het bekeken wordt, en er is geen standpunt buiten alle standpunten waarvandaan de zaak beslist kan worden. Daaruit volgt in het boek geen verlamming maar een andere omgang: meegaan met de omvorming van de dingen, geen naam en geen ambt najagen, en het werk doen zoals de kok zijn mes hanteert, langs de openingen die er al zijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat er is overgeleverd</h3>
+      <p>De bibliografie van de Han-geschiedenis vermeldt een <i>Zhuangzi</i> van tweeënvijftig hoofdstukken. Wat bewaard bleef is de versie van drieëndertig hoofdstukken die Guo Xiang rond 300 n.Chr. samenstelde, mét zijn commentaar erbij; van de weggelaten stukken bestaan alleen losse aanhalingen. Guo koos, schrapte en ordende, en zijn lezing heeft eeuwenlang bepaald hoe het boek werd begrepen.</p>
+      <p>De drieëndertig hoofdstukken zijn verdeeld in zeven binnenste, vijftien buitenste en elf gemengde. De traditie schrijft de binnenste toe aan Zhuang Zhou zelf. A.C. Graham onderscheidde in het overige materiaal een school rond Zhuang Zhou, een primitivistische groep, een groep in het spoor van Yang Zhu en een syncretistische laag. Esther Klein bracht daartegen in dat de binnenste hoofdstukken niet zonder meer de oudste laag hoeven te zijn. Schipper houdt aan dat de hoofdstukken 1 tot 7 uit Zhuang Zhou's tijd stammen en de rest tot ongeveer 240 v.Chr. is aangegroeid.</p>
+      <p>Over Zhuang Zhou zelf is vrijwel niets bekend. De enige vroege getuigenis buiten het boek om is een korte levensbeschrijving bij Sima Qian: afkomstig uit Meng in de staat Song, tijdgenoot van koning Hui van Liang en koning Xuan van Qi. Daaruit wordt meestal een leven rond 369 tot 286 v.Chr. afgeleid.</p>
+      <h3>De zeven binnenste hoofdstukken</h3>
+      <p>Het eerste hoofdstuk, Vrij en onbekommerd zwerven, opent met de vis Kun die verandert in de vogel Peng en negentigduizend mijl opstijgt, terwijl de cicade en het duifje in de struiken hem uitlachen omdat zij die hoogte niet nodig hebben. Het loopt uit op het gesprek met Hui Shi over een enorme kalebas en een knoestige boom die voor niets deugt: juist daarom velt niemand hem.</p>
+      <p>Het tweede hoofdstuk, over het gelijkmaken van de dingen, is het filosofisch dichtste. Het begint met de fluiten van de aarde en de fluit van de hemel, gaat over in een aanval op de twisten tussen confucianen en mohisten, en ontleedt het paar dit en dat, goed en fout. Het slot is de droom waarin Zhuang Zhou een vlinder was, en de vraag bij het ontwaken wie er wie gedroomd heeft.</p>
+      <p>Daarna volgen het voeden van het leven met de kok Ding, de wereld van de mensen met het vasten van het hart en de nutteloze eik van timmerman Shi, de tekenen van volle kracht met verminkte mannen die toch volgelingen aantrekken, de grote leraar met de ware mens en het zittend vergeten, en tot slot Hundun, de oervormeloosheid, die uit vriendelijkheid zeven openingen geboord krijgt en op de zevende dag sterft.</p>
+      <h3>Verhalen over vakmanschap</h3>
+      <p>De bekendste passage van het boek is de kok van vorst Wenhui die een rund ontleedt. Zijn mes gaat na negentien jaar nog als vers geslepen door het karkas, omdat hij niet snijdt maar de holten volgt die er al zijn; hij werkt, zegt hij, met de geest en niet met het oog.</p>
+      <p>Diezelfde vorm keert terug in de buitenste hoofdstukken: de wielmaker Bian zegt tegen hertog Huan dat de boeken die hij leest het bezinksel van de doden zijn, omdat wat hij zelf met beitel en hamer weet niet in woorden aan zijn zoon over te dragen valt. Verder de zwemmer in de draaikolk, de houtsnijder Qing, de cicadevanger. Steeds gaat het om kunnen dat zich niet in voorschriften laat vangen.</p>
+      <h3>Taal, twist en oordeel</h3>
+      <p>In het tweede hoofdstuk staat het argument dat de rest van het boek draagt. Als twee mensen twisten en de een wint, is daarmee niets uitgemaakt: roepen zij een derde erbij, dan is die het met een van beiden eens of met geen van beiden, en de vraag verschuift alleen. De tekst richt die twijfel ook op zichzelf: er is nu iets gezegd, maar het is onduidelijk of dat gezegde tot de klasse van gezegden behoort.</p>
+      <p>Hui Shi, de logicus, is de vaste tegenspeler. Hun bekendste ontmoeting staat in Herfstwater: op de brug over de Hao zegt Zhuang Zi dat hij ziet hoe blij de vissen zijn, waarop Hui Shi antwoordt dat hij geen vis is en dat dus niet kan weten, en Zhuang Zi terugkaatst dat Hui Shi hem niet is.</p>
+      <h3>Dood en verandering</h3>
+      <p>Sterven is in dit boek een geval van omvorming en niet van verlies. In Volmaakt geluk vindt Hui Shi zijn vriend op de grond zitten terwijl hij op een teil trommelt en zingt, kort na de dood van zijn vrouw; Zhuang Zi legt uit dat hij eerst wel treurde, tot hij naar het begin terugdacht en zag dat zij door dezelfde wisseling is gegaan als de seizoenen.</p>
+      <p>In het zesde hoofdstuk ligt Ziyu krom van ziekte en vraagt zich nieuwsgierig af wat de maker van de dingen van zijn linkerarm zal maken, een haan misschien om de dageraad mee aan te kondigen. Als Zhuang Zi zelf sterft en zijn leerlingen een rijke begrafenis willen, antwoordt hij dat hemel en aarde zijn doodskist zijn, en dat hij boven de grond door kraaien en onder de grond door mieren wordt opgegeten, dus waarom de een bevoordelen.</p>
+      <h3>De latere lagen</h3>
+      <p>De buitenste en gemengde hoofdstukken hebben een andere inzet. De primitivistische groep valt de confuciaanse deugden aan: paardenkenner Bo Le bederft de paarden die hij africht, en wie een gordelgesp steelt wordt terechtgesteld terwijl wie een staat steelt tot vorst wordt uitgeroepen. De hoofdstukken in het spoor van Yang Zhu zetten het eigen leven boven het rijk. Het slothoofdstuk, De wereld, geeft een overzicht van de denkers van die eeuw en geldt als het oudste bewaarde overzicht van het Chinese denken.</p>
+      <h3>De Nederlandse vertaling</h3>
+      <p>Kristofer Schipper (1934&ndash;2021) werkte twaalf jaar aan deze vertaling, de eerste volledige Nederlandse versie rechtstreeks uit het klassiek Chinees. Hij was hoogleraar in Parijs en Leiden en deed vanaf 1962 veldwerk in Tainan, waar hij zich in 1968 als eerste westerling tot taoïstisch priester liet wijden.</p>
+      <p>Dat achtergrondbeeld werkt door in zijn inleiding en aantekeningen. Schipper leest de tekst binnen een levende traditie en verbindt hem met ademhaling, meditatie en dagelijks werk. De uitgave bevat een uitvoerige inleiding, toelichtingen per hoofdstuk, noten en een register.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dao</td><td>De weg: de gang van de dingen zoals die vanzelf verloopt, in dit boek eerder aangewezen in verhalen dan omschreven.</td></tr>
+          <tr><td class="term">wu wei</td><td>Niet-doen: handelen zonder eigen ontwerp op te leggen, zoals de kok het mes langs de bestaande holten stuurt.</td></tr>
+          <tr><td class="term">ziran</td><td>Vanzelf zo zijn: dat wat uit zichzelf zijn gang gaat, zonder aandrijving van buiten.</td></tr>
+          <tr><td class="term">xiaoyao you</td><td>Vrij en onbekommerd zwerven, de titel van het eerste hoofdstuk en de aanduiding van de houding waar het boek op uitloopt.</td></tr>
+          <tr><td class="term">qiwu</td><td>Het gelijkmaken van de dingen: het inzicht dat onderscheidingen als groot en klein of nuttig en nutteloos van het standpunt afhangen.</td></tr>
+          <tr><td class="term">shi en fei</td><td>Dit en dat, goed en fout: het paar waarmee elk oordeel wordt geveld en dat volgens het tweede hoofdstuk altijd zijn tegendeel meebrengt.</td></tr>
+          <tr><td class="term">xinzhai</td><td>Het vasten van het hart: het leegmaken van de aandacht, in het vierde hoofdstuk aan Yan Hui uitgelegd als voorwaarde om zich in gevaarlijk gezelschap staande te houden.</td></tr>
+          <tr><td class="term">zuowang</td><td>Zittend vergeten: het loslaten van ledematen, gehoor en gezicht en van de eigen gestalte, beschreven in het zesde hoofdstuk.</td></tr>
+          <tr><td class="term">zhenren</td><td>De ware mens: de gestalte die zonder angst slaapt, zonder honger eet en leven en dood aanvaardt als dag en nacht.</td></tr>
+          <tr><td class="term">wu hua</td><td>De omvorming van de dingen: de aanduiding waarmee de vlinderdroom besluit, voor het doorlopende overgaan van de ene gedaante in de andere.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bewijst niets in de moderne zin. Het werkt met verhalen, gesprekken en paradoxen, en de vakmansanekdotes zijn illustraties en geen gevallen die iets aantonen. Waar wel iets van een redenering staat, in het tweede hoofdstuk, is die negatief: hij laat zien dat een geschil niet door een derde partij te beslechten is, en niet dat er iets anders waar zou zijn.</p>
+      <p>De filologische onderbouwing van de gangbare indeling is beter na te gaan. De Han-bibliografie noemt tweeënvijftig hoofdstukken, Guo Xiang's drieëndertig zijn er over, en de verschillen in woordkeus, stijl en leerstelling tussen de groepen hoofdstukken zijn door Graham en anderen in kaart gebracht. Dat werk is breed overgenomen, maar het blijft gevolgtrekking uit stijlkenmerken en het is niet sluitend.</p>
+      <p>Over de persoon Zhuang Zhou rust vrijwel alles op de korte levensbeschrijving bij Sima Qian, geschreven twee eeuwen na dato en deels gevuld met verhalen die uit het boek zelf komen, zoals de weigering van een ambt in Chu.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De samenhang van het boek is grotendeels aangebracht. Wie de drieëndertig hoofdstukken als één leer behandelt, legt materiaal van meerdere handen uit ruim een eeuw op één hoop en houdt een gemiddelde over dat nergens staat. De primitivistische hoofdstukken voeren een politiek programma dat in de binnenste hoofdstukken ontbreekt, en de rol van Confucius kantelt van spreekbuis naar mikpunt.</p>
+      <p>De kern van het tweede hoofdstuk keert zich tegen zichzelf. Als elk oordeel van een standpunt afhangt, geldt dat ook voor die uitspraak. De tekst ziet dat bezwaar en zegt het zelf, maar lost het niet op. Sindsdien lopen de lezingen uiteen: sommigen, onder wie Chad Hansen, lezen er een relativisme in dat uit de werking van taal volgt, anderen een scepsis over kennis, anderen een oefening waarin het vastlopen zelf het doel is.</p>
+      <p>De westerse ontvangst heeft er veel op geprojecteerd: het boek is achtereenvolgens ingelijfd door anarchisten, tegencultuur, procesfilosofen en managementschrijvers. Thomas Merton's <i>The Way of Chuang Tzu</i> uit 1965 bestaat uit vrije bewerkingen op basis van andermans vertalingen, iets wat Merton zelf ook opschreef, maar het gaat rond alsof het de tekst is.</p>
+      <p>De rubriek taoïsme is zelf van later datum. De aanduiding daojia werd in de tweede eeuw v.Chr. door Sima Tan bedacht om terugkijkend een school te benoemen. Laozi en Zhuang Zhou worden pas in de Han als één stroming gekoppeld, en in de binnenste hoofdstukken presenteert Zhuang Zhou zich nergens als leerling van Laozi.</p>
+      <p>Schipper's vertaling is uitstekend leesbaar maar niet onpartijdig. Zijn inleiding plaatst de tekst binnen de latere taoïstische godsdienst en verbindt hem met ademhaling en meditatie. Of die vroege teksten en die liturgische traditie bij elkaar horen is een oud twistpunt onder sinologen; Schipper vond van wel, anderen scheiden ze scherp. Wie alleen deze uitgave leest, krijgt die stellingname mee zonder dat het geschil zichtbaar wordt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de hoofdstukken 1 tot 7 en lees de rest daarna; de verschillen tussen de lagen zijn dan zichtbaar.</li>
+        <li>Houd bij elk verhaal in de gaten wie er spreekt; Confucius, Laozi en Hui Shi krijgen in verschillende hoofdstukken tegengestelde rollen.</li>
+        <li>Lees Schipper's toelichtingen als een standpunt en niet als achtergrondinformatie, zeker waar hij de tekst met latere taoïstische praktijk verbindt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Zhuangzi</i>, ook geschreven <i>Chuang-tzu</i>. De overgeleverde tekst is de bewerking in drieëndertig hoofdstukken van Guo Xiang (gestorven 312 n.Chr.), teruggebracht uit een oudere verzameling van tweeënvijftig hoofdstukken. Nederlandse uitgave: <i>Zhuang Zi. De volledige geschriften. Het grote klassieke boek van het taoïsme</i>, uit het klassiek Chinees vertaald en toegelicht door Kristofer Schipper (Augustus, Amsterdam, 2007, 432 blz.; herziene uitgave Atlas Contact, Amsterdam, 2023, 440 blz., ISBN 978-90-450-2779-1). Gangbare Engelse vertalingen zijn die van Burton Watson (1968), A.C. Graham (alleen de binnenste hoofdstukken, 1981), Victor Mair (1994) en Brook Ziporyn (volledig, 2020).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Na de <i>Tao Te Ching</i> is dit de belangrijkste taoïstische bron, en literair de rijkste. De overgeleverde tekst telt drieëndertig hoofdstukken in de bewerking die Guo Xiang rond 300 n.Chr. maakte uit een oudere verzameling van tweeënvijftig. Alleen de eerste zeven, de binnenste hoofdstukken, worden gewoonlijk aan Zhuang Zhou zelf toegeschreven; de buitenste en de gemengde hoofdstukken komen uit latere handen en uit verschillende richtingen. Het boek bestaat uit verhalen, gesprekken, spot, paradoxen en vakmansanekdotes, met de vlinderdroom en de kok die een os ontleedt als bekendste stukken. Kristofer Schipper vertaalde het geheel in het Nederlands.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>taoïsme</li><li>Chinese filosofie</li><li>klassieke bronnen</li><li>wu wei</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="394"><a href="394.html">Tao Te Ching</a>. De andere klassieke bron. Korter, spreukachtig en met meer aandacht voor de heerser, waar de Zhuang Zi met verhalen en spot werkt.</li>
+          <li value="1104"><a href="1104.html">Awakening to the Tao</a>. Wat er van deze traditie tweeëntwintig eeuwen later van gemaakt was: dezelfde woorden, maar ondergebracht in een leer van innerlijke alchemie met voorschriften.</li>
+          <li value="1106"><a href="1106.html">Shobogenzo</a>. Dogen verschuift de betekenis van vaste uitdrukkingen opzettelijk om een gewend onderscheid te laten wankelen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

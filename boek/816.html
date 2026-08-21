@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Quants &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Patterson stelt dat een generatie wiskundig geschoolde handelaren, begonnen bij Ed Thorp aan de blackjacktafel, de financiële markten heeft omgebouwd tot…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-816">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">816 &middot; Geld en ondernemen</p>
+    <h1>The Quants</h1>
+    <p class="lede">Scott Patterson, 2010</p>
+    <p class="stats">
+      <span><b>1599</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="816"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Patterson stelt dat een generatie wiskundig geschoolde handelaren, begonnen bij Ed Thorp aan de blackjacktafel, de financiële markten heeft omgebouwd tot een machine die op modellen draait, en dat hun gedeelde geloof in een verborgen wetmatigheid achter de koersen hen blind maakte voor het feit dat zij met zijn allen dezelfde posities innamen. Toen die posities in augustus 2007 tegelijk moesten worden afgebouwd, bleek de wiskunde geen bescherming te bieden maar de klap juist te versterken. De ondertitel gaat een stap verder en houdt de kwantitatieve handelaren mede verantwoordelijk voor de crisis van 2008, een aanklacht die het boek eerder suggereert dan onderbouwt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De pokeravond als lijst om het schilderij</h3>
+      <p>Het boek opent op 8 maart 2006 in de Versailles Room van het St. Regis Hotel in Manhattan, waar het pokertoernooi van Wall Street begint. Muller, Griffin, Asness en Weinstein staan met een glas champagne bij elkaar: mannen die dagelijks miljarden verplaatsen en die een avond met inzetten van een miljoen als ontspanning beschouwen. Aan het slot keert Patterson terug naar hetzelfde toernooi in 2009, na de crisis, met de meeste hoofdpersonen nog steeds aan tafel.</p>
+      <h3>Ed Thorp en de weg van het casino naar de beurs</h3>
+      <p>De voorgeschiedenis begint bij Ed Thorp, wiskundige, die in <i>Beat the Dealer</i> (1962) liet zien dat blackjack met kaarttellen te verslaan is en in <i>Beat the Market</i> (1967), samen met Sheen Kassouf, hetzelfde denken op warrants toepaste. Zijn fonds Princeton/Newport Partners maakte er vervolgens twee decennia geld mee. Patterson tekent Thorp als de stamvader die zelf allesbehalve een gokker was, en die het aan zijn intellectuele erfgenamen overliet om van de markt een speelzaal te maken.</p>
+      <h3>Vier levens op de handelsvloer</h3>
+      <p>Peter Muller richtte in 1992 bij Morgan Stanley de afdeling Process Driven Trading op, een klein gezelschap gepromoveerden dat met zijn winst een aanzienlijk deel van de bank betaalde; halverwege liet hij zich uitkopen voor een sabbatical waarin hij met een keyboard in de metro van New York ging spelen. Ken Griffin begon met handelen vanuit zijn studentenkamer in Harvard en bouwde Citadel tot een van de grootste hedgefondsen. Cliff Asness leidde bij Goldman Sachs het team achter Global Alpha en begon in 1998 voor zichzelf met AQR, gebouwd op waarde en momentum.</p>
+      <p>Boaz Weinstein, schaker en kaartteller, klom bij Deutsche Bank op tot medehoofd van de kredietafdeling voordat hij dertig was en handelde in kredietverzekeringen op een schaal die de bank zelf nauwelijks overzag. Patterson beschrijft de cultuur van die handelsvloeren als een aaneenschakeling van weddenschappen: honderd dollar op de uitkomst van een muntworp, op de vraag of het binnen een uur gaat regenen, op de slotstand van de Dow.</p>
+      <h3>De Waarheid en de wraak van de rekenaars</h3>
+      <p>Wat de hoofdpersonen bindt is een overtuiging die Patterson met een hoofdletter schrijft: dat er onder de ruis van de koersen een wetmatigheid ligt die met genoeg rekenkracht bloot te leggen valt. Daaraan koppelt hij een psychologisch motief. In de jaren tachtig golden rekenaars op de handelsvloer als tweederangs, en het boek voert Aaron Brown op, die genoeg had van rijke jongens die de quants inmaakten bij het vloerspel Liar's Poker en de winnende strategie onder zijn collega's verspreidde tot niemand meer wilde spelen.</p>
+      <p>De eerste waarschuwing kwam in 1998, toen Long-Term Capital Management met twee Nobelprijswinnaars aan boord in enkele weken omviel. Patterson laat zien dat de les niet werd getrokken: de posities werden groter, de hefboom zwaarder en de strategieën van de verschillende huizen leken steeds meer op elkaar.</p>
+      <h3>De week van 6 augustus 2007</h3>
+      <p>Het hart van het boek is de week waarin kwantitatieve aandelenfondsen verliezen leden die volgens hun eigen modellen ondenkbaar waren. Ergens moest een groot marktneutraal boek gedwongen worden verkocht, waarschijnlijk om aan een margeverplichting te voldoen. De verkoop drukte precies die aandelen die alle vergelijkbare fondsen bezaten, waarop die fondsen verlies namen, hun hefboom terugbrachten en daarmee de volgende ronde verliezen veroorzaakten. Muller volgde de ramp vanuit een vakantie in Alaska terwijl zijn afdeling in enkele dagen ongeveer zeshonderd miljoen dollar kwijtraakte.</p>
+      <p>De cijfers die het verhaal dragen zijn openbaar. The Wall Street Journal meldde op 14 augustus dat het Global Equity Opportunities-fonds van Goldman Sachs in één week meer dan dertig procent had verloren. Amir Khandani en Andrew Lo beschreven de gebeurtenis kort daarna in een academisch artikel en noemden het mechanisme de gedwongen afbouw. Wat het boek toevoegt is het uur voor uur, van binnenuit, met de telefoongesprekken erbij.</p>
+      <h3>2008 en de afrekening</h3>
+      <p>In het laatste deel gaat Patterson door naar de kredietcrisis. Citadel verloor in 2008 vijfenvijftig procent en Griffin overwoog het huis te sluiten. De afdeling van Weinstein liet bij Deutsche Bank een gat van 1,8 miljard dollar achter op tien miljard toegewezen kapitaal; hij vertrok eind dat jaar en begon Saba Capital. Patterson behandelt daarnaast de copulaformule van David X. Li, die gebruikt werd om samenhangende wanbetalingen te prijzen, en laat de critici aan het woord: Nassim Taleb, en Paul Wilmott en Emanuel Derman met hun eed voor modelbouwers uit 2009.</p>
+      <p>Het slot is opvallend mild. De hoofdpersonen zitten in 2009 weer aan de pokertafel, de meeste huizen bestaan nog, en de vraag of iemand vooraf wist wat hij deed wordt niet gesteld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">quant</td><td>Kwantitatief handelaar of analist die beleggingsbeslissingen aan een wiskundig model overlaat in plaats van aan een oordeel over het bedrijf.</td></tr>
+          <tr><td class="term">arbitrage</td><td>Het uitbuiten van een prijsverschil voor hetzelfde goed op twee plaatsen, in theorie winst zonder risico.</td></tr>
+          <tr><td class="term">statistische arbitrage</td><td>Variant daarop waarbij niet met zekerheid maar met kans wordt gewerkt: honderden kleine posities waarvan er gemiddeld meer goed dan fout gaan.</td></tr>
+          <tr><td class="term">marktneutraal</td><td>Een boek waarin evenveel gekocht als verkocht is, zodat de richting van de markt er weinig toe doet en alleen de keuze tussen aandelen telt.</td></tr>
+          <tr><td class="term">hefboom</td><td>Handelen met geleend geld; verdubbelt de winst en het verlies, en dwingt tot verkopen zodra de geldschieter meer onderpand eist.</td></tr>
+          <tr><td class="term">Kelly-criterium</td><td>Rekenregel voor de omvang van een inzet bij een gunstige kans, door Thorp van de speeltafel naar de beurs overgebracht.</td></tr>
+          <tr><td class="term">de Waarheid</td><td>Pattersons aanduiding voor het geloof van zijn hoofdpersonen dat er onder de koersbewegingen een kenbare wetmatigheid ligt.</td></tr>
+          <tr><td class="term">volgepakte handel</td><td>Een positie die zoveel partijen tegelijk hebben dat de uitgang te smal wordt zodra iedereen eruit wil.</td></tr>
+          <tr><td class="term">gedwongen afbouw</td><td>Verkopen omdat het moet en niet omdat het uitkomt; de verklaring die Khandani en Lo voor augustus 2007 gaven.</td></tr>
+          <tr><td class="term">alpha</td><td>Het deel van het rendement dat niet uit de markt zelf komt maar aan vaardigheid wordt toegeschreven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Patterson kon dit boek schrijven omdat hij als verslaggever van The Wall Street Journal de gebeurtenissen van augustus 2007 versloeg en toegang kreeg tot de hoofdpersonen. De harde feiten zijn na te trekken: het verlies van meer dan dertig procent bij het Goldman-fonds stond in zijn eigen krant, de vijfenvijftig procent van Citadel over 2008 en het gat van 1,8 miljard bij Deutsche Bank zijn destijds breed gemeld, en de gedwongen afbouw is door Khandani en Lo met factorreeksen en transactiegegevens onderzocht.</p>
+      <p>De scènes en dialogen zijn van een andere orde. Waar een lezer de gereconstrueerde gesprekken naast de oorspronkelijke bron kon leggen, bleek volgens de recensent van de Notices of the American Mathematical Society sprake van aanzienlijke opsmuk. Patterson vermeldt geen bronnen bij afzonderlijke passages, wat gebruikelijk is in dit genre en het narekenen onmogelijk maakt.</p>
+      <p>Voor de hoofdstelling van de ondertitel, dat de rekenaars Wall Street bijna vernietigden, ontbreekt bewijs van dat kaliber. Het boek levert een aannemelijk mechanisme voor augustus 2007, waarin de kwantitatieve fondsen elkaar onderuithaalden zonder de rest van de markt mee te sleuren. De ineenstorting van een jaar later kwam uit hypotheken en huizenprijzen, een hoek waar de hoofdpersonen nauwelijks zaten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het vaakst terugkeert is dat de uitleg niet deugt. Een recensent met een achtergrond in kwantitatieve financiën stelde vast dat vrijwel alle verklaringen van vaktermen onjuist zijn en dat de weinige juiste onbegrijpelijk blijven zonder voorkennis. Hij telde de woorden: poker komt zesennegentig keer voor, blackjack tweeënveertig, alpha zesenveertig en beta twaalf. Het boek gaat over gokken en over de mannen die gokken, en gebruikt de wiskunde als decor.</p>
+      <p>David Steinsaltz, statisticus in Oxford, oordeelde in de Notices of the AMS dat het boek voor alles wat het over wiskundig denken te zeggen heeft net zo goed Harry Potter and the Volatility Smile had kunnen heten: alles is gebaar en suggestie, elke figuur van betekenis heet een tovenaar of een genie. Steinsaltz wijst ook op de tegenspraak die Patterson niet opmerkt, namelijk dat de modellen van zijn helden ervan uitgaan dat beleggers betalen om risico kwijt te raken terwijl die helden zelf risico opzoeken zodra ze van de handelsvloer af zijn.</p>
+      <p>Verder blijft de vraag naar opzet onbesproken. De hoofdpersonen verschijnen als jongens die schelpen rapen op het strand, en zelfs tijdens de val worden zij bejegend als slachtoffers van onberekenbare krachten. Het boek maakt bovendien van een handvol zeer rijke fondsbazen het gezicht van een heel beroep, terwijl de meeste mensen die zich quant noemen in loondienst modellen bouwen. Vrouwen komen er niet in voor, op één analist na die na enkele anekdotes verdwijnt.</p>
+      <p>Wat het boek wel goed doet is het portret. De biografische geschiedenis van de kwantitatieve handel leest snel, en de reconstructie van augustus 2007 is de beste populaire beschrijving van die week die er is.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Quants: How a New Breed of Math Whizzes Conquered Wall Street and Nearly Destroyed It</i> (Crown Business, New York, 2010, 352 blz., ISBN 9780307453372). De Britse editie verscheen bij Random House Business met de ondertitel <i>The maths geniuses who brought down Wall Street</i> (ISBN 9781847940599). Scott Patterson was verslaggever voor The Wall Street Journal en schreef het boek uit zijn eigen berichtgeving over de wanorde van augustus 2007; hij publiceerde later <i>Dark Pools</i> (2012) over flitshandel en <i>Chaos Kings</i> (2023) over handelaren die op rampen wedden. Een Nederlandse vertaling is niet gevonden; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Scott Patterson vertelt hoe wiskundig geschoolde handelaren de macht overnamen op Wall Street en wat er in augustus 2007 misging. Het boek volgt vijf mannen: Ed Thorp, die het kaarttellen bij blackjack uitvond en daarna hetzelfde denken op de beurs losliet; Peter Muller, die bij Morgan Stanley de afdeling Process Driven Trading opzette; Ken Griffin van Citadel; Cliff Asness, van Goldman Sachs naar zijn eigen huis AQR; en Boaz Weinstein, handelaar in kredietderivaten bij Deutsche Bank. Jim Simons van Renaissance Technologies loopt op de achtergrond mee als de man die niemand spreekt.</p><p>De raamvertelling is een pokertoernooi in het St. Regis Hotel in Manhattan, waar de hoofdpersonen elkaar in 2006 treffen en in 2009 opnieuw. Daartussen zit de week van 6 augustus 2007, toen kwantitatieve aandelenfondsen die allemaal ongeveer dezelfde posities hadden tegelijk moesten afbouwen en elkaars verliezen versterkten. Het is verhalende journalistiek: sterk in sfeer en portret, zwak in uitleg, en met een titelbelofte over het bijna vernietigen van Wall Street die het boek niet waarmaakt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>kwantitatieve financiën</li><li>financiële markten</li><li>journalistiek</li><li>risico</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="505"><a href="505.html">A Man for All Markets</a>. A Man for All Markets is Thorps eigen verslag van dezelfde geschiedenis, nuchterder verteld en met de wiskunde er wel bij.</li>
+          <li value="499"><a href="499.html">Flash Boys</a>. Flash Boys behandelt het volgende hoofdstuk van hetzelfde verhaal, waarin snelheid de plaats van het model inneemt.</li>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Fooled by Randomness levert het bezwaar dat Patterson zijn hoofdpersonen niet voorhoudt: dat een reeks winstjaren ook zonder vaardigheid tot stand komt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Finding of the Third Eye &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Alder stelt dat de mens over een sluimerend zintuig beschikt, het derde oog, dat bij de voorhoofdsklieren zetelt en dat met leefwijze, ademhaling en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-836">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">836 &middot; Filosofie en mystiek</p>
+    <h1>The Finding of the Third Eye</h1>
+    <p class="lede">Vera Stanley Alder, 1938</p>
+    <p class="stats">
+      <span><b>1901</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="836"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Alder stelt dat de mens over een sluimerend zintuig beschikt, het derde oog, dat bij de voorhoofdsklieren zetelt en dat met leefwijze, ademhaling en meditatie weer in werking te brengen is. Achter die belofte ligt een volledig wereldbeeld: de werkelijkheid bestaat uit trillingen en is in zevens opgebouwd, in gebieden, lichamen, kleuren, tonen en klieren, en de mens is daarvan een verkleinde afbeelding. Die kennis is volgens haar niet nieuw maar oeroud, in de wereldgodsdiensten verhuld bewaard, en het is de opdracht van deze tijd om haar in eenvoudige taal aan gewone mensen terug te geven. Wie zichzelf zuivert, kan de wetten van het heelal rechtstreeks waarnemen in plaats van erover te lezen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek dat een brug wil zijn</h3>
+      <p>Alice Bailey noemt het boek in haar voorwoord uitdrukkelijk een overbruggingsboek: geen geleerd werk en geen verhandeling over één deelonderwerp, maar een eenvoudige samenvatting voor de man op straat, die volgens haar wakker is en om deze kennis vraagt. Zij somt op waarin de nieuweling anders zou verdwalen: mystiek, occultisme, esoterische psychologie, astrologie, getallenleer, theosofische leerstukken, kabbala, rozenkruiserij, godsdienstvergelijking en symboliek. De opzet volgt daaruit: het eerste deel beschrijft hoe de wereld en de mens volgens de Oude Wijsheid in elkaar zitten, het tweede deel geeft de oefening.</p>
+      <h3>Trilling, en de vier grondwetten</h3>
+      <p>De eerste hoofdstukken schetsen een beschaving die ondanks haar techniek ziek en verward is, en zetten daar de belofte tegenover dat er verborgen kennis bestaat waarmee de mens gezondheid, geluk en genezende vermogens kan bereiken. De brug naar de natuurwetenschap loopt via één begrip: alles is trilling, en het verschil tussen twee dingen is uiteindelijk een verschil in trillingssnelheid.</p>
+      <p>Daarna volgen vier wetten die zij de grondslagen van de Geheime Wijsheid noemt: de overeenkomst tussen macrokosmos en microkosmos, de ontwikkeling naar hogere staten, karma met wedergeboorte, en het plan van de schepping in zeven gebieden. Karma legt zij uit als oorzaak en gevolg over meerdere levens, waardoor ieder precies oogst wat hij eerder zaaide en zielen in groepen terugkeren om oude rekeningen te vereffenen.</p>
+      <h3>Hoe de mens is gemaakt en hoe hij is ingedeeld</h3>
+      <p>Het stoffelijke gebied bestaat volgens de leer uit zeven staten: vast, vloeibaar, gasvormig en vier soorten ether. Zo zijn er zeven grote gebieden, elk weer in zevenen verdeeld, die elkaar doordringen in plaats van boven elkaar te liggen, en de mens heeft in elk daarvan een lichaam: het stoffelijke, het etherische web dat de levenskrachten doorgeeft, het astrale of begeertelichaam, het mentale en het geestelijke. De krachtcentra die zij chakra's noemt, verbindt zij met de zeven grote klieren; de kundalini beschrijft zij als een vuurslang onder aan de wervelkolom, door matigheid en onthouding omhoog te brengen naar de hersenen.</p>
+      <p>Het hoofdstuk over de indeling van mensen is astrologie. De twaalf tekens van de dierenriem heersen om de beurt, het leven van een mens zou in het ogenblik van zijn geboorte weerspiegeld liggen, en de mens zou onder alle tekens achtereenvolgens geboren worden om hun lessen te leren.</p>
+      <h3>Adem, kleur, getal, klank en voeding</h3>
+      <p>Vijf hoofdstukken behandelen de middelen. Bij de kleur wordt haar stelsel het meest uitgewerkt: elk van de zeven spectrumkleuren hoort bij een planeet, een metaal, een edelsteen, een muzieknoot en een werking op lichaam en gemoed. Rood hoort bij Mars, ijzer, de robijn en de noot C en werkt opwekkend; geel hoort bij Mercurius en staat voor verstand en wijsheid; groen staat in het midden van de schaal en hoort bij Saturnus en de milt. Zij beroept zich hier op de kleurgeneeskunde van Edwin Babbitt, met de bewering dat water dat in de zon in een gesloten rode lens hangt zich met ijzer vult en dan als ijzerkuur werkt.</p>
+      <p>Het hoofdstuk over de getallen laat de ene scheppende macht in drie uiteenvallen en daarna in zeven, de Zeven Geesten voor de Troon op de zeven heilige planeten. Het hoofdstuk over voeding en beweging is het nuchterst van toon, met matigheid tussen de slonzen en de dwepers als leidraad, maar bevat ook de gedachte dat het lichaam door de geest wordt gebouwd en dat de één op enkele korrels rijst gezond blijft waar de ander bij een redelijk menu ondervoed raakt.</p>
+      <h3>Deel twee: de weg en het oog</h3>
+      <p>Het tweede deel opent met de stelling dat het ego voor de geboorte zelf de moeilijkheden, de ouders en de geboortedatum kiest die het nodig heeft, zodat het geen zin heeft aan de eigen omstandigheden te willen ontkomen. Wie de les vooruit leert, kan de bijbehorende beproeving overslaan.</p>
+      <p>Het hoofdstuk over het derde oog geeft de leer zelf. Het orgaan zou bij de wortel van de neus liggen, met zetel bij de pijnappelklier, en in de vroegste mensheid het enige oog geweest zijn, waarna het terugtrok toen de aarde en het lichaam vaster werden. Het zou de vier etherische staten van de stof waarnemen die het gewone oog niet ziet. Als sporen noemt zij de knobbel op het voorhoofd van Egyptische beelden, de slang op het hoofddeksel van de farao en de pauwenveer van de Chinese mandarijn. De training bestaat uit voeding, vasten, ademhaling, houding en vooral meditatie.</p>
+      <h3>De geschiedenis van de Wijsheid en de gevaren op het pad</h3>
+      <p>De laatste hoofdstukken plaatsen de leer in een geschiedenis en in haar eigen tijd. Blavatsky krijgt de eer van de heropleving aan het eind van de negentiende eeuw, en Alder ziet om zich heen tekenen van een nieuw tijdperk: de Volkenbond, de World Fellowship of Faith, de Oxford Group, naaktcultuur en vegetarisme.</p>
+      <p>Het hoofdstuk over de gevaren is het meest afgewogen deel van het boek. Eerlijkheid is de talisman, en de twee zijwegen zijn sensatiezucht en luiheid; opwinding is voor het verstand wat overmatig geslachtsverkeer voor het lichaam is, ook als het religieuze opwinding betreft. Wie de waarheid zoekt moet evenveel oefening en beperking verwachten als wie piano leert. Tegelijk staat hier de zin die het hele bouwwerk buiten schot brengt: in een bepaald stadium mag zelfs een onwaarheid worden onderwezen, omdat de leerling nog niet meer aankan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">het derde oog</td><td>Het volgens Alder teruggetrokken zintuig bij de wortel van de neus, met zetel bij de pijnappelklier, waarmee de fijnere staten van de stof waargenomen zouden worden.</td></tr>
+          <tr><td class="term">de Oude of Geheime Wijsheid</td><td>Het leerstuk dat volgens haar sinds de vroegste tijden ongewijzigd is doorgegeven en verhuld in de wereldgodsdiensten bewaard bleef.</td></tr>
+          <tr><td class="term">de zeven gebieden</td><td>De zeven in elkaar dringende staten van stof, waarvan de stoffelijke de dichtste is en elk gebied weer in zevenen is verdeeld.</td></tr>
+          <tr><td class="term">etherisch lichaam</td><td>Het fijnstoffelijke tegenbeeld van het lichaam, dat de levenskrachten uit de omgeving zou opnemen en doorgeven.</td></tr>
+          <tr><td class="term">chakra's</td><td>Krachtcentra die Alder aan de zeven grote klieren verbindt en die bij ontwikkeling toegang tot de andere gebieden zouden geven.</td></tr>
+          <tr><td class="term">kundalini</td><td>De kracht die als een vuurslang onder aan de wervelkolom zou liggen en door matigheid naar de hersenen te brengen zou zijn.</td></tr>
+          <tr><td class="term">karma</td><td>De wet van oorzaak en gevolg over meerdere levens, waardoor volgens haar ieder precies oogst wat hij eerder zaaide.</td></tr>
+          <tr><td class="term">de zeven kleurstralen</td><td>De kleuren van het spectrum, elk verbonden met een planeet, een metaal, een edelsteen, een noot en een werking.</td></tr>
+          <tr><td class="term">de Zeven Geesten voor de Troon</td><td>De zevendeling van het scheppende licht, gezeteld op de zeven heilige planeten van het zonnestelsel.</td></tr>
+          <tr><td class="term">macrokosmos en microkosmos</td><td>Het beginsel dat het kleinste een getrouwe afbeelding is van het grootste, waarop haar hele redenering steunt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bewijs in de gewone zin aan, en pretendeert dat ook niet. De terugkerende formule is dat het ons zo verteld is; het gezag ligt bij de overlevering en bij de leraren die haar doorgaven, niet bij een waarneming die iemand kan nagaan. De bibliografie bevat vrijwel uitsluitend theosofische werken.</p>
+      <p>Waar zij zich wel op de natuurwetenschap beroept, houdt het niet stand. De kleurgeneeskunde van Edwin Babbitt, met water dat zich door rood glas met ijzer zou vullen, is scheikundig onmogelijk; de aura die door een geprepareerd glas te zien zou zijn en het gewogen etherisch lichaam verwijzen naar proeven uit het begin van de twintigste eeuw die nooit herhaald konden worden. De astrologie waarop haar indeling van mensen berust, is sindsdien wel getoetst: de dubbelblinde proef van Shawn Carlson in <i>Nature</i> uit 1985 vond geen uitkomst boven het toeval, en latere overzichtsstudies evenmin.</p>
+      <p>Ook de anatomie klopt maar half. Het is juist dat de pijnappelklier bij sommige gewervelde dieren verwant is aan een lichtgevoelig orgaan op de schedel, wat de oude naam derde oog verklaart. Niet aangetoond is wat Alder eraan vastknoopt: dat de vroegste mensen er hun enige oog aan hadden, dat hij trillingen buiten het licht registreert en dat oefening hem heropent. Bij de mens maakt de klier melatonine en regelt zij het dag- en nachtritme.</p>
+      <p>Haar historische beweringen, over beschavingen die aan de oudste bekende voorafgingen en over Egyptische priesters die tot ziener werden opgeleid, staan los van wat archeologie en egyptologie laten zien, en zij geeft er geen vindplaatsen bij.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De opzet van het boek maakt weerlegging onmogelijk, en dat is geen bijkomstigheid maar de bouw zelf. Elk gegeven past in het stelsel van zevens, en waar het niet past wordt de aansluiting alsnog gelegd. Dat kleur, noot, planeet, metaal, edelsteen en klier bij elkaar horen wordt vastgesteld en niet aangetoond, terwijl er binnen dezelfde traditie onderling strijdige lijsten in omloop zijn. De zin dat aan wie er nog niet aan toe is zelfs een onwaarheid onderwezen mag worden, neemt elke tegenwerping bij voorbaat op in de leer.</p>
+      <p>Aan de karmaleer zit een prijs die het boek niet weegt. Als ieder precies oogst wat hij zaaide en het ego zijn beproevingen voor de geboorte zelf uitkiest, dan is elke ziekte en elk onrecht in laatste instantie het werk van wie het treft. Dat is troostrijk voor wie het goed gaat en hard voor wie het slecht gaat, en Alder maakt daar geen woorden aan vuil.</p>
+      <p>Het praktisch gevaarlijkst is het hoofdstuk over voeding en beweging. De stelling dat het lichaam door de geest wordt gebouwd en dat wie de wil heeft gezond te zijn tamelijk onafhankelijk van lucht, voedsel en beweging wordt, komt bij ziekte neer op het afraden van hulp.</p>
+      <p>Wat het boek wel kan, moet daar tegenover staan. Het is ordelijk, helder en zonder hoogdravendheid geschreven, het legt een stelsel bloot dat in de meeste esoterische literatuur verspreid en versluierd blijft, en het spreekt de twijfelaar niet toe met minachting. Als kennismaking met wat de theosofische leer inhoudt en hoe zij zichzelf presenteert, is het bruikbaar; als beschrijving van hoe lichaam, geest of heelal in elkaar zitten, niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als bron over het theosofische stelsel en niet als beschrijving van het lichaam.</li>
+        <li>Zet bij elke passage die met het wordt gezegd begint de vraag ernaast wie dat zegt en waar het staat.</li>
+        <li>Scheid de aanbevelingen over rust, matigheid en ademhaling van de leer die ze moet rechtvaardigen.</li>
+        <li>Vervang geen medische zorg door de gedachte dat gezondheid een kwestie van wil is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Finding of the Third Eye</i> verscheen in 1938 bij Rider &amp; Co. te Londen, met een voorwoord dat Alice A. Bailey in 1937 schreef. Het boek is sindsdien vrijwel onafgebroken herdrukt, onder meer bij Samuel Weiser (York Beach, 1970), in een uitgave die een auteursnotitie uit 1968 bevat en waarin het auteursrecht bij de Lucis Trust berust, de uitgeverij van Bailey. Vera Stanley Alder (1898-1984) was portretschilder en schreef daarna een reeks boeken over de esoterische leer, waarvan dit het eerste is. Een Nederlandse vertaling bestaat, <i>Het vinden van het derde oog</i> (ISBN 9789028901537, 224 blz.); de samenvatting berust op de Engelse tekst.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Alder brengt in dit boek uit 1938 het theosofische wereldbeeld terug tot gewone taal. Alles is trilling, en alles is in zevens gebouwd: zeven gebieden of staten van stof die elkaar doordringen, zeven lichamen van de mens van stoffelijk tot geestelijk, zeven kleuren die aan planeten, metalen, edelstenen en muzieknoten vastzitten, en zeven krachtcentra die zij aan de zeven grote klieren verbindt. Vier grondwetten dragen het geheel: de overeenkomst tussen het grootste en het kleinste, de ontwikkeling naar hogere staten, karma met wedergeboorte, en het plan van de zeven gebieden. Het derde oog is in die leer een teruggetrokken zintuig bij de wortel van de neus, met zetel bij de pijnappelklier, dat door leefwijze en meditatie weer te wekken zou zijn.</p><p>Het tweede deel is praktisch bedoeld: eerste stappen naar zelfbeheersing, meditatie, een geschiedenis van de Wijsheid van Egypte tot Blavatsky, en een hoofdstuk over de valkuilen onderweg, waarin zij sensatiezucht en luiheid als de twee grote afleidingen aanwijst. Het boek is helder geschreven en zonder minachting voor de twijfelaar. Wat eronder ligt is niettemin leerstellig: de terugkerende formule is dat het ons zo verteld is, en de weinige beweringen die wel te controleren zijn, over kleurgeneeskunde, over gewogen fijnstoffelijke lichamen en over de astrologie, houden geen stand.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>theosofie</li><li>esoterie</li><li>meditatie</li><li>astrologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="645"><a href="645.html">The Rosicrucian Cosmo-Conception</a>. The Rosicrucian Cosmo-Conception zet hetzelfde bouwwerk van zeven gebieden, fijnstoffelijke lichamen en karma dertig jaar eerder uiteen, en laat zien hoezeer Alder uit een gedeelde voorraad put.</li>
+          <li value="638"><a href="638.html">Initiation into Hermetics</a>. Initiation into Hermetics is de praktische tegenhanger: een oefenprogramma voor dezelfde vermogens, en even ontoetsbaar.</li>
+          <li value="640"><a href="640.html">Kabbalah</a>. Kabbalah van Gershom Scholem toont hoe een geleerde de geschiedenis van een mystieke leer onderzoekt met bronnen en dateringen, precies wat in dit boek ontbreekt.</li>
+          <li value="679"><a href="679.html">Earth: Pleiadian Keys to the Living Library</a>. Earth: Pleiadian Keys to the Living Library laat zien waar deze lijn een halve eeuw later uitkomt, zonder de terughoudendheid die Alder nog bewaart.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

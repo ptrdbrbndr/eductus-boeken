@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expected Returns &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ilmanen stelt dat het verwachte rendement de belangrijkste invoer van elke beleggingsbeslissing is en tegelijk de slechtst onderbouwde. Wie het uit het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-815">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">815 &middot; Naslag en praktijk</p>
+    <h1>Expected Returns</h1>
+    <p class="lede">Antti Ilmanen, 2011</p>
+    <p class="stats">
+      <span><b>1398</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="815"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ilmanen stelt dat het verwachte rendement de belangrijkste invoer van elke beleggingsbeslissing is en tegelijk de slechtst onderbouwde. Wie het uit het gemiddelde van het verleden afleidt, veronderstelt dat de vergoeding voor risico door de tijd heen gelijk blijft, en dat is aantoonbaar onjuist: die vergoeding beweegt mee met de prijs die op dat moment betaald wordt. Daaruit volgen twee opdrachten: haal het rendement uit meer bronnen dan de aandelenpremie alleen, en schat het met vooruitkijkende maatstaven in plaats van met de achteruitkijkspiegel.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De kubus met drie zijden</h3>
+      <p>Het ordenende beeld is een kubus met drie zichtbare vlakken. De voorkant bevat vier activaklassen: aandelen, staatsobligaties, bedrijfsobligaties en alternatieve beleggingen. De bovenkant bevat vier strategiestijlen, manieren van handelen die over vrijwel elke markt heen werken: waarde (koop wat goedkoop staat), carry (koop wat een hoge lopende opbrengst geeft), momentum (koop wat recent steeg) en volatiliteit (verkoop verzekering tegen koersschommelingen). De zijkant bevat vier risicofactoren, drijfveren waaraan meerdere beleggingen tegelijk blootstaan: groei, inflatie, illiquiditeit en staartrisico, de kans op zeldzame maar zeer grote verliezen.</p>
+      <p>Wie alleen in activaklassen denkt, ziet volgens hem niet dat aandelen en bedrijfsobligaties in slechte tijden aan dezelfde factor hangen. Zowel de klassieke verdeling van zestig procent aandelen en veertig procent obligaties als het veel geprezen model van de Amerikaanse universiteitsfondsen besteedt ongeveer negentig procent van het risicobudget aan aandelenrisico.</p>
+      <h3>Vier soorten invoer en twee verklaringen</h3>
+      <p>Elke schatting van verwacht rendement is volgens hem een mengsel van vier ingrediënten: historische gemiddelden, theorie, vooruitkijkende marktindicatoren zoals rentes en waarderingsverhoudingen, en eigen oordeel. Geen van de vier mag domineren. Historische reeksen zijn bedrieglijk omdat een periode eenmalige meevallers kan bevatten, zoals dertig jaar dalende rente.</p>
+      <p>De eerste zeven hoofdstukken zetten twee verklaringen naast elkaar voor de gedeeltelijke voorspelbaarheid van rendementen. Rationeel: beleggers eisen in slechte tijden meer vergoeding, waardoor prijzen laag staan en toekomstige rendementen hoog. Gedragsmatig: beleggers overdrijven, in beide richtingen. Hij kiest niet, omdat de praktische gevolgtrekking dezelfde kant op wijst.</p>
+      <h3>Deel II: twaalf gevalstudies</h3>
+      <p>De hoofdstukken 8 tot en met 19 behandelen de twaalf vakken van de kubus afzonderlijk: aandelenpremie, termijnpremie, kredietpremie, alternatieve beleggingen, waardegedreven aandelenselectie, valutacarry, momentum op grondstoffen, het verkopen van volatiliteit, en de factoren groei, inflatie, liquiditeit en staartrisico. Elk hoofdstuk volgt hetzelfde stramien: theorie, historisch gemiddelde, vooruitkijkende maatstaf, en de vraag of er tactisch mee te sturen valt.</p>
+      <p>De toon is zuinig. Over de aandelenpremie schrijft hij dat het Amerikaanse overrendement boven staatsobligaties over lange vensters drie tot vijf procent per jaar bedroeg, en dat een berekening via het dividenddisconteringsmodel voor de jaren tweeduizend uitkwam op ongeveer twee procent dividendrendement plus één procent reële groei, dus drie procent reëel, met een dunne premie boven staatsleningen. Wie hoger uitkomt, moet dat verantwoorden met een ruimere opbrengstmaatstaf, optimistischer groei of oplopende waarderingen.</p>
+      <h3>Waardering als voorspeller</h3>
+      <p>De rode draad is dat het instapniveau telt. Ilmanen sorteert de Amerikaanse aandelenmarkt van 1900 tot 2009 in vijf groepen naar het gladgestreken reële winstrendement, de maatstaf die Robert Shiller populair maakte: de winst over tien jaar, gecorrigeerd voor inflatie, gedeeld door de koers. In de goedkoopste groep stond die op gemiddeld 12,5 procent, in de duurste op 4,0 procent, en het reële rendement over de volgende vijf jaar liep in dezelfde volgorde op.</p>
+      <p>Bij die grafiek zet hij zelf twee kanttekeningen die het boek kenmerken. De sortering gebruikt kennis achteraf, want een belegger in 1932 wist niet dat het winstrendement van dat jaar het hoogste van de eeuw zou blijken. En de samenhang is op korte termijn zwak: over een kwartaal komt hij voor het gladgestreken winstrendement op een correlatie van 0,10 en voor het dividendrendement op 0,11, over een jaar op 0,19 en 0,23, over vijf jaar op 0,34 en 0,35. Het lage dividendrendement gaf bovendien al begin jaren negentig een verkoopsignaal, en wie dat volgde miste de hausse van 1995 tot 1999.</p>
+      <h3>Deel III en IV: brede thema's</h3>
+      <p>Na de gevalstudies volgen tien hoofdstukken over overkoepelende onderwerpen: patronen per seizoen en per conjunctuurcyclus, terugkoppeling tussen beleggers waardoor risico deels binnen het systeem ontstaat, en de opzet van een prognosemodel. Ilmanen erkent dat het boek weinig zegt over het samenstellen van een portefeuille. Zijn slotsom: haal premies uit uiteenlopende bronnen, laat de aandelenpremie niet overheersen, en houd tactische verschuivingen tot een minderheid van het risicobudget beperkt.</p>
+      <h3>Het vervolg uit 2022</h3>
+      <p>Elf jaar later verscheen <i>Investing Amid Low Expected Returns</i>, gericht op de situatie die het eerste boek aankondigde: hoge waarderingen, dus lage vooruitzichten. De aanbeveling luidt bescheiden voorspellen en breed spreiden. De illiquiditeitspremie op niet-beursgenoteerde beleggingen noemt hij daar eerder een gladstrijken van de gemeten schommelingen dan een echte vergoeding, en van de hedgefondsrendementen schrijft hij het grootste deel toe aan systematische stijlen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">verwacht rendement</td><td>De opbrengst die een belegging vooraf redelijkerwijs mag opleveren, te onderscheiden van wat achteraf behaald is.</td></tr>
+          <tr><td class="term">risicopremie</td><td>Het extra rendement boven de rente op veilig kortlopend papier, als vergoeding voor het aanvaarden van risico.</td></tr>
+          <tr><td class="term">strategiestijl</td><td>Een manier van handelen die in vrijwel elke markt werkt: waarde, carry, momentum, volatiliteit.</td></tr>
+          <tr><td class="term">carry</td><td>De opbrengst die een positie geeft als de prijs onveranderd blijft, zoals het renteverschil tussen twee valuta's.</td></tr>
+          <tr><td class="term">risicofactor</td><td>Een onderliggende drijfveer waaraan veel beleggingen tegelijk blootstaan: groei, inflatie, illiquiditeit, staartrisico.</td></tr>
+          <tr><td class="term">waarderingsmaatstaf</td><td>Verhoudingsgetal dat de prijs afzet tegen de onderliggende opbrengst, zoals het gladgestreken reële winstrendement.</td></tr>
+          <tr><td class="term">dividenddisconteringsmodel</td><td>Rekenregel waarin het reële langetermijnrendement op aandelen gelijk is aan dividendrendement plus reële dividendgroei.</td></tr>
+          <tr><td class="term">illiquiditeitspremie</td><td>Extra vergoeding voor beleggingen die niet snel en niet zonder prijsverlies te verkopen zijn.</td></tr>
+          <tr><td class="term">hefboom</td><td>Beleggen met geleend geld, waardoor winst en verlies beide groter uitvallen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op gepubliceerde reeksen van vijftig tot honderd jaar en op de academische literatuur die Ilmanen als onderzoeker bijhield. Elk cijfer is herleidbaar tot een genoemde bron: Robert Shiller, Ibbotson, de voorspellersbestanden van Amit Goyal.</p>
+      <p>Opvallend is hoe stelselmatig hij de zwakke plekken van zijn eigen materiaal aanwijst. Bij hedgefondsen laat hij zien wat de opschoning van de databanken doet: rekent men alleen met nog bestaande fondsen en telt men de met terugwerkende kracht toegevoegde jaren mee, dan komt het gemiddelde op 14,9 procent per jaar; telt men opgeheven fondsen mee en laat men die toegevoegde jaren weg, dan blijft 7,7 procent over. Dat verschil van ruim zeven procentpunt is groter dan de premie waar de hele discussie over gaat.</p>
+      <p>Een toetsbaar eigen model levert het boek niet. Het is een geordende synthese van andermans onderzoek plus eigen reeksen, gebouwd op de veronderstelling dat verwachte rendementen bewegen. Die veronderstelling is inmiddels breed aanvaard; over de omvang van de voorspelbaarheid is de literatuur het nog steeds oneens, en Ilmanen schrijft dat ook.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een handboek, geen betoog. Zeshonderd bladzijden met honderden grafieken, negenentwintig hoofdstukken die elk op zichzelf staan, en een tekst die eerder opsomt dan overtuigt. Lezers melden dat zij halverwege afhaken en dat het meer op een studieboek lijkt. Het is dan ook bedoeld om in op te zoeken; van voor naar achter doorlezen kost maanden.</p>
+      <p>De belangenpositie van de auteur verdient vermelding. Ilmanen schreef het boek toen hij bij AQR ging werken, de beheerder die precies de stijlpremies verkoopt waarvan hij het bestaan onderbouwt, en het voorwoord is van medeoprichter Clifford Asness. Hij verzwijgt dat niet, maar de keuze voor juist waarde, carry, momentum en volatiliteit valt samen met het aanbod van zijn werkgever.</p>
+      <p>Inhoudelijk weegt het zwaarst dat de voorspelbaarheid waarop het bouwwerk rust buiten de gebruikte steekproef veel slechter presteert dan erbinnen. Ilmanen erkent dat en bouwt zijn aanbevelingen er toch op. Daar komt bij dat de jaren na 2011 niet meewerkten: de waarderingsmaatstaven riepen jarenlang tot voorzichtigheid op terwijl Amerikaanse aandelen door bleven stijgen, en de waardestijl leverde een lang verlies op. Het raamwerk houdt stand, de cijfers stoppen in 2010.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer bij elke belegging welke invalshoek de vergoeding verklaart: de activaklasse, de handelsstijl of de onderliggende factor.</li>
+        <li>Reken het verwachte rendement op aandelen na met dividendrendement plus reële groei, en houd het verschil met het historische gemiddelde bij.</li>
+        <li>Kijk bij gerapporteerde fondsrendementen eerst naar de opschoning: welke fondsen vielen weg, welke jaren zijn achteraf toegevoegd.</li>
+        <li>Gebruik het boek per hoofdstuk; begin bij de gratis bewerking uit 2012 als de vier activaklassen genoeg zijn.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Expected Returns: An Investor's Guide to Harvesting Market Rewards</i> (Wiley, reeks Wiley Finance, 2011, 608 blz., ISBN 9781119990727), met een voorwoord van Clifford Asness. Van vier kernhoofdstukken over activaklassen verscheen in 2012 een vrij verkrijgbare bewerking bij de Research Foundation van CFA Institute onder de titel <i>Expected Returns on Major Asset Classes</i> (ISBN 9781934667484); wie het volledige boek te zwaar vindt, heeft daarmee de helft van de cijfers in handen. In 2022 volgde bij dezelfde uitgever <i>Investing Amid Low Expected Returns: Making the Most When Markets Offer the Least</i> (Wiley, 2022, ISBN 9781119860198), geen herziening maar een toepassing van hetzelfde raamwerk op een markt met lage vooruitzichten. Een Nederlandse vertaling is niet gevonden; deze samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Antti Ilmanen, econoom uit Finland, promoveerde in Chicago, werkte bij Salomon Brothers en het hedgefonds Brevan Howard en zit sinds 2011 bij AQR. Zijn boek gaat over de vraag die aan elke beleggingsbeslissing voorafgaat: hoeveel rendement mag je van iets verwachten. Hij weigert die vraag te beantwoorden met het gemiddelde van het verleden, omdat de vergoeding voor risico door de tijd heen beweegt en meeschuift met de prijs die op dat moment betaald wordt. In plaats daarvan bouwt hij een schatting uit vier soorten invoer: historische reeksen, theorie, vooruitkijkende marktmaatstaven zoals rentes en waarderingsverhoudingen, en het eigen oordeel.</p><p>De ordening van het boek is een kubus. De voorkant zijn vier activaklassen (aandelen, staatsobligaties, bedrijfsobligaties, alternatieve beleggingen), de bovenkant vier strategiestijlen (waarde, carry, momentum, volatiliteit) en de zijkant vier risicofactoren (groei, inflatie, illiquiditeit, staartrisico). Twaalf rendementsbronnen krijgen elk een eigen hoofdstuk met lange reeksen en grafieken. De les die eruit volgt is dat de meeste portefeuilles hun rendement bijna volledig aan aandelenrisico ontlenen en dat spreiding over meer premies verstandiger is, mits ootmoedig geschat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>vermogensbeheer</li><li>waardering</li><li>risico</li><li>naslagwerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="804"><a href="804.html">Triumph of the Optimists</a>. Triumph of the Optimists levert de lange reeksen waar Ilmanen uit put, en komt op dezelfde bescheiden aandelenpremie uit.</li>
+          <li value="813"><a href="813.html">Pioneering Portfolio Management</a>. Pioneering Portfolio Management bepleit hetzelfde brede spreiden en behandelt de portefeuilleopbouw waar Ilmanen weinig over zegt.</li>
+          <li value="817"><a href="817.html">Behavioural Investing</a>. Behavioural Investing behandelt de gedragskant van dezelfde voorspelbaarheid: waarom beleggers de premies laten liggen die Ilmanen aanwijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

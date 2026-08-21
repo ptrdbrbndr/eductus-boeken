@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Technological Society &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ellul stelt dat het beslissende feit van de twintigste eeuw la technique is en niet de machine: het geheel van methoden die langs rationele weg tot stand…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-826">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">826 &middot; Staat en vrijheid</p>
+    <h1>The Technological Society</h1>
+    <p class="lede">Jacques Ellul, 1954 (Engelse vertaling 1964)</p>
+    <p class="stats">
+      <span><b>1788</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="826"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ellul stelt dat het beslissende feit van de twintigste eeuw <i>la technique</i> is en niet de machine: het geheel van methoden die langs rationele weg tot stand komen en die, voor een gegeven stand van de ontwikkeling, in ieder gebied van menselijk handelen op de grootst mogelijke doelmatigheid zijn gericht. Zodra doelmatigheid de enige maatstaf is waarmee middelen worden vergeleken, houdt kiezen op een morele of politieke daad te zijn en wordt het een vaststelling. Techniek is in die lezing geen verzameling werktuigen waarover de mens beschikt, maar een omgeving die haar eigen wetten oplegt aan economie, staat, opvoeding, vermaak en aan de mens zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat techniek is en wat het woord verhult</h3>
+      <p>Het eerste hoofdstuk zet drie verwarringen opzij. Techniek valt niet samen met de machine, want de machine is er een toepassing van en historisch gezien een late. Techniek valt niet samen met wetenschap, want wetenschap zoekt kennis en techniek zoekt werking; sinds de negentiende eeuw is die verhouding volgens Ellul zelfs omgekeerd, doordat onderzoek zelf afhankelijk is geworden van technische apparatuur. En techniek valt niet samen met industrie, want bestuur, boekhouding, reclame, politiewerk en opvoeding worden op dezelfde leest geschoeid als een fabriek.</p>
+      <p>Daarna komt de bepaling waar het hele boek op steunt: techniek is het geheel van methoden dat langs rationele weg tot stand is gekomen en dat, voor een gegeven stand van de ontwikkeling, in elk gebied van menselijk handelen volstrekte doelmatigheid bezit. Ellul onderscheidt daarbij de technische handeling, die van alle tijden is en die iedereen verricht die een werktuig gebruikt, van het technische verschijnsel: het moment waarop het bewuste zoeken naar de beste methode zelf de plaats van de overlevering inneemt.</p>
+      <h3>De geschiedenis van een breuk</h3>
+      <p>Het tweede deel van hoofdstuk een loopt van de vroegste technieken via Griekenland, Rome, het christendom en de zestiende eeuw naar de industriële revolutie. Ellul wil laten zien dat oudere samenlevingen wel degelijk technieken kenden, soms hoogontwikkelde, maar dat die beperkt bleven tot een enkel gebied, een streek of een stand, en dat er telkens een rem op stond in de vorm van een religieus verbod, standsbesef of eenvoudige onverschilligheid. De Griekse minachting voor het handwerk en de Romeinse voorrang van het recht boven de nijverheid gelden hem als voorbeelden van zulke remmen.</p>
+      <p>Wat er in de achttiende en negentiende eeuw gebeurt, is dat die remmen wegvallen. Bevolkingsgroei, een economische omgeving die alles opneemt wat werkt, een staat die zich met steeds meer bemoeit en het verdwijnen van sociale taboes maken samen de weg vrij. Vanaf dat punt hoeft niemand meer te besluiten dat techniek zich moet uitbreiden. Zij doet het uit zichzelf, en dat is voor Ellul het verschil tussen alle eerdere eeuwen en de onze.</p>
+      <h3>De karakterologie</h3>
+      <p>Hoofdstuk twee, het hart van het boek, somt de eigenschappen op die moderne techniek van oudere onderscheiden. Het automatisme van de technische keuze: waar twee methoden naast elkaar staan en de een meetbaar doelmatiger is, wordt er niet afgewogen maar geconstateerd, en de mens tekent alleen nog wat de vergelijking al heeft uitgewezen. De zelfvermeerdering: technieken brengen technieken voort, omdat elk opgelost probleem nieuwe problemen achterlaat die alleen technisch te behandelen zijn, en die groei verloopt volgens Ellul in versnelling en zonder dat iemand haar stuurt.</p>
+      <p>Het monisme, dat men ook als ondeelbaarheid kan lezen: techniek is een blok. Er bestaat geen goed en slecht gebruik van hetzelfde middel, omdat het middel zijn eigen gebruikswijze meebrengt; wie de voordelen wil, krijgt de nadelen erbij, want het zijn twee kanten van dezelfde zaak. Daaraan verwant is de noodzakelijke koppeling: technieken grijpen in elkaar, zodat een losse techniek niet valt over te nemen zonder het stelsel eromheen.</p>
+      <p>Het universalisme: techniek verspreidt zich over de aardbol en over alle levensgebieden, en zij vraagt culturen niet of het hun past, omdat doelmatigheid overal dezelfde uitkomst oplevert. En ten slotte de autonomie: techniek duldt geen oordeel van buitenaf. Moraal, recht en politiek kunnen haar niet wegen, want zij worden zelf naar technische maatstaf ingericht zodra zij het proberen.</p>
+      <h3>Economie en staat</h3>
+      <p>Hoofdstuk drie behandelt de economie. Ellul beschrijft hoe planning, of die nu van een centraal bureau komt of van een groot bedrijf, geen tegenwicht tegen techniek vormt maar de gedaante is die zij in de economie aanneemt. Kapitalisme en sovjetstelsel verschijnen bij hem als twee uitvoeringen van hetzelfde: beide meten zich aan productie, en beide maken van de mens een economische grootheid die op haar functie wordt afgestemd.</p>
+      <p>Hoofdstuk vier doet hetzelfde met de staat. De politicus verliest zijn greep aan de deskundige, omdat alleen de deskundige de dossiers overziet; het parlement zet zijn zegel onder wat elders is voorbereid; het recht verandert van een bron van normen in een middel om beleid uit te voeren. Ellul, zelf rechtshistoricus, put hier uit de Franse bestuurspraktijk die hij van nabij kende, en hij ziet in de opkomst van het staatsbedrijf en het planbureau geen politieke keuze maar een technische onvermijdelijkheid.</p>
+      <h3>Technieken op de mens toegepast</h3>
+      <p>Hoofdstuk vijf gaat over wat Ellul menselijke technieken noemt: propaganda, reclame, opvoeding, personeelsbeleid, geneeskunde, sport en ontspanning, voor zover die zijn ingericht om mensen te laten passen bij een technische omgeving. Zijn redenering is dat het vraagstuk van de doelmatigheid zich ten slotte bij de mens zelf voordoet. Apparaten zijn nauwkeurig, mensen niet, en dat verschil moet worden weggewerkt. Daaruit komen de technieken van aanpassing voort, en hij rekent daar uitdrukkelijk ook de vormen van vermaak toe die de spanning van een aangepast bestaan draaglijk houden.</p>
+      <p>Het slothoofdstuk kijkt vooruit naar biologische en psychologische ingrepen, bestuur door berekening en een bevolking die haar toestand als vanzelfsprekend ervaart. Ellul benadrukt dat hij geen oplossing aanbiedt. Zijn sociologische en zijn theologische boeken vormen naar eigen zeggen twee helften die elkaar tegenspreken; wat er aan hoop te zeggen valt, hoort in de andere helft thuis.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">la technique</td><td>Het geheel van rationeel verkregen methoden die in elk gebied van handelen op de grootste doelmatigheid zijn gericht, dus ruimer dan machines of technologie.</td></tr>
+          <tr><td class="term">technische handeling</td><td>De losse toepassing van een werktuig of vaardigheid door een mens, iets van alle tijden en alle culturen.</td></tr>
+          <tr><td class="term">technisch verschijnsel</td><td>Het zoeken naar de beste methode als beginsel op zichzelf, dat volgens Ellul pas in de moderne tijd de overlevering verdringt.</td></tr>
+          <tr><td class="term">automatisme van de technische keuze</td><td>De vaststelling dat een aantoonbaar doelmatiger methode de andere verdringt zonder dat er werkelijk gekozen wordt.</td></tr>
+          <tr><td class="term">zelfvermeerdering</td><td>Het vermogen van techniek om uit zichzelf te groeien, doordat elke oplossing nieuwe problemen achterlaat die om nieuwe techniek vragen.</td></tr>
+          <tr><td class="term">monisme</td><td>De ondeelbaarheid van techniek: goed en slecht gebruik zijn geen aparte keuzes maar horen bij hetzelfde middel.</td></tr>
+          <tr><td class="term">noodzakelijke koppeling</td><td>Het in elkaar grijpen van technieken, waardoor een enkele techniek niet los van het stelsel eromheen is over te nemen.</td></tr>
+          <tr><td class="term">technisch universalisme</td><td>De verspreiding van techniek over alle streken en alle levensgebieden, omdat doelmatigheid overal dezelfde uitkomst aanwijst.</td></tr>
+          <tr><td class="term">autonomie van de techniek</td><td>Het gegeven dat techniek geen oordeel van buitenaf duldt, omdat moraal, recht en politiek zelf technisch worden zodra zij haar willen beoordelen.</td></tr>
+          <tr><td class="term">menselijke technieken</td><td>Propaganda, opvoeding, personeelsbeleid en vermaak, voor zover zij dienen om de mens op een technische omgeving af te stemmen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek werkt door opeenstapeling. Ellul put uit bestuurskunde, bedrijfsvoering, krijgskunde, geneeskunde, politiewerk en reclame, en de Engelse uitgave telt 449 bladzijden met honderden voorbeelden. Wat er niet in staat is een meting. Er zijn vrijwel geen cijferreeksen, geen enquêtes en geen vergelijkend onderzoek waarmee de stelling gewogen zou kunnen worden. De overtuigingskracht komt uit herkenning, niet uit toetsing.</p>
+      <p>Op één punt is die herkenning stevig gebleken. De beschrijving van hoe bestuur, opvoeding, personeelsbeleid en politiek zich naar een standaardprocedure gaan voegen, en van hoe de deskundige de gekozen bestuurder overvleugelt, is uit 1954 en leest in latere decennia als een verslag van wat er werkelijk is gebeurd. Hetzelfde geldt voor zijn behandeling van propaganda, die hij in 1962 in een apart boek uitwerkte.</p>
+      <p>De zwakke plek zit in de bepaling zelf. Techniek is bij Ellul alles wat de vorm van een methode heeft. Wie zo begint, treft techniek daarna overal aan, en die uitkomst is dan geen vondst maar een gevolg van het woordgebruik. Het betoog kan niet mislopen, en juist daardoor toont het minder dan het lijkt te tonen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het vaakst terugkeert is de geslotenheid van het betoog. Albert Borgmann verweet Ellul dat hij met techniek alles verklaart en tegelijk in het duister laat wat techniek nu eigenlijk is. Langdon Winner vatte het probleem samen als de neiging alles techniek te maken en techniek alles. Een redenering die elk tegenvoorbeeld kan inlijven als weer een gedaante van hetzelfde, laat geen weerlegging toe, en een stelling die niet kan mislukken is ook moeilijk op waarde te schatten.</p>
+      <p>Het tweede bezwaar geldt het determinisme. Christopher Lasch wees op de somberheid en op de technologische onvermijdelijkheid die het boek doortrekken. Winner, die veel van Ellul overneemt, verwijt hem dat er geen menselijk handelen meer overblijft: techniek drijft af, schrijft hij, maar zij bepaalt zichzelf niet volledig. Een recensent noemde in 1971 de ongerijmdheid van Elluls volgehouden bewering dat er aan de impasse niet te ontkomen valt.</p>
+      <p>Daar komt bij dat het boek weinig ruimte laat voor gevallen waarin techniek wel is ingeperkt of teruggedraaid: verboden op bepaalde wapens, regels rond medisch onderzoek, milieuwetgeving, gestaakte projecten. In Elluls stelsel worden zulke gevallen zelf als techniek gelezen, als bestuurlijke methoden binnen hetzelfde geheel, waardoor zij nooit als tegenbewijs kunnen meetellen.</p>
+      <p>Ten slotte de vraag wat een diagnose zonder uitweg waard is. Ellul antwoordde daarop dat hij als socioloog beschrijft en dat zijn theologische werk de andere kant behandelt. Wie die tweedeling niet aanvaardt, houdt een boek over dat vooral verlamt. Dat het lange tijd is gelezen door mensen die er hun afkeer van de moderne wereld in bevestigd zagen, onder wie Theodore Kaczynski, zegt iets over hoe het werkt op een lezer die geen tegenwicht meebrengt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een voorstel welke maatstaf de vergelijking bepaalt, en of er naast doelmatigheid nog een andere maatstaf in de afweging zit.</li>
+        <li>Let op de zin dat er geen alternatief is. Dat is precies het automatisme dat Ellul beschrijft, en het loont om na te gaan of hij in dit geval gelijk heeft.</li>
+        <li>Onderscheid het werktuig van de methode. De vraag is zelden of een apparaat deugt, vaker welke werkwijze het meebrengt voor wie ermee werkt.</li>
+        <li>Toets de stelling aan een geval waarin een techniek wel is beperkt of afgeschaft, en kijk of Elluls verklaring daar nog past.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>La Technique ou l'enjeu du siècle</i> verscheen in 1954 bij Armand Colin in Parijs. De Engelse vertaling van John Wilkinson kwam tien jaar later uit als <i>The Technological Society</i> (Alfred A. Knopf, New York, 1964, 449 blz., ISBN 9780394703909), met een inleiding van de socioloog Robert K. Merton; Aldous Huxley had het boek bij Amerikaanse lezers aanbevolen en droeg zo aan die vertaling bij. Van Ellul zijn wel andere werken in het Nederlands verschenen, onder meer <i>De grote stad</i> en <i>Staan in de wereld van nu</i>, maar van dit boek is geen Nederlandse vertaling gevonden; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jacques Ellul, hoogleraar rechtsgeschiedenis en sociologie in Bordeaux en tijdens de oorlog actief in het Franse verzet, schreef in 1954 een boek over wat hij <i>la technique</i> noemde: het geheel van methoden die langs rationele weg tot stand komen en in elk gebied van handelen op de grootste doelmatigheid zijn gericht. Dat is ruimer dan machines. Bestuur, reclame, opvoeding, politiewerk en ontspanning worden volgens hem op dezelfde manier ingericht als een fabriek, en zodra doelmatigheid de enige maatstaf is waarmee middelen worden vergeleken, verdwijnt de keuze: het meest doelmatige middel wint vanzelf.</p><p>Ellul schrijft techniek zes eigenschappen toe die haar buiten menselijke sturing plaatsen, waaronder zelfvermeerdering, ondeelbaarheid en autonomie. Hij biedt geen uitweg en zegt dat ook met zoveel woorden. Dat is meteen het punt waarop het boek het meest is aangevallen: Langdon Winner vatte het bezwaar samen als de neiging alles techniek te maken en techniek alles, waarna geen tegenvoorbeeld het betoog nog kan raken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>technologiekritiek</li><li>maatschappijkritiek</li><li>sociologie</li><li>cultuurfilosofie</li><li>vrijheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman past een verwant argument toe op één techniek, de televisie, en houdt daarbij wel een maatstaf van buitenaf aan.</li>
+          <li value="674"><a href="674.html">Four Arguments for the Elimination of Television</a>. Mander trekt de gevolgtrekking die Ellul weigert te trekken en bepleit afschaffing van een techniek.</li>
+          <li value="539"><a href="539.html">The Human Use of Human Beings</a>. Wiener beschrijft dezelfde automatisering met de vraag hoe zij te sturen valt, en komt daardoor tot een ander antwoord.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

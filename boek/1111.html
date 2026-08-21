@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Invention of Africa &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wat de westerse wetenschap Afrika noemt, is voortgebracht door haar eigen teksten. Mudimbe volgt hoe reisverslagen, missiegeschriften, etnografie en het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1111">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1111 &middot; Geschiedenis en samenleving</p>
+    <h1>The Invention of Africa</h1>
+    <p class="lede">V.Y. Mudimbe, 1988</p>
+    <p class="stats">
+      <span><b>1820</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1111"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wat de westerse wetenschap Afrika noemt, is voortgebracht door haar eigen teksten. Mudimbe volgt hoe reisverslagen, missiegeschriften, etnografie en het vak dat zichzelf africanisme noemde samen een orde van kennis hebben gevormd waarbinnen zowel Europeanen als Afrikanen over Afrika zijn gaan denken. Die verzameling teksten noemt hij de koloniale bibliotheek. Zijn stelling is dat wie zich tegen het westerse beeld van Afrika keert, dat doet met begrippen die in diezelfde bibliotheek zijn gevormd, zodat het verzet de ordening bevestigt die het bestrijdt. Het boek onderzoekt daarom niet of de uitspraken over Afrika juist zijn, maar onder welke voorwaarden zij als kennis konden gelden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Mudimbe kreeg van het Joint Committee on African Studies van de Social Science Research Council de opdracht een overzicht van de Afrikaanse filosofie te schrijven. Dat overzicht liep uit op iets anders. In de inleiding zegt hij dat de vraag wat wel en wat niet Afrikaanse filosofie mag heten hem dwong een stap terug te doen, naar de voorwaarden waaronder er over Afrika gefilosofeerd kan worden.</p>
+      <p>Het sleutelwoord uit de ondertitel is <i>gnosis</i>: kennis in de zin van zoeken te weten, een geordend geheel van kennen dat aan eigen procedures voor gebruik en overdracht gebonden is. Mudimbe onderscheidt het van doxa, mening, en van episteme, wetenschap. Met dat woord kondigt hij aan dat hij de Afrikaanse kennis in kaart brengt zonder haar aan een maatstaf te toetsen.</p>
+      <h3>De koloniale structuur en het beeld van de ander</h3>
+      <p>Het eerste hoofdstuk vat kolonisatie samen als drie samenhangende projecten: beheersing van de fysieke ruimte, hervorming van de geest van de gekoloniseerde en inlijving van lokale economieën in het westerse perspectief. Dat drietal noemt hij de koloniale structuur. Het gevolg ervan is geen sprong van traditie naar moderniteit; er ontstaat een tussengebied dat hij marginaliteit noemt, verstedelijkte armoede waarin oude en nieuwe verhoudingen door elkaar heen lopen en waarin de tegenstellingenreeks traditioneel tegenover modern, oraal tegenover geschreven, van kracht blijft.</p>
+      <p>Daarna verlegt hij het onderzoek naar de beeldvorming zelf. Hij bespreekt een prent uit 1508 van de Augsburgse meester Hans Burgkmair, die zes taferelen van 'primitieven' tekende bij het reisverslag van Balthasar Springer. Burgkmair had vrijwel zeker geen model uit Guinea. Hij tekende een blank lichaam in klassiek contrapposto en maakte het zwart, met armbanden en kralensnoeren als tekens van wildheid. Mudimbe leest de prent als twee handelingen tegelijk: het vreemde wordt eerst teruggebracht tot de norm van het bekende en vervolgens van uiterlijke verschillen voorzien die het op afstand houden.</p>
+      <h3>Archeologie in plaats van weerlegging</h3>
+      <p>Het tweede hoofdstuk verantwoordt de methode. Mudimbe ontleent aan Foucault het begrip voorwaarden van mogelijkheid en aan Lévi-Strauss de aandacht voor classificatie. Etnologische beweringen over Afrika weerlegt hij niet stuk voor stuk; hij vraagt welke ordening van kennis zulke beweringen denkbaar maakte.</p>
+      <p>Als voorbeeld neemt hij Carl Sagan, die de Dogon-kennis over de begeleider van Sirius verklaarde uit een Franse bezoeker die in de jaren dertig zijn eigen astronomie zou hebben doorverteld. Mudimbe wijst op de sigui-riten van 1847, 1907 en 1967, die de omlooptijd al symbolisch verwerken, en op het Dogon-begrip sagala voor een metaal dat op aarde niet voorkomt. Sagans veronderstelling noemt hij epistemologisch etnocentrisme: het geloof dat er van hen wetenschappelijk niets te leren valt tenzij het al van ons komt. Von Dänikens verklaring met buitenaardse bezoekers wijst hij in dezelfde beweging af, met de opmerking dat de twee auteurs elkaar dichter naderen dan zij vermoeden.</p>
+      <h3>Missie, negritude en de erfenis van Blyden</h3>
+      <p>Het derde hoofdstuk gaat over de missionaris als spreker. Mudimbe zet het bekeringsdiscours uiteen in schema's van premissen, symbolen en doelen, en laat zien hoe de zending het Afrikaanse veld eerst als leeg of afgeschreven moest voorstellen om er iets te kunnen planten. In hetzelfde hoofdstuk behandelt hij Sartre als, zoals hij het noemt, filosoof in partibus van de negritude: met <i>Orphée noir</i> gaf een Europees denker de zwarte zelfbevestiging haar filosofische vorm, en juist die goedkeuring maakte haar afhankelijk.</p>
+      <p>Het vierde hoofdstuk is gewijd aan Edward Wilmot Blyden (1832-1912), geboren op Sint-Thomas en vanaf 1851 werkzaam in Liberia en Sierra Leone. Senghor noemde hem de voorloper van de negritude. Mudimbe laat zien hoe Blyden tegelijk de Afrikaanse persoonlijkheid verdedigde en kolonisatie als middel tot vooruitgang aanvaardde, en concludeert dat het alternatief dat hij bood zijn begrippen ontleende aan het racialisme dat het wilde weerleggen.</p>
+      <h3>Het geduld van de filosofie</h3>
+      <p>Het vijfde en langste hoofdstuk behandelt het twistgesprek over Afrikaanse filosofie. Het begint bij het begrip primitieve filosofie van Lévy-Bruhl en bij <i>La philosophie bantoue</i> (1945) van de Belgische missionaris Placide Tempels, gaat via Alexis Kagame naar de rede die Franz Crahay in maart 1965 in Kinshasa hield en waarin hij eiste dat filosofie expliciet, analytisch en zelfkritisch is.</p>
+      <p>Daarna volgen de Afrikaanse critici: Fabien Eboussi-Boulaga, Marcien Towa en vooral Paulin Hountondji, van wie Mudimbe zegt dat zijn artikelen het debat internationaal maakten en dat zijn bundel de bijbel van de anti-etnofilosofen werd. Mudimbe geeft die kritiek gelijk in haar methodische strengheid en plaatst haar tegelijk terug in de geschiedenis van het africanisme: ook de eis dat filosofie een geschreven, ondertekend betoog is, komt uit een westerse academische orde. Hij wijst erop dat de school van Kinshasa, met Tshiamalenga en Smet, een tussenpositie innam.</p>
+      <p>Een appendix behandelt de Ethiopische bronnen die de Canadese geleerde Claude Sumner heeft uitgegeven, waaronder de zeventiende-eeuwse hatata's van Zar'a Yacob en Walda Heywat. Mudimbe vermeldt eerlijk dat Conti Rossini in 1916 opperde dat het om Europees maakwerk ging en dat Sumner het tegendeel probeert aan te tonen.</p>
+      <h3>De geografie van een discours</h3>
+      <p>In het slot zet Mudimbe twee tegengestelde bewegingen naast elkaar: synchrone, meestal antropologische betogen die een regionale rationaliteit blootleggen, en diachrone betogen, marxistisch of politiek, die de breuklijnen in sociale stelsels lezen. De scheidslijn tussen traditie en moderniteit die daaruit volgt, wijst hij af, omdat traditie zelf al overdracht met breuken is.</p>
+      <p>Hij besluit met een voorzichtige uitspraak. Het onderwerp van de Afrikaanse gnosis is van object tot spreker geworden, en de ruimte die door onderzoek naar Afrikaanse denkstelsels wordt bevraagd, is geen leegte. Verder gaat hij niet: een program voor een van de bibliotheek losgemaakte kennis biedt het boek niet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">gnosis</td><td>Kennis in de zin van zoeken te weten: een geordend, aan eigen procedures gebonden geheel van kennen, door Mudimbe onderscheiden van doxa (mening) en episteme (wetenschap).</td></tr>
+          <tr><td class="term">koloniale bibliotheek</td><td>Het geheel van reisverslagen, missieteksten, etnografieën en studies waaruit het beeld van Afrika is opgebouwd en waaruit ook latere Afrikaanse auteurs blijven putten.</td></tr>
+          <tr><td class="term">koloniale structuur</td><td>De drie samenhangende koloniale projecten: beheersing van de ruimte, hervorming van de geest van de gekoloniseerde en inlijving van lokale economieën.</td></tr>
+          <tr><td class="term">marginaliteit</td><td>De tussenruimte tussen zogenaamde traditie en beloofde moderniteit, die Mudimbe als het eigenlijke kenmerk van onderontwikkeling leest.</td></tr>
+          <tr><td class="term">epistemologisch etnocentrisme</td><td>Het geloof dat er bij anderen wetenschappelijk niets te leren valt tenzij het al van ons afkomstig is.</td></tr>
+          <tr><td class="term">africanisme</td><td>De westerse discipline die Afrika als studieobject heeft ingesteld en daarmee de grenzen van het denkbare over Afrika vastlegde.</td></tr>
+          <tr><td class="term">voorwaarden van mogelijkheid</td><td>Aan Foucault ontleende vraagstelling: niet of een uitspraak waar is, maar wat haar als kennis denkbaar maakte.</td></tr>
+          <tr><td class="term">alteriteit</td><td>Het andere-zijn zoals het door classificerende schema's van gelijkenis en verschil wordt geordend en op afstand gehouden.</td></tr>
+          <tr><td class="term">etnofilosofie</td><td>De reconstructie van een collectief, onbewust wereldbeeld als filosofie van een volk, een term die Mudimbe van Hountondji overneemt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op tekstlezing, niet op veldwerk. De bibliografie beslaat bijna dertig bladzijden en Mudimbe citeert zijn bronnen uitvoerig: Tempels, Kagame, Crahay, Eboussi-Boulaga, Towa, Hountondji, Blyden, Sagan, Griaule en Dieterlen. Waar hij een tegenstander weerlegt, zoals bij Sagan en de Dogon, doet hij dat met dateerbare gegevens over de sigui-riten en over de geschiedenis van de astronomie van witte dwergen.</p>
+      <p>Voor de grotere stelling, dat alle spreken over Afrika binnen één orde van kennis valt, is de onderbouwing van een andere soort. Zij bestaat uit een reeks lezingen die dat patroon laten zien, niet uit een toets die het patroon zou kunnen weerleggen. Mudimbe noemt zijn boek zelf een kritische synthese en een subjectief werk, en zegt erbij dat hij niet alle bestaande richtingen kan behandelen.</p>
+      <p>Het materiaal is bovendien scheef verdeeld. Het zwaartepunt ligt bij Franstalig Centraal-Afrika en bij de katholieke missie; Engelstalig West-Afrika, Portugeestalig Afrika en het islamitische noorden komen veel minder aan bod, al voegt de appendix over Ethiopische teksten een tegenwicht toe.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar is dat het boek zichzelf in de staart bijt. Mudimbe analyseert het westerse spreken over Afrika met Foucault, Lévi-Strauss en Braudel, en gebruikt dus precies het begrippenapparaat waarvan hij aantoont dat het de orde bepaalt. Hij zegt dat in de inleiding zelf: ook de meest afrocentrische beschrijvingen verwijzen naar diezelfde westerse orde. Dat is eerlijk, maar het is een vaststelling en geen uitweg.</p>
+      <p>Daarmee samen hangt het verwijt dat er weinig ruimte overblijft voor Afrikaans handelen. Wie iedere zelfbeschrijving terugvoert op de bibliotheek, maakt het moeilijk om te zeggen wat er dan wel gedacht kan worden. Lezers die van een kritiek een alternatief verwachten, wijzen erop dat het boek de politieke werkelijkheid van het Afrika van de jaren tachtig nauwelijks raakt en geen program biedt voor wat na de afbraak komt.</p>
+      <p>Van afrocentrische kant komt het omgekeerde bezwaar. Mudimbe noemt de africanisering van het diffusionisme bij Cheikh Anta Diop een op zichzelf begrijpelijke maar overdreven zet, en behandelt de Egyptische afstamming van de Afrikaanse beschaving als een mobiliserende mythe waarvan de ontbrekende schakels nog gevonden moeten worden. Wie dat werk als historische reconstructie leest, ervaart zijn behandeling als een afwijzing die te snel gaat.</p>
+      <p>Ten slotte de vorm. Het boek is dicht geschreven, springt tussen kunstgeschiedenis, missiologie, antropologie en filosofie, en veronderstelt kennis van Foucault. Dat maakt het moeilijk toegankelijk voor lezers die het onderwerp juist willen leren kennen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een tekst over een volk of streek eerst na aan wie hij gericht is en welke eerdere teksten hij herhaalt, voordat je vraagt of hij klopt.</li>
+        <li>Onderscheid de vraag of een bewering juist is van de vraag hoe zij denkbaar werd; de tweede vraag levert vaak meer op bij oude etnografie.</li>
+        <li>Let bij tegenbetogen op geleende begrippen: wie een beeld omkeert, houdt meestal het schema in stand waarin het beeld paste.</li>
+        <li>Gebruik het onderscheid tussen bronmateriaal en het interpretatiekader van de bewerker; het gaat bij Mudimbe telkens mis waar die twee samenvallen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Invention of Africa: Gnosis, Philosophy, and the Order of Knowledge</i> (Indiana University Press, Bloomington en Indianapolis, 1988, xii + 241 blz., ISBN 9780253331267; paperback ISBN 9780253204684), tegelijk uitgegeven door James Currey in Londen. Er is geen Nederlandse vertaling gevonden; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Valentin-Yves Mudimbe (1941-2025), geboren in Belgisch-Congo, was filosoof, romanschrijver en hoogleraar in de Verenigde Staten. Hij vraagt in dit boek niet wat Afrika is, maar hoe het als kennisobject is gemaakt: door reisverslagen, missiegeschriften, etnografie en de discipline die zichzelf africanisme noemde. Dat geheel van teksten noemt hij de koloniale bibliotheek; wie over Afrika schrijft, ook de Afrikaanse geleerde, put eruit en schrijft er tegelijk tegenin. Het boek loopt van zestiende-eeuwse Europese prenten van 'wilden' tot de twintigste-eeuwse ruzie over de vraag of er zoiets als Afrikaanse filosofie bestaat. Mudimbe erkent zelf dat hij zijn kritiek voert met begrippen van Foucault en Lévi-Strauss en dus binnen de orde blijft die hij onderzoekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>afrika</li><li>filosofie</li><li>kolonialisme</li><li>kennisleer</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1112"><a href="1112.html">African Philosophy: Myth and Reality</a>. Hountondji levert de aanval op de etnofilosofie die Mudimbe in zijn vijfde hoofdstuk uitvoerig bespreekt en vervolgens zelf weer in de geschiedenis van het africanisme plaatst. De twee boeken lezen elkaar.</li>
+          <li value="592"><a href="592.html">Yurugu</a>. Marimba Ani zet een Afrikaanse tegenover een Europese cultuurkiem. Mudimbe rekent zulke tegenoverstellingen tot dezelfde ordening die hij onderzoekt, zodat de twee boeken zich niet met elkaar laten verzoenen.</li>
+          <li value="594"><a href="594.html">African Philosophy: The Pharaonic Period</a>. Obenga bouwt de Afrikaanse filosofie op uit Egyptische bronnen. Mudimbe behandelt die lijn als een mobiliserende mythe met ontbrekende schakels; wie beide leest, krijgt twee onverenigbare voorstellen.</li>
+          <li value="1113"><a href="1113.html">Decolonising the Mind</a>. Ngugi trekt uit dezelfde diagnose een praktische slotsom en verlaat het Engels. Mudimbe schrijft in het Engels en Frans en houdt de tegenstrijdigheid uitdrukkelijk open.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

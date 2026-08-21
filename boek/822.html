@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herfsttij der Middeleeuwen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Huizinga keert de gebruikelijke blik op de veertiende en vijftiende eeuw om. Waar anderen in die periode de eerste tekenen van de Renaissance zoeken, ziet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-822">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">822 &middot; Geschiedenis en samenleving</p>
+    <h1>Herfsttij der Middeleeuwen</h1>
+    <p class="lede">Johan Huizinga, 1919</p>
+    <p class="stats">
+      <span><b>2014</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="822"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Huizinga keert de gebruikelijke blik op de veertiende en vijftiende eeuw om. Waar anderen in die periode de eerste tekenen van de Renaissance zoeken, ziet hij het einde van een beschaving: niet een lente die aanbreekt maar een herfst waarin de vruchten overrijp zijn. De vormen van het middeleeuwse leven, het ridderideaal, de hoofse liefde, het kerkelijke ceremonieel, de zinnebeelden waarin men dacht, staan volgens hem nog in volle praal overeind terwijl de gedachte die erin woonde is weggetrokken. Het woekeren van oude, dwingende denkvormen over de levende kern van de gedachte noemt hij zelf de hoofdinhoud van zijn boek.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt: de Van Eycks verklaren</h3>
+      <p>In het voorwoord vertelt Huizinga waar het werk vandaan komt. Hij wilde de schilderkunst van Jan van Eyck en zijn volgers beter verstaan door haar in het gehele leven van die tijd te plaatsen. Het boek zou eerst <i>De eeuw van Bourgondië</i> heten, met de Bourgondische samenleving als afgeronde beschavingskring naast het quattrocento, de Italiaanse vijftiende eeuw. Naarmate de beschouwing algemener werd liet hij die begrenzing los: het niet-Bourgondische Frankrijk eiste minstens evenveel aandacht, en zo werd het Frankrijk en de Nederlanden, met het Nederlandse deel duidelijk in de minderheid.</p>
+      <p>Hij noteert er meteen twee voorbehouden bij. Het aantal doorgelezen geschriften uit die twee eeuwen noemt hij gering tegenover alles wat hij nog had willen lezen, en hij vraagt zich af of het beeld niet somberder is geworden dan hij bij aanvang meende te zien, omdat wie steeds op neergang en verwelken let te veel schaduw over zijn werk laat vallen.</p>
+      <h3>'s Levens felheid</h3>
+      <p>Het eerste hoofdstuk stelt dat het leven toen scherpere uiterlijke vormen had. Tussen leed en vreugde leek de afstand groter; geboorte, huwelijk en sterven stonden door het sacrament in de glans van het geheim, en ook een reis, een klus of een bezoek werd omgeven door zegens, spreuken en omgangsvormen. Tegen rampen was minder verzachting: ziekte stak sterker af tegen gezondheid, kou en winterduister waren een werkelijker kwaad, en eer en rijkdom werden inniger genoten omdat de armoede ernaast zo zichtbaar was.</p>
+      <p>Bij die felheid hoort een pronkende openbaarheid. Leprozen klepperden met hun ratel, bedelaars stalden hun gebreken uit in de kerk, terechtstellingen waren voorstellingen, elke stand en elk beroep was aan de kleding te herkennen. Huizinga leest die uitvergroting niet als kleurrijk decor maar als een gemoedstoestand: een samenleving die tussen uitersten heen en weer slaat.</p>
+      <h3>Drie paden naar een schoner leven</h3>
+      <p>Het tweede hoofdstuk bevat de spil van het boek. Iedere tijd verlangt naar een schonere wereld en er zijn volgens Huizinga drie paden daarheen. Het eerste leidt regelrecht de wereld uit: de verzaking, waarin het betere leven alleen aan de overzijde te bereiken valt. Het tweede wijst naar verbetering van de wereld zelf, en dat pad hebben de middeleeuwen nauwelijks betreden. De instellingen golden als door God gewild en dus goed; het was de zonde van de mensen die de ellende in stand hield. Van een bewust streven naar hervorming als drijfveer van denken en handelen is geen sprake, en zelfs waar iets nieuws ontstond zag men dat als herstel van oud recht.</p>
+      <p>Juist die afwezigheid verklaart volgens Huizinga de zwaarmoedige grondtoon. Wie beter wilde maar de wereld niet kon verlaten, hield alleen het derde pad over: dat van de droom. Het leven wordt gekleurd met schone schijn en de werkelijkheid getemperd met het ideaal. Zodra de Renaissance en later de achttiende eeuw het tweede pad wel inslaan, maakt de levensangst plaats voor moed en hoop. Alles wat daarna in het boek komt, het ridderspel, de hoofse min, de herdersdroom, is uitwerking van dat derde pad.</p>
+      <h3>De heldendroom en de vormen der liefde</h3>
+      <p>Het ridderwezen was in de dertiende eeuw als maatschappelijke werkelijkheid al voorbij; wat volgde was de stedelijk-vorstelijke tijd waarin handelsmacht en geldmacht de doorslag gaven. Toch geven de verhalende bronnen aan de adel veel meer ruimte dan bij dat beeld past, en dat is precies Huizinga's punt: de adellijke levensvorm bleef de samenleving beheersen lang nadat zijn grondslag was weggevallen. Tornooien, ridderorden en plechtige geloften waren opluistering van het hoffeest geworden, met een rest van ernst erin. Commines, die de zaak nuchter bekeek, zag er een belachelijk anachronisme in waar de werkelijke drijfveren buiten vielen.</p>
+      <p>Hetzelfde patroon geldt voor de liefde. De hoofse vormen kleden het verlangen in oude, fantastische idealen, met de held die de maagd bevrijdt als kernmotief. Huizinga wijst erop dat het ridderlijke ideaal ook van binnenuit vermoeidheid opriep: het spel was te bont, te vals, te druk, en uit de adel zelf kwam de zucht naar eenvoud en rust, die uitmondde in de lof van het herdersleven en de vlucht van het hof.</p>
+      <h3>Het beeld van de dood en de verbeelding van het heilige</h3>
+      <p>Het vijfde hoofdstuk behandelt de manier waarop de late middeleeuwen de dood voorstelden. Niet de dood als overgang, maar het vergaan van het lichaam is het beeld dat overheerst: het skelet dat de levenden meevoert in de dodendans, de prediking over stof en wormen, het grafmonument dat het rottende lijf toont. Huizinga leest die nadruk als armoede aan gedachten. Er is één beeld, en het wordt herhaald tot het geen betekenis meer draagt.</p>
+      <p>In de hoofdstukken over het godsdienstige leven gebeurt iets vergelijkbaars. De verbeelding van het heilige is teugelloos geworden: heiligen, relieken en zinnebeelden zijn zo talrijk en zo tastbaar dat het onderscheid tussen geloof en gewoonte vervaagt. Tegelijk komen daar de gestalten in beeld waarin wel ernst zat, Jean Gerson en Dionysius de Kartuizer, en in het tiende hoofdstuk gaat Huizinga bewust over zijn eigen aardrijkskundige grenzen heen om ook Ruusbroec, Eckhart, Suso en Tauler te kunnen aanhalen.</p>
+      <h3>Denkvormen, kunst en het komen van de nieuwe vorm</h3>
+      <p>Het middendeel van het boek gaat over het denken zelf. Het zinnebeeldige denken, waarin elk ding naar iets hogers verwijst, was ooit een manier om samenhang te zien en is verworden tot een rekenkunst van overeenkomsten die niets meer oplevert. Huizinga noemt dat het falen van de verbeelding, en laat zien hoe die denkvormen in het dagelijkse leven doorwerken in rechtspraak, hofceremonieel en omgangsvormen.</p>
+      <p>In de hoofdstukken over kunst en woord komt hij terug bij zijn vertrekpunt. De schilderkunst van de Van Eycks bereikt volgens hem iets wat de letterkunde van dezelfde omgeving niet haalt: waar de dichters het detail opstapelen tot het beeld verstikt, houdt de schilder het bijeen. Het slothoofdstuk beschrijft hoe de nieuwe vorm zich aandient, niet als breuk maar als een langzame verschuiving waarin de oude vormen nog lang meegaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">herfsttij</td><td>Huizinga's beeld voor een beschaving die niet aan het begin maar aan het eind van haar ontwikkeling staat, met overrijpe vruchten en verstijvende vormen.</td></tr>
+          <tr><td class="term">levens- en gedachtenvormen</td><td>De uiterlijke vormen waarin een tijd zijn leven en denken giet, van hofceremonieel tot zinnebeeld, en het eigenlijke voorwerp van dit boek.</td></tr>
+          <tr><td class="term">'s levens felheid</td><td>De scherpe tegenstellingen tussen leed en vreugde, pracht en ellende die volgens Huizinga het levensgevoel van de veertiende en vijftiende eeuw bepaalden.</td></tr>
+          <tr><td class="term">het derde pad</td><td>De weg van de droom, waarop men de werkelijkheid niet verlaat en ook niet verbetert maar bekleedt met schone schijn.</td></tr>
+          <tr><td class="term">ridderideaal</td><td>Het geheel van moed, trouw en dienst aan de vrouwe dat als levensvorm van de adel bleef bestaan nadat het als maatschappelijk stelsel was verdwenen.</td></tr>
+          <tr><td class="term">hoofse min</td><td>De vaste vormen waarin de liefde aan het hof werd uitgedrukt, met de bevrijdende held en de onbereikbare vrouwe als vast motief.</td></tr>
+          <tr><td class="term">dodendans</td><td>De voorstelling waarin de dood mensen van elke stand bij de hand neemt, in dit boek het teken van een verbeelding die op het vergaan van het lichaam is vastgelopen.</td></tr>
+          <tr><td class="term">hofvlucht</td><td>De keerzijde van de herdersdroom: het afzweren van het hofleven ten gunste van eenvoud, dat volgens Huizinga zelf ook weer een hofvorm werd.</td></tr>
+          <tr><td class="term">symbolisme als denkvorm</td><td>De gewoonte om elk ding als teken van iets hogers te lezen, bij Huizinga aan het eind van de middeleeuwen uitgeput tot een spel met overeenkomsten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit teksten en beelden, geen cijfers. Huizinga noemt zijn getuigen in het voorwoord zelf: onder de geschiedschrijvers vooral Froissart en Chastellain, onder de dichters Eustache Deschamps, onder de godgeleerden Jean Gerson en Dionysius de Kartuizer, onder de schilders Jan van Eyck. Hij verantwoordt die keuze niet met representativiteit maar met zeggingskracht: deze zijn volgens hem bij uitstek de spiegel van de geest van die tijd. Dat is een eerlijke maar zwakke grond, want zeggingskracht en representativiteit vallen niet samen.</p>
+      <p>Binnen die keuze werkt het boek zorgvuldig. De eerste druk staat vol noten en citaten in het Oudfrans, en Huizinga citeert zijn bronnen op de plaatsen waar zij zichzelf tegenspreken, bijvoorbeeld wanneer dezelfde kroniekschrijver het ridderspel bejubelt en er even later om lacht. Wie de tekst nu leest, moet zich rekenschap geven van de overlevering: de Engelse bewerking van 1924 liet juist die noten en citaten weg, waardoor het boek er speculatiever uitzag dan het is.</p>
+      <p>Wat ontbreekt is een tegenproef. Huizinga zoekt niet naar getuigen die zijn beeld zouden kunnen weerspreken, en zijn kernbewering, dat het leven toen heftiger werd beleefd, is met dit soort materiaal niet vast te stellen. Hij erkent zelf dat elke tijd meer sporen van zijn leed dan van zijn geluk nalaat en dat de som van geluk waarschijnlijk niet veel verschilt tussen tijdvakken, maar bouwt zijn boek vervolgens toch op de somberheid van de overlevering.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het staande bezwaar geldt de bronnen. Huizinga's materiaal is opvallend eenvormig: Franstalig, verhalend, hoofs en geestelijk. Het Bourgondische hof was in Europa een geval apart, en wat daar werd opgeschreven kan bezwaarlijk doorgaan voor de gemoedstoestand van twee eeuwen in twee gebieden. Wat hij een aflopende cultuur noemt, was in de Nederlanden tegelijk een van de dichtstbevolkte en meest verstedelijkte streken van Europa, met bloeiende handel, ambacht en stadsbestuur. Van dat leven komt in het boek vrijwel niets voor.</p>
+      <p>Daarmee hangt samen dat de economische en sociale kant van de periode ontbreekt. Prijzen, lonen, peststerfte, opstanden van ambachtslieden en de verhouding tussen stad en vorst spelen geen rol in het betoog, terwijl juist die factoren de veranderingen verklaren die Huizinga als sfeer beschrijft. Zijn omgang met het godsdienstige leven is bovendien meer afstandelijk dan onderzoekend: veel volksdevotie behandelt hij als verval, terwijl latere historici daarin ook vernieuwing zien.</p>
+      <p>De methode blijft aanvechtbaar. Huizinga leest kunst en letterkunde als rechtstreeks getuigenis van een gedeeld gevoelsleven, en springt van een enkel citaat naar een uitspraak over een hele tijd. Die sprong maakt het boek leesbaar en levert de bekende beelden op, maar zij is niet te toetsen, en waar hij zich vergist is dat aan de tekst niet te merken.</p>
+      <p>Tegelijk is het boek honderd jaar na verschijnen niet weggelegd. In 2019 verscheen bij Amsterdam University Press de bundel <i>Rereading Huizinga: Autumn of the Middle Ages, a Century Later</i>, waarin historici zijn beeld naast bronnen leggen die hij niet gebruikte, vooral stedelijke. De uitkomst is niet dat hij ongelijk had, maar dat zijn beeld eenzijdig blijkt: het hof en de stad blijken elkaar veel meer te hebben beïnvloed dan bij hem zichtbaar wordt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de Nederlandse tekst als het origineel; wie zich op <i>The Waning of the Middle Ages</i> baseert, bespreekt een bewerking uit 1924.</li>
+        <li>Houd bij elk hoofdstuk bij welke getuige aan het woord is, en vraag of die getuige aan het hof of in de stad thuishoort.</li>
+        <li>Gebruik de drie paden naar een schoner leven als raster bij andere tijdvakken: verzaking, verbetering of verfraaiing met schone schijn.</li>
+        <li>Neem het boek als voorbeeld van cultuurgeschiedenis en niet als beschrijving van hoe de veertiende en vijftiende eeuw in feite in elkaar zaten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Huizinga schreef dit boek in het Nederlands. <i>Herfsttij der Middeleeuwen: studie over levens- en gedachtenvormen der veertiende en vijftiende eeuw in Frankrijk en de Nederlanden</i> verscheen in 1919 bij H.D. Tjeenk Willink in Haarlem, gedateerd Leiden, 31 januari 1919; in 1921 volgde een tweede, herziene druk. De Engelse titel <i>The Waning of the Middle Ages</i> uit 1924 is geen gewone vertaling: Fritz Hopman kortte de tekst sterk in, herschikte en hersneed de hoofdstukken, liet de noten en de Oudfranse citaten weg en verzachtte het betoog, in overleg met Huizinga zelf. Pas in 1996 verscheen bij University of Chicago Press de volledige vertaling <i>The Autumn of the Middle Ages</i> van Rodney J. Payton en Ulrich Mammitzsch, gebaseerd op de tweede Nederlandse druk. Engelstalige kritiek op het boek gaat dus tot 1996 over een bewerking. De Nederlandse tekst is vrij beschikbaar via Project Gutenberg in de spelling van 1919; een courante handelsuitgave is die van Olympus (40e druk, 2019, 534 blz., ISBN 9789046707203).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Huizinga bekijkt de veertiende en vijftiende eeuw in Frankrijk en de Nederlanden niet als aanloop naar de Renaissance maar als het einde van een beschaving die zichzelf heeft overleefd. Zijn onderwerp zijn de vormen van leven en denken: het openbare vertoon, het ridderideaal dat na de feodale tijd als hofspel voortbestaat, de vormen van de liefde, en het beeld van de dood dat in de dodendans en de vergane lichamen zijn scherpste uitdrukking krijgt. De eerste zin geeft de toon: toen de wereld vijf eeuwen jonger was, hadden alle levensgevallen veel scherper uiterlijke vormen dan nu.</p><p>Het boek kwam voort uit de wens de schilderkunst van de gebroeders Van Eyck te begrijpen uit het leven van hun tijd. Wat het beschrijft is een cultuur waarin de vormen zijn blijven staan nadat de inhoud eruit verdween. De onderbouwing komt vrijwel geheel uit hoofse en geestelijke bronnen, met Froissart, Chastellain, Deschamps, Gerson en Dionysius de Kartuizer als vaste getuigen. Het stedelijke en handeldrijvende leven van juist deze streek blijft daardoor grotendeels buiten beeld, en dat is sindsdien het hoofdbezwaar tegen het boek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>middeleeuwen</li><li>cultuurgeschiedenis</li><li>kunstgeschiedenis</li><li>ridderideaal</li><li>dood</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="534"><a href="534.html">Het Roelantslied</a>. <i>Het Roelantslied</i> laat het ridderideaal zien in de tijd dat het nog levende stof was, drie eeuwen voor de hofspelen die Huizinga beschrijft.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Ernest Becker leest in <i>The Denial of Death</i> hele culturen als verweer tegen de doodsangst. Dat is een andere verklaring voor de beelden die Huizinga in de dodendans aantreft.</li>
+          <li value="241"><a href="241.html">Leonardo da Vinci</a>. Isaacsons <i>Leonardo da Vinci</i> beschrijft dezelfde decennia in Italië als begin en niet als einde, wat het verschil tussen de twee gezichtspunten scherp maakt.</li>
+          <li value="828"><a href="828.html">Art and Illusion</a>. Gombrich onderzoekt in <i>Art and Illusion</i> hoe kijkers en schilders elkaars verwachtingen vormen, de vraag die achter Huizinga's gebruik van de Van Eycks als bron ligt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

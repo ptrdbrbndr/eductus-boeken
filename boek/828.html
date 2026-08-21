@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art and Illusion &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Art and Illusion stelt dat een schilder de zichtbare wereld niet nadoet maar vertaalt, en dat hij daarvoor is aangewezen op vormen die hij van andere…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-828">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">828 &middot; Maken en scheppen</p>
+    <h1>Art and Illusion</h1>
+    <p class="lede">E.H. Gombrich, 1960</p>
+    <p class="stats">
+      <span><b>1897</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="828"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p><i>Art and Illusion</i> stelt dat een schilder de zichtbare wereld niet nadoet maar vertaalt, en dat hij daarvoor is aangewezen op vormen die hij van andere schilders heeft geleerd. Weergeven begint bij een schema, een aangeleerde formule voor hoe een boom, een gezicht of een stad eruitziet, en de kunstenaar verbetert dat schema aan de hand van wat hij ziet. Gombrich vat dat samen als making comes before matching: maken gaat vooraf aan gelijken. Daaruit volgt de tweede stelling, dat er geen onschuldige blik bestaat. Ook de kijker brengt verwachtingen mee, en de illusie in een schilderij komt pas tot stand doordat hij die verwachtingen invult. De geschiedenis van het weergeven is bij Gombrich dus geen groei in zuiver kijken, maar een keten van gissingen en verbeteringen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst en bouw van het boek</h3>
+      <p>De tekst gaat terug op de Mellon-lezingen die Gombrich in 1956 in de National Gallery of Art in Washington hield. Het boek verscheen in 1960 en bestaat uit elf hoofdstukken in vier delen: De grenzen der gelijkenis, Vorm en functie, Het aandeel van de beschouwer, en Uitvinding en ontdekking.</p>
+      <p>De ruim driehonderd afbeeldingen zijn het bewijsmateriaal. Het betoog bestaat voor een groot deel uit paren: twee prenten van hetzelfde gebouw, twee tekeningen van hetzelfde meer, een schilderij naast een detail eruit. Gombrich was verbonden aan het Warburg Institute in Londen, waarvan hij in 1959 directeur werd, en schrijft als kunsthistoricus die de psychologie binnenhaalt.</p>
+      <h3>Van licht naar verf</h3>
+      <p>Het eerste hoofdstuk begint bij Constable, die het landschapschilderen een tak van natuurwetenschap noemde en zijn doeken proeven. Gombrich ontleedt <i>Wivenhoe Park</i> uit 1816 en laat zien dat geen enkele kleur op het doek overeenkomt met een kleur in het park. Wat de schilder overbrengt zijn verhoudingen: verf haalt het bereik van het daglicht niet, dus kiest de schilder een andere schaal waarin dezelfde verhoudingen bewaard blijven.</p>
+      <p>Daarmee is de toon gezet. Een schilderij kan niet waar of onwaar zijn, schrijft Gombrich, net zomin als een bewering blauw of groen kan zijn. Waarheid in de schilderkunst gaat over de vraag of de vertaling klopt, niet over de vraag of het beeld gelijk is aan het ding.</p>
+      <h3>Waarheid en stereotype</h3>
+      <p>Het tweede hoofdstuk opent met een herinnering van de schilder Ludwig Richter, die met drie collega's bij Tivoli hetzelfde uitzicht ging natekenen, met de afspraak niets te veranderen aan wat zij zagen. De vier bladen leken op elkaar noch op het uitzicht; elk droeg het handschrift van de school waarin de tekenaar was opgeleid. Stijl regeert, zegt Gombrich, ook waar de kunstenaar de natuur trouw wil zijn.</p>
+      <p>Het vertrouwde blijft het beginpunt voor het weergeven van het onvertrouwde. Zonder beginschema krijgt niemand greep op de stroom van de waarneming, want er is dan niets om aan af te meten.</p>
+      <h3>Schema en correctie</h3>
+      <p>In het middendeel voert Gombrich de gevallen aan waarop zijn model rust. Villard de Honnecourt tekende in de dertiende eeuw een leeuw en schreef erbij dat hij hem naar het leven had getekend; de leeuw is heraldisch. Chiang Yee tekende in de jaren dertig het Engelse Derwentwater in Chinees idioom, en zijn blad staat in het boek naast een Engelse litho van hetzelfde meer: twee verschillende werelden, allebei ter plaatse getekend.</p>
+      <p>Het verschil tussen de middeleeuwen en de tijd erna formuleert hij scherp: voor de middeleeuwer is het schema het beeld, voor de latere kunstenaar is het schema het vertrekpunt voor correcties. Waar dat corrigeren stelselmatig wordt, ontstaat wat Gombrich de Griekse omwenteling noemt, de weg van het starre archaïsche beeld naar het bewegende lichaam. Daartegenover staat de Egyptische kunst, die weergeeft wat men van een ding weet in plaats van wat men er op een gegeven moment van ziet.</p>
+      <p>Hier valt de zin waar het boek om bekendstaat. Maken gaat vooraf aan gelijken: zonder iets gemaakt te hebben is er niets om mee te vergelijken.</p>
+      <h3>Het aandeel van de beschouwer</h3>
+      <p>Het derde deel verschuift de aandacht naar de kijker. Leonardo raadde aan naar vlekken op een muur te staren om er beelden in te zien; Alexander Cozens maakte daar in de achttiende eeuw een tekenmethode van, met inktvlekken als vertrekpunt voor landschappen. Die beelden zitten niet in de vlek, maar in wat de kijker erin legt.</p>
+      <p>Verwachting maakt de illusie. De schilder hoeft niet alles af te maken: als hij genoeg aanwijzingen geeft, vult het oog de rest aan, en dat aanvullen volgt de regels van wat waarschijnlijk is. Achterin een geschilderde menigte staan geen gezichten, maar de kijker leest er gezichten en neemt aan dat de reeks zo doorloopt. Gombrich noemt dat het enzovoort-beginsel.</p>
+      <p>Dat de kijker een aandeel heeft, betekent ook dat hij niet twee dingen tegelijk kan zien. Bij de eend-konijnfiguur, de tekening die als eend of als konijn te lezen valt, wisselt de lezing wel maar valt zij nooit samen. Zo werkt het volgens Gombrich ook met verf en voorstelling: wie de toets ziet, ziet op dat moment geen huid.</p>
+      <h3>Uitvinding en ontdekking</h3>
+      <p>Het slotdeel behandelt wat er gebeurt wanneer het corrigeren tot in de negentiende eeuw doorloopt. Het impressionisme presenteerde zich als terugkeer naar zuiver kijken, met het onschuldige oog van Ruskin als leus. Juist die aanspraak wijst Gombrich af: zien is nooit alleen registreren, maar een reactie van het hele lichaam op wat op het netvlies valt.</p>
+      <p>In het hoofdstuk over de karikatuur ziet hij een proefopstelling. De karikaturist vervormt een gezicht tot ver buiten iedere maat en toch blijft het herkenbaar, wat laat zien dat gelijkenis in de herkenning zit en niet in de afmetingen. Het laatste hoofdstuk breidt dat uit naar uitdrukking: ook een gezichtsuitdrukking wordt gelezen, en de lezing hangt af van waarmee zij wordt vergeleken.</p>
+      <h3>Popper op de achtergrond</h3>
+      <p>Schema en correctie is de kunsthistorische tegenhanger van gissing en weerlegging bij Karl Popper, met wie Gombrich bevriend was. Kunstgeschiedenis wordt daarmee een reeks veronderstellingen die aan de wereld worden voorgelegd en daarna worden bijgesteld.</p>
+      <p>Die keuze maakt de opeenvolging van stijlen begrijpelijk zonder dat er een doel of een tijdgeest bij nodig is, en zij maakt het mogelijk over vooruitgang in het weergeven te spreken zonder te beweren dat de kunst zelf beter wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">schema</td><td>De aangeleerde formule waarmee een kunstenaar begint, de eerste ruwe categorie die daarna wordt aangescherpt tot zij op het waargenomene lijkt.</td></tr>
+          <tr><td class="term">correctie</td><td>Het bijstellen van dat schema aan de hand van waarneming, waardoor de aangepaste vorm weer beschikbaar komt voor de volgende kunstenaar.</td></tr>
+          <tr><td class="term">making comes before matching</td><td>Gombrichs stelregel dat er eerst iets gemaakt moet zijn voordat er iets met de werkelijkheid vergeleken kan worden.</td></tr>
+          <tr><td class="term">het aandeel van de beschouwer</td><td>Het deel van de voorstelling dat de kijker zelf bijdraagt door aan te vullen wat de schilder heeft weggelaten.</td></tr>
+          <tr><td class="term">verwachtingshouding</td><td>Gombrichs mental set: de instelling waarmee iemand naar een beeld kijkt en die bepaalt welke lezing zich als eerste aandient.</td></tr>
+          <tr><td class="term">enzovoort-beginsel</td><td>De neiging van de kijker om een begonnen reeks in gedachten door te trekken, zodat enkele aangezette vormen als een hele menigte of een heel bladerdek worden gelezen.</td></tr>
+          <tr><td class="term">de onschuldige blik</td><td>Het denkbeeld dat men kan leren kijken zonder voorkennis, door Ruskin aanbevolen en door Gombrich verworpen.</td></tr>
+          <tr><td class="term">aangepast stereotype</td><td>De vaste vorm die zo lang is bijgeschaafd dat hij als natuurgetrouw doorgaat, terwijl hij nog altijd een formule is.</td></tr>
+          <tr><td class="term">projectie</td><td>Het inleggen van betekenis in vage of onvolledige vormen, zoals bij vlekken op een muur of bij een schets.</td></tr>
+          <tr><td class="term">illusie</td><td>Bij Gombrich niet het verwarren van beeld en werkelijkheid, maar het wisselend lezen van een oppervlak als verf en als voorstelling.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijs staat grotendeels in de illustraties. Gombrich zet beelden naast elkaar die volgens de gangbare uitleg hetzelfde zouden moeten laten zien en die dat niet doen: twee tekenaars ter plaatse bij hetzelfde meer, een dertiende-eeuwse leeuw naar het leven die op een wapenschild lijkt, dezelfde soort scène in twee tijdperken. Voor wie de platen naast de tekst legt, is dat controleerbaar materiaal.</p>
+      <p>Daarnaast steunt hij op bronnen uit de praktijk: tekenhandleidingen, de verhandeling van Cozens over de inktvlekmethode, uitspraken van Constable en Leonardo, en de herinneringen van Richter. Dat zijn getuigenissen van makers, geen proeven, en Gombrich behandelt ze ook zo.</p>
+      <p>De psychologie waarop hij leunt is die van de jaren vijftig: gestaltleer, waarnemingsconstantie en de toen jonge informatietheorie, waaruit hij overneemt dat hoe waarschijnlijker een teken is, hoe minder het meedeelt. Dat deel is verouderd. Het schemabegrip zelf hield beter stand en dook later in andere vakken op, onder meer in de psychologie van de muziek.</p>
+      <p>Wat ontbreekt is toetsing. Gombrich stelt een mechanisme voor en illustreert het rijk, maar noemt nergens een geval waarin zijn model niet zou kloppen. Hij kiest de voorbeelden zelf, en het beeldmateriaal is ruim genoeg om vrijwel elke stelling te illustreren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De bekendste tegenwerping komt van Nelson Goodman in <i>Languages of Art</i> uit 1968. Gelijkenis is voor weergeven noch nodig noch voldoende: een portret lijkt vaak meer op andere portretten dan op de geportretteerde, en twee auto's van hetzelfde model lijken volmaakt op elkaar zonder dat de een de ander weergeeft. Weergeven berust volgens hem op verwijzing binnen een tekenstelsel, dat ook bepaalt welke gelijkenissen opvallen. Goodman neemt de afwijzing van de onschuldige blik over en keert haar tegen het naturalisme dat Gombrich zelf overhoudt: ook het perspectief is dan een afspraak en geen ontdekking.</p>
+      <p>Een tweede bezwaar geldt het woord illusie. Niemand houdt een schilderij voor een landschap, en het wisselen tussen verf zien en voorstelling zien is niet hetzelfde als bedrogen worden. Richard Wollheim stelde daartegenover het zien-in, waarbij de kijker het oppervlak en het afgebeelde juist tegelijk gewaarwordt. Wie hem volgt, verliest de eend-konijnfiguur als model voor het kijken naar schilderijen.</p>
+      <p>Uit een andere hoek kwam Norman Bryson met <i>Vision and Painting</i> uit 1983. Zijn verwijt is dat Gombrich de schilderkunst behandelt als een zaak tussen oog en oppervlak, waardoor opdrachtgevers, geloof, macht en betekenis buiten beeld blijven. De vraag hoe een beeld werkt, raakt bij Gombrich los van de vraag waarvoor het gemaakt is.</p>
+      <p>Het verhaal is bovendien westers en op één doel gericht. De lijn loopt van Egypte via Griekenland en de Renaissance naar het impressionisme, met niet-westerse kunst vooral als contrastmateriaal. Gombrich ontkent dat hij vooruitgang in kunst bedoelt, maar het boek is wel opgezet als de geschiedenis van een probleem dat steeds beter wordt opgelost.</p>
+      <p>Over het karakter van het boek: het is dicht geschreven, springt van kunstgeschiedenis naar waarnemingspsychologie en terug, en veronderstelt dat de lezer de besproken werken kent. Zonder de platen valt het betoog moeilijk te volgen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek met de illustraties erbij; de vergelijkingen tussen beelden dragen het betoog en zijn in de tekst alleen aangeduid.</li>
+        <li>Gebruik schema en correctie als vraag bij eigen werk: welke formule dient hier als vertrekpunt, en waaraan wordt zij bijgesteld.</li>
+        <li>Let bij een tekening of foto op wat de kijker geacht wordt aan te vullen.</li>
+        <li>Neem de stelling over de onschuldige blik mee naar buiten de kunst: ook bij het lezen van grafieken en kaarten stuurt de verwachting de lezing.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Study in the Psychology of Pictorial Representation</i>. Verschenen in 1960 bij Pantheon Books in New York als deel XXXV.5 van de Bollingen Series, en bij Phaidon in Londen; de tekst gaat terug op de A.W. Mellon Lectures in the Fine Arts die Gombrich in 1956 hield in de National Gallery of Art in Washington. Het boek telt elf hoofdstukken in vier delen en ruim driehonderd afbeeldingen. Nederlands als <i>Kunst en illusie: de psychologie van het beeldend weergeven</i>, in 1964 bij De Haan in Zeist en Standaard Boekhandel in Antwerpen, vertaald door H. van Teylingen en anderen; een latere Nederlandse druk verscheen bij De Haan in Houten (1988, 378 bladzijden, ISBN 9026943865). De Engelse tekst is meermalen herzien en kwam in 2000 uit als millenniumeditie bij Princeton University Press.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gombrich gaat na hoe het komt dat een plat vlak met verf erop voor een landschap of een gezicht kan doorgaan. Zijn antwoord is dat een schilder de wereld niet nadoet maar vertaalt, en dat hij dat alleen kan met vormen die hij van andere schilders heeft geleerd. Weergeven begint bij een schema, een aangeleerde formule, die aan de waarneming wordt bijgesteld. Maken gaat vooraf aan gelijken, luidt de formule die het boek bekend heeft gemaakt.</p><p>De tweede helft verplaatst de aandacht naar de kijker. De illusie zit niet alleen in het doek maar ook in het hoofd van wie ernaar kijkt: verwachtingen vullen aan wat de schilder heeft weggelaten. Er bestaat geen onschuldige blik, en dus ook geen kunstgeschiedenis die als een gestage groei naar zuiver kijken te vertellen valt. De ruim driehonderd afbeeldingen zijn hier geen versiering maar het bewijsmateriaal.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kunstgeschiedenis</li><li>waarneming</li><li>psychologie</li><li>esthetiek</li><li>beeldcultuur</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="824"><a href="824.html">The Unanswered Question</a>. Bernstein probeerde in zijn Harvard-colleges hetzelfde voor de muziek: een kunstvorm verklaren met een theorie van buiten het vak, alleen met minder houvast dan Gombrich had.</li>
+          <li value="582"><a href="582.html">The Primary World of Senses</a>. Straus onderzoekt de waarneming zelf, vanuit de fenomenologie, en levert de beschrijving van zien waarop Gombrichs psychologische aannames zouden moeten aansluiten.</li>
+          <li value="654"><a href="654.html">Against Method</a>. Feyerabend bestrijdt het beeld van kennis als gissing en verbetering dat Gombrich van Popper overneemt.</li>
+          <li value="241"><a href="241.html">Leonardo da Vinci</a>. Isaacson beschrijft de werkwijze van Leonardo, wiens raad om beelden in muurvlekken te zoeken bij Gombrich een sleutelvoorbeeld is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

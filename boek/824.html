@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Unanswered Question &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="The Unanswered Question stelt dat muziek een taal is met een aangeboren grammatica die voor alle mensen dezelfde is, en dat tonaliteit daarom geen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-824">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">824 &middot; Maken en scheppen</p>
+    <h1>The Unanswered Question</h1>
+    <p class="lede">Leonard Bernstein, 1976</p>
+    <p class="stats">
+      <span><b>1757</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="824"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p><i>The Unanswered Question</i> stelt dat muziek een taal is met een aangeboren grammatica die voor alle mensen dezelfde is, en dat tonaliteit daarom geen historische afspraak is maar in de natuurkunde van de klank ligt. Bernstein leidt die grammatica af uit de boventoonreeks: de tonen die boven de grondtoon van een trillende snaar meeklinken, leveren in vaste volgorde het octaaf, de kwint en de grote terts, en daarmee de drieklank en de pentatonische toonladder. Daaruit volgt de tweede stelling, die de laatste drie colleges draagt: de twaalftoonsmuziek van Schönberg heeft die grond losgelaten en is daarom een doodlopende weg, terwijl Stravinsky de tonaliteit heeft gered door haar te rekken zonder haar op te geven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Zes colleges in Harvard</h3>
+      <p>Aan de leerstoel die Bernstein voor het studiejaar 1972/1973 kreeg toegewezen hangt de verplichting zes openbare colleges te geven. Hij gaf ze in het najaar van 1973, met muziekvoorbeelden aan de vleugel en met fragmenten die door een orkest werden gespeeld. Ze werden gefilmd, in 1976 uitgegeven en op televisie uitgezonden.</p>
+      <p>Het boek is spreektekst. Dat bepaalt het karakter: lange colleges met veel zijpaden, een toon die overtuigen wil in plaats van afwegen, en een opbouw die naar een slotsom toewerkt die vanaf de eerste bladzijde vaststaat. Het zesde college duurde ruim drie uur.</p>
+      <h3>Muzikale fonologie</h3>
+      <p>Chomsky beschrijft taal als een aangeboren vermogen met regels die onder alle afzonderlijke talen liggen. Bernstein neemt die opzet over en zoekt de muzikale tegenhanger van het foneem, de kleinste klankeenheid waarmee betekenis wordt onderscheiden. Hij vindt die in de boventoonreeks: een trillende snaar klinkt niet alleen op zijn grondtoon, maar laat daarboven een vaste rij tonen meeklinken.</p>
+      <p>Uit de eerste boventonen leidt hij achtereenvolgens het octaaf, de kwint en de grote terts af, en daarmee de drieklank en de pentatonische toonladder die in veel muziekculturen voorkomt. Dat noemt hij zijn bewijs voor substantiële universalia: bouwstenen die niet zijn afgesproken maar in de klank zelf liggen. Daaraan koppelt hij de monogenese, het denkbeeld dat alle muziek uit één bron voortkomt, zoals sommige taalkundigen dat voor alle talen aannemen.</p>
+      <h3>Muzikale syntaxis</h3>
+      <p>Het tweede college gaat over structuur. Bernstein leent van Chomsky het onderscheid tussen dieptestructuur en oppervlaktestructuur, en de gedachte dat de tweede uit de eerste ontstaat door bewerkingen: weglaten, verschuiven, invoegen. Hij past dat toe op het eerste deel van Mozarts Symfonie nr. 40.</p>
+      <p>Om te laten horen wat symmetrie in haar eentje oplevert, schreef hij zelf een passage van zesendertig maten waarin alles netjes in groepen van twee, vier en acht valt. Die noemt hij proza, of muziek van een slecht componist. Wat Mozart doet, zegt hij, is de sprong van prozaïsche symmetrie naar poëtisch evenwicht, en die sprong is de kunst.</p>
+      <h3>Muzikale semantiek</h3>
+      <p>Het derde college behandelt de vraag wat muziek betekent. Bernstein verwerpt zowel de opvatting dat muziek niets betekent als de opvatting dat zij gebeurtenissen naschildert. Zijn antwoord is de metafoor: betekenis ontstaat doordat het ene muzikale gegeven het andere overneemt, spiegelt of tegenspreekt. Hij onderscheidt daarbij de metaforen die binnen de muziek werken van de verwijzingen naar iets buiten de muziek.</p>
+      <p>Beethovens Zesde symfonie, de Pastorale, dient als proefgeval. Het is het bekendste voorbeeld van muziek met een buitenmuzikaal programma, en juist daar betoogt Bernstein dat het naschilderen van beek en onweer bijzaak is en dat de betekenis in de behandeling van het materiaal zit.</p>
+      <h3>De genoegens en gevaren van dubbelzinnigheid</h3>
+      <p>Het vierde college is het scharnier van de reeks. Ambiguïteit, het openhouden van meer dan één lezing, is volgens Bernstein de bron van muzikale zeggingskracht, en de negentiende eeuw heeft die bron steeds dieper aangeboord. Hij volgt de weg van de balscène uit Berlioz' <i>Roméo et Juliette</i> naar het voorspel van Wagners <i>Tristan und Isolde</i>, en vandaar naar Debussy's <i>Prélude à l'après-midi d'un faune</i>.</p>
+      <p>In het voorspel van <i>Tristan</i> blijft tot het einde onbeslist welke toonsoort geldt. Bernstein wijst daarbij op ontleningen van Wagner aan Berlioz. De lijn die hij tekent is er een van toenemende chromatiek: hoe meer tonen van buiten de toonsoort worden gebruikt, hoe zwakker het middelpunt wordt, tot het bijna verdwijnt.</p>
+      <h3>De crisis van de twintigste eeuw</h3>
+      <p>Het vijfde college behandelt het punt waarop dat middelpunt inderdaad wegvalt. Mahlers Negende symfonie leest Bernstein als een afscheid, van de tonaliteit en van de negentiende eeuw tegelijk. Daarna splitst de muziek zich in twee kampen: Schönberg, die met de twaalftoonstechniek de toonsoort opgeeft, en de componisten die haar aanhouden.</p>
+      <p>Hier komt Ives' <i>The Unanswered Question</i> uit 1908 binnen, het stuk waaraan de reeks haar naam ontleent: strijkers die rustig doorspelen, een trompet die telkens dezelfde vraag stelt, blazers die steeds heviger en steeds minder antwoord geven. Bernstein maakt daarvan de vraag naar de toekomst van de muziek.</p>
+      <h3>De poëzie van de aarde</h3>
+      <p>Het slotcollege is een geloofsbelijdenis. Tonaliteit is volgens Bernstein niet dood en kan niet doodgaan, omdat zij in de boventoonreeks verankerd ligt. Stravinsky geldt hem als bewijs: <i>Oedipus Rex</i> laat zien hoe een componist de tonaliteit kan verplaatsen en verstoren en haar toch behouden.</p>
+      <p>De laatste zinnen horen bij de bekendste die Bernstein heeft uitgesproken: hij weet niet meer zeker wat de vraag was, maar hij weet wel dat het antwoord ja is. Als slot van een betoog dat op natuurkunde en taalkunde wilde rusten, is dat een opmerkelijke wending.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">boventoonreeks</td><td>De vaste rij tonen die boven de grondtoon meeklinkt bij elke trillende snaar of luchtkolom, en waaruit Bernstein octaaf, kwint, terts en drieklank afleidt.</td></tr>
+          <tr><td class="term">muzikale fonologie</td><td>Bernsteins naam voor de leer van de muzikale klankeenheden, met de toon in de rol die het foneem in de taalkunde speelt.</td></tr>
+          <tr><td class="term">muzikale syntaxis</td><td>De regels waarmee tonen tot zinnen worden geordend, door Bernstein onderzocht met begrippen die hij aan de generatieve grammatica ontleent.</td></tr>
+          <tr><td class="term">dieptestructuur</td><td>De onderliggende, meestal symmetrische vorm van een muzikale zin, die door weglaten, verschuiven en invoegen tot de klinkende oppervlaktestructuur wordt omgewerkt.</td></tr>
+          <tr><td class="term">muzikale semantiek</td><td>De vraag wat muziek betekent, door Bernstein beantwoord met de stelling dat muzikale betekenis metaforisch van aard is.</td></tr>
+          <tr><td class="term">ambiguïteit</td><td>Het gelijktijdig openhouden van meer dan één lezing van een akkoord, een toonsoort of een ritme, bij Bernstein de motor van muzikale zeggingskracht.</td></tr>
+          <tr><td class="term">substantiële universalia</td><td>Eigenschappen die in alle muziek zouden voorkomen omdat ze uit de natuurkunde van de klank volgen, tegenover afspraken die per cultuur verschillen.</td></tr>
+          <tr><td class="term">monogenese</td><td>Het denkbeeld dat alle muziek uit één gemeenschappelijke oorsprong is voortgekomen, overgenomen uit een omstreden hypothese over de herkomst van de talen.</td></tr>
+          <tr><td class="term">chromatiek</td><td>Het gebruik van tonen buiten de heersende toonsoort, waarvan Bernstein de toename door de negentiende eeuw als hoofdlijn van zijn geschiedenis neemt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het stevigste deel van het betoog is natuurkundig. De boventoonreeks bestaat en is meetbaar, en dat de eerste boventonen octaaf, kwint en grote terts opleveren valt na te rekenen. Ook de muzikale analyses staan los van de taalkundige inkleding: Bernstein kan aan de vleugel laten horen wat hij bedoelt met een uitgestelde oplossing of een akkoord dat twee kanten op kan, en dat is te controleren.</p>
+      <p>Zwakker is de stap van de natuurkunde naar de grammatica. Dat er boventonen zijn, verklaart niet waarom de westerse muziek juist deze toonladders koos en andere culturen andere. Vergelijkend onderzoek voert Bernstein daarvoor niet aan. Niet-westerse muziek komt in de zes colleges nauwelijks aan bod, en waar zij opduikt is het als illustratie van wat al was aangenomen.</p>
+      <p>De taalkundige onderbouwing bestaat vrijwel geheel uit één boek, Chomsky's <i>Language and Mind</i> uit 1968. Bernstein neemt de begrippen over en past ze toe; hij toetst ze niet aan de vakliteratuur en gaat niet in op de bezwaren die er in de taalkunde zelf al tegen bestonden. Chomsky zelf heeft zich terughoudend getoond over het overplanten van zijn begrippen naar andere gebieden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt van Allan Keiler, die in <i>The Musical Quarterly</i> van april 1978 schreef dat de colleges geen doordachte of nauwkeurige bijdrage aan vakoverstijgend onderzoek zijn. Zijn punt is dat de muzikale bewerkingen bij Bernstein alleen de naam delen met de bewerkingen in de taalkunde. In een generatieve grammatica zijn het scherp omschreven operaties; bij Bernstein zijn ze zo ruim dat er elk willekeurig muziekstuk mee valt af te leiden, waardoor ze niets meer uitsluiten.</p>
+      <p>Een terugblik in <i>The Harvard Crimson</i> van januari 1975 wees op slordigheden in de voorbeelden zelf. Bij Ives noemt Bernstein akkoorden tonaal terwijl het slotakkoord onopgelost blijft, en Stockhausens <i>Stimmung</i> beschrijft hij als staand in bes groot, wat het stuk naar geen enkele gangbare omschrijving is.</p>
+      <p>Michael Steinberg schreef in december 1973 in <i>The New York Times</i> waardering voor de welsprekendheid, maar vond de muzikale opbrengst mager en de behandeling van Schönberg tekortschieten. Dat laatste bezwaar keert vaker terug. Bernstein beoordeelt de twaalftoonsmuziek aan de hand van verwachtingen die er juist uit zijn weggelaten, en noemt daarna mislukt wat volgens een andere binnenlogica werkt.</p>
+      <p>Er is ook een bezwaar dat de colleges beter maakt dan hun opzet. Naarmate de reeks vordert raakt Chomsky uit beeld en worden de analyses zuiver muzikaal. Wat overblijft is een dirigent die uitlegt wat hij hoort en waarom het hem raakt, en dat is het deel dat is blijven staan. De taalkundige stellage eromheen is dat niet.</p>
+      <p>Tot slot de vraag naar het genre. Dit is geen vakboek maar een uitgeschreven reeks openbare colleges, met de herhalingen, de aanlopen en het effectbejag van het gesproken woord erin. Wie een systematische muziektheorie zoekt, treft die hier niet aan; wie wil weten hoe een uitvoerend musicus over vorm en betekenis dacht, wel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bekijk de gefilmde colleges naast het boek; de muziekvoorbeelden dragen het betoog en staan op papier alleen als notenbeeld.</li>
+        <li>Houd de twee lagen uit elkaar: de muzikale analyses zijn zelfstandig bruikbaar, de taalkundige inkleding is dat niet.</li>
+        <li>Neem de boventoonreeks aan als natuurkundig gegeven en de daaruit afgeleide universaliteit van tonaliteit als stelling waarvoor het bewijs ontbreekt.</li>
+        <li>Luister het vierde college na met de partituur van het voorspel van <i>Tristan</i> erbij; daar is het argument over dubbelzinnigheid het beste te volgen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Six Talks at Harvard</i>, verschenen bij Harvard University Press in 1976 als deel 33 in de reeks Charles Eliot Norton Lectures. Het is de uitgeschreven versie van de zes colleges die Bernstein in het najaar van 1973 in Harvard gaf; hij was voor het studiejaar 1972/1973 benoemd tot Charles Eliot Norton Professor of Poetry. De colleges werden gefilmd en later uitgezonden door PBS en de BBC, en bij de eerste boekuitgave hoorden drie grammofoonplaten. De titel is ontleend aan <i>The Unanswered Question</i> uit 1908 van Charles Ives, dat in het vijfde college wordt behandeld. Een Nederlandse vertaling is niet verschenen; deze samenvatting is gebaseerd op de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Zes colleges waarin een dirigent de taalkunde van Noam Chomsky op muziek toepast. Bernstein verdeelt de muziek in fonologie, syntaxis en semantiek, en zoekt bij elk daarvan de muzikale tegenhanger van een taalkundig begrip. De boventoonreeks moet de natuurkundige grond leveren: omdat elke trillende snaar boven zijn grondtoon een vaste rij tonen laat meeklinken, waaruit octaaf, kwint, terts en drieklank volgen, zou tonaliteit geen afspraak zijn maar een gegeven.</p><p>De tweede helft is een geschiedenis van de toenemende chromatiek, van Berlioz via Wagner naar Debussy, met Mahlers Negende als afscheid en Stravinsky als antwoord op de crisis van de twintigste eeuw. Als musicologie is het boek nooit aanvaard: de vergelijking met Chomsky is meer geleend dan onderzocht, en de scherpste bladzijden zijn de zuiver muzikale analyses waarin de taalkunde geen rol meer speelt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>muziek</li><li>taal</li><li>esthetiek</li><li>tonaliteit</li><li>cultuurkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="828"><a href="828.html">Art and Illusion</a>. Gombrich hield in 1956 de Mellon-lezingen en deed voor de beeldende kunst wat Bernstein voor de muziek probeerde: een kunstvorm verklaren met een theorie van buiten het vak.</li>
+          <li value="664"><a href="664.html">Science and Sanity</a>. Korzybski bouwde eerder een heel stelsel op de aanname dat taal het denken bepaalt, en stuit op hetzelfde bezwaar: de overdracht van taalkundige begrippen naar een ander gebied wordt aangenomen, niet aangetoond.</li>
+          <li value="829"><a href="829.html">The Symbolic Species: The Co-evolution of Language and the Brain</a>. Deacon behandelt de vraag waar Bernstein op steunt, of taal een aangeboren vermogen is, met bewijs uit de evolutie van het brein in plaats van met een analogie.</li>
+          <li value="85"><a href="85.html">Singing in the brain</a>. Scherder beschrijft wat er in de hersenen gebeurt bij muziek, gemeten in plaats van afgeleid, en laat zien hoe smal de bewezen grond onder uitspraken over aangeboren muzikaliteit is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

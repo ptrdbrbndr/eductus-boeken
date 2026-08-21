@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disturbing the Universe &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dyson houdt vol dat een wetenschapper de gevolgen van zijn werk niet aan anderen kan overlaten, en dat het toch bijna nooit lukt om die gevolgen te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-819">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">819 &middot; Roman en memoir</p>
+    <h1>Disturbing the Universe</h1>
+    <p class="lede">Freeman Dyson, 1979</p>
+    <p class="stats">
+      <span><b>1427</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="819"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dyson houdt vol dat een wetenschapper de gevolgen van zijn werk niet aan anderen kan overlaten, en dat het toch bijna nooit lukt om die gevolgen te sturen. Hij laat dat zien aan zijn eigen loopbaan: als jonge rekenaar bij Bomber Command wist hij dat het bombardementsoffensief niet deed wat het beloofde en kreeg hij niets veranderd, en later ontwierp hij een ruimteschip dat op kernbommen zou vliegen terwijl hij tegelijk hielp de proeven te verbieden die het mogelijk maakten. Wetenschap is bij hem een morele onderneming die haar eigen uitkomsten niet in de hand heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Engeland: rekenen aan het bombardement</h3>
+      <p>Het eerste deel loopt van zijn jeugd naar de oorlog. Op zijn negentiende kwam hij bij de afdeling operationele analyse van Bomber Command, waar hij statistiek bijhield over verloren toestellen en over bemanningsleden die later in krijgsgevangenkampen opdoken. Uit die lijsten bleek dat van een neergehaalde Lancaster ongeveer vijftien procent van de bemanning eruit kwam, tegen ongeveer een kwart bij toestellen met een iets bredere nooduitgang.</p>
+      <p>De afdeling stelde voor de nooduitgang te verbreden en de geschutskoepels te verwijderen, die het toestel zwaar en traag maakten zonder veel te beschermen. Er gebeurde niets. Dyson beschrijft dat niet als kwade wil maar als een eigenschap van grote organisaties: het voorstel moest langs zoveel schakels dat het onderweg zijn dringendheid verloor.</p>
+      <p>Het hoofdstuk heet naar het woord waarmee Kurt Vonnegut het offensief typeerde, een kinderkruistocht. Dyson rekent voor dat de aanvallen op Berlijn hun bommen over zulke grote oppervlakten uitstrooiden dat de fabrieken bleven draaien terwijl de woonwijken brandden. Vuurstormen ontstonden maar twee keer, in Hamburg en in Dresden, en die van Dresden noemt hij grotendeels toeval. Aan het slot staat de zin waar het boek om onthouden wordt: hij had het ene morele beginsel na het andere prijsgegeven, en het was uiteindelijk allemaal voor niets.</p>
+      <h3>Amerika: Bethe, Feynman, Oppenheimer</h3>
+      <p>Het tweede deel begint in Cornell, waar Hans Bethe hem als leerling aannam. Dyson portretteert Feynman als iemand die met tekeningen rekende die niemand anders begreep, en beschrijft de autorit naar Albuquerque waarop hij hem dagenlang hoorde praten. Op de busreis daarna viel hem in hoe Feynmans aanpak en de veel formelere theorie van Schwinger en Tomonaga in elkaar te schuiven waren.</p>
+      <p>Dat werk maakte hem in één klap bekend en bracht hem naar het Institute for Advanced Study bij Oppenheimer, die hem tot hoogleraar benoemde zonder dat hij ooit een doctorstitel had gehaald. Het portret van Oppenheimer is behoedzaam: een man die volgens Dyson zijn eigen tragiek nodig had.</p>
+      <h3>Een reactor en een ruimteschip</h3>
+      <p>Twee hoofdstukken gaan over de jaren bij General Atomic in Californië. Het eerste beschrijft hoe een handvol mensen in een zomer een reactor ontwierp die zichzelf afremt als hij te heet wordt, de TRIGA, die daarna in ziekenhuizen en universiteiten terechtkwam. Dyson beschouwt dat als het enige ontwerp van zijn hand dat werkelijk werd gebouwd en gebruikt.</p>
+      <p>Het tweede gaat over Orion: een ruimteschip dat vooruit zou worden geduwd door achter zich kleine kernbommen te laten ontploffen. De leus van de groep was dat zij in 1970 bij Saturnus wilden zijn. Het project ging niet door, en de bijl kwam van het gedeeltelijke kernstopverdrag van 1963, dat proeven in de dampkring verbood. Dyson had zelf aan de argumenten voor dat verdrag meegeschreven en noemt dat zonder zich eruit te praten.</p>
+      <h3>Wapens, verdragen en de grens van goede bedoelingen</h3>
+      <p>Een reeks hoofdstukken gaat over wapenbeheersing. Dyson werkte in Washington aan het kernstopverdrag en later aan de vraag of kernwapens in Vietnam militair iets zouden opleveren; de studie kwam uit op nee, en dat antwoord werd door beide kampen in het debat aangehaald.</p>
+      <p>Wat die hoofdstukken bij elkaar houdt is een onderscheid dat hij steeds maakt: tussen de bedoeling van de ontwerper en de logica van het apparaat waarin het ontwerp terechtkomt. Techniek verspreidt de verantwoordelijkheid over zoveel mensen dat niemand meer de gevolgen ziet, en juist dat maakt bureaucratisch kwaad mogelijk.</p>
+      <h3>Punten daarbuiten</h3>
+      <p>Het derde deel verlaat de herinnering en gaat over de toekomst. Dyson bespreekt gedachte-experimenten, de vraag hoe je buitenaardse beschavingen zou herkennen aan de warmte die zij uitstralen, wat er van soorten en van klonen wordt, en wat hij de vergroening van de melkweg noemt: leven dat zich met behulp van biotechniek over kometen en manen verspreidt.</p>
+      <p>Het slot draagt de titel van het argument uit ontwerp. Dyson beweert niet dat hij een schepper kan aantonen, maar zegt dat het heelal er naar zijn indruk uitziet alsof het wist dat er leven zou komen. Hij zet dat neer als persoonlijke indruk, niet als natuurkunde.</p>
+      <h3>De toon</h3>
+      <p>Het boek is opgebouwd uit korte, afgeronde hoofdstukken die eerder essays zijn dan levensbeschrijving. Dyson citeert dichters, laat hele periodes weg en springt van een sterfbed naar een raketontwerp. De vertelling is beleefd, licht ironisch en spaarzaam met zelfverwijt, behalve in de oorlogshoofdstukken, waar hij zichzelf niet ontziet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">operationele analyse</td><td>Het met statistiek doorrekenen van militaire operaties, het werk dat Dyson tijdens de oorlog deed.</td></tr>
+          <tr><td class="term">kinderkruistocht</td><td>Dysons aanduiding, ontleend aan Vonnegut, voor een bombardementsoffensief dat door zeer jonge bemanningen werd gevlogen.</td></tr>
+          <tr><td class="term">Project Orion</td><td>Het ontwerp voor een ruimteschip dat vooruit zou worden gedreven door achtereenvolgende kernexplosies.</td></tr>
+          <tr><td class="term">kernpulsvoortstuwing</td><td>Voortstuwing waarbij de schokgolf van kleine kernbommen tegen een stootplaat onder het vaartuig duwt.</td></tr>
+          <tr><td class="term">TRIGA</td><td>De kleine onderzoeksreactor die zichzelf afremt zodra hij te heet wordt, in één zomer ontworpen.</td></tr>
+          <tr><td class="term">gedeeltelijk kernstopverdrag</td><td>Het verdrag van 1963 dat kernproeven in dampkring, ruimte en water verbood en Orion daarmee onmogelijk maakte.</td></tr>
+          <tr><td class="term">gedachte-experiment</td><td>Een redenering waarin een onuitvoerbare proef wordt doorgerekend om te zien wat de natuurwetten toelaten.</td></tr>
+          <tr><td class="term">vergroening van de melkweg</td><td>Dysons voorstel dat aangepast leven zich buiten de aarde over kometen en manen zou kunnen uitbreiden.</td></tr>
+          <tr><td class="term">argument uit ontwerp</td><td>De oude redenering dat de inrichting van de wereld op een bedoeling wijst, door Dyson als indruk en niet als bewijs opgevoerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een herinneringsboek en steunt dus in de eerste plaats op het geheugen van de schrijver, dertig jaar en meer na de gebeurtenissen. Waar het om harde uitspraken gaat zijn ze wel na te lopen. De cijfers over ontsnapte bemanningen komen uit de statistiek die zijn eigen afdeling bijhield en sluiten aan bij wat de luchtvaartgeschiedenis er sindsdien over schrijft: de nooduitgang in de neus van de Lancaster was smaller dan die van de Halifax en de Stirling, en dat verschil is terug te zien in de overlevingscijfers.</p>
+      <p>Over Orion bestaat inmiddels een uitvoerige documentatie, onder meer het boek dat zijn zoon George Dyson er in 2002 aan wijdde, waardoor de lezer de herinnering aan het ontwerpwerk kan toetsen. Ook de rol van het kernstopverdrag bij de beëindiging van het project is buiten Dysons memoires vastgelegd.</p>
+      <p>Voor de portretten van Feynman, Bethe en Oppenheimer geldt dat niet. Dat zijn indrukken, geschreven door iemand die er bij was en die van alle betrokkenen houdt. Wie wil weten hoe het werk werkelijk verliep, heeft er wetenschapsgeschiedenis naast nodig.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De charme van het boek is ook zijn zwakte. Dyson vertelt zo aangenaam dat het zelden pijn doet, en de morele afrekening blijft meestal bij een goed geformuleerde spijt. Bij Bomber Command laat hij open hoe hard hij zijn bevindingen werkelijk heeft aangedrukt; hij beschrijft een apparaat dat niet luisterde, maar niet wat hij deed toen het niet luisterde.</p>
+      <p>Bij Orion is de verhouding tussen geestdrift en rekenwerk scheef. Dat kernexplosies in de dampkring radioactieve neerslag over derden verspreiden erkent hij, maar het ontwerp krijgt aanmerkelijk meer bladzijden dan de schade. Wie het hoofdstuk leest zonder voorkennis houdt er vooral een gemiste kans aan over, en dat is een merkwaardige uitkomst voor een boek over verantwoordelijkheid.</p>
+      <p>Het derde deel is speculatie in het gewaad van redenering. Over de vergroening van de melkweg en over soorten en klonen valt niets vast te stellen; de argumenten zijn aardig, maar er is geen waarneming die ze kan tegenspreken. Voor een schrijver die zijn hele boek bouwt op de vraag wat kennis waard is, is dat een zwakke plek.</p>
+      <p>Ten slotte is hier al zichtbaar wat Dyson later een omstreden figuur maakte, tot en met zijn afwijkende opvattingen over klimaatverandering: een groot vertrouwen in het eigen oordeel tegenover dat van vakgenoten. In dit boek levert die trek de mooiste hoofdstukken op, maar het is dezelfde trek.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen bij Harper &amp; Row in New York in 1979, 283 bladzijden, in de wetenschapsreeks van de Alfred P. Sloan Foundation. De titel komt uit <i>The Love Song of J. Alfred Prufrock</i> van T.S. Eliot, waarin Prufrock zich afvraagt of hij het waagt het heelal te verstoren. Het boek was in 1980 finalist voor de National Book Award in de categorie wetenschap; de herdruk staat bij Basic Books (ISBN 9780465016778). Een Nederlandse vertaling bestaat niet: de Nederlandse bibliotheekcatalogus voert van Dyson alleen Engelse titels. Wel is hij in het Nederlands te lezen als een van de zes gesprekspartners in <i>Een schitterend ongeluk</i> van Wim Kayzer (Balans). Deze samenvatting is op de Engelse tekst gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De memoires van een wiskundige die nooit promoveerde en toch in het midden van de twintigste eeuw op vrijwel elke plek zat waar iets werd beslist. Dyson was negentien toen hij bij Bomber Command ging rekenen aan de overlevingskansen van bommenwerperbemanningen, hij zag na de oorlog in Amerika de kwantumelektrodynamica ontstaan, hij ontwierp een reactor en een ruimteschip op kernbommen, en hij schreef mee aan de argumenten voor het kernstopverdrag dat dat ruimteschip de kop kostte.</p><p>Het boek is geen loopbaanverslag maar een reeks essays over de vraag wat een wetenschapper met zijn eigen werk aanmoet. De oorlogshoofdstukken zijn het hardst: Dyson beschrijft hoe hij het ene morele beginsel na het andere prijsgaf en hoe het uiteindelijk voor niets was. De hoofdstukken over de verre toekomst zijn het zwakst, omdat er niets aan te toetsen valt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>natuurkunde</li><li>tweede-wereldoorlog</li><li>ruimtevaart</li><li>ethiek</li><li>wetenschapsgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="62"><a href="62.html">What Do You Care What Other People Think?</a>. Feynman komt in dit boek langs als jonge collega; in zijn eigen bundel is te horen hoe hij zelf over gezag en onderzoek sprak.</li>
+          <li value="820"><a href="820.html">The Ascent of Man</a>. Bronowski deed in de oorlog hetzelfde soort rekenwerk aan bombardementen en trok er een andere les uit.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan schrijft over dezelfde vragen rond wetenschap en verantwoordelijkheid, maar dan als pleidooi in plaats van als herinnering.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
