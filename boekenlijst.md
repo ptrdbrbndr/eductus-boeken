@@ -215409,14 +215409,17 @@ Dennett (1317) komt langs een eigen weg bij een verwante uitkomst zonder
 centrale plek, en Hohwy (1320) vervangt de hele opzet door een brein dat
 voorspelt en alleen de afwijking doorgeeft.
 
-**De godservaring en de hersenstam** (1174, 1173). 
-Twee boeken die elkaar rechtstreeks tegenspreken over hetzelfde onderwerp.
-Nelson (1174) verklaart het uittreden, de tunnel, het licht en de eenwording
-uit het grensland tussen waken en dromen: het opwindingsstelsel in de
-hersenstam kan de bewustzijnstoestanden vermengen, en bij wegvallende
-bloeddruk levert dat precies deze reeks op. Beauregard en O'Leary (1173)
-bestrijden die hele aanpak en stellen dat het materialisme in de
-hersenwetenschap een vooronderstelling vooraf is en geen uitkomst van
-onderzoek. Wie ze naast elkaar legt ziet vooral hoe hetzelfde scanmateriaal
-twee kanten op wordt gelezen, en hoe zwaar de uitgangsvraag weegt bij een
-onderwerp waar geen proef de zaak beslecht.
+**De godservaring en de hersenstam** (585, 1174, 1173). 
+Drie boeken over hetzelfde onderwerp, waarvan er twee elkaar rechtstreeks
+tegenspreken. Blackmore (585) levert de oudste en meest uitgewerkte
+hersenverklaring van de bijna-doodervaring: de vrede, de tunnel, het licht,
+het zweven boven het eigen lichaam en de levensfilm komen bij haar voort uit
+zuurstofgebrek, endorfinen, activiteit in de slaapkwab en het uiteenvallen van
+het model van het zelf. Nelson (1174) zoekt de verklaring achttien jaar later
+elders in hetzelfde brein, in het grensland tussen waken en dromen, waar het
+opwindingsstelsel in de hersenstam de bewustzijnstoestanden kan vermengen.
+Beauregard en O'Leary (1173) bestrijden die hele aanpak en stellen dat het
+materialisme in de hersenwetenschap een vooronderstelling vooraf is en geen
+uitkomst van onderzoek. Wie ze naast elkaar legt ziet vooral hoe hetzelfde
+scanmateriaal twee kanten op wordt gelezen, en hoe zwaar de uitgangsvraag
+weegt bij een onderwerp waar geen proef de zaak beslecht.
