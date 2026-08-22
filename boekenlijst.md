@@ -1,7 +1,7 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 22
 augustus 2026: 1012 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
@@ -215396,3 +215396,27 @@ die dat niet biedt. Bond (1295) behandelt hetzelfde gegeven als
 wetenschapsjournalist, met de gehoorzaamheids- en groepsdrukproeven erbij en
 met aandacht voor de gevallen waarin de groep juist redt in plaats van
 meesleept.
+
+**Bouwtekeningen van het bewustzijn** (1171, 1172, 763, 1317, 1320). 
+Vier voorstellen voor hoe het bewustzijn in elkaar zit, en een boek dat er de
+meetgegevens bij levert. Pribram (1171) legt er de wiskunde van de holografie
+onder: een herinnering heeft geen adres maar is over een heel gebied
+uitgesmeerd. Baars (1172) kiest een andere weg en beschrijft het bewustzijn
+als een gedeelde werkruimte waarin telkens één inhoud komt te staan die naar
+alle onbewuste verwerkers wordt uitgezonden. Dehaene (763) heeft dat model
+daarna in het laboratorium getoetst en er de neurale handtekening bij gezocht.
+Dennett (1317) komt langs een eigen weg bij een verwante uitkomst zonder
+centrale plek, en Hohwy (1320) vervangt de hele opzet door een brein dat
+voorspelt en alleen de afwijking doorgeeft.
+
+**De godservaring en de hersenstam** (1174, 1173). 
+Twee boeken die elkaar rechtstreeks tegenspreken over hetzelfde onderwerp.
+Nelson (1174) verklaart het uittreden, de tunnel, het licht en de eenwording
+uit het grensland tussen waken en dromen: het opwindingsstelsel in de
+hersenstam kan de bewustzijnstoestanden vermengen, en bij wegvallende
+bloeddruk levert dat precies deze reeks op. Beauregard en O'Leary (1173)
+bestrijden die hele aanpak en stellen dat het materialisme in de
+hersenwetenschap een vooronderstelling vooraf is en geen uitkomst van
+onderzoek. Wie ze naast elkaar legt ziet vooral hoe hetzelfde scanmateriaal
+twee kanten op wordt gelezen, en hoe zwaar de uitgangsvraag weegt bij een
+onderwerp waar geen proef de zaak beslecht.
