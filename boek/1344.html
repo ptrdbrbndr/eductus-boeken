@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Selfish Gene &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dawkins stelt dat de eenheid waarop natuurlijke selectie werkt niet het individu is en ook niet de soort, maar het gen. Een lichaam is in die lezing een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1344">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1344 &middot; Natuur en wetenschap</p>
+    <h1>The Selfish Gene</h1>
+    <p class="lede">Richard Dawkins, 1976</p>
+    <p class="stats">
+      <span><b>1509</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1344"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dawkins stelt dat de eenheid waarop natuurlijke selectie werkt niet het individu is en ook niet de soort, maar het gen. Een lichaam is in die lezing een tijdelijk voertuig dat een verzameling genen bouwt om zichzelf te kopiëren naar de volgende generatie, en gedrag dat op het eerste gezicht altruïstisch lijkt, verklaart hij als de uitkomst van genen die hun eigen verspreiding bevorderen via verwanten die dezelfde genen dragen. De titel is een provocatie: niet omdat organismen zelfzuchtig zouden zijn in de gewone zin van het woord, maar omdat het gen als kopieermachine geen ander criterium kent dan zijn eigen voortbestaan, ook als dat via schijnbaar onbaatzuchtig gedrag van het lichaam loopt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het gen als eenheid van selectie</h3>
+      <p>Dawkins opent met de vraag waarom dieren zich soms gedragen alsof ze het belang van de soort dienen, bijvoorbeeld door een alarmroep te geven die zichzelf aan een roofdier verraadt. De gangbare verklaring uit zijn tijd, dat zulk gedrag bestaat omdat het de soort als geheel ten goede komt, wijst hij af: selectie werkt op individuele replicators, niet op groepen, omdat een groep die louter op het belang van de groep vertrouwt vatbaar is voor uitbuiting door een enkeling die dat belang negeert.</p>
+      <p>In plaats daarvan stelt hij het gen centraal als de eenheid die kopieert, muteert en concurreert over evolutionaire tijd. Het lichaam noemt hij een "overlevingsmachine", een tijdelijke en vergankelijke constructie die genen bouwen en weer afbreken, terwijl de genen zelf, of in elk geval hun kopieën, over vele generaties blijven bestaan. Deze omkering van perspectief, van het dier naar het gen, is het uitgangspunt waarop de rest van het boek voortbouwt.</p>
+      <h3>Verwantschap en de wiskunde van altruïsme</h3>
+      <p>Om te verklaren waarom dieren zich soms opofferen voor anderen, leunt Dawkins op het werk van W.D. Hamilton over verwantschapsselectie. Een gen dat een dier ertoe aanzet zijn broer te redden ten koste van zijn eigen leven, kan zich toch verspreiden als de kans dat de broer hetzelfde gen draagt en het overdraagt, hoog genoeg is: bij volle broers en zusters is die kans gemiddeld een half, bij neven en nichten een achtste.</p>
+      <p>Dawkins werkt dit uit tot wat hij Hamiltons regel noemt: een gen voor opofferend gedrag verspreidt zich als de kosten voor de gever kleiner zijn dan de baten voor de ontvanger, gewogen naar de graad van verwantschap. Daarmee verklaart hij verschijnselen als de extreme opofferingsgezindheid van werksters bij bijen en mieren, die door hun bijzondere verwantschapsstructuur nauwer verwant zijn aan hun zusters dan aan eigen nakomelingen.</p>
+      <h3>Evolutionair stabiele strategieën</h3>
+      <p>Voor gedrag dat niet met verwantschap te verklaren is, zoals agressie en samenwerking tussen niet-verwanten, grijpt Dawkins terug op de speltheorie van John Maynard Smith. Hij introduceert het begrip evolutionair stabiele strategie: een gedragspatroon dat, als de meeste leden van een populatie het volgen, niet door een afwijkende strategie kan worden verdrongen omdat die afwijking zelf minder goed scoort zolang de meerderheid bij de oorspronkelijke strategie blijft.</p>
+      <p>Als voorbeeld bespreekt hij een populatie waarin "haviken" altijd vechten en "duiven" nooit, en laat zien dat geen van beide strategieën alleen stabiel is: een zuivere havikenpopulatie is kwetsbaar voor de kosten van voortdurend gevecht, een zuivere duivenpopulatie is kwetsbaar voor indringende haviken. De stabiele uitkomst is een mengverhouding of een voorwaardelijke strategie, en dit model verklaart volgens Dawkins waarom agressie in de natuur meestal beperkt blijft in plaats van escaleert tot de dood.</p>
+      <h3>Ouder-kindconflict en de strijd tussen de seksen</h3>
+      <p>Dawkins beschrijft hoe genen in het ene lichaam, dat van een ouder, en genen in het andere, dat van een kind, niet identieke belangen delen: een kind is voor de helft verwant aan zichzelf en voor de helft aan een toekomstig broertje, terwijl de ouder voor gelijke delen verwant is aan alle kinderen. Dat verschil in perspectief verklaart waarom kinderen doorgaans meer zorg opeisen dan ouders bereid zijn te geven, een spanning die Robert Trivers eerder als ouder-kindconflict had beschreven.</p>
+      <p>Ook tussen de seksen ziet Dawkins een asymmetrie in investering: omdat eicellen doorgaans schaarser en kostbaarder zijn dan zaadcellen, ontstaat er ruimte voor verschillende reproductieve strategieën bij mannetjes en vrouwtjes, van partnerkeuze tot verlating na de paring. Hij benadrukt dat dit geen morele uitspraak is over wat dieren, laat staan mensen, zouden moeten doen, maar een verklaring voor waargenomen patronen in gedrag.</p>
+      <h3>De meme als tweede replicator</h3>
+      <p>In het slothoofdstuk verlaat Dawkins de genetica en introduceert de meme als culturele tegenhanger van het gen: een eenheid van imitatie, zoals een melodie, een gewoonte of een idee, die zich van brein naar brein verspreidt en daarbij onderhevig is aan variatie en selectie op vergelijkbare wijze als genen. Hij noemt dit een speculatieve uitbreiding van zijn eigen argument, niet een uitgewerkte theorie, en de bedoeling is vooral om te laten zien dat replicatie en selectie een algemener patroon zijn dan alleen DNA.</p>
+      <p>Deze stap markeert ook de grens van het boek: waar de eerdere hoofdstukken op experimenteel en wiskundig werk van andere biologen leunen, is het memebegrip een los aangehaakte gedachte-experiment waarvan Dawkins zelf erkent dat de details nog onuitgewerkt zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Replicator</td><td>een entiteit die zichzelf kopieert, in dit boek in de eerste plaats het gen.</td></tr>
+          <tr><td class="term">Overlevingsmachine</td><td>Dawkins' term voor het lichaam als tijdelijke constructie waarmee genen zichzelf verspreiden.</td></tr>
+          <tr><td class="term">Verwantschapsselectie</td><td>selectie voor gedrag dat de eigen voortplanting kan kosten, maar de verspreiding van dezelfde genen via verwanten bevordert.</td></tr>
+          <tr><td class="term">Hamiltons regel</td><td>de vuistregel dat opofferend gedrag zich verspreidt als de kosten voor de gever kleiner zijn dan de baten voor de ontvanger, gewogen naar verwantschapsgraad.</td></tr>
+          <tr><td class="term">Evolutionair stabiele strategie</td><td>een gedragspatroon dat, eenmaal wijdverbreid in een populatie, niet door een afwijkende strategie kan worden verdrongen.</td></tr>
+          <tr><td class="term">Ouder-kindconflict</td><td>de spanning tussen de belangen van ouder en kind die ontstaat doordat hun genetische belangen niet volledig samenvallen.</td></tr>
+          <tr><td class="term">Meme</td><td>een eenheid van culturele overdracht, zoals een idee of gewoonte, die zich naar analogie van het gen verspreidt en varieert.</td></tr>
+          <tr><td class="term">Genencentrisme</td><td>het uitgangspunt dat het gen, niet het individu of de soort, de eenheid is waarop natuurlijke selectie aangrijpt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dawkins bouwt zijn argument niet op eigen veldonderzoek, maar op een synthese van gepubliceerd werk van anderen: de wiskundige verwantschapsselectietheorie van W.D. Hamilton uit de jaren zestig, de speltheoretische modellen van John Maynard Smith voor dierlijk gedrag, en waarnemingen over sociale insecten, vogels en zoogdieren die op het moment van schrijven al breed aanvaard waren in de evolutiebiologie.</p>
+      <p>De sterkste kant van die onderbouwing is dat de wiskunde van verwantschapsselectie en van evolutionair stabiele strategieën zelf onafhankelijk getoetst en herhaaldelijk bevestigd is in de populatiegenetica, ook na het verschijnen van het boek. Dawkins presenteert zich vooral als toelichter en popularisator van deze modellen, niet als de ontdekker ervan, en vermeldt dat ook expliciet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grootste kritiek op het boek betreft niet zozeer de onderliggende wiskunde, die grotendeels overeind is gebleven, maar het beeldend taalgebruik: door genen consequent te beschrijven met woorden als "zelfzuchtig" en "berekenend" wekt Dawkins de indruk dat genen intenties hebben, terwijl hij zelf toelicht dat dit metaforisch bedoeld is. Critici, onder wie de bioloog Stephen Jay Gould, hebben aangevoerd dat deze metafoor bij lezers makkelijk verkeerd wordt begrepen als genetisch determinisme, ook al waarschuwt Dawkins daar zelf tegen.</p>
+      <p>Ook is aangevoerd dat het gen-centrisch perspectief niet de enige geldige manier is om naar selectie te kijken: latere biologen hebben laten zien dat selectie op meerdere niveaus tegelijk kan spelen, van gen tot individu tot in sommige gevallen groep, en dat het gen-perspectief vooral een nuttig boekhoudkundig gezichtspunt is, niet het enige juiste.</p>
+      <p>Het memebegrip uit het slothoofdstuk is nooit uitgegroeid tot een empirisch toetsbare theorie: er bestaat geen algemeen aanvaarde manier om een meme te identificeren, af te bakenen of te meten, en de meeste latere aandacht ervoor kwam van populaire cultuur eerder dan van cultuurwetenschappelijk onderzoek. Dawkins zelf presenteert het als een suggestie, maar het boek maakt dat onderscheid tussen uitgewerkte theorie en losse gedachte niet altijd even scherp voor de lezer.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij dierlijk of menselijk gedrag tussen een verklaring op het niveau van het individu en een op het niveau van het gen voordat je een verklaring als bewezen aanneemt.</li>
+        <li>Wees terughoudend met het gebruik van "zelfzuchtig" of "egoïstisch" als verklaring voor gedrag: het is bij Dawkins een technische term voor het gen, geen morele uitspraak over het individu.</li>
+        <li>Gebruik het begrip evolutionair stabiele strategie als denkkader bij vraagstukken over samenwerking en concurrentie, ook buiten de biologie, maar toets of de aannames van het model, zoals herhaalde interactie en vergelijkbare uitgangsposities, wel opgaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oxford University Press, Oxford, 1976, herziene editie 1989. Nederlands als <i>De zelfzuchtige genen</i>, vertaald door Ruud van de Plassche (Uitgeverij Contact). Editie niet nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dawkins herschrijft de evolutietheorie vanuit het perspectief van het gen in plaats van het individu of de soort: niet het dier, maar het gen is volgens hem de eenheid waarop natuurlijke selectie werkt, en een lichaam is niet meer dan een tijdelijk voertuig waarmee genen zichzelf kopiëren.</p><p>Vanuit dat uitgangspunt verklaart hij verschijnselen als altruïsme tussen verwanten en de evolutionaire stabiliteit van bepaald gedrag, en introduceert hij aan het einde van het boek het begrip meme als culturele tegenhanger van het gen, een idee dat buiten de biologie een eigen leven is gaan leiden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>evolutie</li><li>genetica</li><li>biologie</li><li>altruisme</li><li>natuurlijke-selectie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="950"><a href="950.html">The Beak of the Finch</a>. Jonathan Weiners boek over Darwins vinken op de Galápagoseilanden laat zien hoe natuurlijke selectie in het veld gemeten wordt, als praktische tegenhanger van Dawkins' theoretische bespreking.</li>
+          <li value="951"><a href="951.html">The Mismeasure of Man</a>. Stephen Jay Gould, een van de bekendste critici van het gen-centrische perspectief, beschrijft in dit boek hoe eerdere wetenschappers biologische verklaringen voor sociale ongelijkheid construeerden, en waarschuwt tegen te snelle vertalingen van biologie naar maatschappelijke uitspraken.</li>
+          <li value="941"><a href="941.html">The Double Helix</a>. James Watsons verslag van de ontdekking van de DNA-structuur beschrijft het moleculaire fundament waarop Dawkins' latere argument over het gen als replicator voortbouwt.</li>
+          <li value="453"><a href="453.html">The Evolution of Cooperation</a>. Robert Axelrods onderzoek naar samenwerking via herhaalde gevangenendilemma's werkt dezelfde speltheoretische traditie uit die Dawkins gebruikt voor evolutionair stabiele strategieën, toegepast op de evolutie van samenwerking.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

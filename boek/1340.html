@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human Action &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Von Mises stelt dat de hele economische wetenschap zich laat afleiden uit één enkel, niet te bewijzen maar ook niet te weerleggen uitgangspunt: de mens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1340">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1340 &middot; Staat en vrijheid</p>
+    <h1>Human Action</h1>
+    <p class="lede">Ludwig von Mises, 1949</p>
+    <p class="stats">
+      <span><b>1652</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1340"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Von Mises stelt dat de hele economische wetenschap zich laat afleiden uit één enkel, niet te bewijzen maar ook niet te weerleggen uitgangspunt: de mens handelt, dat wil zeggen hij kiest bewust een toestand die hem gunstiger lijkt boven een andere. Uit die ene aanname over doelgericht handelen, praxeologie genoemd, leidt hij met zuivere logica een compleet stelsel af: waarom ruil ontstaat, hoe prijzen tot stand komen, wat geld is, hoe rente en kapitaal samenhangen, waarom conjunctuurcycli terugkeren, en waarom een socialistische planeconomie niet aan rationele calculatie kan doen omdat zij de prijzen van kapitaalgoederen mist die alleen particulier eigendom en ruil voortbrengen. Economische wetten zijn voor Von Mises dus geen empirische regelmatigheden die je kunt toetsen of weerleggen met cijfers, maar logische noodzakelijkheden, net zoals een wiskundig bewijs geen experiment nodig heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Praxeologie: de wetenschap van het handelen</h3>
+      <p>Von Mises opent met een methodologisch fundament dat de rest van het boek draagt. Economie is voor hem geen tak van de natuurwetenschap die hypothesen aan waarneming toetst, maar een a priori wetenschap die begint bij het axioma dat mensen handelen: zij zetten middelen in om een doel te bereiken dat zij verkiezen boven de bestaande toestand. Uit dat axioma volgen volgens hem, met dezelfde dwingende logica als in de wiskunde, stellingen over schaarste, keuze, tijdvoorkeur en ruil, zonder dat daarvoor statistisch onderzoek nodig is.</p>
+      <p>Hij noemt deze algemene wetenschap van het handelen praxeologie en plaatst de economie, de catallactiek of leer van de markthandelingen, daarbinnen als het best uitgewerkte deel. Waar historici en statistici de concrete, wisselende inhoud van het handelen bestuderen, bestudeert de praxeoloog de vorm die aan elk handelen ten grondslag ligt, ongeacht tijd, plaats of cultuur.</p>
+      <h3>Handelende mens tegenover collectief</h3>
+      <p>Von Mises hanteert methodologisch individualisme: alleen individuen handelen, kiezen en waarderen, nooit een klasse, een volk of een staat als zodanig. Begrippen als de wil van de arbeidersklasse of het belang van de natie zijn voor hem verkorte aanduidingen voor optellingen van individuele handelingen, nooit zelfstandige actoren. Deze positie richt zich expliciet tegen het marxistische historisch materialisme, dat klassenbelangen als drijvende kracht van de geschiedenis ziet, en tegen elke vorm van collectivistische verklaring die het individu wegdenkt.</p>
+      <p>Uit dezelfde bron komt zijn afwijzing van het historicisme dat economische wetten wil vervangen door historische ontwikkelingsfasen. Volgens Von Mises maakt die vervanging de economie onmogelijk, omdat zij elke uitspraak herleidt tot een tijdgebonden bijzonderheid in plaats van een algemene wet.</p>
+      <h3>Ruil, prijs en de markt</h3>
+      <p>Het middendeel van het boek bouwt de subjectieve waardeleer uit tot een volledige prijstheorie. Waarde ontstaat niet in een goed zelf maar in de rangschikking die een handelend individu aanbrengt tussen zijn doelen; ruil vindt plaats zodra twee partijen elkaars bezit hoger waarderen dan het eigen bezit dat zij inruilen. Op een markt met veel ruilende partijen ontstaan uit die individuele waarderingen prijzen, die op hun beurt terugkoppelen naar producenten en zo bepalen wat, hoe en voor wie geproduceerd wordt.</p>
+      <p>Von Mises werkt dit uit tot een leer van de ongehinderde markt als coördinatiemechanisme: prijzen dragen informatie over relatieve schaarste die nergens anders vandaan komt en die, zodra de overheid ze vervangt door voorschriften of vaste tarieven, verdwijnt zonder vervanging.</p>
+      <h3>Geld, krediet en de conjunctuurcyclus</h3>
+      <p>Voor het geldvraagstuk grijpt Von Mises terug op zijn eigen regressietheorema uit <i>The Theory of Money and Credit</i>: de koopkracht van geld vandaag is te herleiden tot de koopkracht van gisteren, tot uiteindelijk het punt waarop het geldgoed nog een gewone ruilwaarde als grondstof had. Geld ontstaat dus uit de markt zelf, niet uit een decreet van de staat.</p>
+      <p>Daarop bouwt hij de Oostenrijkse conjunctuurtheorie: wanneer banken door kredietexpansie de rente onder het niveau drukken dat vrijwillig sparen zou opleveren, ontstaan investeringen die niet met echte besparingen overeenkomen. Die malinvesteringen komen aan het licht zodra de kredietstroom vertraagt, en de daaropvolgende recessie is voor Von Mises geen storing van de markt maar de onvermijdelijke correctie van een eerder kunstmatig opgeblazen boom.</p>
+      <h3>De onmogelijkheid van economische calculatie onder socialisme</h3>
+      <p>Het argument waarmee Von Mises het meest is blijven voortleven, betreft de calculatie onder socialisme. Zonder particulier eigendom van productiemiddelen bestaat er geen markt waarop kapitaalgoederen tegen elkaar geruild worden, en dus ontstaan er geen prijzen voor staal, machines of grond die aangeven welke van twee productiewijzen minder schaarse middelen verbruikt. Een centrale planner kan dan wel besluiten wat er geproduceerd moet worden, maar mist het rekeninstrument om vast te stellen of dat op een verstandige manier gebeurt.</p>
+      <p>Von Mises trekt hieruit de conclusie dat een volledig socialistische economie niet gebrekkig functioneert maar principieel niet rationeel kan plannen, zolang zij de markt voor kapitaalgoederen mist. Coöperaties, gilden of gedeeltelijke planning ontsnappen aan dit probleem niet zolang zij het eigendom van kapitaalgoederen collectiviseren.</p>
+      <h3>Interventionisme en de afrekening met Keynes</h3>
+      <p>Het laatste deel van het boek behandelt tussenvormen: overheidsingrijpen dat het particulier eigendom intact laat maar prijzen, lonen of rente vaststelt. Von Mises betoogt dat zulk ingrijpen bijna nooit het beoogde doel bereikt en vaak een nieuwe verstoring veroorzaakt die de roep om verder ingrijpen oproept, een dynamiek die hij als een glijdende schaal naar volledige planning beschrijft.</p>
+      <p>Von Mises verwerpt hier ook de opkomende Keynesiaanse leer die de overheid vraagt de bestedingen te sturen via begrotingstekorten en lage rente. Voor hem verhult die leer een politieke keuze voor ingrijpen achter een wiskundig ogend model van totale vraag, zonder de gevolgen van kunstmatig lage rente voor de kapitaalstructuur te doorgronden die hij eerder in het boek had beschreven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Praxeologie</td><td>de algemene wetenschap van het menselijk handelen, waaruit Von Mises de economie als deelgebied afleidt met zuiver logische redenering.</td></tr>
+          <tr><td class="term">Catallactiek</td><td>het deel van de praxeologie dat de handelingen op de markt bestudeert: ruil, prijsvorming en geld.</td></tr>
+          <tr><td class="term">Handelende mens (homo agens)</td><td>het uitgangspunt van Von Mises: een wezen dat middelen inzet om een gekozen doel te bereiken, in tegenstelling tot het loutere reageren van dieren of dingen.</td></tr>
+          <tr><td class="term">Methodologisch individualisme</td><td>het beginsel dat alleen individuen handelen en kiezen, zodat verklaringen die aan klassen, volkeren of staten zelfstandig handelen toeschrijven op een fout berusten.</td></tr>
+          <tr><td class="term">Regressietheorema</td><td>de stelling dat de koopkracht van geld altijd herleidbaar is tot een eerdere koopkracht, tot aan het moment waarop het geldgoed nog puur als ruilwaar diende.</td></tr>
+          <tr><td class="term">Malinvesteringen</td><td>investeringen die door kunstmatig lage rente worden opgezet maar niet overeenkomen met de werkelijke besparingen in de economie, en die bij een recessie aan het licht komen.</td></tr>
+          <tr><td class="term">Calculatieprobleem</td><td>de onmogelijkheid om onder collectief eigendom van kapitaalgoederen prijzen te vormen die een rationele afweging tussen productiewijzen mogelijk maken.</td></tr>
+          <tr><td class="term">Interventionisme</td><td>overheidsingrijpen in prijzen, lonen of rente binnen een verder op particulier eigendom gebaseerde economie, dat volgens Von Mises telkens om verder ingrijpen vraagt.</td></tr>
+          <tr><td class="term">Subjectieve waardeleer</td><td>de opvatting dat waarde niet in een goed zelf zit maar in de rangschikking die een handelend individu aan zijn doelen geeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Von Mises onderbouwt zijn stellingen niet met statistiek of experiment maar met deductie uit het handelingsaxioma, dat hij als zelfevident beschouwt: wie het axioma ontkent, handelt daarmee zelf doelgericht en bevestigt het dus. Hij beschouwt deze deductieve zekerheid als sterker dan elke empirische wet, die immers altijd door nieuwe waarnemingen kan worden bijgesteld.</p>
+      <p>Het meest concrete, historisch toetsbare onderdeel is het calculatieargument. Von Mises formuleerde de kern daarvan al in 1920, ruim voor de latere ervaringen met centraal geplande economieën in Oost-Europa, waar productie inderdaad zonder werkende prijzen voor kapitaalgoederen tot stand kwam en tot grove verspilling leidde. Die latere geschiedenis wordt door aanhangers als bevestiging gelezen, al blijft dit een historische illustratie en geen experiment dat het a-priori-argument zelf bewijst.</p>
+      <p>Voor de conjunctuurtheorie verwijst Von Mises naar de opeenvolgende Amerikaanse en Europese kredietcycli van zijn tijd, zonder die te onderbouwen met systematisch cijfermateriaal over kredietvolumes en investeringen; de theorie blijft in dit boek vooral een logische constructie die uit de rentetheorie volgt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen het boek richt zich op de methode zelf. Von Mises verheft de praxeologie tot een wetenschap die per definitie niet door waarneming kan worden weerlegd, omdat elke tegenspraak wordt toegeschreven aan onjuiste toepassing van de theorie in plaats van aan de theorie zelf. Voor economen uit de empirische en positivistische traditie is dat geen wetenschappelijke deugd maar een manier om kritiek principieel buiten te sluiten.</p>
+      <p>Een tweede bezwaar is dat Von Mises zijn methodologische conclusies zonder duidelijke breuk laat overlopen in een politiek programma voor een ongehinderde markt, zonder telkens scherp te onderscheiden wat uit de logica van het handelen volgt en wat een eigen politieke voorkeur is. Lezers die het eerste als bewijs voor het tweede lezen, nemen daarmee een sprong over die het boek zelf niet expliciet verantwoordt.</p>
+      <p>Het boek bevat, in lijn met zijn eigen methode, geen empirisch onderzoek naar de omvang van malinvesteringen, de snelheid van prijsaanpassing of de werkelijke informatiewaarde van marktprijzen onder monopolie; wie daarnaar zoekt, moet uitwijken naar latere Oostenrijkse of institutionele economen. Ten slotte is de tekst, meer dan negenhonderd bladzijden dicht proza zonder grafieken of overzichtsschema's, weinig toegankelijk en herhaalt hij eerder werk van Von Mises zelf, zoals <i>The Theory of Money and Credit</i> en <i>Socialism</i>, in een uitgebreide vorm zonder veel nieuwe elementen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij elk overheidsvoorstel dat prijzen, lonen of rente vaststelt, wat het beoogde effect is en welk nieuw probleem het volgens Von Mises' interventionismeleer waarschijnlijk oproept.</li>
+        <li>Vraag bij een plan voor collectieve of centrale sturing van productiemiddelen expliciet na hoe de afweging tussen twee productiewijzen zonder marktprijzen voor kapitaalgoederen gemaakt zou worden.</li>
+        <li>Lees macro-economische modellen die met begrotingstekorten of lage rente werken met de vraag welke veronderstelling over de kapitaalstructuur daarachter schuilgaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>A Treatise on Economics</i>. Yale University Press, New Haven, 1949, herziene edities tot 1966. Nederlandse vertaling niet nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Von Mises' hoofdwerk bouwt de economische wetenschap op vanuit één uitgangspunt, dat hij praxeologie noemt: mensen handelen doelbewust om een situatie te verkiezen boven een andere, en uit die simpele constatering leidt hij een volledig stelsel af, van ruil en prijsvorming tot geld, kapitaal, conjunctuurcycli en de onmogelijkheid van economische calculatie onder socialisme.</p><p>Het boek van meer dan negenhonderd bladzijden geldt als de meest volledige uitwerking van de Oostenrijkse school en als von Mises' antwoord op zowel het marxisme als het toen opkomende Keynesianisme, dat hij verwerpt omdat het volgens hem overheidsingrijpen wetenschappelijk aankleedt in plaats van de gevolgen ervan te doorgronden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>praxeologie</li><li>economie</li><li>Oostenrijkse-school</li><li>vrije-markt</li><li>methodologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1334"><a href="1334.html">Socialism</a>. Von Mises werkte het calculatieargument dat in <i>Human Action</i> terugkeert, voor het eerst grondig uit in dit boek uit 1922.</li>
+          <li value="1332"><a href="1332.html">The Theory of Money and Credit</a>. De monetaire theorie en het regressietheorema uit <i>Human Action</i> gaan terug op dit eerdere werk over geld en krediet.</li>
+          <li value="910"><a href="910.html">Kapitalisme, socialisme en democratie</a>. Schumpeter deelt de these dat socialisme de calculatie bemoeilijkt, maar verwacht, anders dan Von Mises, dat het kapitalisme zichzelf ondermijnt.</li>
+          <li value="1343"><a href="1343.html">The Ultimate Foundation of Economic Science</a>. Von Mises verdedigt hier, korter en toegankelijker, de methodologische grondslag van de praxeologie die in <i>Human Action</i> het hele stelsel draagt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

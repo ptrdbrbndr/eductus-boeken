@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bureaucracy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mises stelt dat het verschil tussen een bureaucratisch geleide dienst en een door winst gestuurd bedrijf niet in de kwaliteit van de mensen zit, maar in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1339">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1339 &middot; Staat en vrijheid</p>
+    <h1>Bureaucracy</h1>
+    <p class="lede">Ludwig von Mises, 1944</p>
+    <p class="stats">
+      <span><b>1211</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1339"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mises stelt dat het verschil tussen een bureaucratisch geleide dienst en een door winst gestuurd bedrijf niet in de kwaliteit van de mensen zit, maar in de afwezigheid van een winst-en-verliesrekening. Een ondernemer kan aan zijn boeken aflezen of hij middelen goed heeft besteed, omdat de markt via prijzen en winst of verlies oordeelt over elke beslissing. Een overheidsdienst heeft die maatstaf niet: er is geen prijs voor haar output en geen verlies dat een verkeerde beslissing afstraft. Daarom moet zij, wil zij niet in willekeur vervallen, haar ambtenaren op iets anders afrekenen dan op resultaat, namelijk op het volgen van vastgelegde regels. Bureaucratie is in deze lezing geen gebrek aan wil of intelligentie bij ambtenaren, maar een onvermijdelijk gevolg van het ontbreken van een winstcriterium in elke activiteit die de staat zelf uitvoert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee bestuursvormen</h3>
+      <p>Mises onderscheidt bestuur volgens winst en bestuur volgens bureaucratische regels als twee zuivere typen, waartussen elke bestaande organisatie zich ergens bevindt. In het eerste type geeft de winst-en-verliesrekening de leiding een ondubbelzinnig antwoord op de vraag of een beslissing juist was: heeft de onderneming meer waarde toegevoegd dan zij aan middelen heeft verbruikt of niet. Deze rekening dwingt tot voortdurende bijstelling, ook zonder dat iemand van buiten controleert of de manager zijn best doet.</p>
+      <p>In het tweede type ontbreekt die rekening, omdat de dienst geen product verkoopt waarvoor klanten vrijwillig betalen. Een ministerie van justitie of een politiekorps levert geen diensten die op een markt geprijsd worden, en er is dus geen manier om in geld uit te drukken of het werk zijn kosten waard is. Mises noemt dit geen gebrek van de betrokken instellingen, maar een kenmerk van de taken die zij uitvoeren: dwang, rechtspraak en soortgelijke overheidsfuncties lenen zich naar hun aard niet voor een winstberekening.</p>
+      <h3>Waarom regels de plaats van winst innemen</h3>
+      <p>Zonder winstmaatstaf kan een hogere overheid een ambtenaar niet beoordelen op het resultaat van zijn werk, omdat er geen getal is waarin dat resultaat samenkomt. Het enige wat overblijft, is beoordelen of de ambtenaar zich aan de voorgeschreven procedure heeft gehouden. Mises noemt dit geen bijverschijnsel van slecht bestuur, maar de enige beschikbare vervanging voor de winstrekening: regels zijn het surrogaat waarmee een democratie controle houdt over ambtenaren die zij niet op omzet of winst kan afrekenen.</p>
+      <p>Dit verklaart volgens Mises waarom bureaucratisch gedrag, dat hij als star en formalistisch aanmerkt, niet verdwijnt door betere mensen aan te stellen. Een ambtenaar die van de regel afwijkt om naar eigen inzicht een beter resultaat te bereiken, ontneemt zijn superieuren de enige maatstaf die zij hebben om zijn handelen te beoordelen. Initiatief dat buiten de regel om gaat is voor de bureaucratie dan ook geen deugd maar een risico, ook wanneer het in een individueel geval tot een beter resultaat zou leiden.</p>
+      <h3>Bureaucratisering van het bedrijfsleven</h3>
+      <p>Mises breidt zijn analyse uit naar bedrijven die door prijsbeheersing, vergunningenstelsels of andere overheidsingrepen hun eigen winstrekening aan gezag verliezen. Zodra een bedrijf niet meer vrij is om zijn prijzen, lonen of investeringen te bepalen omdat de overheid die vaststelt, verdwijnt daarmee ook het onderscheid tussen goed en slecht ondernemerschap. Het bedrijf gaat zich dan, volgens Mises, gedragen als een overheidsdienst: het volgt de voorschriften in plaats van de markt, ook al blijft het formeel particulier eigendom.</p>
+      <p>Hij waarschuwt dat deze verschuiving niet vanzelf tot stilstand komt. Elke nieuwe regel die de vrije prijsvorming beperkt, roept om een volgende regel om de gevolgen van de eerste te ondervangen, en zo breidt het bureaucratische deel van de economie zich uit ten koste van het door winst gestuurde deel.</p>
+      <h3>De positie van de ambtenaar</h3>
+      <p>Mises besteedt aandacht aan de psychologische kant van het ambtenaarschap: de bureaucraat ontleent zijn positie aan zijn plaats in de hiërarchie en aan zijn kennis van de regels, niet aan een aantoonbaar resultaat. Dit maakt promotie in een bureaucratie afhankelijk van anciënniteit en van het oordeel van meerderen over gehoorzaamheid, terwijl promotie in een winstgedreven bedrijf in principe afhankelijk is van de bijdrage aan de winst.</p>
+      <p>Hieruit leidt hij een sociale consequentie af: waar het bureaucratische deel van de samenleving groeit, groeit ook het aantal mensen wier carrière van politieke gunst afhangt in plaats van van economische prestatie, met een grotere rol voor partijpolitiek in benoemingen als gevolg.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Winst-en-verliesrekening</td><td>De boekhoudkundige uitkomst waarmee een onderneming vaststelt of een beslissing meer waarde heeft opgeleverd dan zij heeft gekost.</td></tr>
+          <tr><td class="term">Bureaucratisch bestuur</td><td>Bestuur dat ambtenaren beoordeelt op het naleven van vastgelegde regels, omdat een winstmaatstaf voor hun werk ontbreekt.</td></tr>
+          <tr><td class="term">Winstgedreven bestuur</td><td>Bestuur dat managers beoordeelt op het resultaat van hun beslissingen, afleesbaar uit de winst-en-verliesrekening.</td></tr>
+          <tr><td class="term">Prijsbeheersing</td><td>Overheidsingrijpen waarbij prijzen, lonen of huren wettelijk worden vastgesteld in plaats van door vraag en aanbod.</td></tr>
+          <tr><td class="term">Surrogaatmaatstaf</td><td>De regel die in een bureaucratie de plaats inneemt van de winst als middel om het handelen van ambtenaren te beoordelen.</td></tr>
+          <tr><td class="term">Overheidsfunctie</td><td>Een taak, zoals rechtspraak of dwanguitoefening, die zich volgens Mises naar zijn aard niet voor een winstberekening leent.</td></tr>
+          <tr><td class="term">Bureaucratisering van het bedrijfsleven</td><td>Het proces waarbij particuliere ondernemingen door overheidsingrijpen hun vrijheid over prijzen en investeringen verliezen en zich als overheidsdiensten gaan gedragen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Mises onderbouwt zijn stelling vooral met een economisch-theoretisch argument over de functie van winst en verlies als informatiebron, aansluitend op zijn eerdere werk over economische calculatie onder socialisme. Het boek bevat weinig empirisch cijfermateriaal en geen systematisch onderzoek naar bureaucratieën van zijn tijd; de kracht van het argument zit in de logische afleiding, niet in een reeks voorbeelden die de stelling toetsen.</p>
+      <p>Waar Mises voorbeelden geeft, zijn dat vooral illustraties uit de Amerikaanse en Europese overheidspraktijk van de jaren dertig en veertig, zoals de werking van ministeries en genationaliseerde bedrijven, gebruikt om zijn redenering te verduidelijken en niet om haar statistisch te bewijzen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek onderbouwt zijn kernstelling met een deductieve redenering en nauwelijks met vergelijkend onderzoek naar hoe overheidsdiensten in de praktijk functioneren, waardoor niet valt na te gaan hoe vaak bureaucratisch gedrag daadwerkelijk optreedt zoals Mises voorspelt en hoe vaak overheidsorganisaties er toch in slagen resultaatgericht te werken, bijvoorbeeld via prestatie-indicatoren die niet op winst berusten.</p>
+      <p>Mises behandelt winst en verlies als de enige mogelijke maatstaf voor doelmatig handelen, terwijl latere bestuurskunde en economie ook andere sturingsmechanismen voor overheidsdiensten hebben ontwikkeld, zoals kosteneffectiviteitsanalyse en prestatiecontracten, die zijn scherpe tweedeling tussen bureaucratie en markt gedeeltelijk afzwakken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke overheidsdienst of bedrijfsonderdeel zonder winstoogmerk expliciet hoe resultaat wordt vastgesteld, in plaats van aan te nemen dat naleving van procedures daarvoor volstaat.</li>
+        <li>Wees terughoudend met het opleggen van extra regels als reactie op een fout in een organisatie zonder winstmaatstaf, omdat elke regel er volgens Mises een vervanging voor eigen afweging bij aanstelt.</li>
+        <li>Beoordeel voorstellen tot prijsbeheersing of vergunningplicht mede op het effect dat zij hebben op de mogelijkheid van een bedrijf om zijn eigen winst en verlies te blijven berekenen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Yale University Press, New Haven, 1944. Nederlandse vertaling niet nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Von Mises vergelijkt in dit korte boek bureaucratisch bestuur met bedrijfsvoering die door winst wordt gestuurd, en stelt dat het verschil niet in de kwaliteit van de mensen zit maar in de afwezigheid van een winst-en-verliesrekening: zonder die maatstaf kan een overheidsdienst niet objectief vaststellen of zij haar middelen goed besteedt.</p><p>Daaruit leidt hij af dat bureaucratie zich onvermijdelijk richt op het volgen van regels in plaats van op resultaat, niet doordat ambtenaren onwillig zijn, maar omdat er geen andere manier is om hun handelen te beoordelen zodra winst als maatstaf ontbreekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bureaucratie</li><li>overheid</li><li>economie</li><li>Oostenrijkse-school</li><li>organisatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1334"><a href="1334.html">Socialism</a>. Mises werkte zijn argument dat doelmatig handelen zonder winstmaatstaf niet mogelijk is eerder uit in dit boek over de economische calculatie onder socialisme.</li>
+          <li value="1338"><a href="1338.html">Omnipotent Government</a>. In dit boek behandelt Mises de groei van staatsmacht die volgens hem met bureaucratisering gepaard gaat, op een breder politiek-historisch niveau.</li>
+          <li value="1340"><a href="1340.html">Human Action</a>. Mises' hoofdwerk plaatst het onderscheid tussen bureaucratisch en winstgedreven handelen in zijn volledige theorie van menselijk handelen.</li>
+          <li value="910"><a href="910.html">Kapitalisme, socialisme en democratie</a>. Schumpeter beschrijft in dit boek een vergelijkbare verschuiving van ondernemerschap naar bureaucratisch beheer, maar verklaart die uit de eigen dynamiek van het kapitalisme in plaats van uit overheidsingrijpen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

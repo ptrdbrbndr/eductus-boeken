@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theory and History &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ludwig von Mises stelt dat de geschiedenis geen wetten volgt zoals de natuurkunde die kent. Menselijk handelen laat zich wel begrijpen met de algemene,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1342">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1342 &middot; Staat en vrijheid</p>
+    <h1>Theory and History</h1>
+    <p class="lede">Ludwig von Mises, 1957</p>
+    <p class="stats">
+      <span><b>1458</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1342"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ludwig von Mises stelt dat de geschiedenis geen wetten volgt zoals de natuurkunde die kent. Menselijk handelen laat zich wel begrijpen met de algemene, tijdloze uitspraken van de praxeologie, de leer van het handelen waarvan de economie het meest uitgewerkte deel is, maar de concrete loop van de geschiedenis is de opeenstapeling van ontelbare individuele keuzes onder waarden, verwachtingen en kennis die op elk moment anders zijn. Wie, zoals Marx met zijn historisch materialisme, stelt dat productiekrachten of klassenverhoudingen de geschiedenis met noodzakelijkheid naar een vooraf vastliggend eindpunt sturen, verwart een interpretatie achteraf met een wet. Dezelfde fout maakt elke andere vorm van historicisme, of die nu draait om rassen, beschavingscycli of technologische vooruitgang: ze schrijft aan het verleden een dwingende richting toe die alleen zichtbaar is omdat de uitkomst al bekend is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Handelen, geen gedrag</h3>
+      <p>Mises begint bij het onderscheid tussen praxeologie en de natuurwetenschappen. Een steen die valt, gedraagt zich volgens een wet die zich altijd op dezelfde manier voltrekt. Een mens die handelt, kiest tussen doelen op basis van een waardering die niet meetbaar is en die van moment tot moment kan veranderen. Praxeologische uitspraken, zoals dat een prijsplafond onder de marktprijs tot een tekort leidt, gelden universeel en tijdloos, maar ze zeggen niets over welk plafond een overheid ooit zal instellen of hoe hard een bevolking daarop zal reageren. Dat laatste is geschiedenis, geen wet.</p>
+      <h3>Het historisch materialisme als voorbeeld van historicisme</h3>
+      <p>Mises neemt Marx als het uitgewerktste voorbeeld van wat hij historicisme noemt: de gedachte dat de geschiedenis een vaste opeenvolging van stadia doorloopt, bij Marx bepaald door de productieverhoudingen, die via klassenstrijd onvermijdelijk op het socialisme uitloopt. Hij wijst erop dat deze voorspelling haar bewijskracht ontleent aan een cirkelredenering: gebeurtenissen die niet in het schema passen, worden verklaard als vertraging of als schijn, terwijl gebeurtenissen die er wel in passen als bevestiging gelden. Een uitspraak die op voorhand met elke uitkomst te verzoenen is, toetst niets.</p>
+      <p>Hij onderscheidt hierbij het polylogisme, het idee dat de logica van het denken zelf per klasse of ras verschilt, van de eigenlijke materialistische geschiedopvatting. Beide delen volgens hem hetzelfde gebrek: ze plaatsen een onpersoonlijke kracht, klasse-belang of klasse-logica, boven de individuele mens die feitelijk beslist, terwijl elke beslissing uiteindelijk door een persoon genomen wordt op grond van diens eigen inschatting van de situatie.</p>
+      <h3>Andere vormen van historisch determinisme</h3>
+      <p>Mises behandelt het historisch materialisme niet als een geïsoleerde dwaling maar als één variant van een breder patroon. Racistische geschiedopvattingen die volkeren een vaste, biologisch bepaalde bestemming toedichten, en geschiedfilosofieën die beschavingen als organismen met een vaste levenscyclus van opkomst, bloei en verval beschrijven, maken volgens hem dezelfde denkfout: ze vervangen de analyse van wat mensen feitelijk kozen en waarom, door een schema dat de uitkomst al vastlegt voordat de gebeurtenissen zich hebben voltrokken.</p>
+      <h3>De grenzen van kwantitatieve methoden</h3>
+      <p>Een apart deel gaat over de rol van statistiek in de sociale wetenschappen. Mises erkent dat statistiek nuttig is om vast te stellen wat er in een bepaalde periode en plaats gebeurd is, bijvoorbeeld hoe de vraag naar een goed samenhing met de prijs ervan in die concrete omstandigheden. Wat statistiek volgens hem niet kan, is die samenhang veralgemeniseren tot een constante, zoals natuurkundige metingen dat wel toelaten. Een prijselasticiteit die in de jaren dertig in de Verenigde Staten gemeten is, geldt niet automatisch voor een andere tijd of een andere markt, omdat de voorkeuren en verwachtingen van de handelende mensen intussen veranderd kunnen zijn.</p>
+      <p>Daarmee verwerpt hij niet het gebruik van cijfers, maar wel de gedachte dat econometrische wetten op dezelfde manier voorspellen als natuurwetten. Wat blijft, is de praxeologische kern: dat mensen op schaarste reageren, dat prijzen informatie dragen, dat een tekort ontstaat bij een prijs onder het marktniveau. Hoe sterk die reactie in een concreet geval uitvalt, hangt af van omstandigheden die de econoom niet vooraf kan berekenen.</p>
+      <h3>De rol van waardeoordelen bij de historicus</h3>
+      <p>Mises besteedt ruimte aan het probleem dat een historicus, in tegenstelling tot een natuurwetenschapper, niet om een waardering heen kan bij het selecteren en ordenen van feiten. Uit de oneindige hoeveelheid gebeurtenissen kiest de historicus wat relevant is voor het verhaal dat hij vertelt, en die keuze wordt gestuurd door de vraag die hij stelt en de waarden die hij zelf aanhangt. Dat maakt geschiedschrijving volgens hem niet willekeurig, maar wel principieel anders dan een experiment dat herhaalbaar is en dat men door herhaling kan toetsen.</p>
+      <h3>Vrijheid als tegenhanger van determinisme</h3>
+      <p>Het slot verbindt de methodologische discussie met een politieke: als de geschiedenis werkelijk door onpersoonlijke wetten naar een vast eindpunt gestuurd zou worden, verliest individuele keuze haar betekenis en wordt verzet tegen die wetten zinloos of zelfs reactionair, precies de retoriek die Mises bij marxistische auteurs signaleert. Wie daarentegen aanneemt dat de uitkomst van de geschiedenis openligt omdat ze door de keuzes van mensen gemaakt wordt, erkent daarmee ook dat andere keuzes tot andere uitkomsten hadden kunnen leiden.</p>
+      <p>Mises trekt hieruit ook een les over hoe economen en historici met elkaar om moeten gaan: de econoom die zich als praxeoloog beperkt tot de algemene wetten van het handelen, heeft niets te zeggen over wélke concrete politiek een land zal voeren, en de historicus die concrete gebeurtenissen beschrijft, kan zich niet beroepen op een wet van de geschiedenis om die beschrijving tot voorspelling te maken. Beide disciplines blijven volgens hem noodzakelijk naast elkaar bestaan, juist omdat ze een verschillend deel van de werkelijkheid dekken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Praxeologie</td><td>De algemene leer van het menselijk handelen, waarvan de economie volgens Mises het uitgewerkte deel is.</td></tr>
+          <tr><td class="term">Historicisme</td><td>De opvatting dat de geschiedenis vaste stadia doorloopt volgens een wet die de uitkomst vooraf vastlegt.</td></tr>
+          <tr><td class="term">Historisch materialisme</td><td>Marx' these dat de productieverhoudingen via klassenstrijd de geschiedenis naar het socialisme sturen.</td></tr>
+          <tr><td class="term">Polylogisme</td><td>De aanname dat de logische structuur van het denken zelf per klasse of ras verschilt.</td></tr>
+          <tr><td class="term">Apriorisme</td><td>Mises' methodologische stelling dat de grondbeginselen van de economie logisch afgeleid worden uit het begrip handelen, niet uit waarneming.</td></tr>
+          <tr><td class="term">Thymologie</td><td>Mises' term voor de kennis van menselijke waarden en verwachtingen die de historicus gebruikt om gedrag te duiden, in tegenstelling tot praxeologische wetten.</td></tr>
+          <tr><td class="term">Waardevrijheid</td><td>Het onderscheid tussen het vaststellen van een economische wet en het beoordelen van een doel als wenselijk of niet.</td></tr>
+          <tr><td class="term">Methodologisch individualisme</td><td>Het uitgangspunt dat sociale verschijnselen verklaard moeten worden vanuit het handelen van individuen, niet vanuit collectieve entiteiten als klasse of volk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Mises onderbouwt zijn these vooral langs logische weg, niet met historisch bronnenonderzoek: hij laat zien dat de voorspellingen van het historisch materialisme niet falsifieerbaar zijn omdat afwijkende uitkomsten steeds als tijdelijke afwijking worden weggeredeneerd, en dat is een methodologisch argument, geen empirische toets van wat er werkelijk gebeurd is.</p>
+      <p>Voor de grenzen van statistiek verwijst hij naar het gegeven dat econometrische verbanden uit het verleden herhaaldelijk instabiel bleken zodra de onderliggende omstandigheden veranderden, zonder dat hij dit met specifieke, dateerbare gevallen staaft. Het argument steunt op de aard van menselijk handelen zelf, namelijk dat voorkeuren veranderlijk zijn, en niet op een reeks gedocumenteerde mislukte voorspellingen.</p>
+      <p>Het boek bevat geen apart empirisch onderzoek naar economische geschiedenis; het is een verzameling methodologische essays die voortbouwen op de eerdere uiteenzetting van de praxeologie in <i>Human Action</i>.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen Mises' positie is dat zijn eigen praxeologie evenmin empirisch getoetst wordt: hij presenteert de grondstellingen van de economie als logisch noodzakelijk uit het begrip handelen, maar critici hebben aangevoerd dat dit apriorisme zelf net zo weinig falsifieerbaar is als het historisch materialisme dat hij verwerpt.</p>
+      <p>Zijn weergave van het marxisme is bovendien de meest starre, deterministische lezing ervan; latere en genuanceerdere marxistische auteurs hebben de rol van individuele actoren en toeval binnen het historisch materialisme juist proberen te vergroten, waardoor Mises' kritiek een variant treft die niet de enige is.</p>
+      <p>De scherpe scheiding tussen tijdloze praxeologische wetten en veranderlijke historische feiten laat weinig ruimte voor de mogelijkheid dat sommige economische regelmatigheden, zoals aanbod- en vraagreacties binnen een gegeven institutioneel kader, over langere perioden wel degelijk stabiel genoeg zijn om voorzichtige voorspellingen op te baseren, iets wat de latere econometrie juist heeft proberen te onderzoeken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Wees achterdocht bij verklaringen die een uitkomst als onvermijdelijk voorstellen omdat ze al heeft plaatsgevonden.</li>
+        <li>Onderscheid bij een economische uitspraak of die een algemene, tijdloze regelmatigheid beschrijft of een concrete, historisch gebonden waarneming.</li>
+        <li>Toets een theorie op de vraag of er een denkbare uitkomst is die haar zou weerleggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>An Interpretation of Social and Economic Evolution</i>. Yale University Press, New Haven, 1957. Nederlandse vertaling niet nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Von Mises zet in dit boek zijn praxeologie af tegen het historisch materialisme van Marx en tegen elke vorm van historisch determinisme die stelt dat de loop van de geschiedenis door onpersoonlijke wetten wordt bepaald. Geschiedenis bestaat volgens hem uit de opeenstapeling van keuzes van individuen, die niet tot een wetmatigheid herleid kunnen worden zoals in de natuurkunde wel kan.</p><p>Het boek bespreekt ook de grenzen van statistiek en kwantitatieve methoden in de sociale wetenschappen, en betoogt dat economische wetten weliswaar universeel geldig zijn, maar dat de manier waarop mensen daarop reageren, historisch en dus niet te voorspellen is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geschiedfilosofie</li><li>economie</li><li>Oostenrijkse-school</li><li>determinisme</li><li>methodologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1340"><a href="1340.html">Human Action</a>. Human Action werkt de praxeologie uit waarop Theory and History als methodologisch vervolg voortbouwt.</li>
+          <li value="1337"><a href="1337.html">Epistemological Problems of Economics</a>. Epistemological Problems of Economics behandelt dezelfde tegenstelling tussen apriorische economie en empirische geschiedschrijving, uit een eerdere periode van Mises' denken.</li>
+          <li value="1343"><a href="1343.html">The Ultimate Foundation of Economic Science</a>. The Ultimate Foundation of Economic Science zet Mises' verzet tegen het toepassen van natuurwetenschappelijke methode op de economie nog compacter uiteen.</li>
+          <li value="821"><a href="821.html">The Worldly Philosophers</a>. The Worldly Philosophers plaatst Marx' historisch materialisme in de bredere geschiedenis van het economisch denken die Mises hier juist bestrijdt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

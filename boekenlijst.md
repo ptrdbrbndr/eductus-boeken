@@ -1,8 +1,8 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 22
-augustus 2026: 1012 titels in 21 rubrieken.
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 23
+augustus 2026: 1027 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -23,16 +23,16 @@ bij de volgende build verloren.
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174, 1203, 1302, 1307, 1308, 1309, 1310, 1311, 1314, 1315, 1316, 1317, 1319, 1320, 1325, 1326, 1328, 1329 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288, 1331 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551, 1294, 1297 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447, 1303, 1304, 1305, 1306, 1313 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762, 805, 818, 820, 823, 938, 941, 944, 945, 946, 947, 948, 949, 950, 951, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1265, 1267, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1282, 1318 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298, 1345 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762, 805, 818, 820, 823, 938, 941, 944, 945, 946, 947, 948, 949, 950, 951, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1265, 1267, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1282, 1318, 1344 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560, 768 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122, 1123, 1124, 1125, 1126, 1139, 1140, 1141, 1142, 1143, 1144, 1147, 1149, 1150, 1151, 1152, 1154, 1156, 1157, 1158, 1161, 1163, 1164, 1165, 1166, 1167, 1169, 1170, 1207, 1214, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1227, 1228, 1229, 1230, 1231, 1232, 1234, 1235, 1236, 1237, 1238, 1239, 1241, 1242, 1244, 1266, 1268, 1296, 1300, 1324 |
-| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 826, 827, 910, 935 |
+| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 826, 827, 910, 935, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -210574,6 +210574,2908 @@ voorganger.
 - 18. On Writing. Stephen Kings praktijkboek, dat lezen en navolgen juist als
 het gewone leerpad van de schrijver beschrijft.
 
+## 1331. Steve Jobs in Exile
+
+Geoffrey Cain, 2026. Ondertitel *The Untold Story of NeXT and the Remaking of
+an American Visionary*, met een voorwoord van Dan'l Lewin en een nawoord van
+Ed Catmull. Random House, New York, 2026. Geen Nederlandse vertaling gevonden.
+Rubriek: geld en ondernemen.
+Tags: `biografie`, `Apple`, `NeXT`, `Pixar`, `leiderschap`, `mislukking`
+
+Cain richt zich op het decennium dat in de meeste Steve Jobs-verhalen wordt
+overgeslagen: de jaren tussen zijn ontslag bij Apple in 1985 en zijn terugkeer
+daar in 1997, toen hij bij NeXT een dure computer bouwde die commercieel
+mislukte en tegelijk bij Pixar leerde hoe een bedrijf wel overeind te houden
+is. Het boek steunt op meer dan honderd nieuwe interviews en op ongepubliceerd
+materiaal, waaronder beeldopnamen van NeXT-vergaderingen.
+
+De stelling is dat juist deze mislukking Jobs vormde tot de leider die Apple
+na 1997 weer opbouwde: niet ondanks de jaren van tegenslag, maar doordat hij
+in die jaren discipline en geduld leerde die hem bij Apple in de jaren tachtig
+ontbraken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Cain stelt dat de twaalf jaar tussen Steve Jobs' ontslag bij
+Apple in 1985 en zijn terugkeer in 1997 geen zijspoor waren maar de periode
+waarin Jobs de leider werd die Apple nadien opbouwde. Bij NeXT bouwde hij een
+computer die commercieel mislukte maar wiens besturingssysteem, NeXTSTEP,
+later de basis werd van Mac OS X, en bij Pixar leerde hij van Ed Catmull en
+John Lasseter hoe een organisatie draait die niet op zijn eigen visie steunt
+maar op andermans werk. Het boek zet zich af tegen het beeld van Jobs als
+geboren visionair en laat in plaats daarvan zien hoe herhaalde mislukking,
+financiële afhankelijkheid van Ross Perot en later van zijn eigen vermogen, en
+het besef dat hij Apple ooit verkeerd had geleid, hem dwongen zijn manier van
+werken te herzien.
+
+#### De gang van het verhaal
+
+**Het ontslag en de eerste maanden**
+
+Het boek opent met het vertrek van Jobs bij Apple in 1985, na een machtsstrijd
+met John Sculley die Jobs verloor. Cain beschrijft hoe Jobs de weken erna
+doorbracht zonder duidelijk plan, en hoe uit die onzekerheid het besluit
+ontstond om met een klein team oud-Apple-medewerkers een nieuw bedrijf te
+beginnen: NeXT.
+
+**NeXT en de te dure computer**
+
+Een groot deel van het boek behandelt de bouw van de NeXT-computer, een
+machine met een zwart kubusvormig ontwerp die uiteindelijk bij de introductie
+in 1988 rond de tienduizend dollar kostte, veel meer dan de universiteiten en
+bedrijven waarvoor hij bedoeld was konden betalen. Cain beschrijft hoe Jobs'
+eis dat elk onderdeel, tot de fabriekshal aan toe, aan zijn esthetische
+maatstaf voldeed, de ontwikkeling vertraagde en de kosten opdreef.
+
+Het bedrijf overleefde op geld van Ross Perot, die eind jaren tachtig ruim
+twintig miljoen dollar investeerde, en later steeds meer op Jobs' eigen
+vermogen. Cain laat zien dat NeXT als hardwarebedrijf feitelijk mislukte: de
+verkopen bleven ver achter, en het bedrijf verlegde zich begin jaren negentig
+naar software, met NeXTSTEP als besturingssysteem.
+
+**Pixar en het leren delegeren**
+
+Parallel daaraan volgt het boek Jobs' rol bij Pixar, dat hij in 1986 van
+Lucasfilm overnam als hardwarebedrijf voor beeldverwerking en dat pas na jaren
+verlies bleek te overleven dankzij de korte animatiefilms en later Toy Story
+uit 1995. Cain beschrijft, mede op basis van het nawoord van Ed Catmull, dat
+Jobs bij Pixar vooral op afstand opereerde: hij onderhandelde met Disney en
+bewaakte de financiën, maar liet de creatieve en organisatorische leiding aan
+Catmull en Lasseter.
+
+Die werkverhouding, waarin Jobs zijn wil niet aan het scheppend proces
+oplegde, wordt in het boek neergezet als het tegenovergestelde van zijn stijl
+bij NeXT, en als de leerschool voor de manier waarop hij bij zijn terugkeer
+bij Apple met ontwerpers als Jony Ive omging.
+
+**De achteruitkijkspiegel: wat Jobs bij Apple fout deed**
+
+Cain besteedt een deel aan Jobs' eigen herziening van zijn Apple-jaren: zijn
+autoritaire omgang met personeel, zijn onvermogen om een productlijn te
+beperken, en zijn moeite met het delegeren van beslissingen. Interviews met
+voormalige NeXT-medewerkers laten zien dat sommige van die trekken bij NeXT
+terugkeerden, terwijl Jobs tegelijk aantoonbaar voorzichtiger werd in wie hij
+aannam en welke bevoegdheden hij aan anderen gaf.
+
+**De terugkeer bij Apple**
+
+Het slot behandelt de overname van NeXT door Apple in 1996 voor ongeveer 400
+miljoen dollar, formeel bedoeld om NeXTSTEP als basis voor een nieuw
+besturingssysteem te gebruiken, en de manier waarop Jobs binnen enkele maanden
+weer aan het roer kwam te staan, eerst als adviseur en vanaf 1997 als
+interim-directeur. Cain laat zien hoe de technologie van NeXT direct terugkwam
+in Mac OS X, en hoe de discipline die Jobs bij Pixar had geleerd zichtbaar
+werd in de manier waarop hij vanaf 1997 de productlijn van Apple drastisch
+inkortte.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| NeXTSTEP | het besturingssysteem van de NeXT-computer, dat na de overname in 1996 de technische basis werd van Mac OS X. |
+| de kubus | de bijnaam voor de NeXT-computer, genoemd naar de zwarte, kubusvormige behuizing waarop Jobs stond. |
+| braintrust | de groep Pixar-regisseurs die elkaars films in wording beoordeelde zonder dat iemand de bevoegdheid had zijn oordeel af te dwingen, een werkwijze die het boek aan Catmull toeschrijft en die Jobs op afstand zag functioneren. |
+| Ross Perot | de zakenman en latere presidentskandidaat die in de late jaren tachtig een grote investering in NeXT deed. |
+| Toy Story | de eerste volledig computeranimatiefilm van Pixar, uitgebracht in 1995, die het bedrijf financieel overeind hield. |
+| interim-directeur | de functie die Jobs vanaf 1997 bij Apple bekleedde, voordat hij later voltijds directeur werd. |
+| Jony Ive | de ontwerper met wie Jobs na zijn terugkeer bij Apple ging samenwerken, in een stijl van samenwerken die het boek verbindt aan wat Jobs bij Pixar had gezien. |
+
+#### Waar het argument op rust
+
+Cain baseert het boek op meer dan honderd interviews met voormalige NeXT- en
+Pixar-medewerkers, familieleden en zakenpartners, aangevuld met nieuw
+materiaal waaronder beeldopnamen van interne NeXT-vergaderingen die eerder
+niet openbaar waren. Het voorwoord is van Dan'l Lewin, die bij NeXT als een
+van de eerste medewerkers de verkoop leidde, en het nawoord van Ed Catmull,
+medeoprichter van Pixar, wat het boek directe toegang geeft tot twee van de
+belangrijkste getuigen van deze periode.
+
+De financiële gang van zaken bij NeXT, de investering van Perot en de
+uiteindelijke overnamesom van Apple, is grotendeels reeds bekend uit eerdere
+biografieën en zakelijke verslaggeving; Cain voegt daar vooral de interne,
+dagelijkse werking van het bedrijf aan toe die uit de vergaderopnamen en de
+interviews naar voren komt.
+
+#### Wat er tegen in te brengen valt
+
+Het boek steunt sterk op de herinnering van mensen die decennia terugkijken op
+hun tijd met Jobs, een periode waarin zijn latere roem als Apple-icoon
+onvermijdelijk meekleurt hoe zij die jaren nu beschrijven. Waar interviews de
+enige bron zijn voor een gesprek of een sfeer op de werkvloer, valt niet te
+controleren hoeveel daarvan letterlijk zo heeft plaatsgevonden.
+
+Doordat het perspectief vooral van insiders komt die welwillend tegenover Jobs
+stonden of, zoals Lewin en Catmull, hem in voorwoord en nawoord uitdrukkelijk
+eren, bestaat het risico dat het boek de herziening van Jobs' gedrag gunstiger
+voorstelt dan uit onafhankelijker bronnen zou blijken. Eerdere biografieën van
+Jobs beschrijven voor dezelfde jaren ook aanhoudend hard en soms vernederend
+optreden tegen personeel bij NeXT, iets wat in een verhaal dat de
+wildernisjaren vooral als leerschool neerzet, licht kan verbleken.
+
+#### Wat je hierna leest
+
+- 231. Steve Jobs. Isaacsons biografie beschrijft dezelfde jaren bij NeXT en
+Pixar als onderdeel van Jobs' hele leven, met minder ruimte voor de dagelijkse
+gang van zaken bij NeXT dan Cain daaraan wijdt.
+- 46. Becoming Steve Jobs. Schlender en Tetzeli portretteren juist deze
+wildernisjaren als de periode waarin Jobs veranderde, met de nadruk op zijn
+persoonlijke ontwikkeling in plaats van op de techniek van NeXT.
+- 41. Creativity, Inc.. Catmull, die in dit boek het nawoord schreef,
+beschrijft in zijn eigen boek de werkwijze van Pixar van binnenuit en vanuit
+zijn eigen positie in plaats van vanuit Jobs' rol.
+- 75. Ego Is the Enemy. Holiday behandelt in algemenere vorm hoe ambitie,
+succes en mislukking het ego vormen, een patroon dat in Jobs' jaren tussen
+Apple en Apple concreet wordt uitgewerkt.
+
+## 1332. The Theory of Money and Credit
+
+Ludwig von Mises, 1912. Oorspronkelijk *Theorie des Geldes und der
+Umlaufsmittel* (Duncker & Humblot, 1912), Engelse vertaling door H.E. Batson
+(Jonathan Cape, 1934). Nederlandse vertaling niet nagekeken. Rubriek: staat en
+vrijheid.
+Tags: `economie`, `geldtheorie`, `Oostenrijkse-school`, `bankwezen`,
+`inflatie`
+
+Von Mises' eerste grote werk past de subjectieve waardeleer van de
+Oostenrijkse school toe op geld zelf en verklaart de koopkracht van geld
+vanuit dezelfde individuele keuzes die de prijs van elk ander goed bepalen.
+Hij bouwt daarmee het regressietheorema: geld ontleent zijn waarde vandaag aan
+de waarde die het gisteren al had, terug te voeren tot het moment waarop het
+voor het eerst als ruilmiddel diende.
+
+Op die basis onderscheidt het boek bankkrediet dat door werkelijke besparingen
+wordt gedekt van kunstmatig gecreëerd krediet, en legt het de kiem voor wat
+later de Oostenrijkse conjunctuurtheorie zou heten: een boom die op te veel
+goedkoop krediet drijft, eindigt volgens von Mises onvermijdelijk in een
+crisis wanneer de onderliggende besparingen ontbreken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mises stelt dat geld geen aparte categorie is die buiten de
+gewone waardeleer om verklaard moet worden, maar een goed als elk ander,
+waarvan de waarde net als bij ieder ruilgoed uit het subjectieve oordeel van
+individuele mensen voortkomt. Hij lost daarmee op wat later het
+regressieprobleem is genoemd: de waarde van geld vandaag hangt af van de vraag
+naar geld, en die vraag hangt op haar beurt af van de koopkracht die geld al
+had, zodat de verklaring pas houdbaar wordt zodra zij teruggaat tot het moment
+waarop het geldgoed nog geen geld was maar een gewoon ruilartikel met een
+eigen gebruikswaarde. Op die grondslag onderscheidt hij vervolgens twee
+soorten bankkrediet: krediet dat uit werkelijk gespaard geld komt, en krediet
+dat banken scheppen zonder dat er spaargeld tegenover staat. In de tweede druk
+legt hij uit dat die laatste vorm, ruim verstrekt en goedkoop geprijsd, tot
+een opleving leidt die op een correctie moet uitlopen zodra blijkt dat de
+onderliggende besparingen ontbreken.
+
+#### De gang van het boek
+
+**Waardeleer en het regressieprobleem**
+
+Mises begint bij de Oostenrijkse waardeleer van Carl Menger en Eugen von
+Böhm-Bawerk, die stelt dat de waarde van een goed niet in het goed zelf zit
+maar in het oordeel van de mens die het gebruikt, gemeten aan het nut van de
+laatste, marginale eenheid. Hij past die redenering toe op geld en verwerpt
+daarmee verklaringen die geld als een technisch hulpmiddel voor ruil
+behandelen zonder te vragen waarom mensen er iets voor over hebben.
+
+Het probleem dat hij oplost, noemt hij zelf niet met de latere naam
+regressietheorema, maar de redenering staat er wel. De vraag naar geld op een
+bepaald moment is een vraag naar koopkracht, en koopkracht is de prijs van
+geld uitgedrukt in goederen. Wie de waarde van geld wil verklaren uit de vraag
+ernaar, verklaart die waarde dus uit zichzelf, tenzij hij een stap terug in de
+tijd zet naar de koopkracht van gisteren, en vandaar weer een stap terug, tot
+het punt waarop het geldgoed voor het eerst als ruilmiddel diende en zijn
+waarde nog volledig aan zijn gebruik als gewoon goed ontleende.
+
+**Van ruilgoed tot algemeen ruilmiddel**
+
+Mises bouwt voort op Mengers verklaring waarom uit talloze losse ruilgoederen
+er één is overgebleven als algemeen aanvaard ruilmiddel: het goed dat het
+makkelijkst afzetbaar was, zoals edelmetaal, werd steeds vaker aangenomen
+omdat mensen wisten dat anderen het ook zouden aannemen, tot het die rol
+vanzelfsprekend vervulde. Geld ontstaat zo volgens hem niet uit een
+overheidsbesluit of een collectieve afspraak, maar uit het cumulatieve effect
+van individuele ruilbeslissingen.
+
+Deze afkomst blijft volgens Mises ook relevant voor de verklaring van de
+waarde van geld nadat een goed volledig als geld functioneert, ook al denkt
+niemand in het dagelijks gebruik nog aan die oorsprong.
+
+**Geld en geldsurrogaten**
+
+Mises onderscheidt geld in enge zin, het fysieke betaalmiddel zelf, van
+geldsurrogaten: vorderingen die op verzoek onmiddellijk en zonder risico in
+geld inwisselbaar zijn en in de praktijk als geld worden gebruikt, zoals
+bankbiljetten en direct opeisbare tegoeden. Bij een surrogaat dat volledig
+door een geldreserve gedekt is, spreekt hij van een geldcertificaat.
+
+Zodra een bank meer van zulke vorderingen uitgeeft dan zij aan geld in kas
+heeft, ontstaat wat hij Umlaufsmittel noemt, in het Nederlands doorgaans
+vertaald als fiduciaire circulatiemiddelen: vorderingen die als geld
+circuleren zonder dat er voor het volledige bedrag dekking tegenover staat. De
+Duitse titel van het boek, *Theorie des Geldes und der Umlaufsmittel*,
+verwijst rechtstreeks naar dat onderscheid.
+
+**Warenkrediet tegenover circulatiekrediet**
+
+Op dat onderscheid bouwt Mises zijn analyse van bankkrediet. Warenkrediet is
+krediet dat een bank verstrekt met geld dat spaarders daadwerkelijk hebben
+afgestaan, zodat de lener beschikt over koopkracht die een ander bewust heeft
+prijsgegeven. Circulatiekrediet is krediet dat ontstaat doordat een bank
+fiduciaire circulatiemiddelen uitgeeft die niemand heeft gespaard.
+
+Dat onderscheid is voor Mises geen boekhoudkundige bijzaak maar de kern van
+zijn analyse van de conjunctuur: warenkrediet verplaatst enkel koopkracht van
+de ene partij naar de andere, terwijl circulatiekrediet de totale hoeveelheid
+ruilmiddelen in de economie vergroot zonder dat daar een beperking van de
+consumptie elders tegenover staat.
+
+**De kiem van de conjunctuurtheorie**
+
+In de tweede druk van 1924 voegt Mises een uiteenzetting toe over wat hij
+monetaire stabilisatie en conjunctuurbeleid noemt. Daarin beschrijft hij hoe
+banken door circulatiekrediet uit te breiden de rente onder het niveau drukken
+dat bij de werkelijke besparingen zou horen, waardoor ondernemers
+investeringen beginnen die alleen renderen als het spaargeld er in
+werkelijkheid is.
+
+Zodra blijkt dat de besparingen ontbreken, lopen die investeringen vast en
+volgt een correctie die naar zijn aard onvermijdelijk is zodra de
+kredietexpansie eenmaal heeft plaatsgevonden. Deze redenering, die Mises later
+samen met Friedrich Hayek uitwerkte tot een volledige conjunctuurtheorie,
+staat in dit boek nog in schetsvorm.
+
+**Wisselkoersen en koopkracht**
+
+Mises behandelt ook de waarde van geld tussen landen en verklaart
+wisselkoersen uit de onderlinge koopkracht van de betrokken valuta's: een munt
+met een dalende binnenlandse koopkracht verliest volgens hem ook koopkracht
+ten opzichte van het buitenland, in dezelfde beweging en om dezelfde reden.
+
+Daarmee verbindt hij de binnenlandse geldtheorie met de internationale, in
+plaats van wisselkoersen te behandelen als een apart vraagstuk van
+handelsbalansen en goudbewegingen, zoals in de klassieke leer gebruikelijk
+was.
+
+**Plaats in de Oostenrijkse school**
+
+Het boek is Mises' eerste grote werk en legt de methode vast die zijn latere
+geschriften kenmerkt: economische wetten afleiden uit de logica van
+individueel handelen, in plaats van uit statistisch onderzoek naar gemiddelden
+en verbanden. Waar de kwantiteitstheorie van geld de geldhoeveelheid en het
+prijspeil als twee grootheden behandelt die mechanisch met elkaar samenhangen,
+benadrukt Mises dat elke verandering in de geldhoeveelheid via de beslissingen
+van afzonderlijke mensen verloopt en daardoor nooit gelijkmatig over alle
+prijzen uitwerkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Regressietheorema | De latere naam voor Mises' redenering dat de waarde van geld vandaag verklaard wordt uit de koopkracht van gisteren, terug tot het eerste gebruik als ruilmiddel. |
+| Umlaufsmittel (fiduciaire circulatiemiddelen) | Vorderingen die als geld circuleren zonder dat er voor het volledige bedrag een geldreserve tegenover staat. |
+| Geldcertificaat | Een vordering op geld die volledig door een geldreserve gedekt is. |
+| Warenkrediet | Bankkrediet verstrekt met geld dat spaarders daadwerkelijk hebben afgestaan. |
+| Circulatiekrediet | Bankkrediet dat ontstaat doordat een bank meer vorderingen uitgeeft dan zij aan geld in kas heeft. |
+| Indirecte ruil | Ruil via een algemeen aanvaard tussengoed in plaats van rechtstreekse ruil van goed tegen goed. |
+| Subjectieve waardetheorie | De opvatting dat de waarde van een goed voortkomt uit het oordeel van de gebruiker, niet uit een eigenschap van het goed zelf. |
+| Kwantiteitstheorie van geld | De leer die geldhoeveelheid en prijspeil als mechanisch gekoppelde grootheden behandelt, door Mises bekritiseerd als te grof. |
+| Koopkrachtpariteit | De gedachte dat wisselkoersen tussen munten hun onderlinge koopkracht weerspiegelen. |
+
+#### Waar het argument op rust
+
+Mises onderbouwt zijn theorie vrijwel volledig met deductief redeneren vanuit
+de veronderstelling dat mensen doelgericht handelen, niet met statistisch
+materiaal over prijzen, geldhoeveelheden of rentestanden. Waar hij voorbeelden
+geeft, zoals de rol van edelmetaal in de geschiedenis van het ruilverkeer,
+dienen die ter illustratie van een redenering die hij als logisch dwingend
+beschouwt, niet als toetsing van een veronderstelling aan gegevens.
+
+Voor het onderscheid tussen warenkrediet en circulatiekrediet steunt hij op de
+boekhoudkundige werking van het bankwezen van zijn tijd: de manier waarop
+banken deposito's en bankbiljetten uitgeven ten opzichte van hun geldreserve.
+Dat is aantoonbare praktijk, geen veronderstelling, maar Mises trekt er een
+verstrekkende conclusie uit over de gevolgen van die praktijk voor de
+conjunctuur zonder dat te toetsen aan gegevens over kredietgroei en
+daaropvolgende crises.
+
+De uiteenzetting over conjunctuurbeleid die hij in 1924 toevoegt, is nog een
+schets. Mises werkt niet uit hoe lang de periode tussen kredietexpansie en
+correctie duurt, en evenmin welke omvang van kredietexpansie tot welke omvang
+van correctie leidt. Die precisering volgde pas in later werk van hemzelf en
+van Hayek.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar tegen het boek is methodologisch. Mises verklaart geld en
+krediet vrijwel volledig vanuit deductie en biedt geen statistisch onderzoek
+waarmee zijn conclusies te weerleggen zijn. Wie zijn uitgangspunten over
+menselijk handelen niet deelt, heeft aan het boek zelf geen middel om de
+conclusies te toetsen, omdat toetsing aan gegevens buiten de opzet van het
+boek valt.
+
+Een tweede bezwaar richt zich op het regressietheorema zelf. Het verklaart de
+vroegste stap naar geld overtuigend, maar latere critici, onder wie economen
+die de Oostenrijkse school welgezind zijn, hebben opgemerkt dat de redenering
+minder houvast biedt zodra een geldsoort al generaties lang zonder koppeling
+aan een grondstof functioneert. De historische stap terug naar een
+grondstofwaarde verklaart dan hoe geld ooit ontstond, niet noodzakelijk hoe de
+waarde van het huidige geld vandaag standhoudt.
+
+Een derde bezwaar geldt de conjunctuurschets uit 1924. Mises beschrijft de
+gevolgen van circulatiekrediet in algemene termen, zonder aan te geven onder
+welke voorwaarden een kredietexpansie tot een crisis leidt en onder welke
+voorwaarden zij zonder correctie wordt opgevangen. Dat maakt de theorie in dit
+boek moeilijk te onderscheiden van een algemene waarschuwing tegen goedkoop
+krediet.
+
+Ten slotte is het boek een kind van zijn tijd. Het beschrijft een bankwezen
+rond de goudstandaard van voor de Eerste Wereldoorlog, en de overgang naar een
+geldstelsel zonder metalen dekking, zoals na 1971 wereldwijd gangbaar werd,
+komt in dit boek nog niet aan de orde.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een bericht over sterke kredietgroei na of die groei gedekt is door
+een toename van het spaargeld of door nieuw geschapen krediet zonder
+onderliggende besparing.
+- Onderscheid bij het beoordelen van een economische verklaring tussen een
+redenering die uit een logisch uitgangspunt volgt en een bewering die aan
+gegevens getoetst is.
+- Vraag bij een waardeoordeel over geld of het teruggaat op koopkracht die het
+gisteren al had, in plaats van op een eigenschap die aan het geld zelf wordt
+toegeschreven.
+
+#### Wat je hierna leest
+
+- 1340. Human Action. Mises' latere hoofdwerk, waarin hij de methode van dit
+boek, economie afleiden uit de logica van menselijk handelen, uitwerkt tot een
+volledig stelsel.
+- 1334. Socialism. Onderzoekt vanuit dezelfde waardeleer of een planeconomie
+zonder marktprijzen rationele beslissingen over middelen kan nemen.
+- 1336. A Critique of Interventionism. Werkt de kritiek op overheidsingrijpen
+in de economie uit die in dit boek nog beperkt blijft tot het bankwezen.
+- 627. For a New Liberty: The Libertarian Manifesto. Rothbard bouwt op Mises'
+onderscheid tussen warenkrediet en circulatiekrediet voort in een pleidooi
+voor een economie zonder centrale bank.
+
+## 1333. Nation, State, and Economy
+
+Ludwig von Mises, 1919. Oorspronkelijk *Nation, Staat und Wirtschaft*
+(Manzsche Verlags- und Universitätsbuchhandlung, 1919), Engelse vertaling door
+Leland B. Yeager (New York University Press, 1983). Nederlandse vertaling niet
+nagekeken. Rubriek: staat en vrijheid.
+Tags: `nationalisme`, `economie`, `Oostenrijkse-school`,
+`Eerste-Wereldoorlog`, `zelfbeschikking`
+
+Geschreven direct na de ineenstorting van de Oostenrijks-Hongaarse
+dubbelmonarchie, onderzoekt von Mises waarom naties naar een eigen staat
+streven en wat een vreedzame ordening van veeltalige gebieden in de weg staat.
+Zijn antwoord is dat vrijhandel en het zelfbeschikkingsrecht van volken elkaar
+aanvullen: waar markten open blijven, verliest een staatsgrens veel van haar
+economisch gewicht.
+
+Het boek is ook een vroege afrekening met het economisch nationalisme dat
+volgens von Mises tot de oorlog had bijgedragen, en met de gedachte dat een
+volk zich alleen via een eigen, gesloten economie kan beschermen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Von Mises stelt dat nationaliteitenconflicten niet voortkomen
+uit taal- of cultuurverschillen op zich, maar uit het economisch nationalisme
+dat elke staat sinds het einde van de negentiende eeuw voerde: tariefmuren,
+ambtenarenposten die naar taal werden verdeeld, en overheidsopdrachten die aan
+de eigen taalgroep gingen. Zolang een staatsgrens ook een economische grens
+is, wordt de vraag bij welke staat een dorp hoort een vraag over brood en
+werk, en daardoor moeilijk anders dan met geweld op te lossen. Zijn oplossing
+bestaat uit twee delen die elkaar volgens hem nodig hebben: vrijhandel, die
+maakt dat een staatsgrens economisch nauwelijks nog gewicht in de schaal legt,
+en het zelfbeschikkingsrecht, dat hij niet aan volkeren als geheel toekent
+maar aan iedere gemeenschap tot op de kleinst denkbare schaal, zodat grenzen
+bij stemming kunnen worden bijgesteld zonder dat daar oorlog voor nodig is.
+
+#### De gang van het boek
+
+**Natie en staat als twee verschillende dingen**
+
+Von Mises begint met een scheiding die volgens hem in het politieke debat van
+zijn tijd voortdurend werd verward: de natie is een taalgemeenschap, mensen
+die dezelfde taal spreken en zich daardoor tot elkaar rekenen, terwijl de
+staat het gebied is waarbinnen een regering het geweldsmonopolie uitoefent.
+Beide vallen zelden samen, en juist dat gebrek aan overlap is voor hem de bron
+van het probleem dat hij wil verklaren.
+
+Hij verwerpt daarbij nadrukkelijk het toen gangbare idee dat een natie op
+afkomst of ras zou berusten. Voor von Mises is taal het enige bruikbare
+criterium, omdat het waarneembaar is en omdat mensen er zelf voor kunnen
+kiezen zich bij een taalgemeenschap aan te sluiten, terwijl afkomst dat niet
+toelaat.
+
+**Het zelfbeschikkingsrecht tot op het laagste niveau**
+
+Waar de overwinnaars van de oorlog het zelfbeschikkingsrecht toepasten op
+volkeren als geheel, door in Parijs nieuwe staatsgrenzen om taalgroepen heen
+te trekken, gaat von Mises een stap verder. Hij bepleit dat het recht om te
+kiezen bij welke staat men wil horen, niet aan het volk als collectief
+toekomt, maar aan iedere gemeenschap tot op de kleinste bestuurlijke eenheid:
+een provincie, een district, in beginsel zelfs een enkele gemeente.
+
+Het gevolg is dat een grens volgens hem nooit definitief hoeft te zijn. Een
+gebied kan bij stemming besluiten zich bij een andere staat aan te sluiten
+zodra de omstandigheden veranderen, zonder dat dit een gewapend conflict
+vergt. Von Mises presenteert dit niet als een utopie maar als het enige
+alternatief voor gedwongen inlijving van taalminderheden of voor blijvende
+grensoorlogen.
+
+**Economisch nationalisme als kern van het conflict**
+
+De kern van het boek is de stelling dat taalconflicten pas gewelddadig worden
+zodra de overheid de economie langs taalgrenzen gaat verdelen. Von Mises
+beschrijft hoe in de Donaumonarchie ambtenarenposten, staatscontracten en
+schoolbudgetten stelselmatig aan de eigen taalgroep werden toegewezen,
+waardoor elke discussie over taal ook een discussie over baan en inkomen werd.
+
+Zolang de staat neutraal blijft in economische zaken, kan een taalminderheid
+volgens hem een taalconflict verliezen zonder er materieel op achteruit te
+gaan. Zodra de staat markten, banen en vergunningen naar taal verdeelt, staat
+er bij elk taalconflict het bestaan van gezinnen op het spel, en daarmee
+verklaart hij waarom juist in veeltalige rijken de spanningen escaleerden.
+
+**Vrijhandel maakt de grens onbelangrijk**
+
+Von Mises trekt de redenering door naar de handel tussen staten. Onder
+vrijhandel maakt het voor een producent of een koper weinig uit aan welke kant
+van een grens hij zich bevindt, omdat hij zonder tarieven of vergunningen naar
+de andere kant kan verkopen en kopen. Daarmee verliest de vraag wie een gebied
+bestuurt veel van zijn economisch gewicht, en daalt ook de prikkel om erover
+te vechten.
+
+Hij gebruikt dit ook om de wedloop om koloniën tussen de Europese grootmachten
+te verklaren: niet als een eigenschap van het kapitalisme zelf, zoals
+marxistische auteurs beweerden, maar als het resultaat van protectionistisch
+beleid van diezelfde staten. Een land dat de eigen markt afschermt, moet
+elders afzet en grondstoffen veroveren; een land met vrijhandel heeft die
+drang niet, omdat de hele wereldmarkt toch al open staat.
+
+**De Donaumonarchie als voorbeeld**
+
+Als centrale illustratie gebruikt von Mises de val van Oostenrijk-Hongarije,
+die zich op het moment van schrijven net had voltrokken. De veeltalige
+monarchie, met Duitstalige, Tsjechische, Poolse, Hongaarse en Zuid-Slavische
+bevolkingsgroepen, brokkelde volgens hem niet af omdat die groepen elkaar per
+se vijandig gezind waren, maar omdat de strijd om ambtenarenposten en
+overheidsopdrachten elke taalgroep dwong de eigen taal politiek te verdedigen.
+
+Hij trekt daaruit de les dat een liberale economische orde, waarin de staat
+zich niet met de verdeling van banen en markten naar taal bemoeit, veeltalige
+gebieden bijeen had kunnen houden, of in elk geval de opsplitsing ervan
+vreedzaam had kunnen laten verlopen.
+
+**De positie van Duitsland en Oostenrijk na de oorlog**
+
+In het slotdeel past von Mises zijn analyse toe op de actuele situatie van
+1919. Hij bepleit aansluiting van het Duitstalige restant van Oostenrijk bij
+Duitsland, op grond van hetzelfde zelfbeschikkingsrecht dat hij eerder had
+uitgewerkt, en waarschuwt tegelijk tegen een vredesregeling die Duitslands
+economie met herstelbetalingen en nieuwe handelsbelemmeringen zou opzadelen.
+
+Zijn waarschuwing is dat een dergelijke regeling opnieuw de mengeling van
+economische nood en nationale vernedering zou opleveren die hij eerder als
+oorzaak van de zojuist beëindigde oorlog had aangewezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Natie | Een taalgemeenschap: mensen die dezelfde taal spreken en zich daardoor tot elkaar rekenen, los van staatsgrenzen. |
+| Staat | Het gebied waarbinnen een regering het geweldsmonopolie uitoefent, ongeacht welke taalgroepen er wonen. |
+| Zelfbeschikkingsrecht | Het recht van een gemeenschap, tot op de kleinste bestuurlijke eenheid, om via stemming te kiezen bij welke staat zij wil horen. |
+| Economisch nationalisme | Overheidsbeleid dat markten, banen en overheidsopdrachten langs taal- of natiegrenzen verdeelt. |
+| Vrijhandel | Het ontbreken van tarieven en overheidsbelemmeringen tussen gebieden, waardoor een staatsgrens economisch weinig gewicht meer heeft. |
+| Interventionisme | Overheidsingrijpen in de markt, zoals tarieven en gereguleerde aanstellingen, dat volgens von Mises spanningen tussen taalgroepen aanwakkert. |
+| Imperialisme | In von Mises' lezing de drang van protectionistische staten naar eigen afzetmarkten en grondstofbronnen, niet een eigenschap van het kapitalisme zelf. |
+| Veeltalige staat | Een staat waarin meerdere taalgemeenschappen samenleven binnen één grens, zoals Oostenrijk-Hongarije. |
+| Autarkie | Het streven van een staat naar economische zelfvoorziening, het tegenovergestelde van vrijhandel. |
+
+#### Waar het argument op rust
+
+Von Mises onderbouwt zijn stelling vrijwel niet met cijfers, maar met een
+keten van economische redeneringen die vertrekt vanuit het eigenbelang van
+producenten en overheden onder protectionisme tegenover vrijhandel. Zijn
+belangrijkste feitelijke aanknopingspunt is de zojuist voltrokken val van
+Oostenrijk-Hongarije, die hij in het licht van die redenering interpreteert.
+
+Tegenover de marxistische verklaring van imperialisme, die koloniale expansie
+aan het kapitalisme zelf toeschrijft, plaatst hij de waarneming dat juist
+protectionistische staten het felst naar koloniën en afzetgebieden zochten,
+terwijl Groot-Brittannië dat het minst deed in de periode waarin het zelf het
+meest vrijhandel dreef. Hij werkt die vergelijking niet uit met systematisch
+cijfermateriaal, maar als argument tegen de logica van de tegenpartij.
+
+Het boek is geschreven binnen enkele maanden na de gebeurtenissen die het
+beschrijft, als directe politieke interventie in de vraag hoe met Oostenrijk
+en Duitsland na de oorlog moest worden omgegaan. Dat maakt het een
+tijdsdocument met een eigen inzet, niet een terugblik met de afstand die
+latere geschiedschrijving over dezelfde jaren wel heeft.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de kern van de redenering: von Mises wijst
+economisch nationalisme aan als de verklaring voor het uiteenvallen van
+Oostenrijk-Hongarije en, breder, voor de oorlog die eraan voorafging. De jaren
+voor 1914 kenden echter juist relatief lage tarieven en een grote vrijheid van
+kapitaal- en arbeidsverkeer binnen Europa vergeleken met de periode na de
+oorlog, wat de stelling dat protectionisme de doorslaggevende oorzaak van
+oorlog was, verzwakt.
+
+Het voorstel om het zelfbeschikkingsrecht tot op de kleinste eenheid toe te
+passen, roept vragen op die het boek niet beantwoordt. Een dorp of een straat
+kan zelf weer verdeeld zijn, en een stemming op het laagste niveau lost dan
+niet op wie de nieuwe minderheid wordt, of hoe vaak zo'n stemming herhaald mag
+worden.
+
+Het boek is bovendien geschreven op een moment waarop von Mises zelf partij
+was in de kwestie die hij bespreekt: zijn pleidooi voor aansluiting van
+Duitstalig Oostenrijk bij Duitsland valt niet los te zien van zijn eigen
+positie als econoom in het net ingestorte Oostenrijk. Dat maakt het boek een
+uitgesproken standpunt in een actueel debat, eerder dan een neutrale analyse
+achteraf.
+
+Ten slotte steunt het boek nergens op onderzoek dat door anderen is getoetst
+of herhaald; het is een werk van economische en politieke theorie, opgebouwd
+uit redeneringen die de lezer op hun eigen logica moet beoordelen, niet op
+meting.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een grensconflict na of de inzet economisch is gemaakt door
+overheidsbeleid, zoals tarieven of een verdeling van banen naar taal, voordat
+je het als een zuiver etnisch conflict bestempelt.
+- Houd het begrip natie, als taalgemeenschap, gescheiden van het begrip staat,
+als rechtsgebied, wanneer je een beroep op nationale rechten beoordeelt.
+- Vraag bij een voorstel voor zelfbeschikking op welk niveau het wordt
+toegepast en wat er gebeurt met de minderheid die na de stemming overblijft.
+- Wees waakzaam wanneer een verklaring voor oorlog of conflict één enkele
+oorzaak aanwijst, en zoek naar tegenvoorbeelden uit dezelfde periode.
+
+#### Wat je hierna leest
+
+- 1335. Liberalism. Von Mises' latere en bredere uiteenzetting van het
+liberalisme, waarin vrijhandel en beperkte overheid dezelfde rol spelen als in
+dit boek, maar dan als algemeen programma in plaats van als analyse van een
+specifieke crisis.
+- 1338. Omnipotent Government. Werkt von Mises' verklaring van nationalisme en
+oorlog verder uit, nu toegepast op het nationaalsocialisme en de aanloop naar
+de Tweede Wereldoorlog.
+- 935. The Origins of Totalitarianism. Arendt onderzoekt vanuit een andere
+invalshoek hoe staatloosheid en nationalisme in dezelfde periode tot geweld
+leidden, met meer aandacht voor ideologie dan voor economisch beleid.
+- 1334. Socialism. Von Mises' aansluitende aanval op het socialisme,
+geschreven enkele jaren na dit boek, vanuit dezelfde overtuiging dat
+overheidsingrijpen in de markt tot conflict leidt.
+
+## 1334. Socialism
+
+Ludwig von Mises, 1922. Oorspronkelijk *Die Gemeinwirtschaft: Untersuchungen
+über den Sozialismus* (Gustav Fischer, 1922), Engelse vertaling door J. Kahane
+als *Socialism: An Economic and Sociological Analysis* (Jonathan Cape, 1936).
+Nederlandse vertaling niet nagekeken. Rubriek: staat en vrijheid.
+Tags: `socialisme`, `economie`, `Oostenrijkse-school`, `planeconomie`,
+`prijsvorming`
+
+Von Mises' centrale argument is dat een socialistische planeconomie niet aan
+corruptie of slecht bestuur ten onder gaat, maar aan een technisch probleem
+dat volgens hem onoplosbaar is: zonder particulier eigendom van de
+productiemiddelen ontstaan er geen marktprijzen voor kapitaalgoederen, en
+zonder die prijzen kan een planner niet berekenen welke van twee
+productiemethoden minder middelen verspilt.
+
+Het boek bespreekt daarnaast de geschiedenis van socialistische denkbeelden,
+het gezin en de positie van de vrouw onder het socialisme, en de plaats van
+religie, en eindigt met een verdediging van een liberale, op particulier
+eigendom gebaseerde orde als enige stelsel dat economische calculatie mogelijk
+maakt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Von Mises stelt dat een socialistische planeconomie niet
+mislukt door corruptie, gebrek aan discipline of slecht bestuur, maar door een
+probleem dat geen bestuur kan oplossen: zonder particulier eigendom van de
+productiemiddelen bestaat er geen markt waarop kapitaalgoederen worden
+verhandeld, en zonder de prijzen die uit zo'n markt voortkomen heeft een
+centrale planner geen maatstaf om te bepalen welke van twee productiemethoden
+meer arbeid, grondstoffen en machines verbruikt dan de andere. Een planbureau
+kan bepalen wat er geproduceerd moet worden, maar niet of dat op de zuinigste
+manier gebeurt, want die vraag vereist het vergelijken van ongelijksoortige
+hoeveelheden staal, uren en land in een gemeenschappelijke eenheid, en die
+eenheid ontstaat alleen waar mensen goederen tegen elkaar mogen ruilen op
+basis van eigendom.
+
+#### De gang van het boek
+
+**Het rekenprobleem**
+
+Von Mises opent met de vraag die volgens hem alle eerdere kritiek op het
+socialisme had overgeslagen: niet of een planeconomie rechtvaardig verdeelt,
+maar of zij weet wat zij doet. In een ruileconomie ontstaan er prijzen voor
+grond, machines en grondstoffen doordat eigenaren ze verkopen aan wie er het
+meest voor biedt. Die prijzen laten zien in welke productie een schaars goed
+het meeste oplevert.
+
+In een samenleving zonder particulier eigendom van de productiemiddelen is er
+geen verkoop van die middelen en dus geen prijs voor staal, machines of grond.
+Een planner ziet dan wel de prijzen van consumptiegoederen, maar niet die van
+de productiemiddelen waarmee ze gemaakt worden. Hij kan daardoor niet
+berekenen of het goedkoper is een brug van beton of van staal te bouwen: hij
+weet alleen dat er beton en staal bestaan, niet wat het ene tegenover het
+andere kost aan verspilde alternatieven.
+
+**Eigendom, ruil en prijs**
+
+Von Mises verbindt dit rekenprobleem aan de subjectieve waardetheorie: waarde
+ontstaat niet uit arbeid of nut op zich, maar uit de rangschikking die
+individuen maken tussen wat zij willen. Prijzen zijn het resultaat van talloze
+van die rangschikkingen die tegen elkaar botsen op een markt. Neem het
+eigendom van de productiemiddelen weg, en er is niemand meer die ze koopt of
+verkoopt, dus geen ruil, dus geen prijs, dus geen rekenkundige vergelijking.
+
+Hij onderscheidt hierbij de ruileconomie (Verkehrswirtschaft), waarin
+ondernemingen concurreren om schaarse middelen, van de gemeenschapshuishouding
+(Gemeinwirtschaft) die de titel van het boek vormt: een economie waarin één
+instantie over alle productiemiddelen beschikt. Een gedeeltelijk socialisme,
+waarin de staat naast bedrijven bezit maar geen markt voor kapitaalgoederen
+vervangt, ontsnapt volgens hem niet aan het probleem, want ook dan ontbreekt
+uiteindelijk de prijsvorming die nodig is om te rekenen.
+
+**De geschiedenis van het socialistische denken**
+
+Een groot deel van het boek bespreekt de verschillende vormen van socialisme
+die von Mises in zijn tijd onderscheidt: het utopisch socialisme van vroege
+negentiende-eeuwse schrijvers, het wetenschappelijk socialisme van Marx en
+Engels, het agrarisch socialisme, het gildesocialisme en het christelijk
+socialisme. Hij behandelt ze niet als aparte politieke bewegingen, maar als
+varianten van dezelfde poging om de markt te vervangen door centrale besturing
+van productiemiddelen.
+
+Marx krijgt bijzondere aandacht, vooral om het historisch materialisme en de
+aanname dat een socialistische economie na de revolutie vanzelf zou
+functioneren, zonder dat Marx zelf beschreef hoe die zou rekenen. Von Mises
+noemt dit een blinde vlek die het marxisme deelt met de meeste andere
+socialistische stromingen van zijn tijd.
+
+**Gezin, vrouw en religie onder socialisme**
+
+Von Mises wijdt hoofdstukken aan wat socialistische auteurs volgens hem hadden
+voorgesteld over het gezin, het huwelijk en de positie van de vrouw, en aan de
+verhouding tussen socialisme en religie. Hij bespreekt voorstellen voor
+gemeenschappelijke opvoeding van kinderen en voor het loskoppelen van huwelijk
+en eigendom, en betoogt dat wie het particulier bezit van productiemiddelen
+afschaft, ook de economische zelfstandigheid ondermijnt die het huwelijk als
+vrijwillig verbond mogelijk maakt.
+
+Over religie stelt hij dat verscheidene socialistische stromingen zich als een
+seculiere vervanging van het christendom hebben gepresenteerd, met een eigen
+heilsverwachting gericht op de gemeenschap van goederen. Dit deel van het boek
+is minder een economisch argument dan een tijdsdocument: het weerspiegelt
+vooral de discussies binnen het vroeg twintigste-eeuwse Europese socialisme.
+
+**Interventionisme als tussenweg**
+
+Von Mises behandelt ook wat hij interventionisme noemt: een derde weg tussen
+vrije markt en volledige planeconomie, waarin de staat prijzen, lonen of
+productie reguleert zonder de productiemiddelen zelf over te nemen. Hij
+betoogt dat zo'n tussenweg instabiel is, omdat elke ingreep nieuwe
+verstoringen oproept die om een volgende ingreep vragen, tot de overheid ofwel
+de ingreep terugdraait ofwel de markt geheel vervangt.
+
+**Verdediging van de liberale orde**
+
+Het boek eindigt met een pleidooi voor een orde van particulier eigendom,
+vrije prijsvorming en beperkte overheid. Von Mises presenteert dit niet als
+een morele voorkeur op zich, maar als de enige regeling waarin economische
+calculatie mogelijk blijft. Zijn liberalisme is voor hem een gevolg van het
+rekenprobleem, niet een aparte stelling ernaast.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Economisch-calculatieprobleem | het ontbreken van een rekenkundige maatstaf om productiemethoden op zuinigheid te vergelijken zodra er geen markt voor kapitaalgoederen bestaat. |
+| Productiemiddelen | grond, grondstoffen en machines die gebruikt worden om andere goederen te maken, in tegenstelling tot consumptiegoederen. |
+| Particulier eigendom | het recht van een individu of onderneming om over een productiemiddel te beschikken en het te verkopen. |
+| Gemeinwirtschaft (gemeenschapshuishouding) | von Mises' term voor een economie waarin één centrale instantie over alle productiemiddelen beschikt, zonder markt daarvoor. |
+| Verkehrswirtschaft (ruileconomie) | een economie waarin ondernemingen via ruil en concurrentie prijzen laten ontstaan voor zowel consumptie- als productiegoederen. |
+| Subjectieve waardetheorie | het uitgangspunt dat waarde niet in een goed zelf zit, maar ontstaat uit de rangschikking die individuen maken tussen wat zij willen. |
+| Historisch materialisme | de marxistische aanname dat economische verhoudingen de loop van de geschiedenis en het maatschappelijk bewustzijn bepalen. |
+| Interventionisme | overheidsingrepen in prijzen, lonen of productie die de markt reguleren zonder de productiemiddelen zelf te onteigenen. |
+
+#### Waar het argument op rust
+
+Von Mises onderbouwt zijn these met een deductief argument uit de economische
+theorie van zijn tijd, niet met een empirisch onderzoek naar een bestaande
+planeconomie. Toen het boek in 1922 verscheen, was de Sovjet-Unie nog in de
+fase van het oorlogscommunisme en de eerste jaren van de Nieuwe Economische
+Politiek, en von Mises verwijst naar de moeilijkheden die daar al zichtbaar
+werden, maar zijn hoofdargument steunt op de logica van ruil en prijsvorming,
+niet op cijfers over Sovjetproductie.
+
+Die opzet maakt het argument sterk als denkoefening: als er geen markt voor
+kapitaalgoederen is, volgt het ontbreken van een rekeneenheid vrijwel
+rechtstreeks uit de definitie van prijs die von Mises hanteert. De
+overtuigingskracht hangt dus af van de aanvaarding van die definitie en van de
+aanname dat er geen andere weg is om ongelijksoortige productiemiddelen
+onderling te vergelijken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste tegenargument uit de vakliteratuur kwam van economen als Oskar
+Lange en Abba Lerner, die in de jaren dertig een model van marktsocialisme
+uitwerkten waarin een centraal planbureau via een proces van proberen en
+bijstellen toch schaduwprijzen voor kapitaalgoederen zou kunnen vaststellen.
+Von Mises zelf reageerde hier pas in latere geschriften op, en dit boek uit
+1922 bevat dus geen weerlegging van dat latere tegenvoorstel.
+
+Friedrich Hayek verschoof het argument later naar de vraag hoe verspreide,
+veranderlijke kennis over lokale omstandigheden ooit bij één planner samen zou
+kunnen komen, een punt dat von Mises in *Socialism* nog niet zo uitwerkt. Wie
+alleen dit boek leest, mist dus een deel van het latere calculatiedebat en de
+weerwoorden daarop.
+
+De hoofdstukken over gezin, vrouw en religie steunen niet op economische
+analyse maar op von Mises' lezing van socialistische geschriften uit zijn
+tijd, en zijn generalisaties over wat socialisten zouden willen met het
+huwelijk gaan voorbij aan de spreiding van standpunten binnen die stromingen.
+Dit deel van het boek is eerder een polemisch tijdsdocument dan een sluitend
+argument.
+
+Het boek is ten slotte een polemiek geschreven in een tijd van acute politieke
+strijd tussen liberalen en socialisten in Midden-Europa, en de toon is daar
+zichtbaar naar: von Mises behandelt tegenstanders zelden welwillend, wat zijn
+analyse scherp maakt maar de lezer weinig ruimte laat om zelf de sterkste
+versie van het socialistische tegenargument te wegen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elk voorstel voor centrale sturing van een sector welke prijs de
+betrokken productiemiddelen daar zouden hebben als ze verhandelbaar bleven.
+- Onderscheid bij discussies over planning en markt tussen de vraag wat er
+geproduceerd moet worden en de vraag hoe zuinig dat gebeurt: die twee vragen
+vragen om andere informatie.
+- Lees claims over een derde weg tussen markt en planeconomie met de vraag of
+de beschreven ingreep de prijsvorming voor productiemiddelen intact laat of
+ondermijnt.
+
+#### Wat je hierna leest
+
+- 1340. Human Action. Von Mises' latere hoofdwerk werkt de economische theorie
+achter het calculatieargument breder uit dan in dit boek uit 1922 gebeurt.
+- 1335. Liberalism. Hier werkt von Mises de liberale orde uit die hij in
+*Socialism* als enige alternatief voor de planeconomie presenteert.
+- 1339. Bureaucracy. Dit boek onderzoekt waarom bureaucratisch bestuur, ook
+los van eigendom van productiemiddelen, geen maatstaf voor zuinigheid kent.
+- 910. Kapitalisme, socialisme en democratie. Schumpeter bespreekt vanuit een
+ander uitgangspunt of een socialistische economie kan functioneren, en komt
+tot een minder afwijzend antwoord dan von Mises.
+
+## 1335. Liberalism
+
+Ludwig von Mises, 1927. Oorspronkelijk *Liberalismus* (Gustav Fischer, 1927),
+Engelse vertaling door Ralph Raico als *Liberalism: In the Classical
+Tradition* (1962). Nederlandse vertaling niet nagekeken. Rubriek: staat en
+vrijheid.
+Tags: `liberalisme`, `eigendom`, `vrijhandel`, `Oostenrijkse-school`,
+`staatsmacht`
+
+In dit compacte overzichtswerk legt von Mises uit wat hij onder liberalisme
+verstaat: een politiek program dat particulier eigendom van de
+productiemiddelen, vrijhandel, vrijheid van meningsuiting en een tot een
+minimum beperkte staat met elkaar verbindt, niet als los van elkaar staande
+wensen maar als een samenhangend geheel dat welvaart en vrede mogelijk maakt.
+
+Het boek verdedigt die positie tegen zowel het socialisme als het opkomende
+interventionisme van zijn tijd, en betoogt dat gedeeltelijke ingrepen in de
+markt, zoals prijscontroles, doorgaans nieuwe problemen scheppen die de roep
+om verdere ingrepen juist versterken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Liberalisme is voor Von Mises geen verzameling losse
+standpunten maar één samenhangend program: particulier eigendom van de
+productiemiddelen, vrijhandel, vrijheid van meningsuiting en een staat die
+zich beperkt tot de bescherming van leven, vrijheid en eigendom. Wie een deel
+van dat program aanvaardt en de rest verwerpt, ondermijnt volgens hem de
+logica van het geheel, want elk stuk steunt op dezelfde redenering:
+samenwerking via de markt levert meer welvaart op dan dwang, en wie welvaart
+voor iedereen wil, moet die samenwerking laten werken in plaats van haar te
+vervangen door overheidsingrijpen.
+
+#### De gang van het boek
+
+**Eigendom als voorwaarde voor samenwerking**
+
+Von Mises begint bij particulier eigendom van de productiemiddelen. Niet omdat
+eigenaars het verdienen te bezitten, maar omdat een markt zonder
+eigendomsrechten geen prijzen kan vormen, en zonder prijzen niemand kan zien
+waar arbeid en kapitaal het meest opleveren. Eigendom is in zijn lezing een
+instrument van maatschappelijke arbeidsverdeling, niet een privilege.
+
+**Waarom socialisme misrekent**
+
+Tegen het socialisme herhaalt Von Mises het argument dat hij eerder in
+*Socialism* had uitgewerkt: zonder particulier eigendom van kapitaalgoederen
+ontstaat er geen markt voor die goederen, en zonder die markt ontbreken de
+prijzen waarmee een planner kosten en baten kan vergelijken. Een centrale
+planner kan volgens hem daardoor niet weten of een investering de moeite waard
+is, hoe goed zijn bedoelingen ook zijn.
+
+**De staat als nachtwaker, niet als producent**
+
+De taak van de staat blijft in dit boek beperkt tot het beschermen van
+personen en eigendom tegen geweld en fraude, van buiten en van binnen. Von
+Mises noemt dat een noodzakelijk kwaad: dwang is nodig om dwang te beteugelen,
+maar iedere uitbreiding van staatstaken buiten die grens is voor hem een stap
+terug in welvaart, ook als de bedoeling goed is.
+
+**Interventionisme als tussenweg die niet standhoudt**
+
+Het langste deel van het argument gaat niet over socialisme maar over de
+tussenweg die Von Mises interventionisme noemt: prijscontroles, minimumlonen,
+importheffingen, subsidies. Zijn stelling is dat zulke ingrepen de problemen
+die ze zeggen op te lossen, verplaatsen of verergeren. Een prijsplafond op een
+goed leidt tot schaarste aan dat goed, en die schaarste roept om een volgende
+ingreep, bijvoorbeeld rantsoenering of productiedwang.
+
+Dit mechanisme, waarbij de ene ingreep de volgende oproept, is de kern van
+zijn kritiek op wat later gemengde economie is gaan heten. Hij ziet er geen
+stabiel evenwicht in tussen markt en staat, maar een glijdende schaal richting
+steeds verdergaande sturing.
+
+**Vrijhandel en de gevolgen van protectionisme**
+
+Vrijhandel tussen landen behandelt Von Mises als hetzelfde beginsel als vrije
+ruil tussen personen, alleen dan over grenzen heen. Importheffingen en quota
+beschermen volgens hem specifieke producenten ten koste van consumenten en van
+producenten elders, en hij verbindt economisch nationalisme aan de spanningen
+die tot oorlog kunnen leiden, omdat landen die elkaar als handelspartner nodig
+hebben minder snel naar wapens grijpen dan landen die zich van elkaar hebben
+afgesloten.
+
+**Liberalisme tegenover fascisme en bolsjewisme**
+
+Het boek verscheen in 1927, op het hoogtepunt van de opkomst van fascistische
+bewegingen in Europa. Von Mises plaatst fascisme naast bolsjewisme als twee
+vormen van hetzelfde antiliberalisme: beide onderwerpen het individu aan een
+collectief doel, het ene aan de natie of het ras, het andere aan de klasse.
+Zijn conclusie is dat liberalisme, ondanks zijn nadelen, de enige van de drie
+is die de burger niet aan een hoger doel opoffert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Liberalisme | Bij Von Mises niet een partijkleur maar een samenhangend program van eigendom, vrijhandel, vrijheid van meningsuiting en een beperkte staat. |
+| Interventionisme | Gedeeltelijk overheidsingrijpen in een verder vrije markt, zoals prijscontroles of subsidies, dat volgens Von Mises nieuwe problemen schept. |
+| Arbeidsverdeling | De maatschappelijke verdeling van taken over gespecialiseerde producenten, die volgens Von Mises alleen via ruil en eigendom tot stand komt. |
+| Productiemiddelen | De kapitaalgoederen waarmee andere goederen worden gemaakt, waarvan particulier bezit voor Von Mises de kern van het liberale program vormt. |
+| Economisch nationalisme | Het beleid van bescherming van de eigen economie tegen buitenlandse concurrentie, dat Von Mises verbindt aan de kans op internationale conflicten. |
+| Klassenstrijd | De marxistische aanname dat groepen in de samenleving tegenover elkaar staan, die Von Mises verwerpt omdat hij ruil als wederzijds voordelig ziet. |
+| Democratie | In dit boek vooral gewaardeerd als middel om regeringswisseling zonder geweld mogelijk te maken, niet als doel op zich. |
+
+#### Waar het argument op rust
+
+Von Mises onderbouwt zijn stelling niet met statistiek of veldonderzoek maar
+met een redenering vanuit de logica van ruil en prijsvorming, dezelfde methode
+die hij in zijn economische werk toepast. Wie die methode niet aanvaardt,
+vindt in dit boek geen empirische toets die het argument alsnog dwingend
+maakt.
+
+Zijn kritiek op prijscontroles steunt op voorbeelden uit de eigen tijd, zoals
+huurregulering in het Wenen en Duitsland van de jaren twintig, waar hij zelf
+als econoom bij overheid en Kamer van Koophandel werkzaam was. Die voorbeelden
+zijn illustratief, geen systematische toets van de stelling dat interventie
+altijd tot verdere interventie leidt.
+
+#### Wat er tegen in te brengen valt
+
+De centrale zwakte is dat Von Mises een algemene wetmatigheid poneert, dat de
+ene ingreep de volgende oproept, terwijl hij die vooral met voorbeelden staaft
+en niet met een sluitend bewijs dat uitzonderingen uitsluit. Latere gemengde
+economieën hebben decennialang prijsregulering, sociale zekerheid en
+importtarieven gecombineerd met marktwerking zonder in de door hem voorspelde
+neergaande spiraal terecht te komen, wat zijn glijdende-schaal-these
+relativeert.
+
+Het boek behandelt ongelijkheid in uitkomsten nauwelijks als zelfstandig
+probleem: Von Mises neemt aan dat wie in een vrije markt faalt, daar zelf de
+gevolgen van draagt, zonder in te gaan op ongelijke startposities. Critici van
+zijn tijd tot nu wijzen erop dat die aanname zwaarder weegt in zijn conclusies
+dan hij expliciet maakt.
+
+Zijn gelijkstelling van fascisme en bolsjewisme als twee varianten van
+antiliberalisme doet weinig recht aan de verschillen tussen beide stelsels in
+doel, geweldspraktijk en maatschappelijke basis, en is vooral geschreven
+vanuit het eigen liberale uitgangspunt.
+
+#### Wat er concreet mee te doen is
+
+- Herken het patroon dat een ingreep bedoeld om een probleem op te lossen, een
+nieuw probleem elders kan scheppen, voordat je om een volgende ingreep vraagt.
+- Vraag bij elk voorstel voor prijsregulering wie er in de nieuwe situatie
+schaarste of overschot ondervindt.
+- Onderscheid een principiële voorkeur voor een kleine staat van een
+empirische claim over de gevolgen van een specifieke ingreep, dit boek
+onderbouwt vooral de eerste.
+
+#### Wat je hierna leest
+
+- 1334. Socialism. Von Mises' uitgebreide weerlegging van het socialisme,
+waarvan dit boek de kortere, programmatische tegenhanger is.
+- 1336. A Critique of Interventionism. Werkt de kritiek op gedeeltelijk
+overheidsingrijpen uit dit boek verder uit tot een aparte studie over
+interventionisme.
+- 1338. Omnipotent Government. Past dezelfde liberale analyse toe op de
+opkomst van fascisme en totalitaire staatsmacht in de jaren dertig en veertig.
+- 623. Anarchy, State, and Utopia. Een latere, filosofisch andere onderbouwing
+van een minimale staat, vanuit individuele rechten in plaats van vanuit
+prijsvorming.
+
+## 1336. A Critique of Interventionism
+
+Ludwig von Mises, 1929. Oorspronkelijk *Kritik des Interventionismus* (Gustav
+Fischer, 1929), Engelse vertaling door Hans F. Sennholz (Arlington House,
+1977). Nederlandse vertaling niet nagekeken. Rubriek: staat en vrijheid.
+Tags: `interventionisme`, `economie`, `prijscontrole`, `Oostenrijkse-school`,
+`regulering`
+
+Deze bundel essays, geschreven vlak voor de Grote Depressie, richt zich op wat
+von Mises het interventionisme noemt: een middenweg tussen vrije markt en
+planeconomie waarbij de staat afzonderlijke ingrepen doet, zoals een
+minimumloon of een prijsplafond, zonder de markt als geheel te vervangen.
+
+Von Mises betoogt dat zo'n ingreep bijna altijd het tegendeel bereikt van wat
+zij beoogt, bijvoorbeeld een tekort veroorzaakt waar zij een tekort wilde
+verhelpen, en dat de overheid daarna voor de keuze staat de ingreep terug te
+draaien of met een volgende ingreep te repareren, een proces dat hij stap voor
+stap naar een volledige planeconomie ziet leiden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Von Mises betoogt dat het interventionisme, de middenweg
+tussen vrije markt en planeconomie waarin de staat afzonderlijke ingrepen doet
+zonder de markt als geheel te vervangen, in zijn eigen doelstelling faalt. Een
+prijsplafond, een minimumloon of een productiebeperking verstoort volgens hem
+het prijsmechanisme waarmee vraag en aanbod elkaar vinden, en roept daardoor
+precies het gebrek op dat de ingreep had moeten wegnemen: een tekort, een
+overschot of werkloosheid. De overheid staat dan voor de keuze de ingreep
+terug te draaien of haar met een volgende ingreep te repareren, en von Mises
+stelt dat die tweede weg, stap voor stap gevolgd, uiteindelijk op volledige
+planeconomie uitkomt. Het interventionisme is in deze lezing geen stabiel
+derde systeem naast kapitalisme en socialisme, maar een overgangsvorm die
+zichzelf door haar eigen gevolgen ondermijnt.
+
+#### De gang van het boek
+
+**Wat interventionisme is en wat niet**
+
+Von Mises opent met een afbakening. Interventionisme is bij hem niet elke
+overheidsactiviteit, en ook niet het handhaven van eigendom en contract, wat
+hij als voorwaarde voor een markteconomie ziet in plaats van als ingreep erin.
+Interventionisme is het losse, afzonderlijke bevel dat de uitkomst van
+marktruil verandert zonder de markt zelf op te heffen: een prijs die hoger of
+lager wordt vastgesteld dan de prijs die vraag en aanbod zouden opleveren, een
+hoeveelheid die wordt beperkt, een groep die van een transactie wordt
+uitgesloten.
+
+Deze afbakening is nodig omdat von Mises zich afzet tegen de gedachte dat er
+een derde economisch systeem bestaat, naast kapitalisme en socialisme, dat de
+voordelen van beide zou combineren. Voor hem is interventionisme geen systeem
+maar een verzameling ingrepen in een systeem dat in de kern een markteconomie
+blijft, en juist daarom onderworpen aan de wetten van diezelfde markteconomie.
+
+**Het prijsplafond als hoofdvoorbeeld**
+
+Het langst uitgewerkte voorbeeld is het prijsplafond op een goed. Von Mises
+redeneert dat een prijs die onder de marktprijs wordt vastgesteld, de vraag
+laat toenemen en het aanbod laat afnemen, zodat er een tekort ontstaat dat er
+zonder de ingreep niet was. De verkopers die tegen de lagere prijs niet meer
+willen leveren, kan de overheid alleen dwingen door productie of levering te
+verplichten, wat de ingreep in de tweede stap uitbreidt van prijsregulering
+naar productieregulering.
+
+Wordt ook die tweede ingreep ontweken, bijvoorbeeld doordat producenten de
+kwaliteit verlagen of naar een ander goed overstappen, dan ligt volgens von
+Mises een derde ingreep voor de hand: kwaliteitsvoorschriften of een verbod op
+alternatieve productie. Hij trekt hieruit de les dat elke ingreep die op de
+eerste ingreep reageert, de particuliere beslissingsruimte verder inperkt, tot
+er niets van de oorspronkelijke markteconomie overblijft.
+
+**Minimumloon en werkloosheid**
+
+Hetzelfde patroon past von Mises toe op het minimumloon. Een loon dat
+wettelijk boven het loon wordt vastgesteld waartegen werkgevers en werknemers
+uit zichzelf een arbeidsovereenkomst zouden sluiten, maakt volgens hem een
+deel van de arbeid te duur om nog winstgevend in te zetten, met werkloosheid
+onder de laagst productieve werknemers als gevolg. De remedie die
+interventionisten daarop volgens hem plegen voor te stellen, van
+werkverschaffing tot subsidie aan werkgevers, is een volgende ingreep die de
+eerste moet compenseren in plaats van herzien.
+
+Von Mises benadrukt dat de mensen die de wet had willen helpen, in zijn
+analyse juist het slachtoffer worden: niet de werknemer met een gemiddeld
+productieve baan voelt de wet, maar degene wiens arbeid net onder de
+wettelijke ondergrens ligt en die daardoor zijn baan kwijtraakt of nooit
+aangenomen wordt.
+
+**Waarom compromis geen stabiel evenwicht is**
+
+Een terugkerend argument is dat interventionisme geen middenweg in de zin van
+een stabiel compromis kan zijn, omdat de logica van de ingreep zelf naar
+verdere ingrepen dwingt. Von Mises onderscheidt hierin de bedoeling van de
+wetgever, die een enkel probleem wil verhelpen, van het mechanisme van de
+markt, dat op elke ingreep reageert met een aanpassing die de wetgever niet
+had voorzien. Die aanpassing wordt vervolgens weer aanleiding voor een nieuwe
+ingreep.
+
+Hij bespreekt in dit verband ook het argument dat de staat, eenmaal begonnen
+met het bijsturen van prijzen, geen principieel houvast meer heeft om ergens
+te stoppen: elke volgende ingreep wordt met dezelfde redenering
+gerechtvaardigd als de eerste. Dat is de kern van wat later zijn stelling over
+de glijdende schaal naar de planeconomie is gaan heten, al gebruikt hij die
+term zelf niet steeds op die manier.
+
+**Inflatie en monetaire interventie**
+
+Naast prijs- en loonregulering behandelt von Mises de gevolgen van monetaire
+interventie, met name kredietexpansie die de rente kunstmatig laag houdt. Hij
+plaatst dit in dezelfde logica: een lage rente die niet uit de vrijwillige
+spaarneiging van huishoudens voortkomt, verleidt ondernemers tot investeringen
+die de reële hoeveelheid kapitaal niet kan dragen, wat hij als de kern van de
+conjunctuurcyclus beschrijft. Het boek verscheen kort voor de crisis van 1929
+en von Mises waarschuwt daarin voor een correctie na een periode van
+kunstmatig lage rente, zonder daarbij een jaartal of omvang van die correctie
+te noemen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Interventionisme | beleid van afzonderlijke ingrepen in prijzen, lonen of productie, zonder de markteconomie als geheel te vervangen. |
+| Prijsmechanisme | het proces waarin vraag en aanbod via prijzen op elkaar worden afgestemd. |
+| Prijsplafond | een wettelijk vastgestelde maximumprijs die lager ligt dan de prijs die de markt uit zichzelf zou opleveren. |
+| Glijdende schaal naar planeconomie | de gedachte dat de ene ingreep de volgende oproept, tot de markt volledig is opgeheven. |
+| Derde weg | de veronderstelde tussenvorm tussen kapitalisme en socialisme, waarvan von Mises het bestaan als stabiel systeem ontkent. |
+| Kredietexpansie | uitbreiding van bankkrediet die de rente onder het niveau van de vrijwillige besparingen drukt. |
+| Consumentensoevereiniteit | het idee dat in een vrije markt uiteindelijk de koopbeslissingen van consumenten bepalen wat en hoeveel er wordt geproduceerd. |
+
+#### Waar het argument op rust
+
+Von Mises onderbouwt zijn stellingen niet met statistisch onderzoek of
+cijferreeksen, maar met wat hij zelf economische theorie in de traditie van de
+klassieke en Oostenrijkse school noemt: een keten van logische
+gevolgtrekkingen uit veronderstellingen over hoe kopers en verkopers op
+prijzen reageren. De kracht van het boek ligt in de consistentie van die
+redenering, niet in empirische toetsing.
+
+Waar von Mises concrete voorbeelden geeft, zoals huurregulering of
+loonwetgeving in de jaren twintig, gebruikt hij ze ter illustratie van het
+mechanisme, niet als systematisch bewijs met cijfers over omvang of duur van
+het tekort of de werkloosheid die hij voorspelt. Wie het boek als empirische
+studie leest, zal die onderbouwing dus niet aantreffen.
+
+#### Wat er tegen in te brengen valt
+
+De belangrijkste tegenwerping is dat von Mises telkens het meest ongunstige
+geval van interventie beschrijft, namelijk een ingreep die geen rekening houdt
+met de reactie van de markt, en van daaruit generaliseert naar
+interventionisme als zodanig. Latere economen, ook buiten de socialistische
+traditie, hebben laten zien dat sommige ingrepen, zoals een gerichte subsidie
+of een tijdelijke prijssteun, wel degelijk stabiel kunnen blijven zonder de
+door von Mises voorspelde keten van vervolgingrepen op te roepen.
+
+Een tweede punt is dat het boek geen ruimte laat voor marktfalen als
+zelfstandige rechtvaardiging voor ingrijpen, bijvoorbeeld bij externe effecten
+of publieke goederen. Von Mises bespreekt dergelijke gevallen niet als aparte
+categorie, waardoor zijn redenering sterker overkomt tegen ingrepen in gewone
+goederenmarkten dan tegen ingrepen die juist op marktfalen reageren.
+
+Ten slotte is het boek geschreven als polemiek tegen het interventionisme van
+zijn eigen tijd en land, en von Mises generaliseert van die specifieke
+ervaring naar een algemene wetmatigheid. Of de door hem beschreven glijdende
+schaal zich in elk land en elke periode op dezelfde manier voltrekt, laat het
+boek zelf onbeantwoord.
+
+#### Wat er concreet mee te doen is
+
+- Toets een voorgestelde ingreep in prijs, loon of productie op de vraag welke
+reactie van de andere partij zij waarschijnlijk maakt.
+- Ga na of een volgende, aanvullende maatregel al wordt voorbereid voordat de
+eerste maatregel is geëvalueerd.
+- Onderscheid ingrepen die een marktfalen adresseren van ingrepen die
+uitsluitend een prijs of hoeveelheid herverdelen.
+
+#### Wat je hierna leest
+
+- 1334. Socialism. Von Mises' brede afrekening met de planeconomie, waarvan
+dit boek de kleinschalige, stapsgewijze variant behandelt.
+- 1335. Liberalism. Zijn uiteenzetting van het liberalisme als politiek
+programma, de positieve tegenhanger van de hier bekritiseerde interventies.
+- 1338. Omnipotent Government. Werkt de these van dit boek verder uit tot een
+analyse van staten die de economie volledig aan zich onderwerpen.
+- 1340. Human Action. Von Mises' hoofdwerk, waarin de economische theorie
+achter zijn kritiek op interventie systematisch wordt uiteengezet.
+
+## 1337. Epistemological Problems of Economics
+
+Ludwig von Mises, 1933. Oorspronkelijk *Grundprobleme der Nationalökonomie*
+(Gustav Fischer, 1933), Engelse vertaling door George Reisman (D. Van
+Nostrand, 1960). Nederlandse vertaling niet nagekeken. Rubriek: staat en
+vrijheid.
+Tags: `methodologie`, `economie`, `Oostenrijkse-school`,
+`wetenschapsfilosofie`, `praxeologie`
+
+In deze bundel legt von Mises de methodologische fundamenten die hij later in
+*Human Action* zou uitwerken: economie is volgens hem geen empirische
+natuurwetenschap die met experimenten werkt, maar een deductieve wetenschap
+die begint bij het gegeven dat mensen handelen om doelen te bereiken.
+
+Hij verdedigt die positie tegen de Duitse historische school, die economische
+wetten ontkende en alleen historisch beschrijven wilde, en tegen pogingen om
+de methoden van de natuurkunde rechtstreeks op menselijk handelen toe te
+passen. Het boek is technischer en voor een kleiner publiek geschreven dan von
+Mises' latere werk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Von Mises stelt dat economie geen empirische natuurwetenschap
+kan zijn, omdat menselijk handelen zich niet laat isoleren in een laboratorium
+en niet herhaalbaar is onder gecontroleerde omstandigheden. In plaats daarvan
+is economie volgens hem een deductieve wetenschap die vertrekt vanuit één
+zeker gegeven: mensen handelen doelbewust, dat wil zeggen dat zij middelen
+inzetten om gekozen doelen te bereiken onder voorwaarden van schaarste. Uit
+dat ene uitgangspunt, dat hij later in *Human Action* de handelingsaxioma zou
+noemen, zijn volgens hem de wetten van de economie logisch af te leiden, op
+dezelfde manier waarop een wiskundig stelsel uit axioma's wordt opgebouwd. Wie
+deze redenering aanvaardt, moet zowel de Duitse historische school afwijzen,
+die economische wetten ontkende en alleen historische beschrijving toeliet,
+als de pogingen om de methoden van de natuurkunde, met metingen en
+experimenten, rechtstreeks op menselijk gedrag toe te passen.
+
+#### De gang van het boek
+
+**Twee soorten wetenschap**
+
+Von Mises begint met een onderscheid tussen de natuurwetenschappen, die werken
+met experiment, meting en herhaalbare waarneming, en een tweede soort kennis
+die betrekking heeft op menselijk handelen. Voor dat tweede terrein bestaat
+volgens hem geen experiment in de strikte zin: mensen handelen altijd in een
+eenmalige, historisch bepaalde situatie, en dezelfde omstandigheden komen
+nooit tweemaal identiek terug.
+
+Uit dit onderscheid volgt dat de methode van de natuurwetenschap niet zomaar
+overgezet kan worden op de studie van het handelen. Wie dat toch probeert, zo
+stelt hij, verwart twee wezenlijk verschillende soorten kennis en komt uit bij
+een schijnprecisie die de aard van het onderwerp geweld aandoet.
+
+**Het uitgangspunt: handelen als gegeven**
+
+De kern van het boek is de gedachte dat er één ding is dat niet uit ervaring
+hoeft te worden afgeleid, omdat het aan elke ervaring voorafgaat: het feit dat
+mensen handelen, dat wil zeggen bewust middelen kiezen om doelen te bereiken.
+Dit gegeven noemt von Mises niet toetsbaar in de zin van een natuurwet, maar
+evident op dezelfde manier als een logische of wiskundige waarheid.
+
+Vanuit dit ene punt bouwt hij een keten van afleidingen op: als mensen
+handelen, dan kiezen zij, dan wegen zij kosten tegen baten af, dan geven zij
+de voorkeur aan het ene doel boven het andere. Elke stap in die keten is
+volgens hem logisch dwingend zodra het eerste gegeven wordt aanvaard, en heeft
+dus geen aparte empirische toetsing nodig.
+
+**Praxeologie als bredere wetenschap**
+
+Von Mises plaatst economie binnen een bredere wetenschap die hij de studie van
+het menselijk handelen in het algemeen noemt, later in *Human Action*
+praxeologie genoemd. Economie, of catallactiek zoals hij het ook aanduidt, is
+daarvan het deel dat zich bezighoudt met handelen onder voorwaarden van ruil
+en markt.
+
+Dit onderscheid is belangrijk omdat het de reikwijdte van economische wetten
+afbakent: zij gelden overal waar mensen doelbewust kiezen tussen middelen,
+ongeacht tijd, plaats of cultuur, maar zeggen niets over de inhoud van de
+doelen zelf. Wat mensen nastreven is voor von Mises een gegeven waarover de
+econoom als econoom geen oordeel velt.
+
+**Het conflict met de historische school**
+
+Een groot deel van het boek is gericht tegen de Duitse historische school, met
+name tegen de opvatting dat er geen algemene economische wetten bestaan,
+alleen historisch en cultureel bepaalde regelmatigheden die de historicus
+beschrijft zonder ze te veralgemenen. Von Mises ziet hierin een ontkenning van
+de mogelijkheid van economische theorie als zodanig.
+
+Hij bestrijdt ook de gedachte dat economische inzichten pas geldig worden na
+statistische verificatie over een reeks historische gevallen. Volgens hem kan
+statistiek wel illustreren en historisch beschrijven, maar nooit een
+economische wet bewijzen of weerleggen, omdat de onderliggende situaties nooit
+voldoende gelijk zijn om als herhaling van hetzelfde experiment te gelden.
+
+**Waardevrijheid en de grens van de wetenschap**
+
+Von Mises onderscheidt scherp tussen de wetenschap die vaststelt hoe middelen
+tot doelen leiden, en de keuze van de doelen zelf, die buiten het bereik van
+de wetenschap valt. Deze waardevrijheid houdt in dat de econoom als econoom
+niet kan zeggen welke economische orde wenselijk is, alleen wat de gevolgen
+van een bepaalde orde zijn gegeven bepaalde doelen.
+
+Deze grens is voor hem geen beperking die hij betreurt, maar een noodzakelijk
+gevolg van wat wetenschap kan en niet kan. Wie economische uitspraken vermengt
+met morele oordelen over wat mensen zouden moeten willen, verlaat volgens hem
+het terrein van de wetenschap.
+
+**Verstaan versus verklaren**
+
+Het boek besteedt aandacht aan de vraag hoe de onderzoeker toegang krijgt tot
+het handelen van anderen. Von Mises erkent dat begrip van individuele
+motieven, van historische gebeurtenissen en van concrete keuzes een vorm van
+interpreteren vergt die niet samenvalt met de algemene, a priori geldige
+wetten van de praxeologie.
+
+Hij plaatst deze interpreterende activiteit, die dichter bij de
+geschiedschrijving staat, naast de deductieve theorie, zonder de twee met
+elkaar te verwarren: de algemene wet dat mensen ruilen omdat zij er beter van
+denken te worden, is van een andere orde dan de vraag waarom een bepaalde
+koopman op een bepaalde dag een bepaalde ruil aanging.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Handelingsaxioma | Het uitgangspunt dat mensen bewust middelen inzetten om gekozen doelen te bereiken, door von Mises gezien als een gegeven dat niet uit ervaring hoeft te worden afgeleid. |
+| Praxeologie | De algemene, deductieve wetenschap van het menselijk handelen, waarvan economie volgens von Mises een onderdeel vormt. |
+| Catallactiek | Het deel van de praxeologie dat handelen onder voorwaarden van ruil en markt bestudeert, door von Mises vrijwel gelijkgesteld aan economie in engere zin. |
+| Apriorisme | De opvatting dat economische wetten logisch worden afgeleid uit een zeker uitgangspunt, en niet worden getoetst of bevestigd door waarneming zoals natuurwetten. |
+| Historische school | Een Duitse stroming die het bestaan van algemene economische wetten ontkende en economie wilde beperken tot historische beschrijving van specifieke gevallen. |
+| Waardevrijheid | Het beginsel dat de wetenschap uitspraken doet over de relatie tussen middelen en doelen, maar geen oordeel velt over de wenselijkheid van de doelen zelf. |
+| Verstehen | Het interpreterend begrijpen van individuele motieven en historische gebeurtenissen, door von Mises onderscheiden van de algemene wetten van de praxeologie. |
+| Methodologisch individualisme | Het uitgangspunt dat sociale verschijnselen worden verklaard vanuit het handelen van individuen, niet vanuit collectieven die zelfstandig zouden handelen. |
+
+#### Waar het argument op rust
+
+Von Mises onderbouwt zijn stelling niet met waarnemingen of tellingen, maar
+met een logische redenering: hij probeert te laten zien dat het ontkennen van
+doelbewust handelen zichzelf tegenspreekt, omdat ook die ontkenning een keuze
+veronderstelt tussen woorden en argumenten om een bepaald doel, overtuigen, te
+bereiken. Deze vorm van bewijsvoering staat dichter bij de logica dan bij de
+empirische wetenschap, en het boek maakt daarmee zelf al waar wat het beweert:
+dat economische kennis anders wordt verkregen dan natuurkundige kennis.
+
+Waar von Mises de historische school aanvalt, steunt hij vooral op een analyse
+van wat historische beschrijving wel en niet kan opleveren: zij kan volgens
+hem laten zien wat er is gebeurd, maar niet aantonen dat iets noodzakelijk zo
+moest gebeuren, en dus ook geen algemene wet vestigen of weerleggen. Dit
+argument is intern consistent, maar het is een filosofisch argument over de
+aard van historische kennis, geen empirische toets van een concrete
+economische claim.
+
+#### Wat er tegen in te brengen valt
+
+Het boek bevat, zoals von Mises zelf bedoelde, geen enkel empirisch onderzoek:
+er worden geen gegevens verzameld, geen historische reeksen geanalyseerd en
+geen voorspellingen getoetst. De hele overtuigingskracht hangt af van de
+aanvaarding van het handelingsaxioma als vanzelfsprekend, en van het
+vertrouwen dat de daaropvolgende afleidingen inderdaad logisch dwingend zijn.
+Wie dat eerste punt niet aanvaardt, of wie meent dat sommige van de latere
+stappen stiekem toch een feitelijke aanname bevatten, staat buiten het hele
+stelsel.
+
+Critici uit de kring van het logisch positivisme en later ook methodologen als
+Terence Hutchison hebben aangevoerd dat een wetenschap die haar eigen
+uitspraken bij voorbaat immuun verklaart voor empirische weerlegging, moeilijk
+te onderscheiden is van een gesloten geloofssysteem. Von Mises beantwoordt dat
+bezwaar niet door tegemoetkoming, maar door de tegenaanval dat juist de eis
+van toetsbaarheid ongeschikt is voor een terrein waar herhaalbare experimenten
+ontbreken, wat het meningsverschil eerder verscherpt dan oplost.
+
+Het boek is bovendien technischer en beknopter geschreven dan von Mises'
+latere werk, en veronderstelt vertrouwdheid met de methodologische debatten
+van zijn tijd, met name de Duitse Methodenstreit tussen Carl Menger en Gustav
+Schmoller. Voor wie dat kader niet kent, blijft een deel van de polemische
+lading van de tekst onzichtbaar.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij het lezen van economisch onderzoek tussen uitspraken die uit
+een model logisch volgen en uitspraken die op waarneming steunen, en behandel
+ze niet als gelijksoortig bewijs.
+- Wees terughoudend met economische claims die zich baseren op één of enkele
+historische gevallen, en vraag of de vergelijkbaarheid van die gevallen wel zo
+groot is als wordt voorgesteld.
+- Houd bij het beoordelen van beleidsvoorstellen de vraag naar de gekozen
+doelen apart van de vraag naar de gevolgen van een bepaald middel, in plaats
+van ze in één oordeel te vermengen.
+
+#### Wat je hierna leest
+
+- 1340. Human Action. Hier werkt von Mises het apparaat van dit boek, met het
+handelingsaxioma en de praxeologie als kern, uit tot zijn volledige
+economische stelsel.
+- 1342. Theory and History. Vervolgt de methodologische discussie over het
+verschil tussen de wetten van het handelen en de interpretatie van concrete
+historische gebeurtenissen.
+- 1343. The Ultimate Foundation of Economic Science. Een latere, kortere
+terugkeer naar dezelfde vraag naar de grondslagen van economische kennis,
+geschreven na decennia van kritiek op het apriorisme.
+- 1334. Socialism. Laat zien hoe von Mises dezelfde deductieve methode toepast
+op een concreet vraagstuk, de onmogelijkheid van economische calculatie onder
+socialisme.
+
+## 1338. Omnipotent Government
+
+Ludwig von Mises, 1944. Ondertitel *The Rise of the Total State and Total
+War*. Yale University Press, New Haven, 1944. Nederlandse vertaling niet
+nagekeken. Rubriek: staat en vrijheid.
+Tags: `nazisme`, `staatsmacht`, `economie`, `geschiedenis`,
+`Oostenrijkse-school`
+
+Von Mises, die in 1940 uit Europa naar de Verenigde Staten was gevlucht, zoekt
+in dit boek de economische wortels van het nationaalsocialisme. Zijn stelling
+is dat Duitsland al voor 1933 met interventionisme en protectionisme een
+economie had opgebouwd die op oorlog en autarkie was gericht, en dat het
+nazisme die richting voltooide in plaats van haar te breken.
+
+Het boek waarschuwt de Verenigde Staten en Groot-Brittannië tegen dezelfde
+economische planning die von Mises in Duitsland als voorportaal van het
+totalitarisme beschrijft, en werd bij verschijning zowel om die actuele
+waarschuwing als om zijn geschiedenisinterpretatie bediscussieerd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ludwig von Mises stelt dat het nationaalsocialisme geen breuk
+was met de Duitse economische ontwikkeling maar de voltooiing ervan:
+interventionisme, protectionisme en kartelvorming hadden Duitsland al voor
+1933 stap voor stap richting een oorlogseconomie geduwd, en de nazi's bouwden
+op die fundamenten voort in plaats van ze te slopen. Zijn these gaat verder
+dan een historische verklaring: elke poging om de markt via ingrepen te sturen
+roept nieuwe ingrepen op om de gevolgen van de vorige te repareren, en die
+keten eindigt volgens hem in centrale planning en de totale staat. Daarmee
+waarschuwt hij de Verenigde Staten en Groot-Brittannië, die in de oorlogsjaren
+zelf naar planeconomie grepen, dat zij dezelfde weg insloegen als het land
+waartegen zij vochten.
+
+#### De gang van het boek
+
+**De these: continuiteit in plaats van breuk**
+
+Mises opent met de gangbare verklaring voor het nazisme te verwerpen: dat het
+een uitzonderlijke ontsporing was, veroorzaakt door een enkele partij of een
+enkele man. Hij plaatst het nationaalsocialisme in de lijn van een economische
+politiek die in Duitsland al decennia liep, van Bismarck's sociale wetgeving
+via de protectionistische tarieven van het Duitse Rijk tot de kartelwetgeving
+van de Weimarrepubliek.
+
+Zijn kernargument is dat interventionisme geen stabiel evenwicht is. Een
+ingreep in de markt, zoals een prijsplafond of een importtarief, veroorzaakt
+gevolgen die de overheid onwenselijk vindt, waarna een volgende ingreep volgt
+om die gevolgen te bestrijden. Die keten van reparatie-ingrepen eindigt
+volgens hem onvermijdelijk bij volledige sturing van productie en handel.
+
+**Duitsland voor 1933: protectionisme en kartellen**
+
+Mises beschrijft hoe de Duitse tariefpolitiek na 1879 de binnenlandse
+industrie afschermde van buitenlandse concurrentie en zo de vorming van grote,
+door de staat beschermde kartellen in staal, kolen en chemie aanmoedigde. Deze
+kartellen kregen een wettelijk erkende status en werkten nauw samen met de
+overheid bij prijsafspraken en productiequota.
+
+Deze structuur, stelt hij, maakte de Duitse economie ontvankelijk voor
+centrale sturing lang voordat de nationaalsocialisten aan de macht kwamen. Een
+economie die al gewend was aan kartelafspraken en overheidsbescherming had
+weinig extra dwang nodig om over te schakelen naar een door de staat
+aangestuurde oorlogsindustrie.
+
+**Autarkie als oorlogsdoel**
+
+Een groot deel van het boek behandelt het streven naar autarkie, de wens om
+onafhankelijk te worden van buitenlandse grondstoffen en voedsel. Mises
+betoogt dat dit streven niet primair ideologisch was maar
+economisch-strategisch: een land dat een oorlog voorbereidt, moet zich wapenen
+tegen een blokkade, en dat dwingt tot binnenlandse productie van synthetische
+grondstoffen zoals kunstrubber en synthetische brandstof, ook als die duurder
+zijn dan invoer.
+
+Hij laat zien dat dit motief al werkte in de late negentiende eeuw, toen
+Duitse economen en beleidsmakers pleitten voor voedselzelfvoorziening als
+voorbereiding op een toekomstige oorlog. De nazi's namen dit streven over en
+versterkten het, maar hebben het niet bedacht.
+
+**Het nazisme als voltooiing van het interventionisme**
+
+Mises beschrijft het nationaalsocialistische economische stelsel als een vorm
+van socialisme waarin het formele eigendom van bedrijven bij particulieren
+bleef, maar de beslissingsmacht over productie, prijzen en lonen bij de staat
+lag. Hij noemt dit soms 'Zwangswirtschaft', een dwangeconomie waarin de
+ondernemer een uitvoerder van staatsbevelen wordt in plaats van een
+zelfstandig handelend persoon.
+
+Zijn stelling is dat dit stelsel niet een uitvinding van de nazi's was, maar
+de logische eindfase van de interventionistische politiek die al onder eerdere
+regeringen was ingezet. De overname van de economie door de staat verliep via
+bestaande instrumenten: prijscontroles, deviezenbeheer en kartelwetgeving die
+al bestonden en enkel werden aangescherpt.
+
+**Waarschuwing aan de geallieerden**
+
+In het laatste deel richt Mises zich tot zijn nieuwe vaderland, de Verenigde
+Staten, en tot Groot-Brittannië. Hij signaleert dat beide landen in de
+oorlogsjaren zelf greep naar planeconomie, met prijscontroles, rantsoenering
+en centrale toewijzing van grondstoffen, en waarschuwt dat de logica van
+interventionisme daar niet anders werkt dan in Duitsland.
+
+Hij bestrijdt het idee dat planning na de oorlog kan worden afgebouwd zodra de
+nood voorbij is. Instellingen en bevoegdheden die eenmaal zijn opgebouwd,
+blijven volgens hem bestaan en vormen een basis voor verdere uitbreiding van
+staatssturing, ook onder een andere naam en met andere bedoelingen dan die van
+een totalitair regime.
+
+**Nationalisme en de rol van de intellectuelen**
+
+Mises besteedt een deel van het boek aan wat hij de Duitse geschiedschrijving
+en filosofie van de negentiende eeuw noemt, waarin hij een voorbereiding ziet
+op het nationaalsocialistische denken over de staat als hoogste doel. Hij
+noemt dit een lange traditie van staatsverheerlijking die het individu
+ondergeschikt maakt aan de natie, en waarin economische zelfstandigheid van
+burgers als lastig obstakel gold.
+
+Hij wijst er ook op dat economen en juristen die het interventionisme in
+Duitsland vormgaven, zich niet als voorlopers van het nazisme beschouwden en
+vaak zelf geen nationaalsocialist waren. Zijn punt is niet dat zij het regime
+wilden, maar dat het instrumentarium dat zij bouwden, later zonder grote
+aanpassing door de nazi's kon worden overgenomen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Interventionisme | Een economisch stelsel waarin de overheid via afzonderlijke ingrepen in prijzen, lonen of handel de markt corrigeert zonder haar volledig te vervangen. |
+| Zwangswirtschaft | Mises' term voor een dwangeconomie waarin bedrijven formeel particulier eigendom blijven maar hun productie, prijzen en personeel op bevel van de staat inrichten. |
+| Autarkie | Het streven van een land om onafhankelijk te worden van invoer van grondstoffen en voedsel, vaak als voorbereiding op oorlog of blokkade. |
+| Protectionisme | Overheidsbeleid dat de binnenlandse industrie beschermt tegen buitenlandse concurrentie via tarieven en invoerbeperkingen. |
+| Kartel | Een afspraak tussen bedrijven in dezelfde sector over prijzen of productiequota, in Duitsland vaak met wettelijke erkenning en steun van de overheid. |
+| Totale staat | Een staatsvorm die geen terrein van het maatschappelijk leven, waaronder de economie, aan particulier initiatief overlaat. |
+| Deviezenbeheer | Overheidscontrole over de handel in buitenlandse valuta, waarmee de staat bepaalt welke import en export is toegestaan. |
+| Planeconomie | Een economisch stelsel waarin een centrale instantie beslist over productie en verdeling, in plaats van vraag en aanbod op een markt. |
+
+#### Waar het argument op rust
+
+Mises onderbouwt zijn these vooral met een historische reconstructie van de
+Duitse tariefwetgeving, kartelpraktijk en autarkiepolitiek vanaf het einde van
+de negentiende eeuw, en met eigen waarnemingen als econoom die in Wenen en
+later in Genève de Duitse en Oostenrijkse economische politiek van nabij
+volgde.
+
+Het boek bevat geen statistisch onderzoek en geen systematische data-analyse.
+De bewijsvoering steunt op de interne logica van zijn interventionismetheorie,
+toegepast op een reeks historische gebeurtenissen die hij zelf selecteert en
+interpreteert, aangevuld met citaten uit Duitse economische en politieke
+geschriften uit die periode.
+
+Voor de these dat interventionisme een dwingende keten van ingrepen
+veroorzaakt die eindigt in totale sturing, levert Mises een theoretisch
+argument, geen empirische toets met alternatieve uitkomsten. Wie zijn premisse
+over marktwerking niet deelt, kan dezelfde geschiedenis ook anders lezen,
+bijvoorbeeld als een reeks losse politieke keuzes zonder ingebouwde
+eindbestemming.
+
+#### Wat er tegen in te brengen valt
+
+De belangrijkste zwakte van het boek is dat Mises de these van economische
+continuiteit gebruikt om het nationaalsocialisme grotendeels als een
+economisch verschijnsel te verklaren, terwijl racistische ideologie,
+antisemitisme en de politieke terreur van de nazi's in zijn analyse weinig
+eigen gewicht krijgen. Latere historici van het naziregime plaatsen deze
+factoren centraler dan Mises doet.
+
+Zijn these dat interventionisme onvermijdelijk naar totale staatssturing
+leidt, is een stellige generalisatie die niet met tegenvoorbeelden wordt
+getoetst. Landen die na de Tweede Wereldoorlog interventionistisch beleid
+voerden zonder in een totalitair stelsel te belanden, ondermijnen de these van
+een dwingende keten, en dat weerlegt Mises niet.
+
+Het boek is een pamflet met een duidelijke politieke bedoeling, geschreven
+vanuit Mises' eigen liberale overtuiging en gericht op het beinvloeden van het
+Amerikaanse en Britse oorlogsbeleid. Die inzet maakt hem selectief in de keuze
+van voorbeelden die zijn these ondersteunen, en terughoudend in het bespreken
+van gevallen die haar zouden weerspreken.
+
+Zijn behandeling van het antisemitisme van het naziregime blijft beperkt tot
+de vaststelling dat het paste bij een economisch beleid van uitsluiting van
+joodse ondernemers en werknemers uit de markt. Daarmee reduceert hij een
+systeem van vervolging en vernietiging tot een uitwerking van een economische
+logica, wat aan de eigen dynamiek en het eigen gewicht van dat geweld
+voorbijgaat.
+
+#### Wat er concreet mee te doen is
+
+- Onderzoek bij een economische maatregel wie de gevolgen ervan draagt en of
+die gevolgen een volgende ingreep uitlokken.
+- Wees terughoudend met de aanname dat een crisismaatregel na de crisis
+vanzelf wordt teruggedraaid.
+- Scheid bij historische verklaringen de economische factoren van de
+ideologische en politieke factoren, in plaats van de een tot verklaring van de
+ander te maken.
+
+#### Wat je hierna leest
+
+- 1336. A Critique of Interventionism. Mises' eigen eerdere boek over
+interventionisme werkt de theorie uit die hij in Omnipotent Government op de
+Duitse geschiedenis toepast.
+- 1334. Socialism. In Socialism onderbouwt Mises de bredere claim dat centrale
+sturing van de economie niet houdbaar is, los van de vraag welk regime haar
+invoert.
+- 935. The Origins of Totalitarianism. Hannah Arendt onderzoekt in The Origins
+of Totalitarianism dezelfde episode vanuit de politieke en ideologische kant
+die Mises grotendeels laat liggen.
+- 910. Kapitalisme, socialisme en democratie. Joseph Schumpeter beschrijft in
+Kapitalisme, socialisme en democratie, geschreven in dezelfde oorlogsjaren,
+een andere route van kapitalisme naar staatssturing.
+
+## 1339. Bureaucracy
+
+Ludwig von Mises, 1944. Yale University Press, New Haven, 1944. Nederlandse
+vertaling niet nagekeken. Rubriek: staat en vrijheid.
+Tags: `bureaucratie`, `overheid`, `economie`, `Oostenrijkse-school`,
+`organisatie`
+
+Von Mises vergelijkt in dit korte boek bureaucratisch bestuur met
+bedrijfsvoering die door winst wordt gestuurd, en stelt dat het verschil niet
+in de kwaliteit van de mensen zit maar in de afwezigheid van een
+winst-en-verliesrekening: zonder die maatstaf kan een overheidsdienst niet
+objectief vaststellen of zij haar middelen goed besteedt.
+
+Daaruit leidt hij af dat bureaucratie zich onvermijdelijk richt op het volgen
+van regels in plaats van op resultaat, niet doordat ambtenaren onwillig zijn,
+maar omdat er geen andere manier is om hun handelen te beoordelen zodra winst
+als maatstaf ontbreekt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mises stelt dat het verschil tussen een bureaucratisch
+geleide dienst en een door winst gestuurd bedrijf niet in de kwaliteit van de
+mensen zit, maar in de afwezigheid van een winst-en-verliesrekening. Een
+ondernemer kan aan zijn boeken aflezen of hij middelen goed heeft besteed,
+omdat de markt via prijzen en winst of verlies oordeelt over elke beslissing.
+Een overheidsdienst heeft die maatstaf niet: er is geen prijs voor haar output
+en geen verlies dat een verkeerde beslissing afstraft. Daarom moet zij, wil
+zij niet in willekeur vervallen, haar ambtenaren op iets anders afrekenen dan
+op resultaat, namelijk op het volgen van vastgelegde regels. Bureaucratie is
+in deze lezing geen gebrek aan wil of intelligentie bij ambtenaren, maar een
+onvermijdelijk gevolg van het ontbreken van een winstcriterium in elke
+activiteit die de staat zelf uitvoert.
+
+#### De gang van het boek
+
+**Twee bestuursvormen**
+
+Mises onderscheidt bestuur volgens winst en bestuur volgens bureaucratische
+regels als twee zuivere typen, waartussen elke bestaande organisatie zich
+ergens bevindt. In het eerste type geeft de winst-en-verliesrekening de
+leiding een ondubbelzinnig antwoord op de vraag of een beslissing juist was:
+heeft de onderneming meer waarde toegevoegd dan zij aan middelen heeft
+verbruikt of niet. Deze rekening dwingt tot voortdurende bijstelling, ook
+zonder dat iemand van buiten controleert of de manager zijn best doet.
+
+In het tweede type ontbreekt die rekening, omdat de dienst geen product
+verkoopt waarvoor klanten vrijwillig betalen. Een ministerie van justitie of
+een politiekorps levert geen diensten die op een markt geprijsd worden, en er
+is dus geen manier om in geld uit te drukken of het werk zijn kosten waard is.
+Mises noemt dit geen gebrek van de betrokken instellingen, maar een kenmerk
+van de taken die zij uitvoeren: dwang, rechtspraak en soortgelijke
+overheidsfuncties lenen zich naar hun aard niet voor een winstberekening.
+
+**Waarom regels de plaats van winst innemen**
+
+Zonder winstmaatstaf kan een hogere overheid een ambtenaar niet beoordelen op
+het resultaat van zijn werk, omdat er geen getal is waarin dat resultaat
+samenkomt. Het enige wat overblijft, is beoordelen of de ambtenaar zich aan de
+voorgeschreven procedure heeft gehouden. Mises noemt dit geen bijverschijnsel
+van slecht bestuur, maar de enige beschikbare vervanging voor de
+winstrekening: regels zijn het surrogaat waarmee een democratie controle houdt
+over ambtenaren die zij niet op omzet of winst kan afrekenen.
+
+Dit verklaart volgens Mises waarom bureaucratisch gedrag, dat hij als star en
+formalistisch aanmerkt, niet verdwijnt door betere mensen aan te stellen. Een
+ambtenaar die van de regel afwijkt om naar eigen inzicht een beter resultaat
+te bereiken, ontneemt zijn superieuren de enige maatstaf die zij hebben om
+zijn handelen te beoordelen. Initiatief dat buiten de regel om gaat is voor de
+bureaucratie dan ook geen deugd maar een risico, ook wanneer het in een
+individueel geval tot een beter resultaat zou leiden.
+
+**Bureaucratisering van het bedrijfsleven**
+
+Mises breidt zijn analyse uit naar bedrijven die door prijsbeheersing,
+vergunningenstelsels of andere overheidsingrepen hun eigen winstrekening aan
+gezag verliezen. Zodra een bedrijf niet meer vrij is om zijn prijzen, lonen of
+investeringen te bepalen omdat de overheid die vaststelt, verdwijnt daarmee
+ook het onderscheid tussen goed en slecht ondernemerschap. Het bedrijf gaat
+zich dan, volgens Mises, gedragen als een overheidsdienst: het volgt de
+voorschriften in plaats van de markt, ook al blijft het formeel particulier
+eigendom.
+
+Hij waarschuwt dat deze verschuiving niet vanzelf tot stilstand komt. Elke
+nieuwe regel die de vrije prijsvorming beperkt, roept om een volgende regel om
+de gevolgen van de eerste te ondervangen, en zo breidt het bureaucratische
+deel van de economie zich uit ten koste van het door winst gestuurde deel.
+
+**De positie van de ambtenaar**
+
+Mises besteedt aandacht aan de psychologische kant van het ambtenaarschap: de
+bureaucraat ontleent zijn positie aan zijn plaats in de hiërarchie en aan zijn
+kennis van de regels, niet aan een aantoonbaar resultaat. Dit maakt promotie
+in een bureaucratie afhankelijk van anciënniteit en van het oordeel van
+meerderen over gehoorzaamheid, terwijl promotie in een winstgedreven bedrijf
+in principe afhankelijk is van de bijdrage aan de winst.
+
+Hieruit leidt hij een sociale consequentie af: waar het bureaucratische deel
+van de samenleving groeit, groeit ook het aantal mensen wier carrière van
+politieke gunst afhangt in plaats van van economische prestatie, met een
+grotere rol voor partijpolitiek in benoemingen als gevolg.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Winst-en-verliesrekening | De boekhoudkundige uitkomst waarmee een onderneming vaststelt of een beslissing meer waarde heeft opgeleverd dan zij heeft gekost. |
+| Bureaucratisch bestuur | Bestuur dat ambtenaren beoordeelt op het naleven van vastgelegde regels, omdat een winstmaatstaf voor hun werk ontbreekt. |
+| Winstgedreven bestuur | Bestuur dat managers beoordeelt op het resultaat van hun beslissingen, afleesbaar uit de winst-en-verliesrekening. |
+| Prijsbeheersing | Overheidsingrijpen waarbij prijzen, lonen of huren wettelijk worden vastgesteld in plaats van door vraag en aanbod. |
+| Surrogaatmaatstaf | De regel die in een bureaucratie de plaats inneemt van de winst als middel om het handelen van ambtenaren te beoordelen. |
+| Overheidsfunctie | Een taak, zoals rechtspraak of dwanguitoefening, die zich volgens Mises naar zijn aard niet voor een winstberekening leent. |
+| Bureaucratisering van het bedrijfsleven | Het proces waarbij particuliere ondernemingen door overheidsingrijpen hun vrijheid over prijzen en investeringen verliezen en zich als overheidsdiensten gaan gedragen. |
+
+#### Waar het argument op rust
+
+Mises onderbouwt zijn stelling vooral met een economisch-theoretisch argument
+over de functie van winst en verlies als informatiebron, aansluitend op zijn
+eerdere werk over economische calculatie onder socialisme. Het boek bevat
+weinig empirisch cijfermateriaal en geen systematisch onderzoek naar
+bureaucratieën van zijn tijd; de kracht van het argument zit in de logische
+afleiding, niet in een reeks voorbeelden die de stelling toetsen.
+
+Waar Mises voorbeelden geeft, zijn dat vooral illustraties uit de Amerikaanse
+en Europese overheidspraktijk van de jaren dertig en veertig, zoals de werking
+van ministeries en genationaliseerde bedrijven, gebruikt om zijn redenering te
+verduidelijken en niet om haar statistisch te bewijzen.
+
+#### Wat er tegen in te brengen valt
+
+Het boek onderbouwt zijn kernstelling met een deductieve redenering en
+nauwelijks met vergelijkend onderzoek naar hoe overheidsdiensten in de
+praktijk functioneren, waardoor niet valt na te gaan hoe vaak bureaucratisch
+gedrag daadwerkelijk optreedt zoals Mises voorspelt en hoe vaak
+overheidsorganisaties er toch in slagen resultaatgericht te werken,
+bijvoorbeeld via prestatie-indicatoren die niet op winst berusten.
+
+Mises behandelt winst en verlies als de enige mogelijke maatstaf voor
+doelmatig handelen, terwijl latere bestuurskunde en economie ook andere
+sturingsmechanismen voor overheidsdiensten hebben ontwikkeld, zoals
+kosteneffectiviteitsanalyse en prestatiecontracten, die zijn scherpe
+tweedeling tussen bureaucratie en markt gedeeltelijk afzwakken.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke overheidsdienst of bedrijfsonderdeel zonder winstoogmerk
+expliciet hoe resultaat wordt vastgesteld, in plaats van aan te nemen dat
+naleving van procedures daarvoor volstaat.
+- Wees terughoudend met het opleggen van extra regels als reactie op een fout
+in een organisatie zonder winstmaatstaf, omdat elke regel er volgens Mises een
+vervanging voor eigen afweging bij aanstelt.
+- Beoordeel voorstellen tot prijsbeheersing of vergunningplicht mede op het
+effect dat zij hebben op de mogelijkheid van een bedrijf om zijn eigen winst
+en verlies te blijven berekenen.
+
+#### Wat je hierna leest
+
+- 1334. Socialism. Mises werkte zijn argument dat doelmatig handelen zonder
+winstmaatstaf niet mogelijk is eerder uit in dit boek over de economische
+calculatie onder socialisme.
+- 1338. Omnipotent Government. In dit boek behandelt Mises de groei van
+staatsmacht die volgens hem met bureaucratisering gepaard gaat, op een breder
+politiek-historisch niveau.
+- 1340. Human Action. Mises' hoofdwerk plaatst het onderscheid tussen
+bureaucratisch en winstgedreven handelen in zijn volledige theorie van
+menselijk handelen.
+- 910. Kapitalisme, socialisme en democratie. Schumpeter beschrijft in dit
+boek een vergelijkbare verschuiving van ondernemerschap naar bureaucratisch
+beheer, maar verklaart die uit de eigen dynamiek van het kapitalisme in plaats
+van uit overheidsingrijpen.
+
+## 1340. Human Action
+
+Ludwig von Mises, 1949. Ondertitel *A Treatise on Economics*. Yale University
+Press, New Haven, 1949, herziene edities tot 1966. Nederlandse vertaling niet
+nagekeken. Rubriek: staat en vrijheid.
+Tags: `praxeologie`, `economie`, `Oostenrijkse-school`, `vrije-markt`,
+`methodologie`
+
+Von Mises' hoofdwerk bouwt de economische wetenschap op vanuit één
+uitgangspunt, dat hij praxeologie noemt: mensen handelen doelbewust om een
+situatie te verkiezen boven een andere, en uit die simpele constatering leidt
+hij een volledig stelsel af, van ruil en prijsvorming tot geld, kapitaal,
+conjunctuurcycli en de onmogelijkheid van economische calculatie onder
+socialisme.
+
+Het boek van meer dan negenhonderd bladzijden geldt als de meest volledige
+uitwerking van de Oostenrijkse school en als von Mises' antwoord op zowel het
+marxisme als het toen opkomende Keynesianisme, dat hij verwerpt omdat het
+volgens hem overheidsingrijpen wetenschappelijk aankleedt in plaats van de
+gevolgen ervan te doorgronden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Von Mises stelt dat de hele economische wetenschap zich laat
+afleiden uit één enkel, niet te bewijzen maar ook niet te weerleggen
+uitgangspunt: de mens handelt, dat wil zeggen hij kiest bewust een toestand
+die hem gunstiger lijkt boven een andere. Uit die ene aanname over doelgericht
+handelen, praxeologie genoemd, leidt hij met zuivere logica een compleet
+stelsel af: waarom ruil ontstaat, hoe prijzen tot stand komen, wat geld is,
+hoe rente en kapitaal samenhangen, waarom conjunctuurcycli terugkeren, en
+waarom een socialistische planeconomie niet aan rationele calculatie kan doen
+omdat zij de prijzen van kapitaalgoederen mist die alleen particulier eigendom
+en ruil voortbrengen. Economische wetten zijn voor Von Mises dus geen
+empirische regelmatigheden die je kunt toetsen of weerleggen met cijfers, maar
+logische noodzakelijkheden, net zoals een wiskundig bewijs geen experiment
+nodig heeft.
+
+#### De gang van het boek
+
+**Praxeologie: de wetenschap van het handelen**
+
+Von Mises opent met een methodologisch fundament dat de rest van het boek
+draagt. Economie is voor hem geen tak van de natuurwetenschap die hypothesen
+aan waarneming toetst, maar een a priori wetenschap die begint bij het axioma
+dat mensen handelen: zij zetten middelen in om een doel te bereiken dat zij
+verkiezen boven de bestaande toestand. Uit dat axioma volgen volgens hem, met
+dezelfde dwingende logica als in de wiskunde, stellingen over schaarste,
+keuze, tijdvoorkeur en ruil, zonder dat daarvoor statistisch onderzoek nodig
+is.
+
+Hij noemt deze algemene wetenschap van het handelen praxeologie en plaatst de
+economie, de catallactiek of leer van de markthandelingen, daarbinnen als het
+best uitgewerkte deel. Waar historici en statistici de concrete, wisselende
+inhoud van het handelen bestuderen, bestudeert de praxeoloog de vorm die aan
+elk handelen ten grondslag ligt, ongeacht tijd, plaats of cultuur.
+
+**Handelende mens tegenover collectief**
+
+Von Mises hanteert methodologisch individualisme: alleen individuen handelen,
+kiezen en waarderen, nooit een klasse, een volk of een staat als zodanig.
+Begrippen als de wil van de arbeidersklasse of het belang van de natie zijn
+voor hem verkorte aanduidingen voor optellingen van individuele handelingen,
+nooit zelfstandige actoren. Deze positie richt zich expliciet tegen het
+marxistische historisch materialisme, dat klassenbelangen als drijvende kracht
+van de geschiedenis ziet, en tegen elke vorm van collectivistische verklaring
+die het individu wegdenkt.
+
+Uit dezelfde bron komt zijn afwijzing van het historicisme dat economische
+wetten wil vervangen door historische ontwikkelingsfasen. Volgens Von Mises
+maakt die vervanging de economie onmogelijk, omdat zij elke uitspraak herleidt
+tot een tijdgebonden bijzonderheid in plaats van een algemene wet.
+
+**Ruil, prijs en de markt**
+
+Het middendeel van het boek bouwt de subjectieve waardeleer uit tot een
+volledige prijstheorie. Waarde ontstaat niet in een goed zelf maar in de
+rangschikking die een handelend individu aanbrengt tussen zijn doelen; ruil
+vindt plaats zodra twee partijen elkaars bezit hoger waarderen dan het eigen
+bezit dat zij inruilen. Op een markt met veel ruilende partijen ontstaan uit
+die individuele waarderingen prijzen, die op hun beurt terugkoppelen naar
+producenten en zo bepalen wat, hoe en voor wie geproduceerd wordt.
+
+Von Mises werkt dit uit tot een leer van de ongehinderde markt als
+coördinatiemechanisme: prijzen dragen informatie over relatieve schaarste die
+nergens anders vandaan komt en die, zodra de overheid ze vervangt door
+voorschriften of vaste tarieven, verdwijnt zonder vervanging.
+
+**Geld, krediet en de conjunctuurcyclus**
+
+Voor het geldvraagstuk grijpt Von Mises terug op zijn eigen regressietheorema
+uit *The Theory of Money and Credit*: de koopkracht van geld vandaag is te
+herleiden tot de koopkracht van gisteren, tot uiteindelijk het punt waarop het
+geldgoed nog een gewone ruilwaarde als grondstof had. Geld ontstaat dus uit de
+markt zelf, niet uit een decreet van de staat.
+
+Daarop bouwt hij de Oostenrijkse conjunctuurtheorie: wanneer banken door
+kredietexpansie de rente onder het niveau drukken dat vrijwillig sparen zou
+opleveren, ontstaan investeringen die niet met echte besparingen overeenkomen.
+Die malinvesteringen komen aan het licht zodra de kredietstroom vertraagt, en
+de daaropvolgende recessie is voor Von Mises geen storing van de markt maar de
+onvermijdelijke correctie van een eerder kunstmatig opgeblazen boom.
+
+**De onmogelijkheid van economische calculatie onder socialisme**
+
+Het argument waarmee Von Mises het meest is blijven voortleven, betreft de
+calculatie onder socialisme. Zonder particulier eigendom van productiemiddelen
+bestaat er geen markt waarop kapitaalgoederen tegen elkaar geruild worden, en
+dus ontstaan er geen prijzen voor staal, machines of grond die aangeven welke
+van twee productiewijzen minder schaarse middelen verbruikt. Een centrale
+planner kan dan wel besluiten wat er geproduceerd moet worden, maar mist het
+rekeninstrument om vast te stellen of dat op een verstandige manier gebeurt.
+
+Von Mises trekt hieruit de conclusie dat een volledig socialistische economie
+niet gebrekkig functioneert maar principieel niet rationeel kan plannen,
+zolang zij de markt voor kapitaalgoederen mist. Coöperaties, gilden of
+gedeeltelijke planning ontsnappen aan dit probleem niet zolang zij het
+eigendom van kapitaalgoederen collectiviseren.
+
+**Interventionisme en de afrekening met Keynes**
+
+Het laatste deel van het boek behandelt tussenvormen: overheidsingrijpen dat
+het particulier eigendom intact laat maar prijzen, lonen of rente vaststelt.
+Von Mises betoogt dat zulk ingrijpen bijna nooit het beoogde doel bereikt en
+vaak een nieuwe verstoring veroorzaakt die de roep om verder ingrijpen
+oproept, een dynamiek die hij als een glijdende schaal naar volledige planning
+beschrijft.
+
+Von Mises verwerpt hier ook de opkomende Keynesiaanse leer die de overheid
+vraagt de bestedingen te sturen via begrotingstekorten en lage rente. Voor hem
+verhult die leer een politieke keuze voor ingrijpen achter een wiskundig ogend
+model van totale vraag, zonder de gevolgen van kunstmatig lage rente voor de
+kapitaalstructuur te doorgronden die hij eerder in het boek had beschreven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Praxeologie | de algemene wetenschap van het menselijk handelen, waaruit Von Mises de economie als deelgebied afleidt met zuiver logische redenering. |
+| Catallactiek | het deel van de praxeologie dat de handelingen op de markt bestudeert: ruil, prijsvorming en geld. |
+| Handelende mens (homo agens) | het uitgangspunt van Von Mises: een wezen dat middelen inzet om een gekozen doel te bereiken, in tegenstelling tot het loutere reageren van dieren of dingen. |
+| Methodologisch individualisme | het beginsel dat alleen individuen handelen en kiezen, zodat verklaringen die aan klassen, volkeren of staten zelfstandig handelen toeschrijven op een fout berusten. |
+| Regressietheorema | de stelling dat de koopkracht van geld altijd herleidbaar is tot een eerdere koopkracht, tot aan het moment waarop het geldgoed nog puur als ruilwaar diende. |
+| Malinvesteringen | investeringen die door kunstmatig lage rente worden opgezet maar niet overeenkomen met de werkelijke besparingen in de economie, en die bij een recessie aan het licht komen. |
+| Calculatieprobleem | de onmogelijkheid om onder collectief eigendom van kapitaalgoederen prijzen te vormen die een rationele afweging tussen productiewijzen mogelijk maken. |
+| Interventionisme | overheidsingrijpen in prijzen, lonen of rente binnen een verder op particulier eigendom gebaseerde economie, dat volgens Von Mises telkens om verder ingrijpen vraagt. |
+| Subjectieve waardeleer | de opvatting dat waarde niet in een goed zelf zit maar in de rangschikking die een handelend individu aan zijn doelen geeft. |
+
+#### Waar het argument op rust
+
+Von Mises onderbouwt zijn stellingen niet met statistiek of experiment maar
+met deductie uit het handelingsaxioma, dat hij als zelfevident beschouwt: wie
+het axioma ontkent, handelt daarmee zelf doelgericht en bevestigt het dus. Hij
+beschouwt deze deductieve zekerheid als sterker dan elke empirische wet, die
+immers altijd door nieuwe waarnemingen kan worden bijgesteld.
+
+Het meest concrete, historisch toetsbare onderdeel is het calculatieargument.
+Von Mises formuleerde de kern daarvan al in 1920, ruim voor de latere
+ervaringen met centraal geplande economieën in Oost-Europa, waar productie
+inderdaad zonder werkende prijzen voor kapitaalgoederen tot stand kwam en tot
+grove verspilling leidde. Die latere geschiedenis wordt door aanhangers als
+bevestiging gelezen, al blijft dit een historische illustratie en geen
+experiment dat het a-priori-argument zelf bewijst.
+
+Voor de conjunctuurtheorie verwijst Von Mises naar de opeenvolgende
+Amerikaanse en Europese kredietcycli van zijn tijd, zonder die te onderbouwen
+met systematisch cijfermateriaal over kredietvolumes en investeringen; de
+theorie blijft in dit boek vooral een logische constructie die uit de
+rentetheorie volgt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar tegen het boek richt zich op de methode zelf. Von Mises
+verheft de praxeologie tot een wetenschap die per definitie niet door
+waarneming kan worden weerlegd, omdat elke tegenspraak wordt toegeschreven aan
+onjuiste toepassing van de theorie in plaats van aan de theorie zelf. Voor
+economen uit de empirische en positivistische traditie is dat geen
+wetenschappelijke deugd maar een manier om kritiek principieel buiten te
+sluiten.
+
+Een tweede bezwaar is dat Von Mises zijn methodologische conclusies zonder
+duidelijke breuk laat overlopen in een politiek programma voor een
+ongehinderde markt, zonder telkens scherp te onderscheiden wat uit de logica
+van het handelen volgt en wat een eigen politieke voorkeur is. Lezers die het
+eerste als bewijs voor het tweede lezen, nemen daarmee een sprong over die het
+boek zelf niet expliciet verantwoordt.
+
+Het boek bevat, in lijn met zijn eigen methode, geen empirisch onderzoek naar
+de omvang van malinvesteringen, de snelheid van prijsaanpassing of de
+werkelijke informatiewaarde van marktprijzen onder monopolie; wie daarnaar
+zoekt, moet uitwijken naar latere Oostenrijkse of institutionele economen. Ten
+slotte is de tekst, meer dan negenhonderd bladzijden dicht proza zonder
+grafieken of overzichtsschema's, weinig toegankelijk en herhaalt hij eerder
+werk van Von Mises zelf, zoals *The Theory of Money and Credit* en
+*Socialism*, in een uitgebreide vorm zonder veel nieuwe elementen.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij elk overheidsvoorstel dat prijzen, lonen of rente vaststelt,
+wat het beoogde effect is en welk nieuw probleem het volgens Von Mises'
+interventionismeleer waarschijnlijk oproept.
+- Vraag bij een plan voor collectieve of centrale sturing van
+productiemiddelen expliciet na hoe de afweging tussen twee productiewijzen
+zonder marktprijzen voor kapitaalgoederen gemaakt zou worden.
+- Lees macro-economische modellen die met begrotingstekorten of lage rente
+werken met de vraag welke veronderstelling over de kapitaalstructuur
+daarachter schuilgaat.
+
+#### Wat je hierna leest
+
+- 1334. Socialism. Von Mises werkte het calculatieargument dat in *Human
+Action* terugkeert, voor het eerst grondig uit in dit boek uit 1922.
+- 1332. The Theory of Money and Credit. De monetaire theorie en het
+regressietheorema uit *Human Action* gaan terug op dit eerdere werk over geld
+en krediet.
+- 910. Kapitalisme, socialisme en democratie. Schumpeter deelt de these dat
+socialisme de calculatie bemoeilijkt, maar verwacht, anders dan Von Mises, dat
+het kapitalisme zichzelf ondermijnt.
+- 1343. The Ultimate Foundation of Economic Science. Von Mises verdedigt hier,
+korter en toegankelijker, de methodologische grondslag van de praxeologie die
+in *Human Action* het hele stelsel draagt.
+
+## 1341. The Anti-Capitalistic Mentality
+
+Ludwig von Mises, 1956. D. Van Nostrand, Princeton, 1956. Nederlandse
+vertaling niet nagekeken. Rubriek: staat en vrijheid.
+Tags: `kapitalisme`, `ideologiekritiek`, `economie`, `Oostenrijkse-school`,
+`intellectuelen`
+
+In dit korte essay onderzoekt von Mises waarom kapitalisme, dat volgens hem de
+levensstandaard van de gewone burger sterker heeft verhoogd dan enig ander
+stelsel, bij schrijvers en intellectuelen juist op weerstand stuit. Zijn
+verklaring zoekt hij deels in wrok van mensen die in een vrije markt niet de
+erkenning krijgen die zij zichzelf toedichten.
+
+Het boek bespreekt ook waarom een vrije markt ongelijkheid zichtbaarder maakt
+dan een standenmaatschappij, waarin iemands positie door geboorte werd bepaald
+in plaats van door zijn eigen prestaties op de markt, en waarom die
+zichtbaarheid volgens von Mises tot een specifieke onvrede leidt die eerdere
+standenmaatschappijen niet kenden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Von Mises stelt dat het verzet tegen het kapitalisme onder
+schrijvers, kunstenaars en intellectuelen niet voortkomt uit een nuchtere
+afweging van economische systemen, maar uit wrok: mensen die in een vrije
+markt niet de rang krijgen die zij zichzelf toedichten, zoeken een verklaring
+voor hun teleurstelling buiten zichzelf, en het kapitalisme biedt daarvoor een
+gemakkelijk doelwit omdat het, anders dan een standenmaatschappij, iedere
+volwassene in beginsel de vrijheid geeft om het te proberen en dus ook de
+verantwoordelijkheid voor de uitkomst bij het individu legt.
+
+#### De gang van het boek
+
+**De paradox van de klacht**
+
+Von Mises opent met een constatering die hij als uitgangspunt neemt: het
+kapitalisme heeft de levensstandaard van de gewone arbeider sterker verbeterd
+dan enig eerder economisch stelsel, terwijl juist in de landen waar dat het
+duidelijkst zichtbaar is, de afkeer van het kapitalisme onder schrijvers en
+academici het grootst is. Voor hem is dat geen toeval maar een verschijnsel
+dat om een verklaring vraagt die niet economisch maar psychologisch van aard
+is.
+
+**Wrok als drijfveer**
+
+De kern van het boek is de analyse van wat von Mises wrok noemt: de reactie
+van iemand die zichzelf een hogere positie toedicht dan hij in de praktijk
+bereikt, en die het verschil tussen ambitie en resultaat toeschrijft aan het
+systeem in plaats van aan zichzelf. In een standenmaatschappij, betoogt hij,
+was iemands plaats bij geboorte al vastgelegd, zodat een boerenzoon zijn
+positie niet aan zichzelf hoefde toe te schrijven. In een markteconomie is de
+uitkomst in beginsel het resultaat van eigen keuzes en prestaties, en dat
+maakt een tegenvallend resultaat persoonlijker en daarmee moeilijker te
+verdragen.
+
+Von Mises richt zich hierbij specifiek op de intellectueel: iemand die op
+school en universiteit werd voorgehouden dat hij tot de besten behoorde, en
+die vervolgens op de arbeidsmarkt merkt dat die erkenning niet vanzelfsprekend
+doorloopt. De schrijver wiens boek niet verkoopt, terwijl een populaire roman
+wel een groot publiek trekt, ziet daarin volgens von Mises geen oordeel over
+de markt maar een oordeel over de massa, terwijl hij evengoed tot de conclusie
+zou kunnen komen dat zijn eigen werk minder aansprak dan hij dacht.
+
+**Zichtbare ongelijkheid**
+
+Von Mises besteedt een apart hoofdstuk aan het verschil tussen ongelijkheid in
+een standenmaatschappij en ongelijkheid in een markteconomie. In de eerste was
+rang een gegeven feit, bevestigd door geboorte, wet en gewoonte, en niet iets
+waarover een individu zich persoonlijk hoefde te verantwoorden. In de tweede
+is rijkdom het resultaat van een proces waarin iedereen in beginsel dezelfde
+kans krijgt om te slagen of te falen, en waarin succes en falen dus aan het
+individu worden toegeschreven. Dat maakt de ongelijkheid volgens von Mises
+zichtbaarder en persoonlijker dan in een systeem waarin de eigen positie nooit
+ter discussie stond.
+
+Deze zichtbaarheid heeft volgens hem een keerzijde die eerdere
+standenmaatschappijen niet kenden: wie in de vrije markt niet slaagt, kan
+zichzelf niet langer troosten met de gedachte dat zijn afkomst hem tot zijn
+plaats veroordeelde. Von Mises stelt dat dit onbehagen zich vervolgens
+vertaalt in een aanval op het systeem zelf, in plaats van in een aanvaarding
+van de uitkomst.
+
+**De rol van de schrijver en de intellectueel**
+
+Een terugkerend thema is de positie van de schrijver in de markteconomie. Voor
+de Franse revolutie hing een schrijver af van een adellijke of vorstelijke
+beschermheer die hem financierde, ongeacht hoe zijn werk bij een breder
+publiek viel. In de markteconomie is de schrijver afhankelijk van de kopende
+lezer, en von Mises stelt dat veel schrijvers deze omschakeling als een
+degradatie ervaren: zij zien zichzelf niet als leverancier aan een publiek
+maar als drager van een hogere roeping, en verzetten zich tegen een systeem
+dat hun waarde afhankelijk maakt van de smaak van de massa.
+
+Von Mises breidt deze analyse uit naar de universitair opgeleide in bredere
+zin, en signaleert dat het onderwijssysteem in zijn ogen mensen voorbereidt op
+posities die de arbeidsmarkt niet in dat aantal biedt, waardoor een deel van
+de afgestudeerden met een verwachting het beroepsleven ingaat die niet wordt
+ingelost.
+
+**Kapitalisme als zondebok voor persoonlijke tekortkomingen**
+
+Von Mises besteedt aandacht aan wat hij ziet als een cultureel patroon: falen
+wordt toegeschreven aan het systeem, niet aan onvoldoende talent, geluk of
+inspanning. Hij noemt dit een fundamentele afwijzing van persoonlijke
+verantwoordelijkheid, die aantrekkelijker is dan de erkenning dat de markt
+iemands eigen prestatie eerlijk heeft beoordeeld.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Wrok (resentment) | de reactie van iemand die zichzelf een hogere positie toedicht dan hij bereikt en de oorzaak buiten zichzelf legt. |
+| Anti-kapitalistische mentaliteit | de door von Mises beschreven neiging om het kapitalisme verantwoordelijk te houden voor persoonlijke teleurstellingen. |
+| Standenmaatschappij | een orde waarin iemands sociale positie door geboorte wordt bepaald en niet door prestatie op de markt. |
+| Consumentensoevereiniteit | het idee dat uiteindelijk de koopbeslissingen van consumenten bepalen welke producenten en producten succesvol zijn. |
+| Sociale mobiliteit | de mogelijkheid om in een markteconomie van sociale positie te veranderen, in plaats van daaraan bij geboorte vast te zitten. |
+| Toe-eigening van verdienste | het verschijnsel dat iemand zich meer aanzien toedicht dan de markt hem toekent. |
+| Mecenaat | het oudere systeem waarin een schrijver of kunstenaar afhing van de steun van een individuele beschermheer in plaats van een kopend publiek. |
+
+#### Waar het argument op rust
+
+Von Mises bouwt zijn betoog op in de eerste plaats op algemene observaties
+over de houding van schrijvers en academici tegenover de markt, en op de
+vergelijking tussen de positie van de schrijver voor en na de opkomst van een
+lezerspubliek dat zelf boeken koopt. Hij citeert geen statistisch onderzoek
+naar wrok of naar de tevredenheid van intellectuelen met hun maatschappelijke
+positie: de redenering is een filosofisch-psychologisch argument, opgebouwd
+uit de eigen economische theorie over marktwerking en aangevuld met
+observaties over de geschiedenis van het schrijverschap.
+
+Voor de economische kern, dat de levensstandaard onder het kapitalisme is
+gestegen, verwijst von Mises naar de bekende geschiedenis van de industriële
+productie en van lonen en consumptiegoederen in de negentiende en twintigste
+eeuw, zonder dat hij daarbij cijfers of bronnen citeert. Die claim staat
+inmiddels breder onderbouwd in de economische geschiedschrijving dan in 1956
+het geval was, maar het boek zelf levert die onderbouwing niet.
+
+#### Wat er tegen in te brengen valt
+
+Het zwakste punt van het boek is dat von Mises een psychologisch verschijnsel,
+wrok, aanwijst als de verklaring voor een standpunt, verzet tegen het
+kapitalisme, zonder dat hij dat verschijnsel bij individuele schrijvers
+aantoont. Hij redeneert van de these naar de aanhangers ervan, in plaats van
+bij de aanhangers te beginnen en hun motieven te onderzoeken. Daarmee riskeert
+het argument een drogreden te worden: wie het oneens is met von Mises, wordt
+bij voorbaat verklaard vanuit een persoonlijk gebrek in plaats van vanuit een
+inhoudelijk standpunt dat weerlegd moet worden.
+
+Het boek benoemt ook geen enkele intellectuele criticus van het kapitalisme
+bij naam en gaat niet in op de inhoudelijke argumenten die tegenstanders van
+de vrije markt destijds al aanvoerden, zoals verdelingsvraagstukken of
+marktfalen. Daardoor blijft de tegenstander in het boek een abstractie, en
+wordt nooit getoetst of de wrok-verklaring ook opgaat voor critici die wel
+degelijk beargumenteerde bezwaren hadden.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij een oordeel over economische ongelijkheid tussen een
+inhoudelijk bezwaar tegen de marktuitkomst en een persoonlijk ongenoegen over
+de eigen positie daarin.
+- Wees terughoudend met het verklaren van andermans standpunt vanuit een
+verondersteld motief in plaats van vanuit het argument zelf.
+- Lees dit boek als een stuk uit een politiek debat van de jaren vijftig, niet
+als een empirisch onderzoek naar de herkomst van maatschappijkritiek.
+
+#### Wat je hierna leest
+
+- 1334. Socialism. Von Mises' technische argument tegen de planeconomie, dat
+de zichtbare ongelijkheid uit dit essay in een breder economisch kader
+plaatst.
+- 1335. Liberalism. Von Mises' overzicht van het liberalisme als samenhangend
+program, de positieve tegenhanger van de afwijzing die in dit essay wordt
+geanalyseerd.
+- 1340. Human Action. Von Mises' hoofdwerk, waarin de praxeologie die aan dit
+essay ten grondslag ligt volledig wordt uitgewerkt.
+- 627. For a New Liberty: The Libertarian Manifesto. Een latere, radicalere
+verdediging van de vrije markt vanuit dezelfde Oostenrijkse traditie, met een
+scherper eigendomsargument dan von Mises hanteert.
+
+## 1342. Theory and History
+
+Ludwig von Mises, 1957. Ondertitel *An Interpretation of Social and Economic
+Evolution*. Yale University Press, New Haven, 1957. Nederlandse vertaling niet
+nagekeken. Rubriek: staat en vrijheid.
+Tags: `geschiedfilosofie`, `economie`, `Oostenrijkse-school`, `determinisme`,
+`methodologie`
+
+Von Mises zet in dit boek zijn praxeologie af tegen het historisch
+materialisme van Marx en tegen elke vorm van historisch determinisme die stelt
+dat de loop van de geschiedenis door onpersoonlijke wetten wordt bepaald.
+Geschiedenis bestaat volgens hem uit de opeenstapeling van keuzes van
+individuen, die niet tot een wetmatigheid herleid kunnen worden zoals in de
+natuurkunde wel kan.
+
+Het boek bespreekt ook de grenzen van statistiek en kwantitatieve methoden in
+de sociale wetenschappen, en betoogt dat economische wetten weliswaar
+universeel geldig zijn, maar dat de manier waarop mensen daarop reageren,
+historisch en dus niet te voorspellen is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ludwig von Mises stelt dat de geschiedenis geen wetten volgt
+zoals de natuurkunde die kent. Menselijk handelen laat zich wel begrijpen met
+de algemene, tijdloze uitspraken van de praxeologie, de leer van het handelen
+waarvan de economie het meest uitgewerkte deel is, maar de concrete loop van
+de geschiedenis is de opeenstapeling van ontelbare individuele keuzes onder
+waarden, verwachtingen en kennis die op elk moment anders zijn. Wie, zoals
+Marx met zijn historisch materialisme, stelt dat productiekrachten of
+klassenverhoudingen de geschiedenis met noodzakelijkheid naar een vooraf
+vastliggend eindpunt sturen, verwart een interpretatie achteraf met een wet.
+Dezelfde fout maakt elke andere vorm van historicisme, of die nu draait om
+rassen, beschavingscycli of technologische vooruitgang: ze schrijft aan het
+verleden een dwingende richting toe die alleen zichtbaar is omdat de uitkomst
+al bekend is.
+
+#### De gang van het boek
+
+**Handelen, geen gedrag**
+
+Mises begint bij het onderscheid tussen praxeologie en de natuurwetenschappen.
+Een steen die valt, gedraagt zich volgens een wet die zich altijd op dezelfde
+manier voltrekt. Een mens die handelt, kiest tussen doelen op basis van een
+waardering die niet meetbaar is en die van moment tot moment kan veranderen.
+Praxeologische uitspraken, zoals dat een prijsplafond onder de marktprijs tot
+een tekort leidt, gelden universeel en tijdloos, maar ze zeggen niets over
+welk plafond een overheid ooit zal instellen of hoe hard een bevolking daarop
+zal reageren. Dat laatste is geschiedenis, geen wet.
+
+**Het historisch materialisme als voorbeeld van historicisme**
+
+Mises neemt Marx als het uitgewerktste voorbeeld van wat hij historicisme
+noemt: de gedachte dat de geschiedenis een vaste opeenvolging van stadia
+doorloopt, bij Marx bepaald door de productieverhoudingen, die via
+klassenstrijd onvermijdelijk op het socialisme uitloopt. Hij wijst erop dat
+deze voorspelling haar bewijskracht ontleent aan een cirkelredenering:
+gebeurtenissen die niet in het schema passen, worden verklaard als vertraging
+of als schijn, terwijl gebeurtenissen die er wel in passen als bevestiging
+gelden. Een uitspraak die op voorhand met elke uitkomst te verzoenen is,
+toetst niets.
+
+Hij onderscheidt hierbij het polylogisme, het idee dat de logica van het
+denken zelf per klasse of ras verschilt, van de eigenlijke materialistische
+geschiedopvatting. Beide delen volgens hem hetzelfde gebrek: ze plaatsen een
+onpersoonlijke kracht, klasse-belang of klasse-logica, boven de individuele
+mens die feitelijk beslist, terwijl elke beslissing uiteindelijk door een
+persoon genomen wordt op grond van diens eigen inschatting van de situatie.
+
+**Andere vormen van historisch determinisme**
+
+Mises behandelt het historisch materialisme niet als een geïsoleerde dwaling
+maar als één variant van een breder patroon. Racistische geschiedopvattingen
+die volkeren een vaste, biologisch bepaalde bestemming toedichten, en
+geschiedfilosofieën die beschavingen als organismen met een vaste levenscyclus
+van opkomst, bloei en verval beschrijven, maken volgens hem dezelfde denkfout:
+ze vervangen de analyse van wat mensen feitelijk kozen en waarom, door een
+schema dat de uitkomst al vastlegt voordat de gebeurtenissen zich hebben
+voltrokken.
+
+**De grenzen van kwantitatieve methoden**
+
+Een apart deel gaat over de rol van statistiek in de sociale wetenschappen.
+Mises erkent dat statistiek nuttig is om vast te stellen wat er in een
+bepaalde periode en plaats gebeurd is, bijvoorbeeld hoe de vraag naar een goed
+samenhing met de prijs ervan in die concrete omstandigheden. Wat statistiek
+volgens hem niet kan, is die samenhang veralgemeniseren tot een constante,
+zoals natuurkundige metingen dat wel toelaten. Een prijselasticiteit die in de
+jaren dertig in de Verenigde Staten gemeten is, geldt niet automatisch voor
+een andere tijd of een andere markt, omdat de voorkeuren en verwachtingen van
+de handelende mensen intussen veranderd kunnen zijn.
+
+Daarmee verwerpt hij niet het gebruik van cijfers, maar wel de gedachte dat
+econometrische wetten op dezelfde manier voorspellen als natuurwetten. Wat
+blijft, is de praxeologische kern: dat mensen op schaarste reageren, dat
+prijzen informatie dragen, dat een tekort ontstaat bij een prijs onder het
+marktniveau. Hoe sterk die reactie in een concreet geval uitvalt, hangt af van
+omstandigheden die de econoom niet vooraf kan berekenen.
+
+**De rol van waardeoordelen bij de historicus**
+
+Mises besteedt ruimte aan het probleem dat een historicus, in tegenstelling
+tot een natuurwetenschapper, niet om een waardering heen kan bij het
+selecteren en ordenen van feiten. Uit de oneindige hoeveelheid gebeurtenissen
+kiest de historicus wat relevant is voor het verhaal dat hij vertelt, en die
+keuze wordt gestuurd door de vraag die hij stelt en de waarden die hij zelf
+aanhangt. Dat maakt geschiedschrijving volgens hem niet willekeurig, maar wel
+principieel anders dan een experiment dat herhaalbaar is en dat men door
+herhaling kan toetsen.
+
+**Vrijheid als tegenhanger van determinisme**
+
+Het slot verbindt de methodologische discussie met een politieke: als de
+geschiedenis werkelijk door onpersoonlijke wetten naar een vast eindpunt
+gestuurd zou worden, verliest individuele keuze haar betekenis en wordt verzet
+tegen die wetten zinloos of zelfs reactionair, precies de retoriek die Mises
+bij marxistische auteurs signaleert. Wie daarentegen aanneemt dat de uitkomst
+van de geschiedenis openligt omdat ze door de keuzes van mensen gemaakt wordt,
+erkent daarmee ook dat andere keuzes tot andere uitkomsten hadden kunnen
+leiden.
+
+Mises trekt hieruit ook een les over hoe economen en historici met elkaar om
+moeten gaan: de econoom die zich als praxeoloog beperkt tot de algemene wetten
+van het handelen, heeft niets te zeggen over wélke concrete politiek een land
+zal voeren, en de historicus die concrete gebeurtenissen beschrijft, kan zich
+niet beroepen op een wet van de geschiedenis om die beschrijving tot
+voorspelling te maken. Beide disciplines blijven volgens hem noodzakelijk
+naast elkaar bestaan, juist omdat ze een verschillend deel van de
+werkelijkheid dekken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Praxeologie | De algemene leer van het menselijk handelen, waarvan de economie volgens Mises het uitgewerkte deel is. |
+| Historicisme | De opvatting dat de geschiedenis vaste stadia doorloopt volgens een wet die de uitkomst vooraf vastlegt. |
+| Historisch materialisme | Marx' these dat de productieverhoudingen via klassenstrijd de geschiedenis naar het socialisme sturen. |
+| Polylogisme | De aanname dat de logische structuur van het denken zelf per klasse of ras verschilt. |
+| Apriorisme | Mises' methodologische stelling dat de grondbeginselen van de economie logisch afgeleid worden uit het begrip handelen, niet uit waarneming. |
+| Thymologie | Mises' term voor de kennis van menselijke waarden en verwachtingen die de historicus gebruikt om gedrag te duiden, in tegenstelling tot praxeologische wetten. |
+| Waardevrijheid | Het onderscheid tussen het vaststellen van een economische wet en het beoordelen van een doel als wenselijk of niet. |
+| Methodologisch individualisme | Het uitgangspunt dat sociale verschijnselen verklaard moeten worden vanuit het handelen van individuen, niet vanuit collectieve entiteiten als klasse of volk. |
+
+#### Waar het argument op rust
+
+Mises onderbouwt zijn these vooral langs logische weg, niet met historisch
+bronnenonderzoek: hij laat zien dat de voorspellingen van het historisch
+materialisme niet falsifieerbaar zijn omdat afwijkende uitkomsten steeds als
+tijdelijke afwijking worden weggeredeneerd, en dat is een methodologisch
+argument, geen empirische toets van wat er werkelijk gebeurd is.
+
+Voor de grenzen van statistiek verwijst hij naar het gegeven dat
+econometrische verbanden uit het verleden herhaaldelijk instabiel bleken zodra
+de onderliggende omstandigheden veranderden, zonder dat hij dit met
+specifieke, dateerbare gevallen staaft. Het argument steunt op de aard van
+menselijk handelen zelf, namelijk dat voorkeuren veranderlijk zijn, en niet op
+een reeks gedocumenteerde mislukte voorspellingen.
+
+Het boek bevat geen apart empirisch onderzoek naar economische geschiedenis;
+het is een verzameling methodologische essays die voortbouwen op de eerdere
+uiteenzetting van de praxeologie in *Human Action*.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar tegen Mises' positie is dat zijn eigen praxeologie
+evenmin empirisch getoetst wordt: hij presenteert de grondstellingen van de
+economie als logisch noodzakelijk uit het begrip handelen, maar critici hebben
+aangevoerd dat dit apriorisme zelf net zo weinig falsifieerbaar is als het
+historisch materialisme dat hij verwerpt.
+
+Zijn weergave van het marxisme is bovendien de meest starre, deterministische
+lezing ervan; latere en genuanceerdere marxistische auteurs hebben de rol van
+individuele actoren en toeval binnen het historisch materialisme juist
+proberen te vergroten, waardoor Mises' kritiek een variant treft die niet de
+enige is.
+
+De scherpe scheiding tussen tijdloze praxeologische wetten en veranderlijke
+historische feiten laat weinig ruimte voor de mogelijkheid dat sommige
+economische regelmatigheden, zoals aanbod- en vraagreacties binnen een gegeven
+institutioneel kader, over langere perioden wel degelijk stabiel genoeg zijn
+om voorzichtige voorspellingen op te baseren, iets wat de latere econometrie
+juist heeft proberen te onderzoeken.
+
+#### Wat er concreet mee te doen is
+
+- Wees achterdocht bij verklaringen die een uitkomst als onvermijdelijk
+voorstellen omdat ze al heeft plaatsgevonden.
+- Onderscheid bij een economische uitspraak of die een algemene, tijdloze
+regelmatigheid beschrijft of een concrete, historisch gebonden waarneming.
+- Toets een theorie op de vraag of er een denkbare uitkomst is die haar zou
+weerleggen.
+
+#### Wat je hierna leest
+
+- 1340. Human Action. Human Action werkt de praxeologie uit waarop Theory and
+History als methodologisch vervolg voortbouwt.
+- 1337. Epistemological Problems of Economics. Epistemological Problems of
+Economics behandelt dezelfde tegenstelling tussen apriorische economie en
+empirische geschiedschrijving, uit een eerdere periode van Mises' denken.
+- 1343. The Ultimate Foundation of Economic Science. The Ultimate Foundation
+of Economic Science zet Mises' verzet tegen het toepassen van
+natuurwetenschappelijke methode op de economie nog compacter uiteen.
+- 821. The Worldly Philosophers. The Worldly Philosophers plaatst Marx'
+historisch materialisme in de bredere geschiedenis van het economisch denken
+die Mises hier juist bestrijdt.
+
+## 1343. The Ultimate Foundation of Economic Science
+
+Ludwig von Mises, 1962. Ondertitel *An Essay on Method*. D. Van Nostrand,
+Princeton, 1962. Nederlandse vertaling niet nagekeken. Rubriek: staat en
+vrijheid.
+Tags: `methodologie`, `economie`, `Oostenrijkse-school`,
+`wetenschapsfilosofie`, `praxeologie`
+
+Von Mises' laatste grote methodologische geschrift herhaalt in beknoptere vorm
+het uitgangspunt van *Human Action*: economie berust op a-priori-kennis over
+doelbewust handelen, niet op empirische toetsing zoals in de
+natuurwetenschappen.
+
+Het boek reageert expliciet op het toen opkomende positivisme in de
+economische wetenschap, dat economische theorieën alleen als geldig erkende
+wanneer ze statistisch getoetst konden worden, en verdedigt daartegenover dat
+de kernwetten van de economie logisch, niet statistisch, bewezen worden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mises stelt dat de economische wetenschap haar kernwetten
+niet aan statistiek of experiment ontleent, maar aan logische afleiding uit
+het feit dat mensen doelbewust handelen. Omdat de mens zelf handelt en dus uit
+eigen ervaring weet wat handelen is, kan hij volgens Mises de fundamentele
+categorieën ervan, doel, middel, keuze, tijd, ruil, met zekerheid vaststellen,
+op dezelfde manier waarop een wiskundige een bewijs voert. De
+natuurwetenschappen kennen die toegang tot hun onderwerp niet en moeten daarom
+hypothesen aan waarneming toetsen. Wie economie op die tweede manier wil
+bedrijven, zoals de positivisten volgens Mises doen door haar wetten pas
+geldig te achten als ze statistisch bevestigd zijn, verwart volgens hem het
+object van de economie met dat van de natuurkunde en maakt de wetenschap
+daarmee blind voor haar eigen fundament.
+
+#### De gang van het boek
+
+**Twee soorten kennis**
+
+Mises opent met een onderscheid tussen kennis van de uiterlijke natuur en
+kennis van het menselijk handelen. Van de natuur kent de mens alleen het
+verband tussen waargenomen gebeurtenissen, en dat verband moet hij bij elke
+nieuwe waarneming opnieuw toetsen, omdat hij niet van binnenuit weet waarom
+een steen valt of een gas uitzet. Van het handelen weet de mens daarentegen
+van binnenuit wat het is, omdat hij zelf een handelend wezen is: hij kiest
+doelen, zet middelen in en verkiest de ene toestand boven de andere. Die
+zelfkennis levert volgens Mises geen losse feiten op, maar een stelsel van
+categorieën, zoals doel, middel, waarde, kosten en tijdsvoorkeur, die in elk
+denkbaar geval van handelen moeten gelden.
+
+Uit dit onderscheid trekt Mises de conclusie dat er twee wetenschappelijke
+methoden naast elkaar bestaan die elkaar niet kunnen vervangen. De
+natuurwetenschap werkt met hypothesen die aan het experiment worden voorgelegd
+en die altijd voorlopig blijven. De wetenschap van het handelen, die hij
+praxeologie noemt en waarvan de economie het meest uitgewerkte onderdeel is,
+werkt met stellingen die uit de eigenschap van het handelen zelf volgen en die
+daarom, eenmaal correct afgeleid, niet meer door een experiment weerlegd
+kunnen worden.
+
+**Het a-priori-karakter van de praxeologie**
+
+De kern van het boek is de bewering dat de stelling *de mens handelt* een
+a-priori-waarheid is: zij kan niet worden ontkend zonder daarmee zelf een
+handeling te verrichten, namelijk het formuleren van een ontkenning. Uit die
+ene stelling leidt Mises vervolgens, stap voor stap en zonder beroep op
+ervaringsfeiten, categorieën af zoals schaarste, keuze, ruil, prijs en geld.
+Een wet als de wet van de dalende grensnutte staat voor hem niet vast doordat
+mensen in duizenden gevallen zo bleken te handelen, maar doordat het
+tegendeel, dat iemand een extra eenheid van een goed hoger zou waarderen dan
+de vorige, in strijd is met wat kiezen zelf betekent.
+
+Mises trekt hieruit de conclusie dat economische wetten niet gefalsifieerd
+kunnen worden door statistiek, omdat statistiek alleen historische
+gebeurtenissen beschrijft, die altijd het resultaat zijn van een veelheid van
+elkaar doorkruisende factoren. Een cijferreeks die niet bij een voorspelling
+past, toont volgens hem dus niet aan dat de onderliggende wet onjuist is, maar
+dat er andere factoren in het spel waren die de wet hebben overstemd.
+
+**De aanval op het positivisme**
+
+Een groot deel van het boek is gericht tegen wat Mises het positivisme in de
+sociale wetenschap noemt: de opvatting dat een uitspraak alleen
+wetenschappelijk is als zij, net als in de natuurkunde, in beginsel door
+waarneming te weerleggen valt. Mises stelt dat deze eis, toegepast op
+economie, ofwel de kernstellingen van het vak buiten de wetenschap plaatst,
+ofwel economen dwingt om schijnbaar toetsbare, maar in werkelijkheid
+inhoudsloze correlaties tussen historische cijferreeksen te presenteren als
+wetten.
+
+Hij richt zich in het bijzonder tegen pogingen om economische wetten te
+herleiden tot wiskundige modellen die vervolgens statistisch worden getoetst,
+een richting die hij aanduidt als de mening dat economie een exacte
+natuurwetenschap naar het voorbeeld van de fysica zou kunnen worden. Volgens
+Mises kan een wiskundig model van vraag en aanbod hooguit een logisch verband
+weergeven dat al praxeologisch is vastgesteld, en levert het geen nieuwe
+kennis op uit de cijfers zelf.
+
+**Geschiedenis, voorspelling en het verstehen**
+
+Naast de praxeologie erkent Mises een tweede tak van de wetenschap van het
+handelen: de geschiedenis, die zich bezighoudt met concrete, eenmalige
+gebeurtenissen. Om die te begrijpen is volgens hem een aanvullende methode
+nodig die hij, in navolging van de Duitse traditie, verstehen noemt: het
+inschatten van de betekenis die handelende personen aan hun situatie en aan
+elkaars daden gaven. Verstehen levert geen wetten op, maar een interpretatie
+van wat er in een concreet geval gebeurd is en waarom.
+
+Uit deze twee-delige opzet volgt volgens Mises dat economische voorspelling
+altijd beperkt blijft. De praxeologie kan zeggen dat een prijsplafond tot een
+tekort leidt, maar niet hoe groot dat tekort op een bepaalde datum zal zijn,
+omdat dat laatste van talloze concrete, niet-herhaalbare omstandigheden
+afhangt die alleen achteraf, door verstehen, te doorgronden zijn.
+
+**Waardevrijheid en de grenzen van de economie**
+
+Mises besteedt een deel van het boek aan de stelling dat de economische
+wetenschap waardevrij is: zij zegt wat de gevolgen van een bepaalde handeling
+of maatregel zijn, maar niet of die gevolgen wenselijk zijn. Die keuze blijft
+volgens hem aan de handelende mens zelf. Hiermee weerspreekt hij zowel critici
+die de economie verwijten waardeoordelen te verhullen als degenen die haar
+willen ombouwen tot een instrument voor sociale planning.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Praxeologie | de wetenschap van het menselijk handelen als zodanig, waarvan de economie voor Mises het meest ontwikkelde onderdeel is. |
+| A priori | kennis die uit het denken zelf volgt en niet aan waarneming ontleend hoeft te worden, zoals de stelling dat de mens handelt. |
+| Handelen | gedrag dat gericht is op het bewust nastreven van een doel met behulp van gekozen middelen, in tegenstelling tot louter reflexmatig gedrag. |
+| Verstehen | de interpretatie van de betekenis die handelende personen aan een concrete, eenmalige historische gebeurtenis toekenden. |
+| Historicisme | de opvatting dat er geen algemene economische wetten bestaan, alleen historisch bepaalde regelmatigheden, een positie die Mises verwerpt. |
+| Waardevrijheid | het uitgangspunt dat de economie de gevolgen van handelingen vaststelt zonder daar zelf een oordeel over wenselijkheid aan te verbinden. |
+| Wet van de dalende grensnutte | de stelling dat een handelend mens elke volgende eenheid van een goed lager waardeert dan de vorige, door Mises afgeleid uit de aard van het kiezen zelf. |
+| Positivisme | in dit boek de opvatting dat een uitspraak alleen wetenschappelijk geldig is als zij door waarneming getoetst en eventueel weerlegd kan worden. |
+
+#### Waar het argument op rust
+
+Mises bouwt zijn betoog op een enkele, volgens hem onweerlegbare stelling, dat
+de mens handelt, en leidt daaruit met stap voor stap redeneren de rest af. Die
+opzet levert geen empirisch bewijsmateriaal op zoals data, gevalstudies of
+experimenten: het boek bevat vrijwel geen cijfers en geen concrete historische
+voorbeelden die als toetsing van een these dienen. De overtuigingskracht van
+het argument hangt dus volledig af van de vraag of de lezer de
+openingsstelling en de daaropvolgende afleidingen accepteert als logisch
+dwingend, niet van aanvullend feitenmateriaal.
+
+Waar Mises wel naar buiten verwijst, is naar de geschiedenis van de
+wetenschapsfilosofie en naar economen die hij bekritiseert, met name
+aanhangers van econometrische en historistische scholen, van wie hij de aanpak
+samenvat en vervolgens beoordeelt. Concrete auteursnamen en publicaties worden
+daarbij genoemd, maar niet uitgewerkt met citaten of paginaverwijzingen die de
+lezer zelf kan natrekken.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar tegen het boek is dat Mises' claim dat economische wetten
+met wiskundige zekerheid vaststaan, zelf niet op de manier waarop hij dat eist
+te toetsen valt: hij biedt geen criterium waarmee een lezer een foutieve
+praxeologische afleiding van een correcte kan onderscheiden, anders dan het
+eigen logisch oordeel van de lezer. Critici binnen en buiten de Oostenrijkse
+school hebben erop gewezen dat wat Mises als vanzelfsprekend uit het begrip
+handelen afleidt, bij nader inzien vaak stilzwijgende extra aannames bevat,
+bijvoorbeeld over hoe voorkeuren geordend zijn.
+
+Een tweede bezwaar is dat Mises de empirische economie afdoet als in de kern
+overbodig voor het vaststellen van wetten, terwijl hij zelf niet aangeeft hoe
+een onderzoeker dan behoort om te gaan met verschijnselen waarvoor de
+bestaande praxeologische categorieën ontoereikend blijken. Het boek stelt zich
+daarmee grotendeels immuun voor weerlegging door latere economische
+gebeurtenissen, wat door aanhangers als een sterk punt wordt gezien en door
+tegenstanders als het teken dat de theorie niet aan de werkelijkheid getoetst
+kan worden.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij het lezen van economisch nieuws tussen een uitspraak die uit
+logische afleiding volgt en een uitspraak die op een statistisch verband
+berust.
+- Vraag bij een economische voorspelling na welke concrete, niet-herhaalbare
+omstandigheden die voorspelling kunnen doorkruisen.
+- Gebruik het onderscheid tussen praxeologie en geschiedenis om een economisch
+argument te scheiden in een algemeen, blijvend deel en een tijdgebonden,
+feitelijk deel.
+
+#### Wat je hierna leest
+
+- 1337. Epistemological Problems of Economics. Mises' vroegere en uitvoerigere
+methodologische geschrift, waarin dezelfde a-priori-benadering al tegen het
+historicisme wordt uitgewerkt.
+- 1340. Human Action. Het hoofdwerk waarvan dit boek de methodologische
+grondslag in beknopte vorm herhaalt.
+- 1342. Theory and History. Mises' uitwerking van het onderscheid tussen
+praxeologie en geschiedschrijving, met de rol van verstehen in het laatste.
+- 654. Against Method. Een wetenschapsfilosofisch tegengeluid dat, net als
+Mises, vaste methoderegels voor wetenschap bekritiseert, maar vanuit een
+tegenovergestelde conclusie.
+
+## 1344. The Selfish Gene
+
+Richard Dawkins, 1976. Oxford University Press, Oxford, 1976, herziene editie
+1989. Nederlands als *De zelfzuchtige genen*, vertaald door Ruud van de
+Plassche (Uitgeverij Contact). Editie niet nagekeken. Rubriek: natuur en
+wetenschap.
+Tags: `evolutie`, `genetica`, `biologie`, `altruisme`, `natuurlijke-selectie`
+
+Dawkins herschrijft de evolutietheorie vanuit het perspectief van het gen in
+plaats van het individu of de soort: niet het dier, maar het gen is volgens
+hem de eenheid waarop natuurlijke selectie werkt, en een lichaam is niet meer
+dan een tijdelijk voertuig waarmee genen zichzelf kopiëren.
+
+Vanuit dat uitgangspunt verklaart hij verschijnselen als altruïsme tussen
+verwanten en de evolutionaire stabiliteit van bepaald gedrag, en introduceert
+hij aan het einde van het boek het begrip meme als culturele tegenhanger van
+het gen, een idee dat buiten de biologie een eigen leven is gaan leiden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dawkins stelt dat de eenheid waarop natuurlijke selectie
+werkt niet het individu is en ook niet de soort, maar het gen. Een lichaam is
+in die lezing een tijdelijk voertuig dat een verzameling genen bouwt om
+zichzelf te kopiëren naar de volgende generatie, en gedrag dat op het eerste
+gezicht altruïstisch lijkt, verklaart hij als de uitkomst van genen die hun
+eigen verspreiding bevorderen via verwanten die dezelfde genen dragen. De
+titel is een provocatie: niet omdat organismen zelfzuchtig zouden zijn in de
+gewone zin van het woord, maar omdat het gen als kopieermachine geen ander
+criterium kent dan zijn eigen voortbestaan, ook als dat via schijnbaar
+onbaatzuchtig gedrag van het lichaam loopt.
+
+#### De gang van het boek
+
+**Het gen als eenheid van selectie**
+
+Dawkins opent met de vraag waarom dieren zich soms gedragen alsof ze het
+belang van de soort dienen, bijvoorbeeld door een alarmroep te geven die
+zichzelf aan een roofdier verraadt. De gangbare verklaring uit zijn tijd, dat
+zulk gedrag bestaat omdat het de soort als geheel ten goede komt, wijst hij
+af: selectie werkt op individuele replicators, niet op groepen, omdat een
+groep die louter op het belang van de groep vertrouwt vatbaar is voor
+uitbuiting door een enkeling die dat belang negeert.
+
+In plaats daarvan stelt hij het gen centraal als de eenheid die kopieert,
+muteert en concurreert over evolutionaire tijd. Het lichaam noemt hij een
+"overlevingsmachine", een tijdelijke en vergankelijke constructie die genen
+bouwen en weer afbreken, terwijl de genen zelf, of in elk geval hun kopieën,
+over vele generaties blijven bestaan. Deze omkering van perspectief, van het
+dier naar het gen, is het uitgangspunt waarop de rest van het boek voortbouwt.
+
+**Verwantschap en de wiskunde van altruïsme**
+
+Om te verklaren waarom dieren zich soms opofferen voor anderen, leunt Dawkins
+op het werk van W.D. Hamilton over verwantschapsselectie. Een gen dat een dier
+ertoe aanzet zijn broer te redden ten koste van zijn eigen leven, kan zich
+toch verspreiden als de kans dat de broer hetzelfde gen draagt en het
+overdraagt, hoog genoeg is: bij volle broers en zusters is die kans gemiddeld
+een half, bij neven en nichten een achtste.
+
+Dawkins werkt dit uit tot wat hij Hamiltons regel noemt: een gen voor
+opofferend gedrag verspreidt zich als de kosten voor de gever kleiner zijn dan
+de baten voor de ontvanger, gewogen naar de graad van verwantschap. Daarmee
+verklaart hij verschijnselen als de extreme opofferingsgezindheid van
+werksters bij bijen en mieren, die door hun bijzondere verwantschapsstructuur
+nauwer verwant zijn aan hun zusters dan aan eigen nakomelingen.
+
+**Evolutionair stabiele strategieën**
+
+Voor gedrag dat niet met verwantschap te verklaren is, zoals agressie en
+samenwerking tussen niet-verwanten, grijpt Dawkins terug op de speltheorie van
+John Maynard Smith. Hij introduceert het begrip evolutionair stabiele
+strategie: een gedragspatroon dat, als de meeste leden van een populatie het
+volgen, niet door een afwijkende strategie kan worden verdrongen omdat die
+afwijking zelf minder goed scoort zolang de meerderheid bij de oorspronkelijke
+strategie blijft.
+
+Als voorbeeld bespreekt hij een populatie waarin "haviken" altijd vechten en
+"duiven" nooit, en laat zien dat geen van beide strategieën alleen stabiel is:
+een zuivere havikenpopulatie is kwetsbaar voor de kosten van voortdurend
+gevecht, een zuivere duivenpopulatie is kwetsbaar voor indringende haviken. De
+stabiele uitkomst is een mengverhouding of een voorwaardelijke strategie, en
+dit model verklaart volgens Dawkins waarom agressie in de natuur meestal
+beperkt blijft in plaats van escaleert tot de dood.
+
+**Ouder-kindconflict en de strijd tussen de seksen**
+
+Dawkins beschrijft hoe genen in het ene lichaam, dat van een ouder, en genen
+in het andere, dat van een kind, niet identieke belangen delen: een kind is
+voor de helft verwant aan zichzelf en voor de helft aan een toekomstig
+broertje, terwijl de ouder voor gelijke delen verwant is aan alle kinderen.
+Dat verschil in perspectief verklaart waarom kinderen doorgaans meer zorg
+opeisen dan ouders bereid zijn te geven, een spanning die Robert Trivers
+eerder als ouder-kindconflict had beschreven.
+
+Ook tussen de seksen ziet Dawkins een asymmetrie in investering: omdat
+eicellen doorgaans schaarser en kostbaarder zijn dan zaadcellen, ontstaat er
+ruimte voor verschillende reproductieve strategieën bij mannetjes en
+vrouwtjes, van partnerkeuze tot verlating na de paring. Hij benadrukt dat dit
+geen morele uitspraak is over wat dieren, laat staan mensen, zouden moeten
+doen, maar een verklaring voor waargenomen patronen in gedrag.
+
+**De meme als tweede replicator**
+
+In het slothoofdstuk verlaat Dawkins de genetica en introduceert de meme als
+culturele tegenhanger van het gen: een eenheid van imitatie, zoals een
+melodie, een gewoonte of een idee, die zich van brein naar brein verspreidt en
+daarbij onderhevig is aan variatie en selectie op vergelijkbare wijze als
+genen. Hij noemt dit een speculatieve uitbreiding van zijn eigen argument,
+niet een uitgewerkte theorie, en de bedoeling is vooral om te laten zien dat
+replicatie en selectie een algemener patroon zijn dan alleen DNA.
+
+Deze stap markeert ook de grens van het boek: waar de eerdere hoofdstukken op
+experimenteel en wiskundig werk van andere biologen leunen, is het memebegrip
+een los aangehaakte gedachte-experiment waarvan Dawkins zelf erkent dat de
+details nog onuitgewerkt zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Replicator | een entiteit die zichzelf kopieert, in dit boek in de eerste plaats het gen. |
+| Overlevingsmachine | Dawkins' term voor het lichaam als tijdelijke constructie waarmee genen zichzelf verspreiden. |
+| Verwantschapsselectie | selectie voor gedrag dat de eigen voortplanting kan kosten, maar de verspreiding van dezelfde genen via verwanten bevordert. |
+| Hamiltons regel | de vuistregel dat opofferend gedrag zich verspreidt als de kosten voor de gever kleiner zijn dan de baten voor de ontvanger, gewogen naar verwantschapsgraad. |
+| Evolutionair stabiele strategie | een gedragspatroon dat, eenmaal wijdverbreid in een populatie, niet door een afwijkende strategie kan worden verdrongen. |
+| Ouder-kindconflict | de spanning tussen de belangen van ouder en kind die ontstaat doordat hun genetische belangen niet volledig samenvallen. |
+| Meme | een eenheid van culturele overdracht, zoals een idee of gewoonte, die zich naar analogie van het gen verspreidt en varieert. |
+| Genencentrisme | het uitgangspunt dat het gen, niet het individu of de soort, de eenheid is waarop natuurlijke selectie aangrijpt. |
+
+#### Waar het argument op rust
+
+Dawkins bouwt zijn argument niet op eigen veldonderzoek, maar op een synthese
+van gepubliceerd werk van anderen: de wiskundige verwantschapsselectietheorie
+van W.D. Hamilton uit de jaren zestig, de speltheoretische modellen van John
+Maynard Smith voor dierlijk gedrag, en waarnemingen over sociale insecten,
+vogels en zoogdieren die op het moment van schrijven al breed aanvaard waren
+in de evolutiebiologie.
+
+De sterkste kant van die onderbouwing is dat de wiskunde van
+verwantschapsselectie en van evolutionair stabiele strategieën zelf
+onafhankelijk getoetst en herhaaldelijk bevestigd is in de populatiegenetica,
+ook na het verschijnen van het boek. Dawkins presenteert zich vooral als
+toelichter en popularisator van deze modellen, niet als de ontdekker ervan, en
+vermeldt dat ook expliciet.
+
+#### Wat er tegen in te brengen valt
+
+De grootste kritiek op het boek betreft niet zozeer de onderliggende wiskunde,
+die grotendeels overeind is gebleven, maar het beeldend taalgebruik: door
+genen consequent te beschrijven met woorden als "zelfzuchtig" en "berekenend"
+wekt Dawkins de indruk dat genen intenties hebben, terwijl hij zelf toelicht
+dat dit metaforisch bedoeld is. Critici, onder wie de bioloog Stephen Jay
+Gould, hebben aangevoerd dat deze metafoor bij lezers makkelijk verkeerd wordt
+begrepen als genetisch determinisme, ook al waarschuwt Dawkins daar zelf
+tegen.
+
+Ook is aangevoerd dat het gen-centrisch perspectief niet de enige geldige
+manier is om naar selectie te kijken: latere biologen hebben laten zien dat
+selectie op meerdere niveaus tegelijk kan spelen, van gen tot individu tot in
+sommige gevallen groep, en dat het gen-perspectief vooral een nuttig
+boekhoudkundig gezichtspunt is, niet het enige juiste.
+
+Het memebegrip uit het slothoofdstuk is nooit uitgegroeid tot een empirisch
+toetsbare theorie: er bestaat geen algemeen aanvaarde manier om een meme te
+identificeren, af te bakenen of te meten, en de meeste latere aandacht ervoor
+kwam van populaire cultuur eerder dan van cultuurwetenschappelijk onderzoek.
+Dawkins zelf presenteert het als een suggestie, maar het boek maakt dat
+onderscheid tussen uitgewerkte theorie en losse gedachte niet altijd even
+scherp voor de lezer.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij dierlijk of menselijk gedrag tussen een verklaring op het
+niveau van het individu en een op het niveau van het gen voordat je een
+verklaring als bewezen aanneemt.
+- Wees terughoudend met het gebruik van "zelfzuchtig" of "egoïstisch" als
+verklaring voor gedrag: het is bij Dawkins een technische term voor het gen,
+geen morele uitspraak over het individu.
+- Gebruik het begrip evolutionair stabiele strategie als denkkader bij
+vraagstukken over samenwerking en concurrentie, ook buiten de biologie, maar
+toets of de aannames van het model, zoals herhaalde interactie en
+vergelijkbare uitgangsposities, wel opgaan.
+
+#### Wat je hierna leest
+
+- 950. The Beak of the Finch. Jonathan Weiners boek over Darwins vinken op de
+Galápagoseilanden laat zien hoe natuurlijke selectie in het veld gemeten
+wordt, als praktische tegenhanger van Dawkins' theoretische bespreking.
+- 951. The Mismeasure of Man. Stephen Jay Gould, een van de bekendste critici
+van het gen-centrische perspectief, beschrijft in dit boek hoe eerdere
+wetenschappers biologische verklaringen voor sociale ongelijkheid
+construeerden, en waarschuwt tegen te snelle vertalingen van biologie naar
+maatschappelijke uitspraken.
+- 941. The Double Helix. James Watsons verslag van de ontdekking van de
+DNA-structuur beschrijft het moleculaire fundament waarop Dawkins' latere
+argument over het gen als replicator voortbouwt.
+- 453. The Evolution of Cooperation. Robert Axelrods onderzoek naar
+samenwerking via herhaalde gevangenendilemma's werkt dezelfde speltheoretische
+traditie uit die Dawkins gebruikt voor evolutionair stabiele strategieën,
+toegepast op de evolutie van samenwerking.
+
+## 1345. The Mitrokhin Archive
+
+Christopher Andrew en Vasili Mitrokhin, 1999. Ondertitel *The KGB in Europe
+and the West*. Allen Lane, Londen, 1999. Nederlandse vertaling niet nagekeken.
+Rubriek: geschiedenis en samenleving.
+Tags: `KGB`, `spionage`, `koude-oorlog`, `geschiedenis`,
+`inlichtingendiensten`
+
+Mitrokhin werkte dertig jaar in het archief van de KGB en kopieerde in die
+jaren in het geheim duizenden documenten, die hij na zijn vertrek naar het
+Westen in 1992 aan de Britse geheime dienst overdroeg. Historicus Christopher
+Andrew ordende dat materiaal tot een geschiedenis van de Sovjet-spionage in
+Europa en de Verenigde Staten vanaf de jaren dertig tot de val van de
+Sovjet-Unie.
+
+Het boek onthulde onder meer tot dan toe onbekende agenten en operaties, en
+geldt als een van de omvangrijkste bronnenpublicaties over de werking van de
+KGB in het Westen, al blijft de authenticiteit van individuele documenten voor
+buitenstaanders moeilijk te verifiëren omdat het onderliggende archief zelf
+niet openbaar is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Andrew en Mitrokhin stellen dat de KGB een veel grotere en
+langduriger inlichtingenoperatie in het Westen dreef dan tot 1992 bekend was,
+en dat dit voor het eerst met documenten uit het archief zelf is te
+onderbouwen. Mitrokhin werkte dertig jaar als archivaris bij de buitenlandse
+inlichtingendienst van de KGB en maakte in die tijd in het geheim
+aantekeningen en afschriften van dossiers, die hij bij zijn overstap naar het
+Westen in 1992 aan de Britse geheime dienst overdroeg. Andrew ordende dat
+materiaal tot een geschiedenis van Sovjetspionage in Europa en de Verenigde
+Staten vanaf de jaren dertig tot aan het einde van de Sovjet-Unie. De stelling
+is niet alleen dat er veel is gebeurd, maar dat de KGB stelselmatiger, langer
+volgehouden en met meer geworven bronnen heeft geopereerd dan westerse
+diensten en het publiek na de Koude Oorlog aannamen.
+
+#### De gang van het boek
+
+**Mitrokhin en het archief**
+
+Het boek opent met de herkomst van het materiaal: Mitrokhin kreeg als
+archivaris toegang tot de dossiers van de buitenlandse inlichtingendienst van
+de KGB toen die in de jaren tachtig werden overgebracht naar een nieuw
+hoofdkwartier, en gebruikte die gelegenheid om jarenlang aantekeningen te
+maken die hij mee naar huis nam. Na de val van de Sovjet-Unie benaderde hij de
+Britse ambassade in de Baltische staten en droeg zijn materiaal over aan MI6,
+die Andrew inschakelde om het te ordenen en te duiden.
+
+Deze herkomst bepaalt de vorm van het boek: het is geen doorlopend verhaal
+maar een op onderwerp en regio geordend overzicht, gebouwd op wat het archief
+toevallig bevatte. Waar Mitrokhin aantekeningen had, is het boek
+gedetailleerd, waar het archief zweeg, blijft het bij hoofdlijnen.
+
+**Werving en illegalen**
+
+Een groot deel van het boek behandelt hoe de KGB agenten wierf en hoe
+illegalen, officieren die onder valse identiteit en zonder diplomatieke
+dekking in het buitenland leefden, jarenlang operaties draaiden. Het boek
+beschrijft de zorgvuldige opbouw van dekmantels, de rol van financiële en
+ideologische motieven bij werving, en de kwetsbaarheid van dat systeem voor
+overlopers.
+
+Het boek besteedt daarbij aandacht aan de verschuiving in motieven van bronnen
+door de decennia heen: waar in de jaren dertig en veertig overtuiging vaak de
+doorslag gaf, verschoof dat volgens het archief geleidelijk naar geldelijk
+gewin en persoonlijke grieven jegens de eigen werkgever. Ook de lange
+voorbereidingstijd van illegalen komt terug: sommige officieren leefden
+jarenlang onder een aangenomen identiteit voordat zij aan hun eigenlijke
+opdracht begonnen, iets wat het boek beschrijft als kenmerkend voor de
+geduldige, langetermijnaanpak van de dienst.
+
+**Spionage in Groot-Brittannië en de Verenigde Staten**
+
+Het boek besteedt uitgebreid aandacht aan Britse zaken, waaronder de
+naoorlogse doorwerking van het Cambridge-spionagenetwerk en nieuwe, tot dan
+toe onbekende bronnen binnen de Britse overheid en wetenschap. Voor de
+Verenigde Staten gaat het onder meer over Sovjetpogingen om Amerikaans
+kernwapen- en defensieonderzoek te doorgronden en over agenten binnen
+Amerikaanse instellingen.
+
+Bij vrijwel elke onthulling geeft het boek de codenaam waaronder een bron in
+het archief voorkwam en, waar bekend, de identiteit die daarachter zou
+schuilen. Die twee lagen, de codenaam uit het dossier en de identificatie door
+Andrew, blijven in het boek als zodanig herkenbaar.
+
+**Actieve maatregelen en desinformatie**
+
+Naast klassieke spionage, het verzamelen van informatie, behandelt het boek
+wat de KGB actieve maatregelen noemde: pogingen om de publieke opinie en het
+beleid in het Westen te beïnvloeden via geplante berichten, gefabriceerde
+documenten en gesponsorde bewegingen. Het boek beschrijft dit als een tak van
+het werk die minstens zoveel middelen kreeg als het inwinnen van geheime
+informatie.
+
+**Het einde van de Sovjet-Unie**
+
+De laatste delen volgen hoe de KGB in de jaren tachtig zelf steeds beter zicht
+kreeg op de naderende ineenstorting van het systeem dat zij moest beschermen,
+en hoe individuele officieren, onder wie Mitrokhin zelf, daaruit hun eigen
+conclusies trokken.
+
+Het boek besluit met Mitrokhins eigen overstap in 1992: na jaren van in stilte
+verzamelen zocht hij, inmiddels gepensioneerd, contact met een westerse
+ambassade en bood hij zijn aantekeningen aan. De slotpassages beschrijven hoe
+MI6 het materiaal beoordeelde en hoe daaruit uiteindelijk de samenwerking met
+Andrew voortkwam die tot dit boek leidde.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Illegaal | een KGB-officier die zonder diplomatieke dekking en onder een volledig valse identiteit in het buitenland leefde en werkte. |
+| Actieve maatregelen | operaties gericht op het beïnvloeden van buitenlandse publieke opinie en beleid, van geplante krantenberichten tot gefabriceerde documenten. |
+| Codenaam | de schuilnaam waaronder een bron of operatie in de KGB-dossiers werd geadministreerd, los van de identificatie die Andrew daaraan later verbond. |
+| Rezidentura | de KGB-post in een buitenlandse ambassade, van waaruit agenten en operaties in dat land werden aangestuurd. |
+| Overloper | een inlichtingenofficier die naar de andere zijde overstapt en zijn kennis van operaties en bronnen prijsgeeft, zoals Mitrokhin deed. |
+| Center | de aanduiding in het archief voor het KGB-hoofdkwartier in Moskou, van waaruit rezidenturas werden aangestuurd. |
+| Bevriende dienst | een inlichtingendienst van een andere lidstaat van het Warschaupact waarmee de KGB informatie en operaties deelde. |
+
+#### Waar het argument op rust
+
+De onderbouwing van het boek bestaat vrijwel volledig uit één bron: de
+aantekeningen die Mitrokhin dertig jaar lang stiekem maakte van dossiers die
+hij als archivaris onder ogen kreeg. Andrew voegt daar historische context aan
+toe uit gepubliceerde bronnen, maar de kernclaims, namen, codenamen en
+operaties, komen uit Mitrokhins materiaal.
+
+Waar mogelijk toetst het boek de aantekeningen aan wat elders al bekend was,
+bijvoorbeeld via eerdere overlopers of via rechtszaken tegen ontmaskerde
+agenten, en op die punten sluiten de bronnen goed op elkaar aan. Voor het
+overgrote deel van de onthullingen bestaat zo'n externe toets echter niet: het
+originele KGB-archief zelf is niet openbaar en dus niet door buitenstaanders
+te raadplegen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar tegen het boek is dat de lezer voor de feitelijke
+juistheid van individuele claims afhankelijk is van Mitrokhins geheugen en
+aantekeningen, gemaakt onder grote persoonlijke druk en zonder dat hij de
+originele documenten kon meenemen. Voor de meeste onthullingen bestaat geen
+tweede, onafhankelijke bron, en het onderliggende archief is niet in te zien
+om een aantekening tegen het origineel te leggen.
+
+Enkele met naam genoemde personen hebben de beschuldigingen tegen hen
+publiekelijk ontkend of aangevochten, en in een aantal gevallen is nooit een
+rechtszaak gevolgd die de claim heeft getoetst. Het boek presenteert Andrews
+identificatie van een codenaam met een persoon doorgaans als vaststaand,
+terwijl die identificatie op interpretatie van vaak fragmentarische
+aantekeningen berust.
+
+Doordat het boek per regio en onderwerp is opgebouwd in plaats van
+chronologisch, ontbreekt een doorlopend verhaal van hoe de KGB zich als
+organisatie ontwikkelde; de lezer krijgt eerder een reeks dossiers dan een
+geschiedenis met een duidelijke lijn.
+
+#### Wat je hierna leest
+
+- 685. The CIA and the Cult of Intelligence. Onderzoekt de Amerikaanse
+tegenhanger, de CIA, vanuit een vergelijkbare bezorgdheid over de macht en
+controleerbaarheid van een inlichtingendienst.
+- 689. The Devil's Chessboard. Behandelt de CIA tijdens de Koude Oorlog en de
+covert-actiekant van dezelfde periode die de KGB in dit boek vanuit
+Sovjetperspectief bestrijkt.
+- 693. Killing Hope. Beschrijft Amerikaanse geheime interventies in dezelfde
+Koude Oorlog-periode, als tegenhanger van de Sovjetoperaties uit dit boek.
+- 687. The Puzzle Palace. Gaat over de Amerikaanse signals-inlichtingendienst
+NSA en biedt zo een vergelijkbare blik op een geheime dienst die decennialang
+buiten zicht van het publiek opereerde.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -210599,38 +213501,39 @@ nemen` 285 · `afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 ·
 `agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633, 642, 646, 1104,
 1154, 1250 · `alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 ·
 `alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631, 1107 · `allocatie`
-507, 813 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18, 832, 1301 · `ambitie`
-75 · `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132,
-133, 134, 136, 158, 1211, 1227 · `amerikaanse buitenlandpolitiek` 693, 694 ·
-`amerikaanse droom` 284 · `amerikaanse geschiedenis` 621, 691, 827, 1147 ·
-`Amerikaanse geschiedenis` 402 · `amerikaanse revolutie` 243, 924 ·
-`Amsterdam` 295 · `anarchisme` 616, 620, 621, 624, 625, 626, 916, 917, 926 ·
-`anarchokapitalisme` 627, 629 · `anatomie` 241, 412, 1128 · `Andalusië` 8 ·
-`Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
-401, 440, 548, 1168 · `angst voor de dood` 377 · `animatie` 41 · `anomie` 715
-· `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 ·
-`antropologie` 223, 410, 602, 716, 717, 718, 719, 722, 723, 758, 764, 1115,
-1169, 1214, 1227, 1233, 1245, 1289, 1290, 1293, 1298, 1305, 1329 · `antwerpen`
-113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps` 294 · `arbeid` 6, 173,
-297, 390, 905, 1264, 1301 · `arbeidsethos` 266 · `archeologie` 600, 762, 1117,
-1139, 1149, 1155, 1219, 1225, 1240 · `archetype` 360 · `archetypen` 357, 404,
-407, 409, 410, 1123 · `Argentinië` 521, 1209 · `argumentatie` 421, 437, 511 ·
-`argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234,
-254 · `Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632, 836, 1118,
-1119, 1123, 1229, 1242, 1243, 1250, 1251, 1252 · `asymmetrie` 282 · `atletiek`
-31 · `atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autisme` 1302, 1303,
-1304, 1305, 1306, 1307, 1312 · `autobiografie` 358, 440, 1108, 1303 ·
-`automatisering` 297, 539, 1264 · `autonomie` 6, 50 · `autoriteit` 215 ·
-`autotelie` 200 · `ayahuasca` 759 · `backtesten` 482, 502 · `banken en
-verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
-`bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350
-· `bedrijfsleven` 209, 293, 903 · `bedrijfsonderzoek` 353 · `bedrijfssystemen`
-264 · `beeldcultuur` 563, 828 · `beeldverhaal` 561 · `beginners` 112 ·
-`behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis`
-60 · `belangenverstrengeling` 138, 752 · `beleggen` 21, 64, 144, 233, 277,
-351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490,
-492, 496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807, 808, 810, 811,
-812, 813, 814, 815, 816, 817, 1281, 1283, 1288 · `beleid` 65 · `belichaamde
+507, 813 · `altruisme` 1344 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18, 832,
+1301 · `ambitie` 75 · `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117,
+118, 120, 132, 133, 134, 136, 158, 1211, 1227 · `amerikaanse
+buitenlandpolitiek` 693, 694 · `amerikaanse droom` 284 · `amerikaanse
+geschiedenis` 621, 691, 827, 1147 · `Amerikaanse geschiedenis` 402 ·
+`amerikaanse revolutie` 243, 924 · `Amsterdam` 295 · `anarchisme` 616, 620,
+621, 624, 625, 626, 916, 917, 926 · `anarchokapitalisme` 627, 629 · `anatomie`
+241, 412, 1128 · `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131,
+136, 140, 181, 214, 252, 341, 401, 440, 548, 1168 · `angst voor de dood` 377 ·
+`animatie` 41 · `anomie` 715 · `Antarctica` 36 · `anthologie` 189 · `antieke
+filosofie` 586 · `antropologie` 223, 410, 602, 716, 717, 718, 719, 722, 723,
+758, 764, 1115, 1169, 1214, 1227, 1233, 1245, 1289, 1290, 1293, 1298, 1305,
+1329 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231, 1331 · `apps`
+294 · `arbeid` 6, 173, 297, 390, 905, 1264, 1301 · `arbeidsethos` 266 ·
+`archeologie` 600, 762, 1117, 1139, 1149, 1155, 1219, 1225, 1240 · `archetype`
+360 · `archetypen` 357, 404, 407, 409, 410, 1123 · `Argentinië` 521, 1209 ·
+`argumentatie` 421, 437, 511 · `argumenten` 63 · `argumenteren` 438 ·
+`Aristoteles` 438 · `armoede` 26, 234, 254 · `Arthashastra` 370 ·
+`assertiviteit` 162 · `astrologie` 632, 836, 1118, 1119, 1123, 1229, 1242,
+1243, 1250, 1251, 1252 · `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 ·
+`Auschwitz` 48 · `Australië` 447 · `autisme` 1302, 1303, 1304, 1305, 1306,
+1307, 1312 · `autobiografie` 358, 440, 1108, 1303 · `automatisering` 297, 539,
+1264 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `ayahuasca`
+759 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `bankwezen` 1332
+· `barok` 216 · `basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 ·
+`bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209,
+293, 903 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur`
+563, 828 · `beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 ·
+`beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
+`belangenverstrengeling` 138, 752 · `beleggen` 21, 64, 144, 233, 277, 351,
+474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492,
+496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807, 808, 810, 811, 812,
+813, 814, 815, 816, 817, 1281, 1283, 1288 · `beleid` 65 · `belichaamde
 cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
 · `beroemdheid` 563 · `beroepskeuze` 1292 · `beschadigd-bestand` 115, 130 ·
 `beschaving` 57, 593, 820, 939 · `beslissen` 55 · `beslissingen` 197 ·
@@ -210647,29 +213550,30 @@ cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 12
 `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585, 1174 ·
 `biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328,
 402, 454, 514, 537, 558, 649, 658, 659, 689, 821, 905, 1124, 1153, 1220, 1229,
-1252, 1265, 1315 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322, 663,
-818, 823, 941, 949, 950, 1120, 1259, 1262, 1273, 1275 · `biologie van gedrag`
-273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413 ·
-`bipolaire stoornis` 1315 · `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden`
-313 · `bloemlezing` 758 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341,
-401, 528, 755, 1106, 1109, 1110, 1124, 1125, 1168 · `bootstrapping` 369 ·
-`brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517, 1210 ·
-`broers` 10 · `bronnenkritiek` 691, 1143, 1146 · `bronnenuitgave` 641, 1223 ·
-`budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 · `burgerlijk verzet`
-617 · `burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
-`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388,
-1278 · `cases` 40 · `cashflow` 37 · `celbiologie` 419, 1273 · `censuur` 685 ·
-`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670,
-677, 678, 679, 768, 1122, 1221, 1222 · `chaos` 74, 347 · `chapbook` 100 ·
-`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394,
-1104, 1105 · `Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom`
-162, 201, 391, 603, 606, 612, 754, 1207, 1237, 1268, 1300 · `chronobiologie`
-326, 329 · `cia` 693, 750 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
-`classificatie` 719 · `coaching` 161, 291, 441, 1297 · `cognitie` 656 ·
-`cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
-· `cognitieve neurowetenschap` 763 · `cognitieve psychologie` 759 ·
-`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
-59 · `cognitiewetenschap` 755, 767, 1172 · `collectief bewustzijn` 435 ·
+1252, 1265, 1315, 1331 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91,
+322, 663, 818, 823, 941, 949, 950, 1120, 1259, 1262, 1273, 1275, 1344 ·
+`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
+`biotechnologie` 236, 413 · `bipolaire stoornis` 1315 · `blackjack` 505 ·
+`bloedvaten` 86 · `bloedwaarden` 313 · `bloemlezing` 758 · `blokkade` 14 ·
+`boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125,
+1168 · `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414
+· `brieven` 292, 517, 1210 · `broers` 10 · `bronnenkritiek` 691, 1143, 1146 ·
+`bronnenuitgave` 641, 1223 · `budgetteren` 159, 233, 464 · `buitenlandse hulp`
+221 · `bureaucratie` 1339 · `burgerlijk verzet` 617 · `burgerschap` 243 ·
+`burn-out` 135, 207, 400, 551, 552 · `bushido` 535 · `cafeïne` 52 ·
+`Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388, 1278 · `cases`
+40 · `cashflow` 37 · `celbiologie` 419, 1273 · `censuur` 685 · `chakra's` 432
+· `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679,
+768, 1122, 1221, 1222 · `chaos` 74, 347 · `chapbook` 100 · `charismatisch
+christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394, 1104, 1105 ·
+`Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391,
+603, 606, 612, 754, 1207, 1237, 1268, 1300 · `chronobiologie` 326, 329 · `cia`
+693, 750 · `cijfers` 39, 65 · `civilisatiekritiek` 298 · `classificatie` 719 ·
+`coaching` 161, 291, 441, 1297 · `cognitie` 656 · `cognitieve gedragstherapie`
+147, 153, 373 · `cognitieve herstructurering` 177 · `cognitieve
+neurowetenschap` 763 · `cognitieve psychologie` 759 · `cognitieve vertekening`
+234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
+`cognitiewetenschap` 755, 767, 1172 · `collectief bewustzijn` 435 ·
 `collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 763 ·
 `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156,
 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539,
@@ -210700,37 +213604,39 @@ practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753,
 910, 1211 · `denken` 310, 509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510,
 514, 817 · `denkmethode` 471 · `denkmodellen` 426, 928 · `depressie` 403 ·
 `derivaten` 494, 495, 810, 1286 · `design thinking` 150 · `destructiviteit`
-223 · `deugd` 247, 459, 581 · `diagnose` 104 · `dialoog` 335, 572, 1269 ·
-`dichotomie van controle` 194 · `dichtwerk` 524 · `dictatuur` 221 ·
-`dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieptepsychologie` 646,
-1118, 1154, 1235 · `dieren` 555, 1305 · `dierenzintuigen` 322 · `dierkunde`
-760 · `dierlijke-cognitie` 383 · `dierproeven` 330 · `differentiatie` 165 ·
-`digitaal` 81 · `diplomatie` 243 · `direct response` 350 · `direct-marketing`
-695, 697, 698, 699 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133,
-137, 146, 445, 462, 480, 481, 482, 487, 488, 545, 800 · `discours` 628 ·
-`disruptie` 293 · `DNA` 419 · `docenten` 116 · `doelen` 58, 136, 158, 542 ·
-`doelen stellen` 367, 427, 448 · `doelgericht-oefenen` 50 · `doelgroep` 446 ·
-`doelstellingen` 256 · `donkere-triade` 124 · `dood` 98, 169, 292, 535, 822 ·
-`doodsangst` 405 · `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324
-· `dopamine` 314, 418 · `dramaturgie` 1201 · `drogredenen` 421 · `dromen` 52,
-357, 358, 359, 360, 646, 1121, 1324, 1325, 1326, 1327, 1328, 1329 · `drugs`
-568 · `duitse literatuur` 1202 · `dummies` 112 · `durfkapitaal` 47 ·
-`duurzaamheid` 92, 1257, 1276 · `dyslexie` 1310 · `dystopie` 61, 618 ·
-`e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298,
-1257, 1276 · `economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478, 625,
-627, 683, 718, 809, 821, 910, 933, 1257, 1269, 1276, 1280, 1281 · `economische
-geschiedenis` 155, 804, 806, 807, 808, 809, 814, 821, 933, 1287 · `educatief`
-327 · `eenvoud` 170, 205, 379 · `eenzaamheid` 7, 96, 98, 111, 288, 302, 1200,
-1203, 1204, 1205, 1206, 1207, 1209, 1210, 1293, 1295, 1305 · `eer` 530, 534 ·
-`eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149, 435
+223 · `determinisme` 1342 · `deugd` 247, 459, 581 · `diagnose` 104 · `dialoog`
+335, 572, 1269 · `dichotomie van controle` 194 · `dichtwerk` 524 · `dictatuur`
+221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieptepsychologie`
+646, 1118, 1154, 1235 · `dieren` 555, 1305 · `dierenzintuigen` 322 ·
+`dierkunde` 760 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
+`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
+350 · `direct-marketing` 695, 697, 698, 699 · `DISC` 156, 429 · `discipline`
+12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481, 482, 487, 488, 545,
+800 · `discours` 628 · `disruptie` 293 · `DNA` 419 · `docenten` 116 · `doelen`
+58, 136, 158, 542 · `doelen stellen` 367, 427, 448 · `doelgericht-oefenen` 50
+· `doelgroep` 446 · `doelstellingen` 256 · `donkere-triade` 124 · `dood` 98,
+169, 292, 535, 822 · `doodsangst` 405 · `doorzetten` 20 ·
+`doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314, 418 ·
+`dramaturgie` 1201 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360, 646,
+1121, 1324, 1325, 1326, 1327, 1328, 1329 · `drugs` 568 · `duitse literatuur`
+1202 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92, 1257, 1276 ·
+`dyslexie` 1310 · `dystopie` 61, 618 · `e-commerce` 257 · `e-mail` 70, 512 ·
+`e-mailmarketing` 309 · `ecologie` 298, 1257, 1276 · `economie` 65, 98, 217,
+251, 297, 347, 423, 450, 452, 478, 625, 627, 683, 718, 809, 821, 910, 933,
+1257, 1269, 1276, 1280, 1281, 1332, 1333, 1334, 1336, 1337, 1338, 1339, 1340,
+1341, 1342, 1343 · `economische geschiedenis` 155, 804, 806, 807, 808, 809,
+814, 821, 933, 1287 · `educatief` 327 · `eenvoud` 170, 205, 379 ·
+`eenzaamheid` 7, 96, 98, 111, 288, 302, 1200, 1203, 1204, 1205, 1206, 1207,
+1209, 1210, 1293, 1295, 1305 · `eer` 530, 534 · `eerlijk` 47 · `eerlijkheid`
+62 · `eerste-versie` 19 · `Eerste-Wereldoorlog` 1333 · `ego` 75, 102, 149, 435
 · `ego en zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597,
 599, 602, 1120, 1122, 1126, 1139, 1149, 1219, 1223, 1232, 1265 · `eigen
 bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
-`eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 ·
-`elektrische auto's` 266 · `eleusis` 765 · `elites` 682, 1145, 1146 ·
-`emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten` 557 ·
-`emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542,
-1311, 1314, 1319 · `empathie` 35, 67, 303, 577 · `enactivisme` 755 ·
+`eigenaarschap` 97 · `eigendom` 1335 · `eindigheid` 442 · `einstein` 94 ·
+`elektriciteit` 267 · `elektrische auto's` 266 · `eleusis` 765 · `elites` 682,
+1145, 1146 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten`
+557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488,
+542, 1311, 1314, 1319 · `empathie` 35, 67, 303, 577 · `enactivisme` 755 ·
 `energetisch werk` 560 · `energie` 92, 195, 291, 377, 1257, 1273, 1276 ·
 `energiewerk` 432 · `entropie` 539, 818, 1272, 1276, 1277, 1316 ·
 `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
@@ -210745,7 +213651,7 @@ bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
 `etnobotanie` 765 · `etnografie` 764, 1245 · `eurazië` 694 · `europa` 751 ·
 `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
 339, 347, 383, 518, 609, 760, 762, 767, 820, 823, 829, 950, 1259, 1262, 1267,
-1273, 1275, 1288, 1308 · `evolutiebiologie` 452, 453 ·
+1273, 1275, 1288, 1308, 1344 · `evolutiebiologie` 452, 453 ·
 `evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
 `existentialisme` 405, 940 · `existentiefilosofie` 757 · `expeditie` 36 ·
 `experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
@@ -210786,109 +213692,111 @@ vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline
 1143, 1144, 1171, 1202 · `gehoorzaamheid` 215, 617, 1295 · `geïllustreerd
 boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464
 · `geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
-`geldstelsel` 680 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335,
-516, 526, 579 · `gemeenschap` 9, 96, 304, 461, 1291, 1293 · `genealogie` 601 ·
-`geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136, 1259, 1263, 1307 ·
-`geneesmiddelen` 752, 1133 · `generaties` 114 · `generatieve drift` 315 ·
-`genetica` 413, 419, 818, 941, 1157, 1275 · `genezing` 340 · `genot en pijn`
-314 · `gentechnologie` 413 · `geografie` 825 · `geologie` 239 · `geopolitiek`
-220, 692, 694 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258,
-298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634,
-665, 667, 681, 682, 683, 684, 685, 687, 689, 690, 693, 806, 807, 821, 833,
-931, 935, 939, 944, 1141, 1145, 1150, 1226, 1229, 1270, 1291, 1294 ·
-`geschiedenis van de geneeskunde` 412, 1132 · `geschiedfilosofie` 235 ·
-`geschiedschrijving` 601, 602, 1155, 1233, 1254 · `gesprek` 43, 95, 302, 444,
-1294 · `gesprekstechniek` 182, 186, 438 · `getallen` 657, 835, 1282, 1312 ·
-`gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90,
-214, 1289 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus` 238 ·
-`gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88,
-97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334,
-382, 439, 442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291,
-294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 ·
-`gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415, 823, 1128,
-1129, 1131, 1133, 1134, 1138 · `gezondheidspsychologie` 458 ·
-`gezondheidszorg` 313, 317, 422, 1132 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `globale werkruimte` 763 · `gnostiek` 614,
-666, 940, 1151, 1223, 1232, 1237 · `godin` 611, 1117, 1119, 1224, 1225, 1226,
-1227, 1231, 1235, 1236, 1237, 1238 · `godsdienstkritiek` 341 ·
-`godsdienstpsychologie` 754 · `godsdienstwetenschap` 578, 608, 640, 641, 835,
-940, 1125, 1151, 1223, 1254, 1290 · `goeroe` 242 · `Golden Dawn` 1220 ·
-`Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
-`grenswetenschap` 615, 1149, 1156 · `grenzen` 72, 105, 109, 120, 122, 187, 466
-· `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
-literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531, 1238
-· `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
-339, 1295 · `groepsgedrag` 303, 1295, 1296 · `grondstoffen` 92 · `grondwet`
-616, 619 · `groot-verhaal` 56 · `grootouders` 91 · `habitus` 723 · `handboek`
-493, 495, 1243 · `handel` 80, 251, 1269, 1282 · `handelen` 30, 476, 477, 478,
-479, 501 · `handelspsychologie` 488, 489, 1284, 1285 · `handelssysteem` 489,
-491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 · `hart`
-86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
-`hedendaags India` 202 · `hedgefondsen` 505, 810 · `heelal` 99, 262 ·
-`heksenvervolging` 1233 · `hekserij` 1224, 1227, 1228, 1231, 1233, 1244, 1245
-· `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125,
-134 · `herkomst` 127 · `hermetische filosofie` 378, 1246 · `hermetisme` 613,
-631, 632, 633, 638, 639, 642, 647, 766, 1218, 1232, 1249, 1250, 1253, 1254 ·
-`heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327, 801, 829, 1160, 1307 ·
-`hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 · `herstel` 87,
-552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527,
-569, 1102 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 ·
-`Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
-roman` 529, 922, 923, 924 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood`
-178 · `Holocaust` 48, 1213 · `holografie` 340 · `homoseksualiteit` 325 ·
-`hoogbegaafdheid` 1314 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416
-· `houding` 117 · `huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19,
-26, 105, 227, 561, 1296, 1322 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
-`Huxley` 54 · `hybride werken` 512 · `hypermoderne school` 831 ·
-`hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668, 1144, 1159 · `Idaho` 45 ·
-`ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751, 766, 932, 1246,
-1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255 · `identiteit` 22, 115, 192,
-261, 374, 375, 467, 559, 1116, 1201, 1206, 1302, 1303, 1319 ·
-`identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
-533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
-`imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
-180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527, 1101, 1304 ·
-`individualisme` 9, 96, 624, 1206 · `individualiteit` 263 · `individuatie`
-359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië`
-692 · `industrie` 348, 905 · `informatietheorie` 1272, 1277, 1278, 1316 ·
-`inheems denken` 521 · `initiatie` 407, 408, 522, 921, 922, 1114, 1235 ·
-`inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 · `innerlijk-kind`
-109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede`
-548 · `innovatie` 206, 251, 293, 306, 471, 901, 1270 · `instagram` 129 ·
+`geldstelsel` 680 · `geldtheorie` 1332 · `geloof` 45, 83, 201, 554 · `geluk`
+79, 93, 160, 228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461, 1291,
+1293 · `genealogie` 601 · `geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136,
+1259, 1263, 1307 · `geneesmiddelen` 752, 1133 · `generaties` 114 ·
+`generatieve drift` 315 · `genetica` 413, 419, 818, 941, 1157, 1275, 1344 ·
+`genezing` 340 · `genot en pijn` 314 · `gentechnologie` 413 · `geografie` 825
+· `geologie` 239 · `geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36, 56,
+57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591,
+593, 595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687,
+689, 690, 693, 806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150, 1226,
+1229, 1270, 1291, 1294, 1338, 1345 · `geschiedenis van de geneeskunde` 412,
+1132 · `geschiedfilosofie` 235, 1342 · `geschiedschrijving` 601, 602, 1155,
+1233, 1254 · `gesprek` 43, 95, 302, 444, 1294 · `gesprekstechniek` 182, 186,
+438 · `getallen` 657, 835, 1282, 1312 · `gevangenendilemma` 453 · `gevolgen`
+67 · `gewaarzijn` 519 · `geweld` 45, 90, 214, 1289 · `geweldloosheid` 612 ·
+`gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11,
+13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
+158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
+`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
+`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
+318, 323, 329, 332, 412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138 ·
+`gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422, 1132 · `ggz`
+104 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `globale
+werkruimte` 763 · `gnostiek` 614, 666, 940, 1151, 1223, 1232, 1237 · `godin`
+611, 1117, 1119, 1224, 1225, 1226, 1227, 1231, 1235, 1236, 1237, 1238 ·
+`godsdienstkritiek` 341 · `godsdienstpsychologie` 754 · `godsdienstwetenschap`
+578, 608, 640, 641, 835, 940, 1125, 1151, 1223, 1254, 1290 · `goeroe` 242 ·
+`Golden Dawn` 1220 · `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 ·
+`gratie` 374 · `grenswetenschap` 615, 1149, 1156 · `grenzen` 72, 105, 109,
+120, 122, 187, 466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537
+· `Griekse literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530,
+531, 1238 · `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 ·
+`groepsdenken` 339, 1295 · `groepsgedrag` 303, 1295, 1296 · `grondstoffen` 92
+· `grondwet` 616, 619 · `groot-verhaal` 56 · `grootouders` 91 · `habitus` 723
+· `handboek` 493, 495, 1243 · `handel` 80, 251, 1269, 1282 · `handelen` 30,
+476, 477, 478, 479, 501 · `handelspsychologie` 488, 489, 1284, 1285 ·
+`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
+`handleiding` 112, 699 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
+`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505,
+810 · `heelal` 99, 262 · `heksenvervolging` 1233 · `hekserij` 1224, 1227,
+1228, 1231, 1233, 1244, 1245 · `heldendom` 532 · `heldenreis` 410 ·
+`helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 · `hermetische
+filosofie` 378, 1246 · `hermetisme` 613, 631, 632, 633, 638, 639, 642, 647,
+766, 1218, 1232, 1249, 1250, 1253, 1254 · `heroverwegen` 28 · `hersenen` 51,
+84, 85, 86, 327, 801, 829, 1160, 1307 · `hersenonderzoek` 330, 333, 763 ·
+`hersenspoeling` 384, 668 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
+`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569, 1102 · `Hindoeïstische
+mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
+`historische portretten` 248 · `historische roman` 529, 922, 923, 924 ·
+`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48, 1213 ·
+`holografie` 340 · `homoseksualiteit` 325 · `hoogbegaafdheid` 1314 · `hoop`
+255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting`
+65 · `humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561, 1296, 1322 ·
+`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
+`hypermoderne school` 831 · `hyperrealiteit` 565 · `hypnose` 123, 124, 125,
+668, 1144, 1159 · `Idaho` 45 · `ideeen` 702 · `ideeën` 206 ·
+`ideeëngeschiedenis` 269, 751, 766, 932, 1246, 1247, 1248, 1249, 1250, 1251,
+1252, 1253, 1255 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559, 1116,
+1201, 1206, 1302, 1303, 1319 · `identiteitskapitaal` 51 · `ideologie` 628 ·
+`ideologiekritiek` 1341 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 ·
+`illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20
+· `india` 649 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242,
+365, 370, 518, 520, 527, 1101, 1304 · `individualisme` 9, 96, 624, 1206 ·
+`individualiteit` 263 · `individuatie` 359, 360, 408, 409, 646 ·
+`individuele-verantwoordelijkheid` 299 · `indonesië` 692 · `industrie` 348,
+905 · `inflatie` 1332 · `informatietheorie` 1272, 1277, 1278, 1316 · `inheems
+denken` 521 · `initiatie` 407, 408, 522, 921, 922, 1114, 1235 · `inleiding`
+452, 456 · `inlichtingendiensten` 687, 688, 689, 1345 · `innerlijk-kind` 109 ·
+`innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede` 548 ·
+`innovatie` 206, 251, 293, 306, 471, 901, 1270 · `instagram` 129 ·
 `instemming` 616 · `instituties` 392 · `integraal bewustzijn` 580 ·
-`integriteit` 547 · `intelligentie` 383, 943 · `interactie` 1201 ·
-`internationale betrekkingen` 455 · `internet` 60, 198, 1302 ·
-`internetcultuur` 666 · `interpretatie` 764 · `interviews` 58, 277, 289 ·
-`intimiteit` 122, 145, 164, 165 · `introspectie` 579, 1325, 1326 ·
-`introversie` 33, 361, 1203, 1206 · `intuitie` 128 · `intuïtie` 214, 283, 320
-· `investeren` 270, 348 · `invloed` 11 · `invoeling` 577 · `inwijding` 636,
-1218, 1230 · `inzicht` 587 · `irrationaliteit` 424 · `islam` 526, 1108, 1216 ·
-`islamitische filosofie` 525, 1107 · `Israël` 514 · `Italiaanse non-fictie`
-211 · `Italië` 155 · `jaloezie` 19 · `japan` 902 · `Japan` 77, 205, 261, 335,
-346, 379, 462, 517, 528, 535, 1306 · `japanse filosofie` 576, 1106 · `jaren
-negentig` 348 · `jaren zestig` 750, 1148 · `jaren-tachtig` 139 ·
-`jaren-twintig` 94 · `jaren-vijftig` 704 · `jazztijdperk` 284 · `jeff bezos`
-257 · `jeugd` 53, 104, 115, 834 · `jodendom` 630, 640, 942, 1216 · `John
-Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
-`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
-574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
-499, 566, 669, 690, 816, 903, 950, 1313 · `jung` 646, 937, 1118, 1123, 1153,
-1154 · `Jung` 143, 358, 359, 1292 · `Jungiaanse psychologie` 404, 407, 408,
-409, 410, 1121, 1230, 1234, 1235, 1236 · `kaakontwikkeling` 332 · `kabbala`
-630, 634, 640, 643, 644, 1217, 1253 · `Kabul` 184 · `Kaïn-en-Abel` 10 ·
-`kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 · `kans` 64, 805 ·
-`kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456, 484, 490, 496, 504,
-505, 812, 946, 1280, 1287 · `kapitalisme` 298, 682, 821, 910, 933 · `karakter`
-97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
-`kashmir-shaivisme` 1100, 1103 · `Kasjmir` 180 · `katholicisme` 672 · `keegan`
-110 · `Kelly-criterium` 504, 812 · `keltische traditie` 611 · `kennedy` 690 ·
-`kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 · `kennisleer`
-525, 587, 929, 1107, 1111, 1112, 1260, 1266, 1267 · `kennissociologie` 721 ·
-`kennistheorie` 654, 820 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
-`kernwapens` 454, 944 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 ·
-`kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact`
-182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265
-· `klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286, 1105 ·
+`integriteit` 547 · `intellectuelen` 1341 · `intelligentie` 383, 943 ·
+`interactie` 1201 · `internationale betrekkingen` 455 · `internet` 60, 198,
+1302 · `internetcultuur` 666 · `interpretatie` 764 · `interventionisme` 1336 ·
+`interviews` 58, 277, 289 · `intimiteit` 122, 145, 164, 165 · `introspectie`
+579, 1325, 1326 · `introversie` 33, 361, 1203, 1206 · `intuitie` 128 ·
+`intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling`
+577 · `inwijding` 636, 1218, 1230 · `inzicht` 587 · `irrationaliteit` 424 ·
+`islam` 526, 1108, 1216 · `islamitische filosofie` 525, 1107 · `Israël` 514 ·
+`Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `japan` 902 ·
+`Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535, 1306 · `japanse
+filosofie` 576, 1106 · `jaren negentig` 348 · `jaren zestig` 750, 1148 ·
+`jaren-tachtig` 139 · `jaren-twintig` 94 · `jaren-vijftig` 704 ·
+`jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115, 834 · `jodendom`
+630, 640, 942, 1216 · `John Harrison` 321 · `joint ventures` 348 · `jonge
+liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 · `jongvolwassenenroman`
+295 · `joodse filosofie` 572, 574 · `journaling` 147 · `journalistiek` 4, 7,
+46, 82, 238, 257, 285, 401, 499, 566, 669, 690, 816, 903, 950, 1313 · `jung`
+646, 937, 1118, 1123, 1153, 1154 · `Jung` 143, 358, 359, 1292 · `Jungiaanse
+psychologie` 404, 407, 408, 409, 410, 1121, 1230, 1234, 1235, 1236 ·
+`kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644, 1217, 1253 ·
+`Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 ·
+`kanker` 419 · `kans` 64, 805 · `kansdenken` 487 · `kansen` 137 ·
+`kansrekening` 282, 456, 484, 490, 496, 504, 505, 812, 946, 1280, 1287 ·
+`kapitalisme` 298, 682, 821, 910, 933, 1341 · `karakter` 97, 537 · `Karel de
+Grote` 534 · `karma` 184 · `karmel` 573 · `kashmir-shaivisme` 1100, 1103 ·
+`Kasjmir` 180 · `katholicisme` 672 · `keegan` 110 · `Kelly-criterium` 504, 812
+· `keltische traditie` 611 · `kennedy` 690 · `kennedy-moord` 691 · `kennis`
+81, 508 · `kennis en macht` 720 · `kennisleer` 525, 587, 929, 1107, 1111,
+1112, 1260, 1266, 1267 · `kennissociologie` 721 · `kennistheorie` 654, 820 ·
+`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454, 944 ·
+`keuzes` 51, 71, 72, 510 · `KGB` 1345 · `Kierkegaard` 405 · `kinderboek` 167 ·
+`kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286, 1105 ·
 `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626, 695,
 696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936, 938, 948, 1208,
@@ -210902,27 +213810,28 @@ Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
 1271, 1314 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
 `kosmologie` 239, 262, 281, 645, 647, 648, 651, 655, 938, 945, 948, 1115,
 1221, 1222, 1261 · `koude oorlog` 217, 220, 384, 454, 456, 680, 689, 692, 693,
-1141 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 ·
-`krijgskunst` 346 · `kritiek` 24, 41, 50, 1330 · `kritiek geven` 356 ·
-`kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11,
-445, 1214, 1323 · `kunstenaars` 312, 1315 · `kunstgeschiedenis` 241, 312, 822,
-828, 1299 · `kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237,
-297, 652, 1256, 1258, 1317, 1318 · `kwaad` 404 · `kwaliteit` 1, 400, 912, 1301
-· `kwantificering` 392 · `kwantitatief handelen` 506, 1279 · `kwantitatieve
-analyse` 498 · `kwantitatieve financiën` 485, 503, 816, 1286 · `kwantumfysica`
-208, 340, 432, 433, 918, 919, 920, 930, 1164, 1165, 1166, 1261 ·
-`kwantummechanica` 362, 655, 761, 818, 1318 · `kwantumzwaartekracht` 281 ·
-`kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 ·
-`landmark forum` 344 · `landschap` 825, 1202 · `leadgeneratie` 308 · `lean
-manufacturing` 265, 912 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
-`leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
-218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536,
-544, 551, 900, 907, 911, 1297 · `leidinggeven` 156 · `leren` 175, 296, 349,
-397, 422, 441, 509, 538, 801, 803, 1278 · `lesmateriaal` 116 ·
-`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
-`levenskunst` 27, 199, 216, 227, 586 · `levenslessen` 285, 447 · `levensloop`
-91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing`
-436 · `lezingen` 169 · `libertarisme` 546, 623, 627, 629, 926, 927 · `lichaam`
+1141 · `koude-oorlog` 1345 · `krijgsgevangenschap` 31 · `krijgskunde` 212,
+218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50, 1330 · `kritiek
+geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 ·
+`kunst` 11, 445, 1214, 1323 · `kunstenaars` 312, 1315 · `kunstgeschiedenis`
+241, 312, 822, 828, 1299 · `kunstmatig leven` 347 · `kunstmatige
+intelligentie` 236, 237, 297, 652, 1256, 1258, 1317, 1318 · `kwaad` 404 ·
+`kwaliteit` 1, 400, 912, 1301 · `kwantificering` 392 · `kwantitatief handelen`
+506, 1279 · `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485, 503,
+816, 1286 · `kwantumfysica` 208, 340, 432, 433, 918, 919, 920, 930, 1164,
+1165, 1166, 1261 · `kwantummechanica` 362, 655, 761, 818, 1318 ·
+`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
+`landbouw` 56, 98 · `landmark forum` 344 · `landschap` 825, 1202 ·
+`leadgeneratie` 308 · `lean manufacturing` 265, 912 · `leefstijl` 86, 103,
+138, 171 · `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41, 44,
+46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353, 364, 370, 389,
+434, 465, 468, 475, 536, 544, 551, 900, 907, 911, 1297, 1331 · `leidinggeven`
+156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538, 801, 803, 1278 ·
+`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
+`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586 ·
+`levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
+`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
+`liberalisme` 1335 · `libertarisme` 546, 623, 627, 629, 926, 927 · `lichaam`
 80, 757, 1130, 1211 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126,
 154, 303, 338, 399 · `lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160,
 295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390,
@@ -210958,34 +213867,35 @@ leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440, 617, 622,
 `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323, 372, 373, 374, 545
 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320, 402 · `merken` 279,
 700, 701, 705 · `metabolisme` 313 · `metafysica` 102, 518, 584, 587 · `meten`
-69, 133, 695, 697 · `methode` 81, 764 · `microbedrijf` 40, 172 · `microbioom`
-417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534, 632, 822, 947, 1107, 1216,
-1263, 1282 · `midden-oosten` 720 · `midlife` 324 · `militaire geschiedenis`
-568 · `militaire strategie` 220 · `millennials` 159 · `minderheden` 68 ·
-`minderheidsstandpunt` 761 · `mindful` 103 · `mindfulness` 141, 147, 149, 177,
-333, 401 · `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad`
-254, 1148 · `misleiding` 219, 272, 677 · `mislukking` 516 · `missie` 567 ·
-`mitochondriën` 313 · `mode` 833 · `modellen` 300 · `modelleren` 139 ·
-`modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 · `moederkoren` 765 ·
-`momentum` 481 · `monniksleven` 230, 1207 · `monomythe` 410 · `monopolie` 306
-· `monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 ·
-`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 ·
-`motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 ·
-`motivatieonderzoek` 703, 704 · `Motley Fool` 474 · `motoren` 6 ·
-`motorfietsen` 325 · `muziek` 17, 85, 762, 824, 952, 1246, 1256, 1291, 1297 ·
-`muziekfilosofie` 756 · `mysteriecultus` 765 · `mystiek` 340, 390, 524, 525,
-573, 578, 603, 604, 606, 610, 630, 636, 640, 666, 754, 835, 936, 1100, 1103,
-1109, 1110, 1124, 1158, 1207, 1222, 1237, 1263, 1300 · `mythe` 608 · `mythe en
-ritueel` 756 · `mythevorming` 615, 1140, 1151, 1238, 1240 · `mythologie` 73,
-143, 357, 360, 407, 408, 409, 599, 611, 1117, 1119, 1157, 1225, 1226, 1235,
-1237, 1238 · `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+`
-415 · `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404
-· `naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
-640, 661, 662, 806, 813, 815, 817, 835, 931, 1127, 1129, 1133, 1243, 1263 ·
-`nationalisme` 237 · `natuur` 191, 323, 609, 830, 1259, 1262 · `natuurkunde`
-62, 94, 240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657, 818, 819, 944,
-945, 947, 1261, 1265, 1276, 1279, 1318 · `navigatie` 321 · `navy seals` 229,
-364 · `nazisme` 223 · `neanderthaler` 762 · `necrofilie` 223 · `nederland` 96
+69, 133, 695, 697 · `methode` 81, 764 · `methodologie` 1337, 1340, 1342, 1343
+· `microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
+`middeleeuwen` 534, 632, 822, 947, 1107, 1216, 1263, 1282 · `midden-oosten`
+720 · `midlife` 324 · `militaire geschiedenis` 568 · `militaire strategie` 220
+· `millennials` 159 · `minderheden` 68 · `minderheidsstandpunt` 761 ·
+`mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146,
+181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254, 1148 · `misleiding`
+219, 272, 677 · `mislukking` 516, 1331 · `missie` 567 · `mitochondriën` 313 ·
+`mode` 833 · `modellen` 300 · `modelleren` 139 · `modellering` 455 · `moed`
+44, 529 · `moeder-en-zoon` 26 · `moederkoren` 765 · `momentum` 481 ·
+`monniksleven` 230, 1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532
+· `Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 ·
+`moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139,
+146, 183, 200, 207, 315, 427, 468, 469, 472 · `motivatieonderzoek` 703, 704 ·
+`Motley Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85, 762,
+824, 952, 1246, 1256, 1291, 1297 · `muziekfilosofie` 756 · `mysteriecultus`
+765 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636,
+640, 666, 754, 835, 936, 1100, 1103, 1109, 1110, 1124, 1158, 1207, 1222, 1237,
+1263, 1300 · `mythe` 608 · `mythe en ritueel` 756 · `mythevorming` 615, 1140,
+1151, 1238, 1240 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611,
+1117, 1119, 1157, 1225, 1226, 1235, 1237, 1238 · `mythologische fantasy` 202 ·
+`mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
+oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225,
+426, 477, 478, 486, 491, 500, 504, 640, 661, 662, 806, 813, 815, 817, 835,
+931, 1127, 1129, 1133, 1243, 1263 · `nationalisme` 237, 1333 · `natuur` 191,
+323, 609, 830, 1259, 1262 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326,
+648, 650, 651, 653, 655, 657, 818, 819, 944, 945, 947, 1261, 1265, 1276, 1279,
+1318 · `natuurlijke-selectie` 1344 · `navigatie` 321 · `navy seals` 229, 364 ·
+`nazisme` 223, 1338 · `neanderthaler` 762 · `necrofilie` 223 · `nederland` 96
 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
 131, 141, 1327 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
 emoties` 176 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133,
@@ -210998,8 +213908,8 @@ emoties` 176 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133,
 418, 513, 585, 801, 829, 943, 1160, 1171, 1172, 1173, 1174, 1311, 1317, 1319,
 1320 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age`
 149, 435, 449, 549, 670, 678, 679, 768, 1122, 1156, 1241, 1242 · `new thought`
-259, 380, 555 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 ·
-`nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nike` 20 ·
+259, 380, 555 · `NeXT` 46, 1331 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378
+· `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nike` 20 ·
 `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520, 1100, 1102 ·
 `non-fictie` 420 · `non-verbaal` 399 · `non-verbale communicatie` 154 ·
 `noodlot` 533 · `Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173
@@ -211030,32 +213940,34 @@ emoties` 176 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133,
 `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 ·
 `onzekerheid` 268, 341, 375, 423, 515, 516, 1280, 1281 · `oordeel` 59, 69 ·
 `oorlog` 31, 57, 66, 364, 568, 1293 · `oorlogvoering` 218 · `oorsprong` 599 ·
-`oorsprong van het leven` 1273 · `opdrachten` 116 · `opgetekend` 97 ·
-`opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 · `opties` 494, 495, 506
-· `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73,
-162, 193, 290, 1131 · `opwekking` 558 · `orale traditie` 522 · `orde` 73, 74 ·
-`organisatie` 28, 41, 69, 238, 388, 422, 468, 900, 904, 906, 911, 1258 ·
-`organisatiecultuur` 183, 273, 353 · `oriëntalisme` 720 · `orthodontie` 332 ·
-`Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude Rome` 328 ·
-`Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416
-· `oudheid` 2, 247, 292, 536, 537, 588, 589, 641, 765, 940, 947 · `Oulipo`
-1212, 1213 · `outsourcen` 278 · `overdenken` 148 · `overfitting` 484, 485,
-502, 503 · `overgave` 431 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
-`overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 · `overtuigingen`
-28, 132, 139, 143, 469, 487, 768 · `overvloed` 17 · `oxytocine` 458 ·
-`Pacific` 31 · `pacifisme` 240, 612 · `Padma-onderscheiding` 189 ·
-`palliatieve zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 · `paradigma`
-543 · `paranormaal` 340, 362, 669, 677, 929, 1144 · `parapsychologie` 637,
-1161, 1324, 1328 · `parawetenschap` 663 · `Parijs` 1212 · `passie` 50, 198 ·
-`pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
-`patriarchaat` 3, 1155 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke
-financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467, 1314 ·
-`persoonlijkheid` 33, 338, 538, 1292, 1314 · `persoonlijkheidstypen` 361, 1292
-· `perspectief` 580 · `Perzië` 524, 525, 526, 536 · `piekeren` 105, 176 ·
-`pijn` 85, 255 · `pijnlichaam` 435 · `Pixar` 41, 46 · `plaats` 825 · `placebo`
-387, 469 · `planeten` 99, 1123 · `planning` 70, 276 · `plantaardig-dieet` 324
-· `plastische chirurgie` 411 · `plato` 581 · `plicht` 2 · `podcast` 136, 465,
+`oorsprong van het leven` 1273 · `Oostenrijkse-school` 1332, 1333, 1334, 1335,
+1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343 · `opdrachten` 116 ·
+`opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 ·
+`opties` 494, 495, 506 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3,
+23, 29, 44, 53, 73, 162, 193, 290, 1131 · `opwekking` 558 · `orale traditie`
+522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388, 422, 468, 900, 904,
+906, 911, 1258, 1339 · `organisatiecultuur` 183, 273, 353 · `oriëntalisme` 720
+· `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude
+Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95,
+191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589, 641, 765, 940, 947
+· `Oulipo` 1212, 1213 · `outsourcen` 278 · `overdenken` 148 · `overfitting`
+484, 485, 502, 503 · `overgave` 431 · `overheid` 1339 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367, 438 ·
+`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469, 487, 768 ·
+`overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
+`Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
+`parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362, 669, 677,
+929, 1144 · `parapsychologie` 637, 1161, 1324, 1328 · `parawetenschap` 663 ·
+`Parijs` 1212 · `passie` 50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 ·
+`patiëntverhalen` 414 · `patriarchaat` 3, 1155 · `pelgrimage` 8 · `pensioen`
+277 · `perceptie` 30 · `perfectionisme` 19, 32, 44, 575 · `persoonlijk merk`
+198, 365 · `persoonlijke financiën` 163, 233, 395 · `persoonlijke
+ontwikkeling` 161, 465, 467, 1314 · `persoonlijkheid` 33, 338, 538, 1292, 1314
+· `persoonlijkheidstypen` 361, 1292 · `perspectief` 580 · `Perzië` 524, 525,
+526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 · `Pixar`
+41, 46, 1331 · `plaats` 825 · `placebo` 387, 469 · `planeconomie` 1334 ·
+`planeten` 99, 1123 · `planning` 70, 276 · `plantaardig-dieet` 324 ·
+`plastische chirurgie` 411 · `plato` 581 · `plicht` 2 · `podcast` 136, 465,
 513 · `poëzie` 204, 611, 1110, 1115, 1210, 1211, 1304, 1330 · `poker` 137 ·
 `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
 `politiek` 54, 219, 438, 629, 680, 681, 688, 1269 · `politiek geloof` 751 ·
@@ -211069,12 +213981,13 @@ filosofie` 394, 623, 624, 626, 627, 628, 935 · `politieke orde` 716 ·
 `positieve-psychologie` 207 · `positionering` 443, 696, 913 · `postkoloniale
 studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 · `postuum` 49
 · `pr` 686 · `Praag` 173 · `pragmatisme` 1266 · `praktijk` 459 · `praktisch`
-118, 121, 140, 159, 172 · `prehistorie` 1225 · `prentenboek` 167 ·
-`presenteren` 82, 253 · `prestatie` 168, 291, 372, 397, 488, 545 ·
-`prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
-· `prestige` 515 · `preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23,
-424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448
-· `privacy` 393, 687 · `proactief` 25 · `producer` 17 · `product` 446 ·
+118, 121, 140, 159, 172 · `praxeologie` 1337, 1340, 1343 · `prehistorie` 1225
+· `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397,
+488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
+`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
+`prijscontrole` 1336 · `prijsstelling` 307 · `prijsvorming` 1334 · `prijzen`
+23, 424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311,
+448 · `privacy` 393, 687 · `proactief` 25 · `producer` 17 · `product` 446 ·
 `productie` 912 · `productiviteit` 151, 175, 197, 207, 244, 276, 278, 290,
 311, 400, 434, 442, 448, 512, 552, 802, 904 · `productontwerp` 231, 294 ·
 `productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
@@ -211100,9 +214013,9 @@ flexibiliteit` 460 · `psychologische functies` 361 · `psychopathie` 429 ·
 697, 698, 699, 700, 701, 702, 705 · `reclamebureau` 701 ·
 `reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 · `reclameonderzoek` 696
 · `reclametheorie` 700 · `reeks` 114, 192 · `regimeverandering` 220 ·
-`reïncarnatie` 202, 645 · `reïnventie` 344 · `reisverhaal` 1, 1202 · `reizen`
-278 · `relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195,
-213, 334, 335, 381, 398, 406, 466 · `relatietherapie` 165 ·
+`regulering` 1336 · `reïncarnatie` 202, 645 · `reïnventie` 344 · `reisverhaal`
+1, 1202 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164,
+166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie` 165 ·
 `relativiteitstheorie` 240, 281, 945 · `religie` 56, 572, 596, 599, 626, 936,
 937, 1138, 1170, 1173, 1226, 1233, 1236, 1290, 1291 · `religieus naturalisme`
 609 · `religieuze beweging` 670, 1153, 1227 · `religieuze symboliek` 409 ·
@@ -211138,147 +214051,149 @@ symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 ·
 1326, 1328, 1329 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 ·
 `sociale besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 ·
 `sociale psychologie` 215, 280, 302, 319, 1289, 1295 · `sociale-vaardigheden`
-398 · `socialisme` 618 · `sociobiologie` 722, 1267 · `sociologie` 300, 622,
-715, 721, 723, 805, 826, 834, 939, 1201, 1290, 1301, 1302 · `soedan` 716 ·
-`soefisme` 524, 526, 1108 · `software` 276, 484 · `somberheid` 119 ·
+398 · `socialisme` 618, 1334 · `sociobiologie` 722, 1267 · `sociologie` 300,
+622, 715, 721, 723, 805, 826, 834, 939, 1201, 1290, 1301, 1302 · `soedan` 716
+· `soefisme` 524, 526, 1108 · `software` 276, 484 · `somberheid` 119 ·
 `spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 ·
 `specialisatie` 349, 803 · `speculatie` 808, 809, 1281, 1283, 1284, 1285 ·
 `speedreading` 175 · `spel` 550, 1298 · `spelen` 32 · `spellen` 392 ·
 `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456, 656 ·
 `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
-`spieropbouw` 316 · `spijt` 447 · `spiritisme` 677, 1161 · `spiritualiteit` 8,
-14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358,
-377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679, 754,
-1101, 1205, 1224, 1231, 1236, 1241, 1327 · `spirituele zoektocht` 287, 524 ·
-`sport` 20, 349 · `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 ·
-`spreekangst` 253 · `spreker` 117, 134 · `staartrisico` 494, 496, 811 ·
-`staat` 612 · `staatsgezag` 616 · `staatsgreep` 220 · `staatskritiek` 621,
-622, 623 · `staatsvorming` 622 · `stalking` 214 · `standaarden` 396 ·
-`Stanford` 150, 388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55,
-65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507,
-715, 804, 805, 811, 909, 946, 951, 1283, 1287 · `statistiek van
-uitzonderingen` 274 · `status` 39, 66, 463 · `stereotypen` 562 ·
-`sterfelijkheid` 2, 71, 232, 295, 416, 516 · `sterrenkunde` 99, 1139 ·
-`sterven` 49, 95, 275, 447 · `stijl` 18, 436 · `stilte` 1205, 1207 ·
-`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
-· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
-30, 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279
-· `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
-426, 440, 443, 450, 451, 456, 694, 831, 901, 902, 907, 908 · `streken` 112 ·
-`stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement` 153 ·
-`stressregulatie` 372 · `strip` 452 · `structuur` 82, 511 · `studieboek` 421,
-437, 497, 498, 507, 831 · `studietechniek` 420 · `subcultuur` 834 · `succes`
-75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 · `surveillance`
-393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608, 610, 633, 635,
-636, 829, 835, 1118, 1219, 1225, 1234 · `symbolische macht` 723 ·
-`symbooltheorie` 756 · `symmetrie` 659 · `synchroniciteit` 362 ·
-`synchronisatie` 303 · `synesthesie` 1311 · `systeem` 22, 142 ·
-`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27, 436,
-594, 664, 824, 829, 930, 1113, 1213, 1265, 1277, 1312 · `taal en macht` 344 ·
-`taalfilosofie` 756 · `taaloorsprong` 762 · `taboe` 719 · `tactische empathie`
-271 · `talent` 23, 29, 274 · `tantra` 1103 · `taoïsme` 341, 394, 1104, 1105 ·
-`tarieven` 121 · `tarot` 644, 1234 · `teams` 42, 273, 364, 468 · `teamvorming`
-260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92, 1247, 1270, 1278,
-1301 · `techniekgeschiedenis` 666, 820, 1152 · `technische analyse` 483, 500,
-1284, 1285 · `technologie` 160, 288, 294, 306, 393, 499, 907, 1257, 1264, 1270
-· `technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267, 1142 ·
-`technologiekritiek` 297, 539, 674, 826, 1264 · `tegen-productiviteit` 71 ·
-`tegencultuur` 750, 1162, 1214 · `tegenslag` 30, 111, 174, 570, 1168 ·
-`tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54, 674, 820 · `temperament`
-33 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 ·
-`tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 ·
-`thelema` 644, 1239 · `theologie` 578, 587, 830, 1236 · `theosofie` 605, 606,
-645, 836, 1221 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 ·
-`thermodynamica` 1274 · `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst`
-531 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442,
-655, 1261, 1274, 1324 · `tijdmanagement` 434 · `tijdsbeleving` 326 ·
-`timemanagement` 311, 448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64,
-93, 137, 274, 362, 483 · `Tolteeks` 27 · `tonaliteit` 824 · `toon` 72, 118,
-119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545 ·
-`totalitarisme` 384, 935 · `tourette` 1313 · `trading` 492, 493, 495 ·
-`traditionalisme` 1218 · `training` 376 · `transpersoonlijke psychologie` 583,
-1158 · `trauma` 104, 119, 195, 229, 317, 386, 1293, 1303 · `trendvolgen` 480,
-501, 1285 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje`
-530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 ·
-`twaalfde eeuw` 525 · `tweede-wereldoorlog` 115, 819, 1140 ·
-`tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682, 769 ·
-`typologie` 361 · `ufo` 669, 678, 1150, 1157 · `ufo's` 615, 675, 676, 1141,
-1142, 1143, 1144 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99,
-102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
-`uitstellen` 16 · `uitvinding` 267, 1152 · `ultra-triatlon` 324 · `ultralopen`
-229 · `umwelt` 322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 ·
-`vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter`
-178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 ·
-`vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553, 1260, 1301 ·
-`variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 ·
-`vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177,
-189, 317, 375, 459, 460, 461, 467, 470 · `vegetarisme` 1135, 1137 ·
-`veiligheid` 43, 214 · `veiligheidsmarge` 144 · `veldonderzoek` 759 ·
-`veldwerk` 521, 716, 717 · `verandering` 170, 252, 375, 467 ·
-`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
-302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667, 687, 688, 689,
-690, 753, 1245 · `Verenigde-Staten` 464 · `vergaderen` 42 · `vergaderingen`
-276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie` 410, 635 ·
-`vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 · `verhaal`
-74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110,
-136, 196, 470, 903, 942 · `verhalenbundel` 206 · `verhouding` 113 ·
-`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
-185, 186, 188, 246, 280, 307, 308, 350, 367, 427, 913 · `verkooptrechters` 309
-· `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418, 698, 703, 1209 ·
-`verleiding` 381 · `verlichting` 243, 287, 922 · `verlies` 95, 373 · `vermaak`
-61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 · `vermogensbeheer` 498,
-813, 815 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415 ·
-`verpleeghuis` 416 · `verpleegkunde` 225, 1132 · `verplichting` 9 · `verraad`
-534 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554, 568, 583, 1162
-· `vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 ·
-`vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
-`verwachtingswaarde` 492 · `verwantschap` 722 · `verwondering` 227 ·
-`verzekeren` 496 · `verzet` 523 · `veteranen` 1293 · `vier deugden` 194 ·
-`visioenen` 359, 758 · `visualisatie` 259, 411, 540 · `visualiseren` 116 ·
-`vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313, 316, 329, 332, 417,
-1129, 1134, 1135, 1136, 1137, 1138 · `voedingswetenschap` 417 · `volatiliteit`
-494, 495, 506 · `volharding` 29 · `volledigheid` 167 · `voorbede` 558 ·
-`voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 · `voorkeuren` 89
-· `vooroordelen` 55, 283 · `voorspellen` 455 · `voorspellingen` 268 ·
-`vooruitgang` 251 · `vooruitgangsdenken` 298 · `voorzichtigheid` 216 ·
-`vorming` 224 · `vorstenspiegel` 536 · `vragen stellen` 509 · `vragen-stellen`
-475 · `vreemden` 302 · `vreugde` 549 · `vriendelijkheid` 551 · `vriendschap`
-5, 7, 114, 292, 295, 319, 514 · `vrije markt` 627 · `vrije tijd` 78, 288 ·
-`vrije wil` 10, 236, 339, 761, 1316 · `vrijheid` 61, 546, 620, 621, 626, 826 ·
-`vrijmetselarij` 605, 635, 636, 922, 923, 924, 1150 · `vroeg christendom` 614,
-1151, 1223 · `vroeg pensioen` 264 · `vrouwenhaat` 110, 1226 · `waardebeleggen`
-144, 351, 817 · `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461,
-553 · `waardering` 24, 34, 814, 815 · `waarheid` 263 · `waarneming` 154, 283,
-322, 541, 582, 757, 767, 825, 828, 830, 930, 1171, 1268, 1303, 1307, 1311,
-1317, 1320 · `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499, 1286
-· `wederkerigheid` 718 · `weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart`
-251, 334 · `welvaartsbewustzijn` 433 · `wereldbeeld` 234, 932 · `wereldbouw`
-192 · `wereldorde` 681 · `werk` 70, 78, 151, 252, 466 · `werk en rust` 512 ·
-`werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 · `werkplek` 33,
-43 · `werktempo` 400 · `werkwijze` 16, 702 · `West-Afrika` 522, 1114 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
-`westerse psychologie` 769 · `wet van aantrekking` 127, 190, 433, 543 ·
-`wetenschap` 63, 66, 93, 94, 328, 485, 1286 · `wetenschap en religie` 609 ·
-`wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653, 654, 664, 761,
-767, 805, 929, 938, 1165, 1167, 1173, 1247, 1260, 1261, 1266, 1267, 1271,
-1274, 1275, 1281, 1318, 1320 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
-413, 419, 633, 642, 647, 649, 651, 654, 657, 658, 659, 660, 661, 662, 663,
-805, 818, 819, 820, 823, 932, 937, 938, 941, 944, 945, 946, 947, 948, 949,
-951, 1149, 1153, 1163, 1164, 1246, 1247, 1248, 1249, 1251, 1252, 1254, 1260,
-1263, 1265, 1268, 1270, 1272, 1277, 1282, 1310, 1322 ·
-`wetenschapsjournalistiek` 387, 412 · `wicca` 1228, 1230, 1244 · `wijn` 112 ·
-`wijsheid` 596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456,
-490, 505, 509, 649, 656, 657, 658, 659, 660, 661, 662, 812, 1256, 1271, 1272,
-1278, 1282, 1312, 1318 · `wisselstroom` 267 · `woede` 119, 120, 1204 ·
-`woestijn` 8, 1205 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 ·
-`wrok` 530 · `wu wei` 394, 1105 · `Yale` 215 · `yin-yang` 394 · `yoga` 195,
-242, 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke
-communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeepbellen` 808 ·
-`zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335,
-561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367,
-372, 411, 439, 538, 540, 559, 575, 1308, 1309 · `zelfbeheersing` 75, 148, 212,
-248, 286, 314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551
-· `zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfdoding` 715 ·
+`spieropbouw` 316 · `spijt` 447 · `spionage` 1345 · `spiritisme` 677, 1161 ·
+`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
+199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
+604, 614, 679, 754, 1101, 1205, 1224, 1231, 1236, 1241, 1327 · `spirituele
+zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
+`sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
+`staartrisico` 494, 496, 811 · `staat` 612 · `staatsgezag` 616 · `staatsgreep`
+220 · `staatskritiek` 621, 622, 623 · `staatsmacht` 1335, 1338 ·
+`staatsvorming` 622 · `stalking` 214 · `standaarden` 396 · `Stanford` 150,
+388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69, 234,
+268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507, 715, 804,
+805, 811, 909, 946, 951, 1283, 1287 · `statistiek van uitzonderingen` 274 ·
+`status` 39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
+416, 516 · `sterrenkunde` 99, 1139 · `sterven` 49, 95, 275, 447 · `stijl` 18,
+436 · `stilte` 1205, 1207 · `stoicijns` 75, 140, 142 · `stoïcijnse filosofie`
+153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
+`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292, 516, 586 ·
+`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
+249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451, 456,
+694, 831, 901, 902, 907, 908 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
+387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
+`structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507, 831 ·
+`studietechniek` 420 · `subcultuur` 834 · `succes` 75, 76, 274 ·
+`superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
+`syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636,
+829, 835, 1118, 1219, 1225, 1234 · `symbolische macht` 723 · `symbooltheorie`
+756 · `symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 ·
+`synesthesie` 1311 · `systeem` 22, 142 · `systeemtheorie` 165 · `systematisch
+handelen` 482, 502 · `taal` 26, 27, 436, 594, 664, 824, 829, 930, 1113, 1213,
+1265, 1277, 1312 · `taal en macht` 344 · `taalfilosofie` 756 · `taaloorsprong`
+762 · `taboe` 719 · `tactische empathie` 271 · `talent` 23, 29, 274 · `tantra`
+1103 · `taoïsme` 341, 394, 1104, 1105 · `tarieven` 121 · `tarot` 644, 1234 ·
+`teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork` 156, 256 ·
+`techniek` 1, 6, 43, 61, 92, 1247, 1270, 1278, 1301 · `techniekgeschiedenis`
+666, 820, 1152 · `technische analyse` 483, 500, 1284, 1285 · `technologie`
+160, 288, 294, 306, 393, 499, 907, 1257, 1264, 1270 · `technologiebedrijven`
+293 · `technologiegeschiedenis` 231, 267, 1142 · `technologiekritiek` 297,
+539, 674, 826, 1264 · `tegen-productiviteit` 71 · `tegencultuur` 750, 1162,
+1214 · `tegenslag` 30, 111, 174, 570, 1168 · `tekenen` 15 · `tekstkwaliteit`
+124 · `televisie` 54, 674, 820 · `temperament` 33 · `tempo` 552 ·
+`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
+385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644, 1239 ·
+`theologie` 578, 587, 830, 1236 · `theosofie` 605, 606, 645, 836, 1221 ·
+`therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 · `thermodynamica` 1274
+· `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225
+· `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655, 1261, 1274, 1324 ·
+`tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311, 448 ·
+`tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 ·
+`Tolteeks` 27 · `tonaliteit` 824 · `toon` 72, 118, 119, 121, 132, 145 ·
+`topprestatie` 374 · `topsport` 422, 460, 545 · `totalitarisme` 384, 935 ·
+`tourette` 1313 · `trading` 492, 493, 495 · `traditionalisme` 1218 ·
+`training` 376 · `transpersoonlijke psychologie` 583, 1158 · `trauma` 104,
+119, 195, 229, 317, 386, 1293, 1303 · `trendvolgen` 480, 501, 1285 ·
+`trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 ·
+`tuinontwerp` 205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde
+eeuw` 525 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingonderzoek` 417 ·
+`twintigers` 51 · `twintigste eeuw` 682, 769 · `typologie` 361 · `ufo` 669,
+678, 1150, 1157 · `ufo's` 615, 675, 676, 1141, 1142, 1143, 1144 ·
+`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
+82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
+`uitvinding` 267, 1152 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt`
+322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 · `vaardigheden` 40,
+50, 349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 ·
+`vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297
+· `vakmanschap` 1, 206, 320, 346, 376, 553, 1260, 1301 · `variantie` 137 ·
+`vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 · `vedische
+filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177, 189, 317,
+375, 459, 460, 461, 467, 470 · `vegetarisme` 1135, 1137 · `veiligheid` 43, 214
+· `veiligheidsmarge` 144 · `veldonderzoek` 759 · `veldwerk` 521, 716, 717 ·
+`verandering` 170, 252, 375, 467 · `verantwoordelijkheid` 42, 72, 73, 74, 93,
+184, 282, 335, 364 · `verbinding` 302, 550 · `verdriet` 111, 227 · `verenigde
+staten` 598, 667, 687, 688, 689, 690, 753, 1245 · `Verenigde-Staten` 464 ·
+`vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
+`vergelijkende mythologie` 410, 635 · `vergelijkende religie` 604 ·
+`vergeving` 31, 102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur` 410 ·
+`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470, 903, 942 ·
+`verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 ·
+`verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308,
+350, 367, 427, 913 · `verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76,
+100, 113, 130, 164, 418, 698, 703, 1209 · `verleiding` 381 · `verlichting`
+243, 287, 922 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463 ·
+`vermogen opbouwen` 395 · `vermogensbeheer` 498, 813, 815 · `vermogensopbouw`
+163, 264, 277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 ·
+`verpleegkunde` 225, 1132 · `verplichting` 9 · `verraad` 534 · `verslaving`
+18, 238, 275, 294, 314, 324, 325, 418, 554, 568, 583, 1162 · `vertrouwen` 42,
+273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 · `vervreemding` 173
+· `verwachting` 387 · `verwachtingen` 425 · `verwachtingswaarde` 492 ·
+`verwantschap` 722 · `verwondering` 227 · `verzekeren` 496 · `verzet` 523 ·
+`veteranen` 1293 · `vier deugden` 194 · `visioenen` 359, 758 · `visualisatie`
+259, 411, 540 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86,
+88, 171, 313, 316, 329, 332, 417, 1129, 1134, 1135, 1136, 1137, 1138 ·
+`voedingswetenschap` 417 · `volatiliteit` 494, 495, 506 · `volharding` 29 ·
+`volledigheid` 167 · `voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 ·
+`voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen`
+455 · `voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
+`voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
+stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
+`vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
+markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339, 761, 1316 ·
+`vrije-markt` 1340 · `vrijhandel` 1335 · `vrijheid` 61, 546, 620, 621, 626,
+826 · `vrijmetselarij` 605, 635, 636, 922, 923, 924, 1150 · `vroeg
+christendom` 614, 1151, 1223 · `vroeg pensioen` 264 · `vrouwenhaat` 110, 1226
+· `waardebeleggen` 144, 351, 817 · `waardecreatie` 246, 508 · `waarden` 72,
+142, 392, 457, 461, 553 · `waardering` 24, 34, 814, 815 · `waarheid` 263 ·
+`waarneming` 154, 283, 322, 541, 582, 757, 767, 825, 828, 830, 930, 1171,
+1268, 1303, 1307, 1311, 1317, 1320 · `wabi-sabi` 379 · `wales` 558 · `Wall
+Street` 144, 351, 499, 1286 · `wederkerigheid` 718 · `weerbaarheid` 194 ·
+`weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
+`wereldbeeld` 234, 932 · `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78,
+151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur`
+551 · `werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16,
+702 · `West-Afrika` 522, 1114 · `West-Point` 29 · `westen` 67 · `western` 5 ·
+`westerse filosofie` 269, 341 · `westerse psychologie` 769 · `wet van
+aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328, 485, 1286
+· `wetenschap en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie`
+483, 650, 653, 654, 664, 761, 767, 805, 929, 938, 1165, 1167, 1173, 1247,
+1260, 1261, 1266, 1267, 1271, 1274, 1275, 1281, 1318, 1320, 1337, 1343 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
+651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820, 823, 932,
+937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163, 1164,
+1246, 1247, 1248, 1249, 1251, 1252, 1254, 1260, 1263, 1265, 1268, 1270, 1272,
+1277, 1282, 1310, 1322 · `wetenschapsjournalistiek` 387, 412 · `wicca` 1228,
+1230, 1244 · `wijn` 112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 ·
+`wiskunde` 116, 454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661,
+662, 812, 1256, 1271, 1272, 1278, 1282, 1312, 1318 · `wisselstroom` 267 ·
+`woede` 119, 120, 1204 · `woestijn` 8, 1205 · `Wolfgang Pauli` 362 · `wraak`
+101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394, 1105 · `Yale` 215 ·
+`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
+`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
+· `zeepbellen` 808 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
+`zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105,
+107, 108, 129, 138, 197, 367, 372, 411, 439, 538, 540, 559, 575, 1308, 1309 ·
+`zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`zelfbescherming` 214 · `zelfbeschikking` 1333 · `zelfcompassie` 32, 551 ·
+`zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfdoding` 715 ·
 `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417, 1324, 1325, 1326 ·
 `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
 136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166,

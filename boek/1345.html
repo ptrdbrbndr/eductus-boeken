@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Mitrokhin Archive &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Andrew en Mitrokhin stellen dat de KGB een veel grotere en langduriger inlichtingenoperatie in het Westen dreef dan tot 1992 bekend was, en dat dit voor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1345">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1345 &middot; Geschiedenis en samenleving</p>
+    <h1>The Mitrokhin Archive</h1>
+    <p class="lede">Christopher Andrew en Vasili Mitrokhin, 1999</p>
+    <p class="stats">
+      <span><b>1151</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1345"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Andrew en Mitrokhin stellen dat de KGB een veel grotere en langduriger inlichtingenoperatie in het Westen dreef dan tot 1992 bekend was, en dat dit voor het eerst met documenten uit het archief zelf is te onderbouwen. Mitrokhin werkte dertig jaar als archivaris bij de buitenlandse inlichtingendienst van de KGB en maakte in die tijd in het geheim aantekeningen en afschriften van dossiers, die hij bij zijn overstap naar het Westen in 1992 aan de Britse geheime dienst overdroeg. Andrew ordende dat materiaal tot een geschiedenis van Sovjetspionage in Europa en de Verenigde Staten vanaf de jaren dertig tot aan het einde van de Sovjet-Unie. De stelling is niet alleen dat er veel is gebeurd, maar dat de KGB stelselmatiger, langer volgehouden en met meer geworven bronnen heeft geopereerd dan westerse diensten en het publiek na de Koude Oorlog aannamen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Mitrokhin en het archief</h3>
+      <p>Het boek opent met de herkomst van het materiaal: Mitrokhin kreeg als archivaris toegang tot de dossiers van de buitenlandse inlichtingendienst van de KGB toen die in de jaren tachtig werden overgebracht naar een nieuw hoofdkwartier, en gebruikte die gelegenheid om jarenlang aantekeningen te maken die hij mee naar huis nam. Na de val van de Sovjet-Unie benaderde hij de Britse ambassade in de Baltische staten en droeg zijn materiaal over aan MI6, die Andrew inschakelde om het te ordenen en te duiden.</p>
+      <p>Deze herkomst bepaalt de vorm van het boek: het is geen doorlopend verhaal maar een op onderwerp en regio geordend overzicht, gebouwd op wat het archief toevallig bevatte. Waar Mitrokhin aantekeningen had, is het boek gedetailleerd, waar het archief zweeg, blijft het bij hoofdlijnen.</p>
+      <h3>Werving en illegalen</h3>
+      <p>Een groot deel van het boek behandelt hoe de KGB agenten wierf en hoe illegalen, officieren die onder valse identiteit en zonder diplomatieke dekking in het buitenland leefden, jarenlang operaties draaiden. Het boek beschrijft de zorgvuldige opbouw van dekmantels, de rol van financiële en ideologische motieven bij werving, en de kwetsbaarheid van dat systeem voor overlopers.</p>
+      <p>Het boek besteedt daarbij aandacht aan de verschuiving in motieven van bronnen door de decennia heen: waar in de jaren dertig en veertig overtuiging vaak de doorslag gaf, verschoof dat volgens het archief geleidelijk naar geldelijk gewin en persoonlijke grieven jegens de eigen werkgever. Ook de lange voorbereidingstijd van illegalen komt terug: sommige officieren leefden jarenlang onder een aangenomen identiteit voordat zij aan hun eigenlijke opdracht begonnen, iets wat het boek beschrijft als kenmerkend voor de geduldige, langetermijnaanpak van de dienst.</p>
+      <h3>Spionage in Groot-Brittannië en de Verenigde Staten</h3>
+      <p>Het boek besteedt uitgebreid aandacht aan Britse zaken, waaronder de naoorlogse doorwerking van het Cambridge-spionagenetwerk en nieuwe, tot dan toe onbekende bronnen binnen de Britse overheid en wetenschap. Voor de Verenigde Staten gaat het onder meer over Sovjetpogingen om Amerikaans kernwapen- en defensieonderzoek te doorgronden en over agenten binnen Amerikaanse instellingen.</p>
+      <p>Bij vrijwel elke onthulling geeft het boek de codenaam waaronder een bron in het archief voorkwam en, waar bekend, de identiteit die daarachter zou schuilen. Die twee lagen, de codenaam uit het dossier en de identificatie door Andrew, blijven in het boek als zodanig herkenbaar.</p>
+      <h3>Actieve maatregelen en desinformatie</h3>
+      <p>Naast klassieke spionage, het verzamelen van informatie, behandelt het boek wat de KGB actieve maatregelen noemde: pogingen om de publieke opinie en het beleid in het Westen te beïnvloeden via geplante berichten, gefabriceerde documenten en gesponsorde bewegingen. Het boek beschrijft dit als een tak van het werk die minstens zoveel middelen kreeg als het inwinnen van geheime informatie.</p>
+      <h3>Het einde van de Sovjet-Unie</h3>
+      <p>De laatste delen volgen hoe de KGB in de jaren tachtig zelf steeds beter zicht kreeg op de naderende ineenstorting van het systeem dat zij moest beschermen, en hoe individuele officieren, onder wie Mitrokhin zelf, daaruit hun eigen conclusies trokken.</p>
+      <p>Het boek besluit met Mitrokhins eigen overstap in 1992: na jaren van in stilte verzamelen zocht hij, inmiddels gepensioneerd, contact met een westerse ambassade en bood hij zijn aantekeningen aan. De slotpassages beschrijven hoe MI6 het materiaal beoordeelde en hoe daaruit uiteindelijk de samenwerking met Andrew voortkwam die tot dit boek leidde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Illegaal</td><td>een KGB-officier die zonder diplomatieke dekking en onder een volledig valse identiteit in het buitenland leefde en werkte.</td></tr>
+          <tr><td class="term">Actieve maatregelen</td><td>operaties gericht op het beïnvloeden van buitenlandse publieke opinie en beleid, van geplante krantenberichten tot gefabriceerde documenten.</td></tr>
+          <tr><td class="term">Codenaam</td><td>de schuilnaam waaronder een bron of operatie in de KGB-dossiers werd geadministreerd, los van de identificatie die Andrew daaraan later verbond.</td></tr>
+          <tr><td class="term">Rezidentura</td><td>de KGB-post in een buitenlandse ambassade, van waaruit agenten en operaties in dat land werden aangestuurd.</td></tr>
+          <tr><td class="term">Overloper</td><td>een inlichtingenofficier die naar de andere zijde overstapt en zijn kennis van operaties en bronnen prijsgeeft, zoals Mitrokhin deed.</td></tr>
+          <tr><td class="term">Center</td><td>de aanduiding in het archief voor het KGB-hoofdkwartier in Moskou, van waaruit rezidenturas werden aangestuurd.</td></tr>
+          <tr><td class="term">Bevriende dienst</td><td>een inlichtingendienst van een andere lidstaat van het Warschaupact waarmee de KGB informatie en operaties deelde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing van het boek bestaat vrijwel volledig uit één bron: de aantekeningen die Mitrokhin dertig jaar lang stiekem maakte van dossiers die hij als archivaris onder ogen kreeg. Andrew voegt daar historische context aan toe uit gepubliceerde bronnen, maar de kernclaims, namen, codenamen en operaties, komen uit Mitrokhins materiaal.</p>
+      <p>Waar mogelijk toetst het boek de aantekeningen aan wat elders al bekend was, bijvoorbeeld via eerdere overlopers of via rechtszaken tegen ontmaskerde agenten, en op die punten sluiten de bronnen goed op elkaar aan. Voor het overgrote deel van de onthullingen bestaat zo'n externe toets echter niet: het originele KGB-archief zelf is niet openbaar en dus niet door buitenstaanders te raadplegen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar tegen het boek is dat de lezer voor de feitelijke juistheid van individuele claims afhankelijk is van Mitrokhins geheugen en aantekeningen, gemaakt onder grote persoonlijke druk en zonder dat hij de originele documenten kon meenemen. Voor de meeste onthullingen bestaat geen tweede, onafhankelijke bron, en het onderliggende archief is niet in te zien om een aantekening tegen het origineel te leggen.</p>
+      <p>Enkele met naam genoemde personen hebben de beschuldigingen tegen hen publiekelijk ontkend of aangevochten, en in een aantal gevallen is nooit een rechtszaak gevolgd die de claim heeft getoetst. Het boek presenteert Andrews identificatie van een codenaam met een persoon doorgaans als vaststaand, terwijl die identificatie op interpretatie van vaak fragmentarische aantekeningen berust.</p>
+      <p>Doordat het boek per regio en onderwerp is opgebouwd in plaats van chronologisch, ontbreekt een doorlopend verhaal van hoe de KGB zich als organisatie ontwikkelde; de lezer krijgt eerder een reeks dossiers dan een geschiedenis met een duidelijke lijn.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>The KGB in Europe and the West</i>. Allen Lane, Londen, 1999. Nederlandse vertaling niet nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mitrokhin werkte dertig jaar in het archief van de KGB en kopieerde in die jaren in het geheim duizenden documenten, die hij na zijn vertrek naar het Westen in 1992 aan de Britse geheime dienst overdroeg. Historicus Christopher Andrew ordende dat materiaal tot een geschiedenis van de Sovjet-spionage in Europa en de Verenigde Staten vanaf de jaren dertig tot de val van de Sovjet-Unie.</p><p>Het boek onthulde onder meer tot dan toe onbekende agenten en operaties, en geldt als een van de omvangrijkste bronnenpublicaties over de werking van de KGB in het Westen, al blijft de authenticiteit van individuele documenten voor buitenstaanders moeilijk te verifiëren omdat het onderliggende archief zelf niet openbaar is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>KGB</li><li>spionage</li><li>koude-oorlog</li><li>geschiedenis</li><li>inlichtingendiensten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="685"><a href="685.html">The CIA and the Cult of Intelligence</a>. Onderzoekt de Amerikaanse tegenhanger, de CIA, vanuit een vergelijkbare bezorgdheid over de macht en controleerbaarheid van een inlichtingendienst.</li>
+          <li value="689"><a href="689.html">The Devil's Chessboard</a>. Behandelt de CIA tijdens de Koude Oorlog en de covert-actiekant van dezelfde periode die de KGB in dit boek vanuit Sovjetperspectief bestrijkt.</li>
+          <li value="693"><a href="693.html">Killing Hope</a>. Beschrijft Amerikaanse geheime interventies in dezelfde Koude Oorlog-periode, als tegenhanger van de Sovjetoperaties uit dit boek.</li>
+          <li value="687"><a href="687.html">The Puzzle Palace</a>. Gaat over de Amerikaanse signals-inlichtingendienst NSA en biedt zo een vergelijkbare blik op een geheime dienst die decennialang buiten zicht van het publiek opereerde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
