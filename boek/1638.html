@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De opluchting &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Geurtz stelt dat stoppen met roken alleen moeilijk is zolang iemand denkt dat hij iets opgeeft. Zijn redenering is dat de sigaret niets oplost wat zonder…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1638">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1638 &middot; Gewoontes en denken</p>
+    <h1>De opluchting</h1>
+    <p class="lede">Jan Geurtz, 1997</p>
+    <p class="stats">
+      <span><b>1637</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1638"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Geurtz stelt dat stoppen met roken alleen moeilijk is zolang iemand denkt dat hij iets opgeeft. Zijn redenering is dat de sigaret niets oplost wat zonder sigaret een probleem zou zijn: nicotine veroorzaakt de onrust die het volgende sigaret vervolgens even wegneemt, en de roker houdt dat rondje voor genot. Wie dat werkelijk doorziet, en niet alleen verstandelijk weet maar ook voelt, heeft niets meer om afscheid van te nemen en stopt zonder strijd. Daarmee verwerpt hij de gebruikelijke aanpak van minderen, wilskracht en volhouden, die volgens hem juist de gedachte bevestigt dat de roker iets kostbaars verliest. De methode staat of valt bij een omslag in de waarneming, en het boek is zo gebouwd dat die omslag geleidelijk tot stand komt in plaats van door een enkel argument.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het boek gelezen moet worden</h3>
+      <p>Het boek begint met gebruiksaanwijzingen. Blijf tijdens het lezen roken en probeer ervan te genieten, want minderen maakt de angst voor het stoppen groter. Sla niets over en lees de hoofdstukken in volgorde, want de opbouw doet het werk en niet een enkele bladzijde achterin. Lees het boek in zo kort mogelijke tijd uit, bij voorkeur op een vrijgemaakte middag en avond.</p>
+      <p>Geurtz zegt er meteen bij dat geen boek iemand van het roken af helpt en dat de lezer het zelf zal moeten doen. Hij benoemt ook het gedrag van lezers die langzamer gaan lezen naarmate het boek werkt, en van lezers die op zoek gaan naar bewijs dat de methode niets voorstelt.</p>
+      <h3>Wat een sigaret werkelijk doet</h3>
+      <p>Het eerste inhoudelijke blok gaat over nicotine. Geurtz beschrijft de tegenstrijdige lichamelijke reacties op de stof, de werking ervan, en geeft een schematische voorstelling van wat er tijdens en na een sigaret gebeurt. Zijn punt is dat de opluchting die een roker voelt niet van de sigaret komt maar het wegvallen is van een onrust die de vorige sigaret veroorzaakte.</p>
+      <p>Daaruit volgt het hoofdstuk dat de gelukkige roker niet bestaat. Elke roker kent volgens hem het gespleten gevoel iets te doen waar hij niet achter staat, en juist dat gevoel, niet de gezondheidsschade, is de dagelijkse prijs van het roken.</p>
+      <h3>De vier soorten rooksituaties</h3>
+      <p>Vier hoofdstukken behandelen roken in negatieve en positieve, actieve en passieve situaties: de sigaret bij spanning, de sigaret bij het feest, de sigaret bij verveling en de sigaret bij ontspanning. Geurtz laat zien dat de roker in alle vier gevallen dezelfde verlichting ervaart, terwijl de situaties tegengesteld zijn.</p>
+      <p>Daarmee ondergraaft hij het idee dat de sigaret iets doet wat bij de situatie past. Als hetzelfde middel bij spanning en bij ontspanning, bij verdriet en bij plezier hetzelfde effect heeft, dan reageert het niet op de situatie maar op zichzelf. Aansluitend behandelt hij de vraag of roken lekker is, en hoe het ooit begon.</p>
+      <h3>De angst voor stoppen</h3>
+      <p>Het middendeel gaat over wat de roker tegenhoudt. Geurtz onderscheidt de angst dat het niet lukt van de angst dat het wel lukt, en werkt uit wat hij de voordelen van verslaafd zijn noemt: het roken geeft een reden om even weg te lopen, een gezelschap, een houding, en iets om schuldig over te zijn.</p>
+      <p>Het hoofdstuk over de mythologie van de zelfoverwinning is het scharnier van het boek. Wie stoppen opvat als een gevecht met zichzelf, bevestigt daarmee dat er iets waardevols wordt afgepakt, en houdt de gedachte in stand die het gevecht nodig maakt. Geurtz behandelt ook gezondheid en de juiste motivatie, en laat de lezer een brief aan de toekomst schrijven.</p>
+      <h3>Van poging naar besluit</h3>
+      <p>Het laatste blok is praktisch. Geurtz behandelt wat er na het stoppen gebeurt: de angst voor gedachten aan roken, de regel dat een sigaret niet bestaat omdat er altijd een tweede volgt, en de tegenovergestelde regel dat roken altijd mag, waarmee hij de druk van het verbod haalt. Hij ontraadt vermijdingsgedrag en het uit de weg gaan van andere rokers.</p>
+      <p>Verder komen vervangingsmiddelen, andere drugs, het moeilijke moment, gewichtstoename en wat hij de levenscrisis noemt aan bod. Het onderscheid tussen een poging en een besluit sluit de reeks: een poging houdt de deur open, een besluit niet. Het boek eindigt met een checklist en de laatste sigaret, gevolgd door appendices voor wie een ander wil helpen, voor als het misgegaan is, en met veelgestelde vragen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Opluchting</td><td>Geurtz' naam voor zowel de methode als de ervaring die volgens hem op het stoppen volgt: verlichting in plaats van gemis.</td></tr>
+          <tr><td class="term">Rationeel-emotieve methode</td><td>De aanpak die verstandelijk inzicht en gevoelsmatige doorleving combineert, ontleend aan de training die Geurtz zelf volgde.</td></tr>
+          <tr><td class="term">De gelukkige roker bestaat niet</td><td>De stelling dat elke roker een gespleten gevoel kent, ook wanneer hij zegt met plezier te roken.</td></tr>
+          <tr><td class="term">De vier rooksituaties</td><td>Negatief actief, positief actief, negatief passief en positief passief, vier tegengestelde situaties waarin de sigaret hetzelfde lijkt te doen.</td></tr>
+          <tr><td class="term">Mythologie van de zelfoverwinning</td><td>Het idee dat stoppen een gevecht met jezelf vergt, dat volgens Geurtz de verslaving juist in stand houdt.</td></tr>
+          <tr><td class="term">Een sigaret bestaat niet</td><td>De regel dat er na de ene sigaret altijd een volgende komt, waarmee de uitzondering geen uitzondering is.</td></tr>
+          <tr><td class="term">Roken mag altijd</td><td>Het opheffen van het zelfverbod, zodat het stoppen geen verbod is waartegen verzet kan ontstaan.</td></tr>
+          <tr><td class="term">Poging of besluit</td><td>Het onderscheid tussen proberen te stoppen, wat de terugkeer openhoudt, en besluiten te stoppen.</td></tr>
+          <tr><td class="term">De levenscrisis</td><td>De zware gebeurtenis waarin een ex-roker meent recht te hebben op een sigaret, in het boek apart behandeld.</td></tr>
+          <tr><td class="term">Vermijdingsgedrag</td><td>Het uit de weg gaan van rokers en rooksituaties, dat volgens Geurtz de aantrekkingskracht juist bevestigt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek naar zijn eigen methode. De onderbouwing bestaat uit de redenering, uit voorbeelden uit de Opluchting-trainingen die Geurtz sinds januari 1997 gaf, en uit korte reacties van deelnemers met naam, leeftijd en beroep. Die reacties zijn afkomstig van mensen die de training hebben afgemaakt, wat over de mensen die afhaakten of terugvielen niets zegt.</p>
+      <p>De verwijzing naar Allen Carr in het voorwoord is de meest bruikbare aanknoping voor de vraag wat de aanpak waard is, want die methode is wel onderzocht. In een gerandomiseerde studie van Frings en collega's in <i>Addiction</i> uit 2020 met 620 deelnemers stopte na zes maanden ongeveer negentien procent van de deelnemers aan Carrs eendaagse programma, tegen ongeveer vijftien procent bij de Britse standaardzorg met gedragsondersteuning en medicatie; het verschil was niet beduidend. Een overzichtsstudie uit 2023 in <i>Tobacco Prevention and Cessation</i> bracht zes studies uit de jaren 2006 tot 2020 bijeen en kwam tot een vergelijkbaar beeld.</p>
+      <p>Die getallen zijn nuttig als maatstaf en niet als bewijs voor dit boek. Zij gaan over een begeleide groepsbijeenkomst van Carrs organisatie, niet over de methode van Geurtz en niet over een lezer die alleen thuis het boek doorwerkt. Naar de Opluchting-methode zelf is voor zover na te gaan geen onafhankelijk onderzoek gedaan.</p>
+      <p>Wat het boek intern sterk maakt, is dat de redenering controleerbaar is voor de lezer zelf. De bewering dat dezelfde sigaret bij spanning en bij ontspanning hetzelfde doet, kan iedere roker tijdens het lezen nagaan. Dat de redenering herkenbaar is, maakt haar nog niet juist, maar het scheelt van het geloof op gezag dat veel zelfhulp vraagt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek zich tegen tegenspraak indekt. Het eerste hoofdstuk zegt dat een lezer die wil bewijzen dat het niet kan, daar zeker in zal slagen en zich de moeite van het verder lezen kan besparen. Twijfel wordt daarmee voorgesteld als zelfbedrog van de roker, niet als een mogelijk juiste inschatting. Wie terugvalt, vindt in de appendix een uitleg die de fout bij de uitvoering legt en niet bij de methode.</p>
+      <p>De belofte van nauwelijks ontwenningsverschijnselen gaat verder dan wat vaststaat. Lichamelijke ontwenning van nicotine is meetbaar en verklaart een deel van het terugvalpatroon in de eerste weken. Geurtz erkent de stof wel, maar zijn stelling dat de klachten grotendeels verdwijnen zodra de gedachte verandert, is de kern van zijn methode en tegelijk de bewering die hij niet aantoont.</p>
+      <p>Het boek gaat vrijwel voorbij aan de middelen waarvoor wel bewijs bestaat. Nicotinevervangers en medicatie komen alleen ter sprake als iets dat minder goed werkt, terwijl juist de combinatie van gedragsondersteuning en medicatie in gecontroleerd onderzoek de hoogste percentages haalt. Voor zware rokers is dat een reeel gemis.</p>
+      <p>De tekst is inmiddels gedateerd op onderdelen. Het boek verscheen in 1997 en de laatste inhoudelijke herziening dateert van 2005, waardoor de elektronische sigaret, de latere prijs- en verpakkingsmaatregelen en de verschuiving in wie er nog rookt er niet in staan.</p>
+      <p>De verhouding tot Allen Carr blijft onbestemd. Geurtz noemt hem in het voorwoord als inspiratiebron en stelt dat zijn methode geheel nieuw is en dieper gaat, maar het boek maakt nergens precies duidelijk welke onderdelen van hem komen en welke van Carr. Voor een methode die claimt verder te gaan dan haar voorganger is dat een onbeantwoorde vraag.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken in volgorde en in een kort tijdsbestek; de opbouw is de methode.</li>
+        <li>Ga tijdens het lezen niet minderen, en houd bij welk gevoel er aan elke sigaret voorafgaat.</li>
+        <li>Vergelijk twee tegengestelde rooksituaties uit de eigen dag en beschrijf wat de sigaret in beide precies deed.</li>
+        <li>Kies tussen een poging en een besluit, en leg vast welk van de twee het is voordat de laatste sigaret op gaat.</li>
+        <li>Overweeg bij zwaar of langdurig roken daarnaast begeleiding en bewezen medicatie; het boek raadt dat af en dat advies rust niet op onderzoek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ambo, Amsterdam, eerste druk 1997, met de ondertitel <i>In een dag van het roken af!</i>; elfde, herziene druk 2005, tweeendertigste druk 2019 bij Ambo|Anthos (ISBN 9789026327360, ruim tweehonderd bladzijden). Er is een door de auteur ingesproken luisterboek en een e-boek (ISBN 9789026322075). Het boek is vertaald in het Deens, Duits, Spaans en Engels; de Engelse uitgave heet <i>Quit Smoking in One Day</i>. Van Geurtz verschenen bij dezelfde uitgever onder meer <i>De verslaving voorbij</i>, <i>Het einde van de opvoeding</i>, <i>Verslaafd aan liefde</i>, <i>Verslaafd aan denken</i> en <i>Vrij van gedachten</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jan Geurtz rookte vijfentwintig jaar en stopte kort na een rationeel-emotieve training. Uit die ervaring en uit de trainingen die hij vanaf januari 1997 gaf, kwam dit boek. De belofte staat op het omslag: in een dag van het roken af, zonder ontwenningsellende, zonder gewichtstoename en zonder wilskracht.</p><p>De opzet is die van veertig korte hoofdstukken die in volgorde gelezen moeten worden. Geurtz vraagt de lezer tijdens het lezen gewoon door te roken en juist niet te minderen, omdat minderen de angst voor stoppen vergroot. Onderweg ontleedt hij wat een sigaret werkelijk doet, waarom roken in vier soorten situaties telkens hetzelfde lijkt op te lossen, en waar de angst voor stoppen vandaan komt.</p><p>In het voorwoord noemt Geurtz het werk van Allen Carr als een van de inspiratiebronnen voor wat hij een geheel nieuwe rationeel-emotieve methode noemt. Het verschil dat hij claimt is dat zijn boek verder gaat in de emotionele wortels van de verslaving. Het eindigt bij een besluit en een laatste sigaret, met appendices voor terugval en voor wie een ander wil helpen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roken</li><li>verslaving</li><li>stoppen met roken</li><li>conditionering</li><li>Allen Carr</li><li>zelfhulp</li><li>gewoontes</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1639"><a href="1639.html">Het einde van de opvoeding</a>. Geurtz past in zijn opvoedingsboek dezelfde redenering toe: een dwingend patroon houdt zichzelf in stand door de strijd die ertegen gevoerd wordt.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke beschrijft dezelfde omslag van genot naar tekort in termen van dopamine en evenwicht, met onderzoek waar Geurtz met redenering werkt.</li>
+          <li value="238"><a href="238.html">The Power of Habit</a>. Duhigg verklaart het roken als lus van aanwijzing, handeling en beloning; een model dat aan de gewoonte trekt waar Geurtz aan de overtuiging trekt.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear werkt met kleine stapsgewijze verandering, precies de aanpak die dit boek verwerpt; de vergelijking maakt het verschil in uitgangspunt scherp.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

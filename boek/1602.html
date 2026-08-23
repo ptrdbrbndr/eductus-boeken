@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De fontein, vind je plek - Aanmoediging &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Steijn stelt dat inzicht in het eigen familiesysteem niet genoeg is om er anders in te gaan staan, en dat het verschil zit in herhaling. Wie eenmaal…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1602">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1602 &middot; Levenskunst</p>
+    <h1>De fontein, vind je plek - Aanmoediging</h1>
+    <p class="lede">Els van Steijn, 2025</p>
+    <p class="stats">
+      <span><b>1718</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1602"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Steijn stelt dat inzicht in het eigen familiesysteem niet genoeg is om er anders in te gaan staan, en dat het verschil zit in herhaling. Wie eenmaal begrijpt dat hij te hoog in de fontein is gaan staan, valt bij de eerste tegenslag terug in de oude beweging, omdat die beweging ouder is dan het inzicht en sneller werkt. Haar antwoord daarop is een boek dat niets nieuws beweert maar telkens dezelfde vragen stelt, zo lang tot iemand ze aan zichzelf begint te stellen zonder het boek erbij. De onderliggende aanname is dat zelfonderzoek langs vaste vragen het gedrag verandert, en dat die verandering zich doorzet naar de kinderen en kleinkinderen van wie hem uitvoert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom er een vierde deel is</h3>
+      <p>Het boek opent met de vaststelling waar het uit voortkomt. Lezers van het eerste deel herkenden zichzelf, daalden af naar hun eigen plek, en stonden er een halfjaar later weer boven. Van Steijn noemt dat geen falen maar de gewone gang van zaken: het patroon is in de kindertijd aangelegd en werkt zonder dat er nagedacht wordt.</p>
+      <p>Daaruit volgt de vorm. Waar het eerste boek uitlegt en dit boek aanmoedigt, is het verschil dat de lezer hier zelf het werk doet. De uitleg is korter, de vragen zijn talrijker, en de bedoeling is dat het boek meermalen ter hand wordt genomen op momenten dat het niet gaat.</p>
+      <h3>De fontein, kort herhaald</h3>
+      <p>Het beeld wordt opnieuw uitgelegd voor wie het eerste deel niet las. Een fontein met schalen boven elkaar: bovenin de voorouders, daaronder de grootouders, dan de ouders, dan de eigen generatie met broers en zussen, en daaronder de kinderen. Het water staat voor levenskracht, erkenning en liefde, en het stroomt maar één kant op.</p>
+      <p>De drie manieren waarop iemand van zijn plek raakt komen terug: verantwoordelijkheid overnemen die niet van hem is, oordelen over een ouder en daarmee boven hem gaan staan, en zonder het te weten het lot van een uitgesloten familielid overnemen. In dit deel worden zij niet uitvoerig behandeld maar als bekend verondersteld en met vragen doorgeprikt.</p>
+      <h3>Behoeftigheid</h3>
+      <p>Het begrip dat in dit boek het meeste gewicht draagt is behoeftigheid. Wie niet in zijn eigen schaal staat, vangt de stroom niet op en haalt wat hij mist elders: bij een partner, bij een werkgever, bij vrienden, en soms bij zijn eigen kinderen. Die claim wordt zelden uitgesproken en meestal ontkend.</p>
+      <p>Van Steijn beschrijft hoe behoeftigheid eruitziet in gedrag: te veel geven en dan verwijten, aandacht zoeken via prestatie, ontevredenheid die op de ander wordt geschoven, of het onvermogen alleen te zijn. Haar punt is dat de ander die claim nooit kan inlossen, omdat het gemis van een andere plaats komt dan waar het wordt neergelegd.</p>
+      <h3>Triggers en overlevingsgedrag</h3>
+      <p>Een tweede deel van het boek gaat over triggers: de gevoeligheden die iemand steeds weer uit zijn plek trekken. Zij stelt dat de meeste mensen er een stuk of drie hebben, meestal in de richting van afgewezen worden, niet gezien worden of achtergelaten worden.</p>
+      <p>Zodra zo'n gevoeligheid wordt geraakt, treedt oud gedrag in werking: aanpassen, aanvallen, dichtklappen, of harder gaan werken. Van Steijn vraagt de lezer die eigen reeks in kaart te brengen en er een naam aan te geven, met als redenering dat een patroon dat een naam heeft trager verloopt en daardoor te onderbreken is.</p>
+      <h3>Het hele pakket nemen</h3>
+      <p>De handeling die in het eerste boek de kern vormde, blijft ook hier de kern: beide ouders aanvaarden zoals zij waren, met wat zij gaven en met wat zij niet konden geven, zonder daar nog een rekening voor open te houden. Van Steijn benadrukt dat dit geen goedkeuring is van wat er gebeurd is, en ook geen verzoening met de persoon.</p>
+      <p>Zij verbindt het aan zelfrespect: wie een deel van zijn ouders afwijst, wijst daarmee een deel van zichzelf af, omdat hij uit hen voortkomt. De vragen in dit hoofdstuk gaan over wat iemand van zijn vader en zijn moeder wel wil hebben en wat niet, en over wat er gebeurt als hij die scheiding laat vallen.</p>
+      <h3>Wat van mij is en wat van de ander</h3>
+      <p>Het laatste thema is de grens. Van Steijn keert steeds terug naar dezelfde vraag: is dit gevoel, deze last, dit oordeel van mij, of neem ik het over van iemand anders in het systeem. Zij noemt het onderscheiden daarvan het werk van een leven en niet een oefening die af komt.</p>
+      <p>Daaraan koppelt zij haar reden om het boek te schrijven. Wie op zijn eigen plek blijft staan, geeft minder door aan zijn kinderen, en dat is volgens haar de meetbare opbrengst van dit soort werk. Het bewijs daarvoor levert zij uit haar praktijk en niet uit onderzoek.</p>
+      <h3>De vorm van het boek</h3>
+      <p>Het boek is groot van formaat en ruim gezet, met korte stukken tekst, veel witruimte en vragen die per onderwerp terugkomen. Van Steijn vertelt tussendoor over haar eigen leerpunten, ook over de keren dat zij zelf haar plek verliet. Volgens de uitgever hoort er bij de hoofdstukken beeldmateriaal waarin zij de stof mondeling toelicht.</p>
+      <p>Wie het eerste deel kent, vindt hier weinig nieuwe stof. Wie het niet kent, kan hiermee uit de voeten, al blijft de theorie beknopt. Het is bedoeld als boek om in te blijven bladeren en niet om in één keer uit te lezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De fontein</td><td>Het beeld van het familiesysteem als een reeks schalen boven elkaar, waarlangs levenskracht en erkenning van boven naar beneden stromen.</td></tr>
+          <tr><td class="term">Je eigen schaal</td><td>De plek die iemand in zijn familie toekomt op grond van zijn positie in de volgorde van generaties en van broers en zussen.</td></tr>
+          <tr><td class="term">Afdalen</td><td>De beweging terug naar de eigen plek, nadat iemand als kind of als volwassene hoger in de fontein is gaan staan.</td></tr>
+          <tr><td class="term">Behoeftigheid</td><td>De toestand waarin iemand de stroom uit zijn eigen schaal niet opvangt en het gemis onuitgesproken bij anderen in rekening brengt.</td></tr>
+          <tr><td class="term">Het hele pakket nemen</td><td>Beide ouders aanvaarden met alles wat zij waren en niet waren, zonder daaruit nog iets terug te vorderen.</td></tr>
+          <tr><td class="term">Trigger</td><td>Een persoonlijke gevoeligheid, volgens Van Steijn meestal drie per persoon, die iemand uit zijn plek trekt zodra zij geraakt wordt.</td></tr>
+          <tr><td class="term">Overlevingsgedrag</td><td>De vaste reactie die volgt zodra zo'n gevoeligheid wordt geraakt: aanpassen, aanvallen, terugtrekken of harder werken.</td></tr>
+          <tr><td class="term">Eigenstandigheid</td><td>Het vermogen te onderscheiden wat van jezelf is en wat van een ander, en op grond daarvan te dragen wat je toekomt.</td></tr>
+          <tr><td class="term">Systemisch geweten</td><td>Het gevoel van schuld of verraad dat opkomt zodra iemand een familieregel doorbreekt, ook wanneer die regel schadelijk is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op de praktijk van de auteur en niet op onderzoek. Van Steijn is sinds de jaren negentig werkzaam als familie- en organisatieopsteller en put uit wat zij in die tijd bij cliënten heeft gezien. Zij presenteert dat ook zo: als ervaring, met voorbeelden, en zonder verwijzing naar meetbare uitkomsten.</p>
+      <p>De achterliggende leer is het systemisch werk van Bert Hellinger. Voor familieopstellingen als behandelmethode is de wetenschappelijke onderbouwing dun. Er zijn kleine studies met wisselende opzet en zelden een controlegroep, en de effecten die worden gerapporteerd zijn kort na afloop gemeten. Wat de methode onderscheidt van gesprek en aandacht op zich is daarmee niet vastgesteld.</p>
+      <p>Dat is niet hetzelfde als zeggen dat er niets werkt. De onderdelen die het boek vraagt, opschrijven wat je van je ouders vindt, benoemen waar je gevoelig voor bent, en nagaan welke verantwoordelijkheid niet van jou is, komen ook voor in beter onderzochte vormen van hulp. Het verschil zit in de verklaring die eraan wordt gehangen, niet noodzakelijk in de oefening.</p>
+      <p>De opgave die het boek zelf doet is de verkoop van de reeks. Van het eerste deel spreekt de uitgever van meer dan tweehonderdduizend verkochte exemplaren en dertien drukken. Dat zegt iets over herkenbaarheid van het beeld en niets over de juistheid ervan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het model niet te weerleggen valt. Elke klacht kan worden gelezen als een te hoge plek in de fontein, en wie het beeld afwijst, kan worden verstaan als iemand die zijn ouders nog niet aanvaardt. Een verklaring die alles verklaart en waartegen tegenspraak zelf als bevestiging telt, laat zich niet toetsen. Het boek staat daar niet bij stil.</p>
+      <p>Daarnaast blijft de verantwoordelijkheid in dit soort werk vrijwel geheel bij de lezer liggen. Armoede, ziekte, discriminatie en gewoon slecht ouderschap krijgen weinig plaats naast het patroon in de eigen fontein. Waar het eerste boek dat nog ondervangt met een hoofdstuk over lot, is dit deel praktisch en daarmee sterker naar binnen gericht.</p>
+      <p>Voor wie het eerste deel gelezen heeft, is de vraag wat dit boek toevoegt. De begrippen zijn dezelfde, het beeld is hetzelfde en de voorbeelden liggen in dezelfde lijn. Wat er nieuw aan is, is de hoeveelheid vragen en de vorm van een oefenboek; een lezer die zelf goede vragen kan stellen, houdt daar weinig aan over.</p>
+      <p>Tot slot vraagt het boek het aanvaarden van beide ouders zonder onderscheid te maken naar wat er is gebeurd. Bij mishandeling of misbruik is dat een zware opdracht, en de systemische traditie is er eerder om bekritiseerd dat zij het slachtoffer laat buigen voor de ordening. Van Steijn schrijft dat aanvaarden geen goedkeuren is, maar zij werkt dat verschil niet ver genoeg uit om dat bezwaar weg te nemen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Teken de fontein van de eigen familie en zet erbij wie waar staat, ook de mensen over wie thuis niet gesproken werd.</li>
+        <li>Schrijf op welke verantwoordelijkheid in het gezin van herkomst is blijven hangen en wie die eigenlijk toekwam.</li>
+        <li>Benoem de drie situaties waarin er steeds weer iets losschiet, en geef elke daarvan een naam die kort genoeg is om te gebruiken op het moment zelf.</li>
+        <li>Noteer per ouder wat er wel is gegeven en wat niet, en lees daarna terug welke van beide lijsten nog een rekening bevat.</li>
+        <li>Vraag bij een aanhoudende ergernis eerst of het gevoel van jou is of dat het van iemand anders in het systeem komt.</li>
+        <li>Neem het boek er niet in één keer door, maar pak een hoofdstuk op het moment dat het misgaat en beantwoord de vragen dan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen bij Uitgeverij Het Noorderlicht, onder De Vrije Uitgevers, eerste druk 25 juni 2025 (softcover, 17 bij 24 cm, 336 blz., ISBN 9789077290262; e-boek ISBN 9789077290286). Het is het vierde deel in de reeks die begon met <i>De fontein, vind je plek</i> (2016) en waartoe ook <i>De fontein, maak wijze keuzes</i> en <i>De fontein, vier je leven</i> behoren. Er is op dit moment geen vertaling van dit deel; van het eerste boek bestaat wel een Engelse uitgave, <i>The Fountain, Find Your Place</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Negen jaar na <i>De fontein, vind je plek</i> schreef Els van Steijn een vervolg dat geen nieuwe leer brengt maar hetzelfde materiaal nog een keer aanbiedt, met de vragen erbij. De aanleiding die zij noemt is dat lezers haar boek begrepen en er iets aan hadden, en toch terugvielen zodra het dagelijks leven weer aan hen trok.</p><p>Het beeld blijft dezelfde fontein: schalen boven elkaar, van de voorouders tot de kleinkinderen, met water dat van boven naar beneden stroomt. Wie in zijn eigen schaal staat, ontvangt en geeft door. Wie hoger is gaan staan, meestal als kind en meestal met goede bedoelingen, moet zelf leveren wat hij niet ontvangt.</p><p>Dit deel is opgezet als oefenboek. Korte stukken uitleg wisselen af met vragen om op jezelf toe te passen, en Van Steijn vertelt daarbij over haar eigen misstappen. De kern gaat over behoeftigheid, over de drie of vier terugkerende gevoeligheden waar iemand telkens weer intrapt, en over het aanvaarden van beide ouders met alles wat zij waren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>systemisch werk</li><li>familieopstellingen</li><li>familiesysteem</li><li>reflectievragen</li><li>behoeftigheid</li><li>ouders</li><li>Els van Steijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1510"><a href="1510.html">De fontein, vind je plek</a>. Het eerste deel bevat de theorie die hier als bekend wordt verondersteld; wie met de reeks begint, begint daar.</li>
+          <li value="1637"><a href="1637.html">De fontein, maak wijze keuzes</a>. Het derde deel past hetzelfde model toe op besluiten, waar dit deel zich op terugval richt.</li>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff bewerkt hetzelfde terrein van zelfverwijt en mildheid, maar met een model dat wel op vergelijkend onderzoek rust.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

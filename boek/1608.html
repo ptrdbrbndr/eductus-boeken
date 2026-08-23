@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De lessen van Don Juan &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Castaneda stelt dat zijn leerlingschap bij don Juan geen verzameling curiosa oplevert maar een geordend kennissysteem, en dat dat systeem pas zichtbaar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1608">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1608 &middot; Filosofie en mystiek</p>
+    <h1>De lessen van Don Juan</h1>
+    <p class="lede">Carlos Castaneda, 1968</p>
+    <p class="stats">
+      <span><b>1870</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1608"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Castaneda stelt dat zijn leerlingschap bij don Juan geen verzameling curiosa oplevert maar een geordend kennissysteem, en dat dat systeem pas zichtbaar wordt wanneer de onderzoeker de ervaringen onder invloed van peyote, doornappel en paddenstoelen behandelt als waarnemingen van een tweede werkelijkheid in plaats van als vergissingen. In zijn eigen analyse rust die tweede werkelijkheid niet op de plant maar op de leraar: die bevestigt achteraf wat de leerling meende te zien, en pas door die bevestiging wordt de ervaring kennis. Daarmee legt het boek zijn eigen weerlegging klaar. Wie de leraar wegdenkt, houdt niets over dat een derde kan toetsen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee delen die elkaar in de weg zitten</h3>
+      <p>Het boek valt uiteen in twee stukken. Deel een, The Teachings, bestaat uit elf hoofdstukken gedateerde notities over de jaren 1961 tot 1965, geschreven in de ik-vorm en met lange stukken dialoog. Deel twee, A Structural Analysis, is een betoog dat de innerlijke samenhang en de bindende kracht van don Juans onderricht wil aantonen, in de woorden van de auteur zelf.</p>
+      <p>De twee delen zijn in toon onverenigbaar. Het eerste leest als reisverslag met woordelijk weergegeven gesprekken; het tweede is opgesteld in het jargon van de sociale wetenschap van de jaren zestig, met genummerde eenheden en subeenheden. Castaneda schreef dat tweede deel omdat het geheel als scriptie moest dienen. In de uitgave van 1998 schrijft hij dat zijn docenten hem het project afraadden en dankt hij Clement Meighan voor de goedkeuring.</p>
+      <h3>De eerste maanden</h3>
+      <p>De notities beginnen met de ontmoeting op het busstation. Don Juan blijkt bereid over planten te praten, maar niet op de manier die Castaneda wil. In plaats van namen en toepassingen krijgt hij de opdracht op de veranda zijn eigen plek te zoeken: een sitio waar hij zonder vermoeidheid kan zitten, tegenover een vijandige plek die hem verzwakt. Hij brengt daar een hele nacht mee door, rollend en kruipend over de vloer.</p>
+      <p>Die scene zet de vorm van het hele boek. De leerling stelt vragen die op informatie zijn gericht, de leraar weigert te antwoorden en geeft in plaats daarvan een opdracht waarvan het nut pas achteraf wordt uitgelegd. Castaneda noteert daarbij steeds zijn eigen ergernis en ongeloof, en juist dat geeft het verslag de kleur van eerlijke verslaglegging.</p>
+      <h3>De drie planten</h3>
+      <p>Drie planten dragen het middendeel. De peyote herbergt Mescalito, die door don Juan geen bondgenoot wordt genoemd maar een beschermer en leraar met een eigen oordeel over wie hem mag zien. Castaneda beschrijft een ontmoeting waarin hij met een hond speelt en meent dat hij en het dier in elkaar overgaan.</p>
+      <p>De doornappel, in het Spaans yerba del diablo, geldt als een bondgenoot met een eigen aard: bezitterig, gewelddadig en gericht op macht. De omgang ermee gaat gepaard met een wortel die als mannelijk of vrouwelijk wordt aangemerkt en met hagedissen die aan oog en bek worden dichtgenaaid en die daarna over gebeurtenissen elders zouden vertellen. De derde plant is humito, een gerookt poeder met onder meer Psilocybe mexicana, waarna Castaneda meent in een kraai te veranderen en te vliegen.</p>
+      <p>Don Juan waarschuwt telkens dat elke plant een prijs heeft en dat wie de regel niet volgt eraan sterft. Dat is in dit geval geen beeldspraak: doornappel is werkelijk giftig, en de doses die in het boek worden beschreven liggen dicht bij wat een vergiftiging oplevert.</p>
+      <h3>De vier natuurlijke vijanden</h3>
+      <p>Het bekendste stuk staat in een gesprek uit 1961. Wie kennis nastreeft ontmoet vier vijanden, en pas wie ze alle vier verslaat mag zich een man van kennis noemen. De eerste is angst, die de leerling doet weglopen en die volgens don Juan bij elke bocht van de weg blijft loeren. De tweede is helderheid: het gevoel dat men het begrepen heeft, dat tot overhaasting leidt.</p>
+      <p>De derde is macht. Wie de helderheid overwint krijgt macht en gaat daarmee spelen tot hij een wrede man wordt die zijn eigen wil voor de wet houdt. De vierde is ouderdom, die niet te verslaan valt maar alleen af te weren; wie het volhoudt is een man van kennis voor een kort ogenblik. Don Juan voegt eraan toe dat de afloop van dat gevecht niet te voorspellen is en dat de meesten bezwijken.</p>
+      <h3>De structurele analyse</h3>
+      <p>In deel twee brengt Castaneda het geheel terug tot vier hoofdeenheden die elkaar opvolgen: er is een man van kennis; een man van kennis heeft een bondgenoot; een bondgenoot heeft een regel; en die regel wordt bevestigd door bijzondere consensus. Elke eenheid valt uiteen in themas en die weer in deelbegrippen. Onder de eerste eenheid staan zeven themas, waaronder onbuigzame bedoeling, helderheid van geest, zware arbeid en het leven als krijger.</p>
+      <p>De vierde eenheid draagt de rest. Wat iemand in de niet-alledaagse werkelijkheid waarneemt is per definitie eenzaam en eigenaardig, schrijft Castaneda, en zou zonder instemming van een ander alleen inbeelding zijn. De leraar levert die instemming, stelselmatig en met inzet van zijn hele kennis. Castaneda tekent er zelf bij aan dat alle betekenissen zijn weergegeven zoals hij ze begreep en dat zijn ordening onvermijdelijk de zijne is.</p>
+      <h3>Wat er na 1968 gebeurde</h3>
+      <p>Het boek werd een bestseller; met de vervolgdelen zijn in de Verenigde Staten meer dan tien miljoen exemplaren verkocht. In 1973 promoveerde Castaneda aan UCLA op materiaal dat grotendeels samenvalt met het derde deel, <i>Journey to Ixtlan</i>. Daarna trok hij zich terug uit de openbaarheid en gaf hij vrijwel geen interviews meer.</p>
+      <p>Vanaf 1976 publiceerde psycholoog Richard de Mille twee boeken, <i>Castaneda's Journey</i> en <i>The Don Juan Papers</i>, waarin hij tegenstrijdigheden in de data van de veldnotities naast elkaar zette, wees op het ontbreken van Yaqui-woorden en op passages die parallel liepen met bestaande literatuur over sjamanisme. Castaneda reageerde niet en spande geen proces aan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Man van kennis</td><td>Iemand die de ontberingen van het leren zonder haast en zonder aarzelen heeft doorstaan en zijn vier natuurlijke vijanden heeft verslagen.</td></tr>
+          <tr><td class="term">Bondgenoot</td><td>Een macht die iemand voorbij de grenzen van zichzelf kan brengen; in don Juans onderricht huist die macht in de doornappel en in het rookmengsel, en niet in de peyote.</td></tr>
+          <tr><td class="term">Mescalito</td><td>De gestalte die volgens don Juan in elke peyoteplant woont en die geen bondgenoot is maar een beschermer die zelf uitmaakt aan wie hij zich vertoont.</td></tr>
+          <tr><td class="term">De regel</td><td>Het onbuigzame voorschrift dat bij een bondgenoot hoort, mondeling van leraar op leerling overgedragen en volgens don Juan niet aan te vullen of te verbeteren.</td></tr>
+          <tr><td class="term">Bijzondere consensus</td><td>De stilzwijgende instemming die de leraar de leerling geeft over wat die in de niet-alledaagse werkelijkheid heeft waargenomen, en waardoor die waarneming pas geldt.</td></tr>
+          <tr><td class="term">Niet-alledaagse werkelijkheid</td><td>De toestand waarin de waarneming volgens don Juan even echt is als de gewone, maar die iemand altijd in zijn eentje doormaakt.</td></tr>
+          <tr><td class="term">Sitio</td><td>De plek waar iemand kracht wint, tegenover de vijandige plek die hem verzwakt; de eerste opdracht die de leerling krijgt.</td></tr>
+          <tr><td class="term">Onbuigzame bedoeling</td><td>De wil om zich te allen tijde binnen de grenzen van het onderricht te houden, door Castaneda aangewezen als de enige verborgen toelatingseis voor een leerling.</td></tr>
+          <tr><td class="term">Escogido</td><td>De uitverkorene: degene die door een onpersoonlijke macht is aangewezen om te leren, aan te wijzen aan een bijzondere gebeurtenis of een voorteken.</td></tr>
+          <tr><td class="term">Diablero</td><td>Een zwarte tovenaar die van gedaante kan veranderen; don Juan zegt dat zijn eigen leraar er een was en dat hij het zelf ook is geweest.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Waar het boek op rust is de eerste persoon. Castaneda geeft data, plaatsen, doseringen, gesprekken en zijn eigen weerstand, en dat register is de reden dat lezers het jarenlang voor verslaglegging hielden. Twee antropologen van UCLA stonden erachter: Clement Meighan moedigde het project aan en Walter Goldschmidt schreef het voorwoord waarin hij de tekst tegelijk als etnografie en als allegorie aanprees.</p>
+      <p>Wat er niet is, weegt zwaarder. Er is geen tweede getuige van don Juans bestaan, geen foto en geen opname. De oorspronkelijke veldnotities zijn nooit aan onderzoekers voorgelegd. Uit de gedateerde notities zelf zijn tegenstrijdigheden af te leiden, en dat is precies wat Richard de Mille deed door de tijdlijn van de verschillende boeken naast elkaar te leggen.</p>
+      <p>Ook de inhoud sluit slecht aan. Don Juan heet een Yaqui, maar de beschreven praktijk komt niet overeen met wat over Yaqui-religie bekend is, er staat nauwelijks een Yaqui-woord in de tekst en de plantnamen zijn Spaans. De structurele analyse voegt op dit punt niets toe: zij ordent uitsluitend het materiaal dat de auteur zelf heeft aangeleverd en is aan geen enkele externe bron te toetsen. De universitaire pers heeft het boek nooit herzien of van een waarschuwing voorzien; het staat nog altijd als antropologie in de catalogus.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is niet dat het boek fictie zou zijn, maar dat het als wetenschap werd uitgebracht en nooit is teruggenomen. Een universitaire pers gaf het uit als antropologie, een universiteit verleende er mede een graad voor, en beide besluiten staan. Wie het als roman leest verliest niets. Wie het als bron over Yaqui-cultuur gebruikt, verspreidt beweringen over een bestaand volk dat er niets over te zeggen heeft gehad.</p>
+      <p>Een tweede bezwaar gaat over de gevolgen. Het boek verscheen in 1968 en werd door veel lezers opgevat als aansporing om zelf met peyote en doornappel te werken. Doornappel is een gevaarlijk middel dat waanbeelden en hartritmestoornissen veroorzaakt; de scenes waarin de plant wordt bereid en ingenomen zijn gedetailleerd genoeg om na te doen, en de waarschuwingen staan in de mond van een verteller wiens taak in het verhaal juist het verleiden is.</p>
+      <p>Verdedigers voeren aan dat de vraag naar letterlijke waarheid er niet toe doet, omdat het boek een geldige beschrijving van een geestesgesteldheid zou geven. Dat argument houdt stand voor de literaire waarde en niet voor de wetenschappelijke pretentie, die het boek zelf in deel twee opvoert en die het aan zijn plaats in de leeslijsten heeft te danken.</p>
+      <p>Castaneda's latere leven verzwakt de zaak verder. Vanaf de jaren negentig bouwde hij een organisatie rond bewegingsoefeningen die hij Tensegrity noemde, met een kleine kring vrouwelijke volgelingen. Kort na zijn dood in 1998 verdwenen enkele van die vrouwen; in Death Valley werden later resten gevonden die aan een van hen zijn toegeschreven. Dat maakt het werk niet ongeldig, maar het hoort bij de vraag wat een leer waard is die alleen door de leraar zelf bevestigd kan worden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel een als verhaal en deel twee als bewijsstuk: de tweede helft laat zien welke ordening de auteur zelf op zijn materiaal legde.</li>
+        <li>Ga bij elke bron die zich op veldwerk beroept na of de notities zelf voor anderen toegankelijk zijn.</li>
+        <li>Neem de reeks angst, helderheid, macht en ouderdom desgewenst als beschrijving van een leerweg, zonder er een antropologische vondst in te zien.</li>
+        <li>Volg geen enkele plantbereiding uit dit boek na; de beschreven doses doornappel liggen dicht bij een vergiftiging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Teachings of Don Juan: A Yaqui Way of Knowledge</i> (University of California Press, Berkeley, 1968, 196 blz.), ingediend als scriptie antropologie aan UCLA. In 1998 verscheen een uitgave voor het dertigjarig bestaan met een nieuwe inleiding van Castaneda en een voorwoord van antropoloog Walter Goldschmidt; in 2008 volgde een veertigjarige uitgave. De Nederlandse vertaling verscheen als <i>De lessen van Don Juan</i> bij De Bezige Bij, Amsterdam, vanaf 1972 (latere druk ISBN 9789023411109); in 2017 kwam een nieuwe uitgave bij De Vrije Uitgevers onder het imprint juwelenschip, in de vertaling van P.J. Lukaz (ISBN 9789076681351). De vervolgdelen <i>A Separate Reality</i> en <i>Journey to Ixtlan</i> zijn eveneens in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In 1960 verzamelt Carlos Castaneda, dan student antropologie aan UCLA, gegevens over medicinale planten in het zuidwesten van de Verenigde Staten. Op een busstation in Arizona wordt hij voorgesteld aan een oude man uit Sonora die hij don Juan Matus noemt en die hij als Yaqui aanduidt. Wat als een reeks vraaggesprekken begint, loopt uit op een leerlingschap van vijf jaar.</p><p>Het eerste deel van het boek bestaat uit gedateerde veldnotities over die jaren: het zoeken naar de eigen plek op de veranda, de ontmoetingen met Mescalito in de peyote, het waarzeggen met hagedissen na gebruik van doornappel, en het gevoel te vliegen of in een kraai te veranderen na het roken van een poeder met paddenstoelen. Het tweede deel, A Structural Analysis, brengt die notities terug tot vier begrippen die don Juans onderricht bij elkaar zouden houden.</p><p>Het boek werd in 1968 door een universitaire pers uitgebracht als antropologie, verkocht met zijn vervolgdelen miljoenen exemplaren en leverde Castaneda in 1973 een doctoraat op. Sinds het speurwerk van Richard de Mille in de jaren zeventig geldt het bij vakgenoten grotendeels als verzonnen. Don Juan is nooit door een tweede getuige gezien, de veldnotities zijn nooit ter inzage gegeven en de beschreven praktijk komt niet overeen met wat over Yaqui-religie bekend is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>antropologie</li><li>sjamanisme</li><li>peyote</li><li>Yaqui</li><li>psychedelica</li><li>leerling en meester</li><li>authenticiteitsdebat</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="758"><a href="758.html">Shamanic Voices</a>. Joan Halifax verzamelde in <i>Shamanic Voices</i> verslagen van sjamanen uit hun eigen mond, met naam en herkomst, en dat laat zien hoe dit soort materiaal eruitziet als de bron wel te controleren is.</li>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan beschrijft in <i>How to Change Your Mind</i> eigen ervaringen met verwante stoffen, maar zet ze naast onderzoek dat door anderen te herhalen is.</li>
+          <li value="608"><a href="608.html">Het gewijde en het profane</a>. Eliade levert het begrippenkader over gewijde plaats en inwijding waaruit de sjamanismeliteratuur van die jaren putte, en waaruit De Mille meende dat Castaneda leende.</li>
+          <li value="27"><a href="27.html">The Four Agreements</a>. Don Miguel Ruiz bouwt zijn Tolteekse leer op een even ontoetsbare herkomst en bereikte later dezelfde lezers.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

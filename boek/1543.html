@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regisseer jouw eigen leven &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Somers stelt dat mensen hun leven ondergaan zolang zij middenin hun eigen verhaal staan, en dat zij het kunnen sturen zodra zij ernaar leren kijken van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1543">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1543 &middot; Levenskunst</p>
+    <h1>Regisseer jouw eigen leven</h1>
+    <p class="lede">Milan Somers, 2019; met redactie van Heika Bouwman</p>
+    <p class="stats">
+      <span><b>1709</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1543"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Somers stelt dat mensen hun leven ondergaan zolang zij middenin hun eigen verhaal staan, en dat zij het kunnen sturen zodra zij ernaar leren kijken van een afstand. Die afstand noemt hij de overzichtspositie. Vanuit dat punt zijn de gewoontes, angsten en overtuigingen die iemand tegenhouden zichtbaar als patronen, en patronen zijn volgens hem aan te passen met oefeningen die op het onderbewuste werken. De belofte is daarmee groot en helder: wie de techniek toepast, bepaalt zelf hoe hij zich voelt. De vraag die het boek oproept is of dat vermogen zo ruim is als hier wordt aangenomen, en of het aangedragen gereedschap doet wat ervan wordt beweerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De overzichtspositie</h3>
+      <p>Het eerste hoofdstuk voert het beeld in dat het hele boek draagt. Ieder mens heeft een kaart van de werkelijkheid, gevormd door opvoeding, ervaring en taal, en verwart die kaart met de werkelijkheid zelf. Somers leent hier het onderscheid dat in het neurolinguistisch programmeren met de zin dat de kaart niet het gebied is wordt aangeduid.</p>
+      <p>Daarna komt de filmregisseur. Een regisseur staat naast de scene, ziet de acteurs, kiest het standpunt en kan de opname overdoen. Wie zijn leven zo bekijkt, ziet volgens Somers keuzeruimte waar hij eerst noodlot zag. De bijbehorende oefening laat de lezer zijn levenspad als een lijn voor zich zien en er van een afstand langs lopen.</p>
+      <h3>Acceptatie en het brein</h3>
+      <p>Het tweede hoofdstuk stelt dat er niets te sturen valt zolang iemand vecht tegen wat er is. Acceptatie is bij Somers geen berusting maar het erkennen van de huidige stand van zaken als vertrekpunt.</p>
+      <p>Ter onderbouwing beschrijft hij het brein in drie lagen: het reptielenbrein voor overleving, het emotionele brein voor gevoel en geheugen, en de neocortex voor denken en plannen. Daaruit leidt hij af dat oudere lagen sneller reageren dan het bewuste denken en dat het onderbewuste daardoor het meeste werk doet. Een oefening laat de lezer merken hoe traag de neocortex is, een tweede oefening vraagt naar terugkerende reacties waarvan de herkomst niet bekend is.</p>
+      <h3>Doelen stellen</h3>
+      <p>Hoofdstuk drie geeft vijf voorwaarden waaraan een doel moet voldoen: het is positief geformuleerd, het is aan een context gebonden, het is zintuiglijk beschreven zodat vast te stellen is wanneer het bereikt is, het ligt binnen de eigen invloed, en het doorstaat een toets op ecologie, wat hier betekent dat de gevolgen voor de omgeving en voor het eigen leven aanvaardbaar zijn.</p>
+      <p>Daarna komt het begrip holon, ontleend aan Arthur Koestler: iets dat tegelijk een geheel is en een deel van een groter geheel. Somers gebruikt het om te betogen dat een doel altijd binnen een groter doel hoort te passen. De afsluitende oefening laat de lezer een uitgewerkte beschrijving van zijn gewenste toekomst maken.</p>
+      <h3>Patronen en blokkades</h3>
+      <p>Hoofdstuk vier gaat over wat er tussen doel en gedrag in staat. Somers gebruikt het woord harmers voor de blokkades die iemand van zijn doel afhouden: angst voor afwijzing, angst voor mislukking, oude oordelen over zichzelf.</p>
+      <p>Zijn stelling is dat een patroon zijn kracht verliest zodra het volledig doorzien is, dus als iemand weet waar het vandaan komt, wat het oplevert en wanneer het opkomt. Het hoofdstuk bestaat vooral uit vragen die de lezer daarvoor moet beantwoorden, met voorbeelden uit zijn eigen praktijk als coach.</p>
+      <h3>De zes logische niveaus</h3>
+      <p>Hoofdstuk vijf werkt met het model van de logische niveaus, in het neurolinguistisch programmeren afkomstig van Robert Dilts: omgeving, gedrag, vaardigheden, overtuigingen, identiteit en missie. Elk niveau krijgt een uitleg en een eigen oefening.</p>
+      <p>De gedachte is dat een probleem zelden op te lossen valt op het niveau waarop het zich voordoet. Wie steeds te laat komt, kan zijn agenda aanpassen, maar als de oorzaak op het niveau van overtuigingen of identiteit ligt, keert het gedrag terug. Somers gebruikt de reeks als diagnostisch hulpmiddel: hij laat de lezer per niveau nagaan wat daar over hemzelf te zeggen valt. Hoofdstuk zes vat de eerste vijf hoofdstukken samen.</p>
+      <h3>Gereedschap en technieken</h3>
+      <p>Het zevende hoofdstuk geeft de praktische middelen. Hulpbronnen zijn eerdere ervaringen waarin de lezer wel over de gewenste eigenschap beschikte en die opnieuw opgeroepen kunnen worden. De coachstate is de gemoedstoestand waarin iemand rustig en waarnemend is en waarin hij het beste met zichzelf kan werken.</p>
+      <p>Ankeren is het koppelen van een gebaar of aanraking aan een opgeroepen gemoedstoestand, zodat het gebaar die toestand later terughaalt; dat is klassieke conditionering onder een andere naam. De hartademhaling is een langzame ademhaling in een vast ritme met aandacht op het hart. Submodaliteiten zijn de eigenschappen van een innerlijk beeld, zoals grootte, helderheid en afstand, die de lezer volgens Somers kan wijzigen om de gevoelswaarde van een herinnering te veranderen. Het slothoofdstuk en drie bijlagen bevatten een begrippenlijst, een checklist voor submodaliteiten en een literatuurlijst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Overzichtspositie</td><td>Het standpunt van waaruit iemand zijn eigen leven bekijkt zoals een regisseur naar zijn film kijkt, in plaats van er middenin te staan.</td></tr>
+          <tr><td class="term">De kaart is niet het gebied</td><td>Het uitgangspunt dat ieder mens een eigen voorstelling van de werkelijkheid heeft die met die werkelijkheid wordt verward.</td></tr>
+          <tr><td class="term">Harmers</td><td>Somers' term voor de blokkades, meestal angsten en oude oordelen, die iemand van zijn doel afhouden.</td></tr>
+          <tr><td class="term">De vijf voorwaarden</td><td>De eisen aan een goed geformuleerd doel: positief, in context, zintuiglijk specifiek, binnen eigen invloed en ecologisch verantwoord.</td></tr>
+          <tr><td class="term">Holon</td><td>Een geheel dat tegelijk deel is van een groter geheel, gebruikt om doelen in elkaar te laten passen.</td></tr>
+          <tr><td class="term">Logische niveaus</td><td>De reeks omgeving, gedrag, vaardigheden, overtuigingen, identiteit en missie, waarmee wordt bepaald op welke hoogte een probleem speelt.</td></tr>
+          <tr><td class="term">Hulpbronnen</td><td>Eerdere ervaringen waarin de gewenste eigenschap wel aanwezig was en die opnieuw opgeroepen worden.</td></tr>
+          <tr><td class="term">Coachstate</td><td>De rustige, waarnemende gemoedstoestand die voorwaarde is voor het werken met de oefeningen.</td></tr>
+          <tr><td class="term">Ankeren</td><td>Het koppelen van een gebaar of aanraking aan een opgeroepen gevoel, zodat dat gevoel later met het gebaar terugkomt.</td></tr>
+          <tr><td class="term">Submodaliteiten</td><td>De eigenschappen van een innerlijke voorstelling, zoals grootte, kleur, helderheid en afstand, die volgens het boek te wijzigen zijn.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Wat er staat rust op de ervaring van de auteur, op zijn eigen levensloop en op wat hij in zijn trainingen bij deelnemers ziet. De literatuurlijst achterin verwijst naar boeken en websites, niet naar studies waarmee de aannames zijn getoetst.</p>
+      <p>De herkomst van het gereedschap is wel aanwijsbaar. Vrijwel alles komt uit het neurolinguistisch programmeren, dat in de jaren zeventig door Richard Bandler en John Grinder werd opgezet: de kaart en het gebied, de voorwaarden voor een welgevormd doel, ankeren, submodaliteiten en de logische niveaus van Robert Dilts. Dat is een verzameling technieken zonder ondersteunende theorie; overzichtsstudies naar de kernbeweringen van het neurolinguistisch programmeren, zoals het bestaan van een voorkeurszintuig dat aan oogbewegingen af te lezen valt, vonden geen steun. Somers vermeldt die staat van zaken niet.</p>
+      <p>Twee onderdelen staan er beter voor. Het stellen van zintuiglijk specifieke doelen binnen de eigen invloed komt overeen met wat de doelstellingstheorie van Edwin Locke en Gary Latham over concrete en uitdagende doelen heeft vastgesteld, en dat is met veel onderzoek onderbouwd. Ankeren is een vorm van klassieke conditionering, een goed beschreven verschijnsel, al is de vraag of een eenmalige koppeling in een oefening de duurzaamheid heeft die het boek suggereert.</p>
+      <p>Het driedelige brein is achterhaald. Het model van Paul MacLean, waarin een reptielenlaag, een emotionele laag en een denklaag op elkaar zouden zijn gestapeld, wordt in de vergelijkende neuroanatomie al decennia verworpen; de betrokken structuren zijn niet in die volgorde ontstaan en werken niet als afzonderlijke lagen. Als beeldspraak om te zeggen dat veel reacties sneller gaan dan het bewuste denken is het bruikbaar; als uitleg over het brein klopt het niet, en Somers presenteert het als het laatste.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar zit in de openingszin van het boek. De bewering dat de lezer zelf bepaalt hoe hij zich voelt en wat hij van zijn leven maakt, laat geen ruimte voor omstandigheden die buiten hem liggen: armoede, ziekte, rouw, discriminatie, een depressie. In de gunstige uitleg gaat het over de reactie op wat er gebeurt en niet over wat er gebeurt, maar dat onderscheid wordt niet gemaakt. Wie de oefeningen doet en zich niet beter voelt, houdt binnen dit kader alleen de verklaring over dat hij het niet goed heeft gedaan.</p>
+      <p>Ten tweede is de vorm van bewijsvoering die het boek hanteert, het eigen verhaal en dat van deelnemers, ongeschikt voor de vraag of de methode werkt. Mensen die een training kopen en afmaken zijn een uitgelezen groep, en verbetering zonder vergelijking zegt niets over de oorzaak. Het boek bespreekt geen enkel geval waarin de aanpak niets opleverde.</p>
+      <p>Ten derde ontbreekt de afbakening naar de geestelijke gezondheidszorg. Angst voor afwijzing en mislukking, de voorbeelden die Somers als harmers behandelt, kunnen ook verschijnselen zijn van een angststoornis of een depressie, waarvoor behandelingen bestaan waarvan het effect wel is onderzocht. Nergens staat wanneer een lezer beter naar een huisarts of psycholoog kan gaan.</p>
+      <p>Wat het boek wel is: een leesbare, geordende weergave van een trainingsprogramma, met oefeningen die concreet genoeg zijn om te doen en met een auteur die zijn eigen aarzelingen laat zien in plaats van zich als voorbeeld op te stellen. Dat maakt het bruikbaar als werkboek naast een training. Als zelfstandige uitleg over hoe de mens in elkaar zit is het te snel klaar met vragen waar de wetenschap dat niet is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets een doel dat al langer op de lijst staat aan de vijf voorwaarden en schrijf op welke voorwaarde het niet haalt.</li>
+        <li>Loop bij een terugkerend probleem de zes niveaus af, van omgeving tot missie, en stel vast op welk niveau de verandering moet plaatsvinden.</li>
+        <li>Noteer een week lang wanneer een vermijdingsreactie opkomt, en bij welke situatie precies, voordat er iets aan wordt veranderd.</li>
+        <li>Lees het hoofdstuk over het brein als beeldspraak en zoek de neurowetenschap zelf op wanneer de uitleg als feit wordt gebruikt.</li>
+        <li>Zoek professionele hulp wanneer de angst het dagelijks functioneren aantast; de oefeningen in dit boek zijn geen behandeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>De weg naar een waardevol en gelukkig bestaan</i>. Uitgegeven in eigen beheer via Response Instituut te Roermond, onder het label ClusterEffect, juni 2019, gebonden, 201 blz., ISBN 9789090317311; met literatuurlijst en drie bijlagen. Er is een e-boek (ISBN 9789090323510) en een luisterboek. Het boek is in het Nederlands geschreven en niet vertaald. Somers, geboren in 1977, is oprichter van het Response Instituut en trainer en coach; hij schreef daarna <i>De zelfhypnose revolutie</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Milan Somers zet in dit boek een cursus persoonlijke ontwikkeling op papier zoals hij die in zijn Response Instituut geeft. Het uitgangspunt staat op de achterflap: de lezer is de regisseur van zijn eigen levensverhaal en bepaalt zelf hoe hij zich voelt en wat hij van zijn leven maakt.</p><p>De opbouw volgt acht hoofdstukken. Eerst de overzichtspositie, het vermogen om naar het eigen leven te kijken zoals een regisseur naar zijn film kijkt. Daarna acceptatie, met een uitleg over het brein in drie lagen en over het onderbewuste, gevolgd door het stellen van doelen aan de hand van vijf voorwaarden. Vervolgens patronen en blokkades, uitgewerkt met de zes logische niveaus van omgeving tot missie, en tot slot een gereedschapskist met ankeren, hartademhaling en submodaliteiten.</p><p>Bijna elke paragraaf eindigt met een oefening. Somers gebruikt daarbij veel voorbeelden uit zijn eigen leven, te beginnen met het negatieve zelfbeeld waar hij als jongeman door werd geremd. Het vocabulaire komt grotendeels uit het neurolinguistisch programmeren, zonder dat het boek die herkomst als vraagstuk behandelt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>persoonlijke ontwikkeling</li><li>NLP</li><li>logische niveaus</li><li>doelen stellen</li><li>patronen</li><li>zelfbeeld</li><li>oefeningen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1530"><a href="1530.html">De NLP-Coach als inspirator</a>. Dalmeijer en Lenferink beschrijven dezelfde gereedschapskist uit het neurolinguistisch programmeren, maar dan gericht op de coach in plaats van op de lezer zelf.</li>
+          <li value="139"><a href="139.html">Unlimited Power</a>. Tony Robbins bouwde zijn programma op dezelfde technieken en dezelfde belofte van eigen regie; de vergelijking laat zien hoe oud dit genre is.</li>
+          <li value="23"><a href="23.html">Mindset</a>. Carol Dweck onderzocht wel wat overtuigingen over eigen vermogen doen, en haar bevindingen laten ook zien hoeveel kleiner de effecten zijn dan dit soort boeken aanneemt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

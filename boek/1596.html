@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dying to Be Me &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Moorjani stelt dat haar kanker geen willekeurige ziekte was maar de uitkomst van een leven in angst, en dat zij genas op het moment dat die angst wegviel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1596">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1596 &middot; Overleven en getuigen</p>
+    <h1>Dying to Be Me</h1>
+    <p class="lede">Anita Moorjani, 2012</p>
+    <p class="stats">
+      <span><b>1582</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1596"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Moorjani stelt dat haar kanker geen willekeurige ziekte was maar de uitkomst van een leven in angst, en dat zij genas op het moment dat die angst wegviel en zij zichzelf zonder voorbehoud aanvaardde. Zij ontleent dat niet aan onderzoek maar aan wat zij tijdens dertig uur coma meende te zien: dat het lichaam volgt wat het bewustzijn doet, en dat ziekte een gevolg is en geen oorzaak. Daarmee legt zij de verhouding tussen geest en lichaam om ten opzichte van wat de geneeskunde erover zegt. Het is een verhaal over een enkel geval dat wordt gepresenteerd als iets dat over iedereen gaat, en juist die stap maakt het boek zowel populair als omstreden.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een kind tussen verwachtingen</h3>
+      <p>Moorjani groeide op in Hongkong, in een gezin met Indiase ouders die haar hindoeistisch opvoedden, terwijl zij naar een Britse school ging en op straat Kantonees hoorde. Zij beschrijft hoe zij daardoor van jongs af aan het gevoel had nergens helemaal bij te horen en overal iemand anders te moeten zijn dan zij was.</p>
+      <p>Het zwaarste conflict betreft het uitgehuwelijkt worden. Van haar werd verwacht dat zij zou trouwen met een man die haar familie uitzocht; zij wilde werken en zelf kiezen. Zij haalde een verloving onderuit en droeg de schaamte daarvan jarenlang mee. Die jeugd is in het boek geen achtergrond maar bewijsmateriaal: hier begint volgens haar de angst die later ziekte werd.</p>
+      <h3>Vier jaar naast de behandeling om</h3>
+      <p>In 2002 werd bij haar het lymfoom van Hodgkin vastgesteld. Zij zag kort daarvoor twee mensen in haar naaste omgeving aan kanker sterven, mede naar haar gevoel aan de behandeling, en durfde de chemotherapie niet aan. In plaats daarvan volgde zij ayurveda, Chinese kruiden, dieten, meditatie en behandelaars in binnen- en buitenland.</p>
+      <p>Zij schrijft die jaren op zoals zij ze doormaakte: als een aaneenschakeling van hoop, terugval en groeiende paniek. Dat zij zichzelf in die periode onder een steeds zwaardere druk zette om de goede houding te hebben, en dat de angst voor de ziekte dus toenam naarmate zij haar met de geest probeerde te bestrijden, is een van de eerlijkste stukken van het boek.</p>
+      <p>Eind januari 2006 was de ziekte in het vierde stadium. Er zaten gezwellen van haar hals tot in haar buik, haar longen liepen vol vocht, haar spieren waren weg en haar organen faalden. De arts zei tegen haar man dat zij niet meer wakker zou worden.</p>
+      <h3>De dertig uur</h3>
+      <p>Het middendeel is de kern van het boek. Moorjani beschrijft hoe zij zich losmaakte van haar lichaam, hoe zij het ziekenhuis niet meer als een ruimte ervoer maar als iets dat zij in zijn geheel overzag, en hoe zij gesprekken buiten de kamer meende te horen. Zij herkende de aanwezigheid van haar overleden vader en van een vriendin die aan kanker was gestorven.</p>
+      <p>Wat zij daar zou hebben begrepen, formuleert zij zonder beelden van hemel of oordeel. Zij zag zichzelf als deel van een geheel waarin niets werd afgekeurd, en zij zag haar ziekte als de uitdrukking van een leven dat zij tegen zichzelf in had geleefd. Haar vader zou haar hebben laten kiezen: verder gaan, of terugkeren met deze kennis. Zij koos het laatste, in de overtuiging dat haar lichaam mee zou bewegen.</p>
+      <h3>Het herstel en de cijfers erbij</h3>
+      <p>Zij ontwaakte uit de coma. In het boek staat dat de gezwellen binnen enkele dagen fors kleiner waren en dat er binnen vijf weken geen kanker meer was aan te tonen; een biopsie van een lymfeklier leverde niets op. Zij kreeg in het ziekenhuis wel behandeling: haar longen werden gedraineerd en zij kreeg chemotherapie toegediend.</p>
+      <p>Over de betekenis daarvan lopen de artsen uiteen. Haar behandelend oncoloog T.K. Chan schreef het herstel toe aan de drainage en aan de chemotherapie, met het argument dat het lymfoom van Hodgkin sterk op behandeling reageert. De Amerikaanse oncoloog Peter Ko, die haar dossier inzag, achtte dat onwaarschijnlijk gezien de toestand van haar organen en opperde dat lichaam of geest de kankercellen op een andere manier tot stilstand had gebracht. Moorjani neemt beide uitspraken in het boek op.</p>
+      <h3>Wat zij eruit afleidt</h3>
+      <p>In het slotdeel verlaat zij het verhaal en formuleert zij een leer. De kern ervan is dat zelfliefde geen houding is die men aanleert maar de natuurlijke toestand waar angst overheen is gelegd, dat ziekte daar een teken van is, en dat wie de angst laat vallen niet meer hoeft te werken aan genezing. Zij verzet zich daarbij tegen het idee dat men zich positief moet dwingen te voelen: dat noemt zij een nieuwe vorm van dezelfde druk.</p>
+      <p>Het boek sluit af met een reeks vragen en antwoorden waarin zij ingaat op wat haar het vaakst wordt gevraagd, onder meer over medische behandeling, over waarom anderen niet herstellen en over wat zij precies bedoelt met keuze. Die vragenlijst laat zien waar het verhaal in de praktijk tegenaan loopt zodra het als voorschrift wordt gelezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bijna-doodervaring</td><td>De ervaring tijdens de coma van 2 februari 2006 waarin zij zich buiten haar lichaam waarnam en die zij als de draaischijf van haar leven beschrijft.</td></tr>
+          <tr><td class="term">Lymfoom van Hodgkin</td><td>De vorm van lymfeklierkanker waarmee zij in 2002 werd gediagnosticeerd en die in 2006 het vierde stadium had bereikt.</td></tr>
+          <tr><td class="term">Angst als oorzaak</td><td>Haar stelling dat de ziekte voortkwam uit een leven waarin zij zich voortdurend naar de verwachtingen van anderen voegde.</td></tr>
+          <tr><td class="term">Grootsheid</td><td>Het woord waarmee zij aanduidt wat zij tijdens de coma over zichzelf meende te zien: een omvang die niet hoeft te worden verdiend.</td></tr>
+          <tr><td class="term">Genezen tegenover behandelen</td><td>Haar onderscheid tussen het opheffen van de oorzaak en het bestrijden van de verschijnselen, waarbij zij het eerste bij het bewustzijn legt.</td></tr>
+          <tr><td class="term">Onvoorwaardelijke liefde</td><td>De toestand waarin zij tijdens de coma zei te verkeren en waarin geen enkel deel van haar leven werd afgekeurd.</td></tr>
+          <tr><td class="term">De keuze om terug te keren</td><td>Het moment waarop zij naar eigen zeggen mocht kiezen tussen doorgaan en teruggaan, met de kennis die zij had opgedaan.</td></tr>
+          <tr><td class="term">Culturele conditionering</td><td>De opgelegde verwachtingen rond huwelijk, plicht en vrouwelijkheid die zij als de voedingsbodem van haar angst aanwijst.</td></tr>
+          <tr><td class="term">Zelfliefde</td><td>Bij haar geen oefening maar het wegvallen van wat het zicht op de eigen toestand blokkeert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op een enkel geval, dat van de schrijfster zelf, aangevuld met haar herinnering aan wat zij in coma meemaakte. Er is geen tweede patient, geen reeks, geen vergelijking. Wat wel bestaat is een medisch dossier, dat gedeeltelijk is ingezien door de oncoloog Peter Ko, en de uitspraken van haar behandelaars in Hongkong.</p>
+      <p>Die uitspraken wijzen twee kanten op. Chan noemt de drainage en de chemotherapie; het lymfoom van Hodgkin is inderdaad een van de vormen van kanker die het sterkst op behandeling reageren, ook in een laat stadium. Ko acht juist die verklaring zwak. Geen van beide is een onderzoek; het zijn beoordelingen achteraf van een enkel dossier, en zij weerspreken elkaar.</p>
+      <p>Spontane teruggang van tumoren is in de literatuur beschreven, maar zeldzaam en niet verklaard. Dat maakt het herstel van Moorjani niet onmogelijk. Het maakt haar verklaring wel tot een van meerdere; zij levert geen gegeven waarmee tussen die verklaringen te kiezen valt. De stap van het loslaten van angst naar het slinken van de gezwellen is in het boek een overtuiging en geen gevolgtrekking.</p>
+      <p>Voor het gedeelte over de bijna-doodervaring zelf geldt iets anders. Dat zij zoiets heeft ervaren is niet in geschil; dergelijke ervaringen zijn goed gedocumenteerd. In geschil is wat zij bewijzen. Moorjani leest ze als waarneming van een werkelijkheid buiten het lichaam; de gangbare uitleg is dat het om verschijnselen van een stervend brein gaat. Het boek gaat op die tegenstelling niet in.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is het spiegelbeeld van de belofte. Wie schrijft dat angst kanker veroorzaakt en dat zelfliefde geneest, zegt daarmee ook iets over de mensen die niet herstellen. Moorjani ontkent die gevolgtrekking, maar haar boek levert de bouwstenen ervoor. Peter Allmark van Sheffield Hallam University noemde deze benadering kwakzalverij; de journalist Vicky Allen wees erop dat kankerpatienten er schade van kunnen ondervinden.</p>
+      <p>Daar komt bij dat het verhaal begint met vier jaar waarin zij een behandelbare ziekte onbehandeld liet, en dat het boek die periode voornamelijk als angst beschrijft en niet als een keuze die haar bijna het leven kostte. Wie het boek als handleiding leest, kan er de aansporing in vinden om hetzelfde te doen.</p>
+      <p>Ook feitelijk is er verzet gekomen. Verpleegkundigen met ervaring op intensive care en in de terminale zorg noemden onderdelen van haar ziekenhuisverslag onwaarschijnlijk, waaronder het voeren van gesprekken terwijl er een beademingsbuis in de luchtpijp zat. Moorjani heeft dat niet weerlegd.</p>
+      <p>Wat het boek verder niet doet, is zijn eigen kernbegrip toetsen. Angst is nergens gemeten of afgebakend; elk leven bevat er genoeg van om achteraf als oorzaak te dienen. Daarmee is de stelling niet te weerleggen, en dat is voor een boek dat een oorzakelijk verband claimt een gebrek en geen bijkomstigheid.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Dying to Be Me: My Journey from Cancer, to Near Death, to True Healing</i>, Hay House, 2012, met een voorwoord van Wayne Dyer, die het manuscript bij de uitgever binnenbracht. Nederlands als <i>Ik moest doodgaan om mezelf te genezen</i>, vertaald door Marja de Bruijn, uitgeverij Mana (Unieboek | Het Spectrum), Houten, 2012, 304 blz., ISBN 9789000314614. Het boek stond binnen twee weken op de bestsellerlijst van de <i>New York Times</i> en is in meer dan veertig talen vertaald. Van Moorjani verschenen daarna onder meer <i>What If This Is Heaven?</i> (2016) en <i>Sensitive Is the New Strong</i> (2021).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Anita Moorjani kreeg in 2002 de diagnose lymfeklierkanker en weigerde vier jaar lang chemotherapie, uit angst voor de behandeling en in de hoop dat andere wegen zouden werken. Begin 2006 was haar lichaam vol tumoren en begonnen haar organen het te begeven. Op 2 februari van dat jaar raakte zij in coma.</p><p>Wat zij in die dertig uur meemaakte vormt het midden van het boek: een toestand buiten haar lichaam waarin zij naar eigen zeggen gesprekken in de gang volgde, haar overleden vader terugzag en begreep dat zij mocht kiezen of zij terugkwam. Zij kwam terug. Haar tumoren zouden binnen enkele dagen sterk zijn geslonken; binnen enkele weken vond men geen kanker meer.</p><p>Het derde deel is geen verslag meer maar een leer. Moorjani schrijft dat angst en het ontbreken van zelfliefde haar ziek maakten, en dat het loslaten daarvan haar heeft genezen. Haar behandelend arts wees op het draineren van haar longen en op de chemotherapie die zij in het ziekenhuis wel degelijk kreeg. Dat verschil van uitleg loopt door de hele nasleep van het boek heen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bijna-doodervaring</li><li>kanker</li><li>lymfeklierkanker</li><li>memoir</li><li>angst</li><li>zelfaanvaarding</li><li>Hongkong</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="49"><a href="49.html">When Breath Becomes Air</a>. Kalanithi schrijft eveneens vanuit een dodelijke diagnose, maar houdt vast aan wat de geneeskunde wel en niet kan zeggen; het contrast met de uitleg van Moorjani is het scherpst als beide boeken achter elkaar worden gelezen.</li>
+          <li value="208"><a href="208.html">Breaking the Habit of Being Yourself</a>. Dispenza bouwt uit dezelfde overtuiging een methode, en loopt tegen hetzelfde probleem aan: veel toelichting over hersenen, weinig onderzoek dat het verband draagt.</li>
+          <li value="380"><a href="380.html">The Power Is Within You</a>. Louise Hay legde de gedachte dat ziekte uit gedachten voortkomt decennia eerder vast; Hay House gaf dit boek uit, wat de lijn tussen beide zichtbaar maakt.</li>
+          <li value="419"><a href="419.html">p53: The Gene that Cracked the Cancer Code</a>. Armstrong beschrijft hoe kanker op celniveau ontstaat en waarom terugval en herstel zo lastig te verklaren zijn; dat is de stand van zaken waartegen de verklaring van Moorjani afsteekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

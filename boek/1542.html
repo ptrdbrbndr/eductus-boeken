@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De rode tent &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Diamant neemt een bijbelverhaal waarin een vrouw wordt aangedaan en waarin haar broers vervolgens hun eer wreken, en vertelt het opnieuw vanuit de vrouw…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1542">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1542 &middot; Roman en memoir</p>
+    <h1>De rode tent</h1>
+    <p class="lede">Anita Diamant, 1997; vert. Ellen Segeren en Els Kroon</p>
+    <p class="stats">
+      <span><b>1450</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1542"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Diamant neemt een bijbelverhaal waarin een vrouw wordt aangedaan en waarin haar broers vervolgens hun eer wreken, en vertelt het opnieuw vanuit de vrouw zelf. De ingreep is niet alleen dat Dina een stem krijgt, maar dat de roman de bijbelse gebeurtenis omzet: wat in Genesis een schending heet, is hier een wederzijdse liefde, en de moordpartij van Simeon en Levi wordt daarmee van vergelding tot misdaad. Daaromheen bouwt Diamant een vrouwenwereld met eigen kennis, eigen riten en eigen overdracht, waar de mannen van het verhaal geen weet van hebben. De stelling van het boek is dat wat de overlevering heeft doorgegeven de helft van het verhaal is, en dat de weggelaten helft niet minder werkelijk was.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Proloog: Dina spreekt</h3>
+      <p>De roman opent met Dina die zich rechtstreeks tot de lezer richt. Zij stelt vast dat haar naam bewaard is gebleven maar haar verhaal niet, en dat wat er over haar verteld is door anderen is opgeschreven. Zij zegt dankbaar te zijn dat iemand nu wil horen wat zij zelf te vertellen heeft.</p>
+      <p>Die proloog legt vast wat het boek daarna doet en waarom. Hij plaatst de tekst nadrukkelijk tegenover de bijbelse versie zonder die te ontkennen, en hij verklaart de vertelvorm: een herinnering die van moeders op dochters ging en die volgens Dina met haar had kunnen verdwijnen.</p>
+      <h3>De verhalen van mijn moeders</h3>
+      <p>Het eerste deel gaat over de generatie voor Dina. Jakob komt aan bij Laban, wordt verliefd op Rachel, werkt zeven jaar en krijgt Lea. Diamant vult die bekende gang aan met de blik van de zusters: Lea met haar opvallende ogen die het huishouden draagt, Rachel die laat vruchtbaar wordt en aan vroedvrouwenwerk begint, en de slavinnen Zilpa en Bilha die bij Diamant volwaardige moeders van Dina zijn.</p>
+      <p>Hier komt ook de rode tent binnen. Bij de nieuwe maan trekken de vrouwen zich drie dagen terug, waar zij op stro liggen, verhalen vertellen, elkaar verzorgen en offers brengen aan hun eigen godinnen. Dina wordt er als kind toegelaten. Diamant gebruikt Rachels teraphim, de huisgoden die zij bij het vertrek van Laban meeneemt, om te laten zien dat de godsdienst van deze vrouwen naast die van Jakob bestond.</p>
+      <h3>Mijn verhaal: opgroeien en het vak leren</h3>
+      <p>Het middendeel is het langst en het rustigst. Dina groeit op tussen elf broers, gaat mee naar Kanaan, ontmoet haar grootmoeder Rebekka die bij Mamre als orakel wordt geraadpleegd en die haar niet vriendelijk bejegent. Zij leert bij Rachel het vak van vroedvrouw: hoe je een kind keert, welke kruiden verlichten, wat er te doen is als het misgaat.</p>
+      <p>Diamant besteedt veel bladzijden aan geboortes, aan wat vrouwen elkaar erover vertelden en aan het verschil tussen wat gaat zoals het hoort en wat verkeerd afloopt. Dat vak wordt in het boek de lijn die Dina door alles heen draagt en dat maakt de bevalling tot het terugkerende beeld waarmee de roman kennis, macht en overdracht laat zien.</p>
+      <h3>Sichem en de moord</h3>
+      <p>In Sichem ontmoet Dina de zoon van de koning en zij wordt zijn vrouw. Bij Diamant gaat dat met haar instemming en met genegenheid van beide kanten; de koninklijke familie doet een royaal huwelijksaanbod. Jakob eist dat alle mannen van de stad zich laten besnijden.</p>
+      <p>Terwijl de mannen ziek van de ingreep te bed liggen, doden Simeon en Levi hen. Dina ziet haar man sterven en spreekt een vloek uit over haar vader en haar broers. Zij gaat mee met haar schoonmoeder Re-nefer naar Egypte. Deze scene is het scharnier van het boek: dezelfde daad die in Genesis eerwraak heet, wordt hier een slachting die een liefde en een leven vernietigt.</p>
+      <h3>Egypte</h3>
+      <p>In Egypte bevalt Dina van een zoon. Re-nefer eist het kind op, noemt hem Re-mose en laat hem als kind van het huis opgroeien, terwijl Dina zowel dienstbode als familielid is en haar moederschap niet mag opeisen. Zij leeft jaren zwijgend en verbitterd.</p>
+      <p>Later begint zij opnieuw als vroedvrouw, op aandringen van Meryt, een oudere vrouw die haar vriendin wordt. Zij bouwt een naam op onder de armere vrouwen, ontmoet de timmerman Benia en gaat met hem samenleven. Dat tweede leven is minder groots verteld dan het eerste deel en dat is opzet: het is het gewone bestaan dat na de ramp overblijft.</p>
+      <h3>De hereniging en het slot</h3>
+      <p>Als Re-mose in dienst komt van de onderkoning van Egypte, blijkt die onderkoning Jozef te zijn, Dina's broer. De ontmoeting verloopt stroef; er is geen verzoening met de familie als geheel, wel een moeizame erkenning tussen broer en zus.</p>
+      <p>Dina reist naar Kanaan voor de begrafenis van Jakob en hoort daar dat haar naam in de familie is doorgegeven en dat men over haar heeft gesproken. Het boek eindigt met haar dood en met de gedachte dat herinnering doorgaat zolang iemand een naam uitspreekt. Dat slot geeft de proloog zijn antwoord en sluit de cirkel van de vertelling.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De rode tent</td><td>De tent waarin de vrouwen zich bij de nieuwe maan en bij bevallingen terugtrekken en waarin de kennis van vrouw op vrouw wordt doorgegeven.</td></tr>
+          <tr><td class="term">De nieuwe maan</td><td>Het maandelijkse tijdstip waarop de afzondering begint en waarop de vrouwen hun eigen offers en liederen hebben.</td></tr>
+          <tr><td class="term">Teraphim</td><td>De huisgoden die Rachel bij het vertrek van Laban meeneemt en die in de roman staan voor de godsdienst van de vrouwen naast die van Jakob.</td></tr>
+          <tr><td class="term">Vroedvrouwschap</td><td>Het vak dat Dina van Rachel leert en dat haar in Kanaan en in Egypte een plaats en een inkomen geeft.</td></tr>
+          <tr><td class="term">Re-mose</td><td>De zoon van Dina, door haar schoonmoeder Re-nefer opgeeist en als Egyptenaar grootgebracht.</td></tr>
+          <tr><td class="term">Meryt</td><td>De Egyptische vrouw die Dina overhaalt weer als vroedvrouw te gaan werken en die haar vriendin wordt.</td></tr>
+          <tr><td class="term">Benia</td><td>De timmerman met wie Dina in Egypte een tweede leven begint.</td></tr>
+          <tr><td class="term">Rebekka bij Mamre</td><td>Dina's grootmoeder, in de roman een gevreesd orakel met eigen gezag en weinig warmte voor haar kleindochter.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een roman en geen studie, en Diamant zegt dat ook. De bijbelse basis is smal: Genesis 34 telt enkele tientallen verzen en Dina spreekt daarin niet. Alles wat het boek daaromheen zet, is verzonnen of ontleend aan wat er over het oude Nabije Oosten bekend is over landbouw, huisraad, geboorte en rouw.</p>
+      <p>Diamant werkte in de traditie van de midrasj, waarin lezers de gaten in een bijbeltekst opvullen met verhalen. Zij deed dat als journalist die eerder praktische boeken over joodse gewoonten schreef, niet als bijbelwetenschapper. Van het menstruatiehuisje dat het boek zijn titel geeft, erkent zij dat er geen bewijs is dat de vroege Israelieten het kenden; zulke gebruiken zijn wel uit andere culturen beschreven.</p>
+      <p>De omkering van de gebeurtenis in Sichem heeft een aanknopingspunt in de tekst. Genesis 34 vermeldt dat Sichem aan Dina gehecht raakte en haar tot vrouw wilde nemen, en dat maakt de lezing van sommige uitleggers dat het om een schaking of om een niet-erkende verbintenis ging niet ongegrond. Diamant kiest van de mogelijke lezingen de meest verstrekkende en werkt die uit tot wederzijdse liefde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt precies die keuze. Wie in Genesis 34 een verkrachting leest, en dat is de gangbare lezing, ziet die in de roman veranderd in een liefdesgeschiedenis. Daarmee verdwijnt het geweld tegen de vrouw uit een van de weinige plaatsen waar de bijbeltekst het benoemt, en wat als teruggave van een stem is bedoeld, neemt haar de ervaring af die er in de bron wel staat. Dat bezwaar is ook door lezers uit joodse kring gemaakt.</p>
+      <p>Ten tweede is de vrouwenwereld van het boek grotendeels op de twintigste eeuw geschoeid. De rode tent zoals Diamant hem tekent, met zijn zusterlijkheid en zijn eigen godinnen, is een projectie waarvoor geen bron bestaat. Het boek presenteert die wereld met de vanzelfsprekendheid van een reconstructie, terwijl het een wens is. Daar komt bij dat de tent inmiddels als werkelijke praktijk in vrouwenkringen wordt nagespeeld, wat het verschil tussen verzinsel en overlevering verder uitwist.</p>
+      <p>Literair is het bezwaar dat het boek na Sichem aan spanning verliest. Het Egyptische deel bestaat uit lange rustige jaren met weinig tegendruk, en de goedheid van Meryt en Benia komt gemakkelijk. De mannen blijven bovendien vlak: Jakob is stug, Simeon en Levi zijn wreed, Jozef is afstandelijk, en niemand van hen krijgt de behandeling die de vrouwen wel krijgen. Dat is een keuze die past bij de opzet, maar zij maakt de tegenpartij van het boek te licht.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Red Tent</i> (Wyatt Books for St. Martin's Press, New York, oktober 1997, 321 blz., ISBN 0312169787). Het boek verkocht aanvankelijk matig en werd pas jaren later een bestseller in de <i>New York Times</i>-lijst, vooral via leeskringen. De Nederlandse vertaling van Ellen Segeren en Els Kroon verschijnt bij De Fontein, Utrecht (320 blz., ISBN 9789026138218), met een e-boek daarnaast. Lifetime maakte er in december 2014 een tweedelige televisiefilm van, met Rebecca Ferguson als Dina, Minnie Driver als Lea en Morena Baccarin als Rachel. Diamant schreef daarvoor vooral praktische boeken over joodse levensgewoonten, waaronder <i>The New Jewish Wedding</i>; dit was haar eerste roman.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In Genesis 34 staat Dina, de dochter van Jakob en Lea, in een handvol verzen: zij gaat eropuit, wordt door Sichem genomen, en haar broers Simeon en Levi vermoorden daarop alle mannen van de stad. Zij zegt geen woord. Diamant geeft haar in deze roman de vertelstem en de rest van een leven.</p><p>Het boek begint met de vier vrouwen van Jakob, Lea, Rachel, Zilpa en Bilha, en hun jaren bij Laban. Dina groeit op als enige dochter tussen elf broers en wordt toegelaten tot de rode tent, waar de vrouwen zich bij de nieuwe maan terugtrekken en waar zij het vak van vroedvrouw leert.</p><p>Bij Diamant is de gebeurtenis in Sichem geen verkrachting maar een liefde die door de broers wordt afgeslacht. Dina vervloekt haar familie en vlucht zwanger naar Egypte, waar zij haar zoon afstaat aan de moeder van haar dode man, opnieuw als vroedvrouw gaat werken en veel later haar broer Jozef terugziet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>historische roman</li><li>Genesis</li><li>Dina</li><li>vroedvrouw</li><li>vrouwen</li><li>midrasj</li><li>Egypte</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1568"><a href="1568.html">De Bijbel</a>. Genesis 34 is de bron die Diamant omkeert; de verzen zelf lezen laat zien hoe smal het materiaal is waaruit deze roman is gebouwd.</li>
+          <li value="1226"><a href="1226.html">Eens was God als vrouw belichaamd</a>. Merlin Stone betoogt dat er voor het mannelijke godsbeeld een vrouwelijke eredienst bestond, precies de veronderstelling waarop de rode tent en Rachels teraphim rusten.</li>
+          <li value="1522"><a href="1522.html">Vlieg, wilde zwanen</a>. Jung Chang volgt drie generaties vrouwen in een familie waarvan de mannen de geschiedschrijving beheersen, met documenten in plaats van verbeelding.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

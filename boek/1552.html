@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>God Loves Fun &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sri Sri Ravi Shankar stelt dat het bestaan zelf licht van aard is en dat de zwaarte die mensen erin ervaren door henzelf wordt aangebracht. God is in dit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1552">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1552 &middot; Filosofie en mystiek</p>
+    <h1>God Loves Fun</h1>
+    <p class="lede">Sri Sri Ravi Shankar, 1996</p>
+    <p class="stats">
+      <span><b>1394</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1552"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sri Sri Ravi Shankar stelt dat het bestaan zelf licht van aard is en dat de zwaarte die mensen erin ervaren door henzelf wordt aangebracht. God is in dit boek geen strenge instantie die kijkt of iemand zijn plichten nakomt, maar een toeschouwer die zich vermaakt met de dwaasheid van het menselijk gedoe. Daaruit volgt zijn praktische stelling: wie ophoudt met zijn zorgen als belangrijk te behandelen, is niet lichtzinnig bezig maar godsdienstig bezig. Lachen geldt bij hem als gebed, en de bereidheid voor gek te staan als een geestelijke oefening. Wat er tegenover te zetten valt is de vraag of dit een uitspraak over de werkelijkheid is of een aanbeveling voor de gemoedstoestand van de toehoorder.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat voor boek dit is</h3>
+      <p>De tekst bestaat uit opgetekende toespraken voor publiek. Dat bepaalt de vorm: elk stuk staat op zichzelf, begint bij een vraag of een opmerking uit de zaal en eindigt in een uitspraak die blijft hangen. Er is geen doorlopend betoog en er zijn geen verwijzingen naar bronnen of eerdere hoofdstukken.</p>
+      <p>Wie op opbouw hoopt vindt die niet. Wel herhaling: dezelfde gedachte keert in andere bewoordingen terug, zoals in gesproken onderricht gebruikelijk is. Het boek is eerder een bloemlezing dan een verhandeling.</p>
+      <h3>De titelgedachte</h3>
+      <p>In het openingsstuk komt de zin waar de bundel naar heet: God houdt van plezier. De redenering die daarbij hoort luidt dat een schepping die uitsluitend uit plichten bestaat een saaie schepping zou zijn, en dat de dwaasheid van mensen bestaansrecht ontleent aan het vermaak dat zij oplevert. Ernstige levensbeschouwingen trekken volgens de auteur weinig mensen omdat zij niets te lachen bieden.</p>
+      <p>De omkering die daaruit volgt is dat schuldgevoel en zwaarwichtigheid niet als godsdienstige deugden gelden maar als vormen van eigenwaan. Wie zijn eigen tekortkoming groot maakt, maakt zichzelf groot.</p>
+      <h3>Lachen en stilte</h3>
+      <p>In het stuk over echte lach maakt Sri Sri Ravi Shankar onderscheid tussen de lach die uit spanning voortkomt en de lach die uit een ontspannen gemoed opkomt. Alleen de tweede telt bij hem als gebed. Wie om iemand lacht is nog niet vrolijk; wie zonder aanleiding vrolijk is wel.</p>
+      <p>Daarnaast keert de stilte terug als tegenhanger. Zwijgen en lachen staan bij hem aan dezelfde kant: beide onderbreken de gedachtestroom die het gemoed bezet houdt. Meditatie wordt genoemd als de plek waar dat wordt geoefend, zonder dat het boek een oefening beschrijft.</p>
+      <h3>Intimiteit en het vanzelfsprekende</h3>
+      <p>Het stuk over echte intimiteit bevat het advies dat het meest tegen de gangbare relatieliteratuur ingaat: mensen die dicht bij elkaar staan mogen elkaar als vanzelfsprekend behandelen. Wie voortdurend bevestiging vraagt en om beleefdheid vraagt houdt de ander op afstand. Nabijheid herkent men eraan dat er niets meer bevestigd hoeft te worden.</p>
+      <p>In dezelfde lijn ligt de opmerking dat woorden in een nabije verhouding minder dragen dan zwijgen. Het boek geeft daar geen begrenzing bij, en die afwezigheid van begrenzing is het punt waarop het advies zich laat misbruiken.</p>
+      <h3>Omgaan met gevoelens</h3>
+      <p>Het hoofdstuk over gevoelens komt op de bekende raad neer dat een gevoel mag komen en mag gaan, en dat het vasthouden ervan het lijden maakt. De auteur behandelt woede, verdriet en verlangen als weersomstandigheden van het gemoed. Niets ervan hoeft bestreden te worden, want bestrijden is een vorm van aandacht geven.</p>
+      <p>Wat hij daaraan toevoegt is de gedachte dat gevoelens in een gezelschap besmettelijk zijn en dat iemands stemming daarom een sociale zaak is, niet alleen een innerlijke.</p>
+      <h3>De vier benaderingen en de dwaas</h3>
+      <p>Een van de langere stukken zet vier benaderingen naast elkaar waarmee mensen het praktische en het geestelijke leven aanpakken. De strekking is dat het praktische en het geestelijke elkaar niet uitsluiten en dat de scheiding tussen beide een aangeleerde gewoonte is.</p>
+      <p>Het boek sluit aan bij die gedachte met het stuk over de dwaas. Voor gek durven staan is bij Sri Sri Ravi Shankar een oefening in het loslaten van het beeld dat iemand van zichzelf ophoudt. De wijze en de dwaas raken elkaar in dit boek omdat beiden weinig aan hun reputatie hechten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">God Loves Fun</td><td>De titelgedachte dat het goddelijke zich vermaakt met het bestaan in plaats van het te beoordelen.</td></tr>
+          <tr><td class="term">Real Laughter</td><td>De lach die uit een ontspannen gemoed opkomt, die in het boek als gebed geldt, tegenover de lach die spanning ontlaadt.</td></tr>
+          <tr><td class="term">True Intimacy</td><td>Nabijheid waarin bevestiging en beleefdheid overbodig zijn geworden en het vanzelfsprekende geen belediging is.</td></tr>
+          <tr><td class="term">Being a Fool</td><td>De bereidheid voor gek te staan, opgevat als oefening in het opgeven van het zelfbeeld.</td></tr>
+          <tr><td class="term">Dealing with Feelings</td><td>De omgang met gevoelens waarbij die mogen komen en gaan en het vasthouden als de oorzaak van lijden geldt.</td></tr>
+          <tr><td class="term">The Nature of God</td><td>Het godsbeeld van het boek: geen rechter maar een toeschouwer die het menselijk gedoe gadeslaat.</td></tr>
+          <tr><td class="term">The Four Approaches</td><td>Vier manieren waarop het praktische en het geestelijke leven met elkaar te verbinden zijn, volgens het boek geen tegenstelling.</td></tr>
+          <tr><td class="term">Art of Living</td><td>De organisatie die Sri Sri Ravi Shankar in 1981 oprichtte en die deze toespraken uitgeeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bewijs aan en pretendeert dat ook niet. Er staat geen onderzoek in, geen verwijzing naar literatuur en geen redenering die zich stap voor stap laat volgen. De uitspraken rusten op het gezag van de spreker en op de instemming van de zaal. Wie dat gezag niet erkent, houdt beweringen over die noch te bevestigen noch te weerleggen zijn.</p>
+      <p>Enkele van de gedachten hebben elders wel een onderbouwing gekregen. Dat gevoelens in gezelschappen overslaan is in de sociale psychologie onderzocht, en dat het bestrijden van een gedachte de gedachte versterkt is een bekende bevinding. Het boek doet niets met die literatuur en kan zich er dus ook niet op beroepen; de overeenkomst is achteraf vastgesteld, door lezers en niet door de auteur.</p>
+      <p>De Art of Living Foundation onderbouwt haar ademhalingsoefening met eigen en extern onderzoek, maar dat staat los van dit boek: <i>God Loves Fun</i> beschrijft geen techniek, geeft geen instructie en verwijst niet naar studies.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de stelling zichzelf afschermt. Wie tegenwerpt dat sommige zorgen ernstig zijn, bevestigt in de logica van het boek dat hij te zwaarwichtig is. Er is geen waarneming denkbaar die de stelling zou kunnen weerleggen, en daarmee vervalt de vraag of zij juist is; wat overblijft is of iemand er baat bij heeft.</p>
+      <p>Het advies over intimiteit is het gevaarlijkste stuk van het boek. Elkaar als vanzelfsprekend behandelen is in een gelijkwaardige verhouding iets anders dan in een verhouding met een machtsverschil, en juist mensen die verwaarlozing goedpraten vinden hier een formulering die hen uitkomt. Het boek maakt dat onderscheid niet.</p>
+      <p>De vorm werkt tegen de inhoud. Opgetekende toespraken die zonder redactie achter elkaar worden gezet leveren herhaling op, en een uitspraak die in een zaal met stemverheffing en stilte werkt, staat op papier vaak plat. Wie het boek achter elkaar uitleest merkt dat de bundel op ongeveer dertig bladzijden alles gezegd heeft.</p>
+      <p>De auteur is geen los schrijver maar het hoofd van een grote organisatie, en die organisatie ligt onder vuur. De Indiase groene rechtbank, het National Green Tribunal, hield de Art of Living Foundation verantwoordelijk voor de schade aan de uiterwaarden van de Yamuna door het World Culture Festival van 11 tot 13 maart 2016. Een deskundigenpanel begrootte het herstel op ruim 42 crore roepie; het bedrag van 5 crore dat de stichting eerder had gestort werd voor dat herstel bestemd. Sri Sri Ravi Shankar verweet daarop de rechtbank dat zij toestemming had gegeven, waarop hem een aanmaning wegens minachting van het hof werd betekend. Wie het boek leest als de leer van een organisatie, leest het anders dan wie het als losse spreuken leest.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek in kleine stukken; achter elkaar uitlezen laat vooral de herhaling zien.</li>
+        <li>Neem het advies over vanzelfsprekendheid in een verhouding alleen over als de andere partij er evenveel over te zeggen heeft.</li>
+        <li>Behandel een opkomend gevoel eerst een kwartier lang als weer: niet bestrijden, niet uitleggen, wel opmerken wat er daarna gebeurt.</li>
+        <li>Zoek de onderbouwing voor wat hier over lachen en stemming staat elders; dit boek levert die niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>God Loves Fun</i> verscheen bij de Art of Living Foundation in de Verenigde Staten; de tweede druk uit 1996 telt 167 blz. (ISBN 9781885289032). In India geeft Sri Sri Publications Trust het boek uit in een dunnere zetting van ongeveer 141 blz. (onder meer ISBN 9788179923696 en 9789380114538). Een Nederlandse uitgave van dit boek is er niet. Van Sri Sri Ravi Shankar zijn in het Nederlands wel andere titels verschenen, waaronder <i>Celebrating Silence</i> en <i>An Intimate Note to the Sincere Seeker</i>; het aanbod in Nederlandse boekhandels bestaat verder vooral uit de Engelse edities.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een bundeling van korte lezingen van Sri Sri Ravi Shankar, de oprichter van de Art of Living Foundation. De hoofdstukken zijn opgetekende toespraken, meestal een halve tot twee bladzijden lang, met titels als God Loves Fun, Real Laughter, True Intimacy, Dealing with Feelings, The Nature of God en Being a Fool.</p><p>De gedachte die het boek bijeenhoudt is dat het bestaan als spel bedoeld is en dat God het aanziet zoals een toeschouwer naar een voorstelling kijkt. De ernst waarmee mensen hun eigen zorgen behandelen geldt in dit boek als de storing, niet als de reactie op een storing. Wie zich in het leven vermaakt zit volgens de auteur dichter bij het goddelijke dan wie zwaarwichtig doet.</p><p>Er staat geen onderzoek in en er wordt niet geargumenteerd. Het gezag komt van de spreker en van de zaal die naar hem luistert. Wie het boek leest krijgt geen betoog maar een reeks uitspraken die zich laten beamen of laten liggen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spiritualiteit</li><li>Art of Living</li><li>goeroe</li><li>lachen</li><li>India</li><li>lezingen</li><li>levenshouding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1551"><a href="1551.html">Bhagavad Gita</a>. De Gita levert het denkkader waar Sri Sri Ravi Shankar stilzwijgend uit put; wie de bron leest ziet welke stappen in de toespraken zijn overgeslagen.</li>
+          <li value="1296"><a href="1296.html">Lachen</a>. Bergson analyseert het lachen als sociaal verschijnsel met een sluitende redenering, precies wat dit boek nalaat te doen.</li>
+          <li value="1508"><a href="1508.html">Emotioneel volwassen</a>. Swami Dayananda Saraswati behandelt dezelfde stof, gevoelens en volwassenheid, vanuit de vedanta en met meer begripsmatige strengheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

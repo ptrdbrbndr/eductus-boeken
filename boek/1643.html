@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>100 spreuken die je leven verrijken &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Verhees gaat ervan uit dat de dagelijkse stemming van een mens minder wordt bepaald door zijn omstandigheden dan door waar hij zijn aandacht op richt, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1643">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1643 &middot; Levenskunst</p>
+    <h1>100 spreuken die je leven verrijken</h1>
+    <p class="lede">Mark Verhees, 2024</p>
+    <p class="stats">
+      <span><b>1216</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1643"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Verhees gaat ervan uit dat de dagelijkse stemming van een mens minder wordt bepaald door zijn omstandigheden dan door waar hij zijn aandacht op richt, en dat een korte tekst op het juiste moment die richting kan verleggen. Een spreuk werkt in zijn opvatting niet als bewijs of als advies, maar als een onderbreking: hij zet iemand een ogenblik stil bij iets dat hij al wist en niet meer opmerkte. Daaruit volgt de vorm van het boek. Er staat geen redenering in die van voren naar achteren loopt, want dan zou er een boek uit voortkomen dat uitgelezen kan worden, terwijl Verhees een bundel wil die telkens opnieuw open kan. De onderliggende aanname is dat het herhaald richten van de aandacht op wat goed gaat na verloop van tijd de gewoonte verandert waarmee iemand naar zijn eigen leven kijkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Honderd keer dezelfde bouw</h3>
+      <p>Het boek heeft geen hoofdstukindeling en geen opbouw in delen. Er staan honderd stukken in, elk gebouwd rond een spreuk, en de volgorde is niet dwingend. Wie het van voren naar achteren leest krijgt geen ontwikkeling te zien; wie er af en toe in bladert merkt daar niets van.</p>
+      <p>De spreuken komen deels van bekende denkers en schrijvers en deels van Verhees zelf. De begeleidende tekst beslaat een tot enkele bladzijden en is telkens nieuw geschreven.</p>
+      <h3>Wisselende vormen</h3>
+      <p>Wat het boek boven een gewone spreukenbundel uittilt is de afwisseling in vorm. Sommige stukken zijn korte verhalen met personages, andere zijn parabels, weer andere brieven aan iemand die niet bij naam wordt genoemd, uitnodigingen voor bedachte gebeurtenissen, gedichten of fabels.</p>
+      <p>Die afwisseling doet werk. Een spreuk over dankbaarheid komt anders binnen wanneer er een verhaal van twee bladzijden achteraan komt over een concreet iemand die iets kwijtraakt, dan wanneer er een uitleg volgt over wat dankbaarheid is. Verhees kiest vrijwel altijd voor het eerste.</p>
+      <h3>Terugkerende onderwerpen</h3>
+      <p>Onder de honderd stukken ligt een beperkt aantal onderwerpen dat steeds terugkomt: dankbaarheid voor wat er al is, aandacht voor het gewone, vriendelijkheid tegenover onbekenden, het loslaten van vergelijking met anderen, het verdragen van tegenslag en de gedachte dat kleine handelingen verder doorwerken dan degene die ze verricht kan overzien.</p>
+      <p>Verhees behandelt die onderwerpen zonder ze uit elkaar te halen. Hij omschrijft niets, hij onderscheidt niets en hij zet zelden twee opvattingen tegenover elkaar. De teksten werken door herkenning, en wie een begrip scherper wil krijgen moet elders zijn.</p>
+      <h3>De toon</h3>
+      <p>De toon is warm en zonder ironie, en dat is een keuze die de lezer al na een paar bladzijden accepteert of niet. Verhees schrijft in eenvoudige zinnen, spreekt de lezer direct aan en vermijdt vakjargon uit de psychologie.</p>
+      <p>Hij houdt zich ook grotendeels buiten de zwaardere gevallen. Verdriet, ziekte en verlies komen voor, maar in een gedaante die uiteindelijk iets oplevert. Wat er niet in staat is het geval waarin er niets goeds uit voortkomt.</p>
+      <h3>De plaats van dit boek in zijn werk</h3>
+      <p>Verhees schreef eerder <i>Eenvoudiger leven</i>, <i>De Vibe</i> en <i>Levenslust</i>, boeken met meer doorlopende tekst en een duidelijker afgebakend onderwerp. Deze bundel is losser van bouw en staat dichter bij het dagelijkse werk van het platform dat hij in 2012 begon.</p>
+      <p>Dat verklaart ook de vormgeving: kleur op elke bladzijde, veel wit, korte regels. Het boek is gemaakt om cadeau te doen en om op een tafel te laten liggen, en het gedraagt zich daar ook naar.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Spreuk</td><td>De korte zin waarmee elk stuk opent en die volgens Verhees dienstdoet als onderbreking van de gedachtegang van het moment.</td></tr>
+          <tr><td class="term">Voor Positiviteit</td><td>Het platform dat Verhees in 2012 oprichtte en waaruit de spreuken in dit boek zijn geselecteerd.</td></tr>
+          <tr><td class="term">Verdieping</td><td>De tekst die Verhees achter een spreuk zet en die de betekenis ervan niet uitlegt maar in een verhaal onderbrengt.</td></tr>
+          <tr><td class="term">Dankbaarheid</td><td>Het opmerken van wat er al aanwezig is, bij Verhees het meest terugkerende onderwerp van de bundel.</td></tr>
+          <tr><td class="term">Positiviteit</td><td>De houding waarin iemand zijn aandacht bij voorkeur richt op wat er goed gaat, zonder dat Verhees haar tegenover realisme plaatst.</td></tr>
+          <tr><td class="term">Moderne parabel</td><td>Het korte verhaal met een alledaags personage waarmee hij een spreuk concreet maakt zonder de moraal uit te schrijven.</td></tr>
+          <tr><td class="term">Kleine handeling</td><td>De gedachte dat een groet, een bericht of een gebaar verder doorwerkt dan degene die het doet kan overzien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek beroept zich niet op onderzoek en doet geen enkele wetenschappelijke bewering. Er staan geen studies in, geen getallen en geen verwijzingen. Wat er staat zijn spreuken, verhalen en persoonlijke waarnemingen, en Verhees presenteert die ook niet als iets anders.</p>
+      <p>Die terughoudendheid is verstandiger dan zij lijkt. In het genre eromheen wordt wel met onderzoek geschermd, en de bekendste claim ervan heeft het niet gehouden: de positiviteitsverhouding van drie op een, die Barbara Fredrickson en Marcial Losada in 2005 in <i>American Psychologist</i> publiceerden, bleek na de kritiek van Nicholas Brown, Alan Sokal en Harris Friedman uit 2013 op een onhoudbare wiskundige afleiding te rusten, waarna dat deel van het artikel werd ingetrokken.</p>
+      <p>Wat er over de werking van dit soort teksten wel bekend is, is bescheiden van omvang. Onderzoek naar dankbaarheidsoefeningen laat kleine effecten op welbevinden zien in vergelijking met niets doen, en kleinere tot verwaarloosbare effecten in vergelijking met een andere schrijfoefening. Dat is niet waar dit boek om vraagt, maar het is wel de maat waarmee de aanspraken van de positiviteitsbeweging gemeten kunnen worden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De voornaamste tegenwerping betreft wat er buiten blijft. Een bundel die het richten van de aandacht op het goede tot uitgangspunt neemt, loopt het risico rouw, uitputting, armoede en onrecht te behandelen als een kwestie van houding. Verhees vervalt zelden in die fout, maar zijn teksten laten tegenslag vrijwel altijd ergens toe leiden, en daarmee blijft het geval waarin dat niet gebeurt onbesproken.</p>
+      <p>Ten tweede de herkomst van de spreuken. Bij bloemlezingen van dit type is toeschrijving een oud probleem: uitspraken worden al decennialang aan Boeddha, Einstein of Gandhi toegeschreven zonder dat er een vindplaats bestaat. Het boek bevat geen bronnenlijst, zodat wie de herkomst van een citaat wil nagaan er zelf achteraan moet.</p>
+      <p>Ten derde de herhaling. Over honderd stukken keren dezelfde onderwerpen en dezelfde wendingen terug, en achter elkaar gelezen wordt de opbrengst per bladzijde snel kleiner. Dat is inherent aan de vorm en het boek kondigt het ook aan, maar wie een doorlopend betoog verwacht, legt het na dertig bladzijden weg.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees een enkel stuk per keer en sla de bundel daarna dicht, want achter elkaar doorlezen haalt de werking eruit.</li>
+        <li>Schrijf bij een spreuk die blijft hangen op waar hij op slaat in de eigen week, anders blijft het bij een prettige bladzijde.</li>
+        <li>Ga bij een spreuk die aan een bekende naam wordt toegeschreven zelf de herkomst na voordat hij wordt doorgegeven.</li>
+        <li>Gebruik het boek als cadeau voor iemand die weinig leest; de vorm is daarop gemaakt.</li>
+        <li>Zoek voor een onderwerp dat werkelijk uitgezocht moet worden een boek dat een redenering opbouwt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig werk, verschenen op 25 november 2024 bij Voor Positiviteit B.V. (gebonden, 224 blz., in kleur, ISBN 9789493205307). Verhees richtte in 2012 het platform Voor Positiviteit op, nadat hij duizend dagen achtereen een positief bericht had geplaatst. Van hem verschenen eerder onder meer <i>Eenvoudiger leven</i>, <i>De Vibe</i> en <i>Levenslust</i>. Van dit boek is geen vertaling bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Honderd spreuken, elk gevolgd door een tekst van Mark Verhees. Die teksten wisselen van vorm: korte verhalen, moderne parabels, gedichten, brieven, dankbetuigingen, gesprekjes en persoonlijke herinneringen. Het boek is in kleur uitgevoerd en bedoeld om op elk moment op te pakken en op een willekeurige bladzijde te openen.</p><p>Verhees plaatst sinds 2011 dagelijks positieve berichten en bouwde daarmee het platform Voor Positiviteit op, dat honderdduizenden volgers heeft. Dit boek put uit dat archief: de spreuken zijn geselecteerd uit wat in die jaren het meest aansloeg, en de begeleidende teksten zijn er nieuw bij geschreven.</p><p>Het is geen methode en geen betoog. Er staat geen stappenplan in, geen oefenschema en geen verwijzing naar onderzoek. Wat het boek biedt is een verzameling korte stukken over dankbaarheid, aandacht, tegenslag, vriendelijkheid en het opmerken van wat er al is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spreuken</li><li>positiviteit</li><li>bloemlezing</li><li>dankbaarheid</li><li>aandacht</li><li>Voor Positiviteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. De oudste vorm van dit boek: korte aantekeningen om zichzelf te herinneren aan wat hij al wist, maar zonder troost en met een strengere blik.</li>
+          <li value="286"><a href="286.html">The Daily Stoic</a>. Dezelfde opzet van een spreuk met een korte verdieping, alleen met een leer erachter en met vindplaatsen erbij.</li>
+          <li value="190"><a href="190.html">Good Vibes, Good Life</a>. Hetzelfde genre van korte positieve stukken, met de aanspraken op wetten van aantrekking die Verhees juist niet doet.</li>
+          <li value="1648"><a href="1648.html">Geluk zit in een klein boekje</a>. Een Nederlands boekje uit dezelfde hoek, klein van omvang en met dezelfde bedoeling om op een willekeurige bladzijde open te gaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

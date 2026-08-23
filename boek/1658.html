@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cosmic Code &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pagels stelt dat de natuur zich gedraagt als een boodschap die in code is opgesteld, en dat natuurwetenschap het ontcijferen van die code is. De code zelf…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1658">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1658 &middot; Natuur en wetenschap</p>
+    <h1>The Cosmic Code</h1>
+    <p class="lede">Heinz R. Pagels, 1982</p>
+    <p class="stats">
+      <span><b>1433</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1658"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pagels stelt dat de natuur zich gedraagt als een boodschap die in code is opgesteld, en dat natuurwetenschap het ontcijferen van die code is. De code zelf bestaat niet uit stof en niet uit geest maar uit onzichtbare ordening: wiskundig te beschrijven regelmaat waaraan alles wat er is zich houdt. Daaruit volgt zijn oordeel over de kwantummechanica. Zij is niet moeilijk omdat zij duister zou zijn, zij is moeilijk omdat de menselijke voorstelling van deeltjes en golven aan de grote wereld is ontleend en op deze schaal niet meer opgaat. Wie daar een uitnodiging tot mystiek in ziet, verwart volgens hem het ontbreken van een beeld met de aanwezigheid van een geheim.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De weg naar de kwantumwerkelijkheid</h3>
+      <p>Het eerste van de drie delen begint bij de laatste klassieke natuurkundige. Pagels laat zien hoe de klassieke beschrijving van licht en warmte in de late negentiende eeuw vastliep, hoe Planck in 1900 de energie in pakketjes verdeelde om er getalsmatig uit te komen, en hoe Einstein die pakketjes serieus nam voor het foto-elektrisch effect.</p>
+      <p>Daarna volgt de bouw van de theorie zelf: Bohr met zijn atoommodel, Heisenberg die tijdens een verblijf op Helgoland de matrixmechanica opschreef, Schrodinger met zijn golfvergelijking, en de onzekerheidsrelatie en het complementariteitsbeginsel die daaruit werden afgeleid. Pagels vertelt dat als geschiedenis, met de ruzies erbij.</p>
+      <h3>Toeval en waarschijnlijkheid</h3>
+      <p>Een apart hoofdstukkenblok gaat over toeval. Pagels onderscheidt het toeval van de statistische mechanica, waarin een gasmolecuul in beginsel een baan heeft die alleen niet te volgen is, van het kwantumtoeval, waarin de uitkomst van een meting ook in beginsel niet vastligt.</p>
+      <p>Dat onderscheid draagt de rest van het boek. Het is de reden waarom Einstein tot zijn dood bezwaar bleef maken, en het is het punt waarop de klassieke voorstelling van een wereld die zich onafhankelijk van waarneming afspeelt het opgeeft.</p>
+      <p>Daarbij horen twee hoofdstukken over wat een deeltje is. In het ene betoogt Pagels dat het vacuum in de kwantumveldentheorie niet leeg is maar de laagste toestand van een veld, waaruit bij voldoende energie deeltjes tevoorschijn komen. In het andere behandelt hij de gelijkheid van deeltjes: twee elektronen zijn niet op elkaar lijkende voorwerpen maar in elk opzicht hetzelfde, en juist die ononderscheidbaarheid bepaalt hoe materie zich in bulk gedraagt. Het is een van de plaatsen waar hij laat zien dat de kwantummechanica niet over kleine dingen gaat maar over een andere logica van tellen.</p>
+      <h3>De werkelijkheidsmarkt</h3>
+      <p>In het hoofdstuk dat Pagels de reality marketplace noemt loopt hij de aangeboden interpretaties langs: verborgen variabelen, de gangbare lezing uit Kopenhagen, en de gedachte dat het heelal zich bij elke meting vertakt. Hij bespreekt de gedachtewisseling tussen Einstein, Podolsky en Rosen enerzijds en Bohr anderzijds.</p>
+      <p>Het scharnier is de ongelijkheid van Bell uit 1964 en het experimentele werk dat daarop volgde. Pagels legt uit dat daarmee een klasse van verklaringen is uitgesloten, namelijk die waarin de uitkomsten al vastliggen in plaatselijk aanwezige eigenschappen. Zijn eigen conclusie is dat de kwantumwerkelijkheid objectief is maar zich niet laat afbeelden.</p>
+      <h3>De reis in de materie</h3>
+      <p>Het tweede deel gaat over deeltjes. Versnellers behandelt hij als microscopen: hoe hoger de energie, hoe kleiner wat er zichtbaar wordt. Hij loopt de weg af van moleculen naar atomen, kernen en het raadsel van de hadronen, de wildgroei aan deeltjes die in de jaren vijftig en zestig uit de versnellers kwam.</p>
+      <p>Daaruit komt de ordening naar voren: quarks als bouwstenen van de hadronen, leptonen als de deeltjes die de sterke wisselwerking niet voelen, en gluonen als dragers van de binding. Pagels legt daarbij uit waarom een los quark niet is aan te treffen en waarom deeltjes in deze theorie beter te begrijpen zijn als uitslagen van een veld dan als kleine knikkers.</p>
+      <h3>IJkvelden, kosmos en de code</h3>
+      <p>Het derde deel bespreekt de ijkveldentheorie, die in de jaren zeventig de zwakke en elektromagnetische wisselwerking samenbracht en de sterke wisselwerking in dezelfde vorm goot. Pagels behandelt de daaruit voortkomende voorspelling dat het proton op zeer lange termijn zou vervallen, in zijn tijd nog een openstaande vraag waar experimenten naar zochten.</p>
+      <p>Vervolgens knoopt hij de kleinste schaal aan de grootste: de vroege toestand van het heelal is de enige plek waar de hoogste energieen ooit zijn voorgekomen, waarmee de kosmologie een proeftuin voor de deeltjesfysica wordt. Het slot is beschouwend. Wetten zijn voor Pagels geen dingen die ergens liggen, maar de code waaraan de werkelijkheid zich houdt, en de geschiedenis van beschavingen wordt mede geschreven door wat er van die code is ontcijferd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kosmische code</td><td>Het geheel van natuurwetten, door Pagels opgevat als een in wiskundige vorm gestelde boodschap die de onderzoeker ontcijfert.</td></tr>
+          <tr><td class="term">Onzekerheidsrelatie</td><td>De regel van Heisenberg dat plaats en impuls van een deeltje niet beide onbeperkt nauwkeurig vastliggen.</td></tr>
+          <tr><td class="term">Complementariteit</td><td>Bohrs stelling dat beschrijvingen als golf en als deeltje elkaar uitsluiten en elkaar tegelijk nodig hebben.</td></tr>
+          <tr><td class="term">Kwantumtoeval</td><td>Toeval dat niet uit onwetendheid voortkomt: de uitkomst van een afzonderlijke meting ligt ook in beginsel niet vast.</td></tr>
+          <tr><td class="term">Ongelijkheid van Bell</td><td>De rekenkundige grens die geldt als de uitkomsten van metingen op verbonden deeltjes al plaatselijk vastliggen, en die in experimenten wordt overschreden.</td></tr>
+          <tr><td class="term">Werkelijkheidsmarkt</td><td>Pagels' aanduiding voor het aanbod van interpretaties van de kwantummechanica, waaruit natuurkundigen naar smaak kiezen.</td></tr>
+          <tr><td class="term">Hadronen</td><td>De zware deeltjes die de sterke wisselwerking voelen en waarvan de wildgroei om een ordenend beginsel vroeg.</td></tr>
+          <tr><td class="term">Quarks en leptonen</td><td>De twee families van bouwstenen waaruit de gewone materie is opgebouwd; quarks komen niet los voor.</td></tr>
+          <tr><td class="term">IJkveldentheorie</td><td>De vorm van theorie waarin krachten voortkomen uit een symmetrie-eis, de basis van het model dat in de jaren zeventig werd voltooid.</td></tr>
+          <tr><td class="term">Protonverval</td><td>De voorspelling van omvattende theorieen dat het proton niet eeuwig stabiel is, ten tijde van het boek nog niet waargenomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De natuurkunde in dit boek is de gangbare natuurkunde van zijn tijd, en Pagels heeft de geschiedenis ervan uit de eerste hand. Hij werkte zelf in de theoretische deeltjesfysica en put voor het historische deel uit brieven en documenten van Einstein, Bohr, Planck en Oppenheimer. Waar hij over interpretatie schrijft, geeft hij aan dat het om interpretatie gaat en niet om vaststaande zaken.</p>
+      <p>Op een punt is het boek door de tijd ingehaald in de gunstige richting. De ijkveldentheorie die hij als jong bouwsel presenteert is sindsdien op vrijwel elk toetsbaar punt bevestigd, met de ontdekking van de W- en Z-deeltjes in 1983 en van het Higgs-deeltje in 2012. Zijn behandeling van de ongelijkheid van Bell steunde in 1982 op de eerste experimenten; het latere werk daaraan leverde in 2022 de Nobelprijs voor natuurkunde op.</p>
+      <p>Op andere punten is het achterhaald in de ongunstige richting. Het protonverval waarnaar destijds met verwachting werd gezocht, is nooit waargenomen, en de omvattende theorieen die het voorspelden zijn daardoor in de knel gekomen. Ook over neutrinomassa en over donkere materie schrijft Pagels vanuit een stand van zaken die niet meer de onze is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is een kind van 1982 en dat is bij de deeltjesfysica geen kleinigheid. Wie hier de huidige stand zoekt, leest over openstaande vragen die inmiddels beantwoord zijn en over verwachtingen die niet zijn uitgekomen. Het eerste deel over de kwantummechanica veroudert nauwelijks, het tweede en derde deel wel.</p>
+      <p>Inhoudelijk is Pagels' eigen positie de zwakste schakel. Hij verwerpt de mystieke lezing van de kwantummechanica, zoals die bij Capra en Zukav te vinden is, en dat is goed te volgen. Wat hij daarvoor in de plaats stelt, de gedachte dat de werkelijkheid objectief is maar zich niet laat afbeelden, laat hij als beeldspraak staan. De code als metafoor doet vermoeden dat er een boodschap is en dus iemand die haar stelde; Pagels bedoelt dat niet en gaat de vraag uit de weg.</p>
+      <p>Het boek is bovendien ongelijk van niveau. De hoofdstukken over quarks, gluonen en ijkvelden vragen meer van een lezer zonder achtergrond dan de opzet belooft, terwijl de historische hoofdstukken licht wegleen. Wie ze achter elkaar leest, merkt dat het tweede deel er stevig ingaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het eerste deel voor de kwantummechanica zelf; dat gedeelte staat nog overeind.</li>
+        <li>Controleer bij het tweede en derde deel de stand van zaken van na 1982, met name rond protonverval en neutrino's.</li>
+        <li>Neem het hoofdstuk over de ongelijkheid van Bell erbij als een gesprek uitmondt in de bewering dat de natuurkunde de mystiek zou steunen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Cosmic Code: Quantum Physics as the Language of Nature</i> (Simon and Schuster, New York, 1982; pocketuitgave Bantam Books, 1983, 358 blz., ISBN 0553246259), sinds 2012 herdrukt door Dover Publications onder ISBN 9780486485065. Nederlands als <i>De kosmische code: quantumfysica, de taal van de natuur</i>, vertaald door Eugene Dabekaussen, Barbara de Lange en Tilly Maters, uitgeverij Contact, Amsterdam, 1984. Pagels was natuurkundige aan de Rockefeller University en jarenlang directeur van de New York Academy of Sciences; hij schreef daarna <i>Perfect Symmetry</i> (1985) en <i>The Dreams of Reason</i> (1988) en kwam in 1988 om bij een val in de bergen van Colorado.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pagels vertelt de kwantummechanica als geschiedenis: hoe Planck, Einstein, Bohr, Heisenberg en Schrodinger stap voor stap tot een beschrijving van de materie kwamen die met de klassieke natuurkunde brak, en wat daaruit in de jaren zeventig groeide aan een theorie van quarks, leptonen en de krachten die hen binden.</p><p>De titel staat voor zijn opvatting van wat natuurwetenschap doet. Het heelal is volgens hem een boodschap in code, en het werk van de onderzoeker is het ontcijferen daarvan. Die code is niet in materie of geest te vinden maar in de ordening zelf, en zij ligt in wiskundige vorm vast.</p><p>Het boek bevat geen formules van betekenis en toch weinig vaagheid. Pagels bespreekt de kat van Schrodinger, de ongelijkheid van Bell en de ijkveldentheorie, en hij houdt daarbij afstand van de lezing waarin kwantummechanica als steun voor mystiek wordt aangevoerd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kwantummechanica</li><li>deeltjesfysica</li><li>wetenschapsgeschiedenis</li><li>Bell</li><li>quarks</li><li>populaire wetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="653"><a href="653.html">Speakable and Unspeakable in Quantum Mechanics</a>. Bell schrijft zelf over de ongelijkheid die Pagels voor een breed publiek uitlegt, in zijn eigen bewoordingen en met de wiskunde erbij.</li>
+          <li value="650"><a href="650.html">Quantum Mechanics and Experience</a>. Albert werkt de interpretatievraag filosofisch uit waar Pagels haar als werkelijkheidsmarkt afdoet.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawking schreef zes jaar later hetzelfde soort boek over de andere kant van de natuurkunde, de zwaartekracht en de kosmologie.</li>
+          <li value="761"><a href="761.html">Mindful Universe: Quantum Mechanics and the Participating Observer</a>. Stapp verdedigt precies de lezing waarin bewustzijn een rol krijgt in de kwantummechanica, die Pagels van de hand wijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

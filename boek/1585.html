@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Out on a Limb &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="MacLaine vertelt hoe een sceptische, politiek gevormde vrouw van middelbare leeftijd in enkele jaren gaat geloven in reïncarnatie, in mediums die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1585">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1585 &middot; Roman en memoir</p>
+    <h1>Out on a Limb</h1>
+    <p class="lede">Shirley MacLaine, 1983</p>
+    <p class="stats">
+      <span><b>1358</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1585"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>MacLaine vertelt hoe een sceptische, politiek gevormde vrouw van middelbare leeftijd in enkele jaren gaat geloven in reïncarnatie, in mediums die overleden persoonlijkheden laten spreken en in buitenaards contact. Zij voert dat niet aan als leerstelsel maar als reisverslag: dit overkwam mij, dit dacht ik erbij, dit hield ik ervan over. De onderliggende bewering is dat de werkelijkheid ruimer is dan wat zij tot dan toe had aangenomen, en dat het bewijs daarvan in de eigen ervaring ligt en niet in wat anderen kunnen narekenen. Daarmee legt het boek zijn eigen maatstaf vast, en die maatstaf is precies het punt waarop het te bestrijden valt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een leven dat vastloopt</h3>
+      <p>Het boek begint bij het leven dat MacLaine op dat moment leidt: filmwerk, een dochter die grotendeels in Japan opgroeide, een huwelijk dat alleen op papier bestaat, en vriendschappen in de Democratische politiek, onder wie het congreslid Bella Abzug. Zij beschrijft zichzelf als iemand die haar hele volwassen leven vragen naar het hiernamaals als bijgeloof had afgedaan.</p>
+      <p>Daarnaast loopt een verhouding met Gerry Stamford, een getrouwd Brits parlementslid en overtuigd atheïst. Zijn nuchterheid dient in het boek als tegenstem: telkens als MacLaine iets vertelt over vorige levens, geeft hij het antwoord dat een groot deel van de lezers zou geven.</p>
+      <h3>David en de eerste boeken</h3>
+      <p>In Californië raakt zij bevriend met David, een schilder die haar meeneemt naar een boekwinkel in Malibu en haar werk over reïncarnatie, spiritisme en Edgar Cayce in handen drukt. David spreekt over het hogere zelf, over karma en over energie, en houdt vol dat zij zelf zal moeten uitzoeken wat zij ervan gelooft.</p>
+      <p>MacLaine vertelt in deze hoofdstukken wat zij leest en hoe zij het probeert te weerleggen. Zij haalt ook de gedachte aan dat de leer van de wedergeboorte in de vroege kerkvergaderingen uit het christendom is geschrapt, een bewering die zij overneemt uit haar leesvoer en niet zelf onderzoekt.</p>
+      <h3>De mediums</h3>
+      <p>In Los Angeles bezoekt zij Kevin Ryerson, een medium dat in trance raakt en dan spreekt namens twee persoonlijkheden: John, die zich in de tijd van de Essenen plaatst, en Tom McPherson, die zich voordoet als een Ierse zakkenroller uit de zestiende eeuw. Zij stellen MacLaine op de hoogte van haar eerdere levens en van de banden die zij daarin met haar huidige kennissen zou hebben gehad.</p>
+      <p>In Stockholm woont zij een bijeenkomst bij waar Sture Johansson de stem van Ambres laat horen. De gesprekken die daaruit voortkomen vormen het leerstellige deel van het boek: de ziel keert terug, ervaringen worden gekozen, en niemand overkomt iets zonder dat hij daar op een ander niveau aan meewerkt.</p>
+      <h3>Peru</h3>
+      <p>Het laatste deel speelt in de Andes, waar zij met David naartoe reist. In een dorp met warme zwavelbronnen vertelt David haar dat hij al jaren telepathisch contact onderhoudt met een buitenaardse vrouw die zich de Mayan noemt en van de Pleiaden komt, en dat hem is opgedragen iemand te zoeken die haar boodschap in een boek zou vastleggen. Dat boek is volgens hem het boek dat de lezer in handen heeft.</p>
+      <p>In het bad zelf beschrijft MacLaine een uittreding: zij ziet haar lichaam onder zich, verbonden door een zilverachtige draad, en beweegt zich voorbij de maan voordat zij terugkeert. Die ervaring is het scharnier van het verhaal. Wat daarna volgt is niet meer de vraag of het waar is, maar wat zij ermee aan moet in een leven waarin zij hierover in het openbaar zal spreken.</p>
+      <h3>De terugkeer</h3>
+      <p>Terug in de Verenigde Staten legt zij haar verhaal voor aan Gerry, die het afwijst en de verhouding daarmee feitelijk beëindigt, en aan vrienden die niet weten wat zij ermee moeten. MacLaine besluit het toch op te schrijven, met de uitdrukking uit de titel: zij gaat ver op een tak zitten die onder haar kan afbreken.</p>
+      <p>Het slot is geen bekering met een moraal maar een verslag van een keuze om iets in het openbaar te zeggen dat haar aanzien kan kosten. Dat maakt het boek als memoir sterker dan als leerstuk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hoger zelf</td><td>Het deel van de ziel dat volgens Davids uitleg buiten het aardse leven staat en de opeenvolgende levens overziet.</td></tr>
+          <tr><td class="term">Reïncarnatie</td><td>De leer dat de ziel telkens opnieuw geboren wordt, in het boek de verklaring voor onbegrepen angsten en aantrekkingen.</td></tr>
+          <tr><td class="term">Karma</td><td>Het idee dat wat in een vorig leven is aangericht in een volgend leven wordt verrekend, gebruikt als reden waarom mensen elkaar opnieuw tegenkomen.</td></tr>
+          <tr><td class="term">Trancemedium</td><td>Iemand die zijn eigen bewustzijn zegt terug te trekken zodat een andere persoonlijkheid door hem heen spreekt.</td></tr>
+          <tr><td class="term">Ambres</td><td>De persoonlijkheid die de Zweed Sture Johansson zegt door te geven en die MacLaine de leerstellige kern van het boek voorhoudt.</td></tr>
+          <tr><td class="term">De Mayan</td><td>De buitenaardse gestalte van de Pleiaden waarmee David naar eigen zeggen telepathisch contact heeft.</td></tr>
+          <tr><td class="term">Uittreding</td><td>De ervaring waarin het bewustzijn zich van het lichaam losmaakt, door MacLaine in de zwavelbaden beschreven.</td></tr>
+          <tr><td class="term">Zilveren koord</td><td>De draad die in dit soort verslagen het losgemaakte bewustzijn met het lichaam verbonden houdt.</td></tr>
+          <tr><td class="term">Eigen werkelijkheid</td><td>De stelling dat ieder mens zijn omstandigheden zelf schept, in het boek uit de mond van de doorgegeven stemmen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert als bewijs uitsluitend eigen ervaring aan, en dat is een keuze die MacLaine ook openlijk maakt. Zij beschrijft nauwkeurig wat zij ziet, hoort en voelt, en laat haar twijfel staan; zij vraagt de mediums om controleerbare gegevens en krijgt die niet. De uitspraken van John, Tom McPherson en Ambres bevatten geen enkel feit dat naderhand te toetsen viel en dat niet ook op een andere manier bekend had kunnen zijn.</p>
+      <p>De sleutelfiguur is bovendien niet te controleren. MacLaine heeft zelf aangegeven dat David is samengesteld uit meer dan één persoon, wat betekent dat zijn uitspraken over de Mayan en over zijn eerdere reizen niet aan een aanwijsbaar iemand toe te schrijven zijn. De uittreding in Peru is een ervaring die goed beschreven is en waarvan bekend is dat zij ook optreedt bij zuurstoftekort, hitte, uitputting en slaapovergangen, omstandigheden die in een zwavelbad op grote hoogte na een lange reis alle aanwezig zijn.</p>
+      <p>Als document over de opkomst van de New Age is het boek wel bruikbaar. Het laat zien welke boeken in het begin van de jaren tachtig circuleerden, hoe de bijeenkomsten verliepen, welke woorden er werden gebruikt en hoe iemand met een publieke naam die stap zette in het volle zicht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kern van het bezwaar is dat het boek een ervaring gelijkstelt aan een bewijs. Dat MacLaine iets buitengewoons heeft meegemaakt is aannemelijk; dat de uitleg die zij ervoor aanvaardt de enige mogelijke is, volgt daar niet uit. Het boek onderzoekt geen andere verklaringen dan de spirituele, ook niet waar die zich opdringen, en het stelt de mediums geen enkele vraag die hun beweringen zou kunnen laten stranden.</p>
+      <p>De historische beweringen zijn zwak. De gedachte dat de vroege kerk de wedergeboorte uit de leer heeft laten schrappen, wordt door historici van het vroege christendom niet gedeeld, en MacLaine neemt haar over zonder bronnen. Ook de verwijzingen naar Atlantis en naar verre voorgeschiedenis komen uit de mond van doorgegeven stemmen en worden nergens getoetst.</p>
+      <p>Als literatuur is het boek ongelijk. De hoofdstukken over haar eigen leven, haar vader, haar politieke jaren en haar verhouding met Gerry zijn zelfspottend en scherp geschreven. Zodra de leer aan het woord komt, verandert de toon in verslaglegging van gesprekken die pagina's lang aan één stuk uitleggen, met weinig tegenspraak en veel herhaling.</p>
+      <p>De ontvangst heeft het boek ook geen dienst bewezen. Na de televisiereeks van 1987, waarin het beeld van MacLaine die aan de kust hardop haar goddelijkheid uitspreekt de vaste parodie werd, kreeg het geheel een klank van dwaasheid die de eerlijkste bladzijden van het boek, waarin zij haar eigen ongeloof beschrijft, aan het oog onttrekt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Out on a Limb</i> (Bantam Books, New York, 1983, 372 blz., ISBN 0553050354). De Nederlandse vertaling van Juliette Vorbrock verscheen als <i>Op glad ijs</i> bij Ankh-Hermes, Deventer, in 1986 (358 blz., ISBN 9789020249668) en is alleen tweedehands te vinden. In 1987 maakte de Amerikaanse zender ABC er een televisiereeks van vijf uur van, waarin MacLaine zichzelf speelde en John Heard de rol van David nam; haar aantekeningen bij die opnames werden het boek <i>It's All In the Playing</i>. Ook <i>Dancing in the Light</i> en later werk van haar zijn in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>MacLaine was bijna vijftig, een gevestigd actrice en danseres met een verleden in de Amerikaanse politiek, toen zij dit verslag schreef van een paar jaar waarin haar wereldbeeld omsloeg. Het boek loopt van Californië naar New York, Europa, Hawaii en ten slotte naar de Andes in Peru.</p><p>De aanjager is David, een schilder die haar meeneemt naar een boekwinkel vol werk over reïncarnatie en die haar in contact brengt met trancemediums. MacLaine laat haar eigen aarzeling staan: zij schrijft haar tegenwerpingen op, geeft toe dat zij zich belachelijk voelt, en beschrijft dan de ervaringen die haar over de streep trekken.</p><p>Het boek werd een bestseller en tegelijk het gezicht van de New Age in de Verenigde Staten. De televisiereeks uit 1987 leverde het materiaal voor talloze parodieën, waarna MacLaine jarenlang gold als de bekendste vertegenwoordiger van een beweging die zij niet had bedacht.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>New Age</li><li>reïncarnatie</li><li>channeling</li><li>Peru</li><li>Hollywood</li><li>jaren tachtig</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="768"><a href="768.html">The Nature of Personal Reality</a>. Jane Roberts publiceerde het doorgegeven materiaal waarop veel van wat MacLaine te horen krijgt teruggaat, inclusief de stelling dat ieder zijn eigen werkelijkheid maakt.</li>
+          <li value="679"><a href="679.html">Earth: Pleiadian Keys to the Living Library</a>. Marciniak werkt de Pleiadische herkomst uit die in het Peruaanse deel van MacLaine's verslag opduikt.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan behandelt in hetzelfde tijdvak waarom persoonlijke ervaring geen bewijs oplevert, met channeling en buitenaards contact als voorbeelden.</li>
+          <li value="1586"><a href="1586.html">You Can Heal Your Life</a>. Hay bracht in dezelfde jaren en in dezelfde kringen een leer in omloop die op vergelijkbare aannames rust over gedachte en werkelijkheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

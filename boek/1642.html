@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wat je vindt mag je houden &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Koert stelt dat er in het contact met een ander maar twee dingen aan de orde zijn: wat er in iemand leeft, en wat hij kan doen om het leven aangenamer…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1642">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1642 &middot; Samenwerken en gesprek</p>
+    <h1>Wat je vindt mag je houden</h1>
+    <p class="lede">Jan van Koert, 2007</p>
+    <p class="stats">
+      <span><b>1518</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1642"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Koert stelt dat er in het contact met een ander maar twee dingen aan de orde zijn: wat er in iemand leeft, en wat hij kan doen om het leven aangenamer te maken. Alles wat mensen daarnaast in een gesprek stoppen, en dat is het meeste, bestaat uit oordelen, verwijten, diagnoses en verwachtingen die zij voor waarnemingen aanzien. Zijn stelling is dat die oordelen niet weggewerkt hoeven te worden en ook niet weg te werken zijn, maar dat het verschil maakt of iemand ze als eigendom herkent of ze als feit over de ander uitspreekt. Wie ze als eigendom herkent, houdt de mogelijkheid open om te zeggen wat er werkelijk speelt, en dat is volgens hem het enige dat een vastgelopen verhouding weer in beweging krijgt. Straf, beloning, gelijk halen en zwijgen doen dat niet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Contact en verbinding</h3>
+      <p>Het boek opent met het onderscheid tussen contact hebben en verbinding hebben. Mensen wisselen de hele dag woorden uit zonder dat er iets overkomt, omdat wat zij zeggen bestaat uit meningen, adviezen en oplossingen. Van Koert beschrijft verbinding als de toestand waarin duidelijk is wat er bij beiden leeft, en hij stelt dat die toestand voorafgaat aan elke afspraak die standhoudt.</p>
+      <p>Hij is daarin niet vaag over de kosten. Verbinding vraagt dat iemand zegt wat hij voelt en nodig heeft, en dat maakt hem aanspreekbaar. Het hoofdstuk over kwetsbaarheid behandelt dat als een keuze met risico, en niet als een houding die vanzelf goed uitpakt.</p>
+      <h3>De giraf en de jakhals</h3>
+      <p>De twee dieren komen uit de opleidingspraktijk van Rosenberg en Van Koert gebruikt ze door het hele boek. De jakhals spreekt in oordelen, eisen en verwijten, en heeft daarbij vrijwel altijd een goede reden. De giraf, het landdier met het grootste hart, spreekt over waarnemingen, gevoelens en behoeften.</p>
+      <p>Van Koert waarschuwt tegen de moralistische lezing van dat beeld. De jakhals is bij hem geen slechterik maar een manier van spreken die iedereen beheerst en die vaak de enige is die iemand heeft geleerd. Wie de jakhals gaat veroordelen, spreekt op dat moment zelf als jakhals.</p>
+      <h3>Gedachteladders en het ladekastje</h3>
+      <p>Twee beelden gaan over de snelheid waarmee een oordeel ontstaat. De gedachteladder beschrijft hoe iemand van een waarneming in enkele treden bij een conclusie over de ander uitkomt, zonder de tussenstappen op te merken. Het ladekastje staat voor de opgeslagen categorieen waarin mensen elkaar wegzetten en waaruit zij de volgende ontmoeting alweer invullen.</p>
+      <p>De praktische kern van het boek zit in deze hoofdstukken: het uit elkaar halen van wat er feitelijk gebeurde en wat de waarnemer daaraan heeft toegevoegd. Van Koert gebruikt daarvoor voorbeelden van huis-, tuin- en keukenformaat, zoals een partner die te laat thuiskomt of een collega die niet reageert op een bericht.</p>
+      <h3>Verantwoordelijkheid en de vraag van wie het gevoel is</h3>
+      <p>Een hoofdstuk heet Niemand doet ooit iets voor een ander. Van Koert bedoelt daarmee dat mensen handelen omdat het iets bij henzelf oplevert, ook wanneer het op opoffering lijkt, en dat het benoemen daarvan de verhouding eerlijker maakt dan de taal van plicht en dankbaarheid.</p>
+      <p>Daarmee hangt zijn behandeling van gevoelens samen. De ander veroorzaakt volgens hem niet het gevoel; hij is de aanleiding, terwijl de oorzaak in de eigen behoefte ligt. Die stelling neemt hij van Rosenberg over en zij draagt de rest van het boek, ook de hoofdstukken over verwachtingen en over stress.</p>
+      <h3>Empathisch luisteren</h3>
+      <p>Het luistergedeelte is het uitvoerigst. Van Koert onderscheidt empathie van medelijden, van advies geven, van geruststellen en van het vertellen van een eigen soortgelijk verhaal, en hij laat aan dialogen zien wat elk van die reacties met het gesprek doet.</p>
+      <p>Het beeld van de stenen die iemand gooit, staat voor het verwijt dat op de luisteraar afkomt. Zijn aanwijzing is om niet terug te gooien en ook niet te bukken, maar te raden wat de werper nodig heeft en dat hardop te controleren. Hij behandelt ook het schrijven van brieven als vorm van luisteren.</p>
+      <h3>Straffen, belonen en afscheid nemen</h3>
+      <p>In de latere hoofdstukken keert Van Koert zich tegen straf en beloning als opvoedings- en werkinstrument, met het argument dat beide de ander in beweging brengen om iets buiten hemzelf en niet omdat hij ziet wat er nodig is. De parkeergarage staat voor het tijdelijk wegzetten van een eigen behoefte om eerst bij de ander te kunnen zijn, met de bedoeling er later op terug te komen.</p>
+      <p>Het boek eindigt bij verlies en afscheid, en bij de vraag hoe iemand na het lezen verdergaat. Van Koert houdt het daar bescheiden: hij beschrijft de manier van spreken als iets dat jaren oefening kost en dat vooral in de kleine dagelijkse gevallen wordt geleerd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Verbindende Communicatie</td><td>De naam die Van Koert in het Nederlands gebruikt voor het model dat internationaal geweldloze communicatie heet.</td></tr>
+          <tr><td class="term">Vinden</td><td>Het oordeel dat iemand over een situatie of persoon heeft en dat volgens hem iets zegt over de spreker en niet over het onderwerp.</td></tr>
+          <tr><td class="term">De giraf en de jakhals</td><td>Twee manieren van spreken, de een over waarnemingen, gevoelens en behoeften, de ander over oordelen, eisen en verwijten.</td></tr>
+          <tr><td class="term">Gedachteladder</td><td>De reeks onopgemerkte stappen waarmee iemand van een waarneming naar een conclusie over de ander klimt.</td></tr>
+          <tr><td class="term">Het ladekastje</td><td>De vaste categorieen waarin mensen elkaar opbergen en die de volgende ontmoeting al invullen voordat zij begint.</td></tr>
+          <tr><td class="term">Stenen gooien</td><td>Het uiten van een verwijt, waarbij Van Koert de luisteraar aanraadt te raden welke behoefte erachter zit in plaats van op de vorm te reageren.</td></tr>
+          <tr><td class="term">De parkeergarage</td><td>Het tijdelijk wegzetten van een eigen behoefte om bij de ander te kunnen blijven, met de afspraak er later op terug te komen.</td></tr>
+          <tr><td class="term">Aanleiding en oorzaak</td><td>Het onderscheid tussen wat een gevoel oproept en wat het veroorzaakt, waarbij de oorzaak volgens hem altijd in de eigen behoefte ligt.</td></tr>
+          <tr><td class="term">Empathisch luisteren</td><td>Aandacht geven aan wat er bij de ander leeft zonder advies, geruststelling of een eigen verhaal, en hardop nagaan of het klopt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er staat geen onderzoek in dit boek. Van Koert beroept zich op het model van Rosenberg en op zijn eigen praktijk als coach en trainer sinds 1997, en de onderbouwing bestaat uit voorbeelddialogen en herkenbare huiselijke situaties. Hij is gecertificeerd door het Center for Nonviolent Communication, wat een opleidingskwalificatie is en geen wetenschappelijke toetsing.</p>
+      <p>Het model zelf heeft een beperkte empirische basis. Het effectonderzoek naar geweldloze communicatie bestaat grotendeels uit kleine studies onder deelnemers aan trainingen, met een meting voor en na en zonder controlegroep, en met zelfrapportage als uitkomstmaat. Onderdelen ervan sluiten wel aan bij beter onderzocht materiaal, zoals de bevinding uit onderzoek naar gesprekken en onderhandelingen dat het navertellen van het standpunt van de ander de bereidheid tot een akkoord vergroot.</p>
+      <p>De onderscheiden die Van Koert maakt zijn niet toetsbaar geformuleerd. De stelling dat een ander nooit de oorzaak van een gevoel is, is een keuze voor een manier van spreken en geen bevinding; zij is dan ook niet te weerleggen. Voor de bruikbaarheid van het boek hoeft dat geen bezwaar te zijn, maar het onderscheidt het werk wel van psychologische literatuur die zich op onderzoek beroept.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek weinig toevoegt aan Rosenberg. De begrippen, de dieren en de vier stappen komen alle uit <i>Nonviolent Communication</i>; wat Van Koert eraan toevoegt zijn Nederlandse voorbeelden, enkele eigen beelden en een prettiger leesbare vorm. Wie het origineel kent, treft hier een hertelling aan.</p>
+      <p>Verder legt de aanpak de last vrijwel geheel bij degene die het boek leest. Wie zich in dit vocabulaire bekwaamt terwijl de omgeving dat niet doet, verandert wel zijn eigen aandeel maar heeft geen middel tegen iemand die de geboden ruimte gebruikt. Van Koert behandelt macht, intimidatie en onwil zijdelings, en het boek gaat er in de praktijk van uit dat de ander uiteindelijk mee zal bewegen.</p>
+      <p>Ten derde de taal. De formuleringen worden in de dialogen soms zo gelijkvormig dat zij de indruk van een aangeleerde truc kunnen wekken, en dat is in een echt gesprek voor de ander een reden om af te haken. Van Koert waarschuwt daarvoor, maar zijn voorbeelden zijn tegelijk de bron van het probleem. Ten slotte is het aantal herdrukken geen aanwijzing voor werkzaamheid; het zegt iets over de omvang van de cursusmarkt eromheen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Splits een verwijt dat opkomt in wat er feitelijk gebeurde en wat er in gedachten aan is toegevoegd.</li>
+        <li>Vervang bij een klacht over een ander de zin die over hem gaat door een zin over de eigen behoefte.</li>
+        <li>Raad bij een verwijt hardop welke behoefte de spreker heeft, en controleer of het klopt in plaats van te verdedigen.</li>
+        <li>Zet een eigen behoefte tijdelijk opzij wanneer de ander eerst gehoord moet worden, en kom er in hetzelfde gesprek op terug.</li>
+        <li>Oefen in kleine dagelijkse gevallen en niet in het conflict dat al maanden loopt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig werk, verschenen bij uitgeverij Andromeda te Middelie (2007, 173 blz., ISBN 9789055992102). Het boek is sindsdien vele malen herdrukt; de achttiende druk (2024) verscheen bij uitgeverij Vine. Er bestaat ook een ingesproken uitgave (ISBN 9789081572132). Van dit boek is geen vertaling in een andere taal bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jan van Koert sloot in 1997 een loopbaan van dertig jaar in het bedrijfsleven af en ging zich bezighouden met coaching en opleiding. Vanaf 1998 werkte hij met het model van Marshall Rosenberg, waarvoor hij in het Nederlands de naam Verbindende Communicatie gebruikt in plaats van geweldloze communicatie.</p><p>De titel geeft de these weer. Iedereen heeft voortdurend een oordeel over wat er gebeurt en over de mensen om hem heen, en dat oordeel mag er zijn, maar het zegt volgens Van Koert iets over de spreker en niet over de ander. Het boek gaat over het onderscheid tussen wat iemand waarneemt en wat hij ervan vindt, en over wat er in een gesprek gebeurt zodra dat onderscheid wegvalt.</p><p>De hoofdstukken zijn kort en dragen namen als De giraf en de jakhals, Gedachteladders, Het ladekastje en De parkeergarage. Elk beeld staat voor een manier waarop mensen in de omgang met elkaar vastlopen, gevolgd door voorbeelden uit gezinnen, werk en dagelijkse ontmoetingen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geweldloze communicatie</li><li>verbindende communicatie</li><li>oordelen</li><li>empathie</li><li>luisteren</li><li>conflict</li><li>Rosenberg</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Het origineel waar dit boek een Nederlandse hertelling van is, met dezelfde begrippen en dezelfde twee dieren.</li>
+          <li value="1641"><a href="1641.html">Mediation met geweldloze communicatie</a>. Hetzelfde model, maar toegepast op de derde persoon die tussen twee ruziende partijen komt te staan.</li>
+          <li value="466"><a href="466.html">Set Boundaries, Find Peace</a>. Behandelt wat dit boek grotendeels overslaat: wat er te doen valt wanneer de ander de geboden ruimte gebruikt om over een grens te gaan.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Een andere school voor hetzelfde moment, met gedragsregels en een gespreksstructuur in plaats van een woordenschat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

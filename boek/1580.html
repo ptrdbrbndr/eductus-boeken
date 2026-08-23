@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De dominee leert vloeken &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Voorberg stelt dat woede geen karakterfout is maar een waarneming: wie kwaad wordt, ziet iets dat niet deugt. Zijn bezwaar richt zich op de kerkelijke en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1580">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1580 &middot; Filosofie en mystiek</p>
+    <h1>De dominee leert vloeken</h1>
+    <p class="lede">Rikko Voorberg, 2016</p>
+    <p class="stats">
+      <span><b>1561</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1580"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Voorberg stelt dat woede geen karakterfout is maar een waarneming: wie kwaad wordt, ziet iets dat niet deugt. Zijn bezwaar richt zich op de kerkelijke en burgerlijke opvoeding die woede afvlakt tot ongemak en daarmee het onrecht uit het zicht houdt. De vloek is in zijn lezing de oudste vorm van dat oordeel, een uitroep dat het zo niet hoort te zijn, en daarmee verwant aan het gebed. Wie leert vloeken houdt het oordeel vast in plaats van het weg te slikken. Daar laat hij het niet bij: een vloek die blijft steken verzuurt tot cynisme, en het boek gaat vooral over wat er daarna moet gebeuren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De domineeszoon en zijn regels</h3>
+      <p>Voorberg begint bij zijn eigen opvoeding in een gereformeerd domineesgezin, met het soort regels dat hij achteraf vooral benauwend noemt: op zondag geen ijsje. Die regels vormen in het boek geen jeugdtrauma maar een voorbeeld. Zij lieten zien hoe een geloofsgemeenschap netheid belangrijker kan vinden dan waarheid.</p>
+      <p>Als volwassene richtte hij de PopUpKerk op, een gemeente zonder eigen gebouw en zonder vaste vorm, buiten de bestaande kerkelijke kaders om. Dat vertrekpunt bepaalt de toon van het boek: hij spreekt niet vanuit een instituut dat hij verdedigt, maar vanuit een praktijk die hij zelf aan het uitproberen is.</p>
+      <h3>Woede als waarneming</h3>
+      <p>Het eerste deel behandelt woede als iets neutraals, in Voorbergs woorden een gave waarmee je moet leren omgaan en een kapitaal dat kan breken en bouwen. Woede is dan geen falen van zelfbeheersing maar een signaal dat er iets is opgemerkt.</p>
+      <p>Daaruit volgt zijn bezwaar tegen de gangbare omgang ermee. Wie zijn woede wegdrukt uit fatsoen, drukt tegelijk het oordeel weg dat eronder ligt, en houdt zo een toestand in stand die hij zelf onjuist vindt. Voorberg noemt dat een vorm van medeplichtigheid die zich voordoet als beschaving.</p>
+      <h3>De vloek als gebed</h3>
+      <p>Het middenstuk levert de redenering waaraan het boek zijn titel ontleent. Vloeken is volgens Voorberg oorspronkelijk het aanroepen van een instantie boven de spreker uit om een oordeel over kwaad uit te spreken. In die zin lijkt de vloek op het gebed: beide richten zich tot iets buiten de spreker en beide gaan ervan uit dat het huidige niet het laatste woord heeft.</p>
+      <p>Hij bouwt die vergelijking uit met verwijzingen naar het vloeken en klagen in de bijbelse teksten zelf, waar God herhaaldelijk wordt aangesproken op wat er misgaat. Zijn conclusie is dat een vloek een begin is en geen eindpunt: het oordeel is uitgesproken, en daarmee is de vraag geopend wat de spreker er verder mee doet.</p>
+      <h3>Onmacht</h3>
+      <p>Tussen de woede en de daad zit volgens het boek een fase die de meeste mensen niet uithouden: het besef dat je aan het onrecht dat je ziet vrijwel niets kunt veranderen. Voorberg beschrijft die onmacht als de plek waar het cynisme wordt geboren, en tegelijk als de enige plek waar iets nieuws kan beginnen.</p>
+      <p>Hij weigert die onmacht op te lossen met een programma. Het boek biedt geen stappenplan en geen politieke agenda. Wat het aanreikt is de houding om in de onmacht te blijven staan tot er een handeling opkomt die binnen bereik ligt.</p>
+      <h3>Benno L. en de bloemen</h3>
+      <p>Het meest besproken voorbeeld is de opvang van Benno L., die na zijn straf voor zedenmisdrijven in Leiden kwam wonen en daar op verzet stuitte. Voorberg en de zijnen kozen voor het omgekeerde en organiseerden een welkom, met alle bezwaren die daaraan kleven. Het hoofdstuk laat zien dat zijn eigen positie ongemakkelijk blijft en dat hij die niet gladstrijkt.</p>
+      <p>Een tweede voorbeeld zijn de bloemen die hij neerlegde bij huizen van vluchtelingen die waren beklad. De handeling verandert niets aan het beleid en heft de bekladding niet op. Het punt van het boek is dat zij het beeld verandert van wat er in een straat mogelijk is, en dat de handelende persoon uit de verlamming stapt.</p>
+      <h3>Het vluchtelingenkamp</h3>
+      <p>Het langste verhaal in het boek is een reis naar een Grieks vluchtelingenkamp, ontstaan uit een gesprek dat plotseling in een besluit omsloeg. Voorberg beschrijft hoe weinig hij daar kon doen en hoe onbeholpen de aanwezigheid van een groep Nederlanders er uitzag.</p>
+      <p>Juist die verhouding is zijn argument. Wie wacht tot hij weet hoe het moet, vertrekt nooit. Het slot van het boek staat in dat teken: niemand weet hoe het moet, dus iedereen mag het proberen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Woede</td><td>Bij Voorberg geen ondeugd maar een waarneming van onrecht, die je kunt leren hanteren zoals je kapitaal leert hanteren.</td></tr>
+          <tr><td class="term">Vloek</td><td>De uitroep waarin een oordeel over kwaad besloten ligt, door Voorberg gelezen als verwante vorm van het gebed.</td></tr>
+          <tr><td class="term">Onmacht</td><td>De fase tussen woede en handelen waarin duidelijk wordt dat je het probleem niet kunt oplossen, en die volgens het boek moet worden uitgehouden.</td></tr>
+          <tr><td class="term">Daadkracht</td><td>De stap naar het probleem toe om te onderzoeken wat er wel kan, ook als de uitkomst klein of symbolisch blijft.</td></tr>
+          <tr><td class="term">Cynisme</td><td>Wat er overblijft wanneer de woede blijft hangen in de onmacht en de handeling uitblijft; het tegendeel van wat het boek beoogt.</td></tr>
+          <tr><td class="term">PopUpKerk</td><td>De door Voorberg opgerichte gemeente in Amsterdam zonder eigen gebouw en zonder vaste organisatievorm, buiten de bestaande kerkelijke structuren.</td></tr>
+          <tr><td class="term">Agressie</td><td>Door Voorberg herbepaald als het toelopen op een probleem in plaats van het toebrengen van schade.</td></tr>
+          <tr><td class="term">Beeldenstorm</td><td>Het beeld waarmee hij zijn eigen positie tekent: het opruimen van vormen die alleen nog uit gewoonte overeind staan.</td></tr>
+          <tr><td class="term">Iedereen mag het proberen</td><td>De slotformule van het boek, die het ontbreken van een methode tot uitgangspunt maakt in plaats van tot bezwaar.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan en pretendeert dat ook niet. Het bewijsmateriaal bestaat uit eigen ervaringen die controleerbaar zijn omdat ze in het openbaar plaatsvonden: de PopUpKerk, het welkom voor Benno L. in Leiden, de bloemen bij bekladde huizen en de reis naar een vluchtelingenkamp. Wie wil nagaan of Voorberg deed wat hij zegt, kan dat aan de berichtgeving toetsen.</p>
+      <p>Wat het boek verder draagt is een theologische redenering, geen empirische. De stelling dat de vloek verwant is aan het gebed rust op bijbelse voorbeelden en op een taalkundige lezing van het vloeken, niet op onderzoek naar hoe mensen feitelijk vloeken. Lezers die het boek verder waarderen noemen juist dit deel de zwakste schakel, omdat de redenering gemaakt aandoet.</p>
+      <p>Dat Voorberg zijn eigen stelling serieus neemt, blijkt uit wat erna kwam: in 2017 was hij betrokken bij de actiegroep die met bussen vluchtelingen uit Griekse kampen wilde ophalen. Dat lag buiten het bestek van dit boek, maar het maakt aannemelijk dat de daadkracht waarover hij schrijft geen literaire pose is.</p>
+      <p>Het boek plaatst zichzelf in een bestaande stroming binnen de theologie die uitgaat van twijfel en van handelen in plaats van van leerstellige zekerheid. Voorberg werkte die achtergrond zes jaar later expliciet uit in een inleiding in de radicale theologie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt het middenstuk. De afleiding van vloek naar gebed is aardig gevonden, maar zij berust op een bewering over de oorsprong van het vloeken die niet wordt onderbouwd en die het alledaagse vloeken, dat zelden een oordeel over onrecht uitdrukt, buiten beschouwing laat. Meerdere lezers noemen dit gedeelte overgeconstrueerd, en het is precies het gedeelte waarop de titel staat.</p>
+      <p>Het boek geeft geen maatstaf om te bepalen wanneer woede terecht is. Voorberg neemt aan dat wie kwaad wordt iets waars heeft gezien, maar woede over vluchtelingenopvang werkt precies zo van binnenuit als woede over de behandeling van vluchtelingen. Een boek dat woede als kompas voorstelt, zou moeten uitleggen hoe je een verkeerd afgesteld kompas herkent.</p>
+      <p>De voorbeelden zijn klein en symbolisch: bloemen, een welkom, een reis. Voorberg erkent die schaal zelf en maakt er een deugd van, maar wie wil weten hoe onrecht van omvang wordt aangepakt, komt met deze bundel niets verder. Er staat geen woord over wetgeving, organisatie of politieke macht.</p>
+      <p>Een terugkerend bezwaar van lezers is de eenzijdige blik: de aandacht gaat vrijwel onafgebroken naar wat er misgaat, waardoor de vraag wat er wel deugt onbesproken blijft. Dat maakt het boek geschikt om iemand in beweging te krijgen en minder geschikt om iemand op de been te houden.</p>
+      <p>Ten slotte blijft de vraag naar de positie van de schrijver. Voorberg treedt op als de man die het welkom organiseert en de bloemen neerlegt, en hij vertelt die verhalen zelf. Hoe zorgvuldig hij ook zijn eigen twijfel opschrijft, het boek loopt daarmee het risico dat het de handeling toont in de vorm van een aanbeveling voor de handelende persoon.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer bij ergernis eerst welke waarneming eronder zit: wat is er precies aan de hand dat niet zou moeten kunnen.</li>
+        <li>Onderscheid het oordeel van de oplossing. Spreek het oordeel uit voordat er een plan is.</li>
+        <li>Blijf in de onmacht staan tot er een handeling opkomt die binnen eigen bereik ligt, in plaats van de onmacht te ruilen voor een mening.</li>
+        <li>Kies een handeling die vandaag uitvoerbaar is en die zichtbaar is voor de betrokkenen, ook als het effect klein blijft.</li>
+        <li>Toets de eigen woede aan iemand die er anders in staat, om te merken of het om onrecht gaat of om ongemak.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De Arbeiderspers, Amsterdam, 25 oktober 2016, 208 blz., ISBN 9789029505857; e-boek ISBN 9789029505864. De ondertitel luidt <i>Over woede, onmacht en daadkracht</i>. Het boek is in het Nederlands geschreven en is niet vertaald. Voorberg schreef later met Gerko Tempelman en Bram Kalkman <i>Onzeker weten. Een inleiding in de radicale theologie</i> (KokBoekencentrum, 2022).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rikko Voorberg is domineeszoon, theoloog en oprichter van de PopUpKerk in Amsterdam, een kerk zonder gebouw. In dit boek beschrijft hij wat er gebeurt wanneer hij kwaad wordt over iets dat hij ziet, en wat hij vervolgens met die woede doet.</p><p>De titel komt voort uit zijn stelling dat een vloek een oordeel bevat. Wie vloekt roept aan dat iets niet deugt. Voorberg leest dat als een verwante beweging van het gebed, en verwijt de vrome opvoeding waarin hij opgroeide dat zij die uitroep afleerde en daarmee ook de waarneming die eraan voorafging.</p><p>Het boek loopt van woede via onmacht naar wat hij daadkracht noemt: de stap naar het probleem toe om te zien wat er wel kan. Hij vertelt over de opvang van de veroordeelde zedendelinquent Benno L. in de buurt, over bloemen bij bekladde huizen van vluchtelingen en over een reis naar een Grieks vluchtelingenkamp.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>theologie</li><li>woede</li><li>onrecht</li><li>activisme</li><li>kerk</li><li>vluchtelingen</li><li>cynisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1579"><a href="1579.html">Onzeker weten</a>. Voorbergs latere boek met Tempelman en Kalkman werkt de theologische achtergrond uit die hier alleen wordt aangeraakt: geloven zonder zekerheid.</li>
+          <li value="1577"><a href="1577.html">Heilige onrust</a>. De Lange bepleit eveneens een christendom van beweging en onrust in plaats van van vaste vorm, maar doet dat als academisch ethicus met bronvermelding.</li>
+          <li value="612"><a href="612.html">Het koninkrijk Gods is binnen in u</a>. Tolstoj legt de radicaalste versie van dezelfde stap neer: het evangelie als aanwijzing om nu te handelen, met de kerk als obstakel.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

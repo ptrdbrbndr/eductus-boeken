@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heilige onrust &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Lange stelt dat de kern van religie niet in geloofsuitspraken zit maar in een onrust die mensen in beweging zet, en dat die onrust overblijft wanneer…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1577">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1577 &middot; Filosofie en mystiek</p>
+    <h1>Heilige onrust</h1>
+    <p class="lede">Frits de Lange, 2017</p>
+    <p class="stats">
+      <span><b>1450</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1577"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Lange stelt dat de kern van religie niet in geloofsuitspraken zit maar in een onrust die mensen in beweging zet, en dat die onrust overblijft wanneer de bovennatuurlijke bovenbouw is weggevallen. Het beeld dat hij daarvoor gebruikt is de hedendaagse pelgrim naar Santiago, die zelden gaat omdat hij in de apostel gelooft en die na aankomst vaak vaststelt dat de tocht het punt was. Daarmee keert hij de klassieke figuur van de homo viator om: bij Augustinus is de mens onderweg naar een bestemming die vaststaat, bij De Lange is het onderweg zijn zelf de religieuze houding. Wat hij daarvan overhoudt noemt hij een minimale theologie, zonder persoonlijke God en zonder hiernamaals, met eeuwig leven als naam voor verdichte momenten in dit leven. De inzet is dat dit geen afgeslankt geloof is maar een terugkeer naar wat in de joods-christelijke traditie al de kern was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De pelgrim als figuur van deze tijd</h3>
+      <p>De Lange begint bij een verschijnsel dat zich moeilijk laat verklaren met de secularisatiestatistiek: kerken lopen leeg en tegelijk lopen jaarlijks honderdduizenden mensen naar Santiago de Compostela. De meesten van hen noemen zich niet gelovig. Zij noemen wel iets dat hen in beweging zette en dat zij niet goed onder woorden krijgen.</p>
+      <p>Hij leest die pelgrimage als een lijfelijke praktijk. Wat er gebeurt gebeurt in benen, blaren, honger en slaap, en niet in overtuigingen. De Lange gebruikt onder meer het verslag van Jean-Christophe Rufin, die de weg liep en achteraf vaststelde dat hij niet wist waarom.</p>
+      <h3>Wat er is weggevallen</h3>
+      <p>In het tweede spoor beschrijft De Lange wat hij zelf niet meer kan geloven. Een God die van buitenaf ingrijpt, gebedsverhoring, voortbestaan na de dood; hij behandelt die als voorstellingen die hun geloofwaardigheid hebben verloren, en niet als vijanden die bestreden moeten worden.</p>
+      <p>Hij zet daar het onderscheid tussen twee denkschema's tegenover. Het Griekse schema is verticaal: boven en beneden, tijd en eeuwigheid, schijn en ware wereld. Het joodse schema is horizontaal en vooruitgericht: verwachting, belofte, uittocht. De Lange kiest voor het tweede en leest de christelijke traditie als een verhaal dat vooruit wijst in plaats van omhoog.</p>
+      <h3>Onrust als religieuze grondhouding</h3>
+      <p>De titel komt uit Augustinus' beroemde zin over het hart dat onrustig is totdat het rust vindt in God. De Lange houdt de onrust vast en laat de rust vallen. Religie is bij hem de naam voor de ervaring dat iets aan je trekt, dat het leven meer van je vraagt dan je zelf bedacht had, en dat je daar gehoor aan geeft.</p>
+      <p>Die beweging noemt hij messianiteit: de menselijke structuur van verwachting, het gericht zijn op wat nog niet is. Het woord komt via Derrida en Caputo uit de radicale theologie, en houdt bewust in het midden of daar iets of iemand aan beantwoordt.</p>
+      <h3>Eeuwig leven zonder hiernamaals</h3>
+      <p>Vervolgens herinterpreteert De Lange een reeks klassieke woorden. Eeuwig leven staat bij hem voor momenten waarin het leven zich verdicht en waarin tijd anders gaat lopen: kairos in plaats van chronos. Genade wordt de ervaring dat je gedragen wordt door wat je niet gemaakt hebt. Verlossing wordt het loslaten van het project dat je van jezelf gemaakt had.</p>
+      <p>Hij is expliciet dat dit een keuze is en geen ontdekking. De God die hij overhoudt is geen gatenvuller voor wat de wetenschap niet verklaart; hij weigert die rol omdat zij het geloof telkens verder in het nauw brengt naarmate de wetenschap opschuift.</p>
+      <h3>Wat een kerk dan nog is</h3>
+      <p>In het laatste deel vraagt De Lange wat er van geloofsgemeenschap overblijft. Hij houdt vast aan de traditie als vindplaats van beelden en verhalen die je niet zelf hoeft te verzinnen, en aan de morele richting die de profetische teksten wijzen: aandacht voor wie buiten valt.</p>
+      <p>Rituelen komen er in verhouding bekaaid vanaf. Zij worden erkend maar niet uitgewerkt, en de gemeenschap krijgt bij De Lange minder gewicht dan de individuele wandelaar. Dat is een keuze die past bij zijn beeld, en tegelijk het punt waarop de meeste recensenten zijn blijven haken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">heilige onrust</td><td>De aandrift die mensen in beweging zet en die De Lange als de kern van religie aanwijst, losgemaakt van de rust die Augustinus erop liet volgen.</td></tr>
+          <tr><td class="term">homo viator</td><td>De klassieke figuur van de mens onderweg naar een vaststaande bestemming, die De Lange overneemt en van zijn bestemming ontdoet.</td></tr>
+          <tr><td class="term">minimale theologie</td><td>Een godsleer zonder persoonlijke God, wonder of hiernamaals, die zich beperkt tot wat in de ervaring aanwijsbaar is.</td></tr>
+          <tr><td class="term">messianiteit</td><td>De gerichtheid op wat nog niet is, als menselijke grondstructuur en niet als verwachting van een bepaalde figuur.</td></tr>
+          <tr><td class="term">kairos</td><td>Het verdichte moment waarin tijd anders verloopt dan in de doorlopende klokketijd, waar De Lange het woord eeuwig leven aan hangt.</td></tr>
+          <tr><td class="term">de God van de gaten</td><td>De godsvoorstelling die dient om te verklaren wat de wetenschap nog niet verklaart, en die De Lange afwijst als op termijn onhoudbaar.</td></tr>
+          <tr><td class="term">verticaal en horizontaal</td><td>Het onderscheid tussen een Grieks schema van boven en beneden en een joods schema van verwachting en toekomst, waarin De Lange voor het tweede kiest.</td></tr>
+          <tr><td class="term">lijfelijkheid van geloof</td><td>De opvatting dat religieuze ervaring zich eerder in lopen, vermoeidheid en zintuigen afspeelt dan in overtuigingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een essay en niet een onderzoeksverslag. De onderbouwing bestaat uit theologische en filosofische bronnen, uit literatuur over pelgrimage en uit de ervaring van moderne pelgrims zoals die in reisverslagen en interviews is opgetekend. De Lange is helder over de status daarvan: hij beschrijft wat hij ziet gebeuren en welke lezing daarvan hem het meest overtuigt.</p>
+      <p>De historische claim over het joodse tegenover het Griekse denkschema leunt op een traditie in de twintigste-eeuwse theologie die dat onderscheid scherp trok. Dat onderscheid is onder oudhistorici en exegeten omstreden: de scheiding tussen een hebreeuws en een grieks denken is in de tweede helft van de vorige eeuw als te schematisch bekritiseerd, en De Lange gaat op die kritiek niet in.</p>
+      <p>De empirische kant, wat pelgrims werkelijk beweegt, blijft dun. Er is inmiddels sociologisch onderzoek naar de motieven van Santiagogangers, waarin naast spirituele redenen ook sport, rouwverwerking, een burn-out en de wens even weg te zijn hoog scoren. De Lange kiest uit dat scala de duiding die zijn betoog draagt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar is dat De Lange de pelgrim beter meent te begrijpen dan die zichzelf begrijpt. Bert Altena en Harm Klifman wijzen er beiden op dat de praktische en alledaagse motieven van wandelaars onderbelicht blijven, en dat het boek daardoor iets mystificerends krijgt: aan een gewone tocht wordt een religieuze diepte toegeschreven die de wandelaar zelf niet claimt.</p>
+      <p>Een tweede bezwaar betreft de traditie. Door de bovenbouw af te breken en van onderaf opnieuw te beginnen, ontzegt De Lange zich volgens Altena de mogelijkheden die diezelfde traditie biedt; herkomst, kerkelijke opvoeding en het repertoire dat je meekreeg bepalen mede wat een pelgrimage voor iemand betekent, en dat gewicht komt er bekaaid vanaf.</p>
+      <p>Ten derde blijft onduidelijk wat de status van messianiteit is. Is het een beschrijving van een menselijke structuur, of houdt De Lange langs die weg toch een God binnen die hij aan de voordeur heeft afgewezen? Klifman legt die vraag voor zonder antwoord te krijgen. Wie het boek van orthodoxe zijde leest, ziet er een afscheid in dat als een terugkeer wordt gepresenteerd.</p>
+      <p>Ten slotte is het beeld eenzijdig. De pelgrimage is een van de mogelijke metaforen voor religieus leven, naast de tuin, het huis, de tafel en het ambacht, en elk van die beelden legt iets anders bloot. De Lange werkt er één uit, en de keuze bepaalt de uitkomst meer dan het boek erkent. Rituelen, die in het leven van de meeste gelovigen zwaarder wegen dan wandelen, krijgen in verhouding weinig ruimte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij het spreken over geloof de overtuigingen van de beweging: vraag wat iemand in gang zette voordat de vraag valt wat iemand aanneemt.</li>
+        <li>Schrijf op welke woorden uit de eigen levensbeschouwelijke herkomst nog dienst doen en welke leeg geworden zijn.</li>
+        <li>Toets een religieuze uitspraak op de vraag of zij een gat vult dat de wetenschap toch gaat dichten.</li>
+        <li>Vergelijk het beeld van de tocht met dat van het huis of de tafel, en let op wat elk beeld weglaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Heilige onrust. Een pelgrimage naar het hart van religie</i> (Ten Have, Utrecht, 2017, 200 blz., ISBN 9789025905545), ook als e-boek verschenen. Oorspronkelijk in het Nederlands geschreven; een vertaling is er niet. De Lange was hoogleraar ethiek aan de Protestantse Theologische Universiteit en publiceerde eerder over ouder worden, onder meer <i>De armoede van het zwitserlevengevoel</i> (Meinema, 2008), <i>Waardigheid, voor wie oud wil worden</i> (SWP, 2010) en <i>Loving Later Life</i> (Eerdmans, 2015). Later volgden <i>Eindelijk volwassen</i> (Ten Have, 2021) en een boek over Simone Weil (Kok, 2023).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Lange schrijft voor mensen die iets ervaren dat groter of sterker is dan zijzelf, maar die daar geen kerkelijke taal meer voor hebben. Hij neemt de pelgrim als beeld voor die houding: iemand die onderweg is zonder dat de bestemming nog het punt is.</p><p>Zijn uitgangspunt is dat het traditionele bouwwerk waar het christendom op rustte, een God die ingrijpt en een hiernamaals dat wacht, voor veel mensen is weggevallen, hemzelf inbegrepen. De vraag van het boek is wat er dan overblijft van religie, en zijn antwoord luidt: de onrust zelf. De beweging, het verlangen, de gerichtheid op wat komt.</p><p>Hij bouwt daarop een theologie die hij bewust klein houdt. Geen persoonlijke God die gaten dicht die de wetenschap openlaat, geen leven na de dood, wel momenten waarin het leven zich verdicht en die hij met een oud woord eeuwig leven noemt. Het boek kreeg lof in Trouw en verzet uit orthodoxe hoek, en werd ook door welwillende lezers bekritiseerd op de vraag of er nog een God overblijft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>pelgrimage</li><li>secularisatie</li><li>theologie</li><li>Santiago</li><li>transcendentie</li><li>protestantisme</li><li>levensbeschouwing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1579"><a href="1579.html">Onzeker weten</a>. Voorberg, Tempelman en Kalkman bewandelen in <i>Onzeker weten</i> dezelfde weg vanuit de radicale theologie, met Caputo en Rollins als bronnen die De Lange terloops noemt.</li>
+          <li value="936"><a href="936.html">The Varieties of Religious Experience</a>. William James beschrijft in <i>The Varieties of Religious Experience</i> religie eveneens vanuit de ervaring in plaats van de leer, ruim een eeuw eerder en met veel meer materiaal.</li>
+          <li value="578"><a href="578.html">Het heilige</a>. Rudolf Otto zoekt in <i>Het heilige</i> naar de kern van religie in een ervaringskwaliteit; hij houdt daarbij vast aan een werkelijkheid buiten de mens die De Lange laat vallen.</li>
+          <li value="390"><a href="390.html">Simone Weil: An Anthology</a>. Simone Weil, over wie De Lange later een boek schreef, verbindt aandacht en verlangen tot een religieuze houding die weinig leerstelligs nodig heeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

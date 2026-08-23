@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waking the Tiger &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Levine stelt dat een trauma niet in de gebeurtenis zit en evenmin in de herinnering eraan, maar in een zenuwstelsel dat een afweerreactie is begonnen en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1656">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1656 &middot; Brein en lichaam</p>
+    <h1>Waking the Tiger</h1>
+    <p class="lede">Peter A. Levine met Ann Frederick, 1997</p>
+    <p class="stats">
+      <span><b>1509</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1656"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Levine stelt dat een trauma niet in de gebeurtenis zit en evenmin in de herinnering eraan, maar in een zenuwstelsel dat een afweerreactie is begonnen en die nooit heeft afgemaakt. Dieren in het wild verkeren dagelijks in levensgevaar en houden er zelden blijvende klachten aan over, omdat de opgeroepen mobilisatie na afloop uitloopt in trillen, schudden en wegrennen. Mensen onderbreken die uitloop met verstand, schaamte en oordeel, waarna de onafgemaakte reactie in het lichaam blijft hangen en zich meldt als angst, verdoving of uitbarsting. Behandeling richt zich volgens hem daarom op wat het lichaam nog wil afmaken, in kleine stappen, en niet op het steeds opnieuw vertellen van het verhaal.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat dieren doen en mensen nalaten</h3>
+      <p>Het eerste deel, dat Levine The Body as Healer noemt, begint bij de ethologie. Een dier dat wordt besprongen heeft drie mogelijkheden: vluchten, vechten of verstijven. Die derde reactie, de tonische immobiliteit, is geen instorting maar een toestand waarin de mobilisatie op volle sterkte doorloopt terwijl het lichaam stil ligt. Komt het dier daaruit, dan trilt en schokt het, waarna het verder graast.</p>
+      <p>Levine leest die volgorde als een plan van de natuur dat ook in mensen zit. Het menselijke verschil is de hersenschors, die de laatste fase kan blokkeren. Trillen wordt zwakte genoemd, huilen wordt ingeslikt, de vluchtbeweging wordt afgebroken. Wat blijft is een lichaam dat nog altijd in de startblokken staat, jaren na de gebeurtenis.</p>
+      <h3>Trauma als toestand, niet als beschadiging</h3>
+      <p>In de hoofdstukken over het raadsel van trauma verzet Levine zich tegen het idee dat trauma een ziekte is die iemand oploopt en houdt. Hij schrijft over de ontvoering van een schoolbus met kinderen in Chowchilla in Californie in 1976, waar het latere verloop liet zien dat vrijwel alle kinderen jaren daarna nog klachten hadden, ook de kinderen die tijdens de ontvoering rustig hadden geleken.</p>
+      <p>Zijn woordkeus is bewust: trauma is voor hem een dis-ease, een toestand van niet op je gemak zijn, en die toestand kan omslaan. Wie ervan uitgaat dat er iets kapot is, gaat repareren; wie ervan uitgaat dat er iets vastzit, gaat het los laten komen. Op die tweedeling rust de rest van het boek.</p>
+      <h3>De felt sense</h3>
+      <p>Het middel dat Levine aanreikt is de felt sense: het geheel van lichaamsgewaarwordingen waaraan iemand op elk moment kan aflezen hoe het met hem gesteld is. De term komt van Eugene Gendlin, die haar in zijn focusmethode gebruikte; Levine zet haar in als het instrument waarmee de client zijn eigen zenuwstelsel volgt.</p>
+      <p>Het gaat om taal die niet interpreteert. Waar zit het, hoe groot is het, is het warm of koud, beweegt het. Levine oefent die aandacht eerst op onschuldig materiaal, omdat de felt sense bij een overspoeld iemand meteen dichtklapt. Pas als iemand een tinteling in zijn arm kan volgen zonder de draad te verliezen, komt het moeilijke aan bod.</p>
+      <h3>Bevriezen en ontdooien</h3>
+      <p>Twee hoofdstukken dragen elkaars spiegelbeeld als titel: hoe biologie pathologie wordt, en hoe pathologie weer biologie wordt. In het eerste beschrijft Levine hoe de verstijving die het lichaam redde blijft staan als er geen ontlading volgt. In het tweede beschrijft hij hoe die verstijving alsnog kan aflopen.</p>
+      <p>Het bekendste voorbeeld is Nancy, een vrouw met paniekaanvallen, bij wie tijdens een sessie de benen in een rennende beweging kwamen en het lichaam ging schokken. Levine brengt die reactie in verband met een tonsillectomie waarbij zij als kind was vastgehouden onder ether. Na afloop namen haar klachten af. Hij presenteert dat als het beginpunt van zijn hele werkwijze.</p>
+      <h3>Hernieuwde onderhandeling</h3>
+      <p>Het derde deel gaat over renegotiation, hernieuwde onderhandeling. De gebeurtenis wordt niet herbeleefd in haar geheel, want dat levert volgens Levine alleen nieuwe overspoeling op. In plaats daarvan pendelt de client tussen twee polen die hij de traumawervel en de genezingswervel noemt: even naar de activering toe, dan weer terug naar iets wat rust geeft, en zo heen en weer.</p>
+      <p>In dat pendelen moet de onderbroken beweging alsnog worden gemaakt, vaak niet meer dan een duw met een hand of een draai van het hoofd. Levine hecht sterk aan het tempo. Te snel is voor hem de kern van wat er in de behandeling van trauma misgaat.</p>
+      <h3>Eerste hulp, kinderen en gemeenschap</h3>
+      <p>Het laatste deel is praktisch. Levine beschrijft wat er direct na een ongeluk te doen valt, hoe je een kind opvangt dat van een fiets is gevallen, en waarom de vraag of iemand zich goed houdt minder zegt dan de vraag of hij trilt. Hij waarschuwt daarbij tegen het uitvergroten van het incident.</p>
+      <p>Daaromheen staat een cultuurbeschouwing. Levine gebruikt de Medusa uit de Griekse mythologie als beeld voor de verstarring die volgt op recht in het gevaar kijken, en hij wijst op rituelen in samenlevingen waarin terugkerende krijgers of zieken gezamenlijk werden opgevangen. Het westerse tekort ligt volgens hem ook daar: er is geen plek meer waar het lichaam mag uitrazen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Felt sense</td><td>Het geheel van lichaamsgewaarwordingen waarmee iemand zijn eigen toestand van moment tot moment volgt, ontleend aan Eugene Gendlin.</td></tr>
+          <tr><td class="term">Ontlading</td><td>Het trillen, schokken, zweten of huilen waarmee de opgeroepen mobilisatie het lichaam verlaat.</td></tr>
+          <tr><td class="term">Immobiliteit</td><td>De verstijvingsreactie waarin het dier of de mens stil ligt terwijl het zenuwstelsel op volle sterkte doorwerkt.</td></tr>
+          <tr><td class="term">Dis-ease</td><td>Levines aanduiding voor trauma als een toestand van ongemak die kan omslaan, tegenover trauma als ziekte die iemand houdt.</td></tr>
+          <tr><td class="term">Traumawervel</td><td>De zuigende beweging naar de herinnering en de activering toe, waarin iemand kan verdrinken als hij er te lang in blijft.</td></tr>
+          <tr><td class="term">Genezingswervel</td><td>De tegenpool daarvan: de gewaarwordingen, beelden of houdingen waaraan iemand houvast heeft.</td></tr>
+          <tr><td class="term">Hernieuwde onderhandeling</td><td>Het in kleine stukken alsnog afmaken van de afweerreactie, in plaats van het opnieuw doorleven van de gebeurtenis.</td></tr>
+          <tr><td class="term">Hulpbron</td><td>Alles wat een client op eigen kracht kan aanroepen om terug te keren naar een draaglijke toestand, van een herinnering tot een lichaamshouding.</td></tr>
+          <tr><td class="term">Somatic Experiencing</td><td>De naam van de opleiding en de werkwijze die Levine op dit boek heeft gebouwd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De grond onder het boek is voor het grootste deel waarneming en analogie. Levine beschrijft het gedrag van prooidieren, hij beschrijft zijn eigen clienten, en hij legt tussen die twee een verband. Nagerekend onderzoek waarin de menselijke ontlading is gemeten, staat er niet in. De zaak van Nancy, die de hele werkwijze draagt, is een enkele casus zonder controle en zonder vervolgmeting die verder gaat dan zijn eigen verslag.</p>
+      <p>Feitelijk juist is het deel over de dierkunde: tonische immobiliteit bij prooidieren is beschreven gedrag, en de gevolgen van de ontvoering in Chowchilla zijn in de vakliteratuur nagelopen. De stap die Levine daarna zet, van dierlijk gedrag naar opgeslagen energie in mensen, is een gedachtegang en geen bevinding.</p>
+      <p>Onderzoek naar de methode kwam pas na het boek. In 2017 verscheen een gerandomiseerde studie naar Somatic Experiencing bij mensen met posttraumatische stressstoornis met gunstige uitkomsten, met een klein aantal deelnemers. Een overzicht van de literatuur uit 2021 concludeerde dat er aanwijzingen zijn voor werkzaamheid, maar dat het aantal studies klein is en de opzet ervan wisselend, en dat de vergelijking met beter onderzochte behandelingen ontbreekt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwakste punt is het begrip energie. Levine spreekt over een hoeveelheid energie die in het zenuwstelsel bevroren raakt en die eruit moet, maar hij zegt niet wat er dan precies wordt opgeslagen, waar, of hoe iemand dat zou kunnen vaststellen. In een bespreking voor de British Psychological Society werd juist dat aangewezen: de invloed van het werk is groot, het centrale begrip is onuitgewerkt gebleven.</p>
+      <p>Daarbij komt de selectie van het bewijs. Alles wat Levine aanhaalt wijst zijn kant op, en tegenwerpingen worden nauwelijks besproken. Dat een vrouw na een sessie minder paniek heeft, laat verschillende verklaringen toe, waaronder aandacht, verwachting en het verstrijken van de tijd. Wie zijn conclusie over de oorzaak van haar klachten wil toetsen, heeft aan het boek niets.</p>
+      <p>Praktisch is er bezwaar gemaakt tegen de oefeningen. In een bespreking in Psychosomatic Medicine werd gewaarschuwd dat lezers met een zware voorgeschiedenis er alleen mee aan de slag gaan en daarbij overspoeld kunnen raken. Het boek waarschuwt daar wel voor, maar de opzet als leesbaar zelfhulpboek werkt de andere kant op.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Oefen het volgen van lichaamsgewaarwordingen eerst op iets onbelangrijks, voordat het bij iets zwaars nodig is.</li>
+        <li>Beschrijf wat er in het lichaam gebeurt in plaats van het te duiden: plaats, omvang, temperatuur, beweging.</li>
+        <li>Werk in korte stukken en keer telkens terug naar een toestand die rust geeft.</li>
+        <li>Laat na een schrik of ongeluk het trillen doorgaan in plaats van het af te breken met troostende woorden.</li>
+        <li>Vraag bij een kind dat is gevallen niet meteen of het pijn heeft, maar geef het de tijd om uit te schudden en bij te komen.</li>
+        <li>Zoek begeleiding zodra het volgen van sensaties overspoeling oplevert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Waking the Tiger: Healing Trauma. The Innate Capacity to Transform Overwhelming Experiences</i>, geschreven met Ann Frederick (North Atlantic Books, Berkeley, 1997, 274 blz., ISBN 9781556432330). Nederlands als <i>De tijger ontwaakt: traumabehandeling met lichaamsgerichte therapie</i>, vertaald door Hanneke Majoor bij Altamira-Becht in Haarlem, 2007, 268 blz.; latere drukken bij Altamira, onder meer ISBN 9789401304108, en een e-boek onder ISBN 9789401302319. Levine werkte de methode later uit in <i>In an Unspoken Voice</i> (2010) en beschreef zijn eigen geschiedenis in <i>An Autobiography of Trauma</i> (2024).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Levine is opgeleid in de biofysica en in de psychologie en begon zijn onderzoek bij dieren. Een prooidier dat aan een roofdier ontsnapt, trilt en schudt en graast daarna weer verder; blijvende klachten zijn in het wild zeldzaam. Zijn vraag is waarom mensen, met een veel groter brein, wel jarenlang last houden van een half uur op een snelweg of van een operatiekamer.</p><p>Zijn antwoord luidt dat het menselijke verstand de afloop van de afweerreactie tegenhoudt. De mobilisatie die het lichaam in gang zette wordt niet afgemaakt, en wat er van overblijft komt terug als schrikachtigheid, verdoving, slapeloosheid of woede. Behandeling betekent dan dat de onderbroken beweging alsnog wordt afgemaakt, in kleine stukjes, met aandacht voor wat er in het lichaam gebeurt.</p><p>Het boek verscheen in 1997 en werd de grondtekst van de methode die Levine Somatic Experiencing noemt. Het is geschreven voor een breed publiek en bevat oefeningen. De onderbouwing komt uit waarneming van dieren en uit zijn eigen praktijk; gecontroleerd onderzoek staat er niet in.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>trauma</li><li>zenuwstelsel</li><li>lichaamsgerichte therapie</li><li>somatic experiencing</li><li>PTSS</li><li>dieren</li><li>sensatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1655"><a href="1655.html">The Polyvagal Theory in Therapy</a>. Porges levert de fysiologische theorie waarop dit lichaamswerk zich sindsdien beroept; Levine schreef zijn boek voordat die theorie er lag.</li>
+          <li value="1622"><a href="1622.html">An Autobiography of Trauma</a>. Levine vertelt daarin zijn eigen geschiedenis en laat zien waar de aandacht voor het lichaam bij hem vandaan komt.</li>
+          <li value="317"><a href="317.html">Trauma: The Invisible Epidemic</a>. Conti behandelt hetzelfde onderwerp vanuit de psychiatrie en bespreekt wel de medicatie en de diagnostiek die Levine buiten beschouwing laat.</li>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Swinnen richt zich op de nervus vagus als aangrijpingspunt en biedt de praktische kant van hetzelfde idee.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Immortality Key &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Muraresku voert de zogeheten pagan continuity hypothesis tot haar uiterste door: als de Grieks sprekende wereld haar goden ontmoette door een gedrogeerd…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1611">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1611 &middot; Geschiedenis en samenleving</p>
+    <h1>The Immortality Key</h1>
+    <p class="lede">Brian C. Muraresku, 2020</p>
+    <p class="stats">
+      <span><b>1791</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1611"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Muraresku voert de zogeheten pagan continuity hypothesis tot haar uiterste door: als de Grieks sprekende wereld haar goden ontmoette door een gedrogeerd drankje te drinken, en als het christendom in diezelfde wereld en in dezelfde taal ontstond, dan zou de vroegste eucharistie een geestverruimende wijn geweest kunnen zijn, en heeft de kerk die praktijk eeuwenlang uitgeroeid en verzwegen. Zijn bewijsvoering rust daarbij niet op vondsten uit Eleusis of uit Jeruzalem, want die zijn er niet, maar op twee losse archeologische residuen aan de randen van de Griekse wereld en op de aanname dat de afwezigheid van bronnen zelf een gevolg van onderdrukking is. Daartegenin valt te brengen dat afwezigheid van bewijs op deze schaal net zo goed afwezigheid van de praktijk kan betekenen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag die het boek stelt</h3>
+      <p>Eleusis was tweeduizend jaar lang de bekendste inwijdingsplaats van de Griekse wereld. Wie er kwam moest zwijgen op straffe des doods, dronk een drankje dat kykeon heette en werd daarna epoptes genoemd: iemand die heeft gezien. Plato beschrijft de ervaring als een schouwen in een staat van volmaaktheid. Cicero noemt de mysteriën het beste wat Athene aan het menselijk leven heeft bijgedragen. Sophocles verdeelt de mensheid in wie er is geweest en wie niet.</p>
+      <p>Muraresku brengt die getuigenissen terug tot één probleem. Eeuw na eeuw kwamen geletterde, nuchtere mensen daar vandaan met dezelfde overtuiging dat zij hun eigen dood hadden overleefd. Wat gebeurde daar dat zo betrouwbaar hetzelfde effect had? Het heiligdom werd in 392 gesloten en in 395 verwoest, en de deelnemers hebben niets opgeschreven.</p>
+      <h3>De erfenis van 1978</h3>
+      <p>Het antwoord dat hij onderzoekt komt van Gordon Wasson, bankier en paddenstoelonderzoeker, Albert Hofmann, de scheikundige die LSD synthetiseerde, en Carl Ruck, classicus in Boston. In <i>The Road to Eleusis</i> stelden zij dat moederkoren op gerst het werkzame bestanddeel van de kykeon leverde. Het voorstel werd door classici afgewezen en kostte Ruck zijn positie binnen zijn afdeling.</p>
+      <p>Muraresku behandelt dat verzet vooral als een verhaal over tijdgeest. Het voorstel kwam twee decennia na het verbod op LSD en werd volgens hem eerder buiten de deur gehouden dan inhoudelijk weerlegd. Vanaf dat punt gaat hij op zoek naar residuen die in 1978 nog niet meetbaar waren.</p>
+      <h3>Wat er in Catalonië en bij Pompeï ligt</h3>
+      <p>De belangrijkste vondst komt uit Mas Castellar de Pontós in Girona, opgegraven onder leiding van Enriqueta Pons. In een kapel uit de tweede eeuw voor Christus werd een miniatuurbeker aangetroffen waarin sporen van moederkoren zijn vastgesteld, naast resten van gerstbier en menselijke kaakbeenderen met dezelfde sporen. Muraresku noemt dit de eerste stoffelijke aanwijzing voor een gedrogeerd drankje in een Grieks beïnvloede eredienst; de plaats lag in het achterland van de Griekse kolonie Emporion.</p>
+      <p>De tweede vondst ligt bij Villa Vesuvio nabij Pompeï, waar in resten van wijnbereiding opium, cannabis en wolfskers zijn aangetroffen. Daarmee heeft hij twee vindplaatsen, geen van beide Eleusis en geen van beide christelijk. De rest van het boek moet de afstand tussen die twee vondsten en de stelling overbruggen.</p>
+      <h3>Van Dionysos naar de eucharistie</h3>
+      <p>De brug loopt via Dionysos. De god van de wijn belooft in de <i>Bakchen</i> van Euripides opheffing van het zelf, en zijn feesten werden door vrouwen geleid. Muraresku wijst op de overeenkomst met het Johannesevangelie, dat als enige begint met een wijnwonder in Kana en dat Jezus laat zeggen dat hij de ware wijnstok is, in een Grieks dat voor een lezer uit die tijd naar Dionysos verwees.</p>
+      <p>Van daaruit haalt hij passages op waarin het avondmaal als geneesmiddel wordt aangeduid: bij Ignatius van Antiochië heet het brood een pharmakon athanasias, een middel tegen de dood. Kerkvader Irenaeus beschrijft hoe een zekere Marcus wijn liet veranderen en vrouwen liet voorgaan, en behandelt dat als ketterij en toverij. Muraresku leest zulke veroordelingen als sporen van wat er bestreden werd.</p>
+      <h3>De religie zonder naam en haar verdwijning</h3>
+      <p>De onderdrukkingslijn loopt van de sluiting van de tempels onder Theodosius via de vervolging van afwijkende groepen naar de heksenprocessen, waarin vrouwen met kennis van planten en zalven terechtstonden. Muraresku kreeg toegang tot bibliotheken en archieven van het Vaticaan om documenten over die processen in te zien en kwam met weinig terug. Dat magere resultaat presenteert hij als aanwijzing voor de grondigheid van de opruiming.</p>
+      <p>Voor de rol van vrouwen gebruikt hij dezelfde redenering. De Griekse feesten kenden priesteressen, in de catacomben van Priscilla staan afbeeldingen van vrouwen aan tafel, en de latere kerk sloot vrouwen van het ambt uit. Dat is een keten van gevolgtrekkingen zonder een enkel document waarin een vrouw een gedrogeerde eucharistie bedient.</p>
+      <h3>De hedendaagse inzet</h3>
+      <p>Het slot verbindt de geschiedenis met het lopende onderzoek naar psilocybine bij mensen die met hun eigen dood worden geconfronteerd. Als een enkele sessie de doodsangst blijvend vermindert, schrijft Muraresku, dan doet dat precies wat Eleusis beloofde, en dan staat de kerk voor de vraag of zij haar eigen oorsprong wil terugnemen.</p>
+      <p>Die wending verklaart zowel het succes van het boek als de argwaan ertegen. Het is een historische stelling en tegelijk een voorstel aan hedendaagse gelovigen, en dat maakt de bewijsvoering gevoelig voor de wens. Het boek werd bestseller, kwam bij de meest beluisterde luisterboeken van 2020 en werd in 2023 door een productiemaatschappij voor televisie vastgelegd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kykeon</td><td>Het drankje van gerst, water en munt dat de ingewijden in Eleusis dronken voordat zij de nacht in het heiligdom doorbrachten.</td></tr>
+          <tr><td class="term">Eleusinische Mysteriën</td><td>De jaarlijkse inwijding bij Athene rond Demeter en Persephone, die volgens de deelnemers een blijvende zekerheid over het voortbestaan na de dood opleverde.</td></tr>
+          <tr><td class="term">Epoptes</td><td>De titel van wie de tweede en hoogste graad van inwijding had doorlopen; het woord betekent iemand die heeft gezien.</td></tr>
+          <tr><td class="term">Moederkoren</td><td>De schimmel Claviceps purpurea op graan, die alkaloïden bevat die verwant zijn aan LSD en die in vergiftigingen ook stuipen en koudvuur veroorzaakt.</td></tr>
+          <tr><td class="term">Pharmakon athanasias</td><td>De uitdrukking middel tegen de dood, die Ignatius van Antiochië rond het jaar 110 gebruikt voor het brood van de eucharistie.</td></tr>
+          <tr><td class="term">Pagan continuity hypothesis</td><td>De gedachte dat het vroege christendom vorm en inhoud overnam van de Grieks-Romeinse mysteriecultussen waarin het ontstond.</td></tr>
+          <tr><td class="term">De religie zonder naam</td><td>Muraresku's aanduiding voor de veronderstelde doorlopende praktijk van een gedrogeerd sacrament, die geen leer, geen instelling en geen overgeleverde naam heeft.</td></tr>
+          <tr><td class="term">Archeochemie</td><td>Het onderzoek naar chemische sporen in aardewerk en tandsteen, de methode waarmee de vondsten in Girona en bij Pompeï zijn geanalyseerd.</td></tr>
+          <tr><td class="term">Argument uit stilzwijgen</td><td>De redenering waarin het ontbreken van bronnen als bewijs wordt gelezen; in dit boek gebruikt om de gestelde onderdrukking aannemelijk te maken.</td></tr>
+          <tr><td class="term">Telesterion</td><td>De grote inwijdingshal in Eleusis, met daarbinnen het anaktoron waar alleen de priesters kwamen en waar volgens Muraresku het antwoord zou moeten liggen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Twee vondsten dragen het boek. In Mas Castellar de Pontós zijn moederkoren-sporen vastgesteld in een miniatuurbeker en in menselijke resten; bij Villa Vesuvio zijn opium, cannabis en wolfskers aangetroffen in wijnresten. Beide zijn gepubliceerd en geen van beide is door Muraresku bedacht. Zij tonen aan dat er in de oudheid gedrogeerde dranken bestonden.</p>
+      <p>Wat zij niet tonen, is de rest van de stelling. Er is niets gevonden in Eleusis zelf, hoewel daar sinds 1882 wordt gegraven. Er is geen residu uit een christelijke context, geen tekst waarin een geestverruimend sacrament wordt beschreven, en geen aanwijzing dat de praktijk van Girona iets met Eleusis of met Athene te maken had. De weg van één beker in Catalonië naar de eucharistie in Jeruzalem en Rome legt het boek af met analogie en waarschijnlijkheidsredeneringen.</p>
+      <p>De tekstuele onderbouwing bestaat grotendeels uit passages die ook zonder farmacologie te lezen zijn. Dat Ignatius het brood een middel tegen de dood noemt, past bij de beeldspraak van zijn tijd. Dat Irenaeus de wijn van Marcus als toverij afwijst, zegt iets over de strijd om het gezag en niet aantoonbaar iets over de samenstelling van die wijn. Muraresku erkent op meerdere plaatsen dat hij speculeert; die erkenning staat in de tekst maar niet in de titel en niet in de opbouw van het betoog.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Vakgenoten hebben het boek scherp afgewezen. Archeoloog en chemicus Patrick McGovern, die zelf op resten van oude dranken werkt, oordeelt dat Muraresku de beperkte en dubbelzinnige gegevens verkeerd uitlegt en overinterpreteert om een in diskrediet geraakte hypothese over Eleusis nieuw leven in te blazen, en noemt het bewijs voor een verband met het christendom zeer zwak tot afwezig. Classicus Kevin Clinton van Cornell, die decennia over Eleusis publiceerde, schreef dat het boek laat zien hoe men geen onderzoek naar antieke religie moet doen. Jan Bremmer, kenner van de mysteriecultussen, wees erop dat er uit de oudheid geen enkele cultus bekend is die paddenstoelen gebruikte.</p>
+      <p>Ook Carl Ruck, wiens voorstel uit 1978 het boek nieuw leven inblaast, houdt afstand. Hij blijft achter zijn hypothese staan maar noemt het inmiddels bedenkelijk en mogelijk gevaarlijk wanneer religies zich achter psychedelica scharen, en vreest een nieuwe leer die op sturing van de geest neerkomt. De verhouding tussen Muraresku en zijn bronnen bekoelde verder toen hij met een brouwerij een bier rond het boek wilde uitbrengen; McGovern wees dat plan af met de vraag of er dan ook moederkoren in moest.</p>
+      <p>Het methodische bezwaar is het bestendigst. Het boek werkt met een redenering die niet te weerleggen is: waar bronnen ontbreken, geldt dat als aanwijzing dat ze zijn vernietigd. Elke leemte in het dossier verandert daarmee in steun voor de stelling. Ook de vondst uit Girona wordt na de eerste vermelding als vaststaand ijkpunt behandeld terwijl het om één beker uit één kapel gaat.</p>
+      <p>Wat overeind blijft is het boek als verslag van een zoektocht. Muraresku schrijft levendig, hij is ter plaatse geweest, hij spreekt de talen en hij laat de tegenspraak van zijn gesprekspartners staan. Dat is genoeg om het als leesbaar pleidooi te waarderen en te weinig om er iets over de oorsprong van het christendom uit af te leiden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij het lezen de gepubliceerde vondsten van de verbindingen die de auteur ertussen legt; de eerste zijn na te trekken, de tweede zijn redeneringen.</li>
+        <li>Let op de figuur waarin het ontbreken van bronnen als bewijs voor onderdrukking wordt gebruikt, en vraag welke waarneming de stelling dan nog zou kunnen weerleggen.</li>
+        <li>Lees bij dit onderwerp ook wat classici en archeologen ervan zeggen; die reacties staan online en zijn korter dan het boek.</li>
+        <li>Gebruik het niet als bron voor uitspraken over de vroege kerk, wel als ingang tot de vraag hoe de oudheid met roes en dood omging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Immortality Key: The Secret History of the Religion with No Name</i>, met een voorwoord van Graham Hancock (St. Martin's Press, New York, 2020, ca. 480 blz., ISBN 9781250207142; paperback ISBN 9781250803986). Bij verschijning droeg het boek de ondertitel <i>Uncovering the Secret History of the Religion with No Name</i>; latere drukken lieten het eerste woord weg. Er bestaat geen Nederlandse vertaling; wel verschenen onder meer een Spaanse en een Poolse editie. Muraresku publiceerde daarna geen tweede boek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Brian Muraresku is jurist en classicus. Twaalf jaar lang zocht hij bewijs voor één vraag: bevatte de kykeon, het drankje dat de ingewijden in Eleusis dronken, een geestverruimende stof, en heeft die gewoonte via de Grieks sprekende wereld de vroegste christelijke eucharistie bereikt?</p><p>Het eerste deel gaat over Eleusis. Tweeduizend jaar lang trokken pelgrims daarheen, onder wie Plato, Cicero en Marcus Aurelius, en zij kwamen terug met de overtuiging dat zij de dood hadden gezien en overleefd. In 1978 opperden Gordon Wasson, Albert Hofmann en Carl Ruck in <i>The Road to Eleusis</i> dat moederkoren in dat drankje zat, de schimmel waaruit Hofmann LSD had afgeleid. Muraresku gaat na wat er sindsdien aan materiaal bij is gekomen.</p><p>Het tweede deel maakt de sprong naar het christendom. Als de Grieken hun goden ontmoetten door te drinken, en als het vroegste christendom in het Grieks werd geschreven en gevierd, dan zou de wijn van het avondmaal ooit meer dan wijn geweest kunnen zijn. Muraresku noemt die verdwenen praktijk de religie zonder naam. Hij schrijft er zelf bij dat zijn stelling speculatief is; zijn critici vinden dat voorbehoud te laat komen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Eleusis</li><li>psychedelica</li><li>vroege kerk</li><li>archeologie</li><li>moederkoren</li><li>religiegeschiedenis</li><li>bewijslast</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="765"><a href="765.html">The Road to Eleusis: Unveiling the Secret of the Mysteries</a>. Het boek uit 1978 van Wasson, Hofmann en Ruck waarop deze hele stelling teruggaat; wie de bewijskracht wil wegen, begint daar.</li>
+          <li value="1151"><a href="1151.html">De mysterieuze Jezus</a>. Freke en Gandy voeren een verwante en al even omstreden continuïteitsstelling: dat het evangelieverhaal een variant is van de mysteriemythe.</li>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan beschrijft het klinische psilocybineonderzoek waar het slot van dit boek zijn hedendaagse inzet aan ontleent.</li>
+          <li value="936"><a href="936.html">The Varieties of Religious Experience</a>. William James verzamelde in 1902 al getuigenissen over religieuze ervaring onder invloed van stoffen, en trok er terughoudender gevolgtrekkingen uit.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

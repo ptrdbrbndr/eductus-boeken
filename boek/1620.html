@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Love Warrior &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Doyle stelt dat de ontrouw van haar man het huwelijk niet velde. Wat het velde waren twee mensen die allebei al veel eerder een deel van zichzelf hadden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1620">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1620 &middot; Roman en memoir</p>
+    <h1>Love Warrior</h1>
+    <p class="lede">Glennon Doyle Melton, 2016</p>
+    <p class="stats">
+      <span><b>1390</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1620"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Doyle stelt dat de ontrouw van haar man het huwelijk niet velde. Wat het velde waren twee mensen die allebei al veel eerder een deel van zichzelf hadden weggedaan om te voldoen aan wat er van een vrouw en van een man wordt verwacht. Zij verliet haar lichaam en leerde eten, overgeven, drinken en later ook schrijven gebruiken als manieren om niet aanwezig te hoeven zijn. Hij verliet zijn gevoel en leerde presteren, zwijgen en zijn begeerte elders onderbrengen. De bekentenis is in haar lezing het moment waarop die twee afwezigheden tegen elkaar aan kwamen te staan. Herstel is in haar lezing iets anders dan vergeven of weggaan: het is het terughalen van wat allebei was achtergelaten, en het boek volgt die terugkeer in de eerste plaats in haar eigen lichaam.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het meisje dat zichzelf wegdeed</h3>
+      <p>Het boek begint bij een meisje van tien dat leert overgeven wat het gegeten heeft. Doyle beschrijft dat als haar eerste eigen oplossing: een manier om iets te doen met een spanning waar zij geen woorden voor had. Als tiener wordt zij opgenomen. De boulimie gaat daarna over in drank en drugs, in een reeks relaties die niets voorstellen, en in een leven dat zij van een afstand bekijkt.</p>
+      <p>Zij noemt dat de gewoonte om zichzelf naar buiten te sturen in een versie die het wel aankan. Wat er werkelijk gebeurt, gebeurt intussen ergens anders, buiten haar bereik. Die scheiding tussen wat iemand laat zien en wat iemand voelt is het gegeven waar de rest van het boek op staat.</p>
+      <h3>Een zwangerschapstest op een badkamervloer</h3>
+      <p>De ommekeer komt met een onverwachte zwangerschap. Doyle stopt met drinken, trouwt met Craig Melton en krijgt drie kinderen. Zij beschrijft die jaren als geslaagd van buiten en leeg van binnen: zij hield het huishouden draaiende, deed alles wat er van haar werd gevraagd en bleef ondertussen op afstand van haar eigen lichaam.</p>
+      <p>In 2009 begint zij het blog Momastery, waarop zij over dat leven schrijft in een toon die zij zelf omschrijft als het onaantrekkelijkste deel eerst opschrijven. Het publiek groeit hard. In 2012 richt zij Together Rising op, waarmee zij dat publiek omzet in geld voor gezinnen in nood. In 2013 verschijnt <i>Carry On, Warrior</i> en staat zij op de bestsellerlijst.</p>
+      <h3>De bekentenis</h3>
+      <p>Na dertien jaar huwelijk vertelt Craig haar dat hij haar al die tijd ontrouw is geweest, herhaaldelijk en met verschillende vrouwen. Doyle beschrijft de weken erna in korte scenes: de kinderen die niets mogen merken, de vrienden die adviseren, de aandrang om onmiddellijk een besluit te nemen waarmee de pijn ophoudt.</p>
+      <p>Zij weigert dat besluit. De keuze tussen weggaan en vergeven noemt zij twee manieren om hetzelfde te doen, namelijk zo snel mogelijk uit het gevoel stappen. Het boek gaat vanaf hier over wat er gebeurt als iemand dat niet doet.</p>
+      <h3>Terug in het lichaam</h3>
+      <p>Doyle gaat in therapie en begint met yoga. Die yoga is in het boek geen ontspanning maar een oefening in aanwezig blijven bij iets dat pijn doet zonder er iets aan te veranderen. Ook het zwemmen keert terug als beeld: kopje onder gaan en merken dat er een bodem is.</p>
+      <p>In diezelfde periode komt zij tot de gedachte die de rest van het boek draagt: zij heeft haar leven besteed aan het wegrennen voor eenzaamheid, en alles wat zij daarvoor gebruikte, van eten tot bijval van lezers, deed hetzelfde werk. De ontrouw van haar man is dan niet de oorzaak van haar toestand maar de gelegenheid om die te zien.</p>
+      <h3>Wat Craig moet doen</h3>
+      <p>De tweede helft van het boek geeft ook Craig een opdracht, al gebeurt dat volledig via haar ogen. Waar zij terug moet naar haar lichaam, moet hij terug naar wat hij voelt en denkt. Doyle voert hem op als iemand die is grootgebracht met presteren en zwijgen, voor wie seks lang de enige toegestane vorm van nabijheid was.</p>
+      <p>Zij trekt dat door naar een algemene stelling over hoe jongens en meisjes worden opgevoed, en betoogt dat die opvoeding het twee mensen vrijwel onmogelijk maakt elkaar werkelijk te kennen. Elizabeth Gilbert noemde het boek in een aanbeveling het lang verwachte antwoord op <i>Eat, Pray, Love</i>.</p>
+      <h3>Het besluit om te blijven</h3>
+      <p>Het slot is een hernieuwd begin. Doyle beschrijft een huwelijk dat niet is gered maar opnieuw is aangegaan, tussen twee mensen die iets van zichzelf hebben teruggehaald. De term uit de titel valt daar: de liefdesstrijder is degene die de pijn niet ontloopt en er ook niet hard van wordt.</p>
+      <p>In september 2016 koos Oprah Winfrey het boek voor haar leesclub. In november 2016 maakte Doyle de scheiding bekend. Het boek is sindsdien niet herzien.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">love warrior</td><td>Doyles woord voor iemand die in de pijn blijft staan zonder te vluchten en zonder te verharden, en van daaruit liefheeft.</td></tr>
+          <tr><td class="term">Momastery</td><td>Het blog dat zij in 2009 begon en waarop zij het publiek opbouwde dat later haar boeken kocht.</td></tr>
+          <tr><td class="term">boulimie</td><td>Het patroon van eten en uitbraken dat rond haar tiende begon en dat zij haar eerste manier van verdwijnen noemt.</td></tr>
+          <tr><td class="term">verdoving</td><td>Haar verzamelnaam voor eten, drank, drugs en later ook bijval van lezers, alles wat het gevoel op afstand houdt.</td></tr>
+          <tr><td class="term">de opvoeding van meisjes</td><td>Wat vrouwen volgens haar leren over hun lichaam, hun begeerte en hun plicht er voor anderen te zijn.</td></tr>
+          <tr><td class="term">de opvoeding van jongens</td><td>Wat mannen volgens haar leren over presteren, zwijgen en het wegdoen van gevoel.</td></tr>
+          <tr><td class="term">de waarheid vertellen</td><td>Haar schrijfhouding, waarin het beschamendste deel van een verhaal als eerste op papier gaat.</td></tr>
+          <tr><td class="term">Together Rising</td><td>De hulporganisatie die zij in 2012 oprichtte en waarmee lezersgeld naar gezinnen in nood gaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een memoir en levert geen ander bewijs dan het verslag van de schrijfster zelf. Er wordt geen onderzoek aangehaald, geen therapeut geciteerd en geen bron genoemd. Waar Doyle een algemene uitspraak doet over mannen en vrouwen, rust die op haar eigen huwelijk en op wat zij van lezers hoorde.</p>
+      <p>Wat wel controleerbaar is, is de opbouw van haar publiek. Momastery bestond vanaf 2009, Together Rising vanaf 2012 en <i>Carry On, Warrior</i> haalde in 2013 de bestsellerlijst. De keuze van Oprah Winfrey in september 2016 gaf het boek een oplage die los staat van de argumentatie erin.</p>
+      <p>De recensies waren overwegend gunstig. Kirkus noemde het openhartig en royaal en tekende erbij aan dat de tekst geregeld overgaat in de toon van een zelfhulpboek in plaats van die van een memoir. Elizabeth Gilbert en Oprah Winfrey leverden aanbevelingen die zwaar op de omslag zijn ingezet.</p>
+      <p>Craig Melton komt in het boek alleen voor zoals zijn vrouw hem weergeeft. Hij heeft er geen eigen verslag tegenover gezet. Voor de kern van het boek, de stelling dat hij zijn gevoelsleven had weggedaan, bestaat dus maar een getuige.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar staat buiten het boek. De verzoening waar het naartoe werkt en waar de hele redenering op uitkomt, hield twee maanden. In november 2016 maakte Doyle de scheiding bekend, in 2017 trouwde zij met Abby Wambach. Dat maakt het verslag niet onwaar, maar het ontneemt de slothoofdstukken hun bewijskracht: de terugkeer die het boek als afloop presenteert bleek een tussenstand.</p>
+      <p>De vorm wringt met de inhoud. Doyle verdient haar geld met het omzetten van haar leven in kopij, en schrijft in dit boek over de verleiding om bijval te gebruiken zoals zij eerder drank gebruikte. Die twee dingen staan naast elkaar zonder dat het boek er iets mee doet.</p>
+      <p>De crisis wordt uitgespeeld met therapie, yogalessen en tijd. Geldzorgen, werk dat doorgaat en zorg die niemand overneemt komen er niet in voor. Wie dat niet heeft, leest een verhaal waarin de voorwaarden voor de oplossing stilzwijgend aanwezig zijn.</p>
+      <p>De algemene stelling over mannen en vrouwen is breder dan het materiaal toelaat. Uit een huwelijk wordt een uitspraak afgeleid over hoe jongens en meisjes worden opgevoed, en die uitspraak wordt vervolgens gebruikt om het gedrag van beide partners te verklaren. Als verklaring is dat sluitend, en juist daardoor niet te weerleggen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Love Warrior: A Memoir</i> (Flatiron Books, New York, 30 augustus 2016, 288 blz., ISBN 9781250075734); in september 2016 koos Oprah Winfrey het boek voor Oprah's Book Club 2.0. De Nederlandse vertaling van Tineke Tuinder-Krause verscheen in april 2017 bij Kok, Utrecht, onder de titel <i>Carry on, heb lief</i> (304 blz., ISBN 9789043527576). Haar eerdere boek <i>Carry On, Warrior</i> (2013) kwam bij dezelfde uitgever uit als <i>Carry on en leef</i>, in de vertaling van Sandra van Tongeren; het latere <i>Untamed</i> (2020) verscheen eveneens in het Nederlands. Sinds 2020 publiceert zij onder de naam Glennon Doyle.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Glennon Doyle Melton had drie kinderen, een blog met een groot lezerspubliek en een eerste boek dat de bestsellerlijst haalde, toen haar man haar vertelde dat hij haar het hele huwelijk lang ontrouw was geweest. <i>Love Warrior</i> is het verslag van de jaren daarna, en van alles wat eraan voorafging.</p><p>Doyle gaat terug naar haar tiende jaar, toen de boulimie begon, naar de opname in een inrichting als tiener, naar de jaren van drank en drugs, en naar de onverwachte zwangerschap waarmee zij stopte met drinken en trouwde. Haar lezing is dat zij het huwelijk inging als iemand die al lang niet meer in haar eigen lichaam woonde, terwijl haar man was opgevoed om niets te voelen. De bekentenis legde dat bloot.</p><p>Het boek eindigt bij het besluit om te blijven en opnieuw te beginnen. Twee maanden na verschijnen maakte Doyle bekend dat het huwelijk toch strandde; in 2017 trouwde zij met voetbalster Abby Wambach. Dat gegeven hangt sindsdien boven elke herlezing van de slothoofdstukken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>huwelijk</li><li>boulimie</li><li>verslaving</li><li>lichaam</li><li>geloof</li><li>Oprah's Book Club</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft in fysiologische termen wat Doyle als het verlaten van haar lichaam opschrijft; wie haar hoofdstukken over yoga leest, vindt daar de onderbouwing die zij zelf niet geeft.</li>
+          <li value="3"><a href="03.html">The Will to Change</a>. bell hooks behandelt de mannelijke helft van Doyles argument: wat jongens leren over gevoel en wat dat later kost in een huwelijk.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brene Brown werkt hetzelfde publiek en dezelfde these over kwetsbaarheid uit, maar dan met verwijzing naar onderzoek in plaats van naar een eigen geval.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

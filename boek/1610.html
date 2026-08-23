@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stealing Fire &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kotler en Wheal betogen dat bewustzijnstoestanden buiten het gewone een gereedschap zijn dat legers, bedrijven en topsporters al gebruiken, dat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1610">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1610 &middot; Brein en lichaam</p>
+    <h1>Stealing Fire</h1>
+    <p class="lede">Steven Kotler en Jamie Wheal, 2017</p>
+    <p class="stats">
+      <span><b>1726</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1610"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kotler en Wheal betogen dat bewustzijnstoestanden buiten het gewone een gereedschap zijn dat legers, bedrijven en topsporters al gebruiken, dat de opbrengst ervan zich laat aflezen aan leren, creativiteit en samenwerking, en dat de westerse cultuur die toestanden vier eeuwen lang heeft weggeduwd om redenen die niets met werkzaamheid te maken hadden. Waar Csikszentmihalyi flow beschreef als bijverschijnsel van werk dat past bij wat iemand kan, behandelen zij ecstasis als iets dat je met opzet opwekt en inroostert. Daarmee verschuift de vraag van de betekenis van de ervaring naar het rendement ervan, en op dat punt is het boek aan te vallen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel een: waarom het ertoe doet</h3>
+      <p>Het boek opent in een verduisterd oefengebouw van SEAL Team Six, waar vier man een ruimte binnengaan en hun beurten verdelen zonder een woord te wisselen. Een van de commandanten omschrijft dat als een gedeelde toestand waarin het onderscheid tussen de teamleden wegvalt. Daarna verplaatst het verhaal zich naar Google, waar leidinggevenden Burning Man bezoeken en waar volgens de auteurs meewoog dat Eric Schmidt er ook was geweest toen hij als bestuurder werd aangetrokken.</p>
+      <p>Uit die voorbeelden halen zij hun omschrijving. Ecstasis is in hun ogen geen roes maar een toestand met vier herkenbare eigenschappen, die zij ontlenen aan gesprekken met beoefenaars uit sterk verschillende hoeken: het gevoel dat het zelf wegvalt, dat de tijd anders loopt, dat het handelen vanzelf gaat en dat er meer informatie binnenkomt dan gewoonlijk.</p>
+      <h3>Waarom we het over het hoofd zagen</h3>
+      <p>De vraag waarom zulke toestanden verdacht zijn geworden, beantwoorden zij in vier hoofdstukken over wat zij pales noemen, naar de Engelse uitdrukking beyond the pale. De kerk maakte de rechtstreekse ervaring van het goddelijke tot iets dat via haar bemiddeling moest lopen. De staat wantrouwde groepen die buiten haar toezicht in vervoering raakten. Het lichaam werd van de geest gescheiden, waardoor alles wat via ademhaling, beweging of stof binnenkomt als minderwaardig ging gelden. De markt ten slotte beloont wie zijn werk in uren afrekent en niet wie er twintig minuten helder van wordt.</p>
+      <p>Dit is het beste deel van het boek. Het geeft een cultuurhistorische verklaring die verder reikt dan de gebruikelijke verwijzing naar het Amerikaanse drugsbeleid, en het is het enige deel waarin de auteurs een argument opbouwen dat niet van hun eigen praktijkgevallen afhangt.</p>
+      <h3>De eerste kracht: psychologie</h3>
+      <p>Hier staat het flowonderzoek dat Csikszentmihalyi vanaf de jaren zeventig opzette en dat Kotler in eerder werk op extreme sporters toepaste. Daarnaast voeren zij het begrip communitas op, ontleend aan antropoloog Victor Turner: de band die ontstaat tussen mensen die samen een ritueel doormaken waarin hun gewone rollen wegvallen. Burning Man dient als voorbeeld waar beide samenkomen, met de opmerking dat wie er is geweest daarna anders naar zijn werk kijkt.</p>
+      <h3>De tweede kracht: hersenonderzoek</h3>
+      <p>De auteurs steunen op het idee dat de voorste hersenschors tijdelijk minder werk verzet, waardoor het zelfbeeld, het tijdsbesef en de innerlijke criticus stiller worden. Daarnaast noemen zij het netwerk dat bij zelfbetrokken denken actief is en dat bij psilocybine en bij ervaren mediterenden minder aanslaat. Aan die twee mechanismen koppelen zij een rij stoffen: noradrenaline en dopamine voor de aandacht, endorfine en anandamide voor pijndemping en voor het leggen van verbanden, serotonine en oxytocine voor de rust en de verbondenheid achteraf.</p>
+      <p>Die opsomming presenteren zij als één verklaring die voor alle toestanden opgaat, of die nu door surfen, meditatie, seks of een stof wordt opgewekt. Het is de grootste sprong in het boek, en hij wordt in enkele bladzijden gemaakt zonder metingen bij de beschreven activiteiten zelf.</p>
+      <h3>De derde kracht: farmacologie</h3>
+      <p>Op dit punt staat het boek op zijn stevigst, omdat het steunt op klinisch onderzoek dat na 2006 weer mogelijk werd. Genoemd worden de proeven met psilocybine bij mensen met een levensbedreigende kanker aan Johns Hopkins en NYU, waarbij een groot deel van de deelnemers de sessie achteraf tot de vijf betekenisvolste ervaringen van hun leven rekende, en de proeven van MAPS met MDMA bij posttraumatische stress.</p>
+      <p>Daarnaast staan veel minder gecontroleerde voorbeelden: microdosering in Silicon Valley, ayahuascakringen en het gebruik van ketamine buiten een medische opzet. De auteurs zetten die naast het klinische materiaal zonder het verschil in bewijskracht steeds te markeren, waardoor het geheel steviger oogt dan het is.</p>
+      <h3>De vierde kracht: techniek</h3>
+      <p>Hier gaat het over drijftanks, neurofeedback, ademhalingsapparatuur, virtuele werkelijkheid, stimulatie van de schedel met stroom of magnetisme, en sensoren die hartslag en huidgeleiding uitlezen. De auteurs beschrijven ook hun eigen oefenruimte, de Flow Dojo, met toestellen die de prikkels van extreme sport nabootsen zonder het bijbehorende gevaar. Dat hoofdstuk is het dunst onderbouwd en het meest gedateerd.</p>
+      <h3>Deel drie: de weg naar Eleusis</h3>
+      <p>Het slotdeel dankt zijn titel aan de Griekse mysteriën, die de auteurs opvoeren als voorbeeld van een samenleving die vervoering had ondergebracht in een instelling met regels, seizoenen en begeleiders. Daartegenover zetten zij de eigen tijd, waarin dezelfde behoefte via de markt wordt bevredigd: drank, sigaretten, medicijnen, gokken, spellen, pornografie en vakanties tellen zij op tot ongeveer vier biljoen dollar per jaar.</p>
+      <p>Als tegenwicht bieden zij twee hulpmiddelen. De hedonistische kalender legt vooraf vast wat iemand per dag, week, maand, kwartaal en jaar toestaat, zodat de keuze niet in het moment valt. De ecstasisvergelijking weegt de opbrengst in het gewone leven af tegen de leertijd en het gevaar. Het boek eindigt bij Icarus: het vuur is gestolen en het kan verbranden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ecstasis</td><td>Het Griekse woord voor buiten zichzelf treden, door de auteurs gebruikt als verzamelnaam voor alle bewustzijnstoestanden buiten het gewone, ongeacht hoe ze zijn opgewekt.</td></tr>
+          <tr><td class="term">STER</td><td>De vier kenmerken waaraan zij zo'n toestand herkennen: selflessness, timelessness, effortlessness en richness, oftewel het wegvallen van zelf, tijd en inspanning bij een rijkere waarneming.</td></tr>
+          <tr><td class="term">Flow</td><td>De toestand van opgaan in een taak zoals Csikszentmihalyi die beschreef, door de auteurs behandeld als de best onderzochte en meest alledaagse vorm van ecstasis.</td></tr>
+          <tr><td class="term">Tijdelijke hypofrontaliteit</td><td>Het idee dat delen van de voorste hersenschors kortstondig minder actief zijn, wat volgens de auteurs het wegvallen van zelfbeeld en tijdsbesef verklaart.</td></tr>
+          <tr><td class="term">Netwerk van zelfbetrokken denken</td><td>Het hersennetwerk dat aanslaat bij piekeren en dagdromen over zichzelf, en dat bij psilocybine en bij ervaren mediterenden minder werkzaam blijkt.</td></tr>
+          <tr><td class="term">Communitas</td><td>De term van Victor Turner voor de band die ontstaat tussen mensen die samen een ritueel doormaken waarin hun gewone rangen en rollen tijdelijk opgeheven zijn.</td></tr>
+          <tr><td class="term">De vier pales</td><td>Kerk, staat, lichaam en markt: de vier instanties die volgens het boek de toegang tot vervoering hebben afgesloten, elk om eigen redenen.</td></tr>
+          <tr><td class="term">Economie van veranderde toestanden</td><td>De optelsom van alle bestedingen waarmee mensen hun bewustzijn verschuiven, door de auteurs geraamd op ongeveer vier biljoen dollar per jaar.</td></tr>
+          <tr><td class="term">Hedonistische kalender</td><td>Een schema waarop vooraf per dag, week, maand, kwartaal en jaar wordt vastgelegd welke middelen en ervaringen zijn toegestaan.</td></tr>
+          <tr><td class="term">Ecstasisvergelijking</td><td>Een weging waarin de waarde van een methode volgt uit de opbrengst in het dagelijks leven, gedeeld door de leertijd en het risico.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste materiaal komt van buiten. Het psilocybineonderzoek van Johns Hopkins en NYU en de MDMA-proeven van MAPS zijn onderzoek met deelnemers, protocollen en vervolgmetingen, en de auteurs geven de uitkomsten redelijk weer. Ook de cultuurhistorische lijn over kerk, staat, lichaam en markt is met gewone bronnen na te lopen.</p>
+      <p>Het zwakste materiaal draagt juist de kernclaim over opbrengst. De veelgeciteerde getallen over tweehonderd procent meer creativiteit en vijfhonderd procent meer productiviteit gaan terug op werk van adviesbureau McKinsey, waarin ruim vijfduizend leidinggevenden tijdens werkbijeenkomsten is gevraagd hoe productief zij zich in flow voelden. Dat is een gevoel dat mensen over zichzelf rapporteren, verzameld door een adviesbureau, zonder gepubliceerde methode en zonder vergelijkingsgroep. Er is niets gemeten.</p>
+      <p>Een groot deel van de overige onderbouwing bestaat uit gesprekken die de auteurs zelf voerden bij bedrijven en eenheden waar zij als adviseur binnenkwamen. Die verhalen zijn levendig en voor een lezer niet na te trekken. Waar het boek een lichamelijke verklaring geeft, gebeurt dat in de vorm van een lijst neurotransmitters die niet aan de beschreven situaties is gekoppeld met metingen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het vaakst terugkeert gaat over de bouw. Kirkus omschreef het boek als een lappendeken van praktijkgevallen uit het dagelijks werk van de auteurs, waardoor het geheel weinig gewicht krijgt. De hoofdstukken springen van een militaire oefening naar een festival naar een laboratorium, en wat de vier krachten bindt is de aanname dat ze alle vier op dezelfde toestand uitkomen. Die aanname wordt nergens getoetst.</p>
+      <p>Er speelt een belangenkwestie. De auteurs verkopen trainingen in precies datgene wat het boek aanbeveelt, en zij noemen hun eigen bureau en hun eigen oefenruimte bij naam. Dat maakt hun argumenten niet onjuist, maar het verklaart wel waarom de bewijslat lager komt te liggen naarmate een bewering dichter bij het eigen aanbod ligt.</p>
+      <p>Inhoudelijk wringt de eigen tegenstelling. Het boek prijst Eleusis en soortgelijke vormen juist omdat daar voorbereiding, begeleiding en gemeenschap bij hoorden, en beveelt vervolgens een reeks losse middelen en apparaten aan die die inbedding missen. De gevaren krijgen enkele bladzijden aan het eind; over ontregelende reacties, psychiatrische kwetsbaarheid en de vraag wie een sessie mag begeleiden staat weinig.</p>
+      <p>Ten slotte rust het slotdeel op de aanname dat de Griekse mysteriën een geestverruimend drankje kenden. Die hypothese komt uit <i>The Road to Eleusis</i> uit 1978 en is onder classici omstreden gebleven. Het boek voert haar op als vaststaand feit en hangt er zijn historische lijn aan op.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg vooraf vast hoe vaak per week, maand en jaar een middel of een prikkel wordt toegestaan, en beoordeel die keuze niet op het moment zelf.</li>
+        <li>Weeg bij elke methode de opbrengst in het gewone leven af tegen de leertijd en het gevaar, en laat vallen wat alleen tijdens de ervaring iets doet.</li>
+        <li>Zoek bij ploegen die op elkaar moeten kunnen rekenen naar gedeelde inspanning met een helder doel en directe terugkoppeling; dat is de bruikbaarste kern van wat het boek over teams zegt.</li>
+        <li>Behandel de percentages in dit boek als verkoopcijfers en zoek de onderliggende publicatie op voordat ze worden doorverteld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Stealing Fire: How Silicon Valley, the Navy SEALs, and Maverick Scientists Are Revolutionizing the Way We Live and Work</i> (Dey Street Books, een imprint van HarperCollins, New York, 2017, 240 blz., ISBN 9780062429650). Er bestaat geen Nederlandse vertaling. Ook Kotlers eerdere <i>The Rise of Superman</i> (2014) en zijn latere <i>The Art of Impossible</i> (2021) worden in Nederland in het Engels verkocht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Steven Kotler en Jamie Wheal leiden het Flow Genome Project, een bureau dat organisaties traint in piekprestaties. In dit boek bundelen zij vier jaar rondkijken op plekken waar mensen met opzet hun bewustzijnstoestand veranderen: het oefenterrein van SEAL Team Six, het hoofdkantoor van Google, Burning Man, het eiland van Richard Branson, het trainingscentrum van Red Bull, het ontwerpteam van Nike en het hoofdkwartier van de Verenigde Naties.</p><p>Hun stelling is dat al die groepen hetzelfde zoeken en dat er een oud woord voor is: ecstasis, buiten zichzelf treden. Zulke toestanden herkennen de auteurs aan vier eigenschappen die zij samenvatten met de letters STER: het wegvallen van het zelf, het wegvallen van de tijd, het wegvallen van de inspanning, en een rijkere waarneming. Vier ontwikkelingen zouden die toestanden binnen bereik brengen: psychologie, hersenonderzoek, farmacologie en techniek.</p><p>Het slotdeel gaat over de rekening. De auteurs schatten dat er per jaar wereldwijd zo'n vier biljoen dollar wordt uitgegeven aan manieren om uit het eigen hoofd te komen, van drank en gokken tot vakanties en spelcomputers. Als tegenwicht bieden zij een kalender waarop iemand vooraf vastlegt hoe vaak hij welk middel toelaat, en een rekensom die opbrengst tegen risico afzet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>flow</li><li>psychedelica</li><li>prestatie</li><li>neurowetenschap</li><li>Burning Man</li><li>bedrijfscultuur</li><li>zelfrapportage</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi beschreef flow als bijverschijnsel van werk dat past bij het eigen kunnen; Kotler en Wheal maken er een middel van dat op afroep beschikbaar zou zijn.</li>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan behandelt hetzelfde klinische onderzoek naar psilocybine uitvoeriger en met meer aandacht voor wat er misgaat.</li>
+          <li value="765"><a href="765.html">The Road to Eleusis: Unveiling the Secret of the Mysteries</a>. Uit dit boek uit 1978 komt de hypothese over het Griekse drankje waaraan het slotdeel zijn titel en zijn historische aanname ontleent.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport komt zonder stoffen of apparatuur tot vrijwel dezelfde aanbeveling over lange, ononderbroken aandacht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

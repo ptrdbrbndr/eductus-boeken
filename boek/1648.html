@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geluk zit in een klein boekje &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mudder gaat ervan uit dat geluk niet volgt op een enkele grote ingreep in een leven, maar op een reeks kleine handelingen die iemand vaak genoeg herhaalt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1648">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1648 &middot; Levenskunst</p>
+    <h1>Geluk zit in een klein boekje</h1>
+    <p class="lede">Marian Mudder, 2024</p>
+    <p class="stats">
+      <span><b>1318</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1648"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mudder gaat ervan uit dat geluk niet volgt op een enkele grote ingreep in een leven, maar op een reeks kleine handelingen die iemand vaak genoeg herhaalt om er gewoonte van te maken. Daar hoort bij dat die handelingen niet voor iedereen dezelfde hoeven te zijn. Het boekje legt zevenennegentig losse tips naast elkaar en laat de keuze welke daarvan bruikbaar zijn volledig aan de lezer; wie er drie uithaalt die passen, heeft er volgens de auteur genoeg aan gehad. Die opzet maakt het eerder een voorraadkast dan een methode, en dat heeft gevolgen: er is geen volgorde, geen opbouw van eenvoudig naar moeilijk, en geen manier waarop de lezer kan nagaan of een tip iets uithaalt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boekje vandaan komt</h3>
+      <p>Mudder werd bekend als actrice en werkt sinds ongeveer 2009 als therapeut met EFT, een methode waarin iemand op vaste punten op gezicht en bovenlichaam klopt terwijl hij de klacht hardop benoemt. Haar praktijk richt zich op angst, spanning en zelfafwijzing. In 2022 verscheen <i>Wat ik eerder had willen weten</i>, over angst, zelfliefde en aanvaarding, gevolgd door een werkboek.</p>
+      <p>Dit boekje is het kortste deel in die lijn. De gedrukte uitgave telt 192 bladzijden, de elektronische uitgave 84; het gaat dus om korte stukken van hooguit een of twee bladzijden per tip. De inhoud komt uit haar eigen leven en uit wat zij in haar praktijk terug hoort, niet uit een literatuurstudie.</p>
+      <h3>Ken jezelf</h3>
+      <p>De eerste afdeling gaat over opmerken wat er in iemand omgaat voordat er iets aan te doen valt. In Mudders eerdere werk staat dat opmerken centraal: angst en zelfafwijzing werken door zolang zij onbenoemd blijven, en het benoemen zelf is al de eerste stap van haar therapievorm.</p>
+      <p>Wat de afzonderlijke tips onder deze kop precies inhouden, valt uit de openbare beschrijvingen van het boekje niet af te leiden. De uitgever houdt het op de aanduiding dat sommige tips praktisch en meteen toepasbaar zijn en andere filosofisch of spiritueel.</p>
+      <h3>Verwen jezelf en Verzorg jezelf</h3>
+      <p>Twee van de vijf afdelingen gaan over zelfzorg. Het onderscheid dat de koppen suggereren, is dat van plezier tegenover onderhoud: iets doen omdat het aangenaam is, en iets doen omdat het lichaam en het gestel er baat bij hebben. Rust, slaap en het verlagen van spanning vallen onder de onderwerpen die de uitgever noemt.</p>
+      <p>Dat twee van de vijf rubrieken op de eigen persoon gericht zijn, zegt iets over waar het boekje zijn zwaartepunt legt. De omgeving komt pas in de laatste afdeling aan bod.</p>
+      <h3>Grond jezelf</h3>
+      <p>Aarden is een term uit de lichaamsgerichte therapie: aandacht terugbrengen naar het lichaam en naar de directe omgeving wanneer het denken op hol slaat. In de praktijk gaat het om ademhaling, houding, contact met de grond en het benoemen van wat de zintuigen waarnemen.</p>
+      <p>Mudder gebruikt de term zonder theoretische verantwoording. Dat past bij de opzet, maar het maakt de afdeling ook het lastigst te toetsen: aarden dekt in het spraakgebruik van therapeuten en van esoterische stromingen twee verschillende dingen, en het boekje kiest daar niet uitdrukkelijk tussen.</p>
+      <h3>Wees goed voor je omgeving</h3>
+      <p>De laatste afdeling gaat over de omgang met anderen. De uitgever noemt het verbeteren van relaties als een van de drie onderwerpen van het boekje. Grenzen aangeven en de eigen behoeften uitspreken horen tot het vaste bestand van de therapievorm waar Mudder uit put.</p>
+      <p>Dat de rubriek achteraan staat, sluit aan bij de opbouw van haar eerdere boek, waarin zelfaanvaarding voorafgaat aan de omgang met anderen.</p>
+      <h3>De vorm zelf</h3>
+      <p>De losse opzet is de belangrijkste eigenschap van het boekje. Er is geen betoog dat over de hoofdstukken heen loopt, geen probleemstelling en geen afsluiting waarin de tips tot een geheel worden gemaakt. Wie het boekje in een keer uitleest, houdt vooral een indruk van de toon over.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ken jezelf</td><td>De eerste van de vijf rubrieken, over het opmerken en benoemen van wat er in iemand omgaat.</td></tr>
+          <tr><td class="term">Verwen jezelf</td><td>Rubriek over handelingen die iemand doet omdat ze aangenaam zijn, zonder verder doel.</td></tr>
+          <tr><td class="term">Grond jezelf</td><td>Rubriek over aarden: aandacht terugbrengen naar lichaam, adem en omgeving wanneer het denken doorslaat.</td></tr>
+          <tr><td class="term">Verzorg jezelf</td><td>Rubriek over onderhoud van lichaam en gestel, waaronder rust en het verlagen van spanning.</td></tr>
+          <tr><td class="term">Wees goed voor je omgeving</td><td>Slotrubriek over de omgang met anderen en over wat iemand in relaties wel en niet toelaat.</td></tr>
+          <tr><td class="term">tip</td><td>De bouwsteen van het boek: een kort stuk van een of twee bladzijden met een handeling of een gedachte.</td></tr>
+          <tr><td class="term">levensles</td><td>Mudders aanduiding voor een inzicht dat zij zelf met vallen en opstaan heeft opgedaan en dat zij doorgeeft.</td></tr>
+          <tr><td class="term">EFT</td><td>Emotional Freedom Techniques, de kloptechniek waarmee Mudder in haar praktijk werkt en waaruit haar kijk op angst voortkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boekje voert geen onderzoek aan. De onderbouwing bestaat uit wat de auteur zelf heeft ervaren en uit wat zij in vijftien jaar praktijk bij anderen zag werken. Dat wordt niet verborgen; de uitgever noemt de tips uitdrukkelijk persoonlijk. Wie een verantwoording zoekt van waarom een bepaalde tip zou helpen, vindt die er niet in.</p>
+      <p>De aanbeveling op het omslag en op de website van de uitgever bestaat uit lezersreacties, waaronder de opmerking dat het boekje meer opleverde dan jaren therapie. Zulke reacties zeggen iets over hoe het boekje wordt ontvangen en niets over of de tips doen wat zij beloven. Op Hebban staat het boekje op een gemiddelde van 3,9 bij eenentwintig beoordelingen, wat gewoon is voor dit genre.</p>
+      <p>De methode waar Mudder haar praktijk op bouwt, EFT, is wel onderzocht. Er zijn studies die verbetering melden bij angst- en spanningsklachten, maar zij hebben doorgaans kleine deelnemersaantallen, geen goede controlegroep en worden vaak uitgevoerd door onderzoekers die de methode zelf aanbieden. In onderzoek dat de methode uit elkaar haalt, is het kloppen op de punten moeilijk te onderscheiden van de blootstelling en de aandacht die er ook in zitten. Dat raakt het boekje niet rechtstreeks, omdat het geen EFT-boek is, maar het zegt iets over de achtergrond waaruit de auteur schrijft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de vorm. Een lijst van zevenennegentig tips legt de moeilijkste stap bij de lezer neer: uitzoeken welke van de zevenennegentig in dit leven, op dit moment, iets zou kunnen doen. Juist wie vastloopt op angst of uitputting is doorgaans slecht in dat soort selecteren. De opmerking dat je er drie mag uitpikken, verlicht de keuze maar helpt niet bij het maken ervan.</p>
+      <p>De titel belooft geluk, de inhoud levert leefadviezen. Dat verschil is niet klein. Onderzoek naar levenstevredenheid wijst voortdurend op omstandigheden die met een tip niet te veranderen zijn: inkomen, gezondheid, werk, de aanwezigheid van naasten. Het boekje raakt die laag niet en pretendeert dat ook niet, maar het omslag suggereert wel dat het geluk daar te vinden is waar de lezer zelf iets aan kan doen.</p>
+      <p>Er is overlap met haar eerdere werk. Wie <i>Wat ik eerder had willen weten</i> en het werkboek heeft gelezen, krijgt hier hetzelfde gedachtegoed in kortere stukken, gericht op dezelfde lezersgroep. Voor die lezer is het eerder een aanvulling dan een nieuw boek.</p>
+      <p>Ten slotte ontbreekt elke bronvermelding. Termen als aarden en zelfzorg hebben in de literatuur een geschiedenis en een omstreden kant; het boekje neemt ze over zonder aan te geven waar ze vandaan komen. Dat maakt controleren onmogelijk voor wie dat zou willen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boekje als losse bladzijden en niet als programma; sla open waar het openvalt.</li>
+        <li>Kies hoogstens twee of drie tips en houd die een maand vol voordat er nieuwe bij komen.</li>
+        <li>Noteer bij elke gekozen tip vooraf waaraan te merken zou zijn dat hij werkt, want het boek levert die maatstaf niet.</li>
+        <li>Ga bij aanhoudende angst- of somberheidsklachten naar een huisarts of behandelaar; dit boekje is daar niet voor bedoeld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ambo|Anthos, Amsterdam, 11 november 2024, 192 blz., ISBN 9789026369179; e-boek ISBN 9789026369186. Oorspronkelijk in het Nederlands geschreven, er bestaat geen vertaling. Het boekje sluit aan op <i>Wat ik eerder had willen weten</i> (Ambo|Anthos, 2022), waarmee Mudder doorbrak en waarvan met het bijbehorende werkboek meer dan vijftigduizend exemplaren werden verkocht. Eerder schreef zij de romans <i>Geluksblind</i> en <i>De perfecte minnares</i> en in 2017 het boek <i>Sofasessies</i> over vormen van therapie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Marian Mudder is actrice en werkt ruim vijftien jaar als EFT-therapeut met mensen die vastlopen op angst. Na het succes van <i>Wat ik eerder had willen weten</i> (2022) bundelde zij zevenennegentig korte tips en levenslessen die zij in haar eigen leven en in haar praktijk bruikbaar vond.</p><p>De tips staan onder vijf koppen: Ken jezelf, Verwen jezelf, Grond jezelf, Verzorg jezelf en Wees goed voor je omgeving. Ze lopen uiteen van praktisch en meteen uitvoerbaar tot filosofisch of spiritueel. De uitgever noemt als onderwerpen het verminderen van spanning, het verbeteren van relaties en het opmerken van plezier in kleine dingen.</p><p>Het boekje is uitdrukkelijk niet bedoeld om van voor naar achter af te werken. Mudder schrijft dat het genoeg is om er de tips uit te halen die aanslaan en de rest te laten liggen. Dat maakt het een naslagboekje voor tussendoor en geen programma.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geluk</li><li>zelfhulp</li><li>tips</li><li>zelfzorg</li><li>angst</li><li>EFT</li><li>gewoontes</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1517"><a href="1517.html">Wat ik eerder had willen weten over de liefde</a>. Het latere boek van dezelfde auteur, waarin zij dezelfde manier van werken toepast op relaties en liefde.</li>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff onderbouwt met onderzoek wat Mudder als vanzelfsprekend aanneemt: dat mild zijn tegen jezelf iets uithaalt.</li>
+          <li value="1643"><a href="1643.html">100 spreuken die je leven verrijken</a>. Verhees bundelt eveneens korte stukken tot een boek dat je op willekeurige bladzijden kunt openslaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

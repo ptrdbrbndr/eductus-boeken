@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In de ban van de ring &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tolkien schrijft een oorlogsroman waarin de beslissende handeling niet het winnen van de veldslag is maar het afstaan van de macht. De Ene Ring werkt bij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1567">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1567 &middot; Roman en memoir</p>
+    <h1>In de ban van de ring</h1>
+    <p class="lede">J.R.R. Tolkien, 1954-1955; vert. Max Schuchart</p>
+    <p class="stats">
+      <span><b>1560</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1567"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tolkien schrijft een oorlogsroman waarin de beslissende handeling niet het winnen van de veldslag is maar het afstaan van de macht. De Ene Ring werkt bij iedereen die hem draagt hetzelfde: hij vergroot wat er al is en maakt de drager tegelijk afhankelijk. Daarom kan hij niet worden ingezet tegen zijn maker, ook niet door de besten, en loopt het verhaal uit op vernietiging in plaats van op verovering. De tweede stelling ligt in de keuze van de hoofdpersonen: het werk wordt gedaan door twee hobbits zonder aanzien, terwijl koningen en tovenaars de aandacht van de vijand afleiden. Wat het boek wil laten zien is dat trouw en volhouden op de lange duur meer uithalen dan kracht.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De Gouw en de weg naar Rivendel</h3>
+      <p>Het boek opent in de Gouw, een landstreek van hobbits die van de wereld daarbuiten weinig weten en er ook weinig van willen weten. Bilbo Balings verdwijnt op zijn verjaardag en laat zijn bezit aan Frodo na. Zeventien jaar later keert Gandalf terug met de vaststelling dat de ring uit Bilbo's bezit de Ene Ring is.</p>
+      <p>Frodo vertrekt met Sam, Merijn en Pepijn. Zij worden achtervolgd door de Zwarte Ruiters, ontkomen in het Oude Woud met hulp van Tom Bombadil, ontmoeten in Breeg de zwerver Stapper die Aragorn blijkt te zijn, en bereiken Rivendel nadat Frodo op de Weertop zwaar gewond is geraakt.</p>
+      <h3>De Raad van Elrond en het gezelschap</h3>
+      <p>In Rivendel komt bijeen wat er in Midden-aarde nog aan machten over is. Op de Raad van Elrond wordt vastgesteld dat de ring niet verborgen, gebruikt of aan de zee toevertrouwd kan worden, en dat hij vernietigd moet worden in de Doemberg. Frodo biedt zich aan.</p>
+      <p>Negen reisgenoten vertrekken tegenover de negen Ringgeesten. De doortocht over de bergen mislukt en het gezelschap gaat door de mijnen van Moria, waar Gandalf in het gevecht met een oud vuurwezen in de diepte valt. In Lothlórien krijgen de overlevenden onderdak bij Galadriel, die de ring wordt aangeboden en hem weigert.</p>
+      <h3>Het uiteenvallen</h3>
+      <p>Bij Amon Hen probeert Boromir de ring van Frodo af te nemen. Frodo besluit alleen verder te gaan; Sam dwingt hem mee te mogen. Boromir sneuvelt bij een poging Merijn en Pepijn te beschermen, die door orks van Isengard worden meegevoerd.</p>
+      <p>Vanaf hier lopen drie lijnen uiteen die Tolkien apart uitvertelt. Die opzet zorgt ervoor dat de lezer bij elke wending pas veel later te horen krijgt hoe het de anderen inmiddels vergaat.</p>
+      <h3>Rohan, Isengard en Gondor</h3>
+      <p>Aragorn, Legolas en Gimli volgen het spoor van de orks naar Rohan, waar zij Gandalf terugvinden. Koning Théoden wordt losgemaakt uit de greep van Saruman's raadsman en verslaat diens leger bij de Helmsdiepte. Merijn en Pepijn belanden ondertussen in het Fangornwoud, waar zij de Enten in beweging brengen, die Isengard onder water zetten.</p>
+      <p>Daarna verschuift het toneel naar Gondor. Pepijn komt in Minas Tirith terecht bij de stadhouder Denethor, die in wanhoop zijn eigen zoon Faramir wil laten verbranden. Op de Pelennorvelden wordt de aanvoerder van de Ringgeesten geveld door Éowyn en Merijn, twee die volgens de voorspelling niet in aanmerking kwamen. Aragorn ontzet de stad.</p>
+      <h3>De tocht naar de Doemberg</h3>
+      <p>Frodo en Sam worden geleid door Gollem, die tegelijk de ring terug wil en aan Frodo gehecht raakt. Zij komen langs de Dode Moerassen en door Ithilien, waar Faramir hen laat gaan, en klimmen bij Cirith Ungol de bergen in, waar Gollem hen aan een reuzenspin uitlevert.</p>
+      <p>Sam draagt Frodo het laatste stuk de berg op. Boven aangekomen kan Frodo de ring niet loslaten en eist hem voor zichzelf op. Gollem bijt hem de vinger af, valt met de ring in het vuur en maakt daarmee ongewild af waarvoor het gezelschap is vertrokken. Dat de opdracht mislukt en de uitkomst toch klopt, is het scharnier van het boek.</p>
+      <h3>De Gouw en de Grijze Havens</h3>
+      <p>Na de kroning van Aragorn keren de vier hobbits terug en treffen de Gouw bezet aan door de verarmde Saruman en zijn handlangers, die bomen hebben omgehakt en werkhuizen gebouwd. Zij zetten die bezetting zelf recht, iets wat zij aan het begin van het boek niet gekund zouden hebben.</p>
+      <p>Frodo herstelt niet. De wond van de Weertop en het dragen van de ring hebben iets weggenomen dat niet terugkomt, en hij vaart met Gandalf, Bilbo en de elfen weg uit de Grijze Havens. Sam gaat terug naar huis, naar zijn vrouw en zijn kind. Het slot laat de winst en het verlies naast elkaar staan zonder de een tegen de ander weg te strepen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Ene Ring</td><td>De ring waarin Sauron een groot deel van zijn macht heeft gelegd; hij vergroot wat er in de drager al aanwezig is en maakt hem daar tegelijk afhankelijk van.</td></tr>
+          <tr><td class="term">De Gouw</td><td>Het land van de hobbits, geschreven naar het Engelse platteland van Tolkiens jeugd, en de maatstaf waaraan alles wat er in de rest van het boek gebeurt wordt afgemeten.</td></tr>
+          <tr><td class="term">De Ringgeesten</td><td>Negen mensenkoningen die ringen aannamen en daardoor tot schaduwen zijn geworden; zij treden op als Saurons jagers.</td></tr>
+          <tr><td class="term">De Raad van Elrond</td><td>De bijeenkomst in Rivendel waar de mogelijkheden worden afgewogen en de onmogelijkste wordt gekozen: vernietiging in plaats van gebruik.</td></tr>
+          <tr><td class="term">De Enten</td><td>Boomherders uit het Fangornwoud die langzaam beslissen en snel handelen, en bij wie Tolkiens bezwaar tegen ontbossing en machinerie het duidelijkst uitkomt.</td></tr>
+          <tr><td class="term">Palantír</td><td>Zienende stenen waarmee over grote afstand gekeken kan worden, en waarmee Sauron zowel Saruman als Denethor tot wanhoop brengt door hun alleen ware beelden te tonen.</td></tr>
+          <tr><td class="term">Gollem</td><td>De vroegere ringdrager Sméagol, door vijfhonderd jaar bezit uitgehold tot twee stemmen in één lichaam, en degene die de vernietiging uiteindelijk voltrekt.</td></tr>
+          <tr><td class="term">De Grijze Havens</td><td>De haven waar de elfen Midden-aarde verlaten, in het slot ook de uitweg voor wie in de wereld die hij gered heeft niet meer kan leven.</td></tr>
+          <tr><td class="term">Aanhangsels</td><td>Het apparaat achter in het boek met kronieken, stambomen, kalenders en schriften, waarmee Tolkien de verzonnen geschiedenis de vorm van een bronuitgave geeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Wat het boek geloofwaardig maakt is niet een argument maar de dichtheid van het bedachte materiaal. Tolkien was hoogleraar Angelsaksisch en bedacht zijn talen voordat hij de verhalen bedacht die erbij hoorden; namen, plaatsnamen en verzen zijn daardoor onderling consistent op een manier die zelden voorkomt in verzonnen werelden.</p>
+      <p>De stof komt aantoonbaar uit het Noordwest-Europese materiaal dat hij beroepshalve las: <i>Beowulf</i>, de IJslandse sagen, de Edda's en het Finse <i>Kalevala</i>. Zijn lezing van <i>Beowulf</i> uit 1936, waarin hij betoogde dat het gedicht om de monsters gaat en niet om de historische restanten, geldt nog altijd als een keerpunt in dat vakgebied en verklaart wat hij zelf met monsters doet.</p>
+      <p>Tolkien wees in het voorwoord bij de tweede editie de allegorische lezing uitdrukkelijk af: de ring staat niet voor de atoombom en de oorlog niet voor de Tweede Wereldoorlog. Hij maakte daarbij onderscheid tussen allegorie, die de schrijver oplegt, en toepasbaarheid, die bij de lezer ligt. Dat is een lezing van het boek die uit het boek zelf te verantwoorden valt.</p>
+      <p>De aanhangsels doen wat verwijzingen in een studie doen: zij maken het verhaal narekenbaar. Data, regeringsjaren en afstammingen sluiten aan bij wat er in de hoofdtekst gebeurt, en dat is de reden waarom lezers de wereld zijn gaan behandelen als iets dat onderzocht kan worden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar staat al in de eerste ontvangst. Edmund Wilson noemde het boek in 1956 kinderlijk en de stijl amateuristisch; Michael Moorcock viel het in zijn essay <i>Epic Pooh</i> aan als troostliteratuur die de lezer terugbrengt naar een gepacificeerde kindertijd en die de bestaande orde verheerlijkt. Beide bezwaren gaan over hetzelfde: de morele wereld van het boek kent weinig grijs.</p>
+      <p>Goed en kwaad vallen grotendeels samen met afkomst. Orks zijn slecht van soort en worden bij duizenden gedood zonder dat het verhaal daar een vraag bij stelt, en de mensen uit het zuiden en oosten die met Sauron optrekken worden beschreven in bewoordingen die uit de koloniale verbeelding komen. Tolkien heeft racisme in zijn brieven uitdrukkelijk afgewezen, wat het probleem in de tekst niet wegneemt.</p>
+      <p>Vrouwen komen er nauwelijks in voor. Van de figuren die iets doen zijn er drie van betekenis: Galadriel, Éowyn en Arwen, van wie de laatste vrijwel alleen in de aanhangsels leeft. Éowyn, de meest zelfstandige van de drie, eindigt met het besluit voortaan te genezen in plaats van te vechten.</p>
+      <p>De vorm vraagt geduld. De eerste honderd bladzijden gaan over hobbits en hun gewoonten, de gedichten en liederen zijn talrijk, en het verhaal breekt regelmatig af om een geschiedenis te vertellen die pas veel later van pas komt. Het slot met de bezetting van de Gouw komt na de kroning en wordt door veel lezers als een tweede einde ervaren.</p>
+      <p>Ten slotte blijft de gedachte dat macht op zichzelf bederft in het boek een gegeven en geen gevolgtrekking. De ring werkt zo omdat Tolkien het zo heeft ingericht; wie de politieke stelling los van de verzonnen wereld wil beproeven, vindt in de roman geen materiaal.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Lord of the Rings</i>, uitgebracht door George Allen &amp; Unwin in Londen in drie banden: <i>The Fellowship of the Ring</i> en <i>The Two Towers</i> in 1954, <i>The Return of the King</i> in 1955. Tolkien schreef het als één roman in zes boeken met aanhangsels; de driedeling was een beslissing van de uitgever. Halverwege de jaren zestig verscheen een herziene Engelse tekst, nadat in de Verenigde Staten een niet-geautoriseerde pocketuitgave op de markt was gekomen. De Nederlandse vertaling van Max Schuchart verscheen bij Het Spectrum in 1956 en 1957 als <i>De reisgenoten</i>, <i>De twee torens</i> en <i>De terugkeer van de koning</i>; Schuchart kreeg er de Martinus Nijhoffprijs voor, terwijl Tolkien zelf bezwaar maakte tegen het vernederlandsen van namen. Het werk wordt nog altijd uitgegeven door Unieboek/Het Spectrum, ook in eendelige uitgaven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Frodo Balings erft van zijn oom Bilbo een ring die onzichtbaar maakt. Als Gandalf vaststelt dat het de Ene Ring is, waarin de duistere heerser Sauron een groot deel van zijn macht heeft gelegd, moet Frodo de Gouw verlaten. Onderweg blijkt dat de ring niet gebruikt of bewaakt kan worden; hij kan alleen vernietigd worden, en dat kan alleen in het vuur waarin hij is gesmeed, midden in Saurons land.</p><p>Een gezelschap van negen vertrekt uit Rivendel. Het valt uiteen, waarna het verhaal in twee lijnen doorloopt: de oorlog om Rohan en Gondor, en de tocht van Frodo en zijn knecht Sam naar de Doemberg, met het door de ring verteerde wezen Gollem als gids. Tolkien vertelt beide lijnen niet gelijk op maar achter elkaar, wat de lezer telkens laat wachten.</p><p>Het boek is geschreven door een filoloog die eerst talen bedacht en daarna een wereld waarin die gesproken konden worden. Achterin staan aanhangsels met kronieken, stambomen, kalenders en schriftsystemen. Sinds de verschijning is het genre van de moderne fantasy grotendeels op dit boek gebouwd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>fantasy</li><li>epos</li><li>Midden-aarde</li><li>macht</li><li>vriendschap</li><li>queeste</li><li>Tolkien</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="532"><a href="532.html">Beowulf</a>. Tolkien gaf college over dit gedicht en veranderde met zijn lezing ervan de bestudering ervan; wie de toon en de monsters van In de ban van de ring wil thuisbrengen, begint hier.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft het patroon van roeping, beproeving en terugkeer waaraan Frodo's tocht beantwoordt, met dit verschil dat de terugkeer bij Tolkien mislukt.</li>
+          <li value="531"><a href="531.html">Odyssee</a>. Homerus levert de andere grote terugkeerreis van de westerse letteren; het contrast met Frodo, die thuiskomt en er niet meer kan blijven, is het scherpst aan het slot.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

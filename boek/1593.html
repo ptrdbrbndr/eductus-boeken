@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wild &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Griffiths stelt dat het wilde geen leegte is en geen chaos, maar een vorm van orde die de westerse cultuur is kwijtgeraakt en vervolgens is gaan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1593">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1593 &middot; Natuur en wetenschap</p>
+    <h1>Wild</h1>
+    <p class="lede">Jay Griffiths, 2006</p>
+    <p class="stats">
+      <span><b>1424</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1593"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Griffiths stelt dat het wilde geen leegte is en geen chaos, maar een vorm van orde die de westerse cultuur is kwijtgeraakt en vervolgens is gaan bestrijden. Waar wildheid ooit ruimte, beweging en betekenis aanduidde, is zij in de taal van kolonisatie en zending verschoven naar iets bedreigends dat ontgonnen, bekeerd en omheind moest worden. Dat is volgens haar geen taalkundige bijzaak: wie een gebied als leeg beschrijft, kan het innemen. Haar tegenbewering is dat de mensen die het dichtst bij wildernis leven doorgaans terughoudender, geduldiger en socialer zijn dan de samenlevingen die hen wild noemden, en dat de wildheid vooral bij de veroveraar te vinden was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Aarde: de Amazone</h3>
+      <p>Het boek begint in het Amazonegebied, waar Griffiths lange tijd doorbrengt bij mensen voor wie het regenwoud geen wildernis is maar een bewoonde ruimte met namen, paden en rechten. Zij beschrijft hoe planten en dieren daar niet als natuur tegenover cultuur staan.</p>
+      <p>Persoonlijk is dit deel het zwaarst. Griffiths kwam er in een periode van diepe neerslachtigheid en nam onder begeleiding meermalen ayahuasca. Zij beschrijft dat als behandeling en niet als avontuur, en houdt bij wat het wel en niet deed.</p>
+      <p>Dat opent meteen de vraag die het hele boek achtervolgt. Wat zij daar meemaakte, is voor haar bewijs; voor een lezer is het een verslag van een ervaring waarvan de betekenis niet buiten haarzelf te toetsen valt. Griffiths ontwijkt die vraag niet, maar beantwoordt haar ook niet.</p>
+      <h3>IJs: het noordpoolgebied</h3>
+      <p>In het Canadese noorden verblijft zij bij Inuit. Hier gaat het over tijd, over wachten, over een taal die het landschap in beweging beschrijft, en over wat er gebeurde toen kinderen naar internaten werden gestuurd en gezinnen naar vaste nederzettingen.</p>
+      <p>Griffiths laat zien dat het sedentair maken hier een bestuurlijke ingreep was, uitgevoerd met de woorden zorg en ontwikkeling. De nasleep, in verslaving en zelfdoding, benoemt zij zonder omhaal.</p>
+      <h3>Water: de zee en de zeenomaden</h3>
+      <p>Het waterdeel voert naar de Indonesische wateren en naar de Bajo, die grote delen van hun leven op en in zee doorbrengen. Voor Griffiths is dit het lichtste deel van het boek; zij beschrijft het duiken bij koraalriffen als de gelukkigste bladzijden die zij schreef.</p>
+      <p>Tegelijk laat zij zien hoe de zee in westerse verhalen een plek van verschrikking werd, en hoe zeevarende volken zonder vaste woonplaats stelselmatig als achterlijk werden weggezet door staten die van iedereen een adres wilden.</p>
+      <h3>Lucht: de bergen van West-Papoea</h3>
+      <p>Het luchtdeel speelt in de bergen en wouden van West-Papoea, waar zij optrekt met mensen rond de onafhankelijkheidsbeweging. De tocht is uitputtend en gevaarlijk, en Griffiths verbergt niet dat zij opgelucht was toen zij weg kon.</p>
+      <p>Hier komt het politieke betoog van het boek het scherpst naar voren. De ontginning van Papoea door mijnbouw en door de Indonesische staat is voor haar dezelfde beweging als het herschrijven van het woord wild: een gebied dat leeg wordt verklaard opdat het genomen kan worden.</p>
+      <h3>Vuur: de Australische woestijn</h3>
+      <p>In het binnenland van Australi&euml; komt zij bij Aboriginal-gemeenschappen. Vuur staat hier zowel voor de hitte van het land als voor het beheer ervan, en voor de zending en het bestuur die mensen van hun grond en hun kinderen scheidden.</p>
+      <p>Griffiths zet twee manieren van kijken naast elkaar: een landschap dat voor de bezoeker leeg is en voor de bewoner volgeschreven met verhalen, verwantschap en verplichting.</p>
+      <h3>De taal van het wilde</h3>
+      <p>Door al die reizen heen loopt een tweede boek, over woorden. Griffiths volgt hoe begrippen als wild, woest en getemd zijn opgeladen en gebruikt, in de Bijbel, in reisverslagen, in wetgeving en in sprookjes.</p>
+      <p>Haar gedachte is dat een cultuur zich met woorden toestemming geeft. Zolang een gebied woest heet en zijn bewoners wild, is inname geen roof maar ontginning. Aan het slot keert dat naar binnen: het onderwerp van het boek is uiteindelijk niet het verre landschap maar wat er in het denken zelf ongetemd is gebleven.</p>
+      <p>Daarmee valt het boek in twee helften uiteen die elkaar nodig hebben. Zonder de reizen zou het taalbetoog een essay zijn geweest over woordenboeken; zonder het taalbetoog zou het reisverslag een reeks bezoeken zijn gebleven. Griffiths houdt beide tegelijk vast, en dat is de reden dat het boek zich moeilijk laat indelen bij natuurschrijven, bij reisliteratuur of bij politiek pamflet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wildheid</td><td>Bij Griffiths geen wanorde maar een eigen ordening van leven, taal en tijd die zonder bestuur van buitenaf tot stand komt.</td></tr>
+          <tr><td class="term">De vijf elementen</td><td>Aarde, ijs, water, lucht en vuur, waarmee zij haar reizen ordent in plaats van geografisch of chronologisch.</td></tr>
+          <tr><td class="term">Wild mind</td><td>Het innerlijke tegenstuk van de wildernis: het denken dat niet in vaste banen is gebracht, waar het boek voortdurend naar terugkeert.</td></tr>
+          <tr><td class="term">Domesticatie</td><td>Het temmen van land, dieren en mensen, dat zij als &eacute;&eacute;n beweging behandelt en niet als drie losse verschijnselen.</td></tr>
+          <tr><td class="term">Nomadisme</td><td>Het rondtrekkende bestaan dat staten steevast als tekort behandelen, terwijl het volgens haar een doordachte omgang met schaarse ruimte is.</td></tr>
+          <tr><td class="term">Sjamanisme</td><td>De praktijk van genezers en zieners die zij in het Amazonegebied van nabij meemaakte, beschreven als kennisvorm en niet als folklore.</td></tr>
+          <tr><td class="term">Bajo</td><td>Zeevarend volk in de Indonesische archipel dat grote delen van het leven op zee doorbrengt en in het waterdeel de hoofdrol speelt.</td></tr>
+          <tr><td class="term">West-Papoea</td><td>Het gebied waar het politieke hart van het boek ligt, met de onafhankelijkheidsstrijd tegen de Indonesische staat en de mijnbouw.</td></tr>
+          <tr><td class="term">Woestenij</td><td>Het begrip waarmee bewoonde gebieden leeg werden verklaard, in haar analyse de taalkundige voorwaarde voor kolonisatie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op drie soorten materiaal, en die zijn ongelijk van gewicht. Het eerste is eigen aanwezigheid: zeven jaar reizen, met verblijven van weken tot maanden, deels onder omstandigheden waarin zij ziek werd of gevaar liep. Dat levert waarneming op die in geen bibliotheek staat, en Griffiths is doorgaans eerlijk over haar positie als bezoeker die de taal niet spreekt.</p>
+      <p>Het tweede is lectuur: antropologie, reisverslagen, missieverslagen, wetgeving en woordenboeken. Waar zij historische feiten aanvoert, zoals de internaten voor Inuit-kinderen, het weghalen van Aboriginal-kinderen bij hun ouders en de onderdrukking in West-Papoea, staat zij op grond die door onafhankelijk en officieel onderzoek wordt gedekt. Dat is het stevigste deel van het boek.</p>
+      <p>Het derde is woordgeschiedenis. Griffiths leidt uit de herkomst van woorden af wat een cultuur dacht. Dat is aanstekelijk en soms verhelderend, maar als bewijsvorm is het zwak: een etymologie laat zien waar een woord vandaan komt, niet wat de spreker ervan vandaag bedoelt. Wie haar argument wil wegen, moet dat derde soort materiaal lager aanslaan dan zij zelf doet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is de idealisering. Griffiths ontmoet zeer verschillende volken op vier continenten en laat ze in het boek grotendeels dezelfde les uitspreken. Wie zo schrijft, loopt het gevaar mensen opnieuw tot symbool te maken, ditmaal een gunstig symbool, en dat is een vorm van dezelfde ontkenning die zij aanklaagt. Conflicten, hi&euml;rarchie&euml;n, geweld en onderlinge verschillen binnen die gemeenschappen komen nauwelijks aan bod.</p>
+      <p>Daarnaast rekt het begrip wild zo ver op dat het bijna alles kan dekken: landschap, taal, seksualiteit, verdriet, verzet, geloof. Een woord dat overal past, verliest scheidend vermogen. Op de plekken waar Griffiths het scherp gebruikt, over de politiek van leeg verklaren, is het boek op zijn best; waar zij het als levensbeschouwing hanteert, wordt het los.</p>
+      <p>Ten slotte is de vorm zowel de verdienste als de zwakte. De taal is dichterlijk, de zinnen zijn opgeladen, en de lezer wordt door ritme meegenomen op plaatsen waar een argument nodig was. Wie de opgewondenheid van de stijl niet deelt, houdt aan sommige hoofdstukken weinig verifieerbaars over. Het boek vraagt in dat opzicht om instemming voordat het bewijst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek in delen; de vijf elementen staan los genoeg van elkaar om apart gelezen te worden.</li>
+        <li>Scheid bij het lezen de historische hoofdstukken van de woordgeschiedenis, en weeg beide anders.</li>
+        <li>Kijk de losse feiten uit het deel over West-Papoea na in onafhankelijke verslaggeving voordat ze worden doorverteld.</li>
+        <li>Let op waar zij verschillende volken hetzelfde laat zeggen, en vraag je af of dat aan hen ligt of aan het boek.</li>
+        <li>Pas haar vraag toe op eigen terrein: welke plek, welk werk of welk gesprek wordt hier leeg verklaard om er ongestoord over te kunnen beschikken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Wild: An Elemental Journey</i> (Jeremy P. Tarcher/Penguin, New York, 2006, 374 blz., ISBN 9781585424030); de Britse uitgave verscheen in 2007 bij Hamish Hamilton, de paperback in 2008 bij Penguin (480 blz., ISBN 9780141006444). Het boek won in 2007 de eerste Orion Book Award en stond op de shortlist van de Orwell Prize. Van Griffiths' werk is voor zover na te gaan niets in het Nederlands vertaald, ook haar eerdere <i>Pip Pip: A Sideways Look at Time</i> (1999) en de latere boeken <i>Kith</i> (2013) en <i>Tristimania</i> (2016) niet.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jay Griffiths reisde zeven jaar en schreef daar een boek over dat langs de klassieke elementen is geordend: aarde, ijs, water, lucht en vuur. Achtereenvolgens de Amazone, het Canadese noordpoolgebied, de zee rond de Indonesische eilanden, de bergwouden van West-Papoea en de Australische woestijn.</p><p>Het is geen boek over landschap of dieren. Het gaat over wat het woord wild betekent, waar die betekenis vandaan komt en wie er belang bij had haar te veranderen. Griffiths leest woordgeschiedenis, mythe en koloniale bronnen naast elkaar en zet daar haar eigen ervaringen tegenover.</p><p>Ze verbleef bij mensen die dicht bij die wildernissen leven: Inuit, Aboriginals, bewoners van het Amazonegebied en Papoea's die voor onafhankelijkheid strijden. Over wat hun is aangedaan schrijft zij met openlijke woede. Het boek werd bekroond met de eerste Orion Book Award.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wildernis</li><li>reisverhaal</li><li>inheemse volken</li><li>taal</li><li>West-Papoea</li><li>Amazone</li><li>natuur</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1578"><a href="1578.html">Braiding Sweetgrass</a>. Kimmerer schrijft eveneens over inheemse kennis van land en planten, maar vanuit een eigen traditie en met de terughoudendheid van een bioloog.</li>
+          <li value="1592"><a href="1592.html">The Vegetarian Myth</a>. Keith valt dezelfde getemde monocultuur aan als Griffiths, met bodemkunde en voedingsleer in plaats van reisverslag en woordgeschiedenis.</li>
+          <li value="758"><a href="758.html">Shamanic Voices</a>. Halifax verzamelde verslagen van sjamanen zelf, wat een controle biedt op de manier waarop Griffiths dat verschijnsel in het Amazonedeel beschrijft.</li>
+          <li value="1575"><a href="1575.html">Ecospiritualiteit</a>. Alma onderzoekt de verhouding tussen zingeving en natuur binnen een Nederlandse context, waar Griffiths het vooral buiten Europa zoekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

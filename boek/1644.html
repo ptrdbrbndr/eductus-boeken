@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universele vrede &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Glaudemans stelt dat oorlog voortkomt uit het denken in afscheiding en vrede uit het besef van eenheid, en dat die eenheid bij hem geen ideaal is maar de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1644">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1644 &middot; Filosofie en mystiek</p>
+    <h1>Universele vrede</h1>
+    <p class="lede">Willem Glaudemans, 2024</p>
+    <p class="stats">
+      <span><b>1268</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1644"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Glaudemans stelt dat oorlog voortkomt uit het denken in afscheiding en vrede uit het besef van eenheid, en dat die eenheid bij hem geen ideaal is maar de werkelijke stand van zaken, die het ego voortdurend ontkent. Wie in een ander een vijand ziet, ziet volgens deze redenering een deel van zichzelf dat hij niet wil kennen. Daaruit volgt de tweede stelling van het boek: vrede laat zich niet bereiken langs de weg van verdragen, machtsevenwicht of overwinning, omdat elk van die middelen de scheiding bevestigt waaruit de oorlog is ontstaan. Wat overblijft is verandering van bewustzijn bij het individu, waarvan Glaudemans aanneemt dat zij zich naar het geheel uitbreidt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De reeks en de plaats van dit deel</h3>
+      <p>Het boek hoort bij de Universele reeks van AnkhHermes, waarin Glaudemans grote onderwerpen van deze tijd behandelt vanuit een toekomstperspectief: hij beschrijft hoe onderwijs, spiritualiteit, geneeskunde en vrede eruit zouden zien wanneer eenheid het uitgangspunt was. Die vorm bepaalt de toon. Er wordt weinig geanalyseerd en veel gesteld.</p>
+      <p>De bron van het denkraam staat niet ter discussie. <i>Een cursus in wonderen</i> levert de begrippen afscheiding, projectie, ego en vergeving; de Nag Hammadi-geschriften leveren de gedachte dat de goddelijkheid in de mens zelf te vinden is. Wie die twee bronnen niet aanvaardt, houdt aan het boek vooral een reeks morele aansporingen over.</p>
+      <h3>Geen oorlog</h3>
+      <p>Het eerste deel bestaat uit stellingen die de onmogelijkheid van gerechtvaardigde oorlog uitwerken. De mens is naar zijn aard goddelijk en dus niet gewelddadig; geweld komt voort uit de gedachte gescheiden te zijn. Oorlog is daarmee geen politiek instrument dat verkeerd wordt gebruikt, maar een vergissing over wie men zelf is.</p>
+      <p>Glaudemans keert zich in dit deel ook tegen de gedachte dat vrede met oorlog te winnen valt. Een overwinning brengt volgens hem een pauze, omdat de verliezer de scheiding blijft ervaren en het conflict later hervat. Hij trekt daaruit de conclusie dat wie oorlog voert het doel dat hij noemt onmogelijk maakt.</p>
+      <h3>Vredesprincipes</h3>
+      <p>Het tweede deel geeft een reeks beginselen die de lezer kan overwegen en toepassen: zie het belang van de ander als je eigen belang, herken je oordeel als projectie, weiger zowel de rol van slachtoffer als die van aanklager, en behandel iedere ontmoeting als een gelegenheid om afscheiding ongedaan te maken.</p>
+      <p>De beginselen worden niet met voorbeelden uit bestaande conflicten gestaafd. Zij staan als losse uitspraken, in de vorm die uit de meditatieve traditie van de Cursus komt: korte zinnen die eerder herhaald dan beargumenteerd worden.</p>
+      <h3>Vredeseducatie</h3>
+      <p>Het derde deel gaat over opvoeding en onderwijs. Kinderen leren afscheiding volgens Glaudemans van volwassenen: door vergelijking, door competitie, door straf en door het aanwijzen van vijanden. Vrede vraagt daarom om onderwijs waarin samenwerking en zelfkennis boven prestatie en rangorde gaan.</p>
+      <p>Dit is het deel dat het dichtst bij handelen komt. Het sluit aan bij zijn eerdere boek over universeel onderwijs en bevat de meest concrete voorstellen van het geheel, al blijven ook die op het niveau van uitgangspunten.</p>
+      <h3>Vrede en universele vergeving</h3>
+      <p>De laatste twee delen behandelen vrede als toestand en vergeving als de weg daarheen. Vergeving betekent bij Glaudemans niet dat er iets ergs is gebeurd dat wordt kwijtgescholden, maar dat de lezer inziet dat zijn aanklacht op een projectie berust. Wie vergeeft, ontdekt in die redenering dat er niets te vergeven viel.</p>
+      <p>Het slot behandelt de vraag naar verantwoordelijkheid en naar degene die aanvalt. Het antwoord blijft binnen hetzelfde kader: de aanvaller handelt vanuit angst en vraagt om erkenning, en het antwoord daarop is hem niet als aanvaller te bevestigen. Wat dat in een gewapend conflict praktisch betekent, laat het boek open.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Afscheiding</td><td>De gedachte los te staan van anderen en van het geheel, in dit boek de oorzaak van alle geweld.</td></tr>
+          <tr><td class="term">Eenheid</td><td>De stelling dat alles een is, waaruit vrede volgens Glaudemans vanzelf voortvloeit.</td></tr>
+          <tr><td class="term">Projectie</td><td>Het verplaatsen van eigen onvrede naar buiten, waardoor anderen als vijand verschijnen.</td></tr>
+          <tr><td class="term">Ego</td><td>Het deel van het denken dat zich als afgescheiden ervaart en zich daarom voortdurend moet verdedigen.</td></tr>
+          <tr><td class="term">Goddelijkheid</td><td>De aard van de mens zoals de gnostieke traditie en de Cursus die zien: niet zondig maar heel.</td></tr>
+          <tr><td class="term">Universele vergeving</td><td>Vergeving opgevat als het inzien dat de aanklacht op een eigen projectie berustte.</td></tr>
+          <tr><td class="term">Innerlijke vrede</td><td>De toestand van het denken die volgens het boek voorafgaat aan en voorwaarde is voor vrede in de wereld.</td></tr>
+          <tr><td class="term">Vredeseducatie</td><td>Onderwijs en opvoeding die kinderen geen vergelijking en rangorde aanleren maar samenwerking en zelfkennis.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Er staan geen cijfers over gewapende conflicten in, geen verwijzingen naar vredesonderzoek of conflictbemiddeling, en geen historische gevalsbeschrijvingen waaraan de these getoetst zou kunnen worden. De autoriteit komt van <i>Een cursus in wonderen</i> en van de gnostieke geschriften die Glaudemans mede vertaalde, en die bronnen worden als geldig aangenomen in plaats van verdedigd.</p>
+      <p>Wat er wel in zit is samenhang. De redenering van afscheiding naar angst, van angst naar aanval en van projectie naar vijandbeeld wordt over de vijf delen heen consequent volgehouden. Wie het beginpunt aanvaardt, kan de rest volgen zonder ergens een sprong tegen te komen.</p>
+      <p>De omvang beperkt wat er te onderbouwen valt. In 136 bladzijden, waarvan een deel bestaat uit korte stellingen met veel wit, past geen behandeling van tegenwerpingen. Het boek is bedoeld om herhaald en overwogen te worden, niet om als betoog gewogen te worden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de sprong van individu naar wereld. Dat innerlijke rust iemands eigen gedrag verandert, is aannemelijk. Dat een toename van innerlijke rust bij individuen oorlogen tussen staten voorkomt, is een bewering over collectieve processen waarvoor het boek geen mechanisme geeft. Oorlogen worden gevoerd door organisaties met begrotingen, grondstoffen en grenzen; die laag komt in het boek niet voor.</p>
+      <p>Daarmee hangt de vraag naar de aangevallene samen. Wie geen partij kiest omdat aanvaller en aangevallene beide in afscheiding verkeren, laat in de praktijk de sterkste partij haar gang gaan. Het boek raakt die vraag aan in het deel over wie aanvalt, maar geeft geen antwoord dat voor een bezette stad of een belegerd land bruikbaar is.</p>
+      <p>De stelling is bovendien niet te weerleggen. Blijft de vrede uit, dan waren er te weinig mensen die het bewustzijn deelden; komt er vrede, dan bevestigt dat de these. Zolang beide uitkomsten als steun gelden, valt over de juistheid van het boek niets vast te stellen. Dat is een eigenschap van het genre en niet van deze auteur alleen, maar het verdient vermelding.</p>
+      <p>Wie de eerdere delen van de Universele reeks of de Biblos-serie kent, treft hier weinig nieuws aan. De begrippen zijn dezelfde als in <i>Ingangen tot Een cursus in wonderen</i>; alleen het onderwerp is verschoven van persoonlijk lijden naar oorlog.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het deel over vredeseducatie eerst wanneer het om opvoeding of onderwijs gaat; daar staan de meest bruikbare punten.</li>
+        <li>Neem de vredesprincipes een voor een en houd er een week een aantekening over bij, in plaats van ze achter elkaar door te lezen.</li>
+        <li>Onderzoek bij een aanhoudend conflict welk oordeel over de ander ook op de eigen persoon van toepassing is, voordat het gesprek wordt gevoerd.</li>
+        <li>Gebruik het boek naast een tekst over onderhandelen of bemiddelen; voor de gespreksvaardigheid zelf biedt het geen aanwijzingen.</li>
+        <li>Sla de stellingen over wanneer de gnostieke en de Cursus-uitgangspunten niet worden gedeeld; zonder die bronnen blijft er weinig staan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, geen vertaling uit een andere taal. <i>Universele vrede. Alles is een, elkaars goddelijkheid zien</i> verscheen op 27 november 2024 bij AnkhHermes, Utrecht (136 blz., ISBN 9789020221701), daarnaast als e-boek en als luisterboek (ISBN 9789020222050). Het hoort bij de Universele reeks, waarin ook <i>Universeel onderwijs</i>, <i>Universele spiritualiteit</i> en <i>Universele geneeskunst</i> verschenen. Glaudemans was eindredacteur van de Nederlandse vertaling van <i>A Course in Miracles</i>, medevertaler van de Nag Hammadi-geschriften en schreef de achtdelige Biblos-serie. Van dit boek is voor zover bekend geen uitgave in een andere taal verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Glaudemans schrijft een pleidooi van 136 bladzijden waarin vrede wordt behandeld als gevolg van eenheid en oorlog als gevolg van afscheiding. Tussen gelijken kan volgens hem geen oorlog bestaan, omdat wie het belang van de ander als zijn eigen belang ziet niets te winnen heeft bij strijd.</p><p>Het boek bestaat uit vijf delen: een reeks stellingen onder de kop Geen oorlog, een verzameling vredesprincipes, een deel over vredeseducatie, een deel over vrede zelf en een slotdeel over universele vergeving. De redenering komt uit <i>Een cursus in wonderen</i>, waarvan Glaudemans de Nederlandse uitgave verzorgde: de wereld die iemand ziet is een projectie van zijn denken, en wie dat denken verandert verandert wat hij aantreft.</p><p>De inzet is innerlijk en niet politiek. Wie zijn eigen onvrede niet kent, projecteert die volgens Glaudemans op alles om zich heen; wie innerlijk in vrede is, straalt dat uit en draagt daarmee bij aan vrede daarbuiten. Machthebbers kunnen oorlogen beginnen, maar het boek stelt dat bewustzijn bij grote aantallen mensen daar de enige verdediging tegen is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vrede</li><li>eenheid</li><li>Een cursus in wonderen</li><li>vergeving</li><li>oorlog</li><li>geweldloosheid</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Van dezelfde auteur, en de aangewezen ingang voor de begrippen die dit boek zonder uitleg gebruikt: afscheiding, projectie en vergeving komen daar vandaan.</li>
+          <li value="1223"><a href="1223.html">The Nag Hammadi Library in English</a>. De gnostieke geschriften die Glaudemans mede vertaalde, met de gedachte dat de goddelijkheid in de mens zelf ligt waarop de vredesredenering hier rust.</li>
+          <li value="1641"><a href="1641.html">Mediation met geweldloze communicatie</a>. Larsson behandelt bemiddeling als vaardigheid met stappen en formuleringen, en vult daarmee aan wat Glaudemans op het niveau van uitgangspunten laat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

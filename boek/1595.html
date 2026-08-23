@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thuiskomen bij jezelf &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mewe stelt dat het aanhoudende, moeilijk te benoemen gevoel van ontevredenheid dat veel mensen met zich meedragen, geen kwestie is van verkeerde keuzes in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1595">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1595 &middot; Levenskunst</p>
+    <h1>Thuiskomen bij jezelf</h1>
+    <p class="lede">Frederike Mewe, 2025</p>
+    <p class="stats">
+      <span><b>1428</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1595"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mewe stelt dat het aanhoudende, moeilijk te benoemen gevoel van ontevredenheid dat veel mensen met zich meedragen, geen kwestie is van verkeerde keuzes in werk of relatie, maar van een verloren verbinding met wat iemand zelf voelt en wil. Die verbinding is volgens haar niet verdwenen maar bedekt geraakt onder aanpassing: aan ouders, aan verwachtingen, aan wat er ooit nodig was om erbij te horen. Zelfaanvaarding is daarom in haar voorstelling geen prestatie en geen aan te leren eigenschap, maar een terugkeer naar iets wat er al is. Wie dat aanneemt, moet ook aannemen dat er onder de aanpassing een herkenbaar eigen zelf ligt, en juist die aanname beargumenteert het boek nauwelijks.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe je bij jezelf weggaat</h3>
+      <p>Het eerste deel beschrijft het verlies. Mewe begint bij het ongemakkelijke gevoel dat er iets niet klopt terwijl er van buiten weinig aan te wijzen valt: een baan die op papier goed is, een relatie die functioneert, en toch een aanhoudende onrust.</p>
+      <p>Zij zoekt de verklaring in aanpassing. Een kind leert welke gevoelens welkom zijn en welke niet, en past zich daarnaar aan omdat het geen andere keuze heeft. Wat begint als overlevingsstrategie wordt gewoonte, en de gewoonte blijft lang nadat de situatie voorbij is.</p>
+      <h3>Het gezin waaruit je komt</h3>
+      <p>Een groot deel van het eerste stuk gaat over gezinsdynamiek. Mewe kijkt naar de plaats die iemand in het gezin innam, naar wat er onuitgesproken bleef en naar de rollen die kinderen op zich nemen wanneer de verhoudingen tussen ouders gespannen zijn.</p>
+      <p>Zij houdt dat weg van beschuldiging. Haar punt is dat ouders doorgaven wat zij zelf hadden meegekregen, en dat inzicht daarin bedoeld is om de eigen reactie te begrijpen en niet om een rekening te presenteren.</p>
+      <h3>Oude pijn en wat die blijft doen</h3>
+      <p>Vervolgens komt de pijn die niet is doorleefd. Mewe beschrijft hoe onverwerkte ervaringen zich niet als herinnering maar als reactie laten gelden: een onevenredig heftige woede, een plotselinge terugtrekking, een schaamte die niet bij de aanleiding past.</p>
+      <p>Zij gebruikt het begrip trigger hier als aanwijzing in plaats van als hinder. Een reactie die te groot is voor de situatie wijst volgens haar naar iets ouders, en is daarmee bruikbaar materiaal.</p>
+      <h3>Terug naar het voelen</h3>
+      <p>Het tweede deel begint bij het lichaam en het gevoel. Wie zich lang heeft aangepast, weet vaak wel wat er van hem verwacht wordt maar niet wat hij zelf wil, en Mewe behandelt het opmerken van lichamelijke signalen als eerste stap.</p>
+      <p>De oefeningen in dit deel zijn kort en gevarieerd: aandacht bij de ademhaling, geleide meditaties die via QR-codes te beluisteren zijn, schrijfopdrachten en reflectievragen. Het boek is zo ingericht dat het langzaam gelezen wordt, met werk tussen de hoofdstukken door.</p>
+      <h3>Het innerlijk kind</h3>
+      <p>Een eigen onderdeel gaat over het deel van iemand dat is blijven staan bij wat het toen tekortkwam. Mewe laat de lezer daar contact mee maken en oefent met een houding die zij zorgzaam noemt: opmerken wat dat deel nodig heeft en het niet wegsturen.</p>
+      <p>Dit is het onderdeel dat het verst van de gecontroleerde psychologie af staat en het dichtst bij de therapeutische praktijk. Zij brengt het als beeld en als werkvorm, niet als bewering over hoe het geheugen werkt.</p>
+      <h3>Aanvaarden en opnieuw kiezen</h3>
+      <p>Het slot gaat over wat aanvaarding oplevert. Wie de eigen geschiedenis kent en de eigen reacties herkent, kan volgens Mewe kiezen in plaats van reageren, en dat verandert de verhouding tot anderen evenzeer als die tot zichzelf.</p>
+      <p>Zij houdt de belofte klein. Aanvaarding heft de pijn niet op en maakt het verleden niet ongedaan; wat verandert is de ruimte eromheen. De laatste boodschap van het boek is dat volmaaktheid niet gevraagd wordt en dat thuiskomen daar begint waar dat streven ophoudt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Thuiskomen bij jezelf</td><td>Mewes aanduiding voor de toestand waarin iemand zich niet hoeft aan te passen of anders voor te doen om zichzelf te kunnen zijn.</td></tr>
+          <tr><td class="term">Aanpassing</td><td>De vroeg aangeleerde neiging om te worden wat de omgeving vraagt, in het boek de belangrijkste oorzaak van het verlies van zelfcontact.</td></tr>
+          <tr><td class="term">Gezinsdynamiek</td><td>Het geheel van rollen, verhoudingen en onuitgesproken regels in het gezin van herkomst, waaruit latere patronen te herleiden zijn.</td></tr>
+          <tr><td class="term">Oude pijn</td><td>Ervaringen die destijds niet doorleefd konden worden en die zich nu in reacties laten gelden in plaats van in herinneringen.</td></tr>
+          <tr><td class="term">Trigger</td><td>Een prikkel die een reactie oproept die te groot is voor de aanleiding en daarmee naar iets ouders verwijst.</td></tr>
+          <tr><td class="term">Innerlijk kind</td><td>Het deel van iemand dat is blijven staan bij een vroegere behoefte, waarmee de lezer in oefeningen contact leert maken.</td></tr>
+          <tr><td class="term">Zelfacceptatie</td><td>Jezelf toelaten met eigenschappen en gebreken tegelijk, in het boek geen eindpunt maar een houding die geoefend wordt.</td></tr>
+          <tr><td class="term">Veerkracht</td><td>Het vermogen om na tegenslag terug te keren naar de eigen koers, dat volgens Mewe groeit naarmate het zelfcontact herstelt.</td></tr>
+          <tr><td class="term">Verlangen</td><td>Wat iemand zelf wil, onderscheiden van wat er van hem verwacht wordt; het richtinggevende begrip in het tweede deel.</td></tr>
+          <tr><td class="term">Reflectievraag</td><td>De vaste werkvorm van het boek, een vraag aan het eind van een onderdeel die de lezer op het eigen materiaal toepast.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek presenteert zichzelf als praktisch en gefundeerd, en die tweede aanduiding verdient nuance. De onderbouwing bestaat uit gevestigde psychologische noties, hechting, aanpassing, het werken met innerlijke delen en aandacht voor lichamelijke signalen, en uit de ervaring van een praktijk die de auteur ruim twintig jaar voert. Er is een literatuurlijst, maar de afzonderlijke uitspraken zijn niet aan bronnen gekoppeld, zodat de lezer niet kan nagaan welke claim waar vandaan komt.</p>
+      <p>Van de gebruikte methoden is de onderbouwing ongelijk verdeeld. Voor aandachtstraining en zelfcompassie bestaat gecontroleerd onderzoek met bescheiden effecten. Het werken met een innerlijk kind is in de klinische praktijk verbreid, maar het onderzoek ernaar is beperkt en zelden vergelijkend opgezet. Het begrip zelf is bovendien een beeld en geen beschrijving van hoe het geheugen werkt; Mewe gebruikt het ook zo, wat correcter is dan bij veel auteurs in dit genre.</p>
+      <p>Wat het boek werkelijk aandraagt zijn gevallen uit haar spreekkamer en uit haar eigen leven. Die maken de beschrijving herkenbaar en de oefeningen begrijpelijk, maar zij bewijzen niets over werkzaamheid. Er staat geen enkel geval in waarin de aanpak niet aansloeg, en er is geen manier waarop de lezer kan vaststellen of vooruitgang aan het werk ligt of aan het verstrijken van de tijd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De onuitgesproken aanname is de zwakste plek. Het hele boek berust op het beeld dat er onder de aanpassing een echt zelf ligt dat teruggevonden kan worden. Dat beeld is aansprekend en in de therapiekamer bruikbaar, maar het spreekt niet vanzelf: er valt evengoed te verdedigen dat een mens uit zijn verhoudingen wordt opgebouwd en dat er geen bedekte kern onder ligt. Mewe stelt die vraag niet, terwijl haar hele opzet erop rust.</p>
+      <p>Daarnaast blijft de blik naar binnen gericht. Ontevredenheid over werk of relatie kan een reden hebben die buiten de persoon ligt, in een slechte werkplek, in geldzorgen, in een partner die niet meebeweegt. Wie zulke ontevredenheid consequent als teken van verloren zelfcontact leest, kan er ook mee wegkijken van omstandigheden die veranderd moeten worden. Het boek raakt daaraan wel, maar houdt het bij de binnenkant.</p>
+      <p>Ten slotte overlapt het sterk met het debuut. De uitgangspunten, de toon, het soort oefeningen en de doelgroep zijn dezelfde; wat verschuift is het accent, van de kritische stem naar de gezinsgeschiedenis en het voelen. Wie <i>Goed zoals je bent</i> las en de oefeningen deed, vindt hier vooral een tweede ronde. Lezersoordelen wijzen dezelfde kant op: waardering voor de toegankelijkheid en voor de bruikbaarheid van de oefeningen, minder voor de oorspronkelijkheid.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als werkboek en niet als leesboek: doe de oefening voordat je verder gaat, of sla het onderdeel over.</li>
+        <li>Noteer bij een reactie die te groot is voor de aanleiding wat er precies gebeurde, en zoek pas later naar de oorsprong.</li>
+        <li>Beantwoord de reflectievragen schriftelijk; mondeling blijft het te makkelijk bij een bekend antwoord.</li>
+        <li>Scheid bij ontevredenheid over werk of relatie eerst uit wat er aan de omstandigheden ligt voordat het naar binnen wordt gekeerd.</li>
+        <li>Ga bij zwaar of langdurig verdriet, of bij herinneringen die overweldigen, niet alleen aan het werk maar zoek begeleiding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Thuiskomen bij jezelf. De psychologie van zelfacceptatie</i>, Ten Have, Utrecht, 2025, 240 blz., ISBN 9789025912925; e-boek ISBN 9789025913502 en luisterboek ISBN 9789025913533, met een speelduur van ruim zeven uur. Het boek is oorspronkelijk in het Nederlands geschreven, dus van een vertaling is geen sprake. Het volgt op haar debuut <i>Goed zoals je bent</i> (2022) en bevat een literatuurlijst, illustraties in grijstinten en QR-codes waarmee meditatie- en ademoefeningen te beluisteren zijn.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In haar tweede boek verschuift Frederike Mewe de vraag. Ging haar debuut over de strenge stem die het zelfvertrouwen ondergraaft, hier gaat het over de vraag hoe iemand het contact met zichzelf kwijtraakt en wat er nodig is om dat te herstellen.</p><p>Het boek heeft twee delen. Het eerste beschrijft hoe je bij jezelf weggaat: door aanpassing aan verwachtingen, door patronen die in het gezin van herkomst zijn ontstaan en door pijn die niet is verwerkt. Het tweede beschrijft de weg terug, met aandacht voor gevoel, voor het innerlijk kind en voor de prikkels die oude reacties losmaken.</p><p>De vorm is die van een werkboek: korte hoofdstukken, praktijkverhalen, reflectievragen, tekeningen en oefeningen, waaronder meditaties en ademoefeningen die via QR-codes te beluisteren zijn. De psychologie is gevestigd en toegankelijk gebracht; onderzoek naar de werkzaamheid van deze aanpak staat er niet in.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfacceptatie</li><li>innerlijk kind</li><li>gezinsdynamiek</li><li>oefeningen</li><li>psychologie</li><li>veerkracht</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1594"><a href="1594.html">Goed zoals je bent</a>. Het eerste boek van Mewe, waarin dezelfde uitgangspunten staan maar de nadruk op de innerlijke criticus ligt in plaats van op de gezinsgeschiedenis.</li>
+          <li value="1613"><a href="1613.html">Homecoming: Reclaiming and Championing Your Inner Child</a>. Bradshaw bracht het werken met het innerlijk kind groot; wie wil weten waar Mewes middendeel vandaan komt, vindt daar de oorsprong en ook de overdrijving.</li>
+          <li value="1646"><a href="1646.html">Reclaiming Your Life</a>. Jenson behandelt eveneens de doorwerking van de kindertijd in het volwassen leven, met meer nadruk op de rol van de ouders.</li>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff levert de onderzoeksmatige onderbouwing voor de milde houding tegenover zichzelf die Mewe vooral als praktijk beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

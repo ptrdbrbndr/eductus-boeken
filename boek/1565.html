@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onbegrensd energiek in een uitputtende wereld &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Leth stelt dat aanhoudende vermoeidheid, overgewicht en chronische klachten bij de meeste mensen geen gebrek van het lichaam zijn maar een voorspelbare…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1565">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1565 &middot; Brein en lichaam</p>
+    <h1>Onbegrensd energiek in een uitputtende wereld</h1>
+    <p class="lede">Richard de Leth, 2025</p>
+    <p class="stats">
+      <span><b>1596</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1565"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Leth stelt dat aanhoudende vermoeidheid, overgewicht en chronische klachten bij de meeste mensen geen gebrek van het lichaam zijn maar een voorspelbare uitkomst van een lichaam dat goed werkt in een omgeving waarvoor het nooit is gemaakt. Zijn oplossing is niet medisch maar bouwkundig: verander de omgeving en de dagelijkse gewoonten zo dat zij weer lijken op de omstandigheden waarin de mens is ontstaan, en het lichaam herstelt zichzelf. Daar hoort een tweede stelling bij die het boek in het laatste principe uitdrukkelijk maakt: de verantwoordelijkheid daarvoor ligt bij de mens zelf, en niet bij de arts, de overheid of de samenleving.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Evolutie: de handleiding die niemand kreeg</h3>
+      <p>Het eerste deel legt het raamwerk neer waarop de rest rust. Principe 1 stelt dat leefstijlkeuzes de genen aansturen en niet andersom, toegelicht met het verhaal van een vrouw van tweeënveertig die haar vermoeidheid en darmklachten aan erfelijkheid toeschreef, tot bleek dat zij vooral de gewoonten van haar moeder had overgenomen.</p>
+      <p>Principe 2 zet het oerbrein tegenover het mensbrein: een oud, snel systeem dat op dreiging en beloning reageert, tegenover een langzamer systeem dat kan overzien en kiezen. Wie het eerste herkent, kan volgens De Leth met het tweede meesturen in plaats van erdoor geleefd te worden.</p>
+      <h3>Zingeving: waarvoor het lichaam wordt onderhouden</h3>
+      <p>Vier principes gaan over richting: voorkom spijt op je sterfbed, zorg dat je op de juiste plek in het leven staat, dien het grotere geheel, en blijf levenslang leren omdat dat het brein jong houdt.</p>
+      <p>Opvallend aan de plaatsing is dat zingeving vóór voeding en beweging komt. De Leth behandelt richting niet als sluitstuk maar als voorwaarde: zonder reden om gezond te willen zijn houdt geen enkele gewoonte stand.</p>
+      <h3>Ontspanning: herstel als aparte discipline</h3>
+      <p>Het langste deel telt zes principes: natuur als grondslag van gezondheid, zorg voor de bijnieren, slaap als middel om minder te eten en af te vallen, koude en hitte als oude prikkels, en lummelen als bezigheid die op termijn meer tijd oplevert dan zij kost.</p>
+      <p>Het laatste principe van dit deel gaat over een rolletje tape voor de nacht, bedoeld om neusademhaling af te dwingen. Dat is het meest concrete en tegelijk het meest omstreden advies uit het boek.</p>
+      <h3>Voeding: de brandstof</h3>
+      <p>Vijf principes over eten: minder vaak eten, variëren in plaats van eenzijdig eten, geen angst voor vetten en eiwitten, de supermarkt lezen als een omgeving die tegen de eter werkt, en eten wat in het seizoen groeit.</p>
+      <p>De rode draad is dat de voedselomgeving zelf het probleem is. Niet de wilskracht van de eter maar de indeling van het schap bepaalt volgens De Leth wat er in de wagen belandt, en daarom richt zijn advies zich op die omgeving.</p>
+      <h3>Beweging: spierrekening en stoel</h3>
+      <p>Drie principes: nuchter buiten bewegen, investeren in wat hij de spierrekening noemt, en de stoel verkopen. De spierrekening is het beeld dat spiermassa een tegoed is dat in de tweede levenshelft wordt opgenomen, zodat wat er op jongere leeftijd bij komt later beschikbaar blijft.</p>
+      <p>Dit deel telt de minste principes en heeft de breedste onderbouwing in de literatuur. Het advies zelf wijkt weinig af van wat gangbare richtlijnen zeggen.</p>
+      <h3>Gedragsverandering: waarom het toch niet lukt</h3>
+      <p>Vier principes over volhouden. De smartphone weet meer over de gebruiker dan die over zichzelf; het brein kent drie stoplichten; wie het lijden uit de weg gaat, gaat later meer lijden; en de groep om iemand heen bepaalt de gewoonte.</p>
+      <p>Hier komt het boek het dichtst bij gangbare gedragsleer, met dit verschil dat De Leth de omgeving zwaarder laat wegen dan de motivatie.</p>
+      <h3>Bezieling en het actieplan</h3>
+      <p>De laatste drie principes gaan over een hoger doel, over liefde als begin- en eindpunt, en over de zin waarmee het boek sluit: niemand komt je redden. Daarna volgt een persoonlijk anti-ontstekingsactieplan waarin de lezer de voorgaande principes tot een eigen schema samenvoegt.</p>
+      <p>Die volgorde is de kern van de opzet. Het boek eindigt niet met kennis maar met een plan, en de auteur vraagt uitdrukkelijk om kleine stappen in plaats van een omwenteling ineens.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Oerbrein en mensbrein</td><td>Het onderscheid tussen een oud, snel reagerend deel van het brein en een jonger deel dat kan overzien en kiezen, in het boek de verklaring voor bijna elke terugval in oude gewoonten.</td></tr>
+          <tr><td class="term">Evolutionaire handleiding</td><td>Het beeld dat de 27 principes samen de gebruiksaanwijzing vormen die de mens bij zijn geboorte niet heeft meegekregen.</td></tr>
+          <tr><td class="term">Spierrekening</td><td>Spiermassa opgevat als een tegoed dat in de jonge jaren wordt opgebouwd en in de tweede levenshelft wordt opgenomen.</td></tr>
+          <tr><td class="term">Drie stoplichten in het brein</td><td>Het model waarmee De Leth uitlegt waarom een impuls wel of niet tot gedrag leidt, gebruikt om gewoonteverandering hanteerbaar te maken.</td></tr>
+          <tr><td class="term">Anti-ontstekingsactieplan</td><td>Het persoonlijke schema aan het slot van het boek waarin de lezer de principes samenvoegt tot een eigen dagorde.</td></tr>
+          <tr><td class="term">Humor als medicijn</td><td>De terugkerende luchtige tussenstukken tussen de delen, waarin De Leth de moderne leefwijze met spot beschrijft.</td></tr>
+          <tr><td class="term">Lummelen</td><td>Doelloos niets doen, in het boek een aparte discipline die volgens De Leth op termijn meer tijd oplevert dan zij kost.</td></tr>
+          <tr><td class="term">Een rolletje tape voor de nacht</td><td>Het afplakken van de mond tijdens de slaap om neusademhaling af te dwingen, door De Leth aangeprezen als goedkope ingreep met veel effect.</td></tr>
+          <tr><td class="term">Niemand komt je redden</td><td>Het laatste principe en de morele kern van het boek: de verantwoordelijkheid voor gezondheid ligt bij de mens zelf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>In het boek zelf staat geen enkele verwijzing bij een bewering. De Leth stuurt de lezer via een QR-code naar een lijst met wetenschappelijke referenties per principe. Wat er in de tekst wel staat zijn verhalen uit zijn praktijk, doorgaans één persoon per principe, met een voornaam, een leeftijd, een beroep en een gunstige afloop. Dat zijn illustraties en geen bewijs.</p>
+      <p>De principes verschillen sterk in hoe stevig zij staan. Dat te weinig slaap, te weinig beweging, veel zitten en veel bewerkt voedsel met slechtere gezondheid samenhangen, is goed onderbouwd en breed herhaald. Op die punten wijkt het advies nauwelijks af van gewone richtlijnen; het boek maakt het aantrekkelijker, niet anders.</p>
+      <p>Andere principes leunen op onderzoek dat kleiner en jonger is. Bij vasten en minder vaak eten laten proeven doorgaans zien dat het gewichtsverlies gelijk is aan dat van gewone calorieënbeperking, zonder aantoonbaar extra voordeel. Bij koude en hitte gaat het om kortdurende effecten op stemming en stofwisseling; winst voor de gezondheid op lange termijn is niet aangetoond. Seizoensgebonden eten heeft goede argumenten uit landbouw en smaak, maar geen gemeten gezondheidseffect.</p>
+      <p>Het advies over mondtape staat er het zwakst voor. Het onderzoek ernaar is klein en de gemeten effecten zijn bescheiden, terwijl slaapartsen waarschuwen voor mensen met een verstopte neus of met onbehandelde slaapapneu. Het boek noemt die groep niet.</p>
+      <p>De term bijnieruitputting, waar het principe over de bijnieren op leunt, wordt door endocrinologische beroepsverenigingen niet erkend als diagnose. De onderliggende ervaring van uitputting is echt; de verklaring die het boek eraan hangt is dat niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het evolutionaire raamwerk verklaart alles en is daardoor moeilijk te weerleggen. Elke moderne klacht kan worden teruggevoerd op een omgeving die niet bij het lichaam past, en elk advies kan worden gerechtvaardigd met een verwijzing naar hoe de mens vroeger leefde. Van die vroegere leefwijze weet de wetenschap minder dan het boek suggereert, en jager-verzamelaars leefden onderling zeer verschillend.</p>
+      <p>Het boek verschijnt in eigen beheer bij het bedrijf achter een leefstijlplatform dat ook programma's, tests en supplementen verkoopt, en de auteur is ambassadeur van een biologische supermarktketen. Advies en verkoop lopen daarmee door elkaar. Dat maakt de inhoud niet onwaar, maar het ontbreken van onafhankelijke redactie en van verwijzingen in de tekst weegt daardoor zwaarder.</p>
+      <p>De slotzin dat niemand je komt redden legt de verantwoordelijkheid volledig bij de lezer. Inkomen, werkdruk, ploegendienst, woonomgeving en de prijs van verse groente bepalen voor veel mensen wat er te kiezen valt, en die factoren komen in de 27 principes niet voor. Ook de voorbeelden gaan steeds over mensen met regie over hun eigen agenda.</p>
+      <p>De opzet met genummerde principes maakt het geheel overzichtelijk maar verhult verschillen in zekerheid. Het principe over zitten en het principe over mondtape krijgen dezelfde vorm, hetzelfde gezag en dezelfde stelligheid, terwijl het bewijs erachter niet vergelijkbaar is.</p>
+      <p>Voorwoord en nawoord komen uit dezelfde kring van mindset- en breincoaches. Wie tegenspraak zoekt, vindt die nergens in het boek: er staat geen passage waarin de auteur een van zijn eigen principes betwijfelt of afzwakt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de principes over slaap, zitten en beweging; daar is het bewijs het sterkst en de winst het grootst.</li>
+        <li>Scan de QR-code met referenties voordat je een van de omstreden adviezen overneemt, en kijk of er een proef onder ligt of alleen een verklaring.</li>
+        <li>Laat mondtape staan bij een verstopte neus, bij snurken met ademstops of bij een vermoeden van slaapapneu, en bespreek het eerst met een arts.</li>
+        <li>Neem het advies over de supermarkt letterlijk en verander de omgeving in plaats van het voornemen: wat niet in huis is, wordt niet gegeten.</li>
+        <li>Maak het actieplan uit het laatste principe met hoogstens drie veranderingen tegelijk, zoals de auteur zelf aanraadt.</li>
+        <li>Zoek bij klachten die aanhouden eerst een medische verklaring voordat je ze als leefstijlprobleem behandelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Uitgegeven in eigen beheer bij Richard de Leth B.V., het bedrijf achter zijn leefstijlplatform OERsterk, 2025, 260 blz., ISBN 9789090402673. Ondertitel: <i>27 principes voor meer energie, bezieling en vitaliteit</i>. Met een voorwoord van Michael Pilarczyk en een nawoord van Charlotte Labee. Het boek is in het Nederlands geschreven en niet vertaald. Eerdere titels van De Leth zijn <i>OERsterk</i>, <i>OERsterk koken</i> en <i>OERsterk leven</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Richard de Leth studeerde geneeskunde aan de VU en verdiepte zich daarna in orthomoleculaire geneeskunde en psychoneuro-immunologie. Met zijn platform OERsterk bereikt hij een groot publiek met de gedachte dat de moderne leefomgeving niet past bij een lichaam dat in een heel andere omgeving is gevormd.</p><p>Dit boek uit 2025 bundelt die gedachte in 27 genummerde principes, verdeeld over zeven delen: evolutie, zingeving, ontspanning, voeding, beweging, gedragsverandering en bezieling. Elk principe opent met een verhaal uit zijn praktijk, legt daarna het idee uit en eindigt met wat er te doen valt. Tussen de delen staan luchtige stukken onder de kop Humor als medicijn.</p><p>De boodschap is dat het lichaam niet kapot is maar precies doet wat het moet doen in een omgeving waar het niet op gebouwd is. Bij het laatste principe stelt de lezer een persoonlijk actieplan op. De wetenschappelijke verwijzingen staan niet in het boek zelf, maar achter een QR-code.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leefstijl</li><li>vermoeidheid</li><li>evolutionaire gezondheid</li><li>voeding</li><li>slaap</li><li>gedragsverandering</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker levert de uitgebreide onderbouwing voor het slaapprincipe dat De Leth in enkele bladzijden afdoet, inclusief de discussie over waar Walker zelf te ver gaat.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear behandelt hetzelfde probleem als het deel over gedragsverandering, maar met een uitgewerkt mechanisme in plaats van een beeldspraak over stoplichten.</li>
+          <li value="313"><a href="313.html">Good Energy</a>. Casey Means bouwt een vrijwel gelijk betoog op in Amerikaanse vorm, met dezelfde verwevenheid van gezondheidsadvies en een eigen bedrijf.</li>
+          <li value="89"><a href="89.html">Darwin in de supermarkt</a>. Nelissen past evolutionair denken toe op alledaags gedrag in de supermarkt en laat zien hoe voorzichtig dat soort verklaringen geformuleerd moet worden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

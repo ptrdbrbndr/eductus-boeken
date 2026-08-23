@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Men's Work &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Beaton stelt dat de klachten waarmee mannen bij hem komen, plotselinge woede, ontrouw, verslaving, leegte na behaald succes, geen losse problemen zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1598">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1598 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>Men's Work</h1>
+    <p class="lede">Connor Beaton, 2023</p>
+    <p class="stats">
+      <span><b>1745</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1598"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Beaton stelt dat de klachten waarmee mannen bij hem komen, plotselinge woede, ontrouw, verslaving, leegte na behaald succes, geen losse problemen zijn maar het gedrag van delen van henzelf die zij hebben weggezet omdat er in hun opvoeding geen plaats voor was. Zolang die delen niet worden erkend, sturen zij van achteren mee; het gevolg is wat hij zelfsabotage noemt. Zijn tweede stelling is dat mannen dit werk niet ontlopen uit onwil maar omdat het hun wordt aangeboden in een taal die hun vreemd is, en dat het daarom in termen van training, keuze en verantwoordelijkheid geformuleerd moet worden. Beide stellingen zijn ontleend aan de praktijk van zijn eigen mannengroepen en niet aan onderzoek.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom hij het mannenwerk noemt</h3>
+      <p>Het openingsdeel gaat over de weerstand zelf. Beaton beschrijft mannen die jaren wachten voordat zij hulp zoeken, en zoekt de reden niet in gebrek aan pijn maar in de vorm waarin hulp wordt aangeboden. Hij kiest daarom voor een woordenschat van oefening, discipline en tegenstand.</p>
+      <p>Hij zet daarnaast zijn eigen geschiedenis in. Hij schrijft over de periode waarin hij zijn relatie en zijn zelfbeeld ondermijnde en over wat hem uiteindelijk in beweging bracht. Die openheid is het middel waarmee hij van de lezer hetzelfde vraagt; het is ook de reden dat het boek zich meer als getuigenis dan als handboek leest.</p>
+      <h3>De schaduw</h3>
+      <p>Het middenstuk van het eerste deel is een uitleg van het begrip schaduw, ontleend aan Jung. Beaton omschrijft die als de eigenschappen die iemand onbewust heeft onderdrukt na kritiek, schaamte of ingrijpende gebeurtenissen in zijn jeugd. Bij mannen betreft dat volgens hem vaak kwetsbaarheid, verdriet, behoeftigheid en zachtheid, maar even goed ambitie en scheppingsdrang.</p>
+      <p>Zijn punt is dat het verstoten deel niet verdwijnt maar zich uit in gedrag dat de man zelf niet begrijpt: uitbarstingen, uitstelgedrag, plotselinge afstand in een relatie. Herkenning daarvan noemt hij de eerste stap; opnemen van het verstoten deel in het zelfbeeld noemt hij integratie.</p>
+      <h3>Woede en verdriet</h3>
+      <p>Beaton behandelt woede niet als een gebrek aan beheersing maar als een gegeven waar iets mee moet gebeuren. Hij onderscheidt de woede die uit machteloosheid ontsnapt van de woede waarmee iemand een grens stelt, en noemt de tweede vorm heilig, in de zin dat zij ordent en beschermt.</p>
+      <p>Verdriet krijgt daarnaast een eigen behandeling. Zijn waarneming is dat de mannen in zijn groepen hun woede kennen en hun verdriet niet, en dat de woede vaak pas afneemt zodra het verdriet eronder is toegelaten. Voor beide emoties geeft hij oefeningen om het verloop ervan bij te houden in plaats van er direct op te reageren.</p>
+      <h3>Vaders</h3>
+      <p>Het tweede deel begint bij de vader. Beaton beschrijft hoe het beeld dat een man van zichzelf heeft gevormd wordt door aanwezigheid, afwezigheid en goedkeuring van zijn vader, en hoe mannen zich zonder het te merken naar dat beeld voegen of er hun leven lang tegenin gaan.</p>
+      <p>De oefeningen in dit deel richten zich op het opschrijven van wat er wel en niet is gezegd, en op het onderscheiden van wat een man van zijn vader heeft overgenomen en wat hij zelf heeft gekozen. Het is het gedeelte waarin het boek het dichtst bij de gangbare praktijk van mannengroepen blijft.</p>
+      <h3>Moeders, partners en pornografie</h3>
+      <p>Vervolgens komt de vraag hoe mannen hun beeld van vrouwen en van hun eigen begeerte hebben opgebouwd. Beaton behandelt daarbij de invloed van de moeder, van eerdere partners en van pornografie in hetzelfde hoofdstukverband, met het argument dat zij alle drie bepalen wat een man van nabijheid verwacht.</p>
+      <p>Ontrouw krijgt hier een eigen behandeling. Hij leest die zelden als aantrekkingskracht en meestal als teken van iets anders: te weinig uitgesproken behoeften, schaamte, of een verlangen naar bevestiging dat elders wordt gehaald omdat het thuis niet ter sprake komt. Zijn advies gaat over eerlijk zijn tegenover zichzelf voordat er iets aan de ander wordt uitgelegd.</p>
+      <h3>Het slachtoffer en het zelfleiderschap</h3>
+      <p>Het derde deel gaat over de houding waarin iemand zijn leven aan omstandigheden toeschrijft. Beaton behandelt die houding zonder haar belachelijk te maken: zij ontstaat volgens hem waar iemand werkelijk weinig invloed had, en blijft daarna staan waar de invloed er wel is.</p>
+      <p>Daartegenover zet hij zelfleiderschap, door hem omschreven als het vermogen zichzelf te sturen in overeenstemming met wat men van waarde acht. Dat vraagt volgens hem drie dingen: de eigen emoties kunnen volgen zonder erdoor te worden meegevoerd, kunnen zeggen wat men wil, en een kring van mannen om zich heen bouwen die dat blijven navragen. Het boek sluit af bij de vraag wat iemand achterlaat.</p>
+      <h3>De oefeningen</h3>
+      <p>Door het hele boek staan wat Beaton integratie-oefeningen noemt, vrijwel altijd schriftelijk. Enkele daarvan: bijhouden op welke momenten een gevoel wordt ingeslikt en waarom; een tekst schrijven vanuit het gezichtspunt van iemand die de lezer niet mag, om te zien welke eigenschap daar wordt afgewezen; een week lang noteren welke handelingen voortkomen uit wat er van een man wordt verwacht; en wekelijks in een situatie met weinig gevolgen zeggen wat men werkelijk vindt.</p>
+      <p>De oefeningen zijn kort beschreven en vragen geen begeleider. Dat maakt het boek bruikbaar zonder groep, en het is tegelijk het punt waarop het het meest te kort schiet: er staat weinig over wat te doen wanneer een oefening bij iemand meer losmaakt dan hij aankan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Schaduw</td><td>De eigenschappen die iemand onbewust heeft onderdrukt en die zich daarna uiten in gedrag dat hij van zichzelf niet begrijpt.</td></tr>
+          <tr><td class="term">Integratie</td><td>Het opnemen van een verstoten eigenschap in het zelfbeeld, zodat zij niet langer buiten het bewustzijn om meestuurt.</td></tr>
+          <tr><td class="term">Zelfsabotage</td><td>Het herhaalde patroon waarin iemand ondermijnt wat hij zegt te willen, bij Beaton altijd terug te voeren op een niet erkend deel van zichzelf.</td></tr>
+          <tr><td class="term">Heilige woede</td><td>De woede die een grens stelt en orde schept, door Beaton onderscheiden van de woede die uit machteloosheid ontsnapt.</td></tr>
+          <tr><td class="term">Zelfleiderschap</td><td>Het vermogen zichzelf te sturen in overeenstemming met wat men van waarde acht, in plaats van te reageren op wat zich aandient.</td></tr>
+          <tr><td class="term">Emotionele volwassenheid</td><td>Bij hem de combinatie van zelfkennis, het kunnen reguleren van gevoelens en het kunnen invoelen van de ander.</td></tr>
+          <tr><td class="term">De vaderwond</td><td>Het aanhoudende gebrek aan erkenning of aanwezigheid van de vader, dat volgens hem het zelfbeeld van de zoon blijft bepalen.</td></tr>
+          <tr><td class="term">Het slachtoffer</td><td>De houding waarin iemand zijn leven aan omstandigheden toeschrijft, ook op plaatsen waar hij inmiddels invloed heeft.</td></tr>
+          <tr><td class="term">Integratie-oefening</td><td>De schriftelijke opdracht aan het eind van veel hoofdstukken, bedoeld om te zien wat er van binnen gebeurt in plaats van erover na te denken.</td></tr>
+          <tr><td class="term">Mannenwerk</td><td>Zijn naam voor het geheel: innerlijk werk in de vorm van oefening en tegenstand, opgezet om aan te sluiten bij mannen die therapie afhouden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat vrijwel geheel uit gevallen uit de eigen praktijk van Beaton. Hij beschrijft mannen die hij in groepen, retraites en gesprekken heeft meegemaakt, en leidt daaruit patronen af. Namen zijn veranderd, aantallen worden niet gegeven, en er is geen manier om na te gaan of de gevallen representatief zijn voor de mannen die bij hem komen, laat staan voor mannen in het algemeen.</p>
+      <p>Het theoretische deel leunt op Jung en op de mannenbeweging die zich daarop baseert. Schaduw, verstoten deel en integratie zijn begrippen uit die traditie, en Beaton neemt ze over zonder de bezwaren te noemen die er tegen zijn ingebracht. Verwijzingen naar psychologisch onderzoek zijn schaars; recensenten hebben opgemerkt dat vrijwel geen enkele bewering met een studie wordt gestaafd.</p>
+      <p>Er zit wel iets achter dat los van dit boek is onderzocht. Dat jongens leren emoties in te houden, dat mannen later en minder vaak hulp zoeken en dat dit samenhangt met verslaving en zelfdoding, is uit bevolkingsonderzoek bekend. Beaton gebruikt die achtergrond wel, maar noemt de bronnen niet, waardoor voor de lezer niet te onderscheiden is welke uitspraken op zulk onderzoek rusten en welke op zijn eigen indruk.</p>
+      <p>Wat het boek niet levert is enig gegeven over uitkomst. Er staat nergens hoeveel mannen de oefeningen doen, hoe lang het effect aanhoudt, of hoe het werk zich verhoudt tot behandelingen waarvan de werking wel is onderzocht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de vorm die Beaton juist als winst presenteert. Door innerlijk werk als training van een strijder te beschrijven, sluit hij aan bij een zelfbeeld dat volgens zijn eigen analyse deel is van het probleem. De lezer wordt gevraagd zijn hardheid los te laten, in de taal van hardheid. Of dat een opstap is of een omweg, laat het boek onbeslist.</p>
+      <p>Het spreekt bovendien over mannen alsof zij een groep vormen. Klasse, herkomst, geaardheid en werkomstandigheden komen nauwelijks aan bod, terwijl de mannen die zijn boek bereiken vermoedelijk uit een smalle groep komen. Wie geen geld en tijd heeft voor retraites, of wiens problemen vooral met schulden en werk te maken hebben, vindt in dit boek weinig.</p>
+      <p>Het kernbegrip is niet te weerleggen. Elk gedrag kan achteraf als uiting van de schaduw worden gelezen, en wie dat ontkent bevestigt het volgens dezelfde redenering. Recensenten hebben dat als bro science aangeduid en gewezen op de herhaling: hetzelfde punt keert door de hoofdstukken heen terug in nieuwe voorbeelden.</p>
+      <p>Ten slotte staat het boek niet los van een bedrijf. ManTalks verkoopt de programma's waarnaar het boek verwijst, en dat verband wordt niet als belang benoemd. Dat maakt de tekst niet onbetrouwbaar, maar het is een reden om de stelligheid waarmee de methode wordt aanbevolen te wegen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe de oefening op papier voordat de theorie verder wordt gelezen; het boek werkt niet als leesstof alleen.</li>
+        <li>Houd twee weken bij op welke momenten een gevoel wordt ingeslikt, wat het gevoel was en wat er in plaats daarvan werd gezegd.</li>
+        <li>Schrijf een bladzijde vanuit het gezichtspunt van iemand die tegenstaat, en zoek daarin de eigenschap die in het eigen zelfbeeld geen plaats heeft.</li>
+        <li>Onderscheid bij een uitbarsting achteraf welke grens er werd geschonden; wordt er geen gevonden, dan gaat het om iets anders dan woede.</li>
+        <li>Zoek drie mannen bij wie een afspraak nagevraagd kan worden, en spreek af hoe vaak dat gebeurt.</li>
+        <li>Bij een geschiedenis van geweld, misbruik of verslaving hoort professionele begeleiding; het boek biedt daar geen opvang voor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Men's Work: A Practical Guide to Face Your Darkness, End Self-Sabotage, and Find Freedom</i>, Sounds True, Boulder, 31 januari 2023, 272 blz., ISBN 9781683649908; ook uitgebracht onder het imprint St. Martin's Essentials. Er is geen Nederlandse uitgave en van Beaton is voor zover na te gaan niets in het Nederlands vertaald. Beaton is oprichter van ManTalks, dat mannengroepen, retraites en een podcast organiseert; het boek is grotendeels opgebouwd uit het materiaal van dat werk.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Beaton werkt sinds jaren met mannengroepen onder de naam ManTalks en heeft dat werk in dit boek tot een leerweg gemaakt. Zijn uitgangspunt is dat de meeste mannen wel merken dat er iets niet klopt in hun woede, hun relaties of hun drankgebruik, maar dat de gangbare taal om daarover te praten hen afstoot.</p><p>Zijn oplossing is die taal veranderen. Hij noemt innerlijk werk een vorm van training, spreekt van zichzelf onder ogen komen in plaats van van heling, en beschrijft het onbewuste met begrippen die hij van Jung leent: de schaduw, het verstoten deel, het beeld van de vader. Bij vrijwel elk hoofdstuk staat een oefening die schriftelijk moet worden gedaan.</p><p>Het boek loopt van de schaduw naar woede en verdriet, van daar naar de invloed van vaders, moeders, partners en pornografie, en eindigt bij wat hij zelfleiderschap noemt. Onderbouwing met onderzoek ontbreekt vrijwel geheel; wat er staat, staat er op gezag van de gesprekken die de schrijver zelf heeft gevoerd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mannen</li><li>schaduwwerk</li><li>Jung</li><li>zelfsabotage</li><li>woede</li><li>vaders</li><li>zelfleiderschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette leverden het jungiaanse model waar Beaton op voortbouwt; hun archetypen liggen onder zijn begrippen schaduw en zelfleiderschap.</li>
+          <li value="404"><a href="404.html">Facing the Dragon</a>. Moore behandelt dezelfde schaduw met meer aandacht voor het gevaar ervan, wat de tekortkomingen van de vlotte oefeningen bij Beaton zichtbaar maakt.</li>
+          <li value="3"><a href="03.html">The Will to Change</a>. bell hooks beschrijft dezelfde afgesloten mannelijkheid, maar legt de oorzaak in machtsverhoudingen en niet in het onbewuste van de man zelf.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk laat zien wat er in lichaam en zenuwstelsel gebeurt bij wat Beaton onderdrukking noemt, met de onderbouwing die dit boek mist.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

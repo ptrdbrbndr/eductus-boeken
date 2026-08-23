@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christina, deel 2: Het visioen over het goede &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Von Dreien stelt dat haar dochter beschikt over een bewustzijn dat verder reikt dan het gewone menselijke, en dat wat Christina waarneemt en zegt daarom…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1650">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1650 &middot; Filosofie en mystiek</p>
+    <h1>Christina, deel 2: Het visioen over het goede</h1>
+    <p class="lede">Bernadette von Dreien, 2018; vert. Jorgen van Drunen</p>
+    <p class="stats">
+      <span><b>1468</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1650"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Von Dreien stelt dat haar dochter beschikt over een bewustzijn dat verder reikt dan het gewone menselijke, en dat wat Christina waarneemt en zegt daarom als bericht over de werkelijkheid gelezen moet worden en niet als mening. Op die aanname rust de rest: dat de mensheid in een overgang zit naar een hogere staat, dat elk mens daar zelf aan bijdraagt door zijn trilling te verhogen, en dat de gebeurtenissen in een leven op zielsniveau gekozen zijn. Het boek voert dat aan als vaststelling, niet als hypothese. De schrijfster is tegelijk de moeder van de hoofdpersoon, de getuige van de wonderen en de uitgeefster van het bericht, en die drie rollen worden nergens uit elkaar gehaald.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De draad uit het eerste deel</h3>
+      <p>Het eerste deel vertelde de zwangerschap, de geboorte van een tweeling en de vroege jaren van Christina, met de opmerkingen en waarnemingen waaruit haar moeder afleidde dat er iets bijzonders aan de hand was. Dit tweede deel pakt die draad op bij de puberteit.</p>
+      <p>Het perspectief blijft dat van de moeder. Christina zelf komt aan het woord in citaten en in weergegeven gesprekken; de ordening, de uitleg en de duiding zijn van Bernadette. Dat is voor de beoordeling van het boek het belangrijkste gegeven, omdat de gebeurtenissen alleen via haar bereikbaar zijn.</p>
+      <h3>Het einde van de schooltijd</h3>
+      <p>Het verhalende deel volgt Christina door de laatste schooljaren. Het beeld dat wordt opgeroepen is dat van een meisje dat zich in het gewone onderwijs slecht thuis voelt, dat vragen stelt waar leraren niet op ingericht zijn, en dat naar de gedachten en de gemoedstoestand van anderen zegt te kunnen kijken.</p>
+      <p>Daarbij hoort een gezinsgeschiedenis: een moeder die het bijzondere van haar kind eerst voor zich houdt, dan om raad zoekt bij mensen uit de esoterische wereld, en ten slotte besluit het naar buiten te brengen. Die stap naar buiten is het scharnier van het boek.</p>
+      <h3>Het levensplan</h3>
+      <p>Volgens de auteur werd in deze jaren duidelijk waarvoor Christina gekomen zou zijn. Daar hangt een leerstuk aan vast: elke ziel kiest voor de geboorte een levensplan, met inbegrip van de moeilijkheden die zij onderweg zal tegenkomen. Wat iemand overkomt, is in die opvatting op een dieper niveau afgesproken.</p>
+      <p>Het boek werkt dat uit tot wat het de universele spelregels van het leven noemt: er bestaat geen toeval, gedachten hebben uitwerking op de werkelijkheid, en wie liefde uitzendt verandert daarmee zijn omgeving. Geestelijke begeleiders staan de mens daarbij terzijde, ook als hij dat niet merkt.</p>
+      <h3>Trilling, aarding en het goede</h3>
+      <p>Het praktische middendeel gaat over het verhogen van de eigen trilling en daarmee van die van de mensheid. Aarding krijgt daarbij nadruk: wie zich met hogere zaken bezighoudt zonder verbinding met de aarde en het lichaam, raakt volgens de auteur uit balans.</p>
+      <p>Ook onvoorwaardelijke liefde wordt praktisch opgevat. Het boek noemt die de stille omwenteling: geen verzet tegen wat verkeerd gaat, maar een verandering van de eigen toestand, waardoor het kwaad zijn aangrijpingspunt verliest. Daarnaast bepleit Von Dreien juist wel dwarsdenken, en zij ziet geen tegenstelling tussen kritisch nadenken en spiritualiteit.</p>
+      <h3>Holistische wetenschap en positieve techniek</h3>
+      <p>Een apart deel gaat over de verhouding tot de wetenschap. Christina zou de mens beschrijven als een samenspel van kwantumfysica, neuropsychologie en spiritualiteit, en het boek bepleit een wetenschap die die drie samenneemt. Techniek wordt niet afgewezen: er zou een positieve techniek mogelijk zijn die de mens niet uitput maar ondersteunt.</p>
+      <p>De natuurwetenschappelijke termen worden in dit gedeelte gebruikt als beeldspraak. Kwantumfysica staat voor de gedachte dat waarnemen de werkelijkheid beïnvloedt; die overstap van deeltjes naar mensen wordt niet onderbouwd en ook niet als sprong benoemd.</p>
+      <h3>Het gouden tijdperk</h3>
+      <p>Het slot kijkt vooruit. De mensheid staat volgens de auteur aan het begin van een vijfdimensionale toekomst en van een gouden tijdperk, waarin angst en machtsuitoefening hun greep verliezen. Er worden vier manieren genoemd om het eigen bewustzijn te sturen, als voorbereiding daarop.</p>
+      <p>De verwachting blijft zonder datum en zonder toetsbare kenmerken. Dat is voor de gelovige lezer geen bezwaar en voor de toetsende lezer het punt waarop het boek buiten bereik van weerlegging komt te liggen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">verruimd bewustzijn</td><td>De aanduiding voor Christina's vermogen om meer waar te nemen dan wat de zintuigen doorgeven.</td></tr>
+          <tr><td class="term">levensplan</td><td>Het geheel van ervaringen dat een ziel volgens de auteur voor de geboorte zelf uitkiest.</td></tr>
+          <tr><td class="term">zielspad</td><td>De weg die iemand in dit leven aflegt om dat plan uit te voeren.</td></tr>
+          <tr><td class="term">universele spelregels</td><td>De wetten die volgens het boek achter alle gebeurtenissen liggen, waaronder de afwezigheid van toeval.</td></tr>
+          <tr><td class="term">trillingsverhoging</td><td>Het verhogen van de eigen toestand, waarmee iemand naar eigen zeggen ook het geheel omhoog brengt.</td></tr>
+          <tr><td class="term">aarding</td><td>Verbinding houden met lichaam en aarde, door de auteur genoemd als voorwaarde voor wie zich met geestelijke zaken bezighoudt.</td></tr>
+          <tr><td class="term">geestelijke begeleiders</td><td>Niet-lichamelijke wezens die de mens volgens het boek terzijde staan.</td></tr>
+          <tr><td class="term">stille omwenteling van de onvoorwaardelijke liefde</td><td>De gedachte dat de wereld verandert doordat mensen hun eigen houding wijzigen en niet doordat zij het kwaad bestrijden.</td></tr>
+          <tr><td class="term">holistische wetenschap</td><td>Een onderzoekswijze die kwantumfysica, neuropsychologie en spiritualiteit als een geheel zou behandelen.</td></tr>
+          <tr><td class="term">gouden tijdperk</td><td>De verwachte periode waarin de mensheid in een vijfdimensionale toestand zou leven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bewijs aan in de gewone zin en pretendeert dat ook niet. De grondslag is getuigenis: de moeder vertelt wat zij heeft meegemaakt en wat haar dochter heeft gezegd. Alles wat over Christina's vermogens wordt beweerd, komt uit die ene bron, is niet onafhankelijk vastgesteld en is niet onder gecontroleerde omstandigheden getoetst. Daarmee is het niet weerlegd, maar ook niet bevestigd.</p>
+      <p>De natuurwetenschappelijke termen zijn ontleend, niet toegepast. Kwantumfysica beschrijft het gedrag van deeltjes; het rekenwerk laat niet toe dat gedachten van mensen de werkelijkheid buiten hun lichaam veranderen. De term neuropsychologie wordt in het boek niet gebruikt zoals in het vak. Dat maakt de teksten niet zinloos, maar het gezag dat de termen meebrengen is geleend.</p>
+      <p>Wat wel controleerbaar is, is de ontvangst. De boeken haalden in het Duitse taalgebied hoge verkopen, de Nederlandse vertaling beleefde zeven drukken en Christina von Dreien vulde zalen. Zwitserse kranten schreven over haar, waaronder de NZZ en het Tagblatt, en de kerkelijke informatiedienst Relinfo legde een dossier over haar aan. De omvang van het verschijnsel staat vast; de aard van de vermogens niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt het leerstuk van het zelfgekozen levensplan. Georg O. Schmid van Relinfo, de Zwitserse informatiedienst over kerken, sekten en religies, noemde het cynisch dat slachtoffers van zware misdrijven te horen krijgen dat hun lot door henzelf gekozen is en de mensheid ten goede komt. Wie die redenering doorvoert, maakt daders minder verantwoordelijk en slachtoffers medeplichtig aan wat hun is aangedaan. Het boek bespreekt die gevolgtrekking niet.</p>
+      <p>In dezelfde kritiek staat dat Von Dreien geen gesloten groep leidt, maar zich wel gedraagt zoals een leider van zo'n groep: verstrekkende beloften aan tienduizenden volgelingen, en waarschuwingen tegen familie en vrienden die niet meegaan. Dat laatste is het onderdeel waar sektedeskundigen doorgaans op letten, omdat het de weg terug afsnijdt.</p>
+      <p>In 2020 kwam daar een aanleiding bij. Uitspraken van Christina von Dreien dat het coronavirus minder gevaarlijk was dan werd voorgesteld, bereikten een groot publiek en werden in de Zwitserse pers besproken als voorbeeld van esoterische kringen die uit de crisis voordeel wilden halen. Dat valt buiten dit boek uit 2018, maar het laat zien waar een leer die uitgaat van eigen inzicht boven gedeelde toetsing op uitkomt.</p>
+      <p>Ten slotte de dubbele rol van de schrijfster. Zij is moeder, biograaf, uitlegger en belanghebbende tegelijk. Een kind dat vanaf zijn zestiende door de eigen ouder als drager van hogere kennis in de openbaarheid wordt gebracht, verkeert in een positie die het boek nergens als probleem behandelt. Journalisten die contact zochten kregen te horen dat mediavragen geen voorrang hadden, wat het verschijnsel buiten de gebruikelijke controle hield.</p>
+      <p>Wat het boek wel goed doet, is de toon. Er wordt niet gedreigd, niet met hel geschermd en niet om geld gevraagd binnen de tekst zelf. De aansporing tot vriendelijkheid en tot aandacht voor het eigen aandeel in conflicten is onschuldig; het bouwwerk waarin die aansporing staat, is dat minder.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst deel 1, anders blijven de verwijzingen naar Christina's jeugd onbegrijpelijk.</li>
+        <li>Houd bij het lezen uit elkaar wat waarneming is, wat citaat is en wat uitleg van de moeder is; het boek doet dat zelf niet.</li>
+        <li>Toets het leerstuk van het zelfgekozen lot aan een geval van willekeurig geweld voordat het als troost wordt aanvaard.</li>
+        <li>Neem de aanwijzingen over aarding en aandacht los van het bouwwerk eromheen, als dat het enige is wat bruikbaar blijkt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Christina, Band 2: Die Vision des Guten</i> (Govinda-Verlag, 23 april 2018, ISBN 9783905831504). De Nederlandse vertaling van Jorgen van Drunen verscheen op 15 november 2019 bij Uitgeverij Akasha, 352 blz., ISBN 9789460151866; er zijn inmiddels zeven drukken. Het is het tweede deel van een reeks over Christina von Dreien, geboren in 2001 in het Zwitserse Toggenburg; er verschenen zowel eerdere als latere delen, in het Nederlands eveneens bij Akasha.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bernadette von Dreien schrijft over haar dochter Christina, geboren in 2001 in het Zwitserse Toggenburg, die volgens haar met een verruimd bewustzijn ter wereld kwam. In dit tweede deel beschrijft zij het einde van Christina's schooltijd, het moment waarop haar levensplan duidelijk zou zijn geworden, en het begin van haar optreden in het openbaar.</p><p>Het boek is voor de helft een verslag van een opvoeding en voor de helft een leerboek. Aan bod komen wat de auteur de universele spelregels van het leven noemt, het zielspad van het individu, hulp van geestelijke begeleiders, het belang van aarden, en aanwijzingen om de eigen trilling en die van de mensheid te verhogen.</p><p>De achtergrond is een verwachting: de mensheid zou aan de vooravond staan van een gouden tijdperk en van een vijfdimensionale toekomst. Christina von Dreien groeide na deze boeken uit tot een bekende naam in de Duitstalige esoterische wereld, met zalen vol publiek en met kritiek uit de hoek van kerken en sektedeskundigen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>bewustzijn</li><li>Zwitserland</li><li>spiritualiteit</li><li>nieuwetijdskind</li><li>trillingsverhoging</li><li>moeder en dochter</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1629"><a href="1629.html">Conversations with God: An Uncommon Dialogue, Book 1</a>. Walsch werkt met dezelfde vorm: een boodschap die via een enkele persoon binnenkomt en als bericht over de werkelijkheid wordt gepresenteerd.</li>
+          <li value="1644"><a href="1644.html">Universele vrede</a>. Glaudemans bepleit eveneens dat vrede in de wereld begint bij een verandering van de eigen innerlijke toestand.</li>
+          <li value="1659"><a href="1659.html">Spontaneous Evolution</a>. Bhaerman bouwt de gedachte uit dat de mensheid voor een sprong in bewustzijn staat, met dezelfde leen bij de natuurwetenschap.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

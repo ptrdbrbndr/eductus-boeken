@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De magische academie: De ontdekking van de talenten &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ruhe verplaatst haar geurmagie van de winkel naar de school. Waar De magische apotheek draaide om een familie die een erfenis van flesjes, recepten en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1632">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1632 &middot; Roman en memoir</p>
+    <h1>De magische academie: De ontdekking van de talenten</h1>
+    <p class="lede">Anna Ruhe, 2022; vert. David Orthel</p>
+    <p class="stats">
+      <span><b>1308</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1632"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ruhe verplaatst haar geurmagie van de winkel naar de school. Waar <i>De magische apotheek</i> draaide om een familie die een erfenis van flesjes, recepten en geheimen bewaakte, gaat deze zijreeks over de vraag of dat vak overdraagbaar is aan mensen die er niet in geboren zijn. De academie is een instelling met een toelating, een leerplan en leraren, en juist die instelling is het doelwit: een geheim gezelschap wil verhinderen dat er nieuwe geurapothekers worden opgeleid. Daaronder ligt de gedachte dat kennis pas voortbestaat als zij wordt doorgegeven, en dat wie een traditie wil beeindigen zich op de opleiding richt en niet op de meesters die er al zijn.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De wereld van de geuren</h3>
+      <p>Ruhe bouwde in <i>De magische apotheek</i> een wereld waarin geuren werking hebben. Wie de juiste stoffen kent en ze in de juiste verhouding mengt, kan met een geur iets teweegbrengen bij wie hem ruikt. Het vak dat daarbij hoort heet dat van geurapotheker, en wie het aangeboren vermogen bezit om zulke geuren te onderscheiden en te maken heet een sentifleur.</p>
+      <p>Deze zijreeks speelt na de gebeurtenissen van die eerste serie. Lucie Alvenstein, de hoofdpersoon van de moederreeks, heeft een academie opgericht waar het vak wordt onderwezen. Daarmee verschuift het onderwerp van bezit naar overdracht: de kennis lag eerst bij een familie en een winkel, nu bij een school met leerlingen die van buiten komen.</p>
+      <h3>Ella Fredericks wordt toegelaten</h3>
+      <p>Ella vertelt het verhaal zelf, in de ik-vorm, gedurende haar eerste jaar op de academie. Zij weet al jaren dat zij het sentifleurtalent heeft en heeft even lang gewacht tot zij oud genoeg was voor de opleiding. Haar maatstaf is Lucie Alvenstein, die zij wil navolgen.</p>
+      <p>Die verwachting bepaalt de eerste hoofdstukken. Het boek besteedt aandacht aan wat een school met een nieuweling doet: de aankomst, de kennismaking en de plaats die iemand krijgt in een groep die zichzelf nog moet vormen. De academie bestaat uit boomhutten in een bos, een omgeving die de illustraties van Claudia Carls in zwart-wit uitwerken.</p>
+      <h3>Talent en opleiding</h3>
+      <p>De titel van het deel wijst op wat er in de eerste maanden gebeurt: de leerlingen ontdekken waar hun talent zit en wat het waard is. Ruhe gebruikt daarvoor de vorm van het schoolverhaal, met lessen, opdrachten en een rangorde onder leerlingen die zich meet aan aanleg.</p>
+      <p>Het onderscheid tussen aanleg en oefening loopt door het boek heen. Ella heeft het talent, maar dat is nog geen vakmanschap; het geurwerk vraagt kennis van planten, stoffen en verhoudingen die alleen door onderricht komt. Daarmee sluit de reeks aan bij een oud gegeven uit jeugdliteratuur, waarin een gave pas iets waard wordt als iemand haar leert bedienen.</p>
+      <h3>Polly en Ben</h3>
+      <p>Ella krijgt twee medeleerlingen naast zich, Polly en Ben. Het drietal staat op het omslag afgebeeld tussen de boomhutten en draagt het verhaal. De vriendschap ontstaat uit gedeelde lessen en gedeeld gevaar, en recensenten noemen de omgang tussen de drie het onderdeel dat het best is uitgewerkt.</p>
+      <p>De keuze voor een groepje van drie is voor Ruhe niet nieuw; ook de moederreeks werkt met een kern van jonge personages die volwassenen buiten hun onderzoek houden. In dit deel is die scheiding functioneel, omdat de school haar leerlingen beschermt en daarmee ook informatie achterhoudt.</p>
+      <h3>De Groep in het bos</h3>
+      <p>De tegenstand komt van een geheim gezelschap dat zichzelf De Groep noemt. Het doel dat uitgever en recensies noemen is scherp omschreven: verhinderen dat er nog geurapothekers worden opgeleid. De dreiging hangt niet aan een enkel personage maar aan een orde met een eigen plan, en zij beweegt zich in het bos dat de academie omsluit.</p>
+      <p>Daarmee is het gevaar in de aardrijkskunde van het boek gelegd. De school is een omheind terrein, het bos eromheen is dat niet, en de leerlingen moeten er telkens doorheen. Ella, Polly en Ben komen tegenover De Groep te staan omdat zij de enigen zijn die opmerken wat er gaande is.</p>
+      <h3>Vorm en vervolg</h3>
+      <p>Het boek telt in de Nederlandse uitgave ruim driehonderd bladzijden, is gericht op lezers vanaf negen jaar en heeft korte hoofdstukken. De illustraties van Claudia Carls staan verspreid door de tekst en tekenen vooral de omgeving; zij maakte eerder het beeldwerk voor <i>Woodwalkers</i> en <i>Alea Aquarius</i>.</p>
+      <p>De reeks loopt door. In het Nederlands verscheen een tweede deel onder de titel <i>Gevaarlijk gefluister</i>, waarin Ella terugkeert naar de academie en het bij aankomst misgaat. De uitgever presenteert de delen als afzonderlijk leesbaar naast de moederreeks.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">sentifleur</td><td>Iemand met het aangeboren vermogen om magische geuren te onderscheiden, te mengen en te gebruiken.</td></tr>
+          <tr><td class="term">sentifleurtalent</td><td>De aanleg zelf, die volgens het boek al jong zichtbaar is en toelating tot de academie mogelijk maakt.</td></tr>
+          <tr><td class="term">geurapotheker</td><td>Het beroep waarvoor op de academie wordt opgeleid: het maken en toepassen van geuren met werking.</td></tr>
+          <tr><td class="term">de magische academie</td><td>De school in boomhutten, opgericht door Lucie Alvenstein om het vak aan nieuwe leerlingen door te geven.</td></tr>
+          <tr><td class="term">De Groep</td><td>Het geheime gezelschap dat wil beletten dat er nog geurapothekers worden opgeleid.</td></tr>
+          <tr><td class="term">magische geuren</td><td>Mengsels waarvan de werking op wie ze ruikt de motor van Ruhes hele wereld vormt.</td></tr>
+          <tr><td class="term">Lucie Alvenstein</td><td>De hoofdpersoon van <i>De magische apotheek</i>, hier de stichter van de academie en het voorbeeld dat Ella wil navolgen.</td></tr>
+          <tr><td class="term">het bos</td><td>Het gebied rond de school waar de academie geen toezicht houdt en waar De Groep zich ophoudt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is verzonnen werk, dus de vraag is niet of het klopt maar of het draagt. Wat het draagt is een wereld die Ruhe al over meerdere delen heeft opgebouwd. De geurmagie heeft eigen regels, een eigen woordenschat en een eigen beroepsgroep, en die regels zijn in eerdere delen ingevoerd en beproefd. Deze zijreeks kan daardoor beginnen zonder de wereld opnieuw te hoeven uitleggen.</p>
+      <p>Dat voordeel heeft een keerzijde die in de ontvangst terugkomt. De uitgever meldt dat de delen los van de moederreeks te lezen zijn. Duitse recensenten schrijven dat wie <i>Die Duftapotheke</i> niet kent bij deze titel begripsproblemen krijgt, en raden aan eerst de hoofdreeks te lezen. De twee uitspraken staan tegenover elkaar; de recensies wegen hier zwaarder, omdat de uitgever belang heeft bij de ruimste lezerskring.</p>
+      <p>De ontvangst is verder gunstig en tamelijk eenstemmig. Nederlandse en Duitse besprekingen noemen de schrijfstijl beeldend en vlot, waarderen het uitwerken van de academie als plaats, en beoordelen het boek doorgaans met vier van de vijf sterren. Over de inhoud van de latere hoofdstukken schrijven zij weinig, wat bij een lopende reeks gebruikelijk is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek een genre binnenstapt dat al vol staat. Een school voor magisch begaafde kinderen, een drietal vrienden en een geheime orde die de opleiding bedreigt: die onderdelen liggen sinds de jaren negentig klaar. Ruhe voegt er de geurmagie aan toe, wat het boek zijn eigen reuk geeft, maar de romp van het verhaal is bekend en wordt niet omgebouwd.</p>
+      <p>Een tweede punt komt uit de recensies zelf: sommige wendingen berusten op toeval. De personages zijn op het goede moment op de goede plaats. In kinderboeken is dat gebruikelijk, en de bespreking die het noemt rekent het het boek niet zwaar aan, maar wie op de opbouw van de spanning let, merkt het.</p>
+      <p>Verder is dit een openingsdeel. Het voert een tegenstander op die groter is dan wat er in dit boek van hem te zien valt, en het laat draden liggen voor de volgende delen. Wie een op zichzelf staand verhaal zoekt, krijgt dat maar half, en dat staat op gespannen voet met de aanprijzing dat elk deel los te lezen is.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Die Duftakademie (1). Die Entdeckung der Talente</i> (Arena Verlag, W&uuml;rzburg, oktober 2022, 296 blz., ISBN 9783401605968), met zwart-witillustraties van Claudia Carls. De Nederlandse vertaling van David Orthel verscheen in 2023 bij Van Holkema &amp; Warendorf (Unieboek | Het Spectrum), 304 blz., ISBN 9789000387106; in januari 2025 kwam een nieuwe editie uit onder ISBN 9789000399444. Het boek opent een zijreeks bij Ruhes serie <i>Die Duftapotheke</i>, in het Nederlands <i>De magische apotheek</i>, die bij dezelfde Nederlandse uitgever verschijnt. Het tweede deel heet in het Nederlands <i>Gevaarlijk gefluister</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ella Fredericks wordt aangenomen op de magische academie, de school die Lucie Alvenstein heeft opgericht om het vak van geurapotheker aan een nieuwe lichting door te geven. Ella weet al jaren dat zij het sentifleurtalent bezit, het vermogen om te werken met geuren die werking hebben, en zij heeft lang op de toelating gewacht.</p><p>De school ligt verscholen in een bos en bestaat uit boomhutten. In datzelfde bos beweegt zich een geheim gezelschap dat zichzelf De Groep noemt en dat wil verhinderen dat er ooit nog geurapothekers worden opgeleid. Samen met haar medeleerlingen Polly en Ben komt Ella daartegenover te staan.</p><p>Het boek is het eerste deel van een zijreeks bij <i>De magische apotheek</i> en wordt door de uitgever aangeboden als los leesbaar. Recensenten die de moederreeks niet kenden, melden dat zij moeite hadden de wereld te volgen. Claudia Carls maakte de illustraties, zoals zij eerder voor <i>Woodwalkers</i> en <i>Alea Aquarius</i> deed.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kinderboek</li><li>fantasy</li><li>geuren</li><li>school</li><li>vriendschap</li><li>serie</li><li>Duitsland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft het patroon van roeping, beproeving en terugkeer dat onder dit soort jeugdverhalen ligt; de academie levert alleen een schoolvorm voor dezelfde gang.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Jung en zijn medewerkers behandelen de beeldtaal waarmee zulke verhalen werken, van beschermde plaats tot donker bos.</li>
+          <li value="8"><a href="08.html">De alchemist</a>. Coelho vertelt eveneens over een jonge hoofdpersoon die een aanleg volgt en daarvoor moet leren; het verschil zit in de mate waarin het vak zelf wordt uitgewerkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

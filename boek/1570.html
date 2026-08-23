@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tante Julia en meneer de schrijver &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Vargas Llosa zet een jonge schrijver die niets kan en alles wil naast een oude schrijver die alles kan en niets wil, en laat de lezer zelf uitmaken wie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1570">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1570 &middot; Roman en memoir</p>
+    <h1>Tante Julia en meneer de schrijver</h1>
+    <p class="lede">Mario Vargas Llosa, 1977; vert. Mariolein Sabarte Belacortu</p>
+    <p class="stats">
+      <span><b>1588</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1570"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Vargas Llosa zet een jonge schrijver die niets kan en alles wil naast een oude schrijver die alles kan en niets wil, en laat de lezer zelf uitmaken wie van de twee de schrijver is. Marito werkt aan verhalen die niemand accepteert en houdt vol dat literatuur toewijding vergt; Pedro Camacho produceert dagelijks uren aan hoorspel, wordt door heel Lima gevolgd en stort in omdat zijn geheugen de last van zijn eigen verzinsels niet houdt. De roman voert daarmee een stelling over vakmanschap die zij niet uitspreekt: verbeelding zonder rem is even onvruchtbaar als toewijding zonder stof, en het verschil tussen kunst en broodschrijverij ligt niet in de ernst waarmee iemand zichzelf neemt. Dat de vertellende helft van het boek bijna letterlijk de jeugd van de auteur navertelt, maakt de zaak eerder ongemakkelijker dan duidelijker.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Radio Panamericana</h3>
+      <p>Marito werkt op de zolderverdieping van een gebouw aan de Calle Belen, waar hij met zijn medewerker Pascual het nieuwsbulletin samenstelt: knippen uit de krant, herschrijven, voorlezen. Pascual heeft een voorkeur voor rampen en werkt zoveel mogelijk brandende bussen en verpletterde voetgangers in de uitzending.</p>
+      <p>De radio is eigendom van vader en zoon Genaro, die het bedrijf runnen als handelaren en niet als omroepers. Marito woont bij zijn grootouders in Miraflores, schrijft in de avonduren verhalen die hij aan iedereen voorleest en die steevast niet werken, en droomt van een zolderkamer in Parijs.</p>
+      <h3>Tante Julia</h3>
+      <p>Julia komt in Lima aan na een scheiding in La Paz, met de bedoeling een nieuwe man te vinden. Zij is dertien jaar ouder dan Marito en noemt hem Varguitas, kleine Vargas. Het begint met bioscoopbezoek en plagerijen en verschuift ongemerkt naar iets anders.</p>
+      <p>De hele familie, een uitgebreid netwerk van ooms en tantes dat elk weekend bij elkaar komt, wordt buiten de verhouding gehouden. Dat lukt tot het niet meer lukt. De bezwaren zijn dan niet zozeer moreel als praktisch: Marito is minderjarig, moet nog afstuderen, en Julia is aangetrouwde familie.</p>
+      <h3>De komst van Pedro Camacho</h3>
+      <p>Camacho wordt door de Genaro's uit Bolivia gehaald omdat zijn hoorspelen daar hele steden aan de radio hielden. Hij is klein, ernstig en zonder enig gevoel voor humor, eet nauwelijks, slaapt in zijn werkkamer en beschouwt zijn arbeid als een roeping. Hij haat Argentijnen, wat in zijn scripts terugkeert, en heeft een verzameling verkleedspullen waarmee hij zich uitdost als het personage dat hij op dat moment schrijft.</p>
+      <p>Marito raakt met hem bevriend, of iets wat daarop lijkt: Camacho voert geen gesprekken, hij doceert. Zijn opvattingen over schrijven zijn stelselmatig en volstrekt onhoudbaar, onder meer een theorie over de leeftijd waarop een man op zijn hoogtepunt is en een leer over het geografische verband tussen volksaard en talent.</p>
+      <h3>De even hoofdstukken</h3>
+      <p>Om en om onderbreekt de roman zichzelf voor een aflevering hoorspel: een rechter die een verkrachtingszaak behandelt, een handelsreiziger, een priester, een rattenverdelger, een familie met een geheim. Elk verhaal is een op zichzelf staand melodrama met dezelfde bouw, dezelfde overdreven bijvoeglijke naamwoorden en dezelfde afsluiting in een reeks vragen die de luisteraar de volgende dag moet terughalen.</p>
+      <p>Terugkerend is de omschrijving van de held als een man in de bloei van zijn leven, vijftig jaar, met een breed voorhoofd en een adelaarsneus. Dat portret past op Camacho's ideaal en niet op Camacho, en het duikt in vrijwel elk hoorspel op, alsof de schrijver telkens hetzelfde beeld uit een la haalt.</p>
+      <h3>De ineenstorting</h3>
+      <p>Na verloop van tijd gaat het mis. Camacho haalt personages door elkaar: een priester uit het ene hoorspel duikt op in het andere, doden staan weer op, namen verspringen. Om de knoop door te hakken laat hij hele ensembles in massale rampen omkomen, een aardbeving in het stadion, een schipbreuk, en begint hij de volgende dag opnieuw.</p>
+      <p>Luisteraars protesteren, de Genaro's raken in paniek, en Camacho verdwijnt uiteindelijk in een inrichting. Zijn geheugen heeft de last van zijn eigen productie niet gehouden. Wat hem sloopt is precies wat hem groot maakte: dat hij alles tegelijk schreef en er niets van opschreef.</p>
+      <h3>De trouwerij</h3>
+      <p>Ondertussen besluiten Marito en Julia te trouwen, wat volgens de Peruaanse wet niet kan zonder toestemming van zijn ouders. Zij reizen langs dorpen ten zuiden van Lima, Chincha en omgeving, op zoek naar een burgemeester die de leeftijd op het formulier niet te nauw neemt en tegen betaling wil tekenen. De speurtocht kost dagen en levert een reeks kleine vernederingen op.</p>
+      <h3>Het slothoofdstuk</h3>
+      <p>Het laatste hoofdstuk breekt met de afwisseling en speelt jaren later. Mario woont in Europa, is schrijver geworden en inmiddels getrouwd met zijn nicht Patricia; het huwelijk met Julia heeft ongeveer acht jaar geduurd. Bij een bezoek aan Lima zoekt hij oude bekenden op.</p>
+      <p>Camacho blijkt te bestaan, als loopjongen bij een schandaalblaadje, mager, onderdanig en zonder herinnering aan zijn roem, in gezelschap van een dikke Argentijnse vrouw die hem verzorgt. Van de man die de stad in zijn greep had is niets over. De roman eindigt zonder er iets aan toe te voegen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Escribidor</td><td>Het Spaanse woord dat de titel gebruikt voor Camacho, met een neerbuigende klank die escritor, schrijver, niet heeft; de Nederlandse vertaling maakt er meneer de schrijver van.</td></tr>
+          <tr><td class="term">Radioteatro</td><td>Het dagelijkse hoorspel in afleveringen, in Latijns-Amerika lange tijd het grootste vermaak, met een vast stramien van cliffhangers.</td></tr>
+          <tr><td class="term">Varguitas</td><td>De verkleinvorm waarmee Julia de verteller aanspreekt; dezelfde naam die Julia Urquidi later in de titel van haar eigen boek gebruikte.</td></tr>
+          <tr><td class="term">Miraflores</td><td>De burgerlijke wijk van Lima waar de verteller bij zijn grootouders woont en waar de familiebijeenkomsten plaatsvinden.</td></tr>
+          <tr><td class="term">De Genaro's</td><td>Vader en zoon die de twee radiostations bezitten en die kwaliteit uitsluitend afmeten aan luistercijfers en advertentie-inkomsten.</td></tr>
+          <tr><td class="term">Bulletins</td><td>De nieuwsberichten die de verteller uit kranten overschrijft; zijn dagelijkse werk en tegelijk zijn eerste oefening in het herschrijven van andermans zinnen.</td></tr>
+          <tr><td class="term">In de bloei van zijn leven</td><td>De vaste formule waarmee Camacho zijn hoofdpersonen introduceert, altijd een man van vijftig met een breed voorhoofd en een adelaarsneus.</td></tr>
+          <tr><td class="term">Cliffhanger in vragen</td><td>De afsluiting van elke aflevering met een reeks vragen aan de luisteraar, een vorm die de roman getrouw nabootst en daarmee ook parodieert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De oneven hoofdstukken zijn grotendeels autobiografie. Vargas Llosa werkte als student bij Radio Panamericana in Lima, trouwde in 1955 op negentienjarige leeftijd met Julia Urquidi, die dertien jaar ouder was en de zuster van de vrouw van zijn oom, en dat huwelijk hield tot 1964 stand. Ook de tocht langs dorpsburgemeesters om de leeftijdseis te omzeilen komt uit zijn eigen leven. Het boek is daarmee geen gefantaseerde jeugd maar een bewerkte.</p>
+      <p>Dat er bewerkt is, weten we omdat de andere partij heeft gereageerd. Julia Urquidi publiceerde in 1983 <i>Lo que Varguitas no dijo</i>, waarin zij de jaren van het huwelijk vanuit haar kant beschrijft en op punten bestrijdt hoe zij in de roman is neergezet. Dat is een van de weinige gevallen waarin een romanpersonage het boek in de openbaarheid tegenspreekt, en het legt de kwestie bloot die de roman zelf oproept: wie een levende vrouw met haar echte naam en haar echte geschiedenis in een komische roman zet, beschikt over materiaal dat niet van hem is.</p>
+      <p>De constructie van het boek is verifieerbaar en niet toevallig. De twintig hoofdstukken wisselen strikt af tussen vertelling en hoorspel, waarbij de even hoofdstukken de negen afleveringen bevatten; het laatste hoofdstuk breekt dat patroon en fungeert als naschrift. Doordat de hoorspelen langzaam desintegreren terwijl de verteller juist steeds vaster in zijn schrijverschap komt te staan, bewegen de twee reeksen tegen elkaar in. Wie alleen de oneven hoofdstukken leest houdt een aangename autobiografische roman over en mist waar het boek over gaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar is dat de even hoofdstukken vermoeien. Een parodie op melodrama is bij de eerste aflevering geestig, bij de vierde bekend en bij de negende een verplichting. Vargas Llosa vraagt van de lezer dat die de teloorgang van Camacho van binnenuit meemaakt, en dat betekent honderd bladzijden lezen die met opzet slecht geschreven zijn. Niet iedere lezer vindt dat de uitkomst die investering waard is.</p>
+      <p>Zwaarder weegt de omgang met Julia. Zij is in de roman een aantrekkelijke, gevatte en dienstbare figuur die vooral bestaat in verhouding tot de ontwikkeling van de jongen, en zij verdwijnt in het slothoofdstuk in een halve zin. Dat de auteur haar naam, haar leeftijd, haar afkomst en haar scheiding onveranderd overnam, terwijl hij haar innerlijk leven grotendeels wegliet, is een aanmatiging die met de komische toon niet is weggenomen. Haar eigen boek is een deel van de ontvangst van deze roman en niet een voetnoot daarbij.</p>
+      <p>De hoorspelen zelf teren op wreedheid tegenover vrouwen, tegenover Argentijnen en tegenover armen. Dat is de wreedheid van Camacho en niet die van de roman, en toch staan die bladzijden er, geschreven met zichtbaar plezier. Waar de scheidslijn tussen nabootsing en instemming ligt, laat het boek in het midden.</p>
+      <p>Ten slotte is de spiegeling tussen de twee schrijvers wel erg netjes uitgekomen. Naarmate Camacho in verwarring raakt, wint Marito aan houvast; het slothoofdstuk zet de een op de troon en de ander op straat. Als beeld werkt dat, als bewering over schrijverschap is het een stuk gemakkelijker dan het boek zelf suggereert.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>La tia Julia y el escribidor</i> (Seix Barral, Barcelona, 1977). De Nederlandse vertaling van Mariolein Sabarte Belacortu verscheen in 1981 bij Meulenhoff, Amsterdam, en is daar nog altijd leverbaar (420 blz., ISBN 9789029088756). Vargas Llosa ontving in 2010 de Nobelprijs voor literatuur. Julia Urquidi, met wie hij van 1955 tot 1964 getrouwd was, schreef in 1983 haar eigen verslag van dezelfde jaren onder de titel <i>Lo que Varguitas no dijo</i>; dat boek is niet in het Nederlands vertaald. In 1990 werd de roman verfilmd als <i>Tune in Tomorrow</i>, waarbij het decor van Lima naar New Orleans werd verplaatst.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lima, halverwege de jaren vijftig. Marito is achttien, studeert rechten omdat het moet, schrijft nieuwsbulletins voor Radio Panamericana omdat het geld oplevert, en wil schrijver worden. Dan komt tante Julia uit Bolivia over: de gescheiden zuster van zijn tantes echtgenoot, tweeendertig jaar oud, en dus geen bloedverwante maar wel familie.</p><p>Tegelijk arriveert Pedro Camacho, een kleine Boliviaan die bij het zusterstation Radio Central de hoorspelen gaat schrijven. Hij levert er meerdere per dag, hamert ze eigenhandig op een schrijfmachine, verkleedt zich als de personages over wie hij schrijft en houdt de halve stad aan de radio gekluisterd.</p><p>De roman zet die twee verhalen om en om. De oneven hoofdstukken vertellen de liefde tussen Marito en Julia en hun poging om ergens in Peru een burgemeester te vinden die een minderjarige wil trouwen. De even hoofdstukken zijn de hoorspelen zelf, die aanvankelijk keurig afgeronde melodrama's zijn en gaandeweg in elkaar overlopen, samen met het hoofd van hun maker.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Peru</li><li>Lima</li><li>radio</li><li>feuilleton</li><li>autobiografie</li><li>schrijverschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1402"><a href="1402.html">Honderd jaar eenzaamheid</a>. Garcia Marquez schreef de andere grote roman van dezelfde generatie Latijns-Amerikaanse schrijvers; Vargas Llosa promoveerde in 1971 op diens werk, en de twee braken later publiekelijk met elkaar.</li>
+          <li value="1401"><a href="1401.html">Middernachtskinderen</a>. Rushdie doet iets vergelijkbaars met de vermenging van eigen levensloop en nationale geschiedenis, en gebruikt daarbij eveneens een verteller die zijn eigen betrouwbaarheid ondermijnt.</li>
+          <li value="18"><a href="18.html">On Writing</a>. King beschrijft het schrijversleven vanaf de kant van de productie, inclusief de jaren van afwijzingen; naast Camacho gelezen wordt zichtbaar hoe dun de scheiding tussen ambacht en dwangmatigheid is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

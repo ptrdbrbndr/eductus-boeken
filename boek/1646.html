@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reclaiming Your Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jenson stelt dat het merendeel van de klachten en de vastgelopen verhoudingen van volwassenen teruggaat op pijn uit de kindertijd die destijds niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1646">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1646 &middot; Gewoontes en denken</p>
+    <h1>Reclaiming Your Life</h1>
+    <p class="lede">Jean C. Jenson, 1995</p>
+    <p class="stats">
+      <span><b>1539</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1646"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jenson stelt dat het merendeel van de klachten en de vastgelopen verhoudingen van volwassenen teruggaat op pijn uit de kindertijd die destijds niet gevoeld kon worden en daarom is weggedrukt. Die pijn verdwijnt niet door inzicht, door gesprek of door een programma van gedragsregels; zij blijft werkzaam tot zij alsnog wordt beleefd en berouwd. Haar tweede stelling is dat dit proces zonder therapeut te doen is, mits de lezer twee dingen combineert: het opsporen van de gebeurtenissen die hem in het kinderbewustzijn terugzetten, en het bewust doen van wat hij op dat moment niet durft. Wie alleen praat over het verleden of alleen zijn gedrag verandert, laat volgens haar de oude pijn onaangeroerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de methode vandaan komt</h3>
+      <p>Jenson beschrijft in de eerste hoofdstukken haar herkomst. Zij werkte in de jaren zeventig met Arthur Janov, de bedenker van de primaire therapie, en nam van hem de gedachte over dat genezing beleefde terugkeer naar de oude pijn vereist. Zij gebruikt een deel van zijn woordenschat, maar vervangt zijn term voor het herbeleven door het woord rouwen.</p>
+      <p>Het voorwoord van Alice Miller plaatst het boek in de lijn van haar eigen werk over de gevolgen van wat volwassenen kinderen aandoen. Jenson deelt met Miller de gedachte dat het kind de ouder moet vrijpleiten om te kunnen overleven, en dat die vrijspraak later de grootste hindernis is.</p>
+      <h3>Verdringing en ontkenning</h3>
+      <p>Het theoretische deel behandelt twee afweervormen. Verdringing houdt de gevoelens zelf buiten het bewustzijn. Ontkenning houdt het oordeel over de ouders buiten het bewustzijn: het kind besluit dat het zelf verkeerd was, omdat de gedachte dat de mensen van wie het volledig afhankelijk is tekortschieten ondraaglijk is.</p>
+      <p>Jenson hanteert een ruime opvatting van mishandeling. Zij rekent daaronder niet alleen slaan en misbruik, maar iedere pijnlijke ervaring uit de kindertijd waarmee het kind alleen bleef, inclusief verwaarlozing, vernedering en langdurige afwezigheid van de ouder.</p>
+      <h3>Verschuiven naar het kinderbewustzijn</h3>
+      <p>Het middendeel gaat over het onderscheid tussen kinderbewustzijn en volwassen bewustzijn. Bepaalde gebeurtenissen zetten iemand terug in de toestand van het kind dat hij was: een blik van een leidinggevende, een zwijgende partner, een afwijzing. Op dat moment beleeft hij de situatie niet als volwassene maar als kind, en zijn zijn reacties daarop afgestemd.</p>
+      <p>Jenson wijst erop dat die verschuivingen vooral in nauwe verhoudingen voorkomen, in het huwelijk en op het werk. De eerste stap in haar programma is niet voelen maar opmerken: leren zien wanneer de verschuiving optreedt, deels door de eigen reacties na te lopen en deels door anderen te vragen wat zij zien.</p>
+      <p>Zij onderscheidt daarbij overreacties en onderreacties. Woede die niet in verhouding staat tot de aanleiding wijst op oude pijn; net zo goed wijst het uitblijven van iedere reactie op een situatie waarin gevoel gevaarlijk was.</p>
+      <h3>De inventarisatie</h3>
+      <p>Het praktische deel begint met een geschreven inventarisatie van de kindertijd, per levensfase en per verzorger. De lezer legt vast wat er gebeurde, wat er ontbrak en wat hij zich herinnert te hebben gevoeld, zonder daar meteen een oordeel bij te vellen.</p>
+      <p>Die inventarisatie dient twee doelen. Zij maakt het mogelijk de reacties van nu aan gebeurtenissen van toen te koppelen, en zij haalt het weggedrukte materiaal dichter naar de oppervlakte, wat de voorwaarde is voor de volgende stap.</p>
+      <h3>Rouwen</h3>
+      <p>Rouwen is bij Jenson het beleven van de gevoelens die het kind niet kon toelaten, in het heden en als volwassene, met het besef dat het gevaar voorbij is. Zij benadrukt dat het doel niet is te voelen hoe het had moeten zijn, maar hoe het werkelijk was.</p>
+      <p>Het boek geeft daar aanwijzingen voor in stappen, met korte gevalsbeschrijvingen uit haar praktijk als voorbeeld. Zij waarschuwt dat het maanden kan duren voordat er iets in beweging komt, en dat de meeste lezers het proces voortijdig staken.</p>
+      <h3>Het gedrag omkeren</h3>
+      <p>Het tweede spoor is gedragsverandering, en Jenson acht dat het moeilijkste onderdeel. Wie in het kinderbewustzijn schiet, ervaart de situatie als levensgevaar en handelt daarnaar: hij zwijgt, hij vlucht of hij valt aan. Haar aanwijzing is om op zulke momenten precies het tegenovergestelde te doen van wat hij zich gedrongen voelt te doen.</p>
+      <p>De redenering daarachter is dat de afweer zijn werk doet zolang hij niet wordt getoetst. Wordt hij wel getoetst, dan komt het gevoel eronder vrij, en dat gevoel is het materiaal waarmee de rouw kan beginnen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Verdringing</td><td>Het buiten het bewustzijn houden van de gevoelens die het kind niet kon verdragen.</td></tr>
+          <tr><td class="term">Ontkenning</td><td>Het buiten het bewustzijn houden van het gegeven dat de ouders tekortschoten, ten koste van het eigen zelfbeeld.</td></tr>
+          <tr><td class="term">Kinderbewustzijn</td><td>De toestand waarin iemand het heden beleeft met de middelen en de angsten van het kind dat hij was.</td></tr>
+          <tr><td class="term">Volwassen bewustzijn</td><td>De toestand waarin de situatie op haar werkelijke omvang wordt geschat en het gevaar van toen voorbij is.</td></tr>
+          <tr><td class="term">Aanleiding</td><td>De gebeurtenis van nu die de verschuiving naar het kinderbewustzijn in gang zet, meestal in een nauwe verhouding.</td></tr>
+          <tr><td class="term">Rouwen</td><td>Jensons woord voor het alsnog beleven en betreuren van de oude pijn, in plaats van Janovs term voor herbeleven.</td></tr>
+          <tr><td class="term">Overreactie</td><td>Een reactie die de aanleiding ver te boven gaat en daarmee op oude pijn wijst.</td></tr>
+          <tr><td class="term">Onderreactie</td><td>Het uitblijven van gevoel waar dat te verwachten zou zijn, als teken dat voelen ooit gevaarlijk was.</td></tr>
+          <tr><td class="term">Het ware zelf</td><td>De persoon die overblijft wanneer de afweer uit de kindertijd niet langer het gedrag stuurt; het begrip uit de Nederlandse titel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal bestaat uit gevalsbeschrijvingen uit vijftien jaar eigen praktijk. Die zijn kort, herkenbaar en goed gekozen, maar het zijn verhalen die de auteur zelf selecteert uit haar eigen dossiers. Er is geen controlegroep, geen meting vooraf en achteraf, en geen navraag bij mensen bij wie de methode niets deed.</p>
+      <p>De theoretische lijn komt van Janov en van Alice Miller. Janovs primaire therapie is sinds de jaren zeventig veel beoefend en nooit in gecontroleerd onderzoek bevestigd; de beloofde uitkomsten zijn buiten de kring van beoefenaars niet aangetoond. Jenson neemt dat kader over zonder de bewijslast te bespreken.</p>
+      <p>Het sterkste deel van het boek staat los van die kwestie. De beschrijving van verschuivingen naar het kinderbewustzijn, van over- en onderreacties en van de manier waarop mensen hun eigen ouders vrijpleiten, is scherp waargenomen en herkenbaar zonder dat de lezer de primaire therapie hoeft te aanvaarden. Ook het advies om zich tegengesteld aan de eigen aandrang te gedragen sluit aan bij wat in de gedragstherapie exposure heet, al legt Jenson die verbinding niet.</p>
+      <p>Wat de methode op langere termijn oplevert is niet onderzocht. Ook voor Past Reality Integration, dat er in Nederland uit voortkwam, is geen gecontroleerd effectonderzoek gepubliceerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek verscheen in 1995, midden in de periode waarin de betrouwbaarheid van teruggehaalde jeugdherinneringen op scherp stond. Het werk van Elizabeth Loftus liet zien dat mensen onder suggestie gedetailleerde herinneringen kunnen vormen aan gebeurtenissen die niet hebben plaatsgevonden. Een boek dat lezers zonder begeleiding aanspoort om af te dalen naar vroege pijn en daarbij een ruime omschrijving van mishandeling hanteert, loopt precies dat gevaar, en Jenson besteedt er geen bladzijde aan.</p>
+      <p>Alice Miller schreef ook het voorwoord bij <i>Making Sense of Suffering</i> van Konrad Stettbacher, en trok haar aanbeveling van diens therapie in 1994 openlijk in. Dat maakt haar voorwoord bij dit boek een minder zwaarwegende aanbeveling dan het op het eerste gezicht lijkt.</p>
+      <p>De aanname dat afreageren geneest, staat er zwak voor. Onderzoek naar catharsis, onder meer van Brad Bushman, wijst uit dat het uiten van woede die woede eerder versterkt dan vermindert. Jensons rouwbegrip is niet hetzelfde als afreageren, maar zij onderbouwt dat verschil niet, en de lezer die thuis werkt heeft geen middel om vast te stellen aan welke kant hij zit.</p>
+      <p>Verder is de verklaring alomvattend. Vrijwel elke klacht laat zich naar de kindertijd herleiden, en wie de methode volgt en niets bereikt kan altijd te horen krijgen dat de afweer nog te sterk was. Recensent John Speyrer, die het boek waardeert, schat zelf dat vrijwel geen lezer de oefeningen lang genoeg volhoudt. Dat is een opmerkelijke aanbeveling voor een boek dat als stappenplan is opgezet.</p>
+      <p>Ten slotte de vorm van de zelfhulp. Zwaar getraumatiseerde lezers worden hier zonder begeleiding aan het werk gezet met materiaal dat in een praktijk onder toezicht wordt behandeld. Het boek noemt die beperking wel, maar bouwt er geen rem op in.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd een week bij wanneer een reactie niet in verhouding staat tot de aanleiding, en noteer wat er vlak daarvoor gebeurde.</li>
+        <li>Vraag een partner of collega wanneer hij ziet dat je in een andere toestand raakt; die waarneming van buitenaf is betrouwbaarder dan de eigen.</li>
+        <li>Maak de inventarisatie per levensfase schriftelijk, en houd feiten en gevoelens in aparte kolommen uit elkaar.</li>
+        <li>Kies bij een sterke aandrang om te zwijgen of weg te lopen bewust het tegenovergestelde, en let daarna op wat er aan gevoel bovenkomt.</li>
+        <li>Zoek begeleiding wanneer het om ernstig geweld of misbruik gaat; dit boek is niet ingericht op wat er dan kan losbreken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Reclaiming Your Life: A Step-by-Step Guide to Using Regression Therapy to Overcome the Effects of Childhood Abuse</i> (Dutton, New York, 1995, ruim 200 blz., ISBN 9780525939481), met een voorwoord van Alice Miller; de paperback verscheen bij Plume, Penguin, in 1996 (ISBN 9780452011694). De Nederlandse uitgave heet <i>Op weg naar je ware zelf</i>, vertaald door Monique de Vre en uitgegeven door Het Spectrum, Utrecht, vanaf 1997; latere drukken bij Unieboek Het Spectrum tellen 248 blz. (ISBN 9789026923685). Jenson werd na verschijnen in Nederland gevraagd les te geven; daaruit ontstond met de psychologe Ingeborg Bosch de methode Past Reality Integration, beschreven in Bosch' <i>De herontdekking van het ware zelf</i>, waarvoor Jenson het voorwoord schreef.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jean Jenson was psychotherapeut en maatschappelijk werker in Hailey, Idaho. Zij leerde in de jaren zeventig bij Arthur Janov de primaire therapie en bouwde daarna een eigen praktijk op. Dit boek vat vijftien jaar werk samen in een methode die de lezer thuis kan volgen.</p><p>Haar redenering is dat een kind dat pijn niet aankan die pijn wegdrukt, en tegelijk ontkent dat de ouders tekortschoten. Die twee bewegingen blijven doorwerken. Als volwassene schiet iemand bij bepaalde gebeurtenissen terug in wat Jenson het kinderbewustzijn noemt, en reageert dan te heftig of juist te vlak op wat er nu gebeurt.</p><p>De uitweg die zij aanbiedt heeft twee sporen. Het eerste is rouw: de weggedrukte gevoelens alsnog voelen en betreuren wat er in de kindertijd niet was. Het tweede is gedrag: doen wat je op dat moment het minst durft, omdat de afweer volgens haar breekt zodra iemand het tegenovergestelde doet van wat de angst hem ingeeft. Het boek bevat een inventarisatie, korte gevalsbeschrijvingen en oefeningen in stappen, en heeft een voorwoord van Alice Miller.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kindertijd</li><li>verdringing</li><li>regressietherapie</li><li>rouw</li><li>primal therapy</li><li>afweer</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1613"><a href="1613.html">Homecoming: Reclaiming and Championing Your Inner Child</a>. Bradshaw werkt in dezelfde jaren en met dezelfde uitgangspunten aan het innerlijke kind, en laat zien hoe wijdverbreid deze redenering toen was.</li>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Levine legt de nadruk op wat er in het lichaam blijft steken en biedt daarmee een verklaring die Jensons rouwbegrip aanvult zonder op herinneringen te steunen.</li>
+          <li value="1639"><a href="1639.html">Het einde van de opvoeding</a>. Geurtz bekijkt dezelfde afhankelijkheid van kind en ouder van de andere kant, vanuit de opvoeder, en trekt daaruit andere conclusies.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

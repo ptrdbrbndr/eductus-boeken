@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De fontein, maak wijze keuzes &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Steijn stelt dat mensen slechte keuzes maken omdat zij te weinig zien. Zij nemen waar vanuit hun eigen positie, hun ego en het geweten van de groep…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1637">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1637 &middot; Levenskunst</p>
+    <h1>De fontein, maak wijze keuzes</h1>
+    <p class="lede">Els van Steijn, 2020</p>
+    <p class="stats">
+      <span><b>1787</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1637"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Steijn stelt dat mensen slechte keuzes maken omdat zij te weinig zien. Zij nemen waar vanuit hun eigen positie, hun ego en het geweten van de groep waartoe zij horen, en houden daardoor patronen in stand die zij niet hebben gekozen en niet herkennen. Haar antwoord is dat het bewustzijn zich laat vergroten: door de keerzijde van elke eigenschap mee te nemen, door onderscheid te maken tussen het persoonlijke, het systemische en het universele geweten, en door te scheiden wat binnen en buiten iemands invloed valt. Een wijze keuze is bij haar dan ook geen keuze met de beste uitkomst, maar een keuze die past bij wat er werkelijk speelt en die de volgende generatie minder last nalaat. Het boek breidt dat uit van het gezin naar het lichaam, de organisatie en de samenleving, en die uitbreiding is tegelijk de plek waar de redenering het meest te verduren krijgt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Inleiding: levenskunst en systemisch kijken</h3>
+      <p>Het eerste deel opent persoonlijk. Van Steijn beschrijft zichzelf als een jongere vrouw die vooral vanuit ratio en controle handelde, en vertelt over het sterven van haar moeder in 2007, die een behandeling weigerde en haar laatste maanden inging met wat zij dankbaarheid noemde. Uit dat verhaal haalt zij twee dingen: dat je een ego hebt in plaats van dat je je ego bent, en dat je je plek niet hoeft te verdienen.</p>
+      <p>Zij definieert levenskunst als het vinden van een persoonlijk antwoord op de vraag wat je nog bent zonder ego, en haalt daar Simone de Beauvoir bij aan over het lef om met ideaalbeelden te breken. Systemisch kijken is dan het aanvullen van de zichtbare verklaringen met de onzichtbare verhoudingen die eronder liggen.</p>
+      <h3>De fontein, herhaald en uitgebreid</h3>
+      <p>Het tweede deel vat het eerste boek samen: je plek, van je plek gaan, patronen die generaties overstijgen, en de drie manieren van opstijgen. Wie het eerste deel las, leest hier grotendeels hetzelfde terug, en besprekingen wijzen daar ook op.</p>
+      <p>Er staat wel iets nieuws in. Van Steijn onderscheidt primaire van secundaire emoties: een primaire emotie hoort bij wat er gebeurt en ebt weg als zij is gevoeld, een secundaire emotie dekt iets anders af en blijft terugkomen. Boosheid die niet slijt, wijst volgens haar op verdriet dat niet is toegelaten. Ook het afdalen naar de eigen schaal krijgt hier meer ruimte dan in het eerste boek.</p>
+      <h3>Patronen doorbreken door duaal te kijken</h3>
+      <p>Het derde deel introduceert het begrip dualiteit. Elk kenmerk heeft een keerzijde die er onlosmakelijk bij hoort: sterk en kwetsbaar, schuldig en onschuldig, controle en overgave. Wie in een familie of organisatie alleen de ene kant erkent, verplaatst de andere kant naar iemand anders, die haar dan draagt.</p>
+      <p>Van Steijn geeft veelvoorkomende dualiteiten in familiesystemen en in organisaties, en werkt controle tegenover overgave het langst uit. Het deel eindigt met de vraag wat waar is, waarmee zij bedoelt dat het antwoord op een vraagstuk vrijwel nooit aan een van beide kanten alleen ligt.</p>
+      <h3>Vergroting van je bewustzijn</h3>
+      <p>Het vierde deel is het meest theoretische. Van Steijn beschrijft groei in bewustzijn met wat zij de pollenhoptheorie noemt, bespreekt hoeveel iemand van de werkelijkheid daadwerkelijk waarneemt, en werkt het onderscheid tussen hebben en zijn van een ego uit.</p>
+      <p>Daarna volgen fasen van bewustzijnsontwikkeling en een praktische paragraaf over loslaten. Loslaten is bij haar geen daad van wilskracht maar het gevolg van iets werkelijk aankijken; zolang iemand iets wegduwt, komt het terug, een beeld dat zij met de bal onder water vergelijkt. Het deel sluit met de vraag hoe ver iemand hierin wil gaan.</p>
+      <h3>Relaties, lichaam en gezondheid</h3>
+      <p>Het vijfde deel gaat over geven en ontvangen, over moeite met ontvangen, over grenzen stellen zonder de verbinding te verbreken en over het fundament van een liefdesrelatie. De systemische regel die zij daar toepast is dat het eigen gezin voorrang heeft boven het gezin van herkomst. Er is een aparte paragraaf over abortus.</p>
+      <p>Het zesde deel legt hetzelfde raster op het lichaam. Van Steijn schrijft over waar het lichaam op reageert, over wat opstellingen volgens haar over gezondheid leren, over orgaandonatie en transplantatie, over psychische aandoeningen vanuit systemisch perspectief, en over persoonlijke trauma's en overlevingsmechanismen. Dit is het deel dat het verst gaat en het minst wordt onderbouwd.</p>
+      <h3>Organisaties en samenleving</h3>
+      <p>Het zevende deel vertaalt de fontein naar het werk. Van Steijn laat per manier van opstijgen zien hoe die in een organisatie zichtbaar wordt: de medewerker die verantwoordelijkheid van zijn leiding overneemt, de medewerker die zijn leiding afschrijft, en de medewerker die de rol overneemt van iemand die is weggewerkt. Zij behandelt ook trauma in organisaties en de interventies die zij daarbij inzet.</p>
+      <p>Het achtste deel gaat over de samenleving. Kern is het onderscheid tussen drie gewetens: het persoonlijke geweten dat zegt wat goed voelt, het systemische geweten dat de eigen groep bijeenhoudt, en het universele geweten dat geen groep uitsluit. Uit dat onderscheid verklaart zij groepsvorming, verharding van identiteiten, migratie en het nut van het erkennen van geschiedenis.</p>
+      <h3>Wat is een wijze keuze</h3>
+      <p>Het slotdeel maakt de balans op. Van Steijn vraagt hoe maakbaar de wereld is, beschrijft het speelveld waarbinnen iemand invloed heeft, en geeft criteria voor een wijze keuze. Die criteria komen erop neer dat een keuze klopt met de werkelijke verhoudingen, dat zij niemand uitsluit en dat zij de last niet doorschuift.</p>
+      <p>Het boek eindigt bij haar eigen doel: volgende generaties systemisch schoner laten zijn. Dat is dezelfde zin waarmee zij drie jaar later het derde deel opent.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Systemisch kijken</td><td>De zichtbare verklaring van een probleem aanvullen met de onzichtbare verhoudingen binnen het systeem waarin het speelt.</td></tr>
+          <tr><td class="term">Dualiteit</td><td>Twee kanten die bij elkaar horen, zoals sterk en kwetsbaar, waarbij het erkennen van slechts een kant de andere naar iemand anders verplaatst.</td></tr>
+          <tr><td class="term">Duaal kijken</td><td>Een vraagstuk bekijken door beide kanten van zo'n paar tegelijk mee te nemen in plaats van er een te kiezen.</td></tr>
+          <tr><td class="term">Primaire en secundaire emoties</td><td>Een primaire emotie hoort bij wat er gebeurt en ebt weg; een secundaire emotie dekt iets anders af en blijft terugkeren.</td></tr>
+          <tr><td class="term">Pollenhoptheorie</td><td>Van Steijns beeld voor groei in bewustzijn als een reeks sprongen naar een ruimer gezichtsveld.</td></tr>
+          <tr><td class="term">Je hebt een ego</td><td>Het onderscheid tussen het hebben van een ego, dat bij mens-zijn hoort, en het samenvallen ermee.</td></tr>
+          <tr><td class="term">Persoonlijk geweten</td><td>Het gevoel van goed en fout dat zegt of iemand nog bij zijn groep hoort.</td></tr>
+          <tr><td class="term">Systemisch geweten</td><td>De onbewuste kracht die een groep bijeenhoudt en uitsluiting van afwijkende leden afdwingt.</td></tr>
+          <tr><td class="term">Universeel geweten</td><td>De houding waarin niemand wordt uitgesloten, in het boek voorgesteld als de ruimste van de drie.</td></tr>
+          <tr><td class="term">Speelveld van je levensstroom</td><td>Het gebied waarbinnen iemand werkelijk invloed heeft, tegenover wat aan het lot toebehoort.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op gevallen uit de opstellingenpraktijk van de auteur, op eigen ervaringen en op de systemische leer die uit het werk van Bert Hellinger komt. Er is een bronvermelding achterin, maar de wetmatigheden worden in de tekst als gegeven behandeld en niet afgeleid uit onderzoek.</p>
+      <p>Enkele passages zijn wel te controleren, en die zijn eerlijk gebracht. Van Steijn citeert Candy Dulfer uit een interview in Harper's Bazaar van mei 2019 over het zichzelf naar beneden halen, en zij noemt bij het gedicht in de inleiding dat de herkomst onbekend is. Dat laatste is meer dan veel verwante boeken doen.</p>
+      <p>Voor het opstellingenwerk waarop zij bouwt, bestaat beperkt onderzoek dat in dit boek niet ter sprake komt. Een overzichtsstudie in <i>Family Process</i> uit 2021 van Konkoly Thege en collega's telde twaalf studies met samen 568 deelnemers en vond in negen daarvan een beduidende verbetering van algemene klachten met een middelmatige effectgrootte, naast een klein aandeel deelnemers dat lichte negatieve gevolgen meldde. Dat zegt iets over hoe mensen zich na een bijeenkomst voelen en niets over de verklaringen in dit boek.</p>
+      <p>De hoofdstukken over gezondheid en over de samenleving voeren de zwaarste beweringen aan met de dunste onderbouwing. Dat een psychische aandoening samenhangt met een positie in het familiesysteem, of dat een getransplanteerd orgaan iets van de donor meebrengt, zijn uitspraken die getoetst zouden kunnen worden. Het boek doet dat niet en beroept zich op wat in opstellingen zichtbaar zou zijn geworden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt het gezondheidsdeel. Het systemisch verklaren van psychische aandoeningen legt de oorzaak bij de familiegeschiedenis van de patient en kan iemand van behandeling afhouden. Van Steijn schrijft niet dat lezers moeten stoppen met hun behandeling, maar zij plaatst de systemische uitleg naast de medische zonder aan te geven welke voorrang heeft en waarom.</p>
+      <p>Het model blijft onweerlegbaar. Elke uitkomst past erin: gaat het goed, dan staat iemand op zijn plek; gaat het slecht, dan speelt er een patroon dat hij nog niet ziet. Het begrip duaal kijken versterkt dat, want elk bezwaar is met een keerzijde te beantwoorden. Wat het boek daarmee wint aan verklarende reikwijdte, verliest het aan toetsbaarheid.</p>
+      <p>Het eerste derde deel is herhaling. Lezers van het eerste boek treffen hetzelfde beeld, dezelfde drie manieren van opstijgen en dezelfde packagedeal opnieuw aan, en dat verwijt komt in besprekingen dan ook terug. Wie alleen de nieuwe stof wil, kan bij het derde deel beginnen.</p>
+      <p>De uitbreiding naar de samenleving is de minst overtuigende. Migratie, polarisatie en het erkennen van oorlogsgeschiedenis worden verklaard met drie gewetens, zonder dat het boek verantwoordt waarom dat raster hier van toepassing is. Historici en sociologen die dezelfde verschijnselen bestuderen komen in de tekst niet voor.</p>
+      <p>De paragraaf over abortus is kort en stellig in een boek dat elders juist op de keerzijde hamert. Voor een onderwerp waar de systemische leer een uitgesproken positie inneemt, is die beknoptheid een gemis.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Splits bij een vraagstuk op wat binnen en buiten je invloed valt voordat er een keuze wordt gemaakt; het boek geeft daar het speelveld voor.</li>
+        <li>Zoek bij een emotie die blijft terugkomen naar de primaire emotie die eronder ligt in plaats van de terugkerende emotie nog eens te uiten.</li>
+        <li>Benoem bij een vast conflict de dualiteit die erin zit, en ga na wie in het systeem de andere kant draagt.</li>
+        <li>Kijk bij een terugkerend patroon in een team of iemand een positie inneemt die aan een ander toebehoort, voordat er aan gedrag wordt gewerkt.</li>
+        <li>Behandel de systemische uitleg van lichamelijke en psychische klachten als hypothese naast, niet in plaats van, medische diagnostiek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Uitgeverij Het Noorderlicht, Utrecht, eerste druk november 2020, met de ondertitel <i>Vergroot je systemische bewustzijn en laat het jezelf goed gaan in je leven</i> (gebonden, 303 blz., ISBN 9789083104140). De derde druk verscheen in januari 2022; er zijn een e-boek en een luisterboek. Redactie Juliet Jonkers en Mieke Alers. Dit is het tweede deel van de reeks na <i>De fontein, vind je plek</i> (2016); er volgden <i>De fontein, vier je leven</i> (2023) en <i>De fontein, de aanmoediging</i>. Het boek is oorspronkelijk Nederlands en is niet in het Engels verschenen; van het eerste deel bestaat wel een Engelse uitgave, <i>The Fountain, Find Your Place</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vervolg op het boek waarin Els van Steijn het familiesysteem als een fontein met schalen beschreef. Waar het eerste deel ging over het vinden van je eigen schaal, gaat dit deel over de vraag wat je daarna kiest. De ondertitel geeft de opzet weer: het bewustzijn vergroten en op grond daarvan beslissen.</p><p>De eerste honderd bladzijden herhalen en verbreden het model. Daarna gaat het boek naar buiten: naar liefdesrelaties, naar het lichaam en gezondheid, naar organisaties en naar de samenleving. Van Steijn introduceert daarbij het duale kijken, waarmee zij bedoelt dat elke eigenschap of situatie een keerzijde heeft die er onlosmakelijk bij hoort.</p><p>Het slotdeel geeft antwoord op de vraag uit de titel. Een wijze keuze is bij haar een keuze die rekening houdt met wat wel en niet in iemands invloed ligt, en die volgende generaties minder belast achterlaat dan hijzelf werd achtergelaten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>systemisch werk</li><li>familieopstellingen</li><li>keuzes</li><li>ego</li><li>organisaties</li><li>geweten</li><li>loslaten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1510"><a href="1510.html">De fontein, vind je plek</a>. Het eerste deel bevat het beeld en de drie manieren van opstijgen die hier worden herhaald; wie dat las, kan de eerste honderd bladzijden overslaan.</li>
+          <li value="1636"><a href="1636.html">De fontein, vier je leven</a>. Het derde deel bouwt op de begrippen uit dit boek voort en gaat over wat iemand met zijn keuzes doet zodra ze gemaakt zijn.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk behandelt de doorwerking van vroege ervaringen in het lichaam met onderzoek erbij, en biedt daarmee een maatstaf voor het gezondheidsdeel van dit boek.</li>
+          <li value="213"><a href="213.html">Games People Play</a>. Berne beschrijft vaste rollen tussen mensen als spelen; een andere en toetsbaarder taal voor de patronen die Van Steijn systemisch verklaart.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

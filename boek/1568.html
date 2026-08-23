@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De Bijbel &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Bijbel presenteert zich als een doorlopend verhaal met een begin en een einde, en wordt in kerk en synagoge ook zo voorgedragen, maar de tekst zelf is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1568">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1568 &middot; Filosofie en mystiek</p>
+    <h1>De Bijbel</h1>
+    <p class="lede">Tientallen auteurs en redacteuren, geschreven en samengesteld tussen ongeveer de achtste eeuw v.Chr. en het begin van de tweede eeuw n.Chr.</p>
+    <p class="stats">
+      <span><b>1898</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1568"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Bijbel presenteert zich als een doorlopend verhaal met een begin en een einde, en wordt in kerk en synagoge ook zo voorgedragen, maar de tekst zelf is een archief van geschriften die eeuwen uit elkaar liggen en het onderling grondig oneens zijn. De samenhang die de lezer ervaart is niet in de oudste lagen aangebracht, maar door redacteuren, canonvormers en vertalers die veel later werkten en die daarbij bepaalde teksten lieten wegvallen. Wie dat gegeven serieus neemt, leest een ander boek dan wie het overslaat: het gaat dan niet langer om de vraag wat er bedoeld wordt, maar om de vraag wie er bedoelde, wanneer, en tegen wie het gericht was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat er in de kast staat</h3>
+      <p>De joodse indeling is de oudste die bewaard is en verdeelt de tekst in Tora (de vijf boeken van Mozes), Nevi'iem (de profeten, waaronder ook Jozua, Rechters, Samuel en Koningen worden gerekend) en Ketoeviem (de geschriften, met de Psalmen, Job, Spreuken, Prediker, Hooglied en Daniel). De christelijke ordening breekt die verdeling open en zet de profeten achteraan, zodat het Oude Testament eindigt met een aankondiging en het Nieuwe Testament daarop kan aansluiten.</p>
+      <p>Het Nieuwe Testament bestaat uit vier evangelien, de Handelingen van de apostelen, eenentwintig brieven en de Openbaring van Johannes. De brieven van Paulus zijn de oudste teksten van het geheel en zijn geschreven voordat er ook maar een evangelie bestond. Dat de evangelien vooraan staan is een ordening naar onderwerp, niet naar ouderdom.</p>
+      <h3>Hoe de oudste teksten zijn ontstaan</h3>
+      <p>Voor de vijf boeken van Mozes bestaat sinds de negentiende eeuw de gedachte dat er meerdere bronnen zijn samengevoegd, in de klassieke formulering van Julius Wellhausen de bronnen J, E, D en P. Die indeling wordt in haar oorspronkelijke vorm niet meer aangehouden, maar het waarnemingsfeit waar zij op berust is niet verdwenen: dubbele vertellingen, wisselende godsnamen en wetsteksten die elkaar tegenspreken staan gewoon naast elkaar in de tekst. Genesis bevat twee scheppingsverhalen achter elkaar en twee in elkaar geschoven versies van de zondvloed, met verschillende aantallen dieren en verschillende aantallen dagen.</p>
+      <p>Van Deuteronomium wordt algemeen aangenomen dat het samenhangt met de hervorming van koning Josia, die volgens 2 Koningen 22 in 622 v.Chr. begint wanneer er een wetboek in de tempel wordt gevonden. Grote delen van de historische boeken zijn geredigeerd in of na de Babylonische ballingschap, na de verwoesting van Jeruzalem in 587 v.Chr., en lezen als een verklaring achteraf waarom het zo ver is gekomen.</p>
+      <h3>Het Nieuwe Testament</h3>
+      <p>Paulus schrijft in de jaren vijftig van de eerste eeuw aan gemeenten die hij zelf heeft opgericht, over ruzies, geld, seksuele moraal en de vraag of niet-joden zich moeten laten besnijden. Van de dertien brieven die zijn naam dragen worden er zeven vrijwel algemeen als van hem aanvaard; over de overige wordt gediscussieerd, met de brieven aan Timoteus en Titus als meest betwiste.</p>
+      <p>Marcus wordt doorgaans rond het jaar 70 gedateerd, kort voor of na de verwoesting van de tempel. Matteus en Lucas gebruiken Marcus aantoonbaar als bron: zij nemen hele passages woordelijk over en verbeteren zijn Grieks. Daarnaast delen zij materiaal dat bij Marcus ontbreekt, wat tot de aanname van een tweede bron heeft geleid die met Q wordt aangeduid en waarvan geen handschrift is gevonden. Johannes staat apart, met een andere tijdrekening, andere gebeurtenissen en lange redevoeringen die bij de andere drie niet voorkomen.</p>
+      <h3>Hoe de canon is dichtgetimmerd</h3>
+      <p>De Griekse vertaling van de joodse geschriften, de Septuaginta, ontstond vanaf de derde eeuw v.Chr. in Alexandrie en bevatte meer boeken dan de latere Hebreeuwse canon. Toen de kerk Grieks sprak, nam zij die ruimere verzameling over; de reformatie greep in de zestiende eeuw terug op de Hebreeuwse omvang en verplaatste de overige boeken naar een aanhangsel. Het Concilie van Trente bevestigde in 1546 juist de ruimere lijst. Daarom bevat een katholieke Bijbel meer boeken dan een protestantse.</p>
+      <p>Voor het Nieuwe Testament geldt de zevenendertigste paasbrief van Athanasius uit 367 als de oudste bewaarde opsomming die precies de zevenentwintig boeken noemt die het nu telt. Daaraan gingen twee eeuwen van discussie vooraf, waarin Marcion een veel kleinere verzameling voorstelde zonder het Oude Testament, en waarin boeken als de Openbaring en de brief van Jakobus lang omstreden bleven.</p>
+      <h3>De tekst achter de tekst</h3>
+      <p>Tot 1947 waren de oudste volledige Hebreeuwse handschriften middeleeuws; de Codex Leningradensis dateert van omstreeks 1008. De vondsten bij Qoemran, gedaan tussen 1947 en 1956, leverden bijbelhandschriften op die ongeveer duizend jaar ouder zijn. De uitkomst was tweeledig: de overlevering blijkt over die duizend jaar opvallend stabiel, en tegelijk bestonden er in de eerste eeuw v.Chr. meerdere tekstvormen naast elkaar, waaronder een die dichter bij de Septuaginta staat.</p>
+      <p>In het Nieuwe Testament zijn een aantal bekende passages aantoonbaar later toegevoegd. De slotverzen van Marcus (16:9-20) ontbreken in de oudste handschriften, evenals het verhaal over de vrouw die op overspel is betrapt (Johannes 7:53-8:11). De zogeheten Comma Johanneum, de drie-eenheidsformule in 1 Johannes 5:7-8, staat in geen enkel vroeg Grieks handschrift en is via de Latijnse overlevering in de Statenvertaling terechtgekomen. Moderne uitgaven zetten die passages tussen haken of in een voetnoot.</p>
+      <h3>Vertalen als uitleggen</h3>
+      <p>De Statenvertaling van 1637 volgde de brontekst zo dicht mogelijk, tot in de woordvolgorde, en heeft daarmee het Nederlands van eeuwen gekleurd. De Nieuwe Bijbelvertaling van 2004 koos voor lopend hedendaags Nederlands en kreeg daarop de kritiek dat zij interpretatie in de vertaling schuift op plaatsen waar de brontekst dubbelzinnig is. De NBV21 uit 2021 trok een deel van die keuzes terug.</p>
+      <p>Elke vertaalkeuze legt iets vast dat in het Hebreeuws of het Grieks openstond. Het woord dat in Jesaja 7:14 met maagd of met jonge vrouw kan worden weergegeven is daarvan het bekendste voorbeeld: de Hebreeuwse tekst zegt alma, jonge vrouw, en de Septuaginta koos parthenos, waarna Matteus die Griekse lezing aanhaalt. Wie de twee vertalingen naast elkaar legt ziet niet twee smaken, maar twee verschillende beweringen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tenach</td><td>Het joodse letterwoord voor de drie delen van de Hebreeuwse Bijbel: Tora, Nevi'iem en Ketoeviem.</td></tr>
+          <tr><td class="term">Tora</td><td>De vijf boeken Genesis tot en met Deuteronomium, in de joodse traditie het hart van de verzameling en wekelijks in delen voorgelezen.</td></tr>
+          <tr><td class="term">Septuaginta</td><td>De Griekse vertaling van de joodse geschriften, ontstaan vanaf de derde eeuw v.Chr., met een ruimere boekenlijst dan de Hebreeuwse canon.</td></tr>
+          <tr><td class="term">Deuterocanoniek</td><td>De boeken die wel in de katholieke en orthodoxe canon staan en niet in de joodse en protestantse; protestanten noemen ze apocrief.</td></tr>
+          <tr><td class="term">Masoretische tekst</td><td>De door joodse tekstbezorgers tussen de zesde en tiende eeuw vastgelegde Hebreeuwse tekst met klinkertekens en accenten, grondslag van vrijwel alle moderne vertalingen van het Oude Testament.</td></tr>
+          <tr><td class="term">Vulgaat</td><td>De Latijnse vertaling die Hieronymus omstreeks 382 tot 405 maakte en die in de westerse kerk meer dan duizend jaar de gebruikstekst was.</td></tr>
+          <tr><td class="term">Canon</td><td>De vastgestelde lijst van geschriften die in een gemeenschap als gezaghebbend gelden; de lijst verschilt per traditie en is in geen enkele traditie in een keer ontstaan.</td></tr>
+          <tr><td class="term">Tweebronnenhypothese</td><td>De verklaring dat Matteus en Lucas onafhankelijk van elkaar gebruikmaakten van Marcus en van een tweede, niet overgeleverde bron.</td></tr>
+          <tr><td class="term">Q</td><td>De aanduiding voor die tweede bron, een vermoedelijke verzameling uitspraken van Jezus waarvan geen handschrift bestaat en waarvan de inhoud uit Matteus en Lucas wordt teruggerekend.</td></tr>
+          <tr><td class="term">Exegese</td><td>Het uitleggen van een bijbeltekst met verantwoording van de gebruikte stappen, tegenover eisegese, het inleggen van wat de lezer er al vond.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het argument dat de Bijbel een gegroeide verzameling is, rust niet op een theorie maar op de tekst zelf. Genesis 1 en Genesis 2 vertellen de schepping in een andere volgorde en met een andere godsnaam. De tien geboden staan in Exodus 20 en in Deuteronomium 5 met een andere motivering voor de sabbat. Matteus en Lucas geven een stamboom van Jezus die na koning David uiteenloopt en pas bij Jozef weer samenkomt. De vier evangelien laten bij het lege graf verschillende personen aankomen en verschillende dingen zeggen. Dat zijn geen betwiste reconstructies; het is wat er staat.</p>
+      <p>Voor de historische betrouwbaarheid van de vertelde gebeurtenissen loopt de onderbouwing sterk uiteen per periode. Voor de latere koningstijd bestaat bevestiging van buiten: de Merneptahstele van omstreeks 1208 v.Chr. noemt Israel als groep in Kanaan, de Tel Danstele uit de negende eeuw v.Chr. noemt het huis van David, het prisma van Sanherib beschrijft de belegering van Jeruzalem in 701 v.Chr. van Assyrische zijde, en de Cyruscilinder past bij het beleid van terugkeer waarover Ezra spreekt. Voor de aartsvaders, de uittocht uit Egypte en de verovering van Kanaan is geen archeologische bevestiging gevonden, en de opgravingen in de betrokken steden wijzen op een ander verloop dan Jozua beschrijft. Dat verschil is binnen het vakgebied geen randstandpunt.</p>
+      <p>De overlevering van de tekst is beter gedocumenteerd dan die van welk ander antiek geschrift ook. Van het Nieuwe Testament bestaan duizenden Griekse handschriften, wat tegelijk betekent dat er tienduizenden varianten bekend zijn. De meeste daarvan zijn spelfouten en woordvolgorde; een kleine groep raakt de inhoud, en juist die groep staat in moderne uitgaven in het notenapparaat. Wie een studiebijbel met voetnoten gebruikt kan de onzekerheid zelf zien liggen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar tegen de omgang met dit boek is niet gericht tegen de tekst maar tegen de gewoonte om hem glad te lezen. In de liturgie en in de meeste populaire uitgaven worden de tegenstrijdigheden opgelost voordat de lezer ze ziet: door een harmoniserende vertaling, door een opschrift boven een hoofdstuk dat de uitkomst al verklapt, door een leesrooster dat de lastige passages overslaat. De verzameling wordt daarmee aangeboden als een boek met een boodschap, terwijl zij een discussie is.</p>
+      <p>Inhoudelijk staan er passages in die in geen enkele hedendaagse morele orde te verdedigen zijn. Jozua beschrijft de uitroeiing van hele steden als opdracht; Deuteronomium regelt het verhandelen van slaven en de behandeling van vrouwelijke krijgsgevangenen; Psalm 137 eindigt met een zaligspreking van wie de kinderen van Babel tegen de rotsen verplettert. De gangbare uitwegen zijn deze teksten historisch inkaderen of ze allegorisch lezen. Beide uitwegen zijn beschikbaar, maar geen van beide is uit de tekst zelf af te leiden.</p>
+      <p>Ten slotte is de vraag welke Bijbel wordt bedoeld nooit onschuldig. De aanduiding suggereert een vaststaand geheel, terwijl een joodse, een protestantse, een katholieke en een Ethiopisch-orthodoxe uitgave verschillen in omvang, volgorde en soms in de tekst zelf. Discussies over wat er in de Bijbel staat gaan daardoor geregeld over verschillende boeken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst een heel bijbelboek achter elkaar uit in plaats van losse verzen; Prediker, Job en Marcus zijn daarvoor kort genoeg.</li>
+        <li>Zet Matteus, Marcus en Lucas naast elkaar in een synopsis en volg een verhaal door alle drie; het verschil is de eerste les.</li>
+        <li>Lees het notenapparaat mee waar het over handschriften gaat, zeker bij Marcus 16 en Johannes 8.</li>
+        <li>Vergelijk bij een lastige passage de Statenvertaling, de NBV21 en de Bijbel in Gewone Taal; waar zij uiteenlopen zit de uitleg.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Geen enkel boek, maar een verzameling waarvan de omvang per traditie verschilt. De joodse Tenach telt vierentwintig boeken in drie delen: Tora, Nevi'iem en Ketoeviem. Het protestantse Oude Testament bevat dezelfde tekst, anders geordend en anders geteld, in negenendertig boeken; de rooms-katholieke en de orthodoxe canon voegen daar de deuterocanonieke boeken aan toe, onder meer Tobit, Judit, Wijsheid, Jezus Sirach, Baruch en de boeken van de Makkabeeen. Het Nieuwe Testament telt in alle christelijke tradities zevenentwintig boeken. In het Nederlands zijn de voornaamste uitgaven de Statenvertaling (1637, in opdracht van de Synode van Dordrecht 1618-1619), de vertaling van het Nederlands Bijbelgenootschap uit 1951, de rooms-katholieke Willibrordvertaling (1975, herzien 1995), de Nieuwe Bijbelvertaling (2004), de Bijbel in Gewone Taal (2014) en de NBV21 (2021, Nederlands-Vlaams Bijbelgenootschap), waarin ongeveer twaalfduizend wijzigingen ten opzichte van de vertaling uit 2004 zijn doorgevoerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Bijbel is geen boek maar een boekenkast. Er staan wetsteksten in, stamsagen, kronieken van koningen, liefdespoezie, spreukenverzamelingen, klaagliederen, profetenoraties, vier levensbeschrijvingen van Jezus, brieven aan gemeenten rond de Middellandse Zee en een visioen over het einde van de tijd. Die teksten zijn over een periode van naar schatting negenhonderd jaar geschreven, in drie talen, door mensen die elkaar grotendeels niet kenden.</p><p>Dat de verzameling toch als een geheel wordt gelezen, is het gevolg van latere beslissingen: van redacteuren die bestaande teksten samenvlochten, van gemeenschappen die bepaalden welke geschriften wel en niet meetelden, en van vertalers die woordkeus in het ene boek op het andere afstemden. Wie de Bijbel opslaat leest niet alleen wat er staat, maar ook het resultaat van die keuzes.</p><p>Het lezen zelf is daardoor een vak geworden. Er bestaat een tekstkritiek die uitzoekt wat er in de oudste handschriften stond, een historische kritiek die vraagt wanneer en waarom een tekst is ontstaan, en een uitleggingstraditie in synagoge en kerk die vooral vraagt wat de tekst nu te zeggen heeft. Die drie manieren van lezen komen regelmatig tot verschillende uitkomsten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bijbel</li><li>jodendom</li><li>christendom</li><li>canon</li><li>tekstkritiek</li><li>vertaling</li><li>godsdienst</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="612"><a href="612.html">Het koninkrijk Gods is binnen in u</a>. Tolstoj leest de evangelien tegen de kerkelijke uitleg in en houdt alleen de Bergrede over; een voorbeeld van wat er gebeurt wanneer een lezer zelf een canon binnen de canon aanwijst.</li>
+          <li value="614"><a href="614.html">The Gospel of Mary Magdalene</a>. Leloup behandelt een tekst die het niet tot de canon heeft gehaald, wat laat zien hoeveel er bij de vaststelling van die lijst is afgevallen.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Huxley zet passages uit de bijbelse traditie naast hindoeistische en soefistische teksten en veronderstelt daarbij een gedeelde kern; wie de historische gelaagdheid kent, ziet meteen wat die aanpak wegpoetst.</li>
+          <li value="1551"><a href="1551.html">Bhagavad Gita</a>. De Bhagavad Gita is het andere geschrift in deze lijst dat eeuwenlang als openbaring is gelezen en tegelijk het resultaat is van redactie binnen een groter geheel.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

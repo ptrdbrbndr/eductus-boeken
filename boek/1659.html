@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spontaneous Evolution &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lipton en Bhaerman stellen dat een beschaving zich gedraagt als een organisme en dat de huidige crisis van dat organisme geen ondergang hoeft te zijn maar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1659">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1659 &middot; Geschiedenis en samenleving</p>
+    <h1>Spontaneous Evolution</h1>
+    <p class="lede">Bruce H. Lipton en Steve Bhaerman, 2009</p>
+    <p class="stats">
+      <span><b>1441</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1659"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lipton en Bhaerman stellen dat een beschaving zich gedraagt als een organisme en dat de huidige crisis van dat organisme geen ondergang hoeft te zijn maar een overgang naar een volgend niveau van samenwerking. Zij trekken die gedachte door vanuit de celbiologie: zoals losse cellen zich ooit tot meercellige lichamen verenigden, zo zouden mensen zich tot een samenwerkend geheel verenigen. Wat die stap tegenhoudt zijn volgens hen vier verouderde wetenschappelijke aannames die tot ver buiten de wetenschap zijn doorgedrongen en die het gedrag van instellingen, bedrijven en burgers sturen. Verandert het verhaal, dan verandert de biologie mee, want overtuigingen zijn in hun opvatting omgevingsfactoren die op de cel inwerken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Geloven is zien</h3>
+      <p>Het eerste deel keert het spreekwoord om. Waarnemen is volgens de auteurs niet het begin van geloven maar het gevolg ervan: wie een bepaald wereldbeeld aanhangt, ziet in de gegevens vooral bevestiging. Zij passen dat toe op wetenschap zelf en op de geschiedenis van de westerse samenleving, waarin volgens hen een verouderd verhaal het bestuur, de geneeskunde en de economie blijft vormgeven.</p>
+      <p>Het beeld dat zij daartegenover zetten is de spontane remissie, de zeldzame patient bij wie een kwaadaardige aandoening zonder behandeling verdwijnt. In hun lezing is dat geen uitzondering die verklaring behoeft maar een aanwijzing dat het organisme meer kan dan de gangbare geneeskunde aanneemt. Op de schaal van een samenleving noemen zij dat spontane evolutie.</p>
+      <h3>De vier mythe-percepties</h3>
+      <p>Het tweede deel is de kern. De eerste aanname luidt dat alleen materie telt; daartegenover zetten de auteurs de kwantummechanica en het bestaan van velden, waarmee zij willen aantonen dat energie en informatie werkelijkheid hebben. De tweede is het recht van de sterkste; daartegenover zetten zij de omvang van samenwerking en symbiose in de natuur, van darmbacterien tot mitochondrien.</p>
+      <p>De derde is dat genen het lot bepalen; hier voert Lipton de epigenetica op, met de vaststelling dat genen niet zichzelf aanzetten en dat de omgeving via het celmembraan bepaalt welke genen worden afgelezen. De vierde is dat evolutie op louter toeval berust; daartegenover stellen zij dat organismen door hun omgeving en hun gedrag mede sturen wat er wordt doorgegeven.</p>
+      <p>Wat de vier aannames volgens de auteurs met elkaar verbindt, is dat zij buiten de wetenschap zijn gaan werken als rechtvaardiging. Het recht van de sterkste kwam in de economie terecht als argument voor onbeperkte concurrentie, de erfelijkheidsleer in de geneeskunde als argument voor behandeling op stofniveau, en het uitgangspunt dat alleen materie telt in het bestuur als argument om aan getallen meer gewicht te geven dan aan wat mensen ervan vinden. De auteurs beschrijven dat als een kringloop: een aanname vormt de instellingen, en de instellingen leveren de gegevens die de aanname bevestigen.</p>
+      <h3>Het lichaam als samenleving</h3>
+      <p>Lipton werkt de vergelijking tussen lichaam en samenleving in detail uit. Een mens bestaat uit tientallen biljoenen cellen die met een stelsel van signalen worden bestuurd, met organen die taken verdelen, met een immuunsysteem dat indringers herkent en met een huid die de grens bewaakt. Instellingen van een samenleving krijgen in dat schema hun tegenhanger: het rechtsstelsel, de gezondheidszorg, de media, het geldverkeer.</p>
+      <p>De diagnose die daaruit volgt luidt dat de mensheid lijdt aan een stoornis van de signaaloverdracht. De onderdelen doen wat lokaal loont en houden geen rekening met het geheel, wat de auteurs vergelijken met kanker en met verslaving. Zij vatten dat samen in het beeld van een organisme dat zichzelf opeet.</p>
+      <h3>Fractale evolutie</h3>
+      <p>In het derde deel voeren zij het begrip fractale evolutie op. Evolutie herhaalt volgens hen op elke schaal hetzelfde patroon: losse eenheden gaan samenwerken en vormen daarmee een eenheid van hogere orde, waarna dat opnieuw gebeurt. Moleculen werden cellen, cellen werden lichamen, lichamen zouden de mensheid worden.</p>
+      <p>Die stap noemen zij aanstaande. Wat er nodig is, is dat mensen zich bewust worden van hun rol als cellen van een groter lichaam, waarbij zij de burger die zich tegen misstanden keert aanduiden als onderdeel van het immuunsysteem van de planeet. Het is een oproep, geen voorspelling met een tijdpad.</p>
+      <h3>Bestuur en de weg daarheen</h3>
+      <p>Het slot is politiek. De auteurs bepleiten een economie die niet op onbegrensde groei rust, een bestuur waarin macht dichter bij de deelnemers ligt en een geneeskunde die de omgeving van de cel serieus neemt. Zij bespreken de Amerikaanse stichtingsgeschiedenis en betogen dat de oorspronkelijke bedoeling daarvan door bedrijfsbelangen is overgenomen.</p>
+      <p>In het hoofdstuk dat zij The One Suggestion noemen brengen zij hun voorstel terug tot een enkel richtsnoer: handel op de schaal van het geheel waarvan je deel uitmaakt. Bhaermans humor draagt dat gedeelte, met woordspelingen en een geestelijk leidsman van eigen makelij als spreekbuis.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Mythe-perceptie</td><td>Een aanname die voor een vaststaand feit doorgaat en daardoor de waarneming stuurt; de auteurs onderscheiden er vier.</td></tr>
+          <tr><td class="term">Spontane remissie</td><td>Het zonder behandeling verdwijnen van een ernstige ziekte, door de auteurs gebruikt als model voor maatschappelijke verandering.</td></tr>
+          <tr><td class="term">Epigenetica</td><td>Het onderzoek naar de regeling van genactiviteit door invloeden buiten de genvolgorde om, bij Lipton verbreed tot de invloed van overtuigingen.</td></tr>
+          <tr><td class="term">Celmembraan als brein</td><td>Liptons stelling dat de buitenlaag van de cel en niet de celkern bepaalt hoe de cel zich gedraagt.</td></tr>
+          <tr><td class="term">Fractale evolutie</td><td>De gedachte dat evolutie op elke schaal hetzelfde patroon herhaalt, waarbij eenheden zich telkens tot een groter geheel verenigen.</td></tr>
+          <tr><td class="term">Superorganisme</td><td>De mensheid opgevat als een samenwerkend lichaam waarvan afzonderlijke mensen de cellen zijn.</td></tr>
+          <tr><td class="term">Immuunsysteem van de planeet</td><td>De aanduiding voor burgers die misstanden aanwijzen en bestrijden, naar analogie van afweercellen.</td></tr>
+          <tr><td class="term">De nieuwe biologie</td><td>Liptons verzamelnaam voor het geheel van epigenetica, signaaloverdracht en omgevingsinvloed dat hij tegenover het genetisch determinisme plaatst.</td></tr>
+          <tr><td class="term">Signaalstoornis</td><td>De diagnose die de auteurs stellen: onderdelen van de samenleving reageren op plaatselijke prikkels zonder het geheel te dienen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het biologische deel van het boek staat op twee benen. Het eerste is werkelijk onderzoek: dat de omgeving invloed heeft op welke genen worden afgelezen, dat symbiose in de evolutie een grote rol speelt en dat mitochondrien uit opgenomen bacterien voortkomen, is gangbare wetenschap. Lipton verwijst daarvoor mede naar zijn eigen werk aan het celmembraan uit de jaren tachtig.</p>
+      <p>Het tweede been is de uitbreiding daarvan naar overtuigingen, en die uitbreiding is niet onderbouwd. Epigenetisch onderzoek gaat over meetbare invloeden als voeding, gifstoffen, stresshormonen en temperatuur. Dat een gedachte langs dezelfde weg genactiviteit stuurt, is in dit boek een gevolgtrekking uit analogie en niet uit onderzoek; verwijzingen naar studies waarin dat is aangetoond, ontbreken.</p>
+      <p>De spontane remissie waarop het boek zijn titel bouwt, is een beschreven maar zeldzaam verschijnsel waarvan de oorzaken grotendeels onbekend zijn. Dat overtuiging daarbij het werkzame bestanddeel is, staat nergens vast. Het maatschappelijke deel van het boek voert geen gegevens aan en is geschreven als betoog.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vergelijking tussen lichaam en samenleving draagt het hele boek en is een vergelijking. Dat cellen samenwerken zegt niets over wat mensen zullen doen, en de geschiedenis van de organisme-metafoor in de politiek geeft weinig aanleiding tot vertrouwen: zij is eerder gebruikt om te bepalen wie er tot het lichaam behoort en wie als ziektekiem geldt. De auteurs bespreken dat bezwaar niet.</p>
+      <p>Het gebruik van de kwantummechanica in het hoofdstuk over de eerste mythe-perceptie is losjes. Uit het bestaan van velden en van niet-lokale verbanden volgt niet dat gedachten op afstand op materie inwerken; natuurkundigen die over deze stof voor een breed publiek schrijven, wijzen die stap af. Dat maakt de vier mythe-percepties ongelijk van gehalte: de tweede en de derde staan er beter voor dan de eerste en de vierde.</p>
+      <p>De praktische kant heeft een keerzijde die het boek niet noemt. Wie leert dat overtuigingen de biologie sturen, kan daaruit afleiden dat wie ziek blijft verkeerd heeft gedacht. Lipton bestrijdt die gevolgtrekking niet uitdrukkelijk, en juist bij lezers met een ernstige aandoening kan dit gedachtegoed uitstel van behandeling in de hand werken. Vakgenoten hebben de biologie in Liptons werk om die reden herhaaldelijk als pseudowetenschap aangemerkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd de twee lagen uit elkaar: de gangbare biologie over omgeving en genactiviteit, en de stap naar overtuigingen die daaruit niet volgt.</li>
+        <li>Zoek bij elke aangehaalde bevinding op waar zij vandaan komt, want het boek werkt met verwijzingen naar populaire literatuur.</li>
+        <li>Lees het slotdeel als politiek pamflet en beoordeel het op zijn eigen gronden.</li>
+        <li>Vervang bij vragen over ziekte en genezing dit boek door bronnen die met behandelresultaten werken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Spontaneous Evolution: Our Positive Future (and a Way to Get There from Here)</i> (Hay House, Carlsbad, 2009, ISBN 9781401926311). Nederlands als <i>Spontane evolutie: positiviteit bepaalt onze toekomst</i>, vertaald door Gerard Grasman, Ankh-Hermes, Deventer, ISBN 9789020209341, met een e-boek onder ISBN 9789020217193. Lipton is celbioloog, was tot 1982 verbonden aan de medische faculteit van de University of Wisconsin en van 1987 tot 1992 aan die van Stanford; zijn bekendste boek is <i>The Biology of Belief</i> (2005). Bhaerman is publicist en treedt op als de humorist Swami Beyondananda.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lipton en Bhaerman betogen dat een beschaving net als een lichaam ziek kan worden en ook plotseling kan opknappen. Hun voorbeeld is de spontane genezing: gevallen waarin een ziekte zonder behandeling verdwijnt. Wat daar volgens hen gebeurt, kan op de schaal van de mensheid ook gebeuren, en het aangrijpingspunt zijn de verhalen die een samenleving over zichzelf gelooft.</p><p>Het middendeel behandelt vier aannames die zij mythe-percepties noemen: dat alleen materie telt, dat het recht van de sterkste geldt, dat genen het lot bepalen en dat evolutie op toeval berust. Elk daarvan wordt volgens hen door recenter onderzoek in twijfel getrokken, waarbij Lipton vooral put uit de epigenetica en uit zijn eigen werk aan het celmembraan.</p><p>Het slot is politiek en tamelijk breed: de mensheid als samenwerkend geheel, de burger als onderdeel van het immuunsysteem van de planeet, en een oproep tot een andere inrichting van bestuur en economie. Bhaerman levert de grappen en de vertelvorm, Lipton de biologie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>epigenetica</li><li>beschaving</li><li>evolutie</li><li>samenwerking</li><li>Lipton</li><li>populaire wetenschap</li><li>overtuigingen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1588"><a href="1588.html">The Biology of Belief</a>. Liptons eerdere boek bevat de biologische leer waarop dit boek voortbouwt en is toetsbaarder omdat het dichter bij de cel blijft.</li>
+          <li value="453"><a href="453.html">The Evolution of Cooperation</a>. Axelrod onderzoekt met speltheorie en toernooien wanneer samenwerking loont, waar Lipton en Bhaerman haar als natuurwet aanvoeren.</li>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. Talbot doet met de holografische lezing van de natuurkunde hetzelfde als deze auteurs met de kwantummechanica en laat zien waar dat toe leidt.</li>
+          <li value="208"><a href="208.html">Breaking the Habit of Being Yourself</a>. Dispenza past de gedachte dat overtuigingen de biologie sturen toe op het niveau van de afzonderlijke lezer.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

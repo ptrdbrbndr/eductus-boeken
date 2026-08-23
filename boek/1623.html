@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nurturing Resilience &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kain en Terrell stellen dat schade die in de eerste levensjaren ontstaat een ander soort probleem is dan een schokkende gebeurtenis op latere leeftijd, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1623">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1623 &middot; Naslag en praktijk</p>
+    <h1>Nurturing Resilience</h1>
+    <p class="lede">Kathy L. Kain en Stephen J. Terrell, 2018</p>
+    <p class="stats">
+      <span><b>1707</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1623"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kain en Terrell stellen dat schade die in de eerste levensjaren ontstaat een ander soort probleem is dan een schokkende gebeurtenis op latere leeftijd, en om een andere behandeling vraagt. Wat er misging speelde zich af in de omgang met de verzorgers, herhaalde zich dagelijks en werd opgeslagen voordat het kind woorden had. Het resultaat is geen herinnering maar een afstelling: een zenuwstelsel dat dreiging anders inschat, een lichaam dat chronisch onder spanning staat, en op termijn klachten die de huisarts eerder ziet dan de therapeut. Daaruit volgt hun praktische stelling, dat een behandelaar eerst regulatie moet opbouwen en pas daarna aan inhoud mag komen, en dat aanraking daarbij een geoorloofd middel is en geen grensoverschrijding.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat ontwikkelingstrauma is en wat het niet is</h3>
+      <p>Het boek begint met een afbakening. Tegenover trauma na een afgebakende gebeurtenis, een ongeluk of een overval, zetten de auteurs schade die vroeg begint, zich herhaalt en in de verzorgingsrelatie zelf zit. Verwaarlozing, wisselende verzorgers, een moeder die zelf in overleven staat, een ziekenhuisopname zonder ouders.</p>
+      <p>Het onderscheid heeft gevolgen voor wat er te behandelen valt. Er is geen gebeurtenis om naar terug te gaan en geen verhaal om te vertellen. Wat er is, is de manier waarop iemand het lichaam bewoont en de aanwezigheid van anderen inschat.</p>
+      <h3>Het ACE-onderzoek en de weg naar het lichaam</h3>
+      <p>De auteurs leunen zwaar op het ACE-onderzoek, de studie waarin Vincent Felitti en Robert Anda in de jaren negentig bij ruim zeventienduizend volwassen verzekerden van Kaiser Permanente naar tegenslag in de jeugd vroegen en dat afzetten tegen hun latere gezondheid. Hoe meer soorten tegenslag iemand rapporteerde, hoe hoger het risico op hartziekte, verslaving, depressie en vroege sterfte.</p>
+      <p>Kain en Terrell gebruiken die uitkomst om te betogen dat ontwikkelingstrauma ook een medische kwestie is. Migraine, slaapproblemen, darmklachten, stofwisselingsziekten en aanhoudende vermoeidheid horen in hun schema bij hetzelfde beeld, en zij dringen erop aan die klachten niet als iets aparts te behandelen.</p>
+      <h3>Neuroceptie, hechting en het zenuwstelsel</h3>
+      <p>De theoretische onderbouwing komt uit drie hoeken. Van Porges nemen zij de polyvagaaltheorie over, met het begrip neuroceptie: de inschatting van veiligheid en dreiging die buiten het bewustzijn om verloopt en die zich in de omgang met de eerste verzorgers vormt.</p>
+      <p>Van Daniel Siegel nemen zij het venster van tolerantie over, het gebied waarbinnen iemand kan denken en voelen tegelijk, met daarbuiten overactivering aan de ene kant en afsluiting aan de andere. Uit het hechtingsonderzoek nemen zij de gedachte dat het kind zijn regulatie aanvankelijk leent van de volwassene en die pas later zelf leert.</p>
+      <h3>Het valse venster</h3>
+      <p>De eigen toevoeging van Kain is het begrip vals venster van tolerantie. Sommige clienten ogen kalm, werken, praten helder en lijken binnen hun bereik te blijven, terwijl het lichaam ondertussen op een aanhoudend hoog spanningsniveau draait. Zij hebben nooit echte regulatie opgebouwd maar een houdbare vorm van uithouden.</p>
+      <p>Voor de behandelaar is dat een waarschuwing. Wie het tempo afstemt op wat de client aankan volgens dat valse venster, gaat te snel. De terugslag komt dan na de zitting, thuis, en wordt niet als gevolg van de behandeling herkend.</p>
+      <h3>Co-regulatie en aanraking</h3>
+      <p>In de tweede helft staat de behandelaar zelf centraal als instrument. De toestand van het zenuwstelsel van de een is voor de ander merkbaar, en de auteurs vragen van de behandelaar dat die de eigen toestand volgt en herstelt tijdens het werk. Dat noemen zij co-regulatie.</p>
+      <p>Daarnaast beschrijven zij aanraking als klinisch middel. Rustige, aangekondigde aanraking van de onderrug en van het gebied van de nieren en bijnieren gebruiken zij om iemand het contact met het eigen lichaam terug te geven. Zij besteden aandacht aan toestemming, aan grenzen en aan de vraag wat de beroepsregels van de lezer toestaan.</p>
+      <h3>De volgorde in de behandelkamer</h3>
+      <p>De praktische kern is een volgorde. Eerst veiligheid en regulatie, dan interoceptie, het opmerken van wat er in het eigen lichaam gebeurt, dan pas de inhoud. De auteurs werken met kleine stappen en met het herstel van wat zij de eigen invloed van de client noemen: de ervaring dat iets doen verschil maakt.</p>
+      <p>Het boek staat vol met gevalsbeschrijvingen, van jonge geadopteerde kinderen tot volwassenen met een lange behandelgeschiedenis, en dekt bewust een gevarieerd bestand aan clienten. De toon is die van een lesboek, en de auteurs schrijven voor lezers die hun cursussen al hebben gevolgd of van plan zijn dat te doen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">ontwikkelingstrauma</td><td>Schade die vroeg, herhaald en binnen de verzorgingsrelatie ontstaat, grotendeels voordat het kind taal heeft.</td></tr>
+          <tr><td class="term">neuroceptie</td><td>De inschatting van veiligheid en dreiging die buiten het bewustzijn om verloopt, een begrip van Stephen Porges.</td></tr>
+          <tr><td class="term">venster van tolerantie</td><td>Het gebied waarbinnen iemand geprikkeld kan raken zonder de toegang tot denken en voelen te verliezen.</td></tr>
+          <tr><td class="term">vals venster van tolerantie</td><td>Kains toevoeging voor clienten die functioneren op aanhoudende spanning en daardoor meer lijken te verdragen dan zij aankunnen.</td></tr>
+          <tr><td class="term">overactivering en afsluiting</td><td>De twee kanten waarheen een zenuwstelsel buiten het venster afglijdt, vechten en vluchten tegenover verstijven en dichtklappen.</td></tr>
+          <tr><td class="term">co-regulatie</td><td>Het gebruik van de eigen gereguleerde toestand van de behandelaar om die van de client te steunen.</td></tr>
+          <tr><td class="term">co-regulerende aanraking</td><td>Aangekondigde, rustige aanraking, onder meer van de onderrug, als middel om het contact met het eigen lichaam te herstellen.</td></tr>
+          <tr><td class="term">interoceptie</td><td>Het waarnemen van wat er binnen in het eigen lichaam gebeurt, doorgaans zwak ontwikkeld bij vroege schade.</td></tr>
+          <tr><td class="term">eigen invloed</td><td>De ervaring dat het eigen handelen verschil maakt, die bij vroege verwaarlozing niet is opgebouwd.</td></tr>
+          <tr><td class="term">ACE-score</td><td>Het aantal soorten tegenslag in de jeugd uit de vragenlijst van het ACE-onderzoek, gebruikt als grove maat voor risico.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De brede onderbouwing komt uit het ACE-onderzoek van Felitti en Anda. Dat is degelijk in omvang, ruim zeventienduizend deelnemers, en laat een duidelijk verband zien tussen het aantal soorten tegenslag en latere ziekte. Het is tegelijk zelfrapportage achteraf en niet experimenteel, zodat het verband niet vaststelt wat waardoor komt. Wie in zijn jeugd veel meemaakte, groeide vaak ook op in armoede en bleef daarin.</p>
+      <p>De fysiologische verklaring rust op de polyvagaaltheorie, en die staat inmiddels stevig ter discussie. Paul Grossman betoogde in 2023 in <i>Biological Psychology</i> dat geen van de vijf uitgangspunten van de theorie standhoudt tegen de huidige kennis van het zenuwstelsel, onder meer omdat de gebruikte hartslagmaat geen betrouwbare afspiegeling van de nervus vagus is en omdat het evolutieverhaal over reptielen en zoogdieren anatomisch niet klopt. In februari 2026 verscheen in <i>Clinical Neuropsychiatry</i> een gezamenlijke kritiek die door negenendertig onderzoekers is ondertekend; Porges antwoordde dat zij een vereenvoudigde versie van zijn theorie bestrijden. Het boek uit 2018 kon dat debat nog niet kennen, maar bouwt wel op die theorie als vaststaand.</p>
+      <p>De behandelmethode zelf berust op klinische ervaring en gevalsbeschrijvingen. De auteurs voeren vijftig jaar gezamenlijke praktijk aan en geen onderzoek naar hun eigen werkwijze. Voor de moedermethode, Somatic Experiencing, bestaat er sinds 2017 een gerandomiseerde studie van Brom en anderen bij drieenzestig mensen met posttraumatische stressstoornis, met een wachtlijst als vergelijking en gunstige uitkomsten. Dat is een aanwijzing, niet meer dan dat, en het gaat over volwassenen met een afgebakend trauma en niet over het onderwerp van dit boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zekerheid van de toon staat niet in verhouding tot wat er is aangetoond. Neuroceptie, het dichtklappen via de dorsale tak en het venster van tolerantie worden gebruikt als beschrijving van hoe het werkt, terwijl het modellen zijn waarvan er ten minste een zwaar onder vuur ligt. Een lezer die de vakliteratuur niet volgt, komt uit dit boek met de indruk dat de fysiologie rond is.</p>
+      <p>Aanraking van het gebied van de nieren en bijnieren wordt aangeboden alsof zij een bepaald orgaanstelsel aanspreekt. Er is geen meting die laat zien dat deze aanraking iets doet met de bijnierfunctie. De verklaring die overblijft is de gewone: een rustige hand van iemand die zelf rustig is heeft effect op een gespannen mens, en daar is geen fysiologische omweg voor nodig.</p>
+      <p>Ontwikkelingstrauma is geen erkende diagnose. Het voorstel om een aparte stoornis voor vroege, herhaalde schade in het diagnostisch handboek op te nemen haalde de vijfde uitgave daarvan niet. Het boek gebruikt het begrip alsof die kwestie beslecht is, en dat maakt de reikwijdte onduidelijk: wanneer is een klacht ontwikkelingstrauma en wanneer iets anders.</p>
+      <p>Het schema laat zich moeilijk weerleggen. Vrijwel elke klacht, van migraine tot slapeloosheid tot darmproblemen, past in het beeld, en wie kalm oogt kan in een vals venster zitten. Een raamwerk dat zowel de klacht als de afwezigheid ervan verklaart, is prettig in de praktijk en zwak als theorie.</p>
+      <p>Als leerboek is het onevenwichtig. Recensenten uit het vak noemden het droog en vonden dat er weinig techniek in staat die niet al in Kains cursussen aan bod komt. Wie het boek koopt in de verwachting te leren hoe het moet, krijgt vooral het waarom.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bouw eerst regulatie op en ga pas daarna naar de inhoud; een verhaal dat te vroeg wordt opgehaald, laadt het lichaam op zonder het iets te leren.</li>
+        <li>Kijk bij een client die kalm oogt naar ademhaling, huidskleur, spierspanning en stemhoogte voordat je concludeert dat er ruimte is.</li>
+        <li>Vraag toestemming voor aanraking bij elke zitting opnieuw en beschrijf vooraf wat je gaat doen, waar, en hoe lang.</li>
+        <li>Ga na wat de beroepsregels en de verzekering in het eigen land toestaan voordat je aanraking in de behandeling opneemt; het boek is geschreven voor Amerikaanse omstandigheden.</li>
+        <li>Houd de eigen toestand tijdens de zitting bij en herstel die ter plekke; het boek maakt daarvan het gereedschap, wat betekent dat een oververmoeide behandelaar niets te bieden heeft.</li>
+        <li>Werk in kleine hoeveelheden en stop bij het eerste teken dat het te veel wordt, ook als de client zegt dat het gaat.</li>
+        <li>Vraag naar lichamelijke klachten en naar de medische geschiedenis, en verwijs waar dat hoort; de fysiologische lezing van het boek mag geen reden zijn om een lichamelijke oorzaak niet te laten uitsluiten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Nurturing Resilience: Helping Clients Move Forward from Developmental Trauma. An Integrative Somatic Approach</i>, met een voorwoord van Peter A. Levine (North Atlantic Books, Berkeley, 8 mei 2018, 264 blz., ISBN 9781623172039). Er bestaat geen Nederlandse uitgave, en van Kain en Terrell is verder niets vertaald. Wel is het werk van Levine, die het voorwoord schreef en op wiens methode het boek voortbouwt, in het Nederlands verkrijgbaar, onder meer als <i>De tijger ontwaakt</i> en <i>Trauma en geheugen</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een handboek voor behandelaars over schade die in de eerste levensjaren is ontstaan, in de omgang met de mensen die voor het kind zorgden, en dus grotendeels voordat er taal was. Kathy Kain geeft al bijna veertig jaar les in lichaamswerk en traumaherstel en is opleider binnen Somatic Experiencing; Stephen Terrell werkt met adoptie en vroege hechtingsschade.</p><p>De eerste helft van het boek zet de achtergrond neer: hechtingsonderzoek, de polyvagaaltheorie van Stephen Porges, de ontwikkeling van het zenuwstelsel en het ACE-onderzoek dat vroege tegenspoed in verband bracht met ziekte op latere leeftijd. De tweede helft gaat over de behandelkamer.</p><p>De inzet is dat praten alleen tekortschiet wanneer de schade van voor de taal dateert. De auteurs werken met regulatie voordat er inhoud aan bod komt, met de eigen toestand van de behandelaar als instrument, en met aanraking als een gereedschap dat in de opleiding van de meeste therapeuten ontbreekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ontwikkelingstrauma</li><li>hechting</li><li>polyvagaaltheorie</li><li>zenuwstelsel</li><li>aanraking</li><li>ACE-onderzoek</li><li>therapeuten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk bestrijkt hetzelfde terrein voor een algemeen publiek en met meer verwijzing naar onderzoek; hij is ook degene die het voorstel voor een aparte diagnose voor vroege schade indiende.</li>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Levine, die het voorwoord van dit boek schreef, zette daar de theorie neer waar Kain en Terrell op voortbouwen.</li>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Swinnen brengt de polyvagaaltheorie naar een algemeen publiek; wie de bezwaren van Grossman leest, ziet daarna in beide boeken hetzelfde onbesproken fundament liggen.</li>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller behandelen hechtingsstijlen bij volwassenen, het gedragsniveau van wat Kain en Terrell in het zenuwstelsel proberen te lokaliseren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

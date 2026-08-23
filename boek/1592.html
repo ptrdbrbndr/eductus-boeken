@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Vegetarian Myth &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Keith betoogt dat het probleem van de voedselvoorziening niet bij het vlees begint maar bij de landbouw zelf. Akkerbouw is volgens haar geen manier om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1592">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1592 &middot; Natuur en wetenschap</p>
+    <h1>The Vegetarian Myth</h1>
+    <p class="lede">Lierre Keith, 2009</p>
+    <p class="stats">
+      <span><b>1639</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1592"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Keith betoogt dat het probleem van de voedselvoorziening niet bij het vlees begint maar bij de landbouw zelf. Akkerbouw is volgens haar geen manier om leven voort te brengen maar een manier om een ecosysteem te verwijderen en te vervangen door een veld eenjarige gewassen dat alleen in stand blijft door voortdurend ingrijpen: ploegen, irrigeren, bemesten, bestrijden. Wie daarom dieren van zijn bord haalt en overstapt op graan, soja en rijst, verplaatst de schade en ziet haar niet meer. Daarmee valt haar stelling ook aan te vallen, want zij vraagt niet om minder vlees of ander vlees, maar om een andere vorm van landbouw en een kleinere bevolking, en die conclusie is ingrijpender dan de vegetarische keuze die zij bestrijdt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twintig jaar veganisme en de breuk</h3>
+      <p>Het boek opent met haar eigen geschiedenis. Keith werd als tiener veganist en bleef dat twintig jaar, uit de overtuiging dat zij daarmee niets doodde. Zij beschrijft in die periode aanhoudende lichamelijke klachten en schrijft die achteraf toe aan het dieet.</p>
+      <p>Zij gebruikt die geschiedenis niet als bewijs maar als aanleiding, en zegt dat ook zo: haar lichaam bracht haar aan het twijfelen, waarna zij ging lezen. De toon blijft door het hele boek die van iemand die een eigen geloof afzweert, met de scherpte die daarbij hoort.</p>
+      <h3>De aanklacht tegen de landbouw</h3>
+      <p>De kern van het betoog staat los van vegetarisme. Keith zet de eenjarige gewassen waarop de landbouw draait tegenover de meerjarige begroeiing die er van nature stond. Graan vraagt een kale bodem, en een kale bodem verliest teelaarde, water en bodemleven. De prairie, waarvan volgens haar nog een fractie over is, is haar voorbeeld van wat er verdween.</p>
+      <p>Zij trekt die lijn door naar de samenleving. Landbouw maakt opslag en overschot mogelijk, en daarmee eigendom, standen, staat en oorlog. In haar lezing zijn slavernij, imperialisme en aanhoudende honger geen ontsporingen van de landbouw maar gevolgen ervan. Dat is een oud argument in de antropologie, en Keith voert het in de meest verstrekkende vorm.</p>
+      <h3>Morele vegetari&euml;rs</h3>
+      <p>Tegen wie geen dieren wil doden, brengt Keith in dat akkerbouw eveneens doodt, alleen minder zichtbaar. Bij het ploegen en oogsten van een graanveld sterven muizen, kikkers, slangen en insecten, en het veld zelf bestaat alleen doordat de oorspronkelijke bewoners eruit verdwenen zijn.</p>
+      <p>Daarachter ligt een bredere gedachte over hoe leven werkt. Planten worden gegeten door herbivoren, herbivoren door carnivoren, en alles wordt uiteindelijk opgeruimd door bacteri&euml;n en schimmels. Wie zich buiten die kringloop wil plaatsen, aldus Keith, doet niet aan onschuld maar aan ontkenning.</p>
+      <h3>Politieke vegetari&euml;rs</h3>
+      <p>Het tweede argument dat zij aanvalt, luidt dat het graan dat nu aan vee wordt gevoerd, hongerende mensen zou kunnen voeden. Keith antwoordt dat honger geen kwestie van hoeveelheid is maar van macht en handel, en zij wijst op de rol van bedrijven als Monsanto, Cargill en ConAgra in zaad, prijzen en exportvoorwaarden.</p>
+      <p>Bovendien, stelt zij, houdt een dieet dat vrijwel geheel op graan berust arme bevolkingen ondervoed, ook als de calorie&euml;n er zijn. Wat ontbreekt zijn vet, complete eiwitten en de vitamines die daaraan gebonden zijn. Voedselzekerheid zonder dieren is in haar ogen een boekhoudkundige oplossing voor een politiek probleem.</p>
+      <h3>Voedingskundige vegetari&euml;rs</h3>
+      <p>Het derde en meest omstreden deel gaat over gezondheid. Keith verwerpt de gedachte dat verzadigd vet en cholesterol op zichzelf schadelijk zijn, wijst op vitamine B12 en op vetoplosbare vitamines in dierlijke vorm, en op de beperkte omzetting van plantaardige omega 3 in de vorm die het lichaam gebruikt. Haar redenering is evolutionair: het menselijk lichaam is gevormd door wat het lang heeft gegeten.</p>
+      <p>Zij leunt hier op auteurs uit de kring rond de Weston A. Price Foundation en op de koolhydraatarme literatuur. Dat is geen neutrale keuze van bronnen, en het is het onderdeel waar de kritiek zich het hardst op heeft gericht.</p>
+      <h3>Wat zij ervoor in de plaats stelt</h3>
+      <p>In het slot schetst Keith een landbouw van meerjarige gewassen en grasland, met herkauwers die gras omzetten in voedsel op grond die te droog of te steil is voor akkers. Voedsel moet volgens haar uit een levende gemeenschap komen en niet aan een landschap worden opgelegd.</p>
+      <p>Zij verzwijgt niet wat daaruit volgt. Zo veel mensen als er nu zijn, kunnen op die manier niet gevoed worden. Haar antwoord is vrijwillige geboortebeperking, met de waarschuwing dat de daling anders onvrijwillig komt. Dat is de meest ongemakkelijke bladzijde van het boek en tegelijk de eerlijkste, omdat zij de prijs van haar eigen voorstel benoemt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Eenjarige en meerjarige gewassen</td><td>De tegenstelling waar het hele boek op draait: eenjarigen vragen elk jaar een kale bodem, meerjarigen houden de bodem bedekt en het wortelstelsel in stand.</td></tr>
+          <tr><td class="term">Teelaarde</td><td>De bovenste bodemlaag met organisch materiaal en bodemleven, die volgens Keith door akkerbouw sneller verdwijnt dan zij zich vormt.</td></tr>
+          <tr><td class="term">Prairie</td><td>Het Noord-Amerikaanse graslandecosysteem dat vrijwel geheel in graanakkers is omgezet, bij Keith het beeld van wat landbouw kost.</td></tr>
+          <tr><td class="term">Morele vegetari&euml;rs</td><td>Wie geen dieren eet omdat doden verkeerd is; Keith brengt daartegen in dat akkerbouw evengoed doodt.</td></tr>
+          <tr><td class="term">Politieke vegetari&euml;rs</td><td>Wie geen dieren eet omdat veevoer beter aan mensen kan worden gegeven; Keith antwoordt dat honger een verdelings- en machtsvraagstuk is.</td></tr>
+          <tr><td class="term">Voedingskundige vegetari&euml;rs</td><td>Wie geen dieren eet omdat dat gezonder zou zijn; Keith bestrijdt dat met een evolutionair argument over vet, eiwit en vetoplosbare vitamines.</td></tr>
+          <tr><td class="term">Beschaving</td><td>Bij Keith geen erenaam maar een aanduiding voor de stedelijke samenleving die op graanoverschotten drijft en daarom moet blijven uitbreiden.</td></tr>
+          <tr><td class="term">Trofische keten</td><td>De opeenvolging van eten en gegeten worden waarin de mens volgens haar een plaats heeft en niet buiten kan gaan staan.</td></tr>
+          <tr><td class="term">Voedsel als herstel</td><td>Haar slotgedachte dat eten een handeling moet zijn die een landschap opbouwt in plaats van uitput.</td></tr>
+          <tr><td class="term">Bevolkingsoverschrijding</td><td>De stelling dat het huidige aantal mensen alleen door landbouw in stand blijft en dus met de landbouw zal moeten dalen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen eigen onderzoek. Keith leest, vat samen en betoogt, en het gewicht van haar argument hangt af van de bronnen die zij kiest. Die keuze loopt sterk uiteen per deel. Voor het ecologische betoog steunt zij op bodemkundige en agronomische literatuur waarvan de hoofdlijn breed wordt gedeeld: akkerbouw kost teelaarde, monocultuur vermindert soortenrijkdom, en van de oorspronkelijke tallgrass prairie is inderdaad nog maar een klein deel over. Dat er bij oogsten dieren omkomen, is ook niet omstreden, al is de omvang ervan slecht gemeten en zijn de getallen die in dit debat rondgaan zwak onderbouwd.</p>
+      <p>Voor het voedingsdeel ligt het anders. Daar leunt zij op een beperkte en onderling verwante groep auteurs, vooral uit de kring rond de Weston A. Price Foundation en de koolhydraatarme literatuur, en zij behandelt betwiste standpunten als vaststaand. Haar eigen ziektegeschiedenis draagt in dat deel meer gewicht dan een enkel geval kan dragen. Dat een lang volgehouden veganistisch dieet zonder aanvulling van vitamine B12 schade geeft, staat vast; dat een goed samengesteld plantaardig dieet met aanvulling voor volwassenen toereikend is, is het standpunt van de grote di&euml;tistenverenigingen en gaat zij grotendeels voorbij.</p>
+      <p>Waar het boek het sterkst staat is in het verband dat het legt. De vraag wat een akker in de plaats van een grasland zet, en wie daar leeft en wie niet, wordt in de discussie over vlees zelden gesteld. Dat verband is Keith niet als eerste opgevallen, maar zij zet het scherper neer dan de meeste boeken over voedsel.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de conclusie niet uit de premisse volgt. Uit de stelling dat akkerbouw ecologisch destructief is, volgt niet dat vlees eten de uitweg is, want het overgrote deel van het vlees dat nu gegeten wordt komt juist uit diezelfde akkerbouw. Keith geeft dat toe en bepleit grasland en herkauwers, maar dat model kan de huidige vraag niet dekken. Haar eigen antwoord daarop, veel minder mensen, maakt van het boek eerder een pleidooi tegen de bestaande samenleving dan een advies over eten.</p>
+      <p>De voedingskundige hoofdstukken zijn door vakgenoten hard aangevallen. Di&euml;tiste Ginny Messina schreef dat het boek zo veel onjuistheden bevat dat weerleggen ervan een eigen boek zou vergen. Patrick Nicholson verweet Keith dat zij wetenschappelijke artikelen verkeerd weergeeft, feiten selecteert die haar uitkomen en tegenstanders een standpunt toeschrijft dat zij niet hebben. Filosoof John Sanbonmatsu noemde haar gezondheidsclaims op anekdote gebouwd. Die bezwaren zijn niet los te zien van de vorm: Keith schrijft in stellige uitspraken zonder de voorbehouden die de onderliggende literatuur wel maakt.</p>
+      <p>Verder is de historische lijn, van landbouw naar slavernij, imperialisme en oorlog, te recht getrokken. Dat er samenhang bestaat tussen graanopslag, staatsvorming en dwangarbeid is verdedigbaar en wordt ook door anderen betoogd, maar Keith maakt er een enkelvoudige oorzaak van en laat de gevallen weg die niet passen. Het boek heeft daardoor de trekken van een bekering: elke bevinding wijst dezelfde kant op. Het debat eromheen liep uit de hand tot buiten het boek, tot een lichamelijke aanval op de auteur tijdens een optreden aan toe, wat over de argumenten zelf niets zegt maar wel iets over de loopgraven waarin dit onderwerp ligt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het ecologische deel en het voedingsdeel apart; ze staan of vallen niet met elkaar.</li>
+        <li>Leg de claims over vet, cholesterol en vitamine B12 naast de standpuntbepalingen van erkende di&euml;tistenverenigingen voordat er iets mee gedaan wordt.</li>
+        <li>Stel bij elk voedselproduct haar vraag: welk landschap stond hier eerst, en wat leeft er nu nog.</li>
+        <li>Neem bij de getallen over dierensterfte bij de oogst geen enkel cijfer over zonder de bron te bekijken.</li>
+        <li>Sla de bekeringsgeschiedenis over wie alleen het ecologische argument zoekt, en houd de hoofdstukken over landbouw en het slot aan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Vegetarian Myth: Food, Justice, and Sustainability</i> (PM Press / Flashpoint Press, Oakland, 2009, ISBN 9781604860801), later herdrukt en ook als luisterboek uitgebracht. Er bestaat geen Nederlandse vertaling; wel verschenen onder meer een Franse editie, <i>Le mythe v&eacute;g&eacute;tarien</i> (La Pilule Rouge, 2013), en vertalingen in het Spaans, Italiaans en Arabisch. Ook het boek dat Keith samen met Aric McBay en Derrick Jensen schreef, <i>Deep Green Resistance</i> (2011), is niet in het Nederlands uitgegeven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lierre Keith leefde twintig jaar veganistisch, uit morele overtuiging, en schreef dit boek nadat zij tot de slotsom kwam dat dat dieet haar gezondheid had beschadigd en haar overtuiging niet had waargemaakt. Het resultaat is deels memoir, deels voedingsleer, deels politiek pamflet.</p><p>Haar aanklacht richt zich niet op de veehouderij maar op de akkerbouw. Landbouw zet volgens haar een levende gemeenschap om in een veld van eenjarige gewassen, en dat kost bodem, soorten en uiteindelijk de beschaving die erop leunt. De Noord-Amerikaanse prairie is haar voorbeeld: bijna geheel verdwenen om graan te kunnen verbouwen.</p><p>Ze bespreekt achtereenvolgens drie soorten vegetari&euml;rs, de morele, de politieke en de voedingskundige, en probeert bij elk aan te tonen dat de redenering niet klopt. Het boek is fel geschreven en werd fel ontvangen; over de voedingskundige hoofdstukken is het oordeel van di&euml;tisten grotendeels afwijzend.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>landbouw</li><li>voedsel</li><li>veganisme</li><li>bodem</li><li>ecologie</li><li>polemiek</li><li>voeding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari behandelt in <i>Sapiens</i> de landbouwrevolutie ook als een verlies in plaats van een vooruitgang, maar trekt daaruit geen conclusie over wat er op het bord hoort.</li>
+          <li value="1578"><a href="1578.html">Braiding Sweetgrass</a>. Kimmerer schrijft over dezelfde vraag, hoe voedsel uit een levende gemeenschap kan komen, zonder polemiek en vanuit inheemse kennis en plantkunde.</li>
+          <li value="1593"><a href="1593.html">Wild</a>. Griffiths deelt Keiths verzet tegen de getemde monocultuur, maar zoekt het antwoord in reizen en taal in plaats van in bodemkunde en voedingsleer.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

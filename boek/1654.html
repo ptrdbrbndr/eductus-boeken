@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steeds leuker &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hermus stelt dat een aangenamer leven veel minder inspanning kost dan mensen aannemen, op voorwaarde dat zij ophouden aan alles tegelijk te werken. Zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1654">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1654 &middot; Levenskunst</p>
+    <h1>Steeds leuker</h1>
+    <p class="lede">Jelle Hermus, 2017</p>
+    <p class="stats">
+      <span><b>1509</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1654"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hermus stelt dat een aangenamer leven veel minder inspanning kost dan mensen aannemen, op voorwaarde dat zij ophouden aan alles tegelijk te werken. Zijn voorstel is een keuzeprobleem: het overgrote deel van wat iemand doet om zijn leven te verbeteren levert weinig op, en een klein aantal handelingen levert veel op, dus loont het om eerst uit te zoeken welke dat zijn en daarna alleen die te doen, elke dag een stukje. Hij noemt dat de broednestmethode en zet haar in op drie gebieden die hij als de bouwstenen van een goed leven beschouwt: vrijheid, blijheid en betekenis. Aan die gebieden verbindt hij ook een claim die verder gaat dan het persoonlijke, namelijk dat een tevreden mens zijn omgeving aansteekt en dat de wereld daarmee opknapt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De inleiding en de aanleiding</h3>
+      <p>Het boek opent met een inleiding waarin Hermus zijn eigen leven beschrijft als iets dat weinig nadelen kent, en waarin hij tegelijk verdedigt dat ellende een functie heeft: zij wijst aan waar iets gerepareerd moet worden. Zijn bezwaar geldt de hoeveelheid, niet het verschijnsel.</p>
+      <p>Hij begon soChicken.nl eind 2004 als plek om zijn eigen bevindingen te delen. Het boek is daaruit voortgekomen en houdt de toon van die website aan: veel grappen, alledaagse vergelijkingen en geen zweverigheid.</p>
+      <h3>Deel een: de broednestmethode</h3>
+      <p>De methode bestaat uit drie stappen, in de metafoor van een kip op een nest. Ga op het juiste nest zitten betekent: bepaal wat je wilt bereiken en richt je op wat daaraan bijdraagt. Broed op de beste eieren betekent: kies binnen die richting de stappen die het snelste vooruit helpen. Broed slimmer en niet harder betekent: verlaag de inspanning per stap zo ver dat volhouden vanzelf gaat.</p>
+      <p>De drie hoofdstukken van dit deel leggen die stappen uit en vormen de rest van het boek. De overige delen zijn toepassingen ervan op achtereenvolgens vrijheid, blijheid en betekenis.</p>
+      <h3>Deel twee: vrijheid, schrap de ellende</h3>
+      <p>Dit deel gaat over weghalen in plaats van toevoegen. Hermus behandelt ergernissen die zich herhalen, en verdedigt dat een terugkerende ergernis meestal een probleem is dat eenmalig op te lossen valt. Hij gebruikt daarvoor het beeld van steeds betere problemen: wie zijn problemen oplost, krijgt er andere voor terug, en de vraag is of die andere aangenamer zijn.</p>
+      <p>Twee hoofdstukken zijn concreet. Het ene gaat over geld, met het beeld van lekken in een pijplijn: vaste lasten en gewoonte-uitgaven lopen weg zonder dat iemand er nog naar kijkt. Het andere gaat over tijd, met als kern het terugbrengen van wat iemand meent te moeten. Beide worden gemeten in werkuren, want geld dat vastligt legt ook arbeid vast.</p>
+      <h3>Deel drie: blijheid</h3>
+      <p>Het derde deel behandelt eerst wat er over blij zijn bekend is en waarom mensen zich daar volgens Hermus in vergissen, bijvoorbeeld door te lang op grote gebeurtenissen te wachten. Daarna volgt een hoofdstuk over waar blijheid volgens hem uit bestaat en een hoofdstuk met wat hij de drie simpelste gewoontes noemt.</p>
+      <p>Het deel sluit af met het loslaten van oordelen: over anderen, over zichzelf en over hoe iets zou moeten zijn. Hermus koppelt dat rechtstreeks aan de eigen stemming en niet aan een morele overweging.</p>
+      <h3>Deel vier: betekenis</h3>
+      <p>Het laatste deel gaat over voldoening. Hermus behandelt het gevoel echt te leven, het volgen van wat iemand aan het hart gaat, en de vraag wat de snelste weg naar voldoening is. Zijn antwoord daarop is iets voor anderen doen, met het beeld van een overstromende emmer: wat overloopt komt bij anderen terecht, en de emmer moet dus eerst vol zijn.</p>
+      <p>Het slothoofdstuk gaat over het doorgeven van geluk, en het boek eindigt met een korte lijst van wat volgens hem niet vergeten moet worden. Compassie en zelfliefde staan hier in dienst van het kunnen helpen van anderen.</p>
+      <h3>De vorm en de herziene uitgave</h3>
+      <p>Vier delen met korte hoofdstukken, veel witruimte, opsommingen en tussenkopjes, geschreven in een grappende toon met beelden uit het huishouden. Er zijn geen noten en geen literatuurlijst.</p>
+      <p>In 2025 verscheen een herziene uitgave met een nieuw voorwoord, waarin Hermus terugkijkt op wat lezers hem schreven, en met bijgewerkte voorbeelden. De opzet en de methode zijn daarbij ongewijzigd gebleven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Broednestmethode</td><td>Hermus' aanpak in drie stappen: de juiste richting kiezen, daarbinnen de stappen met de grootste opbrengst kiezen, en de inspanning per stap zo laag houden dat volhouden vanzelf gaat.</td></tr>
+          <tr><td class="term">Broednest</td><td>Het gebied waarop iemand zijn aandacht richt; op het verkeerde nest zitten betekent hard werken aan iets dat niets oplevert.</td></tr>
+          <tr><td class="term">Vrijheid, blijheid en betekenis</td><td>De drie gebieden waarop de methode wordt losgelaten en die volgens Hermus samen een aangenaam leven uitmaken.</td></tr>
+          <tr><td class="term">Schrap de ellende</td><td>De regel dat verbeteren vaker uit weghalen bestaat dan uit toevoegen, en dat een herhaalde ergernis meestal eenmalig op te lossen is.</td></tr>
+          <tr><td class="term">Steeds betere problemen</td><td>Het idee dat problemen nooit opraken maar wel te ruilen zijn, en dat de keuze gaat over welke problemen iemand overhoudt.</td></tr>
+          <tr><td class="term">Lekken in de geldpijplijn</td><td>Vaste lasten en gewoonte-uitgaven die ongemerkt doorlopen; Hermus rekent die om naar de arbeidsuren die ervoor nodig zijn.</td></tr>
+          <tr><td class="term">Minder moeten</td><td>Het terugbrengen van zelfopgelegde en overgenomen verplichtingen, als de snelste manier om tijd terug te winnen.</td></tr>
+          <tr><td class="term">Opwaartse spiraal</td><td>Het patroon waarbij elke verbetering de volgende makkelijker maakt, het mechanisme waar de hele methode op leunt.</td></tr>
+          <tr><td class="term">Overstromende emmer</td><td>Het beeld voor betekenis: wat over de rand van het eigen welbevinden loopt, komt bij anderen terecht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen noten, geen literatuurlijst en geen namen van onderzoekers bij de uitspraken over geluk en gewoontes. De onderbouwing is de ervaring van de auteur, aangevuld met wat lezers hem melden. Hij presenteert dat ook zo en doet niet alsof hij een wetenschappelijk werk schrijft, wat eerlijker is dan de flapteksten van veel vergelijkbare boeken.</p>
+      <p>Een deel van de aanbevelingen komt overeen met wat elders wel is onderzocht. Dat kleine, herhaalde handelingen makkelijker vol te houden zijn dan grote voornemens, is een gangbaar resultaat in de literatuur over gedragsverandering. Dat mensen de opbrengst van grote gebeurtenissen overschatten en zich sneller aan nieuwe omstandigheden aanpassen dan zij verwachten, is eveneens breed beschreven. Hermus komt daar op eigen kracht uit en verwijst er niet naar, zodat de lezer die aansluiting zelf moet leggen.</p>
+      <p>De verkoopcijfers en de prijs voor beste spirituele boek van 2018 zeggen iets over bereik en over aansluiting bij een publiek. Zij zeggen niets over de vraag of de methode doet wat zij belooft. De lezersverhalen die de auteur aanhaalt, van baanwisselingen tot opgeruimde huizen, komen bovendien uitsluitend van wie tevreden was; wie het opgaf, schrijft geen brief.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de reikwijdte. De adviezen gaan uit van speelruimte: vaste lasten die te schrappen zijn, een agenda die te herzien is, werk dat te verminderen valt, een gezond lichaam. Hermus schreef het boek als zelfstandige met een goedlopende website, en dat leven zit in vrijwel alle voorbeelden. Voor een lezer met een vast rooster, schulden of zorgtaken blijft er van de korte route weinig over, en het boek maakt dat voorbehoud niet.</p>
+      <p>Daarnaast is de belofte in de titel niet te weerleggen. Wordt het leven steeds leuker, dan werkte de methode; wordt het dat niet, dan zaten de stappen op het verkeerde nest of waren zij te groot. Elke uitkomst bevestigt het stelsel. Dat is een eigenschap van bijna alle zelfhulp en het is hier goed zichtbaar omdat de methode zo eenvoudig is opgeschreven.</p>
+      <p>Verder is de omgang met ellende ongelijk verdeeld. Het boek begint met de opmerking dat ellende een functie heeft en gaat daarna vooral over ellende die te schrappen valt: files, rommel, abonnementen, zeurende verplichtingen. Over verdriet dat blijft, over ziekte, over een gestorven kind, gaat het niet. Wie het boek in zo'n periode oppakt omdat de titel iets belooft, vindt er weinig.</p>
+      <p>Tot slot draagt de grappende toon een deel van het betoog. Vergelijkingen met vaatwassers en broedende kippen maken het leesbaar en maken tegelijk moeilijk vast te stellen waar een bewering ophoudt en een grap begint. Bij herhaalde lezing valt op hoe vaak een hoofdstuk in een beeld eindigt in plaats van in een conclusie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies eerst een gebied en pas daarna een handeling; de methode gaat ervan uit dat de richting vaststaat voordat er iets gedaan wordt.</li>
+        <li>Reken vaste lasten om naar werkuren per jaar voordat er een besluit over valt.</li>
+        <li>Noteer een week lang elke terugkerende ergernis en ga per stuk na of er een eenmalige oplossing bestaat.</li>
+        <li>Verlaag de omvang van een nieuwe gewoonte tot het punt waarop overslaan onlogisch voelt, en verhoog haar pas na een maand.</li>
+        <li>Ga bij elk advies na of het uitgaat van speelruimte die er in de eigen situatie is; het boek doet die controle niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>Schrap de ellende en ontdek de korte route naar een leuker leven</i>, Kosmos Uitgevers, Utrecht en Antwerpen, najaar 2017, 288 blz., ISBN 9789021567068. Er verscheen later een goedkopere uitgave (ISBN 9789021574325) en in 2025 een herziene uitgave met een nieuw voorwoord en bijgewerkte voorbeelden (ISBN 9789043938044). Het boek stond in 2017 hoog in de Bestseller 60, werd in 2018 uitgeroepen tot beste spirituele boek en verkocht volgens de auteur meer dan tachtigduizend exemplaren. Er bestaat geen vertaling; van Hermus verschenen daarna <i>Leven met wind mee</i> (2019) en <i>Kom maar op</i> (2024), beide eveneens alleen in het Nederlands.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het debuut van Jelle Hermus, oprichter van de website soChicken. Hij beschrijft een aanpak die hij de broednestmethode noemt: kies een richting, kies de handelingen die daarbinnen het meeste opleveren, en zet die elke dag in kleine stappen.</p><p>Die methode wordt daarna losgelaten op drie gebieden. Vrijheid gaat over het weghalen van ergernissen, uitgaven en verplichtingen. Blijheid gaat over enkele dagelijkse gewoontes en over het loslaten van oordelen. Betekenis gaat over voldoening en over wat iemand aan anderen doorgeeft.</p><p>De toon is grappend en de voorbeelden komen uit zijn eigen leven. Er staan geen bronvermeldingen in; de aanbevelingen rusten op wat de auteur zelf heeft geprobeerd en op de reacties van zijn lezers.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>gewoontes</li><li>versimpelen</li><li>geld</li><li>geluk</li><li>soChicken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1653"><a href="1653.html">Kom maar op</a>. Het derde boek van dezelfde auteur, waarin de methode uit dit boek wordt losgelaten op onrust door nieuws en wereldgebeurtenissen.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. James Clear beschrijft dezelfde voorkeur voor kleine, herhaalde stappen, met wel een verwijzing naar het onderzoek waar zij op rusten.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Oliver Burkeman keert het uitgangspunt om: niet alles is te schrappen, en de eindigheid van een leven vraagt om kiezen wat er blijft liggen.</li>
+          <li value="105"><a href="105.html">Zo ongelukkig mogelijk in 8 stappen</a>. Niels den Daas benadert hetzelfde onderwerp langs de omgekeerde weg en beschrijft hoe iemand zichzelf ongelukkig maakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

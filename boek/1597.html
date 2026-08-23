@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ronja de roversdochter &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lindgren zet een kind neer dat van haar vader houdt en toch weigert te worden wat hij is, en zij laat die weigering niet uitlopen op breuk maar op een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1597">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1597 &middot; Roman en memoir</p>
+    <h1>Ronja de roversdochter</h1>
+    <p class="lede">Astrid Lindgren, 1981; vert. Rita Törnqvist-Verschuur</p>
+    <p class="stats">
+      <span><b>1486</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1597"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lindgren zet een kind neer dat van haar vader houdt en toch weigert te worden wat hij is, en zij laat die weigering niet uitlopen op breuk maar op een vader die moet toegeven. Onder het avonturenverhaal ligt de stelling dat trouw aan een familie en trouw aan jezelf twee verschillende dingen zijn, en dat het kind degene is die dat verschil als eerste ziet. Het bos is daarbij geen decor maar de plaats waar Ronja leert wat zij zelf aankan, buiten het bereik van de volwassenen die haar zowel beschermen als opsluiten. Dat Lindgren dit in een boek voor negenjarigen doet, met vogelheksen en roversliederen erbij, maakt de opzet niet lichter.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De nacht van de bliksem</h3>
+      <p>Ronja komt ter wereld in de burcht van Mattis, tijdens een onweer waarin de bliksem het gebouw van boven tot onder splijt. De kloof die achterblijft krijgt de naam Hellegat. Mattis is buiten zichzelf van vreugde over zijn dochter; Lovis, haar moeder, is de nuchtere helft van het stel en zingt terwijl zij het huishouden en de bende bestiert.</p>
+      <p>Ronja groeit op tussen de rovers van haar vader, die haar als hun eigen kind behandelen. Lindgren tekent dat gezelschap warm en niet gevaarlijk, wat vanaf de eerste bladzijden een spanning oplevert: dit zijn mannen die van roof leven, en het boek laat zien wat dat waard is zonder het meteen te veroordelen.</p>
+      <h3>Het bos leren kennen</h3>
+      <p>Als Ronja oud genoeg is stuurt Lovis haar naar buiten met een reeks waarschuwingen: verdwaal niet, val niet in de rivier en laat je niet door de vogelheksen pakken. Ronja leert het bos in eigen tempo. Zij oefent zich in het inschatten van afstanden, in het overleven van kou en in de omgang met de wezens die er wonen.</p>
+      <p>Naast de vogelheksen zijn er aardmannen en grijze dwergen. Lindgren behandelt ze zonder uitleg, alsof hun bestaan vanzelf spreekt, en houdt hun dreiging concreet: de vogelheksen halen Ronja open en zij komt bloedend thuis. Het bos is aantrekkelijk en levensgevaarlijk tegelijk.</p>
+      <h3>Birk</h3>
+      <p>Op een dag staat er een jongen aan de overkant van het Hellegat. Het is Birk Borkazoon, en zijn vader heeft met zijn bende de andere helft van de burcht ingenomen. De eerste ontmoetingen bestaan uit scheldpartijen en gevaarlijke sprongen over de kloof.</p>
+      <p>Dan redt Ronja hem uit de kloof waarin hij is gevallen, en later haalt hij haar uit de sneeuw als zij door de vogelheksen is aangevallen. Vanaf dat moment noemen zij elkaar zuster en broeder. Zij houden de vriendschap verborgen, omdat beide vaders haar als verraad zouden zien.</p>
+      <h3>De gijzeling</h3>
+      <p>Mattis krijgt Birk in handen en wil hem gebruiken om Borka uit de burcht te dwingen. Ronja doorziet dat zij dat kan doorbreken door zelf de sprong te maken naar de kant van Borka, wat zij doet. Zij is nu de gijzelaar aan de andere kant, en de ruil kan doorgaan.</p>
+      <p>Mattis reageert niet met woede maar met verstomming. Hij zegt tegen zijn bende dat hij geen kind meer heeft en spreekt zijn dochter maandenlang niet aan. Dat is het scharnier van het boek: een vader die zijn dochter verstoot omdat zij hem heeft laten zien dat zijn eer een spel is.</p>
+      <h3>De zomer in de Beregrot</h3>
+      <p>Ronja en Birk verlaten de burcht en gaan in een grot in het bos wonen. Zij vissen, verzamelen, temmen wilde paarden en richten hun leven zo in dat zij niemand nodig hebben. Lovis brengt hun in het geheim brood en zout; de oude rover Kale Per houdt contact.</p>
+      <p>Lindgren geeft die zomer veel bladzijden, en dat is geen vulling. Het is de enige periode waarin de kinderen zonder toezicht bepalen hoe zij willen leven, en het is aan dat verblijf dat Ronja later haar besluit over haar toekomst ontleent. Het is ook waar zij merkt dat vrijheid en eenzaamheid dicht bij elkaar liggen: de winter komt eraan en de grot is niet bewoonbaar.</p>
+      <h3>De verzoening en het voorjaar</h3>
+      <p>Mattis komt uiteindelijk zelf naar de grot. Ronja gaat terug op een voorwaarde: Birk hoort er dan bij. De twee bendes worden samengevoegd, met Mattis als hoofdman, en de vete waaraan het hele boek hing houdt zonder veldslag op.</p>
+      <p>Kale Per sterft en laat de kinderen weten waar een oude zilvermijn ligt. In het laatste hoofdstuk gaan Ronja en Birk opnieuw het bos in. Zij hebben elkaar verteld dat zij geen rovers willen worden, en Mattis heeft dat aangehoord. Het boek eindigt niet met een oplossing voor de vraag waar zij dan wel van gaan leven; het eindigt met het begin van de lente.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Mattisburcht</td><td>De oude burcht op de berg waar de bende van Mattis huist en die door de bliksem in twee helften uiteenvalt.</td></tr>
+          <tr><td class="term">Hellegat</td><td>De kloof die door de blikseminslag ontstaat, breed genoeg om dodelijk te zijn en smal genoeg om te bespringen.</td></tr>
+          <tr><td class="term">Vogelheksen</td><td>Vliegende wezens met scherpe klauwen die in zwermen op mensen afkomen en de gevaarlijkste bewoners van het bos zijn.</td></tr>
+          <tr><td class="term">Aardmannen</td><td>Ondergrondse wezens die in het donker rond de voeten van wandelaars opduiken en met eentonig geklaag worden aangekondigd.</td></tr>
+          <tr><td class="term">Grijze dwergen</td><td>Kleine bosbewoners die in groepen opdringen en gevaarlijk worden zodra zij zich sterk genoeg in aantal voelen.</td></tr>
+          <tr><td class="term">Beregrot</td><td>De grot in het bos waar Ronja en Birk de zomer doorbrengen nadat zij de burcht hebben verlaten.</td></tr>
+          <tr><td class="term">Roverhoofdman</td><td>De functie van Mattis en van Borka: aanvoerder van een bende die van overvallen op de weg leeft.</td></tr>
+          <tr><td class="term">Zuster en broeder</td><td>De aanspreking die Ronja en Birk voor elkaar kiezen nadat zij elkaar het leven hebben gered, en die het verbond boven de familievete uittilt.</td></tr>
+          <tr><td class="term">De wilde paarden</td><td>De dieren die de kinderen in het bos temmen en die hun bewegingsvrijheid en zelfstandigheid uitdrukken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek betoogt niets, dus draagt het zijn stelling in de handeling. Dat gebeurt vooral op twee plaatsen. De eerste is de sprong over het Hellegat: Ronja lost een gewapend conflict op met een gebaar dat haar vader in zijn eer raakt, en Lindgren laat zien dat eer hier een bedenksel van volwassen mannen is. De tweede is de zomer in de grot, die zo lang duurt dat de lezer meemaakt hoe een leven buiten de bende er werkelijk uitziet.</p>
+      <p>Lindgren schreef het boek op vierenzeventigjarige leeftijd, na <i>De gebroeders Leeuwenhart</i>, en zij gebruikt daarin dezelfde middelen: Noord-Europese folklore, een landschap dat nauwkeurig is waargenomen, en kinderen die met dood en angst te maken krijgen zonder dat de verteller hen ontziet. De vogelheksen en aardmannen komen uit die volksverhaaltraditie en niet uit een verzonnen wereld met eigen regels.</p>
+      <p>Wat de vertelling verder draagt is de taal. De roversliederen, de scheldnamen en de spreekwijze van Mattis zijn in het Zweeds deels door Lindgren gemaakt; Rita Törnqvist-Verschuur heeft daar in het Nederlands een eigen register voor gezocht. Dat de dialogen na veertig jaar nog werken is de reden dat het boek in de Nederlandse leeslijsten voor de bovenbouw is blijven staan.</p>
+      <p>De ontvangst bevestigt dat niet alleen kinderen het boek dragen: het kreeg een Zilveren Griffel, de verfilming van 1984 werd in Berlijn bekroond, en het is sindsdien in tientallen talen uitgegeven en drie keer voor beeld bewerkt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grootste zwakte zit in het beroep waar het hele boek op rust. Mattis en zijn mannen beroven reizigers, en Lindgren houdt die slachtoffers buiten beeld. De rovers zijn zangerig, aanhankelijk en luidruchtig; wie zij overvallen komt niet aan het woord. Daardoor kan het boek de roverij tegelijk afwijzen, in het besluit van Ronja, en aantrekkelijk houden, in alles daarvoor.</p>
+      <p>De verzoening gaat snel. Na maanden zwijgen komt Mattis naar de grot, en binnen enkele hoofdstukken zijn de twee bendes samengevoegd en is de vete voorbij. Dat de vaders zo weinig hoeven te veranderen om weer te kunnen samenleven is minder overtuigend dan de breuk zelf.</p>
+      <p>Ook de opzet is bekend. Twee kinderen van vijandige families die vrienden worden is een verhaallijn met een lange voorgeschiedenis, en Lindgren doet er weinig onverwachts mee. Wat het boek eigen maakt zit in de uitwerking van het bos en van de verhouding tussen Ronja en haar vader, niet in het gegeven.</p>
+      <p>Ten slotte laat het slot een vraag liggen die het boek zelf heeft opgeroepen. Ronja en Birk willen geen rovers worden, maar waarvan zij dan wel gaan leven blijft open. Voor een boek dat het verschil tussen erfenis en eigen keuze tot onderwerp maakt, is dat de plaats waar het ophoudt precies voordat het lastig wordt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Ronja Rövardotter</i>, Rabén &amp; Sjögren, Stockholm, 1981, met tekeningen van Ilon Wikland. De Nederlandse vertaling van Rita Törnqvist-Verschuur verscheen in 1982 bij Ploegsma, Amsterdam, en werd met een Zilveren Griffel bekroond; de dertigste druk dateert van 2021 (224 blz., ISBN 9789021681863). Het boek werd in 1984 verfilmd door Tage Danielsson naar een scenario van Lindgren zelf, in 2014 bewerkt tot een animatieserie van Studio Ghibli en Polygon Pictures onder regie van Goro Miyazaki, en in 2024 tot een Zweedse televisieserie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ronja wordt geboren in de nacht dat de bliksem de burcht van roverhoofdman Mattis doormidden splijt. De kloof die daarbij ontstaat heet het Hellegat, en de andere helft van de burcht wordt kort daarna bezet door de bende van Borka, de rivaal van haar vader.</p><p>In het bos ontmoet zij Birk, de zoon van Borka. Zij redden elkaar het leven en worden onafscheidelijk, terwijl hun vaders elkaar naar het leven staan. Als Mattis Birk gevangenneemt, springt Ronja naar de overkant van het Hellegat en levert zichzelf uit aan Borka. Haar vader zegt daarop dat hij geen kind meer heeft.</p><p>De twee kinderen trekken de zomer door naar een grot in het bos en leven daar van wat zij vinden. Wat Lindgren onderzoekt is niet alleen de ruzie tussen twee bendes, maar de vraag wat een kind doet wanneer het het beroep van zijn vader niet wil overnemen. Ronja besluit dat zij geen rover wordt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kinderboek</li><li>Zweden</li><li>vriendschap</li><li>roversbende</li><li>bos</li><li>volwassen worden</li><li>Ilon Wikland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1625"><a href="1625.html">Torak en Wolf: Avonturen in het hoge noorden</a>. Paver zet kinderen op vergelijkbare wijze alleen in een noordelijk bos, waarbij overleven en de omgang met dieren de handeling dragen.</li>
+          <li value="1567"><a href="1567.html">In de ban van de ring</a>. Tolkien put uit dezelfde Noord-Europese verhaalstof, maar bouwt er een wereld met eigen geschiedenis van; bij Lindgren blijft de folklore ongeschreven achtergrond.</li>
+          <li value="1519"><a href="1519.html">Spaar de spotvogel</a>. Ook bij Harper Lee draait het om een kind dat aan de hand van haar vader ontdekt waar de regels van de volwassenen niet deugen, met het omgekeerde vaderbeeld.</li>
+          <li value="533"><a href="533.html">The Saga of the Volsungs</a>. De Noorse sagenstof waarin bloedwraak, eer en familietrouw de handeling bepalen, is de traditie waartegen de weigering van Ronja pas goed te lezen is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

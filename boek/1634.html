@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harry Potter en de Relieken van de Dood &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rowling sluit haar reeks af met een boek over de vraag wat iemand met de dood aan moet. Voldemort heeft zijn hele leven ingericht op het vermijden ervan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1634">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1634 &middot; Roman en memoir</p>
+    <h1>Harry Potter en de Relieken van de Dood</h1>
+    <p class="lede">J.K. Rowling, 2007; vert. Wiebe Buddingh'</p>
+    <p class="stats">
+      <span><b>1533</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1634"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rowling sluit haar reeks af met een boek over de vraag wat iemand met de dood aan moet. Voldemort heeft zijn hele leven ingericht op het vermijden ervan en heeft daarvoor zijn ziel in stukken gesneden; Harry krijgt in dit deel de mogelijkheid zich met vergelijkbare middelen onaantastbaar te maken en laat die lopen. De Relieken van de Dood en de Gruzielementen zijn de twee wegen die het boek naast elkaar legt, en beide beloven macht over het sterven. De gedachte die eronder ligt is dat het aanvaarden van de dood een handeling is die iemand verder brengt dan wie hem ontloopt, en dat het verschil tussen de twee hoofdpersonen daar zit en niet in hun aanleg of hun afkomst.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De vlucht uit Klein Zanikem</h3>
+      <p>Het boek opent bij Voldemort en zijn aanhang, die overleggen hoe zij Harry te pakken krijgen op het moment dat de bescherming van zijn oom en tante afloopt. De Orde van de Feniks haalt hem weg met een list waarbij zes anderen de gedaante van Harry aannemen. De tocht loopt uit op een gevecht in de lucht; er vallen doden en de aanval maakt duidelijk dat er verraad in de kring van bekenden zit.</p>
+      <p>Kort daarna volgt de bruiloft van Bill Wemel en Fleur Delacour, die door een aanval wordt afgebroken. Vanaf dat moment zijn Harry, Ron en Hermelien op zichzelf aangewezen. Rowling verandert daarmee de vorm van de reeks: er is geen schooljaar meer dat het verhaal indeelt.</p>
+      <h3>Het ministerie valt</h3>
+      <p>Voldemort neemt de macht over zonder zich als heerser bekend te maken. Het Ministerie van Toverkunst blijft bestaan en gaat onder een stroman door met wetten die tovenaars van niet-magische afkomst hun rechten ontnemen. Er komt een registratiecommissie die zulke tovenaars ondervraagt, en op het uitspreken van Voldemorts naam ligt een taboe dat verklikt waar de spreker zich bevindt.</p>
+      <p>Dit is het politieke deel van het boek. Rowling laat een overname zien die via bestaande instellingen verloopt, met formulieren, benoemingen en een pers die meewerkt. Het drietal breekt in het ministerie in om een van de Gruzielementen terug te halen, waarna de tocht ondergronds definitief is.</p>
+      <h3>De tocht en de tweedracht</h3>
+      <p>Het middendeel bestaat uit kamperen op wisselende plaatsen, honger, kou en gebrek aan aanwijzingen. Het medaillon dat zij bij zich dragen werkt in op wie het om heeft en versterkt achterdocht en somberheid. Ron loopt weg en keert later terug, en die breuk is de zwaarste in de vriendschap van de drie.</p>
+      <p>Rowling houdt dit deel lang aan. Het is de traagste honderd bladzijden van de reeks en tegelijk het deel waarin duidelijk wordt wat Perkamentus zijn leerlingen heeft opgedragen zonder uitleg te geven. Harry begint aan zijn oude schoolhoofd te twijfelen, gevoed door een schandaalbiografie en door wat hij in Goderics Eind ontdekt over Perkamentus in zijn jonge jaren.</p>
+      <h3>De Relieken van de Dood</h3>
+      <p>In het huis van Xenofilus Leeflang horen zij het vertelsel van de drie gebroeders uit <i>De vertelsels van Baker de Bard</i>: drie broers ontmoeten de Dood en krijgen elk een gave, een onoverwinnelijke toverstok, een steen die gestorvenen terughaalt en een mantel die onzichtbaar maakt. Wie de drie voorwerpen bezit, heet meester van de Dood.</p>
+      <p>Harry begrijpt dat zijn eigen onzichtbaarheidsmantel een van de drie is, en dat Voldemort achter de Zegevlier aan zit zonder de andere twee te kennen. Vanaf hier lopen twee zoektochten naast elkaar. De Gruzielementen zijn de opdracht, de Relieken de verleiding, en Harry moet kiezen welke van de twee hij nazit.</p>
+      <h3>Villa Malfidus, Goudgrijp en de terugkeer</h3>
+      <p>Het drietal wordt gevangen en naar het huis van de familie Malfidus gebracht, waar Hermelien door Bellatrix van Detta wordt ondervraagd. De huis-elf Dobby bevrijdt hen en komt daarbij om. Met hulp van de kobold Grijphaak breken zij daarna in bij de tovenaarsbank Goudgrijp om een Gruzielement uit een kluis te halen, en ontkomen op de rug van een draak.</p>
+      <p>Grijphaak houdt zich niet aan de afspraak, en Rowling gebruikt die aflevering om te laten zien dat kobolden en huis-elfen een eigen rekening met tovenaars hebben. De reeks raakt daarmee aan haar eigen ongemak: de goede kant van de oorlog steunt op wezens die eeuwenlang zijn achtergesteld.</p>
+      <h3>De slag om Zweinstein en de herinneringen van Sneep</h3>
+      <p>Het laatste kwart speelt op school. Het kasteel wordt verdedigd door leerlingen, leraren en oud-leerlingen, en de strijd kost onder anderen Fred Wemel, Remus Lupos en Nymphadora Tonks het leven. Voldemort doodt Severus Sneep, omdat hij denkt dat het meesterschap over de Zegevlier daarmee op hem overgaat.</p>
+      <p>Sneep laat Harry zijn herinneringen na. Daaruit blijkt zijn liefde voor Lily Potter, zijn dubbelrol al die jaren, en het feit dat Perkamentus zijn eigen dood had geregeld. Ook blijkt dat Harry zelf een deel van Voldemorts ziel draagt en moet sterven om dat deel te laten vernietigen. Harry loopt het Verboden Bos in en laat zich doden, ontmoet Perkamentus in een tussenruimte die op een station lijkt, en keert terug. Het slotgevecht loopt af doordat de Zegevlier haar drager niet als meester erkent.</p>
+      <h3>Negentien jaar later</h3>
+      <p>De epiloog springt bijna twee decennia vooruit naar het perron waar de trein naar Zweinstein vertrekt. Harry, Ron, Hermelien en Ginny brengen hun kinderen weg. Over wat er in die negentien jaar met de tovenaarswereld is gebeurd, wordt niets verteld; de afsluiting blijft huiselijk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gruzielement</td><td>Een voorwerp of wezen waarin een tovenaar een afgesplitst deel van zijn ziel bewaart om niet te kunnen sterven.</td></tr>
+          <tr><td class="term">Relieken van de Dood</td><td>De drie voorwerpen uit het vertelsel van de gebroeders: de Zegevlier, de Steen der Wederopstanding en de Onzichtbaarheidsmantel.</td></tr>
+          <tr><td class="term">Zegevlier</td><td>De toverstok die haar drager onoverwinnelijk zou maken en die overgaat op wie haar vorige meester heeft overwonnen.</td></tr>
+          <tr><td class="term">Steen der Wederopstanding</td><td>De steen die gestorvenen als schimmen terughaalt, zonder hen werkelijk levend te maken.</td></tr>
+          <tr><td class="term">Dooddoeners</td><td>De aanhangers van Voldemort, die in dit deel het ministerie en de school bezetten.</td></tr>
+          <tr><td class="term">het taboe</td><td>De vloek op Voldemorts naam waardoor het uitspreken ervan verraadt waar de spreker is.</td></tr>
+          <tr><td class="term">Registratiecommissie voor Dreuzelgeborenen</td><td>Het onderdeel van het bezette ministerie dat tovenaars zonder magische ouders ondervraagt en hun magie als gestolen bestempelt.</td></tr>
+          <tr><td class="term">de Orde van de Feniks</td><td>Het gezelschap rond Perkamentus dat Harry beschermt en de verdediging organiseert.</td></tr>
+          <tr><td class="term">de Uitverkorene</td><td>De aanduiding waarmee de tovenaarswereld Harry aanwijst als degene die Voldemort moet verslaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als sluitstuk moet dit boek de rekeningen van zes eerdere delen vereffenen, en het meeste daarvan sluit. De Gruzielementen zijn in deel zes ingevoerd, het medaillon en de beker komen uit eerdere verhaallijnen, en de onzichtbaarheidsmantel die Harry in deel een kreeg blijkt achteraf een van de drie Relieken. Ook de rol van Sneep is over de hele reeks voorbereid: zijn houding tegenover Harry, zijn kennis van de Duistere Kunsten en zijn band met Lily Potter zijn eerder aangestipt.</p>
+      <p>De politieke lijn is het best uitgewerkte deel van het boek. De overname van het ministerie verloopt via benoemingen, wetten en propaganda, en het geweld tegen tovenaars zonder magische ouders krijgt een ambtelijke vorm met formulieren en hoorzittingen. Dat is een herkenbare beschrijving van hoe een staat van binnenuit kan worden overgenomen, en zij wordt getoond in plaats van uitgelegd.</p>
+      <p>De ontvangst was groot en overwegend gunstig. Het boek verkocht in de eerste vierentwintig uur miljoenen exemplaren in het Engelse taalgebied en de Nederlandse vertaling volgde vier maanden later. De reeks als geheel geldt sindsdien als een van de best verkochte ooit, wat over de kwaliteit niets zegt en over het bereik alles.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het middendeel is te lang. De maanden van kamperen leveren weinig voortgang op, en de aanwijzingen komen uiteindelijk door toeval of doordat een personage op het juiste moment iets uitlegt. Rowling had die honderd bladzijden nodig om de twijfel aan Perkamentus te laten rijpen, maar de prijs is een verhaal dat stilstaat.</p>
+      <p>De regels rond de Zegevlier zijn ingewikkeld en beslissen tegelijk de afloop. Wie de stok bezit hangt af van wie wie ontwapend heeft, en die redenering wordt pas in het slotgevecht volledig uiteengezet. Daarmee rust de ontknoping op een regel die de lezer niet zelf had kunnen natrekken.</p>
+      <p>De behandeling van kobolden en huis-elfen blijft halfslachtig. Het boek erkent dat deze wezens door tovenaars zijn onderdrukt en laat Grijphaak zijn eigen belang volgen, maar de goede afloop laat de verhoudingen ongewijzigd. De epiloog gaat er niet op in, terwijl juist daar zichtbaar had kunnen worden of de overwinning iets veranderde aan de samenleving die de oorlog voortbracht.</p>
+      <p>Die epiloog is het meest omstreden onderdeel van de reeks. Hij vertelt wie met wie trouwde en hoe de kinderen heten, en zwijgt over de wereld. Voor lezers die zeven delen lang naar de politieke inzet keken, is dat een smalle afsluiting.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Harry Potter and the Deathly Hallows</i> (Bloomsbury, Londen, 21 juli 2007, 607 blz.; in de Verenigde Staten bij Scholastic). De Nederlandse vertaling van Wiebe Buddingh' verscheen op 20 november 2007 bij De Harmonie, Amsterdam, 541 blz., met bandtekening van Ien van Laanen; de gebonden uitgave draagt ISBN 9789061698326, de paperback ISBN 9789061698319. Het is het zevende en laatste deel van de reeks, die in 1997 begon met <i>Harry Potter and the Philosopher&rsquo;s Stone</i>. Het boek is verfilmd in twee delen, uitgebracht in 2010 en 2011.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het laatste deel van de reeks begint met een vlucht. Harry moet weg uit het huis van zijn oom en tante voordat de bescherming die hem daar dekt afloopt, en de tocht kost meteen levens. Zweinstein komt in handen van Voldemort en zijn aanhang, het Ministerie van Toverkunst valt, en Harry, Ron en Hermelien gaan ondergronds.</p><p>De opdracht die Perkamentus hun naliet is het vernietigen van de Gruzielementen, de voorwerpen waarin Voldemort delen van zijn ziel heeft ondergebracht. Waar die voorwerpen zijn, weet niemand precies. Een groot deel van het boek gaat over zoeken, wachten en ruzien, met een kampeertocht door Engeland en Schotland als decor.</p><p>Daarnaast loopt een tweede zoektocht, naar de Relieken van de Dood uit een oud vertelsel: een toverstok, een steen en een mantel. Het boek eindigt met de slag om Zweinstein, met de herinneringen van Severus Sneep die de hele reeks in een ander licht zetten, en met een epiloog die negentien jaar later speelt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>fantasy</li><li>jeugdboek</li><li>serie</li><li>Engeland</li><li>dood</li><li>macht</li><li>vriendschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft de gang van roeping, dood en terugkeer; het bos, het station en de terugkeer van Harry volgen dat patroon vrijwel letterlijk.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Jung en zijn medewerkers behandelen de schaduw als deel van de eigen persoon; Harry die een stuk van zijn tegenstander in zich draagt, is daarvan een verhalende uitwerking.</li>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette ordenen mannelijke archetypen; Perkamentus, Sneep en Voldemort zijn te lezen als drie invullingen van de tovenaar die met macht omgaat.</li>
+          <li value="8"><a href="08.html">De alchemist</a>. Coelho vertelt eveneens over een jongen die een opdracht volgt waarvan de zin pas aan het eind blijkt; het verschil is dat Rowling de prijs ervan uitschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

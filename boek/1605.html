@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yoga and Ayurveda &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Frawley stelt dat yoga en ayurveda twee helften van een enkele Vedische kennisleer zijn: ayurveda is de geneeskundige kant van yoga en yoga is de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1605">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1605 &middot; Naslag en praktijk</p>
+    <h1>Yoga and Ayurveda</h1>
+    <p class="lede">David Frawley (Pandit Vamadeva Shastri), 1999</p>
+    <p class="stats">
+      <span><b>1455</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1605"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Frawley stelt dat yoga en ayurveda twee helften van een enkele Vedische kennisleer zijn: ayurveda is de geneeskundige kant van yoga en yoga is de geestelijke kant van ayurveda. Zij delen dezelfde begrippen over de mens, dezelfde indeling van lichaam en geest, en dezelfde bedoeling, namelijk het opheffen van de scheiding tussen het persoonlijke zelf en het geheel. Dat zij tegenwoordig als losse vakken worden onderwezen, de een als beweging en de ander als natuurgeneeskunde, verklaart volgens hem waarom beide in het Westen zo weinig opleveren. Yoga zonder ayurveda gaat voorbij aan de vraag welke oefening bij welk lichaam past, en ayurveda zonder yoga blijft steken bij het wegnemen van klachten zonder te vragen waarvoor iemand gezond zou willen zijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De twee stelsels en hun gedeelde bodem</h3>
+      <p>Het eerste deel plaatst yoga en ayurveda in het Vedische wereldbeeld. Frawley behandelt dharma en tattva, de begrippen waarmee de klassieke teksten de ordening van de kosmos en de bestanddelen van de werkelijkheid beschrijven, en betoogt dat beide stelsels daar rechtstreeks uit voortkomen.</p>
+      <p>Daarna volgt de indeling die de rest van het boek draagt. De drie gunas, sattva, rajas en tamas, bepalen de aard van de geest; de drie dosha's, vata, pitta en kapha, bepalen de aard van het lichaam. Het hoofdstuk over de paden van yoga onderscheidt jnana, bhakti, karma en raja yoga en koppelt die aan verschillende naturen.</p>
+      <h3>De omhulsels en de fijnstoffelijke krachten</h3>
+      <p>Het tweede deel gaat over wat Frawley de energetica noemt. De ziel wordt beschreven met de leer van de koshas, de omhulsels van voedsel, adem, geest, inzicht en gelukzaligheid waarin het zelf gehuld zou zijn.</p>
+      <p>Het scharnierhoofdstuk introduceert prana, tejas en ojas: de fijnstoffelijke tegenhangers van vata, pitta en kapha. Prana geldt als levensadem en beweeglijkheid, tejas als vuur, helderheid en moed, ojas als weerstand, volharding en tevredenheid. Waar de dosha's in overmaat ziekte geven, gelden hun fijnstoffelijke tegenhangers juist als de reserves die opgebouwd moeten worden.</p>
+      <h3>Vuur, adem en de kanalen</h3>
+      <p>Agni, het inwendige vuur, is bij Frawley het begrip waarmee spijsvertering, waarneming en inzicht in een adem worden beschreven. Een zwak vuur geeft onverteerd voedsel en onverteerde ervaringen, en die vat hij samen onder ama, het slakkenproduct dat de kanalen verstopt.</p>
+      <p>Daarna volgen de vijf pranas, de vertakkingen van de levensadem met elk een eigen richting en taak, en de nadis, de kanalen waarlangs die adem zou stromen. De chakra's en kundalini komen aan de orde als de verticale ordening van dat stelsel. Frawley beschrijft dit als een landkaart voor de beoefening, niet als anatomie.</p>
+      <h3>Voeding en kruiden</h3>
+      <p>Het derde deel begint bij het bord. Frawley legt uit waar de yogische en de ayurvedische voedingsleer uiteenlopen: yoga vraagt om sattvisch eten dat de geest stil houdt, ayurveda vraagt om eten dat de eigen dosha in evenwicht brengt, en die twee vragen kunnen botsen. Een streng sattvisch patroon kan bij een vata-natuur juist onrust en uitputting geven.</p>
+      <p>Het hoofdstuk over kruiden gaat over wat hij soma noemt: middelen die de geest voeden in plaats van alleen het lichaam. Hij bespreekt onder meer ashwagandha, brahmi, shatavari en tulsi, met hun werking per constitutie en per beoefening.</p>
+      <h3>De acht leden van het pad</h3>
+      <p>De laatste hoofdstukken lopen het achtvoudige pad van Patanjali af. Asana wordt behandeld als middel om de dosha's te sturen en niet als lichamelijke prestatie; per houding noemt Frawley welke natuur er baat bij heeft en welke er juist door uit balans raakt.</p>
+      <p>Bij pranayama gaat het om verhouding, ritme en het kiezen van de juiste ademverhouding bij de eigen samenstelling. Pratyahara, het terugtrekken van de zintuigen, noemt hij het vergeten lid van het pad en krijgt een eigen hoofdstuk: wie zijn indrukken niet beperkt, hoeft aan concentratie niet te beginnen. Het boek eindigt bij mantra en meditatie, met klank als de meest verfijnde vorm van geneesmiddel.</p>
+      <h3>Wat het boek wil zijn</h3>
+      <p>Frawley schrijft niet voor patienten maar voor beoefenaars en leraren. De aanwijzingen zijn stelselmatig van aard: eerst de eigen samenstelling vaststellen, dan de klacht of de neiging benoemen, dan pas de oefening kiezen. Die volgorde is het werkelijke voorstel van het boek, en zij staat haaks op de westerse gewoonte om iedereen dezelfde les te laten volgen.</p>
+      <p>Daarmee neemt hij ook stelling in een discussie binnen de yogawereld zelf. Een houding is bij hem geen oefening met een vaste waarde, maar een middel dat bij de een verkoelt en bij de ander verhit. Wie dat aanvaardt, kan geen algemeen lesprogramma meer verdedigen, en dat is de lastigste gevolgtrekking uit het boek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dosha</td><td>De drie werkzame beginselen vata, pitta en kapha, die samen de lichamelijke constitutie van iemand bepalen en in overmaat ziekte geven.</td></tr>
+          <tr><td class="term">Guna</td><td>De drie hoedanigheden sattva, rajas en tamas, waarmee de aard van de geest wordt beschreven als helder, onrustig of loom.</td></tr>
+          <tr><td class="term">Prana, tejas en ojas</td><td>De fijnstoffelijke tegenhangers van de drie dosha's, achtereenvolgens levensadem, inwendig licht en weerstand, die in de beoefening juist opgebouwd moeten worden.</td></tr>
+          <tr><td class="term">Agni</td><td>Het inwendige vuur dat zowel voedsel als indrukken verteert; is het zwak, dan blijft er onverteerd materiaal achter.</td></tr>
+          <tr><td class="term">Ama</td><td>Het slakkenproduct van onvoltooide vertering, in Frawleys uitleg zowel lichamelijk als geestelijk, dat de kanalen verstopt.</td></tr>
+          <tr><td class="term">Kosha</td><td>De vijf omhulsels van voedsel, adem, geest, inzicht en gelukzaligheid waarin het zelf volgens de Upanishads gehuld is.</td></tr>
+          <tr><td class="term">Nadi</td><td>De kanalen waarlangs de levensadem door het lichaam zou stromen, met ida, pingala en sushumna als de drie belangrijkste.</td></tr>
+          <tr><td class="term">Pratyahara</td><td>Het vijfde lid van het achtvoudige pad, het terugtrekken van de zintuigen van hun voorwerpen, dat Frawley het vergeten lid noemt.</td></tr>
+          <tr><td class="term">Soma</td><td>Bij Frawley de verzamelnaam voor kruiden en praktijken die de geest voeden en verkoelen en de beoefening dragen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek beroept zich op teksten, niet op onderzoek. De bronnen zijn de Veda's, de Upanishads, de Yoga Sutra van Patanjali en de klassieke geneeskundige werken Charaka Samhita en Sushruta Samhita. Binnen dat kader is Frawley zorgvuldig: hij geeft Sanskriete termen, licht ze toe en levert achterin een woordenlijst en een uitspraakwijzer.</p>
+      <p>Wat hij aanvoert voor de stelling dat de twee stelsels ooit een geheel vormden, is grotendeels overeenkomst in woordenschat. Beide tradities gebruiken dezelfde begrippen voor de bestanddelen van de mens, en daaruit leidt hij een gedeelde oorsprong af. Dat is een aannemelijke lezing, maar een historische onderbouwing met dateringen en tekstvergelijking geeft het boek niet.</p>
+      <p>Klinisch bewijs ontbreekt volledig, en Frawley beweert ook niet dat het er is. Onderzoek naar de ayurvedische constitutieleer bestaat wel, maar is beperkt van omvang en levert geen bevestiging dat de indeling in vata, pitta en kapha overeenkomt met meetbare lichamelijke verschillen. Wie het boek als geneeskunde leest, leest het anders dan het bedoeld is; het is een leerstelsel dat op traditie rust.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de schrijver zelf. Frawley is geen arts en geen academisch geschoold indoloog, maar wel een uitgesproken voorvechter van het hindoenationalisme, en hij verdedigt het standpunt dat de Vedische beschaving in India zelf is ontstaan in plaats van met migratie te zijn meegekomen. Dat standpunt wordt door de meeste taalkundigen en archeologen verworpen. Het kleurt zijn voorstelling van yoga en ayurveda als een ononderbroken Vedisch geheel, waar veel onderzoekers eerder twee tradities zien die pas laat naar elkaar toe zijn geschreven.</p>
+      <p>Het boek maakt geen onderscheid tussen wat een klassieke tekst zegt, wat de latere traditie ervan heeft gemaakt en wat Frawley er zelf van vindt. De drie lopen door elkaar in dezelfde stellige toon. Voor een lezer zonder voorkennis is niet na te gaan welke uitspraak uit de Charaka Samhita komt en welke uit Santa Fe.</p>
+      <p>Praktisch gezien geeft het boek adviezen over kruiden zonder de waarschuwingen die daarbij horen. Onafhankelijk onderzoek naar ayurvedische preparaten op de westerse markt heeft in een deel ervan lood, kwik en arseen aangetroffen, soms in aanzienlijke hoeveelheden. Ook waarschuwt Frawley nauwelijks tegen wisselwerking met reguliere medicijnen, terwijl hij middelen bespreekt die bloedsuiker en bloeddruk beinvloeden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal eerst de eigen constitutie voordat er oefeningen worden gekozen; het boek is zonder die stap niet te gebruiken.</li>
+        <li>Beoordeel een yogales op wat zij met de eigen dosha doet: verhitting bij een pitta-natuur en snelheid bij een vata-natuur werken averechts.</li>
+        <li>Behandel pratyahara als een aparte oefening en niet als opstapje naar meditatie: begin met het beperken van indrukken, niet met stilzitten.</li>
+        <li>Overleg over kruiden met een arts wanneer er medicijnen worden gebruikt, en koop geen preparaten waarvan herkomst en zuiverheid niet vaststaan.</li>
+        <li>Lees de historische hoofdstukken als de opvatting van een pleitbezorger en zoek de dateringen elders na.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Yoga and Ayurveda: Self-Healing and Self-Realization</i> (Lotus Press, Twin Lakes, Wisconsin, 1999, ISBN 9780914955818); in India uitgegeven door Motilal Banarsidass. Er bestaat geen Nederlandse vertaling van dit boek. Van Frawley verscheen in het Nederlands wel <i>Ayurveda en kruiden</i>, samen met Vasant Lad, oorspronkelijk <i>The Yoga of Herbs</i> (Schors, Amsterdam, 2008). Frawley schreef ruim dertig boeken over de Veda's, yoga, ayurveda en Vedische astrologie en kreeg in 2015 de Indiase onderscheiding Padma Bhushan.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Frawley, in India bekend onder de naam Vamadeva Shastri, betoogt dat yoga en ayurveda oorspronkelijk een geheel vormden en in het Westen ten onrechte uit elkaar zijn getrokken. Yoga werd hier lichaamsbeweging, ayurveda werd hier massage en kruidenthee, en beide raakten daardoor hun doel kwijt.</p><p>Het boek zet die twee stelsels naast elkaar in dezelfde begrippen: de drie gunas voor de geest, de drie dosha's voor het lichaam, de omhulsels van de ziel, en de drie fijnstoffelijke krachten prana, tejas en ojas. Wie zijn eigen samenstelling kent, zou daar zijn houdingen, ademoefeningen, voeding, kruiden en meditatie op moeten afstemmen.</p><p>Het derde deel is praktisch bedoeld. Het loopt de leden van het achtvoudige pad van Patanjali langs en geeft per dosha aanwijzingen voor asana, pranayama, pratyahara, mantra en meditatie. Het is geen oefenboek met plaatjes maar een ordeningsschema waarmee bestaande oefeningen op iemand worden toegesneden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ayurveda</li><li>yoga</li><li>prana</li><li>dosha's</li><li>chakra's</li><li>kruiden</li><li>meditatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Yogananda bracht dezelfde traditie naar het Westen, maar in de vorm van een levensverhaal in plaats van een stelsel.</li>
+          <li value="1551"><a href="1551.html">Bhagavad Gita</a>. De Gita is de tekst waaruit Frawley de vier paden van yoga haalt die hij aan de gunas koppelt.</li>
+          <li value="1599"><a href="1599.html">Just Breathe</a>. Brule behandelt ademwerk zonder het Vedische kader; naast Frawley laat dat zien hoeveel van pranayama overeind blijft zonder de leer eromheen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liefde is een werkwoord &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Vansteenwegen stelt dat een langdurige relatie geen gevoelstoestand is die je overkomt maar een reeks handelingen die je verricht of nalaat. Verliefdheid…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1590">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1590 &middot; Samenwerken en gesprek</p>
+    <h1>Liefde is een werkwoord</h1>
+    <p class="lede">Alfons Vansteenwegen, 1991</p>
+    <p class="stats">
+      <span><b>1609</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1590"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Vansteenwegen stelt dat een langdurige relatie geen gevoelstoestand is die je overkomt maar een reeks handelingen die je verricht of nalaat. Verliefdheid is volgens hem een tijdelijke toestand die vanzelf overgaat, en wat daarna overblijft moet actief worden onderhouden met afspraken, gesprekken en herstel na conflict. Zijn tweede stelling is minder vanzelfsprekend en draagt het boek even sterk: die inspanning slaagt alleen wanneer beide partners ook voor zichzelf blijven opkomen. Een relatie waarin een van beiden zich stelselmatig wegcijfert, houdt het niet, ook niet wanneer die zelfopoffering als liefde bedoeld is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Vansteenwegen begon als seminarist en verliet die weg voordat hij priester werd. Hij ging psychologie studeren, specialiseerde zich in seksuologie en werd verbonden aan de KU Leuven, waar hij leidinggaf aan de opleiding gezins- en seksuologische wetenschappen. Zijn werkwijze is directief: paren krijgen opdrachten mee die zij thuis uitvoeren, samen of afzonderlijk.</p>
+      <p>De inhoud van het boek is het schriftelijke neerslag van een residentieel programma van drie weken voor paren in moeilijkheden, dat hij samen met zijn vrouw Maureen Luyens gaf. Bij het verschijnen in 1991 stond de teller op meer dan duizend paren; in latere interviews spreekt hij over ongeveer drieduizend. Die herkomst verklaart de vorm: het boek is opgezet als een programma dat je doorloopt, niet als een betoog.</p>
+      <h3>Verliefdheid en wat erna komt</h3>
+      <p>Het eerste thema is de scheiding tussen verliefdheid en liefde. Verliefdheid beschrijft Vansteenwegen als een toestand waarin de ander vanzelf in het middelpunt staat en waarin inspanning geen inspanning lijkt. Die toestand gaat over, bij iedereen, en het einde ervan is geen teken dat er iets mis is.</p>
+      <p>Wat daarvoor in de plaats komt is een keuze die telkens opnieuw gemaakt wordt. Zijn formule daarvoor is dat liefde betekent dat je iets voor iemand overhebt. Dat betekent bij hem geen zelfopoffering maar het accepteren van kosten: tijd, aanpassing, ongemak, en het opgeven van het idee dat de ander vanzelf begrijpt wat er nodig is.</p>
+      <h3>Ruimte voor jezelf</h3>
+      <p>Tegenover de inspanning zet Vansteenwegen het behoud van een eigen gebied. Hij gebruikt daarvoor het beeld van vluchtheuvels: kleine, vaste stukken van de dag of de week die van jezelf blijven. Een leeshoek, een ochtendwandeling, een avond alleen. Zij zijn er niet om afstand te scheppen maar om te voorkomen dat iemand in de relatie verdwijnt.</p>
+      <p>Daarbij hoort het opkomen voor jezelf. Wie zijn eigen wensen inslikt om de vrede te bewaren, bouwt volgens hem een tegoed op dat later als verwijt terugkomt. Het boek besteedt daarom evenveel aandacht aan het aangeven van grenzen als aan het geven van aandacht.</p>
+      <h3>Vragen in plaats van hinten</h3>
+      <p>Het communicatiedeel is het meest concrete. Vansteenwegens hoofdregel is dat een wens uitgesproken moet worden en dat de partner geen gedachten kan lezen. Hinten, zuchten en het achteraf verwijten dat de ander niets doorhad, behandelt hij als het meest voorkomende mechanisme achter chronische ontevredenheid.</p>
+      <p>Hij werkt dat uit in afspraken over hoe je iets vraagt, hoe je iets weigert en hoe je controleert of je de ander goed begrepen hebt. De voorbeelden zijn klein en herkenbaar; de tandpastatube die verkeerd wordt dichtgedraaid komt terug als staaltje van hoe een onbeduidend punt de drager wordt van iets anders.</p>
+      <h3>Conflict met spelregels</h3>
+      <p>Voor conflict biedt het boek een onderhandelingsvorm. Het geschil wordt afgebakend, beide partijen zeggen wat zij willen en waarom, en er wordt gezocht naar een afspraak die na een afgesproken termijn wordt geëvalueerd. Vansteenwegen dringt erop aan dat een geschil wordt gevoerd op het moment dat het speelt, omdat uitstel het laat aankoeken en tot afstand leidt.</p>
+      <p>De term spelregel is bij hem letterlijk bedoeld. Het gaat om afspraken over de vorm van het gesprek, niet over de inhoud van het geschil: wie wanneer spreekt, wat er niet gezegd wordt, wanneer er gepauzeerd wordt. Zijn veronderstelling is dat de meeste paren het over de inhoud wel eens kunnen worden zodra de vorm hen niet meer in de weg zit.</p>
+      <h3>Seksualiteit en de fasen van de relatie</h3>
+      <p>Als seksuoloog behandelt Vansteenwegen seksualiteit als een gewoon onderdeel van het samenleven, met dezelfde nadruk op benoemen en afspreken. Verschil in verlangen behandelt hij als de regel en niet als de uitzondering, en hij verzet zich tegen het idee dat spontaniteit de enige geldige vorm is.</p>
+      <p>De laatste hoofdstukken volgen de tijdlijn: de komst van kinderen en de opvoeding, de jaren waarin het werk en het gezin de aandacht opeisen, het uit huis gaan van de kinderen, en het pensioen waarin twee mensen elkaar opnieuw de hele dag treffen. Ook scheiding komt aan bod, als uitkomst die het boek niet verzwijgt maar wel als laatste behandelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Liefde als werkwoord</td><td>Het uitgangspunt dat liefde bestaat uit handelingen die verricht worden, en niet uit een gevoel dat aanwezig is of ontbreekt.</td></tr>
+          <tr><td class="term">Iets overhebben voor iemand</td><td>Vansteenwegens omschrijving van liefde als het aanvaarden van kosten in tijd, aanpassing en ongemak.</td></tr>
+          <tr><td class="term">Vluchtheuvel</td><td>Een vast eigen stuk tijd of ruimte dat iemand in de relatie voor zichzelf houdt om er niet in te verdwijnen.</td></tr>
+          <tr><td class="term">Spelregel</td><td>Een afspraak over de vorm van een gesprek of geschil, los van de inhoud waarover het gaat.</td></tr>
+          <tr><td class="term">Expliciet verzoek</td><td>Een uitgesproken en concrete wens, tegenover hinten en de verwachting dat de partner het uit zichzelf begrijpt.</td></tr>
+          <tr><td class="term">Onderhandelen</td><td>Het afbakenen van een geschil, het benoemen van beide wensen en het maken van een afspraak die later wordt geëvalueerd.</td></tr>
+          <tr><td class="term">Verliefdheid tegenover liefde</td><td>Het onderscheid tussen een tijdelijke toestand die vanzelf overgaat en een verhouding die onderhoud vraagt.</td></tr>
+          <tr><td class="term">Relatiefasen</td><td>De opeenvolgende perioden van samenwonen, kinderen, middenjaren en pensioen, elk met eigen wrijvingen.</td></tr>
+          <tr><td class="term">Stappenplan</td><td>De uitgeschreven volgorde van handelingen waarmee het boek een probleem aanpakt, in de trant van een therapieopdracht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is klinisch en niet empirisch. Vansteenwegen baseert zich op wat hij in een therapieprogramma zag werken bij paren die daar uit eigen beweging aan deelnamen. Verwijzingen naar onderzoek staan er niet in, en het boek doet ook geen poging die schijn te wekken.</p>
+      <p>De methode zelf komt uit een traditie die wel is onderzocht. Gedragsgerichte relatietherapie, met huiswerkopdrachten, communicatietraining en onderhandelen over concreet gedrag, was in de jaren tachtig een van de beter getoetste vormen van paartherapie. Wat Vansteenwegen doet is die aanpak toegankelijk maken voor lezers zonder therapeut, en over die vertaalstap zegt het boek niets.</p>
+      <p>De positie van de auteur geeft het materiaal gewicht dat een gemiddeld zelfhulpboek mist. Hij hield een leerstoel aan de KU Leuven op het gebied van gezins- en seksuologische wetenschappen en gaf zijn programma vierendertig jaar lang; de voorbeelden komen dus uit een lange en aaneengesloten praktijk in plaats van uit losse anekdotes.</p>
+      <p>Wat de vijftig drukken aantonen is bereik en herkenning, niet effect. Er bestaat geen onderzoek naar de vraag of paren die dit boek lazen het beter deden dan paren die dat niet deden, en het boek claimt dat ook nergens.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar is dat het boek uitgaat van twee mensen van goede wil die ongeveer even veel te zeggen hebben. De spelregels en de onderhandelingsvorm werken alleen wanneer beide partijen zich eraan houden. Waar er sprake is van geweld, van dwang of van een groot verschil in afhankelijkheid, kan het advies om te blijven praten en om aan te passen de zwakste partij vastzetten. Het boek bakent dat niet af.</p>
+      <p>Verder ligt de norm van bij elkaar blijven er dik op. De aanleiding was een programma voor paren die hun relatie wilden redden, en die inzet kleurt het geheel. Scheiden komt aan de orde als uitkomst die de auteur niet verzwijgt, maar zij wordt niet als gelijkwaardige keuze uitgewerkt.</p>
+      <p>Een deel van de kritiek die Vansteenwegen zelf noemt gaat de andere kant op: dat hij liefde tot techniek reduceert en de kracht van gevoel onderschat. Zijn antwoord is dat hij bewust een deel behandelt en niet het geheel. Dat is een eerlijk antwoord, maar het laat wel staan dat het boek geen taal heeft voor wat er tussen mensen gebeurt buiten de afspraak om.</p>
+      <p>De tekst is uit 1991 en dat is te merken. Rolverdelingen, gezinsvormen en vanzelfsprekendheden rond werk en zorg zijn sindsdien veranderd, en hoewel latere drukken werden bijgewerkt is het uitgangspunt een samenwonend heteropaar met kinderen. Wie buiten dat model valt moet zelf vertalen.</p>
+      <p>Ten slotte is de vorm van checklists en stappenplannen tegelijk de kracht en de zwakte. Zij maakt het boek bruikbaar zonder begeleiding, en zij maakt het ook makkelijk om de oefening af te vinken zonder dat er iets verandert. Vansteenwegen wijst daar zelf op door telkens naar de uitvoering terug te grijpen, maar het boek kan niet controleren of die uitvoering er komt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Spreek een wens uit in plaats van te hinten, en houd het verzoek concreet genoeg om er ja of nee op te kunnen zeggen.</li>
+        <li>Richt vaste vluchtheuvels in: een uur, een wandeling of een avond die van jezelf blijft, en verdedig die zonder schuldgevoel.</li>
+        <li>Voer een geschil op het moment dat het speelt en spreek eerst de vorm af, pas daarna de inhoud.</li>
+        <li>Leg een afspraak vast met een datum waarop hij wordt geëvalueerd, zodat er iets te herzien valt.</li>
+        <li>Behandel verschil in seksueel verlangen als een gespreksonderwerp met afspraken, en niet als een teken dat er iets grondig mis is.</li>
+        <li>Toets bij elke oefening of het gedrag daadwerkelijk veranderd is, en niet alleen of het gesprek erover gevoerd is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands geschreven en uitgegeven door Lannoo, Tielt. De ondertitel wisselde per uitgave, van <i>spelregels voor het huwelijk</i> in de vroege drukken naar <i>spelregels voor je relatie</i> in de latere. De paperbackuitgave telt 248 bladzijden, ISBN 9789020984521; er is ook een luisterboek en een e-boek. Het boek haalde meer dan vijftig drukken en geldt in Vlaanderen als een standaardwerk over relaties. Van Vansteenwegen verscheen bij dezelfde uitgever onder meer <i>Liefde aan het werk</i>, geschreven met zijn vrouw en collega Maureen Luyens.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Alfons Vansteenwegen was seksuoloog en relatietherapeut aan de KU Leuven. Dit boek uit 1991 komt voort uit een residentieel programma van drie weken voor paren die hun relatie wilden redden, dat hij met Maureen Luyens vierendertig jaar lang gaf. Bij het verschijnen had hij met meer dan duizend paren gewerkt.</p><p>De titel is de stelling. Verliefdheid gaat over, en wat daarna komt is werk: aandacht opbrengen, tegenslag verdragen, teruggaan en opnieuw beginnen. Vansteenwegen voegt daar meteen een tegenwicht aan toe. Aandacht voor de partner alleen loopt vast; wie zichzelf wegcijfert levert op termijn de relatie in.</p><p>Het boek telt elf thematische hoofdstukken, van samenleven en opkomen voor jezelf tot seksualiteit, conflict, kinderen en scheiding. De vorm is praktisch, met kantlijnnotities, checklists en stappenplannen, en met voorbeelden uit de praktijk. Onderzoeksverwijzingen staan er niet in; het gezag komt uit de spreekkamer.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relatietherapie</li><li>communicatie</li><li>huwelijk</li><li>seksualiteit</li><li>conflicthantering</li><li>Vlaanderen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Marshall Rosenberg werkt in <i>Nonviolent Communication</i> dezelfde overstap uit van verwijt naar verzoek, in een strakkere vorm en buiten de relatiecontext.</li>
+          <li value="34"><a href="34.html">The 5 Love Languages</a>. Gary Chapman biedt in <i>The 5 Love Languages</i> een lichtere ingang tot hetzelfde onderwerp; Vansteenwegen geeft meer gereedschap en minder indeling.</li>
+          <li value="1589"><a href="1589.html">Men Are from Mars, Women Are from Venus</a>. John Gray behandelt in <i>Men Are from Mars, Women Are from Venus</i> dezelfde patronen maar wijt ze aan sekse, waar Vansteenwegen ze aan gewoonte en afspraak toeschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

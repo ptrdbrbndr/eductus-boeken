@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nothing is Everything &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nisargadatta gaat in deze gesprekken uit van een enkele vaststelling: het gevoel te bestaan, het besef 'ik ben', is geen eigenschap van een persoon maar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1652">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1652 &middot; Filosofie en mystiek</p>
+    <h1>Nothing is Everything</h1>
+    <p class="lede">Nisargadatta Maharaj, opgetekend door Mohan Gaitonde, 2014</p>
+    <p class="stats">
+      <span><b>1582</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1652"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nisargadatta gaat in deze gesprekken uit van een enkele vaststelling: het gevoel te bestaan, het besef 'ik ben', is geen eigenschap van een persoon maar een verschijnsel dat met het lichaam is meegekomen en er weer mee verdwijnt. Alles wat iemand over zichzelf weet, de naam, de geschiedenis, de plannen en de angst voor de dood, hangt aan dat ene besef, en dat besef is volgens hem tijdgebonden. Wat er was voordat het opkwam, en wat er overblijft als het wegvalt, noemt hij het niets, en dat niets is volgens hem het enige dat werkelijk alles omvat. De gesprekken zijn er niet op gericht die stelling aannemelijk te maken. Zij duwen de vragensteller terug naar de plaats waar zijn eigen bestaansbesef vandaan komt, en weigeren consequent elk antwoord dat als kennis meegenomen zou kunnen worden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie er aan het woord is en wie het opschreef</h3>
+      <p>Nisargadatta Maharaj (1897-1981) verkocht bidi's in een winkeltje in de wijk Khetwadi in Mumbai en ontving decennialang bezoekers in de kleine bovenkamer van zijn huis. Daar vonden dagelijks gesprekken plaats, in het Marathi, met vertalers die voor de buitenlandse bezoekers overzetten. In zijn laatste jaren was hij ziek aan keelkanker en sprak hij met moeite en steeds korter.</p>
+      <p>Mohan Gaitonde vertaalde van 1979 tot 1981 de avondbijeenkomsten en tekende ze op. Dat is later dan de periode waaruit <i>I Am That</i> komt, en dat verschil is aan de inhoud te merken. De vroege gesprekken werken nog uitvoerig met het onderzoek naar het 'ik ben'; in deze gesprekken houdt Maharaj zich vooral bezig met wat aan dat besef voorafgaat.</p>
+      <h3>Het uitgangspunt: onderzoek eerst het gevoel te bestaan</h3>
+      <p>Iedere vraag wordt teruggebracht tot de vraagsteller zelf. Wie wil weten wat er na de dood gebeurt, krijgt te horen dat hij eerst moet nagaan wat er nu precies is dat zou kunnen sterven. Wie wil weten of hij verlicht kan raken, krijgt de vraag terug wie die verlichting dan zou ontvangen.</p>
+      <p>Maharaj neemt daarbij niet het denken als vertrekpunt maar het naakte gevoel van aanwezigheid, dat er volgens hem was voordat iemand een naam en een geschiedenis kreeg. Dat gevoel is voor hem het enige betrouwbare gegeven waarmee een mens kan beginnen. Alles wat daar bovenop komt, is van anderen overgenomen.</p>
+      <h3>Het bewustzijn hangt aan het voedsellichaam</h3>
+      <p>De verklaring die hij herhaalt is stoffelijk van vorm en niet spiritueel. Het lichaam ontstaat uit voedsel, uit de stoffen die de ouders hebben opgenomen, en het bewustzijn is een eigenschap van dat lichaam zoals geur een eigenschap van een bloem is. Raakt de stof op, dan gaat het bewustzijn mee.</p>
+      <p>Daaruit volgt zijn omgang met de doodsangst. Die angst is volgens hem terecht zolang iemand zich met dat lichaamsgebonden bewustzijn vereenzelvigt, want dat verdwijnt inderdaad. De angst verliest haar grond zodra iemand ziet dat hij er getuige van is en er niet mee samenvalt. Voorstellingen van een voortlevende ziel horen in deze gesprekken bij hetzelfde lichaamsgebonden bewustzijn en worden niet als troost aangeboden.</p>
+      <h3>Het Absolute, voorafgaand aan het bewustzijn</h3>
+      <p>De stap die deze bundel zwaarder aanzet dan de eerdere betreft wat hij het Absolute noemt, of nirguna, het hoedanigheidsloze. Bewustzijn is voor hem al een verschijnsel, iets wat is opgekomen en dus ooit weer eindigt. Wat daaraan voorafgaat laat zich niet ervaren, want ervaren veronderstelt al bewustzijn.</p>
+      <p>Hij formuleert dat vaak als een verhouding tussen kennis en de wijze: de kennis lost op in de jnani, de jnani lost niet op. Dat is geen belofte van voortbestaan voor de persoon. Het is de stelling dat wat overblijft nooit iemand geweest is.</p>
+      <h3>Wat de bezoekers vragen en wat zij terugkrijgen</h3>
+      <p>De vragenstellers zijn deels Indiase bezoekers en deels westerlingen die na het verschijnen van <i>I Am That</i> naar Mumbai kwamen. Zij vragen naar meditatietechniek, naar de rol van een leraar, naar karma, naar het nut van geschriften en naar de vraag of zij op de goede weg zijn.</p>
+      <p>De antwoorden zijn kort en vaak afwijzend van vorm. Techniek en belezenheid brengen volgens Maharaj hooguit meer kennis voort, en kennis is precies wat losgelaten moet worden. Over de wereld waarin de bezoekers hun vragen stellen zegt hij dat men daar dichterlijke verbeelding aantreft en geen waarheid. De enige opdracht die hij consequent meegeeft is zelfonderzoek.</p>
+      <h3>De vorm van de bundel</h3>
+      <p>Het boek is een reeks bijeenkomsten, elk opgebouwd uit korte vragen met korte antwoorden. Er is geen betoog dat van hoofdstuk tot hoofdstuk vordert en geen afsluitende beschouwing. Dezelfde punten komen tientallen keren terug, telkens met een andere vraagsteller ervoor.</p>
+      <p>Die herhaling hoort bij de opzet. Maharaj stelde dat het luisteren zelf het werk doet en dat begrip op de manier van studie hier niet helpt. Voor de lezer betekent het dat de bundel zich slecht laat doorbladeren en zich moeilijk laat navertellen zonder in spreuken te veranderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ik ben</td><td>Het naakte gevoel van aanwezigheid dat aan elke gedachte over zichzelf voorafgaat en dat Maharaj als enige vertrekpunt voor onderzoek toestaat.</td></tr>
+          <tr><td class="term">Zijnsbesef</td><td>Het besef te bestaan, opgevat als een verschijnsel met een begin en een einde en niet als het wezen van een persoon.</td></tr>
+          <tr><td class="term">Voedsellichaam</td><td>Het lichaam voor zover het uit opgenomen stoffen bestaat; het bewustzijn heet daar een eigenschap van, zoals geur een eigenschap van een bloem is.</td></tr>
+          <tr><td class="term">Het Absolute</td><td>Wat er volgens Maharaj was voordat het bewustzijn opkwam en wat door het verdwijnen ervan onaangetast blijft.</td></tr>
+          <tr><td class="term">Nirguna</td><td>Zonder hoedanigheden; de aanduiding voor het Absolute, waarover niets bevestigends gezegd kan worden.</td></tr>
+          <tr><td class="term">Jnani</td><td>Degene die de vereenzelviging met het bewustzijn heeft losgelaten; in Maharaj's formulering lost de kennis in hem op en hij niet in de kennis.</td></tr>
+          <tr><td class="term">Satsang</td><td>De bijeenkomst waarin bezoekers vragen stellen en de leraar antwoordt; de vorm waarin dit hele boek is opgetekend.</td></tr>
+          <tr><td class="term">Maya</td><td>De verschijning van een wereld en een persoon die als afzonderlijk bestaand worden opgevat, terwijl zij volgens Maharaj met het zijnsbesef opkomen en verdwijnen.</td></tr>
+          <tr><td class="term">Zelfonderzoek</td><td>De enige praktijk die hij aanbeveelt: nagaan waar het eigen gevoel te bestaan vandaan komt, in plaats van kennis over dat gevoel te verzamelen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is geen boek dat iets beargumenteert en het bevat geen onderzoek, geen verwijzingen en geen toetsbare uitspraken. Wat het aandraagt is getuigenis: een man zegt wat hij ziet en beschrijft hoe hij daar kwam. Wie wil weten wat de tekst waard is, kan alleen kijken naar de betrouwbaarheid van de optekening en naar de innerlijke samenhang van wat er staat.</p>
+      <p>Op het eerste punt is de positie redelijk. Gaitonde beheerste het Marathi dat Maharaj sprak, was in de betreffende jaren geregeld aanwezig en vertaalde de avondbijeenkomsten zelf. Dat is een betere uitgangspositie dan bij een deel van de latere Nisargadatta-bundels, waar onduidelijk is via hoeveel handen de tekst is gegaan. Tegelijk is de tekst wel degelijk bewerkt: de gesprekken zijn niet gedateerd, de vragenstellers zijn niet benoemd, en de lezer kan de Engelse weergave nergens tegen een Marathi origineel leggen.</p>
+      <p>Op het tweede punt is de leer intern samenhangend en al eeuwen in de advaita vedanta terug te vinden. Nieuw is de toon en de weigering van elke tussenoplossing, niet de inhoud. Wie de uitspraak dat het bewustzijn met het lichaam eindigt naast de gangbare voorstelling van een voortlevende ziel legt, ziet dat hier een strengere lijn wordt getrokken dan in veel van wat onder dezelfde traditienaam circuleert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de leer zichzelf ontoegankelijk maakt voor weerlegging. Elke tegenwerping wordt beantwoord met de opmerking dat degene die tegenwerpt niet bestaat en dat de vraag uit onwetendheid voortkomt. Dat is binnen het stelsel sluitend en daarbuiten oncontroleerbaar. Wie wil weten of hier iets waars staat, krijgt te horen dat weten juist het probleem is.</p>
+      <p>Daarnaast is de winst ten opzichte van <i>I Am That</i> beperkt. Dezelfde spreker, dezelfde leer, deels dezelfde formuleringen. Voor wie dat boek kent is de opbrengst vooral dat de nadruk verder doorschuift naar het Absolute; voor wie het niet kent is deze bundel het slechtere beginpunt, omdat de vroege gesprekken meer uitleg geven.</p>
+      <p>Er is ook een praktisch bezwaar. Bij herhaald lezen gaan de kernzinnen als losse spreuken werken, en juist die omgang wees Maharaj af. Zonder bijeenkomst, aanwezigheid en tegenspraak is een boek gevoelig voor het onthouden en citeren dat het verbiedt. Tot slot blijft een hele orde van vragen onaangeroerd: over hoe iemand met gezin, werk, verplichtingen en verdriet leeft na de conclusie dat er geen persoon is, staat er vrijwel niets.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij <i>I Am That</i> als dit de eerste kennismaking met Nisargadatta is, en lees deze bundel daarna.</li>
+        <li>Lees per keer een enkel gesprek en leg het weg, in plaats van hoofdstukken achter elkaar door te nemen.</li>
+        <li>Onderscheid twee lagen bij het lezen: wat er over het bewustzijn wordt gezegd en wat er over het Absolute wordt gezegd. Maharaj wisselt daar zonder aankondiging tussen.</li>
+        <li>Ga bij elke aantekening na of er een uitspraak wordt opgeschreven om te onthouden; volgens het boek is dat het tegendeel van wat het vraagt.</li>
+        <li>Neem de uitspraak dat het bewustzijn met het lichaam eindigt eerst letterlijk, voordat er een verzachtende uitleg aan wordt gegeven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Nothing is Everything. The Quintessential Teachings of Sri Nisargadatta Maharaj</i> (Zen Publications, Mumbai, 2014, 248 blz., ISBN 9789382788973). De gesprekken werden in het Marathi gevoerd en door Mohan Gaitonde, die van 1979 tot 1981 de avondbijeenkomsten vertaalde, in het Engels opgetekend. De Nederlandse uitgave heet <i>Niets is alles</i>, vertaald door Justus Kramer Schippers en Mieke F.W. Berger, verschenen bij Uitgeverij Inzicht (Samsara Books, Amsterdam) in maart 2015, 240 blz., ISBN 9789077908105; die uitgave is inmiddels uitverkocht. Van dezelfde spreker verscheen eerder <i>I Am That</i>, en later verzamelingen als <i>Prior to Consciousness</i> en <i>The Ultimate Medicine</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een verzameling vraaggesprekken met Nisargadatta Maharaj uit zijn laatste levensjaren, opgetekend door Mohan Gaitonde, die in die jaren zijn avondvertaler was. De bezoekers stellen vragen over geboorte, dood, angst en verlichting; de antwoorden zijn kort en keren telkens naar dezelfde plek terug.</p><p>Die plek is het gevoel te bestaan, het besef 'ik ben'. Volgens Maharaj is dat besef niet iets wat iemand heeft, maar iets wat met het lichaam is opgekomen en er weer mee verdwijnt. Wie zich daarmee blijft vereenzelvigen, blijft bang voor de dood; wie onderzoekt waar dat besef vandaan komt, komt uit bij iets wat er al was voordat het opkwam.</p><p>De titel verwijst naar die overgang: van het niet-weten dat aan alles voorafgaat naar het verschijnen van een wereld. Het boek voegt weinig toe aan de leer die uit <i>I Am That</i> bekend is, maar legt de nadruk zwaarder op wat volgens Maharaj aan het bewustzijn voorafgaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>advaita</li><li>non-dualiteit</li><li>zelfonderzoek</li><li>bewustzijn</li><li>satsang</li><li>India</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1502"><a href="1502.html">I Am That</a>. De bekendste verzameling gesprekken met dezelfde leraar, opgetekend door Maurice Frydman uit een tien jaar eerdere periode; uitvoeriger van uitleg en het gebruikelijke beginpunt.</li>
+          <li value="1101"><a href="1101.html">Talks with Sri Ramana Maharshi</a>. Dezelfde gespreksvorm bij Ramana Maharshi, opgetekend in de jaren dertig; goed te vergelijken omdat Ramana bij het bewustzijn blijft waar Nisargadatta daar juist achter wil kijken.</li>
+          <li value="527"><a href="527.html">Who Am I?</a>. De korte tekst waarin Ramana het zelfonderzoek beschrijft dat Maharaj zijn bezoekers als enige praktijk meegeeft.</li>
+          <li value="1504"><a href="1504.html">The Book on the Taboo Against Knowing Who You Are</a>. Alan Watts brengt dezelfde stelling over de afwezigheid van een afzonderlijk zelf naar een westers publiek, met argumenten in plaats van getuigenis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

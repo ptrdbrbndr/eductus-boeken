@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiny Beautiful Things &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Strayed keert de logica van de adviesrubriek om. Waar de klassieke rubriek gezag ontleent aan afstand en aan het oordeel van een deskundige, ontleent…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1583">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1583 &middot; Levenskunst</p>
+    <h1>Tiny Beautiful Things</h1>
+    <p class="lede">Cheryl Strayed, 2012</p>
+    <p class="stats">
+      <span><b>1613</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1583"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Strayed keert de logica van de adviesrubriek om. Waar de klassieke rubriek gezag ontleent aan afstand en aan het oordeel van een deskundige, ontleent Sugar het aan nabijheid: zij antwoordt op vrijwel elke brief door haar eigen mislukkingen op tafel te leggen, en het advies volgt daaruit als een vorm van gezelschap. Haar stelling is dat mensen die vastlopen zelden informatie missen en meestal toestemming, en dat de zin die dan helpt niet luidt hoe het moet maar dat het gezien is. Daaronder ligt een strenge kant die haar van de troostliteratuur onderscheidt: zij verlangt dat de briefschrijver zichzelf gelooft en handelt, en zij weigert mee te gaan in de gedachte dat een leven eerlijk hoort te zijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe Sugar ontstond</h3>
+      <p>De rubriek Dear Sugar was begonnen door de schrijver Steve Almond op The Rumpus, een online literair tijdschrift. In maart 2010 gaf hij de rubriek aan Strayed, die anoniem en onbetaald bleef schrijven tot zij haar naam in februari 2012 bekendmaakte, vlak voordat haar memoir <i>Wild</i> verscheen.</p>
+      <p>Strayed heeft haar werkwijze beschreven als schrijven alsof zij een naakte vrouw in een veld was die alles laat zien behalve haar gezicht. De anonimiteit maakte de openheid mogelijk waar de rubriek om bekendstaat. Het boek verscheen in juli 2012 en kwam binnen op de vijfde plaats van de advieslijst van The New York Times.</p>
+      <h3>De vorm: brief en antwoord</h3>
+      <p>Het boek zet de brieven integraal af, met de zelfgekozen ondertekening van de schrijvers, gevolgd door antwoorden die vaak enkele bladzijden beslaan. De ordening is thematisch en niet chronologisch, waardoor stukken over rouw, over liefde en over werk bij elkaar staan.</p>
+      <p>Die vorm is bepalend voor de leesbaarheid. De brieven zijn kort en concreet, de antwoorden lopen uit tot kleine essays met verhalen, en de lezer volgt daardoor twee bewegingen tegelijk: het probleem van een vreemde en de biografie van de schrijver.</p>
+      <h3>Het eigen leven als antwoordmateriaal</h3>
+      <p>Strayeds moeder stierf in maart 1991 op vijfenveertigjarige leeftijd aan longkanker, kort na de diagnose, toen Strayed in haar laatste studiejaar zat. Daarna volgden jaren waarin haar huwelijk stukliep en zij heroine gebruikte. Zij werd als kind misbruikt door haar grootvader van vaderskant.</p>
+      <p>Die geschiedenis komt in het boek telkens terug, niet als klaagzang maar als betaalmiddel. Wie een brief schrijft over rouw krijgt haar rouw terug; wie schrijft over zelfverachting krijgt de jaren waarin zij zichzelf verachtte. De achternaam die zij bij haar scheiding in 1995 zelf koos, is een van de terugkerende voorbeelden van wat zij bepleit: jezelf benoemen in plaats van benoemd worden.</p>
+      <h3>Rouw: The Obliterated Place</h3>
+      <p>De bekendste brief is van een vader die ondertekent met Living Dead Dad. Zijn tweeentwintigjarige zoon is door een dronken bestuurder doodgereden en hij vraagt hoe hij verder moet.</p>
+      <p>Strayed weigert de gebruikelijke troost. Zij schrijft dat hij niet terugkeert naar wie hij was en dat de plek waar hij nu staat verwoest is; het werk van diep verdriet bestaat eruit in die verwoeste plek te gaan wonen. Het antwoord is het duidelijkste voorbeeld van haar afwijzing van het idee dat rouw een fase is die overgaat.</p>
+      <h3>Schrijven: Write Like a Motherfucker</h3>
+      <p>Een jonge schrijver legt haar voor dat zij verlamd raakt door twijfel en door het besef hoe weinig ruimte vrouwen in de literatuur krijgen. Sugars antwoord gaat over haar eigen jaren van niet schrijven, over de zelfverzekerdheid die nodig is om een boek af te maken en over het verschil tussen jaloezie en werk.</p>
+      <p>De zin waarmee het antwoord eindigt werd een leus die het tijdschrift tot op koffiemokken doorvoerde. Dat succes zegt iets over de aantrekkingskracht van het stuk en tegelijk over het gevaar ervan: het is de tekst die het gemakkelijkst tot aansporing verschraalt.</p>
+      <h3>Keuzes: The Ghost Ship That Didn't Carry Us</h3>
+      <p>Een briefschrijver kan niet beslissen of hij een kind wil. Strayed weigert de keuze te maken en verlegt de vraag: elke keuze bevat verlies, want er is altijd het leven dat je door je beslissing niet zult leiden.</p>
+      <p>Zij ontleent het beeld aan een gedicht van Tomas Transtromer over een zusterschip dat naast het eigen schip vaart. Het spookschip dat ons niet droeg is daarmee het beeld geworden waarmee het boek het vaakst wordt geciteerd.</p>
+      <h3>Het slotstuk</h3>
+      <p>Het boek ontleent zijn titel aan een kolom waarin een vrouw van in de twintig vraagt wat Sugar haar eigen twintigjarige zelf zou zeggen. Het antwoord bestaat uit een reeks korte aansprekingen aan die jongere versie, over spijt, geld, seks, moed en de dood van haar moeder.</p>
+      <p>Daar staat de zin waaraan het boek zijn naam ontleent, over het aanvaarden van de kleine mooie dingen die het leven wel geeft. Als slot van de bundel werkt het stuk als opsomming van de hele werkwijze: het advies is een brief aan een eerdere versie van de schrijver zelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sugar</td><td>Het pseudoniem waaronder Strayed de adviesrubriek van The Rumpus schreef, oorspronkelijk bedacht door Steve Almond.</td></tr>
+          <tr><td class="term">Trust yourself</td><td>De terugkerende aansporing van Sugar dat de briefschrijver het antwoord al kent en toestemming zoekt in plaats van informatie.</td></tr>
+          <tr><td class="term">The obliterated place</td><td>De verwoeste plek waar rouw iemand achterlaat en waarin volgens Strayed gewoond moet worden, in plaats van dat men eruit terugkeert.</td></tr>
+          <tr><td class="term">Het spookschip dat ons niet droeg</td><td>Het leven dat men door een keuze niet zal leiden; ontleend aan een gedicht van Tomas Transtromer over een zusterschip.</td></tr>
+          <tr><td class="term">Write like a motherfucker</td><td>Strayeds antwoord aan een verlamde jonge schrijver, gericht op werken zonder toestemming af te wachten.</td></tr>
+          <tr><td class="term">Tiny beautiful things</td><td>De kleine dingen die een leven wel oplevert en die volgens het slotstuk aanvaard moeten worden zoals ze komen.</td></tr>
+          <tr><td class="term">Radicale inleving</td><td>De werkwijze waarmee Sugar elke briefschrijver benadert: eerst de eigen geschiedenis blootleggen, dan pas oordelen.</td></tr>
+          <tr><td class="term">De naakte vrouw in het veld</td><td>Strayeds beeld voor haar schrijfhouding als Sugar: alles tonen behalve het gezicht, mogelijk gemaakt door de anonimiteit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op geen enkel onderzoek en pretendeert dat ook niet. Strayed is geen psycholoog en zegt dat op meerdere plaatsen; waar een brief op ernstige klachten wijst, verwijst zij naar hulpverlening. Wat het boek gezag geeft zijn de brieven zelf, die van echte lezers kwamen en waarvan de nood aantoonbaar is.</p>
+      <p>De aanwijzing dat de methode iets doet, is indirect en bestaat vooral uit ontvangst. De rubriek bouwde zonder betaling en zonder naam een groot lezerspubliek op, het boek belandde op de bestsellerlijst en werd bewerkt tot een toneelstuk in The Public Theater in New York in december 2016, tot de podcast Dear Sugars van The New York Times en WBUR tussen 2014 en 2018, en tot een serie voor Hulu die in april 2023 verscheen. Dat is bewijs van bereik, niet van juistheid.</p>
+      <p>Strayeds biografie is buiten het boek om te controleren en komt overeen met wat zij in de antwoorden vertelt: de dood van haar moeder in 1991, de scheiding in 1995 en de tocht over de Pacific Crest Trail in datzelfde jaar, die zij in <i>Wild</i> beschreef. De overeenkomst tussen beide boeken is een aanwijzing dat de anekdotes niet naar de brief zijn toegeschreven.</p>
+      <p>Waar het boek overtuigt, gebeurt dat langs de weg van de literatuur en niet van de bewijsvoering. De antwoorden zijn essays met beeld, ritme en opbouw, en het effect ervan hangt af van de schrijfkwaliteit. Dat is een reele grond om het boek te waarderen, maar een andere grond dan een handboek biedt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de werkwijze zelf. Elk antwoord loopt via Strayeds eigen leven, en wie de bundel achter elkaar leest merkt hoe vaak de brief van een vreemde de aanleiding vormt tot een verhaal over de schrijver. Bij de toneelbewerking werd dat scherper gezegd dan bij het boek: critici verweten de voorstelling dat zij het zelfgerichte van Sugar uitvergrootte en dat er geen ontwikkeling in zat.</p>
+      <p>De adviezen zijn moreel stellig zonder maatstaf. Strayed weet met grote zekerheid wanneer iemand moet blijven en wanneer iemand moet vertrekken, en die zekerheid berust op haar eigen ervaring met haar eigen keuzes. Bij lezers met een ander leven kan hetzelfde advies verkeerd uitvallen, en het boek biedt geen manier om dat te merken.</p>
+      <p>De lezer hoort nooit hoe het afliep. Geen briefschrijver krijgt weerwoord, geen antwoord wordt gevolgd door bericht. Daardoor blijft de bundel een verzameling voorstellen waarvan de uitkomst onbekend is, terwijl de toon suggereert dat het advies raak was.</p>
+      <p>De vorm slijt bij achtereen lezen. De opbouw van de antwoorden, van herkenning via bekentenis naar de bezwerende slotalinea met een aanspreking, komt zo vaak terug dat het een procede wordt. Het boek is gemaakt voor wekelijkse lezing en betaalt daarvoor als bundel de prijs.</p>
+      <p>Ten slotte de vraag naar de brieven zelf. De keuze uit twee jaar rubriek is door de schrijver gemaakt en het boek verantwoordt die keuze niet. Welke brieven het niet haalden, en of dat de brieven waren waarop Sugar geen antwoord wist, blijft buiten beeld.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek in kleine porties; de vorm is voor wekelijkse lezing gemaakt.</li>
+        <li>Onderscheid bij een eigen dilemma of er informatie ontbreekt of alleen toestemming; alleen op het tweede geeft dit boek antwoord.</li>
+        <li>Neem het rouwadvies letterlijk: reken niet op terugkeer naar de oude toestand, maar op inrichting van de nieuwe.</li>
+        <li>Weeg bij een keuze uitdrukkelijk het leven dat door de keuze wegvalt, in plaats van dat verlies weg te redeneren.</li>
+        <li>Zoek bij ernstige klachten hulp; de schrijver is geen behandelaar en zegt dat zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Tiny Beautiful Things: Advice on Love and Life from Dear Sugar</i> (Vintage Books, New York, 10 juli 2012, ISBN 9780307949332); in 2022 verscheen een jubileumeditie. Nederlands als <i>Schitterende kleine dingen</i>, vertaald door Miebeth van Horn, eerst bij Cargo in 2015 en sinds 2021 bij Thomas Rap, 376 blz. in de paperback, ISBN 9789400411197, met luisterboek ingesproken door Donna Vrijhof. Van Strayed verschenen in het Nederlands ook <i>Wild</i> en de roman <i>Torch</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Van maart 2010 tot begin 2012 schreef Cheryl Strayed anoniem de adviesrubriek Dear Sugar op het literaire tijdschrift The Rumpus, onbetaald en onder de naam Sugar. Dit boek bundelt de brieven en haar antwoorden.</p><p>De brieven staan er integraal in en gaan over ontrouw, geldgebrek, rouw, verslaving, schrijversblokkades en de vraag of iemand een kind moet krijgen. Strayeds antwoorden zijn lang en beginnen vrijwel altijd bij haar eigen leven: de dood van haar moeder aan longkanker toen zij tweeentwintig was, misbruik in haar jeugd, heroine, een gestrand huwelijk.</p><p>Bekende stukken zijn The Obliterated Place, geschreven aan een vader wiens zoon door een dronken bestuurder werd doodgereden, Write Like a Motherfucker aan een jonge schrijver die niets meer op papier kreeg, en The Ghost Ship That Didn't Carry Us over het leven dat je door je keuze niet zult leiden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>adviescolumn</li><li>essays</li><li>rouw</li><li>schrijven</li><li>keuzes</li><li>Dear Sugar</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="19"><a href="19.html">Bird by Bird</a>. Lamott schrijft over schrijven met dezelfde mengeling van bekentenis en aansporing; Write Like a Motherfucker is de kortere, hardere versie van haar boodschap.</li>
+          <li value="1620"><a href="1620.html">Love Warrior</a>. Doyle werkt in dezelfde Amerikaanse traditie van openbare zelfblootlegging als vorm van hulp aan anderen, met dezelfde vraag naar de grens tussen dienst en zelfportret.</li>
+          <li value="1582"><a href="1582.html">Handboek voor mindere dagen</a>. Helmink levert het Nederlandse tegenbeeld: korte, praktische ingrepen zonder de biografie van de schrijver als hoofdbestanddeel.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

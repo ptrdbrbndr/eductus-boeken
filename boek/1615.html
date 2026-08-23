@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jezelf vergeven (voor alles) &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thooft stelt dat schuldgevoel geen morele verdienste is maar een afweer: schuldgevoel brengt spanning, verplaatst de aandacht naar het denken en houdt zo…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1615">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1615 &middot; Levenskunst</p>
+    <h1>Jezelf vergeven (voor alles)</h1>
+    <p class="lede">Lisette Thooft, 2025</p>
+    <p class="stats">
+      <span><b>1716</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1615"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thooft stelt dat schuldgevoel geen morele verdienste is maar een afweer: schuldgevoel brengt spanning, verplaatst de aandacht naar het denken en houdt zo de pijn buiten die bij de fout hoort. Zelfvergeving is in haar omschrijving iets anders dan zichzelf vrijpleiten; het is de pijn van de eigen onvolmaaktheid volledig binnenlaten en in het hart laten voelen, want daar wordt volgens haar compassie van gemaakt. Daaruit volgt haar tweede stelling, en die is minder aangenaam dan de titel doet vermoeden: zelfvergeving doet pijn, en elke poging om er met bevestigingen, visualisaties of positieve gedachten overheen te werken, laat het schuldgevoel intact. De pijn hoort ook niet weg te gaan; pijn die niet meer gevoeld wordt is volgens haar hoogstwaarschijnlijk opnieuw weggedrukt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Schuld is een schild</h3>
+      <p>Het uitgangspunt van het boek is een lichamelijke waarneming. Schuldgevoel en schaamte gaan gepaard met spanning: de spieren en het bindweefsel trekken samen, de aandacht schiet omhoog naar het hoofd, en daar ontstaan de verhalen over hoe verkeerd men was. Thooft noemt dat een kramp, en de vraag van het boek is hoe iemand uit die kramp komt.</p>
+      <p>Ze onderscheidt schuld en schaamte niet scherp; beide werken volgens haar hetzelfde, als scherm tegen wat er onder zit. Wat er onder zit is verdriet, en dat verdriet is waar het boek naartoe wil. Het denken is daarbij het beginpunt en niet de plaats van aankomst: eerst beseffen dat het een kramp is, dan de weg terug naar het gevoel.</p>
+      <h3>De vijf stappen</h3>
+      <p>Stap een is excuses aanbieden en herstellen wat te herstellen valt. Thooft houdt die stap kort, omdat er vaak niets meer goed te maken is; de mensen zijn dood, de gelegenheid is voorbij, het kind is volwassen geworden.</p>
+      <p>Stap twee is helder benoemen wat er precies is misgegaan en waarin de eigen fout zat. Bij haar eigen voorbeeld, waarbij haar dochter als enige zonder ouders bij het diplomazwemmen stond, komt zij op twee dingen uit: zelfzucht, en daarnaast het voorwendsel dat zij met iets belangrijks en spiritueels bezig was, wat zij hypocrisie noemt.</p>
+      <p>Stap drie is het eigen falen bekijken in het licht van de menselijkheid. Was ik de enige die zich door begeerte liet leiden, was ik de enige die zich beter voordeed dan zij was? Wie zich schuldig blijft voelen, zet zichzelf volgens Thooft op een troon: hij gaat ervan uit dat hij geen gewone fouten hoort te maken.</p>
+      <h3>De vierde stap: de pijn toelaten</h3>
+      <p>De vierde stap noemt zij de belangrijkste en de moeilijkste. Ga zitten, open het hart en nodig de pijn uit, schrijft zij. Eerst de pijn van degene die schade opliep: in haar voorbeeld het gevoel van een kind dat als enige geen trotse ouders bij zich heeft. Laat het hart erdoor breken, luidt de aanwijzing.</p>
+      <p>Daarna gaat het een laag dieper naar de eigen pijn: hoe moeilijk het is om goed te willen zijn en dat soms niet te kunnen, en hoe het is om een masker op te houden. Ze geeft er een lichamelijke aanwijzing bij, handen op het hart, en de instructie om vol te houden tot de aandacht afdwaalt en dan te stoppen.</p>
+      <p>Haar verklaring waarom dit werkt is levensbeschouwelijk van aard. Weggedrukte pijn maakt iemand harder en zet aan tot beschuldigen; toegelaten pijn wordt in het hart omgezet in compassie, met zichzelf en met andere mensen die dezelfde soort fouten maken.</p>
+      <h3>De vijfde stap en de herhaling</h3>
+      <p>Stap vijf is nagaan of er iets veranderd is: is de blik op zichzelf en op anderen die hetzelfde deden milder geworden? Zo niet, dan volgt herhaling van stap vier, net zolang tot die mildheid er wel is.</p>
+      <p>Thooft waarschuwt uitdrukkelijk tegen de gedachte dat het proces klaar is zodra de pijn weg is. Pijn die er mag zijn wordt volgens haar een blijvende laag in iemand, en waar pijn mag zijn kan ook vreugde zijn, dankbaarheid en verbondenheid. Ze noemt dat een stukje christusbewustzijn of boeddhanatuur, en laat de lezer de benaming kiezen.</p>
+      <h3>De thematische hoofdstukken</h3>
+      <p>Het grootste deel van het boek past de stappen toe op afzonderlijke onderwerpen, zodat een lezer kan opzoeken wat hem aangaat: het eigen lichaam, slapeloosheid, verslaving, eenzaamheid, ouder worden, oude wrok, slechte gewoonten en onzekerheid.</p>
+      <p>Het hoofdstuk over het lichaam laat zien hoe zij te werk gaat. Zij splitst de klacht in een buitenkant, het lichaam niet mooi genoeg vinden, en een binnenkant, het lichaam niet gezond genoeg vinden, en vraagt vervolgens waarvoor het niet goed genoeg zou zijn. Als het antwoord geluk is, wijst zij erop dat mooie en gezonde mensen ook ongelukkig zijn en dat veel mensen met chronische ziekte een zinvol leven leiden.</p>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Thooft werkt sinds haar opleiding tussen 2015 en 2018 als rebalancer, een vorm van bindweefselmassage waarin gevoel en lichaam aan elkaar gekoppeld worden. Dat verklaart waarom schuld in dit boek eerst als spanning wordt beschreven en pas daarna als gedachte.</p>
+      <p>Daarnaast schrijft zij al sinds de jaren tachtig over spiritualiteit, emancipatie en persoonlijke ontwikkeling, voor bladen die uiteenlopen van Cosmopolitan tot Happinez, en vertaalde zij werk van Barry Long. De toon van het boek, persoonlijk en zonder terughoudendheid over eigen fouten, komt uit die journalistieke praktijk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Schuld is een schild</td><td>De kerngedachte dat schuldgevoel en schaamte de functie hebben om pijn buiten te houden, en daarom aanvoelen als spanning in het lichaam.</td></tr>
+          <tr><td class="term">De kramp</td><td>Thoofts aanduiding voor de lichamelijke toestand waarin schuldgevoel iemand brengt: samengetrokken spieren en bindweefsel, aandacht in het hoofd.</td></tr>
+          <tr><td class="term">Het vijfstappenplan</td><td>De volgorde excuses, benoemen, menselijkheid, pijn voelen en nagaan wat er veranderd is, waarbij stap vier zo nodig herhaald wordt.</td></tr>
+          <tr><td class="term">De pijn van het slachtoffer</td><td>De eerste laag in stap vier: voelen hoe het was voor degene die door eigen toedoen iets tekortkwam.</td></tr>
+          <tr><td class="term">Zelfcompassie</td><td>Bij Thooft geen houding die iemand aanneemt, maar wat het hart volgens haar met toegelaten pijn doet.</td></tr>
+          <tr><td class="term">Op een troon zitten</td><td>Haar beeld voor het verborgen hoogmoedige element in blijvend schuldgevoel: de aanname dat uitgerekend deze persoon geen gewone fouten hoort te maken.</td></tr>
+          <tr><td class="term">Je lichaam vergeven</td><td>Het toepassen van dezelfde stappen op boosheid over het eigen uiterlijk of de eigen gezondheid, na eerst na te gaan waarvoor het lichaam tekort zou schieten.</td></tr>
+          <tr><td class="term">Rebalancing</td><td>De vorm van bindweefselwerk die Thooft beoefent, waarin gevoel via het lichaam wordt benaderd; dit boek leunt op die benadering.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek onderbouwt zijn beweringen met eigen ervaring en met verhalen uit de praktijk van de auteur, niet met onderzoek. Thooft schrijft haar voorbeelden uit met naam en toedracht waar het haar eigen leven betreft, en dat maakt de tekst controleerbaar in de zin dat de lezer ziet waar de gedachte vandaan komt. Voor de werking van de methode staat er geen enkele meting in.</p>
+      <p>Wat wel opvalt is dat de opzet van het vijfstappenplan overeenkomt met wat in de psychologie over zelfvergeving is beschreven. Modellen daar bevatten doorgaans dezelfde bestanddelen: verantwoordelijkheid nemen, herstel waar mogelijk, spijt doorvoelen en het eigen falen in een breder menselijk kader plaatsen. Thooft verwijst daar niet naar, maar haar volgorde wijkt er niet van af.</p>
+      <p>Haar stelling dat vermijden van pijn de klacht in stand houdt, sluit aan bij wat in behandelingen van rouw en van angst gangbaar is: het toelaten van wat vermeden wordt. Dat maakt de vierde stap aannemelijker dan de rest van het betoog, al is de vorm die Thooft kiest, zitten met de handen op het hart, niet als zodanig onderzocht.</p>
+      <p>De verklaring die zij eromheen bouwt is levensbeschouwelijk. Dat het hart pijn in liefde omzet, dat de aarde is ingericht om mensen via pijn bewuster te maken, en dat toegelaten pijn een heilige laag in de ziel wordt, zijn geen uitspraken die op iets anders rusten dan op haar overtuiging. Zij presenteert ze ook zo, met woorden als: geloof ik, ik denk.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de reikwijdte. De ondertitel belooft vergeving voor alles, en de stappen worden zonder onderscheid toegepast op nalatigheid tegenover een kind, op slechte gewoonten en op onzekerheid over het eigen uiterlijk. Dat zijn ongelijksoortige zaken. Waar iemand een ander werkelijk schade heeft toegebracht, is de vraag of vergeving aan de dader toekomt een andere dan bij zelfverwijt over een lichaam dat niet aan een norm voldoet.</p>
+      <p>De derde stap draagt een risico dat het boek benoemt maar niet afdekt. Wie zijn eigen daad plaatst in het licht van de algemene menselijkheid, kan daarmee de scherpte eruit halen: iedereen doet het, dus zo erg was het niet. Thooft schrijft dat het fout was maar menselijk, en dat is een smal pad. Het boek geeft geen aanwijzing waaraan iemand merkt dat hij eraf raakt.</p>
+      <p>De onderbouwing komt vrijwel geheel uit één leven. Dat maakt de tekst geloofwaardig en tegelijk beperkt: de voorbeelden komen uit een bestaan met tijd, taal en toegang tot spirituele kringen. Wat schuldgevoel doet bij mensen in andere omstandigheden, en of dezelfde vijf stappen daar iets uithalen, blijft buiten beeld.</p>
+      <p>Voor lezers met een geschiedenis van ernstig trauma is de vierde stap niet zonder meer verstandig. De aanwijzing om de pijn zo lang mogelijk vast te houden, alleen en zonder begeleiding, is precies waar behandelaars terughoudend in zijn, omdat herbeleving zonder houvast de klacht kan verergeren. Het boek besteedt daar geen woorden aan.</p>
+      <p>De religieuze inkleuring aan het slot van het proces staat los van de stappen zelf. Wie de vijf stappen bruikbaar vindt en niets heeft met christusbewustzijn of boeddhanatuur, moet die laag zelf wegdenken; Thooft biedt geen alternatieve formulering aan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op wat er precies is misgegaan, in gewone woorden, zonder verzachting en zonder aanklacht.</li>
+        <li>Ga na of er nog iets te herstellen valt voordat je aan het gevoelswerk begint.</li>
+        <li>Neem in stap vier eerst de pijn van de ander en pas daarna die van jezelf, en stop zodra de aandacht afdwaalt.</li>
+        <li>Herhaal stap vier op een andere dag in plaats van door te schuiven naar stap vijf wanneer er niets zachter is geworden.</li>
+        <li>Zoek begeleiding wanneer het toelaten van de pijn uitloopt op herbeleving van geweld of misbruik.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig, volledige titel <i>Jezelf vergeven (voor alles). Waarom het moet. En hoe je het doet</i>, Uitgeverij Lucht, Hilversum, 2025, 192 blz., ISBN 9789493422001; e-boek ISBN 9789493422124, eindredactie Denise Larsen. Enkele boekhandelssites voeren april 2024 als verschijningsdatum, wat op een eerdere aankondiging lijkt te slaan. Het boek is niet vertaald. Thooft (Den Haag, 1953) studeerde Engelse taal- en letterkunde, kwam in 1983 in de journalistiek, schreef ruim twintig non-fictieboeken en vertaalde werk van Barry Long, onder meer <i>Ridding Yourself of Unhappiness</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thooft stelt dat schuldgevoel een schild is. Wie zich schuldig voelt, spant zich aan, schiet in zijn hoofd en maakt daar verhalen over hoe slecht hij was. Dat denken houdt de pijn op afstand, en juist daardoor blijft de schuld liggen. De weg terug loopt volgens haar via het voelen.</p><p>Ze werkt dat uit in vijf stappen: excuses aanbieden als dat nog kan, helder benoemen wat er precies is misgegaan, dat bekijken in het licht van de gewone menselijkheid, de pijn toelaten, eerst die van het slachtoffer en daarna de eigen pijn, en tot slot nagaan of er iets veranderd is. Verandert er niets, dan volgt herhaling van stap vier.</p><p>Het boek is thematisch geordend, zodat een lezer kan opzoeken wat op hem van toepassing is: het eigen lichaam, slapeloosheid, verslaving, eenzaamheid, ouder worden, oude wrok. Thooft schrijft vanuit haar praktijk als rebalancer en gebruikt haar eigen fouten als voorbeeld, waaronder het diplomazwemmen van haar dochter waar zij niet naartoe ging.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfvergeving</li><li>schuldgevoel</li><li>schaamte</li><li>zelfcompassie</li><li>rouw</li><li>rebalancing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff bouwt zelfcompassie op uit onderzoek en levert daarmee de onderbouwing die Thooft aan haar eigen ervaring ontleent.</li>
+          <li value="1613"><a href="1613.html">Homecoming: Reclaiming and Championing Your Inner Child</a>. Bradshaw legt hetzelfde verband tussen schaamte en het wegdrukken van verdriet, en werkt het rouwdeel dat Thooft in één stap vat veel breder uit.</li>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Levine beschrijft waarom pijn die niet verwerkt is in het lichaam blijft zitten, wat aansluit bij Thoofts uitgangspunt dat schuldgevoel een spanningstoestand is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

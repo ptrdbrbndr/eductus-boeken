@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Climate Restoration &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fiekowsky stelt dat het gangbare klimaatdoel, netto nul uitstoot omstreeks 2050, geen leefbaar klimaat oplevert omdat het de opgehoopte koolstofdioxide…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1603">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1603 &middot; Natuur en wetenschap</p>
+    <h1>Climate Restoration</h1>
+    <p class="lede">Peter Fiekowsky met Carole Douglis, 2022</p>
+    <p class="stats">
+      <span><b>1606</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1603"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fiekowsky stelt dat het gangbare klimaatdoel, netto nul uitstoot omstreeks 2050, geen leefbaar klimaat oplevert omdat het de opgehoopte koolstofdioxide van tweehonderd jaar industrie in de lucht laat staan. Zijn stelling is dat er een tweede opgave naast de eerste moet komen, namelijk het terugbrengen van het gehalte naar het niveau waarbij de mensheid zich ontwikkeld heeft, en dat die opgave technisch haalbaar is met vier bestaande technieken die zonder noemenswaardig overheidsgeld op te schalen zijn. Daarmee verlegt hij de discussie van politieke wil naar techniek en financiering, en van schadebeperking naar herstel. Het boek staat of valt met de vraag of de vier technieken werkelijk doen wat hij ervan verwacht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Nul uitstoot is niet genoeg</h3>
+      <p>Het boek opent met een rekensom. Zelfs wanneer de uitstoot morgen op nul zou staan, blijft het gehalte koolstofdioxide op ruim vierhonderd deeltjes per miljoen liggen, en het gas verdwijnt niet vanzelf op menselijke tijdschaal. Fiekowsky wijst erop dat de mens zich heeft ontwikkeld in een klimaat waarin dat gehalte onder de driehonderd bleef.</p>
+      <p>Daaruit volgt zijn doelstelling: terug naar dat gehalte, en wel voor 2050, omdat hij het als een verplichting aan de nu levende kinderen beschouwt en niet als een taak voor de volgende eeuw. De omvang die daarbij hoort is ongeveer een biljoen ton koolstofdioxide.</p>
+      <h3>Drie eisen aan elke oplossing</h3>
+      <p>Het scharnier van het boek is het toetsingskader. Een techniek telt alleen mee wanneer het vastgelegde koolstof er minstens een eeuw uit blijft, wanneer zij binnen tien jaar kan groeien tot vijfentwintig miljard ton per jaar, en wanneer zij te bekostigen is uit een markt die er al is.</p>
+      <p>Die derde eis stuurt de rest van het boek. Fiekowsky zoekt technieken die iets opleveren waar al vraag naar is, zodat de opschaling niet afhangt van klimaatafspraken tussen staten. Zijn voorbeeld daarvan is bouwmateriaal: wie koolstof in steen vastlegt en die steen verkoopt, hoeft niemand om subsidie te vragen.</p>
+      <h3>IJzerbemesting van de oceaan</h3>
+      <p>De eerste techniek is het toevoegen van kleine hoeveelheden ijzerstof aan zeegebieden waar ijzer het groeibeperkende element is. Algen komen dan tot bloei, nemen koolstof op, en een deel daarvan zinkt met de dode organismen naar de diepzee. Fiekowsky presenteert dit als herstel van visgronden die door menselijk toedoen zijn verarmd, en niet als een ingreep in een ongerept systeem.</p>
+      <p>Hij rekent voor dat het per ton weggenomen koolstof goedkoper is dan vrijwel elk alternatief, en verwijst naar de vangstopbrengst als tweede reden om het te doen. De vraag hoeveel van het opgenomen koolstof werkelijk in de diepte blijft, behandelt hij optimistischer dan de gepubliceerde veldproeven toelaten.</p>
+      <h3>Synthetische kalksteen en zeewier</h3>
+      <p>De tweede techniek legt koolstofdioxide uit rookgassen vast in kalksteen die als toeslagmateriaal in beton kan dienen. Omdat de wereld jaarlijks tientallen miljarden tonnen grind en zand verwerkt, is er een afzetmarkt die groot genoeg is om de kosten te dragen. Fiekowsky beschouwt dit als het duidelijkste voorbeeld van zijn financieringsgedachte.</p>
+      <p>De derde is zeewierteelt op zee, waarbij het geoogste materiaal deels als voedsel en grondstof dient en deels naar de diepte wordt gebracht. Hij behandelt de twee samen als de industriële poot van het herstelplan: bekende chemie, bekende markten, en opschaling die vooral een kwestie van kapitaal is.</p>
+      <h3>Methaan</h3>
+      <p>Het meest verstrekkende hoofdstuk gaat over methaan. Fiekowsky wijst op de mogelijkheid dat opwarming grote hoeveelheden methaan vrijmaakt uit permafrost en zeebodem, en dat een dergelijke uitbarsting het klimaat sneller verandert dan enige maatregel kan bijhouden.</p>
+      <p>Zijn antwoord is het versnellen van de afbraak die in de atmosfeer al plaatsvindt, door boven zee ijzerhoudende deeltjes te verspreiden die de vorming van chloorradicalen bevorderen. Hij stelt dat het methaangehalte daarmee gehalveerd kan worden. Deze techniek is van de vier de minst beproefde en de meest ingrijpende, en hij erkent dat zelf ook.</p>
+      <h3>Bevolking en houding</h3>
+      <p>Het boek besluit met twee hoofdstukken van andere aard. Het eerste gaat over de omvang van de wereldbevolking op lange termijn en over de vraag welk aantal mensen op deze planeet duurzaam te onderhouden is. Het tweede gaat over houding: Fiekowsky heeft een achtergrond in trainingen over doelstellingen en verantwoordelijkheid, en betoogt dat de klimaatbeweging zichzelf lam legt met een verhaal waarin alles verloren is.</p>
+      <p>Hij bepleit een doel dat is uitgesproken als iets dat zal gebeuren, naar het voorbeeld van de Amerikaanse maanlanding, en vraagt de lezer dat doel over te nemen. Dat deel van het boek is aansporing en geen analyse, en de recensies hebben er zonder uitzondering op gewezen dat het slecht aansluit op de rest.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Klimaatherstel</td><td>Het terugbrengen van het gehalte broeikasgas naar het niveau van voor de industrialisatie, onderscheiden van het beperken van verdere uitstoot.</td></tr>
+          <tr><td class="term">Driehonderd deeltjes per miljoen</td><td>De grens die Fiekowsky als doel neemt, omdat het koolstofdioxidegehalte gedurende de hele menselijke ontwikkeling daaronder bleef.</td></tr>
+          <tr><td class="term">Een biljoen ton</td><td>De hoeveelheid koolstofdioxide die volgens zijn berekening uit de lucht moet worden gehaald om dat gehalte te bereiken.</td></tr>
+          <tr><td class="term">Blijvend, opschaalbaar, financierbaar</td><td>De drie eisen waarlangs hij kandidaat-technieken beoordeelt: honderd jaar vastgelegd, vijfentwintig miljard ton per jaar binnen tien jaar, en te betalen uit bestaande markten.</td></tr>
+          <tr><td class="term">IJzerbemesting</td><td>Het toevoegen van ijzerstof aan zeegebieden waar ijzer de algengroei beperkt, waardoor koolstof wordt opgenomen en deels naar de diepzee zakt.</td></tr>
+          <tr><td class="term">Synthetische kalksteen</td><td>Kalksteen die uit afgevangen koolstofdioxide wordt gemaakt en als toeslagmateriaal in beton wordt verkocht.</td></tr>
+          <tr><td class="term">Versnelde methaanoxidatie</td><td>Het bevorderen van de natuurlijke afbraak van methaan in de atmosfeer door boven zee ijzerhoudende deeltjes te verspreiden.</td></tr>
+          <tr><td class="term">Methaanuitbarsting</td><td>Het scenario waarin opwarming grote hoeveelheden methaan uit permafrost en zeebodem vrijmaakt en de temperatuurstijging versnelt.</td></tr>
+          <tr><td class="term">Bevolkingsherstel</td><td>Zijn term voor het op lange termijn terugbrengen van de wereldbevolking naar een aantal dat de planeet volgens hem kan dragen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste deel van de onderbouwing is de eenvoudige rekensom waarmee het boek opent. Dat netto nul uitstoot het bestaande gehalte niet verlaagt, en dat koolstofdioxide eeuwenlang in de atmosfeer blijft, is niet omstreden. De vraag die hij daaraan verbindt, wat er met de bestaande overmaat gebeurt, wordt in het beleid inderdaad zelden gesteld.</p>
+      <p>Twee van de vier technieken bestaan werkelijk en zijn op kleine schaal uitgevoerd. Er zijn bedrijven die koolstofdioxide in bouwmateriaal vastleggen, en zeewierteelt is een bestaande bedrijfstak. Voor die twee is de vraag niet of het kan, maar of het duizend keer zo groot kan worden binnen tien jaar, en daarvoor levert het boek vooral kostenramingen en geen uitgevoerde opschaling.</p>
+      <p>Voor ijzerbemesting is er wel veldwerk, en dat wijst een andere kant op dan Fiekowsky suggereert. Bij de Indiaas-Duitse proef LOHAFEX in de Zuidelijke Oceaan in 2009 kwam de algenbloei op gang, maar werd het grootste deel weggegraasd door roeipootkreeftjes; de stroom organisch koolstof nam tussen honderd en vierhonderdvijftig meter diepte met ongeveer een factor acht af. Wat er bovenin wordt opgenomen, komt dus grotendeels niet in de diepzee terecht.</p>
+      <p>De versnelde methaanoxidatie rust op modelberekeningen en laboratoriumchemie, niet op veldproeven van betekenis. Het boek presenteert haar niettemin als een van de vier oplossingen. Zelfs een welwillende recensent als die van Kirkus noemde dat onderdeel vergezocht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de juridische en bestuurlijke werkelijkheid rond oceaaningrepen. De verdragspartijen van het Londen-verdrag namen in 2008 een resolutie aan die oceaanbemesting als bedreiging voor het zeemilieu aanmerkt, en het Londen-protocol werd in 2013 aangevuld met een verbod, behalve voor wetenschappelijk onderzoek onder een beoordelingskader. Het boek behandelt die belemmering als een misverstand dat met betere voorlichting verdwijnt, terwijl zij voortkomt uit onopgeloste vragen over grensoverschrijdende gevolgen.</p>
+      <p>De financieringsgedachte is aantrekkelijk en tegelijk het punt waarop de redenering het meest oprekt. Dat een markt bestaat, betekent niet dat die markt de nieuwe grondstof accepteert tegen de prijs, de kwaliteit en in het tempo dat nodig is. Het vervangen van een aanzienlijk deel van de wereldwijde toeslagmaterialen door synthetische kalksteen vergt een industriële ombouw die het boek niet doorrekent.</p>
+      <p>Er ligt een risico dat het boek niet ontkent maar ook niet ondervangt: de belofte dat de schade later terug te draaien is, verzwakt de aandrang om nu te stoppen met uitstoten. Fiekowsky schrijft dat herstel bovenop het terugdringen van uitstoot komt en er niet voor in de plaats. Hoe een dergelijk verhaal in de politieke praktijk uitpakt, is een vraag die hij als niet ter zake behandelt.</p>
+      <p>Het hoofdstuk over de wereldbevolking staat los van de rest en is het slechtst onderbouwd. De aantallen waar hij op uitkomt zijn niet navolgbaar afgeleid, en de vraag hoe uitstoot over inkomens verdeeld is, waar de meeste analyses beginnen, blijft buiten beeld. Meerdere recensenten hebben aangegeven dat het hoofdstuk beter had kunnen ontbreken.</p>
+      <p>Ten slotte laat het boek de landgebonden opties vrijwel geheel liggen: bosherstel, bodemkoolstof, veenherstel en verweringstechnieken. Dat volgt uit zijn eigen eisen, want die halen de opschaling niet, maar het geeft de lezer een eenzijdig beeld van wat er aan koolstofverwijdering wordt onderzocht.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd de twee vragen uit elkaar: hoeveel uitstoot er nog bij komt, en wat er met de al aanwezige voorraad gebeurt.</li>
+        <li>Leg elke voorgestelde klimaattechniek langs de drie eisen van het boek, en let daarbij vooral op de opschalingstermijn, want daar sneuvelen de meeste voorstellen.</li>
+        <li>Zoek bij oceaanbemesting eerst op wat de status onder het Londen-protocol is voordat de techniek als beschikbaar wordt beschouwd.</li>
+        <li>Vraag bij elke kostenraming per ton of het om een uitgevoerde installatie gaat of om een berekening op papier.</li>
+        <li>Lees het hoofdstuk over bevolkingsomvang als een aparte tekst en beoordeel het los van de technische hoofdstukken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Climate Restoration. The Only Future That Will Sustain the Human Race</i>, Rivertowns Books, Irvington, New York, 22 april 2022 (paperback, ongeveer 260 blz., ISBN 9781953943101); er is ook een e-boek en een luisterboek, ingelezen door David Deboy. Er bestaat geen Nederlandse uitgave van dit boek, en er is voor zover na te gaan ook geen ander werk van Fiekowsky in het Nederlands vertaald. Wie de stof in het Nederlands wil volgen, is aangewezen op de publicaties van de Foundation for Climate Restoration, de stichting die hij oprichtte.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Peter Fiekowsky is een Amerikaans natuurkundige die zijn loopbaan in de techniek doorbracht en later de Foundation for Climate Restoration oprichtte. Zijn boek begint bij de vaststelling dat het klimaatbeleid mikt op nul uitstoot omstreeks 2050, en dat nul uitstoot de bestaande overmaat aan broeikasgas in de lucht laat staan.</p><p>Wat hij daartegenover zet noemt hij herstel: de hoeveelheid koolstofdioxide terugbrengen naar het gehalte van voor de industrialisatie, onder de driehonderd deeltjes per miljoen, en dat voor 2050. Dat betekent ongeveer een biljoen ton uit de lucht halen en vastleggen, naast het stoppen van de uitstoot.</p><p>Hij beoordeelt kandidaat-technieken langs drie eisen: het vastgelegde koolstof moet er minstens honderd jaar uit blijven, de techniek moet binnen tien jaar op te schalen zijn tot vijfentwintig miljard ton per jaar, en zij moet te betalen zijn uit bestaande markten in plaats van uit overheidsgeld. Vier technieken halen die lat volgens hem: ijzerbemesting van de oceaan, synthetische kalksteen, zeewierteelt en het versneld afbreken van methaan in de atmosfeer.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>klimaat</li><li>koolstofverwijdering</li><li>methaan</li><li>oceaanbemesting</li><li>geo-engineering</li><li>techniek</li><li>kritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1257"><a href="1257.html">Operating Manual for Spaceship Earth</a>. Fuller schreef zestig jaar eerder dezelfde soort betoog: de aarde als installatie die met techniek en boekhouding te bedienen valt.</li>
+          <li value="1262"><a href="1262.html">De zee</a>. Carson beschrijft de oceaan als samenhangend systeem, wat de vraag scherpstelt wat ijzerbemesting daar precies mee doet.</li>
+          <li value="1651"><a href="1651.html">De verborgen impact</a>. Porcelijn rekent de verborgen uitstoot van consumptie door en komt daarmee uit bij de kant van het vraagstuk die Fiekowsky grotendeels laat liggen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

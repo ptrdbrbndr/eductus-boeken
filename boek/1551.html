@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bhagavad Gita &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Bhagavad Gita zet een gewetensbezwaar op scherp en verwerpt het. Arjuna weigert te vechten omdat hij zijn eigen familie tegenover zich ziet, en zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1551">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1551 &middot; Filosofie en mystiek</p>
+    <h1>Bhagavad Gita</h1>
+    <p class="lede">Anoniem, traditioneel toegeschreven aan Vyasa, tekst vermoedelijk tussen de tweede eeuw v.Chr. en de tweede eeuw n.Chr.; vert. Guus en Kuuk Nooteboom, 1989</p>
+    <p class="stats">
+      <span><b>1812</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1551"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De <i>Bhagavad Gita</i> zet een gewetensbezwaar op scherp en verwerpt het. Arjuna weigert te vechten omdat hij zijn eigen familie tegenover zich ziet, en zijn argument is niet gering: hij wijst op de schade, op het verval van de geslachten en op de zinloosheid van een overwinning die hem alles kost wat hij liefheeft. Krishna antwoordt dat terugtrekken geen uitweg biedt, omdat niemand ook maar een ogenblik zonder handelen bestaat en nietsdoen dus even goed een daad is met gevolgen. Wat wel kan is handelen zonder aan de uitkomst te hechten: doen wat bij de eigen plaats hoort, de vrucht van de daad loslaten en daarmee de keten van gevolgen doorbreken die mensen aan hun bestaan bindt. Rondom die stelling brengt de tekst verschillende scholen samen, zodat kennis, meditatie en toewijding naast elkaar als wegen blijven staan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De weigering op het slagveld</h3>
+      <p>Het eerste hoofdstuk zet het toneel op. Twee legers staan tegenover elkaar op het veld van Kuru, de schelphoorns klinken, en Arjuna laat zijn wagen tussen beide gelederen brengen om te zien wie hij moet bestrijden. Hij ziet ooms, neven, leraren en vrienden. Zijn ledematen verslappen, zijn boog glijdt uit zijn hand en hij gaat zitten.</p>
+      <p>Zijn bezwaar krijgt volle ruimte. Als de families worden uitgeroeid, vervalt de ordening die het samenleven draagt, en wat rest is verwarring. De tekst laat Arjuna uitspreken voordat Krishna begint, en dat gewicht bepaalt de rest van het gesprek.</p>
+      <h3>Het onvergankelijke zelf</h3>
+      <p>Krishna's eerste antwoord komt uit de sankhya-leer. Wat werkelijk is, gaat niet verloren; wat verandert, was nooit blijvend. Het zelf, atman, wordt niet geboren en sterft niet, en wisselt van lichaam zoals iemand van kleren wisselt. Wie meent te doden of gedood te worden, ziet niet wat er gebeurt.</p>
+      <p>Daarop volgt het argument van de eigen plicht. Arjuna is een krijger; zijn svadharma is strijden voor een rechtvaardige zaak, en zich daaraan onttrekken levert schande op zonder de gevolgen te ontlopen. Het hoofdstuk sluit met het beeld van de mens van bestendig inzicht, die zijn zinnen intrekt zoals een schildpad zijn ledematen, en die noch door voorspoed noch door tegenslag uit het lood wordt geslagen.</p>
+      <h3>Handelen zonder de vrucht</h3>
+      <p>In de hoofdstukken drie tot vijf ontvouwt Krishna de weg van het handelen. Niemand kan ook maar even zonder daad bestaan, want zelfs het lichaam in rust doet iets. Wie zich terugtrekt maar in gedachten aan de dingen vasthoudt, houdt zichzelf voor de gek.</p>
+      <p>Het alternatief is handelen als offer. De daad wordt verricht zoals zij hoort te worden verricht, en de uitkomst wordt losgelaten. Krishna zegt dat de mens recht heeft op de daad en niet op de vruchten daarvan, en dat dat verlangen naar de vrucht de binding vormt. Hij voegt eraan toe dat hij zelf, hoewel hij niets nodig heeft, blijft handelen, omdat de wereld anders zou vervallen.</p>
+      <h3>Oefening en aandacht</h3>
+      <p>Het zesde hoofdstuk gaat over meditatie. Het beschrijft de plaats, de houding en de maat: niet te veel eten en niet te weinig, niet te veel slapen en niet te weinig. Het beeld van de geoefende geest is een lamp op een windstille plek, die niet flakkert.</p>
+      <p>Arjuna brengt daartegen in dat de geest onrustig is en moeilijk te bedwingen, zo moeilijk als de wind. Krishna beaamt dat en wijst op oefening en op het loslaten van hechting. Wie halverwege sterft, zegt hij, is niet verloren; de weg wordt in een volgend leven hervat.</p>
+      <h3>Krishna toont zich</h3>
+      <p>Vanaf het zevende hoofdstuk verschuift het gesprek. Krishna spreekt over zichzelf als grond van alles wat bestaat: de smaak in het water, het licht in maan en zon, de geur van de aarde. Hij beschrijft hoe hij telkens weer verschijnt wanneer de ordening wegzakt.</p>
+      <p>In het elfde hoofdstuk vraagt Arjuna of hij die gedaante mag zien. Krishna geeft hem daarvoor een ander gezichtsvermogen en toont zich in zijn alomvattende vorm, met ontelbare monden en ogen, waarin de werelden verschijnen en vergaan. Arjuna schrikt en vraagt om terugkeer naar de vertrouwde gestalte. In die passage staat de regel waarin Krishna zichzelf de tijd noemt, die de werelden verwoest; de strijders tegenover Arjuna zijn dan al gevallen.</p>
+      <h3>Toewijding en de ordening van de werkelijkheid</h3>
+      <p>Het twaalfde hoofdstuk stelt de weg van de toewijding voorop, bhakti, en noemt die begaanbaar voor wie de weg van kennis of van beheersing te zwaar valt. Een blad, een bloem, een vrucht of water, gegeven met overgave, is genoeg. Deze passage heeft de tekst zijn brede bereik gegeven, ook buiten geleerde kringen.</p>
+      <p>De laatste hoofdstukken ordenen de werkelijkheid: het veld en de kenner van het veld, en de drie gunas, sattva, rajas en tamas, die alles in de natuur samenstellen en die kennis, daad, offer en zelfs voedsel in drie soorten verdelen. Het achttiende hoofdstuk vat samen en keert terug naar de opdracht. Arjuna zegt dat zijn verwarring is verdwenen, en neemt zijn boog weer op.</p>
+      <h3>Wat deze vertaling doet</h3>
+      <p>Guus Nooteboom begon aan de vertaling en zijn zoon Kuuk voltooide en herzag haar; de uitgever spreekt van twee generaties werk. Het bijzondere eraan is de vorm: het Sanskriet van de <i>Gita</i> is grotendeels in shloka's geschreven, verzen van twee regels van zestien lettergrepen, en de Nooteboom-vertaling houdt een metrum aan in plaats van naar proza uit te wijken.</p>
+      <p>Dat maakt de tekst geschikt om hardop te lezen en te herhalen, wat aansluit bij de manier waarop hij eeuwenlang is gebruikt. De uitgave bij Skandalon geeft de Sanskriettekst met transcriptie ernaast, zodat de lezer de vertaling kan vergelijken met wat er staat, en voegt korte inleidingen per hoofdstuk en een uitvoerige woordenlijst toe. De inleiding van Jan Houben plaatst de tekst in zijn geschiedenis.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dharma</td><td>De ordening waaraan iemand gebonden is en de plicht die daaruit voor hem volgt.</td></tr>
+          <tr><td class="term">Svadharma</td><td>De eigen plicht die bij iemands plaats en aard hoort, en die volgens Krishna zwaarder weegt dan de plicht van een ander goed vervullen.</td></tr>
+          <tr><td class="term">Karmayoga</td><td>De weg van het handelen, waarin de daad wordt verricht zonder gehechtheid aan wat zij oplevert.</td></tr>
+          <tr><td class="term">Vrucht van de daad</td><td>De uitkomst waarop iemand recht meent te hebben en waarvan het loslaten volgens de tekst de binding verbreekt.</td></tr>
+          <tr><td class="term">Atman</td><td>Het zelf dat niet geboren wordt en niet sterft, en dat van lichaam wisselt zonder zelf te veranderen.</td></tr>
+          <tr><td class="term">Brahman</td><td>De grond van al wat bestaat, waarmee het zelf volgens de tekst uiteindelijk samenvalt.</td></tr>
+          <tr><td class="term">Bhakti</td><td>De weg van de toewijding aan de godheid, die de tekst als begaanbaar voorstelt ongeacht afkomst of geleerdheid.</td></tr>
+          <tr><td class="term">Guna</td><td>Een van de drie hoedanigheden, sattva, rajas en tamas, waaruit alles in de natuur is samengesteld.</td></tr>
+          <tr><td class="term">Vishvarupa</td><td>De alomvattende gedaante waarin Krishna zich in het elfde hoofdstuk aan Arjuna toont.</td></tr>
+          <tr><td class="term">Shloka</td><td>De versmaat van het origineel, twee regels van zestien lettergrepen, die deze vertaling in het Nederlands aanhoudt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De <i>Gita</i> voert geen bewijs in de moderne betekenis. Haar gezag berust op wie er spreekt: Krishna maakt in de loop van het gesprek duidelijk dat hij de godheid zelf is, en zijn uitspraken hoeven daarna niet meer te worden onderbouwd. Waar de tekst wel argumenteert, gebeurt dat door aan te sluiten bij wat de hoorder al aanneemt, bijvoorbeeld dat het zelf onvergankelijk is, en daaruit een gevolgtrekking te maken over de daad.</p>
+      <p>Het opvallendste kenmerk is dat de tekst uiteenlopende scholen naast elkaar laat staan: het onderscheid tussen geest en natuur uit de sankhya, de eenheidsleer van de upanishaden, de oefenweg van de yoga en de persoonlijke toewijding van de bhakti. Onderzoekers lezen die opeenstapeling doorgaans als het werk van meerdere lagen en handen, en als de reden waarom vrijwel elke latere stroming zich op de tekst kon beroepen. Wie een sluitend stelsel zoekt, vindt spanningen die de tekst zelf niet oplost.</p>
+      <p>Voor de vertaling geldt een controleerbaarder soort verantwoording. De uitgave zet de Sanskriettekst en de transcriptie naast het Nederlands, zodat de keuzes na te lopen zijn, en de woordenlijst legt uit welke termen onvertaald zijn gelaten. Dat de vertaling metrisch is, valt bij hardop lezen vast te stellen. De inleiding van een sanskritist plaatst de tekst historisch, waarmee de uitgave zich onderscheidt van vertalingen die alleen op de leer gericht zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de strekking. De tekst beantwoordt een gewetensbezwaar tegen doden met het argument dat het zelf niet gedood kan worden en dat de eigen plicht voorgaat. Dat is sinds de negentiende eeuw omstreden. Gandhi loste het op door het slagveld als beeldspraak te lezen voor de innerlijke strijd, maar die lezing komt niet uit de tekst zelf, waarin Arjuna aan het slot daadwerkelijk zijn boog opneemt. Anderen wijzen erop dat een leer waarin de uitkomst niet telt, elke daad kan verdedigen zodra iemand meent dat zij bij zijn plaats hoort.</p>
+      <p>Daarnaast staan er passages waarin de standenordening wordt bevestigd, met een verdeling van taken naar aard en daad. In de moderne receptie worden die doorgaans zacht uitgelegd, maar zij staan er, en het twaalfde hoofdstuk dat toewijding voor iedereen openstelt, neemt ze niet terug. Ook de plaats van vrouwen in de opsommingen van het negende hoofdstuk laat zich moeilijk goedpraten.</p>
+      <p>Ten slotte de status van de tekst. Dat de <i>Gita</i> geldt als het kernboek van het hindoeïsme is grotendeels het werk van de negentiende en twintigste eeuw, waarin westerse vertalingen, de theosofie en Indiase hervormers haar tot samenvatting van een hele traditie maakten. Eeuwenlang was zij een van vele gezaghebbende teksten. Wie haar leest als tijdloze kern van een religie, neemt een betrekkelijk recente inrichting over.</p>
+      <p>Voor deze vertaling in het bijzonder geldt dat het metrum ergens betaald moet worden. De woordkeus is af en toe plechtiger dan het Sanskriet vraagt, en waar de maat knelt, wordt de zinsbouw ongewoon. Voor wie de tekst filologisch wil bestuderen zijn de aantekeningen bovendien beknopt; daarvoor is een geannoteerde wetenschappelijke uitgave geschikter.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst het eerste hoofdstuk en het slot van het achttiende achter elkaar; daartussen ligt de hele beweging van de tekst.</li>
+        <li>Lees hardop, want deze vertaling is op de maat gebouwd en verliest bij stil lezen een deel van haar werking.</li>
+        <li>Houd de woordenlijst bij de hand en laat de onvertaalde termen staan in plaats van er een Nederlands woord op te plakken.</li>
+        <li>Leg naast deze uitgave een tweede vertaling met uitvoerige aantekeningen wanneer het om de betekenis van afzonderlijke verzen gaat.</li>
+        <li>Lees de inleiding van Houben voordat je aan het gesprek begint, om te weten uit welke lagen de tekst is opgebouwd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Deze uitgave is de metrische vertaling uit het Sanskriet door Guus en Kuuk Nooteboom, eerste druk bij Ankh-Hermes, Deventer, 1989 (ISBN 90-202-3318-1). Sinds de geheel herziene derde druk van 2013 verschijnt zij bij uitgeverij Skandalon, met een inleiding van de sanskritist prof. dr. Jan E. M. Houben; daarna volgden de vierde druk in 2015, de vijfde in 2019, de zesde in 2022 en de zevende in 2024, gebonden en genaaid, 320 blz., ISBN 9789492183965. De uitgave bevat naast de vertaling de Sanskriettekst met transcriptie, een korte inleiding per hoofdstuk en een uitvoerige woordenlijst van Sanskriettermen. De <i>Bhagavad Gita</i> maakt deel uit van het zesde boek van het <i>Mahabharata</i> en is in het Nederlands in meerdere vertalingen beschikbaar.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De <i>Bhagavad Gita</i> is een gesprek van zevenhonderd verzen tussen de boogschutter Arjuna en zijn wagenmenner Krishna, gehouden op het slagveld vlak voordat de strijd begint. Arjuna ziet in de vijandelijke gelederen zijn familie en zijn leraren staan, laat zijn boog zakken en weigert te vechten. Wat volgt is Krishna's antwoord op die weigering.</p><p>Dat antwoord ontwikkelt zich tot een leer over handelen. Terugtrekken is geen ontsnapping, want niet handelen is ook een daad. Bevrijding ligt volgens Krishna in het doen van wat bij iemand hoort, zonder gehechtheid aan wat het oplevert. In de loop van het gesprek komen daar de wegen van kennis, van meditatie en van toewijding bij, en toont Krishna zich in het elfde hoofdstuk in zijn alomvattende gedaante.</p><p>De vertaling van vader en zoon Nooteboom, waaraan twee generaties werkten, volgt het metrum van het origineel. Dat is in het Nederlandse taalgebied ongebruikelijk en maakt de tekst geschikt om hardop te lezen. De uitgave geeft de Sanskriettekst ernaast, met transcriptie, korte inleidingen per hoofdstuk en een woordenlijst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Bhagavad Gita</li><li>hindoeïsme</li><li>Sanskriet</li><li>Krishna</li><li>Arjuna</li><li>yoga</li><li>vertaling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="569"><a href="569.html">The Gita for Gen Z</a>. Rania Sen brengt dezelfde tekst naar een jong publiek in hedendaagse taal, wat laat zien hoeveel de gekozen toon met de uitwerking te maken heeft.</li>
+          <li value="1502"><a href="1502.html">I Am That</a>. Nisargadatta Maharaj behandelt in <i>I Am That</i> hetzelfde onderscheid tussen het waarnemende zelf en alles wat verandert, in de vorm van gesprekken.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Yogananda beschrijft de yogatraditie waarin de <i>Gita</i> als leidraad functioneert, en laat zien hoe zij in de praktijk wordt gebruikt.</li>
+          <li value="394"><a href="394.html">Tao Te Ching</a>. De <i>Tao Te Ching</i> komt bij een vergelijkbaar antwoord over handelen zonder aan de uitkomst te hechten, langs een weg die het offer en de plicht juist mijdt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goed zoals je bent &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mewe betoogt dat het gevoel niet goed genoeg te zijn zelden voortkomt uit werkelijk tekortschieten, maar uit een strenge stem die iemand zich in de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1594">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1594 &middot; Levenskunst</p>
+    <h1>Goed zoals je bent</h1>
+    <p class="lede">Frederike Mewe, 2022</p>
+    <p class="stats">
+      <span><b>1460</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1594"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mewe betoogt dat het gevoel niet goed genoeg te zijn zelden voortkomt uit werkelijk tekortschieten, maar uit een strenge stem die iemand zich in de opvoeding en in de omgang met anderen heeft eigen gemaakt en die daarna zelfstandig doorwerkt. Zelfvertrouwen is in haar voorstelling dan ook niets dat verdiend wordt door meer te presteren, want prestaties verleggen de lat alleen maar; het ontstaat door de verhouding tot die stem te veranderen. Daaraan hangt vast dat haar boek de omslag bij de lezer legt terwijl zij de oorzaak deels in de samenleving zoekt, en die spanning lost zij niet op.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de strengheid vandaan komt</h3>
+      <p>Het eerste deel gaat over de vraag waarom mensen zo hard voor zichzelf zijn. Mewe begint bij de vroege omgang met ouders en verzorgers en bij wat een kind daaruit afleidt over de vraag of het er mag zijn zoals het is. Wie als kind vooral werd gezien wanneer het presteerde of zich aanpaste, leert dat de eigen waarde voorwaardelijk is.</p>
+      <p>Zij plaatst dat naast wat de omgeving later vraagt: werk, gezin, uiterlijk, gezondheid, sociale zichtbaarheid. Haar stelling is dat de samenleving die voorwaardelijkheid bevestigt en versterkt, zodat het gevoel tekort te schieten niet vanzelf slijt.</p>
+      <p>Mewe vertelt in dit deel ook haar eigen geschiedenis, naast die van cli&euml;nten. Dat is een keuze met gevolgen: het maakt het boek persoonlijker en het haalt de auteur van de plaats van de deskundige af, maar het maakt haar ervaring tegelijk tot maatstaf voor wat herkenbaar heet.</p>
+      <h3>De innerlijke criticus</h3>
+      <p>Het onderdeel waar het boek om draait, gaat over de stem die commentaar levert. Mewe beschrijft die stem niet als vijand maar als beschermer die ooit nut had: door zichzelf voor te zijn met kritiek, voorkwam iemand kritiek van buiten. Het probleem is dat de stem niet meestopt wanneer de omstandigheden veranderen.</p>
+      <p>Zij laat aan de hand van gevallen uit haar praktijk zien hoe die stem klinkt in gewone situaties: een presentatie die goed ging maar waarvan alleen het haperende begin blijft hangen, een compliment dat wordt weggewuifd, een vrije dag die schuldgevoel geeft.</p>
+      <h3>Alle ballen hooghouden</h3>
+      <p>Een apart onderdeel gaat over de opeenstapeling van rollen. Mewe beschrijft hoe het steeds hoger opvoeren van eisen leidt tot uitputting, en hoe uitputting vervolgens als persoonlijk falen wordt uitgelegd, waarmee de kring rond is.</p>
+      <p>Zij benoemt hier dat haar praktijk vooral uit vrouwen bestaat en dat het patroon dat zij beschrijft zich bij hen op een eigen manier voordoet, met verwachtingen over zorg, beschikbaarheid en bescheidenheid.</p>
+      <h3>De ikken en het herkennen van patronen</h3>
+      <p>Het tweede deel opent met een werkvorm die het boek herhaaldelijk gebruikt. Mewe laat de lezer de eigen persoonlijkheid opdelen in verschillende ikken: delen met een eigen stem en een eigen belang, waarvan er in een gegeven situatie steeds een aan het stuur zit.</p>
+      <p>De bedoeling is niet die delen te bestrijden maar te herkennen wie er spreekt. Wie merkt dat het de criticus is en niet de werkelijkheid, kan een keuze maken die anders automatisch verliep. Dat is het scharnier tussen inzicht en verandering waar het hele tweede deel op rust.</p>
+      <h3>Milder worden en anders omgaan met gedachten</h3>
+      <p>Vervolgens komen de vaardigheden. Mewe leert onderscheid maken tussen een gedachte en een feit, tussen een gevoel en een opdracht, en zij oefent met het opmerken van gedachten zonder er meteen naar te handelen. Dat is bekend werk uit aandachtstraining en uit de cognitieve gedragstherapie, hier zonder vaktaal gebracht.</p>
+      <p>Daarnaast staan er lichamelijke oefeningen in: wandelen, ademhaling, yogahoudingen, visualisatie. Haar argument daarvoor is dat inzicht alleen zelden een patroon doorbreekt en dat het lichaam eerder verandert dan de overtuiging.</p>
+      <h3>Kiezen vanuit jezelf</h3>
+      <p>Het slot gaat over wat er dan mogelijk wordt: grenzen aangeven, minder toezeggen, werk of relaties anders inrichten. Mewe houdt dat bescheiden en waarschuwt tegen de gedachte dat zelfaanvaarding een eindtoestand is die bereikt wordt.</p>
+      <p>De rode draad die zij door het boek trekt, luidt dat meer, groter en beter geen tevredenheid oplevert, en dat het aanhoudende zoeken naar bevestiging de onzekerheid in stand houdt die het moest oplossen.</p>
+      <p>Het boek eindigt zonder eindpunt. Wat overblijft is een reeks vaardigheden en een houding, met de mededeling dat de kritische stem niet verdwijnt maar minder gezag krijgt. Voor een boek in dit genre is die bescheidenheid opvallend, want de titel belooft meer dan de slotbladzijden waarmaken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Innerlijke criticus</td><td>De aangeleerde, veroordelende stem die zichzelf voorstelt als realisme en die volgens Mewe ooit als bescherming is ontstaan.</td></tr>
+          <tr><td class="term">De ikken</td><td>De verschillende delen van de persoonlijkheid die elk een eigen belang hebben en om beurten het gedrag bepalen.</td></tr>
+          <tr><td class="term">Voorwaardelijke zelfwaardering</td><td>Het idee pas te mogen bestaan wanneer je presteert, zorgt of je aanpast, waarmee de lat steeds opnieuw wordt verlegd.</td></tr>
+          <tr><td class="term">Er mogen zijn</td><td>Mewes aanduiding voor het onvoorwaardelijke gevoel van bestaansrecht dat bij haar cli&euml;nten vaak ontbreekt.</td></tr>
+          <tr><td class="term">Alle ballen hooghouden</td><td>De opeenstapeling van rollen en eisen waarvan het niet volhouden als persoonlijk falen wordt uitgelegd.</td></tr>
+          <tr><td class="term">Zelfcompassie</td><td>Jezelf behandelen zoals je een vriend zou behandelen, in het boek de tegenbeweging tegen de innerlijke criticus.</td></tr>
+          <tr><td class="term">Patroon</td><td>Een vaste reeks van prikkel, gedachte, gevoel en gedrag die zich herhaalt zolang zij niet wordt opgemerkt.</td></tr>
+          <tr><td class="term">Hechting</td><td>De vroege verhouding tot verzorgers waaruit iemand afleidt hoe betrouwbaar nabijheid is; bij Mewe de bodem onder het latere zelfbeeld.</td></tr>
+          <tr><td class="term">Perfectionisme</td><td>Het stelselmatig te hoog stellen van de eigen norm, dat zij niet als karaktertrek maar als beschermingsstrategie beschrijft.</td></tr>
+          <tr><td class="term">Zelfbeeld</td><td>Het geheel van overtuigingen over wie je bent, dat volgens Mewe eerder uit vroege ervaringen dan uit feiten is opgebouwd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op twee dingen: gevestigde psychologische theorie en de praktijk van de auteur. De theorie is niet van haarzelf en dat pretendeert zij ook niet. Hechtingstheorie, het werken met delen van de persoonlijkheid, aandachtstraining en zelfcompassie zijn alle bestaande stromingen met een eigen literatuur. Mewe brengt die zonder vaktaal en zonder verwijzing per uitspraak, wat het leesbaar maakt en tegelijk moeilijk na te trekken.</p>
+      <p>Van die stromingen is de onderbouwing ongelijk. Voor zelfcompassietraining bestaat gecontroleerd onderzoek, met effecten op zelfkritiek, angst en somberheid die doorgaans klein tot matig uitvallen en waarvan de duurzaamheid slecht is onderzocht. Aandachtstraining kent een vergelijkbaar beeld. Het werken met innerlijke delen is klinisch verbreid maar veel minder in gecontroleerd onderzoek getoetst. Wie het boek leest als praktische toepassing van redelijk onderbouwde methoden zit ongeveer goed; wie het leest als bewijs dat deze aanpak werkt, leest er meer in dan er staat.</p>
+      <p>De gevallen uit haar praktijk zijn het overtuigendst waar zij herkenning oproepen en het zwakst waar zij als uitkomst worden gepresenteerd. Een casus die goed afloopt, zegt niets over hoeveel mensen met dezelfde aanpak niet vooruitkwamen. Mewe selecteert, zoals elke praktijkschrijver, en er staat geen tegenvoorbeeld in het boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de tegenstrijdigheid in het betoog zelf. Mewe wijst de oorzaak van de klacht deels aan bij de samenleving, bij prestatiedruk, zichtbaarheid en verwachtingen over vrouwen, en biedt vervolgens uitsluitend individuele oefeningen aan. Daarmee komt de last opnieuw bij de lezer te liggen, nu in de vorm van de opdracht milder te worden. Wie daar niet in slaagt, heeft een reden te meer om te denken dat het aan haar ligt.</p>
+      <p>Verder bevat het boek weinig dat elders niet staat. De innerlijke criticus, de delen van de persoonlijkheid, zelfcompassie en het scheiden van gedachte en feit zijn alle uit bestaand werk overgenomen, waarbij Kristin Neff voor het middendeel de duidelijkste voorganger is. De verdienste van Mewe ligt in de toon en de Nederlandse context, niet in nieuwe inzichten. Voor wie de literatuur kent, is het herhaling.</p>
+      <p>Ten slotte is het bereik smal. Het boek is geschreven vanuit een praktijk met overwegend hoogopgeleide vrouwen en de voorbeelden ademen dat. Onzekerheid die voortkomt uit armoede, uitsluiting, ziekte of een onveilige werkplek laat zich niet met ademhaling en visualisatie aanpakken, en die grens wordt in het boek wel genoemd maar niet doordacht.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf een week lang op wat de kritische stem letterlijk zegt, in haar eigen bewoordingen, voordat er iets tegen in wordt gebracht.</li>
+        <li>Vraag bij een oordeel over jezelf welk deel er spreekt en welk belang dat deel dient.</li>
+        <li>Onderscheid bij elke gedachte of het een feit is of een uitleg, en zoek bij een uitleg twee andere mogelijke uitleggen.</li>
+        <li>Kies twee oefeningen en houd die vier weken vol, in plaats van alle oefeningen een keer te doen.</li>
+        <li>Zoek bij aanhoudende somberheid, angst of uitputting hulp die verder gaat dan een boek; Mewe zegt dat zelf, maar het staat niet vooraan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Goed zoals je bent. De psychologie van zelfvertrouwen</i>, Ten Have, Utrecht, 2022, 224 blz., ISBN 9789025910310; e-boek ISBN 9789025910327 en een luisterboek dat de auteur zelf inleest (ISBN 9789025910686). Het boek is oorspronkelijk in het Nederlands geschreven, dus van een vertaling is geen sprake. Er verscheen een los werkboek bij, en in 2025 het vervolg <i>Thuiskomen bij jezelf</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Frederike Mewe is psycholoog en coach met een praktijk in Haarlem, waar zij vooral vrouwen begeleidt met stress-, burn-out- en onzekerheidsklachten. Dit is haar eerste boek en het gaat over de vraag waarom zoveel mensen streng zijn voor zichzelf.</p><p>Het boek bestaat uit twee delen. In het eerste beschrijft zij waar onzekerheid vandaan komt: opvoeding, hechting, verwachtingen van anderen en de druk om alles tegelijk te doen en goed te doen. In het tweede staat wat er aan te doen valt, met oefeningen, ademhalings- en visualisatietechnieken.</p><p>Het materiaal komt uit haar spreekkamer en uit haar eigen leven. De psychologie die zij gebruikt is gevestigd, van hechtingstheorie tot zelfcompassie en aandachtstraining. Wat het boek niet biedt, is bewijs dat de aanpak werkt; het is een praktijkboek en geen onderzoeksverslag.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfvertrouwen</li><li>innerlijke criticus</li><li>zelfcompassie</li><li>perfectionisme</li><li>psychologie</li><li>burn-out</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff schreef het werk waar Mewes tweede deel op leunt, met meer onderzoek erbij en minder praktijkverhaal.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown behandelt hetzelfde gevoel niet goed genoeg te zijn vanuit schaamteonderzoek, met een Amerikaanse toon en een breder publiek voor ogen.</li>
+          <li value="1595"><a href="1595.html">Thuiskomen bij jezelf</a>. Het vervolg van Mewe zelf, dat de vraag verlegt van de strenge stem naar het contact met het eigen voelen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

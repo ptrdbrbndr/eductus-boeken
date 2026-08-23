@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alice in Wonderland &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Carroll schreef een verhaal waarin de wereld niet zinloos is maar te logisch. Wonderland houdt zich aan regels; het zijn alleen niet de regels die Alice…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1626">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1626 &middot; Roman en memoir</p>
+    <h1>Alice in Wonderland</h1>
+    <p class="lede">Lewis Carroll, 1865</p>
+    <p class="stats">
+      <span><b>1535</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1626"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Carroll schreef een verhaal waarin de wereld niet zinloos is maar te logisch. Wonderland houdt zich aan regels; het zijn alleen niet de regels die Alice heeft geleerd. Elk personage dat zij tegenkomt voert een eigen stelsel consequent uit, tot het punt waarop het onhoudbaar wordt, en Alice reageert daarop zoals een welopgevoed Engels kind uit 1865 reageert: met beleefdheid, met feitenkennis uit de schoolbanken en met verontwaardiging als niemand haar antwoord geeft. Daaruit ontstaat de komedie, en daaruit ontstaat ook wat het boek zijn houdbaarheid heeft gegeven. Het laat zien hoe willekeurig de regels zijn waarop volwassenen hun gezag baseren, zonder dat het daar ooit een stelling van maakt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het konijnenhol</h3>
+      <p>Alice zit met haar zus aan de oever bij een boek zonder plaatjes en gesprekken. Een wit konijn loopt voorbij, kijkt op zijn horloge en klaagt dat het laat is. Zij gaat er achteraan en valt zo langzaam dat zij tijdens het vallen kan nadenken over lengtegraden.</p>
+      <p>Onder in het hol staat een tafel met een flesje waarop <i>Drink Me</i> staat en een taartje met <i>Eat Me</i>. Daarmee begint het patroon dat het hele boek bepaalt: haar lichaam gehoorzaamt aan de plaats, niet aan haar wil. Zij groeit, zij krimpt, en de deur naar de tuin blijft telkens net niet de goede maat.</p>
+      <h3>Tranen en een verkiezingsloop</h3>
+      <p>Als reus huilt Alice een plas die zij vervolgens als muis ter grootte van een muis moet overzwemmen. Zij komt aan land met een gezelschap dieren dat kletsnat is en een manier zoekt om droog te worden. De Muis draagt de droogste geschiedenisles voor die hij kent; als dat niet helpt, stelt de Dodo een caucus-race voor, waarbij iedereen rondrent, iedereen op zijn eigen moment stopt en iedereen wint.</p>
+      <p>Alice verspreekt zich over haar kat Dina en jaagt het hele gezelschap weg. Het boek gebruikt zulke uitglijders vaker: zij bedoelt niets kwaads en overtreedt toch een regel die zij niet kende.</p>
+      <h3>De rups en de hertogin</h3>
+      <p>Bij het huis van het Konijn wordt zij ingezet als dienstmeisje, groeit uit tot zij het huis vult en wordt door Bill de Hagedis door de schoorsteen bezocht. Daarna zit zij tegenover een rups op een paddenstoel die aan een waterpijp trekt en vraagt: wie ben jij. Op die vraag heeft Alice, die die dag al drie keer van maat is veranderd, geen antwoord meer.</p>
+      <p>De rups laat haar het gedicht <i>You Are Old, Father William</i> opzeggen, dat er verkeerd uitkomt. Carroll parodieert daarin een braaf gedicht van Robert Southey, zoals hij eerder Isaac Watts parodieerde met <i>How Doth the Little Crocodile</i>. Ieder schoolversje dat Alice probeert op te zeggen slaat om in iets roofzuchtigs.</p>
+      <p>In het huis van de Hertogin wordt gekookt met zoveel peper dat iedereen niest, gooit de kokkin met pannen en zingt de Hertogin een wiegelied over het slaan van kinderen. De baby die Alice redt verandert onderweg in een big. Boven op een tak zit de kat van Cheshire, die grijnst, uitlegt dat iedereen daar gek is en vervolgens in delen verdwijnt tot alleen de grijns over is.</p>
+      <h3>Het theekransje</h3>
+      <p>De Hoedenmaker, de Maartse Haas en de Zevenslaper zitten aan een tafel waar het altijd zes uur is, omdat de Tijd het na een ruzie heeft laten afweten. Zij schuiven bij elk kopje een plaats op en wassen niets af. De Hoedenmaker stelt het raadsel waarom een raaf op een schrijftafel lijkt en geeft toe dat hij het antwoord niet weet.</p>
+      <p>De hele scene bestaat uit taalgrappen die op logica rusten: het verschil tussen zeggen wat je meent en menen wat je zegt, en het misverstand dat ontstaat als een woord letterlijk wordt genomen. Alice, die op beleefd gesprek rekent, loopt weg omdat het het onbeschoftste gezelschap is dat zij ooit heeft meegemaakt.</p>
+      <h3>De koningin en het proces</h3>
+      <p>In de tuin schilderen kaarten witte rozen rood omdat zij de verkeerde hebben geplant. De Hartenkoningin speelt croquet met flamingo's als hamer en egels als bal, en beveelt bij elke tegenslag dat iemand wordt onthoofd; de Koning schenkt achter haar rug telkens gratie. De Hertogin, weer opgedoken, hangt aan Alice met de mededeling dat alles een moraal heeft als je hem maar kunt vinden.</p>
+      <p>De Griffioen brengt haar bij de Soepschildpad, die snikkend zijn schooltijd op de zeebodem beschrijft en met de Griffioen de Kreeftenquadrille danst. Daarna volgt het proces tegen de Hartenboer, die de taartjes zou hebben gestolen. Het bewijs bestaat uit een brief zonder afzender, de jury schrijft haar eigen naam op om die niet te vergeten en de Koningin eist het vonnis vóór de uitspraak.</p>
+      <p>Alice groeit tijdens de zitting, weigert nog langer mee te doen en noemt het hof een pak kaarten. De kaarten vliegen op haar af en zij wordt wakker op de oever, met bladeren op haar gezicht. Haar zus blijft achter en denkt na over het kind dat Alice later zal zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wonderland</td><td>De wereld onder het konijnenhol, die eigen regels streng handhaaft en aan het slot een droom blijkt te zijn geweest.</td></tr>
+          <tr><td class="term">Caucus-race</td><td>De wedloop zonder begin, eind of baan waarin iedereen wint en iedereen een prijs krijgt, een spot op verkiezingspraktijk.</td></tr>
+          <tr><td class="term">Kat van Cheshire</td><td>De kat die kan verdwijnen en verschijnen naar believen en van wie de grijns langer blijft dan het dier.</td></tr>
+          <tr><td class="term">Het eeuwige theeuur</td><td>De straf van de Hoedenmaker: sinds zijn ruzie met de Tijd blijft het zes uur, zodat de thee nooit ophoudt.</td></tr>
+          <tr><td class="term">Drink Me en Eat Me</td><td>De etiketten die Alice van maat doen veranderen en waarmee het boek haar lichaam onder gezag van de omgeving plaatst.</td></tr>
+          <tr><td class="term">Parodie</td><td>De vorm waarin Carroll bekende zedenverzen van Watts, Southey en Taylor omzet in versjes over vraatzucht en roof.</td></tr>
+          <tr><td class="term">Nonsens</td><td>Het genre waarin de regels van taal en logica precies worden gevolgd tot er iets onmogelijks uitkomt.</td></tr>
+          <tr><td class="term">Het proces</td><td>De rechtszitting in het slot, waarin het vonnis aan het bewijs voorafgaat en Alice het gezag voor het eerst opzegt.</td></tr>
+          <tr><td class="term">Alice's Adventures Under Ground</td><td>De handgeschreven eerste versie die Carroll in 1864 aan Alice Liddell gaf, ongeveer half zo lang als het gedrukte boek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De ontstaansgeschiedenis is goed gedocumenteerd. Dodgson noteerde de roeitocht van 4 juli 1862 in zijn dagboek, het handschrift dat hij Alice Liddell gaf bestaat nog en wordt in de British Library bewaard, en de aangroei van dat handschrift tot het boek van 1865 is te volgen. Ook de terugtrekking van de eerste oplage op aandringen van Tenniel is uit de correspondentie met Macmillan bekend.</p>
+      <p>De grappen zijn navolgbaar omdat hun doelwit bewaard is gebleven. Wie het gedicht van Isaac Watts over de vlijtige bij naast Carrolls krokodil legt, of Southeys braaf berustende oude man naast Father William, ziet precies wat er is omgedraaid. Voor Victoriaanse kinderen die die verzen uit hun hoofd leerden was dat het hardst aankomende deel van het boek.</p>
+      <p>Wat het boek niet levert is een verhaal met oorzaak en gevolg. De hoofdstukken zijn verwisselbaar, Alice leert niets dat haar in het volgende hoofdstuk helpt en het slot ontkracht alles wat eraan voorafging door het tot droom te verklaren. Dat is geen verzuim maar de vorm van het genre, en het is tegelijk de reden waarom het boek als voorgelezen episodes beter werkt dan in een keer uitgelezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De duidingen zijn het boek allang boven het hoofd gegroeid. Er is uit gelezen dat het over drugs gaat, over wiskundige vernieuwingen waar Dodgson als conservatief wiskundige tegen was, over de Rozenoorlogen en over Victoriaanse opvoedkunde. Voor de meeste van die lezingen staat weinig in de tekst zelf; de drugslezing dateert uit de jaren zestig en heeft geen enkele steun in Carrolls werk of leven.</p>
+      <p>Het onderwerp dat sinds enkele decennia het zwaarst weegt is Dodgsons omgang met kinderen: zijn vriendschappen met meisjes, zijn foto's van hen, waaronder naaktfoto's met toestemming van de ouders, en de breuk met de familie Liddell waarvan de bladzijden uit zijn dagboek zijn verwijderd. Biografen zijn het oneens over de uitleg, en de bronnen laten geen uitsluitsel toe. Wie het boek nu leest, leest het met die vraag erbij, en dat feit valt niet weg te redeneren.</p>
+      <p>Voor kinderen van nu is het zwaarder werk dan de reputatie doet vermoeden. De helft van de humor bestaat uit parodie op verzen die niemand meer kent, uit woordspelingen die in vertaling moeten worden vervangen en uit klassenmanieren die uitleg vragen. Dat verklaart waarom er zoveel Nederlandse vertalingen naast elkaar bestaan: elke vertaler moet de grappen opnieuw uitvinden, en hoe hij dat doet bepaalt of het boek nog leesbaar is.</p>
+      <p>Alice zelf blijft vlak. Zij is nieuwsgierig, correct en onverstoorbaar, en zij is aan het slot dezelfde als aan het begin. De personages om haar heen zijn eenmalige vondsten zonder geschiedenis. Wie een roman verwacht waarin iemand verandert, vindt die hier niet.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Alice's Adventures in Wonderland</i> (Macmillan, Londen, 1865), met tweeenveertig tekeningen van John Tenniel. De eerste oplage werd teruggetrokken omdat Tenniel de druk van zijn illustraties afkeurde; de uitgave die de lezers bereikte draagt het jaartal 1866. Lewis Carroll is het pseudoniem van Charles Lutwidge Dodgson, wiskundedocent aan Christ Church in Oxford. Het vervolg, <i>Through the Looking-Glass, and What Alice Found There</i>, verscheen in 1871. Nederlandse vertalingen zijn er vanaf 1899 (R. ten Raa); veel gebruikt zijn die van C. Reedijk en Alfred Kossmann (1947), van Nicolaas Matsier (1989, opnieuw uitgegeven in 1994 samen met <i>Achter de spiegel</i>), van Sofia Engelsman, van Ed Franck (2011) en van Imme Dros (2023).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Alice verveelt zich op een oever, ziet een wit konijn met een horloge langslopen en gaat achter hem aan een gat in. Wat volgt zijn twaalf hoofdstukken waarin zij groeit en krimpt, in haar eigen tranen bijna verdrinkt en achtereenvolgens een rups, een hertogin, een kat die verdwijnt, een hoedenmaker en een koningin tegenkomt die iedereen wil laten onthoofden.</p><p>Het boek ontstond op 4 juli 1862, tijdens een roeitocht bij Oxford waarop Dodgson de drie zusjes Liddell een verhaal vertelde. Alice Liddell vroeg hem het op te schrijven. De handgeschreven versie heette <i>Alice's Adventures Under Ground</i> en was ongeveer half zo lang als het boek dat in 1865 verscheen.</p><p>Wat het overeind houdt is de logica. Wonderland is niet warrig maar streng: elk personage volgt een eigen regel tot in het absurde, en Alice, die zich netjes gedraagt en op antwoorden rekent, loopt daar telkens tegenaan. De grap zit in de botsing tussen haar Victoriaanse manieren en een wereld die haar aannames niet deelt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>klassieker</li><li>kinderboek</li><li>nonsens</li><li>Victoriaans</li><li>taalspel</li><li>Engeland</li><li>droom</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1557"><a href="1557.html">David Copperfield</a>. Dickens beschrijft dezelfde Engelse eeuw van de andere kant: bij hem lijdt het kind onder de volwassen wereld, bij Carroll lacht het die uit.</li>
+          <li value="1562"><a href="1562.html">Harry Potter</a>. Rowling erfde van Carroll het model van een Engels kind dat door een doorgang in een wereld met eigen regels stapt.</li>
+          <li value="1625"><a href="1625.html">Torak en Wolf: Avonturen in het hoge noorden</a>. Paver stuurt haar hoofdpersoon eveneens een vreemde wereld in, maar bouwt die op onderzoek en laat het kind wel veranderen.</li>
+          <li value="656"><a href="656.html">Metamagical Themas</a>. Hofstadter zet Carrolls spel met zelfverwijzing en woordbetekenis voort, tot en met de dialogen tussen Achilles en de Schildpad die hij van hem overnam.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

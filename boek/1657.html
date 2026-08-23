@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The World as I See It &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Einstein voert in deze stukken een samenhangende gedachte door: het individu ontleent alles wat het is aan de gemeenschap, en juist daarom moet het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1657">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1657 &middot; Staat en vrijheid</p>
+    <h1>The World as I See It</h1>
+    <p class="lede">Albert Einstein, 1934</p>
+    <p class="stats">
+      <span><b>1218</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1657"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Einstein voert in deze stukken een samenhangende gedachte door: het individu ontleent alles wat het is aan de gemeenschap, en juist daarom moet het individu tegen de staat beschermd worden. De staat is er voor de mens en niet andersom, en zodra hij dwang oplegt in de vorm van dienstplicht, gelijkschakeling of nationalisme keert hij zich tegen zijn eigen bestaansgrond. Wat hij daartegenover zet is een houding van eerbied voor het raadselachtige, in de wetenschap zowel als in het leven, met de weigering aan oorlog mee te doen als praktische uitdrukking daarvan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe de bundel is ontstaan</h3>
+      <p>De teksten zijn gelegenheidsstukken. Een dankwoord, een radiotoespraak, een bijdrage aan een tijdschrift, een brief aan een vriend, een verklaring aan de pers. Kayser bracht ze bijeen in vijf afdelingen: wetenschappelijke stukken, het jodendom, Duitsland in 1933, politiek en pacifisme, en het gedeelte waaraan het geheel zijn titel dankt.</p>
+      <p>Dat de eerste uitgave in Amsterdam verscheen is geen bijzonderheid van de uitgeverswereld maar een gevolg van de geschiedenis: Einsteins werk mocht in Duitsland niet meer verschijnen. De bundel is daarmee ook een document van het jaar waarin hij werd samengesteld.</p>
+      <h3>Het titelessay</h3>
+      <p>In het stuk dat Wie ich die Welt sehe heet zet Einstein zijn persoonlijke uitgangspunten op een rij. Hij acht het menselijk streven naar bezit, uiterlijk succes en luxe verachtelijk; hij zegt dat hij zijn hele innerlijke en uiterlijke leven te danken heeft aan de arbeid van anderen, levenden en doden; en hij noemt zichzelf een eenspan, iemand met een sterk gevoel voor rechtvaardigheid maar zonder groot verlangen naar directe binding.</p>
+      <p>Twee uitspraken uit dit stuk zijn los van het boek gaan leven. De eerste is dat het mooiste wat wij kunnen ervaren het raadselachtige is, de bron van alle ware kunst en wetenschap. De tweede gaat over militarisme: wie met plezier in het gelid meemarcheert op muziek heeft zijn grote hersenen ten onrechte gekregen, want een ruggenmerg zou daarvoor volstaan. Einstein noemt zijn politieke ideaal in hetzelfde stuk ronduit democratisch, met wantrouwen tegen elke vorm van leiderschap dat op dwang berust.</p>
+      <h3>Religie en wetenschap</h3>
+      <p>In enkele stukken, waaronder een bijdrage aan de New York Times uit 1930, onderscheidt Einstein drie fasen van religie: de religie van de angst, de morele religie van een strafende en belonende God, en wat hij het kosmisch religieus gevoel noemt. Dat laatste kent geen persoonlijke God, geen gebed en geen leerstuk. Het bestaat uit verwondering over de orde die in de natuur wordt aangetroffen.</p>
+      <p>Die houding is voor hem de drijfveer van de onderzoeker. Hij ontkent dat wetenschap en religie elkaar hoeven te bestrijden, maar de religie die hij overhoudt is er een zonder aanspraken op feiten, en de God van de gelovigen wordt daarbij uitdrukkelijk terzijde gelegd.</p>
+      <h3>Het jodendom en Duitsland 1933</h3>
+      <p>Het joodse deel bevat stukken over de opzet van de Hebreeuwse Universiteit in Jeruzalem, over wat Einstein als het joodse ideaal beschouwt, kennis om haar zelf en zorg voor de zwakke, en over de plaats van minderheden. Hij pleit voor samenwerking met de Arabische bevolking in Palestina en waarschuwt tegen een nationalisme dat de eigen groep verheft.</p>
+      <p>Onder de kop Duitsland 1933 staan de brieven waarmee hij zijn lidmaatschap van de Pruisische Academie van Wetenschappen opgaf en de correspondentie die daarop volgde. Het zijn de kortste teksten van de bundel en de scherpste: hij weigert een land te dienen waarin burgers hun rechten hebben verloren en hij houdt de academie voor dat zij zwijgt.</p>
+      <h3>Politiek en pacifisme</h3>
+      <p>Het politieke deel is het omvangrijkst. Einstein bepleit ontwapening en een internationaal hof met werkelijke bevoegdheid, hij wijst op de belangen van de wapenindustrie bij het uitblijven van een vreedzame regeling, en hij dringt aan op dienstweigering als de meest werkzame vorm van verzet: hij spreekt over twee van de honderd mannen die in vredestijd weigeren te dienen, waarmee regeringen volgens hem al vastlopen.</p>
+      <p>Er staan ook stukken over onderwijs, over economische crisis en werktijdverkorting, en over de eer van uitvinders. De toon is die van iemand die zijn naam als hefboom gebruikt en dat ook zo bedoelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het raadselachtige</td><td>De ervaring van iets dat zich aan verklaring onttrekt en die volgens Einstein aan alle kunst en wetenschap ten grondslag ligt.</td></tr>
+          <tr><td class="term">Kosmisch religieus gevoel</td><td>Religie zonder persoonlijke God en zonder leerstuk, bestaande uit verwondering over de orde van de natuur.</td></tr>
+          <tr><td class="term">Eenspan</td><td>Einsteins beeld voor zijn eigen positie: verbonden met de mensheid, zonder zich ooit geheel aan land, gezin of kring te hebben gegeven.</td></tr>
+          <tr><td class="term">Dienstweigering</td><td>Het persoonlijk weigeren van militaire dienst, door hem aangewezen als de werkzaamste vorm van pacifisme.</td></tr>
+          <tr><td class="term">Militarisme</td><td>De verheerlijking van gehoorzaamheid en gelid die hij als vijand van het denken behandelt.</td></tr>
+          <tr><td class="term">De staat als middel</td><td>De stelling dat de staat de mens dient en dat de mens nooit tot middel van de staat gemaakt mag worden.</td></tr>
+          <tr><td class="term">Minderheid</td><td>De positie waarin joden in Europa verkeren en waaruit hij het pleidooi voor waardigheid zonder nationalisme afleidt.</td></tr>
+          <tr><td class="term">Mein Weltbild</td><td>De Duitse titel van de bundel, die de latere Engelse en uitgebreide edities is blijven aanduiden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit boek voert geen bewijs aan en pretendeert dat ook niet. Het zijn meningen van een man die door zijn natuurkundig werk gezag had gekregen, en het gezag van de stukken leunt op zijn naam. Waar hij over zijn eigen vak schrijft, in de stukken over onderzoek en in de herdenkingen van Kepler en Newton, staat hij op eigen grond; waar hij over ontwapening en economie schrijft, is hij een goed geinformeerde burger.</p>
+      <p>Wat het boek wel levert is een primaire bron. De brieven uit 1933 zijn documenten uit de weken waarin ze zijn geschreven, en de pacifistische stukken laten zich dateren op de jaren waarin de Volkenbond nog een bevoegdheid leek te kunnen krijgen. Wie wil weten wat er in 1932 in Europa te denken viel, leest hier een van de vormen waarin dat gebeurde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ernstigste tegenwerping komt van Einstein zelf. Kort na het verschijnen van deze bundel liet hij de onvoorwaardelijke dienstweigering los. Tegen een Belgische dienstweigeraar schreef hij in 1933 dat de omstandigheden waren veranderd en dat gewapende verdediging tegen het Duitse regime nodig was, en in 1939 tekende hij de brief aan Roosevelt die aan het begin van het Amerikaanse kernwapenprogramma staat. De stukken hier blijven overeind als houding, niet als politiek recept.</p>
+      <p>Verder is het een bundel gelegenheidsstukken, met alle herhaling die daarbij hoort. Dezelfde gedachten over gemeenschap, bezit en oorlog keren in verschillende bewoordingen terug, en de argumentatie is nergens uitgewerkt: Einstein stelt vast, hij redeneert zelden een tegenwerping af. Wie zijn denken over kennis en werkelijkheid wil volgen, heeft aan de latere verzamelbundel meer, omdat de opeenvolgende edities van dit boek verschillend zijn samengesteld en de Amerikaanse uitgave is ingekort.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst het titelessay en de brieven uit 1933; die dragen het boek.</li>
+        <li>Let bij elk stuk op het jaartal, want de standpunten over oorlog schuiven na 1933 op.</li>
+        <li>Controleer welke editie in handen is, aangezien de Duitse, de Engelse en de latere ingekorte uitgaven niet dezelfde teksten bevatten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Mein Weltbild</i>, samengesteld door Rudolf Kayser en uitgegeven bij Querido Verlag in Amsterdam in 1934, de uitgeverij die na 1933 Duitstalig werk van gevluchte schrijvers uitbracht. De Engelse vertaling van Alan Harris verscheen in 1935 bij John Lane The Bodley Head in Londen als <i>The World as I See It</i>; de Amerikaanse uitgave van Philosophical Library uit 1949 is ingekort. Carl Seelig bezorgde in 1954 een uitgebreide Duitse editie, en veel van dit materiaal kwam in dat jaar ook terecht in de grote verzamelbundel <i>Ideas and Opinions</i>. Een volledige Nederlandse vertaling van deze bundel is niet in de handel; van Einstein zelf verscheen in het Nederlands wel zijn populaire uiteenzetting over de relativiteitstheorie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dit is geen boek over natuurkunde. Het is een bundel artikelen, toespraken, brieven en verklaringen die Einstein tussen ongeveer 1922 en 1934 schreef, bijeengebracht door zijn schoonzoon Rudolf Kayser en uitgegeven in Amsterdam op het moment dat de auteur zijn land kwijt was.</p><p>De stukken lopen uiteen van een halve bladzijde tot enkele bladzijden. Ze gaan over de zin van het leven, over geld en bezit, over onderwijs, over het joodse vraagstuk, over zijn uittreden uit de Pruisische Academie van Wetenschappen in 1933, en vooral over oorlog en het weigeren daaraan mee te doen. Daartussen staan een paar wetenschappelijke stukken en herdenkingen van Kepler, Newton en Lorentz.</p><p>Het bekendste stuk is het titelessay, waarin Einstein schrijft dat het mooiste wat een mens kan ervaren het raadselachtige is, dat hij niet gelooft in een vrije wil en dat hij zich een eenspan voelt: iemand die bij de mensheid hoort maar zich nooit helemaal aan iemand heeft gegeven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Einstein</li><li>essays</li><li>pacifisme</li><li>wetenschap</li><li>religie</li><li>jodendom</li><li>jaren dertig</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Isaacson beschrijft de omstandigheden waarin deze stukken zijn geschreven en zet de politieke koerswijziging van Einstein in verband met zijn leven.</li>
+          <li value="1658"><a href="1658.html">The Cosmic Code</a>. Pagels laat zien wat er is geworden van de natuurkunde waarover Einstein hier terloops schrijft, met inbegrip van zijn verzet tegen de kwantummechanica.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawking schrijft een eeuw later dezelfde soort populaire uiteenzetting over ruimte en tijd voor een breed publiek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

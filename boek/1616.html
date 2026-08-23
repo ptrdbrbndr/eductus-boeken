@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Three Minute Reset &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Selij stelt dat klachten als piekeren, paniek, spanning en somberheid geen defect zijn maar een verouderde oplossing die haar werk blijft doen. Het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1616">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1616 &middot; Brein en lichaam</p>
+    <h1>The Three Minute Reset</h1>
+    <p class="lede">Edwin Selij, 2025</p>
+    <p class="stats">
+      <span><b>1488</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1616"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Selij stelt dat klachten als piekeren, paniek, spanning en somberheid geen defect zijn maar een verouderde oplossing die haar werk blijft doen. Het onbewuste heeft ooit, meestal in de kindertijd, een reactie aangelegd die op dat moment bescherming bood, en het houdt daaraan vast omdat het die bescherming nog steeds nodig acht. Daaruit volgt zijn tweede stelling, en dat is de omstreden stelling: als de oorzaak in een aanname zit die het onbewuste in enkele ogenblikken heeft overgenomen, dan kan zij ook in enkele ogenblikken worden herzien. Jarenlange therapie is in die redenering geen noodzaak maar een gevolg van de verwachting dat verandering traag hoort te gaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de methode vandaan komt</h3>
+      <p>Selij zet zijn eigen geschiedenis vooraan. Hij werkte in de bouw, gebruikte vijftien jaar alcohol en cocaine en hield daar in 2005 mee op. Een jaar later begon hij het hypnose-instituut dat hij sindsdien leidt en dat hij het grootste van Europa noemt. Die omslag in zijn eigen leven is het bewijsstuk waarop de rest van het boek steunt: als het bij hem snel kon, dan ligt het aan de aanpak wanneer het bij anderen jaren duurt.</p>
+      <p>Het boek is geschreven voor lezers zonder achtergrond in therapie. Korte hoofdstukken, veel witruimte, tekeningen van Arjen Snijder en een toon die dicht bij het gesproken woord blijft. Het omslag belooft dat angst en blokkades binnen drie minuten te doorbreken zijn.</p>
+      <h3>Het probleem van nu was de oplossing van vroeger</h3>
+      <p>De grondgedachte krijgt in het eerste deel van het boek de meeste ruimte. Wie zich als kind klein maakte omdat een boze ouder daardoor eerder bedaarde, heeft iets geleerd dat toen werkte. Het onbewuste, schrijft Selij, beoordeelt dat resultaat en legt de reactie vast. Dertig jaar later doet diezelfde reactie zich voor tegenover een leidinggevende, waar zij niets meer oplevert, en heet zij een blokkade.</p>
+      <p>Daaruit volgt de houding die het boek voorschrijft tegenover een klacht. Bestrijden werkt averechts, omdat het onbewuste de bescherming dan harder gaat verdedigen. De weg loopt volgens Selij via erkenning van wat de klacht ooit deed, waarna er ruimte komt om diezelfde bedoeling op een andere manier te dienen.</p>
+      <h3>De reset in stappen</h3>
+      <p>Vanaf het derde hoofdstuk staat de methode zelf beschreven. De lezer zoekt eerst wat er werkelijk aan de hand is achter de klacht die iemand noemt, brengt daarna de beschermende bedoeling eronder naar boven en biedt vervolgens een andere manier aan om die bedoeling te vervullen. Het uitvoeren duurt kort; het uitzoeken niet.</p>
+      <p>Lezers die de techniek probeerden melden dat juist dat uitzoeken tegenvalt. De klacht die iemand als eerste noemt is zelden het probleem, en zonder geduldig doorvragen blijft de bedoeling eronder buiten beeld. De drie minuten uit de titel slaan op de handeling, niet op het gesprek dat eraan voorafgaat.</p>
+      <h3>Het jongere zelf</h3>
+      <p>Een deel van het boek gaat over werken met het innerlijke kind: het beeld van zichzelf op de leeftijd waarop de oude oplossing werd gekozen. Selij laat de lezer dat moment opzoeken en er iets aan toevoegen wat er toen niet was, meestal geruststelling of toestemming.</p>
+      <p>Deze stap staat los van de snelheidsbelofte en komt uit een ouder repertoire dan de reset. Zij vraagt om herhaling en om verdraagzaamheid tegenover wat er bovenkomt, en dat wringt met het beeld van een ingreep die in enkele minuten klaar is.</p>
+      <h3>Suggesties en terugval</h3>
+      <p>Selij besteedt aandacht aan de formulering van de zin of het beeld dat na de reset wordt aangeboden. Een suggestie die het oude patroon benoemt, bevestigt het volgens hem; een suggestie moet dus in bevestigende vorm staan en aansluiten bij wat de bedoeling eronder wil.</p>
+      <p>Blijft het resultaat uit of komt de klacht terug, dan wijst het boek op twee oorzaken: de bedoeling was niet de juiste, of de suggestie was verkeerd gesteld. De methode zelf komt in die redenering niet ter discussie te staan.</p>
+      <h3>Het boek als deur naar de rest</h3>
+      <p>Achterin staan negen QR-codes naar aanvullend materiaal, waaronder een video waarin Selij de reset op zichzelf voordoet. Dat materiaal wordt beheerd door zijn instituut, dat ook opleidingen en sessies aanbiedt. Het boek staat daarmee aan het begin van een aanbod dat verder reikt dan de honderdvijftig bladzijden.</p>
+      <p>Op het omslag staat dat dit het laatste zelfhulpboek is dat iemand ooit nodig heeft. Het is deel drie van een reeks waarvan inmiddels deel vier is verschenen en deel vijf is aangekondigd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De reset</td><td>De reeks stappen waarmee volgens Selij een angst of blokkade binnen enkele minuten kan worden herzien, uit te voeren op zichzelf of op een ander.</td></tr>
+          <tr><td class="term">Het probleem van nu was de oplossing van vroeger</td><td>De grondzin van het boek: elke klacht ontstond ooit als bescherming en houdt stand zolang die bescherming niet erkend wordt.</td></tr>
+          <tr><td class="term">Positieve bedoeling</td><td>De beschermende functie achter een klacht, die volgens Selij gevonden moet worden voordat er iets kan veranderen.</td></tr>
+          <tr><td class="term">Beperkende overtuiging</td><td>Een aanname over zichzelf of over de wereld die het onbewuste als waar behandelt en die het gedrag stuurt zonder opgemerkt te worden.</td></tr>
+          <tr><td class="term">Het onbewuste</td><td>Bij Selij het deel dat leert, beschermt en aannames vasthoudt, en dat naar zijn zeggen in enkele ogenblikken een nieuwe aanname kan overnemen.</td></tr>
+          <tr><td class="term">Innerlijk kind</td><td>Het jongere zelf op het moment dat de oude oplossing werd gekozen, waaraan in een apart deel van het boek iets wordt toegevoegd wat er toen ontbrak.</td></tr>
+          <tr><td class="term">Suggestie</td><td>De zin of het beeld dat na de reset wordt aangeboden, waarvan de formulering volgens het boek bepaalt of het resultaat blijft.</td></tr>
+          <tr><td class="term">Terugval</td><td>Het terugkeren van de klacht, dat Selij toeschrijft aan een gemiste bedoeling of een slecht gestelde suggestie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen verwijzingen naar onderzoek. De onderbouwing bestaat uit de eigen geschiedenis van de schrijver, uit gevallen uit zijn praktijk en uit het aantal mensen dat zijn instituut zegt te hebben bereikt. Dat laatste zegt iets over bereik en niets over werkzaamheid. Wie wil weten hoe vaak de klacht na een half jaar weg blijft, vindt daarover in het boek geen cijfer.</p>
+      <p>De gedachte zelf is ouder dan dit boek en dat wordt ook niet verzwegen. Het opsporen van de beschermende bedoeling achter een klacht en het aanbieden van ander gedrag dat diezelfde bedoeling dient, is de kern van het herkaderen zoals dat in het neurolinguistisch programmeren van Bandler en Grinder werd beschreven. De hypnotische inkleding gaat terug op de werkwijze van Milton Erickson. Wat Selij toevoegt is verkorting en een vaste volgorde.</p>
+      <p>Voor hypnose als behandeling bestaat wel gecontroleerd onderzoek, vooral bij pijn, bij het prikkelbaredarmsyndroom en als hulp bij stoppen met roken, met bescheiden gunstige uitkomsten. Dat onderzoek gaat over reeksen sessies onder begeleiding van een behandelaar. Het draagt de belofte van een oefening van drie minuten uit een boek niet, en het boek beroept zich er ook niet op.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belofte en de opzet spreken elkaar tegen. Op het omslag staat dat dit het laatste zelfhulpboek is dat iemand ooit nodig heeft, terwijl het deel drie is van een doorlopende reeks met een aangekondigd vervolg en met negen verwijzingen naar materiaal van het instituut van de schrijver. Wie de belofte letterlijk neemt, komt bij een aanbod uit dat verder loopt.</p>
+      <p>De redenering is zo gebouwd dat zij niet kan mislukken. Werkt de reset niet, dan was de bedoeling niet gevonden of de suggestie verkeerd gesteld. Dat is een verklaring die elke uitkomst opvangt en die de methode buiten schot houdt. Dezelfde bouw maakt het onmogelijk om aan de hand van het boek vast te stellen bij welke klachten de aanpak wel en niet past.</p>
+      <p>De grondzin legt de last bij degene die de klacht heeft. Wanneer een probleem ooit een eigen oplossing was, ligt de gedachte dichtbij dat het voortbestaan ervan ook een eigen keuze is. Bij klachten die uit geweld of verwaarlozing voortkomen, is dat een pijnlijke omkering, en het boek gaat er niet op in.</p>
+      <p>Voor mensen met zware of langdurige klachten ontbreekt een grens. Het boek stelt therapie overbodig voor, terwijl het geen onderscheid maakt tussen een spreekangst en een posttraumatische stoornis. Het risico is dat iemand met een klacht die begeleiding nodig heeft, die begeleiding uitstelt omdat drie minuten hebben gefaald.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel de klacht die iemand als eerste noemt als een beginpunt en niet als het probleem; vraag door tot duidelijk is wanneer de reactie voor het eerst nut had.</li>
+        <li>Noteer de beschermende bedoeling in eigen woorden voordat er iets aan de klacht wordt gedaan.</li>
+        <li>Formuleer een suggestie in bevestigende vorm en controleer of zij dezelfde bedoeling dient als het oude gedrag.</li>
+        <li>Houd een week bij hoe vaak het oude patroon nog optreedt, in plaats van af te gaan op het gevoel direct na de oefening.</li>
+        <li>Ga bij klachten die met geweld, verlies of langdurige angst samenhangen naar een behandelaar en gebruik dit boek daar hooguit naast.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig boek met Engelse titel, verschenen bij Uitgeverij Darshan in maart 2025, 150 blz., ISBN 9789078264156, met tekeningen van Arjen Snijder. Er is een e-boek (ISBN 9789078264163) en een luisterboek (ISBN 9789462557499). Het is deel drie van wat de uitgever The Phenomena Serie noemt; deel vier verscheen eind 2025 als <i>De laatste hypnose</i> (ISBN 9789078264170) en voor 2026 is <i>Wat als opvoeden voor een groot deel hypnose is?</i> aangekondigd (ISBN 9789078264194). Een vertaling in een andere taal is niet verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Edwin Selij is hypnotherapeut en leidt sinds 2006 een opleidingsinstituut voor hypnose in Nederland. Hij werkte daarvoor in de bouw en gebruikte vijftien jaar lang alcohol en cocaine. Dit boek beschrijft in honderdvijftig bladzijden de techniek waarmee hij in zijn praktijk en in zijn opleidingen werkt.</p><p>Onder die techniek ligt een zin die het hele boek draagt: het probleem van nu was de oplossing van vroeger. Een angst, een dwangmatige gewoonte of een overtuiging over zichzelf is volgens Selij ooit ontstaan op een moment dat zij iets opleverde, meestal veiligheid en meestal in de kindertijd. Zolang dat oude nut niet wordt erkend, houdt het gedrag stand, hoe hard iemand er ook tegenin gaat.</p><p>De reset zelf is een korte reeks stappen die de lezer op zichzelf of op een ander kan uitvoeren. Het boek behandelt daarna hoe suggesties geformuleerd moeten worden, hoe er met het jongere zelf gewerkt wordt en wat er nodig is om het resultaat te laten beklijven. Achterin staan negen verwijzingen via QR-codes naar videomateriaal, waaronder een opname waarin Selij de methode voordoet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hypnose</li><li>zelfhulp</li><li>angst</li><li>overtuigingen</li><li>innerlijk kind</li><li>herkaderen</li><li>Nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1533"><a href="1533.html">Heart of the Mind</a>. Andreas en Andreas beschrijven de positieve bedoeling en het herkaderen in de vorm waarin Selij ze overneemt, met meer aandacht voor wat er misgaat.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk laat zien waarom klachten die uit trauma voortkomen zich zelden in enkele minuten laten omzetten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

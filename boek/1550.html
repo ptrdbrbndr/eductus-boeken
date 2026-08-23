@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full Body Thinking &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Jong stelt dat de gewoonte om problemen met het denken op te lossen bij hardnekkige patronen niet werkt, omdat die patronen in het lichaam beginnen.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1550">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1550 &middot; Brein en lichaam</p>
+    <h1>Full Body Thinking</h1>
+    <p class="lede">Wouter de Jong, 2025</p>
+    <p class="stats">
+      <span><b>1488</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1550"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Jong stelt dat de gewoonte om problemen met het denken op te lossen bij hardnekkige patronen niet werkt, omdat die patronen in het lichaam beginnen. Een reflex is al in gang gezet voordat er een gedachte over bestaat, en het denken levert achteraf de verklaring. Daaruit volgt zijn voorstel: leer het lichaam als eerste informatiebron gebruiken, en behandel de gedachte als het tweede deel van een som en niet als de oorzaak. Zijn emotieformule, emotie is fysieke sensatie maal verhaal, maakt van een gevoel iets waaraan op twee plaatsen te sleutelen valt. Wie de sensatie kan verdragen zonder er meteen betekenis aan te hangen, kan het verhaal herschrijven, en pas dan verandert het gedrag dat eruit voortkomt. Denken en voelen zijn in die opzet geen tegenpolen maar twee ingangen tot hetzelfde.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het voelen als eerste deel</h3>
+      <p>Het eerste deel van het boek gaat over het herwaarderen van lichamelijke gewaarwordingen. De Jong beschrijft hoe mensen leren om signalen uit hun lichaam te negeren of meteen te vertalen naar een oordeel, en hoe daardoor informatie verloren gaat die aan elke emotie voorafgaat.</p>
+      <p>Hij bouwt het bewustzijn op uit onderdelen die hij met bouwsteentjes vergelijkt: prikkels van buiten en prikkels van binnen, die samen het beeld vormen waarin iemand zich bevindt. Het oefenmateriaal in dit deel is gericht op het uit elkaar houden van waarneming en duiding.</p>
+      <h3>De emotieformule</h3>
+      <p>De kern van deel een is de formule emotie is fysieke sensatie maal verhaal. Een snelle hartslag, een strakke keel en klamme handen zijn op zichzelf geen angst; zij worden angst zodra er een verhaal bij komt dat zegt dat er iets misgaat. Hetzelfde lichamelijke beeld heet in een andere omstandigheid gespannen verwachting.</p>
+      <p>De praktische gevolgtrekking is dat er twee aangrijpingspunten zijn. De sensatie is te verdragen en af te laten nemen met aandacht en ademhaling; het verhaal is te herkennen, te bevragen en te herschrijven. De Jong waarschuwt dat wie alleen het verhaal aanpakt, het lichaam blijft overslaan, en dat wie alleen het lichaam kalmeert, het patroon niet ontmantelt.</p>
+      <h3>Adem en zenuwstelsel</h3>
+      <p>Ademhaling is bij De Jong de meest bereikbare ingang tot de sensatie. Hij beschrijft ademtechnieken als manier om het alarm in het lichaam te temperen, zodat er ruimte ontstaat om te kijken in plaats van te reageren.</p>
+      <p>Daarbij hoort een gedeelte over dopamine en de aantrekkingskracht van directe prikkels. Zijn beeld daarvoor is de ekster: het brein wordt aangetrokken door wat glimt en wat nu iets oplevert. Impulsen noemt hij neurologische staatsgrepen, momenten waarop het onbewuste deel de macht overneemt voordat er is nagedacht.</p>
+      <h3>Het denken als tweede deel</h3>
+      <p>Deel twee gaat over metacognitie: het vermogen om het eigen denken van een afstand te bekijken. De Jong behandelt de gedachte als iets dat langskomt in plaats van als een uitspraak over de werkelijkheid, en oefent het onderscheid tussen de gedachte hebben en de gedachte geloven.</p>
+      <p>Dit deel legt ook de verbinding met het eerste. Wie zijn lichamelijke signalen leert lezen, merkt eerder wanneer een gedachtereeks op gang komt, en heeft dan de keuze die er in het patroon niet was.</p>
+      <h3>De zes reflexen</h3>
+      <p>Het meest concrete onderdeel is de beschrijving van zes reflexen waarmee mensen zich staande houden: reiken, buigen, leunen, verslappen, opblazen en spannen. Elk is een houding waarmee een kind ooit iets oploste, en die als volwassene automatisch terugkomt in situaties die daar niet om vragen.</p>
+      <p>De Jong ontleent die zes aan de gestalttherapie en aan lichaamsgerichte tradities die daaruit zijn voortgekomen. Daarnaast noemt hij drie manieren om ongemak te ontlopen: onderdompelen, overcompenseren en ontwijken. De oefening bestaat eruit de eigen voorkeursreflex te herkennen op het moment dat hij optreedt.</p>
+      <h3>Delenwerk en rouw</h3>
+      <p>Voor het werken met de patronen leent De Jong uit internal family systems, waarin het innerlijk leven wordt beschreven als een verzameling delen die elk iets willen beschermen. Daarnaast gebruikt hij begrippen uit de schematherapie en uit het systemisch werk, waarin gedrag ook uit familiegeschiedenis wordt gelezen.</p>
+      <p>Het slot van het boek gaat over rouw. De Jong stelt dat het dal niet over te slaan is: wie de primaire emotie onder een patroon niet toelaat, blijft steken in de secundaire reactie die erbovenop ligt, meestal boosheid of drukte. Verdriet om wat er niet was, is in zijn opzet de doorgang naar ander gedrag.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Full body thinking</td><td>Denken waarbij lichamelijke informatie meetelt als gegeven en niet als storing die weggeredeneerd moet worden.</td></tr>
+          <tr><td class="term">Emotieformule</td><td>De vuistregel dat een emotie ontstaat uit een fysieke sensatie vermenigvuldigd met het verhaal dat iemand erbij vertelt.</td></tr>
+          <tr><td class="term">Fysieke sensatie</td><td>De ruwe lichamelijke gewaarwording, zoals hartslag of spanning, voordat er een naam of oordeel aan gegeven is.</td></tr>
+          <tr><td class="term">Neurologische staatsgreep</td><td>De Jongs benaming voor het moment waarop een impuls de leiding overneemt voordat er is nagedacht.</td></tr>
+          <tr><td class="term">De ekster</td><td>Het beeld voor een brein dat zich laat afleiden door wat glimt en wat op korte termijn iets oplevert.</td></tr>
+          <tr><td class="term">De zes reflexen</td><td>Reiken, buigen, leunen, verslappen, opblazen en spannen: houdingen waarmee mensen zich onder spanning staande houden.</td></tr>
+          <tr><td class="term">De drie O's</td><td>Onderdompelen, overcompenseren en ontwijken: manieren om onder ongemak uit te komen zonder het te voelen.</td></tr>
+          <tr><td class="term">Primaire en secundaire emotie</td><td>Het onderscheid tussen het gevoel dat er werkelijk is en de reactie die eroverheen ligt en het afdekt.</td></tr>
+          <tr><td class="term">Delenwerk</td><td>De werkwijze uit internal family systems waarin innerlijke reacties als afzonderlijke delen met een eigen bedoeling worden aangesproken.</td></tr>
+          <tr><td class="term">Metacognitie</td><td>Het vermogen om het eigen denken te bekijken in plaats van erin mee te gaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De Jong presenteert geen eigen onderzoek. Hij zet methoden naast elkaar die elk hun eigen herkomst hebben: gestalttherapie voor de reflexen, internal family systems voor het delenwerk, schematherapie voor de patronen, systemisch werk voor de familielijn en ademwerk voor de regulatie. De onderbouwing van het boek is daarmee zo sterk als die van de onderdelen, en die verschilt per onderdeel aanzienlijk.</p>
+      <p>Voor ademhaling bestaat redelijk onderzoek dat trage uitademing de hartslagvariabiliteit en de ervaren spanning beïnvloedt; de effecten zijn meetbaar en bescheiden. Voor internal family systems is het onderzoek jong en beperkt van omvang. De zes reflexen komen uit een therapeutische traditie die op klinische waarneming berust en niet op vergelijkende studies. Voor de emotieformule geldt dat zij een verkorte weergave is van wat in de psychologie de duidingstheorie van emotie heet, waarin lichamelijke opwinding en interpretatie samen de emotie vormen. Dat is een gangbaar model en geen bevinding van De Jong.</p>
+      <p>Waar het boek zijn waarde bewijst is in de oefeningen. Die zijn concreet genoeg om na te doen en de lezer kan zelf vaststellen of ze iets opleveren. Dat is een ander soort verantwoording dan onderzoek, en De Jong doet ook niet alsof het hetzelfde is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het samenvoegen van vijf methoden tot één werkwijze gaat voorbij aan het gegeven dat die methoden het onderling oneens zijn over waar klachten vandaan komen. Gestalt legt het accent op het contact in het hier en nu, schematherapie op vroege leerervaringen, systemisch werk op de familie en internal family systems op innerlijke delen. Wie ze naast elkaar gebruikt, krijgt een gereedschapskist die werkt zolang de vraag klein blijft en die geen antwoord geeft zodra de verklaringen botsen. In de recensie voor Managementboek merkt Liesbeth Tettero op dat De Jong zijn aangepaste gestaltbenadering niet volledig uitlegt.</p>
+      <p>Dezelfde recensie waarschuwt dat een deel van de oefeningen om therapeutische begeleiding vraagt. Dat is geen bijzaak. Werken met vroege ervaringen en met rouw kan bij mensen met een geschiedenis van geweld of verwaarlozing reacties oproepen die een boek niet kan opvangen, en de vorm van een handzaam werkboek nodigt uit tot alleen doorwerken.</p>
+      <p>De titel belooft meer dan het lichaam kan leveren. Denken met het hele lichaam is een beeldspraak; wat het boek werkelijk aanreikt is aandacht voor lichamelijke signalen bij het reguleren van emoties. Dat is bruikbaar, maar het valt in dezelfde categorie als de bredere stroom lichaamsgerichte zelfhulp waarin de beweringen doorgaans verder reiken dan de metingen. Wie na <i>Mindgym</i> een tweede boek van De Jong leest, zal ook merken dat de opzet vertrouwd aanvoelt: uitleg, beeldspraak, oefening.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf bij een sterke emotie eerst alleen de lichamelijke gewaarwording, zonder er een naam aan te geven.</li>
+        <li>Zoek daarna het verhaal dat eraan vastzit en schrijf het letterlijk op; pas dan is het te bevragen.</li>
+        <li>Gebruik een langere uitademing als eerste ingreep bij oplopende spanning, voordat je iets besluit.</li>
+        <li>Ga na welke van de zes reflexen bij jou het eerst optreedt en in welke situaties.</li>
+        <li>Doe de oefeningen rond rouw en vroege ervaringen met begeleiding en niet alleen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Full Body Thinking. Leer denken met je hele lichaam en bevrijd jezelf van oude patronen</i>, Maven Publishing, Amsterdam, 18 november 2025, 280 blz., ISBN 9789493434189; ook als e-boek. Het boek is in het Nederlands geschreven, dus er is geen vertaling. De Jong is acteur, trainer en spreker en schreef eerder <i>Mindgym</i>. Hij besprak dit boek in aflevering 310 van de podcast KUKURU.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Wouter de Jong betoogt dat vastzittende patronen zich niet laten wegdenken. Inzicht in waarom iemand doet wat hij doet verandert weinig, omdat het patroon in het lichaam zit en sneller op gang komt dan het denken. Zijn voorstel is om beide te gebruiken: eerst leren voelen wat er in het lichaam gebeurt, daarna leren zien welk verhaal daaraan wordt geplakt.</p><p>Het boek valt in twee delen uiteen. Het eerste gaat over voelen en draait om wat De Jong de emotieformule noemt: emotie is fysieke sensatie maal verhaal. Dezelfde hartslag heet spanning of opwinding, afhankelijk van wat iemand erover denkt. Het tweede deel gaat over denken en beschrijft zes reflexen waarmee mensen zichzelf staande houden.</p><p>De Jong zet methoden uit verschillende hoeken naast elkaar: gestalttherapie, ademwerk, schematherapie, systemisch werk en internal family systems. Hij doet geen eigen onderzoek en presenteert het boek als werkboek. Er staan veel oefeningen in, waarvan sommige om begeleiding vragen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>lichaamsgericht</li><li>emoties</li><li>patronen</li><li>ademhaling</li><li>gestalttherapie</li><li>internal family systems</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk levert de klinische onderbouwing voor het uitgangspunt dat patronen in het lichaam zitten, met veel meer onderzoek dan De Jong aanhaalt.</li>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Peter Levine beschrijft in <i>De tijger ontwaakt</i> hetzelfde idee dat een onvoltooide lichamelijke reactie blijft hangen, en werkt dat verder uit dan de zes reflexen hier.</li>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. James Nestor behandelt de ademhaling die bij De Jong de belangrijkste ingreep is, en geeft aan hoever het onderzoek daarover reikt.</li>
+          <li value="317"><a href="317.html">Trauma: The Invisible Epidemic</a>. Paul Conti bespreekt hoe vroege ervaringen doorwerken in latere reacties, en maakt duidelijk waar zelfhulp ophoudt en behandeling begint.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

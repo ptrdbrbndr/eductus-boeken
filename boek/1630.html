@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van bewust bewegen naar bewust Zijn &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dolstra stelt dat gesproken taal en lichaamstaal twee uitdrukkingen van hetzelfde zijn, en dat de metafoor in een gewone zin daarom rechtstreeks vertaald…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1630">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1630 &middot; Naslag en praktijk</p>
+    <h1>Van bewust bewegen naar bewust Zijn</h1>
+    <p class="lede">Jos Dolstra, 2021</p>
+    <p class="stats">
+      <span><b>1472</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1630"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dolstra stelt dat gesproken taal en lichaamstaal twee uitdrukkingen van hetzelfde zijn, en dat de metafoor in een gewone zin daarom rechtstreeks vertaald kan worden naar een houding, een gebaar of een beweging. Daaruit volgt haar tweede stelling, die de methode haar bestaansrecht geeft: verandering hoeft niet via inzicht te lopen. Wie zijn houding verandert, verandert wat hij denkt en voelt, want de houding is tegelijk de afspiegeling van een levenshouding en het gereedschap om er een andere voor in de plaats te krijgen. Dit derde boek voegt daar de stelling aan toe dat pijn, lichamelijk zowel als geestelijk, een uitdrukkingsvorm is die om ruimte vraagt, en dat het onderdrukken ervan de spanning tussen aangeleerde normen en eigen waarden in stand houdt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De methode in het kort</h3>
+      <p>Het boek zet eerst uiteen wat Body &amp; Mind Language is en waarin het zich onderscheidt van gespreksgerichte coaching. De coach luistert niet alleen naar wat iemand zegt, maar naar de beeldspraak waarin hij het zegt, en naar wat het lichaam er ondertussen bij doet: ademhaling, spanning, de manier waarop lichaamsdelen wel of niet meebewegen.</p>
+      <p>Die waarneming wordt geen diagnose maar een aanbod. De coach nodigt uit om de houding die er al is te overdrijven, om te draaien of aan te vullen, en laat de gecoachte zelf merken wat dat met zijn denken doet. Dolstra beschrijft dat als werken met de symbolische taal van het onbewuste, uitgedrukt in gebaar, houding, klank en bewegingsmogelijkheid.</p>
+      <p>In dit deel maakt zij ook een onderscheid dat in de rest van het boek terugkeert, dat tussen een drijfveer en een beweegreden. Een drijfveer duwt van achteren en is vaak niet gekozen; een beweegreden is de grond waarop iemand zich beweegt en waar hij zich aan verbinden kan. Verder noemt zij drie zaken waar zij een coach op laat letten: de fysiologie, omdat een stevig lichaam een stabieler denken draagt, de gerichtheid van de aandacht, omdat waarneming bepaalt wat iemand meemaakt, en het blijven doorvragen, omdat een vast denkpatroon zich alleen onder herhaalde vragen opent.</p>
+      <h3>Houding en levenshouding</h3>
+      <p>Het hoofdstuk over houding herneemt het uitgangspunt uit haar eerste boek. Hoe iemand staat, laat volgens Dolstra zien welk beeld hij van de wereld heeft, vanuit welke rol hij het leven benadert en welke overlevingsstrategie hij ooit heeft gekozen. Die strategie was op enig moment verstandig en is later een gewoonte geworden die zichzelf in stand houdt.</p>
+      <p>Het werken met houdingen bestaat eruit die gewoonte zichtbaar en dan beweeglijk te maken. Wanneer een houding kan veranderen, kan volgens deze redenering ook het wereldbeeld dat eraan vastzit meebewegen. De beperkende rol verliest daarmee zijn vanzelfsprekendheid.</p>
+      <h3>De gezichten van pijn</h3>
+      <p>Het deel dat dit boek onderscheidt van de twee eerdere gaat over pijn. Dolstra behandelt pijn als iets dat zich uit en dat om erkenning vraagt, en beschrijft welke gedaanten dat aanneemt: verdoving, drukte, overaanpassing, of juist een houding die de pijn letterlijk vasthoudt.</p>
+      <p>Zij koppelt daaraan interventies waarin de pijn beweging krijgt in plaats van bestreden te worden. Het gaat daarbij zowel om lichamelijke klachten als om verdriet en rouw, waarbij Dolstra geen scherpe grens tussen die twee aanhoudt.</p>
+      <h3>Persoonlijkheid en ziel</h3>
+      <p>Het tweede nieuwe thema is wat het boek de uitwisseling tussen persoonlijkheid en ziel noemt. De persoonlijkheid staat voor het aangeleerde: normen die zijn overgenomen, gedrag dat ooit goedkeuring opleverde. De ziel staat voor wat iemand als eigen waarde herkent. Waar die twee botsen, ontstaat volgens Dolstra de klacht waarmee mensen bij een coach komen.</p>
+      <p>De interventies in dit deel zijn erop gericht dat verschil voelbaar te maken in beweging, bijvoorbeeld door twee houdingen naast elkaar in te nemen en de overgang ertussen te onderzoeken. Het is het meest levensbeschouwelijke deel van het boek en ook het minst geargumenteerde: wat ziel hier precies is, blijft omschreven in beelden.</p>
+      <h3>Interventies voor de praktijk</h3>
+      <p>Het grootste deel van het boek bestaat uit beschreven interventies met de bijbehorende aanwijzingen: wat de coach waarneemt, wat hij voorstelt, wat er mis kan gaan. Ze zijn geschreven voor coaching, training, onderwijs, talentontwikkeling, leidinggeven en zorg, en ze zijn stuk voor stuk kort genoeg om in een gesprek van een uur te passen.</p>
+      <p>Tussen de theorie en de oefeningen door staan gedichten en persoonlijke passages. Dolstra schrijft ook over haar herstel na een hartinfarct en over hoe dat haar kijk op werk veranderde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Body &amp; Mind Language</td><td>Dolstra's methode om gesproken taal te koppelen aan lichaamstaal, houding en beweging, en van daaruit te werken.</td></tr>
+          <tr><td class="term">Levenshouding</td><td>De manier waarop iemand in het leven staat, in deze methode af te lezen aan de lichaamshouding en er ook via te veranderen.</td></tr>
+          <tr><td class="term">Model van de wereld</td><td>Het uit NLP overgenomen begrip voor de eigen voorstelling van de werkelijkheid, die volgens Dolstra ruimer wordt naarmate het bewegingsrepertoire ruimer wordt.</td></tr>
+          <tr><td class="term">Karakterrol</td><td>De vaste rol van waaruit iemand het leven benadert, zichtbaar in terugkerende houdingen en gebaren.</td></tr>
+          <tr><td class="term">Overlevingsstrategie</td><td>Een ooit gekozen manier van doen die beschermde en die later als lichamelijke gewoonte blijft bestaan.</td></tr>
+          <tr><td class="term">Metafoor als ingang</td><td>De beeldspraak in een uitspraak van de gecoachte, die letterlijk wordt genomen en in houding of beweging wordt nagedaan.</td></tr>
+          <tr><td class="term">Gezichten van pijn</td><td>De verschillende gedaanten waarin pijn zich volgens dit boek uit, van verdoving tot overaanpassing.</td></tr>
+          <tr><td class="term">Persoonlijkheid en ziel</td><td>Het onderscheid tussen aangeleerde normen en eigen waarden, waarvan de botsing in deze methode aan de klacht ten grondslag ligt.</td></tr>
+          <tr><td class="term">Interventie</td><td>Een afgebakende oefening waarin de coach een houding of beweging voorstelt en de gecoachte laat merken wat er verandert.</td></tr>
+          <tr><td class="term">Drijfveer en beweegreden</td><td>Dolstra's onderscheid tussen wat iemand van achteren voortduwt en de grond waarop hij zich bewust beweegt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek presenteert geen onderzoek. Het steunt op de praktijk van Dolstra en van het instituut dat zij oprichtte, op casuïstiek uit haar coachpraktijk en op haar achtergrond als danstherapeut. Waar zij begrippen ontleent, komen die uit NLP, en NLP zelf verwijst zelden naar toetsbaar onderzoek. Wie een empirische verantwoording zoekt van de bewering dat een veranderde houding een veranderd wereldbeeld oplevert, vindt die hier niet.</p>
+      <p>Er is wel omliggende literatuur die het uitgangspunt niet weerspreekt. Dat lichaamshouding en stemming elkaar beïnvloeden, is in de psychologie herhaaldelijk onderzocht, al is het bekendste onderzoek in dat gebied, over houdingen die iemand zelfverzekerder zouden maken, in latere replicaties grotendeels weggevallen. Van danstherapie en bewegingsgerichte therapie bestaan overzichtsstudies met bescheiden positieve uitkomsten en met de gebruikelijke beperkingen: kleine groepen, zelfrapportage, weinig blindering.</p>
+      <p>De sterkste kant van het boek ligt buiten de bewijsvraag. De beschrijvingen van wat een coach kan waarnemen en welke interventie daarop kan volgen, zijn gedetailleerd genoeg om na te doen, en de auteur is duidelijk over waar het mis kan gaan. Dat maakt het bruikbaar als handboek, ook voor wie de theorie erachter niet overneemt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat de methode niet te weerleggen valt zoals zij is opgeschreven. Als een houding een levenshouding uitdrukt en een verandering in houding tot inzicht leidt, is elke uitkomst bevestiging: gebeurt er iets, dan werkt de interventie, gebeurt er niets, dan was de gecoachte er nog niet aan toe. Het boek bevat geen enkel voorbeeld van een interventie die niet aansloeg en geen bespreking van gevallen waarin de methode ongeschikt is.</p>
+      <p>Het deel over persoonlijkheid en ziel voegt daar een tweede laag aan toe die van een andere orde is dan de rest. Waar de houdingsoefeningen nog aan waarneming vastzitten, berust dit deel op een tweedeling die alleen in beelden wordt uitgelegd. Voor een boek dat ook in onderwijs en zorg wordt gebruikt, is dat een zwakke plek, omdat een coach zonder scholing daarin makkelijk terechtkomt op het terrein van de psychotherapie.</p>
+      <p>Verder is de herhaling tussen de drie boeken aanzienlijk. Wie het eerste deel kent, leest hier de uitgangspunten opnieuw, met de nieuwe thema's pijn en ziel als toevoeging. De heruitgave van 2024 is aangevuld maar niet omgewerkt, zodat de opbouw dezelfde bezwaren houdt: veel losse interventies, weinig lijn die aangeeft welke wanneer aan de orde is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Luister in een gesprek eerst naar de beeldspraak die iemand gebruikt en noteer die letterlijk voordat je erop ingaat.</li>
+        <li>Laat een houding die opvalt eerst overdrijven en pas daarna veranderen, zodat het verschil merkbaar wordt.</li>
+        <li>Vraag na elke interventie wat er in denken en voelen veranderde, en niet of de oefening prettig was.</li>
+        <li>Houd de grens met psychotherapie in het oog bij het werken met pijn en rouw, en verwijs door waar dat nodig is.</li>
+        <li>Neem één interventie per week op in de eigen praktijk in plaats van het boek als geheel toe te passen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Uitgegeven door Stichting GVMedia, eerste druk 10 september 2021, 266 blz., met illustraties, ISBN 9789055993635. Ondertitel: <i>Creatieve en effectieve methode om gesproken taal te koppelen aan lichaamstaal, houding en beweging</i>, methode Body &amp; Mind Language. Op 20 november 2024 verscheen bij dezelfde uitgever een herziene uitgave met nieuwe inzichten en interventies, ISBN 9789055993734, eveneens 266 blz. Het boek is in het Nederlands geschreven en niet vertaald; het is het derde deel in Dolstra's reeks over haar methode, na <i>Body &amp; Mind Language</i> en <i>Coachen met Body &amp; Mind Language</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jos Dolstra begon als danseres, choreografe en dansdocente, studeerde daarna psychologie en NLP, en bracht die twee samen in wat zij Body &amp; Mind Language noemt. Dit is haar derde boek over die methode en het is geschreven voor mensen die ermee werken: coaches, trainers, docenten en hulpverleners.</p><p>Het uitgangspunt is dat de beelden die in gewone spreektaal verstopt zitten, letterlijk in het lichaam zijn na te maken. Wie zegt dat iets zwaar op zijn schouders drukt of dat hij niet vooruit komt, zegt volgens Dolstra iets over houding en bewegingsruimte. De coach neemt die zin als beginpunt en werkt van daaruit met stand, gebaar, adem en beweging in plaats van met een gesprek alleen.</p><p>Waar de eerdere boeken de theorie en de coachpraktijk uitwerkten, gaat dit deel verder over pijn en over wat Dolstra de uitwisseling tussen persoonlijkheid en ziel noemt: het verschil tussen aangeleerde normen en de waarden waar iemand zelf achter staat. Het boek bevat theorie, oefeningen en beschreven interventies.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>coaching</li><li>lichaamstaal</li><li>beweging</li><li>NLP</li><li>danstherapie</li><li>houding</li><li>metafoor</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1631"><a href="1631.html">Body &amp; Mind Language</a>. Het eerste boek van Dolstra, waarin de theorie achter deze interventies uitvoeriger staat uitgelegd.</li>
+          <li value="1530"><a href="1530.html">De NLP-Coach als inspirator</a>. Een Nederlands NLP-handboek uit dezelfde coachwereld, waaruit Dolstra begrippen als het model van de wereld overneemt.</li>
+          <li value="1533"><a href="1533.html">Heart of the Mind</a>. De interventiebundel van Connirae en Steve Andreas laat zien hoe hetzelfde soort oefeningen er zonder de lichaamsingang uitziet.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk onderbouwt het uitgangspunt dat het lichaam bij verwerking betrokken moet worden met klinisch onderzoek dat bij Dolstra ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

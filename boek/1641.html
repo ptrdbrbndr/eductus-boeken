@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mediation met geweldloze communicatie &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Larsson stelt dat bemiddelen geen zaak van juridische vaardigheid of van slimme compromissen is, maar van het herstellen van contact tussen twee mensen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1641">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1641 &middot; Samenwerken en gesprek</p>
+    <h1>Mediation met geweldloze communicatie</h1>
+    <p class="lede">Liv Larsson, 2008; vert. Mark Brouwers en Hester Macrander</p>
+    <p class="stats">
+      <span><b>1515</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1641"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Larsson stelt dat bemiddelen geen zaak van juridische vaardigheid of van slimme compromissen is, maar van het herstellen van contact tussen twee mensen die elkaar niet meer horen. Een conflict gaat volgens haar zelden over de strategieen waar partijen om vechten, maar over behoeften die aan beide kanten onvervuld zijn, en die behoeften botsen bijna nooit werkelijk; de strategieen om erin te voorzien botsen wel. De taak van de derde persoon is daarom niet oordelen, niet oplossen en niet sussen, maar zorgen dat elke partij eerst hoort wat er bij de ander leeft en dat ook kan navertellen. Pas wanneer dat contact er is, komen er afspraken die standhouden. Daaruit volgt haar tweede stelling: iedereen die met mensen te maken heeft, bemiddelt al, en het verschil tussen goed en slecht bemiddelen zit vooral in oefening en in het vermogen om de eigen reacties op te vangen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat een conflict is</h3>
+      <p>Larsson begint met een onderscheid dat de rest van het boek draagt: het verschil tussen een behoefte en een strategie. Behoeften zijn algemeen menselijk, zoals rust, erkenning, veiligheid, meetellen. Strategieen zijn de concrete manieren waarop iemand daarin wil voorzien: dat de radio uitgaat, dat de auto op naam komt, dat een collega zijn excuses aanbiedt.</p>
+      <p>Conflicten ontstaan volgens haar doordat mensen hun strategie voor hun behoefte aanzien en daarna over de strategie gaan onderhandelen. Zolang dat gebeurt is er een winnaar en een verliezer nodig. Zodra de behoefte zichtbaar wordt, groeit het aantal mogelijke strategieen, en daarmee de kans op iets waar beide partijen mee kunnen leven.</p>
+      <h3>De vier stappen in de mond van een derde</h3>
+      <p>Het model van Rosenberg bestaat uit waarneming zonder oordeel, gevoel, behoefte en een concreet verzoek. Larsson laat zien hoe een bemiddelaar die vier onderdelen niet zelf uitspreekt maar bij de partijen ophaalt, en hoe hij de opmerkingen die als aanval binnenkomen doorgeeft in een vorm die de ander kan verdragen.</p>
+      <p>Zij besteedt veel ruimte aan het onderscheid tussen een waarneming en een oordeel, omdat de meeste verwijten in een conflict de vorm van een feit hebben. De zin dat iemand nooit luistert is geen waarneming maar een diagnose, en het teruggeven ervan als waarneming en behoefte is het handwerk waar het boek om draait.</p>
+      <h3>Verbinding voordat er over oplossingen wordt gesproken</h3>
+      <p>Larsson onderscheidt twee soorten verzoeken die een bemiddelaar doet. Het ene is gericht op contact: zij vraagt de een terug te zeggen wat hij de ander heeft horen zeggen. Het andere is gericht op een afspraak. Haar stelling is dat de tweede soort mislukt wanneer de eerste is overgeslagen, en dat bemiddelaars daar uit ongeduld vrijwel altijd te snel in zijn.</p>
+      <p>Het navertellen is in haar aanpak geen beleefdheidsvorm. Zij houdt vol tot iemand de behoefte van de ander in eigen woorden kan weergeven, ook wanneer dat de partij die aan de beurt is zichtbaar tegenstaat, omdat pas op dat moment de toon van het gesprek verandert.</p>
+      <h3>De bemiddelaar zelf</h3>
+      <p>Een aanzienlijk deel van het boek gaat niet over de partijen maar over de derde. Larsson beschrijft hoe snel een bemiddelaar meegezogen raakt: hij kiest partij, hij wil dat het gesprek een goede afloop krijgt, hij wordt zelf boos, of hij houdt de rust met een neutraliteit die niemand gelooft.</p>
+      <p>Haar antwoord is zelfempathie tijdens het werk: het opmerken van de eigen ergernis, angst of behoefte aan erkenning zonder die uit te spreken en zonder haar weg te drukken. Zij beschrijft ook wanneer een bemiddelaar de bijeenkomst hoort af te breken en wat hij dan zegt.</p>
+      <h3>Bemiddelen buiten de formele setting</h3>
+      <p>Naast de opgezette bemiddeling met een tafel en een afspraak behandelt Larsson de gevallen waarin niemand om een bemiddelaar heeft gevraagd: ruziende kinderen, twee collega's op de gang, een echtpaar aan tafel. Zij noemt dat de dagelijkse vorm, en zij stelt dat wie daarin oefent het formele werk ook aankan.</p>
+      <p>Ook de moeilijker beweging komt aan bod: bemiddelen tussen twee partijen wanneer men zelf een van die partijen is. Larsson erkent dat dit het lastigste geval is en werkt uit hoe iemand dan afwisselend voor zichzelf spreekt en voor het contact zorgt.</p>
+      <h3>Herstelrecht en zwaardere conflicten</h3>
+      <p>In de latere delen gaat het over conflicten waarin schade en geweld een rol spelen, en over herstelrecht, waarbij dader en benadeelde elkaar spreken. Larsson put daarbij uit haar werk met vredeswerkers in gebieden waar geweld had plaatsgevonden.</p>
+      <p>Zij plaatst daar een grens bij. Bemiddeling in de vorm die zij beschrijft veronderstelt dat beide partijen vrijwillig aanwezig zijn en dat er geen acute dreiging is. Waar die voorwaarden ontbreken, zegt zij, is de aanpak niet aan de orde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Geweldloze communicatie</td><td>Het model van Marshall Rosenberg met waarneming, gevoel, behoefte en verzoek, dat Larsson als grondslag van haar mediation neemt.</td></tr>
+          <tr><td class="term">Behoefte</td><td>Een algemeen menselijk gegeven zoals veiligheid, erkenning of rust, dat volgens Larsson bij beide partijen te vinden is en zelden werkelijk botst.</td></tr>
+          <tr><td class="term">Strategie</td><td>De concrete manier waarop iemand in een behoefte wil voorzien; het niveau waarop conflicten zichtbaar worden en vastlopen.</td></tr>
+          <tr><td class="term">Verbindingsverzoek</td><td>Het verzoek van de bemiddelaar aan de een om terug te zeggen wat hij de ander heeft horen zeggen, bedoeld om contact te maken en niet om iets af te spreken.</td></tr>
+          <tr><td class="term">Oplossingsverzoek</td><td>Het verzoek dat op een concrete afspraak is gericht en dat in haar aanpak pas aan de orde komt nadat het contact is hersteld.</td></tr>
+          <tr><td class="term">Zelfempathie</td><td>Het opmerken en voor zichzelf benoemen van de eigen gevoelens en behoeften tijdens het bemiddelen, zodat die het gesprek niet ongemerkt sturen.</td></tr>
+          <tr><td class="term">Vertalen</td><td>Het omzetten van een verwijt of oordeel in de waarneming, het gevoel en de behoefte die eronder liggen, wat de kernhandeling van de bemiddelaar is.</td></tr>
+          <tr><td class="term">Informele bemiddeling</td><td>Bemiddelen in het dagelijks leven zonder opdracht en zonder afspraak, bijvoorbeeld tussen kinderen of tussen collega's.</td></tr>
+          <tr><td class="term">Herstelrecht</td><td>Het laten spreken van dader en benadeelde over de aangerichte schade, waarbij herstel van de verhouding en niet de straf voorop staat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op praktijkervaring, niet op onderzoek. Larsson werkt sinds 1992 als trainer en bemiddelaar en is sinds 2002 gecertificeerd bij het Center for Nonviolent Communication; zij leidde bemiddelaars op in Zweden en in landen waar zij met vredeswerkers werkte, onder meer in Zuidoost-Azie. De onderbouwing bestaat uit uitgeschreven dialogen uit die praktijk, en die dialogen zijn door haarzelf opgetekend en geredigeerd.</p>
+      <p>Dat is een zwakke vorm van bewijs. De gesprekken die zij opneemt lopen goed af, en het boek laat weinig zien van bemiddelingen die zijn vastgelopen of die een uitkomst kregen die alleen op papier stand hield. Wat de lezer krijgt is een goed onderwezen ambacht, gedemonstreerd aan zorgvuldig gekozen voorbeelden.</p>
+      <p>Het onderliggende model van Rosenberg is zelf ook weinig beproefd. Het effectonderzoek naar geweldloze communicatie bestaat vooral uit kleine studies onder cursisten met een meting voor en na de training, meestal zonder controlegroep en met zelfrapportage als uitkomstmaat. De onderdelen die Larsson gebruikt, zoals het navertellen door de ontvangende partij, sluiten wel aan bij wat er in onderzoek naar onderhandelen breder bekend is over het effect van erkenning op de bereidheid tot een akkoord.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste tegenwerping betreft de veronderstelling dat behoeften nooit werkelijk botsen. In veel conflicten is er een tekort dat niet weg te praten valt: een baan, een huis, de zorg voor een kind, geld dat er niet is. Larsson erkent dat, maar haar behandeling ervan blijft kort, en de dialogen in het boek gaan overwegend over gevallen waarin een derde strategie beschikbaar was.</p>
+      <p>De tweede tegenwerping betreft macht. Bemiddeling veronderstelt twee partijen die ongeveer even sterk staan. Bij een leidinggevende en een medewerker, of bij twee mensen met een geschiedenis van intimidatie, kan het benoemen van behoeften de zwakkere partij verder blootstellen. Larsson stelt de voorwaarde van vrijwilligheid, maar de aanpak zelf bevat geen middel om ongelijkheid tijdens het gesprek te compenseren.</p>
+      <p>Ten derde de taal. Het vocabulaire van geweldloze communicatie klinkt in het Nederlands snel gekunsteld, en wie er onhandig mee omgaat produceert een toon die de ander als betuttelend ervaart. Larsson waarschuwt daarvoor en dringt aan op eigen bewoordingen, maar de voorbeelddialogen in het boek staan vol formuleringen die precies dat effect kunnen oproepen. Wie geen training volgt, houdt daardoor kans op de vorm zonder de werking.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een verwijt door naar wat de spreker nodig heeft, voordat er over een oplossing wordt gesproken.</li>
+        <li>Laat de ontvangende partij navertellen wat zij heeft gehoord, en houd dat aan tot het klopt.</li>
+        <li>Schrijf voor een bemiddeling op welke afloop de bemiddelaar zelf zou willen, om te merken waar de eigen partijdigheid zit.</li>
+        <li>Onderscheid in elk geschil de behoefte van de strategie, en zoek pas daarna naar andere strategieen.</li>
+        <li>Breek af wanneer een partij niet vrijwillig aanwezig is of wanneer er dreiging in de kamer staat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Zweeds verschenen als <i>Skapa möten och kontakt genom medling: att agera tredje part med Nonviolent Communication</i> bij Larssons eigen uitgeverij Friare Liv (2008); de Engelse uitgave heet <i>A Helping Hand: Mediation with Nonviolent Communication</i> (Friare Liv, ISBN 9789197667272). De Nederlandse vertaling van Mark Brouwers en Hester Macrander verscheen in 2018 bij Lemniscaat te Rotterdam als <i>Mediation met geweldloze communicatie</i> (gebonden, 296 blz., ISBN 9789047710462). Larsson schreef ruim twintig boeken over geweldloze communicatie, die in onder meer het Duits, Pools, Fins en Italiaans zijn vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Liv Larsson is een Zweedse mediator en sinds 2002 gecertificeerd trainer van het Center for Nonviolent Communication. Zij leidde bemiddelaars op in onder meer Thailand en Sri Lanka en schreef dit boek voor mensen die tussen twee partijen komen te staan zonder dat zij daar een beroep van hebben gemaakt: ouders, leraren, leidinggevenden, hulpverleners.</p><p>Het boek bouwt op het model van Marshall Rosenberg: waarneming, gevoel, behoefte, verzoek. Larsson vertaalt dat naar de positie van de derde persoon in een conflict. Haar centrale handeling is het omzetten van wat de een als verwijt zegt naar de behoefte die eronder ligt, en dat vervolgens door de ander laten terugzeggen voordat er over oplossingen wordt gesproken.</p><p>Er staan veel uitgeschreven dialogen in, uit gezinnen, scholen, werkplekken en verzoeningsprocessen na geweld. Larsson besteedt ook aandacht aan wat er met de bemiddelaar zelf gebeurt, omdat het volgens haar de partijdigheid en de eigen ergernis van de bemiddelaar zijn die het gesprek meestal laten mislukken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mediation</li><li>geweldloze communicatie</li><li>conflict</li><li>bemiddeling</li><li>empathie</li><li>herstelrecht</li><li>Rosenberg</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Het grondmodel waar Larsson op voortbouwt, met dezelfde vier stappen maar geschreven vanuit de gespreksdeelnemer in plaats van de derde persoon.</li>
+          <li value="1642"><a href="1642.html">Wat je vindt mag je houden</a>. Een Nederlandse uitwerking van hetzelfde model, gericht op de eigen oordelen in plaats van op de rol van bemiddelaar.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Een tegenovergestelde school: onderhandelen met tactisch spiegelen en benoemen, waarbij het doel wel degelijk is de ander te bewegen.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Behandelt hetzelfde moment waarop een gesprek ontspoort, met een gereedschapskist die minder van een woordenschat en meer van gedragsregels uitgaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

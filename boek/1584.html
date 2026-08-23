@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Erroneous Zones &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dyer bouwt het hele boek op één bewering: gevoelens overkomen een mens niet, zij volgen uit de gedachten die hij zelf over een gebeurtenis heeft, en die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1584">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1584 &middot; Positief denken en manifesteren</p>
+    <h1>Your Erroneous Zones</h1>
+    <p class="lede">Wayne W. Dyer, 1976</p>
+    <p class="stats">
+      <span><b>1688</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1584"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dyer bouwt het hele boek op één bewering: gevoelens overkomen een mens niet, zij volgen uit de gedachten die hij zelf over een gebeurtenis heeft, en die gedachten zijn te kiezen. Wie zich beroerd voelt over wat een ander zei, heeft dat gevoel volgens Dyer zelf gemaakt en kan het dus ook zelf ontmantelen. Uit die ene stelling volgt de rest van het boek. Schuld over het verleden en zorgen over de toekomst zijn onbruikbare bezigheden, want zij veranderen niets aan wat gebeurd is of nog gebeuren moet. Goedkeuring van anderen is geen voedsel maar een gewoonte die vanaf de kleuterklas is aangeleerd. En elke zin die begint met 'zo ben ik nu eenmaal' is een etiket dat verandering overbodig verklaart. De erroneous zones uit de titel zijn de gebieden waarin dat mechanisme telkens opnieuw misgaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De verantwoordelijkheid voor het eigen gevoel</h3>
+      <p>Het openingshoofdstuk zet de premisse neer. Een mens is de optelsom van zijn keuzes, ook van zijn emotionele keuzes, en geluk is een besluit en geen omstandigheid. Dyer schrijft dat niemand een ander een gevoel kan bezorgen zonder diens medewerking, en dat de zin 'jij maakt me kwaad' de verantwoordelijkheid buiten de deur legt waar zij thuishoort.</p>
+      <p>Daarbij hoort zijn tweede vaste thema: leven in het huidige ogenblik. Wie in het verleden of in de toekomst verblijft, gebruikt de enige tijd die er is om er niet te zijn. Dyer keert daar in bijna elk hoofdstuk naar terug, en de Nederlandse titel is aan dat thema ontleend.</p>
+      <h3>Zelfliefde en de behoefte aan goedkeuring</h3>
+      <p>In het hoofdstuk over zelfliefde scheidt Dyer eigenwaarde van gedrag. Eigenwaarde is volgens hem geen beloning voor prestaties en ook geen oordeel dat anderen uitspreken, maar een gegeven dat iemand zichzelf verleent. Wie zijn waarde laat afhangen van resultaten, geeft die waarde uit handen aan elke volgende beoordeling.</p>
+      <p>Het hoofdstuk daarna behandelt de behoefte aan goedkeuring als een aangeleerde afhankelijkheid. Dyer traceert die naar de opvoeding, de school, de kerk, de reclame en het huwelijk, en beschrijft hoe iemand zich zo inricht dat elke handeling eerst wordt getoetst aan de vraag wat men ervan zal vinden. Zijn tegenzetten zijn klein en praktisch: een keer geen instemming vragen, een keer een mening geven die zeker niet valt.</p>
+      <h3>Het verleden, de schuld en de zorgen</h3>
+      <p>Zelfetiketten zijn het onderwerp van het hoofdstuk over het verleden. Uitspraken als 'ik ben slecht in rekenen' of 'ik ben verlegen' presenteert Dyer als versteende beschrijvingen die iemand gebruikt om niet te hoeven proberen. Zij verwijzen naar een verleden dat geen zeggenschap meer heeft, behalve die welke iemand er zelf aan geeft.</p>
+      <p>Schuld en zorgen behandelt hij als hetzelfde verschijnsel in twee richtingen. Schuld verlamt het heden met iets dat voorbij is, zorgen verlammen het heden met iets dat nog niet bestaat, en geen van beide verandert iets aan de zaak zelf. Dyer erkent dat lering trekken uit een fout iets anders is dan schuld voelen, en dat vooruit plannen iets anders is dan piekeren; het onderscheid tussen die paren draagt zijn hele redenering.</p>
+      <h3>Het onbekende, de regels en de rechtvaardigheid</h3>
+      <p>Drie hoofdstukken gaan over de buitenkant van het gedrag. Het eerste beschrijft de angst voor het onbekende en de dwang om alles vooraf te ordenen; Dyer pleit voor kleine ongeplande stappen en voor het afleren van het automatische nee. Het tweede gaat over de macht van de gewoonte en van het woordje 'hoort', over etiquette, over gehoorzaamheid aan wie toevallig gezag draagt, en over regels die niemand meer kan verantwoorden.</p>
+      <p>Het derde is de rechtvaardigheidsval. De wereld is niet eerlijk ingericht en zal dat ook niet worden, schrijft Dyer, en wie zijn eigen handelen afhankelijk maakt van de vraag of het eerlijk is, geeft zijn beslissingen weg aan een maatstaf die buiten hem ligt. Jaloezie en het bijhouden van wat de ander wel mag rekent hij tot dezelfde familie.</p>
+      <h3>Uitstellen en afhankelijkheid</h3>
+      <p>Uitstelgedrag noemt Dyer geen luiheid maar een manier om risico te vermijden zonder dat toe te geven. Zolang iets nog moet gebeuren, kan het niet mislukken, en het voornemen levert bijna evenveel op als de uitvoering. Zijn tegenzet is het uitvoeren van vijf minuten van de taak, nu, om de gedachte te doorbreken dat er een beter moment bestaat.</p>
+      <p>In het hoofdstuk over onafhankelijkheid past hij dezelfde redenering toe op familie en huwelijk. Verplichting die uit gewoonte voortkomt onderscheidt hij van de zorg die iemand uit eigen beweging op zich neemt, en hij dringt aan op omgang tussen volwassenen die elk hun eigen keuzes dragen, ook tussen ouders en volwassen kinderen.</p>
+      <h3>Woede en het slotportret</h3>
+      <p>Het hoofdstuk over woede keert zich tegen de destijds gangbare gedachte dat kwaadheid eruit moet. Woede is volgens Dyer een keuze die volgt op de eis dat de werkelijkheid zich anders gedraagt dan zij doet, en het uiten ervan oefent haar eerder dan dat het haar afvoert. Hij onderscheidt de woede die iemand overvalt van het besluit om te blijven razen.</p>
+      <p>Het boek sluit met een portret van iemand die al deze gebieden zou hebben opgeruimd. Die persoon is opgewekt, zonder wrok, ongevoelig voor kritiek, vrij van schuld en van uitstel. Het is een samengesteld ideaal en geen beschrijving van een bestaand mens, en Dyer geeft dat ook toe.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Erroneous zone</td><td>Een gebied in iemands denken en gedrag waarin die zichzelf stelselmatig ondermijnt, zonder dat er van buitenaf iets aan de hand hoeft te zijn.</td></tr>
+          <tr><td class="term">Keuze</td><td>Dyers grondbegrip: elk gevoel volgt op een gedachte, en die gedachte is een besluit waarvoor de denker aansprakelijk is.</td></tr>
+          <tr><td class="term">Leven in het nu</td><td>De gewoonte om de aandacht bij het lopende ogenblik te houden in plaats van bij herinnering of vooruitzicht.</td></tr>
+          <tr><td class="term">Eigenwaarde</td><td>Waardering voor zichzelf die volgens Dyer niet uit prestaties of uit andermans oordeel voortkomt en dus ook niet door beide kan worden afgenomen.</td></tr>
+          <tr><td class="term">Goedkeuringsbehoefte</td><td>De aangeleerde neiging om eigen handelen pas geldig te achten wanneer anderen ermee instemmen.</td></tr>
+          <tr><td class="term">Opbrengsten</td><td>De verborgen voordelen die zelfondermijnend gedrag oplevert, zoals uitstel dat mislukking voorkomt; Dyer somt ze per hoofdstuk op als verklaring waarom het gedrag blijft.</td></tr>
+          <tr><td class="term">Zelfetiket</td><td>Een vaste uitspraak over de eigen persoon die als excuus dienst doet, van het type 'ik ben nu eenmaal chaotisch'.</td></tr>
+          <tr><td class="term">Rechtvaardigheidsval</td><td>Het gebruik van de vraag of iets eerlijk is als maatstaf voor het eigen doen en laten.</td></tr>
+          <tr><td class="term">Uitstelgedrag</td><td>Het verschuiven van handelen naar een toekomstig moment, door Dyer opgevat als vermijding van het oordeel dat op het handelen zou volgen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen noten, geen literatuurlijst en vrijwel geen verwijzingen. Wat Dyer aanvoert zijn gesprekken uit zijn eigen praktijk als counselor, anoniem weergegeven en zonder controleerbare gegevens, aangevuld met alledaagse voorbeelden uit gezinnen, kantoren en winkels. Er komt geen onderzoek in voor, ook niet waar een uitspraak zich makkelijk zou laten toetsen, bijvoorbeeld de bewering dat het uiten van woede die niet vermindert.</p>
+      <p>De onderliggende gedachte dat gevoelens uit gedachten volgen, is intussen niet van Dyer. Zij komt uit de rationeel-emotieve therapie van Albert Ellis en uit de cognitieve therapie van Aaron Beck, en die richting is in de decennia daarna in klinische proeven onderzocht, met redelijke uitkomsten bij depressie en angst. Dyer verwijst naar Ellis eenmaal, op bladzijde 148 van de oorspronkelijke uitgave, en laat verder in het midden waar zijn model vandaan komt.</p>
+      <p>Wat het boek wel aantoonbaar heeft bereikt, is bereik. Vierenzestig weken in de Amerikaanse bestsellerlijst en tientallen miljoenen verkochte exemplaren zeggen iets over de behoefte waarin het voorzag, en niets over de juistheid van de stellingen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt van Ellis zelf, die stelde dat Dyer zijn therapie vrijwel ongewijzigd had overgenomen zonder dat behoorlijk te vermelden, en dit het slechtste voorbeeld daarvan noemde dat hij kende. Ellis voegde eraan toe dat het boek veel mensen had geholpen en de uitgangspunten helder weergaf, wat het verwijt beperkt tot de herkomst en niet tot de inhoud.</p>
+      <p>Inhoudelijk rekt Dyer zijn premisse verder op dan zij draagt. Dat iemand invloed heeft op hoe hij een gebeurtenis uitlegt, is iets anders dan dat hij zijn gevoelens kiest. Bij ernstige depressie, rouw, armoede, ziekte en geweld is het gevoel geen keuze, en het boek biedt geen plaats aan omstandigheden waar de lezer niets aan kan doen. Wie zich na zo'n hoofdstuk toch ellendig voelt, krijgt er de gedachte bij dat hij dat zelf heeft besloten.</p>
+      <p>De redenering met de opbrengsten laat zich bovendien niet weerleggen. Doet de lezer wat Dyer voorstelt, dan werkt de methode; doet hij het niet, dan komt dat door een verborgen voordeel dat hij niet wil opgeven. Elke uitkomst bevestigt zo het model. Hetzelfde geldt voor het slothoofdstuk, waarin een mens wordt geschetst die nooit schuld, wrok, angst of aarzeling kent en die als maatstaf onhaalbaar is.</p>
+      <p>Ten slotte laat het boek het morele nut van schuld helemaal weg. Schuld die aanzet tot herstel van aangerichte schade valt in Dyers indeling samen met het nutteloze piekeren over gisteren. De voorbeelden zijn daarnaast van hun tijd, met echtparen en rolverdelingen uit het midden van de jaren zeventig, en Dyer zelf verlegde zijn werk later naar spirituele en manifesterende thema's die met deze nuchtere aanpak weinig te maken hebben.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een week lang bij elk vervelend gevoel welke gedachte eraan voorafging, en kijk daarna of die gedachte een feit was of een uitleg.</li>
+        <li>Zoek de vaste zinnen op waarmee iemand zichzelf beschrijft, van het type 'daar ben ik niet goed in', en vervang ze door een beschrijving van gedrag in het verleden.</li>
+        <li>Voer bij uitstel vijf minuten van de taak uit in plaats van een moment te kiezen waarop het beter zou uitkomen.</li>
+        <li>Onderscheid bij spijt de vraag wat er te herstellen valt van het herkauwen zelf, en houd alleen het eerste aan.</li>
+        <li>Lees de hoofdstukken over goedkeuring en rechtvaardigheid als beschrijving van gewoonten en niet als voorschrift om nergens meer rekening mee te houden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Your Erroneous Zones</i> (Funk &amp; Wagnalls, New York, 1976), later herhaaldelijk herdrukt door Avon en HarperCollins. Het boek stond vierenzestig weken in de bestsellerlijst van <i>The New York Times</i> en stond daar op 8 mei 1977 op de eerste plaats. De Nederlandse uitgave heet <i>Niet morgen, maar nu</i>, met als ondertitel 'Naar een nieuwe kijk op jezelf'; zij verscheen bij A.W. Bruna en wordt nu uitgegeven door Lev./A.W. Bruna, Amsterdam (236 blz., ISBN 9789022992876, ook als e-boek en als luisterboek ingelezen door Roel Fooij). De naam van de vertaler wordt in de huidige druk niet vermeld. Van Dyer zijn daarna tientallen titels in het Nederlands verschenen, waaronder <i>De kracht van intentie</i> en <i>Wensen doen uitkomen</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dyer was hoogleraar counseling aan St. John's University in New York toen hij dit boek schreef. Een erroneous zone noemt hij een gebied in iemands denken waarin die zichzelf vastzet: goedkeuring zoeken bij anderen, zich schuldig voelen over gisteren, piekeren over morgen, kwaad worden omdat de wereld zich niet aan de regels houdt.</p><p>De opzet is in elk hoofdstuk dezelfde. Eerst beschrijft Dyer het gedrag, dan somt hij op wat het oplevert aan verborgen voordelen, en dan volgt een rij tegenzetten die zonder therapeut uitvoerbaar zijn. Alles rust op één aanname: gevoelens volgen uit gedachten, en gedachten zijn te kiezen.</p><p>Het boek verkocht wereldwijd tientallen miljoenen exemplaren en maakte Dyer tot een van de eerste zelfhulpauteurs die zijn eigen boek de markt in duwde. Albert Ellis, de grondlegger van de rationeel-emotieve therapie, herkende zijn eigen leer erin en verweet Dyer dat hij die zonder bronvermelding had overgenomen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>goedkeuring</li><li>schuldgevoel</li><li>uitstelgedrag</li><li>boosheid</li><li>rationeel-emotieve therapie</li><li>jaren zeventig</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Peale schreef vijfentwintig jaar eerder een zelfhulpboek met hetzelfde grondplan, alleen met gebed en geloof waar Dyer het bij de eigen gedachten houdt.</li>
+          <li value="1586"><a href="1586.html">You Can Heal Your Life</a>. Hay bouwt haar boek op dezelfde aanname over gedachten en werkelijkheid, maar trekt die door naar lichamelijke ziekte, waar Dyer bij gedrag en gevoel blijft.</li>
+          <li value="139"><a href="139.html">Unlimited Power</a>. Robbins nam tien jaar later hetzelfde publiek over en voegde er techniek en podium aan toe, met dezelfde afwezigheid van onderzoek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

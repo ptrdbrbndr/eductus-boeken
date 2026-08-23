@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An Autobiography of Trauma &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Levine keert in dit boek de richting van zijn eigen werk om. Waar hij eerder over patienten schreef, gaat het hier over hemzelf: over de verkrachting toen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1622">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1622 &middot; Roman en memoir</p>
+    <h1>An Autobiography of Trauma</h1>
+    <p class="lede">Peter A. Levine, 2024</p>
+    <p class="stats">
+      <span><b>1367</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1622"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Levine keert in dit boek de richting van zijn eigen werk om. Waar hij eerder over patienten schreef, gaat het hier over hemzelf: over de verkrachting toen hij twaalf was, over de decennia waarin hij daarover zweeg terwijl hij een behandelmethode voor precies dit soort schade ontwikkelde, en over wat er nodig was om het alsnog te vertellen. Zijn stelling is dat de gebeurtenis zelf zelden de blijvende schade veroorzaakt, maar de verdedigingsreactie die in het lichaam is blijven hangen omdat zij nooit is afgemaakt. Daaruit volgt de tweede stelling van het boek, dat iedereen met een dergelijke geschiedenis een verhaal heeft dat het vertellen waard is, en dat het vertellen zelf de vastgelopen reactie weer in beweging kan brengen. Het boek is bedoeld als bewijsstuk in de enige vorm die hij nog niet had geleverd, zijn eigen geval.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De jongen in de Bronx</h3>
+      <p>De kern van het boek staat vooraan. Levine was twaalf toen hij door leden van een bende uit de Bronx werd verkracht. De aanleiding lag buiten hem: zijn vader zou tegen een maffiabaas getuigen, en het geweld was bedoeld als waarschuwing. Levine schrijft het op zonder de scene uit te spellen en zonder de lezer te sparen.</p>
+      <p>Wat volgt is het gedrag van een kind dat een wereld probeert te beheersen die dat niet toelaat. Hij vermijdt de voegen tussen de stoeptegels, maakt religieuze gebaren op vaste momenten en houdt zich aan regels die hij zelf verzint. Achteraf leest hij die rituelen als pogingen om een lichaam dat in alarm staat een taak te geven.</p>
+      <h3>Wat er wel goed was</h3>
+      <p>Tegenover die geschiedenis zet Levine twee herinneringen die hij bewust klein houdt. Op zijn vierde verjaardag kreeg hij een modeltrein van Lionel. Rond zijn tweede kreeg hij zwemles van zijn vader, met handen die hem droegen.</p>
+      <p>Hij noemt dat lichaamsherinneringen van veiligheid, en zegt dat zij hem door iets heen hebben gedragen dat hem had kunnen breken. Die volgorde, eerst het goede opzoeken en daarna pas het beschadigde aanraken, is dezelfde volgorde die zijn behandelmethode voorschrijft. Het boek laat zien waar zij vandaan komt.</p>
+      <h3>Een methode uit een eigen probleem</h3>
+      <p>Levine beschrijft hoe zijn belangstelling voor de fysiologie van bedreiging is gegroeid en hoe daaruit Somatic Experiencing ontstond. Zijn uitgangspunt is dat dieren na een aanval schudden, rennen of trillen en daarmee de reactie afmaken, en dat mensen die reactie vaak onderbreken.</p>
+      <p>Wat dan overblijft is een lichaam dat in een houding blijft staan die bij de gebeurtenis hoorde. De behandeling bestaat er in zijn ogen uit die reactie alsnog en in kleine stappen af te maken, zonder de gebeurtenis opnieuw te doorleven. In het boek past hij die redenering op zichzelf toe.</p>
+      <h3>Einstein aan het voeteneind</h3>
+      <p>Een terugkerend element zijn dromen waarin Albert Einstein verschijnt. Levine gaat hem behandelen als gids en leermeester, legt hem vragen voor over zijn werk en over zijn leven, en beschrijft die gesprekken met dezelfde ernst als zijn klinische waarnemingen.</p>
+      <p>Hij zegt er niet bij of hij ze voor verbeelding houdt of voor iets anders. Recensenten hebben ze gelezen als een vorm die zijn eigen denken aannam, en merkten op dat het boek zelf die vraag openlaat.</p>
+      <h3>Wat van de ouders komt</h3>
+      <p>In de tweede helft verbreedt het boek zich. Levine schrijft over zijn moeder, over wat er in een familie van generatie op generatie wordt doorgegeven, en over de gedachte dat stress en schade niet bij de geboorte beginnen. Hij noemt daarnaast geestelijke ervaringen en ervaringen met psychedelica als onderdeel van zijn eigen weg.</p>
+      <p>Terugkerend is de oefening waarin hij zich richt tot het kind dat hij was en dat kind geeft wat het toen niet kreeg. Over rouw schrijft hij de formulering die uit het boek is blijven hangen: verdriet is liefde die nergens heen kan.</p>
+      <h3>De toon van het slot</h3>
+      <p>Het laatste deel is dat van een oud man die opmaakt wat er is gebeurd. Het gaat over ouder worden, over wat er niet meer goed te maken valt en over de vraag of het vertellen zelf iets heeft opgelost. Levine houdt vol van wel, maar zonder de opgewektheid waarmee dat genre vaak eindigt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Somatic Experiencing</td><td>De door Levine ontwikkelde behandelmethode die trauma benadert via de reacties van het lichaam in plaats van via het verhaal.</td></tr>
+          <tr><td class="term">de gevoelde zin</td><td>De lichamelijke gewaarwording van een situatie voordat er woorden bij zijn, een begrip dat Levine aan Eugene Gendlin ontleent.</td></tr>
+          <tr><td class="term">afgebroken verdedigingsreactie</td><td>De vlucht of het verzet dat tijdens de gebeurtenis niet kon worden uitgevoerd en dat in het lichaam blijft staan.</td></tr>
+          <tr><td class="term">titratie</td><td>Het in zeer kleine hoeveelheden benaderen van beladen materiaal, zodat het zenuwstelsel niet opnieuw overspoeld raakt.</td></tr>
+          <tr><td class="term">penduleren</td><td>Het heen en weer bewegen tussen een plek in het lichaam die spanning draagt en een plek die rustig is.</td></tr>
+          <tr><td class="term">heronderhandelen</td><td>Levines woord voor het alsnog afmaken van de reactie, tegenover het herbeleven van de gebeurtenis zelf.</td></tr>
+          <tr><td class="term">generatietrauma</td><td>De aanname dat de gevolgen van geweld en verlies binnen een familie worden doorgegeven aan wie het zelf niet meemaakte.</td></tr>
+          <tr><td class="term">het ware zelf</td><td>Wat er volgens Levine onder de schade intact blijft en waar de behandeling naar terug wil.</td></tr>
+          <tr><td class="term">lichaamsherinnering</td><td>Een vroege ervaring die zonder woorden is opgeslagen en die later als bron van veiligheid kan dienen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als memoir levert het boek geen bewijs voor de methode, alleen een illustratie ervan. Het materiaal bestaat uit herinneringen aan gebeurtenissen van meer dan zestig jaar geleden, aangevuld met dromen. Levine verzwijgt dat niet en presenteert het ook niet als onderzoek.</p>
+      <p>Voor de methode zelf bestaat wel enige toetsing. Brom en anderen publiceerden in 2017 in <i>Journal of Traumatic Stress</i> de eerste gerandomiseerde studie naar Somatic Experiencing bij posttraumatische stressstoornis: drieenzestig deelnemers, waarvan drieendertig vijftien wekelijkse sessies kregen en dertig op een wachtlijst stonden, met effectmaten van 0,94 tot 1,26 op de klachten en 0,7 op depressie. Een wachtlijst als vergelijking laat open hoeveel daarvan aan de methode ligt en hoeveel aan aandacht en verwachting.</p>
+      <p>De verklaring die Levine geeft, dat dieren de verdedigingsreactie afmaken en mensen niet, is een analogie en geen meting. Zij is aannemelijk en zij is in dit boek niet onderbouwd; wie de fysiologie wil nalopen moet bij zijn eerdere werk zijn, en ook daar blijft het bij observatie en redenering.</p>
+      <p><i>Publishers Weekly</i> noemde de onthullingen moedig en het boek als geheel onsamenhangend, met een tekst die heen en weer gaat tussen zelfaanprijzing en zelfonderzoek. Die beoordeling geldt de vorm en niet de feiten, die verder door niemand zijn betwist.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek zet twee soorten aanspraken naast elkaar zonder de grens te markeren. Aan de ene kant staan uitspraken over het zenuwstelsel die als natuurwetenschap zijn bedoeld, aan de andere kant een overleden natuurkundige die in dromen advies geeft. Een lezer die het eerste aanneemt wordt in hetzelfde boek gevraagd het tweede te verdragen, en Levine geeft niet aan waar het ene ophoudt.</p>
+      <p>Er zit een spanning met zijn eigen eerdere werk. In <i>Trauma and Memory</i> waarschuwt hij uitvoerig dat traumatische herinnering onbetrouwbaar is en dat gedetailleerde reconstructie achteraf riskant is. Hier reconstrueert hij een gebeurtenis uit zijn twaalfde jaar met veel detail. Die twee posities worden niet met elkaar in verband gebracht.</p>
+      <p>Het boek is tegelijk een verantwoording en een aanprijzing. Levine leidt therapeuten op en verkoopt opleidingen in de methode die hier als redding wordt beschreven. Dat maakt het verslag niet onwaar, maar het betekent dat het enige geval waarop het boek steunt door een belanghebbende wordt aangedragen.</p>
+      <p>De opbouw is los. Jeugdherinneringen, uitleg over de methode, ontmoetingen met wetenschappers en beschouwingen over doorgegeven leed volgen elkaar op zonder duidelijke lijn. Wie het boek leest voor het levensverhaal moet door de uitleg heen, en wie het leest voor de methode krijgt die in brokstukken.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>An Autobiography of Trauma: A Healing Journey</i> (Park Street Press, Rochester, Vermont, 2024, 200 blz., ISBN 9798888500767). De Nederlandse vertaling van Jorgen van Drunen verscheen op 2 oktober 2024 bij AnkhHermes als <i>Een autobiografie over trauma</i> (192 blz., ISBN 9789020221763). Van Levine waren eerder onder meer <i>Waking the Tiger</i> als <i>De tijger ontwaakt</i> en <i>Trauma and Memory</i> als <i>Trauma en geheugen</i> in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Peter Levine ontwikkelde Somatic Experiencing, een lichaamsgerichte manier om trauma te behandelen, en schreef daarover een reeks boeken waarvan <i>Waking the Tiger</i> het bekendst is. In dit boek gaat het voor het eerst over hemzelf.</p><p>Toen hij twaalf was werd hij verkracht door een groep jongens uit de Bronx met banden met de maffia. Het was bedoeld om zijn vader ervan te weerhouden tegen een maffiabaas te getuigen. Levine beschrijft hoe hij daarna leefde met rituelen waarmee hij het onheil dacht te kunnen afhouden, en hoe lang het duurde voor hij er iets mee kon.</p><p>Naast dat verhaal staan twee vroege herinneringen die hij als tegenwicht opvoert, een modeltrein op zijn vierde verjaardag en zwemles met zijn vader, en een reeks dromen waarin Albert Einstein bij hem verschijnt. Levine gaat die dromen als raadgever behandelen en laat in het midden wat zij precies waren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>trauma</li><li>Somatic Experiencing</li><li>seksueel misbruik</li><li>zenuwstelsel</li><li>Einstein</li><li>herinnering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Het boek waarmee Levine bekend werd; de theorie die hij hier op zichzelf toepast staat daar uitgewerkt, met de dieren die de reactie wel afmaken.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft hetzelfde terrein met meer verwijzing naar onderzoek en met een breder overzicht van behandelvormen.</li>
+          <li value="1623"><a href="1623.html">Nurturing Resilience</a>. Kain en Terrell werken de klinische kant uit voor schade die in de vroege jeugd is ontstaan, met Levine als schrijver van het voorwoord.</li>
+          <li value="358"><a href="358.html">Herinneringen, dromen, gedachten</a>. Jung schreef eveneens een levensverhaal waarin dromen en verschijningen als bron van kennis worden opgevoerd; wie de Einsteinpassages wil plaatsen, vindt daar het precedent.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

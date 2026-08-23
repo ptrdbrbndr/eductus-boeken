@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het einde van de opvoeding &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Geurtz stelt dat opvoeden, in de nauwe betekenis van kinderen bijsturen met het oog op hun latere geluk, averechts werkt. In elke opvoedingshandeling zit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1639">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1639 &middot; Gewoontes en denken</p>
+    <h1>Het einde van de opvoeding</h1>
+    <p class="lede">Jan Geurtz, 2003</p>
+    <p class="stats">
+      <span><b>1824</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1639"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Geurtz stelt dat opvoeden, in de nauwe betekenis van kinderen bijsturen met het oog op hun latere geluk, averechts werkt. In elke opvoedingshandeling zit volgens hem de boodschap dat het kind zoals het nu is niet deugt, en die boodschap wordt niet vergeten. Zo bouwt het kind in de eerste tien jaar een identiteit op uit lagen van remmingen en verplichtingen, en aan die identiteit hangt het de rest van zijn leven vast. Ouders geven daarbij vooral hun eigen onopgeloste jeugd door, omdat zij in hun kinderen corrigeren wat bij henzelf is misgegaan. Zijn oplossing is niet betere opvoeding maar het weglaten ervan: zorgen blijft, sturen vervalt, en de waarden die ouders zelf leven doen de rest. Daarmee verplaatst hij de opvoedingsvraag van methode naar de staat waarin de ouder zelf verkeert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Opvoeden moet</h3>
+      <p>Het boek opent met de vaststelling dat opvoeden voortkomt uit liefde en tegelijk een van de voornaamste bronnen van narigheid is in het leven van veel volwassenen. Sommige mensen hebben volgens Geurtz hun halve leven nodig om hun opvoeding te boven te komen, en degenen die geen last lijken te hebben, zijn vaak alleen minder pijnlijk beperkt.</p>
+      <p>Hij schrijft over zijn eigen vier kinderen, over de verantwoordelijkheid die hem soms ondraaglijk voorkwam en over de momenten waarop hij zich schuldig voelde over zijn driftbuien en zijn manipulaties. De leuke herinneringen die zijn volwassen kinderen aan hem hebben, plaatst hij bij de momenten waarop hij even niet aan het opvoeden was.</p>
+      <h3>Zorgen tegenover opvoeden</h3>
+      <p>Het tweede hoofdstuk levert de definitie waar de rest op rust. Zorg is gericht op het directe belang van het kind: eten, kleren, veiligheid, en het leren van praktische dingen, tot en met de waarschuwing dat vuur brandt en drugs verslavend zijn. Opvoeding is gericht op een toekomstig belang en is daardoor vaak in strijd met het huidige welzijn.</p>
+      <p>Geurtz geeft drie manieren om beide uit elkaar te houden. Kinderen aanvaarden zorg gemakkelijker dan opvoeding, omdat zij het belang ervan zelf kunnen zien. Zorg laat zich eenvoudig verantwoorden, opvoeding eindigt vaak bij later begrijp je het wel of bij omdat ik het zeg. En zorghandelingen komen spontaan uit de situatie voort, terwijl opvoedingshandelingen iets krampachtigs krijgen omdat zij uit een beeld voortkomen van hoe het kind zou moeten zijn.</p>
+      <p>Zijn voorbeeld is het morsen aan tafel. Eten koken en handen wassen is zorg; mopperen omdat het kind later problemen zou krijgen met slordig eten, is opvoeding. Wat het kind daarvan leert, is niet netjes eten maar dat het onhandig, vies of ongehoorzaam is.</p>
+      <h3>Het opvoedingsparadigma</h3>
+      <p>Het derde hoofdstuk voert het begrip paradigma in, ontleend aan de kennistheorie. Dat kinderen opgevoed moeten worden, is volgens Geurtz zo'n algemeen aanvaarde opvatting dat zij bepaalt wat mensen waarnemen: iedereen ziet de tekortkomingen van kinderen die het paradigma bevestigen, en niemand ziet wat het weerlegt. Hij noemt dat de opvoedingsbril.</p>
+      <p>Om aan te tonen dat het paradigma vastloopt, wijst hij op de roep om meer normen en waarden, op het generatieconflict dat als normaal geldt terwijl het pijn kost, en op wat hij richtingloosheid in de pedagogiek noemt. Hij citeert daarvoor uit de bundel <i>Hoezo Pedagogisch?</i> van E.A. Godot uit 2003 en noemt het getal van ongeveer vijftigduizend mishandelde kinderen in Nederland in 2001, met de aantekening dat dit alleen de bij hulpverleners bekende gevallen betreft.</p>
+      <h3>Identiteit</h3>
+      <p>Het tweede deel van het boek gaat over identiteit. Geurtz beschrijft die als een mentale constructie die een kind in zijn eerste tien jaar aanleert, opgebouwd uit lagen die elkaar in stand houden. Wat als vanzelfsprekende werkelijkheid voelt, is bij hem het gevolg van herhaalde afwijzing en aanpassing.</p>
+      <p>Daarop volgen hoofdstukken over het loskomen van die identiteit, over wat hij de natuurlijke staat van zijn noemt, en over oefeningen in kijken naar wat er is. Die hoofdstukken komen niet uit de pedagogiek maar uit de non-duale traditie waar Geurtz in zijn latere werk vrijwel geheel op overgaat.</p>
+      <p>Het derde deel legt beide lijnen op elkaar: wat opvoeding met de identiteit doet, wat de identiteit van de ouder met zijn opvoeden doet, en welk ouder-kindparadigma daarvoor in de plaats kan komen. Kern van dat nieuwe uitgangspunt is dat een kind niet goed gemaakt hoeft te worden en dat de ouder zijn invloed vooral uitoefent door wie hij zelf is.</p>
+      <h3>Waarden en manipulatie</h3>
+      <p>Een terugkerende stelling is dat waarden zich niet laten aanleren. Netheid, eerlijkheid, moed of verantwoordelijkheid zijn volgens Geurtz al aanwezig; ouders kunnen hoogstens de omstandigheden scheppen waarin zij tot bloei komen, en die omstandigheden bestaan uit dezelfde waarden bij de ouders zelf.</p>
+      <p>Waar zorg wordt ingezet voor een opvoedingsdoel, spreekt hij van manipulatie: geen nieuwe broek als je niet netjes eet. Elke vorm van kunstmatige waardenopvoeding komt volgens hem voort uit een gebrek bij de opvoeder, en levert bij het kind op termijn hetzelfde gebrek op.</p>
+      <h3>Praktijkvoorbeelden</h3>
+      <p>Het vierde en langste deel bestaat uit hoofdstukken over concrete situaties: je instellen op kinderen, liefde en duidelijkheid, ruzies en conflicten, school, pijn en verdriet, en verslavingen. Er is een hoofdstuk met de stelling dat wat je veroordeelt, je in stand houdt, en een met losse vragen van ouders.</p>
+      <p>In dit deel wordt duidelijk dat Geurtz duidelijkheid en grenzen niet afschaft. Een ouder mag zeggen wat hij wil en wat er gebeurt, zolang die grens uit de situatie voortkomt en niet uit een oordeel over het kind. Het onderscheid is fijn en het boek erkent dat het in de praktijk moeilijk vol te houden is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Opvoeden</td><td>In Geurtz' nauwe definitie het bijsturen van een kind met het oog op een toekomstig belang, waarin de afwijzing van het kind van nu besloten ligt.</td></tr>
+          <tr><td class="term">Zorgen voor</td><td>Handelen dat op het directe belang van het kind is gericht en dat volgens het boek onverminderd nodig blijft.</td></tr>
+          <tr><td class="term">Het opvoedingsparadigma</td><td>De algemeen aanvaarde opvatting dat mensen niet goed ter wereld komen en goed gemaakt moeten worden.</td></tr>
+          <tr><td class="term">De opvoedingsbril</td><td>De waarneming die door dat paradigma is gevormd en die alleen bevestigingen ervan registreert.</td></tr>
+          <tr><td class="term">Waardenopvoeding</td><td>Het doelbewust bijbrengen van waarden, dat volgens Geurtz niet kan omdat waarden al aanwezig zijn.</td></tr>
+          <tr><td class="term">Manipulatie</td><td>Het inzetten van zorg of van straf en beloning voor een opvoedingsdoel.</td></tr>
+          <tr><td class="term">Identiteit</td><td>De mentale constructie van lagen die een kind in zijn eerste tien jaar aanleert en die zichzelf in stand houdt.</td></tr>
+          <tr><td class="term">De natuurlijke staat van zijn</td><td>Wat er volgens Geurtz overblijft wanneer iemand niet met zijn identiteit samenvalt.</td></tr>
+          <tr><td class="term">Nieuw ouder-kindparadigma</td><td>Het uitgangspunt dat een kind niet verbeterd hoeft te worden en dat de ouder vooral werkt door wie hij zelf is.</td></tr>
+          <tr><td class="term">Wat je veroordeelt, hou je in stand</td><td>De stelling dat afkeuring het afgekeurde gedrag versterkt in plaats van het te doen verdwijnen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is grotendeels redenering en eigen ervaring. Geurtz voert zijn vier kinderen aan, de gesprekken uit zijn trainingen, en talrijke alledaagse voorbeelden die de lezer bij zichzelf kan nagaan. Ontwikkelingspsychologisch onderzoek komt in het boek nauwelijks voor.</p>
+      <p>De twee externe steunpunten die hij wel gebruikt, zijn ongelijk van gewicht. Het citaat uit de bundel <i>Hoezo Pedagogisch?</i> van E.A. Godot uit 2003, waarin een pedagoog het verlies aan eenheid over de richting van de opvoeding beschrijft, is een uitspraak van een vakgenoot over zijn eigen vak en geen bewijs dat het vak faalt. Het getal van ongeveer vijftigduizend mishandelde kinderen in Nederland in 2001 is een reeel cijfer, maar toont niet aan dat mishandeling voortkomt uit het opvoedingsparadigma.</p>
+      <p>Zijn scherpste argument is analytisch en niet empirisch. Zodra opvoeding wordt gedefinieerd als sturen dat het kind van nu afwijst, volgt de conclusie dat opvoeden schadelijk is uit de definitie. Dat maakt het betoog sluitend en tegelijk minder informatief dan het lijkt: de vraag is verschoven naar of die definitie de gewone praktijk goed weergeeft.</p>
+      <p>Het deel over identiteit rust op de non-duale traditie en niet op onderzoek. Geurtz presenteert het als vaststelling dat de identiteit een constructie is die kan worden doorzien. Dat is een positie met een lange geschiedenis in het boeddhisme en de advaita, maar niet iets wat het boek aantoont, en de lezer kan er weinig anders mee dan het uitproberen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de omgang met de vakliteratuur. Geurtz verklaart de pedagogiek richtingloos op grond van een enkele bundel en gaat voorbij aan het onderzoek naar hechting, naar opvoedstijlen en naar het effect van grenzen en warmte, dat hem op onderdelen zou steunen en op andere zou tegenspreken. Een paradigmawisseling afkondigen zonder het bestaande werk te behandelen, is een zwakke vorm van bewijsvoering.</p>
+      <p>De definitie doet te veel werk. In de praktijk lopen zorg en sturing door elkaar, zoals Geurtz zelf erkent met zijn voorbeeld van het opruimen van speelgoed, dat beide kan zijn. Zijn onderscheid berust op de innerlijke houding van de ouder, en die is van buiten niet vast te stellen. Daarmee is elke geslaagde grens achteraf zorg te noemen en elke mislukte opvoeding.</p>
+      <p>Voor kinderen bij wie het echt vastloopt, biedt het boek weinig. Ontwikkelingsstoornissen, ernstige gedragsproblemen en de gezinnen waarin ouders zelf beschadigd zijn, komen wel voor in de praktijkhoofdstukken, maar het antwoord blijft telkens dat de ouder aan zichzelf moet werken. Dat legt een zware last neer bij precies de ouders die de minste ruimte hebben.</p>
+      <p>Er zit een risico in de boodschap dat sturen schadelijk is. Geurtz bedoelt dat niet als pleidooi voor verwaarlozing en zegt dat ook, maar een lezer die het snel doorneemt, houdt gemakkelijk over dat grenzen stellen fout is. Het boek maakt weinig werk van dat misverstand.</p>
+      <p>Ten slotte doet de titel meer dan de inhoud waarmaakt. Wat Geurtz voorstelt, is dichtbij wat eerder onder meer door Thomas Gordon en Alice Miller is bepleit: minder oordelen, meer aansluiten bij het kind, en de eigen jeugd onder ogen zien. Het einde van de opvoeding is een sterke formulering voor een verschuiving die in de opvoedliteratuur al langer gaande was.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een terugkerende botsing na of de handeling het directe belang van het kind dient of een toekomstig belang; alleen het tweede valt onder wat Geurtz opvoeden noemt.</li>
+        <li>Let op de eigen legitimatie: eindigt zij bij later begrijp je het wel, dan is er geen reden die het kind nu kan zien.</li>
+        <li>Onderzoek bij irritatie over gedrag van een kind welk stuk van de eigen jeugd erin meespeelt, voordat er iets wordt gecorrigeerd.</li>
+        <li>Zeg wat je zelf wilt en wat er gebeurt, in plaats van te zeggen wat het kind is; het verschil zit in het oordeel, niet in de grens.</li>
+        <li>Zoek bij ontwikkelings- of gedragsproblemen vakkundige hulp; het boek biedt daar geen behandeling voor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ambo, Amsterdam, eerste druk 2003; de eenentwintigste druk uit 2020 bij Ambo|Anthos vermeldt ISBN 9789026318375, terwijl de uitgever het boek ook onder ISBN 9789026356575 voert (circa 160 blz.). Er zijn een e-boek en een door de auteur ingesproken luisterboek. Het boek is oorspronkelijk in het Nederlands geschreven en is niet in het Engels verschenen; van Geurtz is wel <i>De opluchting</i> vertaald, onder meer als <i>Quit Smoking in One Day</i>. Bij dezelfde uitgever verschenen van hem verder onder meer <i>De verslaving voorbij</i>, <i>Verslaafd aan liefde</i>, <i>Verslaafd aan denken</i> en <i>Vrij van gedachten</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jan Geurtz voedde vier kinderen op en schreef daarna een boek dat betoogt dat opvoeden beter kan ophouden. De titel heeft bij hem twee betekenissen: ophouden met het opvoeden van kinderen, en zich bevrijden van de opvoeding die iemand zelf heeft gehad.</p><p>Zijn kern zit in een definitie. Zorgen voor een kind is gericht op het belang van nu, opvoeden op een toekomstig belang, en in dat laatste zit altijd de boodschap dat het kind nog niet goed genoeg is. Kinderen voelen die afwijzing aan en verzetten zich, waarna ouders harder gaan sturen. Waarden, zegt Geurtz, zijn niet aan te leren; zij komen tot bloei bij ouders die ze zelf leven.</p><p>Het boek bestaat uit vier delen: een inleiding over het opvoedingsparadigma, een deel over het ontstaan en de werking van de identiteit, een deel dat beide verbindt, en een lang deel met praktijkvoorbeelden over ruzies, school, verdriet en verslaving.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>opvoeding</li><li>identiteit</li><li>ouderschap</li><li>pedagogiek</li><li>zelfbeeld</li><li>non-dualiteit</li><li>kinderen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1638"><a href="1638.html">De opluchting</a>. In zijn boek over stoppen met roken past Geurtz dezelfde beweging toe: het patroon verdwijnt door het te doorzien, niet door ertegen te vechten.</li>
+          <li value="1646"><a href="1646.html">Reclaiming Your Life</a>. Jenson beschrijft hoe iemand de gevolgen van zijn eigen jeugd bij zichzelf herkent, precies de voorwaarde die Geurtz aan ouders stelt.</li>
+          <li value="435"><a href="435.html">A New Earth: Awakening to Your Life's Purpose</a>. Tolle werkt hetzelfde idee uit dat de identiteit een aangeleerde constructie is, met een hoofdstuk over ouders en kinderen dat dicht bij Geurtz' tweede deel ligt.</li>
+          <li value="1510"><a href="1510.html">De fontein, vind je plek</a>. Van Steijn verklaart dezelfde doorgifte tussen generaties met het familiesysteem, waar Geurtz haar bij de gevormde identiteit legt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

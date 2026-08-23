@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Biology of Belief &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lipton stelt dat de biologie de verkeerde baas heeft aangewezen. Niet het DNA in de kern stuurt de cel aan, maar het membraan aan de buitenkant, dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1588">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1588 &middot; Brein en lichaam</p>
+    <h1>The Biology of Belief</h1>
+    <p class="lede">Bruce H. Lipton, 2005</p>
+    <p class="stats">
+      <span><b>1817</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1588"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lipton stelt dat de biologie de verkeerde baas heeft aangewezen. Niet het DNA in de kern stuurt de cel aan, maar het membraan aan de buitenkant, dat signalen uit de omgeving opvangt en op grond daarvan bepaalt welke genen worden afgelezen. Genen zijn in zijn beeld een voorraadkast, geen bestuurder. Omdat de cellen van een mens hun omgeving vooral kennen via de chemie die het brein hen toestuurt, en omdat het brein die chemie afstemt op hoe iemand zijn situatie waarneemt, lopen overtuigingen door tot in de genexpressie. De therapeutische conclusie die hij daaruit trekt is dat gezondheid voor een groot deel een kwestie is van het herschrijven van onbewuste overtuigingen die in de eerste zes levensjaren zijn opgeslagen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van de petrischaal naar de omgeving</h3>
+      <p>Lipton begint bij zijn eigen laboratoriumwerk met gekloonde cellen. Hij kweekte genetisch gelijke cellen in verschillende voedingsbodems en zag ze uiteenlopende richtingen op gaan: spier, bot of vet, afhankelijk van wat er in de schaal zat. Zijn leermeester Irv Konigsberg had hem al voorgehouden dat je bij een zieke celkweek eerst naar de omgeving kijkt en pas daarna naar de cel.</p>
+      <p>Daaraan koppelt hij een onderwijservaring. Als gasthoogleraar aan een kleine medische faculteit op Montserrat gaf hij les aan studenten die elders waren afgewezen, en zag hij dat hun prestaties omhooggingen zodra de omgeving veranderde. Het hoofdstuk gebruikt dat als parallel, niet als bewijs; het boek zegt dat er ook niet bij.</p>
+      <h3>Het membraan als brein van de cel</h3>
+      <p>Het middelpunt van het boek is het celmembraan. Lipton beschrijft het als een dubbele vetlaag waarin twee soorten eiwitten zitten: receptoren die iets uit de omgeving herkennen, en effectoren die daarop een handeling in gang zetten. Een receptor met bijbehorende effector noemt hij een waarnemingseenheid. Het membraan is in zijn beschrijving een vloeibaar kristal met poorten en kanalen, en daarmee functioneel vergelijkbaar met een halfgeleider.</p>
+      <p>Zijn sterkste argument voor het verplaatsen van de macht is dat een cel waarvan de kern is weggehaald nog weken doorleeft, blijft bewegen, voedsel opneemt en op prikkels reageert. Wat zij niet meer kan is zichzelf herstellen en delen. Daaruit concludeert hij dat de kern eerder een voortplantingsorgaan is dan een besturingsorgaan.</p>
+      <h3>Het einde van het primaat van het DNA</h3>
+      <p>Vervolgens neemt Lipton het op tegen wat hij het primaat van het DNA noemt: de opvatting dat informatie in één richting loopt, van gen naar eiwit naar eigenschap. Hij wijst op de uitkomst van het Human Genome Project, dat aanzienlijk minder menselijke genen vond dan vooraf werd aangenomen, en op de epigenetica: chemische merktekens op het DNA en op de eiwitten waar het omheen ligt, die bepalen wat er wel en niet wordt afgelezen.</p>
+      <p>Op dit punt loopt hij in de pas met het vakgebied. De vraag is wat er volgt. Lipton leidt eruit af dat een gen zonder aansturing van buitenaf niets doet, en dat de aansturing dus elders vandaan komt. De stap die hij daarna zet, van omgeving naar bewuste overtuiging, wordt door de epigenetica zelf niet gedragen.</p>
+      <h3>De nieuwe natuurkunde</h3>
+      <p>Een apart hoofdstuk betoogt dat de geneeskunde nog op een newtoniaans wereldbeeld draait terwijl de natuurkunde al een eeuw verder is. Materie is energie, stelt Lipton, en signalen tussen cellen verlopen niet alleen chemisch maar ook als trilling. Elektromagnetische velden zouden daarom sneller en zuiniger informatie overbrengen dan moleculen die op elkaar moeten botsen.</p>
+      <p>Hij gebruikt dit om ruimte te maken voor gedachten als natuurkundige grootheid. Concrete metingen aan menselijke cellen levert hij daar niet bij; het hoofdstuk blijft bij analogie en bij verwijzingen naar de geschiedenis van de kwantummechanica.</p>
+      <h3>Groei of bescherming</h3>
+      <p>Het meest bruikbare deel gaat over de tweedeling groei en bescherming. Een cel die zich terugtrekt om zich te beschermen kan tegelijkertijd niet naar buiten bewegen om voedsel op te nemen. Op lichaamsschaal loopt die tweedeling volgens Lipton via de bijnieras: bij een dreiging gaat bloed naar de spieren, wordt de spijsvertering geremd en gaat de afweer omlaag.</p>
+      <p>Zijn conclusie is dat chronische stress het lichaam permanent in de beschermingsstand houdt en dat groei en herstel daaronder lijden. Dit deel steunt op fysiologisch onderzoek dat los van hem bestaat en is het minst omstreden van het boek.</p>
+      <h3>De bewuste en de onbewuste geest</h3>
+      <p>Daarna komt de psychologische kern. Lipton beschrijft het bewuste denken als het deel dat wenst en plant, en het onderbewuste als een opnameapparaat dat gedrag afspeelt zonder oordeel. Kinderen zouden tot ongeveer hun zesde in een hersengolfpatroon verkeren dat vergelijkbaar is met een hypnotische toestand, waardoor uitspraken van ouders zonder filter worden opgeslagen.</p>
+      <p>Hij noemt een percentage van rond de vijfennegentig voor het aandeel van het gedrag dat door die opgeslagen programma's wordt bepaald. Waar dat getal vandaan komt maakt het boek niet duidelijk. Voor het herschrijven van die programma's verwijst hij naar methoden uit de zogeheten energiepsychologie, waaronder PSYCH-K, waarmee hij zelf verbonden is.</p>
+      <h3>Bewust ouderschap en de epiloog</h3>
+      <p>Het laatste hoofdstuk gaat over ouders als genetische ingenieurs. Lipton wijst op onderzoek naar de invloed van voeding, stress en emotionele toestand van de moeder op de ontwikkeling van het kind, en betoogt dat de periode rond conceptie en zwangerschap de eerste ronde programmering is.</p>
+      <p>De epiloog verlaat de biologie. Daarin stelt Lipton dat het zelf niet in het lichaam zit maar als een soort uitzending wordt ontvangen door identiteitsreceptoren in het membraan, zoals een programma door een televisietoestel. Sterft het toestel, dan blijft de uitzending bestaan. Hij presenteert dit als een gedachte die met zijn membraanmodel te rijmen valt, niet als iets dat hij heeft aangetoond.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Celmembraan</td><td>De buitenlaag van de cel, die Lipton aanwijst als het orgaan dat waarneemt en beslist, in plaats van de celkern.</td></tr>
+          <tr><td class="term">Waarnemingseenheid</td><td>Een receptoreiwit dat een signaal herkent, gekoppeld aan een effectoreiwit dat er een handeling op laat volgen.</td></tr>
+          <tr><td class="term">Primaat van het DNA</td><td>Liptons naam voor de opvatting dat erfelijk materiaal de bouw en het gedrag van een organisme bepaalt, die hij als achterhaald beschouwt.</td></tr>
+          <tr><td class="term">Epigenetica</td><td>Het vakgebied dat bestudeert hoe merktekens op en rond het DNA bepalen welke genen worden afgelezen zonder dat de code zelf verandert.</td></tr>
+          <tr><td class="term">Groei en bescherming</td><td>Twee gedragingen van een cel die elkaar uitsluiten, waarbij langdurige bescherming ten koste gaat van herstel en afweer.</td></tr>
+          <tr><td class="term">Bijnieras</td><td>De verbinding tussen hersenen en bijnieren waarlangs een waargenomen dreiging in stresshormonen wordt omgezet.</td></tr>
+          <tr><td class="term">Onderbewuste programmering</td><td>De gedragspatronen die volgens Lipton in de eerste zes levensjaren zonder toetsing worden opgeslagen en daarna vanzelf afdraaien.</td></tr>
+          <tr><td class="term">Nocebo</td><td>De tegenhanger van het placebo-effect, waarbij een negatieve verwachting zelf lichamelijke schade oplevert.</td></tr>
+          <tr><td class="term">Epigenetische techniek</td><td>Liptons aanduiding voor het bewust wijzigen van omgeving en overtuiging om de genexpressie te beïnvloeden.</td></tr>
+          <tr><td class="term">Identiteitsreceptor</td><td>Het veronderstelde receptoreiwit in de epiloog waarmee de cel een buiten het lichaam bestaand zelf zou opvangen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het eerste derde deel rust op werk dat Lipton daadwerkelijk heeft gedaan. Hij publiceerde in de jaren zeventig en tachtig over het celmembraan en over de invloed van de kweekomgeving op celgedrag, en die waarnemingen zijn niet omstreden. Dat een gedeelde genenset onder verschillende omstandigheden verschillende uitkomsten geeft, is gangbare celbiologie.</p>
+      <p>Ook het epigenetische deel staat op vaste grond, zij het minder nieuw dan het boek suggereert. De term stamt uit het werk van Conrad Waddington in de jaren veertig, en methylering en histonmodificatie waren in 2005 al lang beschreven. Wat Lipton toevoegt is de nadruk, niet de vondst.</p>
+      <p>Voor de hoofdstelling, dat overtuigingen de genexpressie sturen, levert het boek geen proefopzet en geen reeks metingen. De onderbouwing bestaat uit het placebo-effect, uit de gedocumenteerde werking van stresshormonen, en uit verhalen van patiënten. Het placebomateriaal laat zien dat verwachting lichamelijke uitkomsten kan beïnvloeden, bij pijn en bij subjectieve klachten sterker dan bij tumorgroei of infecties. Van placebo naar het aan- en uitzetten van genen door een gekozen gedachte is een sprong die het boek maakt zonder tussenstappen.</p>
+      <p>Het getal van vijfennegentig procent onbewust gedrag, dat in het boek en in Liptons lezingen vaak terugkeert, krijgt geen bronvermelding. Hetzelfde geldt voor de bewering dat kinderen tot hun zesde in een hypnotische toestand verkeren; de gemeten verschuiving in hersengolven bij kinderen bestaat, de gevolgtrekking over ongefilterde opname van ouderlijke uitspraken is Liptons eigen invulling.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de dubbele betekenis van het woord omgeving. In het laboratorium is dat de samenstelling van de voedingsbodem. In het tweede deel van het boek wordt het de gedachtewereld van een mens. Beide worden met hetzelfde woord aangeduid en het bewijs voor het eerste wordt gebruikt alsof het voor het tweede geldt. Dat een cel reageert op de chemie om haar heen zegt niets over de vraag of iemand die chemie kan kiezen.</p>
+      <p>De vakkritiek noemt daarnaast de veranderingen die de epigenetica beschrijft grotendeels vroeg en tamelijk vast. De meest ingrijpende merktekens worden in de embryonale ontwikkeling gezet. Bij volwassenen zijn de waargenomen wijzigingen beperkter en vaak weer omkeerbaar, en er is geen aangetoonde route waarlangs een bewust gekozen overtuiging een gerichte epigenetische wijziging aanbrengt.</p>
+      <p>Het hoofdstuk over de natuurkunde wordt breed als het zwakste beschouwd. Kwantummechanische verschijnselen toepassen op systemen ter grootte van een cel of een mens vraagt om een argument dat het boek niet geeft; de kwantummechanica komt er vooral binnen als toestemming om andere dingen te mogen beweren.</p>
+      <p>Praktisch is er het bezwaar dat de nocebo-redenering de omgekeerde kant op werkt. Als overtuigingen ziekte veroorzaken, ligt de verantwoordelijkheid voor een ziekte bij de patiënt. Lipton spreekt dat niet uit, maar zijn model biedt er geen rem op. Dat hij tegelijk verbonden is aan PSYCH-K, een betaalde methode zonder gecontroleerd effectonderzoek, maakt de conclusie van het boek niet belangeloos.</p>
+      <p>Ten slotte vecht het boek tegen een stelling die de biologie zelf al had verlaten. Strikt genetisch determinisme was in 2005 geen gangbare positie meer, en de wisselwerking tussen genen en omgeving was standaardstof. Liptons voorstelling van een vakgebied dat halsstarrig aan het DNA vasthoudt maakt zijn eigen positie ruimer dan zij is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het eerste deel over membraan en genexpressie als celbiologie en het tweede deel over overtuigingen als het voorstel van de auteur, en houd die twee uit elkaar.</li>
+        <li>Neem het onderdeel over groei en bescherming serieus: langdurige stress remt herstel en afweer, en dat is los van Lipton onderbouwd.</li>
+        <li>Controleer bij elke uitspraak over gedachten en genen of er een gemeten tussenstap wordt genoemd of alleen een verhaal.</li>
+        <li>Vervang bij twijfel de vraag welke overtuiging herschreven moet worden door de vraag welke omgevingsfactor daadwerkelijk te veranderen is: slaap, voeding, werkdruk, gezelschap.</li>
+        <li>Ga niet af op het getal van vijfennegentig procent onbewust gedrag; het staat in het boek zonder bron.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Biology of Belief: Unleashing the Power of Consciousness, Matter &amp; Miracles</i> (Mountain of Love/Elite Books, Santa Rosa, 2005). De jubileumuitgave van tien jaar later verscheen bij Hay House (Carlsbad, 2015, 224 blz., ISBN 9781401952471) met een nieuw voorwoord en bijgewerkte noten. Nederlands als <i>De biologie van de overtuiging</i>, vertaald door Gerard de Wit, Ankh-Hermes, Deventer, 2007; de herziene uitgave verscheen in 2017 bij Ankh-Hermes in Utrecht (320 blz., ISBN 9789020213478). Van Lipton is in het Nederlands verder onder meer <i>Spontane evolutie</i> (met Steve Bhaerman) vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bruce Lipton was celbioloog aan de universiteit van Wisconsin en later aan Stanford, en deed onderzoek naar het membraan van de cel. In dit boek zet hij uiteen waarom hij het idee verwierp dat het DNA het leven van een cel bepaalt. Volgens hem is het membraan het orgaan dat de omgeving afleest en dat vervolgens bepaalt welke genen worden gebruikt.</p><p>Van daaruit maakt hij een tweede stap. De omgeving van een menselijke cel is voor een groot deel het lichaam zelf, en de chemie van dat lichaam hangt af van hoe iemand zijn situatie waarneemt. Waarneming loopt via overtuigingen, en die zijn volgens Lipton grotendeels voor het zesde levensjaar ingeprent. Wie zijn overtuigingen verandert, verandert daarmee zijn biologie.</p><p>Het eerste deel van het boek blijft dicht bij de celbiologie en is goed te volgen. Het tweede deel gaat over stress, ouderschap, geloof en geest, en steunt op veel losser materiaal. De vakkritiek richt zich vooral op de sprong tussen die twee delen, en op het gebruik van kwantummechanica als argument.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>epigenetica</li><li>celbiologie</li><li>overtuigingen</li><li>placebo</li><li>onderbewuste</li><li>populaire wetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1513"><a href="1513.html">You Are the Placebo</a>. Joe Dispenza bouwt in <i>You Are the Placebo</i> op dezelfde redenering voort en gaat een stap verder in de claims; wie de grens van deze denkwijze wil zien, leest ze naast elkaar.</li>
+          <li value="1344"><a href="1344.html">The Selfish Gene</a>. Dawkins verdedigt in <i>The Selfish Gene</i> precies het gencentrische beeld dat Lipton wil afbreken, in een vorm die scherper is dan de karikatuur die dit boek ervan maakt.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky beschrijft in <i>Behave</i> de wisselwerking tussen genen, hormonen en omgeving met de voorbehouden en het bronmateriaal die Lipton weglaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

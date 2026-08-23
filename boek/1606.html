@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wise Heart &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kornfield betoogt dat het boeddhisme naast een godsdienst en een oefenweg ook een psychologie bevat, een uitgewerkt stelsel over hoe de geest werkt, dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1606">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1606 &middot; Filosofie en mystiek</p>
+    <h1>The Wise Heart</h1>
+    <p class="lede">Jack Kornfield, 2008; vert. Chris Mouwen</p>
+    <p class="stats">
+      <span><b>1523</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1606"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kornfield betoogt dat het boeddhisme naast een godsdienst en een oefenweg ook een psychologie bevat, een uitgewerkt stelsel over hoe de geest werkt, dat tweeduizend jaar ouder is dan de westerse en dat op een beslissend punt van die westerse afwijkt. Waar de westerse psychologie begint bij wat er kapot is en probeert het te herstellen, begint de boeddhistische bij wat heel is en gaat zij na wat het uitzicht daarop verduistert. Ieder mens heeft volgens hem een oorspronkelijke goedheid die niet verworven hoeft te worden. Aandacht is dan geen behandelmethode maar het middel om die goedheid weer zichtbaar te maken, en het werk van de therapeut en dat van de leraar lopen in elkaar over. De zesentwintig beginselen die het boek ordenen zijn zijn eigen formulering van wat hij in de klassieke leer aantreft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Oorspronkelijke goedheid</h3>
+      <p>Het eerste deel opent met het hoofdstuk over nobility, de aangeboren waardigheid van ieder mens. Kornfield vertelt hoe hij in Thaise kloosters leerde mensen aan te spreken op wie zij ten diepste zijn in plaats van op hun gedrag, en hoe vreemd dat aanvoelde bij terugkeer in de Verenigde Staten.</p>
+      <p>Hij haalt een ontmoeting aan uit een bijeenkomst van westerse leraren met de dalai lama, waarin deze niet begreep wat er met zelfhaat werd bedoeld en zich moest laten uitleggen dat veel westerse beoefenaars zichzelf minderwaardig achten. Dat verschil in uitgangspunt loopt door het hele boek.</p>
+      <h3>De aard van het bewustzijn</h3>
+      <p>Vervolgens onderscheidt Kornfield het bewustzijn zelf van de inhouden die erin verschijnen. Het hoofdstuk met de vraag wie er in de spiegel kijkt gaat over die verschuiving: gedachten, gevoelens en herinneringen zijn wat er langskomt, niet wie er kijkt.</p>
+      <p>Daarop volgen de kleuringen van bewustzijn en de illusie van een vast zelf. Hij behandelt het zelf als een werkwoord in plaats van een ding, iets wat de geest voortdurend maakt en weer laat vallen, en beschrijft de spanning die dat oplevert met een therapie die juist een steviger zelfgevoel nastreeft. Zijn uitweg is dat beide nodig zijn: een werkbaar zelf om mee te leven en het inzicht dat het geen bodem heeft.</p>
+      <h3>Aandacht als geneesmiddel</h3>
+      <p>Het deel over mindfulness noemt aandacht het grote geneesmiddel, omdat zij op elke inhoud van de geest toepasbaar is. Kornfield werkt dat uit langs de vier vestigingen van aandacht: lichaam, gevoelstoon, geestestoestand en het samenspel daarvan.</p>
+      <p>Hier staat de oefening die het meest is overgenomen, gevat in het letterwoord RAIN: herkennen wat er is, het toelaten, het onderzoeken en er zich niet mee vereenzelvigen. De hoofdstukken over het lichaam, over de rivier van gevoelens en over de vertellende geest passen dat achtereenvolgens toe op lichamelijke gewaarwording, op emotie en op het verhaal dat iemand over zichzelf rondloopt te vertellen.</p>
+      <h3>De wortels van lijden en de temperamenten</h3>
+      <p>Kornfield behandelt vervolgens wat hij het oude onbewuste noemt: de neigingen die onder de drempel liggen en telkens terugkomen. De drie wortels van lijden, hebzucht, afkeer en verblinding, krijgen elk een hoofdstuk waarin hij laat zien in welke gezonde eigenschap zij kunnen omslaan. Hebzucht wordt overvloed wanneer het grijpen wegvalt, afkeer wordt een hart dat niet meer twist, verblinding wordt wijsheid.</p>
+      <p>Daartussen staat het hoofdstuk over de boeddhistische persoonlijkheidstypen, een indeling uit de klassieke commentaarliteratuur waarin mensen naar overheersende neiging worden gerangschikt. Kornfield gebruikt die niet om iemand vast te leggen maar om te bepalen welke oefening bij wie past.</p>
+      <h3>Bedoeling, verbeelding en oefening</h3>
+      <p>Het vierde deel gaat over karma, dat Kornfield uitlegt als het spoor dat herhaalde bedoelingen in de geest slijpen, en niet als beloning of straf. Wie zijn intentie leert opmerken voordat de handeling volgt, krijgt daar greep op.</p>
+      <p>Daarna komen middelen die in westerse handboeken zelden staan: verbeelding, ritueel en toevlucht, en wat hij boeddhistische cognitieve training noemt, het bewust vervangen van een gedachtegang door een andere. Het deel besluit met concentratie en de mystieke stadia van de geest, en met de belichaming ervan in het gewone leven.</p>
+      <h3>Deugd, vergeving en de bodhisattva</h3>
+      <p>Het slotdeel verlegt de aandacht van de eigen geest naar de omgang met anderen. Kornfield behandelt deugd niet als gebod maar als wat de geest rustig houdt, en werkt vergeving uit als een oefening met een vaste vorm, die hij stap voor stap beschrijft.</p>
+      <p>Het hoofdstuk over de bodhisattva plaatst de beoefening in de wereld: zorg voor anderen, maatschappelijke betrokkenheid, werk met stervenden en gevangenen. Het boek eindigt bij de middenweg en bij een hoofdstuk over het ontwaakte hart, waarin de zesentwintig beginselen samenkomen in de stelling dat een vredig hart liefde voortbrengt die bij lijden mededogen wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Oorspronkelijke goedheid</td><td>Kornfields eerste beginsel, dat ieder mens een aangeboren waardigheid bezit die niet verworven hoeft te worden maar wel aan het oog onttrokken kan raken.</td></tr>
+          <tr><td class="term">RAIN</td><td>Vierdelige oefening van herkennen, toelaten, onderzoeken en niet vereenzelvigen, waarmee een gevoel of gedachte behandeld kan worden zonder erin mee te gaan.</td></tr>
+          <tr><td class="term">De vertellende geest</td><td>Het vermogen van de geest om van losse indrukken een doorlopend verhaal over zichzelf te maken, dat vervolgens voor de werkelijkheid wordt aangezien.</td></tr>
+          <tr><td class="term">Het oude onbewuste</td><td>De sluimerende neigingen die onder de drempel van het bewustzijn liggen en bij de juiste aanleiding telkens weer opkomen.</td></tr>
+          <tr><td class="term">De drie wortels</td><td>Hebzucht, afkeer en verblinding, de drie grondoorzaken van lijden, die volgens Kornfield elk hun heilzame keerzijde hebben.</td></tr>
+          <tr><td class="term">Boeddhistische persoonlijkheidstypen</td><td>Een indeling uit de klassieke commentaarliteratuur naar overheersende neiging, gebruikt om te bepalen welke oefening bij iemand past.</td></tr>
+          <tr><td class="term">Karma</td><td>Bij Kornfield het spoor dat herhaalde bedoelingen in de geest slijpen, waardoor een volgende keuze makkelijker of moeilijker wordt.</td></tr>
+          <tr><td class="term">Bodhisattva</td><td>De beoefenaar die zijn eigen bevrijding verbindt aan die van anderen en de zorg voor de wereld tot onderdeel van de weg maakt.</td></tr>
+          <tr><td class="term">De middenweg</td><td>De houding tussen toegeven en verwerpen, door Kornfield toegepast op de spanning tussen een stevig zelfgevoel en het inzicht dat het zelf geen bodem heeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het gezag van het boek berust op de loopbaan van de schrijver. Kornfield was monnik in het klooster van Ajahn Chah in Noordoost-Thailand, oefende bij leraren in Birma en India, promoveerde in de klinische psychologie en richtte in 1975 met Joseph Goldstein en Sharon Salzberg de Insight Meditation Society op, later gevolgd door Spirit Rock in Californie. Hij kent zowel de kloostertraditie als de spreekkamer van binnenuit, en dat is in het boek te merken.</p>
+      <p>Wat hij als onderbouwing aanvoert zijn vooral gevalsbeschrijvingen: mensen uit zijn retraites en zijn praktijk, met veranderde namen. Die verhalen zijn overtuigend geschreven en volstrekt niet na te lopen. Wetenschappelijk onderzoek naar meditatie komt terloops ter sprake, maar draagt het betoog niet en wordt ook niet nauwkeurig weergegeven.</p>
+      <p>Sterker is de tekstuele kant. De begrippen die Kornfield gebruikt, de vier vestigingen van aandacht, de wortels van lijden, de temperamenten en de deugdvolmaaktheden, staan alle in de vroege leerteksten en in het commentaar van de Theravada-traditie. Hij verzint geen leer, hij herformuleert er een. Wat hij eraan toevoegt is de ordening in zesentwintig beginselen en de vertaling naar westerse psychologische taal.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat boeddhistische psychologie als vak niet bestaat en door Kornfield wordt gemaakt. De zesentwintig beginselen zijn geen canonieke lijst maar zijn eigen keuze, en waar de klassieke leer streng en soms somber is, klinkt zij bij hem warm en aanvaardend. Wat wegvalt is precies het lastige deel: wedergeboorte, kloosterleven, celibaat en de doorleefde afkeer van het bestaan die in de vroege teksten een voorwaarde voor bevrijding is. Het resultaat is een boeddhisme dat opvallend goed past bij de opvattingen van de westerse middenklasse die het leest.</p>
+      <p>De persoonlijkheidstypen zijn daar een voorbeeld van. De indeling komt uit een commentaar van omstreeks de vijfde eeuw en is nooit onderzocht op houdbaarheid. Kornfield presenteert haar als bruikbare mensenkennis, terwijl indelingen van deze soort in de psychologie juist stelselmatig zijn gesneuveld zodra zij werden nagemeten.</p>
+      <p>Ook de vorm werkt tegen de inhoud. Bijna elk verhaal loopt goed af: de boze man verzacht, de zieke vrouw vindt rust, de gevangene komt tot inkeer. Wie het boek leest krijgt de indruk dat aandacht vrijwel altijd werkt. Over mensen bij wie meditatie angst of ontwrichting verergerde, iets wat inmiddels beschreven is, gaat het nauwelijks, en dat is voor een boek dat zich ook tot therapeuten richt een gemis.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik RAIN op een terugkerend gevoel: benoem het, laat het staan, onderzoek waar het in het lichaam zit en stel vast dat het langskomt in plaats van dat het iemand is.</li>
+        <li>Onderscheid bij het lezen wat uit de klassieke leer komt en wat Kornfields eigen formulering is; het boek maakt dat onderscheid zelf niet.</li>
+        <li>Neem het hoofdstuk over vergeving als een oefening met een vaste volgorde en niet als een gevoel dat vanzelf moet opkomen.</li>
+        <li>Merk de bedoeling op voordat de handeling volgt; dat is het aangrijpingspunt dat Kornfield aan karma toekent.</li>
+        <li>Zoek bij ernstige klachten begeleiding: het boek is geschreven voor beoefening en niet als vervanging van behandeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Wise Heart: A Guide to the Universal Teachings of Buddhist Psychology</i> (Bantam Books, New York, 2008, 429 blz., ISBN 9780553382334). De Nederlandse uitgave heet <i>Het wijze hart: het universele karakter van de boeddhistische psychologie</i>, vertaald door Chris Mouwen (AnkhHermes, Deventer, 2009, 384 blz., ISBN 9789020203516); er is ook een e-boek (ISBN 9789020209990). Van Kornfield verscheen eerder <i>A Path with Heart</i> (1993) in Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jack Kornfield leefde als monnik in Thailand bij Ajahn Chah, oefende in Birma en India, en bracht de vipassana-traditie in de jaren zeventig naar de Verenigde Staten. Hij promoveerde daarnaast in de klinische psychologie. In dit boek zet hij die twee achtergronden naast elkaar.</p><p>De opzet is eenvoudig: zesentwintig hoofdstukken, elk gebouwd rond een stelling die hij een beginsel van boeddhistische psychologie noemt. Het eerste luidt dat ieder mens een oorspronkelijke goedheid heeft, het laatste dat een vredig hart liefde voortbrengt die bij het zien van lijden mededogen wordt.</p><p>Kornfield wisselt leerstellige uitleg af met verhalen uit zijn retraites en zijn therapiepraktijk, en met oefeningen aan het eind van hoofdstukken. Het boek behandelt onder meer aandacht, de aard van bewustzijn, het verhaal dat de geest over zichzelf vertelt, karma en intentie, vergeving en de middenweg.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>psychologie</li><li>mindfulness</li><li>mededogen</li><li>vipassana</li><li>therapie</li><li>vergeving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1559"><a href="1559.html">Cutting Through Spiritual Materialism</a>. Trungpa is veel harder over de neiging om beoefening in te zetten om het eigen zelfbeeld op te poetsen, precies de valkuil waar Kornfield mild over blijft.</li>
+          <li value="1558"><a href="1558.html">Nothing Special: Living Zen</a>. Joko Beck behandelt dezelfde stof in de zentraditie en in korte, droge stukken, zonder de opbeurende verhalen.</li>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff onderzocht zelfcompassie wel met vragenlijsten en experimenten en levert daarmee het onderzoek dat bij Kornfield ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

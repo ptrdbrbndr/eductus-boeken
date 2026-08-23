@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David Copperfield &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De eerste zin stelt de vraag waar het boek over gaat: of David de held van zijn eigen leven zal blijken, of dat die plaats door iemand anders wordt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1557">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1557 &middot; Roman en memoir</p>
+    <h1>David Copperfield</h1>
+    <p class="lede">Charles Dickens, 1849-1850</p>
+    <p class="stats">
+      <span><b>1433</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1557"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De eerste zin stelt de vraag waar het boek over gaat: of David de held van zijn eigen leven zal blijken, of dat die plaats door iemand anders wordt ingenomen. Dickens beantwoordt die vraag niet met daden maar met vorming. Zijn stelling is dat een karakter wordt gemaakt door de mensen die iemand op zijn weg treft, en dat het verschil tussen redding en ondergang meestal niet in de persoon zelf zit maar in de vraag of er op tijd iemand voor hem opkomt. Om die stelling te dragen, laat hij dezelfde vernedering die hij zelf als kind onderging over zijn verteller komen en vertelt hij het geheel terugkijkend, door een volwassen schrijver die weet hoe het is afgelopen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Blunderstone en de Murdstones</h3>
+      <p>David wordt geboren in Blunderstone Rookery, een half jaar na de dood van zijn vader. Tante Betsey Trotwood komt op de bevalling af, verdwijnt weer wanneer het een jongen blijkt, en laat moeder en kind achter met de dienstbode Clara Peggotty. De eerste hoofdstukken zijn een van de zorgvuldigste beschrijvingen van een gelukkige vroege jeugd die er in de negentiende-eeuwse roman staan.</p>
+      <p>Dat eindigt wanneer zijn moeder hertrouwt met Edward Murdstone. Murdstone haalt zijn zuster Jane in huis, en samen leggen zij het gezin op wat zij vastheid noemen. David bijt Murdstone in de hand tijdens een aframmeling en wordt naar Salem House gestuurd, de school van de heer Creakle, waar hij Steerforth en Traddles leert kennen. Zijn moeder sterft terwijl hij daar zit.</p>
+      <h3>Het pakhuis en de tocht naar Dover</h3>
+      <p>Murdstone zet de elfjarige aan het werk bij Murdstone en Grinby, een handel in wijn aan de Theems, waar hij flessen spoelt en etiketten plakt. Hij woont bij het gezin Micawber, dat van schuld naar schuld leeft, tot Micawber in de schuldgevangenis belandt. Deze bladzijden zijn de kern van het boek en de kern van Dickens' eigen geschiedenis.</p>
+      <p>David loopt weg, wordt onderweg bestolen en legt de weg naar Dover grotendeels te voet af. Tante Betsey neemt hem op, samen met de zachtzinnige heer Dick, die aan een gedenkschrift werkt waar het hoofd van koning Karel steeds in terugkeert. Zij doopt hem Trotwood Copperfield en stuurt hem naar de school van dokter Strong in Canterbury.</p>
+      <h3>Canterbury, Wickfield en Heep</h3>
+      <p>In Canterbury woont David bij de advocaat Wickfield en diens dochter Agnes. In hetzelfde kantoor werkt de klerk Uriah Heep, die zijn nederigheid voortdurend uitspreekt en ondertussen de zaak overneemt door Wickfields drankzucht en slordigheid uit te buiten.</p>
+      <p>David gaat daarna in de leer bij de procureur Spenlow in Doctors' Commons, de rechtbank voor huwelijks- en erfeniszaken waar Dickens zelf had gewerkt. Hij wordt verliefd op Dora Spenlow. Wanneer tante Betsey haar geld kwijtraakt, leert David stenografie, wordt parlementsverslaggever en begint te schrijven.</p>
+      <h3>Steerforth en Yarmouth</h3>
+      <p>Naast de opgaande lijn loopt de neergaande. Steerforth, de bewonderde schoolvriend, neemt Emily mee, het nichtje van Peggotty, aan de vooravond van haar huwelijk met Ham. De familie in de omgekeerde boot bij Yarmouth blijft achter, en Daniel Peggotty gaat haar in Europa zoeken.</p>
+      <p>Het loopt uit op de storm bij Yarmouth, waarin Ham verdrinkt bij een poging een schipbreukeling te redden en het lichaam van Steerforth op het strand aanspoelt. Dickens beschouwde dat hoofdstuk als het beste dat hij had geschreven.</p>
+      <h3>Dora en de ontmaskering van Heep</h3>
+      <p>David trouwt met Dora, die zichzelf zijn kindvrouwtje noemt en het huishouden niet aankan. Het huwelijk is welgemeend en niet werkbaar; Dora sterft jong, na een miskraam en een lang ziekbed.</p>
+      <p>Micawber, die inmiddels bij Heep in dienst is, ontmaskert diens vervalsingen in een scene die als een rechtszitting is opgezet. Wickfield wordt gered, tante Betsey krijgt haar geld terug, Heep verdwijnt naar de gevangenis. Micawber, de Peggotty's, Emily en Martha vertrekken naar Australie.</p>
+      <h3>Agnes en het schrijverschap</h3>
+      <p>David reist drie jaar door Europa in rouw en komt terug als gevestigd romanschrijver. Hij ontdekt wat de lezer al honderden bladzijden weet, dat Agnes van hem houdt, en trouwt met haar.</p>
+      <p>Het slot is een optelsom: wie het goed heeft gedaan krijgt geluk, wie het slecht deed komt om of komt vast te zitten. Dat sluitende einde is de prijs die het vervolgverhaal vroeg, en het is tegelijk het minst overtuigende deel van het boek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de held van mijn eigen leven</td><td>De openingszin waarin David zich afvraagt of hij die plaats zal innemen, en die de hele terugblik als een vraag opzet.</td></tr>
+          <tr><td class="term">kindvrouwtje</td><td>Dora's eigen aanduiding voor haar rol in het huwelijk, waarmee zij het beheer van het huishouden bij voorbaat aan David laat.</td></tr>
+          <tr><td class="term">de rekening van Micawber</td><td>Zijn stelregel dat twintig pond inkomen tegen negentien pond en zes stuivers uitgaven geluk oplevert en tegen twintig pond en zes stuivers ellende.</td></tr>
+          <tr><td class="term">er zal wel iets opdagen</td><td>Micawbers vaste zin waarmee hij elke geldnood doorstaat en die zijn karakter in vier woorden vastlegt.</td></tr>
+          <tr><td class="term">nederigheid bij Heep</td><td>Uriah Heeps voortdurend uitgesproken onderdanigheid, die in het boek dient als het masker van zijn machtsgreep.</td></tr>
+          <tr><td class="term">Doctors' Commons</td><td>Het Londense hof voor kerkelijke, huwelijks- en erfeniszaken waar David in de leer gaat en dat Dickens uit eigen ervaring kende.</td></tr>
+          <tr><td class="term">Salem House</td><td>De kostschool van de heer Creakle, waar lijfstraf het hele onderwijs vormt en waar David Steerforth en Traddles ontmoet.</td></tr>
+          <tr><td class="term">het gedenkschrift van heer Dick</td><td>Het geschrift waar heer Dick eindeloos aan werkt en waarin het hoofd van koning Karel de Eerste steeds terugkeert.</td></tr>
+          <tr><td class="term">het autobiografisch fragment</td><td>De aantekeningen over zijn eigen kinderjaren die Dickens aan John Forster gaf en die grotendeels in het pakhuishoofdstuk zijn opgegaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Waar het boek het meest op steunt is niet verbeelding maar herinnering. Dickens werkte als twaalfjarige in de schoensmeerfabriek van Warren terwijl zijn vader in de schuldgevangenis Marshalsea zat. Tussen 1845 en 1848 schreef hij daarover een fragment dat hij aan John Forster gaf en dat na zijn dood in Forsters biografie terechtkwam. Hele passages daaruit staan bijna letterlijk in het elfde hoofdstuk.</p>
+      <p>Dezelfde eerstehandskennis draagt de rest. Dickens had als klerk bij advocaten gewerkt, kende Doctors' Commons van binnenuit, was stenograaf en parlementsverslaggever geweest, en had over de kust bij Yarmouth geschreven voordat hij de storm bedacht. De namen en de gewoontes van die beroepswerelden kloppen daardoor tot in de details.</p>
+      <p>Ook de emigratieplot rust op iets echts. Dickens leidde met Angela Burdett-Coutts jarenlang Urania Cottage, een huis voor vrouwen die uit de prostitutie of de gevangenis kwamen, van waaruit bewoners naar de kolonien vertrokken. Emily en Martha volgen precies die route.</p>
+      <p>Wat de tekst niet draagt is de eindafloop. De roman verscheen in negentien maandelijkse afleveringen, met een vaste omvang per aflevering en publiek dat meelas. Dat verklaart de hoofdstukken die de stand van zaken herhalen, het aantal toevallige ontmoetingen en de neiging om elke draad aan het slot dicht te knopen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de vrouwen. Agnes is vanaf haar eerste optreden een wegwijzer met een opgeheven hand en krijgt geen eigen verlangen dat het verhaal tegenwerkt. Dora moet sterven om David met haar te kunnen laten trouwen. Het boek lost het probleem van een verkeerd huwelijk op door de echtgenote te laten overlijden en presenteert dat als lering.</p>
+      <p>Emily en Martha worden behandeld volgens het schema van de gevallen vrouw: schande, boete, verdwijning naar de andere kant van de wereld. De verteller keurt hen niet af, maar het verhaal zelf laat hen niet in Engeland blijven, terwijl Steerforth ondanks alles met een zekere glans wordt weggeschreven.</p>
+      <p>Uriah Heep is geschreven als lichamelijke walging: klamme handen, kronkelend lichaam, rood haar. Zijn wrok tegen de standen die hem hebben kleingehouden is inhoudelijk niet onterecht, maar Dickens geeft die wrok een uiterlijk dat de lezer bij voorbaat doet afhaken. Sociale stijging via het kantoor wordt zo als iets vies neergezet, terwijl dezelfde stijging bij David als verdienste geldt.</p>
+      <p>De verteller komt er zelf makkelijk vanaf. David kijkt toe hoe Steerforth Emily inpalmt zonder in te grijpen, en de volwassen verteller geeft daar wel spijt over maar geen rekenschap. Wie het boek als levensbeschrijving leest, merkt dat de schrijver zichzelf minder streng beoordeelt dan zijn personages.</p>
+      <p>Ten slotte de omvang. Een roman van rond de negenhonderd bladzijden die per maand werd afgeleverd, bevat herhaling en uitweidingen die geen functie hebben behalve dat de aflevering vol moest.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Personal History, Adventures, Experience and Observation of David Copperfield the Younger of Blunderstone Rookery</i>, verschenen in negentien maandelijkse afleveringen van mei 1849 tot november 1850 bij Bradbury &amp; Evans in Londen, met prenten van Hablot K. Browne (Phiz), en eind 1850 in boekvorm. Nederlandse vertalingen bestaan sinds de negentiende eeuw: C.M. Mensing vertaalde het als <i>Leven en lotgevallen van David Copperfield</i> (Cohen, Nijmegen, 1887), G.J. Werumeus Buning-Ensink maakte de vertaling die Het Spectrum tot in 2008 in de Prisma-reeks herdrukte (Utrecht en Antwerpen, ISBN 9789031504169), en Andre Noorbeek vertaalde het voor Spectrum (1953) en later voor The Reader's Digest (Amsterdam, 2003, 479 blz., ISBN 9064076634).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Copperfield wordt geboren nadat zijn vader is gestorven. Zijn moeder hertrouwt met Edward Murdstone, die met zijn zuster Jane het huis overneemt, de jongen naar kostschool stuurt en hem na de dood van zijn moeder als elfjarige aan het werk zet in een pakhuis in Londen, waar hij flessen wast. David loopt weg en gaat te voet naar Dover, naar zijn tante Betsey Trotwood, die hem opneemt.</p><p>Vanaf dat punt is het de geschiedenis van een jongen die opklimt: school in Canterbury, een leerplaats bij een procureur in Doctors' Commons, stenografie, parlementsverslaggeving en ten slotte het schrijverschap. Onderweg staan de mensen die het boek zijn reputatie hebben gegeven: Micawber, die altijd in geldnood zit en altijd hoopt dat er iets opdaagt, de kruiperige klerk Uriah Heep, Steerforth, en Peggotty met haar familie in de omgekeerde boot bij Yarmouth.</p><p>Dickens noemde het in het voorwoord bij de uitgave van 1867 zijn lievelingskind. Het is zijn meest autobiografische boek: de bladzijden over het pakhuis komen bijna woordelijk uit een fragment dat hij over zijn eigen jeugd had geschreven en aan zijn vriend John Forster gaf, en de initialen D.C. zijn die van de schrijver in omgekeerde volgorde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Victoriaans Engeland</li><li>jeugd</li><li>armoede</li><li>Londen</li><li>vervolgverhaal</li><li>schrijverschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringer schrijft anderhalve eeuw later dezelfde vorm: een jongen zonder vader die vervangende figuren vindt en schrijver wordt, opnieuw uit eigen leven.</li>
+          <li value="10"><a href="10.html">Ten oosten van Eden</a>. Steinbeck legde in zijn persoonlijkste roman ook een familie naast een morele vraag, met de keuze tussen goed en kwaad als kern in plaats van de vorming van een karakter.</li>
+          <li value="254"><a href="254.html">Crime and Punishment</a>. Dostojevski, die Dickens met bewondering las, zet het armoedige stadsleven van Petersburg neer waar Dickens dat van Londen deed, maar zonder de verzoening aan het slot.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

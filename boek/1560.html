@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handbook for Hard Times &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thubten stelt dat geluk geen gemoedstoestand is die iemand overkomt maar een vaardigheid die geoefend kan worden, en dat juist moeilijke tijden het beste…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1560">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1560 &middot; Levenskunst</p>
+    <h1>Handbook for Hard Times</h1>
+    <p class="lede">Gelong Thubten, 2023</p>
+    <p class="stats">
+      <span><b>1566</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1560"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thubten stelt dat geluk geen gemoedstoestand is die iemand overkomt maar een vaardigheid die geoefend kan worden, en dat juist moeilijke tijden het beste oefenmateriaal leveren. Pijn is volgens hem niet wat mensen ondermijnt; wat hen ondermijnt is de weerstand tegen pijn, het aanhoudende wegduwen van alles wat onaangenaam voelt. Wie die weerstand leert opmerken en de aandacht opnieuw richt, haalt de bodem weg onder de gewoonte waarop angst draait. Uit die stelling volgt de belofte van het boek: veerkracht is te leren, ook door mensen die niets met boeddhisme hebben.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Thubten opent met zijn eigen instorting. Als jonge acteur werkte hij in Londen en New York tot zijn lichaam het begaf; de hartklachten die volgden werden aan stress toegeschreven. Een jaar rust in een Schots klooster werd een leven als monnik. Die geschiedenis dient in het boek niet als anekdote maar als bewijsstuk: de auteur presenteert zichzelf als iemand die de oefening zelf nodig had voordat hij haar onderwees.</p>
+      <p>Het boek verscheen in 2023, vier jaar na zijn eerste, en is geschreven met de nasleep van de pandemiejaren in het achterhoofd. De toon is die van een handboek: uitleg, voorbeeld, oefening, en dat hoofdstuk na hoofdstuk.</p>
+      <h3>Pijn en weerstand</h3>
+      <p>De onderscheiding waarop alles rust is die tussen de pijn zelf en het verzet ertegen. Pijn hoort bij een leven; verzet is de laag die de mens er zelf overheen legt, in de vorm van piekeren, afleiding zoeken, klagen en vermijden. Thubten beschrijft die laag als het eigenlijke lijden en als het deel waaraan wel te werken valt.</p>
+      <p>Zijn instructie is niet dat de lezer de pijn wegdenkt of overstijgt. Zij luidt dat hij er dichter naartoe gaat: de sensatie in het lichaam opzoeken, ernaar kijken zonder er een verhaal bij te maken, en merken dat wat vast leek te zitten voortdurend van vorm verandert. Vergankelijkheid is daarbij eerder een waarneming dan een leerstuk.</p>
+      <h3>Lojong: de geest keren</h3>
+      <p>Lojong betekent geestesoefening en is een Tibetaanse traditie van korte spreuken waarmee de beoefenaar zijn houding tegenover tegenslag omkeert. In plaats van tegenslag te zien als een onderbreking van het goede leven, wordt zij het onderwerp van de beoefening. Thubten legt die traditie in gewone taal uit en laat de Tibetaanse terminologie grotendeels weg.</p>
+      <p>De praktische gevolgtrekking is dat het boek geen rustige omstandigheden vraagt. De file, het slechtnieuwsgesprek en de slapeloze nacht zijn de plek waar de oefening thuishoort. Wachten op een gunstig moment om te beginnen ziet hij als een vorm van uitstel die zichzelf in stand houdt.</p>
+      <h3>Tonglen en mededogen</h3>
+      <p>Het langste praktische deel gaat over tonglen: bij het inademen het lijden van een ander tot zich nemen, bij het uitademen verlichting teruggeven. De volgorde is opzettelijk omgekeerd aan wat mensen uit zichzelf doen, en dat is precies de bedoeling van de oefening.</p>
+      <p>Thubten koppelt mededogen aan eigenbelang zonder dat te verhullen. Aandacht die naar buiten gaat, haalt de aandacht weg bij het eigen tobben, en dat werkt volgens hem beter dan pogingen om zichzelf op te beuren. Liefdevolle vriendelijkheid wordt in dezelfde beweging behandeld: eerst richting mensen die makkelijk liggen, daarna richting mensen die dat niet doen.</p>
+      <h3>Vergeving</h3>
+      <p>Vergeving krijgt een eigen hoofdstuk, zoals ook in zijn eerste boek. Thubten omschrijft haar niet als goedkeuring van wat er gebeurd is en niet als verzoening met de dader, maar als het beëindigen van de eigen bezigheid met de wrok. Wie blijft terugkeren naar het onrecht, houdt de schade in de lucht.</p>
+      <p>Hij behandelt daarbij ook vergeving richting zichzelf, en dat is het punt waarop het boek het dichtst bij gangbare westerse zelfhulp komt. Het verschil zit in de onderbouwing: waar zelfhulp een gevoel van eigenwaarde nastreeft, redeneert Thubten vanuit de gedachte dat een zelf dat vast en afgescheiden is geen houdbaar begrip is.</p>
+      <h3>Wat het boek van de lezer vraagt</h3>
+      <p>De aanwijzingen zijn bescheiden van omvang. Thubten pleit voor korte momenten van beoefening die vaak terugkeren, verspreid over de dag, boven lange sessies die er zelden van komen. Enkele ademhalingen met aandacht, tijdens het wachten of het lopen, tellen in zijn opzet volledig mee.</p>
+      <p>Elk hoofdstuk sluit af met een uitgeschreven meditatie, van enkele minuten tot een kwartier. Het boek is daarmee eerder een oefenboek dan een betoog, en het valt te gebruiken zonder de boeddhistische achtergrond over te nemen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Lojong</td><td>Tibetaanse geestesoefening waarin tegenslag opzettelijk tot onderwerp van de beoefening wordt gemaakt in plaats van tot obstakel ervan.</td></tr>
+          <tr><td class="term">Tonglen</td><td>Ademoefening waarbij het lijden van anderen wordt ingeademd en verlichting wordt uitgeademd, omgekeerd aan de neiging om onaangenaams van zich af te houden.</td></tr>
+          <tr><td class="term">Weerstand</td><td>De laag van verzet, piekeren en vermijding die zich over pijn heen legt en die volgens Thubten het eigenlijke lijden vormt.</td></tr>
+          <tr><td class="term">Gewaarzijn</td><td>Het vermogen om waar te nemen wat er in de geest gebeurt zonder er meteen in mee te gaan; in het boek de grondslag van elke oefening.</td></tr>
+          <tr><td class="term">Micromomenten</td><td>Zeer korte oefenmomenten van enkele ademhalingen, verspreid over de dag, die Thubten stelt boven zeldzame lange sessies.</td></tr>
+          <tr><td class="term">Liefdevolle vriendelijkheid</td><td>Oefening waarin welwillendheid stap voor stap wordt uitgebreid, van mensen die na aan het hart liggen naar mensen die weerstand oproepen.</td></tr>
+          <tr><td class="term">Vergeving</td><td>Het staken van de eigen bezigheid met een wrok, uitdrukkelijk niet gelijkgesteld aan goedkeuring van wat er gebeurd is.</td></tr>
+          <tr><td class="term">Vergankelijkheid</td><td>De vaststelling dat gevoelens en sensaties voortdurend van vorm veranderen, in het boek gebruikt als waarneming tijdens de oefening en niet als leerstuk.</td></tr>
+          <tr><td class="term">Veerkracht</td><td>Het vermogen om moeilijke omstandigheden te doorstaan, dat Thubten opvat als een geoefende vaardigheid en niet als een karaktertrek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op traditie en op eigen ervaring, niet op studies. Thubten voert geen onderzoeksliteratuur op, noemt geen proefopzetten en gebruikt geen getallen. Wie wil weten wat er gemeten is, vindt dat hier niet. Dat is een keuze die het boek zelf niet verbergt: het presenteert zich als handboek van een monnik en niet als overzicht van de wetenschap.</p>
+      <p>Het gezag dat het boek claimt komt uit de beoefening. Thubten werd in 1993 gewijd aan Kagyu Samye Ling en bracht ruim zes jaar in retraite door, waaronder een periode van vier jaar aaneengesloten. Daarnaast onderwijst hij al jaren meditatie buiten religieuze verbanden, onder meer aan medische studenten, in bedrijven en in gevangenissen, en trad hij op als meditatieadviseur bij de film <i>Doctor Strange</i>. Die loopbaan verklaart de toon: praktisch, zonder Sanskriet, gericht op mensen zonder achtergrond in het onderwerp.</p>
+      <p>De onderliggende oefeningen zijn oud en breed beproefd. Lojong en tonglen zijn eeuwenlang binnen de Tibetaanse tradities doorgegeven en in het Westen eerder toegankelijk gemaakt door onder anderen Pema Chodron. Dat is geen bewijs dat zij werken zoals Thubten beschrijft, maar het betekent wel dat hij geen zelfbedachte methode aanprijst.</p>
+      <p>Voor het bredere veld geldt dat aandachtstraining in gecontroleerd onderzoek bescheiden effecten laat zien op stress en angstklachten, met bekende methodologische bezwaren: kleine groepen, deelnemers die weten wat zij krijgen, en controlegroepen die vaak niets doen in plaats van iets anders. Dat beeld ondersteunt de strekking van het boek in grote lijnen en rechtvaardigt de stelligheid ervan niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de redenering zelf. Als weerstand het probleem is, dan verklaart weerstand ook waarom de oefening bij iemand niet aanslaat. De stelling wordt daarmee lastig te weerleggen: succes bevestigt de leer, mislukking wordt aan de beoefenaar toegeschreven. Het boek gaat op die kwetsbaarheid niet in.</p>
+      <p>Voor mensen met trauma is de aanwijzing om naar de pijn toe te bewegen niet zonder risico. In onderzoek naar meditatie zijn nadelige ervaringen beschreven, waaronder herbeleving en ontregeling, juist bij intensieve aandacht voor pijnlijk materiaal. Thubten waarschuwt en verwijst naar hulp, maar een boek kan niet zien met wie het te maken heeft, en de opzet nodigt uit tot beoefening zonder begeleiding.</p>
+      <p>De gedachte dat tegenslag een gelegenheid tot oefening is, legt de last bij degene die het treft. Over de oorzaken van moeilijke tijden die buiten de persoon liggen, van armoede tot ziekte tot onrecht, zegt het boek weinig. Wie zijn omstandigheden wil veranderen in plaats van zijn verhouding ertoe, krijgt hier geen aanknopingspunt.</p>
+      <p>Als boek is het dun in de letterlijke en de figuurlijke zin. Wie <i>A Monk's Guide to Happiness</i> gelezen heeft, komt hier veel tegen wat daar ook stond, met vergeving en mededogen als terugkerende hoofdstukken. De winst zit in de toespitsing op tegenslag; het onderliggende betoog is hetzelfde.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Oefen kort en vaak: drie ademhalingen met aandacht, meerdere keren per dag, in plaats van een halfuur dat er niet van komt.</li>
+        <li>Zoek bij een onaangenaam gevoel eerst de plek in het lichaam op en beschrijf de sensatie, voordat er een verklaring bij bedacht wordt.</li>
+        <li>Merk het verzet op als apart verschijnsel: het commentaar dat zegt dat dit niet zou mogen gebeuren.</li>
+        <li>Gebruik tonglen op een moment dat er toch niets anders te doen valt, zoals in de wachtkamer of de file.</li>
+        <li>Behandel vergeving als het staken van de herhaling, niet als een oordeel over wat er gebeurd is.</li>
+        <li>Zoek begeleiding bij ingrijpende gebeurtenissen; beoefening alleen uit een boek is daarvoor niet toereikend.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Handbook for Hard Times: A Monk's Guide to Fearless Living</i> (Yellow Kite / Hodder &amp; Stoughton, Londen, 2023, 224 blz., ISBN 9781529367652). Nederlands als <i>Handboek voor moeilijke tijden. Met meditatie je angsten overwinnen</i>, vertaald door Ronald Hermsen, Ten Have, Utrecht, 2024, 176 blz., ISBN 9789025912291. Van dezelfde auteur verscheen eerder <i>A Monk's Guide to Happiness</i> (2019), in het Nederlands <i>Word gelukkig als een boeddhistische monnik</i> (Ten Have, 2020), en samen met Ruby Wax en Ash Ranpura <i>How to Be Human</i> (2018).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gelong Thubten was acteur in Londen en New York toen hij op zijn eenentwintigste instortte met hartklachten die aan stress werden toegeschreven. Hij vertrok voor een jaar naar het Tibetaans-boeddhistische klooster Kagyu Samye Ling in Schotland en bleef. In 1993 werd hij daar tot monnik gewijd; hij bracht ruim zes jaar in afzondering door, waarvan vier jaar aaneengesloten.</p><p>Dit tweede boek gaat over de periodes waarin het misgaat: ziekte, verlies, angst, uitputting. Thubten put uit de lojong, een Tibetaanse traditie van geestesoefening die tegenslag opvat als het materiaal waarmee geoefend wordt. Hij behandelt onder meer tonglen, de praktijk waarbij de beoefenaar het lijden van anderen inademt en verlichting uitademt.</p><p>Het boek is dun en praktisch opgezet, met korte hoofdstukken die uitlopen op een meditatie-instructie. Onderzoek komt er niet in voor. Wat er staat is een leer, uitgelegd door iemand die haar jarenlang in afzondering heeft beoefend en haar sindsdien buiten kloosters onderwijst: in bedrijven, ziekenhuizen, scholen en gevangenissen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>meditatie</li><li>boeddhisme</li><li>lojong</li><li>tonglen</li><li>veerkracht</li><li>mededogen</li><li>angst</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1561"><a href="1561.html">A Monk's Guide to Happiness</a>. Het eerste boek van dezelfde auteur, waarin de meditatie-instructie en de begrippen worden opgebouwd waarop dit boek voortbouwt.</li>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. Suzuki laat zien hoe dezelfde boeddhistische uitgangspunten in een andere traditie worden verwoord, met veel minder toegeeflijkheid richting de beginner.</li>
+          <li value="442"><a href="442.html">Meditations for Mortals</a>. Burkeman komt langs een seculiere weg bij een vergelijkbare gevolgtrekking over aanvaarding van beperking, zonder oefeningen en zonder leer.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schrijft zichzelf dagelijks dezelfde omkering voor: het oordeel over de gebeurtenis is het onderwerp van de oefening, niet de gebeurtenis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

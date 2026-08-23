@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Just Breathe &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Brulé stelt dat de ademhaling de plaats is waar het willekeurige en het onwillekeurige zenuwstelsel elkaar raken, en dat wie leert die overgang bewust te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1599">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1599 &middot; Brein en lichaam</p>
+    <h1>Just Breathe</h1>
+    <p class="lede">Dan Brulé, 2017</p>
+    <p class="stats">
+      <span><b>1577</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1599"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Brulé stelt dat de ademhaling de plaats is waar het willekeurige en het onwillekeurige zenuwstelsel elkaar raken, en dat wie leert die overgang bewust te bedienen daarmee invloed krijgt op spanning, pijn, aandacht en stemming. Zijn tweede stelling gaat verder: hij beschouwt ademwerk niet als een techniek naast andere maar als een discipline op zichzelf, waarin ademhaling ook een weg naar zelfkennis en geestelijke ervaring is. Het eerste deel van die stelling is grotendeels houdbaar en berust op fysiologie die buiten dit boek is onderzocht. Het tweede deel berust op zijn eigen ervaring en op die van zijn cursisten, en wordt in het boek nergens getoetst.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat hij onder ademwerk verstaat</h3>
+      <p>Brulé onderscheidt twee dingen die hij samen ademwerk noemt: adembewustzijn, het volgen van de adem zonder er iets aan te veranderen, en bewust ademen, het opzettelijk sturen van tempo, diepte en verhouding tussen in en uit. Alles wat verderop komt is een combinatie van die twee.</p>
+      <p>Hij plaatst dat in zijn eigen geschiedenis. Hij diende bij de Amerikaanse marine, raakte daarna betrokken bij de ademstromingen van de jaren zeventig, en heeft sindsdien in tientallen landen lesgegeven; het boek noemt meer dan honderdduizend mensen in ruim vijfenveertig landen. Wat hij verzamelde komt uit yoga, uit vechtkunst, uit rebirthing en uit de zorg voor gewonden, en dat mengsel bepaalt de toon van het boek.</p>
+      <h3>Adem en lichaam</h3>
+      <p>Het lichamelijke deel gaat over het middenrif, over ademen door de neus, over de rol van koolzuur in de bloedbaan en over wat er gebeurt bij een te hoog ademtempo. Brulé beschrijft hier de klassieke aanwijzingen: door de neus, laag in de buik, uitademing langer dan inademing, en zo min mogelijk hulpspieren.</p>
+      <p>Hij behandelt daarnaast toepassingen bij pijn, bij slecht slapen, bij herstel na inspanning en bij het opwekken van warmte en waakzaamheid. De methode van Buteyko en de yogatechniek kapalabhati komen langs, de eerste voor het verlagen van het ademvolume, de tweede voor het tegenovergestelde. De uitleg blijft steeds op het niveau van de aanwijzing; waarom iets werkt wordt kort en zonder bron aangeduid.</p>
+      <h3>Adem en geest</h3>
+      <p>Het tweede deel gaat over spanning, aandacht en stemming. Hier staat het vierkant ademen, met gelijke tellen voor in, vasthouden, uit en vasthouden, dat bij Amerikaanse militairen bekend is geworden, en het ademen op een vaste telling van rond de vijf seconden per richting, dat de hartslagvariabiliteit beinvloedt.</p>
+      <p>Brulé koppelt daaraan een gedragsregel die het hele boek doortrekt: kijk bij spanning eerst wat de adem doet, en verander die voordat er iets aan de situatie wordt geprobeerd. Hij geeft korte oefeningen voor tussendoor, waaronder het bewust geeuwen, de zuchtende uitademing waarbij de schouders zakken, en een reeks korte happen lucht gevolgd door een stevige uitblaas.</p>
+      <h3>Adem als geestelijke oefening</h3>
+      <p>Het derde deel gaat over wat Brulé het geestelijke noemt. Hij wijst erop dat adem en ziel in het Sanskriet, het Hebreeuws, het Grieks en het Latijn met verwante woorden worden aangeduid, en beschouwt dat als een aanwijzing dat ademoefening van oudsher meer was dan een gezondheidsmaatregel.</p>
+      <p>De techniek die hij hier centraal stelt is het verbonden of circulair ademen, waarbij in- en uitademing zonder pauze in elkaar overgaan en de sessie twintig minuten tot een uur duurt. Hij beschrijft dat deelnemers daarbij emoties, tintelingen, kramp in handen en mond en soms heftige ontlading meemaken, en behandelt dat als onderdeel van het proces. Ook affirmaties tijdens het ademen krijgen hier een plaats.</p>
+      <h3>Toepassing in werk, sport en relaties</h3>
+      <p>Het vierde deel brengt de techniek naar het dagelijkse leven: adem voor een lastig gesprek, adem tijdens onderhandelen, adem bij inspanning en herstel, adem bij intimiteit. Het is het minst uitgewerkte gedeelte en bestaat vooral uit korte aanwijzingen met een voorbeeld erbij.</p>
+      <p>Hier staan ook de bredere claims. Brulé noemt onder meer ontgifting, gewichtsverlies, verwerking van posttraumatische klachten en het verminderen van somberheid. Deze passages zijn kort en dragen geen verwijzingen; zij staan naast de aanwijzingen over langzaam ademen alsof zij van dezelfde orde zijn.</p>
+      <h3>De eenentwintig dagen</h3>
+      <p>Het boek besluit met een programma van eenentwintig dagen. Elke dag bevat een oefening met een korte toelichting en een aanwijzing om op te schrijven wat er gebeurde. De opbouw gaat van waarnemen naar sturen naar langere sessies.</p>
+      <p>Dat programma is het bruikbaarste deel. Het maakt van een verzameling losse technieken een volgorde, het vraagt weinig tijd per dag, en het dwingt tot bijhouden. Wie het boek alleen daarvoor gebruikt, mist weinig van wat er aan onderbouwing wordt beloofd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ademwerk</td><td>Zijn verzamelnaam voor alles wat met bewuste ademhaling wordt gedaan, van waarnemen tot sturen tot langdurige sessies.</td></tr>
+          <tr><td class="term">Adembewustzijn</td><td>Het volgen van de eigen ademhaling zonder er iets aan te veranderen, bij hem de basis waar alle techniek op rust.</td></tr>
+          <tr><td class="term">Bewust ademen</td><td>Het opzettelijk sturen van tempo, diepte, ritme en verhouding tussen inademing en uitademing.</td></tr>
+          <tr><td class="term">Breath Mastery</td><td>De naam van zijn eigen methode en van de opleiding waaronder hij sinds de jaren zeventig lesgeeft.</td></tr>
+          <tr><td class="term">Vierkant ademen</td><td>Ademen met gelijke tellen voor inademen, vasthouden, uitademen en vasthouden, gebruikt om spanning te dempen en de aandacht te richten.</td></tr>
+          <tr><td class="term">Verbonden ademen</td><td>Een langere sessie waarin in- en uitademing zonder pauze in elkaar overgaan, afkomstig uit de rebirthing-traditie.</td></tr>
+          <tr><td class="term">Kapalabhati</td><td>De yogatechniek van snelle, actieve uitademingen met passieve inademing, in het boek gebruikt om waakzaamheid en warmte op te wekken.</td></tr>
+          <tr><td class="term">Buteyko-methode</td><td>De aanpak die het ademvolume juist verlaagt en de tolerantie voor koolzuur vergroot, door Brulé opgenomen naast technieken die het omgekeerde doen.</td></tr>
+          <tr><td class="term">De opluchtingsadem</td><td>Een hoorbare uitademing waarbij de schouders zakken, bedoeld als korte onderbreking van opgebouwde spanning.</td></tr>
+          <tr><td class="term">De eenentwintigdaagse oefening</td><td>Het slotprogramma waarin per dag een techniek wordt geoefend en het verloop wordt genoteerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek verwijst vrijwel nergens naar onderzoek. Wat het aandraagt zijn de ervaringen van de schrijver in ruim vier decennia lesgeven, verhalen van cursisten, en uitspraken van bekende namen, onder wie Tony Robbins in het voorwoord. Het genoemde aantal van meer dan honderdduizend deelnemers is een opgave van de schrijver zelf en niet na te gaan.</p>
+      <p>Een deel van wat er staat is buiten dit boek wel degelijk onderzocht. Dat langzaam ademen op ongeveer zes ademhalingen per minuut de hartslagvariabiliteit verhoogt en de bloeddruk kort verlaagt, dat ademen door de neus de weerstand en de bevochtiging van de lucht verandert, en dat een langere uitademing de parasympathische activiteit versterkt, zijn bevindingen met redelijke steun. Brulé noemt ze zonder bron, waardoor de lezer niet kan onderscheiden welke uitspraken zo gedekt zijn.</p>
+      <p>Voor de zwaardere claims ontbreekt die steun. Ontgifting via de ademhaling in de zin die hij bedoelt, gewichtsverlies door ademtechniek, en het opheffen van posttraumatische klachten door verbonden ademen zijn niet aangetoond. Van rebirthing en aanverwante sessievormen bestaat geen gecontroleerd onderzoek dat de beschreven werking bevestigt; wat de deelnemers ervaren, tintelingen en kramp in handen en om de mond, is bekend als gevolg van een verlaagd koolzuurgehalte.</p>
+      <p>De opzet van het boek maakt die vermenging lastig te doorzien. Aanwijzingen met een goede grond en aanwijzingen zonder staan in dezelfde toon en met hetzelfde gezag naast elkaar, zonder dat er onderscheid wordt gemaakt tussen wat is nagegaan en wat de schrijver aanneemt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar is dat het boek een verzameling is waar het een methode belooft. Buteyko verlaagt het ademvolume, kapalabhati verhoogt het, verbonden ademen werkt weer anders; die technieken komen uit verschillende tradities met verschillende aannames en gedeeltelijk tegengestelde doelen. Brulé zet ze naast elkaar zonder uit te leggen wanneer welke aan de orde is en wanneer niet.</p>
+      <p>Recensenten hebben de tekst slordig en vrijwel zonder verwijzingen genoemd, en aangevoerd dat het aandeel levensbeschrijving ten koste gaat van de aanwijzingen. Dat verwijt is terecht voor de eerste helft; de laatste hoofdstukken zijn concreter.</p>
+      <p>De veiligheidskant is te licht behandeld. Snelle en diepe ademtechnieken zijn af te raden bij zwangerschap, epilepsie, hart- en longaandoeningen, een hoge bloeddruk en paniekstoornis, en langdurige sessies met verbonden ademen kunnen bij mensen met een traumatische voorgeschiedenis meer losmaken dan er zonder begeleiding op te vangen valt. Het boek waarschuwt daar wel voor, maar te kort en te terloops voor een tekst die zich tot een breed publiek richt.</p>
+      <p>Ten slotte is het bruikbaarder als oefenboek dan als kennisboek. Wie wil weten wat er van ademhaling bekend is, komt hier weinig verder; wie oefeningen zoekt en zelf beoordeelt wat werkt, heeft aan het slotprogramma het meest.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin met waarnemen: volg een week lang enkele keren per dag een minuut de eigen adem zonder er iets aan te veranderen.</li>
+        <li>Adem bij spanning door de neus en maak de uitademing langer dan de inademing; laat het tempo zakken tot ongeveer zes ademhalingen per minuut.</li>
+        <li>Gebruik het vierkante ademen voor een gesprek of optreden waarbij helderheid nodig is, niet voor het inslapen.</li>
+        <li>Houd bij het programma van eenentwintig dagen kort bij wat er per oefening gebeurde; zonder aantekening vallen de verschillen weg.</li>
+        <li>Doe langdurige sessies met verbonden ademen niet alleen, en laat ze bij zwangerschap, epilepsie, hartklachten, longklachten of paniekstoornis achterwege.</li>
+        <li>Behandel de hoofdstukken over ontgifting en gewichtsverlies als aanname; er staat geen onderzoek onder.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Just Breathe: Mastering Breathwork for Success in Life, Love, Business, and Beyond</i>, Atria/Simon &amp; Schuster, New York, 28 maart 2017, 224 blz., ISBN 9781501163067, met een voorwoord van Tony Robbins. Nederlands als <i>Gewoon ademhalen</i>, Kosmos Uitgevers, Utrecht, 2017, 224 blz., ISBN 9789021566276; de vertaler wordt in de gangbare uitgaven niet vermeld. Brulé geeft sinds de jaren zeventig les onder de naam Breath Mastery en diende eerder bij de Amerikaanse marine.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Brulé geeft al decennia les in ademhaling en heeft in dit boek bij elkaar gezet wat hij daarbij gebruikt: technieken uit yoga, uit vechtkunsten, uit de rebirthing-beweging en uit de eerste hulp. Zijn uitgangspunt is dat de ademhaling de enige lichaamsfunctie is die vanzelf verloopt en tegelijk bewust te sturen valt, en dat daar een ingang ligt naar spanning, pijn, slaap en aandacht.</p><p>Het boek loopt van lichaam naar geest naar wat hij het geestelijke noemt, en eindigt met een programma van eenentwintig dagen waarin elke dag een oefening staat. Tussendoor komen bekende technieken langs: vierkant ademen, de adem van vuur, langzaam ademen op een vaste telling, en het verbonden ademen waarbij in- en uitademing zonder pauze in elkaar overgaan.</p><p>De praktische kant is bruikbaar en het aantal oefeningen is groot. De onderbouwing is dat niet: er staan vrijwel geen verwijzingen in, de claims over ontgifting, gewichtsverlies en trauma gaan ver voorbij wat is aangetoond, en een deel van het boek bestaat uit de levensloop van de schrijver.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ademhaling</li><li>ademwerk</li><li>zenuwstelsel</li><li>stress</li><li>meditatie</li><li>yoga</li><li>21 dagen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. Nestor behandelt dezelfde onderwerpen met verwijzingen naar onderzoek erbij en laat zien hoe dun de basis is onder een deel van wat Brulé aanneemt.</li>
+          <li value="1528"><a href="1528.html">Balance Breathing</a>. Lenferink werkt in het Nederlands een enkele ademmethode uit in plaats van vele naast elkaar te zetten, wat het verschil tussen verzameling en methode duidelijk maakt.</li>
+          <li value="1605"><a href="1605.html">Yoga and Ayurveda</a>. Frawley beschrijft de pranayama-traditie waar Brulé zijn technieken deels aan ontleent, inclusief de leer waarin zij oorspronkelijk thuishoren.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk behandelt de verwerking van trauma via het lichaam met de onderbouwing die Brulé bij zijn claims over posttraumatische klachten weglaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art as Experience &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dewey bestrijdt de gedachte dat kunst een afgezonderd gebied is dat in musea wordt bewaard en door kenners wordt beoordeeld. Zijn stelling is dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1576">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1576 &middot; Maken en scheppen</p>
+    <h1>Art as Experience</h1>
+    <p class="lede">John Dewey, 1934</p>
+    <p class="stats">
+      <span><b>1678</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1576"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dewey bestrijdt de gedachte dat kunst een afgezonderd gebied is dat in musea wordt bewaard en door kenners wordt beoordeeld. Zijn stelling is dat esthetische ervaring een verdichte vorm is van iets dat elk levend wezen doet: in wisselwerking met een omgeving spanning opbouwen, die uitwerken en tot vervulling brengen. Wat een schilderij, een symfonie of een gedicht onderscheidt van willekeurige prikkels is dan niet het materiaal en niet de instelling die het bewaart, maar de mate waarin die beweging van doen en ondergaan afgerond verloopt. Daaruit volgt een omkering van de gebruikelijke volgorde. Wie wil begrijpen wat kunst is, begint bij honger, arbeid, spel en herstel van evenwicht, en pas daarna bij een lijst van erkende meesterwerken. De prijs van die omkering is dat het begrip esthetisch veel breder wordt dan de kunstkritiek gewend was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het levende wezen</h3>
+      <p>De eerste twee hoofdstukken zetten het probleem neer. Kunstwerken zijn in de loop van de negentiende eeuw op sokkels beland, verzameld door rijken en ondergebracht in nationale musea, en die museale plaatsing is volgens Dewey de reden dat de theorie het verband met het gewone leven kwijtraakte. Hij noemt dit de museumopvatting van kunst en behandelt haar als een historisch ongeval, niet als een waarheid over kunst.</p>
+      <p>Daartegenover zet hij het organisme dat leeft door voortdurende uitwisseling met zijn omgeving. Evenwicht gaat verloren en wordt hersteld; die cyclus van verstoring en herstel levert het patroon dat later in de kunsten terugkeert. Dewey haalt hier voorbeelden van dieren, van kinderen en van werkende mensen aan, en van bouwwerken die ooit een burgerlijke of religieuze functie hadden.</p>
+      <h3>Een ervaring hebben</h3>
+      <p>Het derde hoofdstuk is het scharnier van het boek. Dewey onderscheidt de doorlopende stroom van ervaring van wat hij een ervaring noemt: een episode met een eigen begin, een opbouw en een afsluiting, die als eenheid in het geheugen blijft. Voorbeelden die hij geeft zijn alledaags: een maaltijd, een ruzie, een reis, een stuk werk dat afkomt.</p>
+      <p>Twee zaken kunnen zo'n episode bederven. De ene is toegeven aan losse impulsen zonder dat iets wordt uitgewerkt; de andere is dwangmatige uitvoering waarin niets wordt opgenomen. Dewey noemt ervaring die uiteenvalt in gaten, mechanische verbindingen en dode punten het anesthetische, het tegendeel van het esthetische.</p>
+      <h3>Uitdrukking en het uitgedrukte</h3>
+      <p>In de hoofdstukken over de daad van uitdrukking scheidt Dewey uitdrukking van ontlading. Woede uitschreeuwen is ontlading: de emotie verdwijnt zonder dat er iets gemaakt is. Uitdrukking vraagt weerstand, een materiaal dat niet meegeeft, en tijd waarin het gevoel wordt uitgewerkt tot iets dat buiten de maker bestaat.</p>
+      <p>Daarmee verwerpt hij zowel de opvatting dat kunst het uitstorten van innerlijk gevoel is als de opvatting dat het uitsluitend om vakkundige vormgeving gaat. Het uitgedrukte object draagt betekenis die zonder dat object niet bestond; het is geen verpakking van een gedachte die de maker al had.</p>
+      <h3>Vorm, stof en ritme</h3>
+      <p>De middenhoofdstukken behandelen vorm niet als een schema dat over materiaal wordt gelegd, maar als de manier waarop energieën in een werk zijn georganiseerd. Ritme is voor Dewey het eerste kenmerk van de omringende wereld dat artistieke vorm mogelijk maakt: dag en nacht, ademhaling, seizoenen, en de terugkeer die nooit precies dezelfde is.</p>
+      <p>Stof en vorm laten zich in een geslaagd werk niet uit elkaar halen. Wat een gedicht zegt is niet los verkrijgbaar van hoe het klinkt, en een samenvatting van de inhoud is een ander ding geworden. Dewey gebruikt dit punt later tegen critici die een werk beoordelen aan een boodschap die zij eruit lichten.</p>
+      <h3>De kunsten onderling</h3>
+      <p>Vervolgens vraagt Dewey wat architectuur, beeldhouwkunst, schilderkunst, muziek en literatuur gemeen hebben en waarin zij verschillen. Het gemeenschappelijke zoekt hij in het medium: het materiaal wordt medium zodra het betekenis draagt en tussen maker en waarnemer in komt te staan. Verf is stof; verf die iets doet zien is medium.</p>
+      <p>De verschillen leidt hij af uit de zintuigen en uit de tijd. Muziek verloopt in de tijd en kan spanning opbouwen die pas later oplost; schilderkunst geeft alles tegelijk en moet beweging in stilstand suggereren; architectuur werkt met massa, draagkracht en het lichaam dat zich erdoorheen beweegt.</p>
+      <h3>Kritiek, filosofie en beschaving</h3>
+      <p>De slothoofdstukken keren zich tegen twee soorten kritiek: de rechterlijke, die werken afmeet aan vaste regels van een school, en de indruksgerichte, die niet verder komt dan het verslag van een persoonlijke opwelling. Kritiek is volgens Dewey een oordeel dat de waarneming van anderen scherper maakt, en dat kan alleen als de criticus laat zien waar in het werk hij iets vandaan haalt.</p>
+      <p>In het laatste hoofdstuk krijgt kunst een plaats in de samenleving. Zij draagt gedeelde betekenissen verder dan taal en wet dat kunnen, en zij werkt op de verbeelding, die Dewey de voorwaarde van moreel handelen noemt: zonder het vermogen zich een andere toestand voor te stellen valt er niets te willen. Dat is een politieke claim, en Dewey formuleert haar ook zo.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">een ervaring</td><td>Een afgeronde episode met opbouw en afsluiting, tegenover de losse stroom van gebeurtenissen die zonder vorm voorbijgaat.</td></tr>
+          <tr><td class="term">het levende wezen</td><td>Het organisme in wisselwerking met zijn omgeving, waar Dewey zijn hele esthetica op laat rusten in plaats van op geest of smaak.</td></tr>
+          <tr><td class="term">doen en ondergaan</td><td>De afwisseling van handelen en de gevolgen daarvan opnemen, die volgens Dewey het ritme van elke geslaagde ervaring bepaalt.</td></tr>
+          <tr><td class="term">vervulling</td><td>Het punt waarop een opgebouwde spanning oplost en de episode als geheel voelbaar wordt, niet te verwarren met een willekeurig einde.</td></tr>
+          <tr><td class="term">ritme</td><td>De terugkeer met verschil die Dewey in de natuur aanwijst als de bron van elke artistieke vorm.</td></tr>
+          <tr><td class="term">uitdrukking tegenover ontlading</td><td>Een gevoel uitwerken in weerbarstig materiaal, tegenover het lozen van dat gevoel zonder dat er iets gemaakt wordt.</td></tr>
+          <tr><td class="term">medium</td><td>Materiaal dat betekenis is gaan dragen en daardoor tussen maker en waarnemer in staat, in onderscheid van het ruwe materiaal zelf.</td></tr>
+          <tr><td class="term">de museumopvatting van kunst</td><td>De gewoonte om kunst te herkennen aan de instelling die haar bewaart, die volgens Dewey de theorie op een dwaalspoor bracht.</td></tr>
+          <tr><td class="term">het anesthetische</td><td>Ervaring met gaten, mechanische overgangen en dode punten, waarin niets zich ontwikkelt en niets afgerond raakt.</td></tr>
+          <tr><td class="term">artistiek en esthetisch</td><td>Dewey scheidt het maken van het werk van het opnemen ervan, en betoogt dat beide dezelfde structuur hebben omdat de maker ook waarnemer is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek in de zin van proeven of metingen. De onderbouwing bestaat uit drie soorten materiaal. Ten eerste een biologische aanname: het organisme dat evenwicht verliest en herwint, ontleend aan de fysiologie van zijn tijd en aan het functionalisme in de psychologie waaraan Dewey zelf had bijgedragen. Ten tweede historische en antropologische voorbeelden: Griekse tempels die stadsgebouwen waren, gebruiksvoorwerpen uit niet-westerse culturen die in westerse musea tot kunst werden verklaard, volksliederen en dansen.</p>
+      <p>Ten derde de kunstwerken zelf. Dewey schreef het boek in de jaren dat hij aan de Barnes Foundation verbonden was en dagelijks de verzameling van Albert Barnes voor zich had, met veel negentiende-eeuwse Franse schilderkunst. De opdracht van het boek is aan Barnes gericht. Wie de analyses van kleur, massa en beweging leest, herkent de gewoonte om lang naar één doek te kijken.</p>
+      <p>De kracht van dat materiaal is ongelijk. De historische claim dat de scheiding tussen kunst en leven een moderne, institutionele oorsprong heeft, is later door kunsthistorici in grote lijnen bevestigd. De biologische claim is eerder een beeld dan een theorie: Dewey leidt er geen toetsbare voorspellingen uit af, en het is niet duidelijk wat een tegenvoorbeeld zou zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft het criterium zelf. Als een maaltijd, een opgelost probleem en een goed gevoerd gesprek allemaal een ervaring zijn, dan onderscheidt het begrip esthetisch niets meer van wat het zou moeten onderscheiden. Analytisch geschoolde critici als Arnold Isenberg en Marshall Cohen hebben dat aangewezen: eenheid, ontwikkeling en vervulling zijn te ruim om aan te geven waarom het ene werk beter is dan het andere.</p>
+      <p>Stephen Pepper voerde aan dat Dewey twee onverenigbare stelsels mengt, het pragmatisme van middelen en gevolgen en een hegeliaans organicisme waarin het geheel de delen verklaart, en dat beide daardoor aan scherpte inboeten. Susanne Langer verweet het pragmatisme psychologisme, het terugvoeren van menselijke belangen op dierlijke behoeften. Benedetto Croce meende juist dat Dewey ongemerkt bij zijn eigen idealisme uitkwam. Eliseo Vivas betwijfelde of emotie wel zo vast met esthetische ervaring verbonden is als Dewey aanneemt, aangezien toeschouwers uiteenlopend reageren op hetzelfde werk.</p>
+      <p>Verder is de museumopvatting die Dewey bestrijdt deels een tegenstander van eigen makelij. Weinig theoretici hebben ooit beweerd dat kunst pas kunst wordt door de vitrine; wat zij verdedigden was dat esthetisch oordelen een eigen soort aandacht vraagt, en die stelling raakt Dewey niet. Ten slotte is de stijl een echte hindernis. Het boek herhaalt zichzelf, wisselt zelden van register en geeft de lezer weinig houvast in de vorm van tussenkoppen of afgebakende argumenten.</p>
+      <p>Wat het boek niet doet, is een kunsttheorie leveren waarmee afzonderlijke werken beoordeeld kunnen worden. Dewey geeft een beschrijving van waar kunst vandaan komt en waar zij op lijkt, en laat het oordeel over aan kritiek die hij verder weinig gereedschap meegeeft.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem als eenheid van aandacht niet het werk maar de episode: begin, opbouw, afsluiting.</li>
+        <li>Let bij eigen werk op de gaten en de mechanische overgangen die Dewey anesthetisch noemt, en herstel die eerst.</li>
+        <li>Onderscheid ontlading van uitdrukking: vraag of er materiaal is dat weerstand bood en of er iets buiten de maker is ontstaan.</li>
+        <li>Bekijk een gebruiksvoorwerp of gebouw op dezelfde manier als een schilderij, en let op wat dat aan het oordeel verandert.</li>
+        <li>Vermijd kritiek die een werk aan schoolregels afmeet, en wijs in plaats daarvan aan waar in het werk het oordeel vandaan komt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Art as Experience</i> (Minton, Balch &amp; Company, New York, 1934), voortgekomen uit de eerste reeks William James Lectures die Dewey aan Harvard hield. Het boek is opgedragen aan de verzamelaar Albert C. Barnes, aan wiens stichting Dewey als onderwijsdirecteur verbonden was. De pocket die sindsdien het meest gelezen wordt verscheen bij Perigee/Putnam, New York (1980, 355 blz., ISBN 9780399500251). Een Nederlandse vertaling van dit boek bestaat niet. Van Dewey is in het Nederlands wel <i>Ervaring en opvoeding</i> verschenen, vertaald en ingeleid door Gert Biesta en Siebren Miedema (Bohn Stafleu Van Loghum, Houten, 1999, ISBN 9789031326778); daarnaast stelde Joop Berding de bloemlezing <i>John Dewey over opvoeding, onderwijs en burgerschap</i> samen (SWP, Amsterdam, ISBN 9789088500572).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dewey schreef dit boek op vijfenzeventigjarige leeftijd, na een leven van werk over kennis, opvoeding en democratie. Het is zijn poging om esthetica los te maken van het museum en terug te brengen bij het levende lichaam. Kunst begint volgens hem niet bij het meesterwerk maar bij het ritme van een organisme dat met zijn omgeving in de weer is: eten, ademen, werken, herstellen na verstoring.</p><p>De kern van het boek is het onderscheid tussen ervaring in het algemeen en wat Dewey een ervaring noemt. Het meeste van wat een dag vult, loopt uit, wordt afgebroken of vervaagt. Soms krijgt een reeks gebeurtenissen een begin, een spanning en een afronding, en blijft die als geheel hangen: een gesprek dat ergens uitkwam, een storm die uitwoedde, een stuk werk dat af raakte. Dat patroon noemt Dewey esthetisch, ook als er geen kunstwerk aan te pas komt.</p><p>Vanuit dat vertrekpunt bouwt hij een theorie van uitdrukking, vorm, materiaal en kritiek op, en eindigt hij bij de plaats van kunst in een samenleving. De verwijdering tussen kunst en dagelijks leven ziet hij als een gevolg van geschiedenis, niet van de aard van kunst: het Parthenon en de Afrikaanse maskers in de vitrine hadden ooit een gebruik en een publiek dat er middenin stond.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esthetica</li><li>pragmatisme</li><li>ervaring</li><li>kunstfilosofie</li><li>waarneming</li><li>vakmanschap</li><li>alledaags</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="756"><a href="756.html">Philosophy in a New Key</a>. Susanne Langer bouwde in <i>Philosophy in a New Key</i> een tegengestelde esthetica op waarin kunst symbolische vorm is; zij verweet het pragmatisme juist het reduceren van betekenis tot behoefte.</li>
+          <li value="828"><a href="828.html">Art and Illusion</a>. Gombrich onderzoekt in <i>Art and Illusion</i> hoe waarneming van beelden werkt, en levert daarmee het soort empirische onderbouwing dat bij Dewey ontbreekt.</li>
+          <li value="952"><a href="952.html">Silence: Lectures and Writings</a>. John Cage trok de gedachte dat esthetische aandacht overal op gericht kan worden verder door dan Dewey deed, tot aan omgevingsgeluid en stilte.</li>
+          <li value="17"><a href="17.html">The Creative Act</a>. Rick Rubin herhaalt in <i>The Creative Act</i> veel van Dewey's uitgangspunten in praktische vorm, zonder de argumentatie eronder.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

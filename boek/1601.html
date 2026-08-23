@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De cirkel van het leven &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kübler-Ross vertelt haar leven als één doorlopend leerproces met steeds dezelfde uitkomst: dat de dood geen einde is en dat mensen die daarvan overtuigd…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1601">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1601 &middot; Roman en memoir</p>
+    <h1>De cirkel van het leven</h1>
+    <p class="lede">Elisabeth Kübler-Ross, 1997; met Todd Gold</p>
+    <p class="stats">
+      <span><b>1497</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1601"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kübler-Ross vertelt haar leven als één doorlopend leerproces met steeds dezelfde uitkomst: dat de dood geen einde is en dat mensen die daarvan overtuigd raken anders gaan leven. Zij verbindt dat aan een tweede stelling, namelijk dat de geneeskunde de stervende in de steek liet door hem niet te vragen hoe het met hem ging, en dat zij dat gebrek heeft hersteld door simpelweg naast het bed te gaan zitten en te luisteren. Het eerste deel van die claim rust op waarneembaar werk dat de zorg blijvend heeft veranderd. Het tweede rust op persoonlijke ervaringen die zij als bewijs presenteert en die zich buiten het bereik van toetsing bevinden. Het boek biedt beide aan onder dezelfde noemer.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Zürich, een drieling en een vader</h3>
+      <p>Zij wordt in 1926 geboren als eerste van een drieling, met een geboortegewicht van iets meer dan negenhonderd gram. Dat gegeven keert in het boek terug als verklaring voor twee dingen: dat zij haar leven lang moest bewijzen dat zij bestond, en dat zij nooit geloofde dat een klein of zwak leven minder waard is.</p>
+      <p>Haar vader wilde dat zij boekhoudster werd op zijn kantoor. Zij weigerde, ging het huis uit en werkte onder meer als hulp in een ziekenhuislaboratorium. De strijd om te mogen studeren loopt door de eerste hoofdstukken heen en zet de toon voor de rest van het boek: zij beschrijft zichzelf steeds als iemand die tegen de instelling in werkt.</p>
+      <h3>Polen, 1947</h3>
+      <p>Na de oorlog reist zij als vrijwilliger door Europa en komt zij in Polen terecht, waar zij meehelpt bij de wederopbouw. Zij bezoekt het kamp Majdanek en ziet in de barakken vlinders die door gevangenen in het hout waren gekrast, kort voordat zij naar de gaskamer gingen.</p>
+      <p>Die vlinders worden het beeld waar het hele boek op leunt. Kübler-Ross leest ze als teken dat mensen op de drempel van de dood iets wisten over wat er daarna komt. Zij vertelt daarnaast over een ontmoeting met een overlevende die haar vertelde de mensen die haar familie vermoordden niet te haten, omdat haat alleen nieuwe Hitlers voortbrengt.</p>
+      <h3>Arts worden, en naar Amerika</h3>
+      <p>Zij haalt haar artsdiploma in Zürich in 1957 en trouwt met de Amerikaanse medestudent Emanuel Ross. Het paar vertrekt naar de Verenigde Staten, waar zij in 1959 aan een psychiatrieopleiding begint in het Manhattan State Hospital. Zij beschrijft daar hoe zij patiënten die jaren waren afgeschreven als mensen ging behandelen, met resultaten die haar collega's verbaasden.</p>
+      <p>Via Colorado komt zij in 1965 in Chicago terecht. Daar begint zij met een reeks seminars waarin studenten in gesprek gaan met stervende patiënten, achter een doorkijkspiegel gevolgd door de rest van de groep. Het verzet van de behandelend artsen, die volhielden dat er op hun afdeling niemand stervende was, is een van de scherpste passages van het boek.</p>
+      <h3>De vijf fasen en de roem</h3>
+      <p>Uit die seminars komt <i>On Death and Dying</i> voort, in 1969 verschenen. Het beschrijft ontkenning, woede, marchanderen, depressie en aanvaarding als reeks houdingen die zij bij stervenden waarnam. <i>Life</i> besteedde er in november van dat jaar aandacht aan en zij werd binnen enkele maanden een publieke figuur.</p>
+      <p>Zij vertelt over lezingen, over een verhoor in de Amerikaanse Senaat in 1972 over sterven in waardigheid, en over de tol die het reizen eiste van haar huwelijk en haar twee kinderen. Het huwelijk eindigde in 1979. Zij schrijft daar kort over en zonder zichzelf te sparen, al blijft het perspectief van de anderen buiten beeld.</p>
+      <h3>Het hiernamaals</h3>
+      <p>Vanaf ongeveer de helft verandert het boek van soort. Kübler-Ross vertelt over een patiënte die na haar dood aan haar verscheen en die zij vroeg een briefje te schrijven ter bevestiging, over een jongen die zij Jeffy noemt, over uittredingen die zij zelf zou hebben ondergaan, en over wat zij haar kosmisch bewustzijn noemt: een ervaring in de jaren zeventig waarin zij zegt met alles verbonden te zijn geweest.</p>
+      <p>Zij richt in 1977 het centrum Shanti Nilaya op bij Escondido in Californië, waar zij weeklange werkplaatsen geeft. In die jaren raakt zij verbonden aan Jay Barham, die beweerde geesten op te roepen. Toen bleek dat er tijdens die zittingen vrouwen werden ingezet die zich als verschijningen voordeden, bleef zij hem meer dan een jaar verdedigen voordat zij in 1981 afstand nam. Het boek behandelt die episode, maar houdt haar kort.</p>
+      <h3>Aids, brand en ziekte</h3>
+      <p>In de jaren tachtig neemt zij aidspatiënten aan in een tijd dat vrijwel niemand dat deed, en zij probeert in Virginia een tehuis op te zetten voor besmette baby's. De omgeving verzette zich; in oktober 1994 brandde haar huis daar af, met haar dagboeken en aantekeningen erin. Brandstichting werd vermoed, maar is nooit bewezen.</p>
+      <p>Zij verhuist naar Arizona en krijgt in mei 1995 een zware beroerte, waarna zij in een rolstoel belandt. In de laatste hoofdstukken schrijft zij vanuit die toestand: afhankelijk, boos dat het zo lang duurt, en tegelijk overtuigd dat het einde geen einde is. Zij stierf in 2004, zeven jaar na het verschijnen van dit boek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De vijf fasen</td><td>Ontkenning, woede, marchanderen, depressie en aanvaarding, oorspronkelijk beschreven als houdingen van stervenden en later vooral toegepast op nabestaanden.</td></tr>
+          <tr><td class="term">De vlinder</td><td>Het teken dat zij in de barakken van Majdanek in het hout gekrast zag en dat zij las als beeld voor het verlaten van het lichaam.</td></tr>
+          <tr><td class="term">De cocon en de vlinder</td><td>Haar beeld voor het sterven: het lichaam als omhulsel dat wordt achtergelaten door iets dat verdergaat.</td></tr>
+          <tr><td class="term">Onafgemaakte zaken</td><td>De term waarmee zij aanduidt wat iemand nog met anderen of met zichzelf heeft uit te praten en wat volgens haar het sterven bemoeilijkt zolang het blijft liggen.</td></tr>
+          <tr><td class="term">Shanti Nilaya</td><td>Het centrum dat zij in 1977 in Californië oprichtte, waar zij meerdaagse werkplaatsen over leven, dood en overgang gaf.</td></tr>
+          <tr><td class="term">Bijna-doodervaring</td><td>Het verslag van mensen die na een hartstilstand werden gereanimeerd, dat zij verzamelde en als aanwijzing voor voortbestaan opvatte.</td></tr>
+          <tr><td class="term">Kosmisch bewustzijn</td><td>Haar eigen ervaring waarin zij zegt de grens tussen zichzelf en de rest van het bestaan te hebben zien wegvallen.</td></tr>
+          <tr><td class="term">Sterven in waardigheid</td><td>De uitdrukking waarmee zij bepleitte dat een patiënt de waarheid over zijn toestand hoort en zelf mag bepalen hoe hij zijn laatste tijd doorbrengt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het verifieerbare deel van het boek is stevig. De seminars in Chicago hebben plaatsgevonden, <i>On Death and Dying</i> is verschenen en heeft de omgang met stervenden in ziekenhuizen en in het hospicewerk aantoonbaar veranderd. Haar getuigenis voor de Amerikaanse Senaat in 1972, haar werk met aidspatiënten en haar betrokkenheid bij hospices in gevangenissen zijn te controleren gebeurtenissen.</p>
+      <p>Het bewijs voor de vijf fasen is zwakker dan de bekendheid van het model doet vermoeden. Het kwam voort uit gesprekken met terminale patiënten in een enkel ziekenhuis, zonder controlegroep, zonder meetinstrument en zonder een manier om vast te stellen of een fase aanwezig was. Later onderzoek heeft het model als vaste volgorde niet bevestigd; Kübler-Ross heeft zelf, in samenwerking met David Kessler, geschreven dat de fasen geen haltes op een tijdlijn zijn en dat niet iedereen ze doorloopt.</p>
+      <p>Voor het tweede deel van het boek levert zij geen bewijs dat buiten haarzelf omgaat. De verschijningen, de uittredingen en de briefjes van gestorvenen zijn haar eigen waarneming, opgeschreven decennia na dato en na een periode waarin haar aantekeningen waren verbrand. Zij noemt het bewijs, en de lezer heeft daar niets aan behalve haar woord.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek twee soorten uitspraken zonder onderscheid naast elkaar zet. Dat een stervende beter af is wanneer men hem de waarheid vertelt, is een stelling waar dertig jaar praktijk achter zit. Dat de dood niet bestaat, is een geloofsuitspraak. Door beide in dezelfde toon en met hetzelfde gezag te brengen, verzwakt zij haar eigen sterkste punt.</p>
+      <p>De Barham-episode wordt zo kort behandeld dat het lijkt alsof zij haar liever niet had opgeschreven. Zij was destijds op haar hoogtepunt als gezaghebbende arts en verdedigde meer dan een jaar lang iemand van wie was aangetoond dat hij mensen bedroog in een uiterst kwetsbare toestand. Het boek geeft daar geen verklaring voor die verder gaat dan dat zij zich liet meeslepen.</p>
+      <p>Als autobiografie is het bovendien eenzijdig. Kübler-Ross vertelt over haar echtgenoot en haar kinderen vooral in termen van wat haar werk hun kostte, en de rekening blijft ongeteld. Zij is jarenlang zoveel onderweg geweest dat het gezin haar nauwelijks zag, en het boek geeft de anderen geen gelegenheid daar iets tegenover te zetten.</p>
+      <p>Ten slotte draagt het boek de sporen van de omstandigheden waarin het is gemaakt: veertig korte hoofdstukken, opgetekend door een journalist, bij een auteur die na meerdere beroertes werkte en haar archief was kwijtgeraakt. De anekdotes zijn afgerond en de dialogen lopen glad, wat bij een geheugen onder die druk vragen oproept over de precisie van de details.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Wheel of Life. A Memoir of Living and Dying</i> (Scribner/Simon &amp; Schuster, New York, 1997, 304 blz.), geschreven met medewerking van journalist Todd Gold. De Nederlandse vertaling is van Ad. J. Koekkoek en draagt de ondertitel <i>Herinneringen aan leven en sterven</i>; het e-boek verscheen bij Ambo|Anthos, Amsterdam, in 2012 (ISBN 9789026326257). Van Kübler-Ross zijn in Nederland eerder onder meer <i>On Death and Dying</i> (1969) als <i>Lessen voor levenden</i> en <i>On Life after Death</i> (1991) vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Elisabeth Kübler-Ross (1926-2004) was de Zwitsers-Amerikaanse psychiater die met <i>On Death and Dying</i> uit 1969 de vijf fasen van rouw introduceerde en het gesprek met stervenden tot onderwerp van de geneeskunde maakte. Dit boek schreef zij op haar zeventigste, na een reeks beroertes, samen met de journalist Todd Gold.</p><p>Het is een autobiografie in veertig korte hoofdstukken. Zij begint bij haar geboorte als kleinste van een drieling in Zürich, gaat via een vrijwilligersreis door naoorlogs Polen en het kamp Majdanek naar haar medicijnenstudie, haar huwelijk, haar vertrek naar de Verenigde Staten en haar seminars met stervende patiënten in Chicago.</p><p>In de tweede helft verschuift het boek van geneeskunde naar het hiernamaals. Kübler-Ross beschrijft bijna-doodervaringen van patiënten, verschijningen, uittredingen en haar eigen ervaring van wat zij kosmisch bewustzijn noemt. Haar slotsom staat er onomwonden: de dood bestaat niet. Wat het boek daarmee wint aan overtuiging, verliest het aan controleerbaarheid.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>sterven</li><li>rouw</li><li>vijf fasen</li><li>bijna-doodervaring</li><li>hospice</li><li>psychiatrie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="285"><a href="285.html">Tuesdays with Morrie</a>. Albom doet in gesprekken met een stervende hoogleraar praktisch wat Kübler-Ross als methode beschreef: gaan zitten en vragen hoe het is.</li>
+          <li value="1506"><a href="1506.html">After</a>. Greyson onderzoekt bijna-doodervaringen met de terughoudendheid die in het tweede deel van dit boek ontbreekt.</li>
+          <li value="49"><a href="49.html">When Breath Becomes Air</a>. Kalanithi schrijft over zijn eigen sterven als arts en patiënt tegelijk, zonder de troost die Kübler-Ross uiteindelijk aanreikt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

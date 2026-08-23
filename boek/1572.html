@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retraite in zakformaat &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lips gaat ervan uit dat zelfonderzoek zelden vanzelf op gang komt en dat het meestal een uitspraak van iemand anders nodig heeft om het eigen denken te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1572">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1572 &middot; Levenskunst</p>
+    <h1>Retraite in zakformaat</h1>
+    <p class="lede">Roek Lips, 2025</p>
+    <p class="stats">
+      <span><b>1316</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1572"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lips gaat ervan uit dat zelfonderzoek zelden vanzelf op gang komt en dat het meestal een uitspraak van iemand anders nodig heeft om het eigen denken te onderbreken. Daarop bouwt hij een boek dat de vorm van een retraite, terugtrekken, langzaam kijken en niet meteen willen veranderen, losmaakt van de plaats en de duur ervan. Zijn stelling is dat het middel niet de stilte van een week is maar de onderbreking zelf, en dat een citaat met een overdenking en een vraag daarvoor volstaat. Daarmee stelt hij ook iets over de volgorde: eerst zien wat er is, dan pas de vraag wat ermee te doen valt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vorm: uitspraak, overdenking, vraag</h3>
+      <p>Elk van de tachtig onderdelen begint met een uitspraak van iemand die Lips heeft gesproken. Daarna volgt zijn eigen overdenking van ongeveer twee bladzijden, waarin hij de uitspraak uit elkaar haalt en verbindt met wat hij zelf heeft meegemaakt of gelezen. Het onderdeel sluit met een vraag die rechtstreeks aan de lezer is gericht.</p>
+      <p>Die drieledige vorm is over alle tachtig stukken gelijk gehouden. Het gevolg is dat het boek zich niet aan een stuk laat lezen zonder dat de herhaling voelbaar wordt; het is opgezet om er telkens een enkel stuk uit te nemen.</p>
+      <h3>Vijf delen als vijf fasen</h3>
+      <p>De tachtig stukken zijn verdeeld over vijf delen. Lips stelt die voor als vijf fasen van een innerlijke reis: het begint bij het naar zichzelf kijken en het eindigt bij het terugkeren in de bredere stroom van het leven. Wie het boek van voor naar achter leest, doorloopt die volgorde; wie erin bladert, doet dat niet.</p>
+      <p>De reeks is bedoeld om zich te herhalen. Het eindpunt van de vijf delen is niet een bereikte toestand maar het punt waarop de beweging opnieuw kan beginnen.</p>
+      <h3>Onvermogen en schaamte</h3>
+      <p>In het deel over onvermogen keert Lips zich tegen de gedachte dat falen buiten het leven te houden is. Hij noteert daar dat mensen elkaar mogelijk niet kwijtraken doordat zij tekortschieten, maar doordat zij leven alsof tekortschieten niet zou mogen bestaan.</p>
+      <p>Schaamte behandelt hij als toegang tot zelfkennis in plaats van als iets dat weggewerkt moet worden. Het gaat hem om de vraag waar de schaamte precies over gaat en welke maatstaf erin verstopt zit, niet om het kwijtraken van het gevoel.</p>
+      <h3>Lichtheid en troost</h3>
+      <p>Lichtheid omschrijft Lips als het vermogen om de dingen te laten zijn zoals ze zijn en er geen oordeel op te leggen. Het is in zijn opzet geen vrolijkheid en geen onverschilligheid, maar het achterwege laten van de reflex om alles direct te wegen.</p>
+      <p>Troost krijgt bij hem een omschrijving die de recensent van Boekenkrant aanhaalt: een innerlijke houding waarmee iemand zich tot het moeilijke kan verhouden. Troost is in die omschrijving dus geen wegnemen van pijn. Dat sluit aan bij de vragen die het boek stelt, zoals wat de onrust die iemand ervaart probeert duidelijk te maken, en wat er te zien is bij het kijken naar het eigen leven zonder het te willen veranderen.</p>
+      <h3>Wie er aan het woord komen</h3>
+      <p>De uitspraken komen uit uiteenlopende hoeken. Genoemd worden onder anderen Gerdi Verbeet, Ahmed Aboutaleb en Stef Bos, de boeddhistisch leraar Jan Geurtz, de hoogleraar spiritualiteit Paul de Blot, de filosofen Joke Hermsen, Marli Huijer en Stine Jensen, ontwerper Daan Roosegaarde en theologe Maria de Groot.</p>
+      <p>Lips beroept zich nergens op hun gezag als deskundige. Hij gebruikt de uitspraken als aanleiding, waarna de overdenking zijn eigen tekst is.</p>
+      <h3>De achtergrond van de schrijver</h3>
+      <p>Lips was jarenlang programmamaker en netmanager bij de publieke omroep en begon daarna een eigen praktijk en het platform Nieuwe Leiders. In 2011 verdronk zijn achttienjarige zoon Job voor de kust bij San Sebastian; in 2023 werd bij hemzelf acute leukemie vastgesteld.</p>
+      <p>Die twee gebeurtenissen liggen onder het boek zonder dat het erover gaat. Zij verklaren wel waarom de nadruk in de tachtig stukken zo vaak op verlies, verhouden en dankbaarheid ligt en niet op vooruitgang.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Retraite in zakformaat</td><td>Lips' aanduiding voor een korte onderbreking met dezelfde werking als een retraite, gebonden aan een enkele uitspraak en een enkele vraag in plaats van aan een plek en een periode.</td></tr>
+          <tr><td class="term">Onvermogen</td><td>Het tekortschieten dat volgens Lips bij het leven hoort en dat schade aanricht juist wanneer het wordt weggeredeneerd.</td></tr>
+          <tr><td class="term">Schaamte</td><td>Bij Lips een aanwijzing waar iemands maatstaven liggen, en daarmee bruikbaar voor zelfkennis in plaats van iets dat opgelost moet worden.</td></tr>
+          <tr><td class="term">Lichtheid</td><td>Het laten zijn van wat er is, zonder het meteen te beoordelen of te willen bijstellen.</td></tr>
+          <tr><td class="term">Troost</td><td>Een innerlijke houding waarmee iemand zich tot het moeilijke verhoudt, uitdrukkelijk niet het wegnemen van de pijn.</td></tr>
+          <tr><td class="term">Ontroering</td><td>Het aangeraakt worden dat Lips leest als aanwijzing dat iets ertoe doet; de recensie in Boekenkrant vindt dat hij dit onderwerp te kort houdt.</td></tr>
+          <tr><td class="term">De slotvraag</td><td>De vraag waarmee elk stuk eindigt en die de lezer van beschouwer tot deelnemer maakt, bijvoorbeeld wat de onrust probeert duidelijk te maken.</td></tr>
+          <tr><td class="term">Innerlijke reis</td><td>De vijfdelige beweging die het boek ordent, van zelfonderzoek naar terugkeer in het gewone leven, bedoeld om zich te herhalen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op interviewmateriaal, niet op onderzoek. Lips voerde naar eigen opgave ruim tweehonderd gesprekken en koos daaruit tachtig uitspraken; welke gesprekken dat waren en op welke grond hij selecteerde, staat er niet bij. De gesprekspartners zijn wel met naam genoemd, zodat de herkomst van elk citaat controleerbaar is.</p>
+      <p>Voor de stelling dat een korte onderbreking hetzelfde doet als een langere afzondering voert het boek geen bewijs aan. Er wordt geen psychologisch of contemplatief onderzoek geciteerd en er is geen vergelijking met de retraitepraktijk waaraan de titel refereert. De onderbouwing is van een andere soort: de overdenkingen moeten voor zichzelf spreken.</p>
+      <p>Wat het boek wel biedt, zijn omschrijvingen die scherp genoeg zijn om te toetsen. De omschrijving van troost als houding in plaats van als verlichting is er een van; die valt af te zetten tegen wat rouwliteratuur en de troostpraktijk er doorgaans onder verstaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de selectie. Tachtig uitspraken uit tweehonderd gesprekken, gekozen door de auteur zelf, leveren een verzameling op die vooral bevestigt wat hij al vond. Er staat geen uitspraak in die zijn opzet weerspreekt, terwijl in tweehonderd gesprekken tegenspraak nauwelijks kan hebben ontbroken.</p>
+      <p>De vijf fasen worden gepresenteerd, niet beargumenteerd. Waarom het juist deze vijf zijn, waarom zij in deze volgorde staan en waarom de reeks zich herhaalt, blijft ongezegd. Wie de indeling niet aanvaardt, houdt tachtig losse stukken over.</p>
+      <p>De recensie in Boekenkrant, die vier van vijf sterren geeft, noemt de behandeling van ontroering te dun. Dat bezwaar geldt breder: doordat elk stuk twee bladzijden krijgt, wordt geen enkel onderwerp doorgedacht tot het punt waarop het lastig wordt. Het boek is toegankelijk gebleven ten koste van diepgang.</p>
+      <p>Ten slotte deelt het de zwakte van het genre. Uitspraken van bekende Nederlanders krijgen door hun plaatsing gezag dat zij inhoudelijk niet hoeven te hebben, en de lezer wordt niet uitgenodigd te vragen of de uitspraak eigenlijk waar is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees een enkel stuk per keer en sla het boek daarna dicht; het is niet geschreven om achter elkaar door te nemen.</li>
+        <li>Schrijf het antwoord op de slotvraag op in plaats van het te denken; de vragen zijn zo gesteld dat een gedachte er te snel langs glijdt.</li>
+        <li>Toets bij elke uitspraak eerst of zij klopt voordat de overdenking wordt gelezen, zodat het gezag van de spreker het oordeel niet overneemt.</li>
+        <li>Gebruik de vijfdeling als volgorde bij een langere periode van bezinning, en niet als beschrijving van hoe verwerking zou moeten verlopen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ambo|Anthos, Amsterdam, 2025, 208 blz., ISBN 9789026371219; ook als e-boek, ISBN 9789026371226. Oorspronkelijk Nederlandstalig werk; er bestaat geen vertaling en het is niet uit een andere taal vertaald. De ondertitel luidt <i>Tachtig inspirerende citaten, overdenkingen en vragen die aanzetten tot reflectie</i>. Van dezelfde auteur verschenen eerder onder meer <i>Het boek Job</i> (Prometheus, 2013) en <i>De wereld dat ben jij</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Roek Lips voerde in de jaren voor dit boek ruim tweehonderd lange gesprekken met wetenschappers, geestelijken, filosofen, kunstenaars en bestuurders. Uit die gesprekken lichtte hij tachtig uitspraken. Elke uitspraak krijgt ongeveer twee bladzijden overdenking en eindigt met een vraag aan de lezer.</p><p>De tachtig stukjes staan in vijf delen, die volgens de auteur vijf fasen van een innerlijke reis volgen: het begint bij het kijken naar het eigen leven en het eindigt bij de terugkeer in de gewone gang van zaken. Onder de behandelde onderwerpen zitten onvermogen, schaamte, moed, geweten, vertrouwen, intimiteit, lichtheid en troost.</p><p>De titel geeft de opzet weer. Lips gaat ervan uit dat het terugtrekken en het langzame kijken die bij een retraite horen niet aan een klooster of aan een vrije week gebonden zijn, en dat een paar bladzijden met een uitspraak van iemand anders er ook toe kunnen dienen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>levenskunst</li><li>reflectie</li><li>citaten</li><li>zingeving</li><li>troost</li><li>zelfonderzoek</li><li>interviews</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schreef zelf al korte overdenkingen voor eigen gebruik, met dezelfde opzet van een gedachte per keer en zonder betoog eromheen.</li>
+          <li value="519"><a href="519.html">The First and Last Freedom</a>. Krishnamurti bepleit precies het kijken zonder oordeel dat Lips lichtheid noemt, en gaat verder door ook de behoefte aan een leraar of aan citaten te wantrouwen.</li>
+          <li value="1573"><a href="1573.html">Het boek Job</a>. Het eerdere boek van Lips over de dood van zijn zoon laat zien waar het verlies vandaan komt dat in deze tachtig overdenkingen op de achtergrond meespeelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

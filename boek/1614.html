@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leef groots. NU &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Faber betoogt dat een mens de verplichting heeft alles uit zichzelf te halen wat erin zit, en dat het diepste geluk juist daar ontstaat waar iemand zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1614">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1614 &middot; Levenskunst</p>
+    <h1>Leef groots. NU</h1>
+    <p class="lede">Lars Faber, 2012</p>
+    <p class="stats">
+      <span><b>1506</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1614"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Faber betoogt dat een mens de verplichting heeft alles uit zichzelf te halen wat erin zit, en dat het diepste geluk juist daar ontstaat waar iemand zijn eigen mogelijkheden tot het uiterste ontwikkelt. Zijn tweede stelling is dat die ontwikkeling niet in één richting loopt: er zijn negen kanten aan een mens, van lichamelijke vitaliteit tot overgave, en wie zich op één of twee ervan uitleeft blijft scheefgegroeid. Groots leven is bij hem dus een evenwichtsoefening over negen gebieden tegelijk, verankerd in het lichaam en gericht op een persoonlijke missie. De aanspraak waarmee het boek opent is dat de lezer de fakkeldrager van het leven is, en dat het universum er miljarden jaren over heeft gedaan om bij hem uit te komen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel een: groots leven</h3>
+      <p>Het eerste deel legt de grondslag. Faber schetst evolutie als een lange lijn die uitmondt in een wezen dat zichzelf kan waarnemen en sturen, en leidt daaruit een opdracht af. Wie zijn mogelijkheden laat liggen, verspilt volgens hem iets dat niet van hem alleen is.</p>
+      <p>Hij zet zich af tegen de gedachte dat streven naar het uiterste zelfzuchtig zou zijn. Zijn redenering is dat het leven zich door mensen heen ontwikkelt, en dat iemand die zichzelf ontplooit daarmee het geheel dient. Bescheidenheid die neerkomt op niets doen, valt daar volgens hem buiten.</p>
+      <h3>De opbouw van het middendeel</h3>
+      <p>Het tweede en veruit grootste deel behandelt negen archetypen van menselijke ontwikkeling. Elk archetype krijgt een reeks genummerde lessen, oplopend tot honderd, met per les een thema. De volgorde loopt van het lichamelijke naar het geestelijke, en Faber koppelt elk archetype aan een gebied in het lichaam.</p>
+      <p>Die koppeling volgt de indeling die uit de yogatraditie bekend is: bekken, buik, zonnevlecht, hart, keel, hoofd en kruin. Faber legt daar geen fysiologische claim onder; hij gebruikt het als ordening waarmee een lezer een thema in zichzelf kan lokaliseren.</p>
+      <h3>Lichaam, gevoel en wil</h3>
+      <p>De wildeman of wildevrouw staat voor vitaliteit en hoort bij het bekken. Hier gaat het over slaap, beweging, biologische voeding en het herstellen van de verbinding met wat het lichaam nodig heeft. Faber is op dit punt het meest praktisch en het meest stellig over voeding.</p>
+      <p>De gevoelsmens staat voor levenslust en hoort bij de buik: intimiteit, seksualiteit, zelfaanvaarding, vriendschap en familiebanden. De krijger staat voor wilskracht en hoort bij de zonnevlecht, met thema's als een eigen missie kiezen, doorzetten, terugkoppeling vragen en consequent blijven.</p>
+      <h3>Hart, stem en denken</h3>
+      <p>De koning of koningin gaat over leiderschap met hart. Hier komen hartskracht, gevoelsmatige intelligentie, vergeving en mededogen aan bod, en Faber koppelt leiderschap uitdrukkelijk aan het vermogen om te vergeven in plaats van aan positie of gezag.</p>
+      <p>De artiest gaat over expressie en de keel: zeggen wat er te zeggen valt, maken wat er te maken valt. De filosoof gaat over kennis en over het ordenen van wat iemand meemaakt tot begrip. De magiër gaat over inzicht en verbeelding, over het zien van verbanden die nog niet vastliggen.</p>
+      <h3>Overgave en bestemming</h3>
+      <p>De heilige staat voor overgave en hoort bij de kruin. Hier draait het om het loslaten van de sturing en om het vertrouwen dat er iets groters aan het werk is. Faber presenteert dit als sluitstuk van de reeks en niet als beginpunt: overgave zonder de eerdere ontwikkeling noemt hij ontwijking.</p>
+      <p>De ziel, het negende archetype, gaat over bestemming: de vraag waartoe dit leven dient. Het boek eindigt met de opdracht om een persoonlijke missie te formuleren en die vast te leggen, geholpen door voorbeelden uit de levens van historische figuren die Faber door het boek heen aanhaalt.</p>
+      <h3>Vorm en toon</h3>
+      <p>Het boek is opgezet als een uitgave om in te bladeren: groot formaat, veel foto's en illustraties, korte lessen die los te lezen zijn. De aanspreekvorm is de beleefdheidsvorm, wat het geheel iets van een toespraak geeft.</p>
+      <p>De voorwoorden zijn van Paul de Blot SJ, die aan Nyenrode business spiritualiteit doceerde, en van Tex Gunning, destijds topbestuurder bij Unilever en later bij AkzoNobel en LeasePlan. Die twee namen plaatsen het boek in de hoek waar bewustzijnsontwikkeling en bedrijfsleven elkaar raken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Groots leven</td><td>Fabers aanduiding voor een leven waarin iemand zijn mogelijkheden tot het uiterste ontwikkelt in plaats van te blijven bij wat gewoonte is geworden.</td></tr>
+          <tr><td class="term">De wildeman of wildevrouw</td><td>Het archetype van de vitaliteit, verbonden met het bekken, met slaap, beweging en voeding als onderwerpen.</td></tr>
+          <tr><td class="term">De gevoelsmens</td><td>Het archetype van de levenslust, verbonden met de buik, met intimiteit, seksualiteit en zelfaanvaarding als onderwerpen.</td></tr>
+          <tr><td class="term">De krijger</td><td>Het archetype van de wilskracht, verbonden met de zonnevlecht, met missie, doorzettingsvermogen en terugkoppeling als onderwerpen.</td></tr>
+          <tr><td class="term">De koning of koningin</td><td>Het archetype van het leiderschap met hart, waarin vergeving en mededogen zwaarder wegen dan positie.</td></tr>
+          <tr><td class="term">De artiest</td><td>Het archetype van de expressie, verbonden met de keel, over het uiten van wat er in iemand zit.</td></tr>
+          <tr><td class="term">De filosoof en de magiër</td><td>De archetypen van kennis en van inzicht, door Faber toegewezen aan het ordenende en het beeldende denken.</td></tr>
+          <tr><td class="term">De heilige</td><td>Het archetype van de overgave, verbonden met de kruin, dat Faber pas zinvol acht nadat de eerdere archetypen zijn ontwikkeld.</td></tr>
+          <tr><td class="term">De ziel</td><td>Het negende archetype, dat over bestemming gaat en om het formuleren van een persoonlijke missie vraagt.</td></tr>
+          <tr><td class="term">Fakkeldrager van het leven</td><td>Fabers beeld voor de lezer als voorlopig eindpunt van miljarden jaren evolutie, waaruit hij een verplichting tot ontwikkeling afleidt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een betoog en geen studie. Faber verwijst naar levens van historische en hedendaagse figuren om te laten zien wat hij bedoelt, en hij put uit twintig jaar eigen praktijk met bewustzijnswerk, waaronder ademwerk. Onderzoek dat zijn indeling zou schragen, komt in het boek niet voor, en er staat een literatuurlijst achterin zonder dat de tekst per bewering naar een bron verwijst.</p>
+      <p>De archetypen zelf zijn geen vondst van Faber. Ze combineren de jungiaanse gedachte dat er een beperkt aantal grondvormen in de menselijke psyche werkzaam is met de indeling in energiecentra uit de yogatraditie en met het viertal koning, krijger, magiër en minnaar dat in de mannenbeweging gangbaar werd. Wie die bronnen kent, herkent ze; het boek zegt er weinig over.</p>
+      <p>Het praktische deel is grotendeels afkomstig uit gangbare adviezen over slaap, beweging, voeding en discipline. Dat maakt de lessen op zichzelf niet onjuist, maar de onderbouwing komt van buiten het boek, en waar Faber stellig wordt over biologische voeding en zogeheten supervoeding staat er geen bron bij.</p>
+      <p>De prijs die het boek in 2013 kreeg, de publieksprijs Paravisie Award, is een lezersprijs uit de spirituele hoek. Zij zegt iets over hoe het werd ontvangen en niets over de houdbaarheid van de inhoud.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de negen archetypen een ordening zijn zonder toetsbaarheid. Er is geen manier om vast te stellen dat er negen zijn en niet zeven of twaalf, en er is geen meting die uitwijst of iemand in een bepaald gebied achterloopt. De indeling werkt als geheugensteun; als beschrijving van hoe mensen in elkaar zitten is zij niet meer dan een voorstel.</p>
+      <p>De koppeling van archetypen aan lichaamsgebieden en energiecentra wordt gepresenteerd alsof zij vanzelf spreekt. Er bestaat geen anatomische of fysiologische grond voor de gedachte dat wilskracht in de zonnevlecht zit of overgave op de kruin. Wie het als beeldspraak leest heeft er geen last van, maar het boek maakt dat onderscheid niet.</p>
+      <p>De grondgedachte legt een zware last bij de lezer. Als het universum miljarden jaren aan iemand heeft gewerkt en die persoon daarom verplicht is het uiterste uit zichzelf te halen, dan wordt elke rustperiode, elke tegenslag en elke beperking een tekortkoming. Over omstandigheden die buiten iemands invloed vallen, ziekte, armoede, zorgtaken, staat weinig in het boek.</p>
+      <p>De evolutionaire redenering aan het begin houdt geen stand. Uit het feit dat een soort is ontstaan volgt geen opdracht aan de individuen ervan; dat is de stap van een beschrijving naar een voorschrift, en die wordt hier niet verantwoord maar gebruikt als aanloop.</p>
+      <p>De omvang werkt tegen het boek. Vierhonderdzesentwintig bladzijden met honderd lessen over negen gebieden laten weinig ruimte voor diepgang per onderwerp; onderwerpen als verslaving, rouw en medeafhankelijkheid krijgen enkele bladzijden. Faber heeft zich in de jaren daarna juist op dat laatste onderwerp toegelegd, wat suggereert dat hij die beperking zelf ook zag.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Loop de negen archetypen langs en noteer per gebied wat er de afgelopen jaren aandacht kreeg en wat niet.</li>
+        <li>Kies het gebied met de minste aandacht en werk daar een half jaar aan, in plaats van te beginnen bij wat al goed gaat.</li>
+        <li>Behandel de koppeling aan lichaamsgebieden als beeldspraak en zoek voor voedings- en gezondheidsadviezen een bron buiten dit boek.</li>
+        <li>Schrijf de missie uit het slotdeel op in één zin en toets die na een jaar aan wat je feitelijk hebt gedaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig, uitgegeven door Kinetics Communicatie in november 2012, gebonden, 426 blz., ISBN 9789081883016; de distributie liep via de zelfuitgeefdienst Uitgeverij De Ronde Tafel. Het boek is rijk geïllustreerd en opgezet om open op tafel te blijven liggen; er is ook een e-boek. Voorwoorden van Paul de Blot SJ, hoogleraar business spiritualiteit aan Nyenrode, en van Tex Gunning. In 2013 kreeg het de publieksprijs Paravisie Award en werd het tot boek van het jaar uitgeroepen. Het is niet vertaald; Faber publiceerde later ook over medeafhankelijkheid en ademwerk.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Faber begint bij een aanspraak: het heelal deed er miljarden jaren over om tot deze lezer te komen, en daaruit volgt volgens hem de verplichting om er iets van te maken. Geluk ontstaat in zijn redenering waar iemand het uiterste uit zichzelf haalt, en dat is geen egoïsme omdat het leven zelf er baat bij heeft.</p><p>Het tweede en grootste deel loopt negen archetypen van menselijke ontwikkeling langs: de wildeman of wildevrouw voor vitaliteit, de gevoelsmens voor levenslust, de krijger voor wilskracht, de koning voor leiderschap met hart, de artiest voor expressie, de filosoof voor kennis, de magiër voor inzicht, de heilige voor overgave en de ziel voor bestemming. Elk archetype hoort bij een gebied in het lichaam en bij een levensthema.</p><p>De opzet is dat niemand bij één archetype blijft hangen: de bedoeling is ze alle negen te ontwikkelen en met elkaar in evenwicht te brengen. Faber vult dat aan met honderd genummerde lessen, met voorbeelden uit de levens van bekende figuren en met praktische aanwijzingen over voeding, discipline, intimiteit en vergeving.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>archetypen</li><li>bewustzijnsontwikkeling</li><li>levensmissie</li><li>potentieel</li><li>zelfontplooiing</li><li>ademwerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette werkten twee jaar voor dit boek vier van dezelfde archetypen uit vanuit Jung; Faber breidt hun viertal uit en haalt het uit de mannenbeweging.</li>
+          <li value="360"><a href="360.html">Archetypen</a>. Jung levert het begrip archetype waar Fabers indeling op teruggaat, met de terughoudendheid over vastleggen die bij Faber ontbreekt.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft de reis langs beproevingen als één patroon; Faber knipt dezelfde reis op in negen gebieden die naast elkaar ontwikkeld moeten worden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hallo witte mensen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nzume stelt dat racisme in Nederland niet vooral bestaat uit kwade bedoelingen van enkelingen maar uit een verdeling van voordelen die voor witte…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1619">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1619 &middot; Geschiedenis en samenleving</p>
+    <h1>Hallo witte mensen</h1>
+    <p class="lede">Anousha Nzume, 2017</p>
+    <p class="stats">
+      <span><b>1425</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1619"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nzume stelt dat racisme in Nederland niet vooral bestaat uit kwade bedoelingen van enkelingen maar uit een verdeling van voordelen die voor witte Nederlanders onzichtbaar is omdat zij ervan profiteren. Wie nooit zonder reden wordt aangehouden, nooit hoeft uit te leggen waar hij echt vandaan komt en zichzelf overal afgebeeld ziet, ervaart die toestand als normaal en niet als voordeel. Daaruit volgt haar tweede stelling: de weerstand die ontstaat wanneer dat voordeel wordt benoemd, is zelf een verschijnsel dat verklaring behoeft. Het gesprek loopt volgens haar zo vaak vast op het ongemak van de witte gesprekspartner dat de oorspronkelijke kwestie uit beeld raakt, en haar boek is bedoeld om dat ongemak vooraf te bespreken zodat het gesprek daarna verder kan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanspreekvorm</h3>
+      <p>Het boek richt zich vanaf de eerste bladzijde tot witte lezers en houdt die aanspreking vol. Nzume kiest daarmee een lerarenrol: zij legt uit, zij neemt bij de hand, zij begint bij de eenvoudigste begrippen. Die keuze bepaalt de toon en levert ook de meeste weerstand op, van lezers die zich toegesproken voelen als leerling.</p>
+      <p>De opzet is opklimmend. De eerste hoofdstukken behandelen wat er te weten valt, de latere gaan over wat er ongemakkelijk aan is, en achterin staat wat de lezer ermee zou kunnen doen.</p>
+      <h3>Kleurenblindheid</h3>
+      <p>Nzume begint bij de uitspraak die zij het vaakst tegenkomt: ik zie geen kleur. Zij behandelt die uitspraak als goedbedoeld en als onhoudbaar. Wie geen kleur ziet, ziet ook niet wat er op grond van kleur gebeurt, en kan het dus niet tegengaan.</p>
+      <p>Zij verbindt dat aan het Nederlandse zelfbeeld van verdraagzaamheid, dat volgens haar in de praktijk werkt als een verbod op het onderwerp. Wie erover begint, verstoort de goede verstandhouding en wordt daarop aangesproken in plaats van op de inhoud.</p>
+      <h3>Wit privilege</h3>
+      <p>Het begrip dat het meeste gewicht krijgt is wit privilege: het geheel van omstandigheden dat voor een hele groep gemakkelijker verloopt op grond van huidskleur. Nzume benadrukt dat het niet over rijkdom of over verdienste gaat, en dat iemand met weinig geld en veel tegenslag het nog steeds kan hebben.</p>
+      <p>Zij werkt het uit aan alledaagse voorbeelden: pleisters in de kleur van de huid, poppen, schoolboeken, de vraag of iemand op het werk aan zijn haar wordt gezeten. Het zijn kleine dingen die volgens haar juist daardoor zelden worden opgemerkt.</p>
+      <h3>Exotisering en toe-eigening</h3>
+      <p>Onder exotisering vat Nzume het compliment dat op afkomst wijst, de belangstelling voor het bijzondere van een lichaam en de aanname van een buitenlandse herkomst. Zij laat zien dat vriendelijkheid en uitsluiting hier samengaan.</p>
+      <p>Bij culturele toe-eigening bespreekt zij het gebruik van kleding, kapsel en muziek uit een groep waarvan de leden daar zelf op afgerekend worden. Dit is het gedeelte waar recensenten haar het vaakst tegenspreken, met het argument dat culturen altijd van elkaar hebben overgenomen.</p>
+      <h3>Zwarte Piet en de Nederlandse geschiedenis</h3>
+      <p>Het Nederlandse hoofdstuk gaat over Zwarte Piet, in 2017 het scherpste binnenlandse conflict. Nzume verwijst naar peilingen waarin een grote meerderheid van de Nederlandse bevolking geen bezwaar zag in de figuur, en bespreekt wat dat verschil in beleving betekent.</p>
+      <p>Zij zet dat naast de geschiedenis van de Nederlandse slavernij en de koloniale verhouding met Suriname en de Antillen, die volgens haar in het onderwijs te weinig aan bod komt. De vraag die zij stelt is niet of de figuur kwaad bedoeld is, maar waarom de reactie van degenen die zich eraan storen zo weinig gewicht krijgt.</p>
+      <h3>Witte kwetsbaarheid en bondgenootschap</h3>
+      <p>In het laatste deel behandelt Nzume de reacties die haar betoog oproept: de tranen, de boosheid, de eigen goede bedoelingen die worden aangevoerd. Zij noemt dat witte kwetsbaarheid en beschrijft het als een reeks reacties die het gesprek beeindigen zonder dat iemand het zo bedoelt.</p>
+      <p>Daartegenover zet zij bondgenootschap, dat volgens haar bestaat uit luisteren, uit zich informeren zonder daarvoor uitleg te vragen en uit ingrijpen op momenten dat de betrokkene er zelf niet bij is. Zij waarschuwt daarbij voor hulp die vooral het goede gevoel van de helper dient, met vrijwilligerswerk in Afrika als voorbeeld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wit privilege</td><td>Het geheel van omstandigheden dat voor witte mensen als groep gemakkelijker verloopt op grond van huidskleur, los van geld of verdienste.</td></tr>
+          <tr><td class="term">Kleurenblindheid</td><td>De houding waarin huidskleur niet wordt opgemerkt, die volgens Nzume ook het onrecht op grond van huidskleur onzichtbaar maakt.</td></tr>
+          <tr><td class="term">Alledaags racisme</td><td>Racisme in de vorm van opmerkingen, vragen en aannames in gewone omgang, in plaats van in openlijke vijandigheid.</td></tr>
+          <tr><td class="term">Institutioneel racisme</td><td>Ongelijke uitkomsten die uit regels, gewoonten en procedures voortkomen zonder dat iemand ze zo bedoelt.</td></tr>
+          <tr><td class="term">Geinternaliseerd racisme</td><td>Het overnemen van het oordeel over de eigen groep door leden van die groep zelf, bijvoorbeeld in schoonheidsidealen.</td></tr>
+          <tr><td class="term">Exotisering</td><td>Belangstelling voor iemand als bijzonder verschijnsel, die als compliment wordt gebracht en als uitsluiting aankomt.</td></tr>
+          <tr><td class="term">Witte kwetsbaarheid</td><td>De reeks reacties van ongemak, boosheid en verdriet die volgens Nzume optreedt zodra racisme ter sprake komt en die het gesprek afbreekt.</td></tr>
+          <tr><td class="term">Bondgenootschap</td><td>De houding die Nzume van witte lezers vraagt: luisteren, zich zelf informeren en optreden op momenten waarop de betrokkene afwezig is.</td></tr>
+          <tr><td class="term">Culturele toe-eigening</td><td>Het overnemen van uiterlijke kenmerken uit een groep die daar zelf nadeel van ondervindt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De begrippen waarmee het boek werkt komen uit de Amerikaanse literatuur en worden ook als zodanig gepresenteerd. Wit privilege gaat terug op het stuk van Peggy McIntosh uit 1988, waarin zij het voordeel opsomde als een rugzak met inhoud die zij nooit zelf had gepakt. Witte kwetsbaarheid komt van Robin DiAngelo, die de term in 2011 in een artikel introduceerde, ruim voor het boek waarmee zij later bekend werd. Nzume vertaalt die begrippen naar Nederlandse voorbeelden en dat is het werk dat zij verricht.</p>
+      <p>De onderbouwing zelf bestaat vooral uit voorvallen: haar eigen ervaringen, wat zij van anderen hoorde en wat er in het openbare debat gebeurde. Verwijzingen naar onderzoek staan er wel, in toegankelijke vorm en met leestips aan het eind van elk hoofdstuk, maar het boek is geen overzicht van de stand van dat onderzoek. Voor discriminatie op de Nederlandse arbeids- en woningmarkt bestaan proefondervindelijke metingen met verzonnen sollicitanten en huurders, en dat soort materiaal komt er nauwelijks in voor.</p>
+      <p>De ontvangst raakt de stelling zelf. De reacties liepen uiteen van instemming tot verontwaardiging over de aanspreking, en wie het boek gelijk wil geven kan die verontwaardiging als bevestiging lezen. Daar gaat het bezwaar hieronder over.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de redenering rond witte kwetsbaarheid. Wanneer instemming het gelijk van het boek bevestigt en tegenspraak als kwetsbaarheid of als whitesplaining wordt aangemerkt, is er geen uitkomst meer denkbaar waarin het boek ongelijk heeft. Dat maakt het als betoog zwak, ook wanneer de waarnemingen kloppen.</p>
+      <p>De vorm is die van de column. Onderwerpen die veel uitleg vragen, zoals institutioneel racisme en het verband tussen koloniale geschiedenis en hedendaagse ongelijkheid, worden afgehandeld in korte stukken met een anekdote en een puntige zin. Voor een eerste kennismaking werkt dat; wie wil weten hoe de mechanismen precies lopen, moet elders zijn.</p>
+      <p>De lerarenrol schiet zijn doel voorbij bij het deel van het publiek dat het boek zegt te willen bereiken. Wie is aangesproken als leerling, leest de rest in de verdediging, en de vaststelling dat die verdediging het punt bewijst helpt daar niet tegen. Het boek verenigt zijn instemmers en drijft de rest verder weg.</p>
+      <p>Bij culturele toe-eigening loopt het betoog vast op een probleem dat Nzume niet oplost. Culturen nemen van elkaar over en dat is de gewone gang van zaken; wanneer dat overnemen schadelijk wordt en wanneer niet, vraagt om een grens die het boek niet trekt. Dat is de plek waar ook welwillende recensenten afhaken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees dit boek als toegang tot de begrippen en zoek voor het Nederlandse bewijsmateriaal de proefondervindelijke onderzoeken naar discriminatie bij sollicitaties en woningverhuur erbij.</li>
+        <li>Gebruik de leeslijsten aan het eind van de hoofdstukken; die verwijzen naar het werk waarop de begrippen berusten.</li>
+        <li>Toets de voorbeelden aan de eigen omgeving voordat de begrippen worden overgenomen, want een aantal ervan komt uit een Amerikaanse verhouding die in Nederland anders ligt.</li>
+        <li>Scheid bij het lezen de waarnemingen van de redenering: de voorvallen zijn navolgbaar, de sluitende bewijsvoering eromheen is dat minder.</li>
+        <li>Bespreek het boek met iemand die het oneens is, want de vorm nodigt daar niet toe uit en de inhoud vraagt erom.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, verschenen bij Amsterdam University Press, Amsterdam, in 2017, 140 blz., ISBN 9789462984141; e-boek ISBN 9789048534647, en er is een gesproken uitgave. Het fonds is later ondergebracht bij Walburg Pers. Een vertaling in een andere taal is niet verschenen. Nzume is actrice, theatermaker en presentator en richtte in 2016 samen met Ebisse Wakjira en Mariam El Maslouhi de podcast Dipsaus op.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Anousha Nzume werd in 1969 in Moskou geboren als dochter van een Russische moeder met een Joodse achtergrond en een Kameroense vader die in de Sovjet-Unie geneeskunde studeerde. Zij groeide op in Nederland en werkte als actrice, theatermaker en presentator. In 2016 begon zij met twee anderen de podcast Dipsaus.</p><p>Dit boek is een betoog van honderdveertig bladzijden, gericht aan witte Nederlanders en geschreven in de aansprekende vorm die dat oplevert. Nzume behandelt een reeks begrippen uit het Amerikaanse debat over racisme en vertaalt ze naar Nederlandse omstandigheden: wit privilege, kleurenblindheid, exotisering, institutioneel racisme, geinternaliseerd racisme, witte kwetsbaarheid, bondgenootschap en culturele toe-eigening.</p><p>De voorbeelden komen uit het dagelijkse verkeer: de vraag waar iemand echt vandaan komt, het compliment over uiterlijk dat als bijzonder wordt aangemerkt, het n-woord, de aanbeveling om terug te gaan naar het eigen land en het jaarlijkse conflict over Zwarte Piet. Elk hoofdstuk sluit af met verwijzingen naar boeken, artikelen en filmpjes.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>racisme</li><li>wit privilege</li><li>Nederland</li><li>Zwarte Piet</li><li>Dipsaus</li><li>alledaags racisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="3"><a href="03.html">The Will to Change</a>. hooks schrijft eveneens over een groep die haar eigen positie moeilijk kan zien, en doet dat met meer aandacht voor wat de aangesprokene te verliezen heeft.</li>
+          <li value="26"><a href="26.html">Born a Crime</a>. Noah beschrijft hetzelfde onderwerp van binnenuit en in verhaalvorm, waardoor de mechanismen zichtbaar worden zonder dat ze benoemd hoeven te worden.</li>
+          <li value="1618"><a href="1618.html">Lotgenoten</a>. Ingabire laat in romanvorm zien wat het dagelijkse verkeer dat Nzume beschrijft doet met iemand die het ondergaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

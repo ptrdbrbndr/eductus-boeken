@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twee vrouwen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mulisch schrijft een liefdesgeschiedenis in de vorm van een Griekse tragedie, waarin de afloop niet voortkomt uit de karakters van de betrokkenen maar uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1600">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1600 &middot; Roman en memoir</p>
+    <h1>Twee vrouwen</h1>
+    <p class="lede">Harry Mulisch, 1975</p>
+    <p class="stats">
+      <span><b>1419</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1600"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mulisch schrijft een liefdesgeschiedenis in de vorm van een Griekse tragedie, waarin de afloop niet voortkomt uit de karakters van de betrokkenen maar uit een patroon dat al klaarlag voordat zij elkaar tegenkwamen. Zijn stelling is dat een verlangen dat op zichzelf begrijpelijk is, in dit geval de wens van twee vrouwen om samen een kind te hebben, precies de handeling uitlokt die alles vernietigt, en dat de betrokkenen daarin even weinig te kiezen hebben als de personages van Sophocles. De roman voert die gedachte niet aan als betoog. Hij laat haar zien door de vertelling zo in te richten dat de lezer vanaf de eerste bladzijden weet dat er iets voorbij is, en pas veel later wat.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De reis als kader</h3>
+      <p>Het boek begint met een vrouw in een auto die zich richt tot iemand die er niet meer is. Mulisch laat een tijd in het midden dat de verteller een vrouw is; wie het boek voor het eerst leest, merkt dat pas na enkele bladzijden. De reis gaat naar Zuid-Frankrijk, waar Laura's moeder is gestorven.</p>
+      <p>Alles wat verder verteld wordt, staat binnen dat kader. Laura blikt terug op de maanden die achter haar liggen, en de lezer weet daardoor van meet af aan dat de geschiedenis die zij opschrijft is afgelopen. Het gevolg is dat elke scene tweemaal leesbaar wordt: als gebeurtenis en als aanloop.</p>
+      <h3>Laura en Sylvia</h3>
+      <p>De ontmoeting is toevallig en de verhouding ontstaat snel. Laura is de oudere, met een baan, een huis en een verleden; Sylvia is jong, jongensachtig van uiterlijk, kapster, en houdt haar achtergrond grotendeels voor zich. Zij liegt waar het haar uitkomt, ook tegen Laura, en de roman legt dat vast zonder er een oordeel bij te leveren.</p>
+      <p>De verhouding wordt niet als probleem gepresenteerd en ook niet als bevrijding. Mulisch beschrijft haar met dezelfde afstand waarmee hij de rest van het boek beschrijft. Wat wel als probleem terugkeert is de reactie van de omgeving: Laura's moeder wijst de verhouding af, en Alfred voelt zich erdoor gekwetst op een manier die hij zelf niet goed kan benoemen.</p>
+      <h3>De moeder</h3>
+      <p>De verhouding tussen Laura en haar moeder loopt door het hele boek. Zij is bezitterig, oordeelt hard over de keuzes van haar dochter en houdt vast aan een beeld van Laura dat allang niet meer klopt. De botsing over Sylvia is heftig en herstelt niet.</p>
+      <p>Dat Laura haar verhaal juist aan deze dode vertelt, geeft het boek zijn tweede laag. Zij legt verantwoording af aan iemand die haar nooit heeft goedgekeurd, op een moment dat verantwoording afleggen niets meer oplevert. De titel wijst op Laura en Sylvia, maar de moeder is de derde vrouw die het verhaal stuurt.</p>
+      <h3>Het kind en de wraak</h3>
+      <p>Het scharnier van het boek is het plan van Sylvia. Laura kan geen kinderen krijgen; Sylvia laat zich door Alfred bezwangeren, zodat er een kind komt dat in zekere zin van hen beiden is. Zij voert dat uit zonder Laura vooraf om toestemming te vragen.</p>
+      <p>Alfred blijkt daar niet in mee te gaan. Wat als oplossing was bedacht, geeft hem het middel in handen om terug te slaan voor een krenking die hij niet verwerkt heeft. Sylvia komt door zijn toedoen om het leven, en het ongeboren kind met haar.</p>
+      <h3>Orpheus en de onderwereld</h3>
+      <p>Het mythische spoor is nadrukkelijk aanwezig. In het boek wordt een toneelstuk over Orpheus opgevoerd, en de graafwerkzaamheden voor de Amsterdamse metro dienen als beeld van de onderwereld: de stad is opengelegd, er wordt in de diepte gewerkt, en huizen verzakken erdoor.</p>
+      <p>De mythe wordt omgekeerd uitgevoerd. Orpheus daalt af om Eurydice terug te halen en verliest haar door om te kijken; Laura kijkt schrijvend om, en daarmee is het verlies definitief. Naast Orpheus loopt een spoor naar Oedipus: een noodlot dat zich voltrekt langs juist die handelingen waarmee het vermeden zou worden.</p>
+      <h3>Het slot</h3>
+      <p>Het boek eindigt aan het einde van de reis, bij de moeder. Mulisch laat in het midden wat er daarna met Laura gebeurt; de tekst wijst een richting aan zonder haar uit te spreken. Wie het boek uitleest, houdt een slot over dat gesloten aanvoelt en toch niet is ingevuld.</p>
+      <p>De laatste bladzijden brengen het kader en het vertelde bij elkaar. Wat begon als een monoloog tegen een dode, blijkt geschreven door iemand voor wie het opschrijven zelf het laatste is wat er nog te doen viel.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kaderverhaal</td><td>De reis naar Zuid-Frankrijk waarbinnen Laura haar geschiedenis opschrijft, waardoor de afloop eerder bekend is dan de gebeurtenissen.</td></tr>
+          <tr><td class="term">Verzwegen geslacht van de verteller</td><td>Mulisch stelt enkele bladzijden uit voordat duidelijk wordt dat de ik-figuur een vrouw is, wat de lezer dwingt zijn eerste aannames te herzien.</td></tr>
+          <tr><td class="term">Orpheus en Eurydice</td><td>De mythe waarin de zanger zijn geliefde uit de onderwereld haalt en haar door om te kijken verliest; in het boek zowel als toneelstuk aanwezig als in de vertelvorm.</td></tr>
+          <tr><td class="term">De metrobouw</td><td>De opengelegde Amsterdamse binnenstad die in de roman dienstdoet als beeld voor het dodenrijk waarlangs het verhaal zich beweegt.</td></tr>
+          <tr><td class="term">Noodlot</td><td>Het beginsel dat de gebeurtenissen niet uit karakter of toeval volgen maar uit een patroon dat de personages voltrekken zonder het te doorzien.</td></tr>
+          <tr><td class="term">Masker</td><td>De manier waarop de personages eerder als tragische figuren dan als psychologisch uitgewerkte mensen zijn neergezet, met vaste rollen in plaats van innerlijke ontwikkeling.</td></tr>
+          <tr><td class="term">Onvruchtbaarheid</td><td>Laura's onvermogen kinderen te krijgen, het gegeven waaruit het plan van Sylvia voortkomt en daarmee de aanleiding voor de afloop.</td></tr>
+          <tr><td class="term">Nederland Leest</td><td>De landelijke leescampagne die het boek in 2008 in grote oplage onder bibliotheekleden verspreidde en het een tweede leven gaf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een roman legt geen bewijs af, maar hij kan wel meer of minder consequent zijn in wat hij zich voorneemt. Mulisch neemt zich hier voor een tragedie te schrijven en houdt zich daaraan: de handeling beslaat een korte tijd, het aantal personages is klein, de plaats van handeling is beperkt, en de afloop is aangekondigd voordat zij komt. Wie de klassieke eenheden erop naslaat, ziet dat de vorm van het boek daar dicht tegenaan is gebouwd.</p>
+      <p>De taal is opvallend vlak gehouden in vergelijking met het eerdere werk van Mulisch. Waar zijn romans uit de jaren vijftig en zestig hun effect zoeken in barokke zinnen, staat hier een register dat op verslaggeving lijkt. Dat maakt de mythische laag beter uit te houden: de verwijzingen naar Orpheus krijgen gewicht doordat de rest van de tekst nuchter blijft.</p>
+      <p>Het boek heeft zich in de ontvangst staande gehouden. Het werd in 1979 verfilmd, kreeg vertalingen in onder meer het Engels, en werd in 2008 gekozen voor Nederland Leest, wat betekent dat het werd voorgelegd aan lezers die er niet zelf voor hadden gekozen. Dat het ook toen nog gelezen werd, zegt iets over de leesbaarheid van de constructie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de personages. Mulisch wilde tragische figuren en geen individuen, en dat is te merken: Sylvia blijft een raadsel dat nooit wordt opgelost, Alfred is vooral de man die de wraak uitvoert, en de moeder is bijna geheel uit afwijzing opgebouwd. Wie een roman over twee vrouwen verwacht, krijgt een roman over een mechaniek waarin twee vrouwen figureren.</p>
+      <p>Daarmee hangt samen dat de verhouding tussen Laura en Sylvia weinig eigen ruimte krijgt. Zij is nodig voor de constructie, en de vraag hoe het in 1975 in Nederland was om als vrouw met een vrouw te leven, wordt nauwelijks gesteld. Latere lezers hebben dat aangewezen als de blinde plek van het boek: de liefde tussen de twee vrouwen dient het noodlot, en niet omgekeerd.</p>
+      <p>Een derde bezwaar betreft de dosering van de mythe. De verwijzingen naar Orpheus zijn zo geplaatst dat de lezer ze niet kan missen: het toneelstuk, de metrotunnels, het omkijken. Wie dat als aanwijzing leest, vindt het boek doorzichtig gebouwd; de spanning zit dan niet in wat er gebeurt maar in het tempo waarin de bekende afloop dichterbij komt.</p>
+      <p>Mulisch heeft later gezegd dat hij zich voor Sylvia baseerde op zijn toenmalige echtgenote Sjoerdje Woudenberg. Dat gegeven heeft de discussie over het boek verschoven naar de vraag wiens verlangen er eigenlijk wordt beschreven, en of de kinderwens die de roman drijft wel toebehoort aan de vrouwen die haar uitspreken.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen bij De Bezige Bij, Amsterdam, in oktober 1975, met een eerste oplage van zeventienduizend exemplaren (ISBN 90 234 0531 5). Het boek telt in de meeste drukken rond de honderdveertig bladzijden en is sindsdien meer dan dertig keer herdrukt; het luisterboek heeft ISBN 9789403101101. In 2008 was het de titel van de campagne Nederland Leest. De Engelse vertaling van Els Early verscheen in 1980 als <i>Two Women</i> bij John Calder, Londen (125 blz.). George Sluizer verfilmde het boek in 1979 met Bibi Andersson en Anthony Perkins.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Laura Tinhuizen is vijfendertig, werkt bij een museum en is gescheiden van de criticus Alfred Boeken. Zij ontmoet Sylvia Nithart, een kapster van begin twintig. Binnen enkele maanden wonen zij samen. Laura's moeder reageert vijandig op de verhouding, en ook Alfred blijft in beeld.</p><p>Sylvia weet dat Laura geen kinderen kan krijgen en bedenkt daar een oplossing voor: zij laat zich zwanger maken door Alfred, zodat er een kind komt dat van hen samen kan zijn. Alfred laat zich niet gebruiken. Wat volgt loopt uit op de dood van Sylvia.</p><p>Mulisch vertelt dat niet op volgorde. Laura schrijft het op tijdens een reis naar Zuid-Frankrijk, waar haar moeder is gestorven, en zij richt zich daarbij tot de dode. De Orpheusmythe ligt zichtbaar onder het boek: schrijven als poging iemand terug te halen uit de onderwereld, en de wetenschap dat die poging afloopt zoals hij altijd afloopt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Nederlandse literatuur</li><li>liefde</li><li>Orpheus</li><li>moeder en dochter</li><li>noodlot</li><li>kinderwens</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="531"><a href="531.html">Odyssee</a>. De afdaling naar het dodenrijk waar Mulisch de metrobouw voor gebruikt, komt uit dezelfde traditie als de tocht van Odysseus naar de doden.</li>
+          <li value="1400"><a href="1400.html">De God van Kleine Dingen</a>. Roy bouwt haar roman op dezelfde manier: de afloop staat vanaf de eerste bladzijden vast, en een verboden verhouding wordt met de dood afgerekend.</li>
+          <li value="284"><a href="284.html">The Great Gatsby</a>. Ook bij Fitzgerald reconstrueert een verteller achteraf een liefde die op geweld uitliep, met de dood als gegeven waar het verhaal naartoe geschreven wordt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Men Are from Mars, Women Are from Venus &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gray stelt dat de meeste ellende tussen partners geen kwestie is van onwil of gebrek aan liefde, maar van een vertaalfout. Mannen en vrouwen hanteren…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1589">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1589 &middot; Samenwerken en gesprek</p>
+    <h1>Men Are from Mars, Women Are from Venus</h1>
+    <p class="lede">John Gray, 1992</p>
+    <p class="stats">
+      <span><b>1717</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1589"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gray stelt dat de meeste ellende tussen partners geen kwestie is van onwil of gebrek aan liefde, maar van een vertaalfout. Mannen en vrouwen hanteren volgens hem verschillende regels voor wat steun is, wat een gesprek bedoelt te bereiken en hoe iemand bij spanning tot rust komt, en zij passen die regels toe op elkaar alsof ze algemeen geldig zijn. Wie de regels van de ander leert kennen en daarnaar handelt, ziet ruzies verdwijnen die met inspanning binnen het eigen systeem onoplosbaar bleven. De opdracht die het boek geeft is daarmee niet dat partners zichzelf veranderen, maar dat zij hun uitleg van elkaars gedrag herzien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De twee planeten</h3>
+      <p>Het openingsbeeld keert in elk hoofdstuk terug. Marsbewoners en Venusbewoners ontdekten elkaar door telescopen, reisden naar elkaar toe en leefden in harmonie zolang zij wisten dat zij verschilden. Bij de landing op aarde trad geheugenverlies op en zijn zij gaan denken dat de ander in de grond hetzelfde is.</p>
+      <p>Gray gebruikt de metafoor als geheugensteun en niet als verklaring. Hij spreekt zich niet uit over de vraag of de verschillen aangeboren of aangeleerd zijn; hij behandelt ze als een gegeven waar een paar mee moet werken.</p>
+      <h3>Meneer Repareer en de commissie woningverbetering</h3>
+      <p>Het eerste patroon is de man die een klacht opvat als een verzoek om een oplossing. Zij vertelt over haar dag om zich gehoord te weten, hij komt met een advies, en zij ervaart dat als afkappen. Gray noemt die reflex meneer Repareer.</p>
+      <p>De tegenhanger is de vrouw die de gewoonten van haar partner behandelt als een project. Zij geeft ongevraagd raad omdat zij dat als zorg bedoelt, en hij hoort dat zij hem ongeschikt vindt. Gray noemt dit de commissie woningverbetering. Het advies dat volgt is spiegelbeeldig: luisteren zonder oplossing, en advies pas geven wanneer erom is gevraagd.</p>
+      <h3>De grot, de golf en de elastiek</h3>
+      <p>Onder spanning trekt een man zich volgens Gray terug in wat hij zijn grot noemt. Hij zwijgt, doet iets anders en komt vanzelf terug. Wie hem daar achterna gaat, houdt hem langer binnen. De beweging heen en terug beschrijft Gray met het beeld van een elastiek: hij rekt zich uit tot een uiterste en veert dan met verlangen terug.</p>
+      <p>Bij vrouwen ziet hij een golfbeweging. Het gevoel van eigenwaarde stijgt tot een top en zakt daarna vanzelf, en in het dal komt oud verdriet naar boven dat niets met de huidige situatie te maken hoeft te hebben. Gray vraagt van de man om in dat dal aanwezig te blijven zonder het te willen verhelpen, en om het niet als kritiek op zichzelf op te vatten.</p>
+      <h3>Punten tellen en de zes liefdesbehoeften</h3>
+      <p>Gray beschrijft een verschil in boekhouding. Een vrouw kent volgens hem aan elke daad van haar partner één punt toe, of het nu een bloem is of een verbouwing. Een man telt naar omvang en denkt met één grote daad een tegoed te hebben opgebouwd. Daar komt het patroon uit voort waarin hij zich onbegrepen voelt na een grote inspanning en zij zich verwaarloosd voelt in de weken daarna. Zijn conclusie is dat kleine en vaak herhaalde attenties meer opleveren dan grote gebaren, en hij levert er een lijst van honderdeneen voorbeelden bij.</p>
+      <p>Daarnaast onderscheidt hij per sekse zes primaire behoeften. Bij vrouwen noemt hij zorg, begrip, respect, toewijding, erkenning en geruststelling. Bij mannen vertrouwen, aanvaarding, waardering, bewondering, goedkeuring en aanmoediging. De behoeften vormen paren: wie zorg geeft krijgt vertrouwen terug, wie begrip toont krijgt aanvaarding. Zijn stelling is dat partners vanzelf geven wat zij zelf nodig hebben, en daarmee langs elkaar heen werken.</p>
+      <h3>Ruzie vermijden en om steun vragen</h3>
+      <p>Een apart deel gaat over de mechaniek van ruzie. Gray stelt dat de aanleiding zelden het onderwerp is en dat het misgaat op de toon en op het moment waarop een van beiden zich niet erkend voelt. Hij beschrijft de manieren waarop een man de gevoelens van zijn partner ongeldig verklaart, meestal zonder dat te bedoelen, en de manieren waarop een vrouw afkeuring laat doorklinken in een vraag.</p>
+      <p>Voor het vragen om hulp geeft hij regels van een praktische orde: houd het verzoek kort, laat de reden weg, benoem wat er moet gebeuren in plaats van te klagen dat het niet gebeurt, en vraag met de woorden zou je in plaats van kun je, omdat de tweede vorm als een test op bekwaamheid klinkt.</p>
+      <h3>De liefdesbrief</h3>
+      <p>Het slot bevat de enige methode in het boek met een vaste vorm. Wie te boos is om te praten schrijft een brief in vijf lagen: eerst de boosheid, dan het verdriet eronder, dan de angst, dan de spijt, en tot slot wat er nog aan liefde en verlangen over is. Daarna schrijft de schrijver zelf de brief die hij van de ander zou willen ontvangen.</p>
+      <p>Gray stelt dat het doorlopen van de vijf lagen op zichzelf de heftigheid wegneemt, ook als de brief nooit wordt verstuurd. Het is de enige oefening in het boek waarvan de werking los van de planetenmetafoor te beoordelen valt, en zij lijkt op wat in de gespreksvoering en de therapie al langer bekend was.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Mars en Venus</td><td>De metafoor waarmee Gray sekseverschillen als cultuurverschillen behandelt in plaats van als tekortkomingen.</td></tr>
+          <tr><td class="term">Meneer Repareer</td><td>De reflex van de man om een verhaal over een probleem te beantwoorden met een oplossing.</td></tr>
+          <tr><td class="term">Commissie woningverbetering</td><td>De neiging van de vrouw om ongevraagd te wijzen op wat haar partner beter kan doen.</td></tr>
+          <tr><td class="term">De grot</td><td>De toestand van teruggetrokken zwijgen waarin een man zich volgens Gray onder spanning terugtrekt.</td></tr>
+          <tr><td class="term">De elastiek</td><td>Het beeld voor de cyclus waarin een man afstand neemt en daarna uit zichzelf weer toenadering zoekt.</td></tr>
+          <tr><td class="term">De golf</td><td>De op- en neergaande beweging van het gevoel van eigenwaarde die Gray bij vrouwen beschrijft.</td></tr>
+          <tr><td class="term">Punten tellen</td><td>Het verschil in waardering van daden, waarbij zij elke daad één punt geeft en hij naar omvang weegt.</td></tr>
+          <tr><td class="term">Zes primaire liefdesbehoeften</td><td>Twee gescheiden lijstjes van behoeften per sekse, die volgens Gray paarsgewijs op elkaar aansluiten.</td></tr>
+          <tr><td class="term">Ongeldig verklaren</td><td>Het uitleggen of wegredeneren van het gevoel van de ander, wat volgens Gray de meest voorkomende oorzaak van escalatie is.</td></tr>
+          <tr><td class="term">De liefdesbrief</td><td>De schrijfoefening in vijf lagen waarmee boosheid tot verlangen wordt teruggevoerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek noemt geen enkel onderzoek. Gray verwijst naar zijn seminars, naar zijn praktijk als relatietherapeut en naar zijn eigen huwelijk. De patronen zijn samengesteld uit wat hij bij deelnemers hoorde, en de indeling naar sekse is zijn ordening van dat materiaal, niet een uitkomst van meting.</p>
+      <p>De doctorstitel die op de omslag staat is behaald aan Columbia Pacific University, een instelling voor schriftelijk onderwijs zonder erkenning, die eind jaren negentig door de rechter in Californië tot sluiting werd gedwongen. Dat maakt de inhoud van het boek niet onjuist, maar het gezag dat de titel op de omslag verleent is niet gedekt.</p>
+      <p>Wat het boek wel aantoonbaar levert is een woordenschat. De begrippen grot, golf en punten tellen zijn zo bruikbaar gebleken dat zij ook buiten de kring van lezers worden gebruikt. Voor een paar dat vastzit in een terugkerende ruzie is een gedeelde naam voor het patroon vaak het eerste dat helpt, ongeacht of de naam wetenschappelijk klopt.</p>
+      <p>De verkoopcijfers zijn geen bewijs van juistheid, maar wel van herkenbaarheid. Vijftien miljoen exemplaren geven aan dat veel paren zich in de beschreven patronen terugvonden; wat daarbij niet uit elkaar te halen is, is of zij het patroon herkenden of het na lezing bij zichzelf gingen zien.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De toetsing die anderen wel deden valt ongunstig uit. In een onderzoek waarin drieëntwintig uitspraken uit het boek naast de bestaande literatuur werden gelegd, werden er acht bevestigd, tien niet ondersteund, en gold er bij vijf het omgekeerde van wat Gray beweert. Voor een boek dat zich als praktische gids presenteert is dat een lage score.</p>
+      <p>Het bredere bezwaar komt uit de psychologie zelf. Janet Hyde bracht in 2005 een reeks meta-analyses samen onder de noemer dat mannen en vrouwen op de meeste psychologische maten meer op elkaar lijken dan verschillen; de grote verschillen die zij wel vond liggen op andere terreinen dan gespreksstijl. Carothers en Reis vonden in 2013 dat persoonlijkheidskenmerken tussen de seksen zo sterk overlappen dat een indeling in twee soorten niet houdbaar is. Gray werkt met twee categorieën waar de gegevens één verdeling met veel overlap laten zien.</p>
+      <p>Taalkundige Deborah Cameron nam het boek in <i>The Myth of Mars and Venus</i> uit 2007 rechtstreeks onder handen. Haar bezwaar is dat de verschillen in gespreksgedrag die Gray aan sekse toeschrijft in werkelijkheid van de situatie en van de machtsverhouding afhangen, en dat het toeschrijven aan sekse de machtsvraag laat liggen.</p>
+      <p>Praktisch bestaat het risico dat de beschrijving een vrijbrief wordt. Zwijgen en weglopen krijgt met de grot een respectabele naam, terugkerend ongenoegen krijgt met de golf een verklaring die de aanleiding niet meer hoeft te onderzoeken. Wie de metafoor als natuurwet leest, hoeft van zichzelf niets meer te veranderen.</p>
+      <p>Het boek gaat uitsluitend over heteroparen zonder geweld en zonder ernstige verslaving of psychiatrie, en zegt dat er niet bij. Voor situaties waarin een van beiden stelselmatig de grens van de ander overschrijdt, biedt het geen kader; de adviezen over aanvaarding en geduld kunnen daar averechts werken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de namen van de patronen als gespreksmiddel: benoem samen welk patroon er speelt voordat de inhoud van de ruzie aan de orde komt.</li>
+        <li>Vraag bij een verhaal over een probleem eerst of de ander wil overleggen of wil worden gehoord, en handel naar het antwoord.</li>
+        <li>Houd verzoeken kort en concreet, laat de klacht en de uitleg weg, en vraag met zou je in plaats van kun je.</li>
+        <li>Verdeel aandacht over veel kleine daden in plaats van over enkele grote, en toets of dat in de eigen relatie werkelijk zo uitpakt.</li>
+        <li>Schrijf de brief in vijf lagen wanneer een gesprek te heftig is geworden, ook als hij niet wordt verstuurd.</li>
+        <li>Behandel de indeling naar sekse als een verhaalvorm en niet als een vaststelling; toets elk patroon aan wat er in de eigen relatie feitelijk gebeurt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Men Are from Mars, Women Are from Venus: A Practical Guide for Improving Communication and Getting What You Want in Your Relationships</i> (HarperCollins, New York, 1992, 286 blz., ISBN 9780060168483). Wereldwijd zijn er meer dan vijftien miljoen exemplaren van verkocht; het gold in de Verenigde Staten als het best verkochte niet-verhalende boek van de jaren negentig. Nederlands als <i>Mannen komen van Mars, vrouwen komen van Venus</i>, vertaald door Monique de Vré, Het Spectrum, Utrecht, 1992, 276 blz.; latere drukken onder ISBN 9789000344680. Gray schreef er een reeks vervolgen bij, waaronder <i>Mars and Venus in the Bedroom</i>, eveneens in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>John Gray gaat uit van één beeld dat het hele boek draagt: mannen en vrouwen komen van verschillende planeten, waren daar gelukkig met elkaar, en zijn na de landing op aarde vergeten dat zij verschillen. Sindsdien leggen zij elkaars gedrag uit volgens hun eigen regels en gaat het mis.</p><p>Van daaruit beschrijft hij een reeks patronen met vaste namen. De man die een klacht hoort en meteen een oplossing aandraagt. De man die zich bij spanning terugtrekt in zijn grot. De vrouw wier gevoel op en neer gaat als een golf. Het bijhouden van punten, waarbij zij elke daad even zwaar telt en hij naar omvang weegt. Voor elk patroon volgt een gedragsvoorschrift.</p><p>Het boek is uitgesproken praktisch en gaat volledig voorbij aan onderzoek. Latere toetsing van zijn beweringen aan de literatuur over sekseverschillen liet daar weinig van heel. Wat overeind blijft is het nut van een gedeelde woordenschat waarmee partners een terugkerende ruzie kunnen benoemen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relaties</li><li>communicatie</li><li>sekseverschillen</li><li>zelfhulp</li><li>populaire psychologie</li><li>huwelijk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="34"><a href="34.html">The 5 Love Languages</a>. Gary Chapman doet in <i>The 5 Love Languages</i> hetzelfde soort werk met een andere indeling, waarbij het verschil niet naar sekse loopt maar per persoon.</li>
+          <li value="1590"><a href="1590.html">Liefde is een werkwoord</a>. Vansteenwegen behandelt in <i>Liefde is een werkwoord</i> dezelfde onderwerpen vanuit een therapiepraktijk, met concrete afspraken en zonder de tweedeling in seksen.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Esther Perel gaat in <i>Mating in Captivity</i> in op wat Gray overslaat: waarom nabijheid en verlangen elkaar in de weg kunnen zitten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

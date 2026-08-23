@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De verborgen impact &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Porcelijn stelt dat de milieuschade van een Nederlands leven grotendeels ontstaat buiten het gezichtsveld van degene die haar veroorzaakt, en dat het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1651">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1651 &middot; Natuur en wetenschap</p>
+    <h1>De verborgen impact</h1>
+    <p class="lede">Babette Porcelijn, 2016</p>
+    <p class="stats">
+      <span><b>1590</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1651"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Porcelijn stelt dat de milieuschade van een Nederlands leven grotendeels ontstaat buiten het gezichtsveld van degene die haar veroorzaakt, en dat het daarom onmogelijk is om op gevoel te bepalen waar iemand moet beginnen. Zij laat de belasting van een gemiddeld consumptiepatroon doorrekenen over de hele keten en zet die in een ranglijst. De uitkomst plaatst de aanschaf van spullen op de eerste plaats en vleesconsumptie op de tweede, ver boven de auto en het vliegtuig waar het gesprek meestal over gaat. Daaruit volgt haar praktische stelling: wie een lijst met tips volgt zonder ranglijst, besteedt zijn inspanning grotendeels aan de kleine posten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat verborgen impact is</h3>
+      <p>Het eerste deel legt uit waarom een product meer kost dan wat er aan te zien is. Een telefoon veroorzaakt schade bij de mijnbouw, bij de productie van onderdelen, bij het transport en bij het afdanken; alleen de stroom die hij tijdens het gebruik trekt, is voor de eigenaar zichtbaar. Voor de categorie spullen als geheel ligt het grootste deel van de belasting in dat onzichtbare traject.</p>
+      <p>Porcelijn hanteert daarvoor de levenscyclusanalyse, de rekenwijze waarin een product van grondstof tot afval wordt gevolgd. Zij laat zien dat de belasting van Nederlandse consumptie voor een flink deel in andere landen neerslaat, wat verklaart waarom nationale statistieken een gunstiger beeld geven dan de werkelijkheid.</p>
+      <h3>De impact top 10</h3>
+      <p>De kern van het boek is een ranglijst van tien categorieën, opgesteld door CE Delft voor de gemiddelde consumptie van een Nederlander per jaar. De volgorde in de herziene berekening van februari 2018 is: spullen, vlees, wonen, auto, plantaardig voedsel met vis en dranken, vliegen, badkamer, kleding en textiel, zuivel en eieren, en openbaar vervoer.</p>
+      <p>Spullen en vlees liggen daarbij duidelijk boven de rest. De categorie spullen omvat naast gebruiksgoederen ook het stroomverbruik van apparaten in huis, het energiegebruik van datacentra en telecom, de wegen en bruggen voor goederenvervoer en de bouw van winkels en bedrijfshallen. De categorie auto bestaat uit brandstof, de productie van de auto en de infrastructuur voor personenvervoer.</p>
+      <p>Vliegen staat op de zesde plaats, maar dat cijfer hangt aan een aanname: gemiddeld 4.200 vliegkilometers per persoon per jaar, ongeveer een retour Schiphol-Porto. CE Delft merkt zelf op dat vliegen bij een retour naar Nieuw-Zeeland boven spullen uitkomt. De ranglijst geldt voor het gemiddelde en niet voor een bepaald mens.</p>
+      <h3>Vier sectoren</h3>
+      <p>De tien categorieën worden gehergroepeerd tot vier sectoren: voeding, producten, wonen en vervoer. Ook op dat niveau blijven voeding en producten duidelijk boven wonen en vervoer staan. Dat is de bevinding waar het boek op draait, omdat het beleid en het publieke gesprek juist bij energie en verkeer beginnen.</p>
+      <p>De sectorindeling maakt ook zichtbaar hoeveel er buiten de invloed van de koper valt. De aanleg van wegen, de bouw van bedrijfsruimten en het voedsel dat verderop in de keten wordt weggegooid, tellen mee in de belasting van de gemiddelde Nederlander zonder dat hij er iets over te zeggen heeft.</p>
+      <h3>Van meten naar handelen</h3>
+      <p>Het tweede deel van het boek vertaalt de ranglijst naar keuzes. De richting is steeds dezelfde: minder nieuwe spullen kopen, langer gebruiken, repareren, delen en tweedehands kopen, minder vlees en zuivel eten, minder vaak en minder ver vliegen, en bij het huis inzetten op isolatie.</p>
+      <p>Porcelijn plaatst die adviezen uitdrukkelijk in volgorde van gewicht. Het scheiden van afval en het meenemen van een eigen tas komen daarbij laag uit; dat is voor lezers die zich daar al jaren op richten de onaangenaamste bladzijde van het boek.</p>
+      <h3>Eco-neutraal leven</h3>
+      <p>De herziene uitgave draagt de ondertitel <i>Alles over eco-neutraal leven</i>. Daarmee bedoelt Porcelijn een leefwijze waarin iemand niet alleen minder schade aanricht maar de resterende schade ook compenseert, zodat het saldo op nul uitkomt. Dat verlegt het doel van vermindering naar verrekening.</p>
+      <p>Bij het boek hoort een online rekenhulp, Mijn Verborgen Impact, waarmee iemand zijn eigen patroon kan invullen in plaats van met het gemiddelde te werken. Porcelijn richtte voor dit werk de stichting Think Big Act Now op.</p>
+      <h3>Het ontwerp</h3>
+      <p>De vormgeving is geen bijzaak. Porcelijn is ontwerper en heeft de gegevens zelf getekend: staafdiagrammen op schaal, iconen per categorie en verhoudingen die zonder tekst te lezen zijn. Recensenten wijzen daar bij herhaling op als de reden dat het boek is blijven hangen waar rapporten met dezelfde inhoud dat niet deden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">verborgen impact</td><td>Het deel van de milieuschade dat ontstaat in productie, transport en afdanking, buiten het zicht van de gebruiker.</td></tr>
+          <tr><td class="term">impact top 10</td><td>De ranglijst van tien consumptiecategorieën naar milieubelasting, berekend door CE Delft voor een gemiddelde Nederlander per jaar.</td></tr>
+          <tr><td class="term">spullen</td><td>De categorie gebruiksgoederen die de ranglijst aanvoert, inclusief elektronica, meubels, datacentra en de bouw van bedrijfspanden.</td></tr>
+          <tr><td class="term">levenscyclusanalyse</td><td>De rekenwijze waarin een product van grondstofwinning tot afval wordt gevolgd om de totale belasting te bepalen.</td></tr>
+          <tr><td class="term">milieupunt</td><td>De rekeneenheid uit de ReCiPe-methode waarin schade aan gezondheid, ecosystemen en grondstofvoorraden tot een getal wordt samengevoegd.</td></tr>
+          <tr><td class="term">direct en indirect klimaateffect</td><td>Het onderscheid tussen uitstoot die de consument zelf veroorzaakt, zoals gas en benzine, en uitstoot elders in de keten.</td></tr>
+          <tr><td class="term">landgebruik en ontbossing</td><td>De aparte post voor schade aan ecosystemen door landbouwgrond, bebouwing en het omzetten van natuur.</td></tr>
+          <tr><td class="term">vier sectoren</td><td>De groepering van de tien categorieën tot voeding, producten, wonen en vervoer.</td></tr>
+          <tr><td class="term">eco-neutraal leven</td><td>Een leefwijze waarin de overgebleven schade wordt gecompenseerd zodat het saldo op nul uitkomt.</td></tr>
+          <tr><td class="term">Mijn Verborgen Impact</td><td>De online rekenhulp waarmee iemand zijn eigen patroon kan invullen in plaats van met het landelijk gemiddelde te rekenen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is ongebruikelijk goed voor een populair boek, en zij is na te lezen. CE Delft schreef er een openbare notitie over, <i>Top 10 milieubelasting van de gemiddelde consument</i>, opgesteld door Lonneke de Graaff en Geert Bergsma; de versie van februari 2018 hoort bij de herziene uitgave van het boek. Daarin staat welke aannames zijn gebruikt en waar de cijfers vandaan komen.</p>
+      <p>Het consumptiepatroon dat is doorgerekend, is met getallen gegeven: per persoon per jaar 4.198 vliegkilometers, 8.745 autokilometers, 1.016 kilometer openbaar vervoer, 610 kubieke meter gas, 1.589 kilowattuur elektriciteit, 43 kubieke meter water, 88 kilo vlees, 92 kilo zuivel en eieren, 923 kilo overige voeding en dranken en 18 kilo kleding en textiel. De rekenmethode is ReCiPe, waarin schade aan menselijke gezondheid, aan ecosystemen en aan grondstofvoorraden tot een enkele score wordt gewogen.</p>
+      <p>CE Delft benoemt de beperkingen zelf en het boek neemt die niet allemaal over. De uitkomst blijft een indicatie, deels gebaseerd op schattingen; de brongegevens hebben basisjaren die uiteenlopen van 2007 tot 2015; watergebruik, waterschaarste, zwerfvuil en plastic in zee kunnen met deze methode niet worden meegerekend en zitten dus niet in de optelling; en diensten zoals de kapper, de tandarts of advies zijn buiten beschouwing gelaten. De berekening van 2017 was nauwkeuriger dan die van 2016, maar de volgorde bleef vergelijkbaar.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek een ranglijst voor het gemiddelde presenteert als richtsnoer voor het individu. Wie geen auto heeft, geen vlees eet en eens in de vijf jaar een telefoon koopt, heeft aan de gemiddelde volgorde niets. CE Delft schrijft dat ook op; het boek benadrukt het minder, omdat de eenvoud van de ranglijst juist de reden is dat hij blijft hangen. De rekenhulp bij het boek vangt dat deels op.</p>
+      <p>Het samenvoegen van ongelijksoortige schade tot een enkel getal is een keuze en geen natuurwet. Klimaatverandering, fijnstof, landgebruik en grondstofuitputting worden in de ReCiPe-methode tegen elkaar gewogen volgens vastgestelde verhoudingen. Andere wegingen leveren andere ranglijsten op. Voor het onderlinge verschil tussen posten die dicht bij elkaar liggen, zoals badkamer en kleding, betekent dat dat de volgorde weinig zegt.</p>
+      <p>De categorie spullen is de grootste post en tegelijk de minst scherpe. Zij is geschat via de invoer in Nederland en de bedrijvigheid van Nederlandse sectoren, met de uitvoer eraf getrokken en met tien sectoren eruit gehaald om dubbeltelling te voorkomen. Dat is een verdedigbare aanpak maar een grove; het cijfer dat de hele ranglijst aanvoert, is daarmee ook het cijfer met de ruimste onzekerheidsmarge.</p>
+      <p>Verder legt het boek de verantwoordelijkheid bij de koper. Een groot deel van de doorgerekende belasting, zoals de aanleg van wegen, de bouw van bedrijfspanden en de verspilling van voedsel in de keten, valt buiten de invloed van een huishouden. Porcelijn wijst daar wel op, maar de handelingsadviezen gaan grotendeels over kopen en eten. Wie de cijfers serieus neemt, komt eerder bij productregels, prijzen en industriebeleid uit dan bij persoonlijke keuzes.</p>
+      <p>De cijfers verouderen ook. De elektriciteitsmix is sinds de basisjaren sterk veranderd, wat de posten wonen en spullen anders doet uitvallen. Het boek is daarmee vooral bruikbaar om de verhouding tussen categorieën te begrijpen en minder om absolute getallen aan te ontlenen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vul de eigen gegevens in de rekenhulp in voordat de ranglijst als richtsnoer wordt gebruikt; het landelijk gemiddelde past zelden.</li>
+        <li>Begin bij de bovenste twee posten die op het eigen leven van toepassing zijn en laat de onderste posten voorlopig liggen.</li>
+        <li>Vervang bij spullen de vraag welk merk het minst belastend is door de vraag of het aangeschaft moet worden en hoelang het meegaat.</li>
+        <li>Reken een lange vliegreis apart uit; die ene reis kan alle andere posten van een jaar overtreffen.</li>
+        <li>Lees de notitie van CE Delft erbij als de getallen ergens voor gebruikt worden, want daarin staan de aannames die het boek weglaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands, in eigen beheer uitgegeven door Think Big Act Now, Amsterdam, mei 2016 (200 blz., ISBN 9789082510201). In oktober 2017 volgde een herziene en uitgebreide uitgave bij Q, een imprint van Singel Uitgevers, Amsterdam, met de ondertitel <i>Alles over eco-neutraal leven</i> (228 blz., ISBN 9789021408309). Er zijn ruim twintigduizend exemplaren van verkocht en er verscheen een Franse uitgave. In 2021 volgde van dezelfde auteur <i>The Happy 2050 Scenario</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Babette Porcelijn is industrieel ontwerper. Toen zij wilde weten welke van haar eigen keuzes het meeste milieuschade veroorzaakten, bleek dat nergens op een rij te staan. Zij liet daarop door onderzoeksbureau CE Delft uitrekenen hoe de milieubelasting van een gemiddelde Nederlander per jaar is opgebouwd, en tekende de uitkomst.</p><p>De uitkomst wijkt af van wat de meeste mensen verwachten. Bovenaan staan niet de auto en het vliegtuig, maar spullen en vlees. Van de belasting die spullen veroorzaken, ligt het overgrote deel in de productieketen, buiten het zicht van de koper. Dat verborgen deel is waar de titel naar verwijst.</p><p>Het boek is een ontwerp zoveel als een betoog: grafieken, illustraties en verhoudingen die in een oogopslag zijn te lezen. Het tweede deel vertaalt de ranglijst naar keuzes, met de bedoeling dat iemand begint bij het punt waar de winst het grootst is en niet bij het punt dat het meest voor de hand ligt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>duurzaamheid</li><li>milieu</li><li>levenscyclusanalyse</li><li>consumptie</li><li>voetafdruk</li><li>CE Delft</li><li>vlees</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="92"><a href="92.html">Onze bouwstenen</a>. Røyne behandelt de grondstoffen waaruit de spullen bestaan die bij Porcelijn de ranglijst aanvoeren, en hoeveel daarvan er nog is.</li>
+          <li value="234"><a href="234.html">Factfulness</a>. Rosling laat zien hoe cijfers over de wereld verkeerd worden gelezen, wat verklaart waarom vrijwel iedereen de ranglijst van Porcelijn fout raadt.</li>
+          <li value="704"><a href="704.html">The Hidden Persuaders</a>. Packard beschreef al in 1957 hoe de aanschaf van spullen wordt aangewakkerd; Porcelijn rekent de milieurekening van diezelfde aanschaf uit.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

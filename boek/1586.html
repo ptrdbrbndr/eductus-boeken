@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You Can Heal Your Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hay stelt dat ieder mens voor honderd procent verantwoordelijk is voor alles wat hem overkomt, ziekte inbegrepen, omdat de gedachten die hij over zichzelf…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1586">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1586 &middot; Positief denken en manifesteren</p>
+    <h1>You Can Heal Your Life</h1>
+    <p class="lede">Louise Hay, 1984</p>
+    <p class="stats">
+      <span><b>1597</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1586"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hay stelt dat ieder mens voor honderd procent verantwoordelijk is voor alles wat hem overkomt, ziekte inbegrepen, omdat de gedachten die hij over zichzelf koestert de gebeurtenissen in zijn leven voortbrengen. Onder vrijwel elke klacht ligt volgens haar dezelfde bodem: zelfhaat en de overtuiging niet goed genoeg te zijn, aangeleerd in de kinderjaren en sindsdien onbekeken herhaald. Daaruit volgt haar behandeling. Wie het oude commentaar op zichzelf vervangt door goedkeuring, en wie iedereen uit zijn verleden vergeeft, ruimt daarmee de oorzaak op en niet slechts de gemoedstoestand. Het punt van macht ligt bij haar altijd in het heden, want daar wordt gedacht. Die redenering maakt haar boek bruikbaar als zelfhulp en tegelijk aanvechtbaar als geneeskunde, en het boek zelf maakt dat onderscheid nergens.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat zij gelooft</h3>
+      <p>Het eerste deel is een opsomming van uitgangspunten in korte stellingen. Iedereen is verantwoordelijk voor zijn eigen ervaringen. Elke gedachte maakt toekomst. Wrok, kritiek, schuld en angst richten meer schade aan dan wat ook. Het punt van macht ligt in het huidige ogenblik. En op de bodem van bijna elk probleem ligt de overtuiging niets waard te zijn.</p>
+      <p>Hay schrijft dat zij het boek heeft opgezet zoals zij een cliënt door een sessie of een werkgroep leidt. Dat verklaart de vorm: korte hoofdstukken, oefeningen in de gebiedende wijs, en aan het slot van elk hoofdstuk een affirmatie in cursief.</p>
+      <h3>Een sessie met Louise</h3>
+      <p>Het tweede en grootste deel loopt langs vier vragen: wat is het probleem, waar komt het vandaan, is het waar, en wat gaan we nu doen. Het antwoord op de tweede vraag is in bijna alle gevallen de kindertijd, met ouders die deden wat zij konden met wat zij zelf hadden meegekregen. Het antwoord op de derde vraag is bijna altijd nee: de overtuiging is aangenomen en niet nagegaan.</p>
+      <p>Daarna behandelt zij de weerstand tegen verandering, met een reeks bekende uitvluchten over tijd, geld en het verkeerde moment, en de manier waarop de verandering volgens haar wel verloopt. Loslaten en vergeven staan daarin voorop, met oefeningen zoals het opschrijven van wie er nog wrok verdient en het hardop uitspreken van vergeving.</p>
+      <p>Het opbouwende gedeelte draait om affirmaties en spiegelwerk. De lezer spreekt zichzelf in de spiegel aan met goedkeurende zinnen, net zo lang tot het ongemak dat daarbij opkomt afneemt. Hay behandelt dat ongemak als het bewijs dat de oefening ergens raakt.</p>
+      <h3>De toepassing op het dagelijks leven</h3>
+      <p>Het derde deel past de methode toe op verhoudingen, werk, succes en geld. Steeds volgt zij dezelfde gang: de klacht wordt teruggevoerd op een overtuiging, de overtuiging op de kindertijd, en de oplossing op een nieuwe zin die dagelijks herhaald wordt. Wie geen geld heeft, verzet zich volgens haar tegen het ontvangen ervan; wie geen goede verhouding vindt, wijst zichzelf af.</p>
+      <p>De praktische kant van deze hoofdstukken is beperkt en de psychologische kant is herkenbaar. Wat Hay beschrijft over binnensmonds zelfcommentaar, over de neiging om elk compliment weg te wuiven en over vergeving die de vergever meer oplevert dan de vergevene, is aannemelijk en komt in mildere vorm ook in de klinische psychologie voor.</p>
+      <h3>Het lichaam en de lijst</h3>
+      <p>Het hoofdstuk over het lichaam en de lijst erachter vormen het omstreden deel. Hay schrijft ziekte niet als onvermijdelijk lot maar als bericht: het lichaam zegt wat de geest niet zegt. Zij hanteert daarbij de schrijfwijze 'dis-ease' om ziekte te lezen als een gebrek aan gemak.</p>
+      <p>De lijst zelf loopt alfabetisch van aambeien tot zweren. Bij elke aandoening staat een vermoedelijke oorzaak in gevoelstermen en een nieuw te herhalen gedachte. Rugklachten wijzen op een gebrek aan steun, knieën op trots en starheid, keelklachten op woorden die niet zijn uitgesproken, kanker op langdurig vastgehouden wrok en verdriet. De lijst komt uit haar boekje uit 1976 en is niet aan onderzoek ontleend.</p>
+      <h3>Haar eigen verhaal</h3>
+      <p>Het boek eindigt met haar levensloop, en die is de reden dat de rest overkomt zoals het overkomt. Zij groeide op in armoede in Los Angeles, werd als kind mishandeld en op vijfjarige leeftijd verkracht door een buurman, verliet de school vroeg, kreeg op haar zestiende een kind dat zij afstond, werkte als mannequin in New York en werd na veertien jaar huwelijk door haar man verlaten.</p>
+      <p>In die crisis kwam zij terecht bij Religious Science, de leer van Ernest Holmes, waar zij tot spreker en begeleider werd opgeleid. Zij vertelt daarna over de diagnose baarmoederhalskanker rond 1977, over haar weigering van een operatie en over de zes maanden waarin zij met vergeving, voeding, voetreflexbehandelingen en darmspoelingen naar eigen zeggen genas. Die episode is de grondslag van haar hele leer, en het enige verslag ervan is dat van haarzelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelfhaat</td><td>Het onbekeken commentaar op zichzelf dat volgens Hay bij vrijwel iedereen aanwezig is en aan elk probleem ten grondslag ligt.</td></tr>
+          <tr><td class="term">Affirmatie</td><td>Een korte bevestigende zin die zo vaak wordt herhaald dat zij de oude overtuiging verdringt.</td></tr>
+          <tr><td class="term">Spiegelwerk</td><td>De oefening waarbij iemand zichzelf in de spiegel aankijkt en hardop goedkeuring uitspreekt tot het ongemak wegtrekt.</td></tr>
+          <tr><td class="term">Vergeving</td><td>Bij Hay geen kwijtschelding aan de dader maar het neerleggen van een last die de drager blijft belasten.</td></tr>
+          <tr><td class="term">Dis-ease</td><td>Haar schrijfwijze van ziekte, bedoeld om die te lezen als een toestand van ongemak in plaats van als een aandoening.</td></tr>
+          <tr><td class="term">De lijst</td><td>Het alfabetische register van kwalen met per kwaal een vermoedelijke geestelijke oorzaak en een vervangende gedachte.</td></tr>
+          <tr><td class="term">Punt van macht</td><td>Haar aanduiding voor het heden, het enige ogenblik waarin een gedachte gekozen kan worden.</td></tr>
+          <tr><td class="term">Weerstand tegen verandering</td><td>De verzameling uitvluchten waarmee iemand een verandering uitstelt die hij zegt te willen.</td></tr>
+          <tr><td class="term">Zelfaanvaarding</td><td>Het aannemen van zichzelf zoals men nu is, door Hay als voorwaarde voor elke verandering gesteld.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er wordt in dit boek geen onderzoek aangehaald. Geen noten, geen literatuurlijst, geen verwijzing naar een onderzoek naar de samenhang tussen gemoedstoestand en ziekte. Wat de plaats van bewijs inneemt zijn verhalen: die van haarzelf en die van cliënten, zonder namen, zonder tijdlijn en zonder afloop op langere termijn. Dat is voor een zelfhulpboek over gedachten niet onoverkomelijk, maar de lijst achterin doet uitspraken over kanker, migraine en infecties, en daarvoor gelden andere maatstaven.</p>
+      <p>De hoeksteen is haar eigen genezing van baarmoederhalskanker. Daarvoor bestaat geen medisch verslag. Toen haar er decennia later naar werd gevraagd, hield zij vol dat het zo gegaan was en gaf zij toe dat alle artsen die er iets over hadden kunnen bevestigen inmiddels waren overleden. Ook zonder kwade opzet blijft de mogelijkheid open dat het om een voorstadium ging dat vanzelf verdwijnt, iets wat bij deze aandoening geregeld voorkomt.</p>
+      <p>Er bestaat wel degelijk verband tussen langdurige spanning en gezondheid, via slaap, ontstekingswaarden, hormoonhuishouding en gedrag zoals roken en niet naar de dokter gaan. Dat verband is smal en indirect. Het draagt geen enkele van de een-op-een-koppelingen in Hays lijst, en het draagt zeker niet de bewering dat een gedachte een gezwel voortbrengt of doet verdwijnen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek de zieke de schuld geeft van zijn ziekte. Wie leest dat kanker uit vastgehouden wrok voortkomt en niet geneest, houdt daar de gedachte aan over dat hij niet genoeg heeft vergeven. Hay bedoelt dat naar eigen zeggen niet zo en schrijft dat verwijt nergens uit, maar haar redenering laat geen andere uitkomst toe: als gedachten de oorzaak zijn, is de patiënt de veroorzaker.</p>
+      <p>Dat werd het scherpst zichtbaar in haar werk met aidspatiënten in West Hollywood in de jaren tachtig. De bijeenkomsten die naar haar werden vernoemd, trokken honderden mannen en werden door deelnemers en later ook door homoseksuele media beschreven als een van de weinige plaatsen waar iemand met aids nog werd aangeraakt en omhelsd in plaats van gemeden. Diezelfde bijeenkomsten leerden dat een positieve houding het virus kon overwinnen, en dat medisch oordeel niet zonder meer hoefde te worden aanvaard. Voorbeelden van mensen bij wie dat werkte, zijn er niet gekomen.</p>
+      <p>Medisch gezien is de lijst onjuist. Migraine, infecties, erfelijke aandoeningen en gezwellen worden er teruggevoerd op gevoelens, zonder dat ziekteverwekkers, erfelijkheid, blootstelling of leeftijd worden genoemd. De redenering laat zich bovendien niet weerleggen: verbetert de klacht, dan werkte de gedachte, blijft zij, dan zat er nog iets vast.</p>
+      <p>Er is ten slotte de vermenging van leer en handel. Het boek bracht Hay House voort, dat uitgroeide tot een van de grootste uitgeverijen in dit genre en dat de auteurs uitgaf die dezelfde leer verder brachten. Dat maakt de inhoud niet onjuist, maar het verklaart wel waarom de kritiek uit die hoek nooit is gekomen, en waarom het boek in dertig jaar herdrukken vrijwel ongewijzigd is gebleven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken over zelfcommentaar en vergeving als oefening in denkgewoonten, en laat de lijst achterin buiten beschouwing bij lichamelijke klachten.</li>
+        <li>Schrijf een week lang op wat er in het hoofd wordt gezegd na een fout, en kijk of die zinnen ooit zijn nagegaan.</li>
+        <li>Doe de spiegeloefening een aantal dagen achtereen en noteer wat er aan tegenwerpingen opkomt; dat materiaal is bruikbaarder dan de affirmatie zelf.</li>
+        <li>Behandel de vraag wie er nog wrok verdient als inventarisatie, niet als opdracht om alles meteen kwijt te schelden.</li>
+        <li>Ga bij klachten naar een arts en gebruik dit boek hooguit naast de behandeling, nooit in plaats daarvan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>You Can Heal Your Life</i> (Hay House, Santa Monica, 1984), voortgekomen uit haar eerder in eigen beheer uitgegeven boekje <i>Heal Your Body</i> (1976), waaruit de lijst achterin is overgenomen. Tot 2008 werden er meer dan vijfendertig miljoen exemplaren van verkocht in ruim dertig talen; na televisieoptredens bij Oprah Winfrey en Phil Donahue in 1988 kwam het boek in de bestsellerlijst van <i>The New York Times</i>. De Nederlandse uitgave <i>Je kunt je leven helen</i>, vertaald door Philip Baumgarten en Maja Hamoen, verscheen in 1986 bij De Violier in Amsterdam en wordt nu uitgegeven door AnkhHermes, Utrecht (2017, 221 blz., ISBN 9789020213898). Van Hay is ook <i>The Power Is Within You</i> in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hay stelt dat gedachtepatronen ziekte en tegenslag voortbrengen, en dat het veranderen van die patronen ze ongedaan kan maken. Het boek is opgezet als een gesprek met een cliënt: wat is het probleem, waar komt het vandaan, is het waar, en wat nu.</p><p>Haar werktuigen zijn affirmaties, hardop uitgesproken goedkeuring voor het eigen spiegelbeeld, en vergeving van iedereen uit het verleden. Achterin staat een alfabetische lijst van kwalen met de gedachte die er volgens haar aan ten grondslag ligt en de zin waarmee die gedachte vervangen moet worden.</p><p>Het boek werd een van de bestverkochte zelfhulpboeken ooit en legde de basis voor uitgeverij Hay House. Het leverde ook aanhoudende kritiek op, vooral over de aidsjaren in Los Angeles, waarin Hay mannen met een dodelijke ziekte leerde dat hun houding het verschil kon maken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>affirmaties</li><li>spiegelwerk</li><li>vergeving</li><li>psychosomatiek</li><li>New Age</li><li>aids</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="380"><a href="380.html">The Power Is Within You</a>. Hay werkte haar leer zeven jaar later opnieuw uit, met minder nadruk op de lijst van kwalen en meer op zelfaanvaarding.</li>
+          <li value="1513"><a href="1513.html">You Are the Placebo</a>. Dispenza doet dertig jaar later dezelfde belofte over gedachte en genezing, nu met verwijzingen naar hersenonderzoek die de vraag naar bewijs opnieuw oproepen.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft wat vroege mishandeling werkelijk in een lichaam aanricht, en toont daarmee hoe smal en hoe onderzocht dat terrein in werkelijkheid is.</li>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Peale legde de vorm vast waarin Hay werkt: korte stellingen, dagelijkse herhaling en getuigenissen in plaats van gegevens.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

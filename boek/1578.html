@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Braiding Sweetgrass &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kimmerer betoogt dat de ecologische crisis niet in de eerste plaats een tekort aan kennis is maar een tekort aan verhouding, en dat de Engelse taal en het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1578">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1578 &middot; Natuur en wetenschap</p>
+    <h1>Braiding Sweetgrass</h1>
+    <p class="lede">Robin Wall Kimmerer, 2013; vert. Nicole Seegers</p>
+    <p class="stats">
+      <span><b>1690</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1578"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kimmerer betoogt dat de ecologische crisis niet in de eerste plaats een tekort aan kennis is maar een tekort aan verhouding, en dat de Engelse taal en het westerse eigendomsdenken die verhouding actief in de weg zitten. Haar tegenvoorstel is dat mensen de natuur behandelen als een gemeenschap van gevers en niet als een voorraad grondstoffen, met wederkerigheid als de bijbehorende plicht. Zij onderbouwt dat op twee manieren tegelijk: met plantkundige waarnemingen die laten zien dat sommige soorten baat hebben bij menselijk gebruik, en met verhalen uit de Anishinaabe-traditie die dat gebruik van meet af aan als een uitwisseling opvatten. De inzet is dat inheemse kennis en biologie geen concurrenten zijn maar twee talen voor hetzelfde veld, en dat de tweede zonder de eerste geen richting heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Planting Sweetgrass</h3>
+      <p>Het eerste deel legt het fundament met scheppingsverhalen en vroege ervaringen. In <i>Skywoman Falling</i> zet Kimmerer de Anishinaabe-vertelling over de vrouw die uit de hemel viel en met hulp van dieren land maakte, naast het bijbelse verhaal van de verdrijving uit de tuin. De eerste vrouw komt als gast en brengt zaden mee; de tweede wordt verbannen. Dat verschil in beginpunt werkt volgens haar door in twee manieren van in de wereld staan.</p>
+      <p><i>The Council of Pecans</i> vertelt hoe haar grootvader als kind in Oklahoma noten raapte, en gebruikt het verschijnsel dat pecanbomen in een streek allemaal tegelijk vrucht dragen om te laten zien dat overleven een collectieve zaak is. <i>The Gift of Strawberries</i> en <i>An Offering</i> introduceren de gifteconomie: wat je als geschenk ontvangt schept een verplichting die een gekocht goed niet schept. <i>Asters and Goldenrod</i> beschrijft hoe zij bij haar studieadviseur binnenkwam met de vraag waarom paars en geel naast elkaar zo mooi zijn, en te horen kreeg dat dat geen wetenschap was.</p>
+      <h3>Tending Sweetgrass</h3>
+      <p>Het tweede deel gaat over zorg, en loopt grotendeels parallel aan het moederschap. <i>Maple Sugar Moon</i> beschrijft het tappen van esdoorns met haar dochters. <i>A Mother's Work</i> vertelt hoe zij jarenlang een dichtgegroeide vijver bij haar huis probeerde te herstellen zodat haar kinderen erin konden zwemmen, en hoe dat werk pas af was toen zij het huis uit waren.</p>
+      <p><i>The Consolation of Water Lilies</i> en <i>Allegiance to Gratitude</i> sluiten het deel af. In het laatste stuk zet zij de Thanksgiving Address van de Haudenosaunee, een lange opsomming van dank aan water, dieren, bomen en sterren, naast de Amerikaanse vlaggengroet op school. De eerste tekst legt volgens haar een verplichting op zonder een staat te veronderstellen.</p>
+      <h3>Picking Sweetgrass</h3>
+      <p>Het derde deel gaat over oogsten en bevat het meeste plantkundige materiaal. <i>The Three Sisters</i> analyseert de combinatie van maïs, bonen en pompoen, waarbij de maïs de stengel levert, de boon stikstof bindt en de pompoen met haar bladeren de grond bedekt; het is een landbouwsysteem dat meer oplevert dan de drie gewassen apart.</p>
+      <p><i>Mishkos Kenomagwen: The Teachings of Grass</i> beschrijft een experiment van een van haar studenten, die twee oogstmethoden en een onbeoogste controle vergeleek en vond dat de beoogste sweetgrassvelden het beter deden dan de onaangeroerde. Het stuk vertelt ook hoe die opzet aanvankelijk werd afgewezen door een promotiecommissie die de vraagstelling niet als wetenschap erkende.</p>
+      <p><i>The Honorable Harvest</i> formuleert de gedragsregel die het hele boek draagt, als een reeks voorschriften die nergens is opgeschreven en die zij uit praktijk en overlevering reconstrueert: vraag toestemming, luister naar het antwoord, neem nooit het eerste, neem nooit meer dan de helft, gebruik alles wat je neemt, geef een geschenk terug.</p>
+      <h3>Braiding Sweetgrass</h3>
+      <p>Het vierde deel gaat over herstel en over taal. In <i>Learning the Grammar of Animacy</i>, opgenomen in dit deel, beschrijft Kimmerer haar moeizame studie van het Potawatomi, een taal waarin bijna alles wat leeft een werkwoordsvorm krijgt en waarin de baai niet een ding is maar een handeling: het zijn van een baai. In het Engels valt alles wat geen mens is onder het voornaamwoord it, en dat maakt volgens haar het gebruik ervan zonder wroeging mogelijk.</p>
+      <p>Andere stukken beschrijven werk in het veld: <i>In the Footsteps of Nanabozho</i> over de eerste mens uit de Anishinaabe-verhalen die de wereld leerde kennen door te lopen, <i>Umbilicaria</i> over korstmossen als samenlevingsvorm van alg en schimmel, <i>Old-Growth Children</i> over oerbos en de mensen die het kapten, en <i>Witness to the Rain</i> over een middag met regen in een oud bos.</p>
+      <h3>Burning Sweetgrass</h3>
+      <p>Het slotdeel is het somberste en het meest politieke. De Windigo, in de Anishinaabe-verhalen een monster met een onstilbare honger dat zichzelf opeet, dient als beeld voor een economie die op groei zonder verzadiging draait. <i>Windigo Footprints</i> en <i>Defeating Windigo</i> omlijsten het deel.</p>
+      <p><i>The Sacred and the Superfund</i> beschrijft Onondaga Lake bij Syracuse, een meer dat in de Haudenosaunee-traditie de plaats is waar de Grote Vrede werd gesloten en dat door een eeuw sodafabricage tot een van de zwaarst vervuilde meren van de Verenigde Staten is geworden. <i>People of Corn, People of Light</i> haalt het Maya-scheppingsverhaal aan waarin de goden verschillende mensen maken en pas bij de maïsmensen slagen. <i>Shkitagen: People of the Seventh Fire</i> gebruikt de profetie van de zeven vuren over een generatie die moet kiezen tussen twee wegen.</p>
+      <h3>Epiloog</h3>
+      <p>In <i>Returning the Gift</i> keert het boek terug naar het uitgangspunt. De verplichting die een geschenk schept laat zich niet afkopen; wat de aarde geeft vraagt om iets terug in dezelfde orde, en dat kan aandacht zijn, herstelwerk, een lied of een gewas. De vlecht van drie strengen is af.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de eervolle oogst</td><td>Een ongeschreven reeks regels voor nemen uit de natuur: toestemming vragen, nooit het eerste of meer dan de helft nemen, alles gebruiken en iets teruggeven.</td></tr>
+          <tr><td class="term">gifteconomie</td><td>Een ruilvorm waarin goederen als geschenk circuleren en een blijvende verplichting scheppen, tegenover koop die de relatie afsluit.</td></tr>
+          <tr><td class="term">wederkerigheid</td><td>Het uitgangspunt dat de verhouding tussen mens en land tweezijdig is en dat menselijk gebruik iets moet toevoegen.</td></tr>
+          <tr><td class="term">Skywoman</td><td>De vrouw uit het Anishinaabe-scheppingsverhaal die uit de hemel valt en met hulp van dieren en zaad de aarde bewoonbaar maakt.</td></tr>
+          <tr><td class="term">Windigo</td><td>Het monster met de onstilbare honger uit de Anishinaabe-verhalen, dat Kimmerer als beeld gebruikt voor een economie die niet verzadigd raakt.</td></tr>
+          <tr><td class="term">grammatica van bezieldheid</td><td>De eigenschap van het Potawatomi om levende wezens en verschijnselen als werkwoorden en als bezielde vormen te behandelen, waar het Engels it gebruikt.</td></tr>
+          <tr><td class="term">de Drie Zusters</td><td>De teelt van maïs, bonen en pompoen op één akker, waarin de drie gewassen elkaar steun, stikstof en bodembedekking leveren.</td></tr>
+          <tr><td class="term">de zevende vuur</td><td>De Anishinaabe-profetie over een generatie die tussen twee wegen moet kiezen, door Kimmerer gelezen als de keuze waar de huidige generatie voor staat.</td></tr>
+          <tr><td class="term">soorteenzaamheid</td><td>De toestand waarin mensen zich afgesneden weten van de rest van het leven en daardoor de aarde alleen nog als voorraad zien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek beroept zich op twee soorten grond die zich moeilijk laten optellen. De plantkundige kant is echt: Kimmerer is hoogleraar milieubiologie, en de passages over pecanbomen die synchroon vrucht dragen, over stikstofbinding bij bonen, over korstmossen en over de bodemwerking van bosbranden zijn conform de vakliteratuur. Het sterkste losse bewijsstuk is het proefopzetje uit <i>Mishkos Kenomagwen</i>, waarin twee traditionele oogstmethoden werden vergeleken met onbeoogste controlevelden en de beoogste velden zich beter herstelden.</p>
+      <p>Dat experiment is klein: één studieproject, één soort, een beperkt aantal veldjes en een enkele streek. Kimmerer presenteert het niet als meer dan het is, maar het draagt in het boek wel het gewicht van een algemene stelling, namelijk dat gebruik door mensen goed kan zijn voor de gebruikte soort. Dat geldt voor sommige planten en beslist niet voor alle.</p>
+      <p>De tweede grond is de Anishinaabe-traditie zoals die aan Kimmerer is doorgegeven, aangevuld met haar taalstudie. Die verhalen zijn geen bewijs in de gebruikelijke zin en pretenderen dat ook niet; hun functie in het betoog is normatief. Waar het boek het meest onbewezen wordt is de overgang tussen die twee: de vaststelling dat een gewas gedijt onder zorgvuldige oogst leidt niet vanzelf tot de gevolgtrekking dat de aarde geschenken geeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat het boek de stap van ethiek naar politieke economie niet zet. De Windigo blijft een beeld. Wie de vraag stelt hoe een gifteconomie zich verhoudt tot grondrechten, mijnbouwvergunningen, wereldwijde toeleveringsketens of pensioenfondsen, vindt bij Kimmerer geen antwoord. De aanbevolen houding is die van de individuele oogster, terwijl het probleem dat zij beschrijft van industriële orde is.</p>
+      <p>Een tweede punt betreft de omgang met inheemse kennis. Kimmerer put uit Potawatomi- en Haudenosaunee-bronnen en presenteert die als één samenhangend perspectief, terwijl de honderden inheemse tradities in Noord-Amerika onderling sterk verschillen en niet alle een ethiek van terughoudend oogsten kennen. De kans op idealisering is reëel, en het boek weerspreekt haar zelden.</p>
+      <p>Ten derde is de bewijslast ongelijk verdeeld. Waar de westerse wetenschap wordt beoordeeld, moet zij haar beperkingen erkennen; waar de traditie spreekt, wordt weinig doorgevraagd. Dat is een keuze die het betoog dient, maar zij maakt het lastig om het boek op zijn eigen voorwaarden te toetsen.</p>
+      <p>Ten slotte is er de omvang. Vijfendertig essays van eenzelfde grondvorm, plant plus verhaal plus les, leveren onvermijdelijk herhaling op; wie de eerste tien heeft gelezen kent de beweging. De Nederlandse uitgave telt bijna vijfhonderd bladzijden, en niet elk stuk voegt daar iets aan toe.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg naast elke oogst of aankoop de vragen van de eervolle oogst: heb ik gevraagd, neem ik niet meer dan de helft, gebruik ik alles, geef ik iets terug.</li>
+        <li>Let in eigen taalgebruik op het woord het voor levende wezens, en kijk wat er verandert als dat wordt vervangen.</li>
+        <li>Zoek bij een beheersvraag naar gebruiksvormen die de soort ten goede komen in plaats van naar volledige bescherming of volledige winning.</li>
+        <li>Beoordeel de gifteconomie op wat zij bij een individu kan en op wat zij aan wetgeving of eigendomsrecht overlaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Braiding Sweetgrass. Indigenous Wisdom, Scientific Knowledge and the Teachings of Plants</i> (Milkweed Editions, Minneapolis, 2013, 390 blz., ISBN 9781571313355). Nederlandse uitgave <i>Een vlecht van heilig gras</i>, vertaald door Nicole Seegers (Altamira, Haarlem, 2022, 478 blz., ISBN 9789401305365). Kimmerer schreef eerder <i>Gathering Moss</i> (2003) en later <i>The Serviceberry</i>. Zij is hoogleraar milieubiologie aan de State University of New York College of Environmental Science and Forestry, lid van de Citizen Potawatomi Nation en oprichter van het Center for Native Peoples and the Environment; in 2022 ontving zij een MacArthur Fellowship.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kimmerer is plantkundige en lid van de Citizen Potawatomi Nation. In dit boek vlecht zij drie draden door elkaar: wat de biologie over planten weet, wat de Anishinaabe-traditie over planten vertelt, en haar eigen leven als moeder, docent en onderzoeker die die twee bij elkaar probeert te houden.</p><p>De essays gaan over aardbeien, pecannoten, esdoornsap, waterlelies, korstmossen, maïs en vooral over sweetgrass, het gras dat in vlechten wordt gedroogd en verbrand. Elk stuk begint bij een plant en eindigt bij een verhouding: wat krijgt een mens van de aarde, en wat geeft hij terug.</p><p>De onderliggende gedachte is dat de westerse omgang met natuur draait om eigendom en winning, terwijl de traditie waar Kimmerer uit put natuur behandelt als een gever van geschenken. Uit dat verschil volgt volgens haar een andere praktijk, die zij samenvat in wat zij de eervolle oogst noemt: neem nooit het eerste, neem nooit meer dan de helft, vraag toestemming, geef iets terug.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>botanie</li><li>Potawatomi</li><li>wederkerigheid</li><li>ecologie</li><li>inheemse kennis</li><li>gift</li><li>essays</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1575"><a href="1575.html">Ecospiritualiteit</a>. Hans Alma werkt in <i>Ecospiritualiteit</i> dezelfde verbinding tussen natuurbeleving en levensbeschouwing uit, maar dan vanuit een Europese en academische invalshoek.</li>
+          <li value="609"><a href="609.html">The Sacred Depths of Nature</a>. Ursula Goodenough zoekt in <i>The Sacred Depths of Nature</i> naar religieuze taal die volledig binnen de biologie blijft, zonder aan een traditie te ontlenen.</li>
+          <li value="322"><a href="322.html">An Immense World</a>. Ed Yong beschrijft in <i>An Immense World</i> de zintuiglijke werelden van dieren met veel meer onderzoek en zonder normatieve conclusies.</li>
+          <li value="555"><a href="555.html">Kinship with All Life</a>. J. Allen Boone bepleit in <i>Kinship with All Life</i> eveneens een verhouding in plaats van beheersing, maar zonder de wetenschappelijke ballast die Kimmerer meebrengt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

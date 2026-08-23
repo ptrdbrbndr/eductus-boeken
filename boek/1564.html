@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dancing Is the Best Medicine &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Christensen en Chang betogen dat dansen voor de mens geen bijkomstigheid is maar een oude bewegingsvorm waarin drie dingen tegelijk gebeuren die elk apart…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1564">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1564 &middot; Brein en lichaam</p>
+    <h1>Dancing Is the Best Medicine</h1>
+    <p class="lede">Julia F. Christensen en Dong-Seon Chang, 2018</p>
+    <p class="stats">
+      <span><b>1546</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1564"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Christensen en Chang betogen dat dansen voor de mens geen bijkomstigheid is maar een oude bewegingsvorm waarin drie dingen tegelijk gebeuren die elk apart al met gezondheid samenhangen: het lichaam wordt belast, het brein moet voortdurend voorspellen wat de maat gaat doen en de eigen beweging bijsturen, en er wordt met anderen afgestemd. Daaruit leiden zij af dat dezelfde hoeveelheid beweging meer oplevert wanneer er muziek en gezelschap bij komen dan wanneer die ontbreken, en dat de geneeskunde dansen te lang als tijdverdrijf heeft behandeld in plaats van als iets om serieus te onderzoeken en voor te schrijven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom mensen op de maat bewegen</h3>
+      <p>Het boek opent met de vraag waarom vrijwel elke bekende samenleving danst en waarom kleine kinderen op muziek beginnen te wiegen voordat iemand het hun heeft geleerd. De auteurs beschrijven het meebewegen met een puls van buiten als een vaardigheid die bij weinig diersoorten voorkomt en bij de mens vanzelf lijkt te komen.</p>
+      <p>Van daaruit voeren zij het argument dat dansen bij de menselijke soort hoort en dat de vraag niet luidt of het iets doet, maar wat. Die opzet bepaalt de rest van het boek: eerst het verschijnsel, dan de mechanismen, dan de aandoeningen.</p>
+      <h3>Wat er in het brein gebeurt</h3>
+      <p>Dansen vraagt volgens de auteurs meer van het brein dan hardlopen of fietsen, omdat er tegelijk gepland, voorspeld, gecorrigeerd en onthouden moet worden. Een danspas op muziek dwingt tot vooruitlopen op een maat die nog moet komen, en dat vooruitlopen is precies wat de motorische gebieden en de kleine hersenen doen.</p>
+      <p>Daarnaast staan zij stil bij het leren van bewegingsreeksen, bij het herkennen van beweging van anderen en bij het plezier dat meebewegen zelf oplevert. De auteurs koppelen dat aan hersenplasticiteit: wie danst, legt verbindingen aan en onderhoudt ze, terwijl die met ouder worden anders in kwaliteit teruglopen.</p>
+      <h3>Hart, longen, gewrichten en stofwisseling</h3>
+      <p>Het lichamelijke hoofdstuk zet dansen naast andere vormen van inspanning. De auteurs stellen dat stevig dansen hartslag en zuurstofopname in dezelfde orde van grootte brengt als intervaltraining, terwijl de belasting van knieën en enkels lager blijft omdat er zelden hard wordt neergekomen.</p>
+      <p>Verder komen botdichtheid, spierkracht, evenwicht, gewichtsbeheersing, ontstekingswaarden, spijsvertering en de darmflora aan de orde. De redenering is steeds dezelfde: wat voor beweging in het algemeen geldt, geldt ook voor dansen, en op enkele punten iets gunstiger.</p>
+      <h3>Stemming, stress en de ander</h3>
+      <p>Dansen wordt in het boek behandeld als sociale gebeurtenis. Samen in de maat bewegen versterkt volgens de auteurs het gevoel bij een groep te horen, verlaagt de drempel om iemand aan te raken en maakt afstemming tussen mensen mogelijk zonder dat er woorden aan te pas komen.</p>
+      <p>Bij stress en somberheid voeren zij twee lijnen aan: de lichamelijke inspanning zelf, en het gezelschap dat erbij hoort. Zij noemen als voorbeeld dansgelegenheden voor ouderen in Zuid-Korea, waar het bijeenkomen minstens zo zwaar weegt als de beweging.</p>
+      <h3>Ziekte en revalidatie</h3>
+      <p>Het praktische hart van het boek gaat over aandoeningen waarbij dansen als behandeling of als aanvulling wordt onderzocht. Bij de ziekte van Parkinson gaat het om houding, gang en het gebruik van een maat van buiten om een vastgelopen beweging weer op gang te helpen. Bij dementie gaat het om het combineren van lichamelijke inspanning met leren en met gezelschap, drie dingen die elk afzonderlijk met een lager risico samenhangen.</p>
+      <p>Ook rugpijn, artrose, diabetes type 2 en depressie komen langs. De auteurs schrijven daarbij niet dat dansen geneest, maar dat het beloop gunstiger kan verlopen en dat het beter vol te houden is dan een oefenschema.</p>
+      <h3>De danstest en de praktische afsluiting</h3>
+      <p>Het boek eindigt met een test die per lezer een dansstijl aanwijst, en met adviezen over beginnen op latere leeftijd, over schaamte en over het vinden van een les. De auteurs behandelen weerzin tegen dansen als een cultureel aangeleerde reflex en niet als een gebrek aan aanleg.</p>
+      <p>Verspreid door het boek staan losse toepassingen die de toon tekenen, zoals het gebruik van een popsong met het juiste tempo als metronoom bij hartmassage, en aanwijzingen over wat bewegingspatronen op een dansvloer over iemand verraden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Meebewegen op een maat van buiten</td><td>Het gelijklopen van eigen beweging met een puls die van buiten komt, door de auteurs behandeld als de kernvaardigheid die dansen van gewone beweging onderscheidt.</td></tr>
+          <tr><td class="term">Groove</td><td>De eigenschap van muziek die tot meebewegen aanzet, bij Christensen en Chang de brug tussen wat het oor hoort en wat het lichaam doet.</td></tr>
+          <tr><td class="term">Voorspellend brein</td><td>De aanname dat hersenen voortdurend vooruitlopen op wat er komt, wat volgens de auteurs verklaart waarom dansen zwaarder op het brein leunt dan een gelijkmatige inspanning.</td></tr>
+          <tr><td class="term">Hersenplasticiteit</td><td>Het vermogen van het brein om verbindingen aan te leggen en te herschikken, in het boek de reden waarom nieuwe danspassen leren anders werkt dan bekende passen herhalen.</td></tr>
+          <tr><td class="term">Danstest</td><td>De vragenlijst achterin die aanleg en voorkeur koppelt aan een stijl, van ballet voor de solist tot Argentijnse tango voor de improvisator.</td></tr>
+          <tr><td class="term">Belasting zonder stoot</td><td>Het argument dat dansen de winst voor hart en longen van intensieve training geeft zonder de stootbelasting van hardlopen op de gewrichten.</td></tr>
+          <tr><td class="term">Laaggradige ontsteking</td><td>Een aanhoudende lichte ontstekingsstaat die met veel chronische aandoeningen samenhangt en volgens de auteurs door regelmatig dansen afneemt.</td></tr>
+          <tr><td class="term">Sociale synchronisatie</td><td>Het samen in de maat bewegen met anderen, in het boek aangewezen als de sociale helft van de gezondheidswinst.</td></tr>
+          <tr><td class="term">Dansen als medicijn</td><td>De centrale beeldspraak van het boek, waarin dansen wordt behandeld als iets dat voorgeschreven en gedoseerd zou moeten kunnen worden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is van drie soorten. De stevigste is de algemene bewegingsliteratuur: dat regelmatige inspanning goed is voor hart, bloedvaten, stofwisseling en stemming staat buiten kijf, en alles wat het boek daarover zegt rust op die basis. De tweede soort is bevolkingsonderzoek waarin mensen die dansen op langere termijn beter af blijken. De derde soort is klein interventieonderzoek, vooral bij de ziekte van Parkinson en bij ouderen, waarin een dansprogramma naast een controlegroep wordt gelegd.</p>
+      <p>De sprong die het boek maakt zit tussen de eerste en de tweede soort. Dat dansers gezonder blijken, betekent niet dat het dansen dat heeft gedaan; wie danst is doorgaans al mobieler, socialer en welvarender dan wie niet danst. De auteurs noemen dat probleem, maar het weegt in hun conclusies nauwelijks mee.</p>
+      <p>Van de losse toepassingen is een deel goed vastgelegd en een deel niet. Dat een popsong van ongeveer honderd slagen per minuut een bruikbare metronoom is bij hartmassage, is een gangbare reanimatieaanwijzing. De uitspraken over wat bewegingspatronen op een dansvloer over iemand verraden, komen uit klein en slecht herhaald onderzoek, en het boek maakt dat verschil in zekerheid niet zichtbaar.</p>
+      <p>Het onderzoek naar dansen als behandeling stond in 2018 nog aan het begin. De onderzoeken zijn klein, blinderen is bij een dansles onmogelijk, en de controlegroep krijgt zelden een even gezellige bezigheid aangeboden. Wat er dan gemeten wordt is niet alleen het dansen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar kwam van Maike Hege in haar recensie voor het Duitse wetenschapstijdschrift Spektrum. Zij prijst het aanstekelijke van het boek, maar verwijt de auteurs gebrek aan afstand: zij schrijven te stellig voor een veld dat nog in de beginfase verkeert, en hun uitspraak dat dansen in geen geval kwaad kan gaat voorbij aan het feit dat niet dansen evenmin kwaad kan.</p>
+      <p>Daar komt bij dat het boek zelden een alternatief naast dansen legt. Wandelen in gezelschap, koorzang, samen tuinieren en ploegsport bevatten dezelfde drie ingrediënten van inspanning, leren en gezelschap. Zolang die vergelijking ontbreekt, blijft onbeslist of het om dansen gaat of om de combinatie die dansen toevallig levert.</p>
+      <p>De vorm werkt de stelligheid in de hand. De verwijzingen staan niet bij de zin waar zij bij horen, waardoor per bewering niet te zien is of er een gerandomiseerde proef onder ligt of een enkele waarneming. Voor een boek dat de geneeskunde wil overtuigen is dat een gemis.</p>
+      <p>Ten slotte is de doelgroep smaller dan de titel doet vermoeden. Wie ernstig beperkt is in bewegen, wie woont waar geen dansgelegenheid is en wie geen geld of tijd heeft voor lessen, komt in het boek nauwelijks voor. De aanbeveling veronderstelt een lichaam en een leven waarin dansen al binnen bereik ligt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de gezondheidsclaims als een reden om te bewegen en niet als een dosering; het boek geeft geen betrouwbare hoeveelheden.</li>
+        <li>Stel bij elke claim eerst vast of hij uit een bevolkingsstudie of uit een interventie komt; het boek maakt dat onderscheid zelf niet.</li>
+        <li>Gebruik de danstest als hulpmiddel bij het kiezen van een les, niet als uitspraak over karakter.</li>
+        <li>Weeg bij de ziekte van Parkinson of bij artrose het advies met de eigen behandelaar; de onderzochte programma's waren begeleid en aangepast.</li>
+        <li>Vergelijk het aanbod in de eigen omgeving met andere bezigheden die inspanning, leren en gezelschap combineren, en kies wat vol te houden is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Tanzen ist die beste Medizin: Warum es uns gesünder, klüger und glücklicher macht</i> (Rowohlt Polaris, Reinbek bei Hamburg, 2018, 319 blz., ISBN 9783499633539), in januari 2025 herdrukt bij Rowohlt Taschenbuch (320 blz., ISBN 9783499018237), met tekeningen van Christensen zelf. De Engelse vertaling van Katharina Rout verscheen als <i>Dancing Is the Best Medicine: The Science of How Moving to a Beat Is Good for Body, Brain, and Soul</i> (Greystone Books, Vancouver, 2021, 328 blz., ISBN 9781771646345); onder die titel staat het boek ook op Nederlandse boekenplanken. Een Nederlandse uitgave bestaat niet. Van Christensen is evenmin iets vertaald: haar latere <i>The Pathway to Flow</i> (Rider/Penguin, 2024) wordt in Nederland en België in het Engels verkocht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Twee neurowetenschappers die zelf dansen, Julia Christensen als voormalig balletdanseres en Dong-Seon Chang als swingdanser, brengen bij elkaar wat er over dansen bekend is uit hersenonderzoek, bewegingswetenschap en geneeskunde. Het boek verscheen in 2018 in het Duits en werd in 2021 in het Engels vertaald.</p><p>De opzet is die van een populairwetenschappelijk handboek. Negen hoofdstukken, elk geopend met een citaat over dansen, behandelen achtereenvolgens waarom mensen op de maat bewegen, wat er ondertussen in hoofd en lichaam gebeurt, en welke aandoeningen erdoor beïnvloed lijken te worden. Hart, longen, gewrichten, stemming, geheugen, spijsvertering en de omgang met anderen komen alle langs, met dementie, de ziekte van Parkinson, rugpijn, diabetes en somberheid als terugkerende voorbeelden.</p><p>Achterin staat een danstest die een stijl bij een temperament zoekt: ballet voor wie alleen wil werken, Argentijnse tango voor wie liever improviseert, moderne dans voor wie iets kwijt wil. De toon is aanstekelijk en de auteurs houden weinig slagen om de arm, wat recensenten van de Duitse uitgave ook als bezwaar noemden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dans</li><li>beweging</li><li>brein</li><li>ritme</li><li>gezondheid</li><li>populaire wetenschap</li><li>muziek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1291"><a href="1291.html">Dancing in the Streets: A History of Collective Joy</a>. Ehrenreich beschrijft dezelfde menselijke neiging tot samen bewegen historisch, en laat zien hoe die eeuwenlang werd onderdrukt; waar Christensen en Chang het lichaam onderzoeken, onderzoekt zij de macht die het verbood.</li>
+          <li value="85"><a href="85.html">Singing in the brain</a>. Scherder voert voor zingen vrijwel dezelfde redenering als dit boek voor dansen: inspanning, ritme en gezelschap tegelijk, met dezelfde onzekerheid over oorzaak en gevolg.</li>
+          <li value="762"><a href="762.html">The Singing Neanderthals: The Origins of Music, Language, Mind and Body</a>. Mithen zoekt de oorsprong van muziek en beweging in de menselijke voorgeschiedenis en levert de evolutionaire achtergrond die dit boek als vanzelfsprekend aanneemt.</li>
+          <li value="1563"><a href="1563.html">The Pathway to Flow</a>. Christensen werkt daar alleen verder aan dezelfde lijn, met beweging als weg naar geconcentreerd werken; dit boek is de bredere en oudere voorganger.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
