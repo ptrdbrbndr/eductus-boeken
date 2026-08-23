@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bodylogics &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ratelband stelt dat het lichaam te lezen valt als de gebruiksaanwijzing van de persoon die erin woont. Vorm, maat en verhouding van hoofd, gezicht,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1809">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1809 &middot; Brein en lichaam</p>
+    <h1>Bodylogics</h1>
+    <p class="lede">Emile Ratelband, 2017</p>
+    <p class="stats">
+      <span><b>1485</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1809"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ratelband stelt dat het lichaam te lezen valt als de gebruiksaanwijzing van de persoon die erin woont. Vorm, maat en verhouding van hoofd, gezicht, handen, voeten en romp geven volgens hem aan waar de aanleg van iemand ligt: bij denken, bij voelen of bij doen. Die vormen zijn volgens hem niet alleen bepaald door de generaties ervoor, maar ook door het eetpatroon van de moeder in de seizoenen van de zwangerschap. Wie het lezen leert, begrijpt zichzelf eerder en praat makkelijker met anderen, omdat hij vooraf weet met wat voor soort mens hij te maken heeft. Goed of fout bestaat in dit stelsel niet; er zijn alleen verschillende talenten, die worden benut of blijven liggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Ratelband trainde vanaf de jaren tachtig in motivatie, verkoop en neurolinguistisch programmeren, en werd in 1994 landelijk bekend met <i>Tsjakkaa!</i>. Somatologie is het onderdeel van zijn repertoire dat over het lichaam gaat. In 2008 legde hij het vast in <i>Somatologie. De leer van je lijf</i>; <i>Bodylogics</i> uit 2017 is daar de bewerkte, rijk geillustreerde versie van.</p>
+      <p>Het boek hoort bij een seminar dat hij onder dezelfde naam geeft. De aankondiging daarvan belooft dat de deelnemer leert zichzelf en anderen op een nieuwe manier te duiden, begrijpt hoe zijn bouw met zijn ontwikkeling samenhangt, en ziet wat de bouw over gezondheid zegt. Bronvermeldingen staan er in die aankondiging niet bij.</p>
+      <h3>De aanname: vorm zegt iets over gedrag</h3>
+      <p>Het uitgangspunt is dat het uiterlijk iets zegt over de voorkeuren in gedrag. Ronde vormen staan in dit stelsel voor zacht, meegaand en sociaal; rechte vormen voor kracht, actie en zelf de koers bepalen. De leer beperkt zich niet tot het gezicht, zoals de oude gelaatkunde deed, maar betrekt handen, voeten, oren en volgens Ratelband ook de organen erbij.</p>
+      <p>Daarmee ontstaat een raster waarin ieder mens ergens valt. Het verschil met een vragenlijst is dat de persoon zelf niets hoeft in te vullen: de waarnemer leest het af. Dat is voor een trainer een aantrekkelijke belofte, want het levert een oordeel op nog voordat het gesprek begint.</p>
+      <h3>Waar de vormen volgens hem vandaan komen</h3>
+      <p>De uitgeversbeschrijving vat de kern zo samen: lichaamskenmerken worden bepaald door wat de generaties voor je hebben doorgegeven en door het eetpatroon van je moeder in de seizoenen waarin je in de baarmoeder zat. Uit die twee bronnen zou de evolutionaire logica volgen waarom de een meer verstand meekrijgt en de ander meer gevoel, en waarom de een doorpakt en de ander blijft steken.</p>
+      <p>Deze redenering is het scharnier van het boek. Zij maakt van uiterlijk een oorzaakketen: seizoen en voeding vormen het lichaam, het lichaam vormt het gedrag, het gedrag bepaalt het leven. Iedere schakel wordt gesteld, geen ervan wordt gemeten.</p>
+      <h3>Maat en verhouding</h3>
+      <p>In het materiaal dat Ratelband bij deze leer voert, dient de gulden snede als meetlat. De natuur zou steeds de zuinigste vorm kiezen, en de navel zou het lichaam in die verhouding delen. Hoe verder een maat van de norm afwijkt, hoe groter het talent dat bij dat punt hoort.</p>
+      <p>Die regel is voor de lezer prettig, want zij maakt van elke afwijking een pluspunt. Zij is tegelijk de plek waar het stelsel zich aan toetsing onttrekt: bij de norm hoort een betekenis, bij de afwijking ook, en beide kanten bevestigen de leer.</p>
+      <h3>Waarvoor het bedoeld is</h3>
+      <p>Het boek richt zich op zelfkennis en op de omgang met anderen. Het belooft betere communicatie, meer inzicht in de eigen aanleg en, in de aanprijzing, ook betere dienstverlening en verkoop. De toon is die van de trainer: er is geen goed of fout, iedereen heeft iets meegekregen, het gaat erom daar het meeste uit te halen.</p>
+      <p>Die geruststelling staat op gespannen voet met de inhoud. Een stelsel dat uitspraken doet over wie meer verstand heeft en wie minder, deelt mensen wel degelijk in op een ladder, hoe vriendelijk de formulering ook is.</p>
+      <h3>Wat het boek niet doet</h3>
+      <p>In de uitgeversinformatie, in het seminarmateriaal en in de openbare beschrijvingen van de leer wordt geen onderzoek genoemd waarmee de verbanden zijn nagegaan: geen steekproef, geen controlegroep, geen voorspelling die vooraf is vastgelegd en achteraf gecontroleerd. Het bewijs bestaat uit voorbeelden en uit de ervaring van de trainer.</p>
+      <p>Het boek meldt evenmin hoe vaak de aflezing misgaat. Juist dat getal zou nodig zijn om te weten of er iets te lezen valt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Somatologie</td><td>Ratelbands naam voor de leer dat karakter en aanleg in het hele lichaam zitten en daaraan zijn af te lezen.</td></tr>
+          <tr><td class="term">BodyLogics</td><td>De logica van het lichaam: het idee dat de bouw van een mens een redeneerbare oorzaak heeft en een voorspelbaar gevolg voor gedrag.</td></tr>
+          <tr><td class="term">Gelaatkunde</td><td>De oudere leer die karakter uit het gezicht las; volgens Ratelband gaat somatologie verder omdat zij het hele lichaam betrekt.</td></tr>
+          <tr><td class="term">Ronde en rechte vorm</td><td>Het onderscheid waarmee vormen worden geduid: rond voor zacht, meegaand en sociaal, recht voor kracht, actie en eigen koers.</td></tr>
+          <tr><td class="term">Gulden snede</td><td>De verhouding die in dit stelsel als natuurlijke norm voor lichaamsmaten geldt, met de navel als deelpunt.</td></tr>
+          <tr><td class="term">Afwijking als talent</td><td>De regel dat een maat die van de norm afwijkt op meer aanleg wijst bij het lichaamsdeel waar de afwijking zit.</td></tr>
+          <tr><td class="term">Zwangerschapsseizoen</td><td>De seizoenen waarin het kind in de baarmoeder zat, met het eetpatroon van de moeder daarbij, aangevoerd als medebepalend voor de bouw.</td></tr>
+          <tr><td class="term">Talent</td><td>De aanleg die volgens Ratelband bij een vorm hoort en die benut of onbenut kan blijven; er is in dit stelsel geen goede of foute bouw.</td></tr>
+          <tr><td class="term">Neurolinguistisch programmeren</td><td>De trainingsleer waaruit Ratelband voortkomt en waaraan hij het taalgebruik over gemoedstoestand en verandering ontleent.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Wat het aandraagt zijn voorbeelden, tekeningen en de stelligheid van iemand die naar eigen zeggen tienduizenden mensen heeft bekeken. Voor een leer die per lichaamskenmerk een gedragsvoorspelling doet, is dat te weinig om iets van te vinden: zonder tellingen valt niet vast te stellen of de aflezing vaker klopt dan raden.</p>
+      <p>De traditie waarin het staat is wel onderzocht. William Sheldon deelde in de jaren veertig mensen in als ectomorf, mesomorf en endomorf en rapporteerde een hoge samenhang met temperament; die samenhang bleek grotendeels het gevolg van het feit dat hij zowel de bouw als het karakter zelf beoordeelde. Latere pogingen om uit gezichten karakter of gedrag te voorspellen leveren verbanden op die zo klein zijn dat er in een enkel geval niets mee te doen valt.</p>
+      <p>Op een punt raakt het boek aan iets dat wel is gemeten. Het onderzoek onder kinderen die tijdens de Nederlandse hongerwinter van 1944 en 1945 in de baarmoeder zaten, laat zien dat ondervoeding van de moeder gevolgen heeft die decennia later nog meetbaar zijn. Dat gaat over geboortegewicht, stofwisseling en ziekterisico, niet over af te lezen karaktertypen, en het onderbouwt de sprong van seizoen naar persoonlijkheid dus niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de leer zich niet laat weerleggen. Elke uitkomst past: is de maat gewoon, dan hoort daar een betekenis bij; wijkt hij af, dan hoort daar een groter talent bij. Een uitspraak die door geen enkele waarneming onjuist kan worden gemaakt, zegt niets over de wereld, hoe goed zij ook voelt.</p>
+      <p>Daarbij komt het Barnum-effect. Beschrijvingen die op vrijwel iedereen passen, worden door lezers herkend als treffend, zeker wanneer ze positief zijn geformuleerd. Een stelsel dat mensen indeelt in zacht en sociaal tegenover doortastend en zelfsturend, put uit dezelfde voorraad waar horoscopen uit putten.</p>
+      <p>Er zit ook een praktisch risico in. Het boek wordt aangeprezen als hulpmiddel voor verkoop en samenwerking, dus voor situaties waarin over anderen wordt beslist. Iemand op zijn bouw inschatten voordat hij iets heeft gezegd, is precies de vorm van oordelen die in werving, beoordeling en klantcontact schade aanricht, en de vriendelijke formulering dat er geen goed of fout bestaat neemt dat niet weg.</p>
+      <p>Wie desondanks nieuwsgierig blijft, houdt van dit boek vooral de tekeningen en de indeling over. Wat ontbreekt is de enige zin die het geloofwaardig zou maken: hier is een groep mensen, hier is de voorspelling die vooraf is gedaan, en zo vaak kwam zij uit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke uitspraak over een lichaamskenmerk welke waarneming haar onjuist zou maken. Blijft het antwoord uit, behandel de uitspraak dan als smaak.</li>
+        <li>Leg de beschrijving die bij het eigen type hoort naast die van een ander type en tel hoeveel zinnen op beide passen.</li>
+        <li>Gebruik de indeling niet in werving, beoordeling of verkoop; leg vast wat iemand doet en zegt, niet hoe hij eruitziet.</li>
+        <li>Zoek bij belangstelling voor invloeden voor de geboorte liever de literatuur over de hongerwinter-cohorten op, waar wel is gemeten wat er gemeten kon worden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen als <i>Bodylogics. De logica van het lichaam</i>, gebonden en met kleurenillustraties, 160 blz., ISBN 9789082404814; de uitgave staat op naam van Strengholt United Media, Naarden, en verscheen in juli 2017, met een herdruk in 2019. Het boek is een bewerkte voortzetting van <i>Somatologie. De leer van je lijf</i>, dat Ratelband in 2008 uitbracht. Het is in het Nederlands geschreven; een vertaling in een andere taal is niet aangetroffen. Ratelband is in Nederland vooral bekend van <i>Tsjakkaa!</i> (1994), het boek waarmee hij zijn trainingen over motivatie en neurolinguistisch programmeren aan een groot publiek verkocht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ratelband beweert dat de bouw van een mens verraadt hoe hij zich gedraagt. De vorm van het hoofd, de verhouding tussen romp en benen, de dikte van de vingers en de stand van de oren zouden aangeven waar iemands aanleg ligt en waar niet. Hij noemt die leer somatologie en zet haar in dit boek onder de naam Bodylogics neer.</p><p>De vormen komen volgens hem uit twee bronnen: wat de voorouders hebben doorgegeven, en wat de moeder at in de seizoenen waarin het kind in haar buik zat. Wie de vormen leest, zou zichzelf en anderen sneller begrijpen, beter kunnen verkopen en beter kunnen samenwerken.</p><p>Het boek noemt geen onderzoek waarmee die verbanden zijn nagegaan. Het staat in een oude traditie, die van de gelaatkunde en van de lichaamstypen van William Sheldon, en die traditie is bij toetsing niet overeind gebleven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>somatologie</li><li>lichaamsbouw</li><li>gelaatkunde</li><li>typologie</li><li>NLP</li><li>zelfbeeld</li><li>pseudowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="361"><a href="361.html">Psychologische typen</a>. Jung deelde mensen ook in typen in, maar bouwde zijn indeling op waarneembaar gedrag en op de vraag hoe iemand zijn aandacht richt, niet op lichaamsmaten.</li>
+          <li value="1530"><a href="1530.html">De NLP-Coach als inspirator</a>. Het Nederlandse NLP-veld waaruit Ratelband voortkomt, met dezelfde taal over gemoedstoestand en verandering en dezelfde omgang met bewijsvoering.</li>
+          <li value="946"><a href="946.html">The Lady Tasting Tea</a>. Salsburg laat zien hoe de statistiek werd uitgevonden om precies de vraag te beantwoorden die dit boek overslaat: klopt het vaker dan toeval.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

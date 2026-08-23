@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vonken van verlangen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Veenbaas en Goudswaard stellen dat wat een mens dwarszit vaak niet bij die mens zelf begint, maar bij wat er in het gezin en de familie daarvoor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1844">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1844 &middot; Naslag en praktijk</p>
+    <h1>Vonken van verlangen</h1>
+    <p class="lede">Wibe Veenbaas en Joke Goudswaard, 2002</p>
+    <p class="stats">
+      <span><b>1900</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1844"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Veenbaas en Goudswaard stellen dat wat een mens dwarszit vaak niet bij die mens zelf begint, maar bij wat er in het gezin en de familie daarvoor onafgedaan is gebleven: een dode die niet is betreurd, een kind dat is doodgezwegen, een schuld die nooit is erkend, een plaats die iemand is ontzegd. Wie zich daar onbewust mee vereenzelvigt draagt een last die hem niet toebehoort. Een opstelling in een groep zou dat zichtbaar maken, en het verlangen dat onder de klacht ligt zou de richting aangeven waarin iemand weer verder kan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Wibe Veenbaas begon als gymnastiekleraar en richtte in 1989 Phoenix Opleidingen op, een particulier instituut dat trainers, coaches en therapeuten opleidt. Zijn scholing loopt via hypnotherapie, neurolinguistisch programmeren en transactionele analyse naar het systemisch werk. Joke Goudswaard was aan hetzelfde instituut verbonden. Het boek is dan ook geen uitgeversproduct maar een opleidingsboek, uitgebracht in eigen beheer en vooral verkocht via de eigen webshop en via opleidingsinstituten.</p>
+      <p>De methode zelf komt van Bert Hellinger, de Duitse ex-priester die het opstellen van familiesystemen in de jaren tachtig en negentig bekend maakte. Veenbaas en Goudswaard nemen zijn grondgedachten over en voegen daar hun eigen accenten aan toe, met meer aandacht voor het lichaam, voor taal en voor wat zij het verlangen noemen. Wie de Nederlandse opstellingenwereld kent herkent in dit boek de Phoenix-lijn, die zachter en minder orakelend is dan Hellinger zelf placht op te treden.</p>
+      <h3>Het gezin als systeem</h3>
+      <p>De grondgedachte is dat een familie zich gedraagt als een geheel met eigen regels, en dat die regels ook werken op leden die de betrokkene nooit heeft gekend. Wie is uitgesloten, doodgezwegen of vergeten blijft in het systeem meetellen; iemand van een latere generatie neemt dan zonder het te weten diens plaats of diens gevoel over. In het vakjargon heet dat een verstrikking.</p>
+      <p>Daartegenover staan de ordeningsbeginselen: ieder lid heeft recht op een plek, de eerdere generatie gaat voor de latere, en tussen geven en nemen hoort een zeker evenwicht. Waar die verhoudingen scheef staan ontstaat volgens de auteurs de klacht waarmee iemand zich meldt. Het werk bestaat er niet uit het verleden te veranderen, maar uit het erkennen van wat er is gebeurd en het teruggeven van wat een ander toebehoort.</p>
+      <h3>Ouders en kinderen</h3>
+      <p>Het eerste achtergrondthema gaat over de verhouding tussen de generaties. Kinderen zijn volgens de auteurs uit loyaliteit bereid het lot van hun ouders te dragen, ook wanneer niemand daarom vraagt. Een kind dat de last van een ouder overneemt gaat daarmee boven die ouder staan, en dat is precies de omkering die het volgens dit denken misgaat.</p>
+      <p>De beweging die het werk zoekt heet inordenen: terugkeren naar de plaats die iemand als kind toekomt, met de ouders als ouders en het eigen leven als eigen. Voor de auteurs is dat geen kwestie van goedpraten wat ouders hebben gedaan, maar van ophouden hun leven mee te dragen.</p>
+      <h3>Identificatie en trance</h3>
+      <p>Het tweede thema behandelt identificatie: het onbewust overnemen van de gevoelens, de houding of zelfs de klachten van iemand anders uit het systeem. Wie zich zo vereenzelvigt voelt volgens de auteurs iets wat niet van hemzelf is en kan er daarom ook niets mee.</p>
+      <p>Trance is in dit boek de toestand waarin dat kan gebeuren en waarin het ook weer ongedaan kan worden gemaakt. Veenbaas komt uit de hypnotherapie en gebruikt de term breder dan alleen voor de behandelkamer: het dagelijks leven zit volgens hem vol met aangeleerde trances, familieverhalen en beelden waar iemand niet meer buiten kijkt. Een opstelling is dan een manier om die trance te doorbreken.</p>
+      <h3>Schuld en onschuld</h3>
+      <p>Het derde thema is dat van schuld en onschuld. In deze traditie zijn dat geen morele oordelen maar systemische gevoelens: iemand voelt zich schuldig wanneer hij afwijkt van wat zijn groep verlangt, en onschuldig wanneer hij zich eraan houdt, ongeacht wat hij feitelijk doet. Het gevolg is dat mensen zich schuldig kunnen voelen over hun geluk en onschuldig over hun ellende, zolang die ellende de familie trouw blijft.</p>
+      <p>Dit is het punt waarop het systemisch werk zich het scherpst onderscheidt van gangbare psychotherapie, en tegelijk het punt waarop het gemakkelijk misbruikt kan worden. Wie het strak toepast kan verklaren waarom een slachtoffer bij zijn dader moet blijven horen. De auteurs bestrijden die uitleg, maar het boek bevat weinig waarborgen tegen therapeuten die haar wel trekken.</p>
+      <h3>De weg van het verlangen</h3>
+      <p>Het vierde thema geeft het boek zijn titel. Verlangen is bij Veenbaas en Goudswaard geen wens die vervuld moet worden maar een spoor: wat iemand het sterkst trekt wijst aan waar in zijn geschiedenis iets is blijven liggen. Een verlangen dat maar niet uitkomt gaat volgens hen zelden over de ander of het doel waarop het zich richt, en meestal over een plek in het eigen systeem die nog niet is ingenomen.</p>
+      <p>In de opbouw van het boek staan hier de gedichten en de verhalen. De auteurs gaan ervan uit dat beeldtaal het systemische niveau raakt waar uitleg niet bij komt.</p>
+      <h3>De praktijk en de drieentwintig modules</h3>
+      <p>De tweede helft is een werkboek. De auteurs beschrijven hoe een opstelling verloopt: een deelnemer brengt een vraag in, kiest uit de groep plaatsvervangers voor de leden van zijn systeem en zet die in de ruimte neer. De plaatsvervangers rapporteren wat zij op hun plek voelen, de begeleider verplaatst hen, en er wordt gezocht naar een opstelling waarin iedereen kan blijven staan.</p>
+      <p>Uit de analyse van een groot aantal van die sessies kwamen drieentwintig modules voort: terugkerende configuraties met het bijbehorende thema, bedoeld om in een opleidingsgroep te oefenen. Dat is de nuttigste vernieuwing van het boek. Waar veel opstellingenliteratuur bij de anekdote blijft, probeert dit boek het werk leerbaar te maken, met een indeling waar een groep zich aan kan houden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Systemisch werk</td><td>De benadering waarin een klacht van een enkeling wordt gelezen als een verschijnsel van het gezins- of familiesysteem waar die persoon deel van uitmaakt.</td></tr>
+          <tr><td class="term">Familieopstelling</td><td>Werkvorm waarin deelnemers uit een groep de leden van iemands familie voorstellen en in de ruimte worden neergezet, zodat de verhoudingen zichtbaar en verplaatsbaar worden.</td></tr>
+          <tr><td class="term">Plaatsvervangende waarneming</td><td>Het verschijnsel waarop de werkvorm rust: iemand die de plaats van een familielid inneemt zou gevoelens en lichamelijke gewaarwordingen krijgen die bij dat familielid horen.</td></tr>
+          <tr><td class="term">Binding</td><td>De aanspraak van ieder lid op te horen bij het systeem, ook wanneer het is gestorven, weggestuurd of verzwegen.</td></tr>
+          <tr><td class="term">Ordening</td><td>De rangorde waarin wie eerder kwam voorgaat op wie later kwam; wordt die omgekeerd, dan raakt het systeem volgens de auteurs uit balans.</td></tr>
+          <tr><td class="term">Balans in geven en nemen</td><td>Het derde beginsel, dat verhoudingen tussen gelijken vraagt om ongeveer evenveel heen als terug, terwijl tussen ouder en kind het geven altijd een kant op gaat.</td></tr>
+          <tr><td class="term">Verstrikking</td><td>De toestand waarin iemand het lot, het gevoel of de plaats van een ander familielid draagt zonder dat te weten.</td></tr>
+          <tr><td class="term">Identificatie</td><td>Het onbewust overnemen van de houding of de klacht van iemand anders uit het systeem, meestal van iemand die is uitgesloten.</td></tr>
+          <tr><td class="term">Trance</td><td>De vernauwde toestand waarin een familiebeeld voor waar wordt gehouden; volgens Veenbaas komt die niet alleen in de therapiekamer voor maar ook in het gewone leven.</td></tr>
+          <tr><td class="term">De weg van het verlangen</td><td>Het thema waaraan het boek zijn titel ontleent: wat iemand het sterkst trekt wordt gelezen als aanwijzing over wat in zijn systeem nog niet is afgemaakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen empirisch onderzoek aan en pretendeert dat ook niet. De onderbouwing bestaat uit de ervaring van de auteurs met een groot aantal opstellingen in hun eigen opleidingen, weergegeven in casussen. Dat is bruikbaar materiaal om een werkwijze over te dragen, maar het is materiaal dat door de begeleiders zelf is geselecteerd en beschreven, en waarvan de lezer de afloop op hun woord moet geloven.</p>
+      <p>De grondbegrippen komen niet uit onderzoek voort maar uit de praktijk van Hellinger, die ze presenteerde als iets wat hij in het werk had waargenomen. Dat geldt ook voor de aanname waarop alles staat of valt, de plaatsvervangende waarneming. Voor het idee dat een willekeurige deelnemer zonder voorkennis kan voelen wat een onbekend familielid voelde bestaat geen aanvaarde verklaring en geen overtuigend onderzoek. Er zijn eenvoudiger verklaringen die het boek niet bespreekt: de opsteller kiest zelf wie waar staat, de begeleider stuurt met zijn vragen, en de groep leest de sfeer.</p>
+      <p>Wat wel steun heeft in de bredere literatuur is de omgeving van de methode, niet de methode zelf: dat wat er in eerdere generaties gebeurde doorwerkt in latere, dat zwijgen over verlies en geweld in gezinnen schade aanricht, en dat een ervaring in een groep een ander soort inzicht geeft dan een gesprek onder vier ogen. Onderzoek naar opstellingenwerk als behandeling is schaars, meestal klein van opzet en uitgevoerd door betrokkenen; het rechtvaardigt de stelligheid van dit vakgebied niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de status van de uitspraken. Wat een opstelling oplevert wordt in deze traditie behandeld als bevinding over de werkelijke familie, terwijl het even goed een beeld kan zijn dat in de kamer is ontstaan. Een deelnemer kan met de mededeling naar huis gaan dat er een doodgeboren broertje moet zijn geweest of dat zijn grootvader iets heeft gedaan wat nooit is uitgesproken. Zulke mededelingen zijn niet toetsbaar en kunnen een familie ernstig beschadigen. Het boek waarschuwt hier onvoldoende voor.</p>
+      <p>Het tweede bezwaar betreft de conserverende kant van de leer. Ordening, rangorde en het aanvaarden van het lot leiden er in de praktijk toe dat vrouwen, kinderen en wie zich losmaakt van een gezin te horen krijgen dat zij hun plaats moeten innemen. Hellinger is daar met scherpe uitspraken over daders en slachtoffers ver in gegaan en heeft daarmee blijvende schade aan de reputatie van de methode toegebracht. Veenbaas en Goudswaard schrijven milder, maar het begrippenapparaat dat zij overnemen laat die uitleg toe.</p>
+      <p>Het derde bezwaar is vaktechnisch. Familieopstellingen worden in Nederland aangeboden door begeleiders zonder gereglementeerde opleiding, aan deelnemers die soms zwaar getraumatiseerd zijn, in weekendgroepen zonder nazorg. Een handboek dat het werk leerbaar maakt vergroot het aanbod. Over indicatie, contra-indicatie en wat te doen wanneer iemand in een groep instort staat er in verhouding weinig.</p>
+      <p>Als tekst is het boek ongelijkmatig. De gedichten, verhalen en aforismen die de kern moeten overdragen werken alleen voor wie de vooronderstellingen al deelt; voor een buitenstaander verschuift het betoog daarmee juist weg van de toetsbaarheid. Wie wil begrijpen waarom dit werk bij therapeuten en coaches zo is aangeslagen leert hier veel; wie wil weten of het werkt, leert hier niets.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na wie er in de eigen familie is doodgezwegen: een vroeg gestorven kind, een eerdere partner, een oorlogsgeschiedenis, een faillissement.</li>
+        <li>Onderscheid bij een gevoel dat maar niet weggaat of het bij de eigen geschiedenis hoort of bij die van een ouder.</li>
+        <li>Vraag bij deelname aan een opstelling naar de opleiding van de begeleider, naar de omvang van de groep en naar wat er is geregeld voor daarna.</li>
+        <li>Behandel wat er in een opstelling opkomt als hypothese en niet als feit, zeker wanneer het gaat om beweringen over levende familieleden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Vonken van verlangen: systemisch werk, perspectief en praktijk</i>. Uitgegeven in eigen beheer door Phoenix Opleidingen te Utrecht, eerste druk 2002; de vijfde druk uit 2019 telt 407 blz., ISBN 9789080050778. Opgaven van de omvang lopen per druk uiteen, van ongeveer 350 tot 415 bladzijden. Het boek is in het Nederlands geschreven en niet in andere talen vertaald. Van Veenbaas verschenen bij hetzelfde instituut onder meer <i>De maskermaker</i> en <i>Het helende verhaal</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een handboek over systemisch werk en familieopstellingen, geschreven door de oprichter van Phoenix Opleidingen en zijn medeauteur. De eerste helft behandelt de achtergrond: hoe een gezin volgens de auteurs een systeem met eigen regels vormt, wat er gebeurt met wie of wat daarbuiten wordt gehouden, en waarom kinderen lasten overnemen die niet van hen zijn.</p><p>De tweede helft gaat over de praktijk. Uit de analyse van een groot aantal opstellingen destilleerden de auteurs drieentwintig modules: terugkerende thema's met een bijbehorende manier van opstellen, bedoeld om in een opleidingsgroep te oefenen. Voorbeelden, gedichten en verhalen dragen daarin evenveel gewicht als de uitleg.</p><p>De titel komt van het laatste achtergrondthema, de weg van het verlangen. Wat iemand het diepst wil is volgens de auteurs geen gril maar een aanwijzing over waar hij in zijn eigen geschiedenis is blijven steken. Het boek richt zich op therapeuten en coaches in opleiding, en is niet als zelfhulpboek bedoeld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>systemisch werk</li><li>familieopstellingen</li><li>therapie</li><li>opleidingsboek</li><li>Phoenix Opleidingen</li><li>verlangen</li><li>handboek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1914"><a href="1914.html">De kunst van het helpen</a>. Hellinger legde de grondslag waar dit boek op voortbouwt; wie de Nederlandse bewerking leest, ziet in de bron beter waar de bezwaren tegen de leer vandaan komen.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk behandelt hetzelfde onderwerp, de doorwerking van wat er niet is verwerkt, met onderzoek als onderbouwing in plaats van casussen uit de eigen praktijk.</li>
+          <li value="1845"><a href="1845.html">Women Who Run with the Wolves</a>. Estes werkt evenals dit boek met verhalen en beelden als behandelmiddel, en loopt tegen dezelfde vraag aan: hoeveel gewicht kan een verhaal dragen als bewijs.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

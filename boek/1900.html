@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De angst voor vrijheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fromm stelt dat de vrijheid die Europa sinds de late Middeleeuwen heeft verworven twee kanten heeft die niet los van elkaar te krijgen zijn. Het losraken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1900">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1900 &middot; Staat en vrijheid</p>
+    <h1>De angst voor vrijheid</h1>
+    <p class="lede">Erich Fromm, 1941; vert. Hans Redeker en Jakob Mordegaai</p>
+    <p class="stats">
+      <span><b>1900</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1900"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fromm stelt dat de vrijheid die Europa sinds de late Middeleeuwen heeft verworven twee kanten heeft die niet los van elkaar te krijgen zijn. Het losraken uit een vaste plaats in stand, gilde, familie en kerk maakte het individu zelfstandig en liet het tegelijk achter met een gevoel van machteloosheid en isolement dat moeilijk te verdragen is. Wie dat gevoel niet omzet in een eigen manier van werken, liefhebben en denken, zoekt volgens hem verlichting door de verworven vrijheid weer weg te geven: aan een leider, aan een beweging, of aan de gewoonten van iedereen. De opkomst van het nationaalsocialisme is in dit boek daarom geen inval van barbarij van buitenaf, maar de uitkomst van een karakterstructuur die de moderne samenleving zelf voortbrengt en die ook in de landen die de oorlog wonnen aanwezig is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vrijheid als psychologisch vraagstuk</h3>
+      <p>Fromm opent met een verantwoording van zijn werkwijze. Hij wil noch de verklaring van de historicus, die maatschappelijke omstandigheden opsomt, noch die van de psychoanalyticus die het gezin als hele oorzaak neemt. Tussen de economische orde en het gedrag van mensen ligt volgens hem de karakterstructuur: de manier waarop mensen leren willen wat zij toch moeten doen.</p>
+      <p>Daarmee neemt hij afstand van Freud op één punt dat het hele boek draagt. De mens is bij Fromm geen wezen met vaste driften die door de samenleving worden ingedamd, maar een wezen dat in zijn verhouding tot anderen wordt gevormd. De vraag naar vrijheid is dan geen kwestie van hoeveel dwang er is, maar van wat er in mensen gebeurt als de dwang wegvalt.</p>
+      <h3>Individuatie en de prijs ervan</h3>
+      <p>Fromm vergelijkt de geschiedenis van de vrijheid met het opgroeien van een kind. Het kind maakt zich los van de moeder, wint kracht en overzicht, en verliest de vanzelfsprekende geborgenheid van de band waarin het geen apart wezen was. Die vanzelfsprekende verbondenheid noemt hij de primaire bindingen.</p>
+      <p>Voor de samenleving als geheel liep het volgens hem net zo. Naarmate de middeleeuwse orde uiteenviel, kwam de mens als afzonderlijk wezen tevoorschijn: vrijer, en ook kleiner tegenover een wereld die zich niets van hem aantrekt. Er zijn dan twee wegen. De ene is verbondenheid opnieuw opbouwen vanuit eigen werk en genegenheid. De andere is het teruggeven van de zelfstandigheid in ruil voor het gevoel ergens bij te horen.</p>
+      <h3>Luther, Calvijn en het nieuwe karakter</h3>
+      <p>Het historische deel begint bij de middeleeuwse orde, waarin iemands plaats vastlag en de markt door prijs- en gildevoorschriften werd begrensd. In de Renaissance en met de opkomst van kapitaal, concurrentie en geldvermogen verdween die zekerheid voor grote groepen, in het bijzonder voor de stedelijke middenstand die door rijke handelshuizen werd weggedrukt.</p>
+      <p>In die stemming leest Fromm Luther en Calvijn. Luthers leer dat de mens uit zichzelf niets vermag en zich geheel aan God moet overgeven, maakt van de eigen nietigheid een verlossing: wie zich volledig onderwerpt, is van de twijfel af. Calvijns predestinatieleer zegt dat de uitkomst vastligt en dat de mens er niets aan kan doen, en tegelijk dat rusteloze arbeid het teken is van uitverkiezing. Fromm ziet daarin de geboorte van een karakter dat werkt zonder van het werk te genieten, zich klein maakt tegenover een hogere macht en zijn onzekerheid in arbeidsdrift omzet. Het is een psychologische lezing van theologische teksten, aangeboden als aanvulling op de economische geschiedschrijving van zijn tijd.</p>
+      <h3>De twee gezichten van de moderne vrijheid</h3>
+      <p>Het kapitalisme heeft de mens verder vrijgemaakt, ook van de laatste standsbanden, en hem daarmee overgeleverd aan een markt die zijn waarde bepaalt. Fromm beschrijft hoe iemand zichzelf leert zien als iets dat aan de man gebracht moet worden, met een prijs die niet in zijn hand ligt. De kleine ondernemer wordt weggeconcurreerd door grote ondernemingen, de werknemer staat tegenover een organisatie die hij niet overziet.</p>
+      <p>Daarbij komt dat het gezag van vorm is veranderd. Het is niet langer een persoon die beveelt, maar een ongrijpbare instantie: de openbare mening, het gezond verstand, de gewoonte. Juist omdat niemand meer beveelt, is het moeilijk vast te stellen waaraan iemand gehoorzaamt.</p>
+      <h3>De drie vluchtmechanismen</h3>
+      <p>Het middelste deel van het boek beschrijft de manieren waarop mensen de last afwerpen. De eerste is de onderwerping aan gezag, die Fromm sadomasochistisch noemt omdat zij twee kanten heeft: buigen voor wie sterker is en heersen over wie zwakker is. Beide bewegingen dienen hetzelfde doel, het opgaan in iets groters, en zij komen in dezelfde persoon voor.</p>
+      <p>De tweede is destructiviteit: wat niet beheerst kan worden, wordt vernietigd, zodat er buiten de eigen persoon geen macht meer overblijft die haar kleinheid aantoont. Fromm ziet dat terug in de vijandigheid die in samenlevingen rondgaat op zoek naar een aanleiding.</p>
+      <p>De derde en volgens hem meest verbreide is de automatenconformiteit. Iemand neemt de meningen, wensen en gevoelens van zijn omgeving zo volledig over dat het verschil tussen hemzelf en de anderen verdwijnt. Wat hij een eigen mening noemt, is een pseudomening; wat hij wil, is een pseudowil. Het verschil met de openlijke onderwerping is dat niemand het merkt, ook de betrokkene niet.</p>
+      <h3>De psychologie van het nazisme</h3>
+      <p>Fromm onderscheidt twee groepen Duitsers: de arbeiders en de gezeten burgerij, die het regime vooral met onverschilligheid aanvaardden zonder er warm voor te lopen, en de lagere middenstand, waaruit de overtuigde aanhang kwam. Voor die laatste groep telt de rij vernederingen op: de nederlaag van 1918, de inflatie die spaargeld wegvaagde, het verlies van de vroegere plaats boven de arbeiders, en de leegte van de Weimarrepubliek voor wie gezag gewend was.</p>
+      <p>Vervolgens leest hij <i>Mein Kampf</i> en de redevoeringen op de kenmerken die hij eerder beschreef: de verachting voor het zwakke, de bewondering voor het onverbiddelijke, het beeld van de massa als iets dat overweldigd wil worden, en de leider die zich op zijn beurt onderwerpt aan het lot, de natuur of de voorzienigheid. De keten van onderwerping en overheersing loopt in dit betoog van boven tot onder door.</p>
+      <h3>Vrijheid en democratie</h3>
+      <p>Het slot keert zich naar de landen die zichzelf vrij noemen. De democratie heeft mensen niet behoed voor de gelijkschakeling van hun gedachten, want die verloopt daar via reclame, pers en onderwijs in plaats van via een partij. Fromm noemt dat de schijn van eigenheid: een keuze uit merken en meningen die van tevoren is klaargelegd.</p>
+      <p>Wat hij ertegenover stelt heet spontaneïteit: handelen vanuit het geheel van de eigen persoon, met liefde en scheppende arbeid als twee vormen daarvan. Hij zegt er nadrukkelijk bij dat de geschiedenis geen vooruitgang garandeert en dat dit alleen mogelijk is in een samenleving die de economie ondergeschikt maakt aan menselijke doelen. In een aanhangsel over karakter en maatschappelijk proces zet hij uiteen hoe het sociale karakter volgens hem tot stand komt: mensen willen doen wat de bestaande orde van hen nodig heeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Primaire bindingen</td><td>De vanzelfsprekende verbondenheid met natuur, familie, stand en kerk die iemand een plaats geeft voordat hij zichzelf als apart wezen ervaart.</td></tr>
+          <tr><td class="term">Individuatie</td><td>Het proces waarin die bindingen worden doorgesneden, met meer zelfstandigheid en meer alleen staan als gelijktijdige uitkomst.</td></tr>
+          <tr><td class="term">Vrijheid van en vrijheid tot</td><td>Het onderscheid tussen het wegvallen van dwang en het vermogen om vanuit zichzelf iets te maken en lief te hebben.</td></tr>
+          <tr><td class="term">Morele eenzaamheid</td><td>Het ontbreken van verbondenheid met andere mensen en met waarden, dat Fromm zwaarder weegt dan lichamelijk alleen zijn.</td></tr>
+          <tr><td class="term">Vluchtmechanismen</td><td>De drie manieren waarop iemand de last van vrijheid afwerpt: onderwerping aan gezag, vernietiging, en opgaan in de omgeving.</td></tr>
+          <tr><td class="term">Autoritair karakter</td><td>De verbinding van onderwerping aan wie sterker is met overheersing van wie zwakker is, door Fromm sadomasochistisch genoemd.</td></tr>
+          <tr><td class="term">Automatenconformiteit</td><td>Het zo volledig overnemen van gedachten en gevoelens van de omgeving dat het verschil tussen zelf en anderen verdwijnt.</td></tr>
+          <tr><td class="term">Pseudodenken en pseudowillen</td><td>Meningen en verlangens die iemand als de zijne ervaart terwijl zij van buiten zijn aangereikt.</td></tr>
+          <tr><td class="term">Sociaal karakter</td><td>Het deel van de karakterstructuur dat leden van een groep delen doordat zij dezelfde levensvoorwaarden hebben.</td></tr>
+          <tr><td class="term">Spontaneïteit</td><td>Het handelen vanuit de hele persoon, waarvan Fromm liefde en scheppende arbeid de twee voornaamste vormen noemt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op tekstlezing en historische redenering, niet op meetbare gegevens. Fromm citeert Luther en Calvijn uitvoerig, leest <i>Mein Kampf</i> en de redevoeringen van Hitler, en steunt voor het economische deel op de geschiedschrijving van zijn tijd, onder wie Tawney en Weber. Wie zijn stelling wil toetsen, moet meegaan in de gedachte dat uit religieuze en politieke teksten de gemoedstoestand van hun publiek af te lezen valt.</p>
+      <p>Er is één empirische bodem die in het boek zelf niet zichtbaar is. Fromm leidde rond 1930 voor het Frankfurter Institut für Sozialforschung een enquête onder Duitse arbeiders en bedienden naar hun houding tegenover gezag; de uitkomsten wezen erop dat de aanhang van de linkse partijen in karakter minder antiautoritair was dan hun stemgedrag deed vermoeden. Dat materiaal verscheen pas in 1980 als boek. Het boek uit 1941 vermeldt de bevindingen niet als bewijsvoering.</p>
+      <p>De invloed van het betoog is groter geweest dan zijn bewijskracht. Het begrip autoritair karakter is later door Adorno en anderen tot een meetschaal uitgewerkt, en daarmee wel toetsbaar geworden. Wat Fromm zelf levert, is een samenhangend verhaal dat uiteenlopende verschijnselen onder één noemer brengt, met de zwakte die daarbij hoort.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de verklaring nauwelijks te weerleggen valt. Onderwerping is een vlucht voor vrijheid, opstand kan destructiviteit zijn, en aanpassing is automatenconformiteit. Vrijwel elk gedrag past ergens in het schema, en het boek geeft niet aan welke waarneming het zou tegenspreken. Wie het schema aantrekkelijk vindt, vindt overal bevestiging.</p>
+      <p>Historisch is de gang van Luther en Calvijn naar de moderne mens door latere onderzoekers bestreden, met dezelfde argumenten waarmee de these van Weber over de protestantse ethiek is aangevochten: de tijdsvolgorde klopt niet overal, de handelskapitalen in katholieke steden gingen aan de Reformatie vooraf, en de gelovigen lazen hun eigen theologen anders dan Fromm hen leest.</p>
+      <p>Ten slotte blijft het slot vaag waar het concreet zou moeten worden. Fromm bepleit een samenleving waarin de economie in dienst staat van menselijke doelen en waarin iedereen aan besluiten deelneemt, zonder aan te geven hoe zulke instellingen eruitzien of hoe zij bestand zijn tegen dezelfde neigingen die hij beschrijft. Ook de gedachte dat liefde en scheppende arbeid voor iedereen openliggen, gaat voorbij aan de materiële ruimte die daarvoor nodig is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij elke vrijheidsclaim of het gaat om het wegvallen van een beperking of om het vermogen er iets mee te doen.</li>
+        <li>Let bij ontevredenheid op de tweeslag onderwerping en overheersing: wie boven zich buigt en onder zich hard wordt, past in het patroon dat Fromm beschrijft.</li>
+        <li>Vraag bij een sterke mening na waar zij vandaan komt en of er ooit een moment was waarop zij ook anders had kunnen uitvallen.</li>
+        <li>Neem organisatieveranderingen niet alleen langs de bedoelde uitkomst maar ook langs de vraag welk karakter zij van mensen vraagt.</li>
+        <li>Lees het historische deel als betoog, niet als geschiedschrijving, en zoek de feitelijke onderbouwing bij vakhistorici.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Escape from Freedom</i> (Farrar &amp; Rinehart, New York, 1941, 257 blz.). In Groot-Brittannië verscheen het een jaar later als <i>The Fear of Freedom</i>, en onder die titel is het daar blijven verschijnen. De Nederlandse vertaling van Hans Redeker en Jakob Mordegaai kwam in 1952 uit bij Erven J. Bijleveld in Utrecht, met als ondertitel <i>de vlucht in autoritarisme, destructivisme, conformisme</i>; sinds 1999 staat er een voorwoord van Fernando Savater in, vertaald door Adri Boon. De zeventiende druk dateert van 2020 (270 blz., ISBN 9789061315438). Van Fromm zijn onder meer ook <i>The Art of Loving</i> en <i>To Have or To Be?</i> in het Nederlands verkrijgbaar.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Fromm schreef dit boek in 1941 in de Verenigde Staten, als Duitse jood die het nationaalsocialisme had zien opkomen en het land in 1934 had verlaten. De vraag die hem bezighoudt is waarom miljoenen mensen in een land met vrije verkiezingen, vakbonden en een grondwet hun vrijheid vrijwillig hebben afgestaan.</p><p>Zijn antwoord ligt in de geschiedenis van de vrijheid zelf. Sinds het einde van de Middeleeuwen is de mens losgemaakt uit de vaste plaats die stand, gilde en kerk hem gaven. Dat leverde zelfstandigheid op en tegelijk een gevoel van machteloosheid en alleen staan. Wie die last niet draagt, kan haar afwerpen door zich aan een gezag te onderwerpen, door te vernietigen, of door precies te worden wat de omgeving verwacht.</p><p>Het boek loopt van Luther en Calvijn via de opkomst van de burgerij naar de Duitse middenstand van de jaren twintig en dertig, en eindigt bij de vraag wat de Amerikaanse democratie hiertegen te stellen heeft. Fromm rekent daarbij ook zijn eigen samenleving aan dat zij mensen aflevert die menen zelf te denken terwijl zij herhalen wat iedereen denkt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sociale psychologie</li><li>vrijheid</li><li>autoritarisme</li><li>conformisme</li><li>psychoanalyse</li><li>nazisme</li><li>Reformatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="935"><a href="935.html">The Origins of Totalitarianism</a>. Arendt verklaart dezelfde gebeurtenissen uit eenzaamheid, massificatie en de vernietiging van het politieke; zij verwerpt de psychologische verklaringswijze die Fromm hanteert.</li>
+          <li value="223"><a href="223.html">The Anatomy of Human Destructiveness</a>. Fromm werkte dertig jaar later dezelfde vraag opnieuw uit, nu met materiaal uit de biologie en de antropologie, en scheidde daar de aangeboren agressie van de destructiviteit die hier is beschreven.</li>
+          <li value="1726"><a href="1726.html">Liefhebben, een kunst, een kunde</a>. Het positieve deel van dit boek, liefde als vermogen in plaats van als toestand, kreeg vijftien jaar later een eigen uitwerking.</li>
+          <li value="617"><a href="617.html">The Politics of Obedience: The Discourse of Voluntary Servitude</a>. La Boétie stelde vier eeuwen eerder dezelfde vraag, waarom mensen hun onderwerping zelf in stand houden, en zocht het antwoord in gewoonte en gedeeld voordeel in plaats van in karaktervorming.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

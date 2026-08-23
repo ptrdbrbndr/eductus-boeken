@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Source &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Swart stelt dat de praktijken die onder manifesteren worden verstaan werken, maar om een andere reden dan de aanhangers ervan opgeven. Niet het heelal…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1818">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1818 &middot; Positief denken en manifesteren</p>
+    <h1>The Source</h1>
+    <p class="lede">Tara Swart, 2019</p>
+    <p class="stats">
+      <span><b>1467</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1818"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Swart stelt dat de praktijken die onder manifesteren worden verstaan werken, maar om een andere reden dan de aanhangers ervan opgeven. Niet het heelal reageert op een verlangen; het brein reageert. Wie een doel scherp formuleert en er beelden en gevoel aan hecht, verandert volgens haar de filter waarmee het zenuwstelsel de omgeving afzoekt, waardoor gelegenheden opvallen die er al waren en waardoor gedrag verschuift in de richting van wat gewenst is. Haar tweede stelling is dat het brein dat vermogen levenslang houdt, omdat neuroplasticiteit niet ophoudt na de jeugd, en dat het dus mogelijk is denkgewoonten te vervangen, mits met genoeg herhaling en genoeg rust. Daarmee wil zij een genre dat zij eerder afwees binnenhalen in het gebied waar zij zelf verstand van heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van scepsis naar aanvaarding</h3>
+      <p>Swart opent met haar eigen positie. Als arts en neurowetenschapper had zij niets met spirituele zelfhulp, tot zij in haar coachingspraktijk bleef zien dat mensen die visualiseerden en journaalden vaker bereikten wat zij zich voornamen. Zij besloot te onderzoeken welk mechanisme daaronder kon liggen.</p>
+      <p>Dat opzetje bepaalt de toon van het hele boek. Het is geschreven als verdediging van iets waar de auteur zelf de geloofwaardigheid van moest herwinnen, en dat maakt haar op sommige punten voorzichtiger dan gebruikelijk in dit genre en op andere punten juist bereidwilliger.</p>
+      <h3>Neuroplasticiteit</h3>
+      <p>Het deel over het brein legt uit dat verbindingen tussen zenuwcellen door herhaald gebruik sterker worden en door verwaarlozing zwakker, en dat dit doorgaat in het volwassen leven. Swart benadrukt dat dit proces traag is en veel energie kost, wat zij gebruikt om te verklaren waarom voornemens meestal stranden.</p>
+      <p>Zij koppelt daaraan de voorwaarden waaronder verandering kans maakt: voldoende slaap, beweging, water, en herstel van stress. Dit is het deel van het boek dat het dichtst bij haar vak staat en waar zij het minst hoeft te rekken.</p>
+      <h3>Zes wegen naar hersenbehendigheid</h3>
+      <p>Swart onderscheidt zes manieren van denken die iemand kan inzetten: emotionele intelligentie, motivatie, lichamelijke afstemming, intuitie, logica en creativiteit. Haar observatie is dat de meeste mensen er structureel twee of drie van gebruiken en de rest laten liggen.</p>
+      <p>Hersenbehendigheid omschrijft zij als het vermogen om de aandacht op één ding te richten, een vraagstuk vanuit meerdere van die wegen te bekijken en de uitkomsten daarvan te combineren. Voor elk van de zes geeft zij vragenlijsten en oefeningen.</p>
+      <h3>Overvloed tegenover gebrek</h3>
+      <p>Een terugkerend thema is de omslag van denken in tekort naar denken in overvloed. Swart verbindt dat aan verliesaversie: mensen wegen verlies zwaarder dan winst, waardoor zij kansen mijden die per saldo gunstig zouden uitpakken.</p>
+      <p>Zij presenteert overvloedsdenken daarom niet als optimisme maar als correctie op een systematische scheefheid in de afweging. Dat is de meest verdedigbare vorm die de manifestatieliteratuur aan dit thema heeft gegeven.</p>
+      <h3>Selectieve aandacht en waardetoekenning</h3>
+      <p>Hier zit het scharnier van het boek. Het zenuwstelsel krijgt meer binnen dan het kan verwerken en filtert; wat er doorheen komt, hangt af van waar de aandacht op staat afgesteld en van welk gewicht aan een prikkel wordt toegekend. Swart noemt dat laatste value tagging.</p>
+      <p>Wie een doel scherp en herhaald voor ogen houdt, verstelt volgens haar die filter. De ervaring dat de wereld ineens meewerkt zodra iemand iets wil, verklaart zij daaruit: de gelegenheden waren er al, maar werden niet opgemerkt. Dat is een nuchtere verklaring van een verschijnsel dat elders aan het heelal wordt toegeschreven.</p>
+      <h3>Het programma in vier stappen</h3>
+      <p>Het slotdeel is de praktijk. Stap een is zelfkennis vergroten, vooral door te schrijven over wat men wil en waarom. Stap twee is het action board: een verzameling beelden en woorden die het doel weergeven en die dagelijks gezien wordt. Stap drie is aandachtsoefening, waaronder meditatie. Stap vier is herhaling, lang genoeg om de verandering in het brein te laten beklijven.</p>
+      <p>Bij elke stap staan oefeningen. Swart waarschuwt dat het action board zonder handelen niets doet, en dat is het punt waarop zij zich duidelijker van <i>The Secret</i> onderscheidt dan de ondertitel van de Nederlandse uitgave suggereert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Neuroplasticiteit</td><td>Het vermogen van het brein om verbindingen te versterken of te verzwakken op grond van gebruik, ook op volwassen leeftijd.</td></tr>
+          <tr><td class="term">Hersenbehendigheid</td><td>Swarts term voor het vermogen om aandacht te richten, een vraagstuk vanuit meerdere denkwijzen te benaderen en die uitkomsten te verbinden.</td></tr>
+          <tr><td class="term">De zes wegen</td><td>Emotionele intelligentie, motivatie, lichamelijke afstemming, intuitie, logica en creativiteit, volgens Swart de zes denkwijzen waarvan de meeste mensen er maar enkele gebruiken.</td></tr>
+          <tr><td class="term">Selectieve aandacht</td><td>Het filteren van binnenkomende informatie, waardoor slechts een klein deel van wat aanwezig is bewust wordt opgemerkt.</td></tr>
+          <tr><td class="term">Value tagging</td><td>Het toekennen van belang aan een prikkel, waardoor die eerder de filter passeert; het begrip waarop Swarts verklaring van manifesteren rust.</td></tr>
+          <tr><td class="term">Action board</td><td>Een bord of collage met beelden en woorden van het gewenste doel, dagelijks te bekijken, in de zelfhulpliteratuur ook bekend als vision board.</td></tr>
+          <tr><td class="term">Overvloedsdenken</td><td>Het uitgangspunt dat er genoeg is, door Swart onderbouwd met verliesaversie in plaats van met een kosmisch beginsel.</td></tr>
+          <tr><td class="term">Verliesaversie</td><td>De neiging om verlies zwaarder te wegen dan een winst van dezelfde omvang, in het boek gebruikt om vermijdingsgedrag te verklaren.</td></tr>
+          <tr><td class="term">Manifesteren</td><td>Het gericht en herhaald voorstellen van een gewenste uitkomst; bij Swart uitdrukkelijk gekoppeld aan handelen en niet aan wachten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De losse onderdelen waarop Swart bouwt bestaan. Neuroplasticiteit is goed gedocumenteerd, selectieve aandacht is een van de best onderzochte verschijnselen in de cognitieve psychologie, en verliesaversie komt uit het werk van Kahneman en Tversky en is honderden malen nagedaan. Op dat niveau staat het boek stevig, en Swart heeft de opleiding om die literatuur te lezen.</p>
+      <p>De sprong zit in de aaneenschakeling. Dat aandacht bepaalt wat iemand opmerkt is aangetoond; dat wat iemand opmerkt zijn gedrag stuurt is aannemelijk; dat daaruit volgt dat een action board leidt tot de baan, het huis of de partner die erop staat, is een claim van een geheel andere orde en wordt in het boek niet met uitkomsten gestaafd. Er is geen onderzoek waarin het viertrapsprogramma is beproefd, met of zonder controlegroep.</p>
+      <p>Wat het boek verder draagt zijn de gevallen uit Swarts coachingspraktijk met leidinggevenden. Die zijn illustratief en niet bewijzend: het gaat om mensen die al middelen, netwerk en handelingsruimte hadden, en bij wie een verschuiving van aandacht dus meer kan opleveren dan bij iemand zonder die uitgangspositie. Die selectie wordt in het boek niet als beperking benoemd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek de geloofwaardigheid van de neurowetenschap uitleent aan een bewering die de neurowetenschap niet doet. De wet van aantrekkingskracht stelt dat gedachten uitkomsten in de wereld aantrekken. Wat Swart aandraagt, verklaart hooguit waarom iemand meer kansen opmerkt en meer stappen zet. Dat is een verklaring die de wet overbodig maakt in plaats van haar bewijst, en het boek maakt dat verschil nergens hard.</p>
+      <p>De Nederlandse ondertitel verergert dat. De wetenschap achter The Secret beloven is een uitgeversformule die het boek niet waarmaakt en die de voorzichtigheid in de tekst zelf overschreeuwt. Wie op die belofte afgaat, leest een genuanceerder boek dan verwacht, en wie de nuance zoekt, wordt door de omslag afgeschrikt.</p>
+      <p>Blijft over het bezwaar dat het hele genre aankleeft en dat ook Swart niet ontloopt: als uitkomsten voortkomen uit hoe iemand denkt, ligt de gevolgtrekking klaar dat wie er slecht voor staat verkeerd heeft gedacht. Swart wijst die redenering niet uitdrukkelijk af en besteedt weinig woorden aan omstandigheden die zich niet laten herprogrammeren, zoals ziekte, schulden of een arbeidsmarkt die iemand buitensluit. Het publiek waar zij mee werkt, leidinggevenden met speelruimte, is niet het publiek dat het boek koopt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf het doel op in gewone woorden met de reden erbij, voordat er beelden bij worden gezocht; het action board is bij Swart de tweede stap en niet de eerste.</li>
+        <li>Ga na welke van de zes denkwijzen structureel worden overgeslagen, en leg een besluit dat vastzit een keer langs de weg die normaal niet wordt gebruikt.</li>
+        <li>Behandel de leefstijlvoorwaarden als onderdeel van het programma en niet als bijzaak; Swart stelt dat verandering in het brein slaap en herstel nodig heeft.</li>
+        <li>Toets elke voorgenomen uitkomst aan de vraag welke handeling er deze week bij hoort; zonder die koppeling doet het bord niets.</li>
+        <li>Reken op maanden en niet op weken, en beoordeel het programma op volgehouden gedrag en niet op de vraag of het gewenste al is aangekomen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Source: The Secrets of the Universe, the Science of the Brain</i> (Vermilion, Londen, 2019); de Amerikaanse uitgave verscheen bij HarperOne, ISBN 9780062935748. Nederlands als <i>De bron</i>, met de ondertitel <i>De wetenschap achter The Secret: leer je hersenen herprogrammeren zodat de wet van aantrekkingskracht werkt</i>, A.W. Bruna Uitgevers, 2019, 304 blz., ISBN 9789400511453. De naam van de vertaler wordt in de catalogusgegevens niet vermeld.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tara Swart is arts, opgeleid tot psychiater, gepromoveerd in de neurowetenschappen en verbonden aan de businessschool van MIT, waar zij leidinggevenden traint. In dit boek probeert zij de wet van aantrekkingskracht een wetenschappelijke bodem te geven. Zij beschrijft zichzelf daarbij als iemand die er aanvankelijk niets van moest hebben.</p><p>De opbouw loopt van neuroplasticiteit naar wat zij hersenbehendigheid noemt, via zes manieren van denken die volgens haar allemaal aanspreekbaar zijn, naar een programma van vier stappen. Die stappen zijn zelfkennis vergroten door te schrijven, een action board maken met beelden van wat men wil, aandachtsoefening, en herhalen tot de verbindingen in het brein zijn meeveranderd.</p><p>De Nederlandse ondertitel zet het boek nadrukkelijk neer als de wetenschap achter The Secret. Swart is voorzichtiger dan die belofte: zij zoekt het verklarende werk bij selectieve aandacht en bij de manier waarop het brein waarde toekent aan wat het opmerkt, en niet bij een kosmische wet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>manifesteren</li><li>wet van aantrekking</li><li>neuroplasticiteit</li><li>neurowetenschap</li><li>visualisatie</li><li>action board</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1748"><a href="1748.html">The Secret</a>. Het boek van Rhonda Byrne is de tekst waar Swart naar verwijst en waarvan zij de beweringen wil vervangen door mechanismen; het verschil in bewijsvoering is met beide naast elkaar goed te zien.</li>
+          <li value="208"><a href="208.html">Breaking the Habit of Being Yourself</a>. Joe Dispenza doet hetzelfde met aanzienlijk grotere claims en met meer verwijzingen naar hersenonderzoek, wat laat zien hoe ver dit type betoog kan worden opgerekt.</li>
+          <li value="1588"><a href="1588.html">The Biology of Belief</a>. Bruce Lipton bouwt eenzelfde brug vanuit de celbiologie in plaats van vanuit het brein, en loopt tegen dezelfde grens aan tussen mechanisme en belofte.</li>
+          <li value="129"><a href="129.html">Manifest</a>. Roxie Nafousi schrijft manifesteren uit als stappenplan zonder de wetenschappelijke onderbouwing te zoeken, waardoor zichtbaar wordt wat Swarts toevoeging precies is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

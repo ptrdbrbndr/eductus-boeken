@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van stress naar geluk (met stressologie) &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Spelbos stelt dat de gangbare aanpak van stress, burn-out en somberheid op de verkeerde plaats zoekt. Hulpverlening richt zich volgens hem op gedachten,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1866">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1866 &middot; Brein en lichaam</p>
+    <h1>Van stress naar geluk (met stressologie)</h1>
+    <p class="lede">Jurgen Spelbos, 2020</p>
+    <p class="stats">
+      <span><b>1473</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1866"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Spelbos stelt dat de gangbare aanpak van stress, burn-out en somberheid op de verkeerde plaats zoekt. Hulpverlening richt zich volgens hem op gedachten, gedrag en omstandigheden, terwijl het probleem in de eerste plaats scheikundig is: bij langdurige spanning verbruikt het lichaam zoveel bouwstoffen voor de aanmaak van stresshormonen dat er te weinig overblijft voor de aanmaak van geslachtshormonen en van de neurotransmitters die hij gelukshormonen noemt. Wie die tekorten aanvult met voedingsstoffen en de leefstijl aanpast, herstelt volgens hem de aanmaak en daarmee de stemming, de slaap en het uithoudingsvermogen. Praten en denken zijn in die volgorde niet het begin maar het gevolg.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Stress als lichamelijk verschijnsel</h3>
+      <p>Het boek begint met de fysiologie van de stressreactie: de snelle reactie via adrenaline en de trage via cortisol, en wat er gebeurt wanneer die tweede route niet meer uitdooft omdat de belasting aanhoudt. Spelbos gebruikt dat om de aandacht te verleggen van de vraag waarom iemand gespannen is naar de vraag wat die spanning in het lichaam kost.</p>
+      <p>Die verlegging is de scharnier van het hele boek. Wie stress als psychisch probleem opvat, zoekt naar oorzaken in het werk, het gezin of het karakter. Wie het als een kwestie van aanmaak en verbruik opvat, komt bij voeding uit.</p>
+      <h3>Wat langdurige spanning opmaakt</h3>
+      <p>Vervolgens zet Spelbos uiteen welke bouwstoffen bij die aanmaak nodig zijn: B-vitaminen, vitamine C, magnesium en andere mineralen, vetzuren en aminozuren. Zijn claim is dat een lichaam dat maandenlang stresshormonen aanmaakt, die voorraad sneller opmaakt dan de dagelijkse voeding aanvult.</p>
+      <p>Uit dat tekort volgt in zijn redenering de rest van het klachtenbeeld: slapeloosheid, prikkelbaarheid, uitputting, verminderde zin, sombere buien. Hij spreekt over voorlopers en eindproducten, en gebruikt dat om te betogen dat een reeks losse klachten een gemeenschappelijke oorzaak heeft.</p>
+      <h3>Gelukshormonen en hun bouwstenen</h3>
+      <p>Het deel dat de titel draagt gaat over de stoffen die stemming en rust regelen. Spelbos noemt ze gelukshormonen, met de aantekening dat het strikt genomen neurotransmitters zijn. Hij beschrijft hoe die uit aminozuren worden gemaakt en welke vitaminen en mineralen bij die omzetting nodig zijn.</p>
+      <p>Daaruit trekt hij de conclusie die het boek zijn belofte geeft: aanvullen van de bouwstenen kan de aanmaak herstellen, soms binnen dagen en volgens hem in sommige gevallen binnen uren. Dat laatste is de scherpste claim in het boek en tegelijk de minst onderbouwde.</p>
+      <h3>Wat er dan te eten valt</h3>
+      <p>Het praktische deel gaat over voedingskeuzes: eiwitrijke maaltijden, groente, vette vis, weinig suiker en alcohol, aandacht voor de spijsvertering. Daarnaast staan er adviezen over aanvulling met vitaminen, mineralen, omega 3-vetzuren en aminozuurpreparaten.</p>
+      <p>Spelbos benadrukt dat het boek daar niet ophoudt. Naast de voeding staan er volgens de flaptekst honderden andere handreikingen in, wat het boek eerder tot een verzameling maatregelen maakt dan tot een strak stappenplan.</p>
+      <h3>Slaap, beweging en dagindeling</h3>
+      <p>Een aanzienlijk deel gaat over leefstijl in engere zin: regelmaat, daglicht, beweging in de juiste dosering, de opbouw van de avond, ademhaling en het beperken van prikkels. Deze adviezen overlappen met wat in de reguliere behandeling van slapeloosheid en overbelasting gebruikelijk is.</p>
+      <p>Ze vormen ook het deel waarover de minste discussie bestaat. Wie het boek leest en alleen dit deel toepast, doet weinig verkeerd; de vraag is of dat de winst is die de auteur aan de scheikunde toeschrijft.</p>
+      <h3>De methode en de praktijk erachter</h3>
+      <p>Het boek is de uitgebreide opvolger van <i>Minder stress met stressologie</i> uit 2018 en hoort bij een praktijk waarin Spelbos consulten en opleidingen aanbiedt. Verhalen van mensen die hij begeleidde dienen als voorbeelden van wat de aanpak volgens hem doet.</p>
+      <p>Die verwevenheid van boek, methode en praktijk is voor de lezer van belang. De uitgever is de eigen onderneming van de auteur, en de aanpak leidt naar diensten en middelen die via diezelfde weg te betrekken zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Stressologie</td><td>De door Spelbos bedachte naam voor zijn aanpak, waarin stress vooral als scheikundig en hormonaal verschijnsel wordt behandeld.</td></tr>
+          <tr><td class="term">Stresshormonen</td><td>Adrenaline en cortisol, die bij aanhoudende belasting volgens hem voortdurend worden aangemaakt en daarbij bouwstoffen wegtrekken.</td></tr>
+          <tr><td class="term">Gelukshormonen</td><td>Zijn verzamelnaam voor de neurotransmitters die stemming, rust en slaap regelen.</td></tr>
+          <tr><td class="term">Voedingsstoffentekort</td><td>Het gebrek aan vitaminen, mineralen, vetzuren of aminozuren dat in zijn model de brug vormt tussen langdurige spanning en klachten.</td></tr>
+          <tr><td class="term">Aminozuren als bouwstenen</td><td>De eiwitbestanddelen waaruit neurotransmitters worden gemaakt en die hij daarom als aangrijpingspunt gebruikt.</td></tr>
+          <tr><td class="term">Omega 3-vetzuren</td><td>De vetzuren uit vette vis en lijnzaad die hij bij stemmingsklachten aanbeveelt.</td></tr>
+          <tr><td class="term">Burn-out</td><td>De toestand van uitputting die hij als eindpunt van het uitputtingsverhaal beschrijft en die met dezelfde middelen te voorkomen of te verkorten zou zijn.</td></tr>
+          <tr><td class="term">Stressbestendigheid</td><td>Het vermogen belasting te verdragen, dat in zijn model met de voorraad bouwstoffen meebeweegt.</td></tr>
+          <tr><td class="term">Depressie als lichamelijk probleem</td><td>Zijn herdefiniering van somberheid als een tekort aan bouwstoffen in plaats van als een aandoening met psychische en sociale oorzaken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het lichamelijke deel van het verhaal staat op zichzelf niet ter discussie. Dat langdurige belasting de cortisolhuishouding verandert, de slaap verstoort en het immuunsysteem raakt, is degelijk onderzocht. Dat neurotransmitters uit aminozuren worden gemaakt en dat daarbij vitaminen en mineralen als hulpstof nodig zijn, staat in ieder leerboek biochemie.</p>
+      <p>De sprong zit in de stap daarna. Uit het gegeven dat een stof nodig is voor een proces volgt niet dat extra van die stof het proces versnelt bij iemand die geen tekort heeft. Voor de aanvullingen die het boek voorstelt is het onderzoek wisselend: bij omega 3-vetzuren laten meta-analyses bij depressie een klein en van studieopzet afhankelijk effect zien, bij vitamine D vielen de grote gecontroleerde proeven, waaronder de Amerikaanse VITAL-studie met bijna twintigduizend deelnemers, op stemming vrijwel leeg uit, en bij aminozuurpreparaten is het bewijs mager.</p>
+      <p>Het boek zelf bevat geen onderzoek. De onderbouwing bestaat uit uitleg van mechanismen en uit ervaringen van mensen die de auteur begeleidde. Spelbos is geen arts, biochemicus of psycholoog; zijn gezag ontleent hij aan eigen ondervinding en aan de praktijk die hij opbouwde. Er is geen enkele studie waarin stressologie tegenover een andere behandeling is gelegd.</p>
+      <p>De claim dat aanvulling soms binnen uren merkbaar is, verdient afzonderlijke aandacht. Zo snel werken vrijwel alleen middelen met een directe werking op het zenuwstelsel. Bij aanvulling van een tekort verloopt herstel over weken, en wat iemand binnen uren merkt, is met verwachting en aandacht net zo goed te verklaren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is de omkering zelf. Burn-out ontstaat in het onderzoek dat ernaar is gedaan vooral uit de verhouding tussen belasting en zeggenschap: werkdruk, gebrek aan regelruimte, onduidelijke opdrachten, geen steun. Wie de oorzaak in de aanmaak van neurotransmitters legt, verplaatst het probleem van de werksituatie naar het bord van degene die eronder lijdt. Dat is voor de werkgever een aangename gedachte en voor de betrokkene een dure.</p>
+      <p>Daarbij komt dat de term gelukshormonen wetenschappelijk niet bestaat. Het is een populaire samentrekking van neurotransmitters met heel verschillende functies, en de simpele koppeling tussen serotonine en stemming waar zulke boeken op leunen, is in de vakliteratuur van het afgelopen decennium juist onder vuur komen te liggen. De aanname dat somberheid uit een chemisch tekort volgt, houdt in die vorm geen stand.</p>
+      <p>Voor iemand met een depressie is de belofte in de ondertitel riskant. Een boek dat zich aandient als de oplossing voor depressie kan iemand ervan weerhouden hulp te zoeken waarvan de werking wel is aangetoond. De ernst van het beeld bepaalt hoe zwaar dat weegt, en juist bij ernstige beelden is uitstel schadelijk.</p>
+      <p>Ten slotte de belangenvraag. Boek, methode, opleiding en praktijk komen uit dezelfde onderneming, die ook de uitgever is. Er is geen buitenstaander die de tekst heeft beoordeeld, geen vakredactie en geen kritische bron in het boek zelf. Dat maakt de inhoud niet onjuist, maar het betekent dat de lezer op het woord van de auteur is aangewezen bij een aanpak waar hij ook aan verdient.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel de leefstijladviezen over slaap, daglicht, beweging en avondopbouw als het bruikbaarste deel; die zijn los van de theorie de moeite waard.</li>
+        <li>Laat bij aanhoudende vermoeidheid of somberheid eerst het gebruikelijke bloedonderzoek doen, met ijzer, vitamine B12, vitamine D en schildklierwaarden, in plaats van op verdenking aan te vullen.</li>
+        <li>Blijf bij een vermoeden van depressie naast dit boek de reguliere weg bewandelen en bespreek elk preparaat met de huisarts of apotheker vanwege wisselwerking met medicatie.</li>
+        <li>Kijk bij burn-outklachten eerst naar werkdruk, zeggenschap en steun voordat de oorzaak in de voeding wordt gezocht.</li>
+        <li>Noteer bij een proef met aanvulling vooraf welke klacht in welke termijn zou moeten veranderen, zodat achteraf beoordeeld kan worden of er iets gebeurde.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, met de ondertitel <i>De oplossing voor stress, burn-out en depressie</i>, verschenen in 2020 bij Centrum voor Stressologie B.V., de eigen onderneming van de auteur (314 blz., paperback, ISBN 9789083067001), met medewerking van Anita Roeland en Chris Stevenet. Het is de herziene en sterk uitgebreide opvolger van <i>Minder stress met stressologie</i> uit mei 2018. Een vertaling bestaat niet; het boek wordt vooral via de eigen website en de reguliere boekhandel verkocht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jurgen Spelbos (1962) kwam via een eigen geschiedenis met stress, burn-out en somberheid tot een aanpak die hij stressologie noemt. Zijn stelling is dat stress vooral biologie is en pas daarna psychologie: het draait om stresshormonen en om de stoffen die hij gelukshormonen noemt.</p><p>De redenering loopt via tekorten. Houdt de spanning lang aan, dan gaan er volgens hem zoveel voedingsstoffen op aan de aanmaak van stresshormonen dat er te weinig overblijft voor de aanmaak van andere hormonen en van neurotransmitters. Vitamines, mineralen, omega 3-vetzuren en aminozuren zijn in dat verhaal de bouwstenen die op raken. Aanvullen zou dan de weg terug zijn.</p><p>Het boek van ruim driehonderd bladzijden is niet alleen een voedingsboek. Naast de hoofdlijn staan er honderden praktische handreikingen in over slapen, beweging, dagindeling en omgaan met belasting. Het verscheen in eigen beheer bij het bedrijf waarmee Spelbos ook consulten en opleidingen aanbiedt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stress</li><li>burn-out</li><li>voeding</li><li>cortisol</li><li>depressie</li><li>supplementen</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="458"><a href="458.html">The Upside of Stress</a>. Kelly McGonigal betoogt in <i>The Upside of Stress</i> vanuit onderzoek precies het omgekeerde, namelijk dat de opvatting over stress bepaalt wat stress aanricht.</li>
+          <li value="1899"><a href="1899.html">De hormoonfactor</a>. Ralph Moorman legt in <i>De hormoonfactor</i> hetzelfde verband tussen voeding, hormonen en klachten, met meer aandacht voor meetbare waarden.</li>
+          <li value="1895"><a href="1895.html">Brain Food</a>. Charlotte Labee schrijft in <i>Brain Food</i> in hetzelfde register over voeding en hersenwerking, met dezelfde vraag naar de onderbouwing.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Matthew Walker behandelt in <i>Why We Sleep</i> de slaaproute die dit boek aanstipt, met de onderzoeksbasis die hier ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

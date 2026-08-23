@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De heks van Limbricht &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Smit legt de oorzaak van het proces bij het dorp en bij het kasteel, en niet bij enige duivelse handeling. Haar Entgen Luijten is in Limbricht jarenlang…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1888">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1888 &middot; Roman en memoir</p>
+    <h1>De heks van Limbricht</h1>
+    <p class="lede">Susan Smit, 2021</p>
+    <p class="stats">
+      <span><b>1376</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1888"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Smit legt de oorzaak van het proces bij het dorp en bij het kasteel, en niet bij enige duivelse handeling. Haar Entgen Luijten is in Limbricht jarenlang een vrouw geweest die zich slecht liet plaatsen: weduwe met eigen grond, met kennis van kruiden, met een mond die opengaat wanneer de heer van de heerlijkheid zijn rechten oprekt. De aanklachten die in 1674 worden opgeschreven gaan over dood vee en zieke mensen, terwijl eronder oude ergernissen liggen die eindelijk een vorm hebben gevonden waarin ze bruikbaar zijn. De roman houdt daarnaast vast aan wat het dossier bevestigt: Entgen heeft nooit bekend, ook niet onder de pijnbank. Haar zwijgen is het eigenlijke onderwerp van het boek, en de vraag die Smit onderzoekt is wat een mens overeind houdt op het moment dat het hele dorp haar heeft opgegeven.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het kasteel, juli 1674</h3>
+      <p>Op 18 juli 1674 gaat Entgen Luijten naar Kasteel Limbricht, waar zij wordt vastgehouden. De verhoren volgen op 21 en 28 juli, afgenomen door de fiscaal Herman Tacken, de aanklager namens de heer van de heerlijkheid. Op 4 augustus liggen de aanklachten op papier.</p>
+      <p>Smit zet de cel neer als de vaste plaats van het verhaal. Vanaf dat punt kijkt Entgen terug; het heden van de roman is een ruimte van steen, kou en wachten, waarin telkens iemand binnenkomt met een vraag die zij al eerder heeft beantwoord.</p>
+      <h3>Wat het dorp zegt</h3>
+      <p>Op 13 augustus worden tien getuigen gehoord. Geen van hen verklaart hekserij te hebben gezien; allen herhalen wat er in het dorp wordt gezegd. De klachten zijn concreet en huiselijk: iemand dronk uit haar glas en werd ziek, het vee van een buurvrouw ging dood, de melkgift viel terug.</p>
+      <p>De roman laat zien hoe die losse voorvallen zich over de jaren aan elkaar hechten. Een dorp dat tegenslag heeft, houdt een lijst bij zonder dat iemand daartoe besluit. Zodra er een aanklager is, blijkt de lijst af.</p>
+      <h3>Het leven ervoor</h3>
+      <p>In de terugblikken groeit Entgen op, trouwt met Jacob Bovendeert en houdt met hem een boerenbedrijf gaande. Zij helpt buren met kruiden en met raad, bemoeit zich met zaken die volgens de dorpsorde niet aan een vrouw toekomen, en verwerft daarmee gezag en achterdocht tegelijk.</p>
+      <p>Smit schrijft die hoofdstukken zonder de heldin te verheffen. Entgen is eigenzinnig, soms scherp, en zij weet zelf dat zij zich vijanden maakt. Haar dochter Grietchen loopt door het boek als degene die haar moeder ziet aankomen wat er komt, en het niet kan tegenhouden.</p>
+      <h3>De heer en de rechten</h3>
+      <p>Herman Winand van Breyll is heer van Limbricht. Het conflict tussen kasteel en dorp gaat over lasten, gebruiksrechten en gehoorzaamheid, en Entgen behoort tot degenen die zich daarin niet gedeisd houden. De roman verbindt dat verzet aan het proces zonder het als sluitend bewijs te presenteren.</p>
+      <p>Het is de scherpste keuze van het boek. Waar de bronnen alleen een aanklacht wegens toverij laten zien, leest Smit er een afrekening in met een onderdaan die te veel ruimte innam.</p>
+      <h3>De pijnbank</h3>
+      <p>Entgen wordt gemarteld, uitgehongerd en lang alleen gelaten. De rechtsgang in Limbricht is klein en onzeker, en er worden juristen uit Sittard geraadpleegd, Helgers en Everarts, over de vraag hoe verder te gaan met iemand die niet bekent.</p>
+      <p>Die bekentenis komt niet. Smit rekt deze hoofdstukken uit tot ze fysiek worden: honger, kou, het tellen van geluiden, het vasthouden aan namen en aan het land. De weigering wordt in de roman geen heldendaad, maar een gewoonte die zij niet meer kan afleggen.</p>
+      <h3>9 oktober en het laatste hoofdstuk</h3>
+      <p>Entgen Luijten wordt op 9 oktober 1674 dood in haar cel aangetroffen. Twee schouwers stellen vast dat zij is gewurgd. De jurist Helgers herbenoemt de dood later tot zelfmoord, en leest daarin alsnog een impliciete bekentenis. Haar bezittingen worden verbeurd verklaard en de kosten van de hele rechtsgang worden daaruit betaald.</p>
+      <p>Omdat Entgen tot dat punt zelf vertelt, kan zij het slot niet meer voor haar rekening nemen. Het laatste hoofdstuk gaat over naar een alwetende verteller. Die wisseling van perspectief doet in twee bladzijden wat het hele boek heeft voorbereid: de stem valt weg en wat overblijft is administratie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Fiscaal</td><td>De aanklager namens de landsheer; in Limbricht was dat Herman Tacken, die de verhoren afnam en de aanklachten formuleerde.</td></tr>
+          <tr><td class="term">Heerlijkheid</td><td>Het gebied waarover een heer rechtsmacht bezat, met eigen rechtspraak, zodat het proces tegen Entgen binnen de muren van het kasteel kon blijven.</td></tr>
+          <tr><td class="term">Kwade faam</td><td>De reputatie van hekserij die uit geruchten opgebouwd wordt en die in de zeventiende eeuw gold als aanleiding voor vervolging, ook zonder ooggetuige.</td></tr>
+          <tr><td class="term">Tortuur</td><td>De gerechtelijke marteling die diende om een bekentenis te verkrijgen, en die in dit proces herhaald werd toegepast zonder resultaat.</td></tr>
+          <tr><td class="term">Getuigen van horen zeggen</td><td>De tien dorpsgenoten die in augustus 1674 verklaarden wat er werd gezegd, zonder dat een van hen stelde iets zelf te hebben waargenomen.</td></tr>
+          <tr><td class="term">Bekentenis</td><td>Het sluitstuk waar de hele procedure op was ingericht; zonder bekentenis kon de rechtbank het proces formeel niet afronden.</td></tr>
+          <tr><td class="term">Verbeurdverklaring</td><td>Het in beslag nemen van de bezittingen van de veroordeelde, waaruit in dit geval de kosten van het proces werden voldaan.</td></tr>
+          <tr><td class="term">Kasteel Limbricht</td><td>De plaats van gevangenschap, verhoor en dood, tegenwoordig ook de plek waar de roman in 2021 werd gepresenteerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De feitelijke basis van de roman is buitengewoon stevig voor het genre. Het procesdossier van Entgen Luijten is volledig bewaard gebleven: aanklachten, verhoren, getuigenverklaringen, adviezen van de geraadpleegde juristen en de afwikkeling na haar dood. J.J. de Wit publiceerde in 1903 een transcriptie en vertaling in <i>Publications du Limbourg</i>, en in 2015 maakte Margot Muijtens een nieuwe transcriptie voor Archief De Domijnen in Sittard-Geleen. Smit werkte daarnaast samen met Peter Luijten, een nazaat van een broer van Entgen, en kende het toneelstuk dat Herman Veugelers in 1993 over de zaak schreef.</p>
+      <p>Data, namen en de reeks van eenendertig aanklachten komen uit die stukken. Ook de afloop staat in het dossier: de vaststelling van wurging door twee schouwers, de herkwalificatie tot zelfmoord door de jurist Helgers, de verbeurdverklaring waaruit de proceskosten werden betaald. Entgen Luijten geldt als de laatste vrouw die op het huidige Nederlandse grondgebied als heks is vervolgd en daarbij is omgekomen.</p>
+      <p>Wat een dossier niet bevat is een binnenkant. Alles wat Entgen in de roman denkt, herinnert en voelt is door Smit geschreven. Zij is daar open over en verzint geen gebeurtenissen die de stukken tegenspreken, maar de lezer moet blijven onderscheiden welke laag waarvandaan komt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de politieke lezing. Smit verbindt het proces aan het conflict tussen dorp en kasteel en aan het feit dat Entgen zich mengde in zaken die aan mannen toekwamen. Dat is een aannemelijke verklaring, maar het dossier levert er geen doorslaggevend bewijs voor. Wie de zeventiende-eeuwse toverijvervolging bestudeert, komt ook uit bij zaken waarin buren elkaar aanklaagden zonder dat er een heer met een belang in beeld was. De roman presenteert een van de mogelijke verklaringen als de verklaring.</p>
+      <p>Daarbij hoort het risico van een te herkenbare hoofdpersoon. Entgen denkt in het boek dingen die dicht liggen bij hedendaagse opvattingen over eigen keuze en over het recht van een vrouw op haar eigen leven. Dat maakt haar toegankelijk en verkleint tegelijk de afstand tot een wereld waarin de meeste mensen, aanklagers en beschuldigden, het bestaan van toverij eenvoudigweg aannamen. Wie wil begrijpen hoe die overtuiging werkte, vindt daar in deze roman minder van dan in historisch werk over hetzelfde onderwerp.</p>
+      <p>Recensenten prezen dat Smit niets verzacht en niets romantiseert, en dat oordeel houdt stand bij de martelscenes. Het slot is zwakker: de overgang naar een alwetende verteller lost de vraag naar de toedracht van de wurging niet op, en het boek kiest daar voor suggestie waar het elders juist zo precies is. Dat is verdedigbaar, want de stukken zwijgen erover, maar het laat de lezer achter met een open einde dat de rest van het boek niet nodig had.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands geschreven en verschenen bij Lebowski Publishers (Overamstel Uitgevers), Amsterdam, 2021, 256 blz., ISBN 9789048859603; de paperbackdruk van 2024 telt 272 blz., ISBN 9789048871773. Het boek werd genomineerd voor de NS Publieksprijs en de vertaalrechten zijn aan buitenlandse uitgevers verkocht. Smit werkte met het volledig bewaard gebleven procesdossier van Entgen Luijten, dat J.J. de Wit in 1903 publiceerde in <i>Publications du Limbourg</i> en dat Margot Muijtens in 2015 opnieuw transcribeerde voor Archief De Domijnen in Sittard-Geleen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In juli 1674 loopt Entgen Luijten, een boerenweduwe van ruim zeventig uit Limbricht bij Sittard, op eigen benen het kasteel binnen waar zij zal worden verhoord. Er liggen eenendertig aanklachten tegen haar: een bierverkoper die jaren eerder stierf, een meisje dat ziek werd en doodging, vee dat bezweek, koeien die geen melk meer gaven. In oktober is zij dood.</p><p>Smit vertelt het van binnenuit. Entgen is zelf aan het woord, in achttien hoofdstukken die heen en weer gaan tussen de cel en het leven dat eraan voorafging: het werk op het land, de kruiden waarmee zij dorpsgenoten hielp, haar huwelijk met Jacob Bovendeert, haar dochter Grietchen en de aanvaringen met de heer van de heerlijkheid.</p><p>Het proces is geen verzinsel. Het dossier van Entgen Luijten is compleet bewaard, tot en met de afrekening van de proceskosten. Smit gebruikt dat als casco en vult in wat een dossier nooit bevat: wat een vrouw denkt terwijl zij wordt gepijnigd en blijft ontkennen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>historische roman</li><li>heksenproces</li><li>Limburg</li><li>zeventiende eeuw</li><li>rechtspraak</li><li>vrouwen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1233"><a href="1233.html">The Witch-Cult in Western Europe</a>. Murray beweerde in 1921 dat achter de heksenprocessen een echte oude religie schuilging; de zaak-Limbricht laat zien hoe weinig van zo'n these overblijft zodra men een compleet dossier leest.</li>
+          <li value="1245"><a href="1245.html">Witching Culture</a>. Magliocco onderzoekt hoe hedendaagse heksen zich verhouden tot het historische beeld, en dat beeld is mede gevormd door romans als deze.</li>
+          <li value="822"><a href="822.html">Herfsttij der Middeleeuwen</a>. Huizinga beschrijft de mentale wereld waarin duivel en toverij vanzelfsprekend waren, wat de achtergrond levert die Smits roman grotendeels buiten beeld laat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huna &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="King stelt dat er achter de Hawaiiaanse cultuur een samenhangende leer over macht en werkelijkheid schuilgaat, dat die leer in zeven principes is te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1820">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1820 &middot; Filosofie en mystiek</p>
+    <h1>Huna</h1>
+    <p class="lede">Serge Kahili King, 2008</p>
+    <p class="stats">
+      <span><b>1658</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1820"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>King stelt dat er achter de Hawaiiaanse cultuur een samenhangende leer over macht en werkelijkheid schuilgaat, dat die leer in zeven principes is te vatten en dat wie ernaar handelt zowel innerlijke rust als tastbare uitkomsten bereikt. De kern van zijn betoog is dat de werkelijkheid zich schikt naar de overtuiging van degene die haar waarneemt, zodat een verandering van gedachte een verandering van omstandigheden oplevert. Daarmee legt hij de oorzaak van ziekte, armoede en conflict bij de innerlijke houding van de betrokkene, en hij presenteert dat niet als moderne zelfhulp maar als oude Polynesische kennis die eeuwenlang binnen families is doorgegeven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat Huna volgens King is</h3>
+      <p>Het woord huna betekent in het Hawaiiaans verborgen of geheim. King gebruikt het als naam voor een leer die volgens hem in families werd doorgegeven en die hij zelf leerde van de familie Kahili op Kauai, waarnaar hij zijn tussennaam voert. Hij noemt daarnaast scholing bij Afrikaanse en Mongoolse leraren en is directeur van Aloha International, de organisatie die zijn cursussen verspreidt.</p>
+      <p>Zijn wereldbeeld kent drie niveaus van bewustzijn, die hij met de namen van Hawaiiaanse goden aanduidt: Ku voor het lichaam en het onderbewuste, Lono voor het wakende verstand en Kane voor het goddelijke deel. Levensenergie heet mana. Zijn werkwijze is taalkundig: hij splitst Hawaiiaanse woorden in lettergrepen en leidt uit de losse delen een betekenis af die het hele woord in de woordenboeken niet heeft.</p>
+      <p>Wat hij niet vermeldt is dat de aanduiding Huna voor een samenhangend systeem afkomstig is van de Amerikaan Max Freedom Long, die het vanaf 1936 uitwerkte en in 1945 Huna Research oprichtte. King heeft dat bouwwerk vereenvoudigd tot zeven regels en het los gemaakt van Longs eigen terminologie.</p>
+      <h3>De zeven principes</h3>
+      <p>De zeven principes vormen de ruggengraat van het boek en keren in elk hoofdstuk terug. Ike: de wereld is wat iemand denkt dat zij is. Kala: er zijn geen grenzen, alles is verbonden. Makia: energie stroomt waarheen de aandacht gaat. Manawa: nu is het moment van macht. Aloha: liefhebben is blij zijn met. Mana: alle macht komt van binnen. Pono: werkzaamheid is de maat van de waarheid.</p>
+      <p>Elk principe heeft bij King een praktijkkant. Ike hoort bij oefenen in gewaarworden, kala bij loslaten, makia bij concentratie, manawa bij het opladen met energie, aloha bij liefde, mana bij macht en pono bij goeddoen. De reeks is bewust zo geformuleerd dat zij als leefregel te gebruiken is, en zij circuleert los van dit boek in cursussen voor neurolinguïstisch programmeren en coaching.</p>
+      <h3>Van droom naar daad</h3>
+      <p>Na de uiteenzetting over de principes gaat het boek over op het maken van plannen. King behandelt het omzetten van dromen in daden, het ontwerpen van jezelf en wat hij het verdubbelingseffect noemt: wie zich op iets richt, ziet daar meer van in de omgeving verschijnen. Het advies loopt via het formuleren van wat iemand wil, het inbeelden ervan en het herhalen van die inbeelding.</p>
+      <p>De redenering hoort thuis in de New Thought-traditie: een gedachte die vaak genoeg wordt vastgehouden werkt in op het onderbewuste en daarna op de omstandigheden. King voegt daar de Hawaiiaanse inkleding aan toe, met spreekwoorden en met woorden uit zijn eigen woordenlijst.</p>
+      <h3>Aandacht en het heden</h3>
+      <p>Twee hoofdstukken gaan over aandacht. Het eerste behandelt concentratie als het middel waarmee de gewenste uitkomst dichterbij komt, het tweede het gecentreerd blijven in het heden. Zorg over de toekomst en spijt over het verleden gelden bij King als aandacht die op de verkeerde plaats wordt uitgegeven.</p>
+      <p>Het onderscheid tussen kijken en zien komt in zijn werk vaak terug: kijken gaat over hoe iets eruitziet, zien over wat er gebeurt. Wie alleen kijkt, ziet zijn eigen oordelen bevestigd. Meditatie en zelfhypnose behandelt hij als twee vormen van hetzelfde geconcentreerde bewustzijn, met een verschillend doel.</p>
+      <h3>Liefde, invloed en geld</h3>
+      <p>In het middendeel past King de principes toe op omgang met anderen en op inkomen. Aloha vertaalt hij niet als warm gevoel maar als blij zijn met wat er is; kritiek en afkeer verzwakken volgens hem de eigen mana. Invloed uitbreiden gebeurt langs dezelfde weg: aandacht, waardering en verwachting.</p>
+      <p>Het hoofdstuk over geld draagt de titel The Mystery of Money en behandelt geld als een stroom die op overtuigingen reageert. Het daaropvolgende hoofdstuk heet The Restaurant of the Universe. In beide gevallen loopt de redenering van de innerlijke houding naar het uiterlijke resultaat, en niet omgekeerd.</p>
+      <h3>Twijfel, formule en Hawaiiaanse inkleding</h3>
+      <p>Het slot behandelt besluiteloosheid, met een hoofdstuk over wat King decision jitters noemt, en daarna wat hij de hoofdformule voor succes noemt: een samenvoeging van de zeven principes tot een werkvolgorde. Daarna volgen een hoofdstuk over Hawaiiaanse cultuurfiguren en een verklarende woordenlijst.</p>
+      <p>Die laatste twee onderdelen dragen het boek: zij verankeren de leer in namen, verhalen en woorden die de lezer als Hawaiiaans herkent. Wie die inkleding wegdenkt, houdt een zelfhulpboek over dat in vorm en inhoud niet veel verschilt van wat in dezelfde jaren onder de noemer wet van de aantrekking verscheen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Huna</td><td>Hawaiiaans voor verborgen of geheim; bij King de naam van de leer die volgens hem achter de Hawaiiaanse cultuur schuilgaat.</td></tr>
+          <tr><td class="term">Kahuna</td><td>In het Hawaiiaans een deskundige of vakman, van priester tot bootbouwer; in de Huna-literatuur versmald tot ingewijde priester met bovennatuurlijke vermogens.</td></tr>
+          <tr><td class="term">Mana</td><td>Levensenergie of macht; in het traditionele Polynesische denken een van goden en voorouders afkomstige kracht, bij King een persoonlijke energie die is op te bouwen.</td></tr>
+          <tr><td class="term">Ku</td><td>De naam van een Hawaiiaanse god, door King gebruikt voor het lichaam en het onderbewuste deel van de mens.</td></tr>
+          <tr><td class="term">Lono</td><td>Eveneens een godennaam, bij King het wakende, redenerende deel van het bewustzijn.</td></tr>
+          <tr><td class="term">Kane</td><td>De derde godennaam die King inzet, voor het hoogste of goddelijke deel van de mens, dat hij aanduidt als God in jou.</td></tr>
+          <tr><td class="term">Aloha</td><td>Bij King geen begroeting maar een houding, omschreven als blij zijn met wat en wie er is.</td></tr>
+          <tr><td class="term">Pono</td><td>Hawaiiaans voor juist of rechtschapen; bij King verschoven naar werkzaamheid, met de regel dat wat werkt daarmee waar is.</td></tr>
+          <tr><td class="term">Ike</td><td>Het eerste principe, dat de waargenomen wereld laat afhangen van de overtuigingen van de waarnemer.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Wat de leer moet dragen is de herkomst: King beroept zich op de familie Kahili van Kauai en op zijn eigen inwijding. Die aanspraak is van buitenaf niet na te gaan, en het boek biedt geen bronnen, geen dateringen en geen verwijzing naar Hawaiiaanse teksten waarin de zeven principes zouden staan.</p>
+      <p>De tweede pijler is taalkundig. King leidt betekenissen af door Hawaiiaanse woorden in lettergrepen te splitsen en de delen apart te vertalen, een methode die hij van Max Freedom Long overneemt. In de standaardwoordenboeken van het Hawaiiaans levert dat niets op: huna betekent daar verborgen, kahuna deskundige, en van een geheim leerstelsel met die naam is in de vroege bronnen geen spoor.</p>
+      <p>De praktische adviezen zijn niet allemaal loze beweringen. Aandacht richten, herhaald inbeelden en het opschorten van oordeel zijn technieken die in gedragstherapie en in trainingsleer een plaats hebben; lezers melden dat de oefeningen effect hebben. Dat effect is echter net zo goed te verklaren uit ontspanning, verwachting en het feit dat iemand zijn wensen voor het eerst opschrijft, en het bewijst niets over de herkomst van de leer.</p>
+      <p>De historische claim is wel na te gaan, en dan valt hij om. Huna als systeem is in 1936 geformuleerd door Long, een Amerikaanse onderwijzer die in 1917 naar Hawaii kwam, in 1931 vertrok en pas daarna zijn leer op schrift stelde. De inhoudelijke wortels liggen aantoonbaar in New Thought en theosofie, twee westerse stromingen van rond 1900.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt van Hawaiiaanse kant. De Hawaiiaanse geleerde Charles Kenn noemde de Huna-studie interessant maar stelde dat zij nooit Hawaiiaans is geweest. Pali Jae Lee, onderzoeksbibliothecaris van het Bishop Museum, kwam na gesprekken met oudere Hawaiianen tot hetzelfde oordeel. Lisa Kahaleole Hall schreef dat Huna in niets lijkt op enig Hawaiiaans wereldbeeld of enige Hawaiiaanse praktijk.</p>
+      <p>Daar komt bij dat King de namen van drie goden, Ku, Lono en Kane, gebruikt als etiketten voor delen van de psyche. Voor lezers zonder achtergrond is dat een handig geheugensteuntje; voor Hawaiianen is het een herbestemming van eigen religieus erfgoed door een buitenstaander die er cursussen mee verkoopt. Dat het boek in de ondertitel oud en Hawaiiaans belooft, maakt dat punt scherper.</p>
+      <p>Inhoudelijk is het zevende principe het lastigst: werkzaamheid is de maat van de waarheid. Daarmee is geen enkele bewering meer te weerleggen, want wat niet werkt is dan verkeerd toegepast. Hetzelfde geldt voor het eerste principe, dat de wereld tot een uitvloeisel van overtuigingen maakt. Wie ziek blijft of arm blijft, heeft in dit stelsel iets niet goed gedacht, en het boek maakt nergens ruimte voor omstandigheden waar niemand vat op heeft.</p>
+      <p>Lezers die het boek waarderen noemen de heldere schrijfstijl en de bruikbare oefeningen. Dezelfde lezers merken op dat het boek zichzelf herhaalt, dat de hoofdstukken vaak naar King's andere titels en cursussen verwijzen, en dat er meer new age in staat dan Hawaii. Als praktijkboek doet het wat het belooft; als bron over Hawaiiaanse religie is het onbruikbaar.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als zelfhulpmethode en niet als geschiedschrijving; controleer elke historische bewering aan een Hawaiiaanse bron.</li>
+        <li>Neem de zeven principes desgewenst over als werkregels en laat de goden- en herkomstverhalen erbuiten.</li>
+        <li>Toets de oefeningen op wat zij in de praktijk opleveren, en houd bij welke voorspelling wel en niet uitkwam.</li>
+        <li>Zoek voor de Hawaiiaanse cultuur zelf naar werk van Hawaiiaanse auteurs zoals Mary Kawena Pukui, niet naar Huna-literatuur.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Huna: Ancient Hawaiian Secrets for Modern Living</i> (Beyond Words, verspreid via Atria Books van Simon &amp; Schuster, 2008, 192 blz., ISBN 9781582702018). Van dit boek bestaat geen Nederlandse uitgave. Ook King's eerdere titels over hetzelfde onderwerp zijn niet in het Nederlands vertaald: <i>Mastering Your Hidden Self: A Guide to the Huna Way</i> (Quest Books, 1985) en <i>Urban Shaman</i> (Simon &amp; Schuster, 1990) verschenen wel in het Duits, onder meer als <i>Der Stadt-Schamane</i> (1994). Wat er in het Nederlands van hem circuleert is klein werk van zijn eigen stichting Aloha International, zoals <i>The Little Pink Booklet of Aloha</i>, dat als <i>Het kleine roze boekje van Aloha</i> op de website van die stichting staat.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Serge Kahili King zet Huna neer als een Hawaiiaanse leer over macht en werkelijkheid, samen te vatten in zeven principes: de wereld is wat iemand denkt dat zij is, er zijn geen grenzen, energie stroomt waarheen de aandacht gaat, nu is het moment van macht, liefhebben is blij zijn met, alle macht komt van binnen, en werkzaamheid is de maat van de waarheid.</p><p>Het boek is een handleiding. Na een hoofdstuk over wat Huna zou zijn volgen hoofdstukken over dromen omzetten in daden, jezelf ontwerpen, aandacht richten, in het heden blijven, invloed uitbreiden, geld en het nemen van besluiten. King voegt daar Hawaiiaanse spreekwoorden, visualisaties en oefeningen aan toe en sluit af met een lijst Hawaiiaanse begrippen.</p><p>De historische aanspraak van het boek staat los van de praktische inhoud. Hawaiiaanse onderzoekers wijzen Huna als systeem al decennia af als een Amerikaanse constructie uit de jaren dertig van de vorige eeuw. Wie het boek leest krijgt een consequent uitgewerkte zelfhulpmethode met Hawaiiaanse woorden erin, geen weergave van wat de kahuna's voor de komst van de zendelingen in 1820 leerden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Huna</li><li>Hawaii</li><li>sjamanisme</li><li>zelfhulp</li><li>new age</li><li>aloha</li><li>manifesteren</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1505"><a href="1505.html">Zero Limits</a>. Vitale en Hew Len bouwen op dezelfde manier een Hawaiiaans etiket, ho'oponopono, om tot een westerse methode voor het herstellen van omstandigheden door innerlijk werk.</li>
+          <li value="1608"><a href="1608.html">De lessen van Don Juan</a>. Castaneda beriep zich net als King op een inheemse leraar die niemand anders kon controleren; de vergelijking laat zien hoe zo'n aanspraak werkt en waar zij op stukloopt.</li>
+          <li value="758"><a href="758.html">Shamanic Voices</a>. Halifax verzamelde verslagen van sjamanen uit hun eigen mond, wat een maatstaf geeft voor wat etnografisch materiaal is en wat een westerse bewerking daarvan.</li>
+          <li value="1748"><a href="1748.html">The Secret</a>. Byrne verkoopt dezelfde grondgedachte, dat gedachten de omstandigheden bepalen, zonder Hawaiiaanse inkleding en met dezelfde onweerlegbaarheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

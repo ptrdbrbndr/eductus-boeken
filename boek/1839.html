@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cloudspotter's Guide &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pretor-Pinney stelt dat wolken de meest toegankelijke natuurverschijnselen zijn die er bestaan, dat iedereen ze kan zien zonder reis, uitrusting of…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1839">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1839 &middot; Natuur en wetenschap</p>
+    <h1>The Cloudspotter's Guide</h1>
+    <p class="lede">Gavin Pretor-Pinney, 2006</p>
+    <p class="stats">
+      <span><b>1636</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1839"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pretor-Pinney stelt dat wolken de meest toegankelijke natuurverschijnselen zijn die er bestaan, dat iedereen ze kan zien zonder reis, uitrusting of toegangskaart, en dat de gewoonte om ze als slecht weer af te doen berust op onwetendheid en niet op ervaring. Zijn boek probeert dat te verhelpen door twee dingen tegelijk te doen: uitleggen hoe de tien wolkengeslachten ontstaan en van elkaar te onderscheiden zijn, en laten zien hoeveel schilders, dichters, gelovigen en zeelieden er in de loop van de geschiedenis van hebben gemaakt. De onderliggende gedachte is dat kennis het kijken niet bederft maar verlengt: wie een altocumulus castellanus herkent, ziet in dezelfde lucht meer dan wie alleen bewolking ziet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het genootschap en het pleidooi</h3>
+      <p>De inleiding beschrijft hoe de schrijver, die eerder het tijdschrift The Idler had opgericht, in januari 2005 op een festival in Cornwall een praatje hield over wolken en daarvoor een genootschap verzon. Het manifest van die Cloud Appreciation Society noemt wolken de poëzie van de natuur en de meest gelijk verdeelde van haar vertoningen, omdat iedereen er een goed uitzicht op heeft.</p>
+      <p>Daarmee is de toon gezet. Het boek is geschreven door een liefhebber zonder meteorologische opleiding, richt zich tot lezers zonder voorkennis, en verdedigt het kijken naar wolken tegen de blauwe lucht als ideaalbeeld.</p>
+      <h3>Luke Howard en de namen</h3>
+      <p>De namen die het boek gebruikt gaan terug op de Londense apotheker Luke Howard, die in december 1802 voor een wetenschappelijk debatgezelschap een lezing hield over de indeling van wolken. Hij onderscheidde drie grondvormen, cirrus voor de haarkrul, cumulus voor de stapel en stratus voor de laag, met nimbus voor de regenwolk, en liet daar combinaties van toe.</p>
+      <p>Pretor-Pinney legt uit waarom die keuze standhield terwijl een gelijktijdig voorstel van de Fransman Lamarck met Franse namen verdween: Howard gebruikte Latijn en volgde daarmee de indeling van planten en dieren, waardoor zijn stelsel over taalgrenzen heen bruikbaar bleef. Het huidige stelsel van tien geslachten met soorten en variëteiten, vastgelegd door de wereldorganisatie voor meteorologie, is er de uitwerking van.</p>
+      <h3>De lage wolken</h3>
+      <p>De cumulus krijgt het eerste hoofdstuk, met de uitleg van thermiek: opstijgende warme lucht die op een bepaalde hoogte afkoelt tot het punt waarop de waterdamp condenseert, waardoor de vlakke onderkant ontstaat die alle cumuluswolken in een lucht op dezelfde hoogte legt. Zweefvliegers gebruiken die kennis om te vinden waar de lucht omhoog gaat.</p>
+      <p>Daarna volgt de cumulonimbus, de onweerswolk die tot in de tropopauze reikt en daar het aambeeld vormt. Hier staat het verhaal van luitenant-kolonel William Rankin, die in 1959 boven North Carolina zijn straaljager moest verlaten op grote hoogte en met zijn parachute door een onweerswolk zakte, waar de opwaartse stromingen hem telkens weer omhoog wierpen; hij deed er tientallen minuten over en overleefde het. Datzelfde op en neer gaan verklaart hoe hagelstenen laag na laag aangroeien.</p>
+      <p>Stratus en stratocumulus krijgen het hoofdstuk dat de schrijver zelf als het saaiste aankondigt, met de nevel die tegen heuvels blijft hangen en de laagbewolking die hele landstreken maandenlang grijs houdt.</p>
+      <h3>De middenhoge wolken</h3>
+      <p>Altocumulus is voor de wolkenkijker de aantrekkelijkste van de middengroep: de schapenwolkjes en de wolkenstraten die in regelmatige patronen aan de hemel staan, en de castellanus met zijn torentjes, die aankondigt dat de lucht instabiel wordt en er later op de dag buien te verwachten zijn.</p>
+      <p>Altostratus en nimbostratus zijn de wolken van het aanhoudende, kleurloze weer, en Pretor-Pinney behandelt ze ook zo: als het vlak waartegen de rest afsteekt. Bij deze hoofdstukken hoort de uitleg van het warmtefront, waarbij de bewolking in een vaste volgorde overtrekt en de wolken zelf dus een voorspelling zijn.</p>
+      <h3>De hoge wolken en de strepen van vliegtuigen</h3>
+      <p>Op grote hoogte bestaan wolken uit ijskristallen, en dat verandert alles: de vorm wordt vezelig, de wolk werpt geen schaduw, en het licht dat door de kristallen breekt levert kringen, bijzonnen en andere verschijnselen op. Cirrus, cirrocumulus en cirrostratus krijgen elk hun eigen herkenningspunten.</p>
+      <p>Aan de condensatiestrepen van vliegtuigen wijdt de schrijver een apart hoofdstuk, omdat zij de enige wolkensoort zijn die de mens zelf maakt. Hij beschrijft hoe zij ontstaan uit de uitlaatgassen en de vochtigheid op kruishoogte, waarom sommige binnen seconden verdwijnen en andere uitgroeien tot een sluier die de hele hemel bedekt, en welke vraag dat oproept over hun aandeel in de warmtehuishouding.</p>
+      <h3>De andere wolken en de Morning Glory</h3>
+      <p>Een hoofdstuk is gereserveerd voor wat buiten de tien geslachten valt: de lenticularis boven bergkammen, die door de vorm en de stilstand geregeld voor een vliegende schotel wordt aangezien, de mammatus met zijn uitpuilende onderkant, en de nachtlichtende wolken die zo hoog zitten dat zij na zonsondergang nog verlicht worden.</p>
+      <p>Het slothoofdstuk is een reisverslag. Pretor-Pinney vliegt naar Burketown in Noord-Queensland, een plaats van enkele honderden inwoners aan de Golf van Carpentaria, waar in het najaar de Morning Glory verschijnt: een rolwolk die honderden kilometers lang kan zijn en waar zweefvliegers op meesurfen. Hij wacht dagen, komt bijna met lege handen terug en ziet hem dan alsnog.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cumulus</td><td>De gestapelde mooiweerwolk met platte onderkant, die ontstaat waar opstijgende warme lucht op condensatiehoogte komt.</td></tr>
+          <tr><td class="term">Cumulonimbus</td><td>De onweerswolk die van laag bij de grond tot aan de bovengrens van de weerlaag reikt en daar in een aambeeldvorm uitwaaiert.</td></tr>
+          <tr><td class="term">Stratus</td><td>De laagvormige wolk die het dichtst bij de grond hangt en die als mist op de grond komt te liggen.</td></tr>
+          <tr><td class="term">Cirrus</td><td>De vezelige wolk van ijskristallen op grote hoogte, waarvan de vorm laat zien hoe de wind daarboven staat.</td></tr>
+          <tr><td class="term">Nimbus</td><td>Het naamsdeel dat aangeeft dat er neerslag uit een wolk valt, zoals in nimbostratus en cumulonimbus.</td></tr>
+          <tr><td class="term">Geslacht, soort en variëteit</td><td>De drie niveaus van de wolkenindeling, ontleend aan de biologische naamgeving, waarbij het geslacht de hoofdvorm aangeeft en soort en variëteit de bijzonderheden.</td></tr>
+          <tr><td class="term">Lenticularis</td><td>De lensvormige wolk die stil boven of achter een bergkam blijft staan terwijl de lucht erdoorheen stroomt, en die geregeld voor een onbekend vliegend voorwerp wordt aangezien.</td></tr>
+          <tr><td class="term">Condensatiestreep</td><td>De door vliegtuigen veroorzaakte wolk, die in droge lucht meteen verdwijnt en in vochtige lucht kan uitgroeien tot een sluier.</td></tr>
+          <tr><td class="term">Morning Glory</td><td>De rolwolk boven Noord-Australië die over honderden kilometers kan doorlopen en die het slothoofdstuk van het boek vormt.</td></tr>
+          <tr><td class="term">Cloud Appreciation Society</td><td>Het door de schrijver in 2005 opgerichte genootschap met manifest en ledenlijst, waaruit dit boek is voortgekomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De meteorologie in het boek is niet van de schrijver zelf. Hij houdt zich aan de indeling van de internationale wolkenatlas van de wereldorganisatie voor meteorologie en aan de standaarduitleg van condensatie, thermiek en fronten. Fouten daarin zijn zelden gemeld, en dat is het eerste wat van een gids gevraagd mag worden.</p>
+      <p>De historische verhalen zijn controleerbaar en worden met naam en jaar gegeven: Howards lezing van december 1802, de val van Rankin door een onweerswolk in 1959, de Morning Glory boven Burketown. Waar Pretor-Pinney speculeert, bijvoorbeeld over de betekenis van wolken in oude teksten en schilderijen, zegt hij dat er zelf bij.</p>
+      <p>Dat de schrijver een leek is, laat zich meten aan wat er na het boek gebeurde. Het genootschap dat hij oprichtte verzamelde jarenlang foto's van een golvende wolkenonderkant waarvoor geen naam bestond, diende die in bij de wereldorganisatie voor meteorologie, en kreeg de vorm in 2017 onder de naam asperitas opgenomen in de vernieuwde wolkenatlas. Dat is een toets die de meeste populaire natuurboeken niet doorstaan.</p>
+      <p>Wat het boek niet levert is meetwerk of eigen waarneming op schaal. Het bewijs voor de hoofdstelling, dat kijken naar wolken de moeite loont, bestaat uit het boek zelf; wie dat niet aanspreekt, wordt met geen enkel gegeven overtuigd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als veldgids werkt het maar half. De herkenning moet grotendeels uit lopende tekst worden gehaald, de illustraties zijn klein en deels in zwart-wit, en wie in de tuin staat met een lucht boven zich is met een fotoatlas of het latere zakboekje van dezelfde schrijver sneller klaar. Het boek is een leesboek dat zich als gids voordoet.</p>
+      <p>De grappen zijn ongelijk verdeeld. De Nederlandse recensies noemden een aantal ervan flauw, waaronder een vergelijking tussen wolkenstadia en het uiterlijk van een zangeres, en klaagden tegelijk dat de stortvloed aan Latijnse namen duizelig maakt. Die twee bezwaren wijzen op hetzelfde: de toon en de stof zitten elkaar in de weg.</p>
+      <p>De culturele uitweidingen zijn breed maar ondiep. Wolken bij Turner, in de Griekse mythologie, in het Hindoeïsme en in de popmuziek komen langs in bestekken van een paar bladzijden, waarin voor een oordeel geen ruimte is. Wie het onderwerp kent, leest hier weinig nieuws; wie het niet kent, houdt losse weetjes over.</p>
+      <p>Ten slotte ontbreekt het klimaat vrijwel. Het boek verscheen in 2006 en behandelt de rol van bewolking in de opwarming van de aarde nauwelijks, terwijl juist die rol een van de grootste onzekerheden in de klimaatmodellen is. Voor een boek dat wolken wil rehabiliteren, is dat een gemis dat met de jaren zwaarder weegt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de hoogte: bepaal eerst of een wolk laag, midden of hoog hangt, want dat halveert het aantal mogelijkheden meteen.</li>
+        <li>Let bij cumulus op de vlakke onderkant; alle exemplaren in dezelfde lucht liggen daar op gelijke hoogte, en dat is een controle op de eigen waarneming.</li>
+        <li>Kijk naar de torentjes van de altocumulus castellanus in de ochtend; die kondigen buien later op de dag aan.</li>
+        <li>Volg bij een naderend warmtefront de volgorde van de bewolking, van cirrus via cirrostratus naar altostratus en nimbostratus, en gebruik die volgorde als voorspelling.</li>
+        <li>Noteer datum, plaats en tijd bij een foto van een wolk; zonder die gegevens is een waarneming achteraf niet meer thuis te brengen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Cloudspotter's Guide</i> (Sceptre, een imprint van Hodder &amp; Stoughton, Londen, 2006, ISBN 9780340895900); de Amerikaanse uitgave verscheen bij Perigee, onderdeel van Berkley in New York, met de ondertitel <i>The Science, History, and Culture of Clouds</i>, ruim 300 blz. De Nederlandse vertaling van Richard Kruis kwam in november 2006 uit bij De Bezige Bij, Amsterdam, als <i>De wolkengids. Wolken in de geschiedenis, wetenschap en cultuur</i>, 344 blz., ISBN 9789023422464. Van Pretor-Pinney verschenen later <i>The Wavewatcher's Companion</i> (2010) en het veldgidsje <i>The Cloud Collector's Handbook</i> (2011).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pretor-Pinney richtte in januari 2005 de Cloud Appreciation Society op, een genootschap met een manifest waarin staat dat wolken ten onrechte een slechte naam hebben en dat het leven zonder hen armer zou zijn. Dit boek is de uitwerking van dat standpunt: een pleidooi om omhoog te kijken, in de vorm van een gids.</p><p>De opbouw volgt de hoogte. Eerst de lage wolken, cumulus, cumulonimbus, stratus en stratocumulus, dan de middenhoge altocumulus, altostratus en nimbostratus, dan de hoge cirrus, cirrocumulus en cirrostratus, en tot slot de condensatiestrepen van vliegtuigen en de wolken die buiten de indeling vallen. Elk hoofdstuk heeft een kader met herkenningspunten.</p><p>Tussen de meteorologie door staan uitweidingen over wolken in de schilderkunst, in de Griekse mythologie, in het Hindoeïsme en in de popmuziek, en verhalen als dat van de Amerikaanse piloot die in 1959 door een onweerswolk naar beneden viel en het navertelde. Het boek eindigt met de reis van de schrijver naar Noord-Queensland om de Morning Glory te zien, een rolwolk die honderden kilometers lang kan worden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wolken</li><li>weer</li><li>meteorologie</li><li>Luke Howard</li><li>kijken</li><li>amateurs</li><li>natuurgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1"><a href="01.html">Zen en de kunst van het motoronderhoud</a>. Pirsig behandelt dezelfde vraag naar de kwaliteit van aandacht, maar dan aan een motor in plaats van aan de hemel.</li>
+          <li value="322"><a href="322.html">An Immense World</a>. Yong laat zien hoeveel van de wereld buiten het menselijke waarnemingsbereik valt; Pretor-Pinney gaat over wat binnen dat bereik ligt en toch niet wordt gezien.</li>
+          <li value="239"><a href="239.html">A Short History of Nearly Everything</a>. Bryson schrijft op dezelfde manier over natuurwetenschap als leek onder leken, met anekdotes over de mensen die de indelingen bedachten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

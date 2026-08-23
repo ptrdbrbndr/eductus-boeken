@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Godenslaap &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mortier schrijft een oorlogsroman waarin de oorlog nooit rechtstreeks in beeld komt. Wat de lezer krijgt zijn de aantekeningen van een vrouw van tegen de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1887">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1887 &middot; Roman en memoir</p>
+    <h1>Godenslaap</h1>
+    <p class="lede">Erwin Mortier, 2008</p>
+    <p class="stats">
+      <span><b>1379</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1887"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mortier schrijft een oorlogsroman waarin de oorlog nooit rechtstreeks in beeld komt. Wat de lezer krijgt zijn de aantekeningen van een vrouw van tegen de honderd die haar leven niet meer op volgorde krijgt en het daarom in brokstukken opschrijft, met de jaren 1914 tot 1918 als het punt waar alles omheen ligt. De inzet van het boek is dat taal de laatste plaats is waar dat verleden nog bestaat en dat taal er tegelijkertijd niet bij kan, en die dubbele bewering wordt niet betoogd maar in de zinnen zelf uitgevoerd.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De schriften</h3>
+      <p>Het boek is het schrijven van Helena Demont zelf. Zij is oud, zij wordt verzorgd, zij heeft haar dagen over, en zij vult schriften met wat haar te binnen schiet. Dat kader wordt aan het begin neergezet en daarna nauwelijks meer uitgelegd; het heden blijft dun en dient vooral als de plek van waaruit gekeken wordt.</p>
+      <p>Rachida, de jonge Vlaams-Marokkaanse vrouw die voor haar zorgt, is het enige personage uit het nu dat vorm krijgt. Zij hoort niet bij Helena's wereld en dat is precies wat haar bruikbaar maakt: aan iemand die niets van die tijd weet, moet alles opnieuw worden verwoord.</p>
+      <h3>Het huis voor de oorlog</h3>
+      <p>Helena groeit op in een Belgische stad aan een rivier, in een gegoede familie waar het Frans de taal van stand is en het Vlaams die van de omgeving en het personeel. Haar moeder komt uit Noord-Frankrijk, houdt de vormen streng in de hand en houdt haar dochter op afstand. Die verhouding tussen moeder en dochter loopt door het hele boek en keert later terug in de verhouding tussen Helena en haar eigen dochter.</p>
+      <p>Haar broer Edgard is haar bondgenoot in dat huis. Dat hij op mannen valt, wordt niet uitgesproken en door iedereen gezien. Mortier laat de moraal van het milieu merken aan wat er niet gezegd wordt.</p>
+      <h3>Zomer 1914</h3>
+      <p>De familie is bij verwanten in Noord-Frankrijk wanneer de oorlog uitbreekt. De grens sluit, de terugweg valt weg, en wat een zomerverblijf was wordt een verblijf van jaren. De vader blijft in de bezette stad achter en verdwijnt daarmee uit het dagelijkse leven van het boek.</p>
+      <p>Wat Helena van de oorlog ziet is de rand ervan: colonnes, vluchtelingen, veldhospitalen, boomgaarden die aan flarden liggen, en het geluid van het front dat dag en nacht aanhoudt. Het loopgravenleven zelf komt niet in beeld. Mortier kiest voor de blik van iemand die er vlak naast staat en er niet in mag.</p>
+      <h3>Matthew Herbert</h3>
+      <p>De Engelse oorlogsfotograaf Matthew Herbert komt in dat huis terecht. Hij neemt Helena mee op ritten door de frontstreek, en die ritten leveren de lichtste bladzijden van het boek op: twee mensen die elkaar aan het uitzoeken zijn in een landschap dat vernield wordt. Zij trouwen, er komt een dochter.</p>
+      <p>Zijn beroep doet in het boek meer dan zijn karakter. De fotograaf legt vast wat er is, Helena schrijft op wat er was, en de roman zet die twee manieren van bewaren voortdurend naast elkaar. Wat de camera niet meekrijgt, moet uit taal komen, en wat de taal niet meekrijgt is precies waar het boek over gaat.</p>
+      <h3>Edgard</h3>
+      <p>Edgard meldt zich en verdwijnt in de oorlog. Helena kan hem niet volgen en de lezer evenmin; wat er met hem gebeurt blijft aan de rand van haar herinnering hangen. Zijn afwezigheid is een van de gaten waar de schriften omheen worden geschreven.</p>
+      <p>Zes jaar later vulde Mortier dat gat op zijn eigen manier met <i>De spiegelingen</i>, waarin Edgard oud wordt en zelf terugkijkt, en waarin blijkt dat Matthew ook zijn geliefde was. Wie beide boeken leest, ziet dat Godenslaap even veel verzwijgt als het vertelt.</p>
+      <h3>De zin als onderwerp</h3>
+      <p>De stijl is niet de verpakking maar de zaak zelf. Mortier schrijft lange, aangroeiende zinnen met bijstellingen, ouderwetse woorden en beelden die elkaar opvolgen zonder afgemaakt te worden. Die zinnen bootsen na hoe herinnering werkt bij iemand die haar niet meer kan ordenen: er komt te veel tegelijk en het houdt niet op.</p>
+      <p>De dood is het terugkerende motief. Vrijwel iedereen over wie Helena schrijft is dood, en zij schrijft vanuit een leeftijd waarop zij als enige is overgebleven. Het boek eindigt niet met een ontknoping maar met het ophouden van het schrijven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De schriften</td><td>De vorm van het boek: aantekeningen die Helena op hoge leeftijd volschrijft, zonder chronologie en zonder lezer voor ogen.</td></tr>
+          <tr><td class="term">Helena Demont</td><td>De vertelster, tegen de honderd, opgegroeid in een Franstalig Vlaams milieu en volwassen geworden achter het front van 1914.</td></tr>
+          <tr><td class="term">Matthew Herbert</td><td>Engelse oorlogsfotograaf, Helena's echtgenoot, en in de roman de tegenpool van haar eigen manier van bewaren.</td></tr>
+          <tr><td class="term">Edgard Demont</td><td>Helena's broer, homoseksueel in een milieu dat daar geen woorden voor heeft, die zich meldt en uit haar gezichtsveld verdwijnt.</td></tr>
+          <tr><td class="term">Rachida</td><td>De jonge Vlaams-Marokkaanse verzorgster in het heden, tegenover wie het verleden opnieuw onder woorden moet worden gebracht.</td></tr>
+          <tr><td class="term">De taal van stand</td><td>Het Frans van Helena's familie tegenover het Vlaams van het personeel en de straat, een scheidslijn die in het boek meeloopt met klasse.</td></tr>
+          <tr><td class="term">De rand van het front</td><td>De streek vlak achter de linies, met hospitalen, vluchtelingen en geschutsgeluid, het enige deel van de oorlog dat Helena te zien krijgt.</td></tr>
+          <tr><td class="term">Het opschrijven</td><td>De handeling die het boek voortdrijft: niet het herinneren zelf maar het proberen te verwoorden ervan, met inbegrip van het mislukken daarvan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De historische onderlaag is verzorgd en controleerbaar. De Belgische burgerij die in de zomer van 1914 in Frankrijk vast kwam te zitten, de bezetting van de steden achter de Duitse linies, de veldhospitalen en de vluchtelingenstromen in de Westhoek: dat alles ligt vast in de geschiedschrijving van de streek. Mortier laat het niet uitleggen maar in details terugkomen, in kleding, huisraad, prijzen en omgangsvormen.</p>
+      <p>De keuze voor de fotograaf is meer dan een romanmotief. De beeldvorming van deze oorlog stond aan alle kanten onder controle van legerleidingen, en veel van wat er als documentatie geldt is geregisseerd of achteraf nagespeeld. Door haar echtgenoot dat werk te laten doen, zet de roman de vraag naar betrouwbaarheid van overlevering midden in het huwelijk van de vertelster.</p>
+      <p>Waar het boek zijn gezag vandaan haalt is de stijl, en dat is meteen de zwakste plek van elke verdediging ervan. Er is geen betoog dat los van de zinnen te toetsen valt. Wie de zinnen laat werken, krijgt een overtuigende voorstelling van hoe een oud geheugen werkt; wie ze niet laat werken, houdt vierhonderd bladzijden over waarin weinig gebeurt. De AKO Literatuurprijs van 2009 en de gedeelde waardering van recensenten zeggen dat het bij veel lezers werkte, niet dat het bij iedere lezer werkt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de stijl het verhaal opeet. De beelden stapelen zich op, bijna elk zelfstandig naamwoord krijgt een bijvoeglijk naamwoord mee, en na tweehonderd bladzijden begint het procede zichzelf te herhalen. Lezers die het boek afkeuren, noemen vrijwel altijd hetzelfde: mooischrijverij die de gebeurtenissen aan het zicht onttrekt.</p>
+      <p>De stem van Helena is niet die van een vrouw die rond 1900 in Vlaanderen is opgegroeid, maar die van een hedendaagse stilist. Het vocabulaire is ouderwets gemaakt, terwijl de manier van waarnemen en het zelfonderzoek van nu zijn. Dat is een bewuste keuze en een prijs: de vertelster wordt daardoor eerder een instrument dan een persoon.</p>
+      <p>Er zit weinig verhaal in vierhonderd bladzijden. De gebeurtenissen zijn in enkele zinnen na te vertellen, en de spanning moet volledig uit de manier van vertellen komen. Wie wil weten wat er aan de IJzer gebeurde, of hoe de Belgische samenleving de bezetting doorstond, vindt hier bijna niets.</p>
+      <p>De ondergeschikte figuren blijven schetsen. De moeder is een type, de vader verdwijnt zodra hij niet meer nodig is, en Edgard krijgt zo weinig ruimte dat Mortier er een tweede roman voor nodig had. In een boek dat om herinnering draait, is dat verdedigbaar; het maakt de bevolking van de roman wel dun.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen in oktober 2008 bij De Bezige Bij in Amsterdam (405 blz., ISBN 9789023427780). Bekroond met de AKO Literatuurprijs 2009 en genomineerd voor de NS Publieksprijs. De Engelse vertaling van Paul Vincent kwam in 2014 uit bij Pushkin Press als <i>While the Gods Were Sleeping</i>. In 2014 verscheen bij De Bezige Bij <i>De spiegelingen</i>, waarin Helena's broer Edgard aan het woord komt en waarin dezelfde jaren vanuit zijn kant worden bekeken; de twee boeken kruisen elkaar op een aantal punten, onder meer in de figuur van Matthew Herbert.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Helena Demont, tegen de honderd jaar oud, schrijft in schriften wat zij zich van haar leven herinnert. Zij is verzorgd door Rachida, een jonge Vlaams-Marokkaanse vrouw, en zij weet dat wat zij opschrijft het enige is wat er nog van dat leven bestaat.</p><p>Het midden van die herinnering ligt in de zomer van 1914. De familie is op bezoek bij verwanten in Noord-Frankrijk wanneer de oorlog uitbreekt en de terugweg wordt afgesneden. Haar vader blijft achter in de stad, haar broer Edgard meldt zich, en Helena wordt volwassen in een landhuis vlak achter het front, tussen vluchtelingen, gewonden en verwoeste dorpen.</p><p>Daar ontmoet zij de Engelse oorlogsfotograaf Matthew Herbert, met wie zij door de frontstreek rijdt, met wie zij trouwt en met wie zij een dochter krijgt. Mortier vertelt dat niet op volgorde. De schriften springen heen en weer tussen de oorlog en de ouderdom, in lange zinnen met een ouderwets vocabulaire, en de vraag die eronder ligt is of taal iets van het verleden kan vasthouden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Eerste Wereldoorlog</li><li>Vlaanderen</li><li>herinnering</li><li>ouderdom</li><li>taal</li><li>moeder en dochter</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1771"><a href="1771.html">Slaughterhouse-Five</a>. Vonnegut lost hetzelfde probleem anders op: ook bij hem is een oorlog niet rechtstreeks te vertellen, maar hij hakt de tijd in stukken waar Mortier hem laat uitdijen.</li>
+          <li value="942"><a href="942.html">Het periodiek systeem</a>. Levi schrijft eveneens een leven achteraf bij elkaar in losse stukken, met dat verschil dat hij zich vastklampt aan het stoffelijke waar Mortier zich aan de zin vastklampt.</li>
+          <li value="235"><a href="235.html">War and Peace</a>. Tolstoj laat een oorlog zien via de huiskamers van wie hem niet vecht; Godenslaap doet dat op vierhonderd bladzijden en met een enkele stem.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

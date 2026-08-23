@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Killerbody dieet &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lourens stelt dat een strak lichaam voor vrijwel iedereen bereikbaar is binnen twaalf weken, mits drie dingen op orde zijn: een streng ingericht…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1807">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1807 &middot; Brein en lichaam</p>
+    <h1>Killerbody dieet</h1>
+    <p class="lede">Fajah Lourens, 2016</p>
+    <p class="stats">
+      <span><b>1461</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1807"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lourens stelt dat een strak lichaam voor vrijwel iedereen bereikbaar is binnen twaalf weken, mits drie dingen op orde zijn: een streng ingericht eetpatroon met veel eiwit en weinig vet, een vast trainingsschema met gewichten en cardio, en de wil om het vol te houden ook als het lichaam protesteert. Zij baseert die stelling op haar eigen gang van overgewicht en een leven met weinig zelfzorg naar een figuur dat zij dagelijks toont. Het boek behandelt discipline als de plek waar het meestal misgaat, en biedt daarom eerder een dagindeling met boodschappenlijsten dan een uitleg van de stofwisseling. De onuitgesproken vooronderstelling is dat wat bij de auteur werkte, bij de lezer werkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het persoonlijke uitgangspunt</h3>
+      <p>Het boek opent bij Lourens zelf. Zij vertelt over haar jaren als actrice en dj, over een periode waarin zij slecht voor zichzelf zorgde, en over het besluit om anders te gaan leven. Die geschiedenis draagt het gezag van het hele boek: er staat geen diploma tegenover, maar een zichtbaar resultaat en een groot bereik op sociale media.</p>
+      <p>Vanaf die opening wordt de lezer aangesproken als iemand die het eerder heeft geprobeerd en is afgehaakt. Het antwoord daarop is niet een andere theorie maar een strakker plan, waarin zo weinig mogelijk aan de dag zelf wordt overgelaten.</p>
+      <h3>De uitgangspunten van het eetpatroon</h3>
+      <p>Het voedingsdeel legt uit hoe de dag wordt opgedeeld in een aantal kleine maaltijden, met eiwit als vaste grondslag en beperkte koolhydraten, en behandelt macro's als de rekeneenheid waarmee dat gebeurt. Kip, ei, magere zuivel, broccoli en komkommer keren steeds terug.</p>
+      <p>Er is aandacht voor lichaamstypen en voor de vraag hoeveel iemand nodig heeft, en er staat een hoofdstuk in over supplementen en eiwitpoeders. Het onderdeel dat in de praktijk het meest bepalend is, is het vooruit klaarmaken van maaltijden: het boek gaat ervan uit dat wie niet voorbereidt, terugvalt.</p>
+      <h3>Het twaalfwekenschema</h3>
+      <p>De kern is een dag-voor-dagplan van twaalf weken, apart voor mannen en voor vrouwen, en in een versie voor beginners en een voor gevorderden. Bij elke week horen menu's en boodschappenlijsten.</p>
+      <p>Het schema is streng. Recensenten die het uitprobeerden noemden het eentonig en beschreven honger als een terugkerend gegeven. Het boek erkent dat en beantwoordt het met aansporing: de eerste weken zijn het zwaarst, daarna went het lichaam.</p>
+      <h3>De trainingsschema's</h3>
+      <p>De trainingsdelen geven oefeningen voor thuis en voor de sportschool, met foto's van de uitvoering in stappen. De opzet is klassiek uit de bodybuilding: krachtoefeningen per spiergroep verdeeld over de week, met cardio erbij, en toename in gewicht of herhalingen naarmate de weken vorderen.</p>
+      <p>Dit is het deel dat het minst omstreden is. De oefeningen zijn gangbaar, de uitvoering is met beeld toegelicht, en voor een lezer die nog nooit in een sportschool is geweest, is het bruikbaar startmateriaal.</p>
+      <h3>Recepten en de tijd na twaalf weken</h3>
+      <p>Het laatste deel bevat recepten die snel klaar zijn en die binnen de schema's passen, met de bijbehorende hoeveelheden. Ze zijn eenvoudig en met weinig ingredienten, in lijn met de rest van het boek.</p>
+      <p>Er staat ook een deel over op gewicht blijven na de twaalf weken. Dat is korter dan het programma zelf, terwijl het de vraag betreft waar dieten meestal op stukloopt. Het antwoord komt neer op doorgaan met dezelfde gewoontes, met wat meer ruimte.</p>
+      <h3>Het boek als onderdeel van een merk</h3>
+      <p>Het boek staat niet op zichzelf. Het hoort bij het platform mykillerbodymotivation, met trainingsvideo's en betaalde online programma's, en werd gevolgd door een kookboek, een tweede deel en later een herziene uitgave. De naam Killerbody is in die jaren een merk geworden waaronder ook maaltijden en producten zijn verkocht.</p>
+      <p>Dat verklaart een deel van de opzet. Het boek werkt met korte stukken tekst, veel beeld van de auteur en een toon die uit sociale media komt: aanmoediging, eerlijkheid over eigen missers, en de belofte dat de lezer hetzelfde kan bereiken. Het verklaart ook waarom de onderbouwing dun blijft. Het gezag komt van de zichtbaarheid van de auteur, en dat is genoeg om driehonderdduizend exemplaren te verkopen, maar het is een andere soort gezag dan die van een voedingskundig handboek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Killerbody</td><td>Lourens' aanduiding voor een strak, getraind lichaam, en tegelijk de merknaam waaronder haar boeken, recepten en online programma's verschijnen.</td></tr>
+          <tr><td class="term">Twaalfwekenplan</td><td>Het dag-voor-dagschema van voeding en training dat de ruggengraat van het boek vormt, in versies voor mannen en vrouwen en voor twee niveaus.</td></tr>
+          <tr><td class="term">Macro's</td><td>De verdeling van de dagelijkse voeding over eiwit, koolhydraten en vet, waarmee in het boek gerekend wordt in plaats van met losse producten.</td></tr>
+          <tr><td class="term">Food prep</td><td>Het vooruit koken en afwegen van maaltijden voor meerdere dagen, in het boek behandeld als de gewoonte die het verschil maakt tussen volhouden en afhaken.</td></tr>
+          <tr><td class="term">Lijfsoort</td><td>De indeling in lichaamstypen waarmee het boek verschillen in aanleg en in benodigde hoeveelheden verklaart.</td></tr>
+          <tr><td class="term">Cardio</td><td>De duurinspanning die naast de krachttraining wordt voorgeschreven, bedoeld om het verbruik te verhogen.</td></tr>
+          <tr><td class="term">Mindset</td><td>De houding van volhouden en jezelf niet uitzonderen, die Lourens in dit boek aanstipt en in haar latere werk tot hoofdzaak maakt.</td></tr>
+          <tr><td class="term">Mykillerbodymotivation</td><td>Het account en later het platform waarmee Lourens vanaf 2013 haar eigen gang liet zien en waaruit het boek is voortgekomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op een voorbeeld van een: de auteur zelf, plus het meewerken van een aantal deskundigen dat in het colofon wordt genoemd. Er is een literatuuropgave, maar in de tekst wordt zelden naar onderzoek verwezen en de aanbevelingen worden niet per stuk verantwoord.</p>
+      <p>Het onderdeel dat wel klopt, is de grondslag. Wie stelselmatig minder eet dan hij verbruikt, verliest gewicht, en krachttraining tijdens dat verlies helpt spiermassa te behouden. Dat is gangbare kennis en het programma is daar consequent op gebouwd. Een kilo per week is bij een fors tekort bovendien haalbaar, zeker in de eerste weken waarin ook vocht verdwijnt.</p>
+      <p>De onderdelen die verder gaan, zijn zwakker onderbouwd. De indeling in lichaamstypen komt uit een verouderde typologie en voorspelt in onderzoek nauwelijks iets. Voor de vele kleine maaltijden per dag is geen aangetoond voordeel boven minder maaltijden bij dezelfde hoeveelheid. De supplementen die worden besproken doen in de meeste gevallen minder dan het boek suggereert. En het volhouden van een streng schema over jaren is precies de uitkomst waar het bewijs het somberst over is: het merendeel van de mensen die met een dieet afvallen, zit binnen enkele jaren weer op het oude gewicht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste tegenwerping kwam bij verschijnen uit de voedingskunde. Lourens gaf zelf aan rond de duizend kilocalorieen per dag te eten bij een berekende behoefte van ongeveer dertienhonderdvijftig. Bij zulke hoeveelheden ontstaan tekorten aan vitaminen en mineralen. Dietisten wezen erop dat een boek met dit bereik daarmee een voorbeeld neerzet dat vooral bij tienermeisjes en jonge vrouwen ontsporingen in de hand werkt, in een groep waar eetstoornissen al veel voorkomen.</p>
+      <p>Ook zonder dat gevaar is het programma erg strak. Een recensent noemde het eentonig en voorspelde een grote kans op terugval en teleurstelling. Er zijn weinig alternatieven voor wie zuivel slecht verdraagt, weinig ruimte voor eten dat niet in de schema's past, en het deel over de tijd na de twaalf weken is te kort om het probleem te dragen waar het over gaat.</p>
+      <p>Het meest veelzeggende oordeel komt van de auteur zelf. Lourens heeft in latere jaren gezegd dat zij anders naar het Killerbody-dieet kijkt, dat dieten meestal maar tijdelijk werkt en dat geluk niet in het gewicht zit. Haar herziene boek zet de houding en de zelfaanvaarding vooraan en het schema erachter. Wie dit boek nu leest, leest dus een programma waar de bedenker zelf van is teruggekomen.</p>
+      <p>Wat overeind blijft is het trainingsdeel en de gewoonte van het vooruit koken. Dat zijn de onderdelen waar het boek eerlijk in is: het beschrijft ze zonder de belofte die de rest draagt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Reken het aanbevolen dagmenu na op hoeveelheid en op vitaminen voordat het gevolgd wordt; de schema's zijn zuinig ingericht.</li>
+        <li>Neem het trainingsdeel en het vooruit koken over en laat de belofte van een kilo per week los.</li>
+        <li>Kies een tempo van verlies dat over een jaar vol te houden is in plaats van over twaalf weken.</li>
+        <li>Laat het boek weg bij lezers onder de twintig of bij iemand met een geschiedenis van eetproblemen.</li>
+        <li>Leg naast het schema een plan voor de periode erna, want daar besteedt het boek te weinig aandacht aan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Slank in 12 weken</i>. Kosmos Uitgevers, Utrecht, 2016, 208 blz., ISBN 9789021562681; het boek beleefde tientallen drukken, waaronder een negentiende druk in 2019 (ISBN 9789021572604). Aan de tekst werkten Anke Langelaan, Nanneke Schreurs en Daphne Groothuyse mee; de schema's voor gevorderden zijn van Wesley van Staveren. Lourens bracht later onder meer een <i>Killerbody dieet kookboek</i> uit en een herziene versie onder de titel <i>Killerbody Lifestyle</i>. Er bestaat geen vertaling; het boek is oorspronkelijk Nederlands.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Fajah Lourens, actrice en dj, begon in 2013 het account mykillerbodymotivation op Instagram en bouwde daar een groot volgersbestand op. Dit boek uit 2016 zette die volgers om in lezers: er gingen meer dan driehonderdduizend exemplaren over de toonbank, wat het tot een van de best verkochte Nederlandse dieetboeken maakt.</p><p>De opzet is die van een programma van twaalf weken. Het boek geeft voedingsschema's voor mannen en vrouwen, trainingsschema's voor thuis en voor de sportschool met foto's per oefening, recepten met boodschappenlijsten, en uitleg over macro's, cardio, supplementen en het vooruit klaarmaken van maaltijden.</p><p>De belofte is een kilo per week. Dietisten wezen bij verschijnen op de lage hoeveelheid voedsel die daarvoor nodig is, op het risico van tekorten en op de kans dat jonge lezeressen er een gestoord eetpatroon aan overhouden. Lourens heeft later zelf afstand genomen van de strekking van het boek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dieet</li><li>afvallen</li><li>krachttraining</li><li>voeding</li><li>fitgirls</li><li>sociale media</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="417"><a href="417.html">The Diet Myth</a>. Spector laat in <i>The Diet Myth</i> zien waarom eenzelfde schema bij verschillende mensen verschillend uitpakt, wat het uitgangspunt van dit boek ondergraaft.</li>
+          <li value="1899"><a href="1899.html">De hormoonfactor</a>. Moorman betoogt in <i>De hormoonfactor</i> dat hormonen zwaarder wegen dan het aantal calorieen; dat is de Nederlandse tegenstem bij dezelfde lezersgroep.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear behandelt in <i>Atomic Habits</i> het volhouden zelf, het punt waarop dit programma na twaalf weken meestal strandt.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft in <i>The Body Keeps the Score</i> hoe de verhouding tot het eigen lichaam ontstaat, een laag die in dieetboeken van dit type buiten beeld blijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

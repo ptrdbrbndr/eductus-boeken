@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Born to Run &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="McDougall betoogt dat hardlopen niet slecht is voor het lichaam maar dat wat de moderne loper eromheen heeft gebouwd het slecht maakt. De mens is volgens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1858">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1858 &middot; Brein en lichaam</p>
+    <h1>Born to Run</h1>
+    <p class="lede">Christopher McDougall, 2009</p>
+    <p class="stats">
+      <span><b>1492</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1858"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>McDougall betoogt dat hardlopen niet slecht is voor het lichaam maar dat wat de moderne loper eromheen heeft gebouwd het slecht maakt. De mens is volgens hem geëvolueerd als uithoudingsloper, in staat om op warme dagen sneller wild af te matten dan het kan wegrennen, en de moderne gedempte hardloopschoen verstoort de manier waarop de voet die belasting van nature verdeelt. Uit die twee gedachten volgt zijn verklaring voor de blessuregolf onder recreatieve lopers, en zijn bewondering voor de Rarámuri, die op zelfgesneden sandalen enorme afstanden afleggen. Het boek voert dat betoog niet als verhandeling maar als reisverslag, met een wedstrijd in de Mexicaanse canyons als eindpunt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag van een geblesseerde loper</h3>
+      <p>Het boek begint bij McDougall zelf: een grote, zware man die steeds geblesseerd raakt en van de ene arts naar de andere gaat. De vaststelling dat hij te log gebouwd is om hard te lopen bevalt hem niet, omdat zij niet verklaart waarom hardloopblessures juist in het tijdperk van dure schoenen zo veel voorkomen.</p>
+      <p>Hij gaat op zoek naar mensen die het wel volhouden, en stuit op berichten over de Rarámuri in de Copper Canyons, die honderden kilometers zouden lopen zonder blessures en tot op hoge leeftijd doorgaan.</p>
+      <h3>De Rarámuri en Caballo Blanco</h3>
+      <p>In de canyons van Chihuahua leven de Rarámuri afgezonderd. Zij lopen op huaraches, sandalen gesneden uit autobanden, drinken iskiate van chiazaad en water, brouwen tesguino van maïs en houden rarajipari, wedlopen waarbij een houten bal met de voet wordt voortgetrapt over afstanden die een etmaal kunnen duren.</p>
+      <p>Om bij hen te komen zoekt McDougall Micah True op, een Amerikaan die zich Caballo Blanco noemt, in het dorp Urique woont en sinds 2003 een ultraloop in de canyons organiseert. True is het scharnier van het boek: hij kent de families, hij regelt de deelname en hij levert de mythische figuur die het verhaal nodig heeft.</p>
+      <h3>Leadville, 1993 en 1994</h3>
+      <p>De opmaat is een echt gebeurd stuk sportgeschiedenis. In 1993 en 1994 kwamen Rarámuri-lopers naar de Leadville Trail 100 in Colorado, een loop van honderd mijl op grote hoogte. In 1993 won Victoriano Churro, een man van in de vijftig. Een jaar later won Juan Herrera, met Ann Trason als naaste concurrent.</p>
+      <p>McDougall gebruikt die uitslagen als bewijsstuk: mannen in sandalen, zonder trainingsschema en zonder sponsors, versloegen de Amerikaanse top. Hij vertelt er ook bij hoe rommelig die deelname verliep en hoe de Rarámuri daarna wegbleven, wat het verhaal minder eenduidig maakt dan de uitslag suggereert.</p>
+      <h3>Waarom de mens loopt</h3>
+      <p>In het midden van het boek verlaat McDougall het reisverslag voor de evolutiebiologie. Hij steunt op het werk van Dennis Bramble en Daniel Lieberman, die in 2004 in <i>Nature</i> betoogden dat het geslacht Homo een reeks kenmerken heeft die alleen voor hardlopen nut hebben: de nekband die het hoofd stabiel houdt, de achillespees als veer, de grote bilspier en het vermogen om via zweet warmte kwijt te raken terwijl viervoeters moeten hijgen.</p>
+      <p>Daaruit volgt de uithoudingsjacht: op een hete dag kan een groep mensen een antilope of koedoe blijven opjagen tot het dier oververhit raakt. Louis Liebenberg heeft die jachtvorm bij Kalahari-jagers waargenomen en beschreven. McDougall maakt daar de kern van zijn boek van: lopen is niet iets wat de mens erbij doet, het is waar zijn bouw op is ingericht.</p>
+      <h3>De schoen als verdachte</h3>
+      <p>De bekendste hoofdstukken gaan over hardloopschoenen. McDougall schetst hoe de gedempte hardloopschoen vanaf de jaren zeventig door de sportindustrie werd ontwikkeld en verkocht, en hoe het aantal blessures sindsdien niet daalde. Hij haalt onderzoek aan onder deelnemers aan een loop in Bern waarin lopers met duurdere schoenen meer blessures hadden dan lopers met goedkope.</p>
+      <p>Zijn verklaring is dat demping en steun de voet informatie ontnemen: wie zacht landt op een dikke zool, zet de hiel harder neer dan wie de grond voelt. De aanbevolen richting is minder schoen: huaraches, dunne zolen of blote voeten, en een korte pas met een hogere frequentie. Eric Orton, de trainer die hem begeleidt, bouwt zijn loophouding op dat idee opnieuw op.</p>
+      <h3>De race in de canyons</h3>
+      <p>Het slot is de wedstrijd van maart 2006 in de Copper Canyons. Aan de start staan Rarámuri-lopers en een gezelschap Amerikanen dat McDougall onderweg heeft verzameld: Scott Jurek, die de Western States 100 zeven jaar op rij won, de jonge lopers Jenn Shelton en Billy Barnett, en Ted McDonald, bekend als Barefoot Ted.</p>
+      <p>Arnulfo Quimare wint, Jurek eindigt als tweede. McDougall zelf haalt de finish, wat in de opzet van het boek het bewijs is dat de aanpak werkt. De race groeide daarna uit tot een jaarlijks evenement in Urique.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Rarámuri</td><td>De eigen naam van het volk dat buiten de canyons Tarahumara heet; volgens het boek te vertalen als lopende voeten.</td></tr>
+          <tr><td class="term">Huaraches</td><td>Sandalen met een dunne zool, bij de Rarámuri gesneden uit afgedankte autobanden en vastgezet met een veter.</td></tr>
+          <tr><td class="term">Rarajipari</td><td>De wedloop van de Rarámuri waarbij een houten bal met de voet wordt voortgetrapt, soms een etmaal lang, in ploegen tussen dorpen.</td></tr>
+          <tr><td class="term">Uithoudingsjacht</td><td>Het achtervolgen van een prooidier tot het oververhit raakt, mogelijk doordat de mens zijn warmte via zweet kwijtraakt en het dier niet.</td></tr>
+          <tr><td class="term">Endurance running hypothesis</td><td>De stelling van Bramble en Lieberman dat een reeks kenmerken van het menselijk lichaam alleen te verklaren valt als aanpassing aan langeafstandslopen.</td></tr>
+          <tr><td class="term">Iskiate</td><td>Drank van water, chiazaad en limoen die de Rarámuri onderweg gebruiken en die in het boek als hun brandstof geldt.</td></tr>
+          <tr><td class="term">Caballo Blanco</td><td>De naam die Micah True in de canyons kreeg; hij organiseerde vanaf 2003 de ultraloop waarop het boek uitloopt.</td></tr>
+          <tr><td class="term">Blootsvoetlopen</td><td>Lopen zonder schoen of op een minimale zool, in het boek aanbevolen omdat de voet dan de landing zelf regelt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het stevigste deel is de evolutiebiologie. Het artikel van Bramble en Lieberman in <i>Nature</i> uit 2004 is echt onderzoek en de opsomming van anatomische kenmerken die alleen bij hardlopen nut hebben, staat overeind. De uithoudingsjacht is waargenomen en gefilmd bij jagers in de Kalahari. Wat daarbij hoort en in het boek naar de achtergrond verdwijnt, is dat deze jachtvorm zeldzaam is en dat er discussie bestaat over hoe belangrijk zij in de menselijke voorgeschiedenis was.</p>
+      <p>Het schoenargument rust op smaller materiaal. Het Berner onderzoek dat McDougall aanhaalt is waarneming achteraf, geen proef: lopers die duurdere schoenen kopen, verschillen ook op andere manieren van lopers die dat niet doen, bijvoorbeeld in gewicht, kilometers en eerdere klachten. De onderzoekers waarschuwden zelf dat er uit hun cijfers niet valt af te leiden dat duurdere schoenen blessures veroorzaken.</p>
+      <p>De rest van het boek is reportage. McDougall was erbij, hij noemt namen, plaatsen en uitslagen, en de wedstrijden in Leadville en Urique zijn na te gaan. Wat hij als bewijs presenteert is echter grotendeels het verhaal van mensen bij wie het goed ging, hemzelf inbegrepen, en dat is de zwakste vorm van onderbouwing die er is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De blessureclaim heeft de proef niet doorstaan. Er bestaat geen gecontroleerd onderzoek waarin lopers met minimalistisch schoeisel minder blessures krijgen. Onderzoek naar lopers die overstapten liet juist verhoogde belasting van de middenvoetsbeenderen zien wanneer de overgang te snel ging. De Vibram FiveFingers, de schoen die op de golf na dit boek meelifte, kwam in 2014 tot een schikking in een Amerikaanse rechtszaak over gezondheidsclaims die niet waargemaakt konden worden.</p>
+      <p>Ook het beeld van de Rarámuri is bijgesteld. Lieberman zelf publiceerde in 2020 met collega's in <i>Current Anthropology</i> een studie onder Rarámuri waaruit een gemengder beeld naar voren komt: er zijn blessures, en het verband met schoeisel is minder eenduidig dan het boek suggereert. Verder blijkt uit vergelijkbaar onderzoek dat blessures vooral samenhangen met het aantal wekelijkse kilometers en met de drang om door te trainen.</p>
+      <p>Het sterkste bezwaar is van andere aard. Het boek maakt van een volk dat leeft met droogte, armoede en het geweld van de drugshandel in de canyons een zinnebeeld voor wat wij zijn kwijtgeraakt. De Rarámuri komen erin voor als voorbeeld, zelden als mensen met eigen belangen. Micah True stierf in 2012 op achtenvijftigjarige leeftijd tijdens een loop in New Mexico; de sectie wees op een hartspieraandoening. Dat detail past slecht in het beeld dat het boek van hem maakt, en het staat er niet in omdat het boek eerder verscheen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Verhoog de weekafstand langzaam; de blessurecijfers hangen sterker samen met de opbouw dan met het schoeisel.</li>
+        <li>Wie naar een dunnere zool wil, doet dat over maanden en begint met korte stukken, omdat de kuit en de middenvoet die belasting eerst moeten opbouwen.</li>
+        <li>Let op paslengte en pasfrequentie voordat er geld naar schoenen gaat; een kortere pas verandert de landing meer dan een ander merk.</li>
+        <li>Lees het boek als reisverslag en niet als handleiding, en zoek de onderbouwing van de schoenhoofdstukken elders.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Born to Run: A Hidden Tribe, Superathletes, and the Greatest Race the World Has Never Seen</i> (Alfred A. Knopf, New York, 2009, ISBN 9780307266309); er zijn wereldwijd meer dan drie miljoen exemplaren van verkocht. De Nederlandse uitgave houdt de Engelse titel aan en verscheen bij Rainbow, Amsterdam, 2024, 320 blz., ISBN 9789041715814 (e-boek 9789041715821); eerdere Nederlandse drukken verschenen bij andere uitgevers. McDougall schreef later <i>Natural Born Heroes</i> (2015) en <i>Running with Sherman</i> (2019).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Christopher McDougall, journalist en veelvuldig geblesseerde hardloper, stelde zijn sportarts een simpele vraag: waarom doet mijn voet pijn? Het antwoord dat hij kreeg, dat het menselijk lichaam nu eenmaal niet voor hardlopen is gemaakt, wilde hij niet aannemen. Hij ging op zoek naar de Rarámuri, ook wel Tarahumara genoemd, in de Copper Canyons van Chihuahua in Mexico, die op sandalen van autoband dagenlang blijken te kunnen lopen.</p><p>Het spoor loopt via Micah True, een Amerikaan die zich Caballo Blanco noemt en al jaren tussen de Rarámuri woont. Die organiseert in 2006 een wedstrijd in de canyons waarbij Amerikaanse ultralopers tegen Rarámuri lopen. Rond de aanloop naar die race hangt McDougall de rest van het boek op.</p><p>Daartussendoor staan de hoofdstukken over evolutie en over schoenen. De mens zou zich hebben ontwikkeld als uithoudingsloper die prooidieren afmat, en de gedempte hardloopschoen zou blessures eerder veroorzaken dan voorkomen. Beide claims maakten het boek tot aanjager van de blootsvoetgolf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hardlopen</li><li>Tarahumara</li><li>ultraloop</li><li>blessures</li><li>hardloopschoenen</li><li>evolutie</li><li>Mexico</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari beschrijft dezelfde jager-verzamelaar als McDougall, maar zonder het verlangen om diens leefwijze als voorbeeld voor te houden.</li>
+          <li value="1813"><a href="1813.html">Koud kunstje</a>. Wim Hof bouwt op hetzelfde uitgangspunt, dat het lichaam meer verdraagt dan de moderne mens ervan vraagt, en loopt tegen dezelfde bewijsproblemen aan.</li>
+          <li value="84"><a href="84.html">Laat je hersenen niet zitten</a>. Erik Scherder behandelt bewegen vanuit de hersenen en houdt zich daarbij wel aan wat er in onderzoek is aangetoond.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

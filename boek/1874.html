@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het is tijd man &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Biegstraaten, Van Drunen en Schop stellen dat de meeste mannen niet lijden onder een gebrek aan mannelijkheid maar onder een stapel ongeschreven regels…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1874">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1874 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>Het is tijd man</h1>
+    <p class="lede">Jeroen Biegstraaten, Rob van Drunen en Pieter Schop, 2021</p>
+    <p class="stats">
+      <span><b>1426</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1874"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Biegstraaten, Van Drunen en Schop stellen dat de meeste mannen niet lijden onder een gebrek aan mannelijkheid maar onder een stapel ongeschreven regels waarover nooit gesproken is: wat een man hoort te verdienen, hoeveel hij hoort te willen, wanneer hij mag huilen, hoe vaak hij seks hoort te willen, of hij hulp mag vragen. Die regels zijn deels overgenomen van vaders en deels van een omgeving die zich sinds die vaders sterk heeft gewijzigd, waardoor mannen tegenstrijdige opdrachten met zich meedragen en op geen van beide voldoen. Hun stelling is dat het gesprek zelf de eerste ingreep is: zodra een man de regels benoemt en merkt dat anderen dezelfde dragen, verliezen ze een deel van hun vanzelfsprekendheid en wordt er iets te kiezen. Het boek levert daarom geen model van de goede man, maar een reeks vragen en werkvormen die dat gesprek op gang moeten brengen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel 1: waar ben je beland</h3>
+      <p>Het eerste deel heet Welcome to the Jungle en bestaat uit twee hoofdstukken. Het eerste schetst de omgeving waarin de lezer zich bevindt: de tegenstrijdige verwachtingen die de flaptekst kort samenvat als kinderen of carrière, stoere gast of held op sokken, rokkenjager of lieve knuffelbeer.</p>
+      <p>Het tweede hoofdstuk heet Laat de shit het begin zijn en zet de werkwijze van het boek neer. De aanleiding voor de vraag wat voor man iemand wil zijn is bij vrijwel niemand nieuwsgierigheid; het is meestal een scheiding, een ontslag, een burn-out of een moment waarop iets stukloopt. De auteurs behandelen dat als vertrekpunt en niet als iets wat weggewerkt moet worden.</p>
+      <h3>Deel 2: seks, uiterlijk en relaties</h3>
+      <p>Het tweede deel, Into the Wild, loopt de gebieden langs. Het opent met een hoofdstuk over intimiteit en seks, waarin de auteurs de verwachtingen bespreken die mannen over hun eigen verlangen en prestatie hebben, en de mate waarin daar in mannenvriendschappen alleen grappend over gesproken wordt.</p>
+      <p>Het hoofdstuk daarna gaat over uiterlijk en over relaties: hoe een man naar zijn eigen lichaam kijkt en hoe hij zich verhoudt tot een partner. Het patroon dat de auteurs beschrijven is telkens hetzelfde: een gebied waar veel gevoel zit, weinig taal, en een norm die nooit hardop is vastgesteld maar waar wel aan afgemeten wordt.</p>
+      <h3>Werk, vaderschap en hulp vragen</h3>
+      <p>Werk aan de winkel behandelt de plaats van werk in een mannenleven: de vraag hoeveel iemand ergens van zichzelf in kwijt kan, de verhouding tussen verdienen en waard zijn, en wat er gebeurt als de baan verdwijnt.</p>
+      <p>Papa gaat over vaderschap in twee richtingen. Over de eigen vader en wat daarvan is overgenomen, en over het eigen vaderschap en de vraag wat daarvan bewuste keuze is. Dat hoofdstuk zit in het midden van het boek en draagt de meeste persoonlijke verhalen.</p>
+      <p>Ik kan het (niet) alleen sluit het deel af met de vraag waarom hulp vragen voor veel mannen zwaarder weegt dan het probleem waarvoor hulp nodig is. Hier komt het werk van de auteurs bij Mannenkracht het dichtst aan de oppervlakte: de bijeenkomsten die zij organiseren bestaan grotendeels uit mannen die iets uitspreken waarvan zij dachten dat zij de enige waren.</p>
+      <h3>Deel 3: het kantelpunt</h3>
+      <p>Het derde deel, Out in the Open, telt twee hoofdstukken. Op een kantelpunt gaat over het moment waarop de vraag niet langer uit te stellen valt, en over wat er van iemand gevraagd wordt om dan daadwerkelijk iets te wijzigen in plaats van er alleen over te praten.</p>
+      <p>Vier je vuur sluit af. De metafoor van het vuur, met de bijbehorende beelden van doorgeven en brandend houden, is het punt waarop het boek het dichtst bij het mythopoëtische mannenwerk komt waaruit dit genre in de jaren tachtig ontstond. Achterin staan werkvormen, dankwoorden, noten en leessuggesties.</p>
+      <h3>De vorm</h3>
+      <p>Het boek wisselt drie soorten tekst af: de persoonlijke ervaringen van de drie auteurs, verwijzingen naar onderzoek en oefeningen voor de lezer. De hoofdstukken zijn kort, met reflectievragen tussendoor.</p>
+      <p>Dat maakt het bruikbaar voor het doel waarvoor het geschreven lijkt: als materiaal voor een groep mannen die elkaar met enige regelmaat zien. Als leesboek voor één man alleen valt het uiteen in losse stukken, want de oefeningen vragen bijna allemaal om iemand tegenover je.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wat voor man wil ik zijn</td><td>De vraag uit de ondertitel, die het boek als opdracht neerlegt en waarop het bewust geen eigen antwoord geeft.</td></tr>
+          <tr><td class="term">Ongeschreven regels</td><td>De niet uitgesproken verwachtingen over hoe een man hoort te zijn, die het boek bespreekbaar wil maken.</td></tr>
+          <tr><td class="term">Spanningsveld</td><td>Een gebied waarin twee verwachtingen elkaar tegenspreken, zoals carrière tegenover thuis zijn, of stoer tegenover kwetsbaar.</td></tr>
+          <tr><td class="term">Mannenkracht</td><td>De organisatie van de auteurs, waar mannen samenkomen rond de vraag wat voor man, partner, vader, vriend en collega zij willen zijn.</td></tr>
+          <tr><td class="term">Laat de shit het begin zijn</td><td>De stelling van het tweede hoofdstuk dat de aanleiding voor verandering vrijwel altijd een breuk of een mislukking is.</td></tr>
+          <tr><td class="term">Kantelpunt</td><td>Het moment waarop erover praten niet meer volstaat en er iets in het gedrag verandert.</td></tr>
+          <tr><td class="term">Je vuur vieren</td><td>Het slotbeeld van het boek voor eigen richting en drift, en het onderhouden daarvan in gezelschap van andere mannen.</td></tr>
+          <tr><td class="term">Tools</td><td>De werkvormen achterin, bedoeld om de hoofdstukken in een groep of met een gesprekspartner uit te voeren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing van het boek is in de eerste plaats ervaring: die van de drie auteurs zelf en die van de mannen die zij bij Mannenkracht meemaken. Dat materiaal is niet verzameld om er iets uit af te leiden en wordt door de auteurs ook niet als bewijs opgevoerd. De verhalen dienen om te laten zien dat een onderwerp bestaat, niet om te laten zien hoe vaak het voorkomt.</p>
+      <p>Daarnaast verwijst het boek naar wetenschappelijke inzichten en heeft het een literatuuropgave, wat het onderscheidt van het merendeel van het Nederlandse zelfhulpaanbod voor mannen. Wat die verwijzingen dragen is beperkt. Onderzoek naar mannelijkheid, hulpzoekgedrag en vaderschap laat verbanden zien op groepsniveau; het zegt niets over wat een individuele lezer aan een oefening heeft.</p>
+      <p>Voor de werkzaamheid van mannengroepen, de praktijk waar het boek uit voortkomt en naartoe wijst, bestaat weinig gecontroleerd onderzoek. Wat er is gaat over lotgenotengroepen in het algemeen en laat vooral zien dat het uitspreken van iets wat verzwegen werd bij een deel van de deelnemers verlichting geeft. Dat is een smallere claim dan het boek suggereert, en het boek maakt die claim eerlijk gezegd ook niet hardop.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen dit boek is dat het de vraag opwerpt en het antwoord bij de lezer laat. Dat is bedoeld als terughoudendheid en werkt bij lezers die al iets van een richting hebben. Bij lezers die vastzitten levert het een boek op dat honderden bladzijden lang bevestigt dat de verwarring terecht is, zonder ergens uit te komen.</p>
+      <p>De doelgroep is smaller dan de titel doet vermoeden. De dilemma's die het boek behandelt, carrière tegenover thuis zijn, wat je met je vaderschap wilt, of je hulp durft te vragen, veronderstellen een man die kan kiezen. Voor mannen zonder vaste baan, zonder partner of zonder omgeving waarin over dit soort dingen gesproken wordt, staat er weinig in dat aanslaat.</p>
+      <p>Het slothoofdstuk over het vuur laat zien waar het genre aan lijdt. Zodra het over richting en drift gaat, vervalt de taal in beelden die veel toelaten en weinig vastleggen. De rest van het boek is nuchterder dan dat, wat het slot eerder verzwakt dan versterkt.</p>
+      <p>De drie auteurs schrijven met één stem. Dat leest prettig en het kost het boek zijn beste kans: drie mannen die het over deze onderwerpen openlijk oneens zouden zijn geweest, hadden de lezer laten zien dat er meer dan één antwoord bestaat op de vraag uit de ondertitel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek met minstens één ander; de oefeningen zijn op een gesprek gebouwd en niet op alleen lezen.</li>
+        <li>Begin bij het hoofdstuk over de eigen vader en niet bij het eerste hoofdstuk als er weinig tijd is.</li>
+        <li>Schrijf per gebied op welke regel je meedraagt en van wie je die hebt overgenomen, voordat je oordeelt of die klopt.</li>
+        <li>Zet achter elk voornemen uit het derde deel een datum en iemand die ernaar vraagt.</li>
+        <li>Gebruik de werkvormen achterin als draaiboek voor een groep; los van het boek zijn zij zelfstandig bruikbaar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Het is tijd man: om de vraag te stellen: wat voor man wil ik zijn?</i>, Altamira (Gottmer Uitgevers Groep), Haarlem, 2021, 224 blz., ISBN 9789401304764; als e-boek ISBN 9789401304856. Nederlandstalig origineel, er bestaat geen vertaling. Het boek bevat een literatuuropgave en een gedeelte met werkvormen achterin. De auteurs zijn verbonden aan Mannenkracht, waar zij bijeenkomsten, trainingen en meerdaagse programma's voor mannen organiseren.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Drie Nederlandse mannen die zich met mannenwerk bezighouden schreven een boek over de tegenstrijdige verwachtingen waarmee mannen in Nederland te maken hebben. De ondertitel bevat de opdracht: het is tijd om de vraag te stellen wat voor man je wilt zijn.</p><p>Het boek loopt langs de gebieden waar die vraag zich voordoet: seks en intimiteit, uiterlijk en relaties, werk en de zin daarvan, het vaderschap, en de vraag of een man hulp mag vragen. Per gebied staan persoonlijke verhalen van de auteurs, verwijzingen naar onderzoek en oefeningen.</p><p>De toon is losser dan die van het Amerikaanse mannenwerk waaruit het genre voortkomt. De auteurs schrijven over hun eigen mislukkingen, houden het bij Nederlandse omstandigheden en vermijden het mythische register waar dit genre vaak in vervalt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mannen</li><li>mannelijkheid</li><li>vaderschap</li><li>seksualiteit</li><li>werk</li><li>vriendschap</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="3"><a href="03.html">The Will to Change</a>. bell hooks stelt dezelfde vraag naar mannelijkheid met een politieke analyse eronder die dit boek bewust weglaat.</li>
+          <li value="1598"><a href="1598.html">Men's Work</a>. Beaton beschrijft het Amerikaanse mannenwerk waar de praktijk van de auteurs uit voortkomt, met meer nadruk op schaduw en woede.</li>
+          <li value="406"><a href="406.html">No More Mr. Nice Guy</a>. Glover behandelt het hoofdstuk over hulp vragen en het wegcijferen van eigen wensen als één probleem en werkt dat verder uit.</li>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette leveren het mythische register waar het slot van dit boek naar overhelt, in de uitgewerkte vorm.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sociale denkpatronen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Derks stelt dat sociale gevoelens niet in de eerste plaats voortkomen uit wat andere mensen doen, maar uit de plaats die het beeld van die mensen inneemt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1804">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1804 &middot; Naslag en praktijk</p>
+    <h1>Sociale denkpatronen</h1>
+    <p class="lede">Lucas Derks, 2002</p>
+    <p class="stats">
+      <span><b>1752</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1804"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Derks stelt dat sociale gevoelens niet in de eerste plaats voortkomen uit wat andere mensen doen, maar uit de plaats die het beeld van die mensen inneemt in de mentale ruimte van degene die het gevoel heeft. Wie zich klein voelt tegenover een leidinggevende, ziet die leidinggevende naar zijn zeggen ook werkelijk hoger en groter voor zich; wie een gestorven ouder niet kan loslaten, houdt diens beeld op een afstand die het rouwen tegenhoudt. Uit die stelling volgt de hele werkwijze van het boek: verplaats het innerlijke beeld, en het gevoel verplaatst mee. Derks behandelt zo'n verplaatsing als een ingreep die in minuten uitvoerbaar is en die blijft zitten, en bouwt daar een vorm van kortdurende therapie op.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Bouwstenen van de sociale wereld</h3>
+      <p>Het eerste deel zet het uitgangspunt neer. Mensen leven volgens Derks niet in de sociale werkelijkheid zelf, maar in een innerlijke voorstelling ervan, opgebouwd uit beelden, geluiden en lichaamsgevoelens. Die voorstelling noemt hij het sociale denken. De bouwstenen ontleent hij aan het neurolinguistisch programmeren, waar sinds de jaren zeventig wordt gewerkt met submodaliteiten: de eigenschappen van een innerlijk beeld, zoals afstand, formaat, helderheid, kleur, geluid en beweging.</p>
+      <p>Wat hij daaraan toevoegt is de ruimte zelf. In plaats van naar een los beeld te kijken, kijkt hij naar de plek die het beeld inneemt ten opzichte van de waarnemer. Elk mens dat er in iemands leven toe doet, krijgt in die ruimte een positie, en die positie blijkt stabiel: wie erop let, merkt dat een collega jarenlang op dezelfde hoogte en in dezelfde richting blijft staan, ook als de betrekking op papier is veranderd.</p>
+      <h3>Het model van het sociaal panorama</h3>
+      <p>De kern van het boek is een lijst van ruimtelijke kenmerken en de sociale betekenis die Derks daaraan verbindt. Afstand hoort bij intimiteit, hoogte bij macht en gezag, de kijkrichting van de personificatie bij aandacht en toewending, formaat bij gewicht, helderheid en kleur bij de mate waarin iemand ertoe doet. Een personificatie is bij hem geen foto maar een levende figuur, met een houding en een blik.</p>
+      <p>Veel bladzijden gaan over de vraag hoe een begeleider die plaatsingen boven tafel krijgt zonder ze te sturen. Derks werkt met korte, niet-inhoudelijke vragen: waar is hij, hoe ver, hoe hoog, kijkt hij naar je toe. Zijn ervaring is dat vrijwel iedereen die vragen zonder aarzelen beantwoordt, ook mensen die zeggen dat zij niets voor zich zien. Dat gemak is voor hem een aanwijzing dat het panorama er al lag.</p>
+      <h3>Het zelfbeeld en de sociale kernkwaliteit</h3>
+      <p>In het panorama staat ook de persoon zelf. Derks noemt dat het zelfbeeld, en beschrijft het aan dezelfde kenmerken: iemand met veel zelfvertrouwen ziet zichzelf dichtbij, groot, scherp en gekleurd, iemand die zich onzeker voelt ziet zichzelf ver weg, klein, vaag en kleurloos, of ziet zichzelf helemaal niet.</p>
+      <p>Daarnaast introduceert hij de sociale kernkwaliteit: het gevoel over zichzelf dat in elke sociale situatie meekomt en dat volgens hem onder de losse relaties ligt. Het meeste veranderwerk in het boek grijpt hier aan. Wie het zelfbeeld dichterbij en steviger krijgt, verandert volgens Derks in een klap de verhouding tot alle figuren in het panorama tegelijk, in plaats van tot een enkele.</p>
+      <h3>De mentale opbouw van macht</h3>
+      <p>Een apart deel gaat over gezag. Derks brengt verlegenheid, spreekangst, moeite met leidinggevenden en het gevoel er niet bij te horen terug tot hoogteverschillen in het panorama. De bijbehorende ingreep is eenvoudig: breng het beeld van de ander naar ooghoogte en kijk wat er met het gevoel gebeurt.</p>
+      <p>Hij is er eerlijk over dat die ingreep de werkelijke verhouding niet verandert. De baas blijft de baas, en wie na de oefening met andere ogen naar zijn chef kijkt, kan daar in het echte gesprek last van krijgen. Derks bespreekt dat als een reden om per geval te kijken of de scheve verhouding in het hoofd zit of op de werkvloer.</p>
+      <h3>Groepen, gezinnen en het spirituele panorama</h3>
+      <p>Groepen worden volgens Derks in het panorama teruggebracht tot een enkele figuur, of tot een wolk zonder gezicht. Vandaar zijn behandeling van vooroordelen, teamspanning en het gevoel ergens buiten te vallen: het gaat om de plaats en de vorm van die groepspersonificatie, niet om de leden afzonderlijk.</p>
+      <p>Het familiepanorama krijgt een eigen hoofdstuk, met gestorven familieleden die een plaats blijven innemen. De overeenkomst met het opstellingenwerk is duidelijk, met dit verschil dat Derks alles binnen het hoofd van de client houdt en geen representanten nodig heeft. Het laatste deel, het spirituele panorama, behandelt de plaats die God, het lot, de dood of een overleden geliefde in dezelfde ruimte krijgen. Derks presenteert dat als psychologie en doet geen uitspraak over de vraag of daar iets aan beantwoordt.</p>
+      <h3>De technieken en de opleiding</h3>
+      <p>Het boek eindigt met de praktijk. De vierenvijftig technieken volgen alle hetzelfde stramien: lokaliseren, nagaan welk gevoel bij de plaats hoort, de plaats veranderen, het resultaat toetsen en vasthouden. Tussendoor staan verslagen van sessies, meestal kort en met een goede afloop.</p>
+      <p>Rond het boek is een opleiding gebouwd. Derks gaf vanaf 2002 een vijfdaagse opleiding tot sociaal panorama consulent, en in Nederland en Duitsland werken sindsdien coaches en hypnotherapeuten met de methode. Het boek is daarmee tegelijk een verslag van onderzoek en het studiemateriaal van een school, wat betekent dat de auteur ook de instantie is die beoordeelt of het werkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sociaal panorama</td><td>Het geheel van de plaatsen die alle voor iemand betekenisvolle mensen innemen in zijn innerlijke ruimte, inclusief de plaats van hemzelf.</td></tr>
+          <tr><td class="term">Personificatie</td><td>De innerlijke voorstelling van een ander mens, door Derks beschreven als een figuur met een houding, een formaat en een kijkrichting, niet als een stilstaand plaatje.</td></tr>
+          <tr><td class="term">Mentale ruimte</td><td>De driedimensionale voorstelling om de eigen persoon heen waarin die personificaties staan, en die volgens Derks gemeten en veranderd kan worden.</td></tr>
+          <tr><td class="term">Submodaliteiten</td><td>De uit het NLP overgenomen eigenschappen van een innerlijk beeld, zoals afstand, formaat, helderheid en kleur, die Derks gebruikt als de knoppen waaraan gedraaid wordt.</td></tr>
+          <tr><td class="term">Zelfbeeld</td><td>De plaats en de hoedanigheid van de eigen persoon in het panorama, die volgens Derks samenhangen met zelfvertrouwen en zelfwaardering.</td></tr>
+          <tr><td class="term">Sociale kernkwaliteit</td><td>Het gevoel over zichzelf dat iemand in elke sociale situatie meeneemt en dat onder de afzonderlijke betrekkingen ligt.</td></tr>
+          <tr><td class="term">Machtsdimensie</td><td>De hoogte waarop een personificatie staat, door Derks verbonden met gezag, ontzag en het gevoel klein of groot te zijn tegenover iemand.</td></tr>
+          <tr><td class="term">Groepspersonificatie</td><td>De voorstelling van een hele groep als een enkele figuur of vorm, waarmee Derks vooroordeel, teamgevoel en buitensluiting behandelt.</td></tr>
+          <tr><td class="term">Familiepanorama</td><td>Het deel van het panorama waarin gezinsleden en voorouders, ook gestorven, een vaste plaats innemen.</td></tr>
+          <tr><td class="term">Spiritueel panorama</td><td>De plaatsen die godsbeelden, het lot, de dood en gestorvenen in dezelfde innerlijke ruimte krijgen toegewezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het argument rust op introspectie, en op de regelmaat daarin. Vraag honderd mensen waar hun moeder staat als zij aan haar denken, en vrijwel allemaal wijzen zij zonder nadenken een richting en een afstand aan. Die regelmaat is echt en door iedere lezer na te doen. Dat mensen ruimtelijk over betrekkingen spreken is bovendien in de taalwetenschap ruim beschreven, in uitdrukkingen als iemand hoog hebben zitten of dicht bij iemand staan.</p>
+      <p>De stap van die regelmaat naar de bewering dat het gevoel uit de plaats voortkomt, is niet met onderzoek gezet. Derks verwijst naar de psychologie van de sociale cognitie, maar de aansluiting blijft bij vergelijking. Van het NLP waaruit hij vertrekt geldt dat de kernbeweringen, zoals voorkeurszintuigen en de betekenis van oogbewegingen, in overzichtsstudies vanaf de jaren tachtig geen steun kregen. Het boek zelf bevat geen effectmeting, geen controlegroep en geen navolging op termijn; het casusmateriaal is door de auteur gekozen.</p>
+      <p>Derks heeft dat gat later erkend en geprobeerd te dichten. In <i>Mental Space Psychology</i> uit 2018 bracht hij casusreeksen en kleine studies bijeen onder de noemer bewijs voor een nieuw model. Wie dat leest, vindt kleine aantallen, geen controlecondities en onderzoekers die tegelijk behandelaar en modelbouwer zijn. Dat is een aanwijzing dat er iets gebeurt in die sessies, geen aantoning dat het gebeurt om de reden die het model geeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek een metafoor letterlijk neemt. Dat mensen betrekkingen in ruimtelijke termen verwoorden en zich desgevraagd ook ruimtelijk voorstellen, kan een eigenschap van taal en verbeelding zijn in plaats van een kaart die ergens in het hoofd ligt. Het boek onderscheidt die twee lezingen nergens, terwijl de techniek in beide gevallen precies hetzelfde doet. Daarmee bewijst het slagen van de oefening niets over de juistheid van het model.</p>
+      <p>Ook als de oefeningen helpen, zijn er gewone verklaringen die Derks niet uitsluit: geleide verbeelding, blootstelling aan een vermeden voorstelling, herwaardering van een situatie, en de aandacht van een begeleider die de client serieus neemt. In de literatuur over psychotherapie verklaren zulke gemeenschappelijke factoren een groot deel van het resultaat. Zonder vergelijking met een andere werkwijze blijft open of het panorama iets toevoegt.</p>
+      <p>Praktisch is er nog een bezwaar. Vierhonderd bladzijden en vierenvijftig technieken geven een lezer zonder opleiding weinig houvast bij de vraag welke ingreep wanneer past. Ernstiger is de mogelijkheid om iemand die in een schadelijke verhouding zit, van binnen op ooghoogte met de ander te brengen en daarmee rustiger te maken zonder dat er buiten iets verandert. Derks waarschuwt daarvoor, maar het boek is niet rond dat onderscheid gebouwd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga eerst bij jezelf na of de waarneming klopt: denk aan drie mensen en let op waar zij staan, hoe hoog en hoe ver.</li>
+        <li>Noteer bij een moeizame verhouding welk kenmerk het meest opvalt, hoogte, afstand of kijkrichting, voordat er iets verschoven wordt.</li>
+        <li>Verschuif een beeld pas nadat is nagegaan of het ongemak in de voorstelling zit of in de feitelijke omstandigheden.</li>
+        <li>Toets een verandering na een week in een gewoon gesprek met de betrokkene, niet alleen in de oefening.</li>
+        <li>Gebruik het werk met gestorvenen en met gezinsleden alleen met begeleiding; de casussen in het boek zijn korter en gladder dan de praktijk.</li>
+        <li>Beschouw de technieken als voorstellen die getoetst moeten worden, niet als een beschreven werking van het brein.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Voluit <i>Sociale denkpatronen: NLP en het veranderen van onbewust sociaal gedrag</i>, Servire, Utrecht, 2002, 400 blz.; sinds 2018 herdrukt door Kosmos Uitgevers, Utrecht (ISBN 9789021537436). Het boek is in het Nederlands geschreven; de Engelse bewerking verscheen als <i>Social Panoramas: Changing the Unconscious Landscape with NLP and Psychotherapy</i> bij Crown House Publishing, 2005. Derks werkte het model daarna uit tot wat hij Mental Space Psychology noemt, onder meer in <i>Mental Space Psychology: Psychotherapeutic Evidence for a New Paradigm</i> (Coppelaer, Nijmegen, 2018).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lucas Derks, sociaal psycholoog en NLP-trainer, begint bij een waarneming die iedereen bij zichzelf kan nagaan. Wie aan zijn moeder denkt, aan zijn leidinggevende of aan de buurman, plaatst die mensen ergens: links of rechts, dichtbij of ver weg, hoger of lager dan zichzelf. Het geheel van die plaatsingen noemt Derks het sociaal panorama.</p><p>Zijn stelling is dat de plaats van zo'n innerlijk beeld bepaalt hoe de omgang met die persoon voelt. Afstand hoort bij intimiteit, hoogte bij macht, helderheid bij betrokkenheid. Verandert de plaats, dan verandert het gevoel mee. Op die gedachte bouwt hij vierenvijftig technieken voor verlegenheid, rouw, gezagsproblemen, ruzies in gezinnen en spanningen in teams.</p><p>Het boek is bedoeld als handboek voor therapeuten, coaches en trainers, met veel casusmateriaal uit Derks' eigen praktijk. Het draagt zijn methode helder voor. Wat er niet in staat is gecontroleerd onderzoek naar de vraag of die methode doet wat zij belooft, en of de ruimtelijke voorstelling meer is dan een manier van spreken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>NLP</li><li>sociale psychologie</li><li>sociaal panorama</li><li>coaching</li><li>psychotherapie</li><li>zelfbeeld</li><li>verbeelding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="139"><a href="139.html">Unlimited Power</a>. Tony Robbins bracht in <i>Unlimited Power</i> hetzelfde NLP-gereedschap naar een groot publiek; Derks gebruikt dezelfde bouwstenen maar houdt de toon van een onderzoeker aan.</li>
+          <li value="1201"><a href="1201.html">De dramaturgie van het dagelijks leven</a>. Goffman beschrijft in <i>De dramaturgie van het dagelijks leven</i> sociale verhoudingen als iets wat tussen mensen wordt opgevoerd; Derks legt precies dat proces binnen een enkel hoofd.</li>
+          <li value="213"><a href="213.html">Games People Play</a>. Berne bouwde in <i>Games People Play</i> ook een therapie op een eigen begrippenstelsel dat nooit los van zijn school is getoetst; het roept dezelfde vragen op over bewijs.</li>
+          <li value="1914"><a href="1914.html">De kunst van het helpen</a>. Hellinger werkt in <i>De kunst van het helpen</i> met plaatsen in de ruimte tussen mensen; Derks doet iets vergelijkbaars zonder representanten en met een psychologische in plaats van een lotsverbonden verklaring.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

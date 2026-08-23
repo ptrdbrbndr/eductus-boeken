@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het oneindige verhaal &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ende zet twee bewegingen tegenover elkaar en laat ze halverwege in elkaar overlopen. Eerst leest een jongen zich weg uit een leven dat hij niet aankan, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1884">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1884 &middot; Roman en memoir</p>
+    <h1>Het oneindige verhaal</h1>
+    <p class="lede">Michael Ende, 1979; vert. Johan van Nieuwenhuizen</p>
+    <p class="stats">
+      <span><b>1581</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1884"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ende zet twee bewegingen tegenover elkaar en laat ze halverwege in elkaar overlopen. Eerst leest een jongen zich weg uit een leven dat hij niet aankan, en redt daarmee een wereld die zonder lezers verdwijnt. Daarna staat diezelfde jongen in die wereld en mag hij er alles wensen, en blijkt elke wens hem een herinnering aan zijn eigen leven te kosten. Het boek verdedigt de verbeelding en zegt er tegelijk bij dat verbeelding zonder terugweg op leegte uitloopt. Wie het alleen als pleidooi voor fantasie leest, heeft de helft gelezen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het gestolen boek</h3>
+      <p>Bastian is dik, slecht in gymnastiek, bang voor de jongens die hem opwachten, en sinds de dood van zijn moeder woont hij bij een vader die niet meer spreekt over wat er gebeurd is. Op de vlucht voor zijn klasgenoten schiet hij het antiquariaat van Karl Konrad Koreander binnen. Daar ligt een boek in een koperkleurige band, met twee slangen die elkaar in de staart bijten. Hij neemt het mee, verstopt zich op de rommelzolder van de school en begint te lezen.</p>
+      <p>De vorm van de roman doet mee. Het origineel is in twee inktkleuren gezet, een voor de wereld van Bastian en een voor Phantasien, en de zesentwintig hoofdstukken beginnen achtereenvolgens met de letters A tot Z, elk met een versierde initiaal. Het boek dat de lezer vasthoudt lijkt op het boek dat Bastian vasthoudt. Die gelijkenis is geen versiering; zij draagt de hele constructie.</p>
+      <h3>De zoektocht van Atreju</h3>
+      <p>In Phantasien verdwijnen hele streken in het Niets. Er blijft geen puin achter en geen gat, er is eenvoudig niets meer waar iets was. De Kindliche Kaiserin, de kinderlijke keizerin die over de wereld heerst zonder ergens in te grijpen, ligt ziek in de Ivoren Toren. De groenhuidige jager Atreju, even oud als Bastian, krijgt haar amulet AURYN mee en de opdracht uit te zoeken wat haar kan redden.</p>
+      <p>Zijn tocht loopt langs de oude schildpad Morla, door het moeras waarin zijn paard Artax van droefheid wegzakt, langs de spin Ygramul en naar het orakel van Uyulala, dat alleen in rijm antwoordt. Daar hoort hij dat de keizerin een nieuwe naam nodig heeft en dat geen enkel wezen uit Phantasien die kan geven. Onderweg krijgt hij de geluksdraak Fuchur als reisgenoot en ontmoet hij de weerwolf Gmork, die hem vertelt waar het Niets voor staat: wat in Phantasien verdwijnt, komt in de mensenwereld terug als leugen.</p>
+      <h3>De naam</h3>
+      <p>Bastian merkt op de zolder dat de personages hem beginnen op te merken. De keizerin laat weten dat zij op hem wacht. Hij verzet zich, omdat hij niet gelooft dat iemand als hij iets voorstelt, en roept dan toch de naam die hij voor haar heeft bedacht. Op dat moment is Phantasien gered en staat Bastian er zelf in, met AURYN om zijn hals.</p>
+      <h3>Doe wat je wilt</h3>
+      <p>Op de achterkant van het amulet staat dat hij mag doen wat hij wil. Bastian leest dat als een vrijbrief. Hij wenst zich mooi, sterk en dapper, hij schept het nachtwoud Perelin en de kleurenwoestijn Goab, hij wordt de vriend van de leeuw Graogramen en verzint verhalen die meteen werkelijkheid worden. Wat hij niet weet is dat elke wens hem een herinnering aan huis kost: eerst de naam van zijn school, later het gezicht van zijn vader.</p>
+      <p>De tovenares Xayide voedt zijn eerzucht en zet hem tegen Atreju op. Bastian wil keizer van Phantasien worden, iets wat geen mensenkind toekomt. Het loopt uit op een treffen voor de Ivoren Toren waarin hij zijn enige vriend verwondt. Pas daarna is hij bereid te bekijken wat hij nog van zichzelf over heeft, en dat is bijna niets.</p>
+      <h3>De Stad der Oude Keizers</h3>
+      <p>Hij komt in de stad waar de mensen wonen die voor hem hetzelfde probeerden. Zij hebben hun laatste herinnering opgemaakt, kunnen niet meer terug, en brengen hun dagen door met het gooien van losse letters, waaruit bij toeval ooit alle boeken van de wereld ontstaan. Het is de somberste bladzijde van het boek en de duidelijkste uitleg van de titel: een verhaal zonder einde is ook een verhaal waar niemand uit komt.</p>
+      <p>Zijn terugweg loopt langs de mijn Yor's Minroud, waar hij vergeten dromen uit gesteente moet halen in het donker, en langs het huis van Aiuola, dat hem verzorgt tot hij weer wil vertrekken. Zijn laatste wens moet hem thuisbrengen, en hij ontdekt dat hij die wens pas kan doen wanneer hij weet wat hij eigenlijk wil, namelijk liefhebben. Het Water des Levens, bewaakt door twee slangen, laat hem door.</p>
+      <h3>Terugkomen</h3>
+      <p>Bastian staat weer op de zolder. Het gestolen boek is verdwenen, zodat hij zijn verhaal niet kan bewijzen. Hij gaat naar zijn vader en vertelt alles, en de man huilt voor het eerst sinds de dood van zijn vrouw. Bij Koreander biecht hij de diefstal op en hoort dat er meer mensen in Phantasien zijn geweest, dat de meesten er blijven, en dat wie met het Water des Levens terugkomt anderen kan meenemen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Phantasien</td><td>De wereld die uit menselijke verbeelding bestaat en waarvan de grenzen daarom nergens liggen, omdat er altijd nog iets bij bedacht kan worden.</td></tr>
+          <tr><td class="term">Het Niets</td><td>Geen leegte en geen ruine, maar het wegvallen van het onderscheid tussen iets en niets; wie er te lang in kijkt wordt erin getrokken.</td></tr>
+          <tr><td class="term">AURYN</td><td>Het amulet van twee slangen die elkaar in de staart bijten, dat wensen vervult en op de achterkant de zin draagt die het hele tweede deel op gang brengt.</td></tr>
+          <tr><td class="term">Kindliche Kaiserin</td><td>De heerseres van Phantasien, die geen macht uitoefent en geen oordeel velt maar alleen bestaat, en die daarom voor haar voortbestaan van buiten afhankelijk is.</td></tr>
+          <tr><td class="term">Doe wat je wilt</td><td>De inscriptie op AURYN, door Bastian gelezen als toestemming om te doen waar hij zin in heeft en door het verhaal uitgelegd als de opdracht uit te zoeken wat hij werkelijk wil.</td></tr>
+          <tr><td class="term">Atreju</td><td>De jager die de zoektocht doet waar Bastian zich te klein voor voelt, en die in de tweede helft de rol krijgt van geweten dat niet meegaat.</td></tr>
+          <tr><td class="term">De Stad der Oude Keizers</td><td>De plek voor wie geen herinneringen meer over heeft om mee terug te reizen; er wordt daar met letters gespeeld zonder dat iemand nog weet wat woorden zijn.</td></tr>
+          <tr><td class="term">Yor's Minroud</td><td>De mijn waar vergeten dromen als dunne plaatjes in het gesteente liggen en waar in het donker gewerkt moet worden, omdat licht ze vernietigt.</td></tr>
+          <tr><td class="term">Het Water des Levens</td><td>De bron die alleen toegankelijk is voor wie weet wat hij wil, en die de terugreis naar de eigen wereld mogelijk maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Wat het boek staande houdt is de bouw, niet een stelling. Doordat de roman zichzelf nabootst in band, kleur en letterindeling, komt de lezer in dezelfde houding te staan als Bastian: iemand die een boek vasthoudt waarin gelezen wordt. De omslag halverwege, waarop de lezer in het gelezene stapt, werkt daardoor als een gebeurtenis en niet als een gedachte over lezen.</p>
+      <p>De tweedeling is het punt van het boek. De eerste helft is een klassieke queeste met een held, een dreiging en een tijdslimiet. De tweede helft draait die om: er is geen tegenstander meer behalve de hoofdpersoon zelf, en elke overwinning kost hem iets. Dat vrijwel alle bewerkingen alleen de eerste helft gebruiken, laat zien hoe ongemakkelijk het tweede deel is. De film van Wolfgang Petersen uit 1984 stopt ongeveer waar het boek zijn eigen aanname begint te ondergraven. Ende probeerde zijn naam eraan te onttrekken, verloor het geding daarover en noemde de film daarna melodrama.</p>
+      <p>Het boek verkocht meteen zeer goed en stond ruim twee jaar op de Duitse bestsellerlijsten. Die verkoop zegt weinig over de houdbaarheid van de gedachte erachter, maar wel iets over de vorm: een verhaal over lezen dat door zeer veel niet-lezende kinderen is uitgelezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het verwijt dat Ende het langst is nagedragen, is escapisme. Duitse critici uit de jaren zeventig, gewend aan maatschappelijk betrokken jeugdliteratuur, vonden een fantasiewereld als vluchtplaats verdacht; volkskundige Hermann Bausinger sprak van een placebo. Ende antwoordde dat het boek juist over terugkomen gaat. Dat antwoord klopt voor de tweede helft en dekt de eerste minder goed, want daar is Phantasien nog gewoon aantrekkelijker dan thuis.</p>
+      <p>De tweede helft is trager en herhaalt zichzelf. Het patroon van wens, gewin en vergeten wordt zo vaak doorlopen dat de spanning eruit loopt; wie de zoektocht van Atreju las om het avontuur, haakt hier af. Het aantal landschappen had gehalveerd kunnen worden zonder dat de gedachte erachter iets verloor.</p>
+      <p>Aan het slot wordt uitgelegd wat het verhaal al had laten zien. Koreander zegt in gewone woorden wat Phantasien en het Water des Levens betekenen. Een roman die zo veel vertrouwen in verbeelding uitspreekt, sluit af met een uitleg voor wie het niet begrepen heeft.</p>
+      <p>De rolverdeling is ouderwets, ook voor 1979. De keizerin regeert door niets te doen en te wachten op een jongen; de enige vrouw met een eigen wil, Xayide, is een verleidster die de held bederft. Bastian mag veranderen, de vrouwenfiguren staan stil.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Die unendliche Geschichte</i> (Thienemann, Stuttgart, 1979), met initialen en bandontwerp van Roswitha Quadflieg en gedrukt in twee inktkleuren: de ene voor Bastians eigen wereld, de andere voor Phantasien. De Nederlandse vertaling van Johan van Nieuwenhuizen verscheen in 1982 bij Sijthoff in Alphen aan den Rijn en kreeg in 1983 een Zilveren Griffel; latere drukken verschijnen bij De Fontein, waaronder een jubileumuitgave uit 2021 (431 blz., ISBN 9789026158063). Van Ende is verder onder meer <i>Momo</i> in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bastian Balthasar Bux, een gepeste jongen van een jaar of elf van wie de moeder is gestorven, steelt in een antiquariaat een boek met een koperkleurige band en leest het uit op de zolder van zijn school. Het gaat over Phantasien, een wereld die door het Niets wordt opgevreten omdat de heerseres ziek is. De jager Atreju krijgt de opdracht uit te zoeken wat haar kan genezen.</p><p>Halverwege blijkt Bastian zelf dat middel te zijn. De keizerin heeft een nieuwe naam nodig en alleen een mensenkind kan die geven. Hij roept de naam en staat daarna zelf in het boek, met een amulet om zijn hals waarin twee slangen elkaar in de staart bijten en waarop staat: doe wat je wilt.</p><p>De tweede helft laat zien wat die zin kost. Elke wens die Bastian in Phantasien vervult, wist een herinnering aan zijn eigen leven. Wie te lang doorgaat blijft achter in de Stad der Oude Keizers, waar de bewoners hun naam kwijt zijn en met losse letters spelen. Het boek loopt uit op de vraag hoe iemand terugkomt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>fantasie</li><li>kinderboek</li><li>verbeelding</li><li>Duitsland</li><li>Phantasien</li><li>verhaal in een verhaal</li><li>wensen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1567"><a href="1567.html">In de ban van de ring</a>. Tolkien bouwde de wereld waaraan Ende zich meet, met dit verschil dat Midden-aarde bestaat zonder lezer en Phantasien niet.</li>
+          <li value="1626"><a href="1626.html">Alice in Wonderland</a>. Carroll deed een eeuw eerder hetzelfde met de grens tussen de eigen wereld en de bedachte, alleen zonder de prijs die Ende eraan hangt.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft het patroon dat de eerste helft van dit boek nauwkeurig volgt; de tweede helft is te lezen als wat er gebeurt wanneer de held weigert terug te keren.</li>
+          <li value="1885"><a href="1885.html">De Noorderlichttrilogie</a>. Pullman schrijft eveneens een kinderboek over de gevolgen van kennis, maar keert de moraal om: bij hem is opgroeien de winst, bij Ende het gevaar.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

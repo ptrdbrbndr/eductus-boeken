@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De meeste mensen deugen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bregman stelt dat de mens van nature geneigd is tot samenwerking en vriendelijkheid, dat dit door een geschiedenis van slecht onderbouwde experimenten en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1859">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1859 &middot; Geschiedenis en samenleving</p>
+    <h1>De meeste mensen deugen</h1>
+    <p class="lede">Rutger Bregman, 2019</p>
+    <p class="stats">
+      <span><b>1685</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1859"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bregman stelt dat de mens van nature geneigd is tot samenwerking en vriendelijkheid, dat dit door een geschiedenis van slecht onderbouwde experimenten en pakkende verhalen is verduisterd, en dat het beeld van de verdorven mens zichzelf bevestigt omdat scholen, gevangenissen, bedrijven en overheden erop worden ingericht. Waar Hobbes de mens in de natuurstaat een wolf noemde, kiest Bregman de kant van Rousseau, met dien verstande dat hij het niet bij een filosofische keuze laat maar de bewijsvoering van de andere kant hoofdstuk voor hoofdstuk uit elkaar haalt. De draai die hij aan het slot maakt, is dat optimisme over de mens geen gemoedstoestand is maar een beleidskeuze, met organisaties die anders werken als aantoonbaar gevolg.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Proloog: het bombardement dat geen paniek gaf</h3>
+      <p>Het boek opent met de Duitse bombardementen op Londen. Deskundigen hadden massale paniek voorspeld, met verwijzing naar wat Gustave Le Bon over de menigte had geschreven; er waren psychiatrische opvangplaatsen ingericht die leeg bleven. De Britten bleken kalm, hielpen elkaar en gingen door.</p>
+      <p>Diezelfde redenering herhaalde zich bij het geallieerde bombardement op Duitse steden, met hetzelfde resultaat. Bregman gebruikt dit om zijn methode te tonen: eerst de voorspelling van de deskundigen, dan wat er werkelijk gebeurde, en dan de vraag waarom de voorspelling zo hardnekkig overleeft.</p>
+      <h3>Deel een: de natuurstaat</h3>
+      <p>Het eerste deel gaat over wat de mens is. Bregman bestrijdt de vernistheorie, de term van Frans de Waal voor de gedachte dat beschaving een dun laagje over een woest binnenste is. Hij zet daar de homo puppy tegenover: de mens zou zichzelf hebben getemd door generaties lang de vriendelijkste soortgenoten te bevoordelen, met kortere kaken, kleinere hersenen dan de neanderthaler en het wit van het oog als verklikker van de blikrichting.</p>
+      <p>Als vergelijking dient het Russische vossenexperiment van Dmitri Beljajev, waarin selectie op tamheid binnen enkele tientallen generaties dierlijke kenmerken meeveranderde. Ook <i>Lord of the Flies</i> komt hier langs, met daartegenover het echte geval: zes jongens uit Tonga die in 1965 schipbreuk leden op Ata, daar de taken verdeelden, een vuur onderhielden en ruzies volgens afspraak bijlegden, en na ruim een jaar door de Australische kapitein Peter Warner in goede gezondheid werden aangetroffen.</p>
+      <h3>Deel twee: na Auschwitz</h3>
+      <p>Als mensen deugen, waarom is er dan Auschwitz. Bregman gaat in op onderzoek naar Duitse soldaten waaruit naar voren komt dat de meesten niet uit ideologie doorvochten maar uit kameraadschap, om hun makkers niet in de steek te laten. Zijn punt is dat loyaliteit en groepsgevoel, dus goede eigenschappen, het meeste kwaad mogelijk maken.</p>
+      <p>Hier bespreekt hij ook de bereidheid om te doden op afstand tegenover de weerzin om dat van dichtbij te doen, en de rol van bevel en afstand. Het deel eindigt bij de vraag hoe gewone mensen meewerken aan iets waar zij afzonderlijk voor terugdeinzen.</p>
+      <h3>Deel drie: waarom goede mensen slechte dingen doen</h3>
+      <p>Dit is het deel dat het meest is nagepraat. Het Stanford-gevangenisonderzoek van Philip Zimbardo blijkt bij bestudering van het archief door Thibault Le Texier geen waarneming maar een regie: bewakers kregen aanwijzingen om hard op te treden, en een gevangene heeft naderhand verklaard dat hij zijn instorting speelde. De gehoorzaamheidsproeven van Stanley Milgram worden opnieuw gelezen: veel deelnemers verzetten zich, twijfelden hardop en gingen door omdat zij dachten de wetenschap te dienen, niet omdat zij gehoorzaamden aan macht.</p>
+      <p>De achtendertig getuigen die in 1964 niets deden toen Kitty Genovese in Queens werd vermoord, blijken een fout van de New York Times: er werd wel gebeld en een buurvrouw is bij haar gebleven. Ook het Robbers Cave-onderzoek van Muzafer Sherif, waarin jongenskampen tegen elkaar werden opgezet, krijgt zijn voorgeschiedenis terug: een eerdere poging mislukte omdat de jongens weigerden ruzie te maken en de onderzoekers doorkregen.</p>
+      <p>Naast de afbraak staat een opbouw. Bregman behandelt het placebo- en nocebo-effect en het idee dat verwachtingen van leraren en leidinggevenden zich waarmaken, en hij bespreekt onderzoek waaruit blijkt dat macht mensen minder gevoelig maakt voor anderen.</p>
+      <h3>Deel vier: een nieuw realisme</h3>
+      <p>Hier verlaat het boek de bewijsvoering voor de praktijk. Bregman bezoekt Jos de Blok van Buurtzorg, waar wijkverpleegkundigen in kleine teams werken zonder managementlaag en zonder minutenregistratie. Hij beschrijft de Agora-school in Roermond, waar leerlingen hun eigen leerweg uitstippelen, en de gemeente Torres in Venezuela, waar inwoners jarenlang zelf over de begroting beslisten.</p>
+      <p>De rode draad is dat intrinsieke motivatie het werk doet zodra controle wordt weggehaald, en dat de meeste toezichtsystemen ontworpen zijn voor de kleine groep die misbruik maakt, ten koste van de grote groep die dat niet doet.</p>
+      <h3>Deel vijf: de andere wang</h3>
+      <p>Het slotdeel gaat over vijandschap en het opheffen daarvan. Bregman beschrijft de kerstvrede van 1914, toen soldaten uit de loopgraven kwamen om te praten en te voetballen, en de campagne in Colombia waarmee FARC-strijders werden overgehaald het bos te verlaten door boodschappen van hun moeders in het oerwoud te laten horen.</p>
+      <p>Hij bespreekt de Noorse gevangenis Halden, waar bewakers en gedetineerden samen koken en het percentage teruggekeerde gedetineerden laag is, en hij zet contact tussen groepen neer als het middel dat vooroordeel afbreekt. Het boek eindigt met tien leefregels, waaronder het uitgangspunt om het beste van een ander te veronderstellen en om terughoudend te zijn met nieuws dat op uitzonderingen drijft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vernistheorie</td><td>De opvatting, door Frans de Waal zo genoemd, dat beschaving een dunne laag is die bij tegenslag afbladdert en het dier eronder vrijlaat.</td></tr>
+          <tr><td class="term">Homo puppy</td><td>Bregmans naam voor de mens als soort die zichzelf heeft getemd door generaties lang de vriendelijkste soortgenoten voorrang te geven.</td></tr>
+          <tr><td class="term">Zelfdomesticatie</td><td>Het proces waarbij selectie op vriendelijkheid ook lichaam en gedrag verandert, in het boek geïllustreerd met het Russische vossenexperiment van Beljajev.</td></tr>
+          <tr><td class="term">Nocebo-effect</td><td>De tegenhanger van het placebo-effect: negatieve verwachtingen die zichzelf waarmaken, door Bregman uitgebreid naar leerlingen, werknemers en burgers.</td></tr>
+          <tr><td class="term">Verkeerd realisme</td><td>De houding waarin somberheid over de mens voor nuchterheid doorgaat, terwijl zij volgens Bregman op zwakker bewijs rust dan de vrolijker lezing.</td></tr>
+          <tr><td class="term">Intrinsieke motivatie</td><td>De drijfveer die van binnenuit komt en die volgens het boek verdwijnt zodra toezicht, doelstellingen en beloning haar overnemen.</td></tr>
+          <tr><td class="term">Contact</td><td>Het middel dat volgens het boek vijandbeelden ondergraaft: groepen die elkaar dagelijks tegenkomen, gaan minder slecht over elkaar denken.</td></tr>
+          <tr><td class="term">Empathie tegenover mededogen</td><td>Het onderscheid tussen meevoelen met een enkeling, wat uitput en verblindt, en betrokken blijven zonder over te nemen wat de ander voelt.</td></tr>
+          <tr><td class="term">Tien leefregels</td><td>De aanwijzingen waarmee het boek eindigt, van uitgaan van het goede tot terughoudendheid met nieuws dat op uitzonderingen drijft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het afbrekende deel staat het stevigst, en dat komt doordat Bregman daar op het werk van anderen leunt. Le Texier deed het archiefonderzoek naar Stanford, de correcties op het verhaal van Kitty Genovese zijn door journalisten en onderzoekers gedaan, en de heropening van Milgram en Robbers Cave berust op bandopnamen en aantekeningen die er nog zijn. Bregman brengt dat werk bij elkaar en vertelt het goed. Dat is journalistiek van hoge kwaliteit en het is navolgbaar.</p>
+      <p>Het opbouwende deel rust op iets anders: bezoeken aan afzonderlijke organisaties. Buurtzorg, Agora, Halden en Torres zijn echte gevallen met echte uitkomsten, maar het zijn er vier, uit rijke of bijzondere omstandigheden, en het boek bespreekt niet welke ervan het niet redden. De Torres-begroting speelde zich af in een land dat kort daarna instortte, en het boek weegt niet af wat dat voor de les betekent.</p>
+      <p>Over de bronnen is veel opgemerkt. De eerste Nederlandse druk had geen register, wat controle bemoeilijkte, en verschillende historici stelden vast dat standaardwerken over hun onderwerp ontbraken. Het notenapparaat is uitgebreid, maar de keuze wat erin komt volgt het betoog.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat Bregman doet wat hij anderen verwijt. Onderzoek dat de mens ongunstig afschildert, wordt tot op het archief nagelopen; onderzoek dat hem gunstig afschildert, komt er lichter vanaf. Het vossenexperiment van Beljajev geldt in het boek als sluitend, terwijl een groep onderzoekers in 2020 aantoonde dat de Russische vossen afstamden van al half tamme dieren van een Canadese pelsfokkerij, waarmee de proef veel minder laat zien dan zij lijkt te laten zien. Ook het idee dat verwachtingen van leraren zich waarmaken, staat er steviger dan het na de replicatiepogingen verdient.</p>
+      <p>Het woord deugen doet ondertussen veel verschillend werk. Dat mensen elkaar in een ramp helpen, dat mensen niet van nature wreed zijn en dat mensen goed zijn, zijn drie beweringen met verschillende bewijslast. Het boek schuift ertussen heen en weer, waardoor de aardige uitkomst van het ene hoofdstuk het zwaardere punt van het volgende lijkt te dragen.</p>
+      <p>De behandeling van georganiseerd geweld blijft de open plek. Als daders uit loyaliteit en idealisme handelen, dan bevestigt zowel goed als slecht gedrag de stelling, en er valt geen waarneming te bedenken die haar zou weerleggen. Recensenten in het Engelse taalgebied, onder wie Steven Poole, wezen erop dat de Holocaust zo eerder wordt weggeredeneerd dan verklaard. Daarnaast steunt Bregman op de bewering van S.L.A. Marshall dat de meeste soldaten in de Tweede Wereldoorlog hun wapen niet afvuurden, een claim waarvan de onderbouwing al decennialang wordt betwist.</p>
+      <p>Over prehistorisch geweld bestaat een echte twist tussen archeologen, waarin de vondsten verschillend worden uitgelegd. Het boek presenteert vooral de ene kant. Dat is verdedigbaar in een pleidooi, maar het staat op gespannen voet met de ondertitel, die een nieuwe geschiedenis van de mens belooft.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een verhaal over menselijke verdorvenheid eerst wie de bron is en of het onderzoek is herhaald; de bekendste voorbeelden hielden geen stand.</li>
+        <li>Ga bij het inrichten van toezicht na voor welk deel van de mensen de regel is bedoeld, en wat zij kost bij de rest.</li>
+        <li>Vervang bij conflict tussen groepen de vergadering over elkaar door herhaald contact met elkaar.</li>
+        <li>Onderscheid meevoelen met een enkel geval van betrokkenheid bij het geheel, omdat het eerste de aandacht stuurt naar wie het luidst in beeld is.</li>
+        <li>Lees het boek naast een tegenstem over prehistorisch geweld, zodat het bewijs van beide kanten zichtbaar wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>De meeste mensen deugen. Een nieuwe geschiedenis van de mens</i>, De Correspondent, Amsterdam, 2019, 528 blz., ISBN 9789082942187. Het boek verscheen in meer dan veertig talen; de Engelse vertaling van Elizabeth Manton en Erica Moore heet <i>Humankind: A Hopeful History</i> en verscheen bij Bloomsbury. Bregman schreef eerder <i>Gratis geld voor iedereen</i> (2014), dat in het Engels als <i>Utopia for Realists</i> verscheen, en later <i>Morele ambitie</i> (2024).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bregman keert de gangbare gedachte om dat beschaving een dun laagje vernis is over een dierlijke natuur. Zijn stelling is dat mensen in aanleg geneigd zijn tot samenwerken en aardig doen, dat het pessimisme over de mens berust op verhalen en onderzoeken die bij herkeuring lek blijken, en dat het geloof in de verdorven mens zichzelf waarmaakt via de instellingen die erop worden gebouwd.</p><p>Achttien hoofdstukken in vijf delen halen daarvoor een reeks bekende zaken overhoop: het Stanford-gevangenisonderzoek van Zimbardo, de gehoorzaamheidsproeven van Milgram, de moord op Kitty Genovese met haar achtendertig zwijgende getuigen, en de instorting van Paaseiland. Daartegenover zet hij zaken die minder bekend zijn, zoals de zes jongens uit Tonga die in 1965 op het onbewoonde eiland Ata strandden en er ruim een jaar later in goede staat en als vrienden werden aangetroffen.</p><p>Het laatste deel gaat over instellingen die van de aardige mens uitgaan: thuiszorgorganisatie Buurtzorg zonder managementlaag, de Agora-school in Roermond, de begroting die inwoners van het Venezolaanse Torres zelf opstelden, en de Noorse gevangenis Halden. Het boek eindigt met tien leefregels.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>menselijke natuur</li><li>vertrouwen</li><li>psychologische experimenten</li><li>geschiedenis</li><li>samenwerking</li><li>vernistheorie</li><li>gevangeniswezen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Milgram beschrijft zijn gehoorzaamheidsproeven zelf; wie beide leest, kan nagaan hoeveel Bregmans herlezing van het oorspronkelijke verslag afwijkt.</li>
+          <li value="1678"><a href="1678.html">De bonobo en de tien geboden</a>. Frans de Waal muntte de vernistheorie die Bregman bestrijdt en onderbouwt de aanleg tot samenwerken met primatenonderzoek in plaats van met geschiedschrijving.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari vertelt dezelfde voorgeschiedenis van de mens met een somberder toon over wat de landbouw en de staat met ons deden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rules of Love &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Templar gaat ervan uit dat liefde geen talent is en geen toeval, maar gedrag dat af te kijken valt. Zijn stelling luidt dat er mensen zijn bij wie de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1870">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1870 &middot; Levenskunst</p>
+    <h1>The Rules of Love</h1>
+    <p class="lede">Richard Templar, 2008</p>
+    <p class="stats">
+      <span><b>1596</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1870"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Templar gaat ervan uit dat liefde geen talent is en geen toeval, maar gedrag dat af te kijken valt. Zijn stelling luidt dat er mensen zijn bij wie de banden met partner, familie en vrienden standhouden, dat die mensen zich in herkenbare opzichten anders gedragen dan de rest, en dat wie hetzelfde doet op dezelfde uitkomst mag rekenen. Hij noemt hen Rules Players en zegt er uitdrukkelijk bij dat hij hen heeft waargenomen en niet onderzocht. Wat hij levert is daarom geen verklaring van liefde maar een gedragscode van honderd punten, met de kanttekening dat het merendeel de lezer al bekend zal voorkomen en dat herinneren het doel is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vorm van het boek</h3>
+      <p>Honderd regels, elk op twee bladzijden, elk met een kop in de gebiedende wijs en een uitsmijter in kapitalen. Er zijn geen oefeningen, geen vragenlijsten en geen verwijzingen. De secties zijn zo ingericht dat het boek op elke bladzijde te openen is, en Templar zegt zelf dat sommige regels net zo goed in een andere sectie hadden gekund.</p>
+      <p>De inleiding legt de aanpak uit. Hij schrijft dat hij vooral goed is in het kijken naar anderen, dat hij mensen heeft gevolgd die het volgens hem goed doen, en dat hij daar honderd regels uit heeft getrokken. Hij nodigt lezers uit hem regels toe te sturen die hij is vergeten.</p>
+      <h3>Regels voor het vinden van liefde</h3>
+      <p>De eerste negentien regels gaan over de aanloop. Wees jezelf, want een aangenomen persoonlijkheid is niet vijftig jaar vol te houden en trekt bovendien iemand aan die bij een ander past. Herstel eerst van de vorige relatie voordat je aan een nieuwe begint. En de derde regel: wie niet gelukkig kan zijn in zijn eentje, wordt het ook niet met een partner.</p>
+      <p>Templar illustreert die regels met kennissen. Bij de tweede gaat het om een vrouw die door een zorgzame man werd opgevangen tot zij weer op eigen benen stond, waarna de relatie stukliep omdat hij juist van de kwetsbare versie hield. Bij de derde om een vrouw die nooit alleen was, in een slechte relatie bleef uit angst voor het alleen zijn, en na het einde ervan ontdekte dat de instorting uitbleef. Verder in de sectie staan regels over vertrouwen, over het onvermogen anderen te veranderen, en over eerlijk zijn zolang het nog kan.</p>
+      <h3>Regels van de relatie</h3>
+      <p>De grootste sectie loopt van regel twintig tot achtenzestig en gaat over samenblijven. De toon is huiselijk en praktisch: wees aardig, kijk eerst naar je eigen aandeel, wees de eerste die sorry zegt, laat de zon niet ondergaan over je boosheid, zeur niet, kleineer je partner niet en zet hem niet op een voetstuk.</p>
+      <p>Een deel van de regels gaat over de omgang met verschil. Aanvaard de verschillen en zoek wat je gemeen hebt, geef ruimte, wees niet beledigd als de ander alleen wil zijn, en behandel jaloezie als je eigen zaak en niet als een tekortkoming van de ander. Andere regels gaan over huishouden en geld: verdeel het werk, laat de ander het op zijn manier doen, houd de financien gescheiden en wees tegelijk royaal naar elkaar. De sectie eindigt met de regel die het dichtst bij een slotsom komt: blijven praten.</p>
+      <h3>Uiteengaan en familie</h3>
+      <p>Voor het uiteengaan trekt Templar vijf regels uit: luister naar je eigen stem, erken dat er twee nodig zijn, houd de fatsoenlijke lijn aan, blijf het niet herbeleven en laat de kinderen erbuiten. Meer wil hij er niet over kwijt, en dat verdedigt hij door te zeggen dat je er niet te lang bij moet blijven hangen.</p>
+      <p>De familiesectie telt elf regels en gaat over ouders, kinderen en broers en zussen. Geef je ouders niet de schuld, laat hen je gevoel niet besturen, behandel je familie zoals jij juist vindt ongeacht hoe zij jou behandelen, en aanvaard dat kinderen ruzie met je moeten maken om weg te kunnen. De laatste regel van de sectie vraagt de rol los te laten die iemand in het gezin heeft gekregen.</p>
+      <h3>Vriendschap en de slotregels</h3>
+      <p>De vriendschapssectie opent met de regel dat er geen regels zijn, wat Templar meteen weerspreekt met de elf regels die erop volgen. Daaronder: je beste vriend was ooit een vreemde, houd alleen mensen om je heen die het beter maken, geef nooit advies, leen geen geld tenzij je het kunt afschrijven, en weet wanneer je een vriendschap moet laten gaan.</p>
+      <p>De laatste sectie telt vier regels die volgens hem overal bij horen. Schuldgevoel is egoistisch omdat het over de eigen ongemakkelijkheid gaat en niet over de ander. Liefde is gelijk aan tijd. Hoe meer je geeft, hoe meer je terugkrijgt. En de honderdste: het draait om andere mensen.</p>
+      <h3>Toon en herkomst</h3>
+      <p>Templar schrijft droog en Brits, met voetnoten waarin hij zichzelf tegenspreekt. Bij de vierde regel merkt hij op dat de eigenlijke regel te omslachtig was voor een kop en dat hij daarom iets heeft opgeschreven wat niet helemaal klopt. Die zelfrelativering is de reden dat het boek ondanks de stellige vorm zelden belerend wordt.</p>
+      <p>Het boek hoort bij een reeks die miljoenen exemplaren heeft verkocht en die telkens dezelfde vorm gebruikt. De Nederlandse editie verscheen in 2010 als <i>De regels van de liefde</i>. De auteur achter het pseudoniem overleed in 2006, twee jaar voordat dit deel uitkwam.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Rules Player</td><td>Iemand die de honderd regels vanzelf al volgt en bij wie relaties volgens Templar daarom standhouden.</td></tr>
+          <tr><td class="term">Reminders, not revelations</td><td>Templars eigen omschrijving van zijn boek: geen nieuwe kennis, maar terugbrengen wat de lezer al wist en kwijtraakte.</td></tr>
+          <tr><td class="term">Contentment</td><td>Tevredenheid als het hoogste haalbare in een langdurige relatie, door Templar boven verliefdheid gesteld.</td></tr>
+          <tr><td class="term">Be Cruel to Be Kind</td><td>De regel dat een relatie die niet gaat werken beter meteen kan worden beeindigd dan uit medelijden gerekt.</td></tr>
+          <tr><td class="term">Jealousy Is Your Stuff, Not Theirs</td><td>De regel dat jaloezie een eigen probleem is dat niet bij de partner in rekening mag worden gebracht.</td></tr>
+          <tr><td class="term">Love Equals Time</td><td>De slotregel dat genegenheid alleen in bestede uren zichtbaar wordt en niet in wat iemand zegt te voelen.</td></tr>
+          <tr><td class="term">Rules for Everyone</td><td>De laatste sectie, met de vier regels die volgens hem in elke soort verhouding gelden.</td></tr>
+          <tr><td class="term">De Rules-reeks</td><td>De boeken over werk, geld, leven en opvoeden waarvan dit deel er een is, alle opgebouwd uit honderd regels van twee bladzijden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er is geen bewijs, en Templar zegt dat zelf. Zijn methode is kijken: hij heeft mensen gevolgd van wie hij vond dat hun relaties goed liepen en opgeschreven wat zij doen. In de tekst staan geen cijfers, geen studies en geen namen van vakgenoten. De voorbeelden zijn kennissen die niet nader worden aangeduid en niet te controleren zijn.</p>
+      <p>De zwakte van die aanpak is de keuze vooraf. Wie eerst de gelukkige stellen aanwijst en daarna hun gedrag beschrijft, kan niet vaststellen of dat gedrag de oorzaak van hun geluk is, het gevolg ervan, of geen van beide. Ongelukkige stellen die zich net zo gedragen komen in het boek niet voor.</p>
+      <p>Een deel van de regels valt niettemin samen met wat in relatieonderzoek wel is vastgesteld. Dat minachting en kleineren de kans op scheiding voorspellen, dat herstelpogingen na ruzie ertoe doen, en dat gedeelde tijd zwaarder weegt dan grote gebaren, staat in de vakliteratuur beter onderbouwd dan hier. Templar legt die verbinding niet en kan er ook geen krediet voor opeisen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek spreekt zichzelf op meerdere plaatsen tegen zonder dat te bespreken. Regel zesenveertig zegt dat de partner belangrijker is dan de kinderen, regel zesenzeventig zegt dat de kinderen voorgaan. Regel zestig schrijft gescheiden financien voor, regel tweeenzestig royaal geven aan elkaar. Regel vijfentachtig luidt dat er geen regels zijn en regel negenentachtig verbiedt het geven van advies, in een boek dat uit honderd adviezen bestaat. Templar merkt op dat regels elkaar overlappen, maar laat de lezer met de botsingen alleen.</p>
+      <p>De aannames achter het boek zijn die van een stabiel, welvarend en geweldloos Brits huishouden. Over mishandeling, verslaving, geldnood, ziekte of migratie staat vrijwel niets; regel acht, die zegt dat sommige mensen buiten bereik horen te blijven, is het dichtst dat hij bij dwang en misbruik komt. Voor een lezer in zulke omstandigheden heeft het boek weinig te bieden.</p>
+      <p>De sectie over uiteengaan telt vijf regels, terwijl scheiding een groot deel van de lezers aangaat. De verdediging dat men er niet bij moet blijven stilstaan is geen argument maar een voorkeur, en zij ontneemt het boek zijn bruikbaarheid op het moment dat mensen er het meest naar zouden grijpen.</p>
+      <p>De vorm zelf beperkt wat er te halen valt. Twee bladzijden per regel betekent beweren zonder afwegen. Waar de lezer het oneens is, staat er niets tegenover: geen tegenvoorbeeld, geen uitzondering, geen bron. Enkele regels dateren bovendien zichtbaar, zoals de aansporing aantrekkelijk te blijven en de opmerking dat mannen ook van bloemen houden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het niet aan een stuk door; sla de sectie op die op je situatie slaat en laat de rest liggen.</li>
+        <li>Zet de regels die elkaar tegenspreken naast elkaar en beslis per geval welke van de twee opgaat.</li>
+        <li>Neem regel drieentwintig letterlijk en zoek bij een terugkerende ruzie eerst het eigen aandeel.</li>
+        <li>Gebruik regel achtennegentig als toets en tel de uren die naar de mensen gaan van wie je zegt te houden.</li>
+        <li>Zoek voor scheiding, geweld of verslaving ander materiaal erbij; die sectie is te dun om op te varen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Rules of Love: A Personal Code for Happier, More Fulfilling Relationships</i> (FT Press, Upper Saddle River, eerste druk november 2008, 223 blz., ISBN 9780137149964); in het Verenigd Koninkrijk uitgebracht door Pearson, met een derde, uitgebreide druk in 2015 (ISBN 9781292085869). Nederlands als <i>De regels van de liefde</i>, vertaald door Evelyn Onink-Middelbeek, Deltas, 2010, 240 blz., ISBN 9789044725711. Richard Templar is de schrijversnaam van de Britse auteur en redacteur Richard Craze (1950-2006); dit deel verscheen na diens dood en hoort bij de reeks die begon met <i>The Rules of Work</i> en <i>The Rules of Life</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Richard Templar schreef een reeks boeken van steeds honderd regels, over werk, over geld, over opvoeden en over leven. Dit deel gaat over liefde in brede zin: het vinden van een partner, het samenblijven, het uiteengaan, de familie en de vriendschap.</p><p>Elke regel beslaat twee bladzijden en eindigt met een zin in kapitalen. De honderd regels zijn verdeeld over zes secties. De grootste gaat over de bestaande relatie en telt bijna vijftig regels; de kleinste gaat over uiteengaan en telt er vijf, wat Templar verantwoordt met de opmerking dat men daar niet bij moet blijven stilstaan.</p><p>In de inleiding schrijft hij wat zijn methode is en wat zij niet is. Hij heeft mensen bekeken van wie de relaties standhielden en opgeschreven wat zij doen. Het zijn volgens hem geen onthullingen maar herinneringen aan wat de lezer al weet. Onderzoek, cijfers of bronnen komen in het boek niet voor.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>liefde</li><li>relaties</li><li>vriendschap</li><li>familie</li><li>vuistregels</li><li>zelfhulp</li><li>Britse zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller geven met hechtingsstijlen wel een model achter het gedrag dat Templar alleen beschrijft.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Perel bestrijdt juist waar Templar op uitkomt: bij haar staat de vertrouwdheid die hij als doel neemt op gespannen voet met verlangen.</li>
+          <li value="1549"><a href="1549.html">Liefdesbang</a>. Cuppen behandelt in het Nederlands de vermijding die Templar in zijn eerste sectie aanraakt en vervolgens laat liggen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

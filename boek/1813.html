@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koud kunstje &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek verdedigt de stelling dat het autonome zenuwstelsel en de afweerreactie van het lichaam, die lang als onwillekeurig golden, met ademhaling en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1813">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1813 &middot; Brein en lichaam</p>
+    <h1>Koud kunstje</h1>
+    <p class="lede">Wim Hof en Koen de Jong, 2015</p>
+    <p class="stats">
+      <span><b>1394</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1813"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek verdedigt de stelling dat het autonome zenuwstelsel en de afweerreactie van het lichaam, die lang als onwillekeurig golden, met ademhaling en koude te beinvloeden zijn, en dat dit vermogen niet aan Wim Hof persoonlijk gebonden is maar binnen een week aan gewone mensen te leren valt. De Jong voert daarvoor het onderzoek aan dat het Radboudumc bij Hof en bij een groep getrainde vrijwilligers uitvoerde. Uit die stelling volgt een tweede, die het boek minder streng onderbouwt: dat wie de methode dagelijks toepast er een betere gezondheid en meer weerbaarheid aan overhoudt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De man achter de methode</h3>
+      <p>Het openingshoofdstuk vertelt Hofs levensloop. Als jongeman ontdekte hij bij toeval wat koud water met hem deed en bleef hij het opzoeken, ook midden in de winter. In 1995 verloor hij zijn vrouw, en hij bracht de vier kinderen alleen groot in een periode waarin hij nauwelijks geld had.</p>
+      <p>Daarna volgt de reeks prestaties waarmee hij bekend werd: urenlang in een bak met ijsblokken staan, in korte broek de Kilimanjaro beklimmen, boven de poolcirkel op blote voeten een halve marathon lopen en een marathon door woestijnhitte lopen zonder te drinken. De Jong houdt bij die opsomming afstand en noteert ook de spot en de scepsis die Hof jarenlang ten deel vielen.</p>
+      <h3>De ademhalingsoefening</h3>
+      <p>Het eerste deel van de methode bestaat uit reeksen van dertig tot veertig diepe, snelle ademteugen, waarna de adem op de uitademing zo lang mogelijk wordt vastgehouden en er een diepe inademing volgt die kort wordt vastgehouden. Zo'n reeks wordt drie of vier keer herhaald.</p>
+      <p>De Jong beschrijft de verschijnselen die daarbij horen, zoals tintelingen, licht worden in het hoofd en het vermogen om de adem veel langer in te houden dan gewoonlijk. Hij legt uit dat de reeks het koolzuurgehalte in het bloed verlaagt, waardoor de prikkel om te ademen wegvalt, en waarschuwt dat de oefening liggend of zittend moet gebeuren en nooit in of bij water.</p>
+      <h3>De koude</h3>
+      <p>Het tweede deel is blootstelling aan koude, opgebouwd vanaf iets simpels: aan het einde van een gewone douche dertig seconden koud afspoelen, en dat over weken uitbreiden. Daarna komen koude baden en ijsbaden in beeld.</p>
+      <p>De uitleg draait om vaatvernauwing en vaatverwijding, om het weer leren gebruiken van bruin vet, en om de gewenning die maakt dat de eerste schok na een tijd uitblijft. Hof zelf spreekt over het opnieuw aanspreken van vermogens die het lichaam door verwarmde huizen en kleding niet meer gebruikt.</p>
+      <h3>Het onderzoek in Nijmegen</h3>
+      <p>De kern van het boek is de proef die Peter Pickkers en Matthijs Kox in het Radboudumc uitvoerden. Eerst werd Hof zelf getest: hij kreeg een injectie met een bestanddeel van de celwand van een darmbacterie, waarop een gezond lichaam met griepachtige verschijnselen en een ontstekingsreactie reageert. Bij hem viel die reactie lager uit dan bij de proefpersonen uit eerdere onderzoeken.</p>
+      <p>Omdat een enkele proefpersoon niets bewijst, volgde een tweede opzet met twee groepen van twaalf jonge, gezonde mannen. De ene groep leerde in een week de methode van Hof, de andere niet. Bij de getrainde groep steeg het adrenalinegehalte tijdens de oefening, kwam er meer van een ontstekingsremmende stof vrij, bleven de ontstekingsbevorderende stoffen lager en waren de griepverschijnselen milder. Dat resultaat maakte het boek mogelijk: het effect bleek aanleerbaar.</p>
+      <h3>Artsen, patienten en de grens van de claim</h3>
+      <p>Naast het onderzoek geeft De Jong ruimte aan behandelaars die met de methode werken en aan mensen die haar gebruiken bij uiteenlopende aandoeningen, van reuma tot chronische vermoeidheid. Die verhalen staan als ervaring in het boek, niet als bewijs, maar zij nemen wel een aanzienlijk deel van de bladzijden in beslag.</p>
+      <p>Het slot bevat een praktisch schema waarmee de lezer zelf kan beginnen, met opbouw in weken, plus waarschuwingen over wat niet mag: geen ademoefening in bad, in het zwembad of achter het stuur.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De methode</td><td>Hofs eigen aanduiding voor de combinatie van ademhalingsoefeningen, koudetraining en volhouden, die hij als drie onderdelen van een geheel presenteert.</td></tr>
+          <tr><td class="term">Autonoom zenuwstelsel</td><td>Het deel van het zenuwstelsel dat hartslag, ademhaling en afweer regelt zonder tussenkomst van de wil, en waarvan het boek stelt dat het toch bewust te beinvloeden is.</td></tr>
+          <tr><td class="term">Endotoxine</td><td>Het bestanddeel van een bacteriele celwand dat in het Nijmeegse onderzoek werd ingespoten om bij gezonde vrijwilligers kortdurend een ontstekingsreactie op te wekken.</td></tr>
+          <tr><td class="term">Ontstekingsreactie</td><td>De reactie van het afweersysteem op die injectie, gemeten aan stoffen in het bloed en aan griepachtige verschijnselen, en in de getrainde groep zwakker uitgevallen.</td></tr>
+          <tr><td class="term">Bruin vet</td><td>Vetweefsel dat warmte produceert en volgens het boek door koudetraining weer actief wordt gemaakt.</td></tr>
+          <tr><td class="term">Koudeschok</td><td>De eerste heftige reactie op koud water, die volgens Hof door de ademhaling te beheersen is en met gewenning afneemt.</td></tr>
+          <tr><td class="term">Ademretentie</td><td>Het vasthouden van de adem na een reeks diepe ademteugen, dat langer lukt doordat het koolzuurgehalte is gedaald.</td></tr>
+          <tr><td class="term">Iceman</td><td>De bijnaam van Hof, ontstaan rond zijn records in ijs en koud water, en in het boek ook de aanduiding van het beeld dat hij van zichzelf beheert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek heeft een steviger fundament dan de meeste titels in dit genre, en dat komt door een handvol publicaties uit het Radboudumc. De proef met twee groepen van twaalf jonge, gezonde mannen was gerandomiseerd en verscheen in een gerenommeerd tijdschrift. De uitkomst, minder ontstekingsbevorderende stoffen en mildere klachten na een endotoxine-injectie bij de getrainde groep, is een reeel gemeten verschil en geen ervaringsverhaal.</p>
+      <p>De mechanistische verklaring in het boek loopt via adrenaline: de ademoefening jaagt de aanmaak omhoog, en adrenaline remt de ontstekingsreactie. Die keten is plausibel en past bij bekende farmacologie. Ook de fysiologie van de koudeschok en van bruin vet is op zichzelf goed onderzocht materiaal.</p>
+      <p>Daarnaast leunt het boek op materiaal van een andere orde: de records van Hof, de verhalen van behandelaars en de ervaringen van gebruikers. Die staan in de tekst naast de meetresultaten en krijgen daardoor meer gewicht dan zij dragen kunnen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het onderzoek waarop alles rust is klein en smal. Vierentwintig jonge, gezonde mannen, een kunstmatige en kortdurende ontstekingsreactie, en een meting van uren. Dat model zegt iets over wat het afweersysteem op dat moment doet en niets over ziektes die jaren duren. De sprong naar reuma, de ziekte van Lyme of multiple sclerose, die in het boek via ervaringen van gebruikers wordt gemaakt, wordt door geen enkel gegeven gedekt.</p>
+      <p>De methode wordt bovendien als een geheel getest maar in het boek uitgelegd alsof elk onderdeel op zich staat. In het Nijmeegse onderzoek kregen de deelnemers ademoefening, koudetraining en meditatie tegelijk; welk deel het gemeten effect veroorzaakte is niet uitgezocht. Wie alleen koud doucht doet iets anders dan wat er onderzocht is.</p>
+      <p>Er is een veiligheidskwestie die het boek wel noemt maar te licht behandelt. De ademoefening is een vorm van vrijwillige hyperventilatie en verlaagt het koolzuur zo ver dat de prikkel om te ademen wegvalt. In of bij water leidt dat tot bewustzijnsverlies zonder waarschuwing, en er zijn sindsdien sterfgevallen gemeld bij mensen die de oefening met zwemmen combineerden. Een waarschuwing in een kader is voor een boek dat zich op beginners richt aan de karige kant.</p>
+      <p>Tot slot wringt de auteur met zichzelf. Koen de Jong betoogt in <i>Verademing</i> dat snel en diep ademen de bron is van talrijke klachten en dat zes keer per minuut het doel is. Hier beveelt hij reeksen van dertig snelle, diepe ademteugen aan. Dat de twee elkaar kunnen aanvullen is verdedigbaar, maar het boek doet geen poging die spanning uit te leggen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin met dertig seconden koud afspoelen aan het einde van een gewone douche en breid dat over weken uit.</li>
+        <li>Doe de ademoefening liggend of zittend, nooit in bad, in het water of achter het stuur.</li>
+        <li>Houd de reeksen aan zoals beschreven: dertig tot veertig ademteugen, adem inhouden op de uitademing, dan een diepe inademing kort vasthouden.</li>
+        <li>Laat de koude het werk doen zonder tegenspanning; de aandacht gaat naar de uitademing en niet naar het verzet.</li>
+        <li>Overleg met een arts bij hart- en vaatklachten, epilepsie of zwangerschap voordat de oefeningen beginnen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, <i>Koud kunstje: wat kun je leren van de iceman</i>, Uitgeverij Lucht, Amsterdam, 2015, 96 blz., ISBN 9789491729256 (e-boek 9789491729430). De Engelse vertaling van Andy Brown verscheen in 2017 bij Dragon Door Publications als <i>The Way of the Iceman: How the Wim Hof Method Creates Radiant, Longterm Health</i>, 168 blz. Hof bracht in 2020 zonder De Jong een tweede boek uit, <i>The Wim Hof Method</i> (Sounds True), dat ook in het Nederlands verscheen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Koen de Jong liep een jaar met Wim Hof mee en schreef daarna dit dunne boek over diens methode. Het eerste hoofdstuk gaat over Hofs leven: de koude duiken in het water van een Amsterdams park, het overlijden van zijn vrouw, de vier kinderen die hij alleen grootbracht en de reeks records met ijs, hoogte en hitte die hem de bijnaam de iceman opleverde.</p><p>De rest van het boek beschrijft de methode zelf en de fysiologie erachter. Drie onderdelen keren steeds terug: ademhalingsoefeningen met reeksen diepe ademteugen gevolgd door het inhouden van de adem, blootstelling aan koude die stap voor stap wordt opgebouwd, en volhouden. Artsen, onderzoekers en gebruikers komen aan het woord.</p><p>De aanleiding voor het boek is het onderzoek dat het Radboudumc bij Hof en later bij getrainde vrijwilligers deed. Dat onderzoek is de reden waarom De Jong de methode niet als een eigenaardigheid van een uitzonderlijk lichaam presenteert maar als iets wat aanleerbaar is, en het is tegelijk het punt waarop het boek verder gaat dan het onderzoek toelaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>koude</li><li>ademhaling</li><li>immuunsysteem</li><li>Wim Hof</li><li>zenuwstelsel</li><li>Radboudumc</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1812"><a href="1812.html">Verademing</a>. In <i>Verademing</i> verdedigt dezelfde Koen de Jong het tegenovergestelde ademtempo, wat beide boeken naast elkaar leerzaam maakt.</li>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. James Nestor bezocht in <i>Breath</i> onder anderen Hof en plaatst diens methode in een langere geschiedenis van ademtechnieken.</li>
+          <li value="458"><a href="458.html">The Upside of Stress</a>. Kelly McGonigal onderzoekt in <i>The Upside of Stress</i> hoe een gedoseerde stressprikkel het lichaam sterker kan maken, de gedachte onder Hofs koudetraining.</li>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Luc Swinnen beschrijft in <i>Activeer je nervus vagus</i> de zenuwbaan waarlangs ademhaling en koude op de afweerreactie zouden inwerken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

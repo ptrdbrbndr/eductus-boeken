@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Das Gesetz der Resonanz &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Franckh presenteert de wet van aantrekking als een natuurwet die zich uit trilling laat verklaren: alles wat bestaat zendt een frequentie uit, en iemand…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1909">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1909 &middot; Positief denken en manifesteren</p>
+    <h1>Das Gesetz der Resonanz</h1>
+    <p class="lede">Pierre Franckh, 2008</p>
+    <p class="stats">
+      <span><b>1675</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1909"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Franckh presenteert de wet van aantrekking als een natuurwet die zich uit trilling laat verklaren: alles wat bestaat zendt een frequentie uit, en iemand kan alleen ontmoeten, aantrekken en behouden wat met zijn eigen frequentie in resonantie staat. Gedachten, en vooral onbewuste overtuigingen over geld, liefde en eigenwaarde, bepalen die frequentie. Wie zijn leven wil veranderen hoeft daarom niet harder te werken of anders te handelen, maar moet zijn resonantieveld verleggen, en het hart is daarbij het orgaan dat het signaal het sterkst uitzendt. De stelling is te toetsen zodra zij zo scherp wordt geformuleerd, en dat is precies waar het boek geen belangstelling voor toont.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat resonantie bij Franckh betekent</h3>
+      <p>Het boek opent met het natuurkundige verschijnsel waar de titel op leunt: een stemvork die meetrilt met een andere van dezelfde toonhoogte, een glas dat breekt bij de juiste frequentie. Franckh trekt dat beeld door naar mensen. Wat iemand uitzendt, zoekt volgens hem een energie die op hetzelfde niveau trilt, en dat verklaart waarom de een steeds dezelfde soort partner treft en de ander steeds dezelfde soort tegenslag.</p>
+      <p>De stap van het beeld naar de bewering wordt daarbij vrijwel meteen gezet. Resonantie tussen twee trillende voorwerpen is meetbaar en heeft een medium nodig; resonantie tussen een gedachte en een gebeurtenis is bij Franckh een gelijkstelling, geen gemeten verschijnsel. Het boek behandelt beide met hetzelfde woord en hetzelfde vertrouwen.</p>
+      <h3>Het hart als zender</h3>
+      <p>Het gedeelte dat het boek onderscheidt van de rest van het genre gaat over het hart. Franckh voert aan dat het hart een elektrisch en magnetisch veld opwekt dat rondom het lichaam meetbaar is, dat dit veld in doorsnede ongeveer twee en een halve meter beslaat en dat het magnetische veld van het hart vele duizenden malen sterker is dan dat van de hersenen.</p>
+      <p>Daaruit leidt hij af dat het hart eerder stuurt dan de gedachte, en dat gevoelens daarom zwaarder wegen dan voornemens. Een wens die het hoofd formuleert maar het hart niet meedraagt, blijft volgens hem zonder gevolg. Dat is de reden waarom hij zoveel nadruk legt op het opwekken van het gevoel dat bij het gewenste hoort, voordat er iets van dat gewenste zichtbaar is.</p>
+      <h3>Overtuigingen als vaste zender</h3>
+      <p>Het middendeel gaat over overtuigingszinnen: de uitspraken die iemand in zijn jeugd heeft opgepikt en sindsdien voor waar houdt, over geld dat niet aan de bomen groeit, over eigen onvermogen, over wat mensen zoals hij nu eenmaal wel en niet krijgen. Franckh behandelt die zinnen als de instelling van de zender: zolang zij staan, zendt iemand ze mee, ook terwijl hij het tegendeel wenst.</p>
+      <p>De behandeling die hij voorstelt is opsporen, opschrijven en vervangen. Hij geeft lijsten met veelgebruikte negatieve zinnen, laat lezers herkennen welke van hen zijn, en werkt met herformuleringen die in de tegenwoordige tijd en bevestigend zijn gesteld. Wie zichzelf betrapt op de oude zin, zet er de nieuwe naast en let op wat het lichaam daarbij doet.</p>
+      <h3>Het resonantieveld verleggen</h3>
+      <p>Vervolgens komt de praktische kern: het eigen veld op de gewenste toestand afstemmen. Franckh vraagt zijn lezers om zich in gedachten in de gewenste situatie te begeven en daar het gevoel van te nemen, niet als beloning achteraf maar als vertrekpunt. Dankbaarheid voor wat er al is, geldt daarbij als de snelste manier om de toestand te bereiken waarin een wens volgens hem kan landen.</p>
+      <p>Daarnaast let hij op wat iemand binnenlaat. Nieuws, gesprekken en gezelschap veranderen volgens hem de eigen frequentie, en hij adviseert de omgang daarmee bewust te kiezen. Zelfacceptatie krijgt dezelfde rol: wie zichzelf afwijst, zendt afwijzing uit en trekt volgens de wet van resonantie afwijzing aan.</p>
+      <h3>Oefeningen en verhalen van lezers</h3>
+      <p>Het boek bevat door de hoofdstukken heen oefeningen, meestal kort, met schrijfopdrachten en aandachtsoefeningen. Daartussen staan brieven en verslagen van lezers die vertellen wat hun na toepassing overkwam: werk, een woning, een ontmoeting, herstel van een verhouding.</p>
+      <p>Die verhalen doen in het boek het werk dat elders onderzoek zou doen. Zij zijn de reden waarom lezers het overtuigend vinden, en zij zijn tegelijk het zwakste deel van de onderbouwing, omdat alleen wie succes had een brief schrijft.</p>
+      <h3>De aansluiting op zijn eerdere werk</h3>
+      <p>Franckh was al bekend van boeken over wensen, waarin hij regels gaf voor het formuleren van een wens en voor de houding waarmee iemand die loslaat. <i>Das Gesetz der Resonanz</i> is bedoeld als de verklaring daaronder: waarom die regels zouden werken. Later volgde een praktijkdeel, waarin dezelfde stof in oefenvorm terugkeert.</p>
+      <p>Wie de drie naast elkaar legt, ziet dat de leer niet verandert. Het verschil zit in de verpakking: de ene keer als regels, de andere keer als natuurwet, de derde keer als oefenprogramma.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wet der resonantie</td><td>Franckhs formulering van de wet van aantrekking: iemand kan alleen dat in zijn leven halen waarmee hij in resonantie is, dat wil zeggen wat op dezelfde energetische hoogte trilt als hijzelf.</td></tr>
+          <tr><td class="term">Resonantieveld</td><td>Het geheel van gedachten, gevoelens en overtuigingen dat iemand volgens Franckh uitzendt en dat bepaalt welke gebeurtenissen bij hem terechtkomen.</td></tr>
+          <tr><td class="term">Overtuigingszinnen</td><td>De aangeleerde uitspraken over zichzelf en de wereld die iemand voor waar houdt en die volgens het boek onbewust de instelling van zijn zender bepalen.</td></tr>
+          <tr><td class="term">Hartveld</td><td>Het elektrische en magnetische veld dat het hart opwekt, door Franckh beschreven als meetbaar tot ruim twee meter buiten het lichaam en als de sterkste uitzending die een mens doet.</td></tr>
+          <tr><td class="term">Hartintelligentie</td><td>De opvatting dat het hart eerder en zwaarder stuurt dan het denken, waaruit volgt dat een wens gevoeld moet worden voordat hij effect heeft.</td></tr>
+          <tr><td class="term">Frequentie</td><td>De maat waarin het boek gemoedstoestanden uitdrukt, waarbij angst, schuld en afgunst laag heten en dankbaarheid, vreugde en liefde hoog.</td></tr>
+          <tr><td class="term">Gelijk trekt gelijk aan</td><td>De vuistregel waarin de leer samenkomt: uitgezonden energie zoekt gelijkgestemde energie, ongeacht of iemand wenst, bestelt of twijfelt.</td></tr>
+          <tr><td class="term">Dankbaarheid als vertrekpunt</td><td>De oefening om het gevoel dat bij het gewenste hoort nu al te nemen, omdat het volgens Franckh de toestand is waarin een wens kan landen.</td></tr>
+          <tr><td class="term">Loslaten</td><td>De houding waarin een wens is uitgesproken en niet meer wordt vastgehouden, omdat het vasthouden zelf gebrek uitzendt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De harde getallen in het boek komen uit het onderzoek van het HeartMath Institute in Californië, dat sinds de jaren negentig publiceert over hartritmevariabiliteit en over het magnetische veld van het hart. Dat veld bestaat werkelijk en is met magnetocardiografie te meten; het is inderdaad aanzienlijk sterker dan het magnetische veld van de hersenen, dat pas met zeer gevoelige apparatuur zichtbaar wordt. Tot zover staat Franckh op vaste grond.</p>
+      <p>De stap die hij daarna zet, wordt door dat onderzoek niet gedragen. Het hartveld is een bijproduct van de elektrische activiteit van hartspiercellen, het neemt snel af met de afstand en er is geen mechanisme bekend waarmee het gegevens overdraagt aan een andere persoon, laat staan aan gebeurtenissen. Meetbaar zijn en betekenis dragen zijn twee verschillende dingen, en het boek behandelt ze als hetzelfde.</p>
+      <p>Ook de verwijzingen naar kwantumfysica en moderne wiskunde blijven bij vermelding. Verschijnselen die daar worden beschreven, gelden voor afgezonderde systemen van enkele deeltjes en verdwijnen zodra die systemen contact maken met hun omgeving. Van die verschijnselen loopt geen aangetoonde lijn naar voornemens, wensen of levensloop, en het boek probeert die lijn ook niet te trekken; het roept de naam aan.</p>
+      <p>Wat overblijft aan onderbouwing zijn de ervaringen van lezers. Die zijn niet waardeloos, maar zij zijn geselecteerd door het succes: wie na de oefeningen niets zag gebeuren, stuurt geen brief. Zonder tellen van beide groepen zegt een stapel geslaagde gevallen weinig over de vraag of de oefening iets deed.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de leer zichzelf immuun maakt. Blijft de wens uit, dan was de trilling nog niet op orde of zat er een onbewuste overtuiging in de weg. Er bestaat geen uitkomst die de wet zou weerleggen, en daarmee verliest zij de eigenschap die een natuurwet juist bruikbaar maakt, namelijk dat zij ongelijk kan krijgen.</p>
+      <p>Daaraan zit een morele kant. Wie ziek wordt, ontslagen wordt of geweld ondergaat, heeft in dit stelsel op die frequentie gezeten. Franckh schrijft dat nergens hardvochtig op, maar het volgt onvermijdelijk uit zijn uitgangspunt, en het boek doet geen moeite die gevolgtrekking te blokkeren.</p>
+      <p>Inhoudelijk voegt het weinig toe aan een leer die ruim een eeuw ouder is. De wet van aantrekking staat in vrijwel deze vorm al bij de Amerikaanse New Thought-schrijvers van rond 1900. Nieuw is de woordenschat: veld, frequentie, hartveld, kwantum. Die woorden lenen gezag van de natuurwetenschap zonder er de toetsing van over te nemen.</p>
+      <p>De adviezen die aantoonbaar iets doen, hebben de natuurwet niet nodig. Aandacht richten op wat wel goed gaat, minder alarmerend nieuws consumeren, jezelf minder afkatten en helder opschrijven wat je wilt zijn werkzame gewoonten waarvoor gewone psychologie een verklaring heeft. Het boek verbindt ze aan een verklaring die zwaarder is dan het gedrag vraagt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf de zinnen op die vanzelf opkomen bij geld, werk en verhoudingen, en zoek uit van wie die zinnen oorspronkelijk waren.</li>
+        <li>Formuleer per zin een tegenhanger in de tegenwoordige tijd, en let bij het uitspreken op wat het lichaam doet; verzet is bruikbare informatie.</li>
+        <li>Kies bewust wat er binnenkomt aan nieuws, gesprekken en gezelschap, en meet aan de eigen stemming wat dat doet.</li>
+        <li>Noteer bij elke oefening ook de keren dat er niets gebeurde, zodat de eigen bevindingen niet dezelfde selectie ondergaan als de brieven in het boek.</li>
+        <li>Behandel de natuurkundige hoofdstukken als beeldspraak en niet als bewijs, en zoek de claims over het hartveld op bij de bron waar zij vandaan komen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Das Gesetz der Resonanz</i>, verschenen bij KOHA-Verlag (ISBN 9783867280662). De Nederlandse uitgave heet <i>De wet der resonantie</i> en verscheen bij Palaysia Productions in de vertaling van Helene Damen; de druk van 2017 telt 224 blz. (ISBN 9789492412263), er is ook een digitale uitgave (ISBN 9789492412249). Van Franckh verscheen in het Nederlands eerder werk over wensen en later <i>De wet der resonantie in de praktijk</i> (ISBN 9789076541709).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pierre Franckh, in Duitsland bekend geworden als acteur en daarna als schrijver over wensen en persoonlijke ontwikkeling, betoogt in dit boek dat mensen alleen kunnen binnenhalen wat op dezelfde golflengte trilt als zijzelf. Gedachten, overtuigingen en gevoelens beschrijft hij als uitgezonden signalen die in de omgeving een antwoord van gelijke soort zoeken.</p><p>De onderbouwing die hij aanvoert komt uit de fysiologie van het hart. Het hart is bij hem een zender. Het wekt een elektrisch en magnetisch veld op dat volgens hem ongeveer twee en een halve meter reikt en dat vele malen sterker is dan het veld van de hersenen. Wie dat veld verandert, verandert volgens Franckh wat hem toevalt.</p><p>De rest van het boek is praktisch. Aan de hand van oefeningen en brieven van lezers laat hij zien hoe iemand oude overtuigingszinnen opspoort, vervangt en het eigen resonantieveld op de gewenste toestand afstemt. Het is de bekende wet van aantrekking, hier in een woordenschat van trilling, frequentie en veld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wet van aantrekking</li><li>resonantie</li><li>overtuigingen</li><li>hartcoherentie</li><li>manifesteren</li><li>zelfhulp</li><li>pseudowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1748"><a href="1748.html">The Secret</a>. Byrne bracht dezelfde leer in 2006 op grote schaal onder de aandacht; Franckh schrijft in feite de Duitstalige uitwerking daarvan, met meer nadruk op fysiologie en minder op vervulling van wensen.</li>
+          <li value="127"><a href="127.html">The Law of Attraction</a>. Atkinson formuleerde de wet van aantrekking al in 1906, zonder de natuurkundige woordenschat; wie de twee naast elkaar legt, ziet hoeveel van Franckhs betoog verpakking is.</li>
+          <li value="1898"><a href="1898.html">The Law of Attraction: The Basics of the Teachings of Abraham</a>. Bij Hicks komt dezelfde wet uit doorgegeven onderricht in plaats van uit fysiologie, wat laat zien hoe verwisselbaar de onderbouwing onder deze leer is.</li>
+          <li value="1588"><a href="1588.html">The Biology of Belief</a>. Lipton doet met de celbiologie wat Franckh met het hart doet: bestaand onderzoek uitbreiden tot een uitspraak over de macht van overtuigingen, met dezelfde spanning tussen meting en gevolgtrekking.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

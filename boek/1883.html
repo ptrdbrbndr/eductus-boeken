@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Superslapen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wouterson stelt dat slaap de voorwaarde is waaronder prestaties, humeur en gezondheid pas mogelijk worden, belangrijker in zijn ogen dan eten en bewegen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1883">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1883 &middot; Brein en lichaam</p>
+    <h1>Superslapen</h1>
+    <p class="lede">Floris Wouterson, 2018</p>
+    <p class="stats">
+      <span><b>1636</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1883"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wouterson stelt dat slaap de voorwaarde is waaronder prestaties, humeur en gezondheid pas mogelijk worden, belangrijker in zijn ogen dan eten en bewegen samen, en dat de meeste slaapproblemen niet medisch van aard zijn maar aangeleerd. Slecht slapen komt volgens hem voort uit overtuigingen die iemand als kind heeft opgepikt, uit een slaapomgeving die nooit is nagelopen en uit gewoonten die op korte termijn helpen en op lange termijn averechts werken. Daarom is het volgens hem ook met kleine, stapsgewijze veranderingen te herstellen, zonder medicatie en zonder ingrijpende omwenteling.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Slaap als de ontbrekende schakel</h3>
+      <p>De inleiding zet de inzet hoog. Bij te weinig slaap wordt iemand prikkelbaar, vergeetachtig en somber, is afvallen zinloos en ligt de kans op blessures volgens Wouterson ongeveer veertig procent hoger, al na één nacht, door een terugval in de eiwitaanmaak. Op de lange termijn koppelt hij slaaptekort aan kanker, parkinson, alzheimer, depressie, burn-out, diabetes type 2 en hart- en vaatziekten.</p>
+      <p>Zijn klacht over de bestaande slaapliteratuur is dat die te wetenschappelijk is en te weinig zegt over wat er morgen anders moet. Zijn beeld daarvoor: er wordt precies uitgelegd hoe het horloge werkt, maar de lezer weet nog steeds niet hoe laat het is. Het boek opent met een reality check van vijftien ja-neevragen over slaapmythen, van uitslapen tot snoozen tot de uren voor twaalven.</p>
+      <h3>De slaapblauwdruk</h3>
+      <p>Het eerste hoofdstuk gaat over mindset en is het uitgebreidst onderbouwde deel. Iedereen draagt volgens Wouterson een slaapblauwdruk mee, gevormd door drie soorten conditionering. Verbale programmering is alles wat er in de kindertijd over slapen werd gezegd: uitslapen is voor luieriken, een middagdutje is tijdverspilling, de uren voor twaalven tellen dubbel. Modelleren is het overnemen van het gedrag van de ouders. De derde vorm zijn specifieke gebeurtenissen, van angst in het donker tot geldzorgen, die het brein de slaapkamer met wakker liggen laten verbinden.</p>
+      <p>Hij verwijst hier naar het boek <i>SOS Slaap</i> van hoogleraar Johan Verbraecken, volgens wie vijfenzeventig tot tachtig procent van de slapeloosheid geconditioneerd is en veel mensen ervan overtuigd zijn slecht te slapen terwijl een slaaplaboratorium dat niet bevestigt. Om de blauwdruk om te zetten noemt Wouterson vier stappen: bewustzijn, begrijpen, loslaten en herconditionering. De uitvoering bestaat uit schrijfoefeningen en uit affirmaties die tien keer per dag hardop voor de spiegel worden herhaald, in navolging van de Franse apotheker Émile Coué.</p>
+      <h3>De drie slaapkillers</h3>
+      <p>Klagen, rechtvaardigen en verwijten noemt Wouterson de drie slaapkillers. Hij geeft er zelf bij dat dit niet wetenschappelijk is onderzocht, maar dat hij het in vijftien jaar praktijk opvallend vaak zag bij mensen die slecht slapen. Tegen klagen adviseert hij mediavasten; tegen verwijten haalt hij de binnenste en buitenste cirkel van Stephen Covey aan, met de regel om alleen energie te steken in wat binnen eigen bereik ligt.</p>
+      <p>In hetzelfde hoofdstuk staat het zaklampsyndroom: mensen kunnen zo opnoemen wat zij niet willen en blijven steken bij de vraag wat zij wel willen. Wie de aandacht van wakker liggen naar doorslapen verlegt, zou daarmee al iets verschuiven. Het hoofdstuk sluit af met het slaap support team, bestaande uit een slaap buddy, een slaap panel van collega's of kinderen die terugkoppelen, en een slaap mentor.</p>
+      <h3>Bed en slaapkamer</h3>
+      <p>Het tweede hoofdstuk gaat over matrassen, bedbodems, hoofdkussens en dekbedden, met vijf factoren voor slaapcomfort en een checklist voor de aanschaf. Het derde behandelt de slaapkamer: temperatuur, licht, geluid, techniek in de kamer en wat hij elektrosmog noemt. Wouterson stelt dat wie alleen deze twee hoofdstukken toepast, de aanschafprijs van het boek al terugverdient.</p>
+      <p>Dit zijn de delen waarin zijn achtergrond in de beddenbranche het duidelijkst doorklinkt, en tegelijk de delen waarin het advies het concreetst is.</p>
+      <h3>Routines in plaats van uren</h3>
+      <p>Het vierde hoofdstuk gaat over slaapstrategie en routines, en bestrijdt wat hij de mythe van acht uur noemt. De inzet verschuift van het aantal uren naar de regelmaat: een vaste tijd om op te staan, een vaste tijd om naar bed te gaan, en een aanloop die elke avond hetzelfde verloopt.</p>
+      <p>Wouterson stelt dat een lezer die dit zes weken volhoudt weer goed slaapt. Zijn motto voor het hele boek staat hier: change a little, change a lot every day.</p>
+      <h3>Bord, darmen en beweging</h3>
+      <p>Het vijfde hoofdstuk is als stappenplan opgezet: echte voeding kiezen, de juiste eiwitten en aminozuren, koolhydraten beperken en suiker vermijden, de kringloop van alcohol, cafeïne en pepmiddelen doorbreken, en letten op wat er wordt gedronken. Het zesde hoofdstuk gaat over het spijsverteringsstelsel als tweede brein en over regelmatig detoxen. Dit hoofdstuk is het kortst en wordt door recensenten ook als het zwakste genoemd.</p>
+      <p>Het zevende hoofdstuk behandelt beweging en ontspanning als twee kanten van dezelfde zaak: matig bewegen overdag, en technieken om 's avonds tot rust te komen. Achterin staan vier bijlagen: de challenge van eenentwintig dagen met maximaal drie kleine veranderingen per week, een slaapdagboek, een overzicht van de slaapfasen en een stressmodel in twaalf fasen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Slaapblauwdruk</td><td>Het geheel van overtuigingen over slaap dat iemand in zijn jeugd heeft opgedaan en dat volgens Wouterson onbewust de nachtrust bepaalt.</td></tr>
+          <tr><td class="term">Verbale programmering</td><td>De uitspraken over slapen die in de kindertijd zijn gehoord en die als vanzelfsprekendheden blijven hangen.</td></tr>
+          <tr><td class="term">Modelleren</td><td>Het onbewust overnemen van het slaapgedrag van de ouders, inclusief de delen die nergens op berusten.</td></tr>
+          <tr><td class="term">De drie slaapkillers</td><td>Klagen, rechtvaardigen en verwijten, door Wouterson uit eigen praktijkervaring aangewezen als het gedrag dat slecht slapen in stand houdt.</td></tr>
+          <tr><td class="term">Zaklampsyndroom</td><td>De vaststelling dat mensen scherp weten wat zij niet willen en vaag blijven over wat zij wel willen, met de aandacht als lichtbundel.</td></tr>
+          <tr><td class="term">Slaap support team</td><td>De buddy, het panel en de mentor die de lezer aanspreken op zijn voornemens, ontleend aan het idee van accountability.</td></tr>
+          <tr><td class="term">Slaap-oase</td><td>De slaapkamer nadat temperatuur, licht, geluid en techniek zijn nagelopen, in het derde hoofdstuk uitgewerkt tot een checklist.</td></tr>
+          <tr><td class="term">Geconditioneerde slapeloosheid</td><td>Slecht slapen dat is aangeleerd doordat het brein de slaapkamer met wakker liggen is gaan verbinden, ook nadat de oorspronkelijke zorg is verdwenen.</td></tr>
+          <tr><td class="term">De 21 dagen slaapchallenge</td><td>De bijlage waarin per week hooguit drie kleine veranderingen worden ingevoerd, bedoeld om gewoonten te laten beklijven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De sterkste passages leunen op werk van anderen dat te controleren valt. Het cijfer over geconditioneerde slapeloosheid komt van hoogleraar Johan Verbraecken van het slaapcentrum in Antwerpen, die het boek ook heeft aanbevolen, en het idee dat een deel van de slechte slapers in een slaaplaboratorium normaal blijkt te slapen is in de slaapgeneeskunde bekend. Ook het onderzoek van Ellen Langer naar het woordje omdat, waarin een verzoek met een reden erachter aanzienlijk vaker wordt ingewilligd, bestaat werkelijk.</p>
+      <p>Voor de rest verwijst het boek zelden in de lopende tekst naar bronnen. Achterin staat een literatuurlijst, maar cijfers als de veertig procent hogere blessurekans na één nacht slaaptekort komen in de tekst zonder verwijzing voorbij. Dat getal lijkt terug te gaan op onderzoek onder jonge sporters die minder dan acht uur sliepen, waar het als verhoogde kans over een langere periode werd gemeten en niet als effect van één nacht.</p>
+      <p>Waar het boek het meest overtuigt, is in de delen waarin Wouterson uit eigen vak put. Zijn jaren in de beddenbranche leveren concrete richtlijnen op voor matras, bodem en kussen, en de hoofdstukken over de slaapkamer en over routines bevatten adviezen die in de reguliere slaaphygiëne terugkomen: vaste tijden, koele kamer, donker, geen cafeïne in de middag, geen schermen vlak voor het slapen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek mengt twee soorten materiaal zonder het onderscheid te markeren. Naast controleerbare slaaphygiëne staan affirmaties voor de spiegel, een proces van manifestatie, een verwijzing naar de kwantumfysica als steun voor positief denken, en elektrosmog als bedreiging voor de nachtrust. Voor dat laatste bestaat geen bevestiging in het onderzoek naar elektromagnetische velden; het is een aanname die in dit boek dezelfde status krijgt als de kamertemperatuur.</p>
+      <p>De belangenpositie van de auteur wordt genoemd maar niet uitgewerkt. Wouterson komt uit de beddenbranche, en hoofdstuk twee bepleit een goed matras, een goede bodem en een goed kussen. Het advies zal vaak kloppen, maar het is wel het advies van iemand die uit die handel voortkomt, en de lezer krijgt geen middel aangereikt om dat te wegen.</p>
+      <p>Waar de inleiding gezondheidsrisico's opsomt, gaat het snel van verband naar oorzaak. Slaaptekort hangt samen met diabetes, hart- en vaatziekten en dementie, maar de opsomming in dit boek leest als een lijst gevolgen. Dat verhoogt de inzet en daarmee de spanning bij precies de lezer die al wakker ligt van het niet slapen.</p>
+      <p>Ten slotte legt het boek het probleem consequent bij de lezer neer. Wie de slaapkillers laat staan, wie geen support team optuigt, wie de challenge niet volhoudt, krijgt de uitkomst die daarbij hoort. Slaapapneu, restless legs, ploegendienst, ziekte, medicatie en een huilende baby komen in dat kader nauwelijks in beeld, terwijl daar de gevallen zitten waarin een slaapdagboek en een affirmatie niets uitrichten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij hoofdstuk vier: kies een vaste opstatijd voor alle dagen van de week en houd die enkele weken aan.</li>
+        <li>Loop de slaapkamer één keer volledig na op temperatuur, licht, geluid en apparatuur, en laat het daarna met rust.</li>
+        <li>Houd het slaapdagboek uit bijlage twee bij voordat er iets wordt veranderd, zodat er een uitgangspunt ligt.</li>
+        <li>Voer per week hooguit drie veranderingen door, zoals de challenge voorschrijft.</li>
+        <li>Sla het gedeelte over detoxen en elektrosmog over als daar geen aanwijzing voor is; het kost geld en levert geen aantoonbaar effect.</li>
+        <li>Ga bij snurken, ademstops overdag of slaperigheid ondanks voldoende uren eerst naar een arts, want dat is geen kwestie van mindset.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands geschreven, met de ondertitel <i>Praktische lifestyle-principes voor je beste nachtrust ooit</i>. Verschenen bij Van Duuren Media, 2018, 208 blz., ISBN 9789462960930, met een voorwoord van psycholoog Albert Sonnevelt. Later kwam een geheel geactualiseerde editie uit onder ISBN 9789462962088, naast een e-boek en een luisterboek. Vertalingen zijn er niet.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Floris Wouterson is slaapexpert en slaapcoach en werkte daarvoor jaren in de beddenbranche. Hij richt zich op ondernemers, sporters en managers, en behandelt slaap als de voorwaarde waaronder de rest van hun dag pas gaat werken.</p><p>Het boek telt zeven hoofdstukken en volgt een vaste volgorde: eerst de overtuigingen over slaap, dan het bed, dan de slaapkamer, dan de routines, en pas daarna voeding, darmen, beweging en ontspanning. Elk hoofdstuk sluit af met key points, en achterin staan een slaapdagboek en een challenge van eenentwintig dagen.</p><p>Wouterson meldt in de inleiding dat hij geen arts is. Hij noemt zichzelf slaapexpert, veellezer, coach en ondernemer, en presenteert het boek als de praktische samenvatting van wat hij in twintig jaar heeft verzameld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>slaap</li><li>leefstijl</li><li>gewoontes</li><li>prestaties</li><li>voeding</li><li>matras</li><li>ontspanning</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker levert de wetenschappelijke onderbouwing die Wouterson bewust weglaat, en is meteen het boek waartegen zijn cijfers te leggen zijn.</li>
+          <li value="329"><a href="329.html">The Circadian Code</a>. Panda behandelt dezelfde nachtrust via de biologische klok en het tijdstip van eten, en vult daarmee het hoofdstuk over voeding aan.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear beschrijft precies het mechanisme waarop de challenge van eenentwintig dagen steunt: kleine veranderingen die tot gewoonte worden.</li>
+          <li value="1899"><a href="1899.html">De hormoonfactor</a>. Moorman legt hetzelfde verband tussen slaap, voeding en hormonen, maar dan met de hormoonhuishouding als vertrekpunt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

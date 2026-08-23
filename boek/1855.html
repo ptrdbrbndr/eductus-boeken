@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Move Your DNA &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bowman stelt dat gezondheidsklachten van het bewegingsapparaat en een aanzienlijk deel van wat welvaartsziekten heet, niet voortkomen uit te weinig…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1855">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1855 &middot; Brein en lichaam</p>
+    <h1>Move Your DNA</h1>
+    <p class="lede">Katy Bowman, 2014</p>
+    <p class="stats">
+      <span><b>1753</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1855"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bowman stelt dat gezondheidsklachten van het bewegingsapparaat en een aanzienlijk deel van wat welvaartsziekten heet, niet voortkomen uit te weinig sporten maar uit een te eenvormig belastingspatroon. Cellen veranderen van vorm en gedrag onder de krachten die op hen worden uitgeoefend, en die krachten volgen uit de standen die een lichaam gedurende de dag aanneemt. Een uur inspanning met een hoge hartslag levert een smalle reeks belastingen op en repareert de andere drieëntwintig uur niet. Wat een lichaam nodig heeft is variatie in belasting over de hele dag, verkregen door meubels, schoenen en gewoontes te veranderen, en niet door er een oefensessie bovenop te leggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Denken: de ziekte van gevangenschap</h3>
+      <p>Bowman opent met dieren in dierentuinen. Een orka in gevangenschap krijgt een omklappende rugvin, een verschijnsel dat in het wild vrijwel niet voorkomt. Het dier krijgt goed voer en medische zorg; wat het niet krijgt is de omgeving waarin zijn lichaam is ontstaan.</p>
+      <p>Die vergelijking loopt door het hele boek. De moderne mens leeft volgens haar in een zelfgebouwde dierentuin waarin stoelen, schoenen, vloeren, auto's en beeldschermen de vorm van het lichaam bepalen. De klachten die daaruit volgen noemt zij ziekten van gevangenschap.</p>
+      <h3>Belasting, cellen en het woord DNA</h3>
+      <p>Het tweede hoofdstuk legt mechanotransductie uit: het proces waarbij een cel een mechanische kracht omzet in een biochemische reactie. Dat is gevestigde celbiologie, met bot als bekendste voorbeeld, waar de aanmaak en afbraak van weefsel zich richten naar de belasting.</p>
+      <p>Bowman rekt dat uit naar het hele lichaam. Elke stand die iemand aanneemt, van de hoek van de heup tot de plaats van de schouderbladen, bepaalt welke cellen belast worden en welke niet. De titel verwijst naar die gedachte: het gaat om de omgeving waarin genen tot uiting komen, niet om de genen zelf.</p>
+      <p>Zij introduceert daarbij het onderscheid tussen belastingsprofiel en beweging. Twee mensen die dezelfde afstand lopen kunnen volstrekt verschillende krachten op hun weefsels zetten, afhankelijk van schoeisel, ondergrond, staplengte en houding.</p>
+      <h3>Het verschil tussen sporten en bewegen</h3>
+      <p>Hier zet Bowman haar centrale onderscheid neer. Sport behandelt zij als een aanvulling met een smal profiel, vergelijkbaar met het slikken van vitaminepillen bij een eenzijdig eetpatroon. Het beweegdieet, de optelsom van alle belastingen over een dag, is wat er werkelijk toe doet.</p>
+      <p>Zij wijst erop dat een uur op de crosstrainer weliswaar energie verbruikt, maar het lichaam gedurende dat uur in ongeveer één vorm houdt. De rest van de dag zit iemand. Het patroon is dan eenvormig, hoe zwaar de sessie ook was.</p>
+      <p>In een apart hoofdstuk betwijfelt zij of gericht duurtrainen nodig is wanneer iemand de hele dag in beweging is. Haar voorstel is dat een groot aantal uren wandelen op lage intensiteit hetzelfde bereikt, en het weefsel bovendien gevarieerder belast.</p>
+      <h3>Bewegen: voeten, zitten en staan</h3>
+      <p>Het tweede deel gaat gewoonte voor gewoonte langs het lichaam. Zij begint bij de voeten en behandelt schoenen als een soort gipsverband: een stijve zool en een verhoogde hiel houden de voet in één stand en nemen het werk over van spieren die daardoor niet meer belast worden. De overgang naar platte, buigzame schoenen moet volgens haar langzaam gaan, omdat weefsel tijd nodig heeft om zich aan te passen.</p>
+      <p>Bij zitten verlegt zij de vraag. Het probleem is volgens haar niet de stoel op zich maar het feit dat er telkens dezelfde stoel is; op de grond zitten in wisselende houdingen levert een reeks verschillende belastingen op. Zij waarschuwt in hetzelfde hoofdstuk tegen het sta-bureau als het bij één stand blijft.</p>
+      <p>Het hoofdstuk over de armen gaat over wat er gebeurt wanneer schouders en handen alleen nog het toetsenbord bedienen. Hangen aan een stang komt terug als de eenvoudigste manier om de schoudergordel op trek te belasten.</p>
+      <h3>Lopen, rusten en het bekken</h3>
+      <p>Lopen krijgt een eigen hoofdstuk met aandacht voor waar de voet neerkomt, hoe ver de heup strekt en waarom het verschil maakt of iemand op vlak asfalt of op oneffen grond loopt. Bowman pleit voor grote aantallen stappen op wisselende ondergrond.</p>
+      <p>Het hoofdstuk over rusten stelt dat ook stilzitten en slapen belastingen zijn. Zij bespreekt hoeveel uur mensen doorbrengen in bedden en banken die het lichaam in één vorm ondersteunen.</p>
+      <p>Het laatste hoofdstuk van dit deel gaat over de bekkenbodem. Bowman betoogt dat de gebruikelijke oefeningen daarvoor de spiergroep aanspannen zonder de omgeving te veranderen, en dat de stand van het bekken en het gebruik van de heupen daar meer aan doen.</p>
+      <h3>Meer bewegen: het programma</h3>
+      <p>Het derde deel bestaat uit houdingscontroles, oefenreeksen in drie niveaus en aanwijzingen voor het wandelen. De oefeningen zijn geen krachttraining maar herstellende bewegingen die weefsels in standen brengen die in het dagelijks leven zijn weggevallen.</p>
+      <p>De opzet is niet die van een schema van zes weken. Bowman geeft aan waar iemand kan beginnen en laat de volgorde grotendeels aan de lezer, met de aanwijzing dat de aanpassing traag moet verlopen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Mechanotransductie</td><td>Het proces waarbij een cel een mechanische kracht omzet in een chemisch signaal en daarop haar gedrag aanpast.</td></tr>
+          <tr><td class="term">Belastingsprofiel</td><td>De verdeling van krachten over de weefsels die uit een bepaalde beweging of houding volgt; twee gelijk ogende bewegingen kunnen sterk verschillende profielen opleveren.</td></tr>
+          <tr><td class="term">Beweegdieet</td><td>De optelsom van alle bewegingen en houdingen over een dag, door Bowman behandeld naar het model van een voedingspatroon.</td></tr>
+          <tr><td class="term">Bewegingsvitamines</td><td>Haar aanduiding voor gerichte sportsessies die een tekort aan gevarieerde belasting moeten aanvullen zonder de oorzaak weg te nemen.</td></tr>
+          <tr><td class="term">Ziekten van gevangenschap</td><td>Klachten die volgens haar ontstaan doordat een lichaam leeft in een omgeving die de vorm ervan vastlegt, naar het voorbeeld van dieren in dierentuinen.</td></tr>
+          <tr><td class="term">Gipsverband</td><td>Haar beeld voor alles wat een lichaamsdeel in één stand houdt, waaronder schoenen met stijve zolen, stoelen en autostoelen.</td></tr>
+          <tr><td class="term">Natuurlijke beweging</td><td>Het geheel aan handelingen waaronder lopen, hurken, dragen, klimmen en hangen, dat het menselijk lichaam in grote hoeveelheden uitvoerde voordat meubels en machines dat werk overnamen.</td></tr>
+          <tr><td class="term">Aanpassingstijd</td><td>De periode die pezen, banden en botten nodig hebben om zich aan een nieuw belastingspatroon aan te passen, in haar boek de reden om elke verandering langzaam door te voeren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het fundament onder het boek is echte celbiologie. Dat weefsel zich naar belasting richt, is voor bot vastgelegd sinds de negentiende eeuw en sindsdien voor kraakbeen, pezen en spieren bevestigd. Bowman heeft een opleiding in de biomechanica en de tweede druk bevat een literatuuropgave.</p>
+      <p>Ook de praktische kern staat er goed voor. Onderzoek naar langdurig zitten laat zien dat totale zittijd samenhangt met sterfte, ook bij mensen die daarnaast sporten, en dat het onderbreken van zitperiodes verschil maakt. Onderzoek naar dagelijkse stappen laat een verband zien tussen aantal stappen en sterfterisico dat bij enkele duizenden stappen al inzet. Dat ondersteunt haar advies om de hele dag door in beweging te zijn.</p>
+      <p>De sprong van cel naar mens is minder goed onderbouwd. Dat een cel op belasting reageert, betekent niet dat het veranderen van meubilair en schoeisel de uitkomsten oplevert die zij beschrijft. Bowman redeneert van mechanisme naar aanbeveling zonder dat er onderzoek is waarin haar programma is vergeleken met een ander programma of met niets doen.</p>
+      <p>Het beeld van het voorouderlijke bewegingspatroon is een aanname en geen meting. Metingen bij nog levende jager-verzamelaars, zoals het werk van Herman Pontzer bij de Hadza, laten inderdaad veel meer beweging zien dan bij westerse volwassenen, maar ook dat het totale energieverbruik daar niet hoger ligt. Het verleden waaraan het heden wordt afgemeten, is in het boek eerder geconstrueerd dan gedocumenteerd.</p>
+      <p>Voor blootsvoets lopen en minimale schoenen is het bewijs verdeeld. Er is onderzoek dat wijst op sterkere voetspieren na een periode in minimale schoenen, en er is onderzoek dat een verhoogd risico op botreacties in de middenvoet laat zien bij te snelle overgang. Bowman waarschuwt zelf uitdrukkelijk voor dat laatste, wat haar behandeling van dit onderwerp zorgvuldiger maakt dan die van menig auteur in dit genre.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De titel belooft meer dan het boek levert. Wat er staat gaat over belasting van weefsel, en het woord DNA voegt daaraan niets toe behalve suggestie. Bowman gebruikt het als beeld voor de omgeving waarin genen werken, maar wie een uiteenzetting over epigenetica verwacht, vindt die niet.</p>
+      <p>Het onderscheid tussen sporten en bewegen is deels een kwestie van definitie. Dat het bewijs voor gestructureerde inspanning en voor betere conditie stevig is en samenhangt met een lager sterfterisico, laat Bowman grotendeels onbesproken. Haar hoofdstuk waarin zij duurtraining ter discussie stelt, is het zwakst onderbouwde van het boek: het staat tegenover een omvangrijke literatuur waarin hogere conditie samengaat met langer leven, en zij gaat daar niet op in.</p>
+      <p>Het programma is nooit onderzocht. Er zijn geen studies waarin deelnemers haar oefeningen deden en na een jaar met een controlegroep werden vergeleken. Voor een boek dat zijn gezag uit de wetenschap haalt, is dat een gat.</p>
+      <p>De aanbevelingen vragen zeggenschap over de eigen omgeving. Wie een lopende band bedient, in een keuken staat of acht uur achter een balie zit, kan zijn stoel niet vervangen door de vloer en zijn schoeisel niet zelf kiezen. Bowman schrijft voor lezers die hun dag kunnen inrichten, en zegt dat niet.</p>
+      <p>Wat het boek onderscheidt van de rest van het genre is de terughoudendheid over resultaat. Bowman belooft geen gewichtsverlies en geen genezing, en drukt er meermalen op dat elke verandering traag moet gaan omdat weefsel tijd nodig heeft. Dat maakt het bruikbaar naast en niet in plaats van gewone beweegadviezen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Tel een week lang de uren waarin je lichaam in vrijwel dezelfde stand staat, en vergelijk dat met de uren waarin je varieert.</li>
+        <li>Verwissel niet je schoenen in één keer; bouw de tijd in platte, buigzame schoenen over maanden op.</li>
+        <li>Zit een deel van de avond op de grond en wissel daarbij van houding, in plaats van de stoel te vervangen door een sta-bureau met één stand.</li>
+        <li>Voeg wandelen toe aan wat je al doet, op wisselende ondergrond en niet alleen op asfalt.</li>
+        <li>Hang een keer per dag aan een stang of een balk, met de voeten aan de grond als dat nodig is.</li>
+        <li>Behandel het boek als aanvulling op gewone beweegrichtlijnen en niet als vervanging daarvan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Move Your DNA: Restore Your Health Through Natural Movement</i> (Propriometrics Press, Sequim, Washington, 2014). De uitgebreide tweede druk uit 2017 telt xvi en 301 blz. met literatuuropgave en register (ISBN 9781943370108). Van Bowman is geen Nederlandse vertaling van deze titel; wel verscheen haar <i>Whole Body Barefoot</i> in het Nederlands als <i>Barefoot. Sterke voeten voor een gezond lijf</i> in de vertaling van Ruth Langemeijer bij Gibbon Uitgeefagentschap, 2016 (159 blz., ISBN 9789491363702). Haar overige titels, waaronder <i>Movement Matters</i> en <i>Rethink Your Position</i>, zijn in Nederland alleen in het Engels verkrijgbaar.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Katy Bowman is biomechanicus en leidt het instituut Nutritious Movement. Haar stelling is dat sporten en bewegen niet hetzelfde zijn. Een uur in de sportschool verandert weinig aan de tweeëntwintig uur waarin het lichaam vrijwel dezelfde vorm aanneemt: zittend, in schoenen met een hak, met de handen voor het lichaam.</p><p>Zij bouwt dat op vanaf het celniveau. Cellen reageren op de mechanische krachten die op hen inwerken, en die krachten worden bepaald door de vorm waarin een lichaam zich bevindt. Wie zijn lichaam dag in dag uit in dezelfde standen zet, belast telkens dezelfde cellen en laat de rest onbelast.</p><p>Het boek bestaat uit drie delen: een uitleg van de biomechanica, een deel over het aanpassen van de dagelijkse houdingen en gewoontes, en een reeks oefeningen en houdingscontroles in drie moeilijkheidsgraden. Bowman vergelijkt de moderne mens daarbij herhaaldelijk met een dier in gevangenschap.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beweging</li><li>biomechanica</li><li>houding</li><li>lopen</li><li>schoenen</li><li>zitten</li><li>belasting</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="84"><a href="84.html">Laat je hersenen niet zitten</a>. Scherder verdedigt hetzelfde punt over de kosten van stilzitten, maar dan vanuit het brein en met verwijzing naar onderzoek.</li>
+          <li value="823"><a href="823.html">Mirage of Health: Utopias, Progress and Biological Change</a>. Dubos analyseert de neiging om gezondheid te zien als terugkeer naar een natuurlijke staat, en levert het tegenwicht dat Bowmans voorouderlijke ijkpunt mist.</li>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. Nestor voert een verwant betoog over een lichaamsfunctie die door de moderne omgeving zou zijn afgeleerd, met dezelfde mengeling van goed en zwak bewijs.</li>
+          <li value="316"><a href="316.html">The 4-Hour Body</a>. Ferriss staat aan de andere kant van Bowmans onderscheid: zo min mogelijk tijd met zo hoog mogelijke prikkel, waar zij de hele dag met lage prikkels wil vullen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

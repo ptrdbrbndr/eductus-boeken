@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dear Good Morning &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Jong stelt dat de kwaliteit van een dag grotendeels in het eerste half uur wordt bepaald, en dat een goede ochtend geen kwestie van karakter of aanleg…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1822">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1822 &middot; Gewoontes en denken</p>
+    <h1>Dear Good Morning</h1>
+    <p class="lede">Lienke de Jong, 2020</p>
+    <p class="stats">
+      <span><b>1439</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1822"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Jong stelt dat de kwaliteit van een dag grotendeels in het eerste half uur wordt bepaald, en dat een goede ochtend geen kwestie van karakter of aanleg is maar van een reeks kleine handelingen die iedereen kan leren. Haar redenering loopt in vier schakels: wie beter slaapt kan eerder op, wie eerder op kan heeft tijd om te bewegen, wie beweegt voelt zich beter, en dat gevoel maakt het de volgende ochtend makkelijker. De stelling is daarmee dat de ochtendroutine een zichzelf versterkende kring is die aan de slaapkant begint en niet bij wilskracht. Wat zij daaraan toevoegt is dat de eerste stap belachelijk klein mag zijn, omdat het aanhouden zwaarder weegt dan de omvang.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>De Jong, geboren in 1991 en opgeleid aan de Hogeschool voor de Kunsten in Utrecht, begon Dear Good Morning in 2014 als een openbaar dagboek over haar pogingen om eerder op te staan. Dat groeide uit tot een platform met dagelijkse berichten, een podcast en later dit boek.</p>
+      <p>Die herkomst bepaalt de vorm. Het boek is geschreven als een reeks korte stukken met veel voorbeelden uit haar eigen ochtenden en uit die van volgers, en het spreekt de lezer rechtstreeks aan. Wie de berichten van het platform kent, herkent een deel van het materiaal.</p>
+      <h3>Deel een: beter slapen</h3>
+      <p>Het eerste deel behandelt slaap als voorwaarde voor alles wat daarna komt. Het gaat over slaapduur en slaapkwaliteit, over vaste tijden, over wat er misgaat bij ploegendiensten en over de vraag of een middagdutje helpt. Het deel verwijst naar slaaponderzoek en sluit af met een plan van aanpak.</p>
+      <p>De volgorde is het redeneerpunt: wie eerder wil opstaan zonder eerder naar bed te gaan, verkort zijn nacht en houdt het niet vol. Het boek begint daarom niet bij de wekker maar bij de avond ervoor.</p>
+      <p>Praktisch komt het neer op een vast tijdstip van naar bed gaan, een donkere en koele slaapkamer en het wegleggen van de telefoon. Nieuw is daar niets aan; de opbrengst zit in de volgorde waarin het boek die adviezen aanbiedt en in de nadruk op regelmaat boven duur.</p>
+      <h3>Deel twee: eerder opstaan</h3>
+      <p>Het tweede deel gaat over het moment zelf. De kern is dat een kwartier eerder al genoeg is om een gejaagde ochtend om te zetten in een rustige, en dat voorbereiding het verschil maakt: kleren klaarleggen, de wekker uit handbereik, van tevoren besluiten wat er gaat gebeuren.</p>
+      <p>De regel van vijftien seconden is de kleinste eenheid in het boek: wie na het afgaan van de wekker binnen die tijd overeind komt, hoeft geen besluit meer te nemen. Het onderhandelen met zichzelf is bij De Jong de plek waar de ochtend meestal misgaat.</p>
+      <h3>Deel drie: fitter worden</h3>
+      <p>Het derde deel gaat over bewegen. De Jong beschrijft niet alleen de lichamelijke opbrengst maar ook de stemmings- en de sociale kant: samen sporten houdt langer stand dan alleen sporten. Het advies is opnieuw om klein te beginnen, desnoods met één minuut, en pas daarna uit te breiden.</p>
+      <p>Zij houdt de drempel bewust laag door naar gratis trainingen op internet te verwijzen en door een sportschoolabonnement niet als voorwaarde te stellen. Wat telt is dat het bewegen op een vast moment gebeurt, zodat het geen dagelijkse keuze meer is.</p>
+      <h3>Deel vier: gemotiveerd blijven</h3>
+      <p>Het laatste deel gaat over volhouden. De Jong behandelt motivatie als iets dat volgt op gedrag in plaats van eraan vooraf te gaan, en zij zet de opbrengst van de eerste drie delen bij elkaar tot één optelsom van goed slapen, bewegen en de voldoening van vroeg op zijn.</p>
+      <p>Praktisch komt het neer op bijhouden en herbeginnen. Het boek rekent op terugval en behandelt een gemiste ochtend als een gebeurtenis en niet als een oordeel over de lezer.</p>
+      <h3>Invulpagina's en verhalen</h3>
+      <p>Door het boek heen staan pagina's om in te vullen: slaapregistratie, evaluatie van de ochtend, opschrijven waarom iemand dit eigenlijk wil. Daarmee is het half leesboek, half werkboek, en het latere losse invulboek bouwt daarop voort.</p>
+      <p>De verhalen van volgers dienen als bewijsvoering in de vorm van voorbeelden. Zij laten zien dat de methode bij verschillende levens werkt, en zij zijn tegelijk het zwakste onderdeel van de onderbouwing, omdat alleen de gevallen die het volhielden aan het woord komen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ochtendroutine</td><td>Een vaste volgorde van handelingen na het opstaan, bedoeld om het aantal beslissingen op een moment van weinig wilskracht te beperken.</td></tr>
+          <tr><td class="term">De regel van vijftien seconden</td><td>Binnen vijftien seconden na het afgaan van de wekker overeind komen, zodat er geen ruimte ontstaat om met zichzelf te onderhandelen.</td></tr>
+          <tr><td class="term">Eén minuut sporten</td><td>De kleinst denkbare beweegafspraak, bedoeld als startpunt waarvan de omvang later vanzelf groeit.</td></tr>
+          <tr><td class="term">Plan van aanpak</td><td>Het vaste slot van elk deel, waarin de lezer de besproken adviezen tot een eigen afspraak omzet.</td></tr>
+          <tr><td class="term">Avondroutine</td><td>De voorbereiding van de volgende ochtend de avond ervoor, bij De Jong de plek waar een goede ochtend feitelijk begint.</td></tr>
+          <tr><td class="term">Slaapschuld</td><td>Het tekort dat ontstaat door structureel korter te slapen dan nodig, en dat in het weekend niet volledig is in te halen.</td></tr>
+          <tr><td class="term">Dear Good Morning</td><td>Het platform dat De Jong in 2014 begon en dat het boek zijn titel, zijn voorbeelden en zijn publiek levert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing van het boek is voor het grootste deel ervaringskennis: die van de schrijfster zelf en die van de volgers van haar platform. Dat is eerlijk gebracht, want zij presenteert zich niet als onderzoeker maar als iemand die het jarenlang op zichzelf heeft uitgeprobeerd en daar publiek verslag van deed.</p>
+      <p>Het slaapdeel verwijst naar onderzoek, bijvoorbeeld waar het over ploegendienst en over dutjes gaat. Welk onderzoek dat precies is, blijkt uit de besprekingen niet, en het boek is niet ingericht met noten of een bronnenlijst zoals een populairwetenschappelijk boek dat zou hebben.</p>
+      <p>De adviezen zelf staan er niet slecht voor. Vaste bedtijden, voldoende slaapduur en dagelijkse beweging horen tot de best onderbouwde aanbevelingen uit de leefstijlliteratuur, en het effect van bewegen op stemming is in vergelijkend onderzoek herhaaldelijk gevonden. Ook het advies om klein te beginnen sluit aan bij wat de gedragsliteratuur over gewoontevorming laat zien: de omvang van de eerste stap doet er minder toe dan de regelmaat.</p>
+      <p>Waar de onderbouwing dun wordt, is bij de koppeling tussen vroeg opstaan en succes die de ondertitel maakt. Dat succesvolle mensen vaak vroeg opstaan is een waarneming achteraf, en het chronotype van een mens ligt voor een deel biologisch vast. De Jong nuanceert dat zelf door te zeggen dat vijf uur nergens voor nodig is, maar de belofte in de titel blijft breder dan wat het boek waarmaakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek de moeilijkste gevallen buiten beschouwing laat. Wie slecht slaapt door pijn, zorgen, jonge kinderen of een slaapstoornis komt met kleren klaarleggen en vijftien seconden niet ver. Het boek richt zich op de gezonde lezer met een gewone werkweek, en het zegt dat te weinig hardop, waardoor iemand die het niet redt kan denken dat het aan zijn doorzettingsvermogen ligt.</p>
+      <p>De voorbeelden zijn geselecteerd. Verhalen van volgers die het volhielden bewijzen niet dat de methode werkt, omdat de mensen die afhaakten geen bijdrage insturen. Dat is geen verwijt aan de schrijfster, wel een reden om de opgetelde succesverhalen niet als steun te lezen.</p>
+      <p>Het boek overlapt sterk met het platform waaruit het voortkomt. Wie de dagelijkse berichten en de podcast al volgt, vindt hier vooral dezelfde stof geordend. Omgekeerd is die ordening juist de opbrengst: de vier delen staan in de volgorde waarin het werkt, en dat is op sociale media niet te vinden.</p>
+      <p>Tot slot is de aanspreektoon een kwestie van smaak. Het boek moedigt voortdurend aan, met hoofdletters, uitroepen en het opgewekte lexicon van het platform. Dat helpt lezers die dat prettig vinden over de drempel en jaagt lezers die dat niet prettig vinden binnen twintig bladzijden weg.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de avond: verzet de bedtijd voordat de wekker verzet wordt.</li>
+        <li>Kies één ochtendhandeling die in vijf minuten past en leg de spullen ervoor de avond ervoor klaar.</li>
+        <li>Houd twee weken bij hoe laat je naar bed ging, hoe je sliep en hoe de ochtend verliep, voordat er iets wordt veranderd.</li>
+        <li>Behandel een gemiste ochtend als een gemiste ochtend en herbegin de volgende dag zonder het plan bij te stellen.</li>
+        <li>Zoek bij aanhoudende slapeloosheid of ploegendienstklachten hulp die verder gaat dan een routineboek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Dear Good Morning: de succesformule om wél iedere dag fit en energiek op te staan</i>, uitgeverij Lev. van A.W. Bruna, Amsterdam, augustus 2020, 248 blz., ISBN 9789400512665. Het boek is oorspronkelijk Nederlands geschreven en is niet vertaald. Er verschenen een e-boek (ISBN 9789044979459), een luisterboek van ruim vier en een half uur (ISBN 9789046174036) en later een los invulboek, de <i>Dear Good Morning Journal</i>. De titel komt van het gelijknamige platform dat De Jong in 2014 als online dagboek over haar ochtendroutine begon.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lienke de Jong begon in 2014 een blog over haar eigen ochtenden en bouwde daar een platform omheen dat uitgroeide tot een van de bekendere vitaliteitsmerken in Nederland. Dit boek is de neerslag daarvan: een stappenplan om eerder, uitgeruster en met meer zin op te staan.</p><p>Het is opgebouwd in vier delen: beter slapen, eerder opstaan, fitter worden en gemotiveerd blijven. Elk deel eindigt met een plan van aanpak en met invulpagina's waarop de lezer slaap, ochtenden en voornemens kan bijhouden. Tussendoor staan verhalen van volgers van het platform.</p><p>De toon is die van een aanmoediging en niet van een voorschrift. De schrijfster benadrukt dat vijf uur opstaan nergens voor nodig is: vijftien minuten eerder is al winst, één minuut bewegen telt mee, en voor het uit bed komen hanteert zij een regel van vijftien seconden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ochtendroutine</li><li>gewoontes</li><li>slaap</li><li>bewegen</li><li>motivatie</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker levert de slaapwetenschap waarop het eerste deel van dit boek leunt, met de bronnen en de voorbehouden erbij.</li>
+          <li value="244"><a href="244.html">The 5 AM Club</a>. Sharma verkoopt hetzelfde onderwerp met de tegenovergestelde belofte, namelijk dat het om vijf uur moet gebeuren; het contrast maakt zichtbaar hoe weinig hard die tijdstippen zijn.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear behandelt het mechanisme achter de kleine eerste stap die De Jong aanraadt, en onderbouwt waarom regelmaat het van omvang wint.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veranderen voor luie mensen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Smit en Szapora stellen dat weerstand tegen verandering geen karakterfout is en ook geen kwestie van te weinig motivatie, maar het gevolg van de manier…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1907">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1907 &middot; Gewoontes en denken</p>
+    <h1>Veranderen voor luie mensen</h1>
+    <p class="lede">Paul Smit en Ayca Szapora, 2020</p>
+    <p class="stats">
+      <span><b>1505</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1907"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Smit en Szapora stellen dat weerstand tegen verandering geen karakterfout is en ook geen kwestie van te weinig motivatie, maar het gevolg van de manier waarop het brein met energie omgaat. Bekend gedrag verloopt via ingesleten banen en kost weinig; nieuw gedrag vraagt bewuste sturing en kost veel. Wie iets wil veranderen, bij zichzelf of in een organisatie, moet daarom niet harder duwen maar de kosten van de nieuwe handeling omlaag brengen. Het boek trekt die stelling door naar communicatie, leren, leidinggeven en leefstijl, en levert bij elk onderwerp werkvormen die op dat rekensommetje zijn gebaseerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt: een brein dat spaart</h3>
+      <p>Het boek opent met de vaststelling dat de hersenen in verhouding tot hun gewicht veel energie verbruiken en dat evolutie zuinigheid heeft beloond. Alles wat vaak genoeg gebeurt, verhuist daarom naar het automatische deel: fietsen, autorijden, de weg naar het werk, de manier waarop iemand in een vergadering reageert.</p>
+      <p>Verandering betekent dat een handeling terug moet naar het bewuste deel, dat langzamer werkt en meer vraagt. Wat mensen als luiheid of onwil beleven, is volgens de auteurs dat verschil in kosten. Zij gebruiken het woord lui in de titel dan ook zonder verwijt; het is de aanduiding van een ingebouwde neiging.</p>
+      <h3>Communiceren</h3>
+      <p>Het eerste toepassingshoofdstuk gaat over de vraag waarom een goed onderbouwde boodschap zo vaak niets verandert. Uitleg richt zich op het deel dat energie kost, terwijl gedrag uit het automatische deel komt. Wie iemand overtuigt, heeft daarmee alleen nog maar bereikt dat de ander het ermee eens is.</p>
+      <p>De werkvormen gaan over herhaling, over aansluiten bij wat iemand al doet, en over het verkleinen van de eerste stap tot iets dat nauwelijks moeite kost. Ook het omgekeerde komt aan bod: gedrag afleren door de omgeving zo te veranderen dat het oude gedrag meer inspanning vraagt.</p>
+      <h3>Functioneren en leren</h3>
+      <p>Twee hoofdstukken gaan over de eigen werkdag. Het eerste behandelt aandacht, onderbrekingen en het schakelen tussen taken, met het argument dat elk schakelmoment opnieuw energie kost en dat een dag vol korte onderbrekingen daarom uitputtender is dan een dag met een paar lange blokken.</p>
+      <p>Het tweede gaat over leren. De auteurs verzetten zich tegen leren dat prettig aanvoelt: wat gemakkelijk gaat, komt uit het automatische deel en levert weinig nieuws op. Zij pleiten voor herhalen met tussenpozen, voor fouten maken en voor het opzoeken van weerstand, en zetten dat af tegen opleidingen die vooral aangenaam moeten zijn.</p>
+      <h3>Verandermanagement</h3>
+      <p>Het hoofdstuk over organisaties is het uitgesprokenste deel van het boek. De gebruikelijke aanpak, een plan, een presentatie en een oproep om anders te gaan werken, faalt volgens de auteurs omdat hij op begrip mikt en niet op kosten. Zij bespreken de omgekeerde volgorde: begin met het gedrag, laat de overtuiging volgen.</p>
+      <p>Praktisch komt dat neer op het veranderen van de omgeving, van vergaderingen, formulieren, looproutes en standaardinstellingen, in plaats van van de mening van medewerkers. Wie iets zonder besluit kan doen, doet het; wie er een aanvraag voor moet invullen, laat het.</p>
+      <h3>Leiderschap en vernieuwing</h3>
+      <p>Twee hoofdstukken gaan over de rol van de leidinggevende. Aandacht, veiligheid en voorspelbaarheid verlagen volgens de auteurs de energiekosten van een team, terwijl onzekerheid en dreiging het bewuste deel bezet houden met iets anders dan het werk.</p>
+      <p>Bij vernieuwing komt Szapora het dichtst bij haar eigen vakgebied. Zij bespreekt dat nieuwe verbanden ontstaan wanneer de bewuste sturing even loslaat, en dat gerichte inspanning en afleiding elkaar daarbij nodig hebben. De werkvormen gaan over het scheiden van bedenken en beoordelen, en over het inbouwen van pauzes waarin niets hoeft.</p>
+      <h3>Leefstijl</h3>
+      <p>Het laatste hoofdstuk gaat over slaap, beweging, voeding en rust, als voorwaarden voor de energie die alle voorgaande hoofdstukken veronderstellen. De adviezen wijken niet af van wat in vergelijkbare boeken staat.</p>
+      <p>Het slot brengt de zeven onderwerpen terug tot dezelfde regel: maak de gewenste handeling goedkoper en de ongewenste duurder. Het boek eindigt daarmee waar het begon, wat de opbouw sluitend maakt en tegelijk laat zien hoe smal de basis is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het luie brein</td><td>De aanduiding van de auteurs voor de neiging van de hersenen om alles wat kan naar automatische verwerking te schuiven, om energie te sparen.</td></tr>
+          <tr><td class="term">Energieverbruik van gedrag</td><td>Het rekenkader van het boek: bekend gedrag kost weinig, nieuw gedrag kost veel, en verandering slaagt naar de mate waarin dat verschil kleiner wordt gemaakt.</td></tr>
+          <tr><td class="term">Automatische piloot</td><td>Het gedrag dat zonder bewuste sturing verloopt en dat volgens de auteurs het grootste deel van een werkdag beslaat.</td></tr>
+          <tr><td class="term">Gedrag voor overtuiging</td><td>De omkering die zij voorstellen bij verandertrajecten: eerst het gedrag mogelijk maken, dan de mening laten volgen, in plaats van andersom.</td></tr>
+          <tr><td class="term">Omgeving als hefboom</td><td>Het aanpassen van inrichting, standaardinstellingen en procedures, zodat het gewenste gedrag de weg van de minste weerstand wordt.</td></tr>
+          <tr><td class="term">Wenselijke moeite bij leren</td><td>Hun stelling dat leren dat vlot en prettig verloopt weinig blijft hangen, en dat herhaling met tussenpozen en fouten maken meer opleveren.</td></tr>
+          <tr><td class="term">Schakelkosten</td><td>Het verlies aan aandacht en energie bij elke overgang tussen taken, in het boek gebruikt als argument tegen een dag vol korte onderbrekingen.</td></tr>
+          <tr><td class="term">Loslaten om te bedenken</td><td>Het idee dat nieuwe verbanden ontstaan wanneer de bewuste sturing tijdelijk stopt, waardoor pauze en afleiding onderdeel van het werk worden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De grondslagen die het boek gebruikt bestaan. Dat gedrag met herhaling naar automatische verwerking verschuift, is in het hersenonderzoek goed vastgelegd. Dat schakelen tussen taken tijd en nauwkeurigheid kost, is in de cognitieve psychologie herhaaldelijk gemeten. Dat leren met tussenpozen en met moeite beter beklijft dan vlot doorlezen, hoort tot de best onderbouwde uitkomsten van het geheugenonderzoek.</p>
+      <p>Wat ontbreekt is de verbinding tussen die uitkomsten en de stellingen van het boek. Er staan geen noten en geen literatuurverwijzingen die per bewering te controleren zijn. De lezer moet afgaan op de aanduiding dat iets uit hersenonderzoek komt, zonder te kunnen nagaan uit welk onderzoek, bij hoeveel proefpersonen en met welke uitkomst.</p>
+      <p>De praktijkvoorbeelden komen uit het werk van de auteurs als spreker en adviseur, niet uit gecontroleerde proeven. Zij worden gebruikt als illustratie van een al ingenomen standpunt. Dat maakt ze aardig om te lezen en zwak als steun voor de stelling.</p>
+      <p>Szapora heeft wetenschappelijke publicaties op haar naam over creativiteit en probleemoplossen, en dat merk je aan het hoofdstuk over vernieuwing, dat behoedzamer is geformuleerd dan de rest. Smit is filosoof en spreker en schreef eerder een reeks boeken over bewustzijn en levenshouding; het populariserende register van het boek komt van zijn kant.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft het uitgangspunt zelf. Het energieverbruik van de hersenen is opvallend stabiel: het brein gebruikt ongeveer een vijfde van de energie in rust, en dat verandert bij denkwerk maar in geringe mate. Dat het brein energie spaart is dus eerder een beeldspraak dan een gemeten mechanisme, en de vraag of weerstand tegen verandering echt over energie gaat, blijft in het boek onbeantwoord. De beeldspraak werkt goed als geheugensteun en wordt hier behandeld als verklaring.</p>
+      <p>Het boek deelt de zwakte van het hele genre van Nederlandse breinboeken: gedrag verklaren met een verwijzing naar de hersenen voegt vaak niets toe aan de gedragsbeschrijving zelf. Dat iemand ergens tegenop ziet en dat er in zijn hersenen iets gebeurt zijn twee beschrijvingen van hetzelfde. De tweede geeft de eerste alleen meer gezag.</p>
+      <p>Rond wilskracht en zelfbeheersing is de bodem de laatste jaren verzakt. Het onderzoek naar de uitputting van wilskracht, lange tijd een steunpilaar onder dit soort adviezen, is in grote herhalingsstudies niet overeind gebleven. Het boek gaat daar niet op in, terwijl het denken in een beperkte voorraad energie er dicht tegenaan ligt.</p>
+      <p>De adviezen zijn nuttig en niet nieuw. Kleine stappen, koppelen aan bestaande gewoonten, de omgeving aanpassen, herhaling met tussenpozen: dat staat, met bronvermelding erbij, ook in de bekende buitenlandse boeken over dit onderwerp. Wat dit boek toevoegt is de Nederlandse toon en de toepassing op werksituaties.</p>
+      <p>De vorm van een lezing brengt haar eigen prijs mee. Honderdvierentachtig bladzijden met korte hoofdstukken en veel grappen lezen snel weg, maar er blijft weinig staan om op terug te vallen. Wie het boek als naslagwerk wil gebruiken, vindt geen register, geen literatuurlijst en geen overzicht per hoofdstuk.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies één gedraging en breng de eerste stap terug tot iets van minder dan een minuut, in plaats van het doel te verkleinen.</li>
+        <li>Hang de nieuwe handeling aan iets wat al dagelijks gebeurt, zodat het geheugen er niet aan te pas hoeft te komen.</li>
+        <li>Verander bij een verandertraject eerst de omgeving, de formulieren en de standaardinstellingen, en houd de toelichting kort.</li>
+        <li>Bundel het werk in blokken en tel het aantal onderbrekingen op een dag, voordat er aan de agenda wordt gesleuteld.</li>
+        <li>Zoek bij elke bewering die aan hersenonderzoek wordt toegeschreven zelf de bron erbij, want het boek levert die niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Veranderen voor luie mensen</i> (Spectrum, onderdeel van Unieboek | Het Spectrum, Amsterdam, 2020, 184 blz., ISBN 9789000372393), met daarnaast een e-book en een door de auteurs ingesproken luisterboek. Oorspronkelijk in het Nederlands geschreven; een vertaling is niet verschenen. Smit schreef eerder onder meer <i>Vrolijk filosoferen</i> en <i>Lang leve de crisis</i>; Szapora publiceerde tot dit boek vooral wetenschappelijke artikelen over creativiteit en probleemoplossen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Smit en Szapora vertrekken bij één gedachte: het brein is ingericht om energie te sparen, en verandering kost energie. Daaruit volgt volgens hen waarom voornemens stranden, waarom reorganisaties op weerstand stuiten en waarom uitleggen dat iets beter is zelden helpt.</p><p>Het boek werkt die gedachte uit over zeven onderwerpen: communiceren, functioneren, verandermanagement, leren, leiderschap, vernieuwing en leefstijl. Bij elk daarvan staan werkvormen die het energieverbruik van de verandering verlagen, bijvoorbeeld door de nieuwe handeling aan een bestaande gewoonte te koppelen of door de omgeving zo in te richten dat het oude gedrag meer moeite kost.</p><p>Szapora is neurowetenschapper en cognitief psycholoog, Smit filosoof en spreker. De toon is die van een lezing: korte hoofdstukken, veel voorbeelden, grappen tussendoor. De onderbouwing wordt in algemene termen aan hersenonderzoek ontleend en het boek heeft geen notenapparaat waarin dat te controleren valt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gedragsverandering</li><li>brein</li><li>gewoontes</li><li>verandermanagement</li><li>leiderschap</li><li>populaire neurowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear werkt dezelfde aanpak uit, kleine stappen en de omgeving als hefboom, met meer voorbeelden en met bronvermelding erbij.</li>
+          <li value="382"><a href="382.html">Willpower</a>. Baumeister en Tierney bouwen op het idee van een beperkte voorraad zelfbeheersing; hoe dat onderzoek later is vergaan, laat zien hoe voorzichtig het energiekader van Smit en Szapora gelezen moet worden.</li>
+          <li value="1680"><a href="1680.html">Wij zijn ons brein</a>. Swaab staat voor de Nederlandse breinpopularisering waar dit boek in past, met dezelfde vraag of een verwijzing naar de hersenen een verklaring oplevert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intimiteit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Verhaeghe betoogt dat de gangbare scheiding tussen geest en lichaam een misvatting is en dat de werkelijke breuklijn ergens anders loopt: tussen mij en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1830">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1830 &middot; Brein en lichaam</p>
+    <h1>Intimiteit</h1>
+    <p class="lede">Paul Verhaeghe, 2018</p>
+    <p class="stats">
+      <span><b>1552</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1830"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Verhaeghe betoogt dat de gangbare scheiding tussen geest en lichaam een misvatting is en dat de werkelijke breuklijn ergens anders loopt: tussen mij en mezelf, tussen de mens en de verwachtingen van de samenleving die hij heeft ingeslikt en voor eigen wil aanziet. Intimiteit met een ander is volgens hem pas mogelijk voor wie zich met het eigen lichaam heeft verzoend, en juist die verzoening wordt onder de huidige omstandigheden verhinderd door een aanhoudende boodschap dat het nooit goed genoeg is. Vandaar zijn pleidooi voor een andere zelfzorg, die zowel via het spreken als via het lichaam werkt. Daartegenover valt in te brengen dat hij de vorige eeuwen te snel als eenduidig neerzet en dat zijn diagnose van het heden op indruk berust waar zij op meting zou moeten rusten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Sluitstuk van een reeks</h3>
+      <p>Na <i>Identiteit</i>, over hoe de mens wordt wat de omgeving van hem maakt, en <i>Autoriteit</i>, over de vraag wie er nog gezag heeft, komt Verhaeghe uit bij de vraag hoe mensen nog nabij kunnen zijn. Hij merkt op dat de drie boeken achteraf een reeks vormen die hij niet vooraf zo bedacht heeft.</p>
+      <p>De lijn tussen de drie is dat de mens bij hem geen kern heeft die van binnen zit en naar buiten treedt. Wat iemand is, ontstaat in de verhouding tot anderen, en die verhouding wordt gestuurd door wat de tijd voor normaal houdt. Intimiteit is in dat licht een maatschappelijke kwestie.</p>
+      <h3>Ben je een lichaam of heb je er een</h3>
+      <p>Het uitgangspunt is de tweedeling die het westerse denken sinds Descartes met zich meedraagt: een geest die een lichaam bezit en bestuurt. Verhaeghe wijst die voorstelling af. Wat mensen als de strijd tussen hoofd en lijf ervaren, is volgens hem de strijd tussen wat zij zelf willen en wat zij hebben overgenomen van hun opvoeding en hun omgeving.</p>
+      <p>Dat verzet zich tegen zowel de louter psychologische als de louter lichamelijke benadering van klachten. Wie zijn lichaam als instrument behandelt dat bijgesteld moet worden, houdt de scheiding in stand die het probleem veroorzaakte.</p>
+      <h3>Wie het lichaam zijn normen oplegt</h3>
+      <p>Verhaeghe loopt de instanties langs die door de eeuwen heen voorschreven wat met het lichaam mocht en moest: de godsdienst, de opvoeding, de geneeskunde, politieke bewegingen, de reclame en nu het scherm. Zijn punt is dat de inhoud van de voorschriften telkens verandert terwijl de dwang blijft.</p>
+      <p>Het verschil met vroeger zit in de verpakking. De kerk verbood openlijk; de huidige norm komt binnen als vrije keuze en als zelfontplooiing, waardoor wie niet voldoet zichzelf de schuld geeft in plaats van het voorschrift te betwisten. Dat maakt de dwang moeilijker te weerstaan dan een verbod.</p>
+      <h3>Schaamte en de nieuwe volmaaktheid</h3>
+      <p>De schermen waarop mensen zichzelf en elkaar bekijken, spiegelen voortdurend hoe iemand eruit zou moeten zien. Verhaeghe waarschuwt dat een afwijkende volmaaktheid daarmee de nieuwe maat wordt: meisjes die calorieën tellen, mannen die hun lichaam als project bijhouden, en mensen die opbranden nadat zij jarenlang geprezen zijn om hun harde werken.</p>
+      <p>Waar het lichaam vroeger taboe was, is het vandaag nooit goed genoeg. In beide gevallen is de uitkomst schaamte, en schaamte is volgens hem het tegendeel van de voorwaarde voor intimiteit, omdat zij dwingt tot verbergen.</p>
+      <h3>Opvoeding, hechting en trauma</h3>
+      <p>Een deel van het boek gaat over hoe de vroegste omgang met het lichaam de latere vertrouwdheid bepaalt: hoe een kind wordt aangeraakt, gevoed en gerustgesteld, en wat er gebeurt als dat misgaat. Verhaeghe put daarbij uit zijn klinische praktijk en uit de psychoanalytische traditie waarin hij is opgeleid.</p>
+      <p>Trauma neemt bij hem de vorm aan van een breuk in het vertrouwen op het eigen lichaam. Herstel loopt dan ook niet uitsluitend via inzicht; wie alleen begrijpt wat hem is overkomen, is daarmee nog niet thuis in zijn eigen huid.</p>
+      <h3>Zelfzorg van boven en van onder</h3>
+      <p>Het voorstel dat het boek doet, is een zelfzorg die twee richtingen combineert. Van boven af het gesprek, de therapie, het onderzoeken van wat iemand van zijn omgeving heeft overgenomen. Van onder af het lichaam zelf: meditatie, yoga, ademhaling, beweging, aanraking.</p>
+      <p>Verhaeghe zet die zelfzorg nadrukkelijk af tegen wat er onder die naam wordt verkocht. Verzorging die op een volmaakt lichaam mikt, werkt averechts, omdat zij de norm bedient die de schaamte veroorzaakte. Zelfzorg is bij hem eerder een vorm van ethiek dan van onderhoud, en zij heeft een sociale kant: zij loopt uit op de vraag hoe wij met elkaar willen leven.</p>
+      <h3>Duurzame intimiteit</h3>
+      <p>De vraag waarmee het boek opende, waarom een intieme liefdesrelatie gelukkig maakt en toch zo moeilijk te vinden en vol te houden is, krijgt aan het eind een antwoord dat weinig geruststelling biedt. Wie zichzelf niet verdraagt, kan zich niet laten zien, en zonder zich te laten zien is er geen nabijheid.</p>
+      <p>Verhaeghe eindigt daarom niet bij relatieadvies maar bij de omstandigheden waaronder mensen elkaar tegenkomen. De remedie ligt in zijn voorstelling deels buiten het paar.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Intimiteit</td><td>Bij Verhaeghe eerst de verhouding tot het eigen lichaam en pas daarna de nabijheid met een ander.</td></tr>
+          <tr><td class="term">Mij tegenover mezelf</td><td>De werkelijke breuklijn volgens dit boek, tussen wat iemand wil en wat hij van zijn omgeving heeft overgenomen.</td></tr>
+          <tr><td class="term">Belichaming</td><td>Het gegeven dat iemand zijn lichaam is in plaats van het te bezitten, tegenover de scheiding van geest en lichaam.</td></tr>
+          <tr><td class="term">Schaamte</td><td>Het gevoel niet te voldoen aan de norm voor het eigen lichaam, dat volgens Verhaeghe tot verbergen dwingt en intimiteit blokkeert.</td></tr>
+          <tr><td class="term">Vervreemding</td><td>Het van zichzelf losraken doordat de eigen maat wordt overgenomen van beelden en verwachtingen van buiten.</td></tr>
+          <tr><td class="term">Valse zelfzorg</td><td>Verzorging die op een volmaakt lichaam mikt en daarmee de norm bedient die de schaamte veroorzaakt.</td></tr>
+          <tr><td class="term">Zorg van boven af</td><td>De weg via het spreken en het inzicht: gesprek, therapie, het onderzoeken van wat iemand heeft ingeslikt.</td></tr>
+          <tr><td class="term">Zorg van onder af</td><td>De weg via het lichaam: adem, beweging, meditatie, aanraking, bedoeld naast en niet in plaats van het gesprek.</td></tr>
+          <tr><td class="term">Norm als vrije keuze</td><td>Het verschijnsel dat het huidige voorschrift zich als eigen wens aandient, waardoor het moeilijker te betwisten is dan een verbod.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op drie soorten materiaal. Het eerste is de behandelkamer: Verhaeghe is klinisch psycholoog en gebruikt gevallen uit zijn praktijk om te laten zien hoe schaamte, hechting en klacht met elkaar samenhangen. Het tweede is de psychoanalytische traditie waarin hij geschoold is, met Freud en Lacan als achtergrond. Het derde is cultuurkritiek: waarneming van reclame, sociale media, gezondheidscultuur en arbeidsverhoudingen.</p>
+      <p>Dat eerste materiaal is sterk waar het gaat om het beschrijven van mechanismen en zwak waar het om aantallen gaat. Een praktijkpopulatie is per definitie geselecteerd, en wat een therapeut ziet, zegt weinig over de verdeling in de bevolking.</p>
+      <p>De cultuurkritiek is scherp geformuleerd maar zelden met cijfers gestaafd. Op de terreinen waar wel meetreeksen bestaan, over eetstoornissen, lichaamsbeeld en langdurige uitval door psychische klachten, wisselen de uitkomsten per bron en per land, en het is niet zonder meer vast te stellen dat de druk is toegenomen in plaats van veranderd van vorm. Verhaeghe beweert het eerste vaker dan hij het aantoont.</p>
+      <p>Het steviger deel van de onderbouwing is negatief: de vaststelling dat de scheiding tussen lichaam en geest in de zorg tot onvolledige behandelingen leidt, waarbij lichamelijke klachten zonder aantoonbare afwijking en psychische klachten zonder aandacht voor het lichaam beide slecht bediend worden. Die waarneming wordt in de eerstelijnszorg breed herkend.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Daan Borrel wees er in De Groene Amsterdammer op dat Verhaeghe intimiteit vrijwel steeds koppelt aan het paar en aan de klassieke liefdesrelatie. Vriendschap, familie, de gemeenschap, het lichamelijke samenzijn op een dansvloer of in een religieuze praktijk komen nauwelijks aan bod, terwijl daar veel van wat mensen als nabijheid ervaren plaatsvindt. Zij noemde het boek bovendien afstandelijk geschreven voor een onderwerp dat om nabijheid vraagt.</p>
+      <p>Een tweede bezwaar geldt de vorm van het betoog. Cultuurkritiek die vroeger en nu tegenover elkaar zet, is moeilijk te weerleggen: elk tegenvoorbeeld is in te passen als uitzondering. De psychoanalytische begrippen waarmee Verhaeghe werkt, hebben datzelfde bezwaar; zij verklaren veel en sluiten weinig uit.</p>
+      <p>Ten derde is het voorstel aan het eind lichter dan de diagnose. Wie honderden bladzijden lang heeft uiteengezet dat de druk uit reclame, arbeidsverhoudingen en schermen komt, komt met meditatie, beweging en gesprek uit bij een antwoord op individueel niveau. Verhaeghe erkent dat de oplossing ook maatschappelijk is, maar hij werkt dat deel niet uit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een oordeel over het eigen lichaam na van wie het afkomstig is en wanneer het is overgenomen.</li>
+        <li>Onderscheid verzorging die gericht is op voldoen aan een beeld van verzorging die gericht is op hoe iets aanvoelt.</li>
+        <li>Combineer bij langdurige klachten het gesprek met een lichamelijke praktijk, in plaats van te kiezen tussen die twee.</li>
+        <li>Ga bij schaamte na wat er precies verborgen wordt gehouden, en voor wie dat verborgen blijft.</li>
+        <li>Beperk de tijd waarin het eigen lichaam vooral op een scherm wordt bekeken, en let op wat dat met het oordeel doet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlands, verschenen bij De Bezige Bij, Amsterdam, 2018 (335 blz., ISBN 9789403139104); latere paperback 2022 (336 blz., ISBN 9789403147611), e-book ISBN 9789403145808 en een luisterboek gelezen door Wilbert Gieske. Het boek vormt met <i>Identiteit</i> (2012) en <i>Autoriteit</i> (2015) een reeks die Verhaeghe naar eigen zeggen niet als drieluik bedoelde. Er bestaat een Engelse vertaling onder de titel <i>Intimacy</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Paul Verhaeghe, klinisch psycholoog en hoogleraar in Gent, opent met een vraag die het hele boek stuurt: ben je een lichaam of heb je een lichaam? Zijn antwoord is dat de vertrouwdheid met anderen begint bij de verhouding tot het eigen lichaam, en dat die verhouding vandaag door schaamte wordt beheerst.</p><p>Waar de kerk vroeger voorschreef wat met het lichaam mocht, doen volgens hem nu reclame, politieke bewegingen en vooral het scherm dat werk. De norm is omgekeerd, van een lichaam dat verzwegen moest worden naar een lichaam dat nooit mooi of gezond genoeg is, maar de dwang zelf is gebleven, en zij komt binnen onder de vlag van vrije keuze.</p><p>Het boek is daarmee evenzeer cultuurkritiek als psychologie. Verhaeghe pleit voor een andere zelfzorg, waarin praten over zichzelf en werken met het lichaam elkaar aanvullen. Het is het derde deel van de reeks die met <i>Identiteit</i> en <i>Autoriteit</i> begon.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>intimiteit</li><li>lichaam</li><li>schaamte</li><li>psychoanalyse</li><li>zelfzorg</li><li>seksualiteit</li><li>Verhaeghe</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk werkt de lichamelijke kant van trauma uit met klinisch onderzoek, waar Verhaeghe die kant vooral theoretisch behandelt.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Esther Perel stelt dezelfde vraag naar duurzame intimiteit, maar dan binnen het paar en met de spanning tussen veiligheid en verlangen als spil.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brené Brown behandelt schaamte als afzonderlijk onderwerp en met empirisch materiaal, waar Verhaeghe haar als cultuurverschijnsel beschrijft.</li>
+          <li value="96"><a href="96.html">Het verlaten individu</a>. Esther van Fenema beschrijft de vereenzaming van het individu in dezelfde tijd en komt vanuit de psychiatrie tot een verwante diagnose.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

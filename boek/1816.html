@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontdek de kracht van ademen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Koning stelt dat de ademhaling de meest bereikbare ingang tot het eigen zenuwstelsel is, en dat vrijwel iedereen die ingang ongebruikt laat. Ademen gaat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1816">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1816 &middot; Brein en lichaam</p>
+    <h1>Ontdek de kracht van ademen</h1>
+    <p class="lede">Rob Koning (Mr. Breath), 2019</p>
+    <p class="stats">
+      <span><b>1511</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1816"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Koning stelt dat de ademhaling de meest bereikbare ingang tot het eigen zenuwstelsel is, en dat vrijwel iedereen die ingang ongebruikt laat. Ademen gaat vanzelf, dus wordt er niet naar gekeken, terwijl het adempatroon volgens hem meebeweegt met alles wat iemand meemaakt en na verloop van tijd blijft staan in de vorm die de spanning heeft aangenomen. Zijn stelling is dat het omgekeerde net zo goed werkt: wie het patroon verandert, verandert de toestand van het lichaam mee, en kan daarmee slaap, herstel en concentratie beinvloeden zonder therapie, middelen of een lange omweg. Het boek plaatst dat verhaal nadrukkelijk tegenover de burn-out, die het beschrijft als een aandoening van een tijd waarin het lichaam zelden uit de alarmstand komt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ademhaling: de basis van het leven</h3>
+      <p>Het eerste hoofdstuk zet de omvang van het onderwerp neer. Ademen is de enige lichaamsfunctie die zowel automatisch verloopt als bewust te sturen valt, en het is de handeling die een mens het vaakst verricht. Koning gebruikt dat gegeven om aannemelijk te maken dat een klein verschil in adempatroon, herhaald over een dag, meer uitmaakt dan een grotere ingreep die eenmaal per week plaatsvindt.</p>
+      <p>Hij introduceert hier het uitgangspunt dat het lichaam als geheel werkt en dat lichamelijke, geestelijke en wat hij de geestelijke of zingevende laag noemt niet los van elkaar te behandelen zijn. Dat uitgangspunt keert later terug wanneer hij verklaart waarom een ademoefening ook op de stemming ingrijpt.</p>
+      <h3>Burn-out in een snelle tijd</h3>
+      <p>Het tweede hoofdstuk is het deel waar recensenten het meest aan hadden. Koning beschrijft burn-out niet als een individueel gebrek maar als de uitkomst van een leefwijze waarin het lichaam nauwelijks nog signalen krijgt dat er niets aan de hand is. Prikkels komen de hele dag binnen, de ademhaling blijft hoog in de borst staan, en het herstelsysteem komt niet aan de beurt.</p>
+      <p>Hij vertelt hier zijn eigen geschiedenis. Hij liep zelf vast, kwam via ademwerk uit de klachten en maakte er daarna zijn vak van. Dat verhaal is kort gehouden; het dient om te laten zien dat hij het traject van binnenuit kent, niet om het boek op zijn levensloop te laten rusten.</p>
+      <h3>De fysiologie van ademhaling</h3>
+      <p>Het derde hoofdstuk behandelt hoe het apparaat in elkaar zit: de rol van het middenrif tegenover de hulpademhalingsspieren in schouders en hals, het verschil tussen ademen door de neus en door de mond, en de manier waarop het zenuwstelsel het ademtempo aanstuurt. Koning legt uit waarom een hoge, snelle ademhaling het lichaam hetzelfde signaal geeft als gevaar, ongeacht of er gevaar is.</p>
+      <p>Vaktermen worden ingevoerd en uitgelegd, wat recensenten als sterk punt noemden. Het hoofdstuk blijft dicht bij wat in ademwerkopleidingen wordt onderwezen en gaat niet in op de discussies binnen de longfysiologie zelf.</p>
+      <h3>Een andere kijk op ademhalen</h3>
+      <p>Hier verlaat het boek de zuiver lichamelijke beschrijving. Koning behandelt ademen als iets dat ook betekenis draagt: als manier om contact te maken met wat er in het lichaam gevoeld wordt en om ruimte te maken voor emoties die vastzitten. Dit is de brug naar het werk dat hij in zijn praktijk doet en dat hij later in <i>Verbonden ademen</i> uitwerkt.</p>
+      <p>Het hoofdstuk is het meest omstreden deel van het boek voor lezers die alleen de techniek zochten. Wie het boek als handleiding leest, kan het overslaan zonder dat het schema in hoofdstuk zes eronder lijdt.</p>
+      <h3>De vele voordelen van bewust ademen</h3>
+      <p>Het vijfde hoofdstuk zet op een rij wat een veranderd adempatroon volgens Koning oplevert: makkelijker inslapen, minder spanning in het lichaam, een rustiger hoofd, meer uithoudingsvermogen bij inspanning en een kortere hersteltijd na drukte. De claims worden per onderwerp toegelicht en met klantverhalen geillustreerd.</p>
+      <p>Tussen de hoofdstukken staan korte opdrachten, waaronder het tellen van de eigen ademfrequentie in rust. Die metingen dienen als nulpunt voor het schema dat volgt.</p>
+      <h3>Doe het zelf: toolbox en zeven wekenschema</h3>
+      <p>Het slothoofdstuk is de praktijk. Negen oefeningen worden beschreven en vervolgens over zeven weken verdeeld, met per week een beperkt aantal handelingen en een vaste tijd. De oefeningen lopen uiteen van kalmerende ademvormen voor het slapengaan tot activerende vormen voor voorafgaand aan inspanning.</p>
+      <p>Achterin staat een literatuurlijst. Het schema is de reden dat het boek als werkboek wordt gebruikt en niet alleen wordt uitgelezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bewust ademen</td><td>Het opzettelijk sturen van tempo, diepte en verhouding tussen in- en uitademing, tegenover de ademhaling die vanzelf verloopt.</td></tr>
+          <tr><td class="term">Ademcapaciteit</td><td>De hoeveelheid lucht die iemand feitelijk verplaatst afgezet tegen wat het longvolume toelaat; het boek stelt dat de meeste mensen daar ver onder blijven.</td></tr>
+          <tr><td class="term">Hoge borstademhaling</td><td>Ademen met schouders en borstkas in plaats van met het middenrif, door Koning behandeld als het patroon dat bij aanhoudende spanning hoort.</td></tr>
+          <tr><td class="term">Middenrifademhaling</td><td>Ademen waarbij de buik meebeweegt doordat het middenrif het werk doet, in het boek de vorm waar de oefeningen naartoe werken.</td></tr>
+          <tr><td class="term">Ademfrequentie</td><td>Het aantal ademhalingen per minuut in rust, dat de lezer zelf meet en als uitgangswaarde voor het schema gebruikt.</td></tr>
+          <tr><td class="term">Toolbox</td><td>De verzameling van negen oefeningen in het laatste hoofdstuk, bedoeld om per situatie te kiezen in plaats van alles te doen.</td></tr>
+          <tr><td class="term">Zeven wekenschema</td><td>De opbouw waarin die oefeningen over zeven weken worden verdeeld, met de bedoeling dat er een gewoonte overblijft.</td></tr>
+          <tr><td class="term">Quick fix</td><td>Koning gebruikt deze term voor korte ademvormen die binnen enkele minuten iets aan de toestand van het lichaam veranderen, zonder dat hij ze als oplossing voor de oorzaak presenteert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten grond, en die zijn ongelijk van sterkte. Het stevigst is de beschrijving van de ademmechanica: dat het middenrif de hoofdrol speelt, dat neusademhaling andere eigenschappen heeft dan mondademhaling en dat trager ademen met een verlengde uitademing de hartslag beinvloedt, is gangbare fysiologie en staat niet ter discussie.</p>
+      <p>Daarnaast leunt het op de praktijk van de auteur. Koning coacht mensen met stressklachten en geeft trainingen in bedrijven; de casussen in het boek komen daaruit. Dat is materiaal met verklaringswaarde en zonder bewijswaarde: er is geen controlegroep, geen meting vooraf en achteraf, en de gevallen die niets opleverden staan er niet in.</p>
+      <p>Het derde deel is het zwakst onderbouwd. De cijfermatige claim dat mensen ongeveer dertig procent van hun ademcapaciteit benutten, staat prominent in de aanprijzing maar is geen grootheid die in de longfysiologie op deze manier wordt gebruikt; wat er precies mee wordt gemeten, blijft onduidelijk. Er is achterin een literatuurlijst opgenomen, maar het boek verwijst in de lopende tekst zelden naar een specifieke studie met auteur en jaar, zodat de lezer een claim niet zelf kan natrekken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek de bewijslast voor zijn ruimste beloften niet draagt. Dat trager ademen op korte termijn ontspanning geeft, is goed vast te stellen. Dat een ademschema van zeven weken een burn-out afwendt of verhelpt, is een andere orde van claim, en die wordt in het boek aannemelijk gemaakt met verhalen in plaats van met uitkomsten. Wie met echte uitputtingsklachten zit, kan de indruk krijgen dat er iets eenvoudigs voorhanden is dat in de praktijk maanden begeleiding vergt.</p>
+      <p>Recensenten wezen op een tweede punt: het boek valt in twee helften uiteen. De fysiologische hoofdstukken zijn nuchter en helder, het hoofdstuk met de andere kijk op ademhalen schuift op naar gevoelswerk en energie, en die twee registers worden niet met elkaar verzoend. Een lezer op Goodreads noemde het na een aantal hoofdstukken langdradig en los van elkaar staand; de recensent van Bookbreak miste juist persoonlijke verhalen die de feiten hadden kunnen dragen, en kwam op een zeven.</p>
+      <p>Inhoudelijk voegt het boek weinig toe aan wat elders al stond. James Nestor beschreef in 2020 dezelfde mechanica met meer historisch en experimenteel materiaal, en de Nederlandse ademboeken van Koen de Jong en Robert Bridgeman bestrijken hetzelfde terrein. De verdienste van dit boek zit in de ordening en het schema, niet in nieuw inzicht.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Meet eerst de eigen ademfrequentie in rust, een minuut lang, voordat er iets wordt veranderd; zonder die uitgangswaarde valt er later niets te vergelijken.</li>
+        <li>Leg een hand op de buik en een op de borst en stel vast welke van de twee beweegt; dat is de kortste diagnose die het boek geeft.</li>
+        <li>Kies uit de negen oefeningen er twee: een kalmerende voor het slapengaan en een activerende voor de ochtend. Meer oefeningen tegelijk houdt vrijwel niemand vol.</li>
+        <li>Houd het zeven wekenschema aan op vaste momenten die al bestaan, zoals na het tandenpoetsen, in plaats van op een tijdstip dat nog moet worden vrijgemaakt.</li>
+        <li>Behandel het schema als aanvulling bij vermoeidheidsklachten en niet als vervanging van een huisarts of bedrijfsarts; het boek doet die pretentie zelf ook niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, verschenen bij Kosmos Uitgevers, Utrecht en Antwerpen, in 2019, 192 blz., ISBN 9789021571263. Een latere druk draagt ISBN 9789043927932; daarnaast bestaan een e-boek en een luisterboek. Er is geen vertaling bekend. Koning publiceerde in 2024 bij dezelfde uitgever <i>Verbonden ademen</i>, waarin hij de sessiemethode uitwerkt die in dit eerste boek nog maar kort aan bod komt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rob Koning houdt in Amsterdam een praktijk onder de naam Mr. Breath en werkt met mensen die vastlopen op stress. Dit is zijn eerste boek. Het bestaat uit zes hoofdstukken die van de biologie van de ademhaling naar de praktijk lopen, met tussendoor korte oefeningen en verhalen van klanten.</p><p>De redenering van het boek is dat de ademhaling het enige deel van het autonome zenuwstelsel is dat iemand direct kan bijsturen, en dat de meeste mensen dat nooit bewust doen. De uitgever zet er de stelling bij dat de gemiddelde volwassene ongeveer dertig procent van zijn ademcapaciteit gebruikt. Wie hoge druk en veel verantwoordelijkheid draagt, ademt hoog, snel en vlak, en houdt daarmee de spanning in stand waar hij vanaf wil.</p><p>Het laatste hoofdstuk is een gereedschapskist met negen oefeningen en een schema van zeven weken. Koning beschrijft ook zijn eigen burn-out, die de aanleiding was om zich in ademwerk te verdiepen. De toon is uitleggend en weinig zweverig; het boek verkocht goed en werd in 2023 opnieuw uitgebracht.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ademhaling</li><li>ademwerk</li><li>burn-out</li><li>stress</li><li>ontspanning</li><li>oefeningen</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. James Nestor behandelt dezelfde mechanica met aanzienlijk meer historisch en experimenteel materiaal; wie na dit boek wil weten waar de beweringen vandaan komen, begint daar.</li>
+          <li value="1696"><a href="1696.html">Verbonden ademen</a>. Het latere boek van dezelfde auteur werkt het hoofdstuk over de andere kijk op ademhalen uit tot een sessiemethode, en laat zien waar hij met zijn praktijk naartoe wilde.</li>
+          <li value="1756"><a href="1756.html">Start vandaag met ademen</a>. Bridgeman en Van den Hout schreven drie jaar eerder een Nederlands ademboek met een vergelijkbare opzet, wat laat zien hoezeer dit een genre met vaste vorm is geworden.</li>
+          <li value="1812"><a href="1812.html">Verademing</a>. Koen de Jong benadert de ademhaling vanuit sport en prestatie in plaats van vanuit stressherstel, en gebruikt daarbij meer meetbare grootheden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

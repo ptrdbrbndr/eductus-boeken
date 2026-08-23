@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fokking druk &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Launspach stelt dat de drukte die mensen ervaren geen persoonlijk tekort is maar het voorspelbare gevolg van een omgeving die het onderscheid tussen werk…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1833">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1833 &middot; Werk en aandacht</p>
+    <h1>Fokking druk</h1>
+    <p class="lede">Thijs Launspach, 2018</p>
+    <p class="stats">
+      <span><b>1550</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1833"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Launspach stelt dat de drukte die mensen ervaren geen persoonlijk tekort is maar het voorspelbare gevolg van een omgeving die het onderscheid tussen werk en rust heeft opgeheven. Het lichaam is volgens hem gebouwd op korte stress met herstel erna, terwijl het moderne werk aanhoudende lage stress oplevert zonder herstelmomenten, omdat de telefoon, de e-mail en de eigen verwachtingen ook buiten werktijd doorlopen. Waar herstel uitblijft, loopt de rekening op tot uitputting en uiteindelijk tot burn-out. Zijn conclusie is dat de oplossing niet in harder werken of beter plannen ligt maar in het weer inbouwen van grenzen, aandacht en rust, en dat wie dat niet zelf regelt het van de omgeving niet cadeau krijgt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De diagnose: druk als norm</h3>
+      <p>Het boek opent bij de vaststelling dat druk zijn een norm is geworden en zelfs een teken van status. Wie het rustig heeft, houdt dat liever voor zich. Launspach verbindt daaraan de constatering dat de agenda voller is dan het werk zelf rechtvaardigt, omdat er naast het werk een groot aantal keuzes en verplichtingen bij is gekomen die zelf ook aandacht opeisen.</p>
+      <p>Hij behandelt daarbij de angst om iets te missen en de keuzestress: een aanbod dat is gegroeid tot een omvang waarin kiezen zelf werk is geworden, en waarin elke keuze de mogelijkheid oproept dat een andere beter was.</p>
+      <h3>Wat stress in het lichaam doet</h3>
+      <p>Het deel over stressfysiologie legt uit waar de reactie vandaan komt en waarom zij op zichzelf nuttig is. Het lichaam maakt zich klaar voor een korte inspanning: de hartslag gaat omhoog, de spijsvertering en het immuunsysteem gaan op een lager pitje, de aandacht vernauwt zich tot wat direct van belang is. Voor een bedreiging die binnen enkele minuten voorbij is, is dat een verstandige inrichting.</p>
+      <p>Het probleem ontstaat wanneer die stand de normale stand wordt. Launspach beschrijft wat er dan aan slaap, concentratie, geheugen en stemming verloren gaat, en waarom mensen die er middenin zitten dat zelf het laatst opmerken: de vernauwde aandacht die stress oplevert, maakt het moeilijk om over de eigen situatie na te denken.</p>
+      <h3>Burn-out</h3>
+      <p>Burn-out beschrijft hij als het eindpunt van een lange periode zonder herstel, niet als een plotselinge instorting. Hij loopt de signalen langs die eraan voorafgaan, cynisme over het werk, uitputting die na een weekend niet over is, het gevoel niets meer voor elkaar te krijgen, en benadrukt dat de meeste mensen die eraan onderdoor gaan juist hard werken en hoge eisen aan zichzelf stellen.</p>
+      <p>Aan het herstel besteedt hij minder ruimte dan aan het voorkomen. Wie al ziek thuis zit, wordt naar hulp verwezen; het boek richt zich op de fase daarvoor.</p>
+      <h3>De dieven van de aandacht</h3>
+      <p>Een reeks hoofdstukken gaat over e-mail en telefoon. Launspach beschrijft de e-mailstroom als een omgekeerde takenlijst waarin anderen bepalen wat iemand doet, en de telefoon als een apparaat dat is ontworpen om aandacht te trekken en dat daar goed in is. Dat de meldingen ook buiten werktijd doorlopen, is volgens hem de belangrijkste reden dat herstel niet meer vanzelf gaat.</p>
+      <p>Hij bestrijdt daarbij het idee dat mensen kunnen multitasken. Wat multitasken heet, is snel wisselen tussen taken, en elke wisseling kost tijd en nauwkeurigheid. Wie de hele dag in dat schakelen zit, is aan het eind van de dag moe zonder iets te kunnen aanwijzen dat af is.</p>
+      <h3>Werkverslaving en het eigen aandeel</h3>
+      <p>Launspach wijst niet alleen naar de omgeving. Hij behandelt de werkverslaving als een gedragspatroon met eigen beloningen: erkenning, het gevoel nodig te zijn, en het vermijden van wat er zonder werk overblijft. Perfectionisme en de moeite met nee zeggen krijgen dezelfde behandeling.</p>
+      <p>Bij elk van die patronen staat een oefening waarmee de lezer nagaat in hoeverre het op hem van toepassing is. Dat is de vorm waarin het boek zijn advies giet: eerst herkennen, dan pas veranderen.</p>
+      <h3>Wat eraan te doen valt</h3>
+      <p>Het praktische deel bevat maatregelen die elk op zichzelf bescheiden zijn. Vaste tijden voor e-mail in plaats van de hele dag, meldingen uit, de telefoon buiten de slaapkamer, werken in blokken volgens de pomodorotechniek met pauzes ertussen, en het serieus nemen van slaap als de belangrijkste vorm van herstel.</p>
+      <p>Daarnaast beveelt hij aandachtstraining aan, in de vorm van mindfulness en ademhalingsoefeningen, en het bewust inplannen van tijd waarin niets hoeft. Het uitgangspunt is telkens hetzelfde: herstel gebeurt niet vanzelf en moet dezelfde plek in de agenda krijgen als het werk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Stressrespons</td><td>De lichamelijke reactie op dreiging die het lichaam klaarmaakt voor korte inspanning en die schade oplevert wanneer zij de normale stand wordt.</td></tr>
+          <tr><td class="term">Herstel</td><td>De periode waarin het lichaam terugkeert naar rust; bij Launspach de ontbrekende schakel in het moderne werk en de kern van zijn advies.</td></tr>
+          <tr><td class="term">Burn-out</td><td>Het eindpunt van langdurige stress zonder herstel, met uitputting, cynisme over het werk en het gevoel niets meer te presteren.</td></tr>
+          <tr><td class="term">FOMO</td><td>De angst iets te missen, die volgens hem het aantal verplichtingen opdrijft en het moeilijk maakt aanbod af te slaan.</td></tr>
+          <tr><td class="term">Keuzestress</td><td>De belasting die ontstaat wanneer het aanbod zo groot is dat kiezen zelf een taak wordt en elke keuze twijfel achterlaat.</td></tr>
+          <tr><td class="term">Werkverslaving</td><td>Het patroon waarin werken zelf de beloning is geworden, in stand gehouden door erkenning en door het vermijden van wat er anders overblijft.</td></tr>
+          <tr><td class="term">Multitasken</td><td>Volgens Launspach een misverstand: wat zo heet is snel wisselen tussen taken, met verlies aan tijd en nauwkeurigheid bij elke wisseling.</td></tr>
+          <tr><td class="term">Pomodorotechniek</td><td>Werken in blokken van vaste lengte met korte pauzes ertussen, door hem aanbevolen als tegenwicht tegen de versnipperde werkdag.</td></tr>
+          <tr><td class="term">Digitale detox</td><td>Het tijdelijk of structureel wegleggen van telefoon en meldingen, bedoeld om de aandacht en het herstel terug te winnen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek leunt op drie soorten materiaal. Het eerste is de stressfysiologie, en dat is het stevigste deel: dat aanhoudende stress zonder herstel op slaap, geheugen, stemming en gezondheid ingrijpt, is uit tientallen jaren onderzoek bekend en Launspach geeft het getrouw weer.</p>
+      <p>Het tweede is Nederlands cijfermateriaal over werkdruk en burn-outklachten onder werkenden, waarmee hij laat zien dat het om een verschijnsel gaat dat een groot deel van de beroepsbevolking raakt. Die cijfers komen uit enquetes waarin mensen hun eigen klachten opgeven, wat iets anders is dan een vastgestelde diagnose; het boek maakt dat onderscheid niet scherp.</p>
+      <p>Het derde zijn verhalen van mensen die zijn uitgevallen. Die dragen het betoog niet maar maken het herkenbaar, en Launspach gebruikt ze ook zo. Wat het boek niet doet, is de eigen aanbevelingen als geheel toetsen: dat de opgesomde maatregelen samen burn-out voorkomen, wordt aangenomen en niet aangetoond.</p>
+      <p>Van de losse maatregelen staan sommige er beter voor dan andere. Slaap en het beperken van onderbrekingen zijn goed onderzocht. Voor mindfulness zijn effecten op stressklachten gevonden, met de kanttekening dat de sterkste uitkomsten uit kleine studies komen. De pomodorotechniek is een praktische afspraak zonder noemenswaardige onderzoeksbasis, en het boek presenteert haar ook niet als meer dan dat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat een boek dat de oorzaak bij de omgeving legt, de oplossing vrijwel geheel bij het individu neerlegt. De lezer krijgt meldingen uit, blokken in de agenda en oefeningen; de werkgever die te weinig mensen op te veel werk zet, blijft grotendeels buiten schot. Wie zijn werkdruk niet zelf bepaalt, houdt na lezing weinig over dat op zijn situatie ingrijpt.</p>
+      <p>De ondertitel belooft meer dan het boek levert. Wat volgt is een goed geordende inleiding voor een breed publiek, geen uitputtende behandeling. Lezers met ernstige klachten vinden er de bevestiging dat zij niet gek zijn, maar niet de begeleiding die zij nodig hebben, en het boek zegt dat zelf ook.</p>
+      <p>Het advies is voor een deel bekend terrein. Meldingen uit, telefoon de slaapkamer uit, pauzes nemen, nee leren zeggen: dat staat in tientallen boeken over hetzelfde onderwerp. De verdienste van Launspach zit in de ordening en in de toon, die nuchter blijft en de lezer niet toespreekt als patient, niet in de nieuwheid van de maatregelen.</p>
+      <p>Ten slotte gaat het boek voorbij aan de mogelijkheid dat de opgetelde adviezen zelf een taak worden. Wie zijn dag indeelt in blokken, mediteert, slaap bijhoudt en een detox inlast, heeft daarmee een nieuwe lijst met verplichtingen gemaakt. Launspach waarschuwt daar niet voor, terwijl het patroon dat hij beschrijft, presteren als maat voor jezelf, zich makkelijk naar het herstel verplaatst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal twee vaste momenten per dag waarop je e-mail leest en zet de melding daarbuiten uit.</li>
+        <li>Leg de telefoon buiten de slaapkamer en gebruik een gewone wekker.</li>
+        <li>Werk aan een taak in blokken met een pauze ertussen en houd bij hoeveel blokken een dag realistisch oplevert.</li>
+        <li>Zet herstel in de agenda op dezelfde manier als een afspraak, en verzet het niet als het druk wordt.</li>
+        <li>Ga na welke verplichtingen je hebt aangenomen om niets te missen, en zeg er deze maand een af.</li>
+        <li>Bespreek de werkdruk met degene die erover gaat als de oorzaak in de hoeveelheid werk zit; oefeningen lossen dat niet op.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Fokking druk. Het ultieme anti-stressboek</i>, Spectrum (Unieboek | Het Spectrum), Amsterdam, 2018, 224 blz., ISBN 9789000363698. In 2024 verscheen bij de twintigste druk een gebonden jubileumeditie met een nieuw voorwoord (ISBN 9789000395286); er is ook een luisterboek. Het boek is in het Nederlands geschreven en niet vertaald. Van Launspach (1988), psycholoog en columnist, verschenen onder meer <i>Je bent al genoeg</i> en <i>Asociale media</i> (2023).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Launspach, psycholoog, schreef een boek over de vraag waarom zoveel mensen zichzelf voorbijlopen. De opzet is die van een handboek in korte hoofdstukken, met titels als het leed dat e-mail heet en de dictator in je broekzak, en met denkoefeningen waarmee de lezer zijn eigen situatie kan nagaan.</p><p>De eerste helft gaat over de diagnose: hoe drukte ontstaat, wat stress in het lichaam doet, hoe keuzestress en de angst om iets te missen daaraan bijdragen en hoe een burn-out zich aankondigt. De tweede helft gaat over wat eraan te doen valt, van beter luisteren naar lichaamssignalen tot het inrichten van werkdagen met vaste blokken.</p><p>Voorin staat een samenvatting van een paar bladzijden die per onderwerp doorverwijst naar het hoofdstuk waar het wordt uitgewerkt. Het boek verkocht meer dan vijftigduizend exemplaren en is een van de best verkochte Nederlandse titels over werkstress.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stress</li><li>burn-out</li><li>werkdruk</li><li>aandacht</li><li>smartphone</li><li>herstel</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1747"><a href="1747.html">Asociale media</a>. Launspach behandelt daar de kant van het verhaal die in dit boek onderbelicht blijft, namelijk het ontwerp van de apparaten en de diensten die de aandacht opeisen.</li>
+          <li value="458"><a href="458.html">The Upside of Stress</a>. McGonigal betoogt het tegenovergestelde van de gangbare boodschap, namelijk dat stress schadelijk wordt door hoe iemand erover denkt; een goed tegenwicht bij dit boek.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport werkt het deel over aandacht en onderbrekingen dieper uit en geeft er een werkmethode bij die verder gaat dan blokken in de agenda.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker levert de onderbouwing voor de plaats die slaap in het herstelverhaal van Launspach inneemt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

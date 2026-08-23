@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van klacht naar kans &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Galavazi stelt dat het brein de belangrijkste ziekmaker is en dat een groot deel van de klachten in de huisartsenpraktijk geen defect in het lichaam…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1828">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1828 &middot; Brein en lichaam</p>
+    <h1>Van klacht naar kans</h1>
+    <p class="lede">Juriaan Galavazi, 2019</p>
+    <p class="stats">
+      <span><b>1428</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1828"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Galavazi stelt dat het brein de belangrijkste ziekmaker is en dat een groot deel van de klachten in de huisartsenpraktijk geen defect in het lichaam aanwijst maar een manier van leven. Gedachten, overtuigingen en weggedrukte gevoelens werken volgens hem door tot in het afweersysteem, zodat vermoeidheid, pijn, allergie en slapeloosheid te lezen zijn als bericht in plaats van als storing. Wie dat bericht leest en zijn leven bijstelt, gebruikt de klacht als aanleiding voor een koerswijziging; wie het bericht met een pil onderdrukt, houdt de oorzaak in stand. Daartegenover staat de gewone geneeskundige positie, dat de meeste ziekten een biologische oorzaak hebben die zich weinig aantrekt van wat de patiënt voelt, en dat het bestrijden van het symptoom vaak precies is wat iemand nodig heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het brein als ziekmaker</h3>
+      <p>Het eerste deel benoemt vier oorzaken van klachten. De eerste is dat iemand zich verantwoordelijk voelt voor de gevoelens en emoties van anderen. De tweede is dat de behoefte van een ander zwaarder gaat wegen dan de eigen behoefte. De derde is dat iemand samenvalt met zijn sociale rol, zijn verantwoordelijkheden en zijn verplichtingen. De vierde is het wegdrukken van angst, verdriet, frustratie en woede.</p>
+      <p>Die vier lopen in elkaar over. Wie zich verantwoordelijk voelt voor de stemming van zijn omgeving, zal zijn eigen woede inhouden, en wie zijn woede inhoudt, trekt zich verder in zijn rol terug. Galavazi voegt daaraan de bewering toe dat het onderdrukken van emoties ook het afweersysteem onderdrukt, met ziekte, allergie en pijn als gevolg.</p>
+      <h3>De klacht als richtingaanwijzer</h3>
+      <p>De centrale beeldspraak van het boek is die van de thermometer en de richtingaanwijzer: het lijf vertelt exact welke kant iemand op mag gaan, mits hij bereid is te luisteren. Vermoeidheid, hoofdpijn en slaapproblemen zijn in die lezing geen losse ongemakken maar meetwaarden.</p>
+      <p>Galavazi schrijft vanuit de spreekkamer en beschrijft hoe hij als huisarts vijftien jaar lang vooral bezig was signalen te dempen. Zijn bezwaar tegen die praktijk is niet dat medicatie niet werkt, maar dat het dempen van het signaal de vraag wegneemt waarom het signaal er was. Dat is de kern van de titel: de klacht is de aanleiding om iets te veranderen dat anders onbesproken zou blijven.</p>
+      <h3>Grip op gedachten en gevoelens</h3>
+      <p>Het tweede deel gaat over het omkeren van de verhouding met de eigen gedachten, zodat die voor iemand gaan werken in plaats van tegen hem. Galavazi behandelt vaste denkpatronen, overtuigingen over wat men waard is en de eis om te presteren, en laat zien hoe die zich vertalen in gespannen spieren, kort ademen en slecht slapen.</p>
+      <p>De aanpak is die van de coach meer dan die van de arts: benoemen wat er speelt, het patroon herkennen, en er een bewuste keuze tegenover zetten. Perfectionisme en prestatiedrang krijgen daarbij het meeste gewicht, omdat het juist de hardwerkende en gewaardeerde mensen zijn die in zijn praktijk vastlopen.</p>
+      <h3>Voelen zonder te vluchten</h3>
+      <p>Het derde deel oefent in nieuwsgierig luisteren naar wat het lichaam doet, zonder de neiging er onmiddellijk aan te ontsnappen. Ongemak en pijn worden hier niet als vijand behandeld maar als iets dat te dragen valt, en het leren dragen ervan is volgens Galavazi de opening naar herstel.</p>
+      <p>Dat is de plek waar het boek zich onderscheidt van de gewone opgewekte gezondheidsliteratuur. Het belooft geen verdwijnen van de klacht, maar een andere verhouding ertoe. In de praktijk komt dat neer op oefeningen in aandacht voor ademhaling, spanning en verzadiging, plus het benoemen van wat iemand voelt voordat hij het wegredeneert.</p>
+      <h3>Vrijheid, gezondheid en vertrouwen</h3>
+      <p>Onder de klachten legt Galavazi een laag van waarden. Vrijheid, gezondheid en vertrouwen keren terug als de dingen waar mensen naar zeggen te verlangen en waar zij tegelijk het minst naar handelen. Het boek dringt aan op het kiezen van een richting die bij die waarden past, ook als dat werk, relatie of leefwijze raakt.</p>
+      <p>Ziekte kan in dat licht een keerpunt worden. Dat is de sterkste en tegelijk de gevoeligste bewering van het boek: dat wat iemand overkomt, hem kan verplaatsen naar het leven dat hij eigenlijk wilde.</p>
+      <h3>De vorm: kernboodschappen en zelfbegeleiding</h3>
+      <p>Elk hoofdstuk eindigt met een korte lijst kernboodschappen en met oefeningen die de lezer zelf kan doen. Die opzet maakt het boek bruikbaar als werkboek en verklaart een deel van het bereik ervan; de tweede uitgave uit 2023 is op dat punt herzien en aangevuld met een extra hoofdstuk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Klacht als richtingaanwijzer</td><td>Een lichamelijk symptoom opgevat als informatie over de manier van leven in plaats van als losstaand mankement.</td></tr>
+          <tr><td class="term">Het brein als ziekmaker</td><td>De stelling dat gedachten, overtuigingen en gevoelens de eerste aanjager zijn van veel lichamelijke klachten.</td></tr>
+          <tr><td class="term">De vier oorzaken</td><td>Verantwoordelijk zijn voor andermans gevoel, de ander voorrang geven, samenvallen met de eigen rol, en emoties wegdrukken.</td></tr>
+          <tr><td class="term">Onderdrukte emotie</td><td>Angst, verdriet, frustratie of woede die niet geuit wordt en volgens Galavazi meegaat in het onderdrukken van de afweer.</td></tr>
+          <tr><td class="term">Samenvallen met je rol</td><td>De toestand waarin iemand zichzelf niet meer los kan zien van zijn functie, verplichtingen en verantwoordelijkheden.</td></tr>
+          <tr><td class="term">Zelfbegeleiding</td><td>De oefeningen aan het einde van elk hoofdstuk waarmee de lezer zonder behandelaar aan de slag kan.</td></tr>
+          <tr><td class="term">Kernboodschap</td><td>De korte regels waarin elk hoofdstuk zijn strekking bijeenbrengt, bedoeld als geheugensteun bij de oefening.</td></tr>
+          <tr><td class="term">Ongemak dragen</td><td>Het vermogen om pijn en spanning te voelen zonder er meteen aan te willen ontsnappen.</td></tr>
+          <tr><td class="term">Prestatiedrang</td><td>De behoefte om te blijven leveren en voldoen, in dit boek gezien als een van de hoofdroutes naar uitputting.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het argument rust op de spreekkamer. Galavazi beschrijft wat hij in vijftien jaar huisartsenpraktijk zag, en de voorbeelden in het boek zijn ontleend aan patiënten en aan zijn eigen coachingspraktijk. Dat levert herkenbaarheid op en een consistente theorie, maar het levert geen toets op: er is geen groep die de aanpak niet kreeg, en de mensen die er niets aan hadden schrijven zelden een recensie.</p>
+      <p>De onderliggende gedachte is niet uit de lucht gegrepen. Dat langdurige stress inwerkt op het afweersysteem is in de psychoneuro-immunologie gemeten, onder meer via cortisol en via de vertraagde wondgenezing en de verminderde reactie op vaccinatie bij chronisch belaste mensen. Ook de invloed van verwachting op de beleving van klachten is degelijk vastgesteld. Zo ver reikt het bewijs.</p>
+      <p>Wat verder gaat dan het bewijs, is de stap van die algemene invloed naar de specifieke bewering dat weggedrukt verdriet of woede een bepaalde aandoening veroorzaakt en dat de klacht dus precies aanwijst welke kant iemand op moet. Die richtingaanwijzing is een uitleg achteraf en laat zich niet weerleggen: verandert de klacht, dan klopt het model, blijft de klacht, dan is er nog niet genoeg geluisterd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat deze manier van kijken de zieke medeverantwoordelijk maakt voor zijn ziekte. Susan Sontag beschreef in <i>Illness as Metaphor</i> (1978) hoe psychologische verklaringen van kanker en tuberculose patiënten opzadelden met de suggestie dat zij het aan zichzelf te danken hadden. Galavazi bedoelt dat nadrukkelijk niet, en hij schrijft welwillend, maar de theorie zelf laat de conclusie toe.</p>
+      <p>Een tweede bezwaar is praktisch. Het boek maakt niet duidelijk waar de grens ligt: bij welke klachten hoort eerst nauwkeurige diagnostiek en is de vraag naar de betekenis van het signaal gevaarlijk uitstel. Voor een arts die zich richt tot lezers zonder medische achtergrond is dat een gemis.</p>
+      <p>Ten derde is de opzet cirkelvormig. De vier oorzaken zijn zo ruim geformuleerd dat vrijwel iedereen er zich in herkent, wat de theorie sterk lijkt te maken terwijl het haar juist onmogelijk maakt te falen. Wie wil weten hoeveel van de klachten in een huisartsenpraktijk werkelijk langs deze weg te verklaren zijn, vindt in het boek geen getal en geen bron.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf van een terugkerende klacht op wanneer hij opkomt en wat er in de dagen ervoor speelde, voordat er een verklaring bij bedacht wordt.</li>
+        <li>Ga de vier oorzaken langs en noteer per stuk een concrete gebeurtenis uit de afgelopen maand.</li>
+        <li>Onderscheid bij elke afspraak of die uit eigen behoefte voortkomt of uit de verwachting van een ander.</li>
+        <li>Oefen kort dagelijks in het vasthouden van een onprettig gevoel zonder afleiding, en houd bij hoe lang dat lukt.</li>
+        <li>Laat lichamelijke klachten die nieuw, aanhoudend of hevig zijn eerst medisch onderzoeken; gebruik dit boek naast dat onderzoek, niet ervoor in de plaats.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlands, met de ondertitel <i>Verbeter je leven door naar je lijf te luisteren</i>, verschenen bij Kosmos Uitgevers, Utrecht en Antwerpen, 2019 (268 blz., ISBN 9789021574219; e-book 9789021574226). In 2023 kwam een herziene tweede uitgave met een extra hoofdstuk (288 blz., ISBN 9789043929554). Er bestaat geen vertaling; de uitgever meldt ruim 25.000 verkochte exemplaren. Van Galavazi verscheen daarna <i>Jij bent de liefde</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Juriaan Galavazi was vijftien jaar huisarts in Naarden en zag daar volgens eigen zeggen steeds dezelfde patronen terug: vermoeidheid, hoofdpijn, slaapproblemen, darmklachten en huidproblemen bij mensen die vooral te veel van zichzelf vroegen. Zijn boek keert de gebruikelijke volgorde om. De klacht is in zijn voorstelling geen storing die weggenomen moet worden, maar een bericht over de manier waarop iemand leeft.</p><p>Het boek loopt in drie delen. Eerst benoemt hij vier oorzaken die volgens hem aan veel klachten ten grondslag liggen, met het brein als voornaamste ziekmaker. Daarna gaat het over grip krijgen op gedachten en gevoelens. Het derde deel oefent in het verdragen van ongemak in plaats van er meteen aan te ontsnappen. Elk hoofdstuk sluit af met kernboodschappen en oefeningen voor zelfbegeleiding.</p><p>Wat de lezer daarmee in handen heeft, is een aannemelijke en goed vertelbare theorie zonder onderzoeksapparaat. De stap van stress naar afweer is in de wetenschap gelegd; de stap van weggedrukt verdriet naar een concrete diagnose is dat veel minder. Dat verschil houdt het boek niet consequent uit elkaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gezondheid</li><li>huisarts</li><li>psychosomatiek</li><li>emoties</li><li>zelfhulp</li><li>lichaamssignalen</li><li>perfectionisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft de doorwerking van trauma in het lichaam met klinisch onderzoek erbij, en laat zien hoeveel precisie er nodig is om dat verband hard te maken.</li>
+          <li value="104"><a href="104.html">Oud zeer</a>. Bram Bakker behandelt in <i>Oud zeer</i> hetzelfde terrein vanuit de psychiatrie, met meer aandacht voor waar de grens van deze verklaring ligt.</li>
+          <li value="387"><a href="387.html">The Expectation Effect</a>. Robson brengt in kaart wat verwachting aantoonbaar met het lichaam doet, en dat geeft een maat voor wat Galavazi aannemelijk maakt en wat niet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

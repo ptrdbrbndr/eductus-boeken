@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recepten om in de puree te raken &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Roeck keert de vraag van de hulpverlening om. Hij vraagt niet hoe iemand van zijn last afkomt, maar hoe die persoon het klaarspeelt zichzelf er telkens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1801">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1801 &middot; Gewoontes en denken</p>
+    <h1>Recepten om in de puree te raken</h1>
+    <p class="lede">Bruno-Paul De Roeck, 1981</p>
+    <p class="stats">
+      <span><b>1326</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1801"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Roeck keert de vraag van de hulpverlening om. Hij vraagt niet hoe iemand van zijn last afkomt, maar hoe die persoon het klaarspeelt zichzelf er telkens opnieuw in te werken, en hij laat dat in de vorm van een kookrecept opschrijven: neem dit, doe dan dat, vergeet vooral niet ook dit te denken. De stelling erachter is dat ongeluk geen toestand is die iemand overkomt maar een handeling die iemand verricht, en dat een nauwkeurige beschrijving van de eigen stappen die handeling onbruikbaar maakt. Wie het recept kent, kan het nog uitvoeren, maar niet meer zonder te weten dat hij het doet. Daarmee legt het boek zowel de verantwoordelijkheid als de bevoegdheid bij de betrokkene, en niet bij de therapeut.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt</h3>
+      <p>De Roeck werkte als gestalttherapeut, en de gestalttraditie vraagt naar het hoe en niet naar het waarom. Niet welke jeugd tot deze angst leidde, maar wat iemand op dit moment precies doet om die angst in stand te houden. Dat uitgangspunt loopt door het hele boek heen.</p>
+      <p>Daaruit volgt de tweede aanname: als het gedrag nu wordt uitgevoerd, kan het nu ook anders. De geschiedenis is niet te herschrijven, de handeling van vandaag wel.</p>
+      <h3>Wat een recept is</h3>
+      <p>Een recept beschrijft in stappen wat iemand moet doen om zeker in de moeilijkheden te komen. Het is geschreven in de aansporende vorm van een kookboek en bevat handelingen, gedachten en lichaamshoudingen door elkaar. Hoe preciezer de stappen, hoe beter het recept.</p>
+      <p>De vorm doet het werk. Een klacht klinkt als iets wat iemand overkomt, een recept als iets wat iemand uitvoert. Door hetzelfde materiaal in de andere vorm te gieten verschuift het onderwerp van de zin van de omstandigheden naar de persoon.</p>
+      <h3>Recepten van mensen die erin zaten</h3>
+      <p>Het boek bestaat voor een groot deel uit voorbeeldrecepten die deelnemers aan groepen hebben opgeschreven. Ze gaan over ruzie in het gezin, over pijn in de maag, over spanning en overbelasting op het werk, over zwaarmoedigheid, over hyperventilatie en over reumatische pijn.</p>
+      <p>De Roeck neemt ze op zonder ze glad te strijken. Ze zijn concreet, vaak grimmig en soms komisch, en die humor is een werkzaam onderdeel: een recept dat de schrijver ervan aan het lachen maakt, heeft zijn effect al gehad.</p>
+      <h3>De omkering als methode</h3>
+      <p>Achter de vorm zit een paradoxale ingreep. Door de klacht voor te schrijven in plaats van te bestrijden, komt de betrokkene in de positie van uitvoerder terecht. De strijd tegen het symptoom, die het symptoom meestal versterkt, valt daarmee weg.</p>
+      <p>Die aanpak staat in dezelfde lijn als de paradoxale intentie van Viktor Frankl en als het voorschrijven van het symptoom in de kortdurende therapie die vanuit Palo Alto bekend werd. De Roeck vermeldt daar in het boek weinig over; hij presenteert het als praktijk, niet als school.</p>
+      <h3>Zelf een recept schrijven</h3>
+      <p>Het middendeel is een instructie. De Roeck loopt stap voor stap langs de manier waarop iemand zijn eigen recept opstelt: kies een terugkerende situatie, schrijf op wat er feitelijk gebeurt, zet het om in aansporingen, en vul aan tot het recept betrouwbaar werkt.</p>
+      <p>Hij hecht aan volledigheid. Een recept dat maar de helft van de stappen bevat, laat de schrijver de ruimte om te denken dat het toch buiten hem om gebeurt.</p>
+      <h3>Voor wie en met wie</h3>
+      <p>Het boek richt zich op onderwijzers, maatschappelijk werkers, ouders, groepsleiders, organisatieadviseurs en therapeuten, en evengoed op de lezer die alleen aan de keukentafel zit. De Roeck schrijft dat een beroepskracht niet nodig is en dat een vriend met gezond verstand het meestal even goed doet.</p>
+      <p>Dat standpunt komt uit de sfeer van de jaren zeventig en tachtig, waarin het wantrouwen tegen de hulpverlening groot was. Het is de kern van de aantrekkingskracht van het boek en tegelijk het punt waarop het het kwetsbaarst is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Recept</td><td>Een in stappen opgeschreven aanwijzing waarmee iemand zichzelf betrouwbaar in de moeilijkheden brengt.</td></tr>
+          <tr><td class="term">In de puree raken</td><td>De alledaagse aanduiding die De Roeck gebruikt voor vastlopen, spanning, angst of somberheid.</td></tr>
+          <tr><td class="term">Doe-het-zelf therapie</td><td>De ondertitel en tegelijk het programma: werken aan de eigen patronen zonder afhankelijk te worden van een hulpverlener.</td></tr>
+          <tr><td class="term">Bewustheid</td><td>Het gestaltbegrip voor het zien van wat iemand op dit moment doet, dat volgens De Roeck de verandering al in gang zet.</td></tr>
+          <tr><td class="term">Het hoe in plaats van het waarom</td><td>De gestaltvraag naar de manier waarop gedrag nu tot stand komt, in plaats van naar de oorzaak in het verleden.</td></tr>
+          <tr><td class="term">Vermijding</td><td>Het uit de weg gaan van wat spanning geeft, dat volgens het boek de aangeleerde angst juist in stand houdt.</td></tr>
+          <tr><td class="term">Werkboek</td><td>De vorm die het boek voor zichzelf kiest: bedoeld om in te schrijven en te gebruiken in praatgroepen en therapiegroepen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek. Er wordt geen studie aangehaald, geen effectmeting genoemd en geen vergelijking met andere methoden gemaakt. Wat De Roeck aanvoert is de praktijk van zijn eigen groepen en de recepten die daaruit voortkwamen.</p>
+      <p>De onderliggende ingreep heeft wel een geschiedenis. Het voorschrijven van het symptoom is beschreven door Viktor Frankl als paradoxale intentie en door de kortdurende therapie uit Palo Alto als vaste techniek, en er is later onderzoek naar paradoxale opdrachten gedaan bij slapeloosheid en angst, met wisselende maar niet verwaarloosbare uitkomsten. De Roeck sluit daarbij aan zonder het te vermelden.</p>
+      <p>Het best verdedigbare deel is de zelfobservatie. Nauwkeurig bijhouden wat er gebeurt voordat een klacht opkomt, is een vast onderdeel van cognitieve gedragstherapie en behoort tot de beter onderbouwde stukken van dat vak. Dat het opschrijven in receptvorm gebeurt, is een stijlkeuze; het waarnemen eronder is dezelfde handeling.</p>
+      <p>Dat het boek na ruim veertig jaar nog wordt herdrukt en in groepen wordt gebruikt, is een aanwijzing dat lezers er iets mee kunnen. Het is geen bewijs dat de methode doet wat zij belooft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar zit in de reikwijdte. Tussen de voorbeelden staan recepten voor hyperventilatie en voor reumatische pijn. Bij hyperventilatie is de gedachte dat gedrag en ademhaling meedoen goed te verdedigen; bij reuma ligt een ontstekingsproces aan de pijn ten grondslag, en de suggestie dat de patient die pijn volgens een recept produceert, legt een schuld neer waar zij niet hoort.</p>
+      <p>De aanname dat bewustheid volstaat, is optimistischer dan de praktijk rechtvaardigt. Veel mensen kunnen hun eigen patroon uitstekend beschrijven en voeren het daarna gewoon opnieuw uit. Het boek heeft weinig te bieden voor het geval dat inzicht en gedrag uit elkaar blijven lopen.</p>
+      <p>Het advies om het zonder hulpverlener te doen kent geen ondergrens. Er staat nergens bij voor welke klachten dit boek ongeschikt is, terwijl juist bij ernstige somberheid, verslaving of trauma de doe-het-zelfweg riskant is. In 1981 was die afbakening minder gebruikelijk dan nu; dat verklaart de leemte, maar heft haar niet op.</p>
+      <p>De toon is die van zijn tijd. Het wantrouwen tegen deskundigen, de nadruk op eigen verantwoordelijkheid en het ontbreken van elke verwijzing naar wat er sindsdien is onderzocht, maken het boek eerder een document uit de jaren tachtig dan een handleiding van nu.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies een situatie die zich herhaalt en beschrijf letterlijk wat er gebeurt, vanaf het eerste moment.</li>
+        <li>Zet die beschrijving om in aansporingen: neem dit, denk dan dat, zeg vervolgens dit. Blijf bij handelingen die te zien of te horen zijn.</li>
+        <li>Vul het recept aan tot het echt werkt. Blijkt er een stap te ontbreken, dan is die stap de vondst.</li>
+        <li>Lees het recept hardop voor aan iemand anders en let op waar er wordt gelachen; daar zit de speelruimte.</li>
+        <li>Houd de grens in de gaten. Bij klachten met een lichamelijke oorzaak of bij aanhoudende somberheid vervangt dit boek geen onderzoek en geen behandeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>doe-het-zelf therapie</i>. Uitgegeven door De Toorts in Haarlem, eerste druk 1981 (147 blz.); de tekst verscheen deels eerder in het blad <i>Anders</i> tussen 1979 en 1981. Latere drukken tellen 151 bladzijden, ISBN 9789060203293; de elfde druk verscheen in 2022, waarmee het boek na ruim veertig jaar nog steeds leverbaar is. De auteur, in catalogi ook als B.P. de Roeck aangeduid, was een Vlaamse gestalttherapeut; hij overleed op 5 januari 2012. Zijn bekendste boek is <i>Gras onder mijn voeten. Eenvoudige kennismaking met Gestalt-therapie</i> (De Toorts, ISBN 9789060201879).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Roeck draait de gebruikelijke vraag om. In plaats van te beschrijven hoe iemand van zijn moeilijkheden afkomt, laat hij mensen precies opschrijven hoe zij erin terechtkomen. Dat opschrijven noemt hij een recept: een reeks stappen in de gebiedende wijs die betrouwbaar leidt tot ruzie in het gezin, tot pijn in de maag, tot spanning op het werk, tot hyperventilatie.</p><p>De recepten in het boek zijn geschreven door mensen die er zelf in zaten. Dat is volgens De Roeck geen tekortkoming maar de reden dat ze deugen: niemand kent de weg naar de eigen puree zo goed als degene die hem telkens opnieuw aflegt. Zijn stelling is dat wie alle stappen op papier heeft staan, ze niet meer met dezelfde ernst kan uitvoeren.</p><p>Het boek is bedoeld als werkboek voor doe-het-zelvers, praatgroepen en therapiegroepen. De Roeck legt stap voor stap uit hoe iemand zelf zo'n recept schrijft en houdt vol dat daar geen hulpverlener bij nodig is; een vriend met gezond verstand volstaat meestal. Dat standpunt hoort bij de tijd waarin het boek verscheen, het begin van de jaren tachtig.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gestalttherapie</li><li>paradox</li><li>zelfhulp</li><li>patronen</li><li>angst</li><li>schrijven</li><li>doe-het-zelf</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1803"><a href="1803.html">Ontdek je gebruiksaanwijzing</a>. Ontdek je gebruiksaanwijzing van Jannie Ligthart doet dertig jaar later hetzelfde: eerst de eigen automatismen in kaart, pas daarna de vraag of ze anders moeten.</li>
+          <li value="1693"><a href="1693.html">De innerlijke criticus ontmaskerd</a>. De innerlijke criticus ontmaskerd van Hal en Sidra Stone werkt met dezelfde omkering, maar geeft de stem die het patroon aanjaagt een eigen plaats.</li>
+          <li value="107"><a href="107.html">Alles draait om angst</a>. Alles draait om angst van Wiljo van Gassel behandelt de vermijding die De Roeck als motor van het recept aanwijst, met de kennis van nu.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

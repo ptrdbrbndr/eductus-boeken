@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Happiness Equation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pasricha draait de volgorde om die de meeste mensen aanhouden. Niet succes leidt tot geluk, maar geluk gaat eraan vooraf en maakt het waarschijnlijker;…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1882">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1882 &middot; Levenskunst</p>
+    <h1>The Happiness Equation</h1>
+    <p class="lede">Neil Pasricha, 2016</p>
+    <p class="stats">
+      <span><b>1479</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1882"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pasricha draait de volgorde om die de meeste mensen aanhouden. Niet succes leidt tot geluk, maar geluk gaat eraan vooraf en maakt het waarschijnlijker; wie eerst gelukkig is, werkt beter, verkoopt meer en houdt het langer vol. Daarop bouwt hij de formule van de titel: wie niets meer nodig heeft om zich goed te voelen, kan alles ondernemen, en houdt daardoor alles over. De negen hoofdstukken zijn stuk voor stuk een omkering van iets wat als gezond verstand geldt, van sparen voor het pensioen tot het opvolgen van goede raad.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Eerst gelukkig zijn</h3>
+      <p>Het eerste hoofdstuk stelt dat omstandigheden weinig uitmaken. Pasricha komt uit bij ongeveer tien procent van het geluk dat aan de situatie ligt; de rest ligt aan aanleg en aan wat iemand bewust doet. Als bewijs haalt hij cijfers aan over gelukkige werkenden die creatiever en productiever zouden zijn en meer verkopen.</p>
+      <p>Daaruit volgt de enige oefeningenlijst van het boek die tot een naam is uitgegroeid, door lezers de Big Seven genoemd: drie keer per week een half uur wandelen, twintig minuten schrijven over een goede ervaring, vijf willekeurige vriendelijkheden per week, volledig afschakelen na intensief werken, opgaan in een taak die net te moeilijk is, twee minuten mediteren en wekelijks een handvol dingen opschrijven waarvoor dankbaarheid bestaat.</p>
+      <h3>Doe het voor jezelf</h3>
+      <p>Het tweede en derde hoofdstuk gaan over motivatie en over verhouding. Wie werkt voor de beloning, houdt op zodra de beloning uitblijft; wie werkt omdat het werk zelf iets oplevert, houdt langer stand. Pasricha koppelt daar zelfaanvaarding aan: eerst jezelf goedkeuren, dan pas presteren.</p>
+      <p>Het derde hoofdstuk zet daar een vergelijking naast. Wie leeft in een land met stromend water, geneesmiddelen en voedsel in de winkel, heeft naar historische maatstaven al een loterij gewonnen. Dat is bedoeld als middel tegen slechte dagen, en het is meteen het punt waarop het boek het dichtst bij een preek komt.</p>
+      <h3>Nooit met pensioen</h3>
+      <p>Het vierde hoofdstuk is het bekendste. Pensioen is een uitvinding, schrijft Pasricha, in 1889 in Duitsland ingesteld, en het is geen natuurlijke afsluiting van een leven. Hij zet er het Okinawaanse ikigai tegenover, de reden om 's ochtends op te staan, een woord waarvoor geen Nederlands equivalent bestaat.</p>
+      <p>Het onderzoek in Okinawa waarnaar hij verwijst gaat over tienduizenden mensen die op hoge leeftijd doorwerken in een lager tempo en die opvallend gezond oud worden. Het advies dat hij eruit haalt is niet om langer te blijven werken in dezelfde baan, maar om nooit een leven in te richten waarvan het einddoel het stoppen is. Kirkus noemde juist dit hoofdstuk het waardevolste van het boek.</p>
+      <h3>Uren in plaats van salaris</h3>
+      <p>Het vijfde hoofdstuk gaat over de manier waarop mensen hun inkomen bekijken. Wie op het jaarbedrag let, ziet niet wat een uur kost; wie zijn verdienste per uur uitrekent, ziet ineens wat een extra opdracht werkelijk oplevert en wat een uur vrije tijd waard is.</p>
+      <p>Daarmee bereidt hij het volgende hoofdstuk voor: tijd is de grootheid die schaars is, en de rest van het boek gaat over hoe die tijd wordt weggegeven.</p>
+      <h3>Ruimte scheppen</h3>
+      <p>Het zesde hoofdstuk bepleit het inperken van keuzes, van beschikbaarheid en van tijd. Minder keuzemogelijkheden leiden volgens Pasricha tot betere en snellere beslissingen, en tot minder spijt achteraf. Zijn eigen voorbeeld is het aantal keren per dag dat hij zijn e-mail opent, een advies dat door recensenten geregeld is overgenomen.</p>
+      <p>Het zevende hoofdstuk gaat over de stap van weten naar doen. Uitstel wordt bestreden met een drempel van dertig seconden: maak de eerste handeling zo klein dat er geen besluit meer voor nodig is.</p>
+      <h3>Jezelf zijn en niemand geloven</h3>
+      <p>In het achtste hoofdstuk staat de vraag hoe iemand ontdekt wat bij hem past. De bekendste toets die Pasricha daarvoor geeft is de Saturday Morning Test: wat zou iemand doen op een zaterdagochtend zonder verplichtingen? Wat daar bovenkomt, is volgens hem het spoor waarnaar te handelen valt.</p>
+      <p>Het negende hoofdstuk zegt vervolgens dat er geen advies bestaat dat overal opgaat, en dat elk advies, ook dat uit dit boek, langs twee vragen moet: werkt het in het algemeen, en werkt het in deze omstandigheden? Het is een verdedigingslinie en tegelijk het eerlijkste hoofdstuk van het boek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Want Nothing + Do Anything = Have Everything</td><td>De formule uit de ondertitel, waarin de drie delen van het boek staan: verlangens loslaten, in beweging komen, en het gevolg daarvan.</td></tr>
+          <tr><td class="term">Be happy first</td><td>De omkering waarop alles rust: geluk als startpunt van succes en niet als de beloning ervoor.</td></tr>
+          <tr><td class="term">The Big Seven</td><td>De zeven dagelijkse of wekelijkse oefeningen waarmee Pasricha stelt dat het gemoed binnen enkele weken te verzetten is.</td></tr>
+          <tr><td class="term">Ikigai</td><td>Het Okinawaanse woord voor de reden om 's ochtends op te staan, door Pasricha ingezet als alternatief voor het idee van pensioen.</td></tr>
+          <tr><td class="term">Never retire</td><td>De stelling dat een leven dat op stoppen is gericht slechter afloopt dan een leven waarin het werk van vorm verandert maar doorgaat.</td></tr>
+          <tr><td class="term">Waarde per uur</td><td>De rekenwijze waarin inkomen niet per jaar maar per uur wordt bekeken, zodat de prijs van tijd zichtbaar wordt.</td></tr>
+          <tr><td class="term">Saturday Morning Test</td><td>De vraag wat iemand op een vrije zaterdagochtend uit zichzelf zou doen, gebruikt om te bepalen wat werkelijk bij hem past.</td></tr>
+          <tr><td class="term">Don't take advice</td><td>Het slothoofdstuk, dat elk advies aan twee vragen onderwerpt: deugt het in het algemeen, en past het in deze omstandigheden?</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Pasricha schrijft niet vanuit eigen onderzoek maar vanuit een verzameling bekende studies uit de positieve psychologie. De cijfers over gelukkige werkenden die driemaal creatiever, eenendertig procent productiever en zevenendertig procent beter in verkoop zouden zijn, komen uit het populaire werk van Shawn Achor en zijn daar al bewerkte samenvattingen van uiteenlopende onderzoeken. In het boek staan ze als vaststaand feit.</p>
+      <p>Hetzelfde geldt voor de verdeling waarin ongeveer een tiende van het geluk aan de omstandigheden ligt. Die verhouding gaat terug op een taartdiagram uit het werk van Sonja Lyubomirsky, dat later door onderzoekers is aangevallen als statistisch niet houdbaar: de percentages berusten op erfelijkheidsschattingen die niet zo op te tellen zijn. Wie het boek leest krijgt daar niets van te zien.</p>
+      <p>Sterker staat het hoofdstuk over ikigai. De Okinawaanse bevindingen over doorwerken op hoge leeftijd zijn uit meerdere richtingen beschreven, en de kern die Pasricha eruit haalt, dat mensen met een dagelijkse reden om op te staan het beter doen, is ook los van Okinawa herhaaldelijk gemeten. Ook de studie onder nonnen die hij noemt, waarin de vrouwen die in de jaren dertig de meest positieve levensbeschrijvingen inleverden gemiddeld jaren langer leefden, is echt onderzoek, al gaat het om een verband en niet om een aangetoonde oorzaak.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Kirkus vatte het boek samen als deels wolligheid, deels pijnlijk vanzelfsprekend, en deels goed genoeg om te lezen. Dat oordeel houdt stand. De verhalen waarmee de negen hoofdstukken worden gedragen zijn kort en aardig, maar zij laten zien dat iets werkte en niet waarom, waardoor de lezer weet wat hij moet doen en niet wat hij moet doen als het niet lukt.</p>
+      <p>De omkering die het boek draagt is precies het punt waar de gebruikte studies geen uitsluitsel geven. Dat gelukkige mensen productiever zijn, is een samenhang; dat geluk de productiviteit veroorzaakt, is een keuze uit twee richtingen. Pasricha kiest steeds de richting die zijn formule ondersteunt.</p>
+      <p>Het advies veronderstelt meer speelruimte dan veel lezers hebben. Wie zijn verdienste per uur uitrekent, moet iets te kiezen hebben; wie nooit met pensioen gaat, moet werk hebben waarin dat aantrekkelijk is. Voor mensen in zwaar of onzeker werk leest het hoofdstuk over pensioen anders dan bedoeld.</p>
+      <p>Het slothoofdstuk is bovendien een handige uitweg. Door te zeggen dat geen enkel advies overal werkt, ook dat van hem niet, maakt Pasricha het boek onweerlegbaar: wat werkt is zijn verdienste, wat niet werkt paste niet bij de lezer. Dat is eerlijk gebracht, maar het beschermt de negen hoofdstukken tegen elke toetsing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Reken uit wat een uur werk oplevert voordat een extra opdracht wordt aangenomen.</li>
+        <li>Kies twee of drie oefeningen uit de Big Seven en houd die enkele weken vol, in plaats van alle zeven tegelijk.</li>
+        <li>Leg de dagelijkse momenten vast waarop e-mail en berichten worden gelezen, en laat het daarbij.</li>
+        <li>Maak de eerste stap van een uitgestelde taak zo klein dat er geen besluit meer voor nodig is.</li>
+        <li>Beantwoord de vraag wat een vrije zaterdagochtend zou vullen, en zoek daarna waar dat in de werkweek past.</li>
+        <li>Leg elk advies uit dit boek langs de twee vragen uit het slothoofdstuk voordat het wordt overgenomen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Happiness Equation: Want Nothing + Do Anything = Have Everything</i> (G.P. Putnam's Sons, New York, 8 maart 2016, 320 blz., ISBN 9780399169472); de pocket verscheen bij Penguin onder ISBN 9780425277980. Een Nederlandse uitgave van dit boek is niet gevonden, en ook van zijn bekendste reeks, <i>The Book of Awesome</i>, bestaat geen Nederlandse editie. Wel verscheen zijn latere <i>You Are Awesome</i> in vertaling als <i>Jij bent awesome. Vind je veerkracht en leef doelbewust</i> (ISBN 9789047014331).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Neil Pasricha werd bekend met het blog 1000 Awesome Things en de boeken die daaruit voortkwamen. Dit boek is zijn poging om er een leer van te maken, gevat in een formule: niets willen plus alles doen is alles hebben.</p><p>Negen hoofdstukken, door hem secrets genoemd, vullen die formule in. Het eerste keert de gangbare volgorde om: geluk komt niet na succes maar ervoor. De volgende gaan over motivatie, over pensioen, over de waarde van een uur, over het beperken van keuzes en over uitstel.</p><p>Het slothoofdstuk ondergraaft de rest met opzet. Neem geen advies aan, schrijft Pasricha, ook dat van dit boek niet, want niemand kent de omstandigheden waarin het moet werken behalve de lezer zelf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geluk</li><li>zelfhulp</li><li>positieve psychologie</li><li>ikigai</li><li>werk</li><li>keuzes</li><li>pensioen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="77"><a href="77.html">Ikigai</a>. García en Miralles werkten het begrip ikigai uit tot een heel boek, met dezelfde Okinawaanse bevindingen waarop Pasricha zijn vierde hoofdstuk bouwt.</li>
+          <li value="1561"><a href="1561.html">A Monk's Guide to Happiness</a>. Thubten komt via de boeddhistische kant uit bij het punt waarmee Pasricha begint: geluk als uitgangspunt in plaats van als uitkomst.</li>
+          <li value="1842"><a href="1842.html">The Happiness Trap</a>. Harris bestrijdt juist het streven naar geluk als doel, en levert daarmee het scherpste tegenargument tegen de formule uit de titel.</li>
+          <li value="1893"><a href="1893.html">Solve for Happy</a>. Gawdat probeert net als Pasricha geluk in een formule te vangen, maar redeneert vanuit verwachtingen in plaats van vanuit volgorde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

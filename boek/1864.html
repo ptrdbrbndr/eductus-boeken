@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alles draait om je hormonen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dijkinga stelt dat een groot deel van de klachten waarmee mensen rondlopen, van gewichtstoename en vermoeidheid tot stemmingswisselingen en slecht slapen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1864">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1864 &middot; Brein en lichaam</p>
+    <h1>Alles draait om je hormonen</h1>
+    <p class="lede">Rineke Dijkinga, 2015</p>
+    <p class="stats">
+      <span><b>1519</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1864"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dijkinga stelt dat een groot deel van de klachten waarmee mensen rondlopen, van gewichtstoename en vermoeidheid tot stemmingswisselingen en slecht slapen, is terug te voeren op hormoonsystemen die elkaar voortdurend beinvloeden, en dat voeding en leefstijl daar meer aan doen dan een behandeling per losse klacht. Haar kernpunt is dat de kwaliteit van calorieen bepaalt hoe die systemen werken en dat de hoeveelheid calorieen veel minder uitmaakt. Daaruit volgt de praktische claim van het boek: wie anders gaat eten en anders leeft, verandert de aanmaak, de afbraak en het hergebruik van hormonen, en daarmee het klachtenbeeld. Die stelling wordt niet met eigen onderzoek verdedigd maar met een lange reeks verwijzingen naar bestaand onderzoek, en vervolgens vertaald in ruim honderd recepten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat een hormoon volgens haar doet</h3>
+      <p>Het eerste deel legt uit dat hormonen boodschappers zijn die door klieren worden afgegeven en pas werken als de ontvangende cel gevoelig is voor het signaal. Dijkinga besteedt daar veel ruimte aan, omdat haar hele betoog op dat tweede punt rust: een klacht kan ontstaan doordat er te weinig van een hormoon is, maar ook doordat de cel er slechter op reageert.</p>
+      <p>Daarbij hoort de gedachte dat de systemen aan elkaar vastzitten. Wie de schildklier bekijkt zonder naar de bijnieren te kijken, of de geslachtshormonen zonder de bloedsuiker, mist volgens haar de helft. Die verwevenheid is de reden dat het boek zo dik is: bijna elke klacht wordt via meerdere systemen tegelijk besproken.</p>
+      <h3>De vijf systemen</h3>
+      <p>De geslachtshormonen komen aan bod rond menstruatie, vruchtbaarheid en overgang. De alvleesklier krijgt een eigen behandeling, met insuline en het verminderd reageren daarop als spil van gewicht, energie en spijsvertering. De schildklier noemt zij het orgaan met de grootste gevolgen bij tegenvallende werking, en zij bespreekt de omzetting van het ene schildklierhormoon in het andere en de voedingsstoffen die daarbij nodig zijn.</p>
+      <p>De bijnieren staan in het boek voor de omgang met langdurige spanning. De slaaphormonen sluiten de reeks, met licht, dagritme en de avond als aangrijpingspunten. Ook prostaglandinen komen langs, die zij als regelaars van vetstofwisseling en ontstekingsreacties behandelt.</p>
+      <h3>Darm en lever als werkplaats</h3>
+      <p>Een deel dat in vergelijkbare boeken vaak ontbreekt gaat over afbraak. Hormonen worden in de lever omgezet en via gal en darm afgevoerd; loopt dat vast, dan komen omzettingsproducten volgens Dijkinga opnieuw in omloop. Zij verbindt daar praktische adviezen aan over vezels, bittere groenten, ontlastingspatroon en darmflora.</p>
+      <p>Die nadruk verklaart waarom het boek zoveel aandacht besteedt aan spijsvertering terwijl het over hormonen heet te gaan. In haar redenering is de lever de plek waar het teveel wordt opgeruimd en de darm de plek waar het het lichaam verlaat.</p>
+      <h3>Verstoring van buitenaf</h3>
+      <p>Een apart onderwerp zijn stoffen uit de omgeving die op hormonen lijken of de werking ervan verstoren: weekmakers in kunststof, bestanddelen van verzorgingsproducten, resten van bestrijdingsmiddelen. Dijkinga adviseert die blootstelling te beperken, met concrete keuzes in verpakking, cosmetica en huishoudmiddelen.</p>
+      <p>Zij houdt zich hier dichter bij het voorzorgsprincipe dan bij bewezen schade. Dat de meeste van deze stoffen in laboratoriumonderzoek hormonale werking vertonen staat vast; wat de dagelijkse blootstelling bij mensen aanricht is een stuk minder duidelijk, en dat verschil wordt in het boek niet steeds scherp gemaakt.</p>
+      <h3>Ruim honderd recepten</h3>
+      <p>Het middendeel is een kookboek. De recepten volgen een vast patroon: veel groente, peulvruchten, noten en zaden, kruiden, vette vis, weinig graanproducten, geen geraffineerde suiker en vetten uit olijfolie, kokos en avocado. Bij de gerechten staan aantekeningen die terugverwijzen naar de hormoongroepen uit het eerste deel.</p>
+      <p>Lezers die het boek gebruiken melden twee dingen: de gerechten zijn goed te maken, en een deel van de ingredienten is buiten de natuurvoedingswinkel lastig te krijgen en aan de prijs. Dat maakt het boek in de praktijk minder toegankelijk dan de opzet suggereert.</p>
+      <h3>Bijlagen en naslag</h3>
+      <p>Het derde deel bestaat uit bijlagen met achtergrond en praktische tips per klachtenbeeld, gevolgd door een alfabetische lijst van begrippen en voedingsstoffen, een literatuurlijst en een register. Dit deel maakt het boek bruikbaar als naslagwerk: iemand met een concrete klacht kan er rechtstreeks in zoeken.</p>
+      <p>Tegelijk zit hier het punt waar het boek het meest van een leerboek afwijkt. De bijlagen behandelen aandoeningen waarvoor in de reguliere zorg diagnostiek bestaat, en de lezer krijgt daar een voedingsantwoord op voordat er een diagnose is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hormoonbalans</td><td>De onderlinge verhouding tussen de hormoonsystemen, die volgens Dijkinga belangrijker is dan de waarde van een enkel hormoon.</td></tr>
+          <tr><td class="term">Kwaliteit van calorieen</td><td>Haar stelling dat de samenstelling van het voedsel bepaalt wat het lichaam ermee doet, en het aantal calorieen daarbij ondergeschikt is.</td></tr>
+          <tr><td class="term">Insulineresistentie</td><td>Het verminderd reageren van cellen op insuline, in het boek de verbinding tussen bloedsuiker, gewicht, energie en de overige hormoonsystemen.</td></tr>
+          <tr><td class="term">Schildklier</td><td>Het orgaan dat zij de multitasker noemt, met aandacht voor de omzetting van het ene schildklierhormoon in het actieve andere en de voedingsstoffen die daarbij nodig zijn.</td></tr>
+          <tr><td class="term">Bijnieren</td><td>De klieren die zij verantwoordelijk houdt voor de reactie op langdurige spanning en die in haar redenering voedingsstoffen wegtrekken bij de aanmaak van andere hormonen.</td></tr>
+          <tr><td class="term">Prostaglandinen</td><td>Stoffen die zij als vetregelaars introduceert en verbindt met ontstekingsreacties en de samenstelling van vetten in het eten.</td></tr>
+          <tr><td class="term">Hormoonverstorende stoffen</td><td>Stoffen uit verpakkingen, verzorgingsproducten en landbouw die op lichaamseigen hormonen lijken of de werking daarvan hinderen.</td></tr>
+          <tr><td class="term">Lever en darm als afbraakroute</td><td>De omzetting van hormonen in de lever en de afvoer via gal en darm, in het boek de plaats waar een teveel wordt opgeruimd.</td></tr>
+          <tr><td class="term">Orthomoleculaire benadering</td><td>De aanpak waarin voedingsstoffen in hogere dan gebruikelijke hoeveelheden worden ingezet om lichaamsprocessen bij te sturen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit twee soorten materiaal. Het eerste is fysiologie die niet omstreden is: hoe hormonen worden aangemaakt, welke micronutrienten daarbij een rol spelen, hoe de lever omzet en de darm afvoert. Dat deel klopt in grote lijnen met wat in leerboeken staat, al ligt de nadruk anders.</p>
+      <p>Het tweede is een lange lijst verwijzingen naar losse onderzoeken, aangevuld met een linkpagina bij het boek. Die verwijzingen dekken meestal een mechanisme of een verband uit waarnemend onderzoek, niet de behandeling die het boek voorstelt. Van de aanpak als geheel, dus dit eetpatroon tegenover een ander, is geen onderzoek beschikbaar, en het boek claimt dat ook niet.</p>
+      <p>Het boek verscheen in eigen beheer. Er is dus geen uitgever die meelas, geen wetenschappelijke redactie en geen beoordeling door vakgenoten. Dijkinga is natuurgeneeskundig en orthomoleculair therapeut, geen arts en geen endocrinoloog. Dat maakt de tekst niet automatisch onjuist, maar het betekent dat de selectie van bronnen alleen door de auteur is gemaakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de hoofdstelling. Dat de samenstelling van voedsel invloed heeft op verzadiging en stofwisseling is aangetoond, maar de bewering dat de hoeveelheid calorieen nauwelijks uitmaakt houdt geen stand. In de best uitgevoerde vergelijking van deze vraag, de DIETFITS-studie uit 2018 met ruim zeshonderd deelnemers gedurende een jaar, verschilde het gewichtsverlies tussen een koolhydraatarm en een vetarm patroon niet van betekenis. De kwaliteit van het eten doet ertoe; zij vervangt de energiebalans niet.</p>
+      <p>Een tweede bezwaar betreft de bijnieren. De gedachte dat langdurige spanning de bijnieren uitput en zo tot een reeks klachten leidt, die in dit genre vaak terugkeert, wordt door endocrinologische beroepsverenigingen niet erkend als aandoening; onderzoek naar de veronderstelde afwijkende cortisolpatronen bij vermoeide mensen levert geen consistent beeld op. Wie klachten langs die lijn verklaart, kan een oorzaak missen waarvoor wel behandeling bestaat.</p>
+      <p>Daarbij komt de omvang zelf. Het boek behandelt zoveel klachten dat vrijwel iedere lezer zich ergens herkent, en het biedt bij elke herkenning een voedingsantwoord. Bij schildklierklachten is dat riskant: die zijn met een bloedbepaling vast te stellen en met medicatie te behandelen, en uitstel heeft gevolgen. Het boek waarschuwt daar wel voor, maar de opzet nodigt uit tot zelfdiagnose.</p>
+      <p>Praktisch is er het punt dat lezers zelf noemen: de ingredienten zijn niet overal te koop en de aanpak is duur. Een eetpatroon dat alleen vol te houden is met een goed gevulde natuurvoedingswinkel in de buurt en een ruim budget, bereikt precies de groep niet waar de gezondheidswinst het grootst zou zijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Laat schildklier- en bloedsuikerklachten eerst met een bloedbepaling nakijken voordat er een voedingsplan op wordt losgelaten.</li>
+        <li>Gebruik het derde deel als naslag: zoek de klacht op, lees de achtergrond en negeer voorlopig de rest van het boek.</li>
+        <li>Begin met de recepten voor het ontbijt. Dat is de maaltijd waar de verschuiving weg van geraffineerde koolhydraten het snelst merkbaar is en de minste organisatie kost.</li>
+        <li>Toets ieder advies over aanvullende voedingsstoffen bij een arts of apotheker als er medicatie in het spel is, in het bijzonder bij schildklier- en bloedverdunnende middelen.</li>
+        <li>Reken vooraf uit wat de boodschappenlijst kost en kies de gerechten die met gewone ingredienten te maken zijn.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, verschenen in november 2015 in eigen beheer onder de naam WVHE te Sellingen, in catalogi ook vermeld als Rineke Dijkinga Books (408 blz., hardcover, ISBN 9789081821537). Fotografie en styling van Marnix Smalbil en Inge Dijkinga; het boek bevat een literatuurlijst en een register. Sinds de eerste druk volgden vele herdrukken en verscheen er een luisterboekversie. Van dit boek bestaat geen vertaling; het werk is alleen in het Nederlands uitgegeven en wordt grotendeels via de eigen webwinkel en natuurvoedingswinkels verkocht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rineke Dijkinga is natuurgeneeskundig en orthomoleculair therapeut. In dit boek van ruim vierhonderd bladzijden behandelt zij vijf hormoongroepen die volgens haar de meeste alledaagse klachten verklaren: geslachtshormonen, de hormonen van de alvleesklier, de schildklier, de bijnieren en de hormonen die de slaap regelen. Haar uitgangspunt is dat die systemen elkaar voortdurend beinvloeden en dat het weinig zin heeft er een uit te lichten.</p><p>Het boek bestaat uit drie ongelijke delen. Eerst een uitleg over wat hormonen doen, hoe ze worden aangemaakt en waar ze in het lichaam worden afgebroken en hergebruikt. Dan ruim honderd recepten voor ontbijt, lunch, avondeten en tussendoortjes. Daarna een reeks bijlagen met achtergrond per klachtenbeeld en een alfabetische lijst van begrippen en voedingsstoffen.</p><p>De stelling die alles bijeenhoudt is dat de kwaliteit van calorieen bepalend is en de hoeveelheid veel minder. Wie anders gaat eten, verandert volgens Dijkinga de aanmaak en de afbraak van hormonen en daarmee het klachtenbeeld. Eigen onderzoek staat er niet in; de onderbouwing bestaat uit verwijzingen naar bestaande studies, verzameld in een lange bronnenlijst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hormonen</li><li>voeding</li><li>orthomoleculair</li><li>schildklier</li><li>bijnieren</li><li>insuline</li><li>recepten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1899"><a href="1899.html">De hormoonfactor</a>. Ralph Moorman bewandelt in <i>De hormoonfactor</i> dezelfde weg, met meer aandacht voor beweging en meetbare uitkomsten en minder recepten.</li>
+          <li value="1881"><a href="1881.html">Herstel je hormonen in 10 stappen</a>. Vivian Reijs bouwt in <i>Herstel je hormonen in 10 stappen</i> een stappenplan op hetzelfde uitgangspunt, wat laat zien hoe dit genre zich in Nederland heeft vertakt.</li>
+          <li value="417"><a href="417.html">The Diet Myth</a>. Tim Spector laat in <i>The Diet Myth</i> met eigen tweelingonderzoek zien hoe verschillend mensen op hetzelfde eten reageren, wat de stelligheid van dit boek relativeert.</li>
+          <li value="313"><a href="313.html">Good Energy</a>. Casey Means werkt in <i>Good Energy</i> hetzelfde idee uit dat stofwisseling achter de meeste klachten zit, in dezelfde toon en met dezelfde onderbouwingsvraag.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

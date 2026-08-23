@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Power of Myth &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Campbell stelt dat de mythen van alle volken teruggaan op een beperkt aantal beelden die overal opduiken omdat het menselijk lichaam en de menselijke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1805">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1805 &middot; Filosofie en mystiek</p>
+    <h1>The Power of Myth</h1>
+    <p class="lede">Joseph Campbell en Bill Moyers, 1988</p>
+    <p class="stats">
+      <span><b>1554</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1805"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Campbell stelt dat de mythen van alle volken teruggaan op een beperkt aantal beelden die overal opduiken omdat het menselijk lichaam en de menselijke levensloop overal hetzelfde zijn: geboorte, inwijding, paring, ouderdom, dood. Die beelden hebben volgens hem vier taken: ontzag wekken voor het bestaan, een wereldbeeld geven, een zedelijke orde dragen en het individu door de fasen van zijn leven helpen. De moderne westerse mens heeft die verhalen verloren zonder er nieuwe voor te hebben, en dat verklaart in Campbells ogen een groot deel van de moderne verwarring. Zijn voorstel is de oude verhalen niet als feit te herstellen maar als metafoor te herlezen, waarbij het gezag verschuift van kerk en overlevering naar de eigen ervaring.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Mythe en de moderne wereld</h3>
+      <p>Het gesprek opent bij het gemis. Campbell stelt dat een samenleving zonder gedeelde verhalen haar jongeren geen inwijding meer kan aanbieden, en wijst op bendes in steden als een vorm van eigen initiatie. Moyers houdt hem daarbij herhaaldelijk tegen met de vraag of dat niet te gemakkelijk is.</p>
+      <p>Campbell scheidt hier twee dingen die volgens hem door elkaar lopen. Godsdienst wordt in het Westen als bericht over feiten gelezen, terwijl het volgens hem om beeldtaal gaat. Een religie die haar eigen metaforen voor feiten aanziet, verliest volgens hem haar werking op het moment dat de natuurwetenschap de feiten overneemt.</p>
+      <h3>De reis naar binnen</h3>
+      <p>Campbell leest mythe als een beschrijving van innerlijke toestanden. Hij ontleent dat aan Jung, van wie hij het archetype overneemt, en aan Adolf Bastian, die onderscheid maakte tussen elementaire gedachten die overal voorkomen en de plaatselijke kleuring die zij per volk krijgen. Dat onderscheid draagt het hele boek.</p>
+      <p>Hier valt ook de zin die het bekendst is geworden. Follow your bliss is bij Campbell geen aansporing om te doen waar men zin in heeft, maar de raad om te letten op de bezigheid waarbij de tijd verdwijnt, en die te volgen ook als daar geen inkomen aan vastzit. Hij vertelt daarbij hoe hij zelf vijf jaar in een hut in Woodstock las zonder betrekking of plan.</p>
+      <h3>De eerste vertellers</h3>
+      <p>Een deel over jagersvolken en landbouwvolken. Bij jagers draait het verhaal om het dier dat zich laat doden en om de plicht van de jager tegenover het gedode dier; bij landbouwers om de plant die uit een gedood of begraven lichaam opkomt. Campbell haalt daarvoor grotschilderingen aan en verhalen van de vlakte-indianen.</p>
+      <p>Zijn punt is dat het beeld volgt op de manier van leven. Waar het bestaan afhangt van doden, krijgt de mythe een verzoening met het doden; waar het afhangt van zaaien en oogsten, komt het offer en de wedergeboorte centraal te staan.</p>
+      <h3>Offer en overgave</h3>
+      <p>Dit deel gaat over het loslaten van het eigen belang. Campbell haalt het verhaal aan van de politieman in Hawaii die een onbekende zelfmoordenaar vastgreep en bijna mee de diepte in werd getrokken; op de vraag waarom hij niet losliet, antwoordde hij dat hij het niet kon. Campbell gebruikt dat als voorbeeld van een ervaring waarin de scheiding tussen zichzelf en de ander wegvalt, en verbindt het met Schopenhauers gedachte daarover.</p>
+      <p>Ook de riten rond de dood horen hier: het rouwen, het meebegraven, de gedachte dat leven van leven leeft. Campbell weigert er iets troostends van te maken en houdt vol dat de mythen deze wreedheid juist niet wegpoetsen.</p>
+      <h3>Het avontuur van de held</h3>
+      <p>De bekendste aflevering, waarin Campbell het patroon uit <i>The Hero with a Thousand Faces</i> in gesprekvorm herhaalt: de roeping, de weigering, de drempel, de beproevingen, de gave en de terugkeer. Hij past het toe op Boeddha, Mozes, Odysseus en op de gewone held die voor een ander in de bres springt.</p>
+      <p>Star Wars komt hier binnen. George Lucas heeft gezegd dat Campbells werk hem bij het schrijven hielp, en de gesprekken zijn deels op zijn terrein opgenomen. Campbell leest de Dood Ster en Darth Vader als het beeld van een mens die zijn ambt is geworden en zijn gezicht heeft ingeleverd.</p>
+      <h3>De godin, de liefde en de maskers van de eeuwigheid</h3>
+      <p>De laatste delen gaan over de vrouwelijke godheid in landbouwculturen, over de hoofse liefde in de twaalfde eeuw als het moment waarop in Europa de persoonlijke keuze boven de geregelde verbintenis kwam te staan, en over het huwelijk als beproeving in plaats van als geluksbelofte.</p>
+      <p>Het slot heet de maskers van de eeuwigheid. Campbell houdt daar staande dat elk godsbeeld een masker is voor iets waarover niets te zeggen valt, en dat het laatste woord van de mythologie bij de stilte ligt. Moyers dringt aan op de vraag of Campbell zelf gelooft; het antwoord blijft bij ervaring en weigert de vraag naar waarheid.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De vier functies van de mythe</td><td>Campbells indeling van wat een mythologie doet: ontzag wekken, een wereldbeeld geven, een zedelijke orde bevestigen en het individu door de levensfasen leiden.</td></tr>
+          <tr><td class="term">Elementaire en plaatselijke gedachten</td><td>Het aan Adolf Bastian ontleende onderscheid tussen motieven die overal voorkomen en de plaatselijke vormgeving die zij per cultuur krijgen.</td></tr>
+          <tr><td class="term">Monomythe</td><td>Het terugkerende patroon van vertrek, inwijding en terugkeer dat Campbell in heldenverhalen van uiteenlopende volken meent te vinden.</td></tr>
+          <tr><td class="term">Follow your bliss</td><td>Campbells raad om de bezigheid te volgen waarbij iemand de tijd vergeet, ook zonder uitzicht op zekerheid of inkomen.</td></tr>
+          <tr><td class="term">Metafoor tegenover feit</td><td>Zijn stelling dat godsdienstige verhalen beeldtaal zijn en dat het lezen ervan als gebeurtenisverslag hun werking vernietigt.</td></tr>
+          <tr><td class="term">Overgangsrite</td><td>De plechtigheid die iemand van de ene levensfase naar de volgende brengt en die volgens Campbell in westerse samenlevingen grotendeels is verdwenen.</td></tr>
+          <tr><td class="term">Maskers van de eeuwigheid</td><td>De godsbeelden en godennamen, door Campbell opgevat als gedaanten voor iets waarover geen mededeling mogelijk is.</td></tr>
+          <tr><td class="term">Het offer van de tuinbouwer</td><td>Het motief waarin uit een gedood of begraven lichaam voedsel opkomt, dat Campbell verbindt met landbouwsamenlevingen.</td></tr>
+          <tr><td class="term">De hoofse liefde</td><td>De twaalfde-eeuwse troubadourliefde, bij Campbell het punt waarop in Europa de persoonlijke keuze het wint van de door de familie geregelde verbintenis.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is die van een belezen verteller, niet die van een onderzoeker die zijn stappen laat zien. Campbell put uit een halve eeuw vergelijkend lezen, met Frazer, Bastian, Jung, Zimmer en de Upanishaden als vaste bronnen. In het boek staan geen noten en geen verantwoording; het is een gesprek, en de voorbeelden komen uit het hoofd.</p>
+      <p>De sterkste stukken zijn die waarin Campbell een concreet verhaal navertelt en pas daarna duidt. Het navertellen is nauwkeurig en levendig, en veel van wat hij aanhaalt is in de bronnen terug te vinden. De zwakste stukken zijn die waarin de gelijkenis tussen twee ver uit elkaar liggende culturen zelf als argument moet dienen.</p>
+      <p>Waar het betoog leunt op de bewering dat een motief overal voorkomt, wordt niet nagegaan hoe vaak het juist ontbreekt. Campbell selecteert de overeenkomsten. Dat is genoeg om te laten zien dat mensen op elkaar lijken, en te weinig om te dragen dat er een gemeenschappelijk patroon onder alle verhalen ligt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste vakinhoudelijke bezwaar geldt de universalisering. Godsdienstwetenschappers en folkloristen wijzen erop dat Campbell verhalen losmaakt van de samenleving en de geschiedenis waarin zij functioneerden, en ze vervolgens op elkaar legt tot ze passen. Wat overblijft is een patroon dat vooral bevestigt wat de lezer er al in zocht. De jungiaanse aanname dat die overeenkomst uit een gedeelde diepte van de menselijke geest komt, wordt in het boek niet verdedigd maar voorondersteld.</p>
+      <p>Kort na de uitzending publiceerde Brendan Gill in <i>The New York Review of Books</i> een stuk waarin hij Campbell verweet dat zijn afkeer van de moderne politiek samenging met vooroordelen tegen joden en zwarten, gebaseerd op uitspraken van collega's en studenten uit Sarah Lawrence. Er kwam veel weerwoord van vrienden en oud-studenten, en het geschil is nooit beslecht. Wie het boek leest, hoort in elk geval een spreker die maatschappelijke misstanden stelselmatig terugbrengt tot een tekort aan innerlijk leven.</p>
+      <p>Praktisch is er de nawerking van follow your bliss. De zin is uit haar verband gehaald en tot loopbaanadvies gemaakt, waarbij het onderdeel dat Campbell er wel bij vertelde, jarenlang armoede en het gemis van zekerheid, is weggevallen. Campbell zelf laat in de gesprekken ook weinig ruimte voor mensen die geen keuze hebben, en Moyers is de enige die hem daar af en toe op aanspreekt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees een religieus verhaal eerst na op wat het beeld doet, voordat het als bewering over feiten wordt beoordeeld.</li>
+        <li>Ga bij een aangehaalde overeenkomst tussen culturen na hoe de bron zelf luidt; Campbell vertelt uit het hoofd en zonder verwijzing.</li>
+        <li>Neem het patroon van de heldenreis als een verteltechniek die bruikbaar is bij het maken van verhalen, en niet als aangetoonde structuur van de menselijke geest.</li>
+        <li>Zet naast dit boek een historische studie over dezelfde traditie, om het verlies aan tijd en plaats terug te winnen.</li>
+        <li>Bekijk desgewenst de televisieserie erbij; de aarzelingen en tegenwerpingen van Moyers zijn daarin scherper te horen dan in de bewerkte tekst.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ontstaan uit gesprekken die Bill Moyers in 1985 en 1986 met Campbell opnam, onder meer op Skywalker Ranch en in het American Museum of Natural History, in 1988 door PBS uitgezonden als de zesdelige serie <i>Joseph Campbell and the Power of Myth</i>. Het boek verscheen datzelfde jaar bij Doubleday, New York, bezorgd door Betty Sue Flowers; Campbell was in oktober 1987 gestorven. De Nederlandse vertaling van Frans Hille verscheen als <i>Mythen &amp; bewustzijn: de kracht van de mythologische verbeelding</i> bij De Haan, later voortgezet door Unieboek | Het Spectrum; de pocketuitgave telt 199 blz. (ISBN 9789026965364).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een boek in gespreksvorm. Bill Moyers vraagt, Joseph Campbell antwoordt, over scheppingsverhalen, inwijdingsriten, maagdgeboorten, huwelijk, de dood en over Luke Skywalker. Campbell was toen ruim tachtig en had een halve eeuw vergelijkende mythologie achter de rug; hij stierf voordat de uitzending kwam.</p><p>De rode draad is dat mythen geen mislukte natuurkunde zijn en ook geen geschiedschrijving, maar beelden die iets zeggen over de innerlijke gang van een mensenleven. Campbell leest ze als metafoor. Wie een verhaal over een maagdgeboorte als gebeurtenis opvat, mist volgens hem waar het voor staat.</p><p>Uit de televisieserie kwam de uitdrukking die Campbell het meest bekend heeft gemaakt: follow your bliss. Het boek geeft daar meer context bij dan de losse zin doet vermoeden, maar het blijft de plek waar Campbell het verst gaat in advies en het minst in verantwoording.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mythologie</li><li>Joseph Campbell</li><li>heldenreis</li><li>religie</li><li>vergelijkende studie</li><li>interview</li><li>verbeelding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. <i>The Hero with a Thousand Faces</i> is het boek waaruit het heldenpatroon komt dat hier in gesprekvorm terugkeert, met de verantwoording die dit boek mist.</li>
+          <li value="608"><a href="608.html">Het gewijde en het profane</a>. Eliade behandelt in <i>Het gewijde en het profane</i> hetzelfde gemis aan gewijde tijd en ruimte in de moderne mens, maar met meer aandacht voor de rite dan voor het verhaal.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Jung en zijn medewerkers leggen in <i>De mens en zijn symbolen</i> de archetypenleer uit waarop Campbell zijn duidingen bouwt.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Yogananda's <i>Autobiography of a Yogi</i> laat zien hoe dezelfde Indiase bronnen die Campbell als metafoor leest, van binnenuit als gebeurtenis worden verteld.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

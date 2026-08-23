@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Presence Process &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Brown stelt dat vrijwel alle terugkerende ellende in een volwassen leven bestaat uit emotionele lading die in de eerste zeven levensjaren is opgeslagen en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1912">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1912 &middot; Levenskunst</p>
+    <h1>The Presence Process</h1>
+    <p class="lede">Michael Brown, 2005</p>
+    <p class="stats">
+      <span><b>1559</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1912"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Brown stelt dat vrijwel alle terugkerende ellende in een volwassen leven bestaat uit emotionele lading die in de eerste zeven levensjaren is opgeslagen en sindsdien niet meer bewust gevoeld is. Die lading verdwijnt volgens hem niet door inzicht, gesprekstherapie of gedragsverandering, want dat zijn allemaal manieren om het gevoel op afstand te houden. Zij verdwijnt alleen doordat zij opnieuw gevoeld wordt zonder verhaal, verklaring of schuldvraag eromheen. Daaraan koppelt hij een tweede stelling die verder gaat: daar is geen therapeut, leraar of leer voor nodig. Een vaste ademhalingsoefening, een zin per week en tien weken volhouden zijn genoeg, omdat het gevoel zelf het werk doet zodra de aandacht erbij blijft zonder in te grijpen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het programma vandaan komt</h3>
+      <p>Brown opent met zijn eigen geschiedenis. De hoofdpijnaanvallen van het syndroom van Horton kwamen jarenlang meermaals per dag terug en waren volgens zijn artsen niet te verhelpen. Hij reisde, leefde soberder, deed ceremonies mee en kwam uiteindelijk uit bij iets veel kleiners: zolang zijn aandacht bij wat er nu gebeurde bleef, was de pijn draaglijk of afwezig.</p>
+      <p>Uit die waarneming leidt hij een methode af die hij expliciet losmaakt van religie, goeroes en groepen. Er komen geen rituelen, middelen of hulpmiddelen aan te pas, alleen tijd, aandacht en herhaling. Dat maakt het boek tegelijk toegankelijk en onvergelijkbaar met een behandeling: er is niemand die meekijkt.</p>
+      <h3>Lading, afdruk en boodschapper</h3>
+      <p>De verklarende hoofdstukken zetten drie begrippen neer. Emotionele lading is gevoel dat ooit niet gevoeld mocht worden en sindsdien opgeslagen ligt. De afdruk ontstaat in de eerste zeven jaar, toen het kind nog geen taal en geen keuze had om iets anders met dat gevoel te doen dan het wegdrukken. De boodschapper is de persoon of de gebeurtenis van vandaag die precies dat oude gevoel weer aanraakt.</p>
+      <p>Daaruit volgt de gedragsregel van het hele boek. Wie kwaad wordt op de boodschapper schiet op de postbode: de brief blijft komen, in steeds nieuwe handschriften, tot hij gelezen is. Brown onderscheidt reactie van respons. Reageren is doen wat het oude patroon voorschrijft, antwoorden is het gevoel voelen en daarna pas handelen.</p>
+      <h3>De drie dagelijkse handelingen</h3>
+      <p>De ademhaling is de kern van de praktijk. Vijftien minuten, tweemaal per dag, tien weken lang, waarbij de inademing actief is en de uitademing vanzelf valt, zonder pauze tussen de twee. Brown waarschuwt uitdrukkelijk dat het geen ontspanningsoefening is en dat er tintelingen, verkramping en huilbuien kunnen optreden.</p>
+      <p>Daarnaast draagt de lezer per week een korte zin mee, die Brown een waarnemingshulpmiddel noemt. In week een luidt die zin in het Engels <i>I am here now in this</i>, opgedeeld over in- en uitademing. In week twee gaat het over het herkennen van spiegelingen en projecties. De derde handeling is het lezen: elk weekhoofdstuk beschrijft wat er in die fase gewoonlijk gebeurt, zodat de lezer het niet als tegenslag opvat.</p>
+      <h3>De tien weken</h3>
+      <p>De volgorde van de weken loopt van waarneming naar herkenning naar het toelaten van het gevoel zelf. De eerste weken gaan over aanwezig zijn en over het opmerken van wat er van buiten binnenkomt. De middelste weken gaan over de omkering: wat irriteert wordt teruggebracht tot iets in de lezer, en het gevoel dat daarbij hoort wordt niet weggeademd maar opgezocht.</p>
+      <p>De laatste weken gaan over onschuld, vergeving van zichzelf en het opnieuw verdragen van de eigen aanwezigheid. Brown houdt vol dat het programma in die volgorde gedaan moet worden en dat sneller werken niets oplevert. Wie een week overslaat of het proces afbreekt, krijgt het advies later opnieuw bij week een te beginnen.</p>
+      <h3>Wat er onderweg misgaat</h3>
+      <p>Een aanzienlijk deel van het boek gaat over de terugslag. Slecht slapen, oude ruzies die opnieuw oplaaien, lichamelijke klachten en de neiging om te stoppen worden allemaal genoemd als tekenen dat er iets in beweging is. Dat is de zwakke plek van de opzet en Brown geeft dat zelf half toe: elk ongemak kan als bevestiging worden gelezen.</p>
+      <p>Hij dringt er wel op aan om tijdens het proces geen ingrijpende besluiten te nemen, geen relaties te beëindigen en geen ander soort intensief innerlijk werk erbij te doen. Ook adviseert hij het proces niet te bespreken met mensen die er niet aan meedoen.</p>
+      <h3>Na de tien weken</h3>
+      <p>Het slotdeel behandelt wat er overblijft als het programma is afgerond. Brown belooft geen eindstaat en spreekt van een manier van leven waarin ongemak niet meer wordt weggeduwd. Hij raadt aan het proces jaarlijks te herhalen en beschrijft de ademhalingsoefening als iets dat blijft, ook zonder de weekzinnen.</p>
+      <p>De laatste hoofdstukken gaan over de gevolgen voor omgang met kinderen, partners en werk. Daar wordt de toon algemener en verlaat Brown de precieze instructies die het middendeel bruikbaar maken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Emotionele lading</td><td>Gevoel uit het verleden dat destijds niet gevoeld kon worden en dat volgens Brown blijft aandringen tot het alsnog bewust gevoeld is.</td></tr>
+          <tr><td class="term">Integratie</td><td>Het begrip dat Brown gebruikt in plaats van genezing: de lading verdwijnt niet doordat er iets aan gedaan wordt, maar doordat zij zonder verzet ervaren wordt.</td></tr>
+          <tr><td class="term">Boodschapper</td><td>De persoon of gebeurtenis die vandaag een reactie oproept en volgens Brown alleen laat zien welke oude lading er nog ligt.</td></tr>
+          <tr><td class="term">Bewust verbonden ademhalen</td><td>Vijftien minuten aaneengesloten ademen zonder pauze tussen in- en uitademing, met nadruk op de inademing, tweemaal daags gedurende het hele programma.</td></tr>
+          <tr><td class="term">Waarnemingshulpmiddel</td><td>De korte zin die per week wordt meegedragen en die de aandacht terugbrengt naar het huidige ogenblik in plaats van iets te bevestigen.</td></tr>
+          <tr><td class="term">Reactie tegenover respons</td><td>Reageren is het oude patroon uitvoeren, antwoorden is eerst het gevoel voelen en daarna handelen; het onderscheid loopt door het hele boek.</td></tr>
+          <tr><td class="term">Voelend waarnemen</td><td>De vorm van opmerken die Brown boven denken en analyseren stelt: iets aan den lijve merken zonder het meteen te benoemen.</td></tr>
+          <tr><td class="term">Zevenjaarcyclus</td><td>Browns aanname dat de emotionele afdruk uit de eerste zeven jaar zich elke zeven jaar in nieuwe omstandigheden herhaalt.</td></tr>
+          <tr><td class="term">Aanwezigheid</td><td>De term waarmee Brown het bewustzijn aanduidt dat volgens hem in alles aanwezig is en dat de omstandigheden aanreikt die iemand nodig heeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is vrijwel geheel het eigen geval van de auteur, aangevuld met wat lezers hem later schreven. Er wordt geen onderzoek aangehaald, geen vergelijking met een controlegroep gemaakt en geen enkele uitspraak van een arts geciteerd over de vraag of zijn klachten daadwerkelijk verdwenen zijn. Brown presenteert dat zelf als eerlijkheid: hij zegt dat niemand hem hoeft te geloven en dat de lezer het tien weken lang kan uitproberen.</p>
+      <p>Twee onderdelen sluiten wel aan bij literatuur die er wel is. Dat vroege emotionele ervaringen doorwerken in latere reactiepatronen is in de gehechtheidsliteratuur en in het traumaonderzoek uitvoerig beschreven, onder meer bij Bessel van der Kolk. En dat een lichamelijke aanpak kan bereiken wat praten niet bereikt, is een gedachte die in dat veld eveneens gangbaar is. Brown verwijst daar niet naar; de overeenkomst is achteraf vast te stellen, niet door hem aangevoerd.</p>
+      <p>De ademtechniek is niet nieuw en Brown claimt dat ook niet. Een aaneengesloten ademhaling zonder pauze wordt in rebirthing en in holotroop ademwerk op vergelijkbare wijze gebruikt, met vergelijkbare verschijnselen: tintelingen, spierverkramping en heftige emoties. Wat daar onder begeleiding gebeurt, laat dit boek de lezer alleen doen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de zevenjaarcyclus. Ontwikkelingspsychologie kent ruwe fasen, maar geen periodieke herhaling van zeven jaar; het idee lijkt eerder op de antroposofische indeling van Rudolf Steiner dan op iets wat gemeten is. Brown behandelt het niettemin als vaststaand en bouwt er de indeling van zijn weken op.</p>
+      <p>De regel dat alles wat van buiten komt een spiegel van binnen is, kan zich tegen de lezer keren. Wie werkelijk mishandeld, ontslagen of bedrogen wordt, krijgt in dit kader te horen dat de aandacht naar de eigen lading moet en dat de dader een boodschapper is. Brown maakt geen uitzondering voor situaties waarin optreden tegen de ander de aangewezen handeling is, en dat gat maakt de leer bruikbaar voor wie zich alles laat aanleunen.</p>
+      <p>De opzet laat zich niet weerleggen. Voelt de lezer zich beter, dan werkt het proces; voelt hij zich slechter, dan komt de oude lading naar boven en werkt het proces ook. Elke uitkomst bevestigt de methode. Daar komt bij dat langdurig versneld ademhalen zonder begeleiding voor mensen met epilepsie, hart- en vaatklachten, ernstig trauma of een psychiatrische aandoening niet zonder risico is. De waarschuwingen in het boek gaan daar summier over, terwijl het programma uitdrukkelijk zonder begeleider is bedoeld.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Reserveer voor het volledige programma twee vaste kwartieren per dag, tien weken lang, en begin pas als die tijd er werkelijk is.</li>
+        <li>Behandel het lezen van de weekhoofdstukken als onderdeel van het werk, niet als toelichting die vooruit gelezen kan worden.</li>
+        <li>Noteer per week welke situaties een reactie oproepen en welk gevoel eronder zit, zonder er conclusies aan te verbinden.</li>
+        <li>Overleg bij epilepsie, hartklachten, zwangerschap, ernstig trauma of psychiatrische behandeling eerst met een arts of behandelaar voordat de ademhalingsoefening wordt gedaan.</li>
+        <li>Houd het spiegelidee weg van situaties waarin iemand anders aantoonbaar schade toebrengt, en handel daar gewoon naar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Presence Process: A Healing Journey into Present Moment Awareness</i> (Namaste Publishing, Vancouver, 2005). In 2010 verscheen een herziene en uitgebreide uitgave als <i>The Presence Process: A Journey into Present Moment Awareness</i> (ISBN 9781897238462). De Nederlandse uitgave heet <i>Het presence-proces</i>, vertaald door Liesbeth Groot Koerkamp, verschenen bij Altamira en later bij HarperCollins Holland; eerste Nederlandse druk 2011, herdruk 2018, 352 blz., ISBN 9789401303866. Er bestaat ook een Nederlands luisterboek en e-boek. Van Brown is verder <i>Alchemy of the Heart</i> vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Michael Brown, geboren in Zuid-Afrika in 1962, kreeg in 1989 de diagnose syndroom van Horton, een aandoening met aanvallen van hoofdpijn waarvoor geen behandeling bestond. Na jaren zoeken merkte hij dat de klachten afnamen wanneer zijn aandacht volledig in het huidige ogenblik lag. Uit die ervaring bouwde hij een programma van tien weken, dat hij in 2005 als werkboek uitbracht en in 2010 herzag.</p><p>Het programma bestaat uit drie handelingen die tien weken lang elke dag terugkeren: tweemaal een kwartier ademen zonder pauze tussen in- en uitademing, het meedragen van een korte zin die bij die week hoort, en het lezen van het hoofdstuk waarin Brown uitlegt wat er die week naar boven komt. De term die hij gebruikt is niet genezing maar integratie: emoties die vroeger zijn weggedrukt opnieuw voelen, zonder er iets aan te doen.</p><p>De verklarende helft van het boek rust op een eigen leer. Emotionele indrukken uit de eerste zeven levensjaren zouden zich elke zeven jaar herhalen in nieuwe omstandigheden, en iedereen die de lezer kwaad maakt zou een boodschapper zijn die zijn eigen onverwerkte lading terugkaatst. Het boek vraagt daarom om de aandacht consequent naar binnen te richten, ook bij ruzies waarin de ander overduidelijk iets doet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ademhaling</li><li>emotie</li><li>trauma</li><li>aanwezigheid</li><li>zelfhulp</li><li>werkboek</li><li>tien weken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle beschrijft dezelfde gerichtheid op het huidige ogenblik, maar zonder programma; Brown levert de dagelijkse oefening die bij Tolle ontbreekt.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk behandelt met onderzoek erbij wat Brown uit eigen ervaring stelt over vroege ervaringen die in het lichaam blijven zitten.</li>
+          <li value="1599"><a href="1599.html">Just Breathe</a>. Brulé beschrijft dezelfde familie van ademtechnieken, inclusief de verschijnselen die tijdens aaneengesloten ademhalen optreden.</li>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Levine legt uit waarom een lichamelijke aanpak van oude spanning begeleiding en dosering vraagt, precies het punt waarop dit boek de lezer alleen laat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

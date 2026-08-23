@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Socrates op sneakers &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wiss stelt dat goede vragen tot sterkere antwoorden leiden dan goede meningen, en dat het onvermogen om zulke vragen te stellen geen karakterkwestie is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1919">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1919 &middot; Samenwerken en gesprek</p>
+    <h1>Socrates op sneakers</h1>
+    <p class="lede">Elke Wiss, 2020</p>
+    <p class="stats">
+      <span><b>1546</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1919"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wiss stelt dat goede vragen tot sterkere antwoorden leiden dan goede meningen, en dat het onvermogen om zulke vragen te stellen geen karakterkwestie is maar een gebrek aan oefening. Haar aanname is dat de socratische houding, verwondering en het besef zelf niets te weten, aan te leren valt door de eigen reflexen te leren herkennen: het invullen van andermans woorden, het inbrengen van de eigen ervaring, het toelichten van de eigen vraag. Wie die reflexen inhoudt en zich richt op de concrete ervaring van de gesprekspartner, komt volgens haar bij het denken van die ander terecht in plaats van bij zijn standpunt. Daarmee behandelt zij een filosofische traditie als gesprekstechniek voor het dagelijks verkeer.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom vragen stellen zo slecht gaat</h3>
+      <p>Het eerste deel stelt een diagnose. Wiss noemt onder meer de neiging om over zichzelf te praten, de voorkeur voor het uiten van een mening boven het onderzoeken van een gedachte, de angst voor wat een vraag kan losmaken, en het feit dat vrijwel niemand het ooit heeft geoefend.</p>
+      <p>Zij zet Socrates daartegenover, met een schets van zijn werkwijze op de markt van Athene en van zijn ruzie met de sofisten, die volgens de overlevering overtuigen belangrijker vonden dan uitzoeken. Die schets is kort en dient als beeld, niet als geschiedschrijving.</p>
+      <h3>De socratische houding</h3>
+      <p>Het kerndeel gaat over houding en niet over trucs. Verwondering staat vooraan, samen met de uitspraak dat Socrates wist dat hij niets wist. Wiss verbindt daaraan geduld, moed om door te vragen en de bereidheid om zelf bevraagd te worden.</p>
+      <p>Een begrip dat zij zelf inbrengt is perspectivistische lenigheid: het vermogen om buiten het eigen kader te stappen en de wereld even vanaf de plek van de ander te bekijken. Dat is bij haar iets anders dan meeleven; het gaat om het onderzoeken van andermans redenering, niet om het delen van andermans gevoel.</p>
+      <h3>De voorwaarden voor een vraag</h3>
+      <p>Voor techniek aan bod komt, behandelt Wiss wat er moet kloppen voordat een vraag kan werken. Vertragen hoort daarbij, evenals luisteren zonder alvast een antwoord te vormen, en het uitstellen van het eigen oordeel over wat er gezegd wordt.</p>
+      <p>Zij benoemt een valkuil die veel voorkomt: iemand stelt een vraag en gaat die vervolgens toelichten, waarmee hij de ruimte die de vraag opende meteen weer opvult. Haar advies is de vraag te laten staan en de stilte te verdragen.</p>
+      <h3>Vraagvaardigheden en technieken</h3>
+      <p>Het praktische deel ordent vragen naar wat zij doen: uitnodigen, verkennen, ontrafelen, onthullen en confronteren. Elke functie krijgt voorbeelden en oefeningen, met uitgeschreven dialogen om te laten zien hoe een gesprek verloopt wanneer de techniek wel en niet wordt toegepast.</p>
+      <p>De kern van haar techniek is het aanhouden van de concrete ervaring. Wie doorvraagt naar een voorval, een moment, een handeling, houdt het gesprek weg bij de abstracte begrippen waarin een uitwisseling van meningen vastloopt. Dat is ook de plek waar het volgens Wiss ongemakkelijk wordt, omdat gesprekspartners dan gaan uitwijken.</p>
+      <p>Bij elke functie horen voorbeeldzinnen en tegenvoorbeelden. Wiss laat zien hoe een verkennende vraag verandert in een suggestie zodra er een aanname in wordt gestopt, en hoe een confronterende vraag omslaat in een verwijt wanneer de toon of het tijdstip niet klopt. Dat onderscheid tussen de vorm van een vraag en het effect ervan is het meest bruikbare deel van het boek.</p>
+      <h3>Van vraag naar gesprek</h3>
+      <p>Het slotdeel schaalt op van de losse vraag naar het gesprek en naar het socratisch gesprek in een groep, met een gespreksleider en een vaste gang. Daar komen de eerdere onderdelen samen: de houding levert de rust, de voorwaarden leveren de ruimte, de technieken leveren de beweging.</p>
+      <p>Wiss sluit af met de vraag wat er gebeurt wanneer meer mensen zo zouden praten. Dat is de plek waar het boek zijn maatschappelijke pretentie formuleert, kort en zonder uitwerking.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Socratische houding</td><td>De grondhouding van verwondering, geduld en oprechte belangstelling die volgens Wiss aan elke techniek voorafgaat.</td></tr>
+          <tr><td class="term">Verwondering</td><td>Het vermogen om iets bekends toch merkwaardig te vinden; bij Wiss het beginpunt van elke vraag die ergens toe leidt.</td></tr>
+          <tr><td class="term">Ik weet dat ik niets weet</td><td>De aan Socrates toegeschreven uitspraak, door Wiss gebruikt als werkhouding: de vragensteller doet alsof hij het antwoord niet al kent.</td></tr>
+          <tr><td class="term">Perspectivistische lenigheid</td><td>Haar term voor het vermogen om buiten het eigen kader te denken door de zaak vanaf de plaats van de ander te bekijken.</td></tr>
+          <tr><td class="term">De concrete ervaring</td><td>Het voorval of moment waar de vragensteller naar doorvraagt, om te voorkomen dat het gesprek in abstracties blijft hangen.</td></tr>
+          <tr><td class="term">Vraagfuncties</td><td>Haar indeling van vragen naar wat ze doen: uitnodigen, verkennen, ontrafelen, onthullen en confronteren.</td></tr>
+          <tr><td class="term">De vraag laten staan</td><td>Het inhouden van de neiging om een gestelde vraag toe te lichten of aan te vullen, waarmee de opening weer dichtgaat.</td></tr>
+          <tr><td class="term">Vertragen</td><td>Het bewust verlagen van het tempo van een gesprek, zodat een uitspraak onderzocht kan worden voor de volgende komt.</td></tr>
+          <tr><td class="term">Socratisch gesprek</td><td>De begeleide groepsvorm waarin een vraag gezamenlijk wordt uitgezocht aan de hand van een ingebracht voorval.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing komt uit twee richtingen en beide zijn zwak op hun eigen manier. De filosofische kant rust op Socrates, en die is alleen bekend uit de dialogen van Plato en de geschriften van Xenophon, literaire werken waarin niet valt uit te maken waar de historische figuur ophoudt en de auteur begint. Wiss gaat aan die vraag voorbij en gebruikt Socrates als voorbeeldfiguur.</p>
+      <p>De praktische kant rust op haar eigen ervaring als gespreksbegeleider en trainer, wat het boek bruikbaar maakt en tegelijk niet toetsbaar. Verwijzingen naar onderzoek zijn schaars en dienen als illustratie; het bekendste voorbeeld is een Harvard-onderzoek naar zelfonthulling, aangehaald om te verklaren waarom mensen graag over zichzelf praten. Uit zo een bevinding volgt niet dat de door haar aanbevolen methode werkt.</p>
+      <p>Op de herkomst van het theoriedeel is nadrukkelijk aanmerking gemaakt. Trainer Hans Bolten liet in een uitgebreide bespreking zien dat passages over Socrates, over empathie en over andere onderwerpen woordelijk uit Wikipedia, van websites en uit zijn eigen artikelen kwamen, in de eerste drukken zonder vermelding; hij telde daarbij bijna zes bladzijden uit eigen werk. Vanaf de vijfde druk zijn bronvermeldingen toegevoegd, niet overal even duidelijk.</p>
+      <p>Wat het boek wel biedt is materiaal dat te controleren valt in de praktijk: uitgeschreven dialogen waarin stap voor stap te volgen is welke vraag welk gevolg heeft. Die dialogen zijn geconstrueerd en dus door de auteur gestuurd, maar zij maken haar aanpak zichtbaar in plaats van dat zij die aankondigt. Een lezer kan ze naast een eigen gesprek leggen en nagaan of hetzelfde gebeurt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kwestie van de bronvermelding is het zwaarste bezwaar tegen dit boek, en het raakt aan de inhoud. Een gids die leert doorvragen naar waar een bewering vandaan komt, geeft van de eigen beweringen aanvankelijk niet aan waar zij vandaan kwamen. Bolten voegde daaraan toe dat hij het boek ook inhoudelijk zwak vond, met feitelijke missers in de passages over Socrates.</p>
+      <p>Een tweede bezwaar is de omvang. Meerdere recensenten stellen dat de kern in de helft van de bladzijden gezegd had kunnen worden; kernbegrippen worden herhaald en voorbeelden uitgesponnen. Het boek is daardoor eerder een cursus op papier dan een gids om in te bladeren.</p>
+      <p>Een derde bezwaar betreft het genre. Lieven Vanhoutte merkte in de leeswijzer van het Humanistisch Verbond op dat de titel filosofie belooft terwijl het boek in de praktijk over groepsdynamiek en gespreksvaardigheid gaat. Daar komt een praktisch punt bij dat Wiss zelf ook signaleert: aanhoudend doorvragen werkt alleen wanneer de ander eraan meedoet, en roept anders vluchtgedrag en ergernis op. Wat te doen wanneer iemand niet onderzocht wil worden, blijft in het boek grotendeels open.</p>
+      <p>Ten slotte is de diagnose in het eerste deel gesteld en niet aangetoond. Dat mensen slecht zijn in het stellen van vragen wordt als uitgangspunt genomen, met voorbeelden uit de eigen praktijk als bewijs; onderzoek naar hoe mensen feitelijk vragen stellen komt er niet aan te pas.</p>
+      <p>Een laatste punt betreft de reikwijdte. De methode is ontwikkeld voor gesprekken waarin beide partijen tijd en gelijkwaardigheid hebben: een training, een begeleide bijeenkomst, een gesprek onder vier ogen dat daarvoor is afgesproken. Voor een conflict, een onderhandeling of een gesprek met een machtsverschil is zij minder geschikt, en het boek bakent dat gebied niet af.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel de vraag en zwijg daarna; wie de vraag toelicht, vult de ruimte die hij net maakte.</li>
+        <li>Vraag door naar een voorval en een moment in plaats van naar een opvatting, zodat het gesprek concreet blijft.</li>
+        <li>Merk de neiging op om de eigen ervaring in te brengen, en stel die in ieder geval uit tot de ander klaar is.</li>
+        <li>Oefen de vijf functies apart: kies voor één gesprek één functie en houd het daarbij.</li>
+        <li>Vraag toestemming voor het doorvragen begint, zeker bij gevoelige onderwerpen; zonder instemming levert de methode weerstand op.</li>
+        <li>Lees bij de passages over Socrates een primaire bron ernaast; de weergave in dit boek is samengesteld en op punten onnauwkeurig.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>Filosofische gids voor het stellen van goede vragen</i>, verschenen bij Ambo|Anthos, Amsterdam, in maart 2020, paperback, 256 blz., ISBN 9789026346897; ook als e-boek en luisterboek. Genomineerd voor Beste Spirituele Boek 2021. De uitgever meldt ruim 250.000 verkochte exemplaren en vertalingen in meer dan twintig talen. Vanaf de vijfde druk zijn bronvermeldingen toegevoegd die in de eerdere drukken ontbraken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Elke Wiss is theatermaker en praktisch filosoof en begeleidt socratische gesprekken in organisaties. In dit boek behandelt zij het stellen van vragen als een vaardigheid die te leren is, met Socrates als voorbeeld en met oefeningen en uitgeschreven dialogen als leermateriaal.</p><p>Haar uitgangspunt is dat gesprekken tegenwoordig vaker op een debat lijken dan op een onderzoek: de deelnemers willen overtuigen en niet samen uitzoeken hoe iets zit. Het eerste deel gaat na waarom vragen stellen zo moeizaam gaat, met redenen als ongeduld, angst voor stilte, de voorkeur voor de eigen mening en simpelweg gebrek aan oefening.</p><p>Daarna volgt de opbouw naar de praktijk: de socratische houding, de voorwaarden waaraan een vraag moet voldoen, de technieken zelf en tot slot het gesprek als geheel. Het boek verkocht in Nederland ruim tweehonderdvijftigduizend exemplaren en werd in meer dan twintig talen vertaald.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vragen stellen</li><li>socratisch gesprek</li><li>luisteren</li><li>praktische filosofie</li><li>oordeel</li><li>verwondering</li><li>gespreksvoering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1918"><a href="1918.html">En ze filosofeerden nog lang en gelukkig</a>. Het vervolg van Wiss, waarin dezelfde theorie in verkorte vorm terugkeert en zeventien verhalen het oefenmateriaal leveren.</li>
+          <li value="475"><a href="475.html">The Book of Beautiful Questions</a>. Berger ordent vragen eveneens naar functie, maar onderbouwt zijn indeling met voorbeelden uit ontwerp en onderzoek in plaats van met een filosofische traditie.</li>
+          <li value="444"><a href="444.html">Supercommunicators</a>. Duhigg bespreekt hetzelfde onderwerp, het gesprek dat wel aankomt, met verslaggeving over onderzoek waar dit boek juist weinig van heeft.</li>
+          <li value="1294"><a href="1294.html">Conversation</a>. Zeldin behandelt het gesprek als historische vorm en laat zien dat de socratische omgangsvorm er slechts één van is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

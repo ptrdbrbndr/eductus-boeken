@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brain Food &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Labee stelt dat de moderne westerse manier van eten de hersenen tekortdoet, en dat een groot deel van de klachten die als psychisch of als…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1895">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1895 &middot; Brein en lichaam</p>
+    <h1>Brain Food</h1>
+    <p class="lede">Charlotte Labee, 2020</p>
+    <p class="stats">
+      <span><b>1403</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1895"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Labee stelt dat de moderne westerse manier van eten de hersenen tekortdoet, en dat een groot deel van de klachten die als psychisch of als stressgerelateerd worden geduid, in werkelijkheid tekorten en ontstekingen zijn die met voeding te verhelpen zijn. De hersenen gebruiken volgens haar twintig tot vijfentwintig procent van de opgenomen energie en zijn daarmee het orgaan dat het eerst last krijgt van slechte grondstoffen. Uit die stelling volgt een omkering van volgorde: eerst het bord en de darm, daarna pas het gesprek over stemming, aandacht en gedrag. De aanname die daaronder ligt, is dat de kennis over welke stof welke hersenfunctie ondersteunt ver genoeg is gevorderd om er per persoon advies op te bouwen. Dat is het punt waarop dit boek en de voedingswetenschap uiteenlopen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Labee werkte als fotomodel en won in 2008 de Nederlandse verkiezing voor Miss Universe. Na een periode met burn-outklachten verdiepte zij zich in voeding en hersenen, volgde scholing in de orthomoleculaire hoek en bouwde daar een onderneming omheen. Brain Food verscheen in 2020, na een eerder boek over hetzelfde onderwerp.</p>
+      <p>Die herkomst verklaart de opzet. Het boek is geschreven vanuit een eigen herstel en richt zich op lezers met vergelijkbare klachten: moe, prikkelbaar, slecht slapend, zonder dat een arts iets vindt.</p>
+      <h3>Het brein als verbruiker</h3>
+      <p>Het eerste deel behandelt de hersenen als orgaan met een hoge energiebehoefte. Labee bespreekt glucose en vetten als brandstof, het belang van vetzuren voor celwanden, de rol van eiwitten als bouwstenen voor neurotransmitters, en de vitaminen en mineralen die bij die omzettingen horen. De uitleg is toegankelijk en blijft op het niveau van een inleidend overzicht.</p>
+      <p>Daarna gaat zij per hersenfunctie te werk. Bij geheugen komen cholinerijke producten en omega 3 ter sprake, bij slaap magnesium, tryptofaan en het beperken van cafeine, bij concentratie een stabiele bloedsuiker en voldoende eiwit bij het ontbijt, bij stemming de aanmaak van serotonine en de rol van vitaminen uit de B-groep. Die indeling maakt het boek bruikbaar als naslag en legt tegelijk de zwakke plek bloot, omdat elke functie zo aan een handvol stoffen wordt opgehangen.</p>
+      <h3>Darm en brein</h3>
+      <p>Een afzonderlijk deel gaat over de wisselwerking tussen darm en hersenen. Labee behandelt de darmwand, de samenstelling van de darmflora en de nervus vagus, en koppelt daaraan adviezen over vezels, gefermenteerde producten en het beperken van suiker en alcohol.</p>
+      <p>Het onderzoeksveld waar zij naar verwijst bestaat en is in beweging. Het meeste bewijs voor sturing van stemming via de darm komt echter uit proefdieronderzoek, en de vertaling daarvan naar concrete adviezen voor een individuele lezer loopt ver op de bevindingen vooruit.</p>
+      <h3>Vasten, antioxidanten en stress</h3>
+      <p>Aparte hoofdstukken behandelen periodiek vasten, waarbij Labee eetvensters en pauzes tussen maaltijden bespreekt, en antioxidanten, waarbij oxidatieve belasting wordt opgevoerd als verklaring voor veroudering en vermoeidheid. Een derde hoofdstuk gaat over stress en over de invloed van cortisol op spijsvertering en slaap.</p>
+      <p>In deze hoofdstukken staan de beweringen die het verst gaan. Antioxidanten in supplementvorm hebben in grote studies geen gezondheidswinst laten zien en in sommige gevallen schade; op die uitkomsten gaat het boek niet in.</p>
+      <h3>De recepten</h3>
+      <p>Het tweede deel bevat negenenzeventig recepten met foto's, geordend naar maaltijd en naar doel. Er zijn ontbijten met eiwit en vet, gerechten met vette vis, groente en noten, en een reeks smoothies en kruidenmengsels. Dit deel functioneert als kookboek en is bruikbaar los van de theorie ervoor.</p>
+      <p>Wat de recepten voorschrijven wijkt in grote lijnen niet af van gangbaar voedingsadvies: veel groente, volle producten, vis, noten, weinig suiker en weinig bewerkt voedsel. De toevoeging zit in de motivering per ingredient.</p>
+      <h3>De onderneming om het boek heen</h3>
+      <p>Rond de boeken staat een bedrijf dat supplementen, tests en opleidingen verkoopt. Voor de lezer telt dat mee, omdat de adviezen in het boek doorlopen in producten die daarbuiten te koop zijn. Het boek schrijft zelf geen merken voor, maar het bouwt de redenering waarop dat aanbod rust.</p>
+      <p>De adviseurs die bij dat bedrijf consulten geven, zijn volgens de Vereniging tegen de Kwakzalverij geen artsen maar mensen met een opleiding in de orthomoleculaire hoek of in hypnotherapie. Dat is voor de beoordeling van het boek van belang, omdat de tekst herhaaldelijk uitkomt bij het advies om iets te laten meten of te laten begeleiden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Brain Food</td><td>Labees aanduiding voor voeding die zij als bouwstof en brandstof voor de hersenen aanmerkt, tegenover voeding die de hersenen belast.</td></tr>
+          <tr><td class="term">Brain Balance</td><td>De term waarmee zij de beoogde toestand aanduidt waarin voeding, slaap, stress en beweging elkaar niet tegenwerken; ook de naam van haar bedrijf.</td></tr>
+          <tr><td class="term">Orthomoleculaire geneeskunde</td><td>De stroming waar zij zich op baseert, die klachten verklaart uit tekorten aan lichaamseigen stoffen en behandelt met hoge doseringen daarvan.</td></tr>
+          <tr><td class="term">Darm-hersenas</td><td>De wisselwerking tussen darm, darmflora en hersenen, in het boek de verklaring voor het verband tussen eten en stemming.</td></tr>
+          <tr><td class="term">Neurotransmitters</td><td>Signaalstoffen zoals serotonine en dopamine, waarvan het boek de bouwstenen herleidt tot eiwitten en vitaminen uit de voeding.</td></tr>
+          <tr><td class="term">Periodiek vasten</td><td>Het beperken van de uren waarin gegeten wordt, door Labee aanbevolen als rust voor spijsvertering en stofwisseling.</td></tr>
+          <tr><td class="term">Oxidatieve stress</td><td>De schade door reactieve zuurstofverbindingen, in het boek tegenwicht geboden met antioxidanten uit voeding.</td></tr>
+          <tr><td class="term">Laaggradige ontsteking</td><td>Een aanhoudende lichte ontstekingstoestand die zij aanwijst als schakel tussen eetpatroon en klachten als vermoeidheid en somberheid.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek heeft een literatuurlijst en een register, en de algemene lijnen die het volgt zijn niet omstreden: dat de hersenen veel energie vragen, dat vetzuren en eiwitten grondstoffen leveren voor hersenweefsel en signaalstoffen, en dat een eetpatroon met veel groente en vis en weinig suiker samengaat met betere uitkomsten dan het tegendeel.</p>
+      <p>De stap die daarna wordt gezet, van die algemene lijnen naar de belofte dat concentratie, slaap en stemming met gerichte voedingsstoffen zijn bij te sturen, wordt in de lopende tekst zelden per bewering aan een studie gekoppeld. Waar dat wel gebeurt, gaat het vaak om klein onderzoek of om dieronderzoek. Een lezer die een claim wil natrekken, komt er op veel plaatsen niet uit.</p>
+      <p>De achtergrond van de auteur telt hierbij mee. Labee heeft geen geneeskundige of voedingswetenschappelijke opleiding; haar scholing bestaat uit cursussen in de orthomoleculaire hoek. Zij presenteert zich in het boek ook niet als onderzoeker, maar als iemand die kennis samenbrengt en op zichzelf heeft toegepast. Het boek ontleent zijn gezag aan dat herstelverhaal.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de stelligheid niet in verhouding staat tot wat er bekend is. In besprekingen keert terug dat het boek voor een ingewikkeld onderwerp oppervlakkig blijft en dat naar onderzoek wordt verwezen zonder dat de lezer kan nagaan waar een bewering vandaan komt. Dat is bezwaarlijker naarmate het advies verder van de algemene lijn afwijkt.</p>
+      <p>Het tweede bezwaar betreft wat er om het boek heen gebeurt. De Vereniging tegen de Kwakzalverij bracht het bedrijf van Labee in kaart en kwam uit op een supplementenadvies van ruim honderdtachtig euro per maand na een eerste consult, een bloedtest van driehonderdnegenenveertig euro waarvoor in de wetenschappelijke literatuur geen publicatie te vinden is, en een opleiding tot braincoach van zevenduizend vijfhonderd euro. Het Voedingscentrum houdt aan dat wie gevarieerd eet, geen vitaminesupplementen nodig heeft.</p>
+      <p>Ten derde de omgang met tegenspraak. Labee heeft in reactie op wetenschappelijke kritiek gezegd geen wetenschappelijk bewijs nodig te hebben omdat de gebruikers van haar middelen het bewijs zijn. Dat standpunt sluit het gesprek en maakt lastig te bepalen welke adviezen in het boek stand houden en welke niet. Wie het boek leest, moet dat onderscheid zelf maken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het receptendeel als kookboek; dat staat los van de beweringen in het theoriedeel.</li>
+        <li>Leg gezondheidsklachten eerst voor aan een arts voordat er een voedingsverklaring aan wordt gehangen.</li>
+        <li>Zoek bij een bewering over een voedingsstof en een hersenfunctie zelf de bron op voordat er een supplement bij wordt gekocht.</li>
+        <li>Houd de algemene lijn aan, minder suiker en bewerkt voedsel en meer groente, noten en vis, en laat de gedetailleerde stofadviezen voor wat ze zijn.</li>
+        <li>Scheid het boek van de onderneming eromheen; de aankopen die eruit kunnen volgen, staan nergens in het boek begroot.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Voeding voor gezonde hersenen</i>. Golden Growth Publishing, Rotterdam, 2020, 360 blz. in de eerste druk en 351 blz. in de tweede, ISBN 9789083012926, gebonden, met literatuurlijst en register. Fotografie Kayleigh van Dinter, tekstredactie Robert Tjalsma. Nederlandstalig origineel; er bestaat geen Engelse of andere vertaling. Van Labee verschenen daarnaast onder meer <i>Brain Balance</i>, <i>Brain Food Smoothies</i> en <i>Overprikkeld Brein</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Charlotte Labee kreeg na jaren van overbelasting ernstige klachten en zegt die te hebben verholpen door anders te gaan eten en leven. Brain Food is de uitwerking daarvan: ruim driehonderdvijftig bladzijden over voeding en hersenen, met negenenzeventig recepten.</p><p>Het eerste deel legt uit wat de hersenen aan energie en bouwstoffen vragen, hoe darmen en hersenen op elkaar inwerken en welke voedingsstoffen zij per functie van belang acht: geheugen, slaap, concentratie, stemming. Er staan afzonderlijke hoofdstukken in over periodiek vasten, antioxidanten, stress en kruiden.</p><p>Het tweede deel is een kookboek, geordend rond ingredienten die volgens Labee elkaars werking versterken. Zij baseert zich op de orthomoleculaire geneeskunde, een stroming die buiten de reguliere geneeskunde staat. Dat bepaalt hoe zwaar de beweringen in het boek wegen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>voeding</li><li>hersenen</li><li>orthomoleculair</li><li>darmflora</li><li>supplementen</li><li>recepten</li><li>burn-out</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1894"><a href="1894.html">Dirty Genes</a>. Lynch bouwt hetzelfde soort programma op genen in plaats van op voedingsstoffen, met dezelfde opzet van uitleg gevolgd door supplementen.</li>
+          <li value="417"><a href="417.html">The Diet Myth</a>. Spector behandelt darmflora en voeding met tweelingonderzoek, wat laat zien hoe voorzichtig de conclusies op dit terrein nog moeten zijn.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker onderbouwt met onderzoek wat Labee over slaap en herstel stelt, en laat zien wat een claim over hersenen aan bewijs kan hebben.</li>
+          <li value="1899"><a href="1899.html">De hormoonfactor</a>. Moorman schrijft in dezelfde Nederlandse traditie van leefstijladvies op biochemische grondslag, gericht op hormonen in plaats van hersenen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

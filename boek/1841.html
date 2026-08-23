@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plants of the Gods &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Schultes en Hofmann stellen dat planten die het bewustzijn veranderen geen randverschijnsel van de menselijke geschiedenis zijn maar de kern van veel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1841">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1841 &middot; Natuur en wetenschap</p>
+    <h1>Plants of the Gods</h1>
+    <p class="lede">Richard Evans Schultes en Albert Hofmann, 1979; herziene uitgave met Christian Rätsch, 2001</p>
+    <p class="stats">
+      <span><b>1446</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1841"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Schultes en Hofmann stellen dat planten die het bewustzijn veranderen geen randverschijnsel van de menselijke geschiedenis zijn maar de kern van veel religies, geneeswijzen en kunstvormen, en dat hun betekenis niet in het laboratorium zichtbaar wordt maar in de gemeenschap die de plant gebruikt. Daarbij hoort een tweede stelling over de manier van onderzoeken: botanie, scheikunde en etnografie zijn bij deze planten niet uit elkaar te halen. Wie alleen de werkzame stof beschrijft, kan niet verklaren waarom een volk juist deze soort koos uit de honderden die er groeien; wie alleen de rite beschrijft, kan niet verklaren waarom het middel doet wat het doet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat een hallucinogene plant is</h3>
+      <p>Het boek opent met inleidende gedeelten over de botanie, de scheikunde en de geografie van deze planten. Daar staat wat de auteurs eronder verstaan, in welke plantenfamilies zij zich ophopen, en waar ter wereld het gebruik is aangetroffen. Opvallend punt daarin is de scheve verdeling: de nieuwe wereld levert veel meer gedocumenteerde soorten en gebruiken op dan de oude, en de auteurs behandelen de vraag of dat aan de flora ligt of aan het onderzoek.</p>
+      <p>De toon is die van twee vakmensen die het onderwerp uit de sfeer van het curiosum willen halen. Het gebruik wordt beschreven als onderdeel van geneeskunde en godsdienst, met de plant als middel om met voorouders of geesten in contact te komen, en niet als afwijking.</p>
+      <h3>Het lexicon van eenennegentig soorten</h3>
+      <p>Het middendeel is een lexicon met eenennegentig soorten, alfabetisch op Latijnse naam. Elke ingang beslaat een kolom, soms twee, en bevat een kleurenillustratie, meestal een tekening en in vijftien gevallen een foto, met de wetenschappelijke naam, de familie, het verspreidingsgebied en een alinea die vooral botanisch is, aangevuld met chemische en etnografische gegevens.</p>
+      <p>Daarnaast staat een tabel van veertien bladzijden waarin dezelfde eenennegentig soorten op volksnaam zijn geordend, met kolommen voor de wetenschappelijke naam, geschiedenis en etnografie, aanleiding en doel van het gebruik, de bereidingswijze, en de plantenscheikunde en farmacologie. Die tabel maakt het boek bruikbaar als naslagwerk.</p>
+      <h3>Veertien planten in het lang</h3>
+      <p>Het grootste deel van de tekst gaat naar veertien hoofdstukken over de planten met de langste geschiedenis. De koppen zijn ontleend aan de volken die ze gebruiken: Mainstay of the Heavens over de vliegenzwam, The Hexing Herbs over wolfskers, bilzekruid en alruin, The Nectar of Delight over hennep, St. Anthony's Fire over het moederkoren, Holy Flower of the North Star over doornappelsoorten, Guide to the Ancestors over iboga, Beans of the Hekula Spirit over anadenanthera, Vine of the Soul over banisteriopsis, Trees of the Evil Eagle over brugmansia, The Tracks of the Little Deer over peyote, Little Flowers of the Gods over de psilocybepaddenstoelen, Cactus of the Four Winds over de San Pedro, Vines of the Serpent over ololiuqui en Semen of the Sun over virola.</p>
+      <p>Elk hoofdstuk geeft de geschiedenis en de etnobotanie van het middel, met een kaart van het gebied waar het traditioneel wordt gebruikt en een kader over de scheikunde en de werking van de werkzame stoffen. De illustraties lopen van foto's van bereiding en gebruik tot afbeeldingen van goden, sjamanen en rituele voorwerpen.</p>
+      <h3>De scheikunde in vier bladzijden</h3>
+      <p>Een kort hoofdstuk brengt de stoffen zelf in beeld met gekleurde bolstaafmodellen van acht werkzame verbindingen, naast twee neurotransmitters ter vergelijking. Dat is de plek waar Hofmanns aandeel het duidelijkst is: de verwantschap tussen de moleculen van planten die aan andere kanten van de wereld groeien, is een van de rode draden van het boek.</p>
+      <h3>Gebruik in de geneeskunde, en de voorgangers</h3>
+      <p>Het slothoofdstuk gaat over het gebruik van hallucinogenen in de geneeskunde en toont een twaalftal tekeningen van psychiatrische patiënten die met LSD waren behandeld, uit de jaren waarin dat onderzoek nog mocht. Daarna volgt een naschrift waarin de auteurs vier voorgangers eren: Ernst von Bibra, Mordecai Cubitt Cooke, Carl Hartwich en Louis Lewin.</p>
+      <p>Het boek sluit met een leeslijst van negenenzeventig titels, een verantwoording van de illustraties en een register van ruim vier bladzijden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hallucinogeen</td><td>De term die de auteurs aanhouden voor planten die het bewustzijn zo veranderen dat er beelden, stemmen of gevoelens optreden die er niet zijn, zonder dat er sprake is van bedwelming in de gewone zin.</td></tr>
+          <tr><td class="term">Etnobotanie</td><td>Het vak van Schultes: het onderzoek naar het gebruik van planten door een volk, waarbij plantkunde en etnografie samen worden bedreven.</td></tr>
+          <tr><td class="term">Teonanácatl</td><td>De Nahuatl-naam, vlees van de goden, voor de psilocybepaddenstoelen die in Mexico bij orakel- en genezingsrituelen worden gebruikt.</td></tr>
+          <tr><td class="term">Ololiuqui</td><td>De zaden van de winde Turbina corymbosa, in Mexico als orakelmiddel gebruikt; Hofmann toonde aan dat er lyserginezuuramiden in voorkomen.</td></tr>
+          <tr><td class="term">Ayahuasca of yagé</td><td>Aftreksel van de liaan Banisteriopsis caapi, in het westelijke Amazonegebied doorgaans in combinatie met andere planten gebruikt; in het boek behandeld als de liaan van de ziel.</td></tr>
+          <tr><td class="term">Peyote</td><td>De cactus Lophophora williamsii uit noordelijk Mexico en het zuiden van de Verenigde Staten, met mescaline als werkzame stof, gezocht langs wat de Huichol het spoor van het hertje noemen.</td></tr>
+          <tr><td class="term">Epená</td><td>Snuifpoeder van de harsachtige bast van virolabomen, in het Amazonegebied door blaaspijpjes toegediend.</td></tr>
+          <tr><td class="term">Amanita muscaria</td><td>De vliegenzwam, in Siberië ritueel gebruikt en door sommige onderzoekers vereenzelvigd met de soma uit de Vedische hymnen.</td></tr>
+          <tr><td class="term">Plantenlexicon</td><td>Het middendeel van het boek waarin de eenennegentig soorten met afbeelding, naam, familie en verspreiding staan beschreven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op eigen werk van beide auteurs. Schultes bracht vanaf de jaren veertig veertien jaar in het Colombiaanse Amazonegebied door, leefde bij de volken die hij beschreef, verzamelde duizenden herbariumexemplaren en beschreef daaronder soorten die nog geen naam hadden. Hofmann maakte in 1938 lyserginezuurdi-ethylamide en ontdekte de werking ervan in 1943, isoleerde in 1958 psilocybine en psilocine uit Mexicaanse paddenstoelen en vond de werkzame stoffen van ololiuqui. Wat zij over de scheikunde en de plantkunde schrijven, hebben zij grotendeels zelf gedaan.</p>
+      <p>De gegevens zijn te controleren. Elke soort staat er met Latijnse naam en familie, met verspreidingsgebied en met de stoffen die erin zijn aangetroffen, zodat de lezer ze kan naslaan in botanische en farmacologische literatuur. De leeslijst van negenenzeventig titels maakt de herkomst van het etnografische materiaal navolgbaar.</p>
+      <p>De zwakste schakel zit in de spreiding van de onderbouwing. Voor sommige soorten berust de toeschrijving van een werking op eigen veldwerk en op laboratoriumbepalingen, voor andere op een enkel ouder reisverslag. De lexiconvorm geeft beide hetzelfde formaat van een kolom met een afbeelding, waardoor het verschil in zekerheid alleen zichtbaar is voor wie de tekst goed leest.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>In zijn bespreking in het <i>Journal of Ethnobiology</i> noemde Jonathan Ott het boek uitdrukkelijk gericht op de leek, met de opmerking dat er niettemin gegevens in staan die nergens anders bij deze auteurs te vinden zijn. Dat is de kern van de kwestie: het is een prentenboek met wetenschappelijke inhoud, en de tekst per plant is kort. Wie de etnografie van een enkel volk wil kennen, heeft hier te weinig aan. Ott wees er ook op dat een fout uit 1979, verwisselde bijschriften bij iso-LSD en lyserginezuurhydroxyethylamide op bladzijde 175, in de herdruk van 1992 niet was hersteld.</p>
+      <p>Het boek beschrijft het gebruik met bewondering en gaat spaarzaam in op wat er misgaat. Over dosering, vergiftiging en de smalle marge tussen werkzame en giftige hoeveelheden bij doornappel en brugmansia staat weinig, terwijl het lexicon wel de indruk wekt volledig te zijn. Voor een boek dat bij een breed publiek terechtkwam, is dat een reële tekortkoming.</p>
+      <p>Bij het citeren gaat het vaak mis met de uitgave. De tekst van 2001 is bijgewerkt door Christian Rätsch, terwijl Schultes in dat jaar overleed en Hofmann in de negentig was; wie de nieuwe passages toeschrijft aan Schultes en Hofmann, schrijft aan hen toe wat een derde auteur heeft toegevoegd. Tot slot draagt het boek de sporen van zijn tijd: de kennis is verzameld in een periode waarin er geen afspraken bestonden over wie eigenaar is van de kennis van een gemeenschap, en die vraag stelt het niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het lexicon of de tabel als ingang en ga daarna pas naar het bijbehorende hoofdstuk; andersom lezen levert een verhaal zonder ordening op.</li>
+        <li>Toets scheikundige en farmacologische uitspraken uit de tekst van 1979 aan recentere literatuur; dat deel is het snelst verouderd.</li>
+        <li>Vermeld bij het citeren welke uitgave is gebruikt, want de tekst van 2001 is bewerkt door een derde auteur.</li>
+        <li>Lees het naast een etnografisch werk, want het boek beschrijft planten scherper dan het gemeenschappen beschrijft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Plants of the Gods: Origins of Hallucinogenic Use</i> (McGraw-Hill, New York, 1979, 192 blz.), een boek dat kort na verschijnen wegens problemen bij de uitgever werd uitverkocht als restpartij. Healing Arts Press, Rochester (Vermont), bracht in 1992 een ongewijzigde herdruk met een nieuwe omslag en een gewijzigde ondertitel, <i>Their Sacred, Healing and Hallucinogenic Powers</i> (ISBN 0892814063); de opdracht aan Heinrich Klüver verdween daarbij. In 2001 volgde bij dezelfde uitgever een herziene uitgave waaraan Christian Rätsch als derde auteur was toegevoegd (208 blz., ISBN 0892819790). De Nederlandse vertaling van Martin Beumer verscheen als <i>Over de planten der goden: oorsprong van het gebruik van hallucinogenen</i> (Het Spectrum, Utrecht, 1983, 192 blz., ISBN 9789027477354) en is alleen tweedehands te krijgen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Richard Evans Schultes, hoogleraar in Harvard en veertien jaar veldwerker in het Amazonegebied, en Albert Hofmann, de Zwitserse chemicus die bij Sandoz LSD maakte en later psilocybine isoleerde, schreven in 1979 samen een boek over planten die het bewustzijn veranderen en over de volken die ze gebruiken.</p><p>De kern is een lexicon van eenennegentig soorten, elk met een botanische tekening of foto, de wetenschappelijke naam en de familie, het verspreidingsgebied en een korte tekst. Daaromheen staan hoofdstukken over veertien planten die in de geschiedenis het verst reiken, van de vliegenzwam en het moederkoren tot de peyote, de ayahuascaliaan en de paddenstoelen van Mexico.</p><p>Het is even nadrukkelijk een plaatwerk. De etnografische foto's, de kaarten met verspreidingsgebieden van traditioneel gebruik, de houtsneden en de handschriftillustraties nemen minstens zoveel ruimte in als de tekst. Dat maakt het toegankelijk voor de leek, terwijl vakgenoten er gegevens uit halen die bij geen van beide auteurs elders staan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>etnobotanie</li><li>hallucinogenen</li><li>planten</li><li>sjamanisme</li><li>Amazone</li><li>Mexico</li><li>LSD</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="765"><a href="765.html">The Road to Eleusis: Unveiling the Secret of the Mysteries</a>. Hofmann werkte daar met Wasson en Ruck aan een verwante stelling: dat ook de mysteriën van Eleusis om een plantaardig middel draaiden.</li>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan beschrijft veertig jaar later wat er met dezelfde planten gebeurde toen het onderzoek ernaar opnieuw werd toegestaan.</li>
+          <li value="758"><a href="758.html">Shamanic Voices</a>. Halifax laat de sjamanen zelf aan het woord in hetzelfde jaar dat dit boek verscheen, en vult zo de kant aan die Schultes en Hofmann van buitenaf beschrijven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

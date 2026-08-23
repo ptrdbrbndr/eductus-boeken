@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypnotherapy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Elman betoogt dat hypnose geen slaap is en geen prestatie van de hypnotiseur, maar een toestand waarin de kritische instantie van de geest wordt omzeild…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1869">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1869 &middot; Naslag en praktijk</p>
+    <h1>Hypnotherapy</h1>
+    <p class="lede">Dave Elman, 1964</p>
+    <p class="stats">
+      <span><b>1535</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1869"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Elman betoogt dat hypnose geen slaap is en geen prestatie van de hypnotiseur, maar een toestand waarin de kritische instantie van de geest wordt omzeild en selectief denken tot stand komt. Uit die omschrijving trekt hij twee gevolgtrekkingen die het hele boek dragen. De eerste is dat een inductie in enkele minuten kan verlopen en dat de duur van een sessie niets zegt over de diepte ervan, zodat de behandelaar na elke stap moet toetsen in plaats van aannemen. De tweede is dat suggestie ook buiten de behandelkamer werkt: wat een arts terloops zegt bij een ongeval of op een operatiekamer kan zich vastzetten als een suggestie die niemand heeft bedoeld. Om die reden vond hij dat hypnose in handen van artsen en tandartsen hoorde en gaf hij zijn cursussen aan niemand anders.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het boek is ontstaan</h3>
+      <p>Elman kwam uit de radio en het variete. Hij vertelt hoe een hypnotiseur de pijn van zijn stervende vader wegnam toen hij zelf nog een jongen was, en dat die gebeurtenis hem is bijgebleven. Pas op middelbare leeftijd ging hij hypnose onderwijzen, en uitsluitend aan artsen en tandartsen.</p>
+      <p>De tekst is geen geschreven handboek maar een bewerking van gesproken les. Er staan vragen van cursisten in, herhalingen, en aansporingen aan de zaal om iets meteen te oefenen. Dat maakt het boek lastig als naslagwerk en bruikbaar als leerverslag: wie een inductie wil leren uitvoeren, kan de woorden meelezen zoals ze zijn uitgesproken.</p>
+      <h3>Wat hypnose volgens hem is</h3>
+      <p>De opening ruimt misverstanden op. Hypnose is geen slaap en geen bewusteloosheid, de wil wordt niet overgedragen, en achteraf herinnert de patient zich in de regel gewoon wat er is gezegd. Elman legt de toestand vast als het passeren van de kritische instantie waarna selectief denken mogelijk is: de aangeboden gedachte wordt aangenomen zonder de gebruikelijke tegenspraak.</p>
+      <p>Daaruit volgt zijn stelling dat alle hypnose zelfhypnose is en dat de behandelaar niets afdwingt. Hij besteedt veel ruimte aan de angst voor controleverlies, omdat volgens hem daar het merendeel van de mislukte inducties op stukloopt.</p>
+      <h3>De inductie</h3>
+      <p>Het bekendste deel van het boek is de snelle inductie die zijn naam is gaan dragen. Zij verloopt in vaste stappen: de oogleden zo laten ontspannen dat ze niet meer opengaan, dat laten proberen, daarna het openen en sluiten van de ogen herhalen waarbij elke ronde als dieper wordt aangeboden, en tot slot een deel waarin de patient van honderd terugtelt en de getallen laat verdwijnen.</p>
+      <p>Elman legt bij elke stap uit waarom hij laat toetsen. Zonder toets weet de behandelaar niet in welke toestand iemand verkeert, en op die toets berust de rest van de werkwijze. Hij hekelt de gewoonte om lang en zalvend toe te spreken: diepte is bij hem een kwestie van overtuiging en van bevestiging, niet van tijd.</p>
+      <h3>Diepte, somnambulisme en de Esdaile-toestand</h3>
+      <p>Hij onderscheidt niveaus van hypnose, waarbij somnambulisme de werkzame toestand is. Daarin neemt de patient suggesties aan zonder ze te betwisten en is geheugenverlies voor een afgesproken gegeven op te wekken; Elman gebruikt zulke proeven, zoals het laten vergeten van een getal, om vast te stellen dat die toestand bereikt is.</p>
+      <p>Daarnaast beschrijft hij een dieper niveau dat hij noemde naar de Schotse chirurg James Esdaile, die in de negentiende eeuw in India onder mesmerische trance opereerde. In die toestand treedt volgens Elman een lichamelijke ongevoeligheid op die zonder middelen bruikbaar is bij ingrepen.</p>
+      <h3>Hypnoanesthesie en tandheelkunde</h3>
+      <p>Een groot deel van het boek gaat over pijn. Elman behandelt bevallingen, tandheelkundig werk en operaties bij patienten die narcose slecht verdragen, en brengt daarvoor verslagen in van artsen die zijn cursus hadden gevolgd en hun ervaringen opstuurden.</p>
+      <p>Hij is daarbij stelliger dan die verslagen toelaten. Er is geen vergelijking met een controlegroep, geen telling van de gevallen waarin het niet lukte, en geen aandacht voor de vraag hoe groot het deel van de bevolking is dat deze diepte haalt.</p>
+      <h3>Hypnoanalyse en wakende hypnose</h3>
+      <p>Het laatste deel gaat over het opsporen van de aanleiding van een klacht: het terugvoeren naar een eerdere leeftijd, het opzoeken van een eerste voorval, en het laten vertellen daarvan onder hypnose. Elman noemt dat hypnoanalyse en waarschuwt dat het meer vraagt dan het geven van suggesties.</p>
+      <p>Daarnaast behandelt hij wakende hypnose: suggesties die aankomen zonder inductie, doordat iemand door schrik, pijn of een gezaghebbende spreker al in een ontvankelijke toestand verkeert. Van daaruit komt zijn herhaalde waarschuwing aan artsen over wat er in het bijzijn van een patient gezegd wordt, ook wanneer die bewusteloos lijkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kritische instantie</td><td>Het deel van het denken dat binnenkomende beweringen toetst en dat volgens Elman in hypnose wordt gepasseerd.</td></tr>
+          <tr><td class="term">Selectief denken</td><td>De toestand die daarna intreedt, waarin de aangeboden gedachte wordt aangenomen zonder de gebruikelijke tegenspraak.</td></tr>
+          <tr><td class="term">Elman-inductie</td><td>Zijn snelle inductie in vaste stappen, met ooglidontspanning, een toets, herhaald openen en sluiten van de ogen en het laten verdwijnen van getallen.</td></tr>
+          <tr><td class="term">Fractionering</td><td>Het herhaald in en uit de toestand laten gaan, waarbij elke terugkeer als dieper wordt aangeboden.</td></tr>
+          <tr><td class="term">Somnambulisme</td><td>Het diepteniveau dat Elman als werkzaam beschouwt, herkenbaar aan het aannemen van suggesties en aan opwekbaar geheugenverlies.</td></tr>
+          <tr><td class="term">Esdaile-toestand</td><td>Een dieper niveau, door Elman genoemd naar de chirurg die onder mesmerische trance opereerde, waarin lichamelijke ongevoeligheid optreedt.</td></tr>
+          <tr><td class="term">Hypnoanesthesie</td><td>Het uitschakelen van pijn met hypnose bij bevallingen, tandheelkundig werk en operaties.</td></tr>
+          <tr><td class="term">Hypnoanalyse</td><td>Het onder hypnose opsporen en laten vertellen van het voorval waaraan een klacht volgens Elman is opgehangen.</td></tr>
+          <tr><td class="term">Wakende hypnose</td><td>Suggestie die zonder inductie aankomt bij iemand die door schrik, pijn of gezag al ontvankelijk is.</td></tr>
+          <tr><td class="term">Onbedoelde suggestie</td><td>De terloopse opmerking van een arts of omstander die zich bij een patient vastzet als een opdracht; het bezwaar dat Elman het vaakst herhaalt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen onderzoek maar praktijkverslagen. Elman geeft inducties woord voor woord weer, met de toetsen erbij, en vult die aan met gevallen die door artsen uit zijn cursussen zijn ingestuurd. De waarde daarvan zit in de uitvoering: het is na te doen en de stappen zijn te controleren. Als bewijs voor werkzaamheid schiet het tekort, want er is geen vergelijking, geen nameting en vrijwel geen melding van mislukking.</p>
+      <p>Voor een deel van wat hij beschrijft is later wel bewijs gekomen. Hypnose heeft redelijke steun bij pijn tijdens ingrepen, bij het prikkelbaredarmsyndroom en als aanvulling tijdens bevallingen. Hypnotische verdoving als enige verdoving bij een operatie is mogelijk, maar alleen bij een minderheid van de patienten, en zij is in de praktijk zeldzaam gebleven. Elman schrijft daarover alsof het vooral een kwestie van vaardigheid van de behandelaar is.</p>
+      <p>Zijn omschrijving van de kritische instantie is een beeld dat het onderwijzen makkelijk maakt, geen bevinding uit de hersenwetenschap. Het onderzoek naar suggestibiliteit dat sinds de jaren zeventig is gedaan, werkt met andere begrippen en met gestandaardiseerde schalen die in dit boek nog niet voorkomen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft het deel over hypnoanalyse. Elman behandelt wat onder hypnose wordt verteld als een gebeurtenis die werkelijk heeft plaatsgevonden. Sinds de jaren negentig is uitvoerig gedocumenteerd dat suggestieve ondervraging en leeftijdsregressie herinneringen kunnen opleveren die overtuigend aanvoelen en toch niet zijn gebeurd. Het boek bevat geen enkele voorziening tegen dat risico, en het is juist dit hoofdstuk dat lekenhypnotiseurs later het meest hebben nagevolgd.</p>
+      <p>Daarnaast blijft de onderbouwing een verzameling geslaagde gevallen. Wie zulke verslagen als bewijs leest, ziet alleen wat is opgestuurd; de patient die niet in trance kwam of bij wie de klacht terugkeerde, schrijft geen brief. Elman doet geen poging dat te ondervangen en spreekt herhaaldelijk over genezing waar behandeling van een klacht bedoeld is.</p>
+      <p>Het boek is bovendien gericht op een lezerspubliek dat het niet meer heeft. Elman weigerde uitdrukkelijk aan leken les te geven, maar zijn boek wordt tegenwoordig vooral gekocht door hypnotherapeuten zonder medische opleiding, die de hoofdstukken over pijn en over het opsporen van oorzaken toepassen buiten het kader waarvoor ze bedoeld waren.</p>
+      <p>Ten slotte laat de vorm zich gelden. Als bewerkt lesverslag herhaalt de tekst zichzelf, ontbreekt een bruikbare ordening en dateren de voorbeelden uit de jaren vijftig en zestig, met de omgangsvormen tussen arts en patient van die tijd. Wie er een hedendaags handboek in zoekt, moet dat er zelf uit lichten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets elke stap van een inductie voordat je verdergaat; zonder toets is niet vast te stellen waar iemand is.</li>
+        <li>Neem eerst de angst voor controleverlies weg en leg uit wat hypnose niet is; daar loopt volgens Elman het merendeel van de mislukkingen op stuk.</li>
+        <li>Let op wat er wordt gezegd in het bijzijn van iemand die in schrik of pijn verkeert, ook als die niet lijkt te luisteren.</li>
+        <li>Lees de inducties woordelijk mee en spreek ze hardop uit; het boek is een lesverslag en werkt alleen op die manier.</li>
+        <li>Behandel de opgenomen gevallen als voorbeelden van uitvoering en niet als bewijs van werkzaamheid.</li>
+        <li>Laat het deel over het opsporen van oorzaken liggen zonder opleiding waarin ook de valkuilen van herinnering aan bod komen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk verschenen als <i>Findings in Hypnosis</i> (Clifton, New Jersey, 1964), samengesteld uit de cursussen die Elman vanaf 1949 aan artsen en tandartsen gaf. Na zijn dood in 1967 kwam de uitgave in handen van hypnotherapeut en uitgever Gil Boyne, die het boek onder de titel <i>Hypnotherapy</i> heruitgaf bij Westwood Publishing, Glendale, Californie, 338 blz., ISBN 9780930298043; onder die titel wordt het sindsdien gelezen. Een Nederlandse vertaling bestaat niet. Van de klassieke hypnoseliteratuur is in het Nederlands vooral het werk rond Milton Erickson beschikbaar, onder meer <i>Mijn stem gaat met je mee</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dave Elman was radiomaker voordat hij hypnose ging onderwijzen. Tussen 1937 en 1948 presenteerde hij het NBC-programma Hobby Lobby; vanaf 1949 gaf hij cursussen aan artsen en tandartsen. Dit boek is uit de opnamen en aantekeningen van die cursussen samengesteld en behield hun gesproken vorm, inclusief vragen uit de zaal.</p><p>Elman omschrijft hypnose als een toestand waarin de kritische instantie van de geest wordt gepasseerd en selectief denken tot stand komt. Uit die omschrijving volgt zijn werkwijze: een inductie die enkele minuten duurt, met een toets na elke stap, en niet de zalvende toespraak van een halfuur die in zijn tijd gebruikelijk was.</p><p>Het grootste deel van het boek gaat over pijn: bevallingen, tandheelkundige ingrepen en operaties waarbij narcose ongewenst is. Daarnaast behandelt hij het opsporen van de aanleiding van een klacht en het verschijnsel dat een suggestie ook zonder inductie aankomt bij iemand die in schrik of pijn verkeert.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hypnose</li><li>hypnotherapie</li><li>inductie</li><li>pijnbestrijding</li><li>geneeskunde</li><li>tandheelkunde</li><li>handboek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1546"><a href="1546.html">Mijn stem gaat met je mee</a>. Rosen legt de aanpak vast van Milton Erickson, Elmans tijdgenoot, die juist met indirecte suggestie en verhalen werkte in plaats van met een vaste inductie.</li>
+          <li value="1868"><a href="1868.html">Breek je vrij!</a>. Selij bouwt zijn Nederlandse zelfhulpboek op technieken uit deze traditie, maar richt zich op lezers zonder opleiding, precies wat Elman afwees.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft hoe herinneringen aan geweld zich vastzetten en wat er bij het ophalen ervan misgaat, het punt waarop Elmans hypnoanalyse het kwetsbaarst is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

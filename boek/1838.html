@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Innerlijke rust &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Seneca behandelt onrust als een aandoening met een aanwijsbare oorzaak: niet het lot en niet de omstandigheden, maar de verhouding van iemand tot…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1838">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1838 &middot; Levenskunst</p>
+    <h1>Innerlijke rust</h1>
+    <p class="lede">Seneca, ca. 60 n.Chr.; vert. Vincent Hunink</p>
+    <p class="stats">
+      <span><b>1392</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1838"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Seneca behandelt onrust als een aandoening met een aanwijsbare oorzaak: niet het lot en niet de omstandigheden, maar de verhouding van iemand tot zichzelf. Zijn stelling is dat wie geen vast doel heeft, wordt heen en weer geslingerd tussen bezigheid en terugtrekking en daarom nergens rust vindt, en dat de weg terug loopt via een nuchtere schatting van de eigen vermogens, een bescheiden bezit, een klein aantal geschikte vrienden en het van tevoren onder ogen zien van alles wat verloren kan gaan. Rust is in deze tekst geen gevoel dat komt opzetten maar het gevolg van keuzes die iemand zelf maakt en zelf in de hand heeft. Daarmee legt Seneca de verantwoordelijkheid voor de gemoedstoestand volledig bij de mens, ook waar het lot hem zwaar treft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De klacht van Serenus</h3>
+      <p>Het eerste deel is aan Serenus. Hij vraagt Seneca om een diagnose zoals iemand een arts om een diagnose vraagt, en somt zijn verschijnselen op. Hij is tevreden met eenvoudig huisraad en betrapt zich vervolgens op afgunst bij het zien van rijkdom. Hij houdt van de teruggetrokken studie en wordt onrustig zodra hij hoort dat anderen in de politiek iets bereiken.</p>
+      <p>Hij schrijft dat hij niet ziek is en niet gezond, en dat dit halfslachtige het lastigst te dragen is. Het beeld dat hij gebruikt, een schip dat niet vooruitkomt en toch deint, geeft de tekst zijn onderwerp: de zeeziekte van iemand die stilligt.</p>
+      <h3>De diagnose</h3>
+      <p>Seneca noemt de toestand ontevredenheid met zichzelf. Zij komt voort uit onbestemde begeerten: mensen willen iets, durven het niet, of durven het wel en willen het daarna niet meer. Wat overblijft is verveling en walging van het eigen bestaan.</p>
+      <p>Vandaar de rusteloosheid die hij bij zijn tijdgenoten ziet: verhuizen, reizen, van huis naar landgoed en terug. Wie zichzelf meeneemt, schiet daar niets mee op. Seneca haalt daarvoor Lucretius aan.</p>
+      <h3>Werk kiezen en nuttig zijn</h3>
+      <p>Het middengedeelte gaat over de vraag hoe iemand zich tot de gemeenschap verhoudt. Seneca houdt vast aan de stoïsche plicht om nuttig te zijn, maar tekent daarbij aan dat iemand eerst zijn eigen vermogens moet schatten, daarna de taak, en daarna de mensen met wie hij die taak zou moeten delen. Wie zich vertilt, komt onrustig thuis.</p>
+      <p>Is het openbare leven afgesloten, door ziekte, ballingschap of politieke omstandigheden, dan is terugtrekking geoorloofd zolang zij niet in nietsdoen ontaardt. Hij verwijst naar Athenodorus, die het openbare ambt verruilde voor een leven waarin hij op kleinere schaal van dienst was, en corrigeert hem meteen: die stap mag pas als de weg werkelijk versperd is.</p>
+      <h3>Bezit, vrienden en boeken</h3>
+      <p>Bezit is in deze tekst vooral een bron van angst. Hoe minder iemand bezit, hoe minder het lot van hem af kan pakken; Seneca wijst op Diogenes, die niets had en daarom niets kon verliezen. Vrienden moeten met zorg gekozen worden, want somberheid en klaagzucht zijn besmettelijk.</p>
+      <p>Ook boeken krijgen ervanlangs. Het aanleggen van bibliotheken om de titels en de kasten is volgens Seneca een vorm van pronken; hij verwijst naar de veertigduizend boeken die in Alexandrië verbrandden en die door anderen een gedenkteken van koninklijke rijkdom werden genoemd. Beter een klein aantal schrijvers dat men werkelijk kent.</p>
+      <h3>Het lot en de dood</h3>
+      <p>Wat kan gebeuren, moet vooraf worden overwogen. Seneca voert een reeks voorbeelden aan van mensen die alles verloren en zich niet lieten kennen, en besteedt veel ruimte aan Julius Canus, die onder Caligula ter dood werd veroordeeld terwijl hij een bordspel speelde, zijn tegenstander vroeg na zijn dood niet te beweren dat hij gewonnen had, en de tien dagen tot de voltrekking rustig doorbracht.</p>
+      <p>De strekking is dat niemand een uitzonderingspositie heeft. Wie zich dat dagelijks voorhoudt, wordt niet overvallen. Verdriet wordt niet verboden, maar wel begrensd: verdriet dat men koestert houdt zichzelf in stand.</p>
+      <h3>Ontspanning en het slot</h3>
+      <p>Aan het eind gunt Seneca de geest uitdrukkelijk rust. Een akker die aanhoudend wordt beplant raakt uitgeput, dus wandelen, spel, reizen en af en toe wijn zijn geoorloofd, mits met maat. Hij noemt staatslieden die vaste dagen voor niets doen inruimden.</p>
+      <p>De laatste bladzijden gaan over de vraag of de geest af en toe buiten zichzelf moet treden om iets groots voort te brengen. Seneca haalt daarvoor Plato aan en een uitspraak van Aristoteles dat er geen groot talent bestaat zonder een vleugje waanzin.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tranquillitas</td><td>Seneca's Latijnse woord voor de gezochte gemoedstoestand: een gelijkmatige geest die niet omhoog of omlaag schiet met de omstandigheden.</td></tr>
+          <tr><td class="term">Euthymia</td><td>De Griekse term van Democritus die Seneca met tranquillitas vertaalt en die zoiets als opgewektheid of welgemoedheid betekent.</td></tr>
+          <tr><td class="term">Ontevredenheid met zichzelf</td><td>De kern van de diagnose: de toestand van iemand die niet weet wat hij wil en daardoor voortdurend van houding wisselt.</td></tr>
+          <tr><td class="term">Walging van het bestaan</td><td>De verveling en afkeer die volgens Seneca ontstaan als onbestemde begeerten niet worden opgelost, en die mensen tot reizen en verhuizen aanzetten.</td></tr>
+          <tr><td class="term">Otium en negotium</td><td>Het teruggetrokken leven tegenover het openbare leven; Seneca zoekt een middenweg waarin geen van beide een vlucht wordt.</td></tr>
+          <tr><td class="term">Krachten schatten</td><td>Het voorschrift om eerst het eigen vermogen te meten, dan de taak, dan de mensen met wie de taak gedeeld wordt, om overbelasting te voorkomen.</td></tr>
+          <tr><td class="term">Voorbedachte tegenslag</td><td>De oefening waarin iemand van tevoren doordenkt wat hij kan verliezen, zodat het verlies hem niet onvoorbereid treft.</td></tr>
+          <tr><td class="term">Ontspanning van de geest</td><td>De uitdrukkelijk toegestane rustpauze, met wandelen, spel en met mate wijn, omdat aanhoudende inspanning de geest uitput.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Deze tekst bewijst niets in de moderne zin. Hij is een brief van een leraar aan een vriend en werkt met voorbeelden uit de Romeinse en Griekse geschiedenis: Julius Canus onder Caligula, Diogenes, Athenodorus, Democritus. Die voorbeelden dienen om te tonen dat de houding die Seneca aanbeveelt door mensen is opgebracht, niet om aan te tonen dat zij bij iedereen werkt.</p>
+      <p>Waar de tekst wel houvast geeft, is in de nauwkeurigheid van de beschrijving. De klacht van Serenus, met zijn afwisseling van soberheid en pronkzucht en zijn ergernis aan het succes van anderen, is opgeschreven door iemand die dat gedrag van dichtbij kende. Latere lezers herkennen zich er zo vaak in dat de tekst in de zelfhulphoek is beland, waar hij niet voor bedoeld was.</p>
+      <p>Hunink vertaalt in kort, alledaags Nederlands en houdt de retorische schokjes van het Latijn intact. Zijn aantekeningen wijzen aan waar de tekst onzeker is overgeleverd en waar Seneca op een Griekse bron teruggaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar geldt de schrijver. Seneca was een van de rijkste mannen van het rijk, leermeester en adviseur van Nero, en bepleit hier eenvoud en onthechting. Tacitus en anderen hebben hem dat al in de oudheid voorgehouden. De tekst wordt er niet onwaar van, maar wie hem als levenshouding overweegt, weet dat de schrijver hem zelf hooguit gedeeltelijk uitvoerde.</p>
+      <p>De raad is bovendien gericht aan een bepaalde stand. Serenus heeft een landgoed, slaven, een ambt dat hij kan neerleggen en een vermogen dat hij kan verkleinen. Wie moet werken om te eten, kan de keuze tussen otium en negotium niet maken, en die lezer wordt in de tekst niet aangesproken.</p>
+      <p>Als beschrijving van wat tegenwoordig depressie of uitputting heet, schiet de tekst tekort. Seneca kent alleen morele oorzaken en morele remedies: verkeerde begeerten, gebrek aan doel, te veel bezit. Dat de klacht van Serenus ook lichamelijk kan zijn komt niet aan de orde.</p>
+      <p>Vormtechnisch is de dialoog eenzijdig. Serenus krijgt het woord en verdwijnt daarna; er komt geen tegenwerping meer die Seneca moet weerleggen. Daardoor blijft ongetoetst of de diagnose klopt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf de klacht eerst op zoals Serenus dat doet, met de tegenstrijdigheden erin, voordat er naar een oorzaak gezocht wordt.</li>
+        <li>Meet bij een nieuwe taak achtereenvolgens de eigen vermogens, de omvang van de taak en de mensen met wie zij gedeeld wordt.</li>
+        <li>Beperk het aantal boeken en bezittingen tot wat werkelijk gebruikt wordt; de rest kost aandacht en geeft niets terug.</li>
+        <li>Loop van tevoren na wat verloren kan gaan, en welke gedachte daarbij zou horen, zodat het verlies niet onvoorbereid aankomt.</li>
+        <li>Ruim vaste tijd in waarin niets hoeft; de tekst rekent dat tot de behandeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>De tranquillitate animi</i>, een van de <i>Dialogi</i>, geschreven vermoedelijk tussen 49 en 62 n.Chr. De Nederlandse vertaling van Vincent Hunink verscheen in 2013 bij Athenaeum-Polak &amp; Van Gennep, Amsterdam, 92 blz., ISBN 9789025300562, met aantekeningen en een nawoord van de vertaler. Dezelfde vertaling is in 2018 opgenomen in de verzamelbundel <i>Levenskunst</i>, waarin zes teksten van Seneca bijeenstaan; wie die bundel bezit, heeft deze tekst dus al.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een dun boek van negentig bladzijden waarin Seneca antwoord geeft aan zijn vriend Annaeus Serenus. Die opent met een lange zelfbeschrijving: hij leeft sober en betrapt zich dan op pronkzucht, hij trekt zich terug uit het openbare leven en verlangt er meteen weer naar, hij schrijft eenvoudig en wil dan groots klinken. Hij voelt zich, schrijft hij, als op een schip dat niet vooruitkomt en toch heen en weer wordt geworpen.</p><p>Seneca noemt die toestand geen ziekte en geen deugd, maar een blijven hangen halverwege. De diagnose is dat Serenus niet weet wat hij wil en daarom ontevreden is over zichzelf. De remedies die volgen gaan over de keuze van werk, van vrienden en van bezit, over de omgang met tegenslag en de dood, en over de vraag hoeveel rust en ontspanning een mens zichzelf mag gunnen.</p><p>De tekst is een dialoog in naam. Serenus spreekt alleen in het begin; daarna is het Seneca die aan het woord blijft, met voorbeelden uit de Romeinse en Griekse geschiedenis. De Griekse term die hij vertaalt is euthymia van Democritus, opgewektheid of vastheid van gemoed; zijn Latijnse woord daarvoor is tranquillitas.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stoïcisme</li><li>gemoedsrust</li><li>Serenus</li><li>otium</li><li>onrust</li><li>Rome</li><li>zelfonderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1728"><a href="1728.html">Levenskunst</a>. Deze tekst staat in dezelfde vertaling in die bundel, naast vijf andere essays van Seneca; wie meer dan dit ene stuk wil, koopt de bundel.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca's essay over de kortheid van het leven behandelt dezelfde rusteloosheid, maar dan vanuit de omgang met tijd in plaats van met bezit en ambt.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schrijft ruim een eeuw later dezelfde oefeningen voor zichzelf op, zonder lezer en zonder retoriek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Spirit Medicine &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Villoldo stelt dat de gangbare geneeskunde ziekten los van elkaar behandelt en daarmee steeds achter de feiten aan loopt, terwijl de genezers die hij bij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1848">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1848 &middot; Filosofie en mystiek</p>
+    <h1>One Spirit Medicine</h1>
+    <p class="lede">Alberto Villoldo, 2015</p>
+    <p class="stats">
+      <span><b>1678</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1848"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Villoldo stelt dat de gangbare geneeskunde ziekten los van elkaar behandelt en daarmee steeds achter de feiten aan loopt, terwijl de genezers die hij bij de Q'ero in de Andes en in het Amazonegebied opzocht een enkel recept hanteerden dat lichaam, brein en geest tegelijk aanpakt. Dat recept noemt hij One Spirit Medicine. Zijn these is dat het menselijk lichaam beschikt over herstelsystemen die door voeding, ontgifting en vasten aangezet kunnen worden, en dat de sjamanistische praktijken die hij beschrijft precies daarop inwerken zonder dat de gebruikers ervan de biologie kenden. Wie die twee lagen combineert, schrijft hij, kweekt binnen enkele weken in feitelijke zin een nieuw lichaam. Daarmee legt hij een verband tussen celbiologie en ceremonie dat het hele boek moet dragen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De zieke antropoloog</h3>
+      <p>Het boek opent met Villoldo zelf. In dertig jaar veldwerk in Indonesie, Afrika en Zuid-Amerika liep hij vijf soorten hepatitis op, verschillende parasieten en wormen. Zijn lever raakte zwaar beschadigd, zijn hart verzwakte en in beelden van zijn hoofd bleken parasieten te zitten. Artsen in Miami zetten hem op de lijst voor een levertransplantatie.</p>
+      <p>Hij koos ervoor terug te gaan naar de Amazone. Wat daar gebeurde beschrijft hij als een combinatie: ceremonies en energetisch werk van de genezers die hij kende, en daarnaast antiparasitaire middelen, antioxidanten en voeding gericht op herstel van de lever en van hersenweefsel. Die dubbele behandeling is het model voor het hele boek.</p>
+      <h3>Geneeskunde van de sjamanen</h3>
+      <p>In de eerste hoofdstukken zet Villoldo uiteen wat hij bij zijn leermeesters zag. Zij behandelen volgens hem geen klachten maar het lichtveld dat het lichaam omgeeft, in de overtuiging dat wat daar staat opgeslagen zich later in weefsel afdrukt. Ziekte is in die lezing een late uiting van iets wat eerder in dat veld is vastgelegd, soms generaties terug.</p>
+      <p>Daarnaast beschrijft hij de onzichtbare wereld waarin de sjamaan werkt: een orde waar oorzaken liggen die in de zichtbare wereld pas als gevolg zichtbaar worden. Villoldo presenteert dat niet als geloof maar als werkhypothese van een vakgroep genezers die er volgens hem al duizenden jaren resultaat mee boekt.</p>
+      <h3>De tirannenkoning onttronen</h3>
+      <p>Het derde hoofdstuk gaat over wat Villoldo de tirannenkoning noemt: het oudere, op overleven gerichte deel van het brein dat op angst en woede reageert en de rest van het denken naar zijn hand zet. Zolang dat deel de leiding heeft, zegt hij, blijft het lichaam in een stand van alarm en gaat de energie naar verdediging in plaats van naar herstel.</p>
+      <p>De aanpak die hij voorstelt is tweeledig. Biologisch door de stoffen aan te bieden waarmee hogere hersengebieden weer meedoen, en verhalend door de geschiedenis waarin iemand zichzelf als slachtoffer heeft geplaatst opnieuw te vertellen.</p>
+      <h3>Darm en brein schoonmaken</h3>
+      <p>Het middendeel is voedingskundig. Villoldo betoogt dat de darmwand bij veel mensen doorlaatbaar is geworden, dat daardoor ontstekingsstoffen in de bloedbaan komen en dat de hersenen daar het eerst last van hebben. Hij adviseert graan met gluten, suiker en bewerkte olien te laten staan, en zet in op groenten, gefermenteerd voedsel, vetten uit kokos en olijf, en dierlijk eiwit in kleine hoeveelheden.</p>
+      <p>Daarnaast noemt hij een reeks stoffen die de ontgifting en het hersenherstel zouden ondersteunen: glutathion, kurkuma, groene thee, omega-drie-vetzuren, alfaliponzuur en vitamine D. Hij verbindt die aan onderzoek naar Nrf2, de eiwitroute die de eigen antioxidantproductie van de cel aanzet, en aan BDNF, het eiwit dat bij het aanmaken van nieuwe zenuwcellen betrokken is.</p>
+      <h3>De doodsklok terugzetten</h3>
+      <p>Vervolgens gaat het over veroudering. Villoldo bespreekt de telomeren aan de uiteinden van chromosomen, de opruimprocessen die bij voedselgebrek op gang komen en de mitochondrien als plaats waar het lichaam beslist of een cel doorgaat of afsterft. Perioden zonder eten, ketonen als brandstof en koude zijn bij hem geen dieetmaatregelen maar prikkels om die systemen aan te zetten.</p>
+      <p>Daaraan koppelt hij een hoofdstuk over stressoren: slaap, licht, beweging en de mensen om iemand heen. Zijn stelling daar is dat een schoon lichaam met een onveranderde omgeving vanzelf terugvalt.</p>
+      <h3>Een nieuwe mythologie en de vier reizen</h3>
+      <p>Het laatste deel verlaat de biologie. Villoldo stelt dat iedereen leeft volgens een verhaal dat hij van huis uit heeft meegekregen, en dat genezing pas beklijft als dat verhaal vervangen wordt. Hij noemt dat het aannemen van een nieuwe mythologie.</p>
+      <p>Daarna volgen vier reizen langs het medicijnwiel: die van de genezer, die van het vrouwelijke, die van de wijze en die van de ziener. Elke reis heeft een oefening, meestal een geleide innerlijke tocht met ademhaling en beeldvorming. Het boek sluit af met de visioenzoektocht, een periode alleen in de natuur zonder voedsel, bedoeld als afsluiting van het programma.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">One Spirit Medicine</td><td>Villoldo's naam voor de behandelwijze waarin lichaam, brein en geest als een geheel worden aangepakt in plaats van als losse afdelingen.</td></tr>
+          <tr><td class="term">Lichtveld</td><td>Het veld dat volgens hem het lichaam omgeeft en waarin ervaringen worden opgeslagen die zich later in weefsel kunnen aftekenen.</td></tr>
+          <tr><td class="term">De tirannenkoning</td><td>Het op overleven gerichte hersendeel dat bij angst en woede de leiding overneemt en herstel in de weg zit.</td></tr>
+          <tr><td class="term">Darm-brein</td><td>De verbinding tussen darmwand, darmflora en hersenfunctie, die Villoldo als eerste aangrijpingspunt van zijn programma neemt.</td></tr>
+          <tr><td class="term">Superfoods</td><td>Voedingsmiddelen waaraan hij een sterk ontstekingsremmende of ontgiftende werking toeschrijft, zoals kurkuma, groene thee en gefermenteerde groenten.</td></tr>
+          <tr><td class="term">Glutathion</td><td>Lichaamseigen antioxidant die volgens hem de sleutelstof is bij het opruimen van zware metalen en afbraakproducten.</td></tr>
+          <tr><td class="term">Ketonen</td><td>Brandstof die het lichaam bij weinig koolhydraten uit vet maakt en die hij aanbeveelt als voeding voor de hersenen.</td></tr>
+          <tr><td class="term">Het medicijnwiel</td><td>De indeling in vier windrichtingen waarlangs de oefeningen in het tweede deel zijn geordend.</td></tr>
+          <tr><td class="term">Nieuwe mythologie</td><td>Het vervangen van het levensverhaal waarin iemand zichzelf als slachtoffer plaatst door een verhaal waarin herstel mogelijk is.</td></tr>
+          <tr><td class="term">Visioenzoektocht</td><td>Een periode alleen in de natuur zonder voedsel, bij Villoldo het sluitstuk van het programma.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit drie soorten materiaal die Villoldo naast elkaar zet. Het eerste is zijn eigen ziektegeschiedenis, die hij uitvoerig vertelt en die het boek zijn overtuigingskracht geeft. Het tweede is etnografisch: wat hij bij genezers in de Andes en de Amazone heeft gezien en geleerd. Het derde is een reeks verwijzingen naar onderzoek uit de neurologie, de voedingsleer en de verouderingsbiologie, met een literatuurlijst achterin.</p>
+      <p>Die derde laag is deels solide. Dat de darmflora invloed heeft op ontsteking, dat vasten opruimprocessen aanzet, dat het lichaam ketonen als brandstof kan gebruiken en dat er zoiets bestaat als de aanmaak van nieuwe zenuwcellen, zijn geen bedenksels. Villoldo geeft dat werk echter geen ruimte om hem tegen te spreken: hij haalt aan wat past en laat het onbesliste karakter van veel van dat onderzoek weg.</p>
+      <p>Voor de sprong die het boek maakt, van deze bevindingen naar een programma dat in zes weken een nieuw lichaam oplevert, bestaat geen onderzoek. Villoldo heeft zijn eigen protocol nooit getoetst, er is geen groep deelnemers gevolgd en er is niets vergeleken met een controlegroep. Wat hij aanvoert zijn verhalen van deelnemers aan zijn opleidingen, en die zijn afkomstig van mensen die er zelf voor kozen en betaalden.</p>
+      <p>Bij zijn eigen genezing noemt hij eerlijk dat er antiparasitaire middelen aan te pas kwamen. Hij weegt niet wat dat aandeel geweest kan zijn. Dat is de plaats waar het bewijs het zwakst is: precies het geval dat het boek moet dragen, laat zich niet toewijzen aan het programma dat het aanbeveelt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de twee helften van het boek elkaar niet raken. De biologische hoofdstukken en de sjamanistische hoofdstukken staan naast elkaar, maar er is geen redenering die van mitochondrien naar het lichtveld voert. Villoldo suggereert het verband door de woorden door elkaar te gebruiken. Wie het lichtveld niet aanneemt, houdt een leefstijlboek over waarvan de adviezen ook elders staan.</p>
+      <p>De voedingsadviezen zijn stelliger dan de stand van het onderzoek toelaat. Doorlaatbaarheid van de darm als verklaring voor uiteenlopende klachten is een hypothese die bij een deel van de aandoeningen aannemelijk is en bij een ander deel niet, en het mijden van gluten door mensen zonder coeliakie heeft weinig steun. Ook de opsomming van supplementen loopt vooruit op de vraag wat een aanvulling bij een gezond mens werkelijk doet.</p>
+      <p>De sjamanistische stof is niet zo oud als het boek doet voorkomen. Wat Villoldo aanbiedt is een samenstel van elementen uit de Andes en het Amazonegebied, geordend volgens een medicijnwiel dat vooral uit Noord-Amerikaanse tradities komt en verder is bijgeslepen in de opleidingen die hij verkoopt. Antropologen wijzen erop dat een dergelijke bewerking losraakt van de gemeenschappen waar zij vandaan komt, en dat de auteur er zelf aan verdient.</p>
+      <p>Tot slot de belofte. Dat iemand zich na een week schoner eten beter voelt is niet verrassend, maar de bewering dat de genen die met een lang leven te maken hebben op deze manier aangezet worden, is bij mensen niet aangetoond. Het boek bevat een medische disclaimer, en die is er niet voor niets: het richt zich mede tot lezers met ernstige aandoeningen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem de voedingshoofdstukken als aanleiding, niet als voorschrift, en leg iedere maatregel die op een aandoening ingrijpt voor aan een arts.</li>
+        <li>Scheid bij het lezen de twee lagen: noteer per bewering of zij uit onderzoek komt of uit de leer die Villoldo van zijn leermeesters overnam.</li>
+        <li>Wil iemand alleen het praktische deel, kies dan een enkele verandering, zoals een eetvenster of het schrappen van suiker, en houd die zes weken vol voordat er iets bij komt.</li>
+        <li>Wie de oefeningen van het tweede deel wil doen, begint met de eenvoudigste ademhalings- en beeldoefening; de visioenzoektocht zonder voedsel is niet zonder risico en vraagt begeleiding.</li>
+        <li>Vergelijk de gezondheidsclaims met een bron die niet van de auteur zelf komt voordat er supplementen worden aangeschaft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>One Spirit Medicine: Ancient Ways to Ultimate Wellness</i> (Hay House, Carlsbad, 2015; de gebonden uitgave telt xxiii en 209 blz., met een literatuurlijst op blz. 201 tot 205, ISBN 9781401947309). De Nederlandse uitgave verscheen eerst als <i>Het Amazonemedicijn</i> (AnkhHermes, 2015) en daarna herzien en uitgebreid als <i>Mind body spirit. De praktijk van sjamanistische genezing</i>, vert. Ananto Dirksen (AnkhHermes, Utrecht, 2019, 336 blz., ISBN 9789020216264); dat is de titel waaronder het boek in Nederland te koop is. In het Engels verscheen in 2019 een herziene versie van dezelfde tekst onder de titel <i>Grow a New Body</i>, met extra hoofdstukken over voeding, recepten en een weekmenu.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Alberto Villoldo is medisch antropoloog en psycholoog en werkte jarenlang bij genezers in de Amazone en de Andes. Tijdens dat veldwerk liep hij hepatitis, parasieten en wormen op. Zijn lever en hart raakten in slechte staat en in Miami kreeg hij te horen dat hij een transplantatie nodig had. Hij ging terug naar de Amazone.</p><p>Uit die geschiedenis komt dit boek voort. Villoldo brengt de behandelwijze die hij bij sjamanen zag samen met wat hij uit de moderne biologie haalt over darmen, hersenen, mitochondrien en veroudering. Zijn programma bestaat uit drie lagen: het lichaam schoonmaken met vasten, voeding en supplementen, de hersenen tot rust brengen, en daarna wat hij de reis naar de geest noemt.</p><p>Het praktische deel is een leefstijlprogramma van enkele weken. Het tweede deel bestaat uit sjamanistische oefeningen langs de vier windrichtingen van het medicijnwiel, met als sluitstuk een visioenzoektocht. Villoldo belooft dat wie dit doorloopt binnen zes weken op weg is naar een lichaam dat sneller herstelt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sjamanisme</li><li>Amazone</li><li>voeding</li><li>hersenen</li><li>ontgifting</li><li>medicijnwiel</li><li>leefstijl</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="758"><a href="758.html">Shamanic Voices</a>. Halifax laat sjamanen uit verschillende werelddelen zelf aan het woord, zonder het programma en de opleiding die Villoldo eromheen bouwt.</li>
+          <li value="1608"><a href="1608.html">De lessen van Don Juan</a>. Castaneda deed dezelfde beweging, van antropoloog naar leerling van een genezer, en zijn boek roept dezelfde vraag op over wat er is waargenomen en wat is toegevoegd.</li>
+          <li value="1588"><a href="1588.html">The Biology of Belief</a>. Lipton legt het verband tussen overtuiging en cel dat Villoldo nodig heeft maar niet uitwerkt, en loopt daarbij tegen dezelfde bezwaren aan.</li>
+          <li value="1865"><a href="1865.html">De voedselzandloper</a>. Verburgh behandelt voeding, veroudering en levensduur met dezelfde onderwerpen als Villoldo, maar houdt zich aan wat er in de literatuur staat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

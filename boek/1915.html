@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De levenscode &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sonnevelt stelt dat gezond oud worden voor het grootste deel niet door erfelijkheid wordt bepaald maar door een patroon van dagelijkse gewoonten, en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1915">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1915 &middot; Brein en lichaam</p>
+    <h1>De levenscode</h1>
+    <p class="lede">Albert Sonnevelt, 2012</p>
+    <p class="stats">
+      <span><b>1475</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1915"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sonnevelt stelt dat gezond oud worden voor het grootste deel niet door erfelijkheid wordt bepaald maar door een patroon van dagelijkse gewoonten, en dat dat patroon uit zes onderdelen bestaat die elkaar nodig hebben. Voeding, beweging en herstel zijn daarvan de meetbare helft; positief denken, verbondenheid met anderen en het gevoel ergens voor te leven zijn de helft die zich niet in cijfers laat vangen maar die hij minstens zo zwaar laat wegen. Zijn tweede stelling gaat verder: van die zes is zingeving de onderste laag, want wie geen reden heeft om op te staan, houdt geen enkele van de andere vijf vol. Wie het patroon in zijn geheel opbouwt, kan volgens hem de laatste twintig jaar van een leven in redelijke gezondheid doorbrengen in plaats van in afhankelijkheid.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De omgekeerde vraag</h3>
+      <p>Het boek opent met de verantwoording van de aanpak. De geneeskunde bestudeert ziekte, en Sonnevelt wilde weten wat er te leren valt van mensen bij wie het goed ging. Hij stelt dat hij in de loop van dertig jaar honderden vitale ouderen sprak.</p>
+      <p>Die keuze bepaalt de vorm van het hele boek. Er wordt niet geredeneerd vanuit een aandoening naar een behandeling, maar vanuit een leefpatroon naar de gewoonten die daarin voorkwamen. De vergelijking met wetenschappelijk onderzoek komt er in tweede instantie bij.</p>
+      <h3>De portretten</h3>
+      <p>Tussen de hoofdstukken staan gesprekken met ouderen die opvallend goed functioneren. De rode draad daarin is niet één recept. De ene vrouw eet vrijwel alles uit de eigen tuin en stopt met eten voordat zij vol is, een ander leefde jarenlang op eenvoudige kost en witbrood.</p>
+      <p>Sonnevelt gebruikt die verschillen om te laten zien dat de meetbare factoren niet alles verklaren. Wat de geïnterviewden volgens hem delen is eerder de houding: een bezigheid die ertoe doet, mensen om zich heen, en het vermogen om tegenslagen niet mee te dragen.</p>
+      <h3>De onderkant: zingeving en verbondenheid</h3>
+      <p>Zingeving staat bij Sonnevelt onderaan de piramide. Hij bedoelt daarmee iets gewoons: werk, zorg voor anderen, een vak, een tuin, iets waarvoor het de moeite waard is de dag te beginnen. Zonder dat is elk voedingsadvies in zijn ogen een dweil zonder kraan.</p>
+      <p>De sociale kant behandelt hij vergelijkbaar praktisch. Contacten kosten ook energie, en een deel van het hoofdstuk gaat over conflicten die uit gekwetstheid voortkomen en jarenlang blijven doorwerken. Zijn advies is die op te ruimen, minder om de ander dan om de eigen belasting.</p>
+      <h3>Positief denken</h3>
+      <p>Onder positief denken verstaat Sonnevelt vooral relativeren en gericht blijven op wat er wel kan. Hij portretteert een vrouw die ouders, kinderen, een huis en een echtgenoot verloor en die desondanks niet in verbittering bleef steken.</p>
+      <p>Dit is het hoofdstuk waarin de grens tussen waarneming en advies het dunst is. Dat vitale ouderen weinig klagen kan een oorzaak zijn van hun toestand, maar even goed een gevolg. Sonnevelt kiest voor het eerste zonder die keuze te verantwoorden.</p>
+      <h3>Herstel, beweging en voeding</h3>
+      <p>De meetbare kant vult de tweede helft van het boek. Herstel gaat over slaap, over pauzes overdag en over de gedachte dat het lichaam ritmisch werkt: hij wijst op de adempauze tussen in- en uitademen als kleinste voorbeeld daarvan.</p>
+      <p>Bij beweging kiest hij voor dagelijkse activiteit met een licht verhoogde hartslag boven intensieve sport. Bij voeding gaat het om onbewerkt eten, aandachtig eten en matigheid; hij verwijst naar streken als Okinawa en Sardinië waar mensen vaak oud worden en waar sober eten gebruikelijk is.</p>
+      <p>Sonnevelt houdt bij deze drie de aanwijzingen bescheiden. Hij pleit niet voor een dieet en niet voor een trainingsschema, maar voor een dagpatroon dat jarenlang vol te houden is. Dat is meteen zijn antwoord op de vraag waarom eerdere pogingen van de lezer strandden.</p>
+      <h3>Het plan van zes weken</h3>
+      <p>Achterin staat een programma waarin per week een deel van het patroon wordt aangepakt. De opzet is geleidelijk: één gewoonte tegelijk, met tests om vooraf en achteraf vast te stellen waar de lezer staat.</p>
+      <p>Het boek is verbonden met het opleidingsinstituut en de onlinecursus van de auteur. Het plan werkt op papier, maar wijst ook naar het betaalde vervolg, en dat is bij de beoordeling van de aanbevelingen van belang.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Levenscode</td><td>De verzameling gewoonten die volgens Sonnevelt bepaalt hoe iemand oud wordt, in zijn opvatting zwaarder wegend dan de erfelijke aanleg.</td></tr>
+          <tr><td class="term">Vitaliteitspiramide</td><td>Het model van zes factoren dat hij als piramide ordent, met zingeving als onderste laag en voeding aan de bovenkant.</td></tr>
+          <tr><td class="term">Objectieve factoren</td><td>Voeding, beweging en herstel: de drie onderdelen die te meten en in cijfers uit te drukken zijn.</td></tr>
+          <tr><td class="term">Subjectieve factoren</td><td>Positief denken, sociale verbondenheid en zingeving: de drie onderdelen die zich niet laten meten en die Sonnevelt toch even zwaar laat wegen.</td></tr>
+          <tr><td class="term">Bezieling</td><td>De term waarmee hij het gevoel aanduidt ergens voor te leven, in zijn model de grondslag onder de andere factoren.</td></tr>
+          <tr><td class="term">Herstelmoment</td><td>Een korte onderbreking overdag waarin het lichaam terugkeert naar rust, door hem als biologische noodzaak en niet als luxe beschreven.</td></tr>
+          <tr><td class="term">Patroondoorbreking</td><td>Het bewust vervangen van een ingesleten gewoonte door een andere, waarvoor het boek een reeks kleine aanwijzingen geeft.</td></tr>
+          <tr><td class="term">Zesweekse opbouw</td><td>Het plan achterin waarin per week één onderdeel van het patroon wordt aangepakt in plaats van alles tegelijk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basis van het boek is een verzameling gesprekken met mensen die oud zijn geworden en het goed maken. Dat is een selectie op de uitkomst. Wie alleen de overlevenden ondervraagt, hoort niet van de mensen die hetzelfde deden en toch vroeg stierven, en kan daarom niet vaststellen welke gewoonte iets bijdroeg. Sonnevelt vermeldt niet hoe hij zijn gesprekspartners koos en hoeveel het er precies waren.</p>
+      <p>De vergelijking met onderzoek naar streken waar veel mensen honderd worden, geeft de zes factoren enige steun. Voor slaap, dagelijkse beweging, matig eten en het hebben van een sociaal netwerk zijn er in de bevolkingsonderzoeken vrij consistente aanwijzingen dat zij samenhangen met een langere en gezondere levensduur. Die aanwijzingen zijn correlaties uit waarnemend onderzoek, geen proeven, en de omvang van het effect verschilt sterk per studie.</p>
+      <p>Twee onderdelen staan er zwakker voor dan het boek suggereert. De cijfers over de leeftijd van honderdjarigen in streken als Okinawa en Sardinië zijn de laatste jaren betwist, omdat een deel van de bevolkingsadministratie daar onbetrouwbaar blijkt. En de claim dat positief denken zelf de gezondheid verbetert, is in onderzoek naar bijvoorbeeld het beloop van kanker herhaaldelijk niet bevestigd.</p>
+      <p>Het boek noemt bij de verwijzingen zelden een studie met naam en jaartal. De lezer krijgt de bevindingen in verkorte vorm aangereikt zonder de mogelijkheid ze na te lopen, wat gebruikelijk is in dit genre maar het gewicht van de beweringen niet groter maakt. Bij de tests in de hoofdstukken geldt hetzelfde: het zijn vragenlijsten van de auteur, geen gevalideerde meetinstrumenten, en de uitkomst zegt vooral iets over hoe de lezer zichzelf inschat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwakke plek is de omkering van oorzaak en gevolg, die door het hele boek loopt. Mensen die op hoge leeftijd nog fit zijn, bewegen meer, klagen minder en hebben meer contacten. Of dat de oorzaak van hun toestand is of het gevolg ervan, valt uit gesprekken achteraf niet op te maken. Sonnevelt kiest steeds voor de lezing die zijn model bevestigt.</p>
+      <p>Daaraan zit een tweede bezwaar vast: de nadruk op eigen verantwoordelijkheid. Wie ondanks een goed patroon ziek wordt, en dat zijn er veel, krijgt in dit kader impliciet te horen dat er iets niet klopte aan de levenscode. Inkomen, opleiding, werkomstandigheden en toeval spelen in de gezondheidsverschillen tussen Nederlanders een aanzienlijke rol, en die komen in het boek nauwelijks voor.</p>
+      <p>Verder is er weinig dat elders niet ook staat. Voeding, beweging, slaap, contacten en zingeving vormen de standaardlijst van de leefstijlliteratuur. Wat dit boek eraan toevoegt is de ordening in een piramide met zingeving onderaan, en die keuze wordt niet onderbouwd maar aangenomen.</p>
+      <p>Tot slot loopt het boek uit op het eigen opleidingsaanbod van de auteur. Dat is niet verborgen, maar het maakt de vraag gerechtvaardigd hoe onafhankelijk de aanbevelingen zijn en waarom de meest ingrijpende stappen in het betaalde programma terechtkomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal eerst waarvoor de dag begonnen wordt, voordat er iets aan voeding of beweging verandert.</li>
+        <li>Bouw dagelijkse beweging in met een licht verhoogde hartslag, en behandel die als vaste afspraak in plaats van als sport.</li>
+        <li>Plan herstelmomenten overdag in, niet alleen slaap in de nacht.</li>
+        <li>Eet zo onbewerkt mogelijk, langzaam, en stop voordat het vol aanvoelt.</li>
+        <li>Ruim een langlopend conflict op waarvan de belasting groter is dan de inzet.</li>
+        <li>Pak per week één gewoonte aan en laat de rest ongemoeid tot die staat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Over het geheim van vitaal oud worden</i>. Uitgegeven bij IMU, 2012, 272 blz., ISBN 9789081856522; e-boek ISBN 9789081856584, luisterboek ISBN 9789462171367. Een latere druk verscheen onder ISBN 9789491592638. Het boek is in het Nederlands geschreven en is voor zover na te gaan niet vertaald; Sonnevelt schreef daarnaast onder meer over stress en over voeding, en zijn opleidingsinstituut geeft het bijbehorende programma uit.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Albert Sonnevelt, geboren in 1960, studeerde psychologie en richtte in 1995 een opleidingsinstituut voor gezonde leefstijl op. Voor dit boek draaide hij de gebruikelijke vraag om: in plaats van te onderzoeken waarom mensen ziek worden, ging hij op zoek naar mensen die op hoge leeftijd nog goed functioneerden en vroeg hij hun hoe zij leefden.</p><p>Uit die gesprekken en uit vergelijking met onderzoek naar streken waar mensen opvallend oud worden, destilleerde hij zes factoren die hij als piramide ordent: voeding, beweging en herstel als meetbare kant, en positief denken, sociale verbondenheid en zingeving als moeilijk meetbare kant. Zingeving zet hij onderaan als grondslag.</p><p>Het boek wisselt portretten van geïnterviewde ouderen af met uitleg per factor, tests en praktische aanwijzingen. Achterin staat een plan van zes weken waarmee de lezer stap voor stap een ander patroon zou opbouwen. De toon is die van een leefstijladviseur: aanmoedigend, weinig ingewikkeld en gericht op wat morgen anders kan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vitaliteit</li><li>ouder worden</li><li>leefstijl</li><li>voeding</li><li>beweging</li><li>herstel</li><li>zingeving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="77"><a href="77.html">Ikigai</a>. Ikigai behandelt dezelfde combinatie van zingeving, matig eten en dagelijkse beweging, met Okinawa als voorbeeld dat ook hier terugkomt.</li>
+          <li value="415"><a href="415.html">Lifespan</a>. Sinclair benadert het ouder worden vanuit de biologie en het laboratorium, waar dit boek het vanuit gesprekken en gewoonten benadert.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker levert het slaaponderzoek waarop de rustkant van dit model steunt zonder dat het boek de bronnen noemt.</li>
+          <li value="1565"><a href="1565.html">Onbegrensd energiek in een uitputtende wereld</a>. De Leth schrijft in dezelfde Nederlandse leefstijltraditie over energie en herstel, met dezelfde nadruk op eigen regie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

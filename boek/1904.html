@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human by Design &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Braden stelt dat de wetenschap een verkeerd verhaal over de herkomst van de mens vertelt en dat die fout doorwerkt in wat mensen van zichzelf verwachten.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1904">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1904 &middot; Filosofie en mystiek</p>
+    <h1>Human by Design</h1>
+    <p class="lede">Gregg Braden, 2017</p>
+    <p class="stats">
+      <span><b>1899</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1904"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Braden stelt dat de wetenschap een verkeerd verhaal over de herkomst van de mens vertelt en dat die fout doorwerkt in wat mensen van zichzelf verwachten. Wie zichzelf ziet als de uitkomst van blind toeval, zoekt zijn vermogens buiten zichzelf; wie aanvaardt dat de mens het gevolg is van een gerichte ingreep, gaat volgens hem op zoek naar wat er al in het lichaam aanwezig is. Het boek wil die tweede houding onderbouwen met vondsten uit genetica, paleoantropologie en neurocardiologie, en er een reeks oefeningen op laten volgen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het oude verhaal en waarom Braden het afwijst</h3>
+      <p>Het eerste hoofdstuk gaat over wat Braden het oude verhaal noemt: de mens als toevallige uitkomst van variatie en selectie, verwant aan de andere mensapen en zonder bijzondere positie. Braden voert daar drie bezwaren tegen aan. De overgang naar de anatomisch moderne mens verliep volgens hem te snel, de veranderingen waren te samenhangend, en de kenmerken die eruit voortkwamen zijn te precies om zonder sturing te zijn ontstaan.</p>
+      <p>Hij zet die bezwaren niet neer als een geloofskwestie. Het boek verwijst naar wetenschappelijke artikelen en museumvondsten en heeft een notenapparaat achterin, waardoor het de indruk wekt van een debat binnen de wetenschap waarin Braden een van de partijen is. Dat debat bestaat in deze vorm niet.</p>
+      <h3>Chromosoom 2 en gestuurde mutatie</h3>
+      <p>Het tweede hoofdstuk draait om een vaststaand gegeven: mensen hebben drieëntwintig chromosomenparen en de andere mensapen vierentwintig, doordat twee chromosomen in de menselijke lijn aan elkaar zijn gaan zitten. Dat samengevoegde chromosoom heet chromosoom 2 en draagt de sporen van die gebeurtenis nog: resten van teloomuiteinden midden in de streng en een tweede, uitgeschakeld centromeer.</p>
+      <p>Braden gebruikt dit als hoeksteen. Volgens hem is de kans dat zoiets bij toeval gebeurt en vervolgens in de hele soort terechtkomt zo klein, dat een sturende oorzaak waarschijnlijker is. Hij noemt die oorzaak niet bij naam. Het boek laat in het midden of het om een intelligentie, een natuurwet of iets anders gaat, en houdt het bij de vaststelling dat de huidige wetenschap er geen verklaring voor heeft.</p>
+      <h3>Het brein in het hart</h3>
+      <p>Het derde hoofdstuk gaat over neurocardiologie. Het hart bevat een eigen netwerk van zenuwcellen, in de orde van veertigduizend, dat prikkels verwerkt en signalen naar de hersenen stuurt. Dat netwerk bestaat en wordt beschreven in de vakliteratuur onder de naam intrinsiek cardiaal zenuwstelsel.</p>
+      <p>Braden bouwt daar zijn tweede stelling op: het hart is niet alleen een pomp maar een orgaan dat waarneemt en oordeelt, en het samenspel tussen hart en hersenen is te oefenen. Hij ontleent de oefeningen aan het HeartMath Institute in Californië, dat de variatie in de hartslag meet en spreekt van coherentie wanneer die variatie een regelmatig patroon aanneemt. Een ademhaling van vijf tellen in en vijf tellen uit, gecombineerd met de aandacht op de borststreek en met een herinnering aan een gevoel van waardering, brengt dat patroon volgens die metingen tot stand.</p>
+      <h3>Het nieuwe menselijke verhaal</h3>
+      <p>Het vierde hoofdstuk vat de eerste helft samen tot wat Braden het nieuwe menselijke verhaal noemt. De kern daarvan is dat de mens een op zichzelf staande soort is met een aantal vermogens die er van meet af aan in zaten. Braden noemt onder meer een sterk ontwikkeld inlevingsvermogen, het herstel van weefsel, en de mogelijkheid om beslissingen te nemen op grond van signalen die eerder in het lichaam ontstaan dan in het denken.</p>
+      <p>Vanaf hier verandert het boek van toon. De eerste helft argumenteert, de tweede instrueert. Elk van de volgende hoofdstukken behandelt een van de vermogens, legt uit waar het in het lichaam vandaan komt en sluit af met een oefening die de lezer kan uitvoeren.</p>
+      <h3>Ontworpen voor verbinding en voor intuïtie</h3>
+      <p>Het vijfde hoofdstuk gaat over aansluiting bij anderen en over intuïtie. Braden onderscheidt intuïtie die vanzelf opkomt van intuïtie op afroep, waarmee hij bedoelt dat het lichaam op verzoek is te bevragen. De methode die hij geeft komt neer op de coherentieoefening uit het derde hoofdstuk, gevolgd door een vraag die met ja of nee te beantwoorden is, en daarna aandacht voor wat er in het lichaam gebeurt.</p>
+      <p>Hij verbindt dit met proeven waarin het lichaam volgens de onderzoekers al reageerde voordat een prikkel werd aangeboden. Dat soort proeven is uitgevoerd, onder meer bij HeartMath, maar de uitkomsten staan buiten die kring niet vast.</p>
+      <h3>Ontworpen voor een lang leven</h3>
+      <p>Het zesde hoofdstuk is het meest gewone deel van het boek. Braden bespreekt telomeren, de uiteinden van chromosomen die bij elke celdeling korter worden, en het enzym telomerase dat ze weer kan verlengen. Hij verwijst naar leefstijlonderzoek waarin een plantaardig eetpatroon, beweging, ontspanning en sociale steun samengingen met langere telomeren.</p>
+      <p>De aanbevelingen die eruit volgen zijn de bekende: minder eten, minder dierlijke producten, meer beweging, meer rust, meer contact. Dat die adviezen op zichzelf redelijk zijn, is niet in geschil. Wat opvalt is dat ze niets nodig hebben van de oorsprongstheorie uit de eerste helft van het boek.</p>
+      <h3>Ontworpen met een bedoeling</h3>
+      <p>De laatste twee hoofdstukken trekken de lijn door naar de vraag waartoe de mens er is. Braden zoekt het antwoord in medemenselijkheid en in de verantwoordelijkheid die volgens hem hoort bij een soort die kan kiezen wat zij met haar eigen biologie doet. Hij plaatst dat tegenover een tijd van gentechniek en kunstmatige intelligentie, waarin volgens hem de vraag wat een mens is opnieuw beantwoord moet worden.</p>
+      <p>Het slot is een oproep aan de lezer om het nieuwe verhaal te aanvaarden en de oefeningen tot gewoonte te maken. Onderbouwing komt daar niet meer bij; het is de afronding van een betoog dat zijn steunpunten in de eerste helft heeft neergezet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het oude verhaal</td><td>Bradens aanduiding voor de gangbare wetenschappelijke opvatting dat de mens door toeval en selectie uit eerdere mensachtigen is voortgekomen.</td></tr>
+          <tr><td class="term">Het nieuwe menselijke verhaal</td><td>Zijn tegenvoorstel: de mens als op zichzelf staande soort, ontstaan door een gerichte ingreep, met vermogens die er van begin af aan in zaten.</td></tr>
+          <tr><td class="term">Gestuurde mutatie</td><td>De veronderstelling dat de veranderingen in het menselijk erfelijk materiaal te precies en te gelijktijdig zijn om zonder richtinggevende oorzaak te zijn ontstaan.</td></tr>
+          <tr><td class="term">Chromosoom 2</td><td>Het menselijke chromosoom dat is ontstaan uit twee chromosomen die bij de andere mensapen los van elkaar voorkomen; Braden ziet de fusie als het spoor van de ingreep.</td></tr>
+          <tr><td class="term">Het hartbrein</td><td>Het netwerk van ongeveer veertigduizend zenuwcellen in het hart, dat volgens Braden waarneemt en oordeelt en niet alleen de pompfunctie regelt.</td></tr>
+          <tr><td class="term">Hart-breinharmonie</td><td>De toestand waarin de variatie in de hartslag een regelmatig patroon aanneemt, door Braden bereikt met trage ademhaling, aandacht op de borststreek en een opgeroepen gevoel van waardering.</td></tr>
+          <tr><td class="term">Intuïtie op afroep</td><td>Zijn oefening om na het bereiken van die harmonie een gesloten vraag te stellen en het antwoord af te lezen aan wat er in het lichaam gebeurt.</td></tr>
+          <tr><td class="term">Telomeren en telomerase</td><td>De uiteinden van chromosomen die bij celdeling korter worden, en het enzym dat ze verlengt; Braden gebruikt ze als maat voor de invloed van leefstijl op veroudering.</td></tr>
+          <tr><td class="term">Anatomisch moderne mens</td><td>De vorm waarin de mens volgens Braden ongeveer tweehonderdduizend jaar geleden verscheen, in zijn lezing zonder aanwijsbare overgangsvormen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De losse feiten waarmee Braden begint zijn juist. Chromosoom 2 is inderdaad uit twee chromosomen ontstaan en draagt de sporen daarvan. Het hart heeft inderdaad een eigen zenuwnetwerk. Telomeren worden inderdaad korter en telomerase verlengt ze. Braden verwijst hiervoor naar bestaande artikelen, en het notenapparaat achterin is te controleren.</p>
+      <p>Wat er niet is, is een bron voor de stap van die feiten naar de gevolgtrekking. De zin dat de kans op de fusie te klein is, wordt niet uitgewerkt tot een berekening; er staat geen getal, geen model en geen vergelijking met andere chromosoomfusies, terwijl die bij zoogdieren regelmatig voorkomen en bij paarden, herten en huismuizen zijn beschreven. Het argument rust op de indruk van onwaarschijnlijkheid.</p>
+      <p>De oefeningen leunen vrijwel geheel op het HeartMath Institute, een organisatie die zowel het onderzoek doet als de bijbehorende opleidingen en apparaten verkoopt. Dat de gebruikte ademhaling de hartslagvariatie verandert, is buiten die kring bevestigd en is ook de grondslag van hartcoherentietraining in de reguliere zorg. De verdergaande uitkomsten, zoals lichamelijke reacties voorafgaand aan een prikkel, komen bijna uitsluitend uit eigen publicaties en zijn onafhankelijk niet nagedaan.</p>
+      <p>Braden zelf heeft geen opleiding in genetica of paleoantropologie. Hij werkte in de computer- en energiesector voordat hij ging schrijven, en presenteert zich als iemand die bestaand onderzoek van verschillende vakgebieden bij elkaar brengt. Het boek staat of valt dus met de vraag of die samenvoeging klopt, niet met eigen onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de hoeksteen. De fusie van chromosoom 2 geldt in de genetica juist als een van de duidelijkste aanwijzingen voor gemeenschappelijke afstamming met de andere mensapen: de teloomresten midden in de streng en het uitgeschakelde tweede centromeer laten zien dat er twee bestaande chromosomen zijn samengegaan, precies zoals de evolutietheorie voorspelt bij een verschil van één chromosomenpaar. Braden draait dat om en gebruikt de aanwijzing voor afstamming als aanwijzing tegen afstamming.</p>
+      <p>Het beeld van een soort die plotseling opdook, houdt geen stand bij de vondsten. In Jebel Irhoud in Marokko zijn in 2017 resten beschreven die op ongeveer driehonderdduizend jaar worden gedateerd en waarin moderne en oudere kenmerken door elkaar lopen. Dat mozaïek is het tegendeel van een plotseling verschijnen. Bradens stelling dat de mens een geheel losstaande soort is, botst bovendien op het genoomonderzoek sinds 2010: mensen buiten Afrika dragen ongeveer één tot twee procent erfelijk materiaal van neanderthalers, wat alleen te verklaren is als er gemeenschappelijke nakomelingen zijn geweest.</p>
+      <p>De twee helften van het boek hangen zwak samen. Zelfs als de oorsprongstheorie klopte, zou daar niet uit volgen dat trage ademhaling de intuïtie scherpt of dat een plantaardig eetpatroon telomeren spaart, en omgekeerd blijven die adviezen even goed overeind als de theorie onjuist is. De oorsprongsclaim doet in de praktijk vooral dienst als aanleiding om de oefeningen gewicht te geven.</p>
+      <p>Braden heeft een voorgeschiedenis van dit soort constructies. In <i>The God Code</i> (2003) betoogde hij dat de Hebreeuwse godsnaam via getalswaarden in het menselijk erfelijk materiaal ligt besloten, een redenering die alleen werkt door willekeurige toekenning van letters aan elementen. Het patroon herhaalt zich hier: bestaand onderzoek als aanloop, en een conclusie die dat onderzoek niet draagt.</p>
+      <p>Voor een lezer die alleen de oefeningen zoekt, is het boek omslachtig: de ademhalingsoefening beslaat twee bladzijden en is elders duidelijker beschreven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de eerste helft als een standpunt over de herkomst van de mens en controleer de noten bij de hoofdstukken 1 en 2 voordat iets daaruit wordt overgenomen.</li>
+        <li>Neem de ademhalingsoefening uit hoofdstuk 3 los van het betoog: vijf tellen in, vijf tellen uit, aandacht op de borststreek. Die werkt op de hartslagvariatie ongeacht wat men van de oorsprongstheorie vindt.</li>
+        <li>Behandel de leefstijladviezen uit hoofdstuk 6 als gewone leefstijladviezen en leg ze naast een bron die het onderzoek naar telomeren zelf beschrijft.</li>
+        <li>Gebruik de oefening voor intuïtie op afroep hoogstens om vast te stellen welke keuze weerstand oproept, en niet als toets op feiten die buiten het eigen lichaam liggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Human by Design: From Evolution by Chance to Transformation by Choice</i> (Hay House, Carlsbad, 2017, 240 blz., ISBN 9781401949310). Dezelfde uitgever bracht het boek in 2019 opnieuw uit onder een andere titel, <i>The Science of Self-Empowerment: Awakening the New Human Story</i>, met dezelfde inhoud. De Nederlandse uitgave heet <i>De mens als ontwerp: van evolutie door toeval tot transformatie door keuze</i>, vertaald door Ronald Hermsen (AnkhHermes, Utrecht, 2018, 256 blz., ISBN 9789020214819); ook eerder werk van Braden is bij AnkhHermes vertaald, onder meer <i>The Divine Matrix</i> als <i>De goddelijke matrix</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gregg Braden betoogt dat het gangbare verhaal over de herkomst van de mens niet klopt. De moderne mens zou niet stap voor stap uit eerdere mensachtigen zijn voortgekomen, maar betrekkelijk plotseling zijn verschenen, met eigenschappen die volgens hem door toeval alleen niet te verklaren zijn. Hij noemt dat een ontwerp en spreekt van gestuurde mutatie.</p><p>Het boek bestaat uit twee helften. In de eerste zet Braden zijn bezwaren tegen het oude verhaal uiteen, met de fusie van chromosoom 2 en het zenuwnetwerk in het hart als voornaamste steunpunten. In de tweede leidt hij daaruit af waar het lichaam volgens hem toe is uitgerust: diepe intuïtie, zelfherstel, medemenselijkheid en een lang leven, elk met oefeningen erbij.</p><p>De feiten waar Braden mee begint bestaan; de gevolgtrekkingen die hij eraan verbindt worden in de vakgebieden zelf niet gedeeld. De chromosoomfusie geldt daar juist als bewijs voor gemeenschappelijke afstamming, en het beeld van een soort die uit het niets opdook staat haaks op de fossiele reeks en op het genoomonderzoek van de laatste vijftien jaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>evolutie</li><li>DNA</li><li>hartcoherentie</li><li>intuïtie</li><li>menselijke oorsprong</li><li>New Age</li><li>pseudowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1588"><a href="1588.html">The Biology of Belief</a>. Lipton bouwt eenzelfde soort betoog op, met celbiologie als vertrekpunt en de invloed van overtuigingen op het erfelijk materiaal als conclusie; dezelfde vraag naar de afstand tussen bron en gevolgtrekking komt daar terug.</li>
+          <li value="1545"><a href="1545.html">Becoming Supernatural</a>. Dispenza werkt de kant uit die Braden alleen aanstipt: meting van hersen- en hartactiviteit tijdens meditatie, met verstrekkende claims over genezing en materie.</li>
+          <li value="761"><a href="761.html">Mindful Universe: Quantum Mechanics and the Participating Observer</a>. Stapp voert het gesprek over bewustzijn en natuurkunde binnen het vak zelf en laat zien hoeveel voorzichtiger de formuleringen worden zodra iemand met de theorie zelf werkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

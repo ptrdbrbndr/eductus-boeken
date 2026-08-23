@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verademing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Jong en Bakker stellen dat de ademfrequentie in rust een af te lezen maat is voor de staat waarin iemand verkeert, en dat een hele reeks lichamelijke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1812">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1812 &middot; Brein en lichaam</p>
+    <h1>Verademing</h1>
+    <p class="lede">Koen de Jong en Bram Bakker, 2009</p>
+    <p class="stats">
+      <span><b>1846</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1812"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Jong en Bakker stellen dat de ademfrequentie in rust een af te lezen maat is voor de staat waarin iemand verkeert, en dat een hele reeks lichamelijke en psychische klachten in stand wordt gehouden door jarenlang sneller ademen dan fysiek nodig is. Hun tweede stelling is praktisch van aard: die frequentie is met eenvoudige oefeningen omlaag te brengen, en omdat die oefeningen geen risico met zich meebrengen verdienen ze een plaats vooraan in de behandeling, voor medicijnen en gesprekstherapie. Wie zittend op een stoel zestien keer per minuut ademt, levert volgens hen de inspanning van iemand die met achttien kilometer per uur tegen de wind in fietst, en geen lichaam houdt dat etmaal na etmaal vol.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Zestien keer per minuut</h3>
+      <p>Het eerste en langste hoofdstuk begint met een lijst van vijftig klachten, overgenomen van Reventacare, waarop de lezer per verschijnsel aankruist of het vaak, soms of niet voorkomt. Uit die lijst destilleren de auteurs een top vijf van klachten die zij bij snelle ademers het meest tegenkomen: pijn in schouders of nek, gejaagdheid, vaak zuchten of gapen, snel vermoeid zijn en hartkloppingen.</p>
+      <p>Bij elk van die vijf geven zij een fysiologische verklaring. De hulpademhalingsspieren in de nek zijn bedoeld voor korte periodes en raken bij doorlopend snel ademen overbelast. Zuchten en gapen leggen zij uit als een gewenning aan een hoge frequentie. Vermoeidheid schrijven zij toe aan het verbranden van glucose in plaats van vet. Hartkloppingen brengen zij terug op vaatvernauwing door een laag koolzuurgehalte in het bloed.</p>
+      <p>De Jong beschrijft daarna een meting uit zijn Amsterdamse praktijk bij een man die hij Tim noemt: tien minuten lezen met een borstband om, waarna hartslag, adempatroon en ademfrequentie op papier komen. Tim blijkt zittend tweeentwintig keer per minuut te ademen, met een uitademing die even lang is als zijn inademing. Twee grafieken in het boek zetten zijn patroon naast dat van een rustige ademhaling van zeven keer per minuut.</p>
+      <h3>Waar de hoge frequentie vandaan komt</h3>
+      <p>In het hoofdstuk over oorzaken leggen de auteurs de nadruk op denken. Piekeren en een overvol hoofd jagen de ademhaling op, ook bij iemand die stilzit of in bed ligt. Daarnaast noemen zij het ingesleten patroon: wie jaren snel ademt, merkt niet meer dat het snel is, omdat het normaal is geworden.</p>
+      <p>Zij plaatsen dat tegen de achtergrond van de vecht- of vluchtreactie. Het zenuwstelsel reageert nog altijd op dezelfde manier als duizenden jaren geleden, terwijl het aantal prikkels sterk is toegenomen. Het resultaat is een lichaam dat de hele dag paraat staat zonder dat er iets te vluchten valt.</p>
+      <p>Twee andere patronen krijgen kort aandacht. Onderademen, het inhouden van adem tijdens praten of spanning, komt volgens hen minder vaak voor maar vraagt dezelfde oefeningen. Te diep ademen bij een normale frequentie is de derde variant. Bij het praten zien zij een verschil tussen mannen en vrouwen: vrouwen ademen binnen een zin meermaals bij, mannen zetten hun adem op slot en praten de zin vol.</p>
+      <h3>Voeding, stemming en de claim over afvallen</h3>
+      <p>Het hoofdstuk over voeding bouwt voort op de verklaring dat een snelle ademhaling het lichaam vooral op glucose laat draaien en de vetverbranding overslaat. Daar hangt de belofte in de ondertitel van de eerste druk aan vast, dat beter ademen helpt bij afvallen. Het boek werkt die stap zelf niet met cijfers uit.</p>
+      <p>Het hoofdstuk over het psychisch functioneren is het terrein van Bakker, die als psychiater promoveerde op de behandeling van paniekaanvallen, destijds nog aangeduid als hyperventilatiesyndroom. Angstaanvallen, sombere stemmingen en het herbeleven van nare gebeurtenissen zet hij naast het adempatroon, met de terughoudende formulering dat de vraag wat oorzaak en wat gevolg is voor de praktijk weinig uitmaakt.</p>
+      <h3>Bewegen en hartslagcoherentie</h3>
+      <p>Naast de oefeningen adviseren de auteurs bij vrijwel elke klacht lichaamsbeweging, waarvoor een apart hoofdstuk is ingeruimd. Hun redenering loopt via een vergelijking met wielrenners: die leveren zes uur per dag een zware inspanning en liggen daarna op bed, terwijl een oververmoeide kantoormedewerker de hele dag een halve inspanning levert en nooit rust neemt.</p>
+      <p>Het hoofdstuk over hartslagcoherentie behandelt de samenhang tussen ademritme en hartslag, en de meetapparatuur waarmee praktijken die samenhang zichtbaar maken. Dat sluit aan bij het advies om richting zes ademhalingen per minuut te werken, het tempo waarbij die samenhang het duidelijkst wordt.</p>
+      <h3>Kinderen, zwangerschap en zware klachten</h3>
+      <p>Een hoofdstuk gaat over ademhaling bij kinderen en tijdens de zwangerschap; daarin komt ook het te langzame ademen uitgebreider aan bod dan elders in het boek. Een volgend hoofdstuk behandelt ernstige stressgerelateerde aandoeningen, waarbij de auteurs uitdrukkelijk zeggen niet te pretenderen dat zij een oplossing bieden voor alle klachten, syndromen en ziekten waarbij de ademhaling meespeelt.</p>
+      <p>In deze hoofdstukken leunt het boek op twee soorten getuigenis: medische wetenschappers die zich langer met ademhaling bezighouden en aan het woord worden gelaten, en mensen met een volle agenda die aanvankelijk sceptisch waren en na de oefeningen van hun klachten af kwamen.</p>
+      <h3>Oefeningen en trainingsschema's</h3>
+      <p>Het slothoofdstuk verzamelt de oefeningen en biedt trainingsschema's, ingedeeld naar de zwaarte van de klachten. De basisaanwijzing staat al in de inleiding en verandert daarna nauwelijks: adem in, niet te diep, en verleng de uitademing, eventueel door de mond te tuiten alsof er een ballon wordt opgeblazen.</p>
+      <p>De auteurs geven de lezer meteen een test mee. Wie na acht keer die aanwijzing gaat gapen, zuchten, duizelig wordt of tintelingen krijgt, ademde daarvoor sneller dan nodig. Wie geen verschil merkt, ademde op dat moment waarschijnlijk goed. Achterin staan een literatuurlijst en adressen van praktijken waar een ademmeting te krijgen is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ademfrequentie</td><td>Het aantal volledige ademhalingen per minuut, gerekend van het begin van de inademing tot vlak voor de volgende, en volgens de auteurs de bruikbaarste maat voor de spanning in het lichaam.</td></tr>
+          <tr><td class="term">Ontregelde ademhaling</td><td>Verzamelnaam voor te snel, te diep of te langzaam ademen, waarbij het patroon niet meer past bij wat het lichaam op dat moment aan inspanning levert.</td></tr>
+          <tr><td class="term">Overademen</td><td>Doorlopend sneller ademen dan fysiek nodig is, in het boek de belangrijkste bron van klachten.</td></tr>
+          <tr><td class="term">Onderademen</td><td>Het inhouden of vergeten van de adem tijdens praten of spanning, minder vaak voorkomend maar met dezelfde oefeningen aan te pakken.</td></tr>
+          <tr><td class="term">Hulpademhalingsspieren</td><td>Spieren die aan de nek zijn aangehecht en bedoeld zijn om kort harder te kunnen ademen; bij blijvend overademen raken zij overbelast en veroorzaken zij nek- en schouderpijn.</td></tr>
+          <tr><td class="term">Koolzuur</td><td>Het gas dat bij de uitademing wordt afgevoerd; de auteurs houden een verhouding tot zuurstof van drie op twee aan en wijten vaatvernauwing en hartkloppingen aan een te grote uitstoot ervan.</td></tr>
+          <tr><td class="term">Staat van paraatheid</td><td>De stand waarin het lichaam schiet bij dreiging, met hogere hartslag, adrenaline en ademfrequentie, en die bij veel mensen niet meer uit gaat.</td></tr>
+          <tr><td class="term">Hartslagcoherentie</td><td>De samenhang tussen ademritme en hartslag, die volgens het boek het duidelijkst wordt bij een tempo rond zes ademhalingen per minuut.</td></tr>
+          <tr><td class="term">Klachtenlijst</td><td>De lijst van vijftig verschijnselen waarmee het boek opent en waarop iemand met een ontregelde ademhaling naar de auteurs meestal minstens vijf punten aankruist.</td></tr>
+          <tr><td class="term">Verlengde uitademing</td><td>De basisaanwijzing van het hele boek: niet te diep inademen en de uitademing langer maken dan de inademing.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek gaat opvallend open om met zijn eigen onderbouwing. De auteurs schrijven dat veel van wat er staat in onderzoek is aangetoond, maar dat zij omwille van de leesbaarheid niet naar artikelen verwijzen; wie meer wil weten, wordt naar de literatuurlijst achterin gestuurd. Daarna zetten zij die eis zelf opzij met de opmerking dat wetenschappelijke onderbouwing in de praktijk niet nodig is, dat het ontbreken van bewijs niet betekent dat iets niet werkt, en dat groepsgemiddelden weinig zeggen over een individu. Ter afsluiting van dat betoog halen zij Plato aan.</p>
+      <p>Wat er aan harde kennis onder ligt, is de fysiologie van het koolzuurgehalte. Dat sneller ademen dan de stofwisseling vraagt het koolzuur in het bloed verlaagt, dat daardoor bloedvaten vernauwen en dat zuurstof minder makkelijk aan de weefsels wordt afgegeven, is standaardstof uit de fysiologie en niet omstreden. Dat langzaam ademen rond zes keer per minuut de samenhang tussen hartslag en ademhaling versterkt, is eveneens gemeten.</p>
+      <p>De stap van die fysiologie naar de vijftig klachten legt het boek zonder onderzoeksgegevens af. Het bewijsmateriaal bestaat op dat punt uit praktijkverhalen van De Jong, uit interviews met behandelaars en uit ervaringen van mensen die met de oefeningen aan de slag gingen. De metingen met een borstband tonen aan dat iemand snel ademt; zij tonen niet aan dat de klachten daarvan komen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwakste punt is precies wat de auteurs terzijde schuiven. Zij noemen de vraag of een versnelde ademhaling oorzaak of gevolg van een klacht is een kip-of-eikwestie en gaan er niet uitvoerig op in. Daarmee laten zij de kern van hun betoog onbesproken. Wie angstig, uitgeput of somber is ademt sneller; dat is bekend. Of het omkeren van die volgorde ook werkt is een andere vraag, en het boek doet geen poging die te beantwoorden.</p>
+      <p>De klachtenlijst versterkt dat bezwaar. Vijftig verschijnselen die bij vrijwel iedere vorm van spanning of lichamelijk ongemak voorkomen, van hoofdpijn tot slecht slapen tot prikkelbaarheid, leveren bij nagenoeg elke lezer de vijf aankruisingen op die het boek als aanwijzing neemt. Zo'n lijst kan bevestigen maar niet onderscheiden.</p>
+      <p>Het onderliggende ziektebegrip staat bovendien onder druk. Nederlands onderzoek van Hornsveld en Garssen, in 1996 gepubliceerd in The Lancet, liet zien dat de hyperventilatieprovocatietest de klachten van patienten niet betrouwbaar terugbrengt en dat het hyperventilatiesyndroom als zelfstandige diagnose daarmee slecht houdbaar is. Bakker verwijst zelf naar de omdoping tot paniekstoornis, maar het boek bouwt wel door op het beeld dat de ademhaling het aangrijpingspunt is.</p>
+      <p>De belofte over afvallen in de ondertitel van de eerste druk is het minst gedekte deel van het boek. Dat een lage ademfrequentie de vetverbranding aanzet en daarmee gewicht scheelt, wordt als redenering gegeven en niet als resultaat. Voor een boek dat verder zorgvuldig blijft binnen wat het kan waarmaken, is dat een verkoopargument dat de rest schaadt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Tel de eigen ademfrequentie een minuut lang in rust, of laat een huisgenoot dat doen op een onbewaakt moment.</li>
+        <li>Adem in zonder te veel lucht te happen, laat de buik meebewegen en maak de uitademing langer dan de inademing.</li>
+        <li>Gebruik bij benauwdheid tijdens het oefenen een getuit mondje, zodat er in het begin van de uitademing minder lucht ontsnapt.</li>
+        <li>Let op de ademhaling in de situaties die het boek noemt: in een volle trein, in de file, vlak voor een gesprek met een leidinggevende.</li>
+        <li>Combineer de oefeningen met beweging op laag tempo; de auteurs adviseren die combinatie bij vrijwel elke klacht.</li>
+        <li>Neem de trainingsschema's achterin als opbouw en houd een paar weken vol voordat er een oordeel over het effect volgt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, verschenen als <i>Verademing: goed ademhalen voor ontspanning, beter slapen, meer energie, sneller afvallen</i> bij Uitgeverij Carrera, Amsterdam; eerste druk 2009, zesde druk 2011 (ISBN 9789048809936). In 2018 kwam bij Uitgeverij Lucht een herziene editie van 263 blz. (ISBN 9789492798220), waarin een bewerking van hun eerdere <i>Sporten voor beginners</i> is opgenomen; sinds 2022 bestaat er een pocket bij Rainbow (272 blz., ISBN 9789041714558). Van dit boek is geen Engelse vertaling verschenen. Van De Jong is wel <i>Koud kunstje</i> vertaald, als <i>The Way of the Iceman</i> (Dragon Door, 2017, vert. Andy Brown).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Fysiotherapeut en ademtrainer Koen de Jong en psychiater Bram Bakker beweren dat een groot deel van de vage klachten waarmee mensen bij een arts komen te maken heeft met een ademhaling die sneller gaat dan het lichaam op dat moment nodig heeft. Wie ontspannen op een stoel zit, heeft aan zes tot tien ademhalingen per minuut genoeg. Veel mensen halen er zestien tot twintig, en dat is volgens de auteurs dezelfde belasting als de hele dag tegen de wind in fietsen.</p><p>Het boek opent met een klachtenlijst van vijftig verschijnselen, van pijn in nek en schouders tot hartkloppingen, tintelende handen, gejaagdheid en slecht slapen. Daarna behandelen de auteurs per hoofdstuk waar een hoge ademfrequentie vandaan komt en hoe die doorwerkt in voeding, stemming, sport, zwangerschap en kinderen. Ieder hoofdstuk sluit af met oefeningen; achterin staan trainingsschema's, ingedeeld naar de zwaarte van de klachten.</p><p>De rode draad in de oefeningen is steeds hetzelfde: niet te diep inademen, wel doorademen tot in de buik, en de uitademing langer maken dan de inademing. De auteurs presenteren dat als een eerste stap die niets kost en geen bijwerkingen heeft. Pillen en psychotherapie kunnen daarna altijd nog, schrijven zij, als blijkt dat beter ademen niet genoeg helpt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ademhaling</li><li>ademfrequentie</li><li>ontspanning</li><li>hyperventilatie</li><li>vermoeidheid</li><li>sport</li><li>psychosomatiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. James Nestor doet in <i>Breath</i> dezelfde claim over te snel en door de mond ademen, maar zoekt er wel onderzoek en experimenten bij.</li>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Luc Swinnen legt in <i>Activeer je nervus vagus</i> de verbinding tussen langzaam uitademen en de rustkant van het zenuwstelsel die De Jong en Bakker onbesproken laten.</li>
+          <li value="104"><a href="104.html">Oud zeer</a>. In <i>Oud zeer</i> schrijft Bram Bakker over de psychiatrische kant van hetzelfde werk, zonder de ademhaling als aangrijpingspunt.</li>
+          <li value="1813"><a href="1813.html">Koud kunstje</a>. Koen de Jong beschrijft in <i>Koud kunstje</i> een methode die juist met snel en diep ademen begint, wat de vraag oproept hoe die twee boeken zich tot elkaar verhouden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

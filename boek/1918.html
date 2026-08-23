@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>En ze filosofeerden nog lang en gelukkig &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wiss stelt dat een goed gesprek zelden vanzelf ontstaat uit een onderwerp dat toevallig voorbijkomt, omdat de deelnemers dan meteen met hun eigen ervaring…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1918">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1918 &middot; Samenwerken en gesprek</p>
+    <h1>En ze filosofeerden nog lang en gelukkig</h1>
+    <p class="lede">Elke Wiss, 2021</p>
+    <p class="stats">
+      <span><b>1151</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1918"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wiss stelt dat een goed gesprek zelden vanzelf ontstaat uit een onderwerp dat toevallig voorbijkomt, omdat de deelnemers dan meteen met hun eigen ervaring en hun eigen belang in het gesprek zitten. Een verhaal schept volgens haar de afstand die daarvoor nodig is: over een figuur in een verhaal valt te oordelen zonder dat iemand zich hoeft te verdedigen, en langs die omweg komt het eigen denken alsnog in beeld. Haar tweede stelling is dat filosoferen een vaardigheid is die net als schaatsen of tekenen geoefend kan worden, mits er gereedschap bij hoort: vraagsoorten, een gespreksleider en enige kennis van denkfouten. Het boek is de uitwerking van die twee stellingen in de vorm van zeventien oefengesprekken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat filosoferen hier betekent</h3>
+      <p>Wiss begint met haar eigen omschrijving: ergens gedisciplineerd en gestructureerd over nadenken, met wijzer worden als doel. Dat sluit veel uit wat in het spraakgebruik filosofie heet, zoals meningen uitwisselen of een gedachte laten dwalen.</p>
+      <p>Zij plaatst dat werk in de praktijk die zij met De Denksmederij voert: filosoferen met groepen, in scholen en in organisaties. Het boek is daarvan de schriftelijke vorm, met de lezer als gespreksleider.</p>
+      <h3>Het gereedschap vooraf</h3>
+      <p>Voor de verhalen komen, herhaalt Wiss beknopt de gespreksvaardigheden uit haar vorige boek: vertragen, luisteren, doorvragen op de concrete ervaring en het eigen oordeel uitstellen. Wie Socrates op sneakers gelezen heeft, vindt hier weinig nieuws.</p>
+      <p>Nieuw is wel het overzicht van drogredenen en denkfouten, bedoeld om in een lopend gesprek te herkennen wanneer een redenering afglijdt. Dat overzicht is standaardstof uit de logica, hier in korte vorm en met alledaagse voorbeelden.</p>
+      <h3>De zeventien verhalen</h3>
+      <p>Het middendeel bestaat uit korte teksten van enkele bladzijden. Sommige zijn sprookjesachtig, zoals De papegaai en de pauw, Toby de eendagsvlieg en De garcon van de Ongeschreven Regels; andere spelen in een herkenbare wereld, zoals De rommelzolder over herinneringen, De lavendelvelden over de dood, De troubadour en de hoefsmid over thuis voelen en Tu me manques over gemis.</p>
+      <p>De verhalen zijn geschreven om een kwestie open te leggen en niet om die op te lossen. Ze eindigen doorgaans zonder uitkomst, zodat de vraag waar het om gaat na afloop nog op tafel ligt.</p>
+      <h3>De vragen bij elk verhaal</h3>
+      <p>Elk verhaal wordt gevolgd door een reeks vragen in drie soorten: vragen die prikkelen en het gesprek openen, vragen die verhelderen wat iemand precies bedoelt, en vragen waarin de lezer of deelnemer zelf betekenis moet toekennen.</p>
+      <p>Die driedeling is het scharnier van het boek. Zij bepaalt hoe een gesprek zich beweegt van een eerste reactie naar een uitgewerkte stelling, en zij maakt het voor iemand zonder filosofische scholing mogelijk een gesprek te leiden.</p>
+      <h3>Voor wie het bedoeld is</h3>
+      <p>Wiss richt zich op drie groepen: volwassenen die met kinderen willen filosoferen, docenten en gespreksleiders die met tieners werken, en leidinggevenden die een bijeenkomst anders willen beginnen. Voor elk van die groepen geeft zij aanwijzingen over tempo, veiligheid en de rol van de leider.</p>
+      <p>Het boek laat zich ook alleen lezen, maar dan valt de helft weg. De vragen zijn geschreven voor uitwisseling; wie ze in zijn eentje beantwoordt, mist de tegenspraak die het gesprek zou moeten opleveren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Filosoferen</td><td>In de omschrijving van Wiss: ergens gedisciplineerd en gestructureerd over nadenken, met wijzer worden als doel.</td></tr>
+          <tr><td class="term">De Denksmederij</td><td>De praktijk waarmee Wiss filosofische gesprekken begeleidt in scholen en organisaties, en waaruit het materiaal van dit boek voortkomt.</td></tr>
+          <tr><td class="term">Prikkelende vraag</td><td>De eerste soort vraag bij een verhaal, bedoeld om een reactie los te maken en het gesprek te openen.</td></tr>
+          <tr><td class="term">Verhelderende vraag</td><td>De tweede soort, gericht op wat een deelnemer precies bedoelt met wat hij zojuist zei.</td></tr>
+          <tr><td class="term">Betekenisvraag</td><td>De derde soort, waarin de deelnemer zelf moet bepalen wat het verhaal of het begrip voor hem betekent.</td></tr>
+          <tr><td class="term">Drogreden</td><td>Een redenering die overtuigend klinkt maar niet deugt; Wiss geeft er een overzicht van als hulpmiddel voor de gespreksleider.</td></tr>
+          <tr><td class="term">Gespreksleider</td><td>De rol die de lezer in dit boek krijgt toebedeeld: niet meepraten over de inhoud maar het gesprek sturen en bewaken.</td></tr>
+          <tr><td class="term">Vertragen</td><td>Het bewust verlagen van het tempo in een gesprek, zodat er tijd is om een uitspraak te onderzoeken voordat er een volgende komt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een oefenboek en geen betoog, en de onderbouwing is navenant. De verhalen zijn door Wiss zelf verzonnen en bewijzen niets; zij zijn aanleiding. Waar het boek een claim doet, namelijk dat een verzonnen situatie makkelijker te bespreken is dan een eigen situatie, rust die op haar ervaring als gespreksleider en niet op onderzoek naar groepsgesprekken.</p>
+      <p>Het deel dat wel op vaste grond staat is het overzicht van drogredenen: dat is klassieke logicastof, al eeuwen beschreven en niet omstreden. Wiss voegt er geen eigen indeling aan toe en geeft dat ook zo aan.</p>
+      <p>Wat ontbreekt is een verantwoording van de bronnen. Voor haar vorige boek toonde Hans Bolten aan dat er passages uit Wikipedia en van websites waren overgenomen zonder vermelding, wat vanaf de vijfde druk deels is rechtgezet. Dat is bij dit boek niet geconstateerd, maar het maakt de vraag naar herkomst van het theoriedeel wel gerechtvaardigd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar geldt de verhalen zelf. Recensenten vinden de sprookjesachtige stukken aanmerkelijk zwakker dan de realistische: de eerste blijven bij een oppervlakkige les, de tweede leveren meer om over te praten. Bij zeventien verhalen betekent dat een wisselende oogst, en het boek geeft geen aanwijzing welke tekst zich voor welke groep leent.</p>
+      <p>Ook de vragen krijgen kritiek: zij worden als schools en direct ervaren, en missen de wending die een gesprek onverwacht opent. Dat is een probleem voor het boek als geheel, want de vragen zijn juist de plek waar de vaardigheid van de auteur zichtbaar zou moeten worden.</p>
+      <p>Verder is de eerste helft grotendeels een verkorting van Socrates op sneakers. Wie dat boek las, betaalt hier voor negentig bladzijden herhaling plus zeventien verhalen. En de aanname dat afstand tot het eigen leven het gesprek verdiept is aannemelijk maar niet onbetwist: bij ingrijpende onderwerpen kan een verzonnen verhaal ook de weg zijn waarlangs deelnemers hun eigen inzet buiten schot houden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies vooraf één verhaal en lees de bijbehorende vragen door, in plaats van tijdens het gesprek te bladeren.</li>
+        <li>Laat het verhaal hardop voorlezen en houd daarna een stilte aan, zodat de eerste reactie niet meteen de toon zet.</li>
+        <li>Begin met een prikkelende vraag, ga pas verhelderen wanneer iemand een stelling heeft geformuleerd, en bewaar de betekenisvraag voor het eind.</li>
+        <li>Blijf als gespreksleider buiten de inhoud; wie zelf een oordeel geeft, sluit het onderzoek waar het net begon.</li>
+        <li>Gebruik het overzicht van drogredenen om een redenering te benoemen, niet om een deelnemer op een fout te betrappen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>Verhalen om je denken uit te dagen</i>, verschenen bij Ambo|Anthos, Amsterdam, in juli 2021, gebonden en geïllustreerd, 192 blz., ISBN 9789026355103; ook als e-boek. Van dit boek is geen vertaling verschenen; van haar eerdere <i>Socrates op sneakers</i> (2020) wel, in ruim twintig talen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Na Socrates op sneakers, dat over het stellen van vragen ging, schreef Elke Wiss een boek over het materiaal waarover die vragen kunnen gaan. Het bestaat uit zeventien korte verhalen, deels moderne sprookjes en deels alledaagse scenes, elk gevolgd door vragen die het gesprek erover op gang moeten brengen.</p><p>De eerste helft is toelichting. Wiss legt uit wat zij onder filosoferen verstaat, gedisciplineerd en gestructureerd ergens over nadenken met wijzer worden als doel, en zet het gereedschap klaar: gespreksvaardigheden, een overzicht van drogredenen en aanwijzingen voor wie een gesprek leidt.</p><p>De tweede helft zijn de verhalen zelf, met titels als De papegaai en de pauw, Toby de eendagsvlieg, De lavendelvelden en De rommelzolder. Zij gaan over dood, gemis, herinnering, thuis voelen en ongeschreven regels. Het boek richt zich op ouders die met kinderen willen filosoferen, op docenten en op leidinggevenden die een vergadering anders willen openen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosoferen</li><li>verhalen</li><li>vragen stellen</li><li>drogredenen</li><li>socratisch gesprek</li><li>gespreksleiding</li><li>denkfouten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1919"><a href="1919.html">Socrates op sneakers</a>. Het voorafgaande boek van Wiss, waarvan de theorie in de eerste helft van dit boek in verkorte vorm terugkeert.</li>
+          <li value="475"><a href="475.html">The Book of Beautiful Questions</a>. Berger verzamelt vragen die het denken openbreken en ordent ze naar functie; hetzelfde doel als hier, met voorbeelden uit ontwerp en bedrijfsleven in plaats van verhalen.</li>
+          <li value="1294"><a href="1294.html">Conversation</a>. Zeldin behandelt het gesprek zelf als vorm met een geschiedenis, en geeft de historische achtergrond die bij Wiss ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

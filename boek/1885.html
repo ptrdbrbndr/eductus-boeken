@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De Noorderlichttrilogie &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pullman schrijft de zondeval over met de uitkomst omgekeerd. Wat in de christelijke overlevering de val heet, het binnenkomen van kennis, seksualiteit en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1885">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1885 &middot; Roman en memoir</p>
+    <h1>De Noorderlichttrilogie</h1>
+    <p class="lede">Philip Pullman, 1995-2000; vert. Ronald Jonkers, Dons Reerink en Frans Hille</p>
+    <p class="stats">
+      <span><b>1600</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1885"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pullman schrijft de zondeval over met de uitkomst omgekeerd. Wat in de christelijke overlevering de val heet, het binnenkomen van kennis, seksualiteit en zelfbesef, is bij hem geen ramp maar het begin van alles wat mensen waard maakt; de instelling die dat wil terugdraaien is een kerk met inquisitie en laboratoria. Hij voert dat argument niet in een essay maar in een avonturenreeks voor kinderen, en laat de hele bouw van de drie delen ernaartoe werken dat een meisje van twaalf de tweede Eva is die deze keer goed kiest.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een Oxford dat het onze niet is</h3>
+      <p>Lyra Belacqua woont als weeskind onder de hoede van de geleerden van Jordan College, waar zij vooral over de daken klimt en met de kinderen van de scheepslieden vecht. In haar wereld draagt ieder mens een daemon bij zich: een dier dat spreekt, dat bij een kind nog van gedaante wisselt, bij een volwassene een vaste vorm heeft aangenomen en niet ver van zijn mens vandaan kan.</p>
+      <p>Vanuit een kast ziet zij hoe haar oom Lord Asriel de geleerden beelden uit het noorden toont van een stof die zich aan volwassenen hecht en aan kinderen niet. Kort daarna verdwijnen er kinderen uit Oxford, onder wie de keukenjongen Roger. Lyra krijgt van de rector een aletiometer mee, een instrument met wijzers en symbolen dat waarheid geeft aan wie het kan lezen, en belandt in de zorg van de charmante mevrouw Coulter.</p>
+      <h3>Het noorden</h3>
+      <p>Met de gyptians, het bootvolk waarvan ook kinderen zijn geroofd, reist zij naar het noorden. Onderweg komen de pantserbeer Iorek Byrnison, de heks Serafina Pekkala en de Texaanse luchtschipper Lee Scoresby bij haar. In het station Bolvangar blijkt wat er met de kinderen gebeurt: zij worden van hun daemon gescheiden, een ingreep waaraan zij niet altijd overleven en waarna wie het haalt gedwee en leeg is.</p>
+      <p>Achter die ingreep zit het Magisterium, het kerkelijk gezag, dat het aanhechten van de stof aan het volwassen lichaam als de erfzonde begrijpt. Lyra maakt het station leeg en zoekt haar vader, die in het ijs gevangen zit. Het eerste deel eindigt met een verraad dat de reeks van toon doet veranderen: Asriel heeft geen kind nodig om te redden maar om te doden, en met de vrijkomende energie snijdt hij een gat in de lucht naar een andere wereld.</p>
+      <h3>Het mes</h3>
+      <p>In het tweede deel komt Will Parry erbij, een jongen uit ons eigen Oxford die zorgt voor een verwarde moeder en op zoek is naar zijn vermiste vader, een ontdekkingsreiziger. Hij en Lyra ontmoeten elkaar in Cittagazze, een verlaten stad tussen de werelden waar volwassenen worden opgegeten door spectra die kinderen ongemoeid laten. Will wint daar het listige mes, dat vensters tussen werelden snijdt en alles doorsnijdt wat bestaat.</p>
+      <p>Ondertussen onderzoekt Mary Malone in Oxford donkere materie en ontdekt zij dat de deeltjes op bewustzijn reageren. Wat de kerk stof noemt, wat de natuurkundige donkere materie noemt en waaruit de engelen bestaan, blijkt hetzelfde.</p>
+      <h3>De opstand</h3>
+      <p>Asriel verzamelt een leger uit verschillende werelden tegen het Koninkrijk van de Hemel. De Autoriteit blijkt niet de schepper maar de eerste engel, die zich als schepper heeft voorgedaan en het bestuur inmiddels heeft overgelaten aan de regent Metatron.</p>
+      <p>Het derde deel houdt twee lijnen naast elkaar: de veldslag van Asriel, waarin hij en mevrouw Coulter met Metatron in de afgrond verdwijnen, en de tocht van de kinderen, die zonder het te weten de zaak beslissen.</p>
+      <h3>Het land van de doden</h3>
+      <p>Lyra en Will dalen af naar het dodenrijk om Roger op te zoeken. Om er binnen te komen moeten zij hun daemon aan de oever achterlaten, wat als een verminking wordt beschreven. Het dodenrijk is een grauw kamp waar harpijen de doden hun mislukkingen voorhouden.</p>
+      <p>Zij sluiten met de harpijen een afspraak: die krijgen voortaan van elke dode een waar verhaal over het geleefde leven, en laten in ruil daarvoor de doden naar buiten, waar zij oplossen in de wereld. Zijn alternatief voor het hiernamaals draait om vertellen.</p>
+      <h3>De tweede val</h3>
+      <p>Mary Malone komt terecht bij de mulefa, wezens met een ruitvormig skelet die zich op zaadpeulen voortbewegen en de stof kunnen zien. Zij ziet dat de stof uit de werelden wegstroomt door de gaten die het mes heeft gesneden. Op verzoek van de engelen speelt zij tegenover Lyra en Will de rol van de slang: zij vertelt hun over haar eigen verliefdheid.</p>
+      <p>De twee kinderen worden verliefd, en op dat moment keert de stroom van de stof. Daarmee is de val herhaald en deze keer als redding uitgelegd. De prijs staat er meteen achter: alle vensters moeten dicht, op een na, want elk open venster laat stof ontsnappen en levert spectra op. Lyra en Will kunnen niet in dezelfde wereld leven en spreken af dat zij elk jaar op dezelfde dag op dezelfde bank in hun eigen Oxford gaan zitten. Wat Lyra overhoudt is de opdracht een republiek van de hemel te bouwen op de plek waar zij is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Daemon</td><td>Het dier waarin iemands ziel buiten het lichaam leeft, bij kinderen nog van gedaante wisselend en bij volwassenen vastgezet in de vorm die bij hen past.</td></tr>
+          <tr><td class="term">Stof</td><td>De deeltjes die zich aan volwassen mensen hechten en met bewustzijn samenhangen; de kerk leest ze als het zichtbare bewijs van de erfzonde.</td></tr>
+          <tr><td class="term">Aletiometer</td><td>Het instrument met zesendertig symbolen dat op elke vraag waar antwoordt, mits de lezer drie betekenislagen tegelijk in het hoofd kan houden.</td></tr>
+          <tr><td class="term">Het Magisterium</td><td>Het kerkelijk gezag in Lyra's wereld, met eigen rechtbanken, onderzoeksinstellingen en een afdeling die kinderen laat opereren.</td></tr>
+          <tr><td class="term">Intercisie</td><td>Het losmaken van kind en daemon, bedoeld om de stof geen houvast meer te geven en in de praktijk neerkomend op het weghalen van wat iemand tot iemand maakt.</td></tr>
+          <tr><td class="term">Het listige mes</td><td>Het wapen dat vensters tussen werelden snijdt en daarmee zowel de reis mogelijk maakt als het lek waardoor de stof verdwijnt.</td></tr>
+          <tr><td class="term">De Autoriteit</td><td>De oudste engel, die zich als schepper heeft voorgedaan en op wiens gezag alle kerkelijke macht in de reeks rust.</td></tr>
+          <tr><td class="term">De mulefa</td><td>Het volk met een ruitvormig skelet dat zich op zaadpeulen voortbeweegt en dat de stof kan zien, waardoor de lezer haar beweging voor het eerst van buitenaf te zien krijgt.</td></tr>
+          <tr><td class="term">De republiek van de hemel</td><td>Pullmans alternatief voor het koninkrijk: geen gezag boven de mens, maar een orde die hier en door mensen zelf gebouwd wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Pullman heeft zijn bronnen niet verborgen. De titel komt uit het tweede boek van <i>Paradise Lost</i>, waar Milton spreekt over de donkere stoffen waaruit werelden gemaakt worden, en de delen dragen motto's uit Milton en Blake. Blake vond dat Milton zonder het te weten aan de kant van de duivel stond; Pullman schrijft dat vermoeden uit tot een verhaallijn. Ook Kleists opstel over het marionettentheater, waarin de onschuld pas na de omweg van het bewustzijn terugkeert, noemt hij zelf als voorbeeld.</p>
+      <p>De natuurkunde is versiering met een kern van waarheid. Donkere materie is een werkelijk openstaande vraag in de sterrenkunde; dat zij bewustzijn zou dragen is Pullmans vinding en niets meer. Het apparaat van Mary Malone, dat deeltjes op gedachten laat reageren, is een beeld en geen aanspraak. Waar de reeks wel op eigen kracht overtuigt, is de aletiometer: een boek waarin het lezen van symbolen de belangrijkste vaardigheid van de heldin is, verdedigt zijn eigen manier van betekenis geven.</p>
+      <p>De ontvangst laat zien dat de aanval als aanval werd verstaan. In de Verenigde Staten riep de Catholic League van Bill Donohue op tot een boycot van de verfilming uit 2007 en noemde de reeks atheisme voor kinderen. Rowan Williams, toen aartsbisschop van Canterbury, ging in 2004 juist met Pullman in gesprek in het National Theatre en opperde de boeken in het godsdienstonderwijs te gebruiken, omdat het volgens hem over de dood van een valse god gaat. Dat twee tegengestelde partijen het boek serieus namen, zegt iets over de scherpte ervan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het derde deel bezwijkt onder zijn eigen boodschap. De opstand die twee boeken lang is aangekondigd, wordt beslist in enkele bladzijden, en de Autoriteit sterft door uiteen te vallen in de wind. Voor een reeks die kerkelijke macht tot hoofdvijand maakt, is dat een goedkope afrekening.</p>
+      <p>Personages worden in deel drie spreekbuizen. Mary Malone vertelt haar geschiedenis in een lange passage die het verhaal stilzet om de moraal uit te leggen; de mulefa bestaan vooral om de stof zichtbaar te maken. Waar hij in deel een zijn wereld liet zien, legt hij in deel drie uit.</p>
+      <p>De kerk die hij bestrijdt is er een van eigen makelij. Het Magisterium heeft geen enkele figuur die zijn geloof met een argument verdedigt, alleen bange en wrede functionarissen. Pullman wint een debat waarin de tegenpartij niet aan het woord komt.</p>
+      <p>Zijn oordeel over Lewis, die hij racistisch en vrouwonvriendelijk noemde en van wie hij het einde van <i>The Last Battle</i> verwierp, staat op gespannen voet met zijn eigen werkwijze. Ook Pullman schrijft een reeks waarin de kinderen dragers van een levensbeschouwing zijn en waarin het slot vertelt hoe er geleefd moet worden. Het bezwaar tegen belerende jeugdliteratuur treft hem in het derde deel evengoed. Bovendien blijft daarbij onaangeroerd waarom mensen geloven: hij valt kerkelijke macht aan en niet het geloof zelf.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>His Dark Materials</i>, bestaande uit <i>Northern Lights</i> (Scholastic, Londen, 1995; in de Verenigde Staten uitgebracht als <i>The Golden Compass</i>, Knopf, 1996), <i>The Subtle Knife</i> (1997) en <i>The Amber Spyglass</i> (2000). Het eerste deel kreeg de Carnegie Medal, het derde in 2001 als eerste kinderboek de Whitbread Book of the Year. De Nederlandse delen verschenen bij Prometheus in Amsterdam als <i>Het gouden kompas</i> (vert. Ronald Jonkers), <i>Het listige mes</i> (vert. Dons Reerink) en <i>De amberkleurige kijker</i> (vert. Frans Hille); de omnibus <i>De Noorderlichttrilogie</i> kwam daar in 2020 uit (1152 blz., ISBN 9789044645187). Later schreef Pullman bij dezelfde wereld de reeks <i>The Book of Dust</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lyra Belacqua groeit half verwilderd op in Jordan College in een Oxford dat op het onze lijkt maar het niet is. Iedereen loopt daar rond met een daemon, een dier waarin de eigen ziel zichtbaar buiten het lichaam leeft. Wanneer kinderen uit de stad verdwijnen en haar vriend Roger daarbij is, reist zij achter hen aan naar het noorden.</p><p>Wat zij daar vindt is een instelling waar kinderen van hun daemon worden losgesneden, in opdracht van een kerk die daarin de oplossing ziet voor de erfzonde. In het tweede deel komt Will Parry erbij, een jongen uit ons eigen Oxford, met een mes dat vensters tussen werelden snijdt. Samen raken zij betrokken bij de opstand van Lyra's vader tegen de macht die zich de Autoriteit noemt.</p><p>Pullman heeft nooit verhuld waar het naartoe gaat. De titel komt uit <i>Paradise Lost</i> en de trilogie vertelt de zondeval opnieuw, met de uitkomst omgedraaid: het moment waarop kennis en verlangen in de mens komen, is bij hem het beste wat er is gebeurd, en de macht die dat wil terugdraaien is de kerk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>fantasie</li><li>jeugdliteratuur</li><li>godsdienstkritiek</li><li>Milton</li><li>parallelle werelden</li><li>opgroeien</li><li>Engeland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1884"><a href="1884.html">Het oneindige verhaal</a>. Ende schreef eveneens een kinderboek over de gevolgen van verbeelding en kennis, maar bij hem is de terugkeer naar de gewone wereld de winst; bij Pullman is het opgroeien zelf de winst.</li>
+          <li value="1567"><a href="1567.html">In de ban van de ring</a>. Tolkien levert het model van de fantasiereeks met eigen wereld en eigen taal dat Pullman overneemt en waarvan hij de christelijke onderlaag omkeert.</li>
+          <li value="1562"><a href="1562.html">Harry Potter</a>. Rowling schreef in dezelfde jaren de andere Engelse kinderreeks die met de lezer meegroeit; het verschil is dat zij geen wereldbeeld bestrijdt en Pullman wel.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

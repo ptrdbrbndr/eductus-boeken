@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De hormoonfactor &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Moorman stelt dat afvallen en energie geen kwestie zijn van minder eten en meer bewegen, maar van de hormonale toestand waarin het lichaam verkeert.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1899">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1899 &middot; Brein en lichaam</p>
+    <h1>De hormoonfactor</h1>
+    <p class="lede">Ralph Moorman, 2009</p>
+    <p class="stats">
+      <span><b>1454</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1899"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Moorman stelt dat afvallen en energie geen kwestie zijn van minder eten en meer bewegen, maar van de hormonale toestand waarin het lichaam verkeert. Diezelfde hoeveelheid voedsel wordt bij een verstoorde hormoonhuishouding opgeslagen en bij een geordende verbrand, en die toestand is volgens hem door de eter zelf te sturen. Negen hormonen krijgen daarbij de hoofdrol, met insuline en cortisol vooraan. Wie zijn voeding, zijn training, zijn slaap en zijn stress volgens de gegeven richtlijnen inricht, hoeft niet te tellen en niet te hongeren, en houdt het resultaat vast. De belofte is daarmee dubbel: een verklaring waarom eerdere diëten mislukten, en een leefwijze die het probleem bij de oorzaak zou aanpakken in plaats van bij het gewicht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat er met hormonen misgaat</h3>
+      <p>Het eerste deel legt uit welke hormonen het energieverbruik sturen en hoe zij elkaar beïnvloeden. Insuline regelt de bloedsuiker en de vetopslag, schildklierhormoon de stofwisseling, testosteron de spieropbouw, oestrogeen en progesteron de vetverdeling en het vochtvasthouden, groeihormoon het herstel, DHEA de weerstand, cortisol de stressreactie en melatonine de slaap.</p>
+      <p>Moorman schetst hoe een westerse leefwijze die keten ontregelt: veel snelle koolhydraten, langdurige stress, te weinig slaap en te weinig zware inspanning. Het gevolg is in zijn beschrijving een lichaam dat vet vasthoudt en tegelijk moe is. Daarmee geeft het boek meteen zijn antwoord op de vraag waarom mensen met het klimmen van de jaren zwaarder worden.</p>
+      <h3>De zelftesten</h3>
+      <p>Per hormoon volgt een lijst met klachten waarop de lezer zichzelf kan nakijken: koude handen, slecht slapen, buikvet, prikkelbaarheid, verlangen naar zoet. Uit de score volgt welk hormoon bij hem waarschijnlijk het meest uit de pas loopt en welke adviezen dus voorrang krijgen.</p>
+      <p>Die testen zijn geen diagnose en het boek zegt dat ook. Zij lezen als het omgekeerde van een bloedonderzoek: uit klachten wordt een hormonale oorzaak afgeleid, terwijl dezelfde klachten bij tientallen andere aandoeningen horen. Voor de lezer zijn ze vooral de ingang tot de rest van het boek.</p>
+      <h3>De pijlers van de voeding</h3>
+      <p>Het voedingsdeel is het hart. De hoofdregel is onbewerkt eten: vlees, vis, eieren, groente, fruit, noten en zaden. Zuivel wordt beperkt, granen worden liefst glutenvrij en met mate gegeten, peulvruchten evenzo, en snelle suikers verdwijnen. Eiwit en vet krijgen een groter aandeel dan in de gangbare Nederlandse richtlijnen, koolhydraten een kleiner, met de zwaarste beperking in de avond.</p>
+      <p>Dat patroon komt in grote lijnen overeen met wat elders het oerdieet of paleo heet. Het verschil zit in de motivering: waar het oerdieet naar de evolutie verwijst, verwijst Moorman naar de hormonale gevolgen van elke voedingskeuze. Hij voegt daar adviezen aan toe over plantaardige hormoonachtige stoffen zoals isoflavonen en lignanen, en over voedingssupplementen.</p>
+      <h3>Bewegen, slapen en stress</h3>
+      <p>Voor beweging kiest Moorman korte, zware inspanning met gewichten boven lange duurtraining, omdat die volgens hem groeihormoon en testosteron aanspreekt terwijl urenlang hardlopen vooral cortisol verhoogt. Er staan schema's bij.</p>
+      <p>Slaap en ontspanning krijgen een eigen plaats, met melatonine en cortisol als aangrijpingspunt: laat licht, laat eten en aanhoudende spanning verschuiven het ritme, en een verschoven ritme houdt in dit model het overgewicht in stand. Daarmee is de leefwijze rond, en dat is ook het punt waarop het boek zich onderscheidt van een dieetboek.</p>
+      <h3>De uitvoering</h3>
+      <p>De herziene uitgave is in kleur, met foto's, boodschappenlijsten, weekindelingen en een afdeling recepten. Het boek is opgezet om te gebruiken, niet om te bestuderen: korte hoofdstukken, kaders, opsommingen.</p>
+      <p>Die opzet verklaart een deel van het bereik. <i>De hormoonfactor</i> haalde meer dan twintig drukken en werd de kern van een bedrijf met cursussen, coaches en vervolgboeken voor specifieke groepen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hormoonbalans</td><td>Moormans aanduiding voor een toestand waarin de negen behandelde hormonen elkaar niet dwarszitten; het is geen begrip uit de endocrinologie.</td></tr>
+          <tr><td class="term">Insulinegevoeligheid</td><td>De mate waarin cellen op insuline reageren; bij afnemende gevoeligheid stijgt de insulinespiegel en neemt volgens het boek de vetopslag toe.</td></tr>
+          <tr><td class="term">Cortisol</td><td>Het stresshormoon dat in dit model bij langdurige spanning de schildklier en de geslachtshormonen onderdrukt en buikvet in de hand werkt.</td></tr>
+          <tr><td class="term">Hormoonfactor-voeding</td><td>Het voedingspatroon van onbewerkt eten met veel eiwit en vet, weinig snelle koolhydraten, weinig zuivel en gematigd glutenvrije granen.</td></tr>
+          <tr><td class="term">Zelftest</td><td>De klachtenlijst per hormoon waarmee de lezer bepaalt welk deel van het advies bij hem voorrang heeft.</td></tr>
+          <tr><td class="term">Fyto-oestrogenen</td><td>Plantaardige stoffen zoals isoflavonen en lignanen die op oestrogeen lijken en die Moorman inzet om de hormonale werking bij te sturen.</td></tr>
+          <tr><td class="term">Krachttraining met korte prikkels</td><td>Kort en zwaar bewegen met gewichten, in het boek verkozen boven lange duurinspanning vanwege de veronderstelde werking op groeihormoon en testosteron.</td></tr>
+          <tr><td class="term">Avondkoolhydraten</td><td>De regel om suikers en koolhydraten na de avond te vermijden, bedoeld om de nachtelijke hormoonafgifte niet te verstoren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De fysiologie in het boek is op zichzelf niet omstreden. Dat insuline vetopslag bevordert, dat langdurige stress cortisol verhoogt en dat slaaptekort de eetlustregeling verstoort, staat in elk leerboek. Moorman brengt bekende mechanismen bij elkaar en vertaalt ze naar de keukentafel.</p>
+      <p>De stap die hij daarbovenop zet is minder goed gedekt. Van de gebundelde leefwijze onder de naam hormoonfactor is geen gecontroleerd onderzoek beschikbaar; er is geen vergelijking met een andere aanpak bij vergelijkbare deelnemers over langere tijd. Wat er is, zijn onderzoeken naar het bredere oerdieet, waaruit gunstige uitkomsten op bloeddruk en bloedsuiker naar voren komen, en het gewone gegeven dat eiwitrijk en vezelrijk eten verzadigt.</p>
+      <p>Dat laatste is ook de meest voor de hand liggende verklaring van de resultaten die lezers melden. Wie bewerkte producten en suiker schrapt en meer eiwit eet, eet in de regel minder zonder te tellen. Voor die uitkomst is de hormonale redenering niet nodig, al maakt zij het advies wel begrijpelijker en daarmee beter vol te houden.</p>
+      <p>Enkele afzonderlijke adviezen staan zwakker dan de rest. De beperking van zuivel wordt door de meeste literatuur niet gedragen. De aanbevolen doseringen supplementen en het gebruik van plantaardige hormoonachtige stoffen zijn in de recensie in Nieuws voor Diëtisten door Karine Hoenderdos aangemerkt als onvoldoende onderbouwd, en dezelfde recensie noemt het verbod op koolhydraten na acht uur 's avonds een regel zonder nieuwe grond.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de verklaring meer belooft dan zij draagt. Hormoonbalans is geen grootheid die een arts meet of behandelt; het is een verzamelnaam die in dit boek het werk doet van een oorzaak. Daardoor lijkt het advies te volgen uit een mechanisme, terwijl het in de praktijk neerkomt op het leefstijladvies dat al decennia bestaat: onbewerkt eten, minder suiker, bewegen, slapen, minder stress. De recensie in Nieuws voor Diëtisten kwam op precies dat punt uit.</p>
+      <p>De zelftesten hebben een keerzijde. Klachten als moeheid, koude handen en somberheid horen bij bloedarmoede, depressie, een schildklieraandoening of niets bijzonders. Een boek dat ze naar een hormonale oorzaak leidt en daar een voedingsantwoord op geeft, kan iemand met een aandoening die behandeling nodig heeft maanden ophouden.</p>
+      <p>Ook binnen de eigen redenering wringt er iets. Als bijna alles wat er misgaat via een van negen hormonen loopt, is het model zo ruim dat elke uitkomst erin past. Slaagt iemand, dan was de balans hersteld; slaagt hij niet, dan zat er nog een verstoring. Er wordt in het boek geen waarneming genoemd die het model zou kunnen weerleggen.</p>
+      <p>Tot slot leunt het boek op het gezag van de auteur zonder dat helemaal in te lossen. Moorman is levensmiddelentechnoloog, geen arts en geen endocrinoloog, en verwijst naar wetenschappelijk onderzoek zonder dat de lezer de afzonderlijke beweringen kan terugzoeken. Hij heeft zelf gezegd dat het boek in 2009 deels op praktijkervaring berustte en pas later beter onderbouwd raakte; die volgorde is voor een boek dat wetenschappelijke gronden claimt geen kleinigheid.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe eerst de zelftesten, maar leg aanhoudende moeheid, haaruitval of somberheid ook voor aan een huisarts voordat de voeding wordt omgegooid.</li>
+        <li>Begin bij het onbetwiste deel: bewerkte producten en suikerhoudende dranken eruit, meer eiwit en groente, en kijk zes weken wat dat doet.</li>
+        <li>Neem de beperking van zuivel niet zonder meer over; daarvoor is de grond in het boek het dunst.</li>
+        <li>Vervang lange duurtraining niet volledig door gewichten, maar voeg de zware korte prikkels toe aan wat er al is.</li>
+        <li>Laat supplementen en plantaardige hormoonachtige stoffen achterwege zolang er geen aanwijsbaar tekort is vastgesteld.</li>
+        <li>Meet niet alleen het gewicht maar ook slaap, energie en middelomtrek; op die punten is de winst van deze aanpak het aannemelijkst.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlands, verschenen bij CocoBooks in Amsterdam in oktober 2009 (127 blz., ISBN 9789079142040), met als ondertitel <i>Afvallen zonder honger? Breng je hormonen in balans</i>. Later kwam een herziene en uitgebreide uitgave in kleur met recepten (170 blz., ISBN 9789079142279), die in 2023 opnieuw is bijgewerkt. Er bestaat een Engelse e-bookuitgave onder de titel <i>The Hormone Factor</i> (ISBN 9789079142088) en er zijn Duitse en Spaanse vertalingen. Moorman schreef daarna onder meer <i>De boodschappencoach</i>, <i>De testofactor</i> en <i>Hormoonbalans voor vrouwen</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Moorman, levensmiddelentechnoloog uit Wageningen, keert de gebruikelijke volgorde van afvalboeken om. Niet het aantal calorieen staat vooraan, maar de negen hormonen die volgens hem bepalen wat het lichaam met die calorieen doet: insuline, schildklierhormoon, testosteron, oestrogeen, progesteron, groeihormoon, DHEA, cortisol en melatonine.</p><p>Het advies bestaat uit vier delen. Eten: zo onbewerkt mogelijk, met vlees, vis, eieren, groente, fruit, noten en zaden, weinig zuivel en gematigd glutenvrije granen en peulvruchten. Bewegen: kort en zwaar, met gewichten. Slapen. En stress beperken, omdat cortisol in dit model de rest ontregelt.</p><p>Het boek bevat zelftesten waarmee de lezer per hormoon kan nagaan welke klachten bij hem spelen, plus schema's en in de herziene uitgave recepten. Het verscheen in 2009 als eerste Nederlandse boek dat voeding uitdrukkelijk aan hormonen koppelde en beleefde sindsdien meer dan twintig drukken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hormonen</li><li>voeding</li><li>afvallen</li><li>insuline</li><li>cortisol</li><li>leefstijl</li><li>oerdieet</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1881"><a href="1881.html">Herstel je hormonen in 10 stappen</a>. Vivian Reijs bewandelt in <i>Herstel je hormonen in 10 stappen</i> hetzelfde pad voor een vrouwelijk lezerspubliek; de overlap in adviezen laat zien hoeveel van de aanpak gedeeld leefstijladvies is.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Matthew Walker onderbouwt in <i>Why We Sleep</i> met onderzoek wat Moorman over slaap, cortisol en gewicht stelt, en laat zien hoe zo'n bewering er met bronnen uitziet.</li>
+          <li value="1854"><a href="1854.html">Voeding en fysieke degeneratie</a>. <i>Voeding en fysieke degeneratie</i> is de vroege bron waarop het oerdieetdenken teruggaat waar de hormoonfactor haar voedingsregels van erft.</li>
+          <li value="1895"><a href="1895.html">Brain Food</a>. Charlotte Labee doet in <i>Brain Food</i> voor het brein wat Moorman voor de hormonen doet, met vergelijkbare sterke en zwakke plekken in de onderbouwing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

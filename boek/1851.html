@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloesemtocht &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Al Galidi zet het heldendom neer als iets waar niet de held zelf maar zijn omgeving over beslist, en dat om die reden dodelijk is. De oude man in dit boek…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1851">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1851 &middot; Roman en memoir</p>
+    <h1>Bloesemtocht</h1>
+    <p class="lede">Rodaan Al Galidi, 2014</p>
+    <p class="stats">
+      <span><b>1449</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1851"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Al Galidi zet het heldendom neer als iets waar niet de held zelf maar zijn omgeving over beslist, en dat om die reden dodelijk is. De oude man in dit boek verloor in 1917 een vinger in een gevecht tegen de Engelsen en trok daaruit de gevolgtrekking dat hij nooit meer moedig wilde heten; telkens wanneer een dorp hem toch als held ging zien, verhuisde hij. Zijn lafheid is bij Al Galidi geen gebrek maar een besluit, genomen door iemand die begrepen heeft wat een land met zijn helden doet. De verhalen die hij zijn kleinzoon nalaat zijn bedoeld als tegengif, en daarmee stelt het boek dat vertellen de enige overdracht is die de volgende generatie kan behoeden voor de eer die haar zou opeten.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De oude man en zijn vinger</h3>
+      <p>De raamvertelling is kort samen te vatten. In een verlaten dorp woont een bejaarde man die in 1917 tegen de Engelsen vocht, in de jaren waarin het Britse leger Mesopotamie op het Ottomaanse rijk veroverde, en daarbij zijn wijsvinger verloor. De ontbrekende vinger is het teken waaraan anderen hem als strijder herkennen en het is precies wat hij niet wil zijn.</p>
+      <p>Zijn oplossing is stelselmatig: bij elk begin van bewondering vertrekt hij. Het dorp waar hij aan het eind van zijn leven verblijft is leeg, en dat is geen toeval maar het eindpunt van een leven lang wegtrekken.</p>
+      <h3>De kleinzoon als aanleiding</h3>
+      <p>De tweede figuur is de kleinzoon. De oude man ziet in hem de aanleg waarvoor hij zelf gevlucht is en vreest dat de jongen zich zal laten opnemen in het verhaal dat zijn omgeving voor hem klaar heeft liggen.</p>
+      <p>Daarom kiest hij voor de omweg. Hij verbiedt niets en waarschuwt niet rechtstreeks; hij vertelt. Die keuze bepaalt de vorm van het hele boek, want alles wat volgt komt uit de mond van de grootvader en is gericht op een luisteraar die er nog niets van begrijpt.</p>
+      <h3>De verhalen zelf</h3>
+      <p>Het grootste deel van de vierhonderd bladzijden bestaat uit die vertellingen. Zij hangen niet aan een doorlopende handeling maar vormen een mozaiek: losse geschiedenissen over mensen uit de dorpen, over wijsheid en dwaasheid, over liefde en over vriendschap, waarin het wonderlijke zonder aankondiging naast het alledaagse staat.</p>
+      <p>Wie een roman met een intrige verwacht, komt bedrogen uit. De samenhang zit in de herhaling van motieven en in de bedoeling van de verteller, niet in oorzaak en gevolg. Dat maakt het boek een bundel die als roman is uitgegeven, met de winst en het verlies die daarbij horen: elk stuk kan op zichzelf staan, en de spanningsboog over het geheel is zwak.</p>
+      <h3>Een Irak van vertelsels</h3>
+      <p>Het land waarin dit gebeurt is herkenbaar Irak en tegelijk geen Irak dat in een atlas te vinden is. Al Galidi vertelt in de trant van de Arabische vertelkunst, met dorpen die eerder aan een sprookje ontleend lijken dan aan een provincie, en met dieren, dromen en toevalligheden die het verloop bepalen.</p>
+      <p>De politieke geschiedenis blijft daarbij half bedekt. Zij is er wel, van de Britse verovering van 1917 tot wat er in de eeuw daarna volgde, maar zij wordt niet uitgelegd. Wie de geschiedenis kent leest die mee; wie haar niet kent leest een sprookje. Dat is een bewuste keuze en zij ontneemt het boek wel iets van zijn scherpte.</p>
+      <h3>Van appel naar bloesem</h3>
+      <p>De titel komt uit het slot van de gedachtegang. Al Galidi grijpt terug op het bijbelse beeld van de mens die van de appel at en daarmee viel, en stelt daar een omkering tegenover: er is een tijd gekomen waarin de mens niet meer aan de vrucht hoeft maar aan de bloesem kan ruiken, en langs die weg naar zijn eigen hemel kan stijgen.</p>
+      <p>Daarmee tilt het boek zijn onderwerp aan het eind op naar iets algemeens. De vraag of iemand held of lafaard is, is dan een deelvraag geworden van hoe een mens in het bestaan staat en wat hij ervan verlangt.</p>
+      <h3>Stijl en ontvangst</h3>
+      <p>Al Galidi schrijft in beelden. Zijn Nederlands is aangeleerd en dat is te horen, in zijn voordeel en in zijn nadeel: hij zet woorden naast elkaar die een geboren spreker niet zou combineren, en dat levert regels op die verrassen en regels die ontsporen.</p>
+      <p>De ontvangst van dit boek was bescheiden, zeker vergeleken met de aandacht voor <i>De autist en de postduif</i> en later voor <i>Hoe ik talent voor het leven kreeg</i>. Op de lezerssites bleef het aantal beoordelingen klein en het gemiddelde matig. Recensenten van zijn latere werk in dezelfde vertellende trant, zoals <i>Mijn opa, de president en andere dieren</i>, wezen erop dat de gebloemde beeldspraak over een paar honderd bladzijden gaat vermoeien; dat bezwaar geldt hier ook.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De ontbrekende wijsvinger</td><td>Het gevolg van het gevecht tegen de Engelsen in 1917 en het teken waaraan de oude man tegen zijn wil als strijder wordt herkend.</td></tr>
+          <tr><td class="term">Gekozen lafheid</td><td>Het besluit van de grootvader om nooit meer moedig te heten, bij Al Galidi geen zwakte maar een vorm van inzicht.</td></tr>
+          <tr><td class="term">Het verlaten dorp</td><td>De plaats waar de oude man na een leven van wegtrekken terechtkomt en waar hij zijn verhalen vertelt.</td></tr>
+          <tr><td class="term">De kleinzoon</td><td>De toehoorder om wie het de verteller te doen is en de reden dat de verhalen worden verteld.</td></tr>
+          <tr><td class="term">Raamvertelling</td><td>De vorm waarin een omlijstend verhaal een reeks losse vertellingen bijeenhoudt, hier ontleend aan de Arabische vertelkunst.</td></tr>
+          <tr><td class="term">Bloesem</td><td>Het beeld waarmee Al Galidi het bijbelse eten van de appel omkeert en de mens een andere weg omhoog toewijst.</td></tr>
+          <tr><td class="term">Held</td><td>In dit boek geen eigenschap van een persoon maar een rol die zijn omgeving hem oplegt en die hem meestal het leven kost.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is verhalend werk en het voert geen bewijs aan; wat er te wegen valt is of de opzet houdt wat zij aankondigt. De raamvertelling is daarvoor sterk gekozen. De vinger die de oude man mist is een concreet gegeven waaruit zijn hele houding volgt, en die houding is ongewoon genoeg om vierhonderd bladzijden aan op te hangen.</p>
+      <p>Wat het boek waarmaakt, maakt het in de losse vertellingen waar. De beste daarvan hebben de opbouw van een volksverhaal: een eenvoudig begin, een wending die niet te voorzien is en een slot dat een uitspraak over mensen doet zonder die uit te spellen. Dat Al Galidi dat register beheerst, blijkt ook uit zijn andere boeken in dezelfde trant.</p>
+      <p>Van de historische achtergrond bevestigt het boek weinig en bewijst het niets. De Britse verovering van Mesopotamie in 1917 is een vaststaand gegeven en Al Galidi gebruikt het als beginpunt, maar hij schrijft geen historische roman en verantwoordt niets. Wie iets over de Iraakse twintigste eeuw wil weten, moet daarvoor elders zijn.</p>
+      <p>De opvatting die het boek verdedigt, dat eer en heldendom een samenleving opeten en dat vertellen het middel is om de volgende generatie daarbuiten te houden, wordt niet beredeneerd maar getoond. Dat is legitiem voor een roman. Het betekent wel dat wie de opvatting niet deelt, in het boek niets aantreft dat hem op andere gedachten brengt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is de lengte in verhouding tot de vorm. Een mozaiek van vertellingen zonder doorlopende handeling houdt het over vierhonderd bladzijden moeilijk vol, en de raamvertelling is te dun om die last te dragen. Er zit herhaling in, van motieven en van toon, en er is weinig dat de lezer dwingt door te gaan behalve nieuwsgierigheid naar het volgende verhaal.</p>
+      <p>Daarbij komt de beeldspraak. Al Galidi stapelt vergelijkingen en overdrachtelijke wendingen tot zinnen die op zichzelf mooi zijn en in reeks verstoppend werken. Recensenten hebben dat bij zijn latere werk in dezelfde stijl scherp geformuleerd, en het is hier al aanwezig: waar de beelden op elkaar gaan liggen, verdwijnt het gevoel dat zij moesten dragen.</p>
+      <p>De personages blijven op afstand. De grootvader is scherp getekend in zijn ene besluit, maar krijgt daarnaast weinig binnenkant; de kleinzoon is vooral een oor. Ook de figuren in de vertellingen zijn types, wat bij een volksverhaal past en bij een roman van deze omvang gaat wringen.</p>
+      <p>Tenslotte blijft het politieke onbenut. Een boek dat het heldendom aanvalt en begint bij een oorlog in Irak in 1917 heeft een onderwerp dat een eeuw doorloopt. Al Galidi houdt dat gesluierd. Dat spaart hem de plicht om partij te kiezen en het ontneemt het boek de urgentie die zijn latere, directere boeken over vlucht en asiel wel hebben.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Bloesemtocht</i> (Manteau, onderdeel van De Bezige Bij Antwerpen, 30 mei 2014, 400 blz., ISBN 9789085424758; e-boek ISBN 9789460423086). Het boek is in het Nederlands geschreven; Al Galidi, geboren in 1971 in Irak en sinds 1998 in Nederland, leerde de taal zonder les. Eerder verschenen van hem onder meer <i>Dagen van amandel en tranen</i>, <i>De autist en de postduif</i>, waarvoor hij in 2011 de Europese Literatuurprijs van de Europese Unie kreeg, en later <i>Hoe ik talent voor het leven kreeg</i> en <i>Holland</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een oude man in een verlaten dorp raakte in 1917 zijn wijsvinger kwijt in de strijd tegen de Engelsen. Sindsdien heeft hij besloten zijn leven lang laf te zijn. Zodra mensen hem als held gingen zien werd hij bang en verhuisde hij naar een volgend dorp.</p><p>Nu vertelt hij verhalen aan zijn kleinzoon, met de bedoeling te voorkomen dat die ook een held wordt en daarvoor met zijn leven betaalt. Uit die verhalen bestaat het boek: een reeks vertellingen over het hart van de mens, over wijsheid, liefde en vriendschap, aan elkaar geregen tot een geheel van vierhonderd bladzijden.</p><p>Al Galidi plaatst het in een Irak dat meer op een sprookje lijkt dan op een land op de kaart, met de politieke geschiedenis half zichtbaar op de achtergrond. De titel verwijst naar de omkering waarmee het boek eindigt: de mens at ooit van de appel, en het is nu tijd dat hij aan de bloesem ruikt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Irak</li><li>vertellen</li><li>grootvader</li><li>heldendom</li><li>lafheid</li><li>dorp</li><li>raamvertelling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1402"><a href="1402.html">Honderd jaar eenzaamheid</a>. Garcia Marquez bouwt op dezelfde manier een dorp waar het wonderlijke zonder toelichting naast het gewone staat, maar houdt er wel een doorlopende familiegeschiedenis onder.</li>
+          <li value="1401"><a href="1401.html">Middernachtskinderen</a>. Rushdie verbindt de vertelkunst uit dezelfde traditie aan de politieke geschiedenis van zijn land, precies de verbinding die Al Galidi bedekt houdt.</li>
+          <li value="8"><a href="08.html">De alchemist</a>. Coelho gebruikt eveneens de vorm van het oosterse leerverhaal om een levensles over te dragen, met minder verhalen en een uitgesprokener boodschap.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

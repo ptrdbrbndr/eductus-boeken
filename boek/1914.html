@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De kunst van het helpen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hellinger stelt dat helpen een vak is met eigen wetmatigheden, en dat de meeste schade in hulpverlening niet ontstaat door onkunde maar door een verkeerde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1914">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1914 &middot; Naslag en praktijk</p>
+    <h1>De kunst van het helpen</h1>
+    <p class="lede">Bert Hellinger, 2004</p>
+    <p class="stats">
+      <span><b>1329</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1914"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hellinger stelt dat helpen een vak is met eigen wetmatigheden, en dat de meeste schade in hulpverlening niet ontstaat door onkunde maar door een verkeerde plaats. De helper die zich boven de cliënt stelt, die diens lot wil overnemen of die de rol van de ontbrekende ouder invult, verzwakt precies degene die hij wil sterken. Daartegenover zet hij een houding van instemming: de helper aanvaardt wat er is, ook als dat zwaar of onherstelbaar is, ziet de cliënt als deel van een familiesysteem waarin ook doden en uitgestotenen meetellen, en geeft alleen wat hij werkelijk heeft. Wie zich aan die ordeningen houdt, doet minder en bereikt volgens Hellinger meer.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Geven en nemen als grondslag</h3>
+      <p>Het boek begint bij de uitwisseling. Hellinger ziet elke betrekking tussen mensen als een verhouding van geven en nemen die in evenwicht wil komen. Wie alleen geeft, maakt de ander schuldig en klein; wie alleen neemt, blijft afhankelijk.</p>
+      <p>Hulpverlening is voor hem het geval waarin dat evenwicht opzettelijk scheef staat, en dat is de reden dat het zo vaak misloopt. De helper krijgt betaald en krijgt aanzien, maar de cliënt moet iets terug kunnen geven, al is het alleen erkenning van wat hij ontvangen heeft.</p>
+      <h3>De eerste en tweede ordening</h3>
+      <p>De eerste ordening luidt dat iemand alleen geeft wat hij heeft en alleen verwacht en neemt wat hij nodig heeft. Hellinger richt zich daarmee tegen de helper die grenzeloos beschikbaar is en die daarmee iets anders bedient dan de cliënt.</p>
+      <p>De tweede ordening zegt dat helpen zich onderwerpt aan de omstandigheden en zich beperkt tot wat de situatie toelaat. Wie een lot wil keren dat niet te keren valt, een dood, een ziekte, een verleden, verplaatst zijn eigen onmacht naar de cliënt. Hellinger beschrijft dat als de grootste verleiding in het vak.</p>
+      <h3>De derde ordening: volwassene tegenover volwassene</h3>
+      <p>De derde ordening gaat over overdracht. De hulpverlener die de cliënt als kind benadert, en de cliënt die de hulpverlener als ouder benadert, houden samen iets in stand dat de cliënt uit zijn eigen leven weghoudt.</p>
+      <p>Hellinger vraagt de helper zich te richten tot de volwassene in de ander, ook wanneer die zich als kind aandient. Dit is het punt waarop hij zich het scherpst afzet tegen langdurige psychotherapie, die volgens hem de afhankelijkheid tot behandeling verheft.</p>
+      <h3>De vierde ordening: de cliënt als deel van een systeem</h3>
+      <p>De vierde ordening is de systemische. De klassieke uitgangspositie ziet de cliënt als afzonderlijk individu; Hellinger stelt daartegenover dat niemand los staat van ouders, voorouders, partners en kinderen, en dat gedrag dat op zichzelf onbegrijpelijk is, binnen dat verband zin krijgt.</p>
+      <p>Daaruit volgt het idee waarop de opstellingenpraktijk rust: wie uit een familie is weggelaten, een doodgeboren kind, een verzwegen eerste echtgenoot, een dader, wordt onbewust door een later familielid nagevolgd. De helper moet daarom eerst kijken wie er ontbreekt.</p>
+      <h3>De vijfde ordening: liefde voor iedereen</h3>
+      <p>De vijfde ordening is de liefde voor alle mensen, hoe zij ook zijn en hoezeer zij ook van de helper verschillen. Hellinger bedoelt daarmee ook uitdrukkelijk de daders in een familiegeschiedenis, en dat maakt deze ordening de meest omstreden van de vijf.</p>
+      <p>Zijn redenering is dat een helper die iemand buitensluit, dat buitensluiten in het systeem van de cliënt herhaalt. Verzoening bestaat er in zijn opvatting uit dat alle betrokkenen een plaats krijgen, ook wie kwaad deed. Wat dat betekent voor een slachtoffer dat geen behoefte heeft aan verzoening, laat hij open.</p>
+      <h3>Valkuilen van de helper</h3>
+      <p>Het laatste deel is een reeks korte waarschuwingen. Meelijden dat de helper verlamt, het willen redden van iemand die zelf niet wil, het aannemen van de rol van betere ouder, de hulp die vooral het gemoed van de helper bedient.</p>
+      <p>Hellinger formuleert die punten als vaststellingen zonder uitleg. Dat maakt het boek bruikbaar als spiegel voor wie het vak al doet, en weinig behulpzaam voor wie wil weten waarom het zo zou zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ordeningen van het helpen</td><td>De vijf regels waaraan helpen volgens Hellinger onderworpen is, van het geven van wat men heeft tot de liefde voor alle betrokkenen.</td></tr>
+          <tr><td class="term">Uitwisseling van geven en nemen</td><td>Het evenwicht dat volgens Hellinger in elke betrekking gezocht wordt en dat in hulpverlening opzettelijk scheef staat.</td></tr>
+          <tr><td class="term">Instemming</td><td>De houding waarin de helper aanvaardt wat er is, inclusief wat onherstelbaar is, in plaats van het te willen keren.</td></tr>
+          <tr><td class="term">Familiesysteem</td><td>Het geheel van ouders, voorouders, partners en kinderen waarbinnen Hellinger het gedrag van een cliënt plaatst.</td></tr>
+          <tr><td class="term">Buitensluiting</td><td>Het weglaten van een familielid uit het verhaal van de familie, dat volgens Hellinger door een later lid onbewust wordt overgenomen.</td></tr>
+          <tr><td class="term">Verstrikking</td><td>De toestand waarin iemand het lot van een uitgesloten voorganger navolgt zonder dat te weten.</td></tr>
+          <tr><td class="term">Overdracht van het ouder-kindpatroon</td><td>De verhouding waarin helper en cliënt in de rollen van ouder en kind schieten, volgens Hellinger de derde valkuil.</td></tr>
+          <tr><td class="term">Fenomenologische benadering</td><td>De werkwijze waarin de helper waarneemt wat zich toont zonder vooraf een verklaring of doel te kiezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan en verwijst naar geen enkele studie. Hellinger baseert zich op wat hij in zijn werk meende waar te nemen, en presenteert dat als vaststelling. De vorm is aforistisch: uitspraken volgen elkaar op zonder redenering ertussen, wat past bij hoe hij in workshops sprak.</p>
+      <p>Voor de vier eerste ordeningen valt wel aan te wijzen dat zij overeenkomen met wat elders beter is onderbouwd. Dat overdracht en afhankelijkheid in een hulprelatie meespelen is oud psychoanalytisch terrein; dat problemen van een individu in een gezinsverband begrepen moeten worden is de grondslag van de systeemtherapie zoals die vanaf de jaren vijftig is ontwikkeld. Hellinger vermeldt die herkomst niet.</p>
+      <p>Voor de kern van het systemische deel, de aanname dat een uitgesloten voorouder door een later familielid wordt nagevolgd, bestaat geen empirische steun. Onderzoek naar familieopstellingen is schaars, methodologisch zwak en vrijwel altijd uitgevoerd door mensen uit de eigen kring, met korte navolging en zonder geloofwaardige controlegroep.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de persoon en de praktijk waaruit dit boek voortkomt. Hellinger is in Duitsland herhaaldelijk aangevallen om zijn omgang met slachtoffers: uitspraken waarin misbruikte kinderen mede verantwoordelijk werden gemaakt voor wat hun overkwam, opstellingen waarin slachtoffers van de Holocaust en daders in een verzoenende verhouding werden geplaatst, en een leiderschapsstijl die deelnemers onder druk zette. Beroepsverenigingen hebben zich van hem gedistantieerd.</p>
+      <p>De vijfde ordening is precies waar dat bezwaar aangrijpt. Liefde voor alle betrokkenen klinkt ruim, maar in de praktijk van opstellingen kwam het erop neer dat een slachtoffer werd gevraagd de dader een plaats te geven. Dat kan iemand goed doen, en het kan iemand voor de tweede keer beschadigen. Het boek maakt dat onderscheid niet.</p>
+      <p>Verder is de stelligheid een probleem op zichzelf. Hellinger onderbouwt niets, staat geen tegenspraak toe in zijn tekst en presenteert een reeks aannames over families als vaststaande orde. Dat maakt het boek voor een beroepsbeoefenaar lastig te gebruiken: er is geen manier om vast te stellen wanneer een uitspraak niet opgaat.</p>
+      <p>Ten slotte is de samenstelling rommelig. De hoofdstukken komen uit vier verschillende bronnen en zijn niet omgewerkt tot een geheel, waardoor herhaling en losse einden blijven staan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij elke vorm van hulp na wat de eigen behoefte is die erin meespeelt, en of die de hulp stuurt.</li>
+        <li>Geef alleen wat er werkelijk is, en zeg wat er niet is, in plaats van het toch toe te zeggen.</li>
+        <li>Richt het gesprek op de volwassene in de ander, ook wanneer die zich hulpeloos opstelt.</li>
+        <li>Vraag naar de familie voordat het gedrag van een enkele persoon wordt verklaard, en let op wie in dat verhaal ontbreekt.</li>
+        <li>Laat verzoening met een dader over aan degene die het aangaat en dring er nooit op aan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandse samenstelling door Margreet Mossel uit Duits en Engels werk van Hellinger, onder meer <i>Ordnungen des Helfens</i>, <i>Der Austausch</i>, <i>The Learning Circle</i> en <i>The Art of Helping</i>. Uitgegeven door Uitgeverij Het Noorderlicht, 2004, 160 blz., ISBN 9789077290057; een latere druk draagt ISBN 9789492331892. Er bestaat een e-boek en een gesproken uitgave. Van Hellinger zijn in het Nederlands verder onder meer <i>Ordnungen der Liebe</i> als <i>Ordeningen van de liefde</i> en verschillende opstellingenverslagen verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bert Hellinger (1925-2019) was priester en missionaris in Zuid-Afrika, verliet de orde en werd psychotherapeut. Hij bracht de familieopstelling tot een methode die vanaf de jaren negentig in Duitsland en Nederland veel navolging kreeg, en evenveel bezwaar.</p><p>Dit boek gaat niet over de techniek van opstellingen maar over de houding van degene die helpt. Hellinger benoemt vijf ordeningen van het helpen en beschrijft wat er misgaat wanneer een hulpverlener meer wil geven dan hij heeft, of meer wil dragen dan hem toekomt. Zijn stelling is dat de meeste mislukte hulp voortkomt uit de behoefte van de helper zelf.</p><p>Het is een dun boek dat uit meerdere Duitse en Engelse bronnen is samengesteld, waardoor het eerder een reeks korte beschouwingen is dan een doorlopend betoog. De toon is stellig en aforistisch: Hellinger onderbouwt niet, hij constateert. Wie de vijf ordeningen wil begrijpen zonder de opstellingenpraktijk mee te nemen, kan hier terecht; wie bewijs zoekt, niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>familieopstellingen</li><li>systemisch werk</li><li>hulpverlening</li><li>therapie</li><li>Hellinger</li><li>helpen</li><li>beroepshouding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1862"><a href="1862.html">Symbiose und Autonomie</a>. Behandelt hetzelfde spanningsveld tussen verbonden blijven en losraken, maar met een expliciete theorie in plaats van vaststellingen.</li>
+          <li value="1639"><a href="1639.html">Het einde van de opvoeding</a>. Geurtz onderzoekt de ouder-kindverhouding waarin de derde ordening van Hellinger ingrijpt, met dezelfde bezwaren tegen redden.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg biedt voor dezelfde gesprekssituaties een werkwijze die wel te controleren en te oefenen is.</li>
+          <li value="1751"><a href="1751.html">Trauma, je bent gek als je het niet hebt</a>. Laat zien hoe het traumavocabulaire in Nederland is gaan rondgaan, inclusief de aannames over overdracht tussen generaties die Hellinger als vaststaand behandelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

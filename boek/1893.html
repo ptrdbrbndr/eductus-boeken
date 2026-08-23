@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solve for Happy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gawdat behandelt geluk als een technisch probleem met een oplosbare vergelijking. Zijn stelling is dat geluk de gewone toestand van een mens is en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1893">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1893 &middot; Levenskunst</p>
+    <h1>Solve for Happy</h1>
+    <p class="lede">Mo Gawdat, 2017</p>
+    <p class="stats">
+      <span><b>1418</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1893"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gawdat behandelt geluk als een technisch probleem met een oplosbare vergelijking. Zijn stelling is dat geluk de gewone toestand van een mens is en dat ongeluk ontstaat zodra de waarneming van een gebeurtenis achterblijft bij de verwachting die iemand ervan had. Daaruit volgt dat het werk niet aan de wereld hoeft te gebeuren maar aan de verwachtingen, en dat dit werk methodisch te doen is: illusies opsporen, denkfouten herkennen en een klein aantal uitgangspunten aannemen die hij als waar presenteert. De consequentie die het boek trekt, is dat geluk een vaardigheid is die met oefening betrouwbaar te herhalen valt, ongeacht wat er gebeurt. Wie daar tegenin wil, kan wijzen op omstandigheden waarin het verlagen van verwachtingen eerder berusting oplevert dan geluk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vergelijking</h3>
+      <p>Het boek opent met een formule die op een servet past: geluk is gelijk aan of groter dan de waarneming van gebeurtenissen min de verwachting van hoe het leven zou moeten verlopen. Zolang de waarneming de verwachting haalt, staat niets het geluk in de weg. Zakt zij eronder, dan ontstaat het gevoel dat er iets mis is.</p>
+      <p>Gawdat noemt geluk daarom een verstekstand. Een kind heeft het zonder aanleiding; volwassenen raken het kwijt doordat zij zich verwachtingen aanmeten en die vervolgens voor werkelijkheid houden. De rest van het boek gaat over wat die verwachtingen voedt.</p>
+      <h3>Zes grote illusies</h3>
+      <p>Het eerste deel van het model bestaat uit zes veronderstellingen die volgens Gawdat vals zijn. De stem in het hoofd is niet de persoon die haar hoort. Het lichaam is het voertuig van de waarnemer en niet zijn identiteit. Kennis is beperkt en gefilterd, ook waar zij zeker aanvoelt. Tijd is een ervaring en geen eigenschap van de wereld. Zeggenschap over de loop van een leven is grotendeels ingebeeld. Angst beschermt zelden en verlamt vaak.</p>
+      <p>Elk van de zes krijgt een hoofdstuk waarin de illusie eerst wordt uitgelegd en daarna een oefening volgt om er afstand van te nemen, bijvoorbeeld het opschrijven van de gedachtestroom om te zien dat die vanzelf doorloopt zonder dat de schrijver hem stuurt.</p>
+      <h3>Zeven blinde vlekken</h3>
+      <p>Daarna komen zeven manieren waarop het denken de waarneming vervormt: filters die dreiging uitvergroten, aannames die gaten opvullen, voorspellingen die voor kennis doorgaan, herinneringen die met terugwerkende kracht veranderen, etiketten die een ding vervangen door een woord, emoties die de redenering sturen, en overdrijving die elk voorval opblaast.</p>
+      <p>Dit zijn de meest herkenbare hoofdstukken van het boek. Ze lopen goeddeels parallel aan wat in de cognitieve psychologie denkfouten heet, al gebruikt Gawdat die literatuur spaarzaam en werkt hij liever met voorbeelden uit zijn eigen leven en met vergelijkingen uit de techniek.</p>
+      <h3>Vijf waarheden</h3>
+      <p>Het derde deel noemt vijf uitgangspunten die volgens Gawdat wel standhouden: het nu is het enige moment dat bestaat, verandering is onafgebroken, liefde is een toestand en geen ruilhandel, de dood geeft de tijd zijn waarde, en het bestaan vertoont een ontwerp.</p>
+      <p>De laatste van de vijf valt uit de toon. Gawdat betoogt daar dat de onwaarschijnlijkheid van het heelal en van het leven op een ontwerpende instantie wijst, met een redenering die teruggaat op het oude ontwerpargument. Wie de eerste vier waarheden aanvaardt, hoeft de vijfde niet te aanvaarden, maar het boek biedt ze aan als een reeks.</p>
+      <h3>Ali</h3>
+      <p>Het boek begint en eindigt bij de dood van zijn zoon in 2014. Gawdat beschrijft hoe hij ervoor koos geen wrok te koesteren jegens de betrokken artsen, omdat wraak Ali niet zou terugbrengen en het leven van de achterblijvers verder zou beschadigen. Zeventien dagen na de dood begon hij te schrijven.</p>
+      <p>Hij stelt daarbij een doel: het model bij tien miljoen mensen brengen. Later heeft hij dat opgerekt tot een miljard, wat de naam werd van zijn latere werk en zijn podcast. Het verlies fungeert in het boek als de zwaarste beproeving die de formule heeft doorstaan, en als de reden dat de lezer hem gelooft.</p>
+      <h3>Aanvaarden en toch handelen</h3>
+      <p>Gawdat wil het misverstand voor zijn dat zijn model op gelatenheid uitdraait. Hij hanteert daarvoor de term toegewijde aanvaarding: eerst zonder verzet erkennen wat er is gebeurd, daarna doen wat er te doen valt. Het verschil zit in de volgorde, want verzet tegen het gebeurde kost volgens hem de energie die het handelen nodig heeft.</p>
+      <p>De slothoofdstukken gaan over doorgeven. Gawdat behandelt geluk als iets dat zich verspreidt en vraagt de lezer het model verder te vertellen. Hij heeft zijn werk bij Google na het verschijnen van het boek achter zich gelaten en zich op die missie gericht.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De geluksvergelijking</td><td>Geluk is gelijk aan of groter dan de waarneming van gebeurtenissen min de verwachting die iemand van het leven had.</td></tr>
+          <tr><td class="term">Verstekstand</td><td>Gawdats aanduiding voor geluk als de toestand waarin een mens verkeert zolang er niets tussen komt te staan.</td></tr>
+          <tr><td class="term">Zes grote illusies</td><td>Gedachte, zelf, kennis, tijd, zeggenschap en angst; de zes aannames die volgens het boek de waarneming vertroebelen.</td></tr>
+          <tr><td class="term">Zeven blinde vlekken</td><td>Filters, aannames, voorspellingen, herinneringen, etiketten, emoties en overdrijving, de zeven manieren waarop het denken vervormt.</td></tr>
+          <tr><td class="term">Vijf ultieme waarheden</td><td>Het nu, verandering, liefde, dood en ontwerp; de uitgangspunten waarop Gawdat het geluk laat rusten.</td></tr>
+          <tr><td class="term">Toegewijde aanvaarding</td><td>Het gebeurde erkennen zonder verzet en van daaruit handelen, in plaats van eerst te vechten tegen wat al is gebeurd.</td></tr>
+          <tr><td class="term">Het ontwerpargument</td><td>De vijfde waarheid, waarin de onwaarschijnlijkheid van het bestaan wordt aangevoerd als aanwijzing voor een ontwerpende instantie.</td></tr>
+          <tr><td class="term">Tien miljoen gelukkige mensen</td><td>Het doel dat Gawdat in het boek stelt voor de verspreiding van zijn model, later verruimd tot een miljard.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De vergelijking is een manier van formuleren en geen meetbare formule. Er staat geen eenheid in, geen schaal en geen methode om de twee termen onafhankelijk van elkaar vast te stellen. Wie ongelukkig is, kan achteraf altijd zeggen dat de verwachting te hoog stond. Als beschrijving is dat bruikbaar, als toetsbare bewering niet.</p>
+      <p>Het idee erachter is wel terug te vinden in bestaand werk. Dat tevredenheid afhangt van een vergelijkingspunt en dat mensen na een verandering terugkeren naar hun eigen niveau, is in de psychologie beschreven onder namen als aanpassingsniveau en hedonische gewenning. Gawdat verwijst daar spaarzaam naar en bouwt zijn hoofdstukken vooral op eigen redenering, anekdotes en vergelijkingen uit de techniek.</p>
+      <p>Wat het boek zijn gezag geeft is biografisch. Gawdat had het model al voordat zijn zoon stierf, en hij beschrijft dat het toen bruikbaar bleek. Dat maakt het geloofwaardig als verslag van een leven en het zegt niets over de werking bij iemand anders. De ingenieurstaal suggereert een precisie die de onderbouwing niet levert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het dichtst bij de kern zit, betreft de rol van verwachtingen. Verwachtingen naar beneden bijstellen levert een rustiger gemoed op en soms ook een kleiner leven. Het boek onderscheidt nauwelijks tussen verwachtingen die iemand beter loslaat en verwachtingen die terecht zijn, zoals de verwachting dat een ziekenhuis geen fout maakt. Gawdats eigen geschiedenis maakt die vraag scherper in plaats van minder scherp.</p>
+      <p>De vijfde waarheid haalt een godsbewijs binnen in een boek dat zich op logica beroept. De redenering over onwaarschijnlijkheid en ontwerp is oud, er bestaan gangbare tegenwerpingen tegen, en Gawdat behandelt die niet. Lezers die het model om praktische redenen willen gebruiken, krijgen er een metafysische aanname bij die er niet bij hoeft.</p>
+      <p>Verder is de vorm breedsprakig. Hetzelfde punt keert in verschillende hoofdstukken terug in een nieuwe verpakking, en wie de zeven blinde vlekken al kent uit de literatuur over denkfouten, vindt daar weinig dat nieuw is. Het boek is bovendien geschreven vanuit een positie waarin geld geen zorg meer was, wat de bewering dat omstandigheden er weinig toe doen makkelijker maakt om te poneren dan om te toetsen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf bij een gevoel van ongeluk eerst op welke verwachting is geschonden, voordat er over de gebeurtenis wordt geoordeeld.</li>
+        <li>Ga daarna na of die verwachting redelijk was, en niet alleen of zij los te laten valt.</li>
+        <li>Volg een dag lang de gedachtestroom op papier om te zien hoeveel ervan voorspelling en herinnering is.</li>
+        <li>Scheid bij tegenslag het aanvaarden van het gebeurde van het nalaten van actie; Gawdat noemt die combinatie toegewijde aanvaarding.</li>
+        <li>Behandel de vijfde waarheid over ontwerp als losstaand; de eerste vier zijn ook zonder haar te gebruiken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Solve for Happy: Engineer Your Path to Joy</i> (North Star Way, een afdeling van Simon &amp; Schuster, New York, 2017). Nederlands als <i>De logica van geluk: ontdek de formule</i>, vertaald door Caspar Wijers, Katja Hunfeld en Annemieke Heinen, uitgeverij Brandt, 2017, 368 blz., ISBN 9789492037657; er bestaat ook een luisterboekuitgave. Van Gawdat verschenen later onder meer <i>That Little Voice in Your Head</i> en <i>Scary Smart</i>, over kunstmatige intelligentie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mo Gawdat was hoofd bedrijfsvoering van Google X, de afdeling van Google voor langetermijnprojecten. Hij verdiende goed, kocht dure auto's en voelde zich ongelukkig. Vanaf het begin van deze eeuw begon hij dat probleem aan te pakken zoals hij zijn werk aanpakte: ontleden tot er een formule overblijft.</p><p>Die formule luidt dat geluk gelijk is aan of groter dan het verschil tussen hoe iemand een gebeurtenis waarneemt en wat hij ervan verwachtte. Wie zich ongelukkig voelt, heeft volgens Gawdat een probleem met de verwachting waaraan hij de gebeurtenis afmeet. Om die verwachtingen te kunnen bijstellen bouwde hij een model van zes illusies, zeven blinde vlekken en vijf waarheden.</p><p>In 2014 stierf zijn eenentwintigjarige zoon Ali na een routineoperatie die verkeerd afliep. Gawdat schreef het boek in de jaren daarna en beschrijft hoe het model, dat hij als denkoefening had opgezet, hem en zijn gezin door dat verlies hielp. Dat verhaal is de reden dat het boek gelezen wordt en tegelijk het punt waarop het zich aan toetsing onttrekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geluk</li><li>verwachtingen</li><li>zelfhulp</li><li>rouw</li><li>Google X</li><li>denkfouten</li><li>aanvaarding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle beschrijft dezelfde beweging zonder vergelijking en zonder model: lijden ontstaat door vereenzelviging met het denken.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius werkt eeuwen eerder met hetzelfde onderscheid tussen de gebeurtenis en het oordeel erover, en zonder de belofte dat het geluk oplevert.</li>
+          <li value="1882"><a href="1882.html">The Happiness Equation</a>. Pasricha bouwt eveneens een geluksmodel voor een breed publiek en komt op een aantal punten bij vergelijkbare adviezen uit.</li>
+          <li value="1561"><a href="1561.html">A Monk's Guide to Happiness</a>. Thubten behandelt vanuit de boeddhistische praktijk de aandachtsoefeningen die Gawdat in wereldse en technische termen beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

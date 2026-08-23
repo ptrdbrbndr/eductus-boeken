@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De hemel in je handen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thooft stelt dat het grootste deel van wat een mens beweegt zich afspeelt onder de oppervlakte van het dagelijks bewustzijn, en dat de toegang daartoe…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1917">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1917 &middot; Filosofie en mystiek</p>
+    <h1>De hemel in je handen</h1>
+    <p class="lede">Lisette Thooft, 2022</p>
+    <p class="stats">
+      <span><b>1285</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1917"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thooft stelt dat het grootste deel van wat een mens beweegt zich afspeelt onder de oppervlakte van het dagelijks bewustzijn, en dat de toegang daartoe niet via denken loopt maar via voelen. Haar tweede stelling is dat dit gevoelsspoor systematisch geblokkeerd wordt, niet door toeval maar door aangeleerde afweer, zodat de eerste vraag bij zelfonderzoek luidt wat iemand doet om niet te voelen. Wie die afweer tijdelijk opzij zet, met lichaamswerk, adem, dromen, hypnose of een middel, krijgt volgens haar toegang tot een ruimer bewustzijn, en dat maakt mensen sterker en meer in evenwicht. Zij behandelt dat ruimere bewustzijn als iets dat werkelijk bestaat en niet als een manier van spreken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag onder het boek</h3>
+      <p>Thooft opent bij haar eigen leven: zelfonderzoek noemt zij de rode draad daarin. Zij beschrijft hoe zij decennia lang methoden uitprobeerde, en waarom de meeste daarvan volgens haar op hetzelfde punt aankomen, namelijk het toelaten van gevoel.</p>
+      <p>Daaruit komt de vraag die het boek stuurt: wat doet iemand om niet te voelen. Afleiding, drukte, verklaren en analyseren gelden bij haar alle als vormen van afweer, ook wanneer zij als zelfonderzoek worden gepresenteerd.</p>
+      <h3>Naar beneden: het lichaam en de schaduw</h3>
+      <p>Wat Thooft aarde-werk noemt gaat naar binnen en naar beneden. Lichaamswerk staat daarbij voorop: aanraking, adem en beweging maken volgens haar emoties los die in het lichaam zijn blijven zitten. Zij put daarbij uit haar eigen opleiding als rebalancer en uit series ademsessies.</p>
+      <p>Daarnaast behandelt zij het schaduwwerk uit de jungiaanse traditie: de eigenschappen die iemand bij zichzelf niet wil zien, worden bij voorkeur in anderen opgemerkt. Het werk bestaat erin die eigenschappen terug te nemen en er iets bruikbaars van te maken.</p>
+      <h3>Naar boven: het ruimere bewustzijn</h3>
+      <p>Tegenover het aarde-werk zet zij het sterren-werk: het reiken naar wat zij het hogere zelf noemt. Meditatie en mindfulness horen daarbij, maar ook stilte, verwondering en het openstaan voor wat zich aandient.</p>
+      <p>Thooft houdt vol dat de twee bewegingen elkaar nodig hebben. Naar boven reiken zonder naar beneden te gaan levert volgens haar een spiritualiteit op die de eigen pijn ontloopt, en dat is in haar termen opnieuw afweer.</p>
+      <h3>De methoden op een rij</h3>
+      <p>Het middendeel is een overzicht. Zelfhypnose, droomonderzoek, het lezen van sprookjes als beelden van een innerlijk proces, orakels, lichaamswerk en meditatie komen achtereenvolgens aan bod, telkens met uitleg van de werkwijze en met aanwijzingen om ermee te beginnen.</p>
+      <p>Daar hoort ook een hoofdstuk over psychedelica bij, waarin zij MDMA behandelt als middel om de angst tijdelijk te dempen en zo bij oud zeer te kunnen komen. Zij beschrijft dat vanuit eigen ervaring en die van anderen, met aandacht voor de omstandigheden waaronder zoiets zou moeten gebeuren.</p>
+      <h3>Wat het volgens haar oplevert</h3>
+      <p>Het slotdeel formuleert de opbrengst: meer innerlijke ruimte, minder gedrevenheid door oude pijn, en volgens Thooft ook toegang tot een wijsheid die verder reikt dan de persoon. Zij verbindt dat met een oude religieuze gedachte dat wat aan het licht komt zelf licht wordt.</p>
+      <p>Haar maatschappelijke conclusie sluit daarop aan: wie vanbinnen ruimer wordt, richt buiten minder schade aan. Dat is het punt waarop het boek van zelfonderzoek overgaat in een bescheiden wereldverbeteringsprogramma.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ruimer bewustzijn</td><td>De toestand waarin volgens Thooft meer waarneembaar is dan het gewone dagbewustzijn toelaat, en waaraan zij een eigen bestaan toekent.</td></tr>
+          <tr><td class="term">Aarde-werk</td><td>Haar term voor de beweging naar binnen en naar beneden: lichaam, adem, pijn en schaduw onder ogen zien.</td></tr>
+          <tr><td class="term">Sterren-werk</td><td>Haar term voor de tegengestelde beweging: reiken naar het hogere zelf via meditatie, stilte en verwondering.</td></tr>
+          <tr><td class="term">Afweer</td><td>Alles waarmee iemand voorkomt dat hij voelt, inclusief verklaren en analyseren, gevat in haar vraag wat je doet om niet te voelen.</td></tr>
+          <tr><td class="term">Schaduw</td><td>Het jungiaanse begrip voor de eigen trekken die iemand niet erkent en daarom vooral bij anderen opmerkt.</td></tr>
+          <tr><td class="term">Lichaamswerk</td><td>Aanraking, adem en beweging als weg naar emoties die volgens haar in het lichaam zijn vastgelopen.</td></tr>
+          <tr><td class="term">Rebalancing</td><td>De vorm van lichaamswerk waarin Thooft zelf is opgeleid en die haar uitgangspunt over lichaam en gevoel kleurt.</td></tr>
+          <tr><td class="term">Zelfhypnose</td><td>Een door haarzelf toe te passen trancetechniek die zij inzet om lagen onder het dagbewustzijn te bereiken.</td></tr>
+          <tr><td class="term">Droomonderzoek</td><td>Het systematisch navragen van eigen dromen als weergave van wat overdag buiten beeld blijft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat vrijwel geheel uit ervaring: die van Thooft zelf, aangevuld met wat deskundigen haar vertelden. Er staat geen onderzoek in dat de werking van de beschreven methoden aantoont, en het boek presenteert zich ook niet als overzicht van wetenschappelijke stand van zaken. Klassieke namen als Freud en Jung leveren het begrippenkader, geen bewijsmateriaal; Jungs schaduw is een model waarmee ervaringen te ordenen zijn en geen getoetste theorie.</p>
+      <p>De methoden in het overzicht verschillen sterk in hoe hard de grond onder hen is, en het boek maakt dat verschil niet zichtbaar. Voor MDMA bij posttraumatische klachten bestaat inmiddels klinisch onderzoek, met wisselende uitkomsten en met een afwijzing door de Amerikaanse toezichthouder in 2024; voor droomduiding, sprookjesuitleg en orakels bestaat niets dat als toetsing kan gelden. In het boek staan die zaken naast elkaar met dezelfde vanzelfsprekendheid.</p>
+      <p>Waar het boek wel sterk in is, is beschrijving. Thooft is precies over hoe een ademsessie verloopt, wat er bij lichaamswerk gebeurt en wat iemand daarbij kan tegenkomen. Dat maakt de tekst controleerbaar op het niveau van de praktijk, ook wanneer de verklaring die zij eraan hangt dat niet is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar kwam van Paul Van Aelst in de leeswijzer van het Humanistisch Verbond: in het hele boek staat volgens hem geen enkele kritische opmerking bij de vele beschreven technieken, terwijl een deel daarvan onbewezen is. Zijn zwaarste punt is niet de onzin op zich maar het risico: mensen die er slecht aan toe zijn kunnen door deze aanpak verder wegzakken, zeker waar het boek zonder omhaal het gebruik van MDMA bespreekt.</p>
+      <p>Dat gebrek aan onderscheid is ook zonder die scherpe toon aanwijsbaar. Doordat alles wat ooit heeft geholpen dezelfde status krijgt, valt uit het boek niet af te leiden welke methode bij welke klacht past en waar iemand beter een behandelaar opzoekt. De enige toets die overblijft is of iets voor de lezer werkt, en dat is precies de toets waar zelfbedrog het minst door gehinderd wordt.</p>
+      <p>Daartegenover staat de lezing van Vincent Duindam, die het boek vooral waardeert om het pleidooi voor volledig voelen en om de concrete aanwijzingen. Dat verschil in oordeel is te herleiden tot een verschil in maatstaf: wie het boek beoordeelt op bruikbaarheid komt tot een ander antwoord dan wie het beoordeelt op houdbaarheid van de beweringen. Het boek zelf helpt niet bij die keuze, omdat het de tweede vraag niet stelt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel bij een terugkerende klacht eerst de vraag wat het opzij zet, voordat er een methode bij wordt gezocht.</li>
+        <li>Scheid bij het lezen de beschrijving van een oefening van de verklaring die eraan wordt gegeven; het eerste is te proberen, het tweede niet te toetsen.</li>
+        <li>Zoek voor lichaamswerk of ademsessies iemand met opleiding en met een duidelijke afspraak over stoppen, zeker bij een geschiedenis van trauma.</li>
+        <li>Laat het gebruik van middelen buiten beschouwing zolang er geen behandelaar bij betrokken is; het boek beschrijft de mogelijkheid, niet de veiligheidsmarges.</li>
+        <li>Houd een korte aantekening bij van dromen gedurende enkele weken, en beoordeel de opbrengst op wat opvalt en niet op de duiding die het boek aanreikt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>Hoe je toegang krijgt tot een ruimer bewustzijn</i>, verschenen bij Uitgeverij Ten Have, Utrecht, op 21 juni 2022, paperback, 176 blz., ISBN 9789025910204; het e-boek heeft ISBN 9789025910211. Er is geen vertaling verschenen. Van Thooft kwamen eerder onder meer <i>Vrienden worden met je lijf</i> en <i>Kom uit je hoofd</i> uit, en in 2025 <i>Jezelf vergeven (voor alles)</i>; zij schrijft daarnaast voor Happinez en De Verwondering.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lisette Thooft werkt als rebalancer en schrijft al decennia over zelfonderzoek. In dit boek brengt zij bij elkaar wat zij in die jaren aan methoden is tegengekomen om onder de oppervlakte van het dagelijks bewustzijn te komen: zelfhypnose, droomonderzoek, lichaamswerk, ademsessies, meditatie, schaduwwerk, orakels en het gebruik van MDMA.</p><p>De vraag die het boek bij elkaar houdt is niet wat iemand voelt, maar wat iemand doet om niet te voelen. Thooft gaat ervan uit dat afweer de gewone toestand is en dat de meeste methoden in het boek in de eerste plaats dienen om die afweer even opzij te zetten. Pijn die met mildheid onder ogen wordt gezien, wordt volgens haar een bron waar iemand uit kan putten.</p><p>Zij ordent het geheel in twee bewegingen: naar beneden, naar het lichaam en de schaduw, en naar boven, naar wat zij het ruimere bewustzijn noemt. Het boek is deels verslag van eigen ervaring, deels weergave van wat deskundigen haar vertelden, en bevat concrete aanwijzingen om de beschreven oefeningen zelf te proberen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bewustzijn</li><li>zelfonderzoek</li><li>lichaamswerk</li><li>dromen</li><li>hypnose</li><li>schaduwwerk</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan behandelt hetzelfde onderwerp als Thoofts hoofdstuk over psychedelica, maar met verslaggeving over de klinische studies erbij, en laat zo zien wat er te toetsen valt.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Het jungiaanse begrippenkader dat Thooft gebruikt voor schaduw, dromen en sprookjes staat hier in de door Jung zelf geredigeerde toegankelijke vorm.</li>
+          <li value="1615"><a href="1615.html">Jezelf vergeven (voor alles)</a>. Het latere boek van Thooft zelf, waarin dezelfde beweging naar binnen wordt toegepast op schuld en vergeving.</li>
+          <li value="333"><a href="333.html">Altered Traits</a>. Goleman en Davidson gaan na wat meditatie meetbaar oplevert en wat niet, en vormen daarmee de tegenhanger van Thoofts aanpak zonder toetsing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Field &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="McTaggart betoogt dat het heelal geen verzameling losse voorwerpen is die door contact en kracht op elkaar inwerken, maar een geheel dat wordt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1815">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1815 &middot; Natuur en wetenschap</p>
+    <h1>The Field</h1>
+    <p class="lede">Lynne McTaggart, 2001</p>
+    <p class="stats">
+      <span><b>1775</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1815"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>McTaggart betoogt dat het heelal geen verzameling losse voorwerpen is die door contact en kracht op elkaar inwerken, maar een geheel dat wordt bijeengehouden door een onderliggend veld van energieschommelingen in het vacuum, het nulpuntveld. Volgens haar wisselen levende wezens voortdurend informatie met dat veld uit, functioneert het geheugen er als een soort opslagplaats in, en zou het menselijk bewustzijn er niet alleen uit lezen maar er ook in kunnen schrijven. Daarmee zouden verschijnselen die de gangbare wetenschap afwijst, van waarneming over afstand tot genezing op afstand en de werking van homeopathie, ineens een fysische grondslag krijgen. Zij presenteert dat niet als speculatie maar als een lijn die uit bestaand laboratoriumwerk valt af te lezen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel een: het resonerende heelal</h3>
+      <p>Het boek opent met Edgar Mitchell, de astronaut van Apollo 14, die op de terugreis van de maan een ervaring van samenhang had die hem de rest van zijn leven bezighield en hem het Institute of Noetic Sciences deed oprichten. Via hem komt McTaggart bij de natuurkundige Hal Puthoff, die met Bernard Haisch en Alfonso Rueda het voorstel deed dat traagheid en zwaartekracht geen eigenschappen van massa zijn maar het gevolg van wisselwerking met het nulpuntveld.</p>
+      <p>Daarna verschuift het naar de biologie. De Duitse biofysicus Fritz-Albert Popp mat dat levende cellen zwak licht uitzenden, biofotonen, en las daarin een communicatiesysteem dat sneller en fijner zou zijn dan chemische signalen. De Franse immunoloog Jacques Benveniste komt aan bod met zijn stelling dat water de werking van een opgeloste stof bewaart nadat die stof is weggeverdund, en met zijn latere werk waarin hij die werking als een elektronisch signaal wilde overbrengen.</p>
+      <p>De hoofdstuktitels in dit deel, van licht in het duister via de zee van licht en wezens van licht naar de taal van de cel en het resoneren met de wereld, geven de opbouw weer: van vacuum naar cel naar organisme.</p>
+      <h3>Deel twee: de verruimde geest</h3>
+      <p>Het tweede deel behandelt de vraag of bewustzijn de stof kan beinvloeden. Centraal staat het PEAR-laboratorium aan de universiteit van Princeton, waar Robert Jahn en Brenda Dunne bijna drie decennia lang proefpersonen lieten proberen de uitkomst van toevalsgeneratoren te sturen, en daarbij afwijkingen rapporteerden die klein waren maar volgens hen stelselmatig van het toeval afweken.</p>
+      <p>Daarnaast beschrijft McTaggart het werk aan waarneming over afstand dat Puthoff en Russell Targ bij het Stanford Research Institute deden, met deelnemers als Pat Price die locaties zouden hebben beschreven die zij nooit hadden gezien. In het hoofdstuk over het eindeloze hier en nu behandelt zij proeven waarin het effect vooraf lijkt te gaan aan de oorzaak, en het holografische model van geheugen en waarneming waaraan de namen van David Bohm en Karl Pribram verbonden zijn.</p>
+      <p>De rode draad is dat afstand en tijd in deze proeven geen verschil zouden maken, wat volgens McTaggart alleen te begrijpen is als informatie in een veld ligt in plaats van tussen twee punten te reizen.</p>
+      <h3>Deel drie: aftappen van het veld</h3>
+      <p>Het laatste deel richt zich op toepassing. Het hoofdstuk over het helende veld behandelt onderzoek naar genezing op afstand, waaronder het werk van Elisabeth Targ, die bij aidspatienten in San Francisco een proef opzette waarin genezers op afstand voor patienten werkten die daar niets van wisten.</p>
+      <p>Daarna verbreedt het boek zich naar de aarde als geheel en naar wat McTaggart het nulpunttijdperk noemt: een vooruitblik op techniek en geneeskunde die met het veld zouden gaan werken in plaats van met stoffen en krachten.</p>
+      <h3>De verhaalvorm</h3>
+      <p>McTaggart schreef geen leerboek maar een reeks portretten. Elk hoofdstuk begint bij een persoon, een laboratorium en een tegenslag, en eindigt bij een resultaat dat volgens de betrokkene niet mocht bestaan. Popp die zijn aanstelling in Marburg verloor, Benveniste die na de publicatie in Nature een onderzoekscommissie over zich heen kreeg, Jahn die decennialang buiten de gevestigde kanalen moest publiceren.</p>
+      <p>Die vorm maakt het boek leesbaar en verklaart het succes: het is in veertien talen vertaald en verkocht wereldwijd honderdduizenden exemplaren. De vorm bepaalt ook de argumentatie. Wie een onderzoeker als slachtoffer van een gesloten wetenschapsbedrijf neerzet, heeft de vraag of het onderzoek deugt daarmee stilzwijgend beantwoord.</p>
+      <h3>Wat het boek daarna werd</h3>
+      <p>Het boek kreeg in 2007 een vervolg met <i>The Intention Experiment</i>, waarin McTaggart lezers uitnodigde om gezamenlijk aan proeven mee te doen, en groeide uit tot de basis van een reeks boeken en bijeenkomsten rond intentie. In de bijgewerkte editie van 2008 werd de tekst aangevuld, maar de onderzoeksresultaten waarop het rust bleven staan zoals zij in 2001 waren opgeschreven.</p>
+      <p>Dat is voor de beoordeling van belang, omdat een aantal van die resultaten juist in de jaren daarna verder is onderzocht en niet standhield.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nulpuntveld</td><td>McTaggarts aanduiding voor de energie die volgens de kwantumveldentheorie ook bij het absolute nulpunt in het vacuum overblijft, door haar opgevat als een verbindende en informatiedragende laag onder de werkelijkheid.</td></tr>
+          <tr><td class="term">Nulpuntenergie</td><td>De laagst mogelijke energie van een kwantumveld, waarvan het bestaan onomstreden is en zich onder meer laat aflezen aan het casimireffect.</td></tr>
+          <tr><td class="term">Biofotonen</td><td>Het zeer zwakke licht dat levende cellen uitzenden, door Popp gemeten en door hem uitgelegd als een samenhangend signaalsysteem tussen cellen.</td></tr>
+          <tr><td class="term">Geheugen van water</td><td>Benvenistes stelling dat water de werking van een opgeloste stof behoudt nadat die stof praktisch geheel is weggeverdund.</td></tr>
+          <tr><td class="term">Holografisch model</td><td>Het idee, verbonden aan David Bohm en Karl Pribram, dat elk deel van een geheel de informatie van dat hele geheel bevat, toegepast op hersenen en heelal.</td></tr>
+          <tr><td class="term">Niet-lokaliteit</td><td>De eigenschap van verstrengelde deeltjes dat zij zich als een geheel gedragen ongeacht hun afstand, door McTaggart uitgebreid naar levende wezens en bewustzijn.</td></tr>
+          <tr><td class="term">Toevalsgenerator</td><td>Het apparaat dat in het PEAR-laboratorium reeksen willekeurige uitkomsten produceerde en waarop proefpersonen met hun aandacht zouden inwerken.</td></tr>
+          <tr><td class="term">Waarneming over afstand</td><td>De proefopzet waarin iemand een plaats of voorwerp beschrijft die hij niet kan zien, onderzocht aan het Stanford Research Institute.</td></tr>
+          <tr><td class="term">De scheppende waarnemer</td><td>McTaggarts uitwerking van de gedachte dat de waarnemer in een kwantummeting geen passieve toeschouwer is maar de uitkomst mede bepaalt.</td></tr>
+          <tr><td class="term">Intentie</td><td>Gerichte aandacht die volgens het boek als een fysisch werkzame grootheid op het veld inwerkt, het begrip dat in haar latere werk centraal komt te staan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een deel van de bouwstenen is echt. Nulpuntenergie is geen randgedachte maar volgt uit de kwantumveldentheorie, en het casimireffect, de aantrekking tussen twee zeer dicht bij elkaar geplaatste platen in vacuum, is gemeten. Ook de ultrazwakke lichtafgifte van levend weefsel die Popp mat, bestaat en wordt door anderen bevestigd. De discussie gaat over de uitleg, niet over het bestaan van het verschijnsel.</p>
+      <p>De sprong die McTaggart maakt, van een vacuum met energieschommelingen naar een veld dat informatie over de wereld bewaart en aan bewustzijn beschikbaar stelt, wordt in het boek nergens afgeleid. Zij ontleent haar zekerheid aan de onderzoekers die zij interviewt en niet aan een berekening of aan een proef die het onderscheid maakt. Nulpuntenergie is bovendien niet aan te spreken als bron: er is geen lager niveau om naartoe te vallen.</p>
+      <p>Voor de proeven uit het tweede en derde deel geldt dat McTaggart de oorspronkelijke publicaties getrouw weergeeft. Wat zij niet weergeeft is de herhaalbaarheid. Het PEAR-laboratorium rapporteerde afwijkingen in de orde van enkele tienduizendsten, gebaseerd op miljoenen metingen; een herhalingsonderzoek dat Jahn zelf in 2000 met twee Duitse laboratoria opzette, kwam niet tot dezelfde uitkomst. Het laboratorium sloot in 2007.</p>
+      <p>Bij Benveniste is de gang van zaken uitgezocht. Na de publicatie in Nature in 1988 bezocht een team onder leiding van John Maddox zijn laboratorium en zag het effect verdwijnen zodra de proefnemers niet meer wisten welke buisjes wat bevatten. Ook zijn latere werk, waarin een werkzaam signaal elektronisch zou zijn over te brengen, hield in blinde herhaling geen stand.</p>
+      <p>Het onderzoek van Elisabeth Targ naar genezing op afstand bij aidspatienten geldt inmiddels als voorbeeld van hoe een uitkomst tot stand kan komen. Journalist Po Bronson beschreef in 2002 dat de onderzoekers, nadat de oorspronkelijke uitkomstmaat geen verschil liet zien, andere maten kozen en pas daarna een gunstig resultaat rapporteerden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De opbouw van het boek maakt tegenspraak onmogelijk. Iedere onderzoeker wordt neergezet als iemand die iets ontdekte wat niet mocht, en iedere afwijzing door vakgenoten als bevestiging dat het gevestigde bedenkelijk handelt. Binnen dat raamwerk telt een mislukte herhaling niet als weerlegging maar als een volgend hoofdstuk in de vervolging. Dat is de reden waarom Mark Henderson het boek in The Times als pseudowetenschap afdeed, en waarom Michael Shermer erop wees dat de tegengestelde uitkomsten, zoals de grote proeven met voorbede die geen effect vonden, in het boek geen plaats krijgen.</p>
+      <p>Het natuurkundige middelpunt houdt geen steek. Dat het vacuum energie bevat volgt uit de theorie, maar daaruit volgt niet dat het informatie over gebeurtenissen opslaat, laat staan dat een mens die informatie kan uitlezen. Tussen die twee beweringen ligt geen afleiding, alleen een woord dat in beide zinnen voorkomt. Hetzelfde geldt voor het gebruik van niet-lokaliteit: verstrengeling laat geen signaal toe, en juist dat is wat het boek nodig zou hebben.</p>
+      <p>Het boek is ouder dan het lijkt. De bijgewerkte editie van 2008 verandert niets aan het feit dat de kroongetuigen tussen 1988 en 2007 hun zaak grotendeels hebben verloren. Wie het nu leest, leest de stand van de discussie zoals een pleitbezorger die in 2001 zag.</p>
+      <p>Waar het boek wel iets waard blijft, is als reportage. McTaggart heeft de betrokkenen gesproken, hun laboratoria bezocht en hun redeneringen begrijpelijk opgeschreven, en zij heeft een verhaallijn gevonden in materiaal dat anders los zand blijft. Wie wil weten waarom dit gedachtegoed zoveel aanhang heeft, krijgt hier het beste antwoord dat er in het genre te vinden is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij het lezen de gemeten verschijnselen, zoals het casimireffect en de zwakke lichtafgifte van cellen, van de uitleg die McTaggart eraan geeft.</li>
+        <li>Zoek bij elke proef die het boek aanhaalt op wat er na 2001 mee is gebeurd; bij PEAR, Benveniste en Targ is dat bepalend voor de waarde ervan.</li>
+        <li>Let op de plaatsen waar een begrip uit de natuurkunde in een andere betekenis terugkeert, zoals veld, informatie en niet-lokaliteit.</li>
+        <li>Gebruik het boek als ingang tot de namen en de vraagstelling, en de oorspronkelijke publicaties voor de uitkomsten.</li>
+        <li>Lees het naast een tekst over hoe wetenschappelijk bewijs wordt gewogen, zodat de vorm van het betoog zichtbaar blijft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Field: The Quest for the Secret Force of the Universe</i> (HarperCollins, Londen, 2001); de Amerikaanse uitgave verscheen bij Quill, New York, in 2002 en een bijgewerkte editie volgde in 2008. Nederlands als <i>Het veld: de zoektocht naar de geheime kracht van het universum</i>, vertaald door Gerard Grasman, Ankh-Hermes, Deventer, 2004, 299 blz., ISBN 9789020283396. Van McTaggart verscheen ook het vervolg <i>The Intention Experiment</i> (2007) in Nederlandse vertaling bij dezelfde uitgeverij.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Journalist Lynne McTaggart reisde enkele jaren langs onderzoekers die zich met randgebieden van de natuurkunde en de biologie bezighouden en verweefde hun werk tot een verhaal. De gemene deler die zij vond noemt zij het nulpuntveld: een zee van kleine schommelingen in de lege ruimte, die volgens de door haar aangehaalde onderzoekers alles in het heelal met alles verbindt.</p><p>Het boek is opgezet in drie delen. Het eerste behandelt natuurkundigen en biologen die het veld aanwijzen als verklaring voor traagheid, voor de communicatie tussen cellen en voor het zwakke licht dat levende weefsels uitzenden. Het tweede deel gaat over bewustzijn: waarnemers die de uitkomst van een proef zouden beinvloeden, over afstand kijken, en effecten die vooruit of terug in de tijd werken. Het derde deel behandelt genezing, aarde en toekomst.</p><p>McTaggart schrijft in de toon van een speurtocht. De onderzoekers die zij portretteert zijn zonder uitzondering mensen die tegen de stroom in werken en daarvoor een prijs betaalden, en dat gegeven vormt de dramatische lijn van het boek. Wie het leest krijgt een goed beeld van wat deze onderzoekers geloven te hebben aangetoond, en een aanzienlijk minder goed beeld van wat er sindsdien met hun resultaten is gebeurd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>nulpuntveld</li><li>kwantumfysica</li><li>parapsychologie</li><li>bewustzijn</li><li>biofotonen</li><li>populaire wetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1531"><a href="1531.html">The Intention Experiment</a>. In <i>The Intention Experiment</i> zet McTaggart de lijn van dit boek door en probeert zij lezers als proefpersonen in te zetten.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Carl Sagan behandelt in <i>The Demon-Haunted World</i> precies de redeneervormen waarop dit boek drijft, en biedt het gereedschap om ze te herkennen.</li>
+          <li value="281"><a href="281.html">Reality Is Not What It Seems</a>. Carlo Rovelli legt in <i>Reality Is Not What It Seems</i> uit wat kwantumveldentheorie wel en niet beweert over de lege ruimte.</li>
+          <li value="1748"><a href="1748.html">The Secret</a>. Rhonda Byrne gebruikt in <i>The Secret</i> hetzelfde beroep op natuurkunde om gedachten op de werkelijkheid te laten inwerken, zonder de onderzoekers erbij te halen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

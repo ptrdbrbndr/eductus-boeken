@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirty Genes &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lynch stelt dat de meeste aanhoudende klachten waar de reguliere geneeskunde geen naam voor heeft, van vermoeidheid en prikkelbaarheid tot slapeloosheid,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1894">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1894 &middot; Brein en lichaam</p>
+    <h1>Dirty Genes</h1>
+    <p class="lede">Ben Lynch, 2018</p>
+    <p class="stats">
+      <span><b>1507</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1894"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lynch stelt dat de meeste aanhoudende klachten waar de reguliere geneeskunde geen naam voor heeft, van vermoeidheid en prikkelbaarheid tot slapeloosheid, migraine en angst, terug te voeren zijn op een klein aantal genen die hun werk niet doen. Zijn tweede stelling is dat een geerfde variant geen lot is: hoe hard die genen draaien wordt volgens hem grotendeels bepaald door wat iemand eet, inademt, doormaakt en slaapt, en is dus bij te sturen zonder de genen zelf te veranderen. Daarmee verplaatst hij de aandacht van diagnose naar leefstijl en van de arts naar de lezer. De aanname die het hele boek draagt, is dat de zeven genen die hij bespreekt genoeg verklaren om er een behandelplan op te bouwen. Dat is precies de aanname waar de genetica zelf niet in meegaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt</h3>
+      <p>Lynch opent met epigenetica: de erfelijke code ligt vast, de mate waarin een gen wordt afgelezen niet. Uit die algemeen aanvaarde observatie leidt hij af dat de lezer zijn genexpressie kan sturen. Hij vergelijkt genen met kranen die te ver open of te ver dicht staan en die zijn bij te draaien.</p>
+      <p>Het onderscheid tussen vuil geboren en vuil gedragen doet daarbij het meeste werk. Wie een variant heeft, kan er volgens Lynch mee leven mits hij zijn omgeving aanpast; wie geen variant heeft, kan zijn genen alsnog vuil krijgen. In beide gevallen komt de lezer bij hetzelfde programma uit.</p>
+      <h3>De zeven genen</h3>
+      <p>MTHFR maakt het enzym dat folaat omzet en staat aan het begin van de methylering. COMT breekt dopamine, adrenaline en oestrogeen af. DAO ruimt histamine uit voeding op. MAOA verwerkt serotonine, dopamine en noradrenaline. GST en GPX horen bij de ontgifting en bij het opruimen van reactieve zuurstofverbindingen. NOS3 maakt stikstofmonoxide en hoort bij de bloedvaten. PEMT maakt fosfatidylcholine, dat in celwanden en in gal zit.</p>
+      <p>Elk gen krijgt een hoofdstuk met dezelfde opbouw: wat het doet, hoe iemand merkt dat het vuil is, wat het schoonmaakt en welke voedingsstoffen en supplementen erbij horen. De biochemie die Lynch beschrijft is in gewone leerboeken terug te vinden. De klachtenlijsten die hij eraan koppelt niet.</p>
+      <h3>De vragenlijsten</h3>
+      <p>Het programma begint met twee lijsten. De eerste, die Lynch de wasgoedlijst noemt, inventariseert klachten en gewoonten; de tweede stelt per gen vragen om te bepalen welk gen als eerste aandacht vraagt. Een genetische test is nadrukkelijk niet nodig, en Lynch raadt aan de vragenlijst zwaarder te laten wegen dan een testuitslag.</p>
+      <p>Die keuze valt te verdedigen, want een variant zegt weinig over de werking in een levend lichaam. Zij maakt het systeem tegelijk onweerlegbaar: spreekt de test de vragenlijst tegen, dan wint de vragenlijst.</p>
+      <p>Lynch waarschuwt er in dit deel wel voor dat meer ondersteuning niet automatisch beter is. Wie methylering te hard aanjaagt, kan volgens hem prikkelbaarheid, onrust en slapeloosheid krijgen, en hij adviseert daarom laag te beginnen en op klachten te letten. Die nuance ontbreekt in veel populariseringen van zijn werk.</p>
+      <h3>Twee weken weken en schrobben</h3>
+      <p>Daarna volgt een periode van twee weken waarin alle zeven genen tegelijk worden aangepakt. Het advies bestaat uit een eetpatroon zonder bewerkt voedsel en zonder alcohol, aandacht voor slaap, beweging en ademhaling, en het terugdringen van blootstelling aan schoonmaak- en verzorgingsmiddelen.</p>
+      <p>Wie na die twee weken van zijn klachten af is, hoeft volgens Lynch niet verder. De rest gaat door naar de gerichte fase.</p>
+      <h3>Vier weken gericht schoonmaken</h3>
+      <p>De tweede fase duurt vier weken en richt zich op het gen dat uit de vragenlijst als eerste naar voren kwam. Per gen geeft Lynch voedingsmiddelen, doseringen van supplementen en gewoonten: eiwit bij het ontbijt, beperking van histaminerijke producten bij een trage DAO, aandacht voor magnesium en voor oestrogeenbelasting bij een trage COMT, cholinerijke voeding bij PEMT.</p>
+      <p>Het advies om folaat te gebruiken in plaats van foliumzuur en om methylering met mate te ondersteunen, keert door het hele boek terug. Op dat punt sluit het aan bij een bredere stroming rond methylering en supplementen die buiten de reguliere geneeskunde staat.</p>
+      <h3>Leefstijl als achtergrond</h3>
+      <p>Onder de genhoofdstukken ligt een gewoon leefstijladvies: goed slapen, minder suiker en alcohol, minder blootstelling aan schoonmaakmiddelen en plastics, meer bewegen, door de neus ademen, stress terugdringen. Dat deel van het boek is weinig omstreden.</p>
+      <p>De genen leveren daarbij vooral de aanleiding. Zij geven de lezer een reden om iets te doen wat ook zonder die reden verstandig zou zijn, en zij geven die reden een naam die persoonlijk aanvoelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vuile genen</td><td>Lynch' aanduiding voor genen waarvan het bijbehorende enzym te traag of te snel werkt, met klachten als gevolg.</td></tr>
+          <tr><td class="term">Vuil geboren</td><td>Een geerfde variant die de werking van het enzym van meet af aan verandert, zoals de bekende varianten van MTHFR.</td></tr>
+          <tr><td class="term">Vuil gedragen</td><td>Een gen dat op zichzelf normaal is maar door voeding, gif, stress of slaaptekort uit evenwicht raakt; volgens Lynch het meest voorkomende geval.</td></tr>
+          <tr><td class="term">Epigenetica</td><td>Het vakgebied dat bestudeert hoe de aflezing van genen wordt geregeld zonder dat de code zelf verandert.</td></tr>
+          <tr><td class="term">SNP</td><td>Een verschil van een enkele bouwsteen in de code, de vorm van variatie waar het boek mee werkt.</td></tr>
+          <tr><td class="term">Methylering</td><td>De reeks reacties waarin methylgroepen worden overgedragen, betrokken bij afbraak van stoffen, aanmaak van neurotransmitters en regeling van genaflezing.</td></tr>
+          <tr><td class="term">Wasgoedlijst</td><td>De eerste vragenlijst, waarmee de lezer zijn klachten en gewoonten in kaart brengt voordat een gen wordt aangewezen.</td></tr>
+          <tr><td class="term">Weken en schrobben</td><td>De eerste fase van twee weken waarin alle zeven genen tegelijk worden aangepakt met voeding en leefstijl.</td></tr>
+          <tr><td class="term">Gericht schoonmaken</td><td>De tweede fase van vier weken, gericht op het gen dat uit de vragenlijst als grootste probleem naar voren kwam.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De genen en enzymen die Lynch bespreekt bestaan en zijn goed beschreven. MTHFR, COMT, MAOA, DAO, NOS3 en PEMT hebben elk een omvangrijke literatuur, en dat sommige varianten de enzymwerking meetbaar vertragen, is niet omstreden. De schakel die het boek nodig heeft, ligt daarna: van een tragere enzymwerking naar een lijst dagelijkse klachten bij een bepaalde persoon.</p>
+      <p>Voor die schakel voert Lynch geen onderzoek aan dat het gewicht draagt. Hij redeneert vanuit de biochemische route en illustreert met verhalen uit zijn eigen praktijk. Uitgerekend de bekendste variant, MTHFR C677T, is een geval waarin de klinische betekenis is tegengevallen: de Amerikaanse beroepsvereniging voor medische genetica raadde in 2013 af er nog op te testen bij verdenking op trombose, omdat de uitslag geen behandelbeslissing veranderde.</p>
+      <p>Ook het uitgangspunt zelf verdient nauwkeurigheid. Dat de aflezing van genen wordt geregeld door omgeving en gedrag is aangetoond, onder meer bij eeneiige tweelingen die uiteenlopen naarmate zij langer verschillend leven. Dat een lezer de aflezing van een bepaald gen doelgericht kan bijstellen door een bepaald voedingsmiddel te eten, is iets anders, en daarvoor bestaat bij mensen geen bewijs van het soort dat het boek nodig heeft.</p>
+      <p>Het leefstijladvies waar het programma op uitkomt, rust op steviger grond dan de genetische aanleiding ervoor. Minder alcohol, meer slaap en minder bewerkt voedsel worden breed aanbevolen, alleen dan zonder de belofte dat er een gen mee wordt schoongemaakt. Dat verschil is voor de lezer moeilijk te zien, omdat het effect van de leefstijl in het boek wordt bijgeschreven op het conto van de genen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het aantal is het eerste bezwaar. Het menselijk genoom telt ruim twintigduizend genen; Lynch werkt met zeven en verklaart daarmee een breed veld aan klachten. De Office for Science and Society van McGill University noemde die aanpak genetische astrologie, met als argument dat de vragenlijsten zo ruim zijn gesteld dat vrijwel iedere lezer op elk gen een vuile uitslag haalt. Een systeem dat bij iedereen aanslaat, onderscheidt niets.</p>
+      <p>Het tweede bezwaar betreft de belangen. Lynch verkoopt de soort supplementen die het boek aanbeveelt via zijn eigen bedrijf. Die verstrengeling wordt genoemd en niet opgelost, en wie de adviezen volgt, komt uit bij een maandelijkse rekening die het boek nergens begroot.</p>
+      <p>Ten derde de titel voor zijn naam. Lynch is naturopathisch arts en heeft geen geneeskundige of wetenschappelijke doctorstitel, terwijl op het omslag Dr. staat; hij verdedigt bovendien standpunten die buiten het vakgebied liggen waar hij zich op beroept, onder meer over cholesterolremmers. Voor lezers met werkelijke klachten schuilt het risico erin dat een diagnose die wel te stellen was, uitblijft omdat de klacht al aan een gen is toegewezen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het leefstijldeel los van de genhoofdstukken; dat advies staat op zichzelf.</li>
+        <li>Laat een aanhoudende klacht eerst medisch onderzoeken voordat er een gen aan wordt toegewezen.</li>
+        <li>Reken de kosten van het aanbevolen supplementenpakket vooraf uit en zet die af tegen wat er redelijkerwijs van te verwachten valt.</li>
+        <li>Behandel de vragenlijsten als een ordening van klachten en niet als een uitslag.</li>
+        <li>Vraag bij een genetische testuitslag naar de klinische betekenis van de variant, en niet alleen naar de variant zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Dirty Genes: A Breakthrough Program to Treat the Root Cause of Illness and Optimize Your Health</i> (HarperOne, New York, 2018, ISBN 9780062698148). De Nederlandse editie verscheen onder dezelfde titel <i>Dirty Genes</i>, vertaald door Jorgen van Drunen met redactie van Petra Versteegh-Vendelmans, bij Succesboeken.nl, september 2018, 416 blz., ISBN 9789492665157. Van Lynch verscheen daarnaast Engelstalig werk over hetzelfde onderwerp; hij drijft het supplementenbedrijf Seeking Health, dat de middelen verkoopt die het boek aanbeveelt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ben Lynch is naturopathisch arts in de Verenigde Staten. In Dirty Genes betoogt hij dat zeven genen bij veel mensen hun werk niet goed doen, en dat dit te verhelpen is met voeding, leefstijl en gerichte supplementen.</p><p>Een gen is bij hem op twee manieren vuil. Het kan vuil geboren zijn, doordat iemand een variant erfde die het bijbehorende enzym trager maakt, of het kan zich vuil gaan gedragen doordat voeding, gif, stress of slaaptekort het uit evenwicht brengen. Het tweede type komt volgens Lynch veruit het meest voor, en daar mikt zijn programma op.</p><p>Het boek bestaat uit vragenlijsten om vast te stellen welke genen aandacht vragen, twee weken algemene opschoning en daarna vier weken gerichte aanpak per gen. Het is populair geworden in de orthomoleculaire hoek. De sprong van genvariant naar klachtenlijst is het punt waarop het het meest is aangevallen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>epigenetica</li><li>genen</li><li>methylering</li><li>MTHFR</li><li>supplementen</li><li>voeding</li><li>zelfzorg</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1344"><a href="1344.html">The Selfish Gene</a>. Dawkins legt uit wat een gen in de biologie is en doet, wat het contrast scherp maakt met het gebruik dat Lynch ervan maakt.</li>
+          <li value="417"><a href="417.html">The Diet Myth</a>. Spector werkt met tweelingdata en darmflora aan dezelfde vraag naar verschillen tussen mensen, maar met onderzoek waar Lynch redeneringen zet.</li>
+          <li value="1899"><a href="1899.html">De hormoonfactor</a>. Moorman bouwt een vergelijkbaar Nederlands leefstijlprogramma op een biochemisch verhaal, met dezelfde belofte van sturing.</li>
+          <li value="1895"><a href="1895.html">Brain Food</a>. Labee komt uit dezelfde orthomoleculaire hoek en volgt hetzelfde stramien: uitleg over een lichaamsproces, gevolgd door voeding en supplementen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

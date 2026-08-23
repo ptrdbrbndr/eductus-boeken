@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instant Healing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shumsky stelt dat genezing van gemoed, lichaam en omgeving in de eerste plaats een kwestie van woordkeus is. Wie hardop de juiste zin uitspreekt, in de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1896">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1896 &middot; Positief denken en manifesteren</p>
+    <h1>Instant Healing</h1>
+    <p class="lede">Susan Shumsky, 2013</p>
+    <p class="stats">
+      <span><b>1632</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1896"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shumsky stelt dat genezing van gemoed, lichaam en omgeving in de eerste plaats een kwestie van woordkeus is. Wie hardop de juiste zin uitspreekt, in de tegenwoordige tijd en in de eerste persoon, verandert volgens haar op dat moment de toestand van zijn denken, en daarmee wat er in hem en om hem heen gebeurt. Zij presenteert dat niet als leerstuk van een geloof, maar als een handeling die iedereen kan uitvoeren, zonder opleiding, zonder tussenpersoon en zonder wachttijd. Het boek is daarom eerder een gereedschapskist dan een betoog: 243 kant en klare teksten, geordend naar de klacht waar zij bij horen, met de gebruiksregels ervoor. De aanname eronder is dat vrijwel elke klacht een oorsprong in het denken heeft en dus ook in het denken bereikbaar is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de methode vandaan komt</h3>
+      <p>Shumsky schrijft dat zij zes jaar tot de persoonlijke staf van Maharishi Mahesh Yogi behoorde en daarna een eigen leer ontwikkelde die zij Divine Revelation noemt, met een geregistreerd merkteken erbij. Die leer draait om het aanroepen van een innerlijke aanwezigheid, het horen van een innerlijke stem en het toetsen van wat die stem zegt.</p>
+      <p>De affirmaties en gebeden in dit boek komen uit dat werk voort. Zij staan in de lijn van de Amerikaanse New Thought, de negentiende eeuwse stroming waaruit ook Christian Science, Unity en later het werk van Louise Hay zijn ontstaan. Shumsky benadrukt dat haar teksten van geen enkele kerk afhankelijk zijn en dat iemand ze kan gebruiken zonder een woord van zijn eigen overtuiging op te geven.</p>
+      <h3>Hoe zo'n tekst volgens haar werkt</h3>
+      <p>De vorm ligt vast. Een affirmatie wordt hardop gezegd, in de tegenwoordige tijd, in de eerste persoon, zonder ontkenning, en met een vaste afsluitende formule waarmee de spreker het uitgesprokene loslaat. Herhaling hoort erbij, en overtuiging: een tekst die zonder gevoel wordt opgezegd doet volgens Shumsky niets.</p>
+      <p>De verklaring die zij daarbij geeft is die van de trilling. Woorden zouden een toestand aanroepen die er anders niet is, en die toestand zou vervolgens het lichaam, de stemming en de gebeurtenissen om de spreker heen volgen. Een oorzakelijk mechanisme in gewone natuurkundige of fysiologische termen wordt niet gegeven; het woord trilling doet in het boek het werk dat een mechanisme zou moeten doen.</p>
+      <h3>Deel een: het eigen denken</h3>
+      <p>De eerste zes hoofdstukken gaan over wat de gebruiker in zichzelf tegenkomt. Er zijn teksten voor het hervinden van innerlijke stevigheid, voor het genezen van emoties en diep ingesleten overtuigingen, voor het herstellen en vergeven van relaties, voor verslaving en meegaandheid daarin, voor het doorprikken van vergissingen in de waarneming, en voor het worden van wat iemand meent te kunnen worden.</p>
+      <p>De onderwerpen lopen daarmee grotendeels samen met wat in een gespreks of gedragstherapie aan de orde zou komen. Het verschil zit in de behandeling: waar een therapie een overtuiging onderzoekt en toetst, spreekt de gebruiker hier de tegenovergestelde overtuiging uit en verklaart die van kracht.</p>
+      <h3>Deel twee: de omgeving</h3>
+      <p>Hier verlaat het boek het terrein van de gewone zelfhulp. Hoofdstuk zeven behandelt wat Shumsky environ-mental static noemt, de rommel in de gedachtenomgeving die iemand van anderen zou oppikken. Hoofdstuk acht gaat over entiteiten en vampieren: geesten uit een astrale wereld die zich aan levenden zouden hechten, en mensen die energie onttrekken. Daarna volgen hoofdstukken over vijanden en saboteurs en over het heiligen van de eigen ruimte.</p>
+      <p>In dit deel staan ook gebeden tegen religieuze indoctrinatie en tegen wat zij geestelijk elitedenken noemt, en passages over vorige levens waarvan resten in de huidige psyche zouden doorwerken. Voor een lezer die de eerste zes hoofdstukken als gewone positieve psychologie las, is dit het punt waarop duidelijk wordt binnen welk wereldbeeld het boek is geschreven.</p>
+      <h3>Deel drie: wat iemand wil bereiken</h3>
+      <p>Het laatste deel bevat teksten voor gezondheid, liefde, welvaart en succes, en sluit af met gebeden voor de wereld als geheel. De opzet is dezelfde: benoem het gewenste, spreek het uit als reeds bestaand, laat het los.</p>
+      <p>Daarmee schuift het boek van genezen naar verwerven. Wie de gebeden achter elkaar leest ziet dat het onderliggende model niet verandert: er is een gewenste toestand, er is een uitgesproken zin, en daartussen wordt geen andere stap verondersteld dan overtuiging.</p>
+      <h3>Het register als hart van het boek</h3>
+      <p>Achterin staat een register waarin de gebeden per onderwerp zijn ontsloten. Dat is geen bijlage maar de eigenlijke ingang: het boek is bedoeld om open te slaan op het moment dat er iets is, niet om van voren naar achteren te worden gelezen. De Nederlandse editie is op dat gebruik toegesneden en verwijst naar een bijbehorende online cursus.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Affirmatie</td><td>Een bevestigende zin in de tegenwoordige tijd en de eerste persoon, hardop uitgesproken, die de gewenste toestand als reeds bestaand verklaart.</td></tr>
+          <tr><td class="term">Gebedsbehandeling</td><td>Een langere uitgeschreven tekst waarin de spreker eerst een aanwezigheid aanroept, daarna de gewenste toestand verklaart en tot slot het uitgesprokene loslaat.</td></tr>
+          <tr><td class="term">Divine Revelation</td><td>Shumsky's eigen leer over het contact maken met een innerlijke aanwezigheid en het toetsen van de innerlijke stem die daaruit spreekt.</td></tr>
+          <tr><td class="term">Environ-mental static</td><td>De gedachtenrommel die iemand volgens Shumsky uit zijn omgeving opneemt en die zijn eigen stemming vertroebelt.</td></tr>
+          <tr><td class="term">Astrale entiteit</td><td>Een overledene die volgens het boek niet is doorgegaan en zich aan een levend mens hecht, met vermoeidheid of stemmingswisselingen als gevolg.</td></tr>
+          <tr><td class="term">Energievampier</td><td>Een levend persoon die naar Shumsky's beschrijving stelselmatig energie onttrekt aan de mensen om zich heen.</td></tr>
+          <tr><td class="term">Self-authority affirmation</td><td>De tekst waarmee de gebruiker het gezag over zijn eigen gemoed opeist voordat hij aan de overige gebeden begint.</td></tr>
+          <tr><td class="term">Gouden substantie</td><td>Een voorstelling waarin de spreker zijn energieveld met licht vult, gebruikt als reiniging voorafgaand aan of na een behandeling.</td></tr>
+          <tr><td class="term">Geestelijk elitedenken</td><td>De houding waarin iemand zich op grond van zijn spirituele weg boven anderen plaatst; Shumsky geeft daar een tegengebed voor.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Er staan geen verwijzingen naar studies, geen aantallen behandelde mensen, geen vergelijking met een groep die de teksten niet gebruikte. De onderbouwing bestaat uit de mededeling dat de methoden beproefd zijn in de praktijk en het leven van miljoenen mensen hebben veranderd. Wie die miljoenen zijn en waaraan de verandering is afgelezen, staat er niet bij.</p>
+      <p>Wat er wel is, is herkomst. De teksten staan in een traditie die sinds het einde van de negentiende eeuw bestaat en die in Amerika miljoenen boeken heeft verkocht. Dat zegt iets over de duurzaamheid van de vorm en niets over de juistheid van de verklaring die eraan hangt.</p>
+      <p>Voor onderdelen van wat het boek doet bestaat wel degelijk onderzoek, alleen citeert Shumsky het niet. Er is een literatuur over zelfbevestiging, over de invloed van verwachting op pijnbeleving en over het effect van hardop benoemen op emotieregulatie. Die literatuur laat bescheiden effecten zien op beleving en gedrag, en niets dat lijkt op het genezen van ziekte door een uitgesproken zin. Het verschil tussen die twee schalen van bewering is precies het punt waarop het boek zijn eigen grond verlaat.</p>
+      <p>Voor de hoofdstukken over entiteiten, vampieren en vorige levens bestaat geen onderzoek dat de gestelde verschijnselen aantoont. Shumsky presenteert ze zonder voorbehoud als beschrijving van hoe de werkelijkheid in elkaar zit.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar zit in de omkering van oorzaak en gevolg. Als een klacht ontstaat doordat iemand verkeerd denkt, dan draagt de zieke zelf de verantwoordelijkheid voor zijn ziekte. Het boek trekt die conclusie niet met zoveel woorden, maar de lezer die het model serieus neemt kan er moeilijk omheen. Bij verdriet, chronische pijn of een ernstige diagnose is dat een last die niets verlicht.</p>
+      <p>De methode is zo gebouwd dat zij niet kan falen. Werkt een gebed niet, dan was er te weinig overtuiging, of stond er nog een oude opvatting in de weg, of moest het vaker worden herhaald. Er is geen uitkomst denkbaar die als weerlegging telt. Dat maakt het boek onkwetsbaar voor toetsing en tegelijk waardeloos als kennisbron.</p>
+      <p>Het tweede deel is het meest riskante. Vermoeidheid, somberheid, stemmen horen en een moeizame relatie worden daar geduid als hechting van een overledene of als onttrekking door een vampier. Voor een deel van de lezers zijn dat verschijnselen waarvoor een arts of een psychiater een verklaring en een behandeling heeft. Een gebed dat de entiteit wegstuurt houdt die stap tegen.</p>
+      <p>Op eigen voorwaarden valt er nog iets aan te merken. Als woorden werken doordat de spreker een toestand aanroept, dan is 243 verschillende teksten overdaad: het aantal wekt de indruk van nauwkeurige aansluiting op de klacht, terwijl het model zelf die nauwkeurigheid nergens nodig heeft. De omvang van het boek dient het gebruiksgemak en het gezag, niet de theorie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel het boek als naslagwerk en begin bij het register achterin, niet bij hoofdstuk een.</li>
+        <li>Lees eerst de hoofdstukken zeven en acht door voordat de rest wordt aangeschaft; daar blijkt binnen welk wereldbeeld de teksten staan.</li>
+        <li>Houd bij aanhoudende vermoeidheid, somberheid of pijn de gewone medische route open en gebruik de teksten er hooguit naast.</li>
+        <li>Wil iemand het effect kennen, laat hem dan een klacht vooraf een cijfer geven en dat cijfer na een week herhalen; dat is de enige toetsing die het boek zelf niet biedt.</li>
+        <li>Neem het spreken hardop en het afsluiten met een vaste formule over als de vorm bevalt, ook zonder de verklaring erachter te aanvaarden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Instant Healing: Gain Inner Strength, Empower Yourself, and Create Your Destiny</i> (New Page Books, Pompton Plains, 2013, 347 blz., ISBN 9781601632395), met een voorwoord van Terry Cole-Whittaker; het e-boek verscheen bij Open Road Integrated Media. De Nederlandse uitgave kwam in mei 2020 uit bij AnkhHermes in Utrecht onder een andere titel, <i>I AM: woorden met helende kracht</i>, vertaald en bewerkt door Marjolijn Loderichs (272 blz., ISBN 9789020216783, e-boek 9789020216790). Van Shumsky zijn in het Nederlands ook boeken over chakra's en het derde oog verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Shumsky bundelt 243 uitgeschreven affirmaties en gebeden, elk bedoeld om hardop te worden uitgesproken op het moment dat er iets aan de hand is. Angst, ruzie, verslaving, geldzorgen, een huis dat onprettig aanvoelt: bij elke klacht hoort in dit boek een tekst.</p><p>De ordening is die van een naslagwerk. Het eerste deel gaat over het eigen denken, het tweede over de omgeving en de mensen die daarin energie kosten, het derde over gezondheid, liefde en welvaart. Achterin staat een register waarmee de gebruiker in enkele seconden bij de juiste tekst uitkomt.</p><p>Shumsky werkte zes jaar in de directe staf van Maharishi Mahesh Yogi en richtte later Divine Revelation op, haar eigen leer over het horen van een innerlijke stem. De methode in dit boek is daaruit voortgekomen en is bewust niet aan een kerk gebonden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>affirmaties</li><li>gebed</li><li>spiritueel genezen</li><li>New Thought</li><li>zelfhulp</li><li>Divine Revelation</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1586"><a href="1586.html">You Can Heal Your Life</a>. Louise Hay koppelt in <i>You Can Heal Your Life</i> op dezelfde manier klachten aan gedachten en geeft er affirmaties bij; Shumsky staat in die lijn en breidt de lijst uit.</li>
+          <li value="380"><a href="380.html">The Power Is Within You</a>. <i>The Power Is Within You</i> is Hay's latere en rustigere uitwerking van dezelfde gedachte, bruikbaar als vergelijking met de veel omvangrijkere aanpak van Shumsky.</li>
+          <li value="259"><a href="259.html">The Power of Your Subconscious Mind</a>. Joseph Murphy legt in <i>The Power of Your Subconscious Mind</i> het onderbewuste ten grondslag aan wat Shumsky aan trilling toeschrijft; dezelfde belofte, een ander verklaringswoord.</li>
+          <li value="1898"><a href="1898.html">The Law of Attraction: The Basics of the Teachings of Abraham</a>. Hicks bouwt het idee dat het uitgesprokene de werkelijkheid volgt uit tot een sluitend stelsel; wie de aannames van Shumsky wil zien in hun verste vorm leest dat boek erbij.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Light Between Us &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jackson stelt dat het bewustzijn de dood overleeft, dat sommige mensen daar contact mee kunnen leggen, en dat zij daar zelf een van is. Haar tweede…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1867">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1867 &middot; Filosofie en mystiek</p>
+    <h1>The Light Between Us</h1>
+    <p class="lede">Laura Lynne Jackson, 2015</p>
+    <p class="stats">
+      <span><b>1383</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1867"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jackson stelt dat het bewustzijn de dood overleeft, dat sommige mensen daar contact mee kunnen leggen, en dat zij daar zelf een van is. Haar tweede stelling is de belangrijkere: dat die bewering toetsbaar is en dat zij de toets heeft doorstaan, doordat zij is beoordeeld onder omstandigheden waarin zij niets van de nabestaande en niets van de overledene wist. Uit beide leidt zij een derde af, die het boek zijn titel geeft. Als de band tussen mensen blijft bestaan, dan is wat mensen elkaar tijdens hun leven aandoen en geven van een andere orde dan het lijkt, en dan is rouw geen afscheid maar een verandering van vorm.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een kind dat te veel weet</h3>
+      <p>Het boek opent met een jeugd op Long Island waarin Jackson dingen aanvoelt die zij niet kan verklaren: stemmingen van anderen die zij overneemt, beelden bij mensen die zij nauwelijks kent, en het vooruitweten van sterfgevallen. Zij beschrijft de angst die daarbij hoort en het besef anders te zijn dan haar leeftijdgenoten.</p>
+      <p>Haar reactie is jarenlang wegkijken. Zij vertelt er niemand over, doet haar best gewoon te zijn en verklaart de voorvallen zoveel mogelijk weg. Dat verzet tegen de eigen ervaring is de lijn die de eerste helft van het boek draagt.</p>
+      <h3>Een gewoon leven proberen</h3>
+      <p>Tijdens haar studie en de jaren daarna kiest zij voor het bestaan dat zich het minst met haar ervaringen bemoeit. Zij wordt docent Engels, trouwt en krijgt een gezin. Het lesgeven blijft zij haar hele carriere doen, ook nadat zij als medium bekend is geworden.</p>
+      <p>In die periode blijven de voorvallen zich voordoen, en groeit het ongemak van het dubbelleven. Jackson beschrijft de spanning tussen twee werelden die elkaar niet verdragen: het klaslokaal met zijn afspraken en de ervaringen waar zij op een ouderavond niet over kan beginnen.</p>
+      <h3>De beslissing en de eerste sessies</h3>
+      <p>Het keerpunt is dat zij ophoudt zich te verzetten en begint te lezen voor mensen die iemand hebben verloren. De eerste sessies beschrijft zij met de onzekerheid die erbij hoort: wat zij doorgeeft klopt soms griezelig precies en soms helemaal niet, en zij weet zelf niet waar het vandaan komt.</p>
+      <p>Vanaf hier verandert het boek van toon. De memoir maakt plaats voor een aaneenschakeling van gevallen, meestal van ouders die een kind verloren, waarin Jackson namen, details en omstandigheden noemt die volgens de nabestaanden alleen de overledene kon kennen.</p>
+      <h3>De toetsing</h3>
+      <p>Het gedeelte dat het boek van vergelijkbare titels onderscheidt gaat over onderzoek. Jackson meldt zich bij het Windbridge-instituut, dat mediums in acht stappen screent, test en traint. De leessessies verlopen daar via een opzet waarin geen van de betrokkenen weet wie de ander is: de medium kent de nabestaande niet, de tussenpersoon kent de vraag niet, en de nabestaande krijgt achteraf twee verslagen voorgelegd zonder te weten welk verslag voor hem bedoeld was.</p>
+      <p>Zij haalt die certificering en wordt onderzoeksmedium. Daarnaast werkt zij mee aan onderzoek van de Forever Family Foundation, waaronder een meting van hersenactiviteit waarbij volgens haar afwijkende patronen werden vastgesteld. Deze bladzijden zijn de kern van haar aanspraak: niet dat lezers haar moeten geloven, maar dat anderen haar hebben getoetst.</p>
+      <h3>Wat zij eruit afleidt</h3>
+      <p>In het laatste deel gaat het over de betekenis. Jackson beschrijft wat zij het licht noemt, de verbinding tussen mensen die volgens haar blijft bestaan, en zielsafspraken: overeenkomsten tussen zielen die over meerdere levens lopen en verklaren waarom bepaalde mensen elkaar tegenkomen.</p>
+      <p>Daaruit volgen haar lessen voor de levenden. Wie iemand verloor is niet losgelaten; wie iemand kwetst doet dat aan een band die blijft; en het leven hier is bedoeld om die verbindingen te onderhouden. De toon is troostend en zonder dogma; zij verbindt haar ervaringen aan geen enkele kerk.</p>
+      <h3>Wat er buiten beeld blijft</h3>
+      <p>Wat het boek niet doet is even opvallend als wat het wel doet. Er staan vrijwel geen mislukte sessies in, geen gevallen waarin zij ernaast zat, en geen enkel voorval dat haar zelf aan het twijfelen bracht nadat zij haar gave had aanvaard.</p>
+      <p>Ook de proeven worden beschreven vanuit haar eigen ervaring en niet vanuit de opzet en de uitkomsten. De lezer hoort dat zij de screening haalde en niet met welke score, tegen welke vergelijkingsgroep en met welke onzekerheidsmarges.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het licht</td><td>Haar aanduiding voor de verbinding tussen mensen die volgens haar de dood overleeft en die de titel van het boek levert.</td></tr>
+          <tr><td class="term">De andere kant</td><td>De toestand waarin overledenen volgens Jackson verkeren en van waaruit zij contact met haar zouden opnemen.</td></tr>
+          <tr><td class="term">Zielsafspraken</td><td>Overeenkomsten tussen zielen die volgens haar over meerdere levens lopen en bepalen wie elkaar tegenkomt en waarom.</td></tr>
+          <tr><td class="term">Onderzoeksmedium</td><td>De aanduiding van het Windbridge-instituut voor een medium dat de screening heeft doorlopen en aan onderzoek mag meewerken.</td></tr>
+          <tr><td class="term">Afgeschermd leesprotocol</td><td>De onderzoeksopzet met meerdere lagen afscherming, bedoeld om te voorkomen dat de medium langs gewone weg iets over de nabestaande of de overledene te weten komt.</td></tr>
+          <tr><td class="term">Forever Family Foundation</td><td>De Amerikaanse stichting voor nabestaanden die eveneens mediums certificeert en waar Jackson aan meewerkte.</td></tr>
+          <tr><td class="term">Tekens</td><td>Alledaagse voorvallen die volgens haar boodschappen van overledenen zijn, een idee dat zij later tot een heel boek uitwerkte.</td></tr>
+          <tr><td class="term">Gidsen</td><td>De niet-lichamelijke aanwezigheden die haar volgens haar beschrijving bijstaan tijdens een sessie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Jackson beroept zich niet alleen op haar ervaring maar op toetsing, en dat is het punt waarop dit boek beoordeeld moet worden. Het Windbridge-instituut, opgericht door Julie Beischel, publiceerde onderzoek met een afgeschermde leesopzet, onder meer een studie uit 2007 en een vervolg uit 2015 in het tijdschrift EXPLORE. De opzet zelf is serieuzer dan bij dit onderwerp gebruikelijk: er zijn maatregelen genomen tegen koud lezen, tegen sturing door de proefleider en tegen wenselijk scoren.</p>
+      <p>De zwakke plekken zitten elders. De aantallen deelnemers zijn klein, de beoordeling gebeurt doordat een nabestaande twee verslagen vergelijkt en het meest passende kiest, wat gevoelig is voor de neiging algemene uitspraken op zichzelf te betrekken, en de studies komen vrijwel allemaal van dezelfde onderzoeksgroep. Onafhankelijke herhaling door buitenstaanders ontbreekt, en de instelling die het onderzoek doet is dezelfde die de certificering verstrekt en er haar bestaansgrond aan ontleent. In de psychologie en de geneeskunde worden deze bevindingen niet als aangetoond beschouwd.</p>
+      <p>De sessies in het boek zelf staan hier los van. Die zijn niet afgeschermd, worden door Jackson naverteld en zijn achteraf niet na te gaan. Wat een lezer daarvan overhoudt hangt volledig af van het vertrouwen dat hij in de verteller stelt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat elke gerapporteerde sessie een selectie is. Een medium doet in een uur honderden uitspraken; een nabestaande onthoudt de treffers en vergeet de rest, en de verteller die het verslag maakt doet hetzelfde. Zonder een volledig verslag van alles wat er is gezegd, inclusief het onjuiste, valt over de trefkans niets te zeggen. Het boek levert dat verslag nergens.</p>
+      <p>Daar komt bij dat de beschreven uitspraken vaak van een soort zijn die op veel mensen past: een naam die met een bepaalde letter begint, een pijn in de borst, een verjaardag in het voorjaar. Dat mechanisme is onder de naam koud lezen goed beschreven en het werkt ook zonder bedrog, doordat de medium onbewust op reacties van de ander afgaat.</p>
+      <p>Ethisch weegt de doelgroep zwaar. Het boek richt zich op mensen in verse rouw, doorgaans ouders van overleden kinderen, die op dat moment weinig weerstand hebben tegen een geruststellend verhaal. Jackson gaat daar zorgvuldig mee om en verkoopt geen valse beloften, maar de vraag wat het met een rouwproces doet als de scheiding als tijdelijk wordt voorgesteld, komt niet aan de orde.</p>
+      <p>Ten slotte de ontbrekende tegenstem. Er staat in het hele boek geen sceptisch argument dat serieus wordt behandeld en er is geen enkel voorval waarin zij zich vergiste. Kirkus merkte in zijn bespreking op dat het werk aan een twijfelaar weinig te bieden heeft, in het bijzonder waar het de sessies per telefoon betreft. Dat oordeel klopt: wie het niet gelooft, vindt hier niets dat hem tot een ander standpunt dwingt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Light Between Us: Stories from Heaven. Lessons for the Living.</i> (Spiegel &amp; Grau, New York, 2015; paperback bij The Dial Press, 2016, 288 blz., ISBN 9780812987928). Nederlands als <i>Het licht tussen ons</i>, vertaald door Elisabeth van Borselen, uitgeverij Lev., Amsterdam, 2016 (288 blz., ISBN 9789400506961), later herzien uitgegeven bij Spectrum (ISBN 9789000386932). Jackson schreef daarna <i>Signs: The Secret Language of the Universe</i> en <i>Guided: The Secret Path to an Illuminated Life</i>, beide eveneens in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Laura Lynne Jackson is docent Engels op een middelbare school op Long Island en daarnaast praktiserend medium. In dit boek beschrijft zij hoe zij als kind merkte dingen te weten die zij niet kon weten, hoe zij dat jarenlang wegduwde, en hoe zij er uiteindelijk mee ging werken.</p><p>Het middendeel gaat over de proeven waaraan zij zich onderwierp. Zij haalde de certificering van het Windbridge-instituut, dat mediums langs een reeks stappen test onder omstandigheden waarin de betrokkenen niets van elkaar weten, en werkte mee aan onderzoek van de Forever Family Foundation. Die toetsing gebruikt zij als grond onder de rest van het boek.</p><p>Het laatste deel bestaat uit sessies met nabestaanden. Daaruit destilleert Jackson haar boodschap: zielen zijn met elkaar verbonden in afspraken die het leven overspannen, en het licht tussen mensen is wat na de dood overblijft. De ondertitel vat de opzet samen als verhalen van gene zijde en lessen voor wie hier is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>medium</li><li>rouw</li><li>hiernamaals</li><li>memoir</li><li>parapsychologie</li><li>Windbridge</li><li>spiritisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1524"><a href="1524.html">Eindeloos bewustzijn</a>. Pim van Lommel voert in <i>Eindeloos bewustzijn</i> dezelfde stelling over bewustzijn na de dood, maar dan vanuit onderzoek onder hartstilstandpatienten in Nederlandse ziekenhuizen.</li>
+          <li value="585"><a href="585.html">Dying to Live</a>. Susan Blackmore geeft in <i>Dying to Live</i> de tegenovergestelde verklaring voor dit soort ervaringen, vanuit hersenfysiologie, en is daarmee de scherpste tegenlezing bij dit boek.</li>
+          <li value="1537"><a href="1537.html">The Light Bringer</a>. <i>The Light Bringer</i> kwam via het medium Grace Cooke tot stand en laat zien hoe hetzelfde soort aanspraak er een eeuw eerder uitzag.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Universe Has Your Back &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bernstein voert een oorzaak aan voor vrijwel alles wat misgaat in een mensenleven: de overtuiging dat men los staat van liefde. Uit die ene gedachte komen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1889">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1889 &middot; Positief denken en manifesteren</p>
+    <h1>The Universe Has Your Back</h1>
+    <p class="lede">Gabrielle Bernstein, 2016</p>
+    <p class="stats">
+      <span><b>1440</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1889"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bernstein voert een oorzaak aan voor vrijwel alles wat misgaat in een mensenleven: de overtuiging dat men los staat van liefde. Uit die ene gedachte komen volgens haar angst, controledrang, jaloezie, verslaving en het gevoel dat men het alleen moet opknappen. De uitweg die zij aanbiedt is geen gedragsverandering en ook geen therapie, maar een verschuiving in waarneming, waarna de wereld zich ernaar voegt. Zij ontleent dat aan <i>A Course in Miracles</i>, dat stelt dat er slechts twee gedachtesystemen bestaan, liefde en angst, en dat alleen het eerste werkelijk is. De praktische belofte die zij daaraan verbindt gaat verder dan gemoedsrust: wie de omschakeling volhoudt, ziet volgens haar ook de omstandigheden veranderen, van werk en geld tot gezondheid en relaties. Daarmee wordt de these toetsbaar op een punt waar het boek zelf nauwelijks bij stilstaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Afgescheidenheid als bron van angst</h3>
+      <p>De eerste twee hoofdstukken, <i>You Have a Hidden Power</i> en <i>You Are the Dreamer of Your Dream</i>, leggen het uitgangspunt neer. Ieder mens heeft volgens Bernstein een verbinding met wat zij het universum noemt, en die verbinding raakt bedekt onder gewoontes van angst. Meditatie en gebed leggen haar weer bloot.</p>
+      <p>Het tweede hoofdstuk zet de stap die de rest van het boek draagt: de wereld die iemand ervaart is de projectie van zijn eigen waarneming. Wie de projectie verandert, verandert de ervaring. Bernstein noemt dat de dromer van de droom zijn, en leent de term rechtstreeks bij <i>A Course in Miracles</i>.</p>
+      <h3>Alles is een opdracht</h3>
+      <p>In <i>You Are Always Being Guided, Even When It Doesn't Feel Like It</i> herdefinieert zij tegenslag. Moeilijke relaties, verlies en afwijzing zijn universele opdrachten: situaties die precies dat blootleggen wat nog geheeld moet worden. De taak van de lezer is niet de situatie te vermijden maar de opdracht te herkennen.</p>
+      <p>Bij dit hoofdstuk horen oefeningen in het toelaten van gevoel, in zelfcompassie en in het aanvaarden van eigen aandeel. Bernstein waarschuwt tegen het wegduwen van pijn onder een positieve gedachte, en gebruikt daarvoor de uitdrukking dat men door het gevoel heen moet, niet eromheen.</p>
+      <h3>Trilling boven woorden</h3>
+      <p><i>Your Vibes Speak Louder Than Your Words</i> stelt dat de energetische toestand waarin iemand verkeert bepalender is dan wat hij zegt of doet. Twee mensen kunnen dezelfde zin uitspreken en toch een tegengestelde uitwerking hebben, omdat de stemming eronder verschilt.</p>
+      <p>De oefeningen zijn hier het meest concreet: dagelijkse meditatie, een gebed om angst los te laten, en het formuleren van een intentie waar de dag omheen wordt gebouwd. Bernstein put voor de meditaties uit de Kundalini-yoga waarin zij is opgeleid, met mantra's en ademoefeningen.</p>
+      <h3>Plezier, obstakels en zekerheid</h3>
+      <p>De hoofdstukken vijf tot en met zeven, <i>The Universe Works Fast When You're Having Fun!</i>, <i>Obstacles Are Detours in the Right Direction</i> en <i>Certainty Clears the Path for What You Desire</i>, gaan over het tempo waarin dingen zich voltrekken. Vrolijkheid versnelt, verkramping vertraagt.</p>
+      <p>Het middelste hoofdstuk bevat de meest voorkomende zin uit het boek in verkorte vorm: wat een blokkade lijkt, is een omweg in de goede richting. Het zevende hoofdstuk verlangt vervolgens innerlijke zekerheid over de uitkomst, ook zonder aanwijzing dat die uitkomst komt.</p>
+      <h3>Tekens en synchroniciteit</h3>
+      <p>In <i>The Universe Speaks in Mysterious Ways</i> vraagt Bernstein de lezer om een teken af te spreken, bijvoorbeeld een bepaald dier of een terugkerend getal, en daar vervolgens op te letten. Toevalligheden worden zo gelezen als antwoord.</p>
+      <p>Zij vertelt in dit deel voorvallen uit haar eigen leven waarin zij zulke tekens herkende op een moment van twijfel. Als bewijs biedt zij niets anders dan die voorvallen; de lezer wordt uitgenodigd de proef bij zichzelf te herhalen.</p>
+      <h3>Eenheid als slotstap</h3>
+      <p>De laatste twee hoofdstukken, <i>Oneness Sets You Free</i> en <i>You Are the Universe</i>, brengen de leer terug op één punt: er is geen scheiding tussen de mens en datgene waar hij om vraagt. Wat men zoekt buiten zichzelf is men al.</p>
+      <p>Bernstein sluit af met de gedachte dat het werk nooit klaar is en dat terugval bij de praktijk hoort. Dat is de nuchterste passage van het boek en zij komt laat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Afgescheidenheid</td><td>De gedachte dat men los staat van liefde, door Bernstein aangewezen als de bron van iedere vorm van angst.</td></tr>
+          <tr><td class="term">Universele opdracht</td><td>Een moeilijke situatie of relatie die volgens haar niet toevallig is maar precies datgene aanwijst wat nog geheeld moet worden.</td></tr>
+          <tr><td class="term">Het heilige ogenblik</td><td>Term uit <i>A Course in Miracles</i> voor het moment waarop iemand een oordeel loslaat en de situatie opnieuw waarneemt.</td></tr>
+          <tr><td class="term">Trilling</td><td>De gevoelstoestand die iemand uitzendt en die volgens Bernstein bepaalt wat er naar hem toe komt, ongeacht wat hij zegt of doet.</td></tr>
+          <tr><td class="term">Overgave</td><td>Het staken van pogingen de uitkomst af te dwingen, in het boek voorgesteld als de handeling die het universum ruimte geeft.</td></tr>
+          <tr><td class="term">Tekens</td><td>Vooraf gekozen voorwerpen, dieren of getallen waarvan het opduiken wordt gelezen als bevestiging van de gevraagde leiding.</td></tr>
+          <tr><td class="term">Kundalini-meditatie</td><td>De meditatievorm met mantra en adem waarin Bernstein is opgeleid en die zij als dagelijkse oefening voorschrijft.</td></tr>
+          <tr><td class="term">Eenheid</td><td>Het sluitstuk van de leer: het onderscheid tussen de zoeker en het gezochte wordt opgeheven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee dingen: het gezag van <i>A Course in Miracles</i> en de eigen ervaring van de schrijfster. Die cursus is een tekst die Helen Schucman tussen 1965 en 1972 opschreef als innerlijk dictaat en die in 1976 werd gepubliceerd. Wie de herkomst van dat boek niet aanvaardt, verliest het fundament onder Bernsteins redenering, want zij ontleent er haar centrale begrippen aan zonder ze verder te onderbouwen.</p>
+      <p>Onderzoek komt in het boek niet voor. Er worden geen studies aangehaald, geen metingen gedaan en geen tegenvoorbeelden besproken. Het aangedragen materiaal bestaat uit anekdotes: haar eigen voorvallen en die van cliënten en lezers, steeds achteraf verteld en steeds met een goede afloop. Dat is de zwakste bewijsvorm die er is, omdat gevallen waarin de methode niets opleverde per definitie niet in het boek terechtkomen.</p>
+      <p>Van één onderdeel bestaat wel losstaande onderbouwing. Voor meditatie is redelijk consistent aangetoond dat zij bij regelmatige beoefening klachten van stress en angst iets vermindert, met effecten die klein tot matig zijn. Dat rechtvaardigt de dagelijkse oefening die Bernstein voorschrijft, maar het rechtvaardigt niet de conclusies die zij eraan verbindt over gebeurtenissen buiten de mediterende zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De leer is zo ingericht dat zij niet kan worden weerlegd. Loopt het goed af, dan werkte de omschakeling; loopt het slecht af, dan was het een omweg in de goede richting of was de lezer nog niet ver genoeg. In de inleiding schrijft Bernstein zelf dat wie geen resultaat boekt, het kennelijk niet genoeg wilde. Dat is de zin waar critici het vaakst op wijzen, en terecht: hij verplaatst iedere mislukking naar de lezer en beschermt de methode tegen toetsing.</p>
+      <p>Inhoudelijk is er weinig nieuws. Recensenten merkten op dat de leringen vrijwel rechtstreeks uit <i>A Course in Miracles</i> komen en dat het boek dicht aanligt tegen <i>A Return to Love</i> van Marianne Williamson uit 1992. Bernsteins bijdrage zit in de vorm: kortere hoofdstukken, meer oefening, een toon die aansluit bij een jonger publiek. Wie het onderliggende werk al kent, houdt weinig over.</p>
+      <p>Het ernstigste bezwaar is ethisch en betreft de reikwijdte. Als waarneming de ervaring maakt, dan draagt wie ziek wordt, ontslagen wordt of geweld ondergaat een aandeel in wat hem overkwam. Bernstein trekt die conclusie nergens uitdrukkelijk en zegt op meerdere plaatsen dat pijn gevoeld moet worden, maar zij trekt evenmin een grens. Bij ernstige ziekte, armoede of trauma is dat verschil geen detail. Het boek is bruikbaar als aanmoediging tot meditatie en tot minder controledrang; als verklaringsmodel voor wat mensen overkomt houdt het geen stand.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem de meditatie- en ademoefeningen over en laat de verklaring waarom zij werken erbuiten; het effect op onrust staat los van de leer.</li>
+        <li>Schrijf op waar de angst precies over gaat voordat er een positieve zin overheen gaat; het boek waarschuwt zelf tegen het overslaan van die stap.</li>
+        <li>Toets de belofte over veranderende omstandigheden aan de eigen ervaring door vooraf op te schrijven wat verwacht wordt, en niet achteraf.</li>
+        <li>Houd bij ziekte, schuld of geweld de gewone hulpverlening aan; het boek biedt daarvoor geen alternatief en pretendeert dat op papier ook niet.</li>
+        <li>Lees <i>A Course in Miracles</i> of Williamson erbij als de herkomst van de begrippen van belang is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Universe Has Your Back: Transform Fear to Faith</i> (Hay House, Carlsbad, 2016; gebonden ISBN 9781401946548). Nederlands als <i>Het Universum staat achter je</i>, vertaald door Jorgen van Drunen, Koppenhol, 2017, 224 blz., ISBN 9789492412294. Van Bernstein verscheen eerder Nederlandstalig werk bij dezelfde uitgever, onder meer <i>Leven vol overgave</i> (ISBN 9789400504028). Het boek is een vervolg op haar eerdere werk rond <i>A Course in Miracles</i> en verkocht wereldwijd meer dan een miljoen exemplaren.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bernstein stelt dat vrijwel alle onrust in een mensenleven terug te voeren is op de gedachte dat men van liefde is afgesneden. Zolang die gedachte leidend is, ziet men overal gevaar en bevestigt de ervaring dat gevaar. Wie de gedachte omkeert, ziet dezelfde gebeurtenissen als aanwijzingen dat het leven meewerkt.</p><p>Het boek bestaat uit tien hoofdstukken, van <i>You Have a Hidden Power</i> tot <i>You Are the Universe</i>. Elk hoofdstuk combineert een verhaal uit haar eigen leven met een lering uit <i>A Course in Miracles</i> en met oefeningen: gebeden, meditaties, Kundalini-oefeningen, opdrachten om te noteren waar men bang voor is.</p><p>De kern van de methode is de omschakeling van angst naar vertrouwen op het niveau van het gevoel. Bernstein noemt dat de trilling die iemand uitzendt. Woorden en plannen doen er volgens haar minder toe dan de stemming waarin ze worden gedaan, en die stemming bepaalt wat er terugkomt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>manifesteren</li><li>A Course in Miracles</li><li>angst</li><li>meditatie</li><li>spiritualiteit</li><li>zelfhulp</li><li>Kundalini</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1663"><a href="1663.html">A Return to Love</a>. Williamson bewerkte in 1992 dezelfde bron voor een breed publiek; Bernstein doet dat vierentwintig jaar later opnieuw, met kortere hoofdstukken en meer oefening.</li>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Glaudemans legt <i>Een cursus in wonderen</i> zelf uit, zodat te zien is wat Bernstein overneemt en wat zij weglaat.</li>
+          <li value="1748"><a href="1748.html">The Secret</a>. Byrne biedt de commerciële variant van dezelfde gedachte; naast <i>The Secret</i> valt op dat Bernstein wel over pijn en verlies durft te schrijven.</li>
+          <li value="1586"><a href="1586.html">You Can Heal Your Life</a>. Hay legde in 1984 de koppeling tussen gedachte en lichamelijke klacht, precies de grens waar Bernstein omheen manoeuvreert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

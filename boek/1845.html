@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Women Who Run with the Wolves &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Estes stelt dat er in iedere vrouw een instinctieve gestalte huist die weet wanneer zij moet vluchten, wanneer zij mag hechten en wanneer iets moet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1845">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1845 &middot; Filosofie en mystiek</p>
+    <h1>Women Who Run with the Wolves</h1>
+    <p class="lede">Clarissa Pinkola Estes, 1992</p>
+    <p class="stats">
+      <span><b>1882</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1845"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Estes stelt dat er in iedere vrouw een instinctieve gestalte huist die weet wanneer zij moet vluchten, wanneer zij mag hechten en wanneer iets moet sterven, en dat opvoeding, kerk en beleefdheid die gestalte hebben afgeleerd tot vrouwen niet meer weten wat zij voelen. De oude verhalen zijn volgens haar de plek waar de kennis van die gestalte bewaard is gebleven, in beelden die de censuur van eeuwen hebben overleefd. Wie die verhalen goed leest krijgt daarmee geen moraal maar een gebruiksaanwijzing terug.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De Wilde Vrouw als archetype</h3>
+      <p>Estes werkt in het spoor van Jung: onder het persoonlijke bewustzijn ligt een laag met terugkerende gestalten die zich in dromen, mythen en sprookjes vertonen. Haar bijdrage is dat zij daar een gestalte aan toevoegt die zij de Wilde Vrouw noemt, in het Spaans La Que Sabe, Zij Die Weet. Wild betekent bij haar niet ongeremd maar in de oorspronkelijke staat, zoals van een rivier of een dier gezegd wordt.</p>
+      <p>De diagnose die zij stelt is dat vrouwen van deze gestalte zijn afgesneden. De verschijnselen die zij daarvoor aanvoert zijn herkenbaar geformuleerd: uitputting zonder aanwijsbare oorzaak, aanhoudende schaamte over het eigen lichaam, blijven zitten in verhoudingen die niet deugen, de eigen inval afkappen voordat die is uitgesproken. Het boek biedt geen diagnose in klinische zin maar een reeks beelden waarin de lezer zichzelf kan herkennen.</p>
+      <h3>La Loba en het verzamelen van botten</h3>
+      <p>Het eerste verhaal zet de toon. In de woestijn woont een oude vrouw die botten verzamelt, vooral wolvenbotten. Zij legt een volledig skelet neer, zingt erover, en het dier krijgt vlees, vacht en adem, rent weg en verandert onderweg in een lachende vrouw.</p>
+      <p>Estes leest dat als beschrijving van het werk dat zij van haar lezers vraagt: uitzoeken welke botten van iemand onvernietigbaar zijn, die bijeenzoeken en er lang genoeg boven blijven zingen. Het verzamelen komt eerst, het leven daarna. Zij gebruikt dit beeld ook voor haar eigen methode, het bijeenbrengen van verhaalresten uit families en streken.</p>
+      <h3>Blauwbaard en het roofdier in de psyche</h3>
+      <p>In de versie die Estes navertelt trouwt de jongste zuster met een rijke man met een blauwe baard, krijgt de sleutels van het huis en het verbod een bepaalde deur te openen. Zij opent hem toch en vindt de lichamen van zijn eerdere vrouwen; de sleutel begint te bloeden en verraadt haar.</p>
+      <p>Haar uitleg draait om wat zij het natuurlijke roofdier van de psyche noemt: een innerlijke stem die het leven in een vrouw wil doden en dat doet door haar nieuwsgierigheid en haar oordeel uit te schakelen. Het verhaal telt bij haar als een aansporing om te kijken, ook wanneer kijken verboden is, en om het bloeden van de sleutel te zien als bewijs dat de kennis niet meer weg te poetsen valt.</p>
+      <h3>Vasalisa en de intuitie</h3>
+      <p>Het langste en volgens veel lezers beste hoofdstuk behandelt het Russische verhaal van Vasalisa. Haar stervende moeder geeft haar een pop die zij moet voeden en die haar zal zeggen wat zij moet doen. De stiefmoeder stuurt haar naar het bos om vuur te halen bij de heks Baba Jaga, die haar onmogelijke taken oplegt. De pop verricht ze in de nacht.</p>
+      <p>Estes leest de pop als de intuitie, die gevoed moet worden om te blijven spreken, en Baba Jaga als de wilde macht van leven en dood waar het meisje bij in de leer gaat. Wat zij meeneemt is een schedel met vuur erin, die de stiefmoeder en stiefzusters verbrandt. Het is bij Estes de aanwijzing dat een vrouw die haar oordeelsvermogen terugkrijgt niet meer kan blijven leven met wat haar klein hield.</p>
+      <h3>Zeehondenvel en handeloze maagd</h3>
+      <p>Twee hoofdstukken vormen de kern van wat het boek over terugtrekken en over lange ellende zegt. In het Inuit-verhaal van het zeehondenvel steelt een man het vel van een zeehondenvrouw, trouwt met haar en houdt het vel verborgen; zij droogt uit en verliest haar zicht en haar stem tot haar zoon het vel terugvindt en zij naar zee terugkeert. Estes noemt het vel de zielshuid en beschrijft de terugkeer naar zee als het periodieke alleen zijn waar vrouwen volgens haar recht op hebben.</p>
+      <p>In De handeloze maagd verkoopt een molenaar zijn dochter zonder het te weten aan de duivel, worden haar handen afgehakt en zwerft zij jarenlang door het bos voordat zij haar handen terugkrijgt. Estes gebruikt dit verhaal voor de lange, trage soort ontwikkeling waarin niets vooruitgaat en die zij als noodzakelijke doorgang beschrijft in plaats van als mislukking. Dit is het hoofdstuk waar lezers die zelf een lange periode van verlies hebben doorgemaakt het vaakst naar terugverwijzen.</p>
+      <h3>De rode schoenen en Skeletvrouw</h3>
+      <p>Het hoofdstuk over De rode schoenen van Andersen gaat over het verruilen van een zelfgemaakt leven voor een aantrekkelijker leven dat de draagster daarna doodddanst. Estes past het toe op verslaving, op werk dat iemand opeet en op elke ruil waarbij iets echts wordt ingewisseld voor iets glanzends.</p>
+      <p>In Skeletvrouw haalt een visser een verdronken vrouw op als skelet, sleept haar in paniek achter zich aan, ontwart haar botten bij het vuur en valt in slaap; zij drinkt zijn traan, neemt zijn hart, klopt erop en wordt weer mens. Estes gebruikt het als beeld voor wat zij de Leven-Dood-Levencyclus in liefdesverhoudingen noemt: wie het sterven van een fase niet toelaat, houdt ook het volgende leven tegen.</p>
+      <h3>Hoe het boek gelezen wil worden</h3>
+      <p>Estes noemt zichzelf cantadora, bewaarster van oude verhalen, en zegt haar materiaal te hebben uit de mondelinge overlevering van haar Hongaarse en Mexicaanse pleegfamilies. Zij vertelt de verhalen niet in een gedocumenteerde versie na maar in haar eigen, en zij zegt dat ook. De uitleg loopt daarna vrijelijk door haar analytische praktijk, haar eigen leven en de gedichten die zij schrijft.</p>
+      <p>Het boek is niet als betoog opgebouwd en laat zich per hoofdstuk lezen. Dat verklaart de manier waarop het al dertig jaar gebruikt wordt: niet als studie die van kaft tot kaft wordt doorgenomen, maar als naslagwerk waarin lezers het hoofdstuk opzoeken dat bij hun toestand hoort.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Wilde Vrouw</td><td>De archetypische gestalte die volgens Estes het instinctieve weten in een vrouw draagt, met de kennis van wanneer te blijven, te vluchten of te laten sterven.</td></tr>
+          <tr><td class="term">La Que Sabe</td><td>Zij Die Weet, de Spaanse benaming die Estes voor dezelfde gestalte gebruikt en die zij aan haar pleegfamilies toeschrijft.</td></tr>
+          <tr><td class="term">La Loba</td><td>De botvrouw uit het openingsverhaal, die skeletten verzamelt en er zingend leven in brengt; bij Estes het beeld voor het herstel van wat afgestorven leek.</td></tr>
+          <tr><td class="term">Cantadora</td><td>De rol die Estes voor zichzelf opeist: verhalenbewaarster die de overlevering doorgeeft in plaats van haar te bestuderen.</td></tr>
+          <tr><td class="term">Rio Abajo Rio</td><td>De rivier onder de rivier, haar aanduiding voor de stroom onder het dagelijkse bestaan waar een vrouw contact mee zou moeten houden.</td></tr>
+          <tr><td class="term">Het natuurlijke roofdier</td><td>De innerlijke instantie die volgens Estes het eigen leven aanvalt en die in verhalen als Blauwbaard de gedaante van een echtgenoot krijgt.</td></tr>
+          <tr><td class="term">Zielshuid</td><td>Het zeehondenvel uit het Inuit-verhaal, dat staat voor de eigen bedekking die een vrouw nodig heeft om zich periodiek terug te trekken.</td></tr>
+          <tr><td class="term">De Leven-Dood-Levencyclus</td><td>Het patroon waarin liefde, werk en verbondenheid opkomen, afsterven en opnieuw beginnen, en waar volgens haar niet aan valt te ontkomen.</td></tr>
+          <tr><td class="term">Verhaal als medicijn</td><td>Haar uitgangspunt dat een verhaal in de psyche werkt zoals een middel in het lichaam, waardoor de juiste keuze van verhaal belangrijker is dan de uitleg erbij.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de jungiaanse aanname dat archetypen bestaan en zich in mythen en sprookjes vertonen. Die aanname is geen bevinding uit onderzoek maar een uitgangspunt van een school binnen de dieptepsychologie, en de argumenten voor en tegen dat uitgangspunt komen in het boek niet aan de orde. Wie de aanname niet deelt, houdt een verzameling verhalen over met een uitleg erbij.</p>
+      <p>Wat het boek als klinisch materiaal aanvoert zijn geanonimiseerde gevallen uit de eigen praktijk. Er staan geen aantallen in, geen vergelijkingen, geen naslag op eerdere literatuur van betekenis. Estes presenteert haar werk ook niet als onderzoek; de aanspraak die zij maakt is die van een verhalenbewaarster en analytica die zegt wat zij heeft gezien.</p>
+      <p>De verhalen zelf zijn deels wel te herleiden en deels niet. Blauwbaard, De rode schoenen, Vasalisa en De handeloze maagd bestaan in gepubliceerde versies bij Perrault, Andersen, Afanasjev en Grimm, en de lezer kan die naast haar navertelling leggen. Voor La Loba en een deel van het andere materiaal beroept zij zich op mondelinge familieoverlevering, wat betekent dat niemand kan nagaan of de versie die zij geeft ouder is dan haar eigen boek.</p>
+      <p>De vaste bewering dat de oude verhalen door christelijke of victoriaanse bewerkers zijn gekuist en dat Estes de oorspronkelijke laag terughaalt, is voor sprookjesverzamelingen als die van Grimm aantoonbaar juist wat de bewerking betreft. Dat er daaronder een oudere, vrouwelijke laag ligt die zij kan herstellen, is een aanname die zij niet met bronnen aantoont.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste vakinhoudelijke bezwaar komt van folkloristen. Barre Toelken verweet Estes dat zij in haar behandeling van Blauwbaard versies uit verschillende culturele tradities door elkaar haalt, en hij zag daarin een gewoonte van jungiaans geschoolde psychologen die volksverhalen tot een gemeenschappelijke kern vereenvoudigen en daarmee juist het culturele verschil wegwerken dat een verhaal betekenis geeft. Wie een verhaal uit zijn herkomst haalt kan er alles in lezen.</p>
+      <p>Het tweede bezwaar is dat van de wezenlijkheid. Het boek gaat ervan uit dat er iets bestaat als een vrouwelijke natuur met eigen instincten, cycli en behoeften, gelijk over tijden en culturen heen. Dat uitgangspunt is binnen de vrouwenstudies zelf omstreden geraakt, omdat het rolverwachtingen tot natuur verklaart. Estes bestrijdt die uitleg door de gestalte als psychisch en niet als biologisch te presenteren, maar haar taal over bloed, maan en lichaam werkt de andere kant op.</p>
+      <p>Het derde bezwaar geldt de vorm. De uitleg bij ieder verhaal is uitvoerig, herhalend en toont weinig terughoudendheid: vrijwel elk beeld krijgt een betekenis toegewezen, en die betekenis wijst vrijwel altijd dezelfde kant op. Lezers die het boek niet mooi vinden noemen meestal dit: dat de verhalen sterker zijn dan de duiding, en dat de duiding ze afsluit in plaats van openzet.</p>
+      <p>Er is tot slot het bezwaar tegen de aanspraak op overlevering. Estes voert haar verhalen op als familietraditie zonder de gebruikelijke verantwoording van bron, verteller en jaar. Voor een boek dat lezers vraagt de oude verhalen boven de moderne uitleg te vertrouwen, is dat een gemis dat niet met de rol van vertelster is weg te nemen. Het maakt het onmogelijk om vast te stellen wat overgeleverd is en wat van haar zelf komt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees per hoofdstuk het verhaal eerst helemaal uit voordat de uitleg wordt aangevat, en noteer wat het beeld zelf oproept.</li>
+        <li>Leg bij Blauwbaard, Vasalisa, De handeloze maagd en De rode schoenen de versie van Perrault, Afanasjev, Grimm of Andersen ernaast en let op wat Estes heeft veranderd.</li>
+        <li>Behandel de duidingen als voorstellen en niet als vaststellingen; het boek nodigt uit tot herkenning, en herkenning is geen bewijs.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Women Who Run with the Wolves: Myths and Stories of the Wild Woman Archetype</i> (Ballantine Books, New York, 1992); de gangbare paperback telt ongeveer 520 blz., ISBN 9780345409874. De Nederlandse vertaling van Irma van Dam verscheen in 1994 bij Becht te Haarlem als <i>De ontembare vrouw: als archetype in mythen en verhalen</i> en wordt nu uitgegeven door Altamira; de zesentwintigste druk uit 2018 telt 552 blz., ISBN 9789401303859. Van Estes verscheen in het Nederlands ook <i>De wolfsvrouw vertelt</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Clarissa Pinkola Estes is jungiaans analytica en vertelster. In dit boek zet zij ongeveer twintig sprookjes, mythen en volksverhalen naast elkaar en leest die als beschrijvingen van een innerlijke gestalte die zij de Wilde Vrouw noemt: het instinctieve deel van de psyche dat volgens haar bij vrouwen door opvoeding en beschaving is weggedrukt.</p><p>Elk hoofdstuk begint met een verhaal, dat zij navertelt in haar eigen bewoordingen, en gaat daarna over in een uitleg per beeld. La Loba verzamelt in de woestijn wolvenbotten en zingt er leven in. Vasalisa krijgt van haar stervende moeder een pop die haar zegt welke kant zij op moet. Een vissersman haalt Skeletvrouw uit het water en ontrafelt haar botten. Blauwbaard verbiedt zijn vrouw de deur van een kamer te openen.</p><p>Het boek stond honderdvijfenveertig weken op de bestsellerlijst van The New York Times, destijds een record. Het wordt sindsdien gelezen als handboek voor zelfonderzoek, als bundel hervertelde volksverhalen en als jungiaanse studie, en het is die drievoudigheid die het ook aanvechtbaar maakt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>jungiaanse psychologie</li><li>archetype</li><li>sprookjes</li><li>mythen</li><li>vrouwen</li><li>intuitie</li><li>verhalen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="360"><a href="360.html">Archetypen</a>. Jung levert het begrip archetype waar dit hele boek op leunt; bij hem is te zien hoe ruim en hoe omstreden dat begrip van meet af aan was.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell deed hetzelfde met heldenverhalen en kreeg hetzelfde verwijt: mythen uit verschillende culturen tot een gemeenschappelijk patroon terugbrengen.</li>
+          <li value="1226"><a href="1226.html">Eens was God als vrouw belichaamd</a>. Stone zoekt de vrouwelijke laag onder de overgeleverde verhalen niet in de psyche maar in de godsdienstgeschiedenis, en laat zien hoe moeilijk die claim hard te maken is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

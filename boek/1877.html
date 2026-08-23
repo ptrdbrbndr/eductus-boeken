@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The E-Myth Revisited &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gerber stelt dat kleine bedrijven niet omvallen door de markt, de concurrentie of het gebrek aan kapitaal, maar door de manier waarop de eigenaar erin…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1877">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1877 &middot; Geld en ondernemen</p>
+    <h1>The E-Myth Revisited</h1>
+    <p class="lede">Michael E. Gerber, 1995</p>
+    <p class="stats">
+      <span><b>1899</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1877"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gerber stelt dat kleine bedrijven niet omvallen door de markt, de concurrentie of het gebrek aan kapitaal, maar door de manier waarop de eigenaar erin staat. De meeste worden opgericht door vaklieden die aannemen dat verstand van het werk hetzelfde is als verstand van een bedrijf dat dat werk doet. Die aanname noemt hij fataal, omdat zij ertoe leidt dat de eigenaar het werk blijft doen en het bedrijf nooit iets wordt dat zonder hem kan draaien. Zijn tegenvoorstel is het bedrijf van meet af aan te ontwerpen als prototype voor een franchiseketen: elke handeling vastgelegd, elke uitkomst meetbaar, elke functie beschreven voordat er iemand voor wordt aangenomen. Het product van een onderneming is in die opvatting niet wat er over de toonbank gaat, maar het bedrijf zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanval van ondernemerschap</h3>
+      <p>Het boek begint bij het moment waarop iemand die goed is in zijn vak besluit voor zichzelf te beginnen. Gerber noemt dat een aanval van ondernemerschap, en de gedachte erachter de fatale aanname: dat kennis van het vak volstaat om een bedrijf in dat vak te leiden. Het werk dat de eigenaar leuk vond, wordt daarna een fractie van zijn dag; de rest gaat op aan inkoop, personeel, administratie en klachten.</p>
+      <p>De uitkomst beschrijft hij als het bezitten van een baan in plaats van een bedrijf, met dit verschil dat de baas nu ook 's nachts wakker ligt over de huur.</p>
+      <h3>Drie mensen in één hoofd</h3>
+      <p>In iedere eigenaar zitten volgens Gerber drie rollen die om dezelfde tijd vechten. De ondernemer leeft in de toekomst, ziet mogelijkheden en wil veranderen. De manager leeft in het verleden, wil orde, voorspelbaarheid en systemen. De vakman leeft in het heden en wil werken; hij ziet de ondernemer als dromer en de manager als bemoeial.</p>
+      <p>Bij de gemiddelde eigenaar van een klein bedrijf is de verhouding volgens hem ongeveer tien procent ondernemer, twintig procent manager en zeventig procent vakman. Die verdeling verklaart waarom er wel gewerkt wordt en niet gebouwd.</p>
+      <h3>Kindertijd, puberteit, volwassenheid</h3>
+      <p>Gerber deelt de levensloop van een bedrijf in drie fasen in. In de kindertijd doet de eigenaar alles zelf; die fase eindigt op de dag dat hij het niet meer alleen aankan. In de puberteit komt er hulp bij, en de eigenaar delegeert door los te laten zonder over te dragen; als het misgaat neemt hij het werk terug. Er volgt een crisis met drie uitwegen: terugkrimpen tot het weer alleen te doen is, doorgroeien tot het instort, of het bedrijf opnieuw inrichten.</p>
+      <p>Volwassenheid is bij hem geen fase die vanzelf volgt uit groei, maar een gezichtspunt dat er vanaf het begin kan zijn. Zijn voorbeeld is een bedrijf dat vanaf dag één wordt gebouwd naar het beeld van wat het moet worden.</p>
+      <h3>Sarah en haar taartenwinkel</h3>
+      <p>De tweede helft is opgezet als een reeks gesprekken met Sarah, die een winkel in taarten heeft en het bakken is gaan haten. Zij begon omdat zij het lekkerste deeg maakte van iedereen die zij kende, en staat nu zeven dagen per week in de zaak zonder er iets aan over te houden.</p>
+      <p>Die vorm heeft een voordeel en een prijs. Het voordeel is dat elk begrip meteen aan een geval wordt opgehangen. De prijs is dat de schrijver beide partijen in het gesprek zelf bedenkt, waardoor Sarah nooit een tegenwerping maakt die niet in het betoog past.</p>
+      <h3>Het sleutelklare prototype</h3>
+      <p>De kern van het voorstel is wat Gerber de sleutelklare omwenteling noemt, met de franchise als model. Zijn voorbeeld is McDonald's: Ray Kroc kocht geen hamburgerzaak maar een werkwijze, en het product dat hij verkocht was het bedrijf zelf, in duizenden gelijke exemplaren.</p>
+      <p>Wie dat model toepast, bouwt zijn eigen zaak als prototype voor een keten die er nooit hoeft te komen. De eis is dat het bedrijf te bedienen valt door mensen met de laagst mogelijke vaardigheid die nog tot het gewenste resultaat leidt, dat elke handeling in een handboek staat en dat de klant elke keer hetzelfde krijgt. Daaruit volgt de zin die het meest uit dit boek geciteerd wordt: werk aan je bedrijf, niet erin.</p>
+      <h3>Innovatie, kwantificering, orkestratie</h3>
+      <p>Het bouwen zelf verloopt in drie steeds terugkerende stappen. Innovatie is het bedenken van een betere manier, tot in kleinigheden als de begroeting aan de deur. Kwantificering is het meten van het effect ervan in getallen. Orkestratie is het vastleggen van wat werkt, zodat het niet meer van de dagvorm van de medewerker afhangt.</p>
+      <p>Gerber staat erop dat de volgorde vastligt: zonder meten blijft innovatie een mening, zonder vastleggen verdwijnt het resultaat weer.</p>
+      <h3>Zeven onderdelen van het programma</h3>
+      <p>Het slotdeel loopt zeven onderdelen langs. Het primaire doel gaat over het leven van de eigenaar zelf en gaat aan alles vooraf; de strategische doelstelling vertaalt dat naar wat het bedrijf moet zijn geworden en op welke termijn. Daarna volgen de inrichting van de organisatie, waarbij het organogram met functiebeschrijvingen wordt gemaakt voordat er mensen zijn om erin te zetten, en het beheer, waarbij het systeem het werk van de manager doet.</p>
+      <p>De laatste drie gaan over personeel, marketing en systemen. Bij personeel is de stelling dat mensen zich gedragen naar de spelregels die er gelden; bij marketing dat alleen de klant telt, beschreven naar kenmerken en naar wat hem beweegt; bij systemen dat harde, zachte en informatiesystemen op elkaar aangesloten moeten zijn. Elk onderdeel krijgt een kort hoofdstuk, waarna het boek eindigt met een brief aan de kleine ondernemer.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">E-Myth</td><td>De ondernemersmythe: de gedachte dat kleine bedrijven worden opgericht door ondernemers, terwijl het volgens Gerber vrijwel altijd vaklieden zijn.</td></tr>
+          <tr><td class="term">De fatale aanname</td><td>De veronderstelling dat wie het vakwerk beheerst, daarmee ook een bedrijf kan leiden dat dat werk verkoopt.</td></tr>
+          <tr><td class="term">Aanval van ondernemerschap</td><td>Het moment waarop een werknemer besluit hetzelfde werk voor eigen rekening te gaan doen.</td></tr>
+          <tr><td class="term">Ondernemer, manager, vakman</td><td>De drie rollen die volgens Gerber in elke eigenaar om dezelfde tijd vechten, met de vakman meestal als winnaar.</td></tr>
+          <tr><td class="term">Sleutelklaar prototype</td><td>Het eigen bedrijf gebouwd als eerste vestiging van een denkbeeldige franchiseketen, volledig beschreven en overdraagbaar.</td></tr>
+          <tr><td class="term">Werken aan je bedrijf</td><td>Tijd besteden aan het inrichten van het bedrijf in plaats van aan het uitvoeren van het werk dat het bedrijf verkoopt.</td></tr>
+          <tr><td class="term">Bedrijfsontwikkelingsproces</td><td>De vaste volgorde van innovatie, kwantificering en orkestratie waarmee verbeteringen worden ingevoerd en vastgehouden.</td></tr>
+          <tr><td class="term">Primair doel</td><td>Wat de eigenaar met zijn leven wil; bij Gerber het vertrekpunt waaruit de doelstelling van het bedrijf wordt afgeleid en niet andersom.</td></tr>
+          <tr><td class="term">Strategische doelstelling</td><td>De beschrijving van wat het bedrijf op een genoemde datum moet zijn geworden, in getallen waar dat kan.</td></tr>
+          <tr><td class="term">Positiecontract</td><td>De schriftelijke afspraak waarin per functie staat welk resultaat wordt verwacht en welk werk daarbij hoort, ondertekend door wie de functie vervult.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek. Gerber baseert zich op zijn adviespraktijk, die hij in 1977 begon en waarmee hij naar eigen zeggen duizenden kleine bedrijven begeleidde. Er staat geen steekproef in, geen vergelijkingsgroep en geen enkele controle op de vraag of bedrijven die zijn methode volgden het beter deden dan bedrijven die dat niet deden.</p>
+      <p>Het enige uitgewerkte praktijkgeval van buiten zijn eigen praktijk is McDonald's. Dat voorbeeld laat zien dat een sterk uitgewerkt systeem tot schaalgrootte kan leiden, maar niet dat het van een taartenwinkel een gezond bedrijf maakt. Sarah is een verzonnen of samengestelde figuur; haar tegenwerpingen zijn door de schrijver bedacht.</p>
+      <p>De cijfers waarmee het boek opent, zijn de zwakste plek. Gerber schrijft dat meer dan tachtig procent van de nieuwe bedrijven binnen vijf jaar is verdwenen, en dat van de overlevers opnieuw tachtig procent de tweede vijf jaar niet haalt. Hij noemt geen bron. Amerikaanse arbeidsstatistieken laten een ander beeld zien: ongeveer een op de vijf bedrijven sluit in het eerste jaar en rond de helft binnen vijf jaar, waarbij sluiting ook verkoop, overname en stoppen uit vrije wil omvat.</p>
+      <p>Wat wel standhoudt is de beschrijving, niet de voorspelling. Dat eigenaren van kleine bedrijven het uitvoerende werk blijven doen, dat delegeren bij hen vaak neerkomt op loslaten zonder overdragen, en dat een bedrijf zonder vastgelegde werkwijzen niet te verkopen is, herkent vrijwel iedereen die in die hoek werkt. Dat deel van het boek rust op waarneming en heeft geen cijfers nodig.</p>
+      <p>De invloed is aantoonbaar, ook al zegt die niets over de juistheid. Het boek verkocht miljoenen exemplaren, staat op vrijwel elke lijst voor beginnende ondernemers, en de gedachte dat het bedrijf zelf het product is, is doorgesijpeld in latere boeken over kleine ondernemingen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De methode veronderstelt werk dat in vaste handelingen te vatten is. Voor een broodjeszaak, een schoonmaakbedrijf of een garage werkt dat; voor een ontwerpbureau, een advocatenkantoor of een adviespraktijk waar het oordeel van de vakman het product is, loopt het vast. Gerber trekt die grens nergens en presenteert zijn aanpak als algemeen geldig.</p>
+      <p>Franchise als voorbeeld van deugd blijft onbesproken van de kant van het personeel. Het model draagt bij Gerber het argument dat je met mensen van de laagst mogelijke vaardigheid een gelijk resultaat kunt halen. Wat dat betekent voor werk dat leeg, laagbetaald en uitwisselbaar wordt gemaakt, komt in het hele boek niet aan de orde.</p>
+      <p>De zeven onderdelen van het slotdeel zijn vooral opschriften. Wie wil weten hoe een werkwijze wordt geschreven, hoe een handboek eruitziet of hoe je meet of een verandering iets opleverde, krijgt aanwijzingen van een halve bladzijde. De uitwerking is te koop bij de adviespraktijk van de schrijver, en het boek functioneert in dat opzicht als verkoopdocument voor een reeks vervolgtitels en trainingen.</p>
+      <p>De gespreksvorm rekt een korte redenering uit tot boeklengte. Dezelfde punten keren terug in andere bewoordingen, en de toon waarin de schrijver Sarah toespreekt is die van de leraar die het antwoord al heeft.</p>
+      <p>Er zit een aanname in die niet wordt onderzocht. Gerber noemt een bedrijf dat de eigenaar nodig heeft een baan, en dus een mislukking. Voor wie voor zichzelf begon om het vak te kunnen blijven doen, is dat geen mislukking maar de bedoeling. Zijn maatstaf is de verkoopbaarheid van het bedrijf, en die keuze wordt gepresenteerd alsof er geen andere bestaat.</p>
+      <p>Het boek is van voor de netwerkeconomie. Marketing gaat over kenmerken van klanten in een straal om de winkel, systemen gaan over kassa's en telefoons. De gedachtegang laat zich vertalen, maar de voorbeelden dateren zichtbaar uit de jaren tachtig en negentig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Tel een week lang de uren die opgaan aan uitvoerend werk en de uren die aan het inrichten van het bedrijf zijn besteed.</li>
+        <li>Schrijf eerst op wat het bedrijf voor het eigen leven moet opleveren, in geld, in tijd en in einddatum, en leid daar de doelstelling van het bedrijf uit af.</li>
+        <li>Teken het organogram met alle functies die het bedrijf op termijn nodig heeft, en zet in elk vakje de eigen naam waar nog niemand anders staat.</li>
+        <li>Kies één handeling die dagelijks terugkeert, leg vast hoe die hoort te gaan, meet het resultaat een maand en pas daarna de beschrijving aan.</li>
+        <li>Toets voor elke werkwijze of iemand die het vak niet beheerst hem kan uitvoeren; kan dat niet, dan is de beschrijving nog niet af of het werk leent zich er niet voor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The E-Myth Revisited: Why Most Small Businesses Don't Work and What to Do About It</i> (HarperBusiness, New York, 1995, ISBN 9780887307287), een herschrijving van <i>The E-Myth</i> uit 1986. In het Nederlands verscheen het boek onder drie verschillende titels: <i>De succesfactor</i> (1997, 238 blz.), <i>De ondernemersmythe</i> (Pearson, Amsterdam, 2013, 206 blz., vert. Marja Hilsum, ISBN 9789043027663) en <i>The E-Myth</i> (Kosmos Uitgevers, Utrecht, 2022, 256 blz., vert. Erik de Vries en Toos IJdema, ISBN 9789043925464). Gerber schreef daarna een reeks vervolgen voor afzonderlijke beroepsgroepen, van aannemer tot tandarts; daarvan is vrijwel niets vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gerber betoogt dat de meeste kleine bedrijven niet worden begonnen door ondernemers maar door vaklieden: een bakker, een loodgieter, een boekhouder die op een dag besluit voor zichzelf te beginnen. Daarbij maken zij volgens hem een fout die hij de fatale aanname noemt: wie het vak beheerst, denkt daarmee ook een bedrijf in dat vak te kunnen leiden.</p><p>Het gevolg is dat de eigenaar zichzelf een baan heeft gekocht, met langere dagen en meer risico dan de baan die hij verliet. Gerber voert dat proces op aan de hand van Sarah, eigenaar van een taartenwinkel, die het bakken is gaan haten. De hoofdstukken in de tweede helft zijn gesprekken tussen haar en de schrijver.</p><p>Zijn oplossing is het bedrijf te bouwen alsof het het eerste filiaal van een franchiseketen is, ook als er nooit een tweede komt. Alles wat er gebeurt wordt vastgelegd in werkwijzen die door mensen met gewone vaardigheden zijn uit te voeren. De eigenaar werkt dan aan het bedrijf in plaats van erin.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>kleinbedrijf</li><li>systemen</li><li>franchise</li><li>delegeren</li><li>bedrijfsvoering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="276"><a href="276.html">Rework</a>. Fried en Heinemeier Hansson bestrijden precies het bouwwerk dat Gerber aanbeveelt: geen handboeken en groeiplannen, maar klein blijven en het werk zelf doen.</li>
+          <li value="278"><a href="278.html">The 4-Hour Workweek</a>. Ferriss neemt het idee van het bedrijf dat zonder de eigenaar draait letterlijk, en vult het in met uitbesteden en automatiseren.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries geeft een ander antwoord op dezelfde vraag waarom bedrijven omvallen: niet te weinig systeem, maar te lang doorbouwen aan iets waar geen klant op wacht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

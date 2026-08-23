@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wine O'Clock Myth &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dann stelt dat vrouwen zijn gaan drinken op een manier die niemand hun heeft opgedrongen met zoveel woorden, maar die wel is aangeprezen, verkocht en tot…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1906">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1906 &middot; Gewoontes en denken</p>
+    <h1>The Wine O'Clock Myth</h1>
+    <p class="lede">Lotta Dann, 2020</p>
+    <p class="stats">
+      <span><b>1661</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1906"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dann stelt dat vrouwen zijn gaan drinken op een manier die niemand hun heeft opgedrongen met zoveel woorden, maar die wel is aangeprezen, verkocht en tot grap gemaakt totdat zij vanzelfsprekend werd. De vraag die zij opwerpt is niet waarom bepaalde vrouwen te veel drinken, maar waarom het aanvaardbaar is geworden dat vrouwen dagelijks drinken en waarom de schade daarvan zo weinig wordt genoemd. Haar antwoord wijst op drie richtingen tegelijk: een industrie die een nieuwe afzetmarkt aanboorde, een cultuur die drank als beloning en als verdovingsmiddel aanbiedt, en een gezondheidsvoorlichting die de vergelijking met roken niet durft te maken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Dann werkte als televisiejournaliste, producent en regisseur en dronk in die jaren zwaar. Zij stopte in 2011, op haar negenendertigste, en hield daarover een openbaar dagboek bij onder de naam Mrs D. Dat blog groeide uit tot een boek en later tot Living Sober, een besloten gemeenschap op internet waar mensen hun drinken en hun stoppen bespreken en die zij nog steeds beheert.</p>
+      <p>Dit derde boek verschilt van de eerste twee doordat het niet over haar eigen herstel gaat. Zij gebruikt haar geschiedenis als toegangsbewijs en richt de aandacht naar buiten, naar de omstandigheden waarin zij en de vrouwen die zij spreekt zijn gaan drinken.</p>
+      <h3>De bevoorrechte plaats van alcohol</h3>
+      <p>Het eerste deel gaat over de positie die alcohol in het dagelijks leven inneemt. Drank is het enige middel waarvan iemand zich moet verantwoorden als hij het weigert. Het hoort bij verjaardagen, begrafenissen, sportclubs, ouderavonden en sollicitatiegesprekken, en het staat in de supermarkt tussen de boodschappen.</p>
+      <p>Dann wijst erop hoe ongelijk de behandeling van alcohol en tabak is geworden. Roken is uit het straatbeeld verdreven met verpakkingswetgeving, reclameverboden en waarschuwingen; alcohol wordt in dezelfde landen gesponsord, geprezen en aangeprezen. Zij noemt dat een verschil dat niet uit de schadelijkheid te verklaren is.</p>
+      <h3>Hoe de industrie vrouwen bereikt</h3>
+      <p>Het tweede deel gaat over de markt. Vrouwen dronken tot ver in de twintigste eeuw beduidend minder dan mannen, en dat verschil is in de rijke landen grotendeels weggevallen. Dann laat zien dat die verandering samenviel met een gerichte inspanning van de drankindustrie: dranken en verpakkingen die op vrouwen zijn toegesneden, wijn met minder calorieën, roze etiketten, sponsoring van vrouwenevenementen en teksten die drinken aan zelfstandigheid en aan zelfzorg koppelen.</p>
+      <p>Zij behandelt daarbij ook de rol van de bedrijfstak in het gesprek over gezondheid: het financieren van voorlichting, het benadrukken van verantwoord drinken als kwestie van persoonlijke keuze, en het bestrijden van maatregelen die de verkoop raken. Het argument is dat de bedrijfstak zo mede bepaalt hoe er over de schade gepraat wordt.</p>
+      <h3>De wijnmoeder op sociale media</h3>
+      <p>Het derde deel gaat over de beeldcultuur rond drinkende moeders. Wijn als beloning voor een dag met kinderen, wijn als middel om het vol te houden, tegeltjes en spotprenten met wijnglazen ter grootte van een vaas, en de uitdrukking die de titel gaf: het is ergens ter wereld altijd wine o'clock.</p>
+      <p>Dann behandelt die grappen niet als onschuldig. Zij hebben volgens haar twee gevolgen: dagelijks drinken wordt normaal gemaakt, en een vrouw die merkt dat zij te veel drinkt kan dat niet meer benoemen zonder de sfeer te bederven. De grap is daarmee een manier om het gesprek af te sluiten voordat het begint.</p>
+      <h3>Wat alcohol met een vrouwenlichaam doet</h3>
+      <p>Het vierde deel gaat over de schade. Vrouwen bereiken bij dezelfde hoeveelheid drank een hogere bloedwaarde dan mannen, door verschil in lichaamssamenstelling en in de afbraak in de maag, en lopen bij langdurig drinken eerder leverschade op. Dann besteedt veel aandacht aan de band tussen alcohol en borstkanker, die bij bescheiden hoeveelheden al meetbaar is en in de voorlichting nauwelijks wordt genoemd.</p>
+      <p>Zij voegt daar de emotionele en sociale kant aan toe: de slaap die verslechtert, de angst de ochtend erna, het schuldgevoel, en het schuiven van sociale contacten naar gelegenheden waar gedronken wordt. Het lichamelijke deel steunt op gepubliceerd onderzoek en op de indeling van alcohol als kankerverwekkend voor de mens door het onderzoeksbureau van de Wereldgezondheidsorganisatie.</p>
+      <h3>De verhalen van de vrouwen</h3>
+      <p>Door het boek heen staan gesprekken met vrouwen die vertellen hoe hun drinken verliep. Dat zijn geen samenvattingen maar uitgeschreven verhalen, met de details die zulke verhalen dragen: het verstoppen van flessen, de rekensommen over hoeveel er nog in huis is, het punt waarop iemand zijn eigen gedrag niet meer herkende.</p>
+      <p>Dann zet die verhalen naast de reclame en de grappen uit de eerdere delen. De bedoeling is dat de lezer ziet hoe kort de afstand is tussen de vrolijke voorstelling van drinken en wat er in deze levens gebeurde.</p>
+      <h3>Wat Dann voorstelt</h3>
+      <p>Het slot is tweeledig. Op het niveau van de samenleving pleit zij voor beleid naar het voorbeeld van de tabaksbestrijding: minder reclame, minder verkooppunten, duidelijke waarschuwingen over kanker, en een gezondheidsvoorlichting die niet door de bedrijfstak wordt betaald.</p>
+      <p>Op het niveau van de lezer pleit zij voor nuchterheid als iets waar geen diagnose voor nodig is. Wie merkt dat drank meer plaats inneemt dan gewenst, hoeft niet eerst het etiket alcoholist te aanvaarden om te mogen stoppen. Zij wijst daarvoor naar gemeenschappen als Living Sober, waar het gesprek zonder dat etiket gevoerd wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wine o'clock</td><td>De uitdrukking voor het moment waarop het eerste glas van de dag aanvaardbaar wordt geacht, in het boek behandeld als een grap die dagelijks drinken normaal maakt.</td></tr>
+          <tr><td class="term">Wine mum</td><td>De figuur van de moeder die zichzelf met wijn beloont, verspreid via tegeltjes, spotprenten en berichten op sociale media.</td></tr>
+          <tr><td class="term">Mrs D</td><td>De naam waaronder Dann vanaf 2011 openbaar bijhield hoe het stoppen verliep, en waaronder haar eerste twee boeken verschenen.</td></tr>
+          <tr><td class="term">Living Sober</td><td>De Nieuw-Zeelandse gemeenschap op internet die zij beheert, waar mensen zonder diagnose en zonder twaalf stappen over hun drinken praten.</td></tr>
+          <tr><td class="term">De drankindustrie</td><td>In het boek behandeld als één belanghebbende partij die zowel verkoopt als meepraat over de voorlichting en het beleid.</td></tr>
+          <tr><td class="term">De gesloten kloof</td><td>Het verdwijnen van het verschil tussen wat mannen en vrouwen drinken in de rijke landen, door Dann gelezen als resultaat van marktontwikkeling en niet van bevrijding.</td></tr>
+          <tr><td class="term">Verantwoord drinken</td><td>De formulering die de schade tot een kwestie van persoonlijke keuze maakt en de verantwoordelijkheid bij de drinker legt in plaats van bij de aanbieder.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het lichamelijke deel rust op bestaand onderzoek en Dann noemt haar bronnen. Dat alcohol door het onderzoeksbureau van de Wereldgezondheidsorganisatie in de zwaarste categorie kankerverwekkende stoffen is geplaatst, staat vast en dateert al van 1988. De band met borstkanker bij bescheiden hoeveelheden is in grote bevolkingsonderzoeken herhaaldelijk gevonden. Dat vrouwen bij dezelfde hoeveelheid een hogere bloedwaarde bereiken, is standaardkennis uit de farmacologie.</p>
+      <p>Het deel over marketing steunt op eigen waarneming en op verzameld beeldmateriaal: verpakkingen, reclames, berichten op sociale media. Dat is bruikbaar als beschrijving en zwakker als bewijs voor oorzakelijkheid. Dat de kloof tussen mannen en vrouwen zich sloot terwijl de industrie zich op vrouwen richtte, laat de volgorde zien maar niet de oorzaak; er speelden in dezelfde tijd veranderingen in arbeid, inkomen en gezinsvorming.</p>
+      <p>De gesprekken met vrouwen zijn het overtuigendste deel van het boek en tegelijk het meest selectieve. Zij komen grotendeels uit de kring rond Living Sober, dus uit een groep die al besloten heeft dat drank een probleem was. Wat daar ontbreekt is de veel grotere groep die dagelijks een glas of twee drinkt en daar geen last van zegt te hebben.</p>
+      <p>Dann is journaliste van opleiding, niet arts of epidemioloog. Het boek geeft dat ook aan: zij verzamelt en ordent, en verwijst voor de cijfers naar anderen. De kracht ligt in de ordening, niet in nieuw materiaal.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek beweegt tussen twee doelgroepen zonder een keuze te maken. De verhalen gaan over zwaar drinken en verslaving, terwijl het betoog over reclame en cultuur juist gaat over de gewone drinker. Lezers hebben opgemerkt dat de voorbeelden vaak de uitersten betreffen, waardoor iemand met twee glazen per avond zichzelf er niet in herkent en het boek kan wegleggen als iets voor anderen.</p>
+      <p>Herhaling is het meest genoemde bezwaar in besprekingen. De hoofdgedachte staat na een kwart van het boek vast en de rest levert vooral nieuwe voorbeelden bij dezelfde stelling. Wie het argument eenmaal heeft aanvaard, leest daarna tweehonderd bladzijden bevestiging.</p>
+      <p>De vergelijking met tabak wordt niet doorgerekend. Alcohol heeft een sociale rol die tabak nooit had, en drinkpatronen verschillen sterk per land; wat in Nieuw-Zeeland werkte of misging, laat zich niet zonder meer overzetten. Het boek is ook in taal en voorbeelden nadrukkelijk Nieuw-Zeelands, tot aan de namen van winkelketens en televisieprogramma's toe.</p>
+      <p>De positie van de auteur werkt twee kanten op. Dann kan schrijven over drinken omdat zij het van binnenuit kent, maar zij verkoopt tegelijk een uitweg waar zij zelf de beheerder van is. Het boek reikt geen andere wegen aan dan de hare, en over behandelvormen met bewezen werking, zoals medicatie of gedragstherapie, staat er weinig in.</p>
+      <p>Wat het boek niet doet is de vraag stellen waarom drinken voor deze vrouwen iets oploste. De verklaring blijft aan de buitenkant, bij industrie en cultuur; de last van zorgtaken, geldzorgen of eerder geweld komt in de verhalen wel voor maar niet in de analyse.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de delen over marketing en beeldcultuur ook als iemand zelf weinig drinkt; die gaan over de omgeving en niet over de drinker.</li>
+        <li>Leg de gezondheidscijfers naast een recente bron van een nationale gezondheidsdienst, want de aanbevolen hoeveelheden verschillen per land en zijn de laatste jaren naar beneden bijgesteld.</li>
+        <li>Gebruik het boek als weerwoord op de gedachte dat stoppen pas mag na een diagnose.</li>
+        <li>Reken erop dat de voorbeelden Nieuw-Zeelands zijn en vertaal ze naar het eigen land voordat er conclusies over beleid uit worden getrokken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Wine O'Clock Myth: The Truth You Need To Know About Women and Alcohol</i> (Allen &amp; Unwin, Auckland en Sydney, 2020, 288 blz., ISBN 9781988547220), met een luisterboek bij Tantor Media. Er bestaat geen Nederlandse vertaling. Ook de twee eerdere boeken van Dann zijn niet in het Nederlands verschenen: <i>Mrs D Is Going Without</i> (2014), het verslag van haar eerste nuchtere jaar, en <i>Mrs D Is Going Within</i> (2019), over wat er daarna nog te doen viel.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lotta Dann dronk vierentwintig jaar lang zwaar en stopte op haar negenendertigste. Zij hield daarover een blog onder de naam Mrs D, schreef er twee boeken over en beheert sindsdien Living Sober, een Nieuw-Zeelandse gemeenschap voor mensen die met drank willen stoppen. Dit derde boek gaat niet over haarzelf maar over de vraag waarom zoveel vrouwen drinken zoals zij dronk.</p><p>Dann behandelt drie dingen naast elkaar: de plaats die alcohol in het dagelijks leven heeft gekregen, de manier waarop de drankindustrie vrouwen benadert, en de cultuur op sociale media waarin wijn de beloning van een moeder aan het eind van de dag heet. Daartussendoor staan gesprekken met vrouwen over hun eigen drinken.</p><p>Het boek is geschreven vanuit een duidelijk standpunt: alcohol is schadelijker dan de omgangsvormen eromheen doen vermoeden, en de gewoonte om dat weg te lachen houdt vrouwen vast. Dann is ervaringsdeskundige en geen onderzoeker, en het boek is naar Nieuw-Zeelandse verhoudingen geschreven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>alcohol</li><li>vrouwen</li><li>verslaving</li><li>drankindustrie</li><li>reclame</li><li>Nieuw-Zeeland</li><li>nuchterheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1719"><a href="1719.html">In the Realm of Hungry Ghosts</a>. Maté beantwoordt de vraag die Dann laat liggen: waarom een middel voor iemand iets oplost, en wat verslaving met eerdere schade te maken heeft.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke behandelt hetzelfde onderwerp vanuit de kliniek en de neurobiologie, met beloning en onthouding als verklaringskader in plaats van cultuur en industrie.</li>
+          <li value="1733"><a href="1733.html">De verslaving voorbij</a>. Geurtz schrijft over stoppen zonder het etiket verslaafde en zonder twaalf stappen, wat dicht bij Danns benadering van nuchterheid ligt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

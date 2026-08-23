@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In Love with the World &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mingyur Rinpoche stelt dat de scheidslijn tussen leven en dood minder scherp ligt dan zij lijkt: alles wat een mens denkt te zijn is voortdurend aan het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1847">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1847 &middot; Filosofie en mystiek</p>
+    <h1>In Love with the World</h1>
+    <p class="lede">Yongey Mingyur Rinpoche met Helen Tworkov, 2019</p>
+    <p class="stats">
+      <span><b>1815</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1847"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mingyur Rinpoche stelt dat de scheidslijn tussen leven en dood minder scherp ligt dan zij lijkt: alles wat een mens denkt te zijn is voortdurend aan het verdwijnen, en de bardo is de tussentoestand die daarbij hoort. Wie leert die tussentoestanden overdag te herkennen, in de kloof tussen twee gedachten of in het uiteenvallen van een gewoonte, oefent volgens hem precies dat wat er op het sterfbed nodig is. Zijn eigen bijna-dood door voedselvergiftiging voert hij op als de proef op die som, en het boek staat of valt met wat die proef waard is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het vertrek uit Bodhgaya</h3>
+      <p>Mingyur Rinpoche is als tulku herkend en van jongs af opgeleid, zoon van de meditatieleraar Tulku Urgyen Rinpoche, en op zijn zesendertigste verantwoordelijk voor kloosters, leerlingen en een internationaal netwerk van meditatiecentra. In juni 2011 verlaat hij dat allemaal in het holst van de nacht, met een brief achter zich, om de zwerfretraite te doen die in zijn traditie bestaat maar in zijn eeuw zelden nog wordt uitgevoerd.</p>
+      <p>De eerste bladzijden laten zien hoe zorgvuldig die ontsnapping was voorbereid en hoe slecht hij tegelijk was voorbereid op wat volgde. Hij heeft een gewaad, wat geld en een plan dat binnen enkele dagen niet meer bruikbaar blijkt.</p>
+      <h3>De eerste dagen als bedelmonnik</h3>
+      <p>Het grootste deel van het boek beslaat een korte periode. Hij neemt de trein naar Varanasi en zit op de vloer van de goedkoopste klasse. Hij slaapt buiten, hij heeft honger, hij wordt weggestuurd. Andere zwervende asceten blijken hun eigen orde en hierarchie te hebben en hij past daar niet in.</p>
+      <p>Wat hij van zichzelf beschrijft is niet de kalmte van een geoefende meester maar oordeel, walging, angst en schaamte. Hij ziet zichzelf keurende gedachten hebben over de mensen om hem heen en betrapt zich op het verlangen naar de zorg die hij zijn hele leven heeft gehad. Die eerlijkheid is de kracht van het boek: de leer wordt getoetst op het moment dat de omstandigheden haar niet meer ondersteunen.</p>
+      <h3>Wat bardo betekent</h3>
+      <p>Bardo betekent in het Tibetaans zoiets als tussentoestand. In het Westen is het woord bekend geworden via het Tibetaanse dodenboek, waar het slaat op de fasen tussen sterven en een volgende geboorte. Mingyur Rinpoche gebruikt het ruimer, in de traditionele indeling die ook de toestanden bij leven meetelt: het gewone leven zelf, de meditatie, de droom, het sterven, de heldere toestand die daarop volgt en het worden dat naar het volgende leven leidt.</p>
+      <p>De redenering die daaruit volgt is de kern van het boek. Als de bardo elke overgang is tussen wat voorbij is en wat nog niet begonnen is, dan zit een mens er de hele dag in: tussen twee gedachten, tussen twee ademhalingen, tussen een baan die eindigt en een die nog niet begonnen is. Wat de traditie over de bardo van het sterven zegt, wordt daarmee toepasbaar op de gewone dag, en dat is wat hij zijn lezers wil laten oefenen.</p>
+      <h3>De leraren en de eigen geschiedenis</h3>
+      <p>Door het verhaal heen keren de leraren terug. Zijn vader Tulku Urgyen Rinpoche onderwees hem vanaf zijn negende in de directe herkenning van gewaarzijn. Saljay Rinpoche en Nyoshul Khen Rinpoche komen langs als stemmen die hij zich op moeilijke momenten herinnert.</p>
+      <p>Hij vertelt ook opnieuw wat hij in zijn eerdere boek al beschreef: dat hij als kind jarenlang paniekaanvallen had en dat de meditatie waar hij nu om bekendstaat begon als een poging daar iets tegen te doen. Die geschiedenis geeft de latere bladzijden hun gewicht, want de paniek die op het stationsplein terugkeert is dezelfde paniek.</p>
+      <h3>De ziekte</h3>
+      <p>Ongeveer drie weken na zijn vertrek eet hij bedorven voedsel en wordt hij zwaar ziek; wat het precies was is niet vastgesteld, ernstige voedselvergiftiging is de aanname. Hij ligt buiten, kan niet meer opstaan, verliest het bewustzijn en beleeft wat hij als het uiteenvallen van de elementen beschrijft, in de volgorde die de traditie voor het sterven aangeeft.</p>
+      <p>Wat hij daarna vertelt is de kern van zijn getuigenis: dat op het punt waar het vasthouden ophield, het gewaarzijn bleef, en dat er geen angst overbleef. Hij wordt gevonden en in een ziekenhuis bijgebracht. Het boek eindigt kort daarna, met de vaststelling dat hij de rest van de vier jaar niet vertelt.</p>
+      <h3>De oefeningen</h3>
+      <p>Tussen de hoofdstukken door staan instructies, kort en zonder omhaal: de aandacht door het lichaam laten gaan, de adem volgen, ademhalingen tellen, een gedachte onderzoeken door te vragen waar zij vandaan komt, en mededogen richten op wie er in de buurt is. Het zijn oefeningen die hij ook in zijn meditatieprogramma's geeft.</p>
+      <p>De verbinding met het verhaal is telkens dezelfde: hij komt in de moeilijkheid, hij past de oefening toe, hij beschrijft wat er wel en niet mee lukt. Dat maakt de instructies concreter dan in de meeste boeken van dit genre, waar de oefening in een leeg lokaal wordt uitgelegd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bardo</td><td>Tibetaans woord voor tussentoestand, de ruimte tussen wat voorbij is en wat nog niet is begonnen; bij Mingyur Rinpoche niet alleen na de dood maar tussen elk moment en het volgende.</td></tr>
+          <tr><td class="term">De bardo van dit leven</td><td>De hele periode tussen geboorte en sterven, in de traditie eveneens een tussentoestand omdat er niets in vaststaat.</td></tr>
+          <tr><td class="term">De bardo van dharmata</td><td>De heldere toestand die volgens de leer direct op het sterven volgt en waarin het gewaarzijn zich toont voordat er weer begrippen ontstaan.</td></tr>
+          <tr><td class="term">De bardo van het worden</td><td>De laatste fase in de traditionele reeks, waarin de oude, vaste geest oplost en de richting van het volgende bestaan wordt bepaald.</td></tr>
+          <tr><td class="term">Gewaarzijn</td><td>Het weten dat er is voordat er iets over gedacht wordt; volgens de auteur het enige dat overbleef toen alles wat hij dacht te zijn wegviel.</td></tr>
+          <tr><td class="term">Zwerfretraite</td><td>De oude Tibetaanse praktijk waarin een beoefenaar zonder bezit, verblijfplaats of naam rondtrekt om zich van gehechtheid aan status en zekerheid te ontdoen.</td></tr>
+          <tr><td class="term">Tulku</td><td>Een als herboren leraar herkend kind, dat vanaf jonge leeftijd wordt opgeleid en verzorgd; de positie die de auteur achter zich liet.</td></tr>
+          <tr><td class="term">Vergankelijkheid</td><td>Het uitgangspunt dat niets voortduurt behalve de verandering zelf, waaruit de rest van zijn betoog wordt afgeleid.</td></tr>
+          <tr><td class="term">Samsara</td><td>In zijn omschrijving het in kringetjes ronddraaien: hetzelfde patroon steeds opnieuw doorlopen in de verwachting dat het deze keer anders afloopt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit boek is getuigenis en geen onderzoek. Wat er in de ziekte is gebeurd is alleen door hemzelf beschreven, achteraf, en past nauwkeurig op het schema dat zijn eigen traditie voor het sterven geeft. Dat is een reden voor voorzichtigheid: een geoefende beoefenaar die jarenlang op dat schema is voorbereid, kan een extreme lichamelijke toestand langs precies dat schema ervaren en onthouden. Het boek biedt geen enkele manier om die twee mogelijkheden uit elkaar te houden, en doet ook geen poging.</p>
+      <p>Wat wel controleerbaar is, is de omtrek van het verhaal. Het vertrek in juni 2011, de duur van ruim vier jaar en de terugkeer in 2015 zijn buiten het boek om vastgelegd; zijn organisatie maakte destijds bekend dat hij weg was en later dat hij terug was. Dat het om een echte zwerfperiode ging en niet om een literaire constructie staat daarmee vast.</p>
+      <p>De auteur heeft daarnaast een geschiedenis met de wetenschap die het boek niet uitspeelt maar die de lezer wel kent: hij nam deel aan hersenonderzoek onder langdurig geoefende mediterenden aan de universiteit van Wisconsin, waarover hij in zijn eerdere boek schreef. Dat onderzoek zegt iets over meetbare veranderingen bij mensen die duizenden uren hebben gemediteerd. Over de juistheid van de bardoleer zegt het niets, en hij beweert dat ook niet.</p>
+      <p>De sterkste onderbouwing van het boek is van een andere soort. De beschrijvingen van paniek, walging, schaamte en de bijbehorende gedachten zijn precies genoeg om herkenbaar te zijn voor iemand die er nooit boeddhistisch over heeft nagedacht. Waar de metafysica onbewijsbaar blijft, is de psychologische waarneming van dag tot dag scherp en toetsbaar aan de eigen ervaring.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest genoemde bezwaar van lezers is het tempo. Het boek is aangekondigd als het verslag van een zwerftocht van vier jaar en behandelt daarvan een paar weken; de ziekte, waar alles naartoe werkt, komt pas ver na de helft. Wie het als reisverslag leest voelt zich misleid, en de vraag wat er in de resterende jaren gebeurde blijft onbeantwoord.</p>
+      <p>Het tweede bezwaar betreft de vorm. De leerstukken onderbreken het verhaal telkens op het moment dat het spanning krijgt, en de uitleg is dicht: begrippen die aanvankelijk helder lijken lopen na een aantal bladzijden in elkaar over. Lezers die het boek niet uitkregen noemen meestal dit, en het is niet met slecht lezen af te doen.</p>
+      <p>Het derde bezwaar gaat over de opzet zelf. Een tulku die zijn kloosters verlaat om te bedelen, doet dat met de zekerheid dat er kloosters, leerlingen en een organisatie op hem wachten. Het armoedebestaan dat hij beschrijft is een gekozen bestaan met een uitweg, en dat verschilt van het bestaan van de mensen naast wie hij sliep. Het boek benoemt dat, maar heel kort, en het verandert niets aan de opbouw waarin zijn ervaring de leerzame is en de hunne het decor.</p>
+      <p>Een vierde bezwaar hoort bij het hele genre. Een boek van een erkende meester wordt binnen de eigen kring met eerbied ontvangen en zelden inhoudelijk tegengesproken; de recensies in de boeddhistische bladen zijn dan ook vrijwel zonder uitzondering instemmend. Wie een kritische bespreking van de leerstellingen zoekt, moet daarvoor buiten dit boek en buiten die bladen zijn.</p>
+      <p>Tot slot is er de rol van Helen Tworkov. Zij is een ervaren schrijver en oprichter van een boeddhistisch tijdschrift, en het boek leest merkbaar als een Amerikaans geredigeerd boek. Wat daarvan de gedachte van de auteur is en wat de vorm van de medeauteur, valt niet uit elkaar te halen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de leerhoofdstukken en de verhaalhoofdstukken desnoods apart; de afwisseling werkt niet voor iedere lezer.</li>
+        <li>Oefen het herkennen van de kloof tussen twee gedachten voordat de bardoleer over het sterven aan de orde komt; de rest van het betoog rust daarop.</li>
+        <li>Behandel het verslag van de bijna-dood als getuigenis van wat hij ervoer en niet als beschrijving van wat er na de dood gebeurt.</li>
+        <li>Neem een van de korte oefeningen, lichaamsscan, ademtelling of het onderzoeken van een gedachte, en houd die enkele weken vol in plaats van ze alle te proberen.</li>
+        <li>Zet bij een overgang in het eigen leven, een baan die eindigt of een verhouding die voorbij is, op papier wat er precies weg is en wat er nog niet is; dat is de oefening die het boek onder bardo verstaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>In Love with the World: A Monk's Journey Through the Bardos of Living and Dying</i>, Spiegel &amp; Grau, New York, 2019, 288 blz.; de paperback bij Random House Trade Paperbacks uit 2021 heeft ISBN 9780525512547, de Britse uitgave bij Macmillan ISBN 9781509899340. Van dit boek is geen Nederlandse vertaling verschenen. Wel is een eerder boek van Mingyur Rinpoche vertaald: <i>The Joy of Living</i> (met Eric Swanson) kwam in 2007 uit als <i>Je leven een bron van vreugde</i> in de vertaling van Meino Zeillemaker, ISBN 9789021583365.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In juni 2011 verliet Yongey Mingyur Rinpoche, zesendertig jaar oud en abt van meerdere kloosters, 's nachts zijn klooster in Bodhgaya met een afscheidsbrief en vrijwel niets anders. Hij begon aan een zwerfretraite die ruim vier jaar zou duren, als bedelmonnik, slapend in de buitenlucht.</p><p>Het boek beschrijft vooral de eerste weken. De trein naar Varanasi in de goedkoopste klasse, het opraken van het geld, de nachten op een stationsplein, de schaamte en de paniek van iemand die zijn hele leven verzorgd is geweest. Ongeveer drie weken na zijn vertrek wordt hij ernstig ziek door bedorven voedsel en komt hij dicht bij de dood.</p><p>Om die gebeurtenissen heen legt hij, met de Amerikaanse boeddhistische schrijver Helen Tworkov, de Tibetaanse leer van de bardo's uit: de tussentoestanden tussen wat voorbij is en wat nog niet is begonnen. Zijn stelling is dat die tussentoestanden niet pas na de dood optreden maar de hele dag door, en dat sterven daarom te oefenen valt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>Tibet</li><li>bardo</li><li>meditatie</li><li>bijna-doodervaring</li><li>India</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1754"><a href="1754.html">Het Tibetaanse boek van leven en sterven</a>. Sogyal Rinpoche bracht dezelfde bardoleer voor westerse lezers in kaart; wie de leerstukken uit dit boek verder wil volgen, vindt daar de volledige uiteenzetting.</li>
+          <li value="1829"><a href="1829.html">The Book of Joy</a>. De Dalai Lama en Tutu behandelen in gesprek dezelfde vraag, hoe iemand vreugde behoudt bij verlies, maar dan vanuit twee tradities in plaats van uit een persoonlijke beproeving.</li>
+          <li value="1846"><a href="1846.html">The 5-Minute Mindfulness Journal</a>. Rasheta brengt dezelfde oefeningen zonder de metafysica erbij; naast elkaar gelezen tonen ze wat er van de leer overblijft als de traditie eruit wordt gehaald.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

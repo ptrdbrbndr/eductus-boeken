@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door de bomen het bos zien &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De centrale bewering is dat transformatie zich niet laat leiden. Zij is een zelforganiserend proces, vergelijkbaar met wat in een ecosysteem gebeurt, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1861">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1861 &middot; Samenwerken en gesprek</p>
+    <h1>Door de bomen het bos zien</h1>
+    <p class="lede">Jan Bommerez en Rene Hoppenbrouwers, 2007</p>
+    <p class="stats">
+      <span><b>1468</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1861"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De centrale bewering is dat transformatie zich niet laat leiden. Zij is een zelforganiserend proces, vergelijkbaar met wat in een ecosysteem gebeurt, en de rol van leidinggevenden beperkt zich tot het scheppen van de omstandigheden waaronder zo'n proces kan ontstaan. Daaruit volgt een onderscheid dat het hele boek draagt: verandering speelt zich af op het niveau van gedrag, regels en structuren en kan wel worden aangestuurd, terwijl transformatie een sprong naar een andere ordening is die alleen van binnenuit kan komen. Wie transformatie behandelt als een project met een planning, krijgt daarom hooguit verandering terug. Achter die stelling ligt een tweede: het analytische denken dat delen los bekijkt kan systemen niet zien, en juist die blindheid houdt organisaties vast in problemen die zij zelf voortdurend opnieuw voortbrengen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het onzichtbare leren zien</h3>
+      <p>Het boek begint bij de vraag waarom mensen bepaalde dingen niet zien. Het antwoord luidt dat paradigma's bepalen wat waarneembaar is, en dat een nieuw paradigma nieuwe beelden nodig heeft voordat het toegankelijk wordt. Vandaar dat de auteurs zo veel met beelden uit de natuur werken.</p>
+      <p>De drie beginselen die zij aan het begin zetten zijn eenheid, verbondenheid en verscheidenheid. Het middengebied tussen mensen, de relatie zelf, is bij hen de plaats waar iets nieuws ontstaat. Dat gebied is in de gebruikelijke organisatietaal niet benoembaar, omdat die taal alleen mensen en functies kent.</p>
+      <h3>Gehelen in plaats van delen</h3>
+      <p>Vervolgens komen de voorbeelden van spontane afstemming. Miljoenen vuurvliegjes die na verloop van tijd gelijktijdig gaan flitsen zonder dat er een dirigent is, en het werk van Art Winfree aan gekoppelde oscillatoren, dienen als bewijs dat orde kan ontstaan uit onderlinge uitwisseling van informatie.</p>
+      <p>De termietenheuvel doet hetzelfde werk. Er is geen bouwtekening en geen bouwmeester, en toch ontstaat een constructie met werkende ventilatie en temperatuurregeling. De auteurs gebruiken dat om het idee te ondermijnen dat ordening van bovenaf moet komen.</p>
+      <h3>Systemen brengen eenvoud in complexiteit</h3>
+      <p>Hier introduceren de auteurs systeemdenken als tegenhanger van analytisch denken. De stelregel is dat structuur gedrag bepaalt: wie het gedrag van mensen wil begrijpen, moet kijken naar de terugkoppelingen waarin zij zitten, niet naar hun karakter.</p>
+      <p>Daar hoort een tweede gedachte bij, namelijk dat verhalen als onzichtbare structuur werken. Het verhaal dat een organisatie over zichzelf vertelt, stuurt gedrag zonder dat iemand het als regel herkent.</p>
+      <h3>Leiderschap en zelforganisatie</h3>
+      <p>Het praktijkgedeelte draait om de vraag wat leidinggeven dan nog inhoudt. Het antwoord is: condities scheppen. Het boek beschrijft de reorganisatie bij het Deense Oticon, waar de vaste indeling grotendeels werd losgelaten en werk zich rond projecten organiseerde, als voorbeeld van orde die uit ogenschijnlijke wanorde ontstaat.</p>
+      <p>Andere voorbeelden komen van buiten het bedrijfsleven. Jaime Lerner herbouwde Curitiba vanaf 1973 langs ecologische principes. Het echtpaar Sternin bestreed ondervoeding in Vietnam door binnen de dorpen zelf de gezinnen op te zoeken die het tegen de verwachting in wel goed deden, in plaats van een oplossing van buiten in te voeren. British Telecom liet netwerkverkeer routeren met algoritmen die aan mierenkolonies zijn ontleend, met een besparing die het boek op tweehonderdvijftig miljoen pond stelt.</p>
+      <h3>Relaties als potentieel</h3>
+      <p>Het middendeel is het meest speculatieve. De auteurs gebruiken taal uit de kwantummechanica om relaties te beschrijven: relaties zijn geen bezit maar mogelijkheid, en geven en nemen valt op dat niveau samen in delen. Hier ligt ook het onderscheid tussen transformatie en verandering het scherpst.</p>
+      <p>Deze bladzijden verklaren waarom een deel van de lezers afhaakt en een ander deel juist dit hoofdstuk als het beste aanwijst. De redenering is een analogie, en zij wordt niet als analogie ingeperkt.</p>
+      <h3>Levende gemeenschap en dialoog</h3>
+      <p>De laatste hoofdstukken gaan over wat een groep mensen moet doorlopen om werkelijk samen te kunnen werken. Het boek beschrijft vier fasen: schijngemeenschap, waarin iedereen beleefd blijft, chaos, waarin de verschillen naar buiten komen, leegte, waarin de deelnemers hun stellingnames loslaten, en gemeenschap.</p>
+      <p>Dialoog is daarvoor het middel. In navolging van David Bohm en William Isaacs onderscheiden de auteurs dialoog van discussie: dialoog onderzoekt gezamenlijk, discussie probeert te overtuigen. Het slothoofdstuk gaat over heelheid en de impliciete orde, opnieuw met Bohm als bron, en verlaat daarmee het terrein van de organisatiekunde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelforganisatie</td><td>Het ontstaan van ordening zonder centrale sturing, doordat delen van een systeem informatie uitwisselen en op elkaar reageren.</td></tr>
+          <tr><td class="term">Transformatie tegenover verandering</td><td>Verandering speelt zich af op het niveau van gedrag en structuur en is aanstuurbaar; transformatie is een sprong naar een andere ordening en komt van binnenuit.</td></tr>
+          <tr><td class="term">Systeemblindheid</td><td>Het onvermogen om de structuren en terugkoppelingen te zien waarin gedrag zich afspeelt, doordat de aandacht naar losse delen en personen gaat.</td></tr>
+          <tr><td class="term">Ecosysteem</td><td>Het beeld waarmee de auteurs organisaties, gezinnen en buurten beschrijven: een geheel van betrekkingen dat zichzelf in stand houdt.</td></tr>
+          <tr><td class="term">Dialoog tegenover discussie</td><td>Dialoog onderzoekt gezamenlijk zonder de uitkomst vooraf te bepalen; discussie is een wedstrijd tussen standpunten.</td></tr>
+          <tr><td class="term">De vier fasen van gemeenschapsvorming</td><td>Schijngemeenschap, chaos, leegte en gemeenschap, de volgorde die een groep volgens het boek moet doorlopen voordat er werkelijk gesproken wordt.</td></tr>
+          <tr><td class="term">Flow</td><td>Bij Bommerez de toestand waarin iemand gedragen wordt door iets groters dan hijzelf en waarin inspanning niet meer als strijd voelt.</td></tr>
+          <tr><td class="term">Structuur bepaalt gedrag</td><td>De stelregel uit het systeemdenken dat mensen in dezelfde structuur vergelijkbaar gedrag vertonen, ongeacht hun karakter.</td></tr>
+          <tr><td class="term">Impliciete orde</td><td>De aan David Bohm ontleende gedachte dat de waarneembare werkelijkheid ontvouwd is uit een onderliggende, opgevouwen ordening.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De voorbeelden zijn na te trekken en dat is de kracht van het boek. Curitiba onder Jaime Lerner, de aanpak van het echtpaar Sternin tegen ondervoeding in Vietnam, de reorganisatie van Oticon en het gebruik van aan mieren ontleende algoritmen bij British Telecom zijn alle vier buiten dit boek om gedocumenteerd. Het werk van Art Winfree aan gekoppelde oscillatoren, waarop het vuurvliegjesvoorbeeld rust, is gewoon wiskundige biologie.</p>
+      <p>De denklijn erachter komt uit bestaande literatuur die de auteurs ook noemen: systeemdenken, complexiteitstheorie, Margaret Wheatley over leiderschap en natuurkunde, David Bohm en William Isaacs over dialoog, en daarnaast Stephen Covey, Jim Collins, Otto Scharmer en Danah Zohar. Het boek is daarmee eerder een synthese dan een verslag van eigen onderzoek.</p>
+      <p>Wat het boek niet levert is een toets. De voorbeelden zijn achteraf gekozen omdat ze de stelling ondersteunen. Er staan geen gevallen in waarin zelforganisatie werd toegelaten en het misging, terwijl die er zijn. Zonder tegenvoorbeelden is niet vast te stellen wanneer de aanpak werkt en wanneer niet.</p>
+      <p>De verwijzingen naar de kwantummechanica hebben een andere status dan de rest. Zij zijn beeldspraak. Dat een deeltje pas bij meting een toestand aanneemt, zegt niets aantoonbaars over de betrekkingen tussen twee mensen in een vergaderzaal. Het boek markeert dat verschil niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de toetsbaarheid van de hoofdstelling. Als transformatie per definitie niet te leiden is, dan geldt elk geslaagd geval als bewijs voor zelforganisatie en elk mislukt geval als bewijs dat een leidinggevende heeft ingegrepen. Zo geformuleerd kan de bewering niet ontkracht worden, en daarmee verliest zij haar waarde als uitspraak over de werkelijkheid.</p>
+      <p>De kwantumtaal is het tweede punt. Begrippen uit de natuurkunde worden overgebracht op relaties en organisaties zonder dat wordt aangetoond dat die overdracht geldig is. Lezers die het boek waarderen noemen juist dat hoofdstuk het beste; lezers die afhaken doen dat hier. Ook welwillende besprekers noemen het werk aanvankelijk zweverig.</p>
+      <p>Van theorie naar praktijk blijft de stap vaag. Wie een afdeling leidt, leest wel dat hij condities moet scheppen, maar krijgt weinig te horen over wat dat betekent als de omzet tegenvalt, als er iemand ontslagen moet worden of als de eigenaar een besluit doordrukt. Macht, tegengestelde belangen en geld komen in dit boek nauwelijks voor, terwijl zij in organisaties bepalen wat er kan.</p>
+      <p>Ten slotte zijn de voorbeelden gedateerd. Oticon geldt sinds de jaren negentig als schoolvoorbeeld en het boek vertelt niet hoe die organisatievorm zich daarna heeft ontwikkeld. Ook Shell en Toyota worden aangehaald als bewijs dat grote ondernemingen zo werken, zonder dat wordt nagegaan hoeveel van hun handelen zich langs die lijn laat verklaren.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderzoek bij een hardnekkig probleem eerst welke terugkoppeling het in stand houdt, voordat er naar personen wordt gekeken.</li>
+        <li>Zoek binnen de eigen organisatie de plekken op waar het tegen de verwachting in al goed gaat, en kijk wat daar anders is.</li>
+        <li>Onderscheid in een overleg vooraf of het om onderzoeken gaat of om besluiten, en zeg welke van de twee het is.</li>
+        <li>Verwacht bij een groep die eerlijk gaat spreken een fase van wrijving, en behandel die niet als teken dat het proces mislukt.</li>
+        <li>Lees de hoofdstukken over de kwantumwereld als beeldspraak en niet als natuurkundige onderbouwing.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Ontdek de eenvoud onder de complexiteit in relaties en organisaties</i>. Eerste druk 2007, 351 blz., ISBN 9789086690466. Geheel herziene druk in 2016 bij MultiLibris, 327 blz., ISBN 9789460001963, ook als e-boek (326 blz., ISBN 9789460001895). Met een voorwoord van Herman Wijffels. Nederlandstalig origineel; er bestaat geen vertaling. Bommerez schreef eerder onder meer <i>Kun je een rups leren vliegen?</i> en <i>Minder moeten meer FLOW</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bommerez en Hoppenbrouwers stellen dat transformatie niet geleid kan worden. Het is een zelforganiserend proces, en het enige wat een leidinggevende kan doen is de omstandigheden scheppen waarin het uit zichzelf op gang komt. Wie het probeert af te dwingen, krijgt verandering op het niveau van regels en structuren, en dat is iets anders.</p><p>Om dat te laten zien halen de auteurs voorbeelden uit de natuur en uit de organisatiekunde: termietenheuvels die zonder bouwtekening ontstaan, vuurvliegjes die spontaan gelijk gaan flitsen, een stad die zich in dertig jaar herbouwt, een netwerkbedrijf dat routes optimaliseert met algoritmen die aan mierenkolonies zijn ontleend.</p><p>De tweede helft van het boek gaat over wat mensen onderling nodig hebben voordat zo'n proces kan ontstaan: eerlijke communicatie, het afleggen van maskers, en dialoog in de betekenis die David Bohm eraan gaf. Het boek eindigt bij heelheid en de impliciete orde, waarmee het ver buiten de organisatiekunde uitkomt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>organisatieverandering</li><li>zelforganisatie</li><li>systeemdenken</li><li>dialoog</li><li>leiderschap</li><li>complexiteit</li><li>gemeenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1723"><a href="1723.html">Minder moeten meer FLOW</a>. Bommerez werkte het begrip flow, dat hier terloops langskomt, in dat boek uit naar het dagelijks leven van de lezer.</li>
+          <li value="347"><a href="347.html">Complexity</a>. Waldrop beschrijft de complexiteitstheorie en het Santa Fe Institute waar zij vandaan komt, en geeft daarmee de wetenschappelijke basis onder wat Bommerez als beeldspraak gebruikt.</li>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi onderzocht flow met vragenlijsten en metingen, wat laat zien hoe ver Bommerez van die empirische invulling af staat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Positivity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fredrickson stelt dat positieve gevoelens niet de beloning zijn die je krijgt als het leven goed gaat, maar het gereedschap waarmee het goed gaat lopen.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1810">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1810 &middot; Brein en lichaam</p>
+    <h1>Positivity</h1>
+    <p class="lede">Barbara L. Fredrickson, 2009</p>
+    <p class="stats">
+      <span><b>1652</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1810"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fredrickson stelt dat positieve gevoelens niet de beloning zijn die je krijgt als het leven goed gaat, maar het gereedschap waarmee het goed gaat lopen. Angst en woede vernauwen de aandacht tot wat bedreigt, en dat is nuttig op het moment zelf. Vreugde, belangstelling, dankbaarheid en de andere positieve gevoelens doen het omgekeerde: zij verbreden de aandacht, laten meer mogelijkheden zien en zetten aan tot spelen, uitproberen en contact zoeken. Wat op korte termijn een vluchtige stemming is, bouwt op lange termijn een voorraad op aan vaardigheden, vriendschappen, gezondheid en veerkracht. Die voorraad helpt de volgende tegenslag doorstaan, waarna de beweging opnieuw omhoog kan. Positiviteit is in deze redenering een middel en geen doel, en zij werkt alleen wanneer zij gemeend is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat positiviteit is</h3>
+      <p>Fredrickson houdt het woord geluk buiten de deur en spreekt over positiviteit: de aanwezigheid van positieve gevoelens in het dagelijkse leven. Zij onderscheidt er tien die volgens haar onderzoek het vaakst voorkomen: vreugde, dankbaarheid, sereniteit, belangstelling, hoop, trots, vermaak, inspiratie, ontzag en liefde.</p>
+      <p>De gevoelens zijn kort en licht. Zij komen op door de manier waarop iemand een situatie duidt, en zij verdwijnen weer binnen minuten. Juist daarom gaat het volgens haar niet om de sterkte van een enkel gevoel maar om hoe vaak zulke momenten voorkomen.</p>
+      <h3>Verbreden</h3>
+      <p>Het eerste deel van de theorie heet verbreden. In het laboratorium krijgen deelnemers korte films te zien die vreugde, tevredenheid, angst of niets in het bijzonder oproepen, waarna hun aandacht en denken worden gemeten. Wie positief gestemd is, ziet meer van het geheel, komt met meer verschillende invallen en trekt de grens tussen de eigen groep en anderen minder scherp.</p>
+      <p>Fredrickson leidt daaruit af dat positiviteit letterlijk het blikveld vergroot. Het effect in zulke proeven is klein en duurt kort, wat zij ook zo opschrijft; haar punt is dat het richting geeft, niet dat een enkele film iemand verandert.</p>
+      <h3>Opbouwen</h3>
+      <p>Het tweede deel van de theorie heet opbouwen. Wie zijn blikveld vaker verbreedt, probeert meer, leert meer en spreekt meer mensen aan, en houdt daar iets aan over dat blijft wanneer de stemming allang weer weg is: vaardigheden, kennis, banden met anderen, een steviger gestel.</p>
+      <p>Het aardigste bewijsstuk hiervoor is een veldproef uit 2008 met 139 werkende volwassenen, waarvan de helft door loting begon met liefdevolle-vriendelijkheidsmeditatie. In de weken daarna namen hun dagelijkse positieve gevoelens toe, en met die gevoelens namen aandacht, doelgerichtheid en sociale steun toe en lichamelijke klachten af.</p>
+      <h3>Terugveren</h3>
+      <p>Positiviteit maakt volgens Fredrickson ook dat mensen sneller herstellen van spanning. In eerder werk met Robert Levenson liet zij zien dat proefpersonen bij wie eerst angst was opgewekt, hun hart en bloedvaten eerder tot rust brachten wanneer zij daarna een film te zien kregen die tevredenheid of vermaak opriep. Zij noemt dat het ongedaanmakende effect.</p>
+      <p>Na de aanslagen van 11 september 2001 ondervroeg zij studenten die zij daarvoor al had gemeten. De deelnemers met de meeste veerkracht waren niet minder bang, maar rapporteerden naast de angst ook dankbaarheid en genegenheid, en het waren die gevoelens die het verschil in depressieve klachten grotendeels verklaarden.</p>
+      <h3>De verhouding van drie tegen een</h3>
+      <p>Het middelpunt van het boek is een getal. Samen met Marcial Losada publiceerde Fredrickson in 2005 in <i>American Psychologist</i> de stelling dat er een kantelpunt bestaat: wie per negatief moment ongeveer drie positieve momenten heeft, komt in een opgaande beweging terecht, en wie daaronder blijft in een neergaande. Losada onderbouwde dat met een model uit de niet-lineaire dynamica, gevoed door observaties van zestig zakelijke overleggroepen.</p>
+      <p>Fredrickson vertaalt de stelling naar de praktijk. Negatieve momenten wegen zwaarder dan positieve, dus zijn er meerdere nodig om ertegenop te wegen, en de aanwijzing luidt: tel je momenten en breng de verhouding omhoog. Het boek levert daarvoor de Positivity Self Test, twintig vragen over de gevoelens van de afgelopen vierentwintig uur, ook via een website beschikbaar.</p>
+      <p>Zij waarschuwt daarbij tegen doorschieten. Negativiteit is nodig; wie haar helemaal weglaat, wordt ongeloofwaardig en verliest de grond onder zijn oordeel. Zij spreekt van gepaste negativiteit tegenover negativiteit die alleen maar gewoonte is.</p>
+      <h3>De verhouding verhogen</h3>
+      <p>Het tweede deel van het boek is praktisch en valt in twee helften uiteen: minder negativiteit en meer positiviteit. Tot de eerste horen het aanvechten van eigen zwartgallige gedachten, het doorbreken van piekeren, het herkennen van de onderwerpen die steeds ontsporen, en minder gewelddadig nieuws en vermaak.</p>
+      <p>Tot de tweede horen aandachtig aanwezig zijn, goed doen voor een ander, tellen wat er goed ging, dankbaarheid uitspreken, de eigen sterke kanten inzetten, naar buiten gaan, banden met anderen onderhouden en mediteren. De aanwijzingen zijn bescheiden van omvang; Fredrickson benadrukt dat het om gemeende gevoelens gaat en dat een gespeelde glimlach niets oplevert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Positiviteit</td><td>Fredricksons verzamelnaam voor de positieve gevoelens zoals ze in het dagelijkse leven voorkomen, gemeten naar hoe vaak ze optreden en niet naar hoe hevig ze zijn.</td></tr>
+          <tr><td class="term">Verbreden en opbouwen</td><td>De theorie dat positieve gevoelens eerst het blikveld en het gedragsrepertoire verruimen en daardoor op termijn blijvende hulpbronnen opleveren.</td></tr>
+          <tr><td class="term">De tien vormen</td><td>Vreugde, dankbaarheid, sereniteit, belangstelling, hoop, trots, vermaak, inspiratie, ontzag en liefde, de gevoelens die volgens haar metingen het vaakst voorkomen.</td></tr>
+          <tr><td class="term">Positiviteitsratio</td><td>De verhouding tussen positieve en negatieve momenten over een periode, in het boek gepresenteerd met een kantelpunt rond drie tegen een.</td></tr>
+          <tr><td class="term">Opgaande spiraal</td><td>De beweging waarin positiviteit hulpbronnen oplevert die op hun beurt weer positiviteit mogelijk maken.</td></tr>
+          <tr><td class="term">Het ongedaanmakende effect</td><td>De bevinding dat positieve gevoelens de lichamelijke naschok van angst sneller doen wegebben dan een neutrale toestand.</td></tr>
+          <tr><td class="term">Gepaste negativiteit</td><td>Negatieve gevoelens die bij de situatie horen en die volgens haar nodig zijn, tegenover negativiteit die alleen gewoonte of gemakzucht is.</td></tr>
+          <tr><td class="term">Gemeende positiviteit</td><td>Het onderscheid tussen gevoelens die er werkelijk zijn en een opgezette vrolijkheid, die volgens haar geen van de gemeten gevolgen heeft.</td></tr>
+          <tr><td class="term">Positivity Self Test</td><td>De vragenlijst van twintig gevoelswoorden over de afgelopen vierentwintig uur waarmee de lezer zijn eigen verhouding uitrekent.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De brede lijn van het boek rust op eigen laboratoriumwerk dat vanaf 1998 in vaktijdschriften is verschenen, aangevuld met werk van anderen. Het gaat om korte proeven met filmfragmenten, aandachtstaken en vragenlijsten, om dagboekstudies over enkele weken en om een enkele veldproef met loting, die uit 2008 met de meditatie. Fredrickson schrijft toegankelijk maar verwijst per bewering naar de artikelen, wat het naslaan mogelijk maakt.</p>
+      <p>De zwakke plek zit in de kern van de verkoop van het boek: het getal. De verhouding van drie tegen een komt uit het artikel met Losada uit 2005, waarin diens model uit de niet-lineaire dynamica op gegevens van zestig overleggroepen werd losgelaten. In 2013 lieten Nicholas Brown, Alan Sokal en Harris Friedman in hetzelfde tijdschrift zien dat die toepassing nergens op sloeg: de vergelijkingen die Losada gebruikte, oorspronkelijk uit de stromingsleer, waren op dit soort waarnemingen niet van toepassing, en de parameters waren niet uit de gegevens afgeleid.</p>
+      <p><i>American Psychologist</i> trok in september 2013 het modelmatige deel van dat artikel in. Fredrickson schreef een antwoord waarin zij het wiskundige deel liet vallen en erkende dat zij het model niet zelf had kunnen beoordelen, maar volhield dat de empirische aanwijzing voor een gunstige verhouding overeind bleef. Carol Nickerson betoogde in 2018 dat ook dat laatste niet houdbaar is, omdat de gegevens waarop het rust een drempelwaarde niet kunnen aantonen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek verkocht een precisie die er niet was. Een getal met vier decimalen, 2,9013, kreeg de status van natuurconstante en dook jarenlang op in trainingen, managementboeken en beleidsstukken. Dat het uiteindelijk deels is ingetrokken, pleit voor de zelfcorrectie van het vak en tegen het boek, dat nog steeds met de verhouding op de omslag te koop is.</p>
+      <p>Ook los van dat getal is de onderbouwing van de bredere theorie zwakker dan de toon suggereert. Veel van de aangehaalde proeven stammen uit de jaren voordat de psychologie haar herhaalbaarheidsprobleem onder ogen zag, hebben kleine aantallen deelnemers en meten korte effecten van filmfragmenten. Latere pogingen tot herhaling van verwante bevindingen vallen wisselend uit, en een deel van Fredricksons eigen vervolgwerk, zoals de studie uit 2013 met Steven Cole over positieve gevoelens en genexpressie, is in de vakliteratuur bestreden.</p>
+      <p>De richting van de oorzaak blijft in veel van het aangevoerde werk open. Dat wie zich beter voelt meer contacten en een betere gezondheid heeft, laat zich even goed omgekeerd lezen. De veldproef met meditatie is het sterkste tegenwicht, omdat daar is geloot, maar het is er een, met 139 mensen uit een enkel bedrijf.</p>
+      <p>Verder legt het boek de verantwoordelijkheid voor de stemming vrijwel geheel bij de lezer. Armoede, ploegendienst, schulden, ziekte en een baas die niet deugt komen vooral voor als omstandigheden die het tellen bemoeilijken, niet als oorzaken die opgelost moeten worden. Fredrickson is zich daarvan bewust en zegt het ook, maar de aanwijzingen die zij geeft blijven binnen het hoofd van de lezer.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd twee weken bij hoeveel positieve en negatieve momenten er op een dag waren, en gebruik de reeks om te zien wat er verandert, niet om een drempel te halen.</li>
+        <li>Kies bij het verhogen van positiviteit voor herhaling boven hevigheid: vaker een klein moment werkt in dit onderzoek beter dan af en toe een groot.</li>
+        <li>Schrap eerst wat aan de negatieve kant gewoonte is geworden, zoals piekeren en gewelddadig nieuws voor het slapen, voordat er iets aan de positieve kant bij komt.</li>
+        <li>Neem de verhouding van drie tegen een niet als norm; behandel haar als de aanwijzing dat negatieve momenten zwaarder wegen en dus vaker tegenwicht nodig hebben.</li>
+        <li>Let op of een gevoel gemeend is; van opgezette vrolijkheid is in dit onderzoek geen van de gevolgen gemeten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Positivity: Groundbreaking Research Reveals How to Embrace the Hidden Strength of Positive Emotions, Overcome Negativity, and Thrive</i> (Crown, New York, 2009, ISBN 9780307393739); de pocket kreeg de ondertitel <i>Top-Notch Research Reveals the 3-to-1 Ratio That Will Change Your Life</i>. De Nederlandse uitgave verscheen als <i>Positivity. Ontdek de kracht van positieve emoties</i> in de vertaling van Cornelis van Ginneken, Het Spectrum, Houten, 2009, 303 blz., ISBN 9789049102180. Fredrickson is hoogleraar psychologie aan de University of North Carolina at Chapel Hill; haar tweede publieksboek is <i>Love 2.0</i> (2013).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Fredrickson onderzoekt sinds de jaren negentig wat positieve gevoelens doen. Haar antwoord: waar angst en woede het blikveld vernauwen tot de dreiging, verbreden vreugde, belangstelling en dankbaarheid het blikveld, en dat verbreden bouwt op den duur iets op. Aandacht, vaardigheden, vrienden en gezondheid nemen toe bij wie vaker positief gestemd is.</p><p>Het boek onderscheidt tien vormen van positiviteit, van vreugde en dankbaarheid tot ontzag en liefde, en levert een zelftest waarmee de lezer zijn verhouding tussen positieve en negatieve momenten bijhoudt. Het tweede deel geeft manieren om negativiteit te verminderen en positiviteit te vergroten, van het aanvechten van eigen gedachten tot meditatie.</p><p>Het getal waarmee het boek werd verkocht, de drempel van drie tegen een, is in 2013 onderuitgegaan. De wiskunde waarop het rustte bleek onbruikbaar en werd deels ingetrokken. Wat staande blijft is het bredere idee over positieve emoties, niet de precieze verhouding op de omslag.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>positieve psychologie</li><li>emoties</li><li>veerkracht</li><li>meditatie</li><li>positiviteitsratio</li><li>replicatie</li><li>onderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft hoe hetzelfde vak met vragenlijsten en korte proeven over gevoel en oordeel werkt, en waar de valkuilen van dat gereedschap liggen.</li>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi bouwde eerder een theorie over aandacht en welbevinden op eigen metingen; dat levert een vergelijking op met Fredricksons manier van meten.</li>
+          <li value="1525"><a href="1525.html">Compassievol leven</a>. De liefdevolle-vriendelijkheidsmeditatie die in Fredricksons veldproef werd gebruikt, staat hier als oefenprogramma uitgewerkt.</li>
+          <li value="946"><a href="946.html">The Lady Tasting Tea</a>. Salsburg vertelt hoe statistische toetsen zijn ontstaan; dat is de achtergrond waartegen de val van de positiviteitsratio te begrijpen is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

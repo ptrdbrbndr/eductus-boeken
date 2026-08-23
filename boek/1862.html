@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Symbiose und Autonomie &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ruppert stelt dat de meeste psychische problemen terug te voeren zijn op een verstoring in de allereerste, symbiotische fase tussen moeder en kind, en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1862">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1862 &middot; Brein en lichaam</p>
+    <h1>Symbiose und Autonomie</h1>
+    <p class="lede">Franz Ruppert, 2010</p>
+    <p class="stats">
+      <span><b>1542</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1862"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ruppert stelt dat de meeste psychische problemen terug te voeren zijn op een verstoring in de allereerste, symbiotische fase tussen moeder en kind, en dat die verstoring de status van trauma heeft. Hij noemt haar symbiosetrauma. Waar hij eerder aannam dat een hechtingstrauma te helen viel door verzoening met de ouders, ziet hij dat inmiddels als een omweg die de illusie in stand houdt. De splitsing die het symbiosetrauma veroorzaakt treedt zo vroeg op dat het kind het contact met zijn eigen levensimpulsen verliest en zijn aandacht permanent naar buiten richt. Daaruit verklaart hij de vraag die het boek opent: waarom juist de kinderen die het slechtst zijn behandeld zich het minst van hun ouders kunnen losmaken. Genezing bestaat volgens hem niet uit iets wat van buiten komt, maar uit het herkennen van de eigen afgesplitste delen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat symbiose is</h3>
+      <p>Ruppert begint bij de biologische betekenis van symbiose: wederzijds voordeel, maar ook jager en prooi, concurrentie en arbeidsverdeling. Vandaar stapt hij over op wat hij oergevoelens noemt en op spiegelneuronen als lichamelijke basis voor het aanvoelen van een ander.</p>
+      <p>Daarna behandelt hij symbiose als psychologisch begrip, langs Erich Fromm, Margaret Mahler en Martin Dornes, en zet hij uiteen waar hij het van hen overneemt en waar hij verder gaat. Het gaat hem om de vaststelling dat symbiotische behoeften wezenlijk zijn en niet iets om overheen te groeien.</p>
+      <h3>Wat autonomie is</h3>
+      <p>Tegenover symbiose zet Ruppert autonomie, die hij niet gelijkstelt aan onafhankelijkheid. Hij onderscheidt uiterlijke van innerlijke vrijheid en beschrijft de ik-vorming als een proces dat op de symbiotische ervaring rust.</p>
+      <p>Het scherpst is hier zijn onderscheid tussen pseudoautonomie en echte autonomie. Pseudoautonomie is zelfstandigheid die op afweer berust: iemand houdt anderen op afstand omdat nabijheid gevaarlijk is geworden, en presenteert dat als zelfstandigheid.</p>
+      <h3>Constructieve en destructieve vormen van symbiose</h3>
+      <p>Ruppert onderscheidt symbiotische betrekkingen die groei mogelijk maken van symbiotische betrekkingen die de deelnemers vasthouden. Voor de ouder-kindrelatie werkt hij dat onderscheid apart uit, met een groeispiraal als beeld voor het geslaagde verloop.</p>
+      <p>De destructieve vormen kenmerken zich doordat de een de gevoelens van de ander draagt. Wie zich niet mag losmaken, blijft dienstbaar aan een behoefte die niet de zijne is.</p>
+      <h3>Trauma en de gespleten psyche</h3>
+      <p>Het theoretische midden van het boek is Rupperts model van de gesplitste persoonlijkheid. Na een trauma bestaat iemand volgens hem uit gezonde delen, getraumatiseerde delen en overlevingsdelen. De overlevingsdelen houden het trauma buiten het bewustzijn en zijn juist daarom zo hardnekkig.</p>
+      <p>Daarnaast onderscheidt hij vier soorten trauma: existentietrauma, verliestrauma, hechtingstrauma en hechtingssysteemtrauma. Het symbiosetrauma komt daar in dit boek bij als het vroegste en meest bepalende geval, en krijgt een eigen hoofdstuk.</p>
+      <h3>Symbiotische verstrikkingen</h3>
+      <p>Het langste hoofdstuk past het begrip toe op een reeks terreinen: broers en zussen, paren, hele gezinnen, en vervolgens naties, sportverenigingen en het omgaan met geld. Daarna komen dader-slachtoffer-verhoudingen, verslaving, en wat de psychiatrie psychose en schizofrenie noemt.</p>
+      <p>Het hoofdstuk sluit af met lichamelijke ziekten, waarbij Ruppert de aanhalingstekens die hij bij psychose en schizofrenie plaatst ook hier gebruikt. Die reikwijdte is het punt waarop het boek het meest kwetsbaar is: er blijft weinig menselijk lijden over dat niet onder de verklaring valt.</p>
+      <h3>Bindingsgerichte trauma-opstellingen</h3>
+      <p>De behandelhoofdstukken beschrijven hoe Ruppert werkt. Hij begint bij luisteren zonder oordeel en het opbouwen van vertrouwen, en zet vervolgens uiteen hoe hij van de familieopstelling is opgeschoven naar de trauma-opstelling.</p>
+      <p>Daarbinnen is het werken met het anliegen zijn belangrijkste vernieuwing: de client formuleert zelf een zin of een verlangen, en de woorden daarvan worden door plaatsvervangers vertegenwoordigd in plaats van familieleden. Ruppert beschrijft ook de rol van de therapeut en het gebruik van opstellingen in individuele zittingen.</p>
+      <h3>Losmaking en slot</h3>
+      <p>Het voorlaatste hoofdstuk is met tweeentwintig onderdelen het meest praktische van het boek. Het behandelt onder meer het opgeven van de verwachting van snelle genezing, het afzien van overgenomen gevoelens, het naar voren halen van gezonde delen, het ontwikkelen van een gezond lichaamsgevoel en een gezonde wil, het verlaten van verstrikkende partners en het afstand nemen van traumatiserende ouders.</p>
+      <p>Het slothoofdstuk heet Hoop. Daarin plaatst Ruppert zijn werk in een breder verband: zolang onverwerkte traumatiseringen van generatie op generatie worden doorgegeven, blijven de patronen zich herhalen; het doorbreken ervan bij een enkeling heeft daarom gevolgen die verder reiken dan die persoon.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Symbiosetrauma</td><td>Het oertrauma dat volgens Ruppert ontstaat wanneer het vroege symbiotische proces tussen moeder en kind mislukt, en dat een eerste splitsing in het zieleleven van het kind veroorzaakt.</td></tr>
+          <tr><td class="term">Symbiose-autonomieconflict</td><td>De spanning tussen de behoefte aan nabijheid en de behoefte aan een eigen begrenzing, die Ruppert als de grondvraag van het boek neemt.</td></tr>
+          <tr><td class="term">Gezonde delen</td><td>Die delen van de persoonlijkheid die na een traumatisering intact zijn gebleven en waarmee volgens Ruppert het herstel moet beginnen.</td></tr>
+          <tr><td class="term">Getraumatiseerde delen</td><td>De delen die de gevoelens van het oorspronkelijke trauma dragen en daarom uit het bewustzijn worden gehouden.</td></tr>
+          <tr><td class="term">Overlevingsdelen</td><td>De delen die het trauma afgeschermd houden door vermijding, verdoving of controle, en die zich tegen therapeutische pogingen tot losmaking verzetten.</td></tr>
+          <tr><td class="term">Symbiotische verstrikking</td><td>De toestand waarin iemand gevoelens draagt die niet van hemzelf maar van een ouder of ander familielid afkomstig zijn.</td></tr>
+          <tr><td class="term">Pseudoautonomie</td><td>Zelfstandigheid die op afweer van nabijheid berust en die Ruppert onderscheidt van werkelijke autonomie.</td></tr>
+          <tr><td class="term">Werken met het anliegen</td><td>Rupperts werkwijze waarbij niet familieleden maar de woorden van de zelf geformuleerde vraag van de client door plaatsvervangers worden vertegenwoordigd.</td></tr>
+          <tr><td class="term">Bindingsgerichte trauma-opstelling</td><td>De uit de familieopstelling ontwikkelde methode waarmee Ruppert hechtings- en symbiosetrauma zichtbaar wil maken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op Rupperts eigen praktijk. De onderbouwing bestaat uit gevalsbeschrijvingen uit zijn opstellingsbijeenkomsten, aangevuld met verslagen van wat plaatsvervangers voelden en zeiden. Er is geen controlegroep, geen voor- en nameting en geen navolging op termijn. Ruppert presenteert zijn uitgangspunten ook zelf als werkhypothesen, wat eerlijk is maar de reikwijdte van zijn conclusies niet inperkt.</p>
+      <p>Wat hij overneemt uit de vakliteratuur is deels degelijk. Hechtingstheorie, de gevolgen van vroege verwaarlozing en de overdracht van onverwerkte ervaringen tussen generaties zijn onderwerpen met een aanzienlijke onderzoeksbasis. Ook zijn beroep op Fromm, Mahler en Dornes is correct weergegeven; hij zegt erbij waar hij van hen afwijkt.</p>
+      <p>Het beroep op spiegelneuronen als grondslag voor symbiotisch aanvoelen is aanmerkelijk zwakker. Dat onderzoek is sinds 2010 sterk gerelativeerd, en de stap van neuronen die vuren bij het zien van een handeling naar het overnemen van andermans gevoelens is niet gelegd.</p>
+      <p>De opstellingsmethode zelf heeft geen aangetoonde werkzaamheid. Er zijn enkele kleine studies naar familieopstellingen, met kleine aantallen deelnemers, korte navolging en zonder blindering; de bindingsgerichte trauma-opstelling die Ruppert hier beschrijft is daarmee niet onderzocht. De beslissende beweringen van het boek, dat wat plaatsvervangers waarnemen iets zegt over het trauma van de client, hangen dus in de lucht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>In een uitgebreide Duitse bespreking noemt de pedagoge Margot Dorr vier bezwaren, en die zijn treffend. Het begrip symbiose is bij Ruppert te breed: door de nadruk op wederzijdse afhankelijkheid raakt uit beeld dat de verhouding tussen zuigeling en moeder juist ongelijk is. Het traumabegrip is opgerekt tot bijna elke pijnlijke ervaring, waardoor het gewicht van werkelijke geweldstraumatisering vervlakt. De theoretische inbedding ontbreekt, met name de verbinding met Winnicott, wiens omgevingsfalen dicht bij Rupperts stelling ligt. En door alles binnen de persoon te lokaliseren, in delen en splitsingen, valt het maatschappelijke antwoord weg.</p>
+      <p>Daar komt de reikwijdte bij. Wanneer relatieproblemen, verslaving, angst, somberheid, psychose, schizofrenie en lichamelijke ziekten alle uit hetzelfde oertrauma worden verklaard, verklaart de theorie alles en daarmee niets. Voor psychose en schizofrenie is de bewering bovendien in strijd met wat over erfelijke aanleg en hersenontwikkeling bekend is, en Ruppert zet die diagnoses tussen aanhalingstekens zonder dat bewijs te weerleggen.</p>
+      <p>Het praktische advies om afstand te nemen van traumatiserende ouders en verstrikkende partners te verlaten is ingrijpend en wordt gegeven zonder onderscheid naar de ernst van het geval. Wie zijn eigen situatie in dit boek herkent, krijgt geen maatstaf aangereikt om te bepalen of hij tot die groep behoort.</p>
+      <p>Ten slotte legt de methode veel gewicht op de aanwezigheid van de begeleider. Wat een plaatsvervanger voelt en zegt komt tot stand in een groep die de theorie al kent, waarin een deskundige de betekenis duidt en waarin voor deelnemers ongemakkelijk is om af te wijken. Ruppert bespreekt de rol van de therapeut wel, maar niet als bron van sturing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als beschrijving van een behandelmethode en een werkhypothese, niet als diagnose van de eigen geschiedenis.</li>
+        <li>Onderscheid Rupperts drie soorten persoonlijkheidsdelen van elkaar voordat er conclusies aan verbonden worden, want juist het overlevingsdeel presenteert zich als de gezonde kant.</li>
+        <li>Toets het begrip pseudoautonomie aan de eigen praktijk: zelfstandigheid die berust op het vermijden van nabijheid ziet er van buiten hetzelfde uit als zelfstandigheid die dat niet doet.</li>
+        <li>Ga bij het overwegen van een opstelling na welke opleiding en welke waarborgen de begeleider heeft, en wat er gebeurt als een bijeenkomst iets losmaakt dat niet is af te ronden.</li>
+        <li>Leg het advies over contactbreuk met ouders voor aan een behandelaar die de persoonlijke situatie kent, voordat er iets onomkeerbaars gebeurt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Symbiose und Autonomie. Symbiosetrauma und Liebe jenseits von Verstrickungen</i>, Klett-Cotta, Stuttgart, 2010, reeks Leben Lernen 234, 287 blz., ISBN 9783608890990. Nederlands als <i>Symbiose en autonomie. Een weg uit symbiosetrauma en destructieve afhankelijkheid</i>, vertaald door Margriet Wentink en Wim Wassink, Akasha, Eeserveen, 2010, 317 blz., ISBN 9789460150302; latere drukken bij Uitgeverij Mens!, zesde druk 320 blz., ISBN 9789463160186. Het is het vijfde boek in Rupperts reeks, na onder meer <i>Verwirrte Seelen</i> (2002), <i>Trauma, Bindung und Familienstellen</i> (2005) en <i>Seelische Spaltung und innere Heilung</i> (2007), die alle in het Nederlands zijn verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Franz Ruppert, psycholoog in Munchen en psychotherapeut, stelt dat het vroegste contact tussen moeder en kind zelf traumatisch kan verlopen. Wanneer de moeder door haar eigen geschiedenis niet beschikbaar is, ontstaat bij het kind een splitsing die hij symbiosetrauma noemt.</p><p>Uit dat oertrauma leidt hij vervolgens een groot deel van de menselijke problematiek af: relatieproblemen, verslaving, angst, somberheid, en volgens hem ook wat de psychiatrie psychose en schizofrenie noemt. Het kind richt zijn aandacht weg van zichzelf naar de ander en vormt geen eigen identiteit.</p><p>De laatste hoofdstukken beschrijven de behandeling: de bindingsgerichte trauma-opstelling en het werken met wat de client als eigen vraag inbrengt. Ruppert werkt met plaatsvervangers, zoals in familieopstellingen, maar niet meer met het familiesysteem als geheel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>trauma</li><li>hechting</li><li>symbiose</li><li>opstellingen</li><li>psychotherapie</li><li>moeder-kindrelatie</li><li>afhankelijkheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk behandelt vroege traumatisering met onderzoek en beeldvormend werk erbij, en laat zien hoe ver Ruppert van die empirische verantwoording af staat.</li>
+          <li value="1914"><a href="1914.html">De kunst van het helpen</a>. Hellinger legde de basis van de opstellingenpraktijk waaruit Ruppert voortkomt en waarvan hij zich met de trauma-opstelling nadrukkelijk losmaakt.</li>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller beschrijven dezelfde vroege hechting in termen van hechtingsstijlen, met vragenlijstonderzoek in plaats van opstellingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inner Engineering &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sadhguru stelt dat welbevinden geen gevolg van omstandigheden is maar een innerlijke instelling waarover een mens zeggenschap kan krijgen, op dezelfde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1826">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1826 &middot; Filosofie en mystiek</p>
+    <h1>Inner Engineering</h1>
+    <p class="lede">Sadhguru (Jaggi Vasudev), 2016</p>
+    <p class="stats">
+      <span><b>1730</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1826"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sadhguru stelt dat welbevinden geen gevolg van omstandigheden is maar een innerlijke instelling waarover een mens zeggenschap kan krijgen, op dezelfde manier waarop een ingenieur zeggenschap heeft over een machine die hij begrijpt. Vrijwel al het lijden van de mens wordt volgens hem door hemzelf gemaakt, in het hoofd, over gebeurtenissen die voorbij zijn of nog niet hebben plaatsgevonden. Wie het onderscheid leert zien tussen wat hij is en wat hij verzameld heeft, lichaam, gedachten, gewoonten en herinneringen, kan zijn binnenwereld opnieuw inrichten. Yoga is in zijn uitleg geen lichaamsoefening en geen geloof, maar de techniek waarmee dat gebeurt. Vreugde zou daarbij niet het einddoel zijn maar de uitgangstoestand waarin een onbelast mens verkeert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Toen ik mijn verstand verloor</h3>
+      <p>Het boek begint met het levensverhaal. Vasudev groeide op in Mysore, verliet de universiteit met een graad in Engelse letterkunde, reed op een Britse motorfiets door Zuid-India en bouwde bedrijven op. Op vijfentwintigjarige leeftijd zat hij op een rots op de Chamundiheuvel en kreeg daar een ervaring die volgens hem enkele uren duurde en die hij aanvankelijk niet kon plaatsen.</p>
+      <p>Hij vertelt dat de ervaring zich herhaalde en zich liet oproepen, en dat hij daarna zijn bedrijven overdroeg om te gaan lesgeven. Dat verhaal doet in het boek dubbel werk: het legitimeert de schrijver en het levert de hoofdbewering dat deze toestand geen gave is maar iets wat aan te leren valt.</p>
+      <h3>De uitweg loopt naar binnen</h3>
+      <p>Het volgende deel keert de gebruikelijke redenering om. Mensen zoeken welbevinden door omstandigheden te veranderen: werk, partner, woonplaats, bezit. Sadhguru wijst erop dat de ervaring van welbevinden zich binnen het lichaam voltrekt en dat de omstandigheden daar hooguit aanleiding voor zijn.</p>
+      <p>Zijn conclusie is dat de mens vrijwel de enige soort is die lijdt aan wat niet gebeurt. Wie zijn eigen denken bestuurt in plaats van erdoor bestuurd te worden, houdt volgens hem alleen het lijden over dat door de werkelijkheid wordt opgelegd, en dat is minder dan de meeste mensen dragen.</p>
+      <h3>Karma als opgeslagen neiging</h3>
+      <p>In het derde deel legt hij karma uit, en hij haalt daar nadrukkelijk de moraal uit. Karma is in zijn uitleg geen beloning en geen straf van een instantie, maar het residu van alles wat een mens heeft gedaan en meegemaakt, opgeslagen in lichaam en geest als neiging. Die neigingen bepalen wat iemand als vanzelf doet, en daarmee zijn bestemming.</p>
+      <p>Wie het residu ziet als iets wat hij zelf heeft aangelegd, kan er ook aan werken. Verantwoordelijkheid omschrijft hij daarbij als het vermogen te reageren, niet als schuld of plicht. Dat onderscheid keert door het hele boek terug.</p>
+      <h3>Geen grens, geen last</h3>
+      <p>Het vierde deel gaat over identificatie. Wat mensen zichzelf noemen is volgens Sadhguru een verzameling: een lichaam dat uit voedsel is opgebouwd, een geest die uit indrukken bestaat, een naam en een geschiedenis. Zolang iemand zich daarmee gelijkstelt, worden de grenzen van die verzameling zijn grenzen.</p>
+      <p>Hier introduceert hij de vijf koshas, de omhulsels uit de yogatraditie: het lichaam van voedsel, het lichaam van adem of energie, het mentale lichaam, het onderscheidende lichaam en het lichaam van gelukzaligheid. Het tweede deel van het boek is naar die indeling geordend.</p>
+      <h3>En nu, yoga</h3>
+      <p>Het slot van het eerste deel behandelt wat yoga is. De term betekent vereniging: het opheffen van de ervaren afstand tussen de waarnemer en wat hij waarneemt. De lichaamshoudingen zijn daarvan een tak, en in Sadhguru's uitleg niet de belangrijkste.</p>
+      <p>Hij zet zich af tegen geloof als grondslag. Een yogi is in zijn omschrijving iemand die iets weet omdat hij het heeft meegemaakt. Wat de lezer wordt gevraagd is geen instemming maar herhaalde oefening, met het aanbod dat het zich laat narekenen aan het eigen lichaam.</p>
+      <h3>Lichaam, geest, energie</h3>
+      <p>Het tweede deel is praktisch. Bij lichaam gaan de hoofdstukken over voedsel, slaap en houding, met aanwijzingen die grotendeels uit de ayurveda en de hathayoga komen: eten in overeenstemming met wat het lichaam meldt, slapen naar behoefte in plaats van naar afspraak, het lichaam soepel houden.</p>
+      <p>Bij geest beschrijft hij gedachten als iets wat gebeurt en niet als iets wat iemand doet. De oefeningen mikken op afstand tot dat proces, tot het punt waarop het denken alleen nog wordt ingeschakeld wanneer het nodig is.</p>
+      <p>Bij energie komt prana ter sprake, de levensadem die volgens de traditie door het lichaam loopt en die met adembeheersing te sturen zou zijn. Hier verwijst het boek naar de kriya's die de Isha Foundation onderwijst, waaronder de Isha Kriya en de Shambhavi Mahamudra, en naar de cursussen waarin die worden overgedragen.</p>
+      <h3>Vreugde als beginpunt</h3>
+      <p>Het laatste hoofdstuk draait de gebruikelijke volgorde nog eens om. Vreugde is in dit boek niet de opbrengst van een geslaagd leven maar de toestand waarin een mens verkeert wanneer er niets in de weg staat.</p>
+      <p>Daarmee sluit de redenering: als vreugde het uitgangspunt is, dan is de vraag niet hoe die te bereiken valt maar wat haar tegenhoudt. Het antwoord van het boek luidt: de opgeslagen neigingen en de identificatie met wat men verzameld heeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Yoga</td><td>Vereniging, het opheffen van de ervaren afstand tussen waarnemer en waargenomene, waarvan de lichaamshoudingen slechts een tak vormen.</td></tr>
+          <tr><td class="term">Inner engineering</td><td>Sadhguru's eigen term voor het bewust herinrichten van de binnenwereld, naar het voorbeeld van de ingenieur die een machine begrijpt en bijstelt.</td></tr>
+          <tr><td class="term">Karma</td><td>Het residu van eerdere handelingen en indrukken, opgeslagen als neiging, zonder de morele lading van beloning of straf.</td></tr>
+          <tr><td class="term">Koshas</td><td>De vijf omhulsels waaruit een mens volgens de yogatraditie bestaat, van het lichaam van voedsel tot het lichaam van gelukzaligheid.</td></tr>
+          <tr><td class="term">Sadhana</td><td>Oefening of gereedschap; de praktische aanwijzingen die in het boek na elk onderdeel volgen.</td></tr>
+          <tr><td class="term">Prana</td><td>De levensadem of energie die volgens de traditie door het lichaam stroomt en die met ademoefening te beinvloeden zou zijn.</td></tr>
+          <tr><td class="term">Verantwoordelijkheid</td><td>Bij Sadhguru het vermogen om te reageren op wat zich voordoet, uitdrukkelijk niet schuld of verplichting.</td></tr>
+          <tr><td class="term">Guru</td><td>Geen leraar met een leer maar volgens zijn omschrijving iemand die een deur opent; de leerling moet er zelf doorheen.</td></tr>
+          <tr><td class="term">Shambhavi Mahamudra</td><td>De ademhalings- en meditatiereeks die de Isha Foundation in haar cursussen onderwijst en waarnaar het boek verwijst.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee dingen: de ervaring van de schrijver en een oude traditie. Voor het eerste bestaat geen andere getuige dan hijzelf. Voor het tweede geldt dat de yogatraditie een uitgewerkt stelsel is, met een tekstuele kern in de yogasoetra's van Patanjali, maar dat de ouderdom van een stelsel niets zegt over de juistheid van de beweringen erin.</p>
+      <p>Verwijzingen naar wetenschappelijk onderzoek komen in de tekst nauwelijks voor en een notenapparaat waarin een lezer een bewering kan natrekken ontbreekt. Dat is een keuze: Sadhguru vraagt de lezer niet om instemming op grond van gezag of onderzoek maar om de oefeningen te doen en te kijken wat er gebeurt.</p>
+      <p>Er is inmiddels onderzoek gepubliceerd naar deelnemers aan Isha-programma's, met uitkomsten over slaap, stemming en stressmaten. Dat werk is grotendeels afkomstig van onderzoekers met een band met de organisatie, werkt vaak zonder controlegroep of met deelnemers die zichzelf hebben aangemeld, en meet doorgaans kort na afloop. Als aanwijzing is dat bruikbaar, als bewijs voor de beweringen in dit boek niet.</p>
+      <p>Waar het boek raakt aan wat wel onderzocht is, staat het er redelijk voor. Voor ademhalingsoefeningen met een langzaam ritme bestaan gemeten acute effecten op hartslagvariabiliteit en op gevoelde spanning. Voor meditatie bestaat een groot maar rommelig onderzoeksveld met kleine effecten op stemming en aandacht. De uitspraken over energie, prana en de koshas vallen daarbuiten: die zijn niet zo geformuleerd dat een meting ze kan tegenspreken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de kern van het boek niet te weerleggen valt. Werkt de oefening niet, dan wordt dat toegeschreven aan onvoldoende oefening of aan de wens om te begrijpen in plaats van te doen. Een uitspraak die elke uitkomst kan opnemen, verklaart uiteindelijk niets.</p>
+      <p>Daar komt bij dat het boek op een cursus uitloopt. De verstrekkendste techniek, de Shambhavi Mahamudra, wordt in de tekst niet onderwezen maar aangekondigd; wie haar wil leren moet naar een betaald programma van de Isha Foundation. Het boek functioneert daarmee ook als introductie tot een organisatie, en dat kleurt de afwezigheid van tegenwerpingen.</p>
+      <p>Rond die organisatie loopt in India aanhoudende kritiek. Er zijn juridische geschillen geweest over het grondgebruik en de bouwvergunningen van het centrum aan de voet van de Velliangiri-heuvels, er zijn klachten van familieleden van ashrambewoners voor de rechter gebracht, en Sadhguru's publieke steun aan standpunten van de regering heeft hem het verwijt opgeleverd dat hij zijn geestelijke gezag politiek inzet. Dat alles staat los van de inhoud van het boek, maar het is de context waarin de lezer het gezag van de schrijver moet wegen.</p>
+      <p>Inhoudelijk is het boek een hervertelling. Wat er staat over identificatie, over gedachten die zich aandienen en over karma als neiging, staat in strekking al bij Patanjali en in de vedantische commentaren. De verdienste zit in de toegankelijke vorm, in de directe toon en in het loskoppelen van yoga van geloof. Wie de bronnen kent vindt weinig nieuws.</p>
+      <p>Ten slotte behandelt het boek de grenzen van de aanpak niet. Bij ernstige psychische klachten kunnen intensieve ademhalingsoefeningen en langdurige meditatie ontregelend werken; dat is beschreven in de literatuur over ongewenste effecten van meditatie. Een waarschuwing daarover ontbreekt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de eenvoudigste oefeningen in het deel over lichaam en geest en laat de energiehoofdstukken voorlopig rusten; die veronderstellen begrippen die het boek niet aantoont.</li>
+        <li>Houd bij wat een oefening feitelijk oplevert aan slaap, stemming en aandacht, en beoordeel dat over weken en niet over dagen.</li>
+        <li>Lees de uitleg van karma als een beschrijving van gewoontevorming; in die lezing is het hoofdstuk bruikbaar zonder dat er iets over vorige levens hoeft te worden aangenomen.</li>
+        <li>Stop bij duizeligheid, angst of ontregeling en overleg met een arts of behandelaar voordat de intensiteit omhooggaat.</li>
+        <li>Wie de traditie zelf wil nagaan, kan de yogasoetra's naast dit boek leggen en vergelijken wat Sadhguru overneemt en wat hij weglaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Inner Engineering: A Yogi's Guide to Joy</i> (Spiegel &amp; Grau, een uitgeverij van Random House, New York, 20 september 2016, 271 blz., ISBN 9780812997798; in India bij Penguin). Het boek stond op de bestsellerlijsten van The New York Times en The Washington Post en kreeg in 2017 een Crossword Book Award in de categorie non-fictie. De Nederlandse vertaling van Prema van Harte verscheen in 2018 bij Samsara, Amsterdam (240 blz., ISBN 9789491411915) onder dezelfde titel. Van Sadhguru zijn later meer titels in het Nederlands verschenen, waaronder werk over karma en over de dood.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jaggi Vasudev, in India bekend als Sadhguru, richtte in 1992 de Isha Foundation op bij Coimbatore in Tamil Nadu. Hij was geen monnik en geen geleerde maar een motorrijdende ondernemer met een pluimveebedrijf en een bouwbedrijfje, tot hij in september 1982 op de Chamundiheuvel bij Mysore een ervaring had waarvan hij zegt dat die het onderscheid tussen hemzelf en zijn omgeving wegnam. Dat verhaal opent het boek.</p><p>Wat volgt is een uiteenzetting in twee delen. Het eerste deel behandelt de vraag waar welbevinden vandaan komt, hoe karma volgens de yogatraditie werkt en wat yoga eigenlijk is; het tweede deel loopt de lagen af waaruit een mens volgens die traditie bestaat: lichaam, geest, energie en vreugde. Bij elk onderdeel staan oefeningen, die Sadhguru sadhana noemt.</p><p>De toon is die van een leraar die vragen van toehoorders beantwoordt. Verwijzingen naar onderzoek komen er nauwelijks in voor. De grondslag van het boek is de ervaring van de schrijver zelf, en de lezer wordt gevraagd niet te geloven maar te proberen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>yoga</li><li>India</li><li>Sadhguru</li><li>meditatie</li><li>karma</li><li>zelfhulp</li><li>Isha</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1806"><a href="1806.html">The Science of Yoga</a>. De yoga sutra's van Patanjali in de uitgave van Taimni geven de tekst waarop Sadhguru's uitleg van yoga, karma en de omhulsels teruggaat.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Autobiography of a Yogi van Yogananda is het eerdere voorbeeld van hetzelfde genre: een yogi die zijn eigen ervaring als bewijsvoering aanvoert voor een westers publiek.</li>
+          <li value="1605"><a href="1605.html">Yoga and Ayurveda</a>. Yoga and Ayurveda van David Frawley behandelt de leer van prana en de omhulsels systematischer dan dit boek doet.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. The Power of Now van Eckhart Tolle komt langs een westerse route bij dezelfde kern uit: het lijden dat in het denken wordt gemaakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

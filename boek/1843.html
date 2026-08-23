@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De geluksroute &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Jong stelt dat hoe gelukkig iemand is vooral afhangt van de relaties met de mensen om hem heen, en dat die relaties zelden stuklopen op grote…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1843">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1843 &middot; Samenwerken en gesprek</p>
+    <h1>De geluksroute</h1>
+    <p class="lede">Anne de Jong, 2020</p>
+    <p class="stats">
+      <span><b>1686</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1843"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Jong stelt dat hoe gelukkig iemand is vooral afhangt van de relaties met de mensen om hem heen, en dat die relaties zelden stuklopen op grote gebeurtenissen maar bijna altijd op kleine ergernissen die worden opgespaard tot ze niet meer terug te draaien zijn. Daarbij hoort een tweede stelling: het moment waarop het misgaat is aanwijsbaar. Het is het punt waarop het reflexdeel van het brein het overneemt en iemand vecht, vlucht of bevriest. Wie leert dat punt bij zichzelf te herkennen, kan volgens haar in elke situatie alsnog de andere afslag nemen, ongeacht wat de ander doet en zonder dat de ander hoeft mee te werken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Gedoe ontstaat uit een vergelijking</h3>
+      <p>Sociaal gedoe ontstaat volgens De Jong wanneer een situatie afwijkt van het beeld dat iemand in zijn hoofd had, of van wat hij passend vindt. Niet de omstandigheid veroorzaakt het rotgevoel, maar de vergelijking tussen de werkelijkheid en het ideale plaatje. Soms komt de vergelijking uit het verleden: een situatie lijkt op iets vervelends dat eerder gebeurde.</p>
+      <p>Zij opent met twee voorbeelden naast elkaar. Haar vriend gaat squashen op de avond waarop zij samen televisie wilde kijken; zij zegt dat zij nog moet werken en geeft hem daarna de zwijgbehandeling. In de aflevering van Het Familiediner die zij die avond kijkt, wachten twee broers al tien jaar op excuses van de ander na ruzie over hoe je een hamer vasthoudt. De schaal verschilt, het mechanisme is hetzelfde: niemand krijgt wat hij wil.</p>
+      <h3>Zegels sparen</h3>
+      <p>Tussen de hoofdstukken door staat het beeld waarmee zij escalatie verklaart. Mensen sparen zegels: elke ergernis die niet wordt uitgesproken gaat op de spaarkaart, en op enig moment wordt de volle kaart in een keer ingewisseld voor een uitbarsting die in geen verhouding staat tot de aanleiding. De ander begrijpt die uitbarsting niet, omdat hij de eerdere zegels niet heeft gezien.</p>
+      <p>Daaruit volgt haar praktische aanwijzing: gedoe oplossen zolang het klein is, omdat het opgespaarde bedrag anders de relatie kost.</p>
+      <h3>Reflexbrein en regiebrein</h3>
+      <p>De Jong verdeelt het brein in een reflexdeel en een regiedeel. Het reflexdeel is volgens haar gevormd in een tijd waarin gevaar bestond uit roofdieren, sneeuwstormen en vijandige stammen, en reageert nog altijd met vechten, vluchten of bevriezen. Het gevaar is nu een collega die iets anders wil, een zoon achter een spelcomputer of te weinig bijval op sociale media, maar de reactie is dezelfde gebleven.</p>
+      <p>Omdat iemand zijn hele leven op dezelfde manier heeft gereageerd, is dat patroon in haar beeld een olifantenpad geworden: het pad dat vanzelf wordt genomen. Het regiedeel kan een andere weg kiezen, maar alleen als het op tijd merkt dat het reflexdeel is aangeslagen.</p>
+      <h3>Drie dwaalsporen</h3>
+      <p>De hoofdstukken twee tot en met vier beschrijven de patronen waarlangs mensen op de ongeluksroute belanden. De jaknikker stemt in met wat hij niet wil en spaart daarmee zegels. De superman lost alles zelf op, vraagt niets en houdt de ander op afstand; dat is het patroon dat de schrijfster bij zichzelf beschrijft. Het masker toont een gezicht dat niet klopt met wat er van binnen gebeurt, zodat de ander op verkeerde gegevens reageert.</p>
+      <p>De drie zijn herkenbaar gehouden en met voorbeelden uit werk, familie en vriendschap gevuld. Zij zijn bedoeld als spiegel: de lezer hoort er zichzelf in te herkennen voordat hij naar de stappen gaat.</p>
+      <h3>Sorrypaadje en complimenten</h3>
+      <p>Hoofdstuk vijf beschrijft wat zij het sorrypaadje noemt, de kortste weg terug van de ongeluksroute naar de geluksroute. Excuses maken is bij haar geen schuldbekentenis maar een handeling die het gesprek weer opent, en zij bepleit die stap ook als de ander de eerste fout maakte, omdat wachten op de ander is wat de twee broers uit haar openingsvoorbeeld tien jaar heeft gekost.</p>
+      <p>Daarnaast staat een kort deel over complimenten als de smeerolie van de geluksroute: contact onderhouden op de momenten dat er niets aan de hand is, zodat er iets te putten valt wanneer er wel iets is.</p>
+      <h3>Pitstop, uitkijkpunt en geluksstap</h3>
+      <p>De tweede helft van het boek geeft het gereedschap. De pitstop is stoppen met vechten: een zin die iemand tegen zichzelf zegt om het reflexdeel af te remmen. Het uitkijkpunt is de vraag hoe-kan-dit, waarbij de eigen actie, de reactie van de ander, diens actie en de eigen reactie op een rij worden gezet, zodat de kringloop zichtbaar wordt in plaats van alleen de laatste zet van de ander. Daartussen staat een deel over empathie, als voorwaarde om die kringloop te kunnen zien.</p>
+      <p>De geluksstap zelf kent drie vormen: veranderen door een gesprek, veranderen door iets anders te doen, of accepteren. Bij elke stap horen vragen over de aanpak, de te verwachten obstakels, wat daaraan te doen valt en aan wie de lezer zijn voornemen vertelt. Hoofdstuk negen behandelt waarom dit in de praktijk tegenvalt, hoofdstuk tien vat de vijf stappen samen en achterin staat een invulschema.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sociaal gedoe</td><td>Het rotgevoel dat ontstaat wanneer iets in een relatie anders loopt dan verwacht of dan in iemands ogen passend is.</td></tr>
+          <tr><td class="term">Ongeluksroute</td><td>De weg die iemand neemt als hij zijn reflex volgt; die loopt volgens De Jong altijd uit op verwijdering en frustratie.</td></tr>
+          <tr><td class="term">Geluksroute</td><td>De weg waarop iemand de regie neemt over zijn eigen reactie, met soepeler contact en minder gedoe als uitkomst.</td></tr>
+          <tr><td class="term">Zegels sparen</td><td>Het opsparen van onuitgesproken ergernissen tot de volle kaart in een keer wordt ingewisseld voor een uitbarsting.</td></tr>
+          <tr><td class="term">Reflexbrein</td><td>Het deel van het brein dat volgens haar met vechten, vluchten of bevriezen reageert zodra er iets als gevaar wordt opgevat.</td></tr>
+          <tr><td class="term">Regiebrein</td><td>Het deel dat een andere reactie kan kiezen, mits het op tijd merkt dat de reflex is aangeslagen.</td></tr>
+          <tr><td class="term">Dwaalspoor</td><td>Een vast patroon dat naar de ongeluksroute voert; het boek behandelt de jaknikker, de superman en het masker.</td></tr>
+          <tr><td class="term">Sorrypaadje</td><td>De kortste weg terug naar de geluksroute: excuses maken zonder te wachten tot de ander begint.</td></tr>
+          <tr><td class="term">Pitstop</td><td>Het bewust stoppen met vechten door een vooraf bedachte zin tegen jezelf te zeggen.</td></tr>
+          <tr><td class="term">Uitkijkpunt</td><td>De vraag hoe-kan-dit, waarbij actie en reactie van beide kanten op een rij worden gezet om de kringloop te zien.</td></tr>
+          <tr><td class="term">Geluksstap</td><td>De handeling waarmee iemand de situatie verandert door een gesprek, door ander gedrag, of waarmee hij haar accepteert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De Jong noemt haar bronnen in de inleiding: methoden uit de coaching en de psychologie die zij tijdens haar opleidingen leerde, ruim twintigduizend coachinggesprekken die zij naar eigen opgave voerde, en haar eigen leven. Achterin staat een literatuurlijst. De voorbeelden in de tekst zijn zonder uitzondering anekdotisch: eigen ervaringen, herkenbare huis-tuin-en-keukensituaties en een televisieprogramma.</p>
+      <p>Twee onderdelen hebben een aanwijsbare herkomst buiten haar praktijk. Het opsparen van ergernissen tot een uitbarsting is het beeld van de spaarzegels uit de transactionele analyse van Eric Berne, waar het onder dezelfde naam voorkomt. De driedeling vechten, vluchten, bevriezen komt uit de stressfysiologie en is in de populaire psychologie gemeengoed geworden.</p>
+      <p>De uitspraak waarop het boek leunt, dat onderzoek laat zien dat waardevolle relaties het enige zijn wat iemand zich echt gelukkig doet voelen, is sterker geformuleerd dan het onderzoek toelaat. Dat de kwaliteit van relaties in langlopend onderzoek naar welbevinden hoog uitkomt en samenhangt met gezondheid en levensduur, staat vast; dat zij het enige is wat telt, staat er niet, want inkomen, gezondheid en werk komen in datzelfde onderzoek eveneens naar voren.</p>
+      <p>Naar de methode zelf is geen onderzoek gedaan, en het boek noemt dat ook niet. Wat er ligt is een geordende praktijkervaring, geen getoetste aanpak.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het verhaal over het reflexbrein is het zwakste deel. De voorstelling van een oud gevaardeel en een jong regiedeel, met patronen die als olifantenpaden in de hersenen liggen, is een beeld en geen beschrijving van hoe hersenen werken; de tweedeling is in de hersenwetenschap allang verlaten. Dat het beeld helpt om te herkennen wat er gebeurt, maakt het nog geen verklaring, en het boek presenteert het wel als verklaring.</p>
+      <p>De methode legt de verantwoordelijkheid steeds bij de lezer. Dat is de sterkte ervan, want het maakt hem onafhankelijk van de medewerking van de ander, en tegelijk de beperking: in alle behandelde voorbeelden gaat het om partijen die elkaar goed gezind zijn. Wie te maken heeft met dwang, geweld of stelselmatige machtsongelijkheid vindt hier geen kader, en het advies om als eerste sorry te zeggen kan in zo'n verhouding schade doen. Die grens trekt het boek niet.</p>
+      <p>Verder valt op dat de vijf stappen precies dan moeilijk uitvoerbaar zijn wanneer ze nodig zijn, omdat het reflexdeel op dat moment aan staat. De Jong erkent dat in hoofdstuk negen en biedt er weinig meer voor dan oefenen en het vooraf klaarleggen van een zin. Dat is eerlijk, maar het laat de kern van het probleem staan.</p>
+      <p>Tot slot is de toon licht en zijn de voorbeelden klein van formaat: een avond die niet doorgaat, een collega die iets anders wil. Voor wie met zwaar en langdurig gedoe zit, is de afstand tussen die voorbeelden en de eigen situatie groot, en de aanwezigheid van een betaalde onlinecursus naast het boek maakt zichtbaar dat de methode is opgezet om verder te verkopen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na welk van de drie dwaalsporen het meest bekend voorkomt en zoek er drie voorvallen uit de afgelopen maand bij.</li>
+        <li>Bedenk vooraf de zin die tijdens de pitstop tegen jezelf gezegd wordt, want tijdens gedoe komt die er niet meer uit.</li>
+        <li>Zet bij een lopend conflict de eigen actie, de reactie van de ander, diens actie en de eigen reactie in vier vakken op papier voordat er iets wordt gezegd.</li>
+        <li>Kies bewust tussen veranderen door een gesprek, veranderen door ander gedrag en accepteren; het boek zet die drie naast elkaar en niet in volgorde van voorkeur.</li>
+        <li>Spreek een ergernis uit zolang die klein genoeg is om zonder aanleiding te noemen, en spaar geen tweede zegel.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De geluksroute: in 5 stappen naar minder gedoe &amp; meer plezier met de mensen om je heen</i> (Maven Publishing, Amsterdam, 2020, 199 blz., ISBN 9789492493958), met literatuurlijst. Er zijn ook een elektronische uitgave (ISBN 9789493213036) en een luisterboek. Het is een Nederlands origineel en geen vertaling. Van dezelfde auteur verscheen bij dezelfde uitgever <i>Sorry, schatje: het no-nonsense relatieboek voor goede en slechte tijden</i> (2023, ISBN 9789493213333); daarnaast schreef zij vakboeken over coaching. Bij het boek hoort een betaalde onlinecursus met video's en oefeningen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Anne de Jong is psycholoog en coach en richtte het opleidingsinstituut NONONS op, waar zij sinds 2002 coaches opleidt. Zij groeide op in kraakpanden en woongroepen en trok daaruit al vroeg de conclusie dat mensen komen en gaan en dat zij alles zelf moest oplossen. Die reflex, zich terugtrekken zodra het schuurt, is het voorbeeld waarmee zij haar boek opent.</p><p>Haar onderwerp is wat zij sociaal gedoe noemt: het moment waarop iets anders loopt dan verwacht en er een rotgevoel ontstaat. Op dat punt ligt volgens haar een splitsing. De ongeluksroute is de weg van de reflex en loopt uit op verwijdering. De geluksroute is de weg waarop iemand de regie neemt en die leidt tot minder gedoe en soepeler contact.</p><p>Het boek beschrijft eerst hoe kleine ergernissen worden opgespaard en langs drie dwaalsporen tot escalatie leiden: de jaknikker, de superman en het masker. Daarna volgen vijf stappen: bepaal je bestemming, herken je eigen reflex, houd een pitstop, ga naar het uitkijkpunt en zet een geluksstap door te veranderen of te accepteren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relaties</li><li>conflict</li><li>coaching</li><li>gedrag</li><li>communicatie</li><li>zelfhulp</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1738"><a href="1738.html">Sorry, schatje</a>. Hetzelfde gereedschap van De Jong, drie jaar later toegespitst op de liefdesrelatie; het sorrypaadje uit dit boek zit al in de titel.</li>
+          <li value="213"><a href="213.html">Games People Play</a>. Berne beschreef de spaarzegels waar De Jong haar escalatiemodel op bouwt, in het kader van de transactionele analyse waar het beeld vandaan komt.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg pakt hetzelfde probleem aan bij de zin die wordt uitgesproken, waar De Jong bij de reactie in het eigen hoofd begint.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Patterson en zijn medeauteurs onderbouwen een vergelijkbare aanpak van gesprekken onder spanning wel met onderzoek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

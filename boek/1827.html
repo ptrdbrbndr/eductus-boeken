@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tenth Insight &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Redfield stelt dat de geestelijke ontwikkeling die zijn eerste boek beschreef niet af is bij het inzicht van het individu, en dat de volgende stap…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1827">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1827 &middot; Roman en memoir</p>
+    <h1>The Tenth Insight</h1>
+    <p class="lede">James Redfield, 1996; vert. Karin van Grieken</p>
+    <p class="stats">
+      <span><b>1449</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1827"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Redfield stelt dat de geestelijke ontwikkeling die zijn eerste boek beschreef niet af is bij het inzicht van het individu, en dat de volgende stap collectief is. Elk mens komt volgens hem met een voornemen ter wereld, een geboortevisioen, dat hij bij de geboorte vergeet en gaandeweg kan terugvinden; mensen incarneren in groepen die elkaar in opeenvolgende levens tegenkomen; en de geschiedenis van de mensheid is een gezamenlijke opdracht die op dezelfde manier kan worden herinnerd. Angst is in dit boek de tegenkracht, en angst uit zich in de drang om de wereld met techniek en macht te beheersen. Wie tegenover die drang een gedeeld beeld van een goede afloop weet vast te houden, verandert volgens de roman de afloop zelf.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De verdwijning</h3>
+      <p>De verteller krijgt bericht dat Charlene, die hij uit het eerste boek kent, is verdwenen tijdens een tocht in een dal in de Appalachen. Zij was daar op zoek naar aanwijzingen over een tiende inzicht, dat de negen uit het manuscript van de eerste roman zou aanvullen.</p>
+      <p>Hij vertrekt met een ruwe kaart, merkt dat hij wordt gevolgd en loopt vast op afgezette wegen en bewakers. Het dal blijkt ontoegankelijk gemaakt vanwege werk dat niet wordt toegelicht.</p>
+      <h3>Het dal en de eerste ervaringen</h3>
+      <p>In het bos beleeft de verteller episodes waarin hij de omgeving anders waarneemt: bomen en rotsen die oplichten, plaatsen waar de energie sterker aanvoelt. Redfield gebruikt die passages als het bewijsmateriaal van zijn wereldbeeld; de waarneming zelf is het argument.</p>
+      <p>Hij ontmoet David, een indiaan uit de streek, die het dal een plek noemt waar zijn voorouders visioenen zochten. Van hem hoort de verteller dat de gebeurtenissen in het dal niet toevallig zijn en dat de mensen die er samenkomen elkaar niet voor het eerst treffen.</p>
+      <h3>Het Experiment</h3>
+      <p>Wat het project in het dal doet, komt langzaam vrij. Onder leiding van Feyman wordt gewerkt aan een installatie die energie uit de omgeving moet halen, met militaire belangstelling op de achtergrond en bestuurd door mensen die naar hun eigen zeggen de mensheid vooruithelpen.</p>
+      <p>Curtis Webber, een ingenieur die aan het project heeft meegewerkt en eruit is gestapt, legt uit wat de proef aanricht: de installatie ontregelt het gebied en, in de logica van het boek, ook de geesten van wie er verkeren. Angst wordt versterkt en draagt zich over.</p>
+      <p>Daarmee heeft de roman een tegenstander die tegelijk letterlijk en zinnebeeldig is. Feyman staat voor de houding die beheersing boven vertrouwen stelt, en zijn eigen levensloop, ook over meerdere levens, wordt in het boek uitgewerkt.</p>
+      <h3>Het geboortevisioen</h3>
+      <p>In afwisseling met de achtervolging krijgt de verteller ervaringen waarin hij zich meent te herinneren wat hij zich voor zijn geboorte had voorgenomen: bij welke ouders, in welke tijd en met welke opdracht hij zou komen. Redfield laat dat samenvallen met de levensloop van elk personage, zodat wat willekeurig leek achteraf een bedoeling krijgt.</p>
+      <p>Bij Maya, de arts in het gezelschap, werkt dat het duidelijkst uit. Haar twijfel over de geneeskunde die zij bedrijft, wordt in het boek verklaard uit een voornemen dat zij nog niet had teruggevonden.</p>
+      <h3>De dimensie na de dood</h3>
+      <p>Het middendeel verlaat het realisme. De verteller en Wil bewegen zich in een gebied dat het boek de dimensie na de dood noemt, waar zielen in groepen bijeen zijn. Daar wordt beschreven hoe iemand na zijn dood zijn leven terugziet en zelf beoordeelt, en hoe zielsgroepen de levenden vanaf die kant blijven volgen.</p>
+      <p>Redfield laat de verteller ook een blik krijgen op de langere lijn: de eeuwen waarin de mensheid zich van angst naar bewustzijn zou bewegen, met de moderne tijd als het punt waarop de stoffelijke opbouw af is en de geestelijke opdracht begint.</p>
+      <p>Deze passages dragen de leer van het boek. Ze zijn ook het onderdeel waarop het als roman het meest verliest, omdat er geen tegenspraak in voorkomt en de personages er vooral luisteren.</p>
+      <h3>De visie vasthouden</h3>
+      <p>In het slot komt de groep bijeen en wordt Charlene gevonden. De confrontatie met het project wordt niet met geweld beslecht. De groep probeert wat de ondertitel aanduidt: een gezamenlijk beeld van een goede afloop vasthouden, ook voor Feyman zelf, in plaats van zich in de angst te laten meetrekken.</p>
+      <p>Dat het boek zijn ontknoping op die manier oplost, is de duidelijkste uitspraak die het doet. De handeling wordt beslist door de instelling van de personages, wat precies het punt is dat de leer wil maken en tegelijk de reden waarom de spanningsboog leegloopt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het tiende inzicht</td><td>De aanvulling op de negen inzichten uit het eerste boek: het besef dat de geestelijke ontwikkeling van de mens over meerdere levens en in groepen verloopt.</td></tr>
+          <tr><td class="term">Geboortevisioen</td><td>Het voornemen dat een ziel volgens de roman voor haar geboorte opstelt en dat bij de geboorte wordt vergeten.</td></tr>
+          <tr><td class="term">Wereldvisioen</td><td>Het gedeelde beeld van waar de mensheid heen zou moeten, dat volgens het boek moet worden vastgehouden om werkelijkheid te worden.</td></tr>
+          <tr><td class="term">Zielsgroep</td><td>De groep zielen waarmee iemand door opeenvolgende levens heen verbonden blijft en die hem vanuit de andere dimensie volgt.</td></tr>
+          <tr><td class="term">De levensterugblik</td><td>Het na de dood terugzien en zelf beoordelen van het geleefde leven, zonder oordelende instantie van buitenaf.</td></tr>
+          <tr><td class="term">De Angst</td><td>De tegenkracht in het boek, die zich uit als drang naar beheersing en die zich van mens op mens overdraagt.</td></tr>
+          <tr><td class="term">Het Experiment</td><td>De geheime proef in het dal, waarin die drang naar beheersing letterlijk vorm krijgt als een installatie die de omgeving ontregelt.</td></tr>
+          <tr><td class="term">Energievelden</td><td>De uit het eerste boek overgenomen aanname dat mensen en landschappen een waarneembaar veld hebben dat op stemming en gedrag inwerkt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek verschijnt als roman, maar wordt door schrijver en uitgever aangeboden als een leer in verhaalvorm. Dat maakt de vraag naar de onderbouwing gerechtvaardigd, en die valt kort uit: er is geen. De inzichten worden gepresenteerd als herinneringen van personages, en herinneringen van verzonnen mensen bewijzen niets.</p>
+      <p>Waar het boek verwijst naar bestaande kennis, blijft het bij aanduidingen. Er wordt gesproken over energie zonder dat wordt gezegd welke, en over wetenschappelijke proeven zonder vindplaats. De verwijzing naar de kwantumfysica die het genre in deze jaren kenmerkt, keert ook hier terug, in de gedaante van de gedachte dat de waarnemer de uitkomst bepaalt. Die uitleg van het meetprobleem wordt in de natuurkunde niet als aanleiding gezien om aan te nemen dat menselijke verwachting stoffelijke gebeurtenissen stuurt.</p>
+      <p>De beweringen over vorige levens en over een terugblik na de dood behoren tot het gebied waarover onderzoek weinig kan zeggen. Het beschikbare werk, zoals het verzamelen van herinneringen van kinderen aan vorige levens, berust op verhalen die achteraf zijn opgetekend en heeft buiten de eigen kring geen erkenning gekregen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als roman is het boek zwak, en dat wordt door lezers die het eerste deel waardeerden ook zo ervaren. De personages hebben geen eigenschappen die losstaan van hun functie in de uitleg: ze stellen een vraag, ontvangen een antwoord en beamen het. De ontknoping komt niet voort uit wat zij doen maar uit wat zij zijn gaan geloven.</p>
+      <p>De verhaalvorm dient hier bovendien een doel dat haar oneigenlijk maakt. In een roman hoeft niets bewezen te worden, en Redfield gebruikt die vrijheid om beweringen over de werkelijkheid te doen die hij buiten de roman niet zou kunnen verdedigen. De lezer krijgt een leer aangeboden in een verpakking waarin tegenspraak niet past.</p>
+      <p>Inhoudelijk is het boek een ordening van bestaande motieven uit de New Age: reincarnatie, zielsgroepen, de terugblik uit de literatuur over bijna-doodervaringen, de bezorgdheid over techniek en overheid uit de milieubeweging van de jaren tachtig. Wat Redfield eraan toevoegt is de samenhang en de leesbaarheid, niet een gedachte die er nog niet was.</p>
+      <p>Het bedenkelijkste onderdeel is de omkering aan het slot. Als de wereld wordt gemaakt door wat mensen verwachten, dan is het uitblijven van verbetering te wijten aan wie de verkeerde verwachting koestert. Die redenering legt de verantwoordelijkheid voor tegenslag bij wie hem treft, en het boek doet niets om dat af te weren.</p>
+      <p>Wat er wel staat, staat er eerlijk. Redfield doet niet alsof hij onderzoek heeft gedaan, en hij houdt de toon vriendelijk en zonder dreiging. Het boek zoekt geen volgelingen en verkoopt geen cursus, wat het gunstig onderscheidt van veel wat er in dit genre op volgde.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Tenth Insight: Holding the Vision</i> (Warner Books, New York, en Bantam Press, Londen, 1996, 255 blz., ISBN 0446674575). De Nederlandse vertaling verscheen als <i>Het tiende inzicht. De visie vasthouden</i> bij De Boekerij, Amsterdam, 1996 (236 blz., ISBN 9022521354), later herdrukt en ook als pocket bij Zwarte Beertjes; de aanduiding Pap in de kukuru-lijst slaat op die paperbackuitgave. De naam van de vertaalster staat in catalogi zowel als Karin van Grieken als als Kaja van Grieken vermeld. Het boek is het tweede deel van een reeks die begon met <i>The Celestine Prophecy</i> (1993) en werd voortgezet met <i>The Secret of Shambhala</i> (1999) en <i>The Twelfth Insight</i> (2011).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het vervolg op De Celestijnse belofte. Dezelfde naamloze verteller hoort dat zijn vriendin Charlene is verdwenen in een afgelegen dal in de Appalachen. Met een ruwe kaart gaat hij haar zoeken en komt terecht in een gebied waar in het geheim proeven worden gedaan met een installatie die de omgeving ontregelt.</p><p>Onderweg ontmoet hij achtereenvolgens David, een indiaan die het dal kent, Joel, de arts Maya en Curtis Webber, een ingenieur die aan het project heeft meegewerkt. Samen met Wil uit het eerste boek vormen zij een groep die volgens de opzet van de roman in eerdere levens al bij elkaar hoorde. Tegenover hen staat Feyman, de man die de proef leidt.</p><p>Waar het eerste boek negen inzichten uitdeelde, draait dit boek om er een: het tiende. Dat inzicht behelst de herinnering aan wat de ziel zich voor de geboorte had voorgenomen, aan de groep waartoe zij behoort, en aan een beeld van waar de mensheid heen zou gaan. Het verhaal is de aanleiding, de leer is het doel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>New Age</li><li>Celestijnse belofte</li><li>reincarnatie</li><li>Appalachen</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1591"><a href="1591.html">The Celestine Prophecy</a>. The Celestine Prophecy is het eerste deel; de negen inzichten daaruit worden hier bekend verondersteld en het tiende bouwt er direct op voort.</li>
+          <li value="8"><a href="08.html">De alchemist</a>. De alchemist van Coelho gebruikt dezelfde vorm, een reis waarin de wereld tekens geeft aan wie zijn bestemming volgt, met meer verhaal en minder uitleg.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. The Power of Now van Eckhart Tolle verscheen in dezelfde jaren en werkt zonder verhaallijn hetzelfde uitgangspunt uit dat de binnenwereld de ervaring bepaalt.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. The Perennial Philosophy van Huxley geeft de oudere en beter onderbouwde versie van de gedachte dat de mystieke tradities een gemeenschappelijke kern delen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

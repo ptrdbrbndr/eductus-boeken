@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De verboden vrouw spreekt &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat mannen en vrouwen aan weerszijden van dezelfde breuk staan en dat die breuk in beiden ligt en niet tussen hen in. Wat het vrouwelijke…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1819">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1819 &middot; Filosofie en mystiek</p>
+    <h1>De verboden vrouw spreekt</h1>
+    <p class="lede">Pamela Kribbe, 2016</p>
+    <p class="stats">
+      <span><b>1577</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1819"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat mannen en vrouwen aan weerszijden van dezelfde breuk staan en dat die breuk in beiden ligt en niet tussen hen in. Wat het vrouwelijke wordt genoemd, gevoel, intuitie, lichamelijkheid en scheppingsdrang, is volgens deze teksten eeuwenlang verdacht gemaakt, met als gevolg dat vrouwen zich van hun eigen bodem hebben afgesneden en mannen zich van hun gevoelsleven. De genezing die het boek voorstelt loopt daarom niet via de andere sekse en niet via een relatie, maar via de erkenning van het afgewezen deel in het eigen bestaan. Maria Magdalena wordt daarbij opgevoerd als de figuur die dat deel belichaamde en er in haar tijd voor werd weggeschreven, en de lezer wordt niet gevraagd de historische claim te toetsen maar na te gaan wat de tekst bij hem losmaakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De verantwoording vooraf</h3>
+      <p>Kribbe opent met haar eigen positie. Zij legt uit wat channelen voor haar inhoudt, dat zij het als een vorm van afgestemd luisteren beschouwt en niet als bezetenheid, en dat zij haar filosofische scholing niet als tegenstelling ziet maar als iets wat zij achterliet omdat er in de academische omgeving geen plaats voor dit werk was.</p>
+      <p>Zij vertelt ook wat het schrijven met haarzelf deed. Waar zij zich eerder verwant voelde met wat zij de hogere gevoelens noemt, verschoof haar aandacht tijdens dit boek naar hartstocht, lichamelijkheid en scheppingsdrang. Dat wordt in het boek als voorbeeld gebruikt van wat zij de collectieve beweging noemt die zij om zich heen meent te zien.</p>
+      <h3>Wie de verboden vrouw is</h3>
+      <p>De eerste boodschappen gaan over Maria Magdalena zelf. Zij wordt neergezet als iemand die zonder man leefde, niet in de rol paste die de omgeving voor een vrouw had, en spiritueel gezag ontleende aan eigen ervaring in plaats van aan een instituut. Precies dat maakte haar in de overlevering onhandelbaar en leverde haar het stempel van de zondares op.</p>
+      <p>Kribbe rekt het begrip vervolgens op naar het heden. De verboden vrouw is in haar formulering iedereen die op gevoel en intuitie afgaat binnen een orde die alleen aantoonbaarheid en beheersing erkent. Zij benadrukt dat dit mannen even goed treft als vrouwen.</p>
+      <h3>De twee wonden</h3>
+      <p>Het meest aangehaalde onderdeel is het onderscheid tussen twee plaatsen van pijn. De wond van de vrouw legt Kribbe in de buik, waar zij die verbindt met een lage eigenwaarde, met schaamte over het lichaam en met scheppingsdrang die geen uitweg krijgt. De wond van de man legt zij in het hart, ontstaan door een omschrijving van mannelijkheid die gevoel en intuitie buitensluit.</p>
+      <p>De teksten stellen dat deze twee wonden elkaar in stand houden. Een man die niet bij zijn gevoel kan, kan een vrouw daarin niet ontmoeten; een vrouw die haar bodem heeft afgesloten, vraagt van de man iets wat zij zichzelf onthoudt. Het boek behandelt beide steeds naast elkaar en zet ze niet tegenover elkaar.</p>
+      <h3>Relaties en seksualiteit</h3>
+      <p>Een reeks boodschappen gaat over wat er in een verhouding gebeurt wanneer beide partners iets bij de ander komen halen dat zij in zichzelf hebben afgewezen. Kribbe beschrijft dat als de gebruikelijke bouw van een relatie en niet als uitzondering, en zij noemt het verlangen naar de partner die alles heelt de vorm waarin de wond zich het hardnekkigst voordoet.</p>
+      <p>Seksualiteit komt aan de orde als plaats waar de scheiding tussen lichaam en gevoel het duidelijkst uitkomt. De teksten spreken zich niet uit over wat toelaatbaar is, maar over de vraag of iemand tijdens de ontmoeting bij zichzelf blijft.</p>
+      <h3>Voorouders en doorgegeven pijn</h3>
+      <p>Kribbe behandelt pijn die via de familielijn wordt doorgegeven: patronen die generaties standhouden zonder dat iemand ze heeft gekozen. Tegenover de doorgegeven wond zet zij wat zij de positieve oerkrachten van de voorouders noemt, waar volgens haar ook toegang toe bestaat.</p>
+      <p>Dit is het deel waarin het boek het dichtst bij het familieopstellingenwerk komt dat in dezelfde hoek van de markt bestaat, zonder dat Kribbe die methode noemt of overneemt.</p>
+      <h3>De weg naar heling</h3>
+      <p>De laatste boodschappen zijn gericht op wat de lezer zelf te doen heeft. De strekking is steeds dezelfde: het afgewezen deel opzoeken, het gevoel niet wegduwen maar er bewustzijn omheen leggen, en de boodschap eruit lezen. Kribbe formuleert dat als vertrouwen op het eigen gevoel en het onderzoeken ervan, in die volgorde.</p>
+      <p>Het boek eindigt met de gedachte dat individuele keuzes optellen tot een verschuiving in het collectief. Er staat geen stappenplan in en er zijn geen oefeningen; de teksten zijn bedoeld om herlezen te worden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Channeling</td><td>Het doorgeven van teksten die volgens Kribbe niet uit haar eigen denken voortkomen maar uit verbinding met een bewustzijn buiten haarzelf.</td></tr>
+          <tr><td class="term">De verboden vrouw</td><td>Zowel Maria Magdalena als, bij uitbreiding, alles in een mens dat op gevoel en intuitie berust en daarom geen gezag krijgt toegekend.</td></tr>
+          <tr><td class="term">Vrouwelijke energie</td><td>Bij Kribbe de aanduiding voor gevoel, intuitie, lichamelijkheid en scheppingsdrang, uitdrukkelijk aanwezig in beide seksen.</td></tr>
+          <tr><td class="term">Mannelijke energie</td><td>De aanduiding voor gerichtheid, handelen en afbakening, in de teksten niet als tegenstander maar als de helft die zonder de andere verhardt.</td></tr>
+          <tr><td class="term">De buikwond</td><td>De plaats waar Kribbe de vrouwelijke pijn legt, verbonden met eigenwaarde, schaamte en onderdrukte scheppingsdrang.</td></tr>
+          <tr><td class="term">De hartwond</td><td>De plaats waar zij de mannelijke pijn legt, ontstaan uit een opvatting van mannelijkheid die gevoel en intuitie buitensluit.</td></tr>
+          <tr><td class="term">Voorouderlijke pijn</td><td>Patronen die via de familielijn worden doorgegeven en die volgens de teksten in het heden doorwerken zonder dat iemand ze koos.</td></tr>
+          <tr><td class="term">Oerkrachten van de voorouders</td><td>De tegenhanger daarvan: wat er aan draagvermogen en vitaliteit in dezelfde lijn beschikbaar is.</td></tr>
+          <tr><td class="term">Jeshua</td><td>De Aramese naam van Jezus en de bron van Kribbes eerdere reeks doorgevingen, in dit boek op de achtergrond aanwezig.</td></tr>
+          <tr><td class="term">Collectieve heling</td><td>Kribbes gedachte dat persoonlijke keuzes in de richting van echtheid optellen tot een verschuiving in het gedeelde bewustzijn.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bewijs aan en pretendeert dat ook niet. De herkomst van de teksten is een claim die zich niet laat toetsen: er is geen manier om vast te stellen of hier een historische Maria Magdalena spreekt, en Kribbe biedt geen criterium aan waarmee dat zou kunnen. Het enige wat zij als toets aanreikt is de vraag of de tekst iets in de lezer raakt.</p>
+      <p>De historische figuur waarop het boek zich beroept is buiten dit boek om wel te onderzoeken, en daar valt iets van te maken. In de vier evangeliën is Maria Magdalena de vrouw die bij de kruisiging blijft en het lege graf als eerste ziet; er staat niet dat zij een prostituee was. Die voorstelling gaat terug op een preek van paus Gregorius de Grote uit 591, waarin hij haar samenvoegde met de zondares uit Lucas 7 en met Maria van Bethanië. De Rooms-Katholieke Kerk heeft die samenvoeging in 1969 losgelaten. In het gnostische <i>Evangelie van Maria</i>, gevonden in de negentiende eeuw en verwant aan de teksten van Nag Hammadi, verschijnt zij als leerling met eigen inzicht tegenover een sceptische Petrus. Kribbes portret sluit bij dat laatste beeld aan, al doet zij zelf geen tekstonderzoek en verwijst zij er niet naar.</p>
+      <p>Wat het boek verder draagt is de ervaring van Kribbe zelf en van de mensen die haar workshops volgen. Zij beschrijft de verschuiving die zij bij zichzelf zag als teken van een bredere beweging. Dat is een gevolgtrekking uit een zelfgekozen omgeving: wie naar een workshop over vrouwelijke energie komt, is precies de persoon bij wie zo'n verschuiving wordt aangetroffen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de tekst geen weerlegging toelaat. Wanneer de enige maatstaf is of iets bij de lezer resoneert, wordt de literaire kwaliteit van het proza tot bewijs van de herkomst gemaakt. Een goed geschreven doorgeving voelt waar aan, en een lezer die niets voelt kan alleen concluderen dat hij er nog niet aan toe is. Die opzet beschermt de claim tegen elke vorm van toetsing en dat is een gebrek, ook voor wie de inhoud waardevol vindt.</p>
+      <p>Inhoudelijk wringt het gebruik van de termen mannelijk en vrouwelijk. Kribbe zegt uitdrukkelijk dat beide energieën in beide seksen aanwezig zijn, maar houdt de koppeling van gevoel en intuitie aan het vrouwelijke en van handelen en afbakening aan het mannelijke intact. Daarmee wordt de indeling die het boek zegt te willen helen ondertussen bevestigd, met een woordenschat die eeuwenlang is gebruikt om vrouwen buiten het domein van het redeneren te houden. Wie de indeling loslaat, houdt van het betoog vooral over dat mensen delen van zichzelf afwijzen, wat een minder opzienbarende stelling is.</p>
+      <p>Ten derde presenteert het boek een lichamelijke plaatsbepaling van pijn, de buik voor de vrouw en het hart voor de man, als vaststelling en niet als beeldspraak. Er is niets wat die toewijzing steunt. Zolang zij als metafoor wordt gelezen, is dat onschuldig; zodra iemand er conclusies over klachten of over trauma aan verbindt, en het boek biedt geen enkele afbakening naar wanneer professionele hulp aangewezen is, wordt zij dat niet meer. Voor lezers met onverwerkt geweld in de voorgeschiedenis is dat een reëel bezwaar.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, verschenen in oktober 2016 bij Altamira, onderdeel van de Gottmer Uitgevers Groep, ISBN 9789401303705. De herdruk van 2020 verscheen onder de vlag van HarperCollins Holland, 240 blz., ISBN 9789401305006, met daarnaast een e-boek en een luisterboek. Er bestaat geen Nederlandse vertaalkwestie, want het boek is in het Nederlands geschreven; een deel van Kribbes gechannelde teksten is wel in Engelse vertaling uitgebracht, onder meer als <i>The Jeshua Channelings</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pamela Kribbe promoveerde in de wetenschapsfilosofie en verliet daarna de universiteit voor het werk waar zij nu bekend om is: het doorgeven van teksten die zij naar eigen zeggen ontvangt in verbinding met een bewustzijn buiten haarzelf. Jarenlang ging dat om Jeshua, de Aramese naam van Jezus. Dit boek bevat vijftien doorgegeven boodschappen die aan Maria Magdalena worden toegeschreven.</p><p>De Maria Magdalena van deze teksten is geen boetvaardige zondares maar een vrouw die zelfstandig leefde, zich niet naar de rol schikte die haar was toebedeeld en daarmee buiten de orde viel. Dat is wat de titel met de verboden vrouw bedoelt. Kribbe trekt de figuur door naar het heden: verboden is volgens haar nog steeds wat op gevoel, intuitie en het lichaam vertrouwt in een omgeving die daar geen gezag aan toekent.</p><p>De boodschappen gaan over de verhouding tussen mannelijke en vrouwelijke energie, over relaties en seksualiteit, over pijn die via de familielijn wordt doorgegeven, en over heling. Kribbe legt de vrouwelijke wond in de buik en de mannelijke wond in het hart. Zij schrijft in het voorwoord dat het maken van dit boek haar eigen verhouding tot hartstocht en scheppingsdrang veranderde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>channeling</li><li>Maria Magdalena</li><li>vrouwelijke energie</li><li>mannelijke energie</li><li>relaties</li><li>seksualiteit</li><li>heling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="614"><a href="614.html">The Gospel of Mary Magdalene</a>. Jean-Yves Leloup vertaalt en becommentarieert de gnostische tekst waarin Maria Magdalena als leerling met eigen inzicht optreedt; dat is het historische materiaal waar Kribbes portret bij aansluit zonder dat zij het bespreekt.</li>
+          <li value="1223"><a href="1223.html">The Nag Hammadi Library in English</a>. De volledige verzameling van Nag Hammadi laat zien in wat voor tekstwereld het evangelie van Maria thuishoort, en hoe uiteenlopend die teksten onderling zijn.</li>
+          <li value="1845"><a href="1845.html">Women Who Run with the Wolves</a>. Clarissa Pinkola Estés behandelt de onderdrukking van hetzelfde vrouwelijke domein via sprookjes en jungiaanse duiding, en doet dat met een methode die haar eigen herkomst wel benoemt.</li>
+          <li value="1663"><a href="1663.html">A Return to Love</a>. Marianne Williamson bewerkt op vergelijkbare wijze een gechannelde brontekst tot een boodschap over liefde en angst, en stuit op dezelfde vraag naar toetsbaarheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Life 365 &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Weekers stelt dat het dagelijkse geluksgevoel voor een groot deel het gevolg is van de manier waarop iemand naar zijn omstandigheden kijkt, en dat die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1852">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1852 &middot; Levenskunst</p>
+    <h1>Happy Life 365</h1>
+    <p class="lede">Kelly Weekers, 2018</p>
+    <p class="stats">
+      <span><b>1531</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1852"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Weekers stelt dat het dagelijkse geluksgevoel voor een groot deel het gevolg is van de manier waarop iemand naar zijn omstandigheden kijkt, en dat die manier van kijken met oefening te veranderen is. Wie leert onderscheiden wat binnen de eigen invloed valt en wat niet, en wie ophoudt met het bewaken van het beeld dat anderen van hem hebben, houdt aandacht over voor wat hij wel kan doen. De tegenstelling die daaruit volgt is scherp genoeg om te toetsen: het boek zet het denken van de lezer neer als de belangrijkste variabele in zijn welbevinden, terwijl de onderzoeksliteratuur laat zien dat gezondheid, inkomen, werkomstandigheden en aanleg samen een aanzienlijk deel verklaren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanname onder het boek</h3>
+      <p>Het uitgangspunt luidt dat geluk grotendeels in eigen hand ligt. Weekers werkt dat uit als een tweedeling: neem de regie waar dat kan, laat los waar dat niet kan. Die formulering komt uit de stoïcijnse traditie en wordt hier zonder filosofische onderbouwing gebruikt, als praktische vuistregel.</p>
+      <p>Het woord no-nonsense in de ondertitel geeft de toon aan. Weekers houdt afstand van spirituele taal en van uitgebreide theorie. Zij schrijft in korte zinnen, met voorbeelden uit haar coachpraktijk en uit haar eigen leven, en gaat ervan uit dat een lezer die iets herkent daar meteen mee aan de slag wil.</p>
+      <h3>Zelfvertrouwen en het oordeel van anderen</h3>
+      <p>Een groot deel van het boek gaat over de energie die opgaat aan het gissen naar wat anderen denken. Weekers behandelt dat als een gewoonte die af te leren is: het oordeel van anderen is meestal onbekend, vaak minder streng dan verondersteld, en in alle gevallen buiten de eigen invloed.</p>
+      <p>Daarbij hoort haar behandeling van perfectionisme. Falen wordt in het boek voorgesteld als een normaal onderdeel van elk leven en niet als een tekortkoming die verborgen moet blijven. De opdrachten in dit deel vragen de lezer op te schrijven wat hij vreest dat anderen vinden, en dat naast wat er feitelijk gezegd is te leggen.</p>
+      <h3>Piekeren, stress en gezondheid</h3>
+      <p>Weekers behandelt piekeren als een denkgewoonte met een aanwijsbaar begin en einde, niet als een karaktertrek. Zij raadt aan om piekergedachten op te schrijven, te sorteren op beïnvloedbaarheid en er een handeling of een moment aan te koppelen.</p>
+      <p>Het gezondheidsdeel blijft algemeen: slaap, beweging en eten komen langs als voorwaarden waaronder de rest werkt. Er staan geen richtlijnen of getallen in dit deel; het is bedoeld als herinnering dat een lichaam dat te weinig rust krijgt, andere gedachten voortbrengt.</p>
+      <h3>Vriendschap, relaties en nee zeggen</h3>
+      <p>Het thema grenzen loopt door de hoofdstukken over vriendschap en relaties. Weekers behandelt nee zeggen als een vaardigheid die geoefend moet worden en waarvan de kosten op korte termijn zichtbaarder zijn dan de opbrengst op langere termijn.</p>
+      <p>Zij schrijft ook over contacten die alleen uit gewoonte in stand blijven en over het verschil tussen iemand missen en gewend zijn aan iemand. De adviezen blijven aan de kant van de lezer: het boek behandelt wat die zelf kan doen, en gaat niet in op de vraag hoe een ander op die verandering reageert.</p>
+      <h3>Werk en sociale media</h3>
+      <p>Bij werk komt vooral de verhouding tussen inspanning en waardering aan bod, en de neiging om de eigen prestatie af te meten aan die van anderen. Weekers behandelt vergelijken als een denkgewoonte die door sociale media wordt versterkt doordat daar de bewerkte uitkomst zichtbaar is en het werk eronder niet.</p>
+      <p>Haar advies over sociale media is gedragsmatig: beperk de tijd, ontvolg wat een naar gevoel oplevert, en merk op wat het kijken met de stemming doet. Zij bespreekt de bedrijfsmodellen achter die platforms niet.</p>
+      <h3>De vorm: een werkboek voor 365 dagen</h3>
+      <p>De titel verwijst naar het idee dat dit dagelijks werk is en geen eenmalige ingreep. Het boek is opgebouwd uit korte eenheden die los te lezen zijn, met opdrachten, stappenplannen en tips tussen de tekst door.</p>
+      <p>Die opzet maakt het boek bruikbaar als naslagwerk en verklaart tegelijk het meest gehoorde bezwaar. Doordat dezelfde grondregel in elk thema terugkeert, leest het geheel voor wie het achter elkaar doorneemt herhalend.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Denkwijze</td><td>De vaste manier waarop iemand gebeurtenissen uitlegt; volgens Weekers de belangrijkste factor in het dagelijkse geluksgevoel en de plek waar verandering begint.</td></tr>
+          <tr><td class="term">No-nonsense</td><td>Weekers' aanduiding voor haar aanpak: nuchtere taal, geen spiritualiteit en geen theorie, met de nadruk op wat een lezer morgen kan doen.</td></tr>
+          <tr><td class="term">Loslaten</td><td>Ophouden met aandacht te besteden aan zaken waarop geen invloed bestaat, waaronder het oordeel van anderen en gebeurtenissen uit het verleden.</td></tr>
+          <tr><td class="term">Regie nemen</td><td>De tegenhanger van loslaten: handelen op de punten waar wel invloed is, hoe klein die punten ook zijn.</td></tr>
+          <tr><td class="term">Nee zeggen</td><td>Het weigeren van verplichtingen die energie kosten zonder iets op te leveren, in het boek behandeld als een te oefenen vaardigheid.</td></tr>
+          <tr><td class="term">Falen</td><td>Mislukking als normaal onderdeel van een leven, waarbij het verbergen ervan meer kost dan de mislukking zelf.</td></tr>
+          <tr><td class="term">Piekeren</td><td>Herhaald denken over iets zonder dat het tot een handeling leidt; Weekers behandelt het als aan te pakken gewoonte en niet als karaktertrek.</td></tr>
+          <tr><td class="term">Vergelijken</td><td>Het afmeten van het eigen leven aan het zichtbare deel van dat van anderen, in het boek vooral behandeld als gevolg van sociale media.</td></tr>
+          <tr><td class="term">Stappenplan</td><td>De vorm waarin Weekers haar adviezen giet: een reeks korte handelingen die de lezer achter elkaar kan uitvoeren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Het gezag komt van de opleiding van de auteur in de psychologie en van voorbeelden uit haar coachpraktijk, aangevuld met eigen ervaring. Dat is een keuze die past bij het genre, maar zij maakt de claims onttoetsbaar: er staat nergens hoeveel mensen baat hadden bij een oefening, of hoe lang dat aanhield.</p>
+      <p>De losse adviezen sluiten wel aan bij herkenbare onderdelen uit de cognitieve gedragstherapie: gedachten opschrijven en toetsen aan wat er feitelijk gebeurde, gedrag veranderen voordat het gevoel meekomt, en vermijding tegengaan. Voor die technieken bestaat degelijk onderzoek in de behandeling van angst en somberheid. Wat niet vaststaat is dat losse oefeningen uit een boek, zonder begeleiding en zonder volgorde, hetzelfde effect hebben.</p>
+      <p>De aanname dat geluk grotendeels in eigen hand ligt is populair geworden door de verdeling die Sonja Lyubomirsky, Kennon Sheldon en David Schkade in 2005 voorstelden: ongeveer de helft aanleg, tien procent omstandigheden en veertig procent eigen gedrag. Sheldon en Lyubomirsky hebben die verdeling in 2021 zelf teruggenomen als te stellig; de onderliggende gegevens dragen zulke percentages niet. Weekers noemt dat onderzoek niet, maar haar boek rust op dezelfde gedachte, en die staat er zwakker voor dan de stelligheid van de tekst doet vermoeden.</p>
+      <p>Wat het boek wel aantoonbaar goed doet, is het kiezen van gedrag dat in ander onderzoek samenhangt met welbevinden: slapen, bewegen, contact onderhouden, minder tijd op sociale media. Dat de richting van dat verband soms omgekeerd is, ongelukkige mensen slapen slechter en scrollen meer, blijft in het boek buiten beeld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek de oorzaken van ongeluk vrijwel volledig binnen de lezer legt. Schulden, ziekte, een slechte werkgever, discriminatie en zorgtaken komen niet voor als factoren waaraan buiten het eigen hoofd iets te doen valt. Wie in zulke omstandigheden zit en de boodschap serieus neemt, kan er de conclusie uit trekken dat het aan zijn denken ligt. Dat is een bekende kostenpost van dit genre en het boek doet er weinig aan om die af te wenden.</p>
+      <p>Lezersreacties noemen herhaling als het voornaamste gebrek. Dezelfde grondregel wordt per thema opnieuw uitgelegd, waardoor het boek dikker is dan de inhoud vraagt. De uitgave van 2023 is korter dan die van 2018, wat erop wijst dat ook de auteur die kritiek onderkende.</p>
+      <p>De stoïcijnse kern, het onderscheid tussen wat wel en niet in onze macht ligt, wordt overgenomen zonder de bezwaren die daarbij horen. Bij Epictetus hoort er een hele leer bij over wat een mens dan wel moet nastreven. Zonder dat vervolg blijft loslaten een instructie zonder richting, en is het lastig te onderscheiden van berusting.</p>
+      <p>Er staat geen bronnenlijst in. Voor een auteur met een opleiding in de psychologie is dat een gemiste kans: een handvol verwijzingen had de lezer in staat gesteld zelf te kijken hoe stevig een advies is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Splits een lijst zorgen in twee kolommen: waar wel invloed op bestaat en waar niet. Behandel alleen de eerste kolom.</li>
+        <li>Schrijf op wat je vreest dat een ander van je vindt, en leg dat naast wat die persoon werkelijk gezegd heeft.</li>
+        <li>Zeg deze week een keer nee tegen iets waar je uit gewoonte ja op zou zeggen, en noteer wat de gevreesde gevolgen waren en wat er werkelijk gebeurde.</li>
+        <li>Meet een week lang je schermtijd op sociale media en noteer per keer je stemming voor en na.</li>
+        <li>Behandel het boek als naslagwerk per thema en lees het niet achter elkaar door; de herhaling valt dan weg.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>De no-nonsense denkwijze voor een leuker leven</i>, verschenen bij Kosmos Uitgevers, Utrecht en Antwerpen, op 23 oktober 2018 (208 blz., ISBN 9789021569444). Een herziene uitgave kwam in april 2023 uit bij Weekers' eigen Moonshot Publishing (184 blz., ISBN 9789083260044); daarnaast bestaat er een Engelstalige editie. Weekers schreef een vervolg onder de titel <i>Happy Lifehacks 365</i>; de twee titels samen gingen volgens haar uitgever over de 150.000 exemplaren. Een vertaling is niet aan de orde: het boek is in het Nederlands geschreven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kelly Weekers is psycholoog en werkt als coach. In dit boek behandelt zij het dagelijkse geluksgevoel als iets dat vooral van denkgewoonten afhangt en veel minder van omstandigheden. Zij gaat langs zes gebieden: zelfvertrouwen, gezondheid, vriendschap, werk, sociale media en relaties.</p><p>De vorm is die van een werkboek. Korte stukken tekst worden afgewisseld met opdrachten, voorbeelden, stappenplannen en quotes. De raad die telkens terugkomt: laat los wat buiten je invloed valt, hecht minder waarde aan het oordeel van anderen, zeg vaker nee tegen dingen waar je een hekel aan hebt, en aanvaard dat mislukken bij het leven hoort.</p><p>Het boek werd een van de best verkopende Nederlandse zelfhulptitels van de afgelopen jaren. De ontvangst door lezers is verdeeld: de toegankelijkheid wordt geprezen, de herhaling en het gebrek aan nieuwe inzichten worden genoemd als bezwaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geluk</li><li>zelfhulp</li><li>denkwijze</li><li>piekeren</li><li>zelfvertrouwen</li><li>sociale media</li><li>grenzen stellen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear bouwt zijn adviezen op uit gedragsonderzoek en beschrijft wel welke mechanismen hij gebruikt; het laat zien wat Weekers' boek aan onderbouwing mist.</li>
+          <li value="1882"><a href="1882.html">The Happiness Equation</a>. Pasricha behandelt dezelfde vraag naar dagelijks geluk en gaat wel expliciet in op de onderzoeksliteratuur waar Weekers omheen loopt.</li>
+          <li value="1893"><a href="1893.html">Solve for Happy</a>. Gawdat komt met een verwante these over geluk als gevolg van verwachtingen, maar bouwt die op als model in plaats van als reeks losse adviezen.</li>
+          <li value="105"><a href="105.html">Zo ongelukkig mogelijk in 8 stappen</a>. Den Daas keert het genre om door te beschrijven hoe iemand zichzelf ongelukkig maakt; die omkering legt de aannames van boeken als dit bloot.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

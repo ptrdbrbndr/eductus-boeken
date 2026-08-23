@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verslaafd aan liefde &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Geurtz stelt dat vrijwel al het lijden in liefdesrelaties door de partners zelf wordt voortgebracht, en wel door precies die handelingen waarmee zij het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1878">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1878 &middot; Levenskunst</p>
+    <h1>Verslaafd aan liefde</h1>
+    <p class="lede">Jan Geurtz, 2009</p>
+    <p class="stats">
+      <span><b>1664</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1878"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Geurtz stelt dat vrijwel al het lijden in liefdesrelaties door de partners zelf wordt voortgebracht, en wel door precies die handelingen waarmee zij het lijden proberen te vermijden. De oorzaak legt hij bij een zelfafwijzing die in de opvoeding ontstaat: kinderen leren dat zij nog niet goed genoeg zijn en aan voorwaarden moeten voldoen, en gaan het gemis dat daaruit volgt hun leven lang buiten zichzelf zoeken. Een liefdesrelatie is dan het middel waarmee die leegte wordt bestreden, en zij werkt als elk verslavend middel: kortstondig verlichting, op termijn meer afhankelijkheid en meer onzekerheid. De uitweg loopt volgens hem via het opheffen van de zelfafwijzing zelf, en dat vraagt een boeddhistisch onderzoek naar de aard van de eigen geest, niet een verzameling betere relatievaardigheden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De contraproductieve reflex</h3>
+      <p>Het inleidende hoofdstuk komt uit het werk van de auteur zelf. Geurtz begon op zijn vijfenveertigste met stoppen-met-rokentrainingen, schreef daarover en kreeg vervolgens vragen over andere verslavingen, over opvoeding en tenslotte over relatiecrises. In al die gebieden zag hij hetzelfde patroon: de manier waarop iemand ellende probeert kwijt te raken, brengt die ellende voort.</p>
+      <p>Hij noemt dat een contraproductieve reflex, met krabben bij jeuk als eenvoudigste voorbeeld. Drinken tegen geremdheid maakt geremder, pepmiddelen tegen moeheid maken vermoeider, en de angst om te stoppen is volgens hem de kern van het verslaafd zijn en niets anders.</p>
+      <h3>Vier lagen identiteit</h3>
+      <p>De hoofdstukken twee tot en met vijf beschrijven de identiteit als vier lagen die over de natuurlijke staat van zijn heen liggen. Onderop het negatieve geloof: de conclusie dat er iets mis is met wie je bent. Daarboven de basisregels, de voorwaarden waaraan voldaan moet worden om toch aanvaard te worden.</p>
+      <p>Daarboven de patronen in denken, voelen en gedrag waarmee die regels worden uitgevoerd, en aan de buitenkant het imago, het beeld dat aan anderen wordt getoond. Geurtz tekent die lagen als een bedekking: hoe hoger de laag, hoe zichtbaarder voor anderen en hoe verder van wat er werkelijk gaande is.</p>
+      <h3>Hoe het lijden wordt gemaakt</h3>
+      <p>De hoofdstukken zes tot en met acht behandelen storingen in de ontwikkeling van die identiteit en wat hij stagnaties in de groei van het bewustzijn noemt. Hier legt hij de verbinding met de opvoeding: ouders die het geluk van hun kind nastreven door het te corrigeren, leren het kind dat het niet volstaat zoals het is.</p>
+      <p>In zijn gesprekken met ouders bleek het probleem van het kind volgens hem meestal door de ouders zelf te zijn gemaakt of in stand gehouden, en te verdwijnen zodra zij ophielden met corrigeren en hun eigen angst om tekort te schieten onder ogen zagen.</p>
+      <h3>De vrije markt van liefde en erkenning</h3>
+      <p>De hoofdstukken negen tot en met twaalf passen dat op de liefde toe. Verliefdheid beschrijft hij als een spel van hoop en vrees waarin volledige aanvaarding tegenover volledige afwijzing staat, en waarin beide partners zich zo gedragen dat afwijzing wordt vermeden en waardering wordt uitgelokt.</p>
+      <p>In de vaste relatie wordt dat een ingesleten routine waarin de gevoelens van hoop en vrees zelden nog gevoeld worden. De relatiecrisis is dan geen ongeluk maar het uitkomen van wat er vanaf het begin in zat. Het deel eindigt met wat hij de vicieuze cirkel van samsara noemt: de pijn van de breuk voedt het verlangen naar de volgende relatie, of de angst ervoor, en beide leiden terug naar hetzelfde punt.</p>
+      <h3>Kijken naar de eigen geest</h3>
+      <p>Deel twee draagt de kop dat alles is zoals het is, en verlegt de aandacht van de relatie naar de waarnemer. De hoofdstukken over het spirituele pad, over het loslaten van wat hij relatiedenken noemt en over de vraag wie er eigenlijk kijkt, brengen de lezer bij oefeningen in het waarnemen van gedachten zonder erin mee te gaan.</p>
+      <p>Het hoofdstuk over pijnlijke emoties keert de gangbare raad om: de emotie is de deur en niet de hindernis. Waar dissociatie de pijn buiten de deur houdt en daarmee vasthoudt, brengt integratie haar in de ervaring terug, waarna zij volgens Geurtz vanzelf oplost. Het hoofdstuk over de natuurlijke staat van zijn stelt de vraag of dit een geloof is of iets dat te controleren valt, en beantwoordt die met een verwijzing naar het eigen onderzoek van de lezer.</p>
+      <h3>De spirituele liefdesrelatie</h3>
+      <p>De laatste hoofdstukken werken uit hoe een relatie er zonder dat verslavingsmechanisme uitziet. Er is een hoofdstuk over seksualiteit dat vrijen behandelt als een vorm van aandacht in plaats van als middel tot ontlading, een hoofdstuk over verhoudingen die ontsporen, en een hoofdstuk over kinderen waarin de lijn uit zijn opvoedingsboek terugkomt.</p>
+      <p>Twee bijlagen sluiten het boek af: een bronvermelding met leesaanbevelingen, en een verhandeling over westerse weerstanden tegen oosterse spiritualiteit, waarin hij de gangbare bezwaren tegen zijn uitgangspunten bespreekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Contraproductieve reflex</td><td>Een handeling waarvan het effect het tegengestelde is van wat ermee bedoeld wordt, zoals krabben bij jeuk of drinken tegen geremdheid.</td></tr>
+          <tr><td class="term">Zelfafwijzing</td><td>De aangeleerde overtuiging niet goed genoeg te zijn zoals men is, bij Geurtz de motor achter het zoeken naar liefde en erkenning.</td></tr>
+          <tr><td class="term">Het negatieve geloof</td><td>De onderste laag van de identiteit: de conclusie over zichzelf die in de kindertijd is getrokken en zelden nog wordt onderzocht.</td></tr>
+          <tr><td class="term">De basisregels</td><td>De voorwaarden die iemand zichzelf oplegt om alsnog aanvaardbaar te zijn, en die als vanzelfsprekend worden ervaren.</td></tr>
+          <tr><td class="term">Het imago</td><td>De buitenste laag van de identiteit, het beeld dat aan anderen wordt getoond en waarmee de onderliggende lagen bedekt blijven.</td></tr>
+          <tr><td class="term">Relatiedenken</td><td>Het geheel van verwachtingen over wat een partner hoort te geven en wat een relatie hoort op te leveren.</td></tr>
+          <tr><td class="term">Dissociatie en integratie</td><td>Het buiten de ervaring houden van een pijnlijke emotie tegenover het toelaten ervan; het eerste houdt de pijn volgens Geurtz in stand, het tweede lost haar op.</td></tr>
+          <tr><td class="term">De natuurlijke staat van zijn</td><td>De toestand die overblijft als de vier identiteitslagen niet meer werkzaam zijn, door Geurtz beschreven als op zichzelf al liefde.</td></tr>
+          <tr><td class="term">Samsara</td><td>De boeddhistische aanduiding voor de zichzelf herhalende kringloop van verlangen en lijden, door Geurtz toegepast op opeenvolgende relaties.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek en beweert dat ook niet. De grondslag is de praktijk van de auteur: trainingen voor mensen die wilden stoppen met roken, begeleiding bij andere verslavingen, gesprekken met ouders en later met mensen in een relatiecrisis. Daarnaast staat de boeddhistische leer, waarvoor hij Shantideva, Byron Katie en Sogyal Rinpoche aanhaalt. De bronvermelding in de bijlage is een leeslijst en geen verantwoording.</p>
+      <p>Geurtz biedt in plaats van bewijs een toetsingsvoorstel: geloof niets op gezag, maar onderzoek met de oefeningen in het boek of het bij jezelf klopt. Dat is een eerlijke opstelling en tegelijk een criterium dat de eigen bewering nooit kan weerleggen. Wat als herkenning wordt ervaren, kan ook het gevolg zijn van een goed verteld verhaal dat elke ervaring een plaats geeft.</p>
+      <p>Er is onderzoek dat in dezelfde richting wijst als zijn belangrijkste vooronderstelling. Naar voorwaardelijke ouderlijke waardering, waarbij goedkeuring afhangt van prestaties of gedrag, is empirisch werk verricht dat verbanden laat zien met onzekerheid en met innerlijke dwang bij volwassenen. Geurtz noemt dat werk niet, en zijn versie gaat verder dan wat eruit volgt: bij hem is er één oorzaak, en die verklaart alles.</p>
+      <p>Het commerciële succes is aanzienlijk. Er zijn ruim honderdvijfentwintigduizend exemplaren van verkocht en het boek stond jarenlang in herdruk. Dat zegt iets over de mate waarin lezers zich erin herkennen en niets over de juistheid van de verklaring.</p>
+      <p>Waar het boek het sterkst staat, is in de beschrijving. De schets van hoop en vrees in een verliefdheid, van de ingesleten vermijdingsroutines in een lange relatie en van de manier waarop ouders het probleem dat zij bestrijden zelf in stand houden, is nauwkeurig genoeg om zonder theorie overeind te blijven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek verklaart met één mechanisme te veel. Verslaving, burn-out, depressie, opvoedingsproblemen, verliefdheid, scheiding en eenzaamheid worden alle teruggevoerd op dezelfde contraproductieve reflex. Een verklaring die overal past, laat zich nergens weerleggen, en de lezer krijgt geen enkel geval te zien waarin het anders lag.</p>
+      <p>De inleiding sluit de tegenspraak alvast af. Wie het probleem bij zichzelf niet herkent, krijgt vooraf te horen dat mensen bedreven zijn in het ontkennen ervan. Daarmee wordt onenigheid tot bewijsmateriaal gemaakt, wat de rest van het betoog moeilijk toetsbaar houdt.</p>
+      <p>De tweede helft rust op een religieuze vooronderstelling. Wie de boeddhistische leer over de aard van de geest niet aanneemt, verliest de bodem onder de praktische raad, want die raad werkt naar de herkenning van de natuurlijke staat toe. De bijlage over westerse weerstanden bespreekt dat bezwaar wel, maar behandelt het als weerstand en niet als een mogelijke redenering.</p>
+      <p>De gedachte dat het eigen lijden door de eigen geest wordt gemaakt, is riskant zodra er werkelijk iets gebeurt: een partner die bedriegt, dwingt of slaat. Geurtz heeft een hoofdstuk over ontspoorde verhoudingen, maar zijn stelsel wijst per definitie naar binnen, en in handen van een lezer die zichzelf toch al de schuld geeft kan dat verkeerd uitpakken.</p>
+      <p>De praktische kant is smal voor een boek van deze omvang. Het gaat vooral over inzicht; wie wil weten hoe dat inzicht een gesprek met een partner verandert, wordt doorverwezen naar een volgend boek van dezelfde schrijver.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op welke voorwaarden er in het eigen hoofd gelden om aanvaardbaar te zijn, en waar die vandaan komen.</li>
+        <li>Let bij een terugkerende ruzie op wat er wordt gedaan om de pijn te vermijden, en op wat dat gedrag bij de ander teweegbrengt.</li>
+        <li>Laat een pijnlijk gevoel een paar minuten staan zonder het te verklaren, weg te redeneren of op te lossen, en kijk wat er daarna gebeurt.</li>
+        <li>Onderscheid bij verwijten aan een partner wat over de ander gaat en wat een verwachting over eigen tekorten is.</li>
+        <li>Lees de bijlage over westerse weerstanden voor deel twee, als de boeddhistische uitgangspunten in de weg zitten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Verslaafd aan liefde. De weg naar zelfacceptatie en geluk in relaties</i>, Ambo|Anthos, Amsterdam, eerste druk 2009; de zevenentwintigste druk verscheen in 2016 (ISBN 9789026333392) en de huidige paperback telt 222 blz. (ISBN 9789026322297). Nederlandstalig origineel, dus zonder vertaler. Bij dezelfde uitgeverij verschenen van Geurtz onder meer <i>De opluchting</i>, <i>De verslaving voorbij</i>, <i>Het einde van de opvoeding</i>, <i>Verslaafd aan denken</i>, <i>Bevrijd door liefde</i> en <i>Vrij van gedachten</i>; <i>Bevrijd door liefde</i> is bedoeld als praktische aanvulling op dit boek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Geurtz betoogt dat het zoeken naar liefde en erkenning voortkomt uit zelfafwijzing die in de opvoeding is aangeleerd, en dat de manier waarop we die zelfafwijzing bestrijden haar juist versterkt. Dat mechanisme noemt hij een contraproductieve reflex, hetzelfde patroon dat hij eerder bij roken en andere verslavingen beschreef.</p><p>Het eerste deel legt uit hoe de identiteit in vier lagen over de eigen ervaring heen groeit: een negatief geloof over zichzelf, regels om dat te verbergen, patronen in denken, voelen en gedrag, en aan de buitenkant een imago. Op die basis beschrijft hij verliefdheid, de vaste relatie en de relatiecrisis als voorspelbare uitkomsten van hetzelfde systeem.</p><p>Het tweede deel wendt zich naar boeddhistisch zelfonderzoek. Het gaat over kijken naar de eigen geest, pijnlijke emoties toelaten in plaats van wegdrukken, en wat Geurtz de natuurlijke staat van zijn noemt. De laatste hoofdstukken gaan over seksualiteit, over misgelopen liefdesverhoudingen en over kinderen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relaties</li><li>zelfacceptatie</li><li>verslaving</li><li>boeddhisme</li><li>non-dualiteit</li><li>zelfonderzoek</li><li>opvoeding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1733"><a href="1733.html">De verslaving voorbij</a>. Hier staat de contraproductieve reflex voor het eerst uitgewerkt, toegepast op middelen in plaats van op relaties.</li>
+          <li value="1735"><a href="1735.html">Verslaafd aan denken</a>. Vier jaar later trekt Geurtz dezelfde redenering door naar het denken zelf; dat boek staat dichter bij de boeddhistische bronnen.</li>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller verklaren hetzelfde gedrag in relaties uit hechtingsstijlen, met onderzoek dat Geurtz niet aanhaalt en op punten tegenspreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breek je vrij! &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Selij stelt dat vrijwel niemand een probleem heeft, maar dat mensen hun probleem doen: angst, somberheid en verslaving zijn volgens hem handelingen die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1868">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1868 &middot; Gewoontes en denken</p>
+    <h1>Breek je vrij!</h1>
+    <p class="lede">Edwin Selij, 2017</p>
+    <p class="stats">
+      <span><b>1575</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1868"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Selij stelt dat vrijwel niemand een probleem heeft, maar dat mensen hun probleem doen: angst, somberheid en verslaving zijn volgens hem handelingen die iemand keer op keer uitvoert, geen eigenschappen die iemand bezit. Wie dat inziet, kan de handeling ook anders uitvoeren. Daarachter zit een tweede stelling: verandering is voor tachtig procent een kwestie van hoe iemand denkt en voor twintig procent een kwestie van methode, en aan die tachtig procent zitten vier terugkerende denkfouten die eerst rechtgezet moeten worden. Pas daarna heeft techniek zin. De titel van het boek verwijst naar zijn eigen beschrijving van een gewoon leven: een hypnose van negenentwintig jaar waar hij op een dag uit stapte.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een hypnose van negenentwintig jaar</h3>
+      <p>Selij opent met zijn eigen loopbaan. Hij werkte in de bouw, kwam via neurolinguistisch programmeren in de hypnose terecht en richtte later het Hypnose Instituut Nederland op. Zijn beeld van hypnose keert de gangbare voorstelling om: niet de trance in de behandelkamer is de hypnose, maar het aangeleerde patroon waarin iemand jarenlang leeft zonder het door te hebben.</p>
+      <p>Van daaruit legt hij de verhouding vast waarop het hele boek rust. Tachtig procent van verandering zit volgens hem in het denken, twintig procent in de aanpak. De eerste vier hoofdstukken gaan over die tachtig procent, de rest levert de methode.</p>
+      <h3>Denkfout een: de roze olifant</h3>
+      <p>Het eerste hoofdstuk gaat over wat Selij de niet-valkuil noemt. Wie zich voorneemt niet te piekeren, niet te blozen of niet te snoepen, richt zijn aandacht juist op datgene wat hij kwijt wil. De opdracht om niet aan een roze olifant te denken dient als demonstratie.</p>
+      <p>Daaraan koppelt hij een punt over vraagvormen. Waarom-vragen leveren verklaringen en schuldigen op, hoe-vragen leveren een handeling op. Elk hoofdstuk sluit af met een paragraaf waarin de denkfout denkgoed wordt gemaakt, meestal met een schrijfopdracht of een aandachtsoefening.</p>
+      <h3>Denkfout twee: je hebt het niet, je doet het</h3>
+      <p>Hier staat de kern van het boek. Een probleem is in Selijs beschrijving geen bezit maar een reeks handelingen: een beeld dat iemand oproept, een zin die hij tegen zichzelf zegt, een spanning die hij ergens in zijn lichaam aanzet. Wie kan benoemen hoe hij zijn angst doet, heeft er ook iets aan te veranderen.</p>
+      <p>Hij leunt daarbij op het begrip reconsolidatie uit het geheugenonderzoek: een herinnering die wordt opgehaald, wordt daarna opnieuw opgeslagen en kan bij dat opslaan wijzigen. Selij leidt daaruit af dat een oude herinnering tijdens het ophalen van een andere betekenis is te voorzien, en dat een klacht daarmee zijn aanleiding kwijtraakt.</p>
+      <h3>Denkfout drie en vier: feiten en bedoelingen</h3>
+      <p>De derde denkfout betreft de verwarring van een feit met een probleem. Een scheiding, een ontslag of een diagnose zijn feiten; het probleem zit in wat iemand ervan maakt. Selij zet daar groen denken tegenover rood denken, waarbij groen staat voor denken dat beweegt en rood voor denken dat vaststaat. Hij onderscheidt in hetzelfde hoofdstuk inhoud en proces: waar een klacht over gaat is voor de aanpak minder van belang dan hoe iemand hem uitvoert.</p>
+      <p>De vierde denkfout is de aanname dat een klacht alleen maar schaadt. Volgens Selij heeft hardnekkig gedrag een positieve intentie, ook roken, uitstellen of controledwang. Zijn omgang daarmee noemt hij de aikido-manier: meebewegen met de bedoeling erachter en die bedoeling een andere uitvoering geven, in plaats van tegen het gedrag in duwen.</p>
+      <h3>Eigenaarschap en de TriO-methode</h3>
+      <p>Het scharnierhoofdstuk vraagt of de lezer eigenaar is of weigeraar. Zolang iemand zijn klacht bij zijn jeugd, zijn partner of zijn omstandigheden legt, blijft die klacht buiten bereik. Selij laat de lezer de positieve intentie en de gewenste richting opschrijven voordat de methode begint.</p>
+      <p>Die methode telt drie stappen, door hem TriO genoemd. Optrommelen is de klacht bewust oproepen en met tien vragen uitvragen: waar zit hij, wat gaat eraan vooraf, wat gebeurt er precies. Opdonderen is de gewoonte onderbreken en de aandacht verleggen. Opvullen is de vrijgekomen plek innemen met tegengesteld gedrag, waarna hij aandringt op testen in de situatie die de klacht eerder opriep.</p>
+      <h3>Volhouden</h3>
+      <p>Het slothoofdstuk gaat over bestendigen. Selij wijst op aandacht en informatie: wat iemand leest, kijkt en beluistert bepaalt waar zijn denken vanzelf naartoe zakt. Hij gebruikt het begrip priming voor de manier waarop een omgeving gedrag alvast in een richting zet, en pleit voor een vaste ochtendroutine.</p>
+      <p>Het boek telt honderdzestig bladzijden en is spreektalig geschreven, met korte gevallen uit de praktijk en met oefeningen in kaders die los te gebruiken zijn. Een epiloog en een literatuurlijst sluiten het af.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Denkfout en denkgoed</td><td>Een aanname over hoe klachten werken die het aanpakken ervan in de weg staat, en de omgekeerde aanname die Selij ervoor in de plaats zet.</td></tr>
+          <tr><td class="term">De niet-valkuil</td><td>Het verschijnsel dat een voornemen in ontkennende vorm de aandacht juist op het ongewenste richt.</td></tr>
+          <tr><td class="term">Je hebt het niet, je doet het</td><td>De grondformule van het boek: een klacht is een handeling die herhaald wordt, geen toestand die iemand overkomt.</td></tr>
+          <tr><td class="term">Reconsolidatie</td><td>Het uit het geheugenonderzoek geleende idee dat een herinnering na het ophalen opnieuw wordt vastgelegd en daarbij van betekenis kan veranderen.</td></tr>
+          <tr><td class="term">Groen denken en rood denken</td><td>Denken dat beweging en mogelijkheden ziet tegenover denken dat een toestand als vaststaand behandelt.</td></tr>
+          <tr><td class="term">Inhoud en proces</td><td>Het onderscheid tussen waar een klacht over gaat en de manier waarop iemand hem telkens opbouwt; Selij werkt alleen met het tweede.</td></tr>
+          <tr><td class="term">Positieve intentie</td><td>De bedoeling die volgens Selij achter elk hardnekkig gedrag zit, ook wanneer het gedrag zelf schade aanricht.</td></tr>
+          <tr><td class="term">De aikido-manier</td><td>Meebewegen met die bedoeling en haar een andere uitvoering geven in plaats van het gedrag bestrijden.</td></tr>
+          <tr><td class="term">Eigenaar of weigeraar</td><td>De keuze om een klacht als eigen handeling te behandelen of hem bij omstandigheden en anderen te leggen.</td></tr>
+          <tr><td class="term">TriO</td><td>Selijs methode in drie stappen: het probleem optrommelen, opdonderen en de plek opvullen met tegengesteld gedrag.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de praktijk van de auteur en niet op onderzoek dat erin wordt getoetst. Selij beschrijft gevallen uit zijn eigen behandelkamer en uit de opleidingen van zijn instituut, doorgaans in enkele alinea's, zonder nameting en zonder gevallen waarin de aanpak niets deed. Achterin staat een literatuurlijst, maar in de lopende tekst worden studies zelden bij naam genoemd of van een uitkomst voorzien.</p>
+      <p>Twee van de begrippen die hij leent hebben wel een basis in onderzoek. Reconsolidatie is in het geheugenonderzoek herhaaldelijk aangetoond: een opgehaalde herinnering blijft korte tijd wijzigbaar voordat zij opnieuw wordt vastgelegd. Ook het omgekeerde effect van onderdrukking, waar de roze olifant op berust, is in de psychologie gedocumenteerd. Wat Selij eraan toevoegt is de stap van het laboratorium naar de behandelkamer, en juist die stap onderbouwt hij niet.</p>
+      <p>De verhouding tachtig om twintig komt zonder bron en zonder afbakening. Hetzelfde geldt voor de stelling dat vrijwel elk hardnekkig gedrag een positieve intentie kent: dat is een werkafspraak die de aanpak bruikbaar maakt, geen bevinding.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek meer belooft dan het kan waarmaken. Het spreekt over jarenlange klachten die in korte tijd verdwijnen en behandelt angst, somberheid en lichamelijke aandoeningen met dezelfde handgreep. Voor hypnose bestaat redelijk bewijs bij een beperkt aantal toepassingen, onder meer pijn bij ingrepen, het prikkelbaredarmsyndroom en als aanvulling bij stoppen met roken. Voor de brede claim die hier wordt gedaan is dat bewijs er niet.</p>
+      <p>De herkomst in het neurolinguistisch programmeren werkt door in de aannames. Denkbeelden als een onbewuste dat geen ontkenning verwerkt en een geest die te herprogrammeren valt komen uit een school waarvan de vooronderstellingen bij toetsing telkens niet standhielden. Dat maakt de oefeningen niet waardeloos, maar het verhaal eromheen staat los van de vraag of ze werken.</p>
+      <p>De zin je hebt het niet, je doet het legt het gewicht bij degene die klaagt. Bij uitstelgedrag en piekeren kan dat helpen. Bij een depressie, een trauma of een ziekte kan dezelfde zin als verwijt aankomen, en het boek maakt dat onderscheid nergens hard. Er staat ook geen waarschuwing bij het zelfstandig ophalen van oude en pijnlijke herinneringen, terwijl de methode daar wel om vraagt.</p>
+      <p>Tot slot is het boek dun waar het zijn eigen methode betreft. TriO wordt in enkele tientallen bladzijden neergezet, met tien vragen en een handvol oefeningen. Wie meer wil, wordt doorverwezen naar de opleidingen en de vervolgboeken van de auteur.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf een voornemen op in wat er wel moet gebeuren en streep elke zin door waarin het woord niet voorkomt.</li>
+        <li>Vervang bij een terugkerende klacht de vraag waarom die er is door de vraag hoe je hem doet: welk beeld, welke zin, welke spanning gaat eraan vooraf.</li>
+        <li>Zet in twee kolommen wat feit is en wat je ervan maakt; alleen de tweede kolom is te bewerken.</li>
+        <li>Zoek bij een gewoonte die je kwijt wilt eerst de bedoeling erachter en bedenk pas daarna gedrag dat diezelfde bedoeling dient.</li>
+        <li>Test na elke oefening of de klacht nog opkomt in de situatie die hem eerder opriep, en noteer het antwoord in plaats van erop te vertrouwen.</li>
+        <li>Leg vast waarmee je de dag begint en beperk wat je in het eerste uur leest en bekijkt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands geschreven en uitgegeven door AnderZ, Amsterdam, oktober 2017, 160 blz., ISBN 9789462960640; ook als luisterboek, ingesproken door de auteur (ISBN 9789463270373). Het boek is naar het gelijknamige seminar van Selij genoemd en niet in andere talen vertaald. Van dezelfde auteur verschenen later onder meer <i>De laatste hypnose</i> en <i>The Three Minute Reset</i> (2025).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Edwin Selij leidt het Hypnose Instituut Nederland en schreef dit boek in 2017 naar aanleiding van het seminar met dezelfde naam. Zijn uitgangspunt is dat een probleem geen bezit is maar een handeling: iemand heeft geen faalangst, hij doet faalangst, telkens op dezelfde manier en telkens opnieuw.</p><p>Het eerste deel behandelt vier denkfouten die volgens Selij eerst rechtgezet moeten worden: het denken in ontkenningen, het idee dat een klacht een eigenschap is, de verwarring van een feit met een probleem, en de aanname dat gedrag dat schaadt geen bedoeling heeft. Het tweede deel geeft de methode die hij TriO noemt: het probleem optrommelen, opdonderen en opvullen.</p><p>Het boek is kort, spreektalig en gericht op doen, met oefeningen in kaders en korte gevallen uit de eigen praktijk. Onderzoek waaraan de aanpak is getoetst staat er niet in. De onderbouwing bestaat uit begrippen die uit het geheugenonderzoek zijn geleend en uit wat de auteur in zijn behandelkamer heeft gezien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hypnose</li><li>hypnotherapie</li><li>denkfouten</li><li>zelfhulp</li><li>gewoontes</li><li>NLP</li><li>reconsolidatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1616"><a href="1616.html">The Three Minute Reset</a>. Selij bracht in 2025 <i>The Three Minute Reset</i> uit, waarin dezelfde aanpak tot een korte dagelijkse oefening is teruggebracht.</li>
+          <li value="1869"><a href="1869.html">Hypnotherapy</a>. Elmans handboek uit 1964 legt de techniek vast waarop deze traditie rust, geschreven voor artsen en zonder de belofte van een ideaal leven.</li>
+          <li value="1546"><a href="1546.html">Mijn stem gaat met je mee</a>. Rosen laat aan de hand van Milton Erickson zien hoe hypnotherapie ook zonder methodeschema werkt, in casussen die uitvoerig genoeg zijn om na te lopen.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear behandelt het volhoudprobleem uit het slothoofdstuk van Selij, maar dan met omgeving en herhaling in plaats van met herinneringen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

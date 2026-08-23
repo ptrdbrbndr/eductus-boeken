@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus AAN/UIT &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De auteurs stellen dat concentratieverlies geen karaktereigenschap is en ook geen algemene aandoening van de moderne tijd, maar het gevolg van vier…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1879">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1879 &middot; Werk en aandacht</p>
+    <h1>Focus AAN/UIT</h1>
+    <p class="lede">Mark Tigchelaar en Oscar de Bos, 2019</p>
+    <p class="stats">
+      <span><b>1467</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1879"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De auteurs stellen dat concentratieverlies geen karaktereigenschap is en ook geen algemene aandoening van de moderne tijd, maar het gevolg van vier aanwijsbare lekken die elk een eigen oorzaak en een eigen tegenmaatregel hebben. Twee daarvan gaan over te veel: te veel gedachten aan onafgemaakt werk en te veel onderbrekingen van buiten. Een derde gaat over te weinig van het goede soort, namelijk een taak die zo weinig vraagt dat de aandacht zelf op zoek gaat naar iets anders. De vierde gaat over uitputting: aandacht kost brandstof en die raakt op zonder echte pauzes. Daaruit volgt hun belangrijkste praktische punt, dat raad die niet bij het juiste lek hoort averechts werkt, omdat wie zich bij saai werk verder afsluit van prikkels het probleem groter maakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Aandacht als lek</h3>
+      <p>Het boek opent met de stelling dat de gebruikelijke adviezen over concentratie langs elkaar heen werken omdat zij niet vragen wat er in dit geval aan de hand is. Alle telefoons uit is goed advies bij het ene lek en zinloos bij het andere.</p>
+      <p>Daarbij hoort de titel: de aandacht kent een stand aan en een stand uit, en beide zijn nodig. Aan de standen zelf mankeert niets; het gaat om het lek waardoor de stand aan niet lang genoeg blijft staan.</p>
+      <h3>Lek 1: te weinig prikkels</h3>
+      <p>Bij werk dat weinig van de aandacht vraagt, gaat de aandacht zelf op zoek naar aanvulling, meestal in de vorm van de telefoon. De maatregel is hier tegendraads: voeg een eenvoudige nevenbezigheid toe, zoals krabbelen, staand of lopend vergaderen, of routinewerk combineren met iets anders dat weinig denkwerk vraagt.</p>
+      <p>De auteurs onderscheiden daarbij multitasken van multiswitchen. Twee bezigheden waarvan er één automatisch verloopt gaan samen; twee bezigheden die allebei aandacht vragen worden in werkelijkheid steeds afgewisseld, en dat wisselen kost tijd en nauwkeurigheid. Zij verwijzen daarbij naar onderzoek waarin een eenvoudige nevenbezigheid de aandacht bij saai materiaal juist vasthield.</p>
+      <h3>Lek 2: te veel interne prikkels</h3>
+      <p>Het tweede lek zit in het hoofd zelf: onafgemaakte taken, plannen en zorgen die zich blijven melden zolang zij nergens vastliggen. De maatregel is alles opschrijven, met een vaste start van de dag en een korte lijst met wat er vandaag echt moet gebeuren.</p>
+      <p>Deze aanpak leunt zichtbaar op de methode van David Allen. Het verschil zit in de plaatsing: bij Allen is het opschrijven het begin van een compleet stelsel, hier is het de tegenmaatregel voor één van de vier lekken.</p>
+      <h3>Lek 3: te weinig brandstof</h3>
+      <p>Aandacht kost energie en die raakt in de loop van de dag op. De auteurs bepleiten korte pauzes tussen blokken werk, waarbij zij een kort ritme voorstellen voor eenvoudig werk en een langer blok voor werk dat diepe concentratie vraagt.</p>
+      <p>De voorwaarde die zij eraan verbinden is de nuttigste: een pauze telt alleen als er geen nieuwe informatie binnenkomt. Even door de tijdlijn scrollen is dan geen pauze maar ander werk voor hetzelfde stelsel. Bewegen, uit het raam kijken of niets doen zijn dat wel.</p>
+      <h3>Lek 4: te veel externe prikkels</h3>
+      <p>Het vierde lek is het bekendste: meldingen, mail, een kantoortuin en collega's die langslopen. Elke onderbreking laat een spoor achter waardoor de volgende taak trager op gang komt, ook als de onderbreking zelf kort was.</p>
+      <p>Het advies is per soort werk te verschillen. Moeilijk werk vraagt om afscherming: geen meldingen, deur dicht, aangekondigde onbereikbaarheid. Eenvoudig werk verdraagt onderbreking zonder veel schade en hoeft niet beschermd te worden. De auteurs bepleiten daarom afspraken op afdelingsniveau in plaats van individuele heldendaden.</p>
+      <h3>De omgeving van het werk</h3>
+      <p>Het tweede deel gaat over wat om die vier lekken heen staat: hoe gewenning aan afleiding ontstaat, wat leidinggevenden aanrichten met hun eigen bereikbaarheidsnormen, en hoe productiviteit en herstel samenhangen.</p>
+      <p>In de uitgave van 2024 is dat deel aangevuld met een werkwijze om de mailbox aan het eind van de dag leeg te hebben en met tien korte tips. Beide zijn bewerkingen van bestaande methoden; het boek presenteert ze ook zo.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Concentratielek</td><td>Een van de vier oorzaken waardoor de aandacht wegloopt, elk met een eigen tegenmaatregel.</td></tr>
+          <tr><td class="term">Focus aan en focus uit</td><td>De twee standen van de aandacht; beide horen erbij, en het probleem zit in het te snel wegvallen van de stand aan.</td></tr>
+          <tr><td class="term">Multitasken tegenover multiswitchen</td><td>Twee bezigheden waarvan er één automatisch gaat kunnen samen; twee bezigheden die allebei aandacht vragen worden in werkelijkheid afgewisseld.</td></tr>
+          <tr><td class="term">Aandachtsresidu</td><td>Het spoor dat een onderbroken taak in het hoofd achterlaat, waardoor de volgende taak trager op gang komt.</td></tr>
+          <tr><td class="term">Brain dump</td><td>Alles wat in het hoofd rondgaat op papier zetten, zodat het niet meer om aandacht hoeft te vragen.</td></tr>
+          <tr><td class="term">Brandstof</td><td>De energie die aandacht verbruikt; zonder pauzes waarin geen informatie binnenkomt raakt zij in de loop van de dag op.</td></tr>
+          <tr><td class="term">Prikkelhonger</td><td>De neiging van de aandacht om bij een te weinig eisende taak zelf aanvulling te zoeken.</td></tr>
+          <tr><td class="term">Afscherming naar soort werk</td><td>Het onderscheid tussen taken die volledige onbereikbaarheid verdienen en taken die onderbreking prima verdragen.</td></tr>
+          <tr><td class="term">Focus bites</td><td>De tien korte tips die in de jubileumuitgave van 2024 zijn toegevoegd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Tigchelaar heeft een achtergrond in de neuropsychologie en leidt met De Bos een trainingsbureau dat naar eigen zeggen meer dan honderdduizend professionals heeft getraind. Het boek verwijst naar onderzoek uit de aandachtspsychologie, maar doet dat in de vorm die in dit genre gebruikelijk is: een bevinding in een zin, zonder de opzet van de studie en zonder de omvang van het effect.</p>
+      <p>De onderliggende bevindingen bestaan wel degelijk. Dat taakwisseling tijd kost, dat een onderbroken taak een spoor achterlaat waardoor de volgende trager gaat, en dat werken in een ruimte met veel geluid en zicht op anderen de aandacht kost, is in meerdere onafhankelijke studies gevonden. De richting van het advies wordt daardoor gedragen.</p>
+      <p>Twee onderdelen staan zwakker. Het pauzeritme van vijfentwintig minuten komt uit een populaire werkmethode en niet uit onderzoek; het langere blok van anderhalf uur leunt op de gedachte van een terugkerend ritme in waakzaamheid, waarover de literatuur verdeeld is. Beide getallen worden gebruikt alsof zij vaststaan.</p>
+      <p>Voor de methode als geheel is geen toetsing gedaan. Er is geen groep die het programma volgde naast een groep die dat niet deed, en de winst die in trainingen wordt gerapporteerd berust op wat de deelnemers zelf achteraf zeggen. De verkoopcijfers, ruim honderdduizend exemplaren, zeggen daar niets over.</p>
+      <p>De sterkste bijdrage van het boek is geen bevinding maar een ordening. Het onderscheid tussen te weinig en te veel prikkels verklaart waarom veel concentratieadvies bij sommige mensen averechts werkt, en dat inzicht is bruikbaarder dan de afzonderlijke tips.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vier lekken zijn een lesmodel en geen bevinding. De categorieën overlappen: werken in een kantoortuin is tegelijk een externe prikkel en een reden waarom de brandstof sneller opraakt, en gedachten aan onafgemaakt werk komen vaak voort uit onderbrekingen van buiten. Het model is bruikbaar om over het onderwerp te praten, maar wordt gepresenteerd alsof het de zaak zelf beschrijft.</p>
+      <p>Het zwaartepunt ligt bij de individuele werker. Het tweede deel wijst naar leidinggevenden, maar de oorzaken die in kantoren de meeste afleiding opleveren, te veel werk bij te weinig mensen, vergaderdruk en de norm dat een bericht binnen enkele minuten wordt beantwoord, worden niet als arbeidsomstandigheid behandeld. Wie zijn dag niet zelf kan indelen, heeft aan afspraken over meldingen weinig.</p>
+      <p>Het hersenkader voegt gezag toe en zelden inhoud. Bijna elk advies uit het boek is te geven zonder een woord over de werking van het brein, en de neuropsychologische uitleg dient vooral om de tip aannemelijk te maken. Dat is een bekend patroon in dit genre.</p>
+      <p>Naast de internationale titels over hetzelfde onderwerp is er weinig nieuws. Wat het boek wel biedt en die titels niet, is een Nederlandse context, korte hoofdstukken en toepasbaar advies zonder omhaal; wie Newport of Eyal gelezen heeft, herkent het meeste.</p>
+      <p>De jubileumuitgave is grotendeels dezelfde tekst. De toegevoegde mailwerkwijze is een bewerking van een oudere methode en de tien tips zijn kort; wie de druk uit 2019 bezit, heeft weinig reden voor de nieuwe.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel eerst vast welk lek aan de orde is voordat er een maatregel wordt gekozen; verkeerd gericht advies maakt het erger.</li>
+        <li>Voeg bij saai werk een eenvoudige nevenbezigheid toe in plaats van de omgeving verder stil te maken.</li>
+        <li>Zet aan het begin van de dag alles op papier wat in het hoofd rondgaat en kies daaruit hooguit drie dingen die vandaag af moeten.</li>
+        <li>Neem pauzes waarin geen nieuwe informatie binnenkomt; scrollen telt niet als pauze.</li>
+        <li>Maak per soort werk afspraken over bereikbaarheid, en leg die op afdelingsniveau vast in plaats van per persoon.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Focus AAN/UIT. Dicht de 4 concentratielekken en krijg meer gedaan in een wereld vol afleiding</i>, Het Spectrum, Houten, eerste druk 2019 (224 blz., ISBN 9789000359691). In 2024 verscheen bij Unieboek | Het Spectrum in Amsterdam een uitgebreide jubileumuitgave, de vijfentwintigste druk (236 blz., ISBN 9789000393091), met nieuw onderzoek, extra voorbeelden, een werkwijze om de mailbox leeg te houden en tien korte tips. Nederlandstalig origineel, dus zonder vertaler. Tigchelaar studeerde neuropsychologie en schreef eerder over leren en geheugen; De Bos leidt met hem het trainingsbureau achter het boek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tigchelaar en De Bos brengen het verlies van concentratie terug tot vier oorzaken, die zij concentratielekken noemen: te weinig prikkels, te veel interne prikkels, te weinig brandstof en te veel externe prikkels. Elk lek krijgt een eigen deel met uitleg en met maatregelen.</p><p>Hun uitgangspunt is dat afleiding zelden een kwestie van wilskracht is. Wie zich bij een saaie taak niet kan concentreren, heeft een ander probleem dan wie de hele dag door collega's wordt onderbroken, en de aanpak verschilt daarom per lek. Een saaie taak vraagt om meer prikkels, een onderbroken werkdag om minder.</p><p>Het tweede deel behandelt de omgeving van het werk: de gewenning aan afleiding, de rol van leidinggevenden die de onderbrekingen veroorzaken, en de vraag hoe herstel na een werkdag verloopt. De jubileumuitgave uit 2024 voegde daar een mailwerkwijze en tien korte tips aan toe.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>concentratie</li><li>afleiding</li><li>productiviteit</li><li>neuropsychologie</li><li>kantoorwerk</li><li>pauzes</li><li>multitasken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport bepleit lange ononderbroken blokken en gaat daarmee dieper op één lek in dan dit boek op alle vier.</li>
+          <li value="290"><a href="290.html">Indistractable</a>. Eyal legt het accent bij interne aanleidingen en bij het ongemak waarvoor de afleiding een uitweg is, waar Tigchelaar en De Bos vooral maatregelen geven.</li>
+          <li value="1833"><a href="1833.html">Fokking druk</a>. Launspach beschrijft dezelfde Nederlandse kantoren, maar behandelt de drukte als arbeidsomstandigheid in plaats van als aandachtsprobleem.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

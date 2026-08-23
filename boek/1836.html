@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shack &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Young stelt de vraag waarom een goede en almachtige God de moord op een kind laat gebeuren, en geeft daarop een antwoord dat niet uit een redenering…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1836">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1836 &middot; Roman en memoir</p>
+    <h1>The Shack</h1>
+    <p class="lede">William Paul Young, 2007</p>
+    <p class="stats">
+      <span><b>1583</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1836"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Young stelt de vraag waarom een goede en almachtige God de moord op een kind laat gebeuren, en geeft daarop een antwoord dat niet uit een redenering bestaat maar uit een ontmoeting. Zijn stelling is dat God geen bestuurder is die gebeurtenissen regelt, maar drie personen die met elkaar en met de mens omgaan zonder rangorde en zonder dwang, en dat het kwaad voortkomt uit de menselijke keuze om onafhankelijk van die omgang te leven. Wie dat aanneemt heeft volgens het boek geen verklaring voor het lijden meer nodig, maar alleen het vertrouwen dat God er zelf in aanwezig was. De roman verdedigt die gedachte niet met theologische argumenten. Zij krijgt een gezicht: een vader die zijn dochter verloor brengt een weekend met God door en gaat daarna vergeven.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Mack en de Grote Droefheid</h3>
+      <p>Mack groeit op als zoon van een ouderling die dronk en sloeg. Als jongen giet hij gif in de drankflessen van zijn vader en loopt weg van huis. Dat verleden staat in de eerste hoofdstukken en verklaart waarom hij God vanzelf als een strenge man ziet.</p>
+      <p>Jaren later gaat hij met drie van zijn kinderen kamperen bij Wallowa Lake. Terwijl hij zijn zoon redt bij een omgeslagen kano, verdwijnt Missy van de camping. De speurtocht leidt naar een hut in de bergen, waar haar jurkje wordt gevonden. Het lichaam blijft weg, de dader ook. Zijn dochter Kate zwijgt sindsdien en houdt zichzelf verantwoordelijk voor de kano.</p>
+      <h3>Het briefje</h3>
+      <p>Vier jaar later vindt Mack een ongefrankeerd briefje in zijn brievenbus dat hem uitnodigt in de hut, ondertekend met Papa. Hij weet niet of het een grap van de moordenaar is, van God, of van niemand. Hij zegt niets tegen zijn vrouw Nan, leent de jeep van een vriend en rijdt alleen de sneeuw in.</p>
+      <p>De hut blijkt eerst precies wat zij was: een koude ruimte met een vlek op de vloer. Pas als Mack naar buiten loopt verandert het landschap in een lente met een verzorgd huis, en staat er iemand in de deuropening.</p>
+      <h3>De drie in de hut</h3>
+      <p>Papa is een zwarte vrouw die kookt en zingt en zich later Elousia noemt. Jezus is een timmerman met een grote neus die aan meubels werkt. Sarayu, de Geest, is een Aziatische vrouw die nooit helemaal scherp in beeld komt en een verwilderde tuin onderhoudt. Young laat Papa uitleggen dat zij deze gedaanten aanneemt omdat Mack het beeld van een vader niet aankan.</p>
+      <p>In hun onderlinge omgang zit het punt van het boek. Zij overleggen, plagen elkaar en geven elkaar geen opdrachten. Papa draagt de littekens van de kruisiging aan haar polsen, want volgens het boek was zij bij Jezus toen hij riep dat hij verlaten was.</p>
+      <h3>De gesprekken</h3>
+      <p>Het middendeel bestaat uit tweegesprekken over macht, vrijheid en schuld. Mack krijgt te horen dat hiërarchie een menselijke vinding is en dat God niet dwingt; dat de mens het kwaad koos toen hij onafhankelijkheid koos; en dat God dat kwaad niet wil maar er wel doorheen werkt.</p>
+      <p>Sarayu neemt hem mee de tuin in, die van bovenaf een chaos blijkt en van dichtbij een patroon: het is zijn eigen ziel. Jezus loopt met hem over het water van het meer en spreekt over regels, die volgens hem alleen bestaan bij gebrek aan vertrouwen. Terugkerend is de tegenstelling tussen een verwachting van iets, die teleurstelt, en het verwachtingsvol tegemoet leven van iemand, dat dat niet doet.</p>
+      <h3>Sophia en het oordeel</h3>
+      <p>In een grot ontmoet Mack Sophia, de verpersoonlijking van Gods wijsheid. Zij zet hem in de stoel van de rechter en vraagt hem twee van zijn vijf kinderen aan te wijzen die naar de hel gaan. Mack weigert en biedt uiteindelijk zichzelf aan in hun plaats.</p>
+      <p>Dat is het scharnier van de redenering: als een vader die zo weinig weet zo ver gaat voor zijn kinderen, is de aanklacht tegen God als onverschillige rechter niet vol te houden. Mack blijft daarna nog wel vragen naar de moordenaar, en Sophia laat hem toe dat hij die niet meteen kan vergeven.</p>
+      <h3>Missy en de terugkeer</h3>
+      <p>Papa, die zich nu als oudere man vertoont omdat Mack een vader nodig heeft, brengt hem naar de plek in de bergen waar het lichaam van Missy ligt. Zij nemen het mee, wassen het en begraven het in de tuin van Sarayu. Daar spreekt Mack hardop de vergeving uit over de moordenaar, zonder daarmee te zeggen dat het goed was.</p>
+      <p>Op de terugweg krijgt Mack een zwaar ongeluk en wordt hij wakker in het ziekenhuis. De politie vindt aan de hand van zijn aanwijzingen het graf en pakt de dader op. Of het weekend werkelijk plaatsvond laat het boek open; de verteller, een buurman van Mack, geeft aan het slot toe dat hij het zelf niet weet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Grote Droefheid</td><td>Macks eigen naam voor de rouw die hem na de moord op Missy als een deken omgeeft en die zijn geloof, zijn huwelijk en zijn omgang met zijn kinderen verlamt.</td></tr>
+          <tr><td class="term">Papa</td><td>De naam waarmee Nan en later Mack God de Vader aanspreken, in het boek belichaamd door een zwarte vrouw die zichzelf ook Elousia noemt.</td></tr>
+          <tr><td class="term">Sarayu</td><td>De Heilige Geest als Aziatische vrouw, genoemd naar een rivier in India, die nooit scherp in beeld komt en de tuin verzorgt.</td></tr>
+          <tr><td class="term">Sophia</td><td>De verpersoonlijkte wijsheid van God, die Mack in een grot laat oordelen over zijn eigen kinderen om hem te laten zien wat oordelen inhoudt.</td></tr>
+          <tr><td class="term">De tuin</td><td>Het stuk grond dat Sarayu bewerkt en dat van bovenaf op wanorde lijkt; het blijkt een afbeelding van Macks ziel te zijn.</td></tr>
+          <tr><td class="term">Onafhankelijkheid</td><td>Het woord dat het boek gebruikt voor de menselijke keuze om buiten de omgang met God te leven, en dat het als de wortel van het kwaad aanwijst.</td></tr>
+          <tr><td class="term">Hiërarchie</td><td>Volgens Papa een menselijke vinding die tussen de drie personen van God niet bestaat en die daarom ook in menselijke verhoudingen niet vanzelfsprekend is.</td></tr>
+          <tr><td class="term">Verwachting en verwachtingsvolheid</td><td>Het onderscheid tussen eisen die iemand aan een ander stelt en het openstaan voor wat die ander werkelijk is; het eerste beschadigt relaties volgens het boek, het tweede draagt ze.</td></tr>
+          <tr><td class="term">Vergeving</td><td>In dit boek een daad die de vergever bevrijdt van de macht van de dader, uitdrukkelijk niet hetzelfde als de dader goedpraten of vertrouwen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek en nauwelijks Schrift aan. Waar het op rust is de biografie van de schrijver. Young werd in 1955 geboren en groeide op als zoon van zendelingen bij de Dani in het toenmalige Nederlands Nieuw-Guinea; hij heeft in interviews verteld over misbruik in die jaren en over een kostschool, en later over een overspelige verhouding die zijn huwelijk bijna brak. Hij schreef het verhaal naar eigen zeggen als kerstgeschenk voor zijn zes kinderen, en niet als publicatie.</p>
+      <p>Het antwoord op het lijden dat het boek geeft is de klassieke vrijewilverdediging in verhaalvorm: God dwingt niet, dus kan een mens kwaad doen, en God werkt daar daarna doorheen. Dat is een bestaande positie in de theologie, maar Young voert de bezwaren ertegen niet op en weegt ze niet. Wie de redenering wil toetsen, moet het boek verlaten.</p>
+      <p>De invloed van het boek is wel te meten. Het werd in eigen beheer uitgebracht, verspreidde zich via kerkelijke leeskringen en boekhandels en verkocht in het eerste jaar al miljoenen exemplaren, waarna een grote uitgever de verspreiding overnam. Die geschiedenis zegt vooral iets over de behoefte aan een niet-schoolse God bij lezers die in kerken zijn opgegroeid, en die behoefte is het feit waar het boek zelf het bewijs van is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt uit de hoek van de lezers voor wie het boek geschreven lijkt. Albert Mohler en anderen wezen erop dat de drie gedaanten van God elkaar in het boek overnemen en elkaars wonden dragen, en dat dit neerkomt op modalisme: God als één persoon met drie verschijningsvormen, een positie die de vroege kerk uitdrukkelijk heeft afgewezen. Daarnaast is Young verweten dat zijn boek de leer van de algehele verzoening voorstaat, waarin niemand verloren gaat. Hij heeft dat later in <i>Lies We Believe About God</i> min of meer bevestigd.</p>
+      <p>Literair is het boek zwak. De drie personen spreken in lange lessen, Mack stelt de vragen die de les nodig heeft, en de stijl valt bij ontroering terug op grote woorden. Het middendeel is eerder een reeks lezingen dan een handeling; wie de gesprekken uit het verhaal licht, houdt vrijwel het hele boek over.</p>
+      <p>Inhoudelijk ontwijkt het de vraag die het zelf stelt. Als God de moord niet wilde en niet ingreep omdat hij niet dwingt, blijft staan dat hij haar kon voorkomen zonder de vrijheid van het kind aan te tasten. Het boek beantwoordt die tegenwerping met de suggestie dat Mack te klein is om te oordelen. Dat is een geldig antwoord binnen een geloofstraditie, maar het is geen argument, en het boek doet wel of het er een is.</p>
+      <p>Rond het ontstaan zijn jarenlang processen gevoerd. Wayne Jacobsen en Brad Cummings, die de tekst bewerkten en uitgaven, claimden een aandeel in het auteurschap en in de opbrengsten; hun vordering werd in 2011 afgewezen. Voor de lezer is dat vooral van belang omdat de tekst die miljoenen mensen kennen niet alleen van Young is.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Shack</i>, in eigen beheer uitgebracht door Windblown Media, Newbury Park (Californië), 2007, in een tekst die Young samen met Wayne Jacobsen en Brad Cummings bewerkte; de Britse uitgave van Hodder uit 2008 telt 248 blz., ISBN 9780340979495. Vanaf juni 2008 nam Hachette Book Group de verspreiding over; het boek stond jarenlang boven aan de bestsellerlijst van The New York Times en is in meer dan twintig miljoen exemplaren verkocht. De Nederlandse vertaling van Coen Groos verscheen in 2008 als <i>De uitnodiging</i> bij Kok in Kampen, 285 blz., ISBN 9789043515504, later herdrukt door KokBoekencentrum in Utrecht (e-boek ISBN 9789043515122). In 2017 kwam er een verfilming met Sam Worthington en Octavia Spencer. Van Young verschenen later nog de romans <i>Cross Roads</i> (2012) en <i>Eve</i> (2015) en het niet-verhalende <i>Lies We Believe About God</i> (2017).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mackenzie Allen Phillips verliest tijdens een kampeervakantie in Oregon zijn jongste dochter Missy. Zij wordt meegenomen door een seriemoordenaar; in een verlaten hut in de bergen vindt de politie haar bebloede jurkje, maar geen lichaam. Vier jaar later leeft Mack in wat hij de Grote Droefheid noemt.</p><p>Dan ligt er midden in de winter een briefje in zijn brievenbus, ondertekend met Papa, de naam waarmee zijn vrouw God aanspreekt. Het nodigt hem uit voor een weekend in diezelfde hut. Mack gaat, en treft daar drie mensen aan: een zwarte vrouw die zich Papa noemt, een Midden-Oosterse timmerman en een Aziatische vrouw die Sarayu heet. Zij stellen zich voor als de Vader, de Zoon en de Geest.</p><p>De rest van het boek bestaat uit gesprekken. Mack vraagt waarom God niets deed, en krijgt geen verklaring maar een reeks tegenwerpingen: dat hij God als een baas ziet terwijl er tussen de drie geen rangorde bestaat, dat het kwaad voortkomt uit de menselijke keuze om buiten die omgang te leven, en dat vergeven iets anders is dan goedpraten. Aan het eind wijst Papa hem de plek waar Missy ligt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>geloof</li><li>rouw</li><li>vergeving</li><li>drie-eenheid</li><li>lijden</li><li>evangelisch</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl behandelt dezelfde vraag naar zin in het lijden, maar dan vanuit een kamp en zonder een God die zich uitlegt.</li>
+          <li value="1715"><a href="1715.html">When God Talks Back</a>. Luhrmann beschrijft als antropologe hoe Amerikaanse evangelische gelovigen God als een vertrouwde gesprekspartner leren ervaren; dit boek is daar een literair voorbeeld van.</li>
+          <li value="1615"><a href="1615.html">Jezelf vergeven (voor alles)</a>. Thooft werkt de gedachte uit dat vergeving vooral de vergever bevrijdt, precies de opvatting die Young zijn hoofdpersoon laat leren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

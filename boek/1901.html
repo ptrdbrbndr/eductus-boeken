@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bullshit Jobs &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Graeber stelt dat een groeiend deel van het betaalde werk in rijke landen zonder gevolgen zou kunnen verdwijnen, en dat degenen die dat werk doen dat zelf…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1901">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1901 &middot; Werk en aandacht</p>
+    <h1>Bullshit Jobs</h1>
+    <p class="lede">David Graeber, 2018</p>
+    <p class="stats">
+      <span><b>1759</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1901"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Graeber stelt dat een groeiend deel van het betaalde werk in rijke landen zonder gevolgen zou kunnen verdwijnen, en dat degenen die dat werk doen dat zelf het beste weten. Zijn maatstaf is met opzet het oordeel van de werkende zelf: een baan is een bullshitbaan wanneer de uitvoerder hem zinloos acht en tegelijk moet volhouden dat hij dat niet is. Dat verplichte toneelspel noemt hij een vorm van geestelijk geweld, dat mensen ziek maakt terwijl zij goed betaald krijgen en van buitenaf niets te klagen lijken te hebben. De verklaring die hij geeft is niet economisch maar politiek: de verdeling van werk in grote organisaties volgt volgens hem de logica van status, gevolg en heerschappij, waarbij ondergeschikten een teken van belangrijkheid zijn geworden en zinloze arbeid daardoor loont voor wie hem laat verrichten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat een bullshitbaan is</h3>
+      <p>Het eerste hoofdstuk bepaalt de begrenzing. Een bullshitbaan is werk dat zo zinloos is dat zelfs degene die het doet het niet kan rechtvaardigen, terwijl de arbeidsvoorwaarden vereisen dat hij doet alsof. Graeber zet dat af tegen de rotbaan: slecht betaald, zwaar en vernederend werk dat wel nut heeft, zoals schoonmaken en vuilnis ophalen. De twee overlappen zelden.</p>
+      <p>Hij motiveert de keuze voor het oordeel van de betrokkene: die kent de dagelijkse gang van zijn werk beter dan een buitenstaander, en hij heeft er belang bij zichzelf nuttig te vinden, waardoor zijn oordeel eerder te gunstig dan te ongunstig uitvalt. Als vertrekpunt neemt hij de voorspelling van Keynes uit 1930 dat de techniek de werkweek tegen het einde van de eeuw tot vijftien uur zou terugbrengen, en de vraag waarom dat niet is gebeurd.</p>
+      <h3>De vijf soorten</h3>
+      <p>Uit de toegestuurde verhalen destilleert Graeber vijf typen. Lakeien bestaan om iemand anders belangrijk te laten lijken, zoals portiers en receptionisten in kantoren waar niemand aanklopt. Huurlingen doen werk dat alleen nodig is omdat de tegenpartij het ook heeft, zoals lobbyisten, telemarketeers en delen van de bedrijfsjuristerij. Plakbandplakkers repareren telkens opnieuw een gebrek dat ook in één keer verholpen had kunnen worden.</p>
+      <p>Vinkjeszetters maken dat een organisatie kan zeggen iets te doen wat zij niet doet, met rapportages die niemand leest. Taakmeesters verdelen werk dat zichzelf al verdeelde, of bedenken werk voor anderen. Daarnaast beschrijft hij samengestelde banen, waarin een deel van de tijd zinvol is en de rest niet, en de omgekeerde vorm waarin een nuttige baan door rapportageplichten grotendeels leeg wordt gemaakt.</p>
+      <h3>Waarom het ongelukkig maakt</h3>
+      <p>Het derde deel gaat over de vraag waarom betaald worden voor niets zo slecht valt. Graeber haalt de psycholoog Karl Groos aan, die aan het begin van de twintigste eeuw beschreef hoe zuigelingen blij worden zodra zij merken dat zij zelf een gevolg veroorzaken, en hoe zij radeloos worden wanneer dat verband wordt weggenomen. Werk zonder aanwijsbaar gevolg raakt volgens hem dat vermogen om iets teweeg te brengen.</p>
+      <p>Daarbovenop komt de verplichting tot veinzen. De verhalen gaan over mensen die schermen open moeten houden, die niet mogen zeggen dat een taak in twintig minuten klaar is, die uren zoekbrengen met de schijn van bezigheid. Graeber verzamelt daarbij klachten over slaapproblemen, angst en lichamelijke klachten die volgens de vertellers verdwenen zodra zij ander werk vonden.</p>
+      <h3>Waarom zulke banen toenemen</h3>
+      <p>De gebruikelijke tegenwerping is dat een onderneming die overbodig personeel betaalt door de concurrentie wordt weggevaagd. Graeber antwoordt dat de meeste van deze banen niet in de productie zitten maar in de verdeling van een overschot, en dat het gewicht van de financiële sector en van bedrijfsadministratie in de afgelopen decennia sterk is gegroeid. Wie over een budget beschikt, ontleent zijn positie aan het aantal mensen onder zich.</p>
+      <p>Die ordening noemt hij managerial feudalisme: het verdelen van opbrengsten in ruil voor trouw en aanhang, zoals een hof werd onderhouden. Universiteiten en ziekenhuizen dienen als voorbeeld, waar het aantal bestuurders en ondersteunende lagen sneller groeide dan het aantal docenten of behandelaars. Ook de overheid komt aan bod, maar Graeber benadrukt dat het verschijnsel juist in particuliere ondernemingen welig tiert.</p>
+      <h3>Waarom niemand er bezwaar tegen maakt</h3>
+      <p>Het volgende deel behandelt de moraal die het geheel op zijn plaats houdt. Graeber leidt het huidige arbeidsethos af uit een lange geschiedenis, van de noordelijke gewoonte om jongeren als knecht in een ander huishouden te plaatsen tot de puriteinse opvatting dat arbeid loutert. Wie werkt verdient zijn plaats; wie niets doet is verdacht, ook als er niets te doen is.</p>
+      <p>Daaruit volgt de omgekeerde beloningsverhouding die hij beschrijft: hoe zichtbaarder het nut van werk voor anderen, hoe lager doorgaans het loon. Verzorgenden, verplegers en leraren horen te weten dat het werk zichzelf beloont. Hij wijst op de woede die opkomt wanneer juist deze groepen staken of meer eisen, en op de studie van de New Economics Foundation uit 2009 die maatschappelijke opbrengst per verdiende pond berekende en tot een omgekeerde rangorde kwam. Die rekenwijze is aanvechtbaar en dat zegt hij er niet bij.</p>
+      <h3>De uitweg die hij ziet</h3>
+      <p>Het slothoofdstuk gaat over de politieke gevolgen. Zinloos werk verspreidt volgens Graeber een gevoel van zinloosheid dat zich makkelijk laat richten op wie wel zichtbaar werk doet, en het houdt mensen bezig die anders iets anders zouden willen. Kortere werkweken en werkgelegenheidsbeleid ziet hij als middelen die de kwaal in stand houden.</p>
+      <p>Hij eindigt bij een onvoorwaardelijk basisinkomen, dat de band tussen bestaan en betaald werk zou doorsnijden. Als anarchist presenteert hij dat nadrukkelijk niet als programma maar als de meest voor de hand liggende maatregel die de macht van de werkgever over het levensonderhoud verkleint. Rekenwerk over de kosten of de gevolgen ontbreekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bullshitbaan</td><td>Betaald werk dat de uitvoerder zelf zinloos acht terwijl hij tegenover anderen moet volhouden dat het nut heeft.</td></tr>
+          <tr><td class="term">Rotbaan</td><td>Zwaar, laagbetaald en weinig gerespecteerd werk dat wel duidelijk nut heeft, en dat Graeber uitdrukkelijk van de bullshitbaan onderscheidt.</td></tr>
+          <tr><td class="term">Geestelijk geweld</td><td>De schade die volgens Graeber ontstaat wanneer iemand dagelijks moet veinzen dat zijn werk ergens toe dient.</td></tr>
+          <tr><td class="term">Lakeien, huurlingen, plakbandplakkers, vinkjeszetters en taakmeesters</td><td>De vijf soorten waarin hij het lege werk indeelt, respectievelijk om iemand belangrijk te laten lijken, om een tegenpartij te bestrijden, om een gebrek telkens te lijmen, om schijn van naleving te wekken en om werk voor anderen te bedenken.</td></tr>
+          <tr><td class="term">Managerial feudalisme</td><td>Zijn benaming voor een bestel waarin leidinggevenden hun positie ontlenen aan het aantal ondergeschikten en aan het verdelen van overschot, in plaats van aan voortbrenging.</td></tr>
+          <tr><td class="term">Vreugde om oorzaak te zijn</td><td>Het door Karl Groos beschreven genoegen van een kind dat merkt zelf een gevolg te veroorzaken, dat Graeber als grondslag van arbeidsvreugde neemt.</td></tr>
+          <tr><td class="term">Omgekeerde beloningsverhouding</td><td>De stelling dat werk met zichtbaar nut voor anderen gemiddeld minder oplevert naarmate dat nut duidelijker is.</td></tr>
+          <tr><td class="term">Duct taping</td><td>Het herstellen van steeds terugkerende gebreken die een organisatie weigert bij de bron op te lossen, doorgaans omdat iemand met gezag dat niet wil.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De ruggengraat van het boek bestaat uit getuigenissen. Na het essay van 2013 verzamelde Graeber via internet en e-mail honderden verhalen, waaruit hij er tientallen uitvoerig citeert. Hij geeft toe dat dit geen steekproef is: wie zich niet herkent, schrijft niet. De verhalen laten zien dat het verschijnsel bestaat en hoe het van binnen aanvoelt; over de omvang zeggen zij weinig.</p>
+      <p>Voor die omvang steunt hij op peilingen. In een YouGov-peiling in Groot-Brittannië uit 2015 antwoordde 37 procent van de werkenden dat hun baan geen zinvolle bijdrage aan de wereld levert, 50 procent zei van wel en de rest wist het niet; een Nederlandse peiling kwam op ongeveer 40 procent uit. Die vraag meet niet hetzelfde als zijn eigen maatstaf, want een baan zonder zinvolle bijdrage aan de wereld is nog geen baan die de uitvoerder zelf overbodig vindt.</p>
+      <p>De historische en antropologische delen leunen op zijn vakgebied en op zijn eerdere werk over schuld en over bureaucratie. Zij zijn belezen en gaan breed, van middeleeuwse arbeidsverhoudingen tot de vraag hoe tijd meetbaar werd gemaakt. Voor de kernstelling dat het aandeel zinloos werk toeneemt, ontbreekt een reeks metingen over de tijd. Graeber wisselt daarom van bewijsvorm: eerst een indruk, dan een verklaring waarom die indruk klopt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste weerlegging kwam van Magdalena Soffia, Alex Wood en Brendan Burchell, die in 2021 in Work, Employment and Society vijf stellingen uit het boek toetsten aan de Europese enquête naar arbeidsomstandigheden over 2005 tot 2015. Het aandeel werkenden dat zegt zelden of nooit nuttig werk te doen bleef ver onder de tien procent en daalde in die periode, terwijl Graeber groei voorspelde. Het gevoel nutteloos werk te doen bleek daarnaast vooral samen te hangen met slecht bestuur, weinig zeggenschap en gebrekkige ondersteuning, dus met vervreemding in de klassieke betekenis, en niet met de beroepsgroepen die hij aanwijst.</p>
+      <p>De definitie draagt een zwakte in zich. Doordat het oordeel van de werkende beslist, valt niet te scheiden of iemand zinloos werk doet of zijn werk niet overziet. Bij naleving en veiligheid is dat merkbaar: administratie die van binnenuit als vinkjeszetten oogt, kan van buitenaf schade voorkomen die zich juist nooit voordoet. Graeber erkent dat probleem en gaat er dan overheen.</p>
+      <p>Verder is de opzet ongelijk. Voor het beschrijven van hoe leeg werk voelt, is het boek scherp; voor de verklaring wisselt het van register en gebruikt het managerial feudalisme meer als beeldspraak dan als toetsbare stelling. De vergelijking met Keynes is bovendien scheef, omdat de arbeidstijd sinds 1900 wel degelijk sterk is gedaald en de vergelijking met 1930 een deel van die daling wegpoetst. Ook de sprong naar het basisinkomen komt zonder rekenwerk en zonder behandeling van de tegenwerpingen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een functie welke handeling van iemand anders zou uitvallen als de functie een maand niet werd uitgevoerd.</li>
+        <li>Scheid in een klaagzang over werk het gebrek aan nut van het gebrek aan zeggenschap; de tweede is vaker de oorzaak van het ongenoegen.</li>
+        <li>Onderzoek bij terugkerend herstelwerk waarom de oorzaak blijft bestaan, en wie er belang bij heeft dat zij blijft bestaan.</li>
+        <li>Meet rapportageverplichtingen af aan wie de uitkomst leest en wat die ermee doet.</li>
+        <li>Neem het getal van 37 procent niet over als maat voor zinloos werk; het antwoordde op een andere vraag.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Bullshit Jobs: A Theory</i> (Simon &amp; Schuster, New York, 2018, 368 blz., ISBN 9781501143311). Het boek werkt een essay uit dat Graeber in 2013 in het blad Strike! publiceerde onder de titel <i>On the Phenomenon of Bullshit Jobs</i> en dat in korte tijd meer dan een miljoen keer werd gelezen. De Nederlandse vertaling van Tracey Droste-Plegt verscheen in 2018 bij Business Contact in Amsterdam als <i>Bullshit jobs: over zinloos werk, waarom het toeneemt en hoe we het kunnen bestrijden</i>, met een voorwoord van Rutger Bregman (335 blz., ISBN 9789047011767). Graeber was antropoloog aan de London School of Economics en overleed in 2020; zijn <i>Debt: The First 5000 Years</i> is eveneens in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Graeber vertrekt bij een waarneming die hij in 2013 in een essay opschreef: er zijn mensen die betaald worden voor werk waarvan zij zelf vinden dat het niets bijdraagt, en die daar niet over kunnen praten. Na dat essay kreeg hij honderden verhalen toegestuurd van mensen die zich erin herkenden. Het boek is grotendeels op die verhalen gebouwd.</p><p>Zijn definitie is met opzet subjectief. Een baan is een bullshitbaan als degene die hem uitoefent hem zinloos vindt en tegelijk moet doen alsof dat niet zo is. Daarnaast zet hij de rotbaan: werk dat zwaar en slecht betaald is maar duidelijk nut heeft, zoals vuilnis ophalen. De eerste soort is volgens hem goed betaald en leeg, de tweede slecht betaald en nodig.</p><p>Hij verdeelt het lege werk in vijf soorten, beschrijft het ongeluk dat mensen erdoor oplopen, en zoekt de verklaring in de manier waarop grote organisaties status en overschot verdelen. Het slot gaat over het arbeidsethos dat het geheel overeind houdt en over een basisinkomen als uitweg.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>werk</li><li>antropologie</li><li>bureaucratie</li><li>zinloos werk</li><li>arbeidsethos</li><li>basisinkomen</li><li>management</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="6"><a href="06.html">Shop Class as Soulcraft</a>. Crawford beschrijft de andere kant van dezelfde waarneming: werk waarvan het resultaat zichtbaar is en waarvan de maker weet of het klopt.</li>
+          <li value="1339"><a href="1339.html">Bureaucracy</a>. Mises verklaarde de groei van bureaucratisch werk uit het ontbreken van een prijs voor de uitkomst; Graeber ziet hetzelfde verschijnsel in ondernemingen die wel een prijs kennen.</li>
+          <li value="472"><a href="472.html">The Progress Principle: Using Small Wins to Ignite Joy, Engagement, and Creativity at Work</a>. Amabile en Kramer onderbouwden met dagboeken van werkenden dat zichtbare voortgang de belangrijkste bron van arbeidsvreugde is, wat de kern van Graebers verklaring van het ongeluk ondersteunt.</li>
+          <li value="826"><a href="826.html">The Technological Society</a>. Ellul beschreef eerder hoe techniek en organisatie hun eigen noodzaak voortbrengen, een gedachte die onder Graebers verklaring van de aanwas van kantoorlagen ligt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

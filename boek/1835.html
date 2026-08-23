@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fight &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mailer beschrijft het gevecht als een gebeurtenis waarin twee mensen hun hele wezen in de weegschaal leggen, en houdt vol dat wat daar gebeurde niet met…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1835">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1835 &middot; Roman en memoir</p>
+    <h1>The Fight</h1>
+    <p class="lede">Norman Mailer, 1975</p>
+    <p class="stats">
+      <span><b>1557</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1835"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mailer beschrijft het gevecht als een gebeurtenis waarin twee mensen hun hele wezen in de weegschaal leggen, en houdt vol dat wat daar gebeurde niet met techniek of conditie te verklaren valt. Zijn stelling is dat boksen op dit niveau een strijd van wilskracht is waarin de bokser die het meest van zichzelf durft in te zetten de ander breekt, en dat Ali dat deed door acht ronden lang klappen op te vangen die hem hadden moeten vellen. Om die uitspraak te kunnen doen gaat Mailer buiten de sport om en leent hij een gedachte uit Afrikaanse bronnen: de mens als kracht en niet als ding. Daarmee ontstaat een tweede stelling, dat een westerse waarnemer die gedachte kan overnemen om te begrijpen wat hij ziet. De eerste stelling houdt het boek staande, de tweede is het meest omstreden wat Mailer erin doet.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Deer Lake</h3>
+      <p>Het boek opent in het trainingskamp van Ali in Pennsylvania. Mailer heeft toegang tot de kring om de bokser heen, tot Drew Bundini Brown die hem opzweept, tot de sparringpartners onder wie de jonge Larry Holmes, en tot Ali zelf, die praat, opschept en de aanwezigen bespeelt.</p>
+      <p>De inzet van dat deel is de vraag of Ali nog kan wat hij kon. Hij is zijn beste jaren voorbij en Foreman is jonger en harder; wie de cijfers legt naast wat Foreman met Frazier en Norton deed, komt uit op een afloop waarin Ali zwaar gewond raakt. Vrijwel de hele pers rekende daarop.</p>
+      <h3>Kinshasa en Mobutu</h3>
+      <p>Het gevecht was in Zaire terechtgekomen omdat president Mobutu Sese Seko het geld op tafel legde en er een uithangbord van zijn bewind van wilde maken. Don King zette het op als een terugkeer van zwarte Amerikanen naar Afrika. Bij de aanloop hoorde een muziekfestival in september waar James Brown en B.B. King optraden.</p>
+      <p>Het gevecht zelf, gepland voor eind september, werd zes weken uitgesteld nadat Foreman bij het sparren een snee boven zijn oog opliep. Die weken vullen een groot deel van het boek: journalisten die op elkaar en op de hitte zitten te wachten, Mailer die zijn eigen aanwezigheid uitmeet, en een land dat vooral als decor in beeld komt, met Mobutu die nergens is en overal.</p>
+      <p>Mailer beschrijft ook zijn eigen nachtelijke tocht langs de rivier en het brullen van de leeuwen in het park, een van de passages waarin hij zichzelf tot personage in de gebeurtenis maakt.</p>
+      <h3>Norman als personage</h3>
+      <p>Mailer schrijft over zichzelf in de derde persoon en houdt die vorm het hele boek vol. Dat levert een verteller op die zijn eigen ijdelheid, angst en drankgebruik kan beschrijven zonder er om te vragen dat de lezer ermee instemt. Naast hem loopt George Plimpton rond, met wie hij gesprekken voert die het boek van een tegenstem voorzien.</p>
+      <p>Ook Hunter S. Thompson is er, en Mailer noteert zonder omhaal dat die het gevecht liet lopen en zich die nacht in het zwembad van het hotel bevond. Zulke passages laten zien wat het boek ook is: een verslag van hoe een groep westerse schrijvers zich in Kinshasa gedroeg.</p>
+      <h3>Kracht in plaats van wezen</h3>
+      <p>Halverwege schakelt Mailer over op een uitleg. Hij ontleent aan Afrikaanse bronnen de gedachte dat de mens niet in de eerste plaats een ding is maar een kracht, en dat alles wat bestaat langs kracht met alles verbonden is. Het woord n'golo staat bij hem voor die kracht.</p>
+      <p>Met dat begrippenkader verklaart hij het gevecht: Ali won niet omdat hij sneller was maar omdat hij zijn kracht op het beslissende ogenblik uit een grotere voorraad putte dan Foreman, die de zijne in de eerste ronden had verspild. Mailer haalt de gedachte uit tweede hand, uit Europese boeken over Afrikaanse filosofie, en dat is precies het bezwaar dat er later tegen is ingebracht.</p>
+      <h3>De nacht van 30 oktober</h3>
+      <p>Het gevecht begon om vier uur in de ochtend, afgestemd op de Amerikaanse televisie, in het Stade du 20 Mai voor tienduizenden toeschouwers. Mailer beschrijft de ronden een voor een. Ali begint met rechtse directen op het hoofd, iets wat niemand doet, en laat zich daarna tegen de touwen zakken; Angelo Dundee had die touwen losser laten zetten. Foreman slaat er acht ronden op los.</p>
+      <p>De naam die die tactiek later kreeg, rope-a-dope, komt uit de omgeving van Ali. Mailer beschrijft wat hij ziet: een bokser die klappen incasseert waar anderen aan onderdoor gaan, die tussendoor tegen zijn tegenstander praat, en die in de achtste ronde, wanneer Foreman leeg is, met een korte reeks afmaakt. Het hoofdstuk waarin dat gebeurt heet The Executioner's Song, een titel die Mailer vier jaar later voor een roman hergebruikte.</p>
+      <h3>Na afloop</h3>
+      <p>Na de knock-out breekt er een regenbui los en loopt het stadion leeg. Mailer sluit af met de nasleep, de terugkeer en de vraag wat er die nacht nu precies is gebeurd. Hij komt niet tot een sluitend antwoord en houdt het erop dat Ali iets deed wat met de gebruikelijke maten van de sport niet te vatten is.</p>
+      <p>Wat er niet in staat is opvallender dan wat er wel in staat. Over wat Mobutu's bewind zijn land aandeed, over de mensen die het stadion vulden en over waar de miljoenen vandaan kwamen, gaat het boek nauwelijks.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">N'golo</td><td>Het woord dat Mailer overneemt voor kracht, in zijn uitleg de grondstof waaruit mensen en dingen bestaan en waarmee hij de uitslag verklaart.</td></tr>
+          <tr><td class="term">Norman</td><td>De naam waaronder Mailer zichzelf in de derde persoon opvoert, waardoor hij zijn eigen gedrag als waarneming kan behandelen.</td></tr>
+          <tr><td class="term">Rope-a-dope</td><td>De tactiek waarbij Ali tegen de losgezette touwen ging hangen en klappen opving tot zijn tegenstander leeg was.</td></tr>
+          <tr><td class="term">The Executioner's Song</td><td>De titel van het hoofdstuk over de beslissende ronden, die Mailer in 1979 aan zijn roman over Gary Gilmore gaf.</td></tr>
+          <tr><td class="term">Rumble in the Jungle</td><td>De naam die promotor Don King aan het gevecht gaf en waaronder het is blijven bestaan.</td></tr>
+          <tr><td class="term">Mobutisme</td><td>De staatsleer waarmee Mobutu zijn bewind omkleedde en waarvoor het gevecht als uithangbord moest dienen.</td></tr>
+          <tr><td class="term">Zaire 74</td><td>Het muziekfestival dat in september aan het gevecht voorafging, met onder anderen James Brown en B.B. King.</td></tr>
+          <tr><td class="term">Bundini</td><td>Drew Bundini Brown, de man in Ali's kring die hem met spreekkoren en bezweringen opjoeg en bij Mailer de rol van hofnar en priester tegelijk vervult.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als verslag is het boek stevig. Mailer was in Deer Lake en in Kinshasa, had toegang tot beide kampen en zat bij het gevecht. De feiten die hij noemt, het bedrag van vijf miljoen dollar per bokser, het uitstel van zes weken na de snee bij Foreman, het uur van aanvang en de knock-out in de achtste ronde, zijn onafhankelijk vastgelegd en kloppen.</p>
+      <p>De ronde-voor-ronde beschrijving heeft het van alle latere verslagen gewonnen omdat Mailer zag wat toen niemand begreep: dat het tegen de touwen hangen geen wanhoop was maar een plan, en dat Foreman zichzelf leeg sloeg. De opname van het gevecht laat dat achteraf ook zien.</p>
+      <p>De verklaring is van een andere orde. Wat Mailer over kracht en wezen aanvoert, komt uit boeken van Europese auteurs over Afrikaanse denkbeelden, niet uit gesprekken in Kinshasa. Als uitleg van de uitslag is het niet te toetsen; het is een beeld dat de schrijver bevalt, geen vaststelling.</p>
+      <p>Ook het portret van Foreman rust op weinig. Mailer kreeg hem nauwelijks te spreken, wat hij zelf toegeeft, en vult dat gat met vermoedens over diens innerlijk. Foreman heeft later een geheel ander beeld van zichzelf in die weken gegeven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar geldt wat Mailer over ras schrijft. Hij houdt zich uitvoerig bezig met de vraag hoe hij als witte schrijver tegenover zwarte mannen staat, komt tot uitspraken over wie van de twee boksers zwarter zou zijn, en bekent dat hij niet weet of hij zwarte mensen bewondert of niet mag. Michael Wood merkte op dat het boek daarmee vooral Mailers eigen afkeer laat zien, door wilskracht omgezet in belangstelling. Die passages zijn niet te lezen als tijdgebonden onhandigheid alleen; zij dragen de verklaring die het boek geeft.</p>
+      <p>Daarbij komt het gebruik van Afrikaanse filosofie. Wat Mailer als de Bantoe-opvatting presenteert, is een westerse samenvatting van uiteenlopende denkwijzen, in de jaren daarna door Afrikaanse filosofen bestreden als een verzinsel van buitenstaanders. Mailer neemt die samenvatting over als sleutel voor een boksgevecht, en het land waar het over gaat komt er verder niet aan te pas.</p>
+      <p>Een derde bezwaar is Mailer zelf. De verteller neemt zoveel ruimte in dat de lezer bij vlagen meer over zijn drankgebruik, zijn angst en zijn positie in de pers hoort dan over de boksers. Wie dat vermoeiend vindt, legt het boek na honderd bladzijden weg, en dat is een verdedigbare reactie.</p>
+      <p>Politiek is het boek onthand. Mobutu betaalde met geld uit een land waar zijn bewind mensen liet verdwijnen, en Mailer laat dat bij sfeer. Wie na vijftig jaar het verhaal van de Rumble in the Jungle wil kennen, heeft daarnaast een boek nodig dat wel vertelt wat er buiten het stadion aan de hand was.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Fight</i> (Little, Brown, Boston, 1975, 234 blz.). De Nederlandse vertaling van Willem Visser en Frans Reusink verscheen als <i>Het gevecht</i> bij Veen, Amsterdam, 2007 (254 blz., ISBN 9789020404678) en werd in 2010 herdrukt door AmstelSport in de reeks Hall of Fame (ISBN 9789048200542); er is ook een luisterboek. Van Mailer verschenen eerder in het Nederlands onder meer <i>De naakten en de doden</i> en <i>Het lied van de beul</i>, de roman waarvoor hij de titel van een hoofdstuk uit dit boek hergebruikte.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Op 30 oktober 1974 bokste Muhammad Ali in Kinshasa tegen wereldkampioen George Foreman. President Mobutu betaalde beide boksers vijf miljoen dollar om het gevecht in Zaire te laten plaatsvinden; promotor Don King doopte het de Rumble in the Jungle. Ali, tweeeneenhalf jaar ouder dan zijn tegenstander en door vrijwel iedereen afgeschreven, sloeg Foreman in de achtste ronde knock-out.</p><p>Norman Mailer was erbij en schreef er een boek over waarin hij zichzelf in de derde persoon opvoert, als Norman. Hij begint in het trainingskamp van Ali in Deer Lake, reist mee naar Kinshasa, brengt de weken van uitstel door in het perscircuit en beschrijft daarna het gevecht ronde voor ronde.</p><p>Tussen de reportage door zet Mailer een verklaring op waarin hij leentjebuur speelt bij wat hij Bantoe-filosofie noemt: de gedachte dat de mens geen wezen is maar een kracht, aangeduid met het woord n'golo. Die uitleg is even opvallend als de reportage zelf, en zij is ook het punt waar het boek het meest te verduren heeft gekregen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boksen</li><li>Muhammad Ali</li><li>George Foreman</li><li>Zaire</li><li>reportage</li><li>new journalism</li><li>Kinshasa</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1112"><a href="1112.html">African Philosophy: Myth and Reality</a>. Hountondji bestrijdt precies het soort Afrikaanse filosofie dat Mailer overneemt: een stelsel dat door westerse auteurs aan een heel werelddeel is toegeschreven.</li>
+          <li value="720"><a href="720.html">Oriëntalisme</a>. Said levert het begrippenkader waarmee te lezen valt wat Mailer met Kinshasa doet: een plek die vooral dient om iets over de waarnemer duidelijk te maken.</li>
+          <li value="1834"><a href="1834.html">De judovader</a>. Het Nederlandse spiegelbeeld in een andere vechtsport: een boek over wat een trainer aan een vechter kan toevoegen, waar Mailer juist beschrijft wat de vechter alleen doet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

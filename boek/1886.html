@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het jaar dat de paarden kwamen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mackey neemt de reconstructie van Marija Gimbutas letterlijk en maakt er een liefdesgeschiedenis van. Het neolithische Europa is bij haar een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1886">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1886 &middot; Roman en memoir</p>
+    <h1>Het jaar dat de paarden kwamen</h1>
+    <p class="lede">Mary Mackey, 1993; vert. Jacques Meerman</p>
+    <p class="stats">
+      <span><b>1443</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1886"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mackey neemt de reconstructie van Marija Gimbutas letterlijk en maakt er een liefdesgeschiedenis van. Het neolithische Europa is bij haar een samenhangende beschaving zonder oorlog, met afstamming langs de moeder en met de Godin als middelpunt, en die beschaving wordt vernietigd door ruiters uit de steppe die paarden, wapens en een mannelijke hemelgod meebrengen. De roman voert dat verlies op als een keerpunt in de geschiedenis van de mensheid en niet als een geleerde stelling waarover te twisten valt, en juist die keuze bepaalt zowel de kracht als de zwakte van het boek.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een kust zonder wapens</h3>
+      <p>Het eerste deel schetst het dorp waarin Marrah opgroeit: een gemeenschap aan zee die van landbouw, visserij en handel leeft, waarin huizen langs de moederlijn worden doorgegeven en waarin de raad van vrouwen de beslissingen neemt. Er zijn priesteressen, geen priesters, en er is geen woord voor legeraanvoerder. Mackey besteedt veel bladzijden aan het dagelijkse leven: het bakken, het weven, de begrafenisgebruiken, het feest waarop Marrah volwassen wordt verklaard.</p>
+      <p>Haar moeder Sabalah komt uit een ander deel van de wereld en heeft jaren eerder een droom gehad over mannen op dieren die het dorp vernietigen. Die droom hangt vanaf de eerste bladzijden boven het boek, zodat de lezer weet waar het heen gaat voordat een van de personages het weet.</p>
+      <h3>De drenkeling</h3>
+      <p>Op de dag van haar inwijding vist Marrah een bewusteloze, blonde vreemdeling uit de branding. Hij is de eerste man van buiten de bekende wereld die zij ziet. Als hij hun taal genoeg leert, vertelt hij dat hij Stavan heet, dat hij de jongste zoon is van de grote chef van de Hansi en dat hij van huis is weggelopen omdat hij niet wilde leven zoals daar geleefd wordt.</p>
+      <p>Zijn verhalen over de Zee van Gras zijn voor de dorpelingen onbegrijpelijk. Dieren waarop je kunt zitten, mannen die vrouwen als bezit verdelen, een god die in de hemel woont en offers vraagt, stammen die andere stammen uitmoorden om vee: het past nergens in hun begrippen. Dat onbegrip is het effectiefste middel dat Mackey heeft. De lezer weet wat er komt, de personages hebben er geen woord voor.</p>
+      <h3>De waarschuwing</h3>
+      <p>Stavan zegt toe te proberen zijn vader tegen te houden. Marrah en haar broertje Arang gaan op weg naar de stad Shara, ver naar het oosten, om de mensen daar te waarschuwen. Die reis vult het middendeel: door bossen, langs heilige plaatsen, van gastvrij dorp naar gastvrij dorp, waarbij de gastvrijheid zelf de kern van de beschaving is die op het spel staat.</p>
+      <p>Mackey gebruikt de tocht om een landkaart van Oud-Europa te tekenen. Elk dorp heeft eigen gebruiken en eigen aardewerk, maar de godsdienst en de omgangsvormen zijn overal herkenbaar. Dat beeld van een uitgestrekte, vreedzame en verwante wereld komt rechtstreeks uit Gimbutas.</p>
+      <h3>Het geweld</h3>
+      <p>Halverwege slaat de toon om. Marrah en Arang worden gevangengenomen en komen terecht bij mensen die niet meer volgens de oude regels leven. Er volgen bladzijden met verkrachting, marteling en mensenoffer, en een ontsnapping via een graf. Het contrast met het eerste deel is zo groot dat het boek in twee helften uiteenvalt: eerst een etnografische idylle, daarna een gevangenisverhaal.</p>
+      <p>Ook het kamp van de Hansi komt in beeld, met de grote chef en met Stavans broer Vlahan, die alles is wat Stavan niet wil zijn. Daarmee krijgt de tegenpartij een gezicht, al blijft dat gezicht binnen de grenzen van wat het boek nodig heeft.</p>
+      <h3>Twee mensen tussen twee werelden</h3>
+      <p>De liefde tussen Marrah en Stavan draagt het slot. Zij is de erfgename van een wereld die verdwijnt, hij komt uit de wereld die haar vernietigt, en geen van beiden kan de eigen herkomst afleggen. Mackey laat hen bewust niet tot een oplossing komen; het boek eindigt open, met het verhaal doorlopend in de twee volgende delen.</p>
+      <p>Het geheel is opgezet als een reeks. De dreiging waarmee dit deel begint, wordt hier niet ingelost: de paarden komen in de titel wel en aan het eind van dit boek nog niet in volle omvang. Wie een afgeronde geschiedenis verwacht, moet doorlezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Godin</td><td>De godheid van Marrah's wereld, vereerd in aarde, water en dood, met priesteressen als bemiddelaars en zonder tempelhierarchie.</td></tr>
+          <tr><td class="term">De Hansi</td><td>Het ruitervolk van de steppe, geordend rond een grote chef, veebezit en de mannelijke hemelgod Han, dat westwaarts trekt.</td></tr>
+          <tr><td class="term">De Zee van Gras</td><td>De naam die de Hansi aan de steppe geven, in het boek de plaats van herkomst van paard, wapen en veroveringsdrang.</td></tr>
+          <tr><td class="term">Oud-Europa</td><td>Gimbutas' aanduiding voor de neolithische beschavingen van zuidoost- en midden-Europa, die Mackey als een samenhangende culturele wereld beschrijft.</td></tr>
+          <tr><td class="term">Moederlijn</td><td>De ordening waarin naam, huis en bezit via de moeder overgaan en waarin de broer van de moeder een grotere rol speelt dan de vader.</td></tr>
+          <tr><td class="term">Shara</td><td>De stad in het oosten die Marrah en Arang willen waarschuwen, in het boek het middelpunt van de wereld die op het spel staat.</td></tr>
+          <tr><td class="term">Beestenmensen</td><td>De naam die Marrah's volk aan de ruiters geeft, omdat zij mens en dier voor een wezen aanzien wanneer zij hen voor het eerst zien.</td></tr>
+          <tr><td class="term">Inwijding</td><td>Het feest waarmee een meisje volwassen wordt verklaard; het boek begint ermee en gebruikt het om de gebruiken van de gemeenschap voor te stellen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De archeologische onderbouwing komt van een persoon: Marija Gimbutas. Mackey noemt <i>The Language of the Goddess</i> en <i>The Civilization of the Goddess</i> als aanleiding, en Gimbutas gaf zelf een aanbeveling voor het omslag. Alles wat in de roman vaststaat over Oud-Europa, staat en valt met de vraag hoe stevig dat werk is.</p>
+      <p>Een deel van Gimbutas' voorstelling is inmiddels bevestigd. Onderzoek aan oud dna sinds 2015 laat zien dat er rond drieduizend voor onze jaartelling een grote instroom van steppebevolking naar midden- en west-Europa heeft plaatsgevonden, waarbij in sommige streken het grootste deel van de mannelijke afstammingslijnen werd vervangen. De migratie waarover Gimbutas schreef en die de roman verbeeldt, heeft dus vrijwel zeker plaatsgevonden.</p>
+      <p>Wat niet bevestigd is, is het beeld van wat daarvoor bestond. Voor vreedzaamheid als kenmerk van neolithisch Europa is de bewijslast zwak: er zijn versterkte nederzettingen, wapens in graven en resten met geweldsporen uit dezelfde periode. Voor een samenleving die door vrouwen werd bestuurd is er geen bewijs; godinnenbeeldjes zeggen niets vast over de maatschappelijke positie van vrouwen, zoals Cynthia Eller in <i>The Myth of Matriarchal Prehistory</i> (2000) uiteenzette. Mackey schrijft ook honderden jaren te vroeg: haar jaartal 4372 voor onze jaartelling ligt ruim voor de instroom die het dna laat zien.</p>
+      <p>Als roman rust het boek op iets anders dan bewijs: op het volgehouden gezichtspunt. Doordat alles wordt gezien door mensen die geen begrip hebben van oorlog, krijgt de lezer het verschil tussen de twee werelden binnen zonder dat het wordt uitgelegd. Dat is de vondst van het boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De verdeling van goed en kwaad valt samen met de verdeling van de sekse. De vreedzame wereld is die van de moeders, de wrede die van de vaders, en er is geen personage dat dat schema doorbreekt behalve Stavan, die dan ook wordt beschreven als iemand die eigenlijk niet bij zijn eigen volk hoort. Kirkus noemde het bij verschijnen een verhaal waarin ploegscharen tegenover bloedige zwaarden staan en de boodschap als een trompet klinkt.</p>
+      <p>Het boek presenteert een omstreden reconstructie als achtergrond waarover geen twijfel bestaat. Dat is een keuze die een romanschrijver vrijstaat, maar de roman is jarenlang gelezen als kennisbron over de prehistorie, mede door de aanbeveling van Gimbutas op het omslag. Wie hier vandaan komt, denkt meer te weten dan er bekend is.</p>
+      <p>De personages praten in hedendaags idioom en denken in hedendaagse begrippen over vrijheid en gelijkheid. Marrah is in gedachten een lezeres van nu, in een lichaam van zesduizend jaar geleden. Dat maakt het boek toegankelijk en ondermijnt tegelijk de aanspraak dat hier een andere manier van in de wereld staan wordt getoond.</p>
+      <p>De opbouw is scheef. Het eerste deel is traag en beschrijvend, het tweede deel stapelt geweld op geweld, en de verhouding tussen die twee is eerder die van sensatie dan van betoog. De lange passages met verkrachting en marteling doen meer voor de spanning dan voor de gedachte die het boek wil overbrengen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Year the Horses Came</i> (HarperSanFrancisco, 1993), eerste deel van de Earthsong-reeks. De Nederlandse vertaling van Jacques Meerman verscheen in 1994 bij De Boekerij in Amsterdam (375 blz., ISBN 9022518078), gevolgd door <i>De paarden voor de poort</i> (1996, oorspronkelijk <i>The Horses at the Gate</i>) en <i>Paarden in de storm</i> (1998, oorspronkelijk <i>The Fires of Spring</i>). Mackey rekent op haar eigen website ook <i>The Last Warrior Queen</i> tot de reeks; dat deel is niet in het Nederlands verschenen. Mackey is daarnaast dichter en was hoogleraar Engels aan California State University in Sacramento.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Aan de kust van het huidige Bretagne, in het jaar 4372 voor onze jaartelling, redt de dertienjarige Marrah op de dag van haar inwijding een drenkeling uit zee. De vreemdeling heet Stavan en blijkt de jongste zoon van de grote chef van de Hansi, een ruitervolk van de Zee van Gras dat westwaarts trekt en onderweg doodt.</p><p>Marrah's volk kent geen wapens en geen koningen. De afstamming loopt via de moeder, de doden gaan terug naar de Godin, en van paarden hebben zij nog nooit gehoord. Wanneer Stavan vertelt wat er aankomt, gaan Marrah en haar jongere broer Arang op reis om de stad Shara te waarschuwen. Onderweg worden zij gevangengenomen en zien zij het geweld waarover hij sprak van dichtbij.</p><p>Mackey baseerde het boek op het werk van archeologe Marija Gimbutas, die het neolithische Europa beschreef als vreedzaam en godinvererend en de indo-europese steppevolkeren als de brengers van oorlog en mannelijke goden. De roman zet die reconstructie om in een verhaal en presenteert haar daarbij als vaststaande geschiedenis.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>historische roman</li><li>neolithicum</li><li>Gimbutas</li><li>godinnenverering</li><li>Oud-Europa</li><li>steppe</li><li>Bretagne</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1225"><a href="1225.html">The Language of the Goddess</a>. Gimbutas levert de hele achtergrond van deze roman; wie het boek serieus neemt, moet weten hoe omstreden dit werk onder archeologen is.</li>
+          <li value="1823"><a href="1823.html">De stam van de holenbeer</a>. Auel deed tien jaar eerder hetzelfde met de ijstijd: een uitvoerig gedocumenteerde prehistorie met een moderne heldin erin, en met dezelfde spanning tussen onderzoek en wensdenken.</li>
+          <li value="1845"><a href="1845.html">Women Who Run with the Wolves</a>. Estes put uit dezelfde bron van godinnenverhalen en vrouwelijke oerkracht, en heeft daarmee hetzelfde bewijsprobleem als het achtergrondmateriaal van deze roman.</li>
+          <li value="611"><a href="611.html">The White Goddess</a>. Graves bedacht een halve eeuw eerder een oorspronkelijke godinnenreligie die door mannelijke goden zou zijn verdrongen; zijn constructie is de literaire voorloper van wat Mackey als geschiedenis vertelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

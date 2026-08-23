@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Papillon &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Charriere schrijft zijn veertien jaar dwangarbeid op als een aanklacht met een enkel motief: hij is onschuldig veroordeeld en het strafstelsel dat hem…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1850">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1850 &middot; Overleven en getuigen</p>
+    <h1>Papillon</h1>
+    <p class="lede">Henri Charriere, 1969; vert. Yves van Domber</p>
+    <p class="stats">
+      <span><b>1397</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1850"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Charriere schrijft zijn veertien jaar dwangarbeid op als een aanklacht met een enkel motief: hij is onschuldig veroordeeld en het strafstelsel dat hem opsloot is er niet op gericht mensen te straffen maar om ze langzaam op te maken. Daartegenover zet hij de ontsnapping, bij hem geen daad van wanhoop maar een beroep en een levensvorm. Zijn stelling is dat de wil om weg te komen het enige is wat een mens in dat stelsel heel houdt, en dat wie die wil opgeeft binnen enkele jaren geen mens meer is. Het boek is daarmee opgezet als bewijsvoering, met de verteller als getuige, aanklager en held tegelijk. Precies die opzet is het probleem dat het boek sinds 1969 met zich meedraagt, want er is geen instantie in de tekst die de verteller kan tegenspreken.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Veroordeeld en verscheept</h3>
+      <p>Op 26 oktober 1931 wordt Charriere in Parijs veroordeeld tot levenslange dwangarbeid. Hij is dan vijfentwintig. Het boek begint met het vonnis en met zijn belofte aan zichzelf dat hij zal terugkomen om af te rekenen met de rechercheur, de aanklager en de valse getuige.</p>
+      <p>Na een periode in Frankrijk gaat hij aan boord van het transportschip naar Frans-Guyana. In het ruim leert hij de gevangenishierarchie kennen, waaronder het gebruik van de plan, een metalen koker met geld die de gevangenen in het lichaam meedragen. Dega, een vervalser met veel geld, wordt zijn bondgenoot voor de rest van het boek.</p>
+      <h3>De eerste ontsnapping</h3>
+      <p>In Saint-Laurent-du-Maroni laat Charriere zich opnemen in het hospitaal en ontsnapt daar met Clousiot en Maturette. Zij kopen een boot bij vluchtelingen in de omgeving en varen de Maroni af naar zee.</p>
+      <p>De zeereis is het beste deel van het boek: dagen op open water, een storm, en dan Trinidad, waar een Engelse familie hen weken verzorgt zonder er iets voor terug te willen. Daarna Curacao, waar een bisschop hen laat gaan, en tenslotte de kust van Colombia, waar zij worden opgepakt.</p>
+      <h3>Bij de Guajira</h3>
+      <p>Uit de Colombiaanse gevangenis ontsnapt Charriere opnieuw en hij belandt bij een indianenvolk op het schiereiland Guajira, waar hij maanden blijft. Hij duikt met hen naar parels, krijgt twee jonge vrouwen tot echtgenote en beschrijft die tijd als de gelukkigste van zijn leven.</p>
+      <p>Hij vertrekt toch, omdat hij zijn rekening met Frankrijk nog open heeft staan. In Santa Marta en Barranquilla wordt hij opnieuw gevangengezet, breekt uit, wordt hergegrepen en gaat terug naar Frans-Guyana. Deze episode is de meest omstreden van het boek en tegelijk de reden dat het geen gewoon gevangenisverslag is.</p>
+      <h3>Twee jaar eenzame opsluiting</h3>
+      <p>Voor de mislukte vlucht krijgt hij twee jaar reclusion op het eiland Saint-Joseph, in een cel waarin niet gesproken mag worden en waar de bewaking boven de cellen loopt. Charriere beschrijft hoe hij zijn dagen indeelt door in gedachten te wandelen, uur na uur, om het hoofd bij elkaar te houden.</p>
+      <p>Kokosnoten die door Dega en anderen naar binnen worden gesmokkeld houden hem overeind. Een tweede veroordeling, na een poging die op niets uitloopt, levert hem nog eens acht jaar op, waarvan hij er negentien maanden uitzit voordat de straf om medische redenen wordt verlicht.</p>
+      <h3>Duivelseiland en de zevende golf</h3>
+      <p>Op Duivelseiland, het kleinste van de Iles du Salut, zit Charriere aan de branding. Hij ontdekt bij het observeren van de rotsen dat elke zevende golf iets wat op zee drijft van de kust wegvoert in plaats van het terug te werpen. Weken achtereen gooit hij zakken proef om zeker te zijn.</p>
+      <p>Met Sylvain springt hij op twee met kokosnoten gevulde zakken de zee in. Zij komen op de wal, maar Sylvain verdwijnt in het slik van de kust, voor Charriere's ogen. Daarna volgt de tocht door het moeras naar Cuic-Cuic, een Chinese ontsnapte die met een varken de veilige paden zoekt.</p>
+      <h3>Georgetown, El Dorado en de vrijheid</h3>
+      <p>Via Brits-Guyana komt Charriere in Georgetown, waar hij als vrij man werkt en handelt. Hij vertrekt vandaar naar Venezuela, wordt daar nog een jaar vastgehouden in het strafkamp El Dorado en komt op 18 oktober 1945 vrij.</p>
+      <p>Hij blijft in Venezuela, krijgt het staatsburgerschap en bouwt in Caracas een bestaan op als eigenaar van horecazaken. De wraak op zijn aanklagers, waarmee het boek opent, laat hij tenslotte varen. Dat is de wending waarop het boek eindigt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bagne</td><td>De Franse strafkolonie in Guyana, van 1852 tot 1953 in gebruik, waar veroordeelden dwangarbeid deden en na hun straf verplicht in de kolonie moesten blijven.</td></tr>
+          <tr><td class="term">Cavale</td><td>De ontsnapping, in het jargon van de gevangenen zowel de poging als het levensdoel.</td></tr>
+          <tr><td class="term">Plan</td><td>Een metalen koker met geld die gevangenen in de darm meedragen, de enige bezitsvorm die de bewaking niet kon afnemen.</td></tr>
+          <tr><td class="term">Reclusion</td><td>De eenzame opsluiting op Saint-Joseph, met zwijgplicht en weinig licht, door de gevangenen de menseneter genoemd.</td></tr>
+          <tr><td class="term">Iles du Salut</td><td>De drie eilanden voor de kust van Guyana, Royale, Saint-Joseph en Duivelseiland, waar de zwaarste gevallen naartoe gingen.</td></tr>
+          <tr><td class="term">Libere</td><td>De uitgezeten gevangene die de kolonie niet mocht verlaten en er meestal aan de grond raakte.</td></tr>
+          <tr><td class="term">De zevende golf</td><td>Het patroon in de branding van Duivelseiland waarop Charriere zijn laatste ontsnapping baseerde.</td></tr>
+          <tr><td class="term">Papillon</td><td>Zijn bijnaam, naar de vlindertatoeage op zijn borst, in het boek ook het teken van iemand die niet vast te houden is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is uitgegeven en gelezen als autobiografie. Charriere schreef het in 1968 in Caracas, in dertien schoolschriften, en Robert Laffont bracht het uit met een voorwoord dat de echtheid onderstreepte. Het verkocht in Frankrijk en daarbuiten miljoenen exemplaren en bracht het debat over het opgeheven strafstelsel opnieuw op gang.</p>
+      <p>De vaste feiten zijn beperkt maar bestaan wel. Charriere is op 26 oktober 1931 veroordeeld, is naar Frans-Guyana verscheept, is uiteindelijk in Venezuela terechtgekomen en heeft daar het staatsburgerschap gekregen. De strafkolonie die hij beschrijft heeft bestaan en werkte in grote lijnen zoals hij zegt; ook oudere getuigenissen, zoals die van Rene Belbenoit uit 1938, tekenen dat beeld.</p>
+      <p>Over de rest is sinds de verschijning twijfel. Laffont stuurde in december 1969 de documentalist Roger-Jean Segalat op onderzoek uit; die vond onjuistheden en legde ze vast in een rapport dat hij niet publiceerde. Onderzoekers namen daarna aan dat de eerste opzet van het boek een verzameling verhalen van verschillende gevangenen was, en dat de uitgever de auteur vroeg alles naar de ik-vorm om te schrijven.</p>
+      <p>Meerdere episoden zijn aan anderen toegeschreven, onder wie Belbenoit, Clement Duval, Marius Jacob en Pierre Bougrat. In 2005 kwam Charles Brunier naar voren, een oud-gevangene met een vlindertatoeage, die stelde dat een deel van het verhaal het zijne was. Er is geen sluitend bewijs voor die claim, en er is evenmin bewijs dat Charriere zoveel ontsnappingen ondernam als hij opschrijft. Wie het boek nu leest, leest een gedeeltelijk verzonnen verslag dat als getuigenis werd aangeboden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De waarheidsvraag is niet weg te poetsen, want het boek ontleent zijn kracht aan de belofte dat het echt gebeurd is. Als bron over de bagne is het daarmee onbruikbaar zonder controle, terwijl generaties lezers het wel als bron hebben gebruikt. Charriere heeft die onduidelijkheid tot zijn dood in 1973 in stand gehouden.</p>
+      <p>Binnen het verhaal is de verteller nooit in het ongelijk. Hij is onschuldig, hij is moedig, hij houdt zich aan de erecode van het milieu en hij oordeelt over anderen zonder dat iemand over hem oordeelt. Wat er van zijn eigen daden in het milieu voorafging blijft buiten beeld, en zijn onschuld aan de moord waarvoor hij veroordeeld werd staat in het boek vast omdat hij het zegt.</p>
+      <p>De episoden bij de Guajira zijn geschreven met een blik die uit de tijd van de auteur komt. De indiaanse vrouwen zijn er om hem te verzorgen en te behagen, hun namen doen er weinig toe, en dat hij twee tienermeisjes tot echtgenotes neemt wordt als geluk beschreven en niet als iets waarover na te denken valt.</p>
+      <p>Ook als vertelling heeft het boek slijtplekken. De opeenvolging van pogingen, mislukkingen en straffen wordt op den duur voorspelbaar, de gesprekken zijn vaak lang en verklarend, en de morele boekhouding waarin de goeden en de slechten meteen te onderscheiden zijn, laat weinig ruimte.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Papillon</i> (Robert Laffont, Parijs, 30 april 1969, 516 blz.). De Engelse vertaling van Patrick O'Brian verscheen in 1970. Nederlands als <i>Papillon</i>, vert. Yves van Domber (Meulenhoff, Amsterdam, 1970, in de reeks Meulenhoff editie); latere Nederlandse drukken onder meer ISBN 9789029023443 en, bij Meulenhoff, ISBN 9789402301106. Charriere schreef een vervolg, <i>Banco</i> (1972), over zijn jaren in Venezuela. Het boek werd tweemaal verfilmd, in 1973 met Steve McQueen en in 2017 met Charlie Hunnam.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Henri Charriere, in het Parijse milieu Papillon genoemd naar de vlinder op zijn borst, wordt in oktober 1931 veroordeeld tot levenslange dwangarbeid wegens moord op een man uit datzelfde milieu. Hij houdt zijn leven lang vol dat hij onschuldig was en dat een valse getuige en een eerzuchtige rechercheur hem erin luisden.</p><p>Het boek beschrijft veertien jaar strafkolonie in Frans-Guyana en een reeks ontsnappingen: over zee naar Trinidad en Colombia, maanden bij een indianenvolk aan de Guajira, twee jaar eenzame opsluiting op Saint-Joseph, en tenslotte de sprong van Duivelseiland op twee zakken kokosnoten. In oktober 1945 is hij vrij man in Venezuela.</p><p>Charriere schreef het pas in 1968 op, bijna dertig jaar later, en het werd in Frankrijk direct een boek dat miljoenen mensen kochten. Sindsdien is met documenten aangetoond dat een groot deel van de voorvallen niet van hem is maar van medegevangenen. Dat maakt het minder betrouwbaar als getuigenis en niet minder leesbaar als verhaal.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bagno</li><li>Frans-Guyana</li><li>ontsnapping</li><li>gevangenis</li><li>Duivelseiland</li><li>memoir</li><li>Venezuela</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl beschrijft hetzelfde vraagstuk, wat een mens overeind houdt in een stelsel dat op afbraak is ingericht, en hij komt op een ander antwoord uit dan de ontsnapping.</li>
+          <li value="36"><a href="36.html">Endurance</a>. Lansing vertelt een overlevingsverhaal met dezelfde zee en dezelfde uithoudingsproef, maar dan gestaafd met dagboeken van meerdere deelnemers.</li>
+          <li value="942"><a href="942.html">Het periodiek systeem</a>. Levi laat zien hoe een getuigenis over een strafstelsel eruitziet wanneer de schrijver zijn eigen rol nuchter en toetsbaar houdt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

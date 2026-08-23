@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Day &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ydo stelt dat de hoeveelheid leven in een dag niet vastligt bij het aantal uren dat een dag telt, maar bij de toestand waarin die uren worden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1825">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1825 &middot; Gewoontes en denken</p>
+    <h1>One Day</h1>
+    <p class="lede">Tabe Ydo, 2020</p>
+    <p class="stats">
+      <span><b>1501</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1825"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ydo stelt dat de hoeveelheid leven in een dag niet vastligt bij het aantal uren dat een dag telt, maar bij de toestand waarin die uren worden doorgebracht. Wie op de automatische piloot leeft, verliest volgens hem het grootste deel van zijn dag aan handelingen die niet worden opgemerkt en dus ook niet worden herinnerd. Zijn tegenvoorstel is een vaste opening van de dag, ver voor het gebruikelijke opstaan, waarin lichaam en aandacht in een bepaalde toestand worden gebracht. Die opening zou een kettingreactie op gang brengen die de rest van de dag kleurt. De belofte in de ondertitel is letterlijk bedoeld: tijd toevoegen, niet tijd besparen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het eigen verhaal als vertrekpunt</h3>
+      <p>Het boek opent met de loopbaan van de schrijver. Ydo studeerde aan de Universiteit van Amsterdam en aan Yale, begon bedrijven, won er prijzen mee en raakte er ook een kwijt. Daarnaast beschrijft hij twee periodes van uitputting en de behandelingen die daarop volgden.</p>
+      <p>Die geschiedenis dient als bewijsvoering voor de rest van het boek. De methode wordt gepresenteerd als de uitkomst van dertig jaar proberen: dieten, sportuitdagingen, cursussen en gesprekken met behandelaars, waarvan het meeste niet bleef hangen.</p>
+      <h3>Leven op de automatische piloot</h3>
+      <p>Het eerste inhoudelijke deel gaat over de mate waarin het dagelijks handelen buiten het bewustzijn omgaat. Ydo beschrijft hoe een groot deel van een doorsnee dag bestaat uit reacties op prikkels van buitenaf: berichten, verzoeken, agenda's van anderen. Wie zo leeft ervaart dat de tijd vliegt, en dat is in zijn redenering geen prettige waarneming maar een verliespost.</p>
+      <p>Hij koppelt daar de waarneming van tijd aan. Nieuwe en bewust doorgemaakte ervaringen laten meer sporen na en voelen achteraf langer. De methode mikt daarom niet op efficientie maar op het aantal momenten dat de dag oplevert.</p>
+      <h3>Wat mensen voor geluk aanzien</h3>
+      <p>Een volgend deel behandelt misverstanden over geluk. Ydo betoogt dat de gangbare doelen, meer geld, meer status, een volgende zakelijke mijlpaal, het gevoel dat mensen zoeken niet leveren, en gebruikt zijn eigen prijzenkast als voorbeeld. Wat het gevoel wel bepaalt zijn volgens hem de stoffen die het lichaam aanmaakt en de staat van het zenuwstelsel.</p>
+      <p>Daarmee introduceert hij zijn ordening van vier stoffen. Dopamine hoort bij een beeld van een gewenste toekomst, serotonine bij trots en dankbaarheid over wat er al is, oxytocine bij herinneringen aan mensen en gebeurtenissen die verbinding gaven, endorfine bij lichamelijke inspanning en bij de ademhaling. De methode is opgebouwd als een reeks handelingen die deze vier achter elkaar aanspreken.</p>
+      <h3>De onderdelen van de methode</h3>
+      <p>Het praktische deel beschrijft een vroege start, in het bijbehorende programma rond half vijf 's ochtends. Op dat moment zouden de hersengolven in een toestand verkeren tussen theta en alfa, waarin het bewuste en het onbewuste dichter bij elkaar liggen dan later op de dag.</p>
+      <p>Binnen die opening staan vier soorten handelingen. Ademhalingsoefeningen, waaronder de uit de hathayoga afkomstige bhastrika en wat Ydo een resetademhaling noemt. Een korte intervaltraining, de 303030, met tien oefeningen zoals burpees, squats, push-ups en planken. Dankbaarheidsoefeningen, waarin wordt opgeschreven of opgeroepen wat er goed is en wie daarbij hoorde. En meditatie, gericht op wat hij de alfastaat noemt.</p>
+      <p>Het geheel is bedoeld om binnen ongeveer een uur te worden afgewerkt, voordat de dag met zijn verplichtingen begint. Het punt van de titel is dat een zo doorgebrachte dag genoeg zou zijn om het verschil te merken.</p>
+      <h3>Van een dag naar een leven</h3>
+      <p>Het slot behandelt de vraag hoe een dag een gewoonte wordt. Ydo kiest hier tegen het gangbare advies om honderd dagen aan een doel te werken. Hij verlegt de eenheid naar de dag zelf: wie elke ochtend opnieuw begint, hoeft geen reeks vol te houden en kan na een gemiste dag zonder schade verder.</p>
+      <p>Slaap, voeding en beweging komen in dit deel terug als voorwaarden. Een vroege ochtend zonder voldoende slaap wordt afgeraden, wat betekent dat de avond mee verschuift.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">One Day Methode</td><td>De vaste reeks handelingen aan het begin van de dag waarmee Ydo zijn boek en zijn programma aanduidt.</td></tr>
+          <tr><td class="term">Tijd toevoegen</td><td>Zijn formulering voor het vergroten van het aantal bewust doorgemaakte momenten, waardoor een dag achteraf langer aanvoelt.</td></tr>
+          <tr><td class="term">Happy chemicals</td><td>De verzamelnaam die hij gebruikt voor dopamine, serotonine, oxytocine en endorfine, elk gekoppeld aan een eigen oefening.</td></tr>
+          <tr><td class="term">Kettingreactie</td><td>De veronderstelde opeenvolging waarin het aanspreken van de ene stof de volgende in gang zet en de hele dag kleurt.</td></tr>
+          <tr><td class="term">303030</td><td>Een korte intervaltraining van tien oefeningen die als lichamelijk deel van de ochtend dient.</td></tr>
+          <tr><td class="term">Alfastaat</td><td>De ontspannen mentale toestand die Ydo aan alfahersengolven verbindt en die hij in verband brengt met inzicht en betere beslissingen.</td></tr>
+          <tr><td class="term">Resetademhaling</td><td>Een korte ademhalingsoefening die volgens hem spanning wegneemt en energie oplevert binnen enkele minuten.</td></tr>
+          <tr><td class="term">Automatische piloot</td><td>De toestand waarin handelingen zonder aandacht verlopen en de dag daarom niet blijft hangen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De grondslag van het boek is de levensgeschiedenis van de schrijver. Wat werkte is wat bij hem bleef werken, na dertig jaar uitproberen. Dat is een geval, en het is een geval dat is geselecteerd op succes: de lezer krijgt de aanpak te zien die bleef, niet de aanpakken die het niet werden.</p>
+      <p>Daarnaast beroept Ydo zich op gesprekken met neurologen, cardiologen, psychologen en biologen, en op onderzoek van Harvard, Yale en Stanford. Dat zijn instellingsnamen, geen vindplaatsen. Wie de beweringen wil narekenen kan dat op deze manier niet.</p>
+      <p>Per onderdeel loopt de sterkte van de onderbouwing uiteen. Voor intervaltraining bestaat degelijk onderzoek naar conditie en stemming. Voor ademhalingsoefeningen met een verlengde uitademing is er redelijk bewijs voor een acuut effect op hartslagvariabiliteit en gespannenheid, minder voor blijvende verandering. Dankbaarheidsoefeningen zijn in de positieve psychologie herhaaldelijk onderzocht, met effecten die bestaan maar klein zijn en die in strengere opzetten kleiner worden.</p>
+      <p>Zwakker is de neurologische inkleding. De indeling van dopamine, serotonine, oxytocine en endorfine als vier gelukstoffen die elk bij een eigen oefening horen, is een ordening uit populaire boeken en niet uit de vakliteratuur. Dopamine hangt in het onderzoek eerder samen met verwachting en leren dan met plezier; serotonine heeft functies in slaap, eetlust en darmwerking die met dankbaarheid weinig te maken hebben. De koppeling oefening-stof is een geheugensteun, geen mechanisme.</p>
+      <p>Hetzelfde geldt voor de alfastaat. Alfagolven zijn te meten en nemen toe bij ontspanning met gesloten ogen, maar de stap van die meting naar inzicht en betere beslissingen is niet gelegd. De veelgehoorde bewering dat Edison en Einstein deze toestand als dagelijks ritueel gebruikten berust op anekdotes die niet tot een bron zijn terug te voeren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de belofte in de titel. Er is geen onderzoek dat laat zien dat een dag volstaat om een leven te verleggen. Wat het boek beschrijft is een routine die maanden vol te houden zou moeten worden, en de rekbaarheid van het woord dag doet de rest van het argument geen goed.</p>
+      <p>Het opstaan om half vijf is de duurste eis in het boek. Voor de meeste mensen betekent dat minder slaap of een avond die volledig meeverhuist. Onderzoek naar slaapduur en naar chronotypen wijst er niet op dat vroeg opstaan op zichzelf voordeel geeft; wat telt is voldoende slaap op een vast tijdstip. Ydo noemt slaap wel, maar de methode is gebouwd op een tijdstip dat voor avondmensen slecht uitpakt.</p>
+      <p>Het boek staat niet los van een verdienmodel. Rond de methode hangen een online cursus, een workout, meditaties en persoonlijke coaching. Dat maakt de inhoud niet onwaar, maar het verklaart waarom de tekst eindigt bij een aanzet in plaats van bij een uitgewerkte oefenstof.</p>
+      <p>Inhoudelijk voegt het boek weinig toe aan wat al bestond. De vroege ochtend, de dankbaarheidslijst, de korte training en de ademhaling zijn afzonderlijk beschreven door Sharma, Clear, Hof en anderen. De verdienste zit in de bundeling en in de Nederlandse toon, niet in nieuwe kennis. Lezers merken dat ook op; de waardering op lezerssites blijft rond de middelmaat hangen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies eerst een vast tijdstip om te gaan slapen en pas daarna het tijdstip van opstaan aan, in plaats van omgekeerd.</li>
+        <li>Neem de vier oefeningen los van elkaar over en beoordeel per stuk of er iets verandert; de koppeling aan een stof in het lichaam voegt daar niets aan toe.</li>
+        <li>Houd twee weken bij hoe lang de dag achteraf aanvoelde, en niet alleen wat er af kwam. Dat is de maat die het boek zelf hanteert.</li>
+        <li>Sla de intervaltraining over bij hart- of gewrichtsklachten en overleg met een arts; het boek doet geen medische uitspraken maar de oefeningen zijn intensief.</li>
+        <li>Wie de methode wil proberen zonder het programma: de ademhaling, de dankbaarheidslijst en de training zijn elders vrij beschikbaar beschreven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands geschreven en verschenen als <i>One Day. Voeg tijd toe aan je dag en leef maximaal</i> (Kosmos Uitgevers, Utrecht en Antwerpen, 15 september 2020, 256 blz., ISBN 9789021577302). Latere drukken en het e-book dragen de titel <i>One Day Methode</i> (e-book ISBN 9789021577319, luisterboek ISBN 9789021584584); de opgave van het aantal bladzijden loopt per uitgave uiteen. Een Engelse vertaling is niet verschenen. Van Ydo verscheen in 2023 ook <i>Well-connected</i>. Rond het boek draait een betaald programma met ademhalingsoefeningen, meditaties, een workout en coaching.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tabe Ydo (1976) is ondernemer in Amsterdam. Hij won prijzen met zijn bedrijven en maakte ook een faillissement, twee burn-outs en een reeks gesprekken met psychologen mee. Uit die dertig jaar destilleerde hij wat hij de One Day Methode noemt: een vaste manier om een dag in te richten, waarmee volgens hem meer uit die dag te halen is dan er in tijd in zit.</p><p>Het boek loopt van zijn eigen verhaal via een bespreking van wat mensen voor geluk aanzien naar een praktisch slotdeel. De methode zelf bestaat uit een vroege ochtend, een reeks ademhalingsoefeningen, een korte intervaltraining die hij 303030 noemt, dankbaarheidsoefeningen en meditatie. Ydo verbindt elk onderdeel aan een stof in het lichaam: dopamine bij het beeld van een gewenste toekomst, serotonine bij trots en dankbaarheid, oxytocine bij herinneringen aan verbinding, endorfine bij de ademhaling.</p><p>Ydo verwijst naar gesprekken met neurologen, cardiologen en psychologen en naar onderzoek van Amerikaanse universiteiten. Wat hij daaruit overneemt is een populaire ordening van vier zogenoemde happy chemicals, die in de neurowetenschap zo niet wordt gehanteerd. Het boek staat in de lijn van de ochtendroutineliteratuur en voegt daar een Nederlandse ondernemersbiografie aan toe.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gewoontes</li><li>ochtendroutine</li><li>tijd</li><li>ademhaling</li><li>geluk</li><li>zelfhulp</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1743"><a href="1743.html">Well-connected</a>. Well-connected van dezelfde schrijver, drie jaar later, waarin hij de aandacht verlegt van de eigen dag naar de omgang met anderen.</li>
+          <li value="244"><a href="244.html">The 5 AM Club</a>. The 5 AM Club van Robin Sharma bouwt op hetzelfde uitgangspunt van een vroege, vaste ochtend en is er het bekendste voorbeeld van.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Atomic Habits behandelt de vraag hoe een routine blijft hangen, precies het punt waarop One Day het bij een aanzet laat.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Why We Sleep van Matthew Walker geeft de slaapkennis die nodig is om te beoordelen wat een start om half vijf kost.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

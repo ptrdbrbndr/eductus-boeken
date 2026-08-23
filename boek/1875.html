@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stamped from the Beginning &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kendi keert de gangbare verklaring van racisme om. In de gebruikelijke voorstelling begint het bij onwetendheid, die haat voortbrengt, die racistische…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1875">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1875 &middot; Geschiedenis en samenleving</p>
+    <h1>Stamped from the Beginning</h1>
+    <p class="lede">Ibram X. Kendi, 2016</p>
+    <p class="stats">
+      <span><b>1691</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1875"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kendi keert de gangbare verklaring van racisme om. In de gebruikelijke voorstelling begint het bij onwetendheid, die haat voortbrengt, die racistische denkbeelden voortbrengt, die uitmonden in discriminerend beleid; daaruit volgt dat onderwijs en overtuiging de weg naar verbetering zijn. Kendi stelt dat de keten precies andersom loopt: er is eerst eigenbelang, meestal economisch, dat beleid oplevert waar iemand aan verdient, en pas daarna komen de denkbeelden die dat beleid rechtvaardigen, en uit die denkbeelden komen de onwetendheid en de haat voort. De gevolgtrekking die hij eraan verbindt is ingrijpend: wie racisme bestrijdt door mensen voor te lichten of zich voorbeeldig te gedragen, bestrijdt het gevolg en laat de oorzaak staan. Alleen het veranderen van beleid raakt de bron, en de ideeën volgen daarna vanzelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie posities in plaats van twee</h3>
+      <p>Kendi werkt het hele boek door met drie houdingen. De segregationist meent dat er iets blijvend mis is met zwarte mensen en dat afzondering daaruit volgt. De assimilationist meent dat zwarte mensen achterlopen maar te verheffen zijn, mits zij zich naar witte maatstaven voegen. De antiracist ontkent dat er tussen bevolkingsgroepen een verschil bestaat dat verheffing of afzondering rechtvaardigt en zoekt de verklaring voor ongelijkheid uitsluitend in beleid.</p>
+      <p>De tweede categorie doet het werk in dit boek. Assimilationisme wordt doorgaans niet als racisme gezien, en Kendi rekent er juist de meest geprezen figuren uit de Amerikaanse geschiedenis toe: abolitionisten, hervormers, presidenten en zwarte leiders. Hij stelt dat vrijwel iedereen tegelijk twee of drie van deze posities inneemt, wat hij een strijd van gelijktijdige tegenstellingen noemt.</p>
+      <h3>Cotton Mather en de rechtvaardiging van de slavernij</h3>
+      <p>Het eerste deel begint bij de puriteinse predikant Cotton Mather in Massachusetts. Kendi laat zien hoe twee verklaringen naast elkaar in omloop waren om de onderwerping van Afrikanen te rechtvaardigen: de klimaatverklaring, waarin de hitte van Afrika het karakter zou hebben aangetast, en de vloekverklaring, waarin zwarte mensen als afstammelingen van Cham onder een Bijbelse vloek zouden liggen.</p>
+      <p>Mather bepleitte de kerstening van slaafgemaakten en presenteerde de slavernij als een gelegenheid van God om zielen te redden. In zijn geschrift over de gekerstende neger, uit 1706, staat de gedachte dat de ziel wit kan worden terwijl het lichaam zwart blijft. Kendi gebruikt hem als het beginpunt van het assimilationisme: geen tegenstander van de slavernij, maar iemand die haar verzachtte door haar een hoger doel te geven.</p>
+      <h3>Thomas Jefferson en de gespleten belofte</h3>
+      <p>Het tweede deel draait om Jefferson, die schreef dat alle mensen gelijk geschapen zijn en tegelijk tientallen mensen bezat. In <i>Notes on the State of Virginia</i> zette hij op schrift dat hij zwarte mensen voor minder begaafd hield, terwijl hij als jong jurist een zaak voerde om iemand vrij te krijgen.</p>
+      <p>Kendi behandelt ook zijn verhouding met Sally Hemings, die hij begon toen zij veertien was, terwijl hij zich in het openbaar tegen vermenging uitsprak. En hij behandelt Jeffersons voorkeur voor geleidelijke vrijlating gevolgd door terugzending naar Afrika. Dat laatste is het model waarmee Kendi laat zien hoe iemand tegelijk tegen de slavernij en voor afzondering kan zijn.</p>
+      <p>Deze passages zijn de meest gelezen van het boek en tegelijk de plek waar Kendi's methode het duidelijkst zichtbaar wordt: hij zoekt bij elke geprezen figuur naar het punt waarop het eigenbelang de overtuiging bepaalt en niet andersom.</p>
+      <h3>William Lloyd Garrison en de grens van het abolitionisme</h3>
+      <p>Het derde deel gaat over de negentiende eeuw en over Garrison, de uitgever van <i>The Liberator</i>, die van geleidelijke naar onmiddellijke afschaffing schoof. Kendi laat zien dat de abolitionisten hun zaak bepleitten met wat hij verheffingsovertuiging noemt: het idee dat vrijgemaakte zwarte mensen door voorbeeldig gedrag de witte bevolking van hun waardigheid moesten overtuigen.</p>
+      <p>Die strategie legt een last neer die zij niet kan dragen. Zij maakt elke individuele zwarte persoon verantwoordelijk voor het oordeel over de hele groep, en zij werkt niet, omdat wie racistische ideeën aanhangt uitzonderingen als uitzonderingen behandelt. Kendi wijst op Garrisons voorwoord bij de autobiografie van Frederick Douglass uit 1845, waarin dezelfde denkbeelden meeliften die het boek zelf bestrijdt.</p>
+      <p>Het deel loopt door tot na de Emancipatieproclamatie en het dertiende amendement, en laat zien hoe de mislukking van de Wederopbouw werd uitgelegd als bewijs van zwart tekortschieten in plaats van als gevolg van het geweld en het beleid dat haar afbrak.</p>
+      <h3>W.E.B. Du Bois, die zichzelf herzag</h3>
+      <p>Het vierde deel gaat over Du Bois, de eerste zwarte gepromoveerde aan Harvard, en is het meest opvallende deel van het boek omdat de hoofdpersoon zijn eigen positie in de loop van zijn lange leven verschuift. Zijn idee van de tiende getalenteerde, waarin een geschoolde bovenlaag de rest zou optrekken, rekent Kendi tot het assimilationisme: de verklaring voor de achterstand ligt dan bij de groep zelf.</p>
+      <p>In <i>The Souls of Black Folk</i> uit 1903 staan volgens Kendi antiracistische en assimilationistische passages naast elkaar, wat het boek tot de duidelijkste illustratie van zijn stelling over gelijktijdige tegenstellingen maakt. Du Bois verschoof later naar een economische verklaring en naar het marxisme, en stierf in Ghana.</p>
+      <h3>Angela Davis en de eigen tijd</h3>
+      <p>Het laatste deel loopt van de jaren zestig tot het heden en heeft Angela Davis als middelpunt. Kendi volgt haar van haar jeugd in Birmingham via Black Power en haar verwijdering van de universiteit in Californië wegens haar lidmaatschap van de communistische partij, tot haar werk voor afschaffing van het gevangeniswezen.</p>
+      <p>Via haar komt het boek uit bij de oorlog tegen drugs, bij de opsluitingscijfers en bij het verwijt van zwart tekortschieten dat de hele geschiedenis heen keert. De slotsom herhaalt de stelling waarmee het boek opende: onderwijs en overtuiging hebben in vierhonderd jaar niet gewerkt, omdat zij het gevolg aanpakken en niet de oorzaak. Alleen beleid verandert wat mensen denken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Segregationist</td><td>Wie meent dat er iets blijvend en aangeboren mis is met zwarte mensen en daaruit afzondering afleidt.</td></tr>
+          <tr><td class="term">Assimilationist</td><td>Wie meent dat zwarte mensen achterlopen maar te verheffen zijn, mits zij zich naar witte maatstaven voegen.</td></tr>
+          <tr><td class="term">Antiracist</td><td>Wie ontkent dat groepen wezenlijk verschillen en elke ongelijkheid tussen groepen aan beleid toeschrijft.</td></tr>
+          <tr><td class="term">Racistisch idee</td><td>Elke gedachte die een groep als beter of slechter dan een andere neerzet, ongeacht de bedoeling van wie haar uitspreekt.</td></tr>
+          <tr><td class="term">Verheffingsovertuiging</td><td>De strategie waarin zwarte mensen door voorbeeldig gedrag racistische denkbeelden zouden moeten wegnemen, die de last bij het slachtoffer legt.</td></tr>
+          <tr><td class="term">Gelijktijdige tegenstelling</td><td>Kendi's aanduiding voor het naast elkaar bestaan van racistische en antiracistische denkbeelden in één persoon of één tekst.</td></tr>
+          <tr><td class="term">Klimaatverklaring</td><td>De vroegmoderne uitleg waarin de hitte van Afrika het karakter van de bewoners zou hebben bepaald.</td></tr>
+          <tr><td class="term">Vloekverklaring</td><td>De Bijbelse uitleg waarin zwarte mensen als afstammelingen van Cham onder een vloek zouden vallen.</td></tr>
+          <tr><td class="term">Eigenbelang als motor</td><td>Kendi's stelling dat racistische denkbeelden worden gemaakt om beleid te rechtvaardigen waar iemand aan verdient.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een ideeëngeschiedenis en werkt met teksten: preken, pamfletten, wetenschappelijke verhandelingen, rechtszaken, redevoeringen en romans, over bijna vier eeuwen, in bijna zeshonderd bladzijden met een uitgebreid notenapparaat. Op dat punt staat het stevig. Kendi laat de argumenten in hun eigen bewoordingen zien, en het boek is het meest overtuigend waar het aantoont dat een denkbeeld dat als vooruitgang gold, zoals de kerstening bij Mather of de verheffing bij Garrison, dezelfde rangorde in stand hield.</p>
+      <p>De centrale bewering is van een andere orde. De stelling dat eigenbelang altijd eerst komt en de ideeën altijd volgen, wordt door de opeenvolging van gevallen geïllustreerd en niet getoetst. Bij een historisch verhaal is dat lastig anders te doen, maar het gevolg is dat de stelling nauwelijks te weerleggen valt: elk denkbeeld laat zich achteraf aan een belang koppelen, en Kendi laat niet zien welke waarneming zijn verklaring zou ontkrachten.</p>
+      <p>Op onderdelen is de volgorde bovendien omstreden. Historici van de vroege slavernij verschillen al decennia van mening over de vraag of de raciale indeling volgde op de behoefte aan slavenarbeid of dat er ook eerdere denkbeelden meespeelden. Kendi kiest een kant in dat debat, en hij voert het debat zelf beperkt op.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar richt zich op het drieledige schema. Carlos Lozada schreef in The Washington Post dat Kendi zijn onderwerp meedogenloos vervolgt maar dat zijn indeling zelf vragen oproept, en Norman Finkelstein noemde het boek onvolwassen en de etiketten houterig en tweedelig. Wie eenmaal het onderscheid tussen segregationist, assimilationist en antiracist hanteert, kan elke uitspraak uit vier eeuwen op een van die drie stapels leggen, en het schema bepaalt dan de uitkomst nog voordat de tekst gelezen is.</p>
+      <p>Het assimilationisme-etiket wordt bovendien op mensen geplakt die geen keuze hadden tussen de drie posities die Kendi onderscheidt. Douglass, Du Bois en de abolitionisten opereerden binnen wat in hun tijd zegbaar was; hen afmeten aan een maatstaf die pas veel later beschikbaar kwam, levert een oordeel op dat weinig verklaart over hun handelen.</p>
+      <p>De slotsom over beleid laat een gat open. Als denkbeelden voortkomen uit beleid en beleid uit eigenbelang, dan blijft de vraag hoe beleid ooit verandert. Kendi wijst op verzet en op strijd, maar dat verzet moet dan zelf ergens uit voortkomen, en dat is precies de plaats waar zijn model geen ruimte laat voor overtuiging als drijvende kracht.</p>
+      <p>Ten slotte is Amerika niet de wereld. Het boek voert de ondertitel dat het de geschiedenis van racistische denkbeelden schrijft, en behandelt vrijwel uitsluitend één land en één tweedeling. Voor de Nederlandse lezer betekent dat een boek dat het denken over slavernij en kolonie hier hoogstens indirect raakt, hoe grondig het over zijn eigen onderwerp ook is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de vijf delen als afzonderlijke ideeëngeschiedenissen; ze staan los genoeg om apart te nemen.</li>
+        <li>Toets de centrale stelling aan een geval buiten Amerika voordat je haar overneemt.</li>
+        <li>Houd bij het lezen de vraag vast welke waarneming Kendi's verklaring zou weerleggen; hij noemt die niet.</li>
+        <li>Neem het notenapparaat mee bij de hoofdstukken over Jefferson en Garrison; daar staat het weerbarstigste bronmateriaal.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Stamped from the Beginning: The Definitive History of Racist Ideas in America</i>, Nation Books, New York, 2016, 582 blz., ISBN 9781568585987; later herdrukt bij Bold Type Books. Bekroond met de National Book Award for Nonfiction 2016 en genomineerd voor de National Book Critics Circle Award. Er bestaat geen Nederlandse vertaling van dit boek; van Kendi verscheen in het Nederlands wel het prentenboek <i>Antiracist Baby</i>, als <i>De 9 stappen van Baby Antiracist</i>. Van dit boek verschenen bewerkingen: <i>Stamped: Racism, Antiracism, and You</i> (2020, met Jason Reynolds) voor jongeren, <i>Stamped (for Kids)</i> (2021, met Sonja Cherry-Paul) en een striproman door Joel Christian Gill (2023).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kendi schrijft de geschiedenis van racistische denkbeelden in Amerika van de zeventiende eeuw tot heden, en keert daarbij de gangbare volgorde om. In de gebruikelijke uitleg leidt onwetendheid tot haat, haat tot racistische ideeën en die ideeën tot discriminerend beleid. Kendi zegt dat het andersom gaat: eigenbelang levert beleid op, beleid vraagt om rechtvaardiging, en de rechtvaardiging is het racistische idee.</p><p>Hij deelt het boek in vijf delen, elk rond een hoofdpersoon: de puriteinse predikant Cotton Mather, Thomas Jefferson, de abolitionist William Lloyd Garrison, W.E.B. Du Bois en Angela Davis. Die vijf zijn geen helden of schurken; Kendi laat bij elk van hen racistische, assimilationistische en antiracistische denkbeelden naast elkaar bestaan.</p><p>De titel komt uit een toespraak van Jefferson Davis in de Amerikaanse Senaat in 1860, waarin hij de ongelijkheid van wit en zwart als vanaf het begin gestempeld beschreef. Het boek won de National Book Award en werd het uitgangspunt voor Kendi's latere, veel besproken werk over antiracisme.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>racisme</li><li>Verenigde Staten</li><li>ideeëngeschiedenis</li><li>slavernij</li><li>abolitionisme</li><li>antiracisme</li><li>Kendi</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="68"><a href="68.html">Black Rednecks and White Liberals</a>. Sowell legt dezelfde geschiedenis uit met cultuur en gedrag als verklaring, precies de uitleg die Kendi als racistisch aanmerkt.</li>
+          <li value="598"><a href="598.html">The Mis-Education of the Negro</a>. Woodson beschreef in 1933 al de verheffing door onderwijs waarvan Kendi de werking ontkent, van binnenuit.</li>
+          <li value="523"><a href="523.html">I Write What I Like</a>. Biko voert dezelfde afwijzing van de verheffingsgedachte, maar vanuit Zuid-Afrika en met de nadruk op het bewustzijn van de onderdrukte.</li>
+          <li value="592"><a href="592.html">Yurugu</a>. Ani zoekt de bron van het Europese denken over andere volken in de cultuur zelf, waar Kendi haar in economisch belang zoekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

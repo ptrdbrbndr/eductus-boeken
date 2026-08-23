@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volhard &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Boomsma gaat ervan uit dat de vraag hoe iemand gezonder gaat leven allang beantwoord is en dat het echte probleem een stap verder ligt: bijna niemand…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1860">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1860 &middot; Brein en lichaam</p>
+    <h1>Volhard</h1>
+    <p class="lede">Arie Boomsma, 2020</p>
+    <p class="stats">
+      <span><b>1327</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1860"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Boomsma gaat ervan uit dat de vraag hoe iemand gezonder gaat leven allang beantwoord is en dat het echte probleem een stap verder ligt: bijna niemand houdt de verandering vol. Zijn stelling is dat volhouden minder met wilskracht te maken heeft dan met begrip en inrichting. Wie precies weet waarom hij iets doet, wie de eerste stap klein genoeg maakt en er een vast ritme omheen bouwt, hoeft veel minder tegen zichzelf te vechten. Terugval hoort daar volgens hem bij en is iets waar een plan rekening mee moet houden, niet een bewijs dat het plan mislukt is. Daarmee verschuift het onderwerp van het lichaam naar de dagindeling en de verwachtingen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom het meestal misgaat</h3>
+      <p>Het boek opent met de vaststelling dat kennis over voeding en beweging ruim voorhanden is en dat het daar dus niet aan schort. Wat ontbreekt is het antwoord op de vraag waarom iemand ermee bezig is. Boomsma stelt dat wie dat antwoord niet scherp heeft, terugvalt zodra de eerste motivatie op is.</p>
+      <p>Hij zet zich af tegen boeken met gouden tips. Zijn inzet is niet een lijst regels maar inzicht in het vermogen om iets vol te houden. Dat maakt de eerste hoofdstukken abstracter dan de rest van het boek.</p>
+      <h3>Doelen en de eerste stap</h3>
+      <p>Vervolgens gaat het over het formuleren van doelen. Boomsma pleit voor doelen die zo concreet zijn dat aan het eind van de dag vaststaat of ze gehaald zijn, en voor een eerste stap die klein genoeg is om ook op een slechte dag te lukken. Groot beginnen ziet hij als de meest voorkomende fout.</p>
+      <p>Discipline behandelt hij niet als karaktereigenschap maar als iets wat groeit door herhaling. Wie een handeling vaak genoeg op hetzelfde moment uitvoert, hoeft er steeds minder over te beslissen.</p>
+      <h3>Ritme in de dag</h3>
+      <p>Een groot deel van het boek gaat over structuur: vaste tijden, een ochtendritueel en een avondritueel, en slaap als de basis waarop de rest rust. Boomsma beschrijft hoe hij zijn eigen dag inricht en welke onderdelen daarvan wat hem betreft overdraagbaar zijn.</p>
+      <p>De redenering is steeds dezelfde. Hoe minder een handeling per keer afgewogen hoeft te worden, hoe kleiner de kans dat hij op een druk moment sneuvelt. Ritme neemt beslissingen over.</p>
+      <h3>Voeding en training</h3>
+      <p>Daarna volgen de praktische hoofdstukken over eten en bewegen. Boomsma bespreekt eiwitten, koolhydraten, vetten, maaltijdindeling, krachttraining, duurtraining en herstel. Hij geeft geen dieet en geen schema, maar principes met voorbeelden uit zijn eigen praktijk.</p>
+      <p>Dit deel is aanmerkelijk dichter dan de eerste hoofdstukken en gaat vrij snel over in vakterminologie. Recensenten wijzen erop dat een beginner hier de draad kan kwijtraken.</p>
+      <h3>Tegenslag en gemoedstoestand</h3>
+      <p>Het laatste deel gaat over de mentale kant: hoe om te gaan met een week waarin niets lukt, met blessures, met perioden waarin het resultaat uitblijft. Boomsma behandelt terugval als voorspelbaar onderdeel van het proces en pleit ervoor er vooraf een afspraak over te maken.</p>
+      <p>Zijn stelling daarbij is dat gezondheid en geluk zwaarder wegen dan een deadline. Wie een doel haalt ten koste van zijn plezier, houdt het alsnog niet vol.</p>
+      <h3>De verwijzingen aan het eind van elk hoofdstuk</h3>
+      <p>Elk hoofdstuk sluit af met lees-, kijk- en luistertips. Daar staan boeken, artikelen, podcasts en toepassingen in van anderen. Die lijstjes doen in dit boek het werk dat elders een notenapparaat doet: ze wijzen naar de bron van een gedachte zonder die uit te werken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Volhouden</td><td>Het onderwerp van het boek: niet het aanbrengen van een verandering, maar het vasthouden ervan nadat de eerste motivatie is uitgewerkt.</td></tr>
+          <tr><td class="term">Het waarom</td><td>De reden achter een doel, die volgens Boomsma expliciet gemaakt moet worden omdat gedrag zonder die reden bij de eerste tegenslag omvalt.</td></tr>
+          <tr><td class="term">Klein beginnen</td><td>Het advies om de eerste stap zo klein te kiezen dat hij ook op een slechte dag haalbaar blijft.</td></tr>
+          <tr><td class="term">Ritme</td><td>Vaste momenten en volgordes in de dag, bedoeld om het aantal beslissingen te verkleinen dat een gewoonte per keer kost.</td></tr>
+          <tr><td class="term">Discipline</td><td>Bij Boomsma geen karaktereigenschap maar een vaardigheid die door herhaling toeneemt.</td></tr>
+          <tr><td class="term">Terugval</td><td>Een periode waarin de nieuwe leefstijl niet lukt; in het boek behandeld als voorspelbaar onderdeel waarvoor vooraf een plan bestaat.</td></tr>
+          <tr><td class="term">Ochtend- en slaapritueel</td><td>Vaste handelingen aan begin en eind van de dag, door Boomsma gepresenteerd als de dragende constructie onder de rest.</td></tr>
+          <tr><td class="term">Lees-, kijk- en luistertips</td><td>De lijst met werk van anderen waarmee elk hoofdstuk afsluit, en waarnaar het boek verwijst in plaats van zijn beweringen zelf te onderbouwen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen eigen onderzoek aan en heeft geen notenapparaat. Boomsma zegt dat met zoveel woorden: hij deelt alleen wat hij zelf doet. Zijn gezag komt uit zijn eigen leefstijl en uit de sportscholen die hij mede bezit, niet uit vakliteratuur. Wie wil nagaan waar een uitspraak op steunt, is aangewezen op de lees-, kijk- en luistertips aan het eind van elk hoofdstuk.</p>
+      <p>De hoofdlijn is niettemin in overeenstemming met wat gewoonteonderzoek laat zien. Dat gedrag dat aan een vaste aanleiding en een vast moment gekoppeld is beter beklijft dan gedrag dat elke keer opnieuw besloten moet worden, is meermalen vastgesteld. Ook het advies om de eerste stap klein te houden past bij dat werk. Het boek doet dat onderzoek alleen niet zelf en noemt het nauwelijks.</p>
+      <p>De voedings- en trainingsadviezen zijn gangbaar en niet afwijkend van wat in de sportschoolpraktijk gebruikelijk is. Ze worden gebracht als principes, zonder dosering, zonder onderscheid naar leeftijd of uitgangspositie en zonder aanduiding hoe zeker het onderliggende bewijs is. Dat maakt ze slecht toetsbaar, ook wanneer ze redelijk klinken.</p>
+      <p>Het sterkste deel qua onderbouwing is het hoofdstuk over slaap en dagritme, omdat de beweringen daar het dichtst bij algemeen aanvaarde inzichten blijven. Het zwakste is het deel over de gemoedstoestand, waar de redenering vooral op eigen ervaring rust.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het duidelijkste bezwaar komt uit het boek zelf. De eerste hoofdstukken bepleiten stap voor stap beginnen, terwijl de latere hoofdstukken zoveel onderwerpen aansnijden dat de lezer de neiging krijgt alles tegelijk aan te pakken. Recensenten benoemen die spanning en merken op dat het voedings- en trainingsgedeelte snel technisch wordt en een beginner kan overspoelen.</p>
+      <p>Op honderdzestig bladzijden is de behandeling van voeding, training, slaap en gemoedstoestand noodzakelijk oppervlakkig. Voor elk van die onderwerpen bestaat een uitgebreider boek, en de tips aan het eind van de hoofdstukken verwijzen daar ook naar. Wat overblijft is een verzameling redelijke stelregels die weinig toevoegt aan wat in <i>Fit</i> al stond.</p>
+      <p>Het boek verkoopt op naam. Boomsma is bekend van televisie en van zijn sportscholen, en die bekendheid doet het werk dat onderbouwing anders zou doen. Zijn dagindeling is bovendien die van iemand met een beroep waarin trainen bij het werk hoort. Hoe zijn ritme zich verhoudt tot ploegendiensten, jonge kinderen of een chronische aandoening, komt niet aan de orde.</p>
+      <p>Ten slotte blijft de vraag onbeantwoord waarom mensen die het wel weten en het wel willen het toch niet volhouden. Boomsma beantwoordt hem met inrichting en herhaling. Dat is een deel van het antwoord; de rol van geld, tijd, werkdruk en omgeving blijft buiten beschouwing, terwijl juist die factoren verklaren waarom gezondheidsadvies zo ongelijk aanslaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf het antwoord op de vraag waarom op, in een zin, en hang die zin ergens waar hij dagelijks gelezen wordt.</li>
+        <li>Kies een eerste stap die ook lukt op de slechtste dag van de week, en verlaag hem tot dat waar is.</li>
+        <li>Koppel de nieuwe handeling aan een vast tijdstip en een vaste bestaande handeling, in plaats van aan een voornemen.</li>
+        <li>Leg vooraf vast wat er gebeurt na een gemiste week, zodat terugval geen aanleiding wordt om te stoppen.</li>
+        <li>Neem de hoofdstukken over voeding en training pas ter hand als het ritme staat, en niet in dezelfde maand.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Prometheus, Amsterdam, 2020, 160 blz., ISBN 9789044635270. Nederlandstalig origineel; er bestaat geen vertaling. Het boek is het vervolg op <i>Fit</i>, waarin Boomsma beschreef hoe een leefstijl in kleine stappen te veranderen valt, en gaat vooraf aan <i>Gezonde routines</i> (2023). Er is ook een luisterboek, door de auteur zelf ingelezen (Storytel, 2023, ISBN 9789464308433, vier uur en veertig minuten).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Iedereen weet wat er nodig is om af te vallen of fitter te worden: anders eten en meer bewegen. Boomsma constateert dat daar het probleem niet zit. Het probleem is dat vrijwel niemand die verandering langer dan een paar maanden volhoudt. Dit boek gaat over die tweede fase, de fase na het begin.</p><p>Boomsma behandelt achtereenvolgens het formuleren van doelen, het aanbrengen van structuur in de dag, voeding, training en de gemoedstoestand waarmee iemand dat allemaal aangaat. Hij besteedt aandacht aan ochtend- en slaaprituelen en aan de vraag wat te doen bij terugval. Elk hoofdstuk sluit af met lees-, kijk- en luistertips: boeken, artikelen, podcasts en toepassingen van anderen.</p><p>De auteur is presentator, mede-eigenaar van de Vondelgym-sportscholen en spreker over fitheid en vitaliteit. Hij schrijft uitdrukkelijk alleen op wat hij zelf toepast en laat de lezer eruit halen wat past. Onderzoek staat er nauwelijks in; het boek leunt op eigen ervaring en op de praktijk van de sportschool.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gewoontes</li><li>volhouden</li><li>voeding</li><li>training</li><li>slaap</li><li>gezondheid</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1688"><a href="1688.html">Gezonde routines</a>. Boomsma werkte hetzelfde onderwerp drie jaar later uitgebreider uit; wie beide leest ziet welke stelregels bij hem overeind zijn gebleven.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear behandelt dezelfde vraag met een uitgewerkt model en met verwijzingen naar onderzoek, en laat zien wat er in dit boek aan onderbouwing ontbreekt.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker levert het onderzoek achter de plaats die Boomsma aan slaap toekent, en doet dat met de gegevens erbij.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
