@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het erotisch experiment &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Boer stelt dat de moderne westerse omgang met seks aan een dubbele beperking lijdt. Ten eerste is seksualiteit sinds de zeventiende eeuw tot identiteit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1774">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1774 &middot; Filosofie en mystiek</p>
+    <h1>Het erotisch experiment</h1>
+    <p class="lede">Ype de Boer, 2019</p>
+    <p class="stats">
+      <span><b>1495</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1774"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Boer stelt dat de moderne westerse omgang met seks aan een dubbele beperking lijdt. Ten eerste is seksualiteit sinds de zeventiende eeuw tot identiteit gemaakt: wie iemand is valt af te lezen aan wat hij begeert, en de mens is daarmee ingedeeld in soorten. Ten tweede wordt het verlangen zelf gevoed en gestuurd door apparaten die er belang bij hebben, van pornografie tot datingdiensten. Wat overblijft noemt hij eendimensionaal: veel keuze binnen een klein aantal beelden en weinig ruimte om iets anders te ervaren. Daartegenover zet hij geen betere leer over seks maar een experiment, waarin de eigen erotische ideeen worden opgeschort en de verbeelding wordt gevoed met voorstellingen uit andere tijden en culturen. De inzet is uiteindelijk het begrip erotiek zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Inleiding: Jupiter en Io</h3>
+      <p>Het boek opent bij een schilderij van Correggio, waarop Jupiter zich als wolk over Io buigt. Aan die voorstelling laat De Boer zien dat het erotische ooit vormen kende die in de huidige beeldtaal nauwelijks nog voorkomen: aanraking zonder lichaam, overgave zonder gezicht.</p>
+      <p>Daaruit volgt de vraag die het hele boek draagt: is een filosofisch experiment met erotiek mogelijk, en wat zou het waard zijn. De inleiding legt ook de werkwijze vast, waarin kunst en literatuur worden gebruikt als vindplaats van ervaringen die het betoog zelf niet kan opwekken.</p>
+      <h3>Seksuele personages</h3>
+      <p>Het eerste deel begint bij Foucault. Vanaf de zeventiende eeuw wordt seks voorwerp van onderzoek, van biecht, van geneeskunde en van administratie; gedragingen worden gerangschikt en aan mensen toegewezen, zodat er soorten mensen ontstaan waar eerst handelingen waren. De Boer trekt die geschiedenis door naar het heden, waarin een seksuele identiteit iets is dat je hoort te hebben en uit te dragen.</p>
+      <p>Hij laat de gevolgen zien aan gestalten uit mythe en literatuur. Pygmalion, die zijn eigen ideaalbeeld beeldhouwt en er verliefd op wordt; Don Juan, die telt in plaats van ontmoet; De Sade, die de vrijheid tot systeem maakt; en figuren uit Murakami's <i>1Q84</i>. Wie zich aan zo'n gestalte vastklampt, schrijft De Boer, wordt een pop in het eigen poppenspel.</p>
+      <p>Daarna volgt het deel dat het dichtst bij de huidige dag staat: pornografie, datingdiensten en sociale media leveren de beelden waaraan het verlangen zich hecht, en hebben er belang bij dat het verlangen blijft draaien. De Boer beschrijft die inrichtingen als apparaten die het menselijk verlangen niet verbieden maar bezetten.</p>
+      <h3>Erotische atmosferen</h3>
+      <p>Het tweede deel verzamelt tegenvoorbeelden. Bij Flaubert, in <i>De verzoeking van de heilige Antonius</i>, is het erotische een sfeer die de hele omgeving doortrekt en zich niet in een handeling laat samenvatten. Bij de mystici gaat het om eenwording, waarin de eigen omtrek juist verdwijnt: Hildegard von Bingen leest het Hooglied als beschrijving van een liefde die zowel lichamelijk als goddelijk is.</p>
+      <p>Vervolgens gaat De Boer naar buiten Europa. Hij behandelt de erotische kunst en de leefregels van het oude Egypte, de Chinese slaapkamerkunst van de fangzhong shu, en de boeddhistische tantra, waarin verlangen wordt opgevat als brandstof voor de weg. Het gaat hem daarbij niet om overname van die praktijken maar om de vaststelling dat mensen het erotische anders hebben ingericht dan wij.</p>
+      <h3>De rol van de verbeelding</h3>
+      <p>Door beide delen loopt de gedachte dat de verbeelding niet vrij is zolang zij de bestaande schema's herhaalt. Wat er te verbeelden valt, hangt af van wat er is gezien, gelezen en meegemaakt; wie alleen het vertoog van deze tijd tot zijn beschikking heeft, kan zich weinig anders voorstellen dan wat dat vertoog aanreikt.</p>
+      <p>De Boer leunt hier op Adorno en Horkheimer voor de gedachte dat het aanbod zichzelf in stand houdt, en op Agamben voor de vraag hoe iemand zich losmaakt van een gestalte die hem is aangemeten. Verbeelding is in dit boek daarom werk en geen gave.</p>
+      <h3>Experimentum eroticum</h3>
+      <p>Het derde deel bepaalt wat het experiment inhoudt en, met evenveel nadruk, wat het niet is. Het is geen zoektocht naar heftiger prikkels, geen aanbeveling voor een levensvorm, geen therapie en geen belofte van beter genot. Het vraagt van lezer en schrijver om de eigen ideeen over seks tijdelijk tussen haakjes te zetten en te kijken wat er dan gebeurt.</p>
+      <p>Wat De Boer ervan verwacht is bescheidener dan het woord experiment doet vermoeden: het afwerpen van beperkingen, ruimte om te ervaren wat buiten de voorgekauwde beelden ligt, en de mogelijkheid om denken en handelen op dit vlak weer bij elkaar te brengen. Het idee van het erotische zelf komt daarbij op het spel te staan, omdat het niet vaststaat wat er overblijft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Seksueel personage</td><td>Een vaste gestalte waarin iemand zijn verlangen onderbrengt, zoals de verleider of de perfectionist, en waarmee hij zichzelf tot pop in zijn eigen spel maakt.</td></tr>
+          <tr><td class="term">Seksuele identiteit</td><td>De moderne aanname dat wie iemand is samenvalt met wat hij begeert; volgens De Boer een historische vinding en geen natuurlijk gegeven.</td></tr>
+          <tr><td class="term">Erotische atmosfeer</td><td>Het erotische opgevat als sfeer die een omgeving, een tekst of een moment doortrekt, in plaats van als handeling tussen twee lichamen.</td></tr>
+          <tr><td class="term">Experimentum eroticum</td><td>De naam voor de proefneming waarin de eigen erotische ideeen worden opgeschort om te zien wat er dan mogelijk blijkt.</td></tr>
+          <tr><td class="term">Controleapparaten</td><td>De inrichtingen die het verlangen sturen zonder het te verbieden, in dit boek vooral pornografie, datingdiensten en sociale media.</td></tr>
+          <tr><td class="term">Zelfverlies</td><td>De ervaring waarin de eigen omtrek wegvalt; De Boer herwaardeert die tegenover het moderne streven om in seksualiteit juist zichzelf te vormen.</td></tr>
+          <tr><td class="term">Unio mystica</td><td>De eenwording met het goddelijke uit de mystieke traditie, hier gelezen als een erotische ervaring die niet op een seksuele identiteit uitloopt.</td></tr>
+          <tr><td class="term">Fangzhong shu</td><td>De Chinese slaapkamerkunst, een van de niet-westerse voorbeelden waarmee De Boer laat zien hoe anders het erotische geordend kan worden.</td></tr>
+          <tr><td class="term">Verbeelding</td><td>Het vermogen om iets anders voor te stellen dan wat de heersende beelden aanreiken; in dit boek een geoefend vermogen en niet een spontane gave.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een filosofisch essay en het draagt zijn beweringen ook als zodanig. Er is geen eigen onderzoek, geen enquete en geen veldwerk. Het historische gedeelte leunt op Foucaults geschiedenis van de seksualiteit, het cultuurkritische deel op Adorno en Horkheimer, en de vraag naar het losmaken van een opgelegde gestalte op Agamben, over wie De Boer ook zijn academische werk schreef. De voetnoten zijn uitvoerig, zodat na te lopen valt waar iets vandaan komt.</p>
+      <p>De sterkste passages zijn de lezingen zelf. Correggio, Flaubert, Hildegard von Bingen en Murakami worden dicht bij de tekst en het beeld behandeld, en daar komt het argument ook vandaan: uit de vaststelling dat deze voorstellingen bestaan en dat de huidige beeldtaal ze niet meer kan opnemen.</p>
+      <p>De hoofdstukken over Egypte, China en de boeddhistische tantra rusten op vakliteratuur van anderen, en de omvang van het boek laat niet toe die bronnen te wegen. Wat zij aantonen is beperkt tot de stelling dat het anders kan; over hoe die praktijken werkelijk functioneerden in hun eigen samenleving zegt het boek weinig.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het derde deel blijft aankondiging. Na twee delen waarin het probleem scherp is gesteld, komt er een experiment dat vooral wordt afgebakend door te zeggen wat het niet is. Wie wil weten hoe iemand zijn opvattingen over seks daadwerkelijk tussen haakjes zet, vindt daar een houding en geen werkwijze.</p>
+      <p>De niet-westerse voorbeelden lopen het gevaar dat elke tegenbeeldverzameling loopt. Egypte, China en India verschijnen als plaatsen waar het beter of ruimer was, terwijl ook daar leefregels golden die mensen indeelden, uitsloten en aan macht bonden. De Boer waarschuwt tegen overname, en het beroep op deze culturen als bewijs van mogelijkheid blijft dan toch selectief.</p>
+      <p>Een recensent van het Humanistisch Verbond wees op twee praktische zaken: het boek bestaat uit doorlopend proza met weinig alinea's, waardoor de gedachtegang moeilijk te volgen is, en de auteur maakt en passant reclame voor tantrayoga. Dat laatste steekt in een boek dat juist waarschuwt tegen kant-en-klare erotische programma's.</p>
+      <p>Ten slotte de vooronderstelling. Dat de moderne erotische leefwereld werkelijk smaller is dan die van eerdere eeuwen, wordt aangenomen op grond van beelden en teksten, niet op grond van wat mensen nu ervaren. Het is denkbaar dat de beeldtaal is verschraald terwijl de ervaring dat niet is, en die mogelijkheid onderzoekt het boek niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst het eerste deel als geschiedenis en bepaal daarna pas of de diagnose over het heden klopt.</li>
+        <li>Noteer welk seksueel personage in de eigen omgang het vaakst terugkeert, en waar dat beeld vandaan komt.</li>
+        <li>Neem de voetnoten serieus; de historische hoofdstukken zijn samenvattingen en de bronnen staan erbij.</li>
+        <li>Gebruik het derde deel als richting en niet als oefening; het boek levert geen werkwijze en pretendeert dat ook niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>Voorbij de moderne seksuele identiteit</i>, verschenen op 15 augustus 2019 bij Uitgeverij Ten Have, Utrecht (224 blz., ISBN 9789025907112), ook als e-boek. Er bestaat geen vertaling. Van De Boer (1989), filosoof, verschenen eerder <i>Murakami en het gespleten leven</i> (2018) en later <i>Agamben's Ethics of the Happy Life</i> bij Bloomsbury en <i>Een filosofisch rariteitenkabinet</i> (2025).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Boer vraagt zich af of de seksuele vrijheid die het Westen zegt te hebben bereikt wel zo ruim is. Zijn antwoord is dat de manier waarop lichaam, lust en verlangen worden ervaren betrekkelijk smal is geworden, en dat de vrijheid vooral bestaat uit de keuze tussen een handvol vaste rollen.</p><p>Om die smalte te laten zien loopt hij eerst na hoe seksualiteit een identiteit werd, met Foucault als gids en met figuren als Pygmalion, Don Juan en De Sade als voorbeelden. Daarna verzamelt hij andere gedaanten van het erotische: middeleeuwse en renaissancistische voorstellingen, mystieke eenwording, en praktijken uit Egypte, China en India.</p><p>Het slotdeel legt uit wat het experiment uit de titel inhoudt: de eigen opvattingen over seks een tijd tussen haakjes zetten, niet om nieuwe prikkels op te zoeken maar om te merken wat er dan nog meer mogelijk blijkt. Het boek is een filosofisch essay met voetnoten, geen handleiding.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>erotiek</li><li>seksualiteit</li><li>Foucault</li><li>identiteit</li><li>verbeelding</li><li>mystiek</li><li>filosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1255"><a href="1255.html">Eros and Magic in the Renaissance</a>. Couliano beschrijft hoe de Renaissance eros opvatte als werking van beelden op de verbeelding, precies het verband dat De Boer voor deze tijd wil openbreken.</li>
+          <li value="573"><a href="573.html">De innerlijke burcht</a>. Teresa van Avila levert van binnenuit de mystieke eenwording waarnaar De Boer verwijst wanneer hij zelfverlies tegenover zelfvorming zet.</li>
+          <li value="261"><a href="261.html">Kafka on the Shore</a>. Murakami is de schrijver over wie De Boer een eerder boek schreef en wiens gestalten hij in het eerste deel als voorbeeld gebruikt.</li>
+          <li value="1548"><a href="1548.html">De waarheid over seks</a>. Laan en Van Lunsen bekijken opwinding en verlangen vanuit onderzoek en tonen hoe ver een filosofisch essay en een empirische studie hier uiteenlopen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

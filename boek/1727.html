@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De mythe van Sisyphus &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Camus stelt dat het leven geen zin heeft die van buitenaf gegeven is, dat de mens toch niet ophoudt naar zo'n zin te vragen, en dat uit die botsing het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1727">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1727 &middot; Filosofie en mystiek</p>
+    <h1>De mythe van Sisyphus</h1>
+    <p class="lede">Albert Camus, 1942; vert. Hannie Vermeer-Pardoen</p>
+    <p class="stats">
+      <span><b>1906</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1727"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Camus stelt dat het leven geen zin heeft die van buitenaf gegeven is, dat de mens toch niet ophoudt naar zo'n zin te vragen, en dat uit die botsing het absurde ontstaat. De enige eerlijke omgang met het absurde bestaat er volgens hem in het overeind te houden in plaats van het op te lossen: wie zelfmoord pleegt maakt een einde aan een van de twee termen, en wie zich tot een geloof of een filosofisch stelsel wendt dat de betekenis alsnog garandeert, doet in gedachten hetzelfde. Wat overblijft is een leven van opstand, vrijheid en hartstocht, gericht op de hoeveelheid ervaring in plaats van op de rechtvaardiging ervan. Dat is geen troost, en Camus biedt die ook niet aan; hij beweert alleen dat het volgehouden bewustzijn van de eigen toestand het enige is wat de mens boven zijn lot uittilt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het absurde en de zelfmoord</h3>
+      <p>Het essay begint met de zin dat er maar een werkelijk ernstig filosofisch probleem bestaat, de zelfmoord, en dat oordelen of het leven de moeite waard is de grondvraag van de filosofie is. Camus behandelt zelfmoord daarbij als een filosofische kwestie en niet als een medische: hij vraagt of iemand die vaststelt dat het bestaan zinloos is, daaruit moet afleiden dat hij ermee moet ophouden.</p>
+      <p>Het absurde omschrijft hij als een verhouding en niet als een eigenschap. De wereld op zichzelf is niet absurd, de mens evenmin; het absurde ontstaat in de botsing tussen het menselijk verlangen naar helderheid en eenheid en de zwijgende onredelijkheid van de wereld. Wordt een van beide termen weggenomen, dan verdwijnt het absurde.</p>
+      <h3>De absurde muren</h3>
+      <p>Camus beschrijft de momenten waarop het besef doorbreekt. De sleur van maandag tot maandag die opeens de vraag waarom oproept. De tijd die de mens eerst als bondgenoot ziet en die zijn vijand blijkt. De plotselinge vreemdheid van een landschap dat elke vertrouwdheid afwerpt. Het gezicht van een bekende dat achter het glas van een telefooncel ineens onbegrijpelijk wordt. En de dood van anderen, de enige ervaring van sterven die iemand kan opdoen.</p>
+      <p>Ook de wetenschap komt hier ter sprake. Zij beschrijft de verschijnselen steeds nauwkeuriger en verklaart ze uiteindelijk in beelden en gelijkenissen, waarmee ook zij bij poezie eindigt. Camus keert zich daarmee niet tegen de wetenschap; hij stelt vast dat het verlangen naar een sluitende verklaring nergens wordt vervuld.</p>
+      <h3>De filosofische zelfmoord</h3>
+      <p>Het langste hoofdstuk richt zich op denkers die het absurde volgens Camus juist zien en er vervolgens aan ontsnappen. Bij Chestov en Kierkegaard wordt het onbegrijpelijke tot reden om te geloven; de sprong maakt van de nederlaag van het verstand een aanleiding voor overgave. Jaspers erkent dat het denken op een grens stuit en plaatst daarachter het transcendente. Husserl begint bij de beschrijving van wat verschijnt en voert volgens Camus alsnog tijdloze wezenheden in.</p>
+      <p>Camus noemt die bewegingen filosofische zelfmoord: het bewustzijn dat het absurde vaststelde, wordt daarna zelf opgeofferd om van de spanning af te komen. Zijn bezwaar is niet dat de sprong onmogelijk is maar dat hij de vraag omzeilt in plaats van beantwoordt. Hij eist dat het absurde in leven wordt gehouden, met dezelfde helderheid die het heeft opgeroepen.</p>
+      <h3>De absurde vrijheid</h3>
+      <p>Uit het volhouden van het absurde volgen drie gevolgen: opstand, vrijheid en hartstocht. De opstand is de voortdurende weigering zich met de eigen toestand te verzoenen, en zij is bij Camus de waarde van het leven zelf. De vrijheid is niet de metafysische vrijheid van de wil maar de bewegingsruimte die overblijft wanneer alle toekomstplannen hun grond verliezen.</p>
+      <p>De hartstocht draait om hoeveelheid en niet om hoedanigheid. Omdat er geen maatstaf bestaat die de ene ervaring boven de andere stelt, komt het volgens Camus aan op zoveel mogelijk ervaren binnen de tijd die er is. Dat is het punt waarop het essay het meest kwetsbaar is voor het verwijt dat het zijn eigen uitgangspunten overschrijdt.</p>
+      <h3>De absurde mens</h3>
+      <p>Het tweede deel geeft voorbeelden. Don Juan bemint veel vrouwen en niet een, omdat hij weet dat geen liefde eeuwig duurt en weigert te doen alsof. De toneelspeler leeft in drie uur een heel leven en toont dat het lichaam en de tijd alles zijn wat er is; zijn roem is uit de aard van de zaak van korte duur. De veroveraar kiest de geschiedenis boven de eeuwigheid en aanvaardt daarmee zijn nederlaag op voorhand.</p>
+      <p>Deze figuren zijn geen voorbeelden om na te volgen maar uitwerkingen van een houding: leven zonder beroep op wat later komt. Camus stelt uitdrukkelijk dat het absurde geen zedenleer oplevert en ook niet alles toestaat; het neemt de gevolgen van daden niet weg, alleen de rechtvaardiging vooraf.</p>
+      <h3>Het absurde scheppen</h3>
+      <p>Het derde deel behandelt het kunstwerk als de meest voor de hand liggende bezigheid van de absurde mens: iets maken zonder de verwachting dat het beklijft. Camus verlangt van de absurde roman dat hij beschrijft in plaats van verklaart, en hij weegt Dostojevski, wiens Kirilov zelfmoord pleegt om de vrijheid van de mens te bewijzen. Camus bewondert de scherpte van die redenering en verwerpt de uitkomst, omdat Dostojevski uiteindelijk toch bij de onsterfelijkheid uitkomt.</p>
+      <p>Het aanhangsel over Kafka volgt dezelfde lijn. Camus leest diens werk als de nauwkeurigste weergave van het absurde die er is, en houdt hem toch aan dat hij aan het eind hoop binnenlaat, waarmee hij volgens Camus geen absurd schrijver blijft. Dat hoofdstuk ontbrak in de eerste Franse druk en werd later toegevoegd.</p>
+      <h3>Sisyphus</h3>
+      <p>Het slot van nog geen tien bladzijden herleest de mythe. Sisyphus is door de goden veroordeeld tot het eeuwig omhoogrollen van een rotsblok dat telkens terugvalt, een straf die de goden voor de zwaarste hielden omdat het werk nutteloos en zonder uitzicht is.</p>
+      <p>Camus richt de aandacht op de afdaling: het moment waarin Sisyphus zonder last naar beneden loopt en zijn lot overziet. Dat bewustzijn maakt hem sterker dan zijn steen, want een lot dat doorzien wordt is niet meer alleen straf. Het essay eindigt met de zin dat men zich Sisyphus als een gelukkig mens moet voorstellen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het absurde</td><td>De verhouding tussen het menselijk verlangen naar helderheid en een wereld die daar niet op ingaat; geen eigenschap van een van beide maar van hun botsing.</td></tr>
+          <tr><td class="term">De absurde muren</td><td>De alledaagse ervaringen, van sleur tot de dood van anderen, waarin het besef van het absurde plotseling doorbreekt.</td></tr>
+          <tr><td class="term">Filosofische zelfmoord</td><td>Camus' aanduiding voor het opgeven van het verstand ten gunste van geloof of stelsel, nadat het verstand het absurde heeft vastgesteld.</td></tr>
+          <tr><td class="term">De sprong</td><td>De beweging waarmee denkers als Kierkegaard en Chestov van het onbegrijpelijke naar de overgave gaan, en die Camus als ontsnapping afwijst.</td></tr>
+          <tr><td class="term">Opstand</td><td>De volgehouden weigering zich met de eigen toestand te verzoenen, bij Camus het eerste gevolg van het absurde en de waarde die het leven draagt.</td></tr>
+          <tr><td class="term">Absurde vrijheid</td><td>De bewegingsruimte die overblijft wanneer plannen en toekomst hun grond verliezen, onderscheiden van de vrijheid van de wil.</td></tr>
+          <tr><td class="term">Hoeveelheid boven hoedanigheid</td><td>Het gevolg dat Camus trekt uit het ontbreken van een maatstaf: waar geen ervaring boven een andere gaat, telt het aantal.</td></tr>
+          <tr><td class="term">De absurde helden</td><td>Don Juan, de toneelspeler, de veroveraar en de kunstenaar, uitgewerkt als levenswijzen zonder beroep op wat later komt.</td></tr>
+          <tr><td class="term">Schepping zonder toekomst</td><td>Het maken van werk zonder de verwachting dat het blijft, dat Camus als de meest passende bezigheid van de absurde mens aanwijst.</td></tr>
+          <tr><td class="term">Sisyphus</td><td>De veroordeelde uit de Griekse mythe, bij Camus het beeld van de mens die zijn lot doorziet en juist daardoor niet erdoor wordt verpletterd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het essay bewijst niets in de gebruikelijke zin. Het is een redenering die haar overtuigingskracht ontleent aan beschrijving: de passages over de sleur, over de vreemdheid van een bekend gezicht achter glas en over de tijd die van bondgenoot in vijand verandert, moeten de lezer laten herkennen wat hij zelf heeft meegemaakt. Waar Camus wel argumenteert, doet hij dat door andere denkers te lezen en op hun eigen voorwaarden aan te vallen.</p>
+      <p>De lezingen van die denkers zijn zijn zwakste en zijn nuttigste materiaal tegelijk. Chestov, Kierkegaard, Jaspers en Husserl worden alle vier voorgesteld als denkers die het absurde vaststellen en er dan aan ontkomen. Vakfilosofen hebben er sinds de verschijning op gewezen dat vooral de behandeling van Husserl geen recht doet aan diens methode, en dat Kierkegaard bij Camus een positie krijgt toegeschreven die hij zelf anders formuleerde.</p>
+      <p>De ontstaansgeschiedenis is controleerbaar en verklaart veel. Camus schreef het essay begin jaren veertig, in dezelfde periode als de roman <i>De vreemdeling</i> en het toneelstuk <i>Caligula</i>; die drie vormen wat hij zelf de reeks van het absurde noemde, waarin hetzelfde probleem in drie gedaanten wordt behandeld. Het boek verscheen in bezet Frankrijk, waarbij het hoofdstuk over Kafka uit de eerste druk werd geweerd. Camus was toen achtentwintig en had geen loopbaan in de academische filosofie.</p>
+      <p>Wat het essay draagt is de innerlijke samenhang en geen beroep op gegevens. De redenering loopt van vaststelling naar gevolg zonder verborgen aanname over een goede afloop, en dat is hier het enige wat een lezer kan controleren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de kernstap. Camus laat aannemelijk zien dat er geen zin van buitenaf is en dat de sprong naar het geloof die vaststelling omzeilt. Waarom uit het absurde volgt dat men niet mag ophouden met leven, wordt vervolgens aangevoerd en niet aangetoond: de opstand wordt tot waarde verklaard omdat zij het absurde in stand houdt, maar waarom die instandhouding zelf goed zou zijn, blijft onbeantwoord.</p>
+      <p>De behandeling van zelfmoord blijft bovendien op het niveau van de redenering. Camus laat de omstandigheden waarin mensen werkelijk uit het leven stappen buiten beschouwing; depressie, ziekte en uitzichtloosheid komen niet in beeld. Wie het boek als antwoord op een concrete wanhoop leest, treft een verhandeling over de logica van een positie aan.</p>
+      <p>Het tweede deel is het slechtst verouderd. De absurde helden zijn alle drie mannen, en Don Juan en de veroveraar bewegen zich in een register van verovering en losse verhoudingen dat inmiddels eerder jeugdig dan doorleefd klinkt. De stelling dat het bij gebrek aan maatstaf op de hoeveelheid ervaring aankomt, is bovendien een waardering die uit het absurde niet volgt.</p>
+      <p>Camus verzette zich zijn leven lang tegen het etiket existentialist en tegen de nabijheid van Sartre, terwijl het essay ondertussen wel de klassieke tekst van het existentialisme is geworden. Hij nam er zelf ook afstand van: negen jaar later betoogde hij in <i>De mens in opstand</i> dat een louter individuele opstand tekortschiet en dat opstand op solidariteit uitloopt. Wie alleen dit boek leest, houdt de helft van zijn denken over.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij zingevingsvragen de vaststelling dat er geen gegeven zin is van het besluit wat daaruit volgt; Camus laat zien dat het tweede niet uit het eerste voortvloeit.</li>
+        <li>Ga bij een troostende gedachte na of zij het probleem oplost of alleen wegneemt, en welke van de twee je op dat moment zoekt.</li>
+        <li>Lees het slothoofdstuk over Sisyphus afzonderlijk wanneer de tijd voor het hele essay ontbreekt; het is kort en zelfstandig leesbaar.</li>
+        <li>Lees <i>De vreemdeling</i> ernaast, omdat de roman dezelfde stelling in verhaalvorm behandelt en de redenering daar zichtbaar aan het werk is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Le mythe de Sisyphe</i> (Gallimard, Parijs, 1942), met als ondertitel <i>Essai sur l'absurde</i>. Uit de eerste Franse druk bleef het slothoofdstuk over Kafka weg vanwege de bezettingscensuur; het werd na de oorlog in het boek opgenomen. C.N. Lijsen vertaalde het essay in 1962 voor De Bezige Bij in Amsterdam. Sinds 2013 is de vertaling van Hannie Vermeer-Pardoen in de handel bij Uitgeverij IJzer in Utrecht, voorzien van een nawoord; de vierde druk verscheen in 2023 (206 blz., ISBN 9789086841806).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Camus opent met de stelling dat er maar een werkelijk ernstig filosofisch probleem is: de zelfmoord. Uitmaken of het leven de moeite van het leven waard is, komt volgens hem voor elke vraag over categorieen en wereldbeelden. De rest van het essay probeert die vraag te beantwoorden zonder een beroep te doen op God, op vooruitgang of op een verborgen zin.</p><p>Het absurde ligt bij Camus niet in de wereld en niet in de mens, maar in hun verhouding: het menselijk verlangen naar helderheid stuit op een wereld die zwijgt. Wie dat onder ogen ziet, kan er op drie manieren mee omgaan. Zelfmoord en het geloof heffen de spanning op; beide noemt hij een ontsnapping, de tweede zelfs een filosofische zelfmoord. De derde weg is de spanning volhouden.</p><p>Daaruit volgt zijn beeld van de absurde mens, uitgewerkt in de figuren van Don Juan, de toneelspeler, de veroveraar en de kunstenaar, die allen leven zonder toekomst en zonder hoop. Het slot herleest de Griekse mythe: Sisyphus rolt zijn steen eeuwig omhoog, en juist de afdaling waarin hij zijn lot overziet maakt hem groter dan zijn straf. Men moet zich Sisyphus als een gelukkig mens voorstellen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>absurdisme</li><li>existentialisme</li><li>zelfmoord</li><li>Camus</li><li>Frankrijk</li><li>essay</li><li>zingeving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1770"><a href="1770.html">De mens in opstand</a>. Camus herziet daarin zijn eigen positie: de opstand uit dit essay blijkt zonder solidariteit met anderen niet houdbaar.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl komt vanuit het kamp tot de tegenovergestelde slotsom, namelijk dat er wel zin te vinden is, en levert daarmee de scherpste tegenspraak.</li>
+          <li value="715"><a href="715.html">Suicide: A Study in Sociology</a>. Durkheim behandelt zelfmoord juist als maatschappelijk verschijnsel met cijfers, waar Camus haar uitsluitend als filosofisch probleem opvat.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius komt tot dezelfde aanvaarding van een lot dat niet te keren is, maar met een ordelijk heelal als achtergrond.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

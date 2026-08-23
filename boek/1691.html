@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Last Lecture &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pausch schreef geen boek over doodgaan maar over hoe hij had geleefd, en die keuze is de stelling zelf. Zijn uitgangspunt is dat de omstandigheden waarin…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1691">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1691 &middot; Roman en memoir</p>
+    <h1>The Last Lecture</h1>
+    <p class="lede">Randy Pausch met Jeffrey Zaslow, 2008</p>
+    <p class="stats">
+      <span><b>1387</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1691"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pausch schreef geen boek over doodgaan maar over hoe hij had geleefd, en die keuze is de stelling zelf. Zijn uitgangspunt is dat de omstandigheden waarin iemand terechtkomt niet te kiezen zijn en de omgang ermee wel, en dat het waarmaken van kinderdromen minder gaat over de dromen dan over wat iemand onderweg leert. De muren die hij tegenkwam staan er in zijn woorden om te laten zien hoe graag je iets wilt; wie erdoor wordt tegengehouden, wilde het minder graag dan hij dacht. Achter het hele boek zit wat hij zelf een schijnbeweging noemt: de lezing ging voor het publiek over dromen en carrière, maar was bedoeld voor zijn drie kinderen, die te jong waren om zich hun vader te herinneren en die hier moesten kunnen teruglezen wie hij was.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het besluit</h3>
+      <p>De eerste drie hoofdstukken behandelen de aanloop. Carnegie Mellon kende een reeks lezingen waarin een hoogleraar spreekt alsof het zijn laatste college is. Voor Pausch was dat geen bedenksel: hij had tien tumoren in zijn lever en een prognose van maanden.</p>
+      <p>Zijn vrouw Jai was tegen. Het gezin was net verhuisd naar Chesapeake in Virginia om bij haar familie te zijn, en zij vond dat de dagen die hij nog had aan zijn kinderen toebehoorden en niet aan een zaal met studenten. Pausch beschrijft dat meningsverschil zonder het glad te strijken; hij ging toch, en de lezing viel op de dag na haar verjaardag.</p>
+      <h3>De dromenlijst</h3>
+      <p>Het tweede deel gaat terug naar zijn jeugd in Maryland. Als jongen schreef hij een lijst van dingen die hij wilde meemaken: gewichtloosheid ervaren, meespelen in de nationale voetbalcompetitie, een artikel schrijven voor de World Book Encyclopedia, kapitein Kirk zijn, knuffelbeesten winnen op de kermis en werken als ontwerper bij Disney.</p>
+      <p>Hij loopt de lijst langs en vertelt per droom hoe het afliep. Sommige kwamen uit, andere half, en één niet. De voetbalcarrière kwam er nooit, en juist dat hoofdstuk levert de bekendste passage van het boek op: van de coach die hem het hardst aanpakte leerde hij het meest, en dat leren was volgens hem de eigenlijke bedoeling.</p>
+      <h3>Ouders en leraren</h3>
+      <p>Het derde deel gaat over de mensen die hem vormden. Zijn ouders lieten hem als kind de muren van zijn slaapkamer beschilderen, wat hij als voorbeeld gebruikt van opvoeden zonder de verbeelding in te perken. Zijn vader, die in de Ardennen had gevochten en dat zelden noemde, komt terug als maatstaf voor bescheidenheid.</p>
+      <p>Daarnaast beschrijft hij zijn leermeesters op de universiteit, van wie hij het vak leerde en de gewoonte om te zeggen wat er werkelijk aan de hand is. De les die hij daaruit trekt is dat kritiek van iemand die de moeite neemt een gunst is, en dat het uitblijven van kritiek betekent dat men het heeft opgegeven.</p>
+      <h3>Anderen aan hun droom helpen</h3>
+      <p>Het vierde deel gaat over zijn werk als docent. Pausch richtte aan Carnegie Mellon het vak Building Virtual Worlds op, waarin studenten uit verschillende opleidingen in wisselende groepjes iets moesten maken, en hij was betrokken bij de programmeeromgeving Alice en bij het Entertainment Technology Center.</p>
+      <p>Hij beschrijft die jaren als het punt waarop zijn eigen dromen minder gingen tellen dan die van zijn studenten. De onderwijskundige inzichten die hij noemt gaan over samenwerken, over eerlijke terugkoppeling en over het opzettelijk te hoog leggen van de lat, waarna hij de groep laat ontdekken dat er meer in zat.</p>
+      <h3>Levenslessen</h3>
+      <p>Het vijfde deel is het langst en het meest verspreid. Korte hoofdstukken behandelen tijdsbeheer, het aanbieden van oprechte verontschuldigingen, dankbaarheid tonen, de waarheid zeggen, geen tijd verspillen aan klagen en het uitgangspunt dat de meeste mensen een goede kant hebben als je lang genoeg wacht.</p>
+      <p>De vorm is hier het zwakst en de inhoud het meest herkenbaar. Veel van deze hoofdstukken zouden in elk adviesboek kunnen staan; wat ze draagt is dat een stervende ze opschrijft en dat ze telkens aan een voorval uit zijn eigen leven vastzitten.</p>
+      <h3>De laatste hoofdstukken</h3>
+      <p>De slothoofdstukken zijn aan zijn gezin gericht. Pausch beschrijft Dylan, Logan en Chloe afzonderlijk, zegt wat hij in hen ziet en wat hij hun toewenst, en schrijft over Jai en over wat hij haar nalaat aan zorg die zij alleen zal moeten dragen.</p>
+      <p>Hij sluit af met de tweede schijnbeweging. De lezing leek te gaan over het waarmaken van dromen, maar ging over hoe je je leven leidt, en zij leek voor de zaal bedoeld terwijl zij voor drie kinderen was. Met die mededeling eindigt het boek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Head fake</td><td>Pausch' woord voor een les die iets anders leert dan zij lijkt te leren, zoals een kinderteam dat via voetbal doorzettingsvermogen opdoet.</td></tr>
+          <tr><td class="term">Brick walls</td><td>De obstakels die er volgens hem staan om te laten zien hoe graag iemand iets wil, en om anderen tegen te houden.</td></tr>
+          <tr><td class="term">Kinderdromen</td><td>De lijst die hij als jongen opschreef en die het geraamte van de lezing en het boek vormt.</td></tr>
+          <tr><td class="term">Tijgers en tinnen soldaatjes</td><td>De gewonnen knuffelbeesten van de kermis, die in de lezing als bewijsstuk op het toneel stonden.</td></tr>
+          <tr><td class="term">Building Virtual Worlds</td><td>Het vak dat hij aan Carnegie Mellon opzette, waarin studenten uit verschillende opleidingen in wisselende groepen werkten.</td></tr>
+          <tr><td class="term">Alice</td><td>De programmeeromgeving waarmee kinderen leren programmeren terwijl zij denken dat zij een verhaal maken; volgens hem zijn grootste schijnbeweging.</td></tr>
+          <tr><td class="term">Tijdsbeheer</td><td>Het onderwerp waarover hij een tweede lezing gaf, met tijd als de enige voorraad die niet is aan te vullen.</td></tr>
+          <tr><td class="term">Loyaliteit als tweerichtingsverkeer</td><td>Zijn stelling dat wie trouw ontvangt die eerst zelf moet hebben gegeven, uitgewerkt aan voorbeelden uit zijn werk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een getuigenis en geen betoog. De uitspraken over hoe te leven zijn niet onderbouwd met onderzoek en pretenderen dat niet; wat ze draagt is dat elke les aan een voorval uit zijn eigen leven vastzit, met namen, plaatsen en afloop erbij.</p>
+      <p>De omstandigheden waaronder het is geschreven zijn deel van de zeggingskracht. Pausch dicteerde de tekst per telefoon aan Zaslow tijdens ongeveer drieënvijftig fietstochten, terwijl hij chemotherapie onderging. Dat verklaart de korte hoofdstukken en de gesproken toon.</p>
+      <p>De lezing zelf is te controleren. De video staat online en is miljoenen keren bekeken, zodat een lezer kan nagaan wat er werkelijk is gezegd en wat in de bewerking is toegevoegd. Het boek volgt de opbouw van de lezing maar bevat meer persoonlijke stof, vooral over zijn gezin.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De lessen zijn gewoon. Werk hard, wees eerlijk, bied verontschuldigingen aan, wees dankbaar, klaag niet: geen van deze punten was nieuw toen het boek verscheen, en geen ervan wordt hier verder uitgewerkt dan in een willekeurig adviesboek. Wat het boek zijn werking geeft, is de man die ze uitspreekt en niet wat hij zegt.</p>
+      <p>De redenering over de muren die er staan om te laten zien hoe graag je iets wilt, houdt geen rekening met muren die niet wijken. Pausch was hoogleraar aan een goede universiteit, met een inkomen, een netwerk en een gezin dat hem droeg. Wie tegen armoede, ziekte of uitsluiting aanloopt, komt er niet doorheen met de wil alleen, en het boek erkent dat nauwelijks.</p>
+      <p>Zijn eigen ziekte is daarvan het duidelijkste voorbeeld en juist die muur laat hij grotendeels buiten beeld. Over de pijn, de angst en het verval staat weinig in. Dat is een verdedigbare keuze, hij schreef voor zijn kinderen, maar het maakt het boek ongeschikt voor wie wil lezen hoe sterven eruitziet.</p>
+      <p>De hand van Zaslow is merkbaar. De hoofdstukken zijn kort, ronden af op een punt en lezen als columns, wat de tekst gelijkmatig maakt en tegelijk gladder dan de lezing zelf. Wie de video eerst ziet, hoort in het boek een geredigeerde versie van dezelfde stem.</p>
+      <p>Het optimisme is niet los te maken van de omstandigheden waarin het is geuit. Een boek dat mensen aanraadt de zonzijde te kiezen, geschreven door iemand die weet dat hij binnen een jaar dood is, ontsnapt aan elke tegenwerping: bezwaar maken tegen de argumentatie voelt als bezwaar maken tegen de man.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Last Lecture</i> (Hyperion, New York, 8 april 2008, 224 blz., ISBN 9781401323257), geschreven met Jeffrey Zaslow, verslaggever van <i>The Wall Street Journal</i>. De Nederlandse vertaling van Inger Limburg verscheen in 2008 als <i>Nu ik dood zal gaan</i> bij Forum in Amsterdam (254 blz., ISBN 9789049200749), met op het omslag de ondertitel <i>Mijn laatste woorden, voor mijn kinderen en de wereld</i>. Het boek bouwt voort op de lezing <i>Really Achieving Your Childhood Dreams</i> die Pausch op 18 september 2007 aan Carnegie Mellon University hield en die op video miljoenen keren werd bekeken. De eerste oplage bedroeg 2,3 miljoen exemplaren; het boek verscheen in negenentwintig talen. Pausch overleed op 25 juli 2008.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Randy Pausch, hoogleraar informatica aan Carnegie Mellon, kreeg in 2006 de diagnose alvleesklierkanker en hoorde in augustus 2007 dat hij nog enkele maanden in redelijke gezondheid had. In september 2007 hield hij een afscheidscollege over het waarmaken van je kinderdromen.</p><p>Het boek is de uitwerking van die lezing. Het bestaat uit eenenzestig korte hoofdstukken in zes delen: over het besluit de lezing te geven, over zijn jeugd en zijn dromenlijst, over zijn leraren en studenten, en over wat hij zijn drie jonge kinderen wil meegeven.</p><p>Pausch schreef het niet aan een bureau. Hij dicteerde de tekst per telefoon aan journalist Jeffrey Zaslow tijdens zijn dagelijkse fietstochten, ongeveer drieënvijftig gesprekken lang, in de tijd die hem restte.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>sterven</li><li>kanker</li><li>onderwijs</li><li>vaderschap</li><li>levenslessen</li><li>Carnegie Mellon</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="49"><a href="49.html">When Breath Becomes Air</a>. Kalanithi schreef eveneens als arts en patiënt over zijn laatste jaar, maar gaat wel in op het verval en op de vraag wat een leven de moeite waard maakt als de tijd op is.</li>
+          <li value="285"><a href="285.html">Tuesdays with Morrie</a>. Albom noteerde de gesprekken met zijn stervende hoogleraar in dezelfde vorm van korte lessen; wie dit boek waardeert, treft daar hetzelfde genre in oudere vorm aan.</li>
+          <li value="416"><a href="416.html">Being Mortal</a>. Gawande behandelt het levenseinde als medisch en maatschappelijk vraagstuk en levert daarmee de context die Pausch bewust buiten zijn boek hield.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

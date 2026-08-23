@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Secret &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Byrne stelt dat er één wet aan alles ten grondslag ligt, de wet van de aantrekking, die inhoudt dat gelijk gelijk aantrekt. Gedachten zijn in haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1748">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1748 &middot; Positief denken en manifesteren</p>
+    <h1>The Secret</h1>
+    <p class="lede">Rhonda Byrne, 2006</p>
+    <p class="stats">
+      <span><b>1821</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1748"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Byrne stelt dat er één wet aan alles ten grondslag ligt, de wet van de aantrekking, die inhoudt dat gelijk gelijk aantrekt. Gedachten zijn in haar voorstelling energie met een meetbare frequentie, en het heelal beantwoordt die frequentie met omstandigheden van dezelfde soort. Daaruit volgt dat rijkdom, ziekte, liefde en tegenslag geen uitkomst zijn van omstandigheden, herkomst of toeval, maar van de inhoud van iemands denken en voelen. De praktische gevolgtrekking is dat er alleen nog gevraagd, geloofd en ontvangen hoeft te worden. Die stelling is zo ruim geformuleerd dat zij elke uitkomst achteraf verklaart, en daar zit meteen het zwakke punt: een wet die geen enkele afloop uitsluit, kan door geen enkele afloop worden weerlegd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De ontdekking en de gesuggereerde geschiedenis</h3>
+      <p>Byrne opent met haar eigen verhaal. In 2004, in een periode van tegenslag na de dood van haar vader, kreeg zij van haar dochter Hayley het boek <i>The Science of Getting Rich</i> van Wallace Wattles uit 1910 in handen. Daarin las zij een principe dat zij vervolgens in allerlei oudere teksten meende terug te vinden. Dat werd eerst de film van maart 2006 en later dit boek.</p>
+      <p>Zij presenteert het principe als een kennis die door de eeuwen heen bekend was bij een kleine groep en voor de rest verborgen werd gehouden. Namen als Plato, Newton, Beethoven en Einstein worden in dat verband genoemd. Bewijs dat deze mensen de wet van de aantrekking aanhingen of dat er ooit iets verborgen is gehouden, geeft het boek niet; het zijn beweringen zonder verwijzing.</p>
+      <h3>De wet in eenvoudige vorm</h3>
+      <p>In het tweede en derde hoofdstuk wordt de wet praktisch gemaakt. Denken is uitzenden, en het heelal doet niets anders dan het uitgezonden signaal beantwoorden. Het woord niet bestaat daarbij niet: wie zegt geen schulden te willen, zendt schulden uit. Aandacht voor wat men niet wil, roept dus precies dat op.</p>
+      <p>De methode zelf vat Byrne in drie stappen: vragen, geloven, ontvangen. Zij verbindt die reeks met een tekst uit het evangelie van Matteüs over gebed en geloof. Geloven betekent hier handelen alsof het gevraagde al onderweg is; twijfel geldt als tegenbestelling.</p>
+      <h3>De oefeningen</h3>
+      <p>Het hoofdstuk over processen bevat het praktische deel. Dankbaarheid staat vooraan: dagelijks opschrijven waarvoor men dankbaar is, ook voor wat er nog niet is. Daarnaast staat visualisatie, waarbij het gewenste in detail wordt voorgesteld met het bijbehorende gevoel, omdat het gevoel volgens Byrne de eigenlijke zender is.</p>
+      <p>Verder komen het prikbord met beelden van het gewenste voorbij, een zelf uitgeschreven cheque van een verzonnen bank van het heelal, en het advies om alvast plaats te maken voor wat komen gaat. Gevoel dient daarbij als meetinstrument: een goed gevoel betekent dat de frequentie klopt, een slecht gevoel dat er wordt bijgestuurd.</p>
+      <h3>Geld</h3>
+      <p>Het hoofdstuk over geld stelt dat armoede voortkomt uit aandacht voor gebrek. Wie het banksaldo bekijkt en schrikt, bevestigt het tekort. Het advies luidt om het gevoel van welvaart op te wekken voordat de welvaart er is, bijvoorbeeld door de eigen rekeningen te behandelen alsof het cheques zijn.</p>
+      <p>De voorbeelden komen van de sprekers. John Assaraf vertelt over een prikbord met een foto van een huis dat hij jaren later blijkt te hebben gekocht. Jack Canfield beschrijft hoe hij een biljet van honderdduizend dollar aan het plafond hing en binnen een jaar op dat bedrag uitkwam. Het boek voert deze verhalen aan als bevestiging, zonder na te gaan wat er verder in die jaren gebeurde.</p>
+      <h3>Relaties en gezondheid</h3>
+      <p>Bij relaties draait het om zelfwaardering: wie zichzelf niet waardeert, zendt dat uit en krijgt het terug. Bij gezondheid gaat het boek verder. Ziekte wordt voorgesteld als het gevolg van aandacht voor ziekte, en genezing als het gevolg van aandacht voor gezondheid. Cathy Goodman vertelt hoe zij na een diagnose borstkanker koos voor komische films en het geloof dat zij al genezen was, en naar eigen zeggen binnen drie maanden hersteld was zonder bestraling of chemotherapie.</p>
+      <p>Het hoofdstuk raadt aan niet over ziekte te praten, geen berichten over ziekte te volgen en ouderdom te zien als een gedachte die kan worden losgelaten. Ook staat er de bewering dat voedsel niemand dik maakt zolang men niet denkt dat het dat doet. Morris Goodman, in de film aangeduid als de wonderman, vertelt hoe hij na een vliegtuigongeluk tegen de verwachting van artsen in weer leerde lopen en spreken.</p>
+      <h3>De wereld, de lezer en het slot</h3>
+      <p>Het hoofdstuk over de wereld verwerpt het idee van schaarste: grondstoffen, geld en voedsel zijn er in onbeperkte hoeveelheid, en tekorten ontstaan doordat mensen in tekort geloven. Wie oorlog of honger wil helpen bestrijden, kan dat volgens Byrne het beste doen door er niet aan te denken, omdat aandacht voor het probleem het probleem voedt.</p>
+      <p>Het slot draait naar binnen. De lezer wordt beschreven als geest in een lichaam, met alle scheppende vermogen van het heelal in zich. Het boek eindigt met de gedachte dat het leven zelf een keuze is die elk moment opnieuw wordt gemaakt, en dat het heelal geen oordeel kent, alleen weerspiegeling.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wet van de aantrekking</td><td>Het uitgangspunt van het boek: gelijk trekt gelijk aan, zodat gedachten omstandigheden van dezelfde aard naar zich toe halen.</td></tr>
+          <tr><td class="term">Frequentie</td><td>De aanduiding waarmee Byrne gedachten en gevoelens beschrijft als uitgezonden trillingen die het heelal beantwoordt.</td></tr>
+          <tr><td class="term">Vragen, geloven, ontvangen</td><td>De drie stappen waarin het scheppingsproces volgens het boek verloopt, ontleend aan een uitspraak over gebed in het evangelie van Matteüs.</td></tr>
+          <tr><td class="term">Gevoel als meetinstrument</td><td>Het idee dat het eigen gevoel aangeeft op welke frequentie iemand op dat moment uitzendt, zodat een naar gevoel om bijsturing vraagt.</td></tr>
+          <tr><td class="term">Dankbaarheid</td><td>De oefening waarin dagelijks wordt opgeschreven waarvoor men dankbaar is, ook voor zaken die nog niet zijn gekomen.</td></tr>
+          <tr><td class="term">Visualisatie</td><td>Het in detail voorstellen van het gewenste met het bijbehorende gevoel, in het boek de sterkste manier om de gewenste frequentie vast te houden.</td></tr>
+          <tr><td class="term">Prikbord met beelden</td><td>Een bord met afbeeldingen van het gewenste, bedoeld om de aandacht en het gevoel dagelijks in dezelfde richting te zetten.</td></tr>
+          <tr><td class="term">Het heelal als bestelcatalogus</td><td>Het beeld waarin een wens werkt als een bestelling die alleen nog geplaatst en niet meer geannuleerd hoeft te worden.</td></tr>
+          <tr><td class="term">Onbeperkte toevoer</td><td>De stelling dat schaarste niet bestaat en dat waargenomen tekorten voortkomen uit het geloof in tekort.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Er staat geen enkel gecontroleerd onderzoek in dat de wet van de aantrekking zou steunen, en er wordt niet verwezen naar vakliteratuur. De onderbouwing bestaat uit citaten van de sprekers uit de film, uit oudere teksten van de New Thought-beweging, en uit persoonlijke verhalen van mensen die achteraf vertellen dat het bij hen werkte. Dat zijn selectief verzamelde gevallen: wie hetzelfde deed en niets kreeg, komt er niet in voor.</p>
+      <p>Waar het boek zich op de natuurkunde beroept, is dat aangevochten door natuurkundigen. Christopher Chabris en Daniel Simons wezen in een bespreking in <i>The New York Times</i> het beroep op de kwantummechanica af, en de Harvard-natuurkundige Lisa Randall deed hetzelfde. De begrippen energie, frequentie en trilling worden in het boek gebruikt als beeldspraak die de status van natuurwet krijgt zonder dat er een meting bij hoort.</p>
+      <p>Er zit wel een kern in die los van het boek onderzocht is, maar die kern is veel smaller dan de wet die Byrne formuleert. Van doelen stellen, verwachting en aandachtsturing is bekend dat zij gedrag beïnvloeden, en verwachting kan bij pijn en enkele klachten een gemeten effect hebben. Dat is iets anders dan de bewering dat gedachten gebeurtenissen buiten het eigen lichaam veroorzaken, en het boek maakt dat onderscheid nergens.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de wet het slachtoffer verantwoordelijk maakt. Over mensen die omkomen bij een ramp schrijft Byrne dat zij door de wet van de aantrekking op dezelfde frequentie moesten hebben gezeten als de gebeurtenis, met de toevoeging dat zij niet per se aan die gebeurtenis hoefden te denken. In hetzelfde spoor antwoordde spreker Bob Proctor in een uitzending van ABC Nightline op de vraag of kinderen in Darfur de honger naar zich toe hadden getrokken dat het land dat waarschijnlijk had gedaan. Wie de redenering aanvaardt, krijgt er een verklaring bij voor armoede, misbruik en ziekte die de oorzaak bij de getroffene legt.</p>
+      <p>De gezondheidshoofdstukken zijn de gevaarlijkste. Het advies om niet over ziekte te praten, het nieuws erover te mijden en te geloven dat men al genezen is, staat naast een genezingsverhaal bij borstkanker dat als bewijs wordt gepresenteerd. Bij een ziekte waarbij uitstel van behandeling de overlevingskans verlaagt, is dat geen onschuldige gedachteoefening. De bewering dat voedsel niemand dik maakt zolang men er niet zo over denkt, staat haaks op wat er over energiebalans bekend is.</p>
+      <p>Ook wie de inhoud terzijde laat, houdt een probleem met de vorm over. De wet verklaart succes uit goede gedachten en mislukking uit onvoldoende geloof of uit tegengedachten die de lezer niet bij zichzelf had opgemerkt. Daarmee is er geen uitkomst denkbaar die de wet zou tegenspreken. Barbara Ehrenreich rekende in <i>Bright-Sided</i> (2009) af met deze denkwijze, die volgens haar tot politieke berusting leidt en tot het vermijden van slecht nieuws. Godsdienstwetenschapper John G. Stackhouse merkte droog op dat het idee niet nieuw is en ook nooit geheim is geweest: het staat in de New Thought-literatuur van rond 1900.</p>
+      <p>Het boek is niet los te zien van de bedrijfstak die eruit voortkwam. Verschillende sprekers bouwden er dure programma's op. Een van hen, James Arthur Ray, werd in 2011 veroordeeld voor dood door schuld nadat in oktober 2009 drie deelnemers aan een zweethutritueel bij Sedona waren overleden. Dat zegt niets over de logica van de wet van de aantrekking, maar wel iets over wat er gebeurt als een leer die twijfel als storing behandelt, in een groepssetting wordt toegepast.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als document van de New Thought-traditie, en leg het naast Wattles en Atkinson om te zien hoe weinig er in honderd jaar aan het idee is veranderd.</li>
+        <li>Scheid de oefeningen van de leer. Dankbaarheidslijstjes en het uitschrijven van een gewenste toestand zijn onschadelijk en soms nuttig; de bewering dat het heelal daarop reageert, is dat niet.</li>
+        <li>Zet naast elk voorstellingsproces een plan met stappen, termijnen en een controlemoment, zodat zichtbaar blijft wat er door handelen en wat er door omstandigheden veranderde.</li>
+        <li>Volg medische adviezen uit het boek niet op. Bij een diagnose blijft de behandelend arts de aangewezen weg.</li>
+        <li>Let bij elke belofte van dit type op de ontsnappingsclausule: als het uitblijven van resultaat altijd aan te weinig geloof kan worden geweten, valt er niets te toetsen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Secret</i> (Atria Books, New York, en Beyond Words Publishing, Hillsboro, 2006, 198 blz., ISBN 9781582701707), uitgebracht in het spoor van de gelijknamige film die Byrne in maart 2006 uitbracht. Het boek is in ongeveer vijftig talen vertaald en wereldwijd in de orde van dertig miljoen exemplaren verkocht; boek en film samen brachten volgens opgave in 2009 rond de driehonderd miljoen dollar op. De Nederlandse uitgave verscheen in 2007 bij Kosmos Uitgevers, Utrecht, als <i>The Secret: het geheim van voorspoed en geluk</i>, vertaald door Ruud van der Plassche, en beleefde tientallen drukken (onder meer ISBN 9789021511030 en, in een latere uitvoering, ISBN 9789021578040). Byrne schreef er een reeks vervolgen bij, waaronder <i>The Power</i> (2010), <i>The Magic</i> (2012) en <i>Hero</i> (2013), die alle in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Byrne beschrijft één wet waaraan volgens haar alles in het bestaan gehoorzaamt: de wet van de aantrekking. Gedachten zijn energie met een frequentie, en het heelal stuurt terug wat op dezelfde frequentie ligt. Geld, gezondheid, een partner en tegenslag komen in die voorstelling voort uit wat iemand denkt en vooral uit wat iemand daarbij voelt.</p><p>Het boek werkt die wet uit in tien hoofdstukken, van een algemene uitleg naar toepassing op geld, relaties, gezondheid, de wereld en de lezer zelf. De methode bestaat uit drie stappen: vragen, geloven, ontvangen. Daarnaast staan er oefeningen in, zoals dankbaarheidslijsten, visualisatie en het gedrag alsof het gewenste er al is.</p><p>De tekst bestaat voor een groot deel uit citaten van ongeveer vierentwintig sprekers uit de film, onder wie Bob Proctor, Jack Canfield, John Assaraf en Michael Beckwith, aangevuld met verhalen van mensen die zeggen op deze manier te zijn genezen of rijk geworden. Onderzoek dat de wet zou steunen staat er niet in.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wet van aantrekking</li><li>New Thought</li><li>manifesteren</li><li>zelfhulp</li><li>positief denken</li><li>pseudowetenschap</li><li>Oprah Winfrey</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="127"><a href="127.html">The Law of Attraction</a>. Atkinson formuleerde de wet van de aantrekking al in 1906 in vrijwel dezelfde bewoordingen; het laat zien hoe oud het idee is dat Byrne als een geheim presenteert.</li>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Hill bouwde in 1937 dezelfde gedachte op rond verlangen en geloof, maar met veel meer nadruk op werk, plan en doorzettingsvermogen.</li>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Peale bracht het positieve denken in 1952 binnen een kerkelijk kader en kreeg destijds al de kritiek die ook <i>The Secret</i> zou treffen.</li>
+          <li value="543"><a href="543.html">The Art of Living</a>. Bob Proctor is een van de sprekers uit <i>The Secret</i>; zijn eigen boek toont hoe hij de leer verder uitwerkte.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

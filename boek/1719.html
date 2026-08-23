@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In the Realm of Hungry Ghosts &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mate stelt dat verslaving niet begint bij de stof maar bij de pijn, en dat de vraag waarom iemand gebruikt moet worden vervangen door de vraag waarom hij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1719">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1719 &middot; Brein en lichaam</p>
+    <h1>In the Realm of Hungry Ghosts</h1>
+    <p class="lede">Gabor Mate, 2008</p>
+    <p class="stats">
+      <span><b>1487</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1719"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mate stelt dat verslaving niet begint bij de stof maar bij de pijn, en dat de vraag waarom iemand gebruikt moet worden vervangen door de vraag waarom hij verlichting nodig heeft. Hij verbindt dat aan de vroege jaren: een brein dat zich ontwikkelt onder verwaarlozing, geweld of langdurige stress legt de systemen voor beloning, hechting en zelfregulatie anders aan, en zoekt later van buitenaf wat het vanbinnen niet heeft leren maken. Daarmee verzet hij zich zowel tegen het beeld van de verslaafde als iemand met een karaktergebrek, als tegen de opvatting dat verslaving vooral in de genen zit. De gevolgtrekking is beleidsmatig: wie verslaving als uitkomst van leed ziet, kan straffen niet langer verdedigen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De Downtown Eastside</h3>
+      <p>Het eerste deel speelt zich af in een handvol straten in Vancouver waar armoede, dakloosheid, hiv en heroine bij elkaar komen. Mate werkte er als vaste arts van de Portland Hotel Society, die huisvesting bood aan mensen die nergens anders terechtkonden.</p>
+      <p>Hij schrijft hen niet als gevallen op maar als personen, met naam, geschiedenis en eigen stem. Een hoofdstuk over de grootvader van een patiente laat zien hoe ver hij daarin gaat: de geschiedenis begint een generatie voor de verslaafde zelf.</p>
+      <h3>De arts als verslaafde</h3>
+      <p>Het tweede deel gaat over Mate zelf. Hij beschrijft hoe hij duizenden dollars uitgaf aan klassieke cd's, afspraken met patienten liet lopen om naar de platenzaak te gaan en tegen zijn vrouw loog over wat hij had gekocht.</p>
+      <p>Die bekentenis is geen terzijde maar draagt zijn betoog. Als dwang bij een gerespecteerde arts dezelfde vorm aanneemt als bij een gebruiker in een steeg, dan is het verschil tussen hen volgens Mate gradueel en niet wezenlijk. Wie dat niet aanneemt, houdt van zijn boek weinig over.</p>
+      <h3>Wat verslaving is</h3>
+      <p>Het derde deel geeft de omschrijving waar de rest op steunt. Verslaving is bij Mate elk gedrag dat op korte termijn verlichting geeft en op lange termijn schade, dat gepaard gaat met hunkering en dat iemand niet kan laten ondanks de gevolgen. De stof doet er in die omschrijving niet toe.</p>
+      <p>Daarna volgt de neurologie: de rol van dopamine bij verlangen en aandacht, van het lichaamseigen opioidsysteem bij troost en verbondenheid, en de vaststelling dat drugs werken omdat er een slot bestaat waar zij op passen.</p>
+      <h3>Hoe die hersenen zo werden</h3>
+      <p>Het vierde deel bevat het eigenlijke argument. Mate betoogt dat de systemen die genot, hechting en zelfbeheersing regelen zich grotendeels na de geboorte vormen, in samenspel met de verzorgers, en daardoor gevoelig zijn voor wat er in die jaren gebeurt.</p>
+      <p>Een hoofdstuk stelt onomwonden dat het niet in de genen zit. Mate erkent aanleg, maar geeft haar de rol van gevoeligheid en niet van oorzaak: aanleg bepaalt volgens hem hoe hard omstandigheden aankomen, niet of iemand verslaafd raakt.</p>
+      <h3>De leegte en de vervangingen</h3>
+      <p>Het vijfde deel gaat over de verslavende persoonlijkheid en over gedragsverslavingen. Mate beschrijft een leegte die de verslaafde tot vrijwel alles bereid maakt om haar niet te voelen, en laat zien hoe werk, koopgedrag, seks en eten dezelfde plaats kunnen innemen als een stof.</p>
+      <p>Hier verbreedt het boek zich van de Downtown Eastside naar de lezer. Dat is inhoudelijk consequent en tegelijk het punt waarop het begrip verslaving zo ruim wordt dat het aan scherpte verliest.</p>
+      <h3>Voorbij de oorlog tegen drugs</h3>
+      <p>Het laatste deel is beleidsmatig. Mate leunt op het werk van Bruce Alexander over ontworteling als voedingsbodem voor verslaving en bepleit schadebeperking: schone spuiten, vervangende medicatie, en de gebruiksruimte Insite in Vancouver, de eerste in Noord-Amerika, waar hij bij betrokken was.</p>
+      <p>Zijn bezwaar tegen strafrecht is dat het toevoegt wat de verslaving voedt. Mensen die al beschadigd zijn, worden opgesloten, geldloos gemaakt en van zorg afgesneden, waarna hun gebruik verergert. Het boek sluit af met bijlagen, onder meer over adoptiestudies, aandachtstekort en preventie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hongerige geest</td><td>Uit het boeddhistische levensrad: een wezen met een grote maag en een keel zo smal als een naald, dat eet zonder ooit verzadigd te raken, bij Mate het beeld voor de verslaafde toestand.</td></tr>
+          <tr><td class="term">verslaving</td><td>Bij Mate elk gedrag dat kortstondig verlicht en op de duur schaadt, met hunkering en zonder dat iemand het kan laten, ongeacht of er een stof aan te pas komt.</td></tr>
+          <tr><td class="term">dopamine</td><td>De stof die Mate koppelt aan verlangen en aandacht, en die volgens hem verklaart waarom het najagen sterker kan zijn dan het krijgen.</td></tr>
+          <tr><td class="term">het opioidsysteem</td><td>Het lichaamseigen stelsel dat troost en verbondenheid geeft en waar heroine en verwante middelen op aansluiten.</td></tr>
+          <tr><td class="term">hechting</td><td>De band met een verzorger, die in Mate's betoog de omgeving vormt waarin de regelsystemen van het brein zich aanleggen.</td></tr>
+          <tr><td class="term">ontwikkelingstrauma</td><td>Langdurige stress, verwaarlozing of geweld in de vroege jaren, die volgens Mate niet alleen herinneringen maar ook hersenontwikkeling bepalen.</td></tr>
+          <tr><td class="term">de leegte</td><td>Het gevoel van gemis dat de verslaafde volgens Mate probeert te vullen en dat de stof slechts kort wegneemt.</td></tr>
+          <tr><td class="term">ontworteling</td><td>Bruce Alexanders begrip voor het verlies van plaats en verband in een samenleving, dat Mate opneemt als maatschappelijke voedingsbodem.</td></tr>
+          <tr><td class="term">schadebeperking</td><td>Beleid dat gebruik niet als eerste wil stoppen maar de schade ervan wil verkleinen, met schone spuiten, vervangende middelen en toezicht bij gebruik.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De grondslag van het boek is klinische waarneming over twaalf jaar bij een groep die tot de zwaarst getroffen van Canada behoort. Dat levert beschrijvingen op die niemand uit de tweede hand kan geven, en het is tegelijk de smalste steekproef die denkbaar is. Wie alleen de mensen ziet bij wie verslaving en vroege mishandeling samengaan, ziet die samenhang overal.</p>
+      <p>Daarnaast leunt Mate op onderzoek naar vroege hersenontwikkeling en hechting, en op het onderzoek naar nadelige jeugdervaringen dat Felitti, Anda en anderen vanaf de jaren negentig uitvoerden onder ruim zeventienduizend verzekerden. Dat vond een geleidelijk sterker wordend verband tussen het aantal nadelige ervaringen en latere gezondheidsproblemen, drugsgebruik inbegrepen. Het is een stevige bevinding, maar het blijft een samenhang, gemeten met terugkijkende zelfrapportage, en zij zegt niets over de afzonderlijke patient.</p>
+      <p>Op het punt van de erfelijkheid gaat Mate verder dan het onderzoek draagt. Tweeling- en adoptiestudies vinden voor verslaving doorgaans een aanzienlijke erfelijke component, vaak rond de helft van de spreiding. Zijn hoofdstuk dat het niet in de genen zit, gaat aan die uitkomsten niet voorbij maar legt ze zo uit dat er weinig van overblijft, en dat is de zwakste schakel in zijn betoog.</p>
+      <p>Het beleidsdeel staat er beter voor dan de theorie. Schadebeperking, en de gebruiksruimte Insite in het bijzonder, is uitvoerig onderzocht, en dat onderzoek wijst op minder overdoses en minder infecties zonder toename van gebruik in de omgeving. Die uitkomsten hangen niet af van de vraag of Mate's verklaring van verslaving klopt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat van Stanton Peele en anderen: Mate herleidt verslaving tot jeugdtrauma en houdt weinig ruimte over voor iets anders. Ook James Coyne en Nick Haslam hebben erop gewezen dat trauma bij hem als enige oorzaak dienstdoet. De meeste mensen met een zware jeugd raken niet verslaafd, en een deel van de verslaafden heeft geen aanwijsbaar trauma. Een risicofactor is nog geen oorzaak, en het boek maakt dat onderscheid niet.</p>
+      <p>De omschrijving van verslaving is zo ruim dat vrijwel elk hardnekkig gedrag eronder valt. Dat brengt de lezer dichter bij de patient, wat Mate ook beoogt, maar het maakt de term minder bruikbaar. Als het kopen van cd's en het gebruik van heroine in een steeg hetzelfde verschijnsel zijn, verdwijnt uit beeld hoe verschillend de gevolgen en de behandeling zijn.</p>
+      <p>Zijn eigen verhaal draagt meer gewicht dan het kan houden. Dat een arts met een dwangmatige koopgewoonte zichzelf naast zijn patienten plaatst, is invoelend bedoeld, maar de vergelijking gaat mank op precies de punten die er voor die patienten toe doen: geen dakloosheid, geen ontwenning, geen strafblad en geen risico te sterven.</p>
+      <p>Ten slotte lopen twee betogen door elkaar heen die los van elkaar staan. Het pleidooi voor schadebeperking berust op eigen onderzoek en op eigen gronden, en zou overeind blijven als Mate's traumatheorie morgen werd weerlegd. Door beide als een geheel te presenteren, maakt hij het beleid afhankelijk van een verklaring die omstreden is, terwijl dat niet nodig is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vervang bij dwangmatig gedrag, bij jezelf of bij een ander, de vraag waarom iemand het doet door de vraag wat het even wegneemt.</li>
+        <li>Let bij een gesprek over verslaving op het onderscheid tussen een risicofactor en een oorzaak, ook waar Mate het zelf laat vallen.</li>
+        <li>Lees het deel over schadebeperking apart als je met beleid te maken hebt; het staat op eigen benen.</li>
+        <li>Neem de hoofdstukken over erfelijkheid met tegenlectuur erbij, want daar wijkt het boek het verst van het onderzoek af.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>In the Realm of Hungry Ghosts: Close Encounters with Addiction</i> (Knopf Canada, Toronto, 2008, ISBN 9780676977417). De Amerikaanse uitgave verscheen in 2010 bij North Atlantic Books (ISBN 9781556438806), de Britse bij Vermilion (ISBN 9781785042201). De Nederlandse vertaling van Jorgen van Drunen kwam pas in 2022 uit bij AnkhHermes als <i>Hongerige geesten</i> (432 blz., ISBN 9789020218770), veertien jaar na het origineel en in het spoor van de aandacht die Mate rond die tijd kreeg. Hij schreef eerder <i>Scattered Minds</i> (1999) over aandachtstekort en later met zijn zoon Daniel <i>The Myth of Normal</i> (2022), in het Nederlands <i>De mythe van normaal</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Twaalf jaar lang was Gabor Mate arts bij de Portland Hotel Society in de Downtown Eastside van Vancouver, een paar straten met de zwaarste verslavingsproblemen van Canada. Hij bezocht zijn patienten in hun kamers en beschrijft hen in dit boek een voor een.</p><p>Zijn stelling is dat verslaving geen keuze is en ook geen erfelijke ziekte die iemand overkomt, maar de te verwachten uitkomst van vroege pijn. De vraag die hij wil vervangen is waarom de verslaving; de vraag die ervoor in de plaats komt is waarom de pijn.</p><p>Halverwege draait hij het boek naar zichzelf toe. Mate beschrijft zijn eigen dwangmatige aankopen van klassieke cd's, het liegen daarover en het gevoel dat hem naar de winkel dreef, en plaatst zich daarmee op dezelfde lijn als zijn patienten. Dat is het scharnier van het boek en meteen het meest omstreden onderdeel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>verslaving</li><li>trauma</li><li>hersenen</li><li>Vancouver</li><li>drugsbeleid</li><li>hechting</li><li>psychiatrie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk werkt dezelfde gedachte uit voor trauma in het algemeen en met meer onderzoek onder zich, waardoor zichtbaar wordt waar Mate op leunt en waar hij vooruitloopt.</li>
+          <li value="1521"><a href="1521.html">Scattered Minds</a>. Mate's eigen eerdere boek over aandachtstekort gebruikt hetzelfde model van vroege omgeving en hersenontwikkeling, en laat zien hoe consequent hij die verklaring toepast.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke behandelt verslaving vanuit dezelfde neurologie maar houdt vast aan erfelijkheid en aan de eigen verantwoordelijkheid, en is daarmee het beste tegenwicht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

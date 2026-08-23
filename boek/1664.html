@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van snob tot monnik &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kloosterman stelt dat het leven dat hij tot zijn ongeluk leidde, met een goed lopend bedrijf, geld, aanzien en de bijbehorende gewoontes, hem geen moment…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1664">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1664 &middot; Roman en memoir</p>
+    <h1>Van snob tot monnik</h1>
+    <p class="lede">Hans Kloosterman, 2014</p>
+    <p class="stats">
+      <span><b>1185</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1664"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kloosterman stelt dat het leven dat hij tot zijn ongeluk leidde, met een goed lopend bedrijf, geld, aanzien en de bijbehorende gewoontes, hem geen moment tevreden heeft gemaakt, en dat hij dat pas kon zien toen dat leven hem in één klap werd afgenomen. Zijn levensverhaal is in het boek geen doel op zich maar het bewijsmateriaal voor een tweede bewering: dat de onrust waaraan hij leed niet aan zijn omstandigheden lag maar aan zijn eigen geest, en dat die geest te oefenen valt. Wie zijn gedachten en reacties leert waarnemen zonder er meteen achteraan te gaan, zo luidt de belofte, verliest de dwang om steeds meer te willen. Het boeddhisme dient hem daarbij niet als geloof maar als leerweg met huiswerk.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het leven voor de klap</h3>
+      <p>Het eerste deel schetst een Nederlandse ondernemer in de jaren van economische voorspoed. Kloosterman werkte in werving en selectie, een vak waarin het verdienmodel bestaat uit het plaatsen van mensen bij bedrijven, en hij beschrijft zichzelf in die periode als iemand die zijn waarde afmat aan omzet, aan wat er op de oprit stond en aan het gezelschap waarin hij verkeerde.</p>
+      <p>De titel geeft het oordeel dat hij achteraf over die jaren velt. Het woord snob slaat in zijn gebruik minder op smaak dan op de gewoonte om zichzelf voortdurend met anderen te vergelijken. Hij vertelt het zonder de scherpe kanten weg te laten, ook waar het zijn relaties raakt.</p>
+      <h3>Het ongeluk</h3>
+      <p>Het auto-ongeluk staat in het boek op de plaats waar in een roman de omslag zou staan. Kloosterman overleefde het maar raakte zwaar gewond, en het herstel legde het bedrijf en het leven eromheen stil.</p>
+      <p>Hij beschrijft die stilstand als de eerste keer dat er niets meer te regelen viel. Wat er dan overblijft is een lichaam dat pijn doet en een hoofd dat doorratelt. Op die ervaring bouwt de rest van het boek: de vraag wat er van iemand overblijft als zijn rollen wegvallen.</p>
+      <h3>Zoeken en terechtkomen</h3>
+      <p>Na het herstel volgt de zoektocht. Kloosterman komt langs yoga, meditatie en lichaamswerk uit bij het Tibetaans boeddhisme in de kagyu-traditie, en verbindt zich aan het Kagyu Vajrayana Instituut in Huy in België, een centrum met een kleine kloostergemeenschap.</p>
+      <p>Hij legde de gelofte af en leefde er zes jaar als monnik in opleiding. Het boek beschrijft wat dat betekent aan dagorde, studie en verzaking, en wat er in een westerling gebeurt die zijn agenda inlevert bij een leefregel die door anderen is opgesteld.</p>
+      <h3>Het klooster als leerschool</h3>
+      <p>Het kloosterdeel is het hart van het boek en tegelijk het minst romantische. Kloosterman laat zien dat de gewoontes die hij in het bedrijfsleven had opgebouwd meeverhuisden: ongeduld, de neiging om te presteren, het vergelijken met anderen. Alleen kwamen ze er zonder afleiding scherper uit.</p>
+      <p>De boeddhistische leer wordt hier ingevoerd op de plaatsen waar zijn verhaal erom vraagt. Vergankelijkheid, gehechtheid en het onderscheid tussen een gedachte en de werkelijkheid krijgen uitleg in gewone taal, met steeds een oefening ernaast.</p>
+      <h3>Terug naar de wereld</h3>
+      <p>Kloosterman bleef geen monnik. Hij besloot dat zijn werk buiten de kloostermuren lag en keerde terug om les te geven in meditatie, yoga en aandachtstraining. Dat besluit krijgt in het boek de vorm van een afweging tussen twee soorten toewijding en niet van een terugval.</p>
+      <p>Het slotdeel is het meest instruerend. Hier staat de mindfulness die hij als methode aanbiedt: waarnemen op lichamelijk, gevoelsmatig en gedachtelijk niveau, met de bedoeling dat de lezer zijn eigen patronen leert herkennen voordat ze hem meenemen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">snob</td><td>Kloostermans woord voor de gewoonte om de eigen waarde af te lezen aan het oordeel en het bezit van anderen.</td></tr>
+          <tr><td class="term">kagyu</td><td>Een van de vier hoofdstromingen van het Tibetaans boeddhisme, waarin Kloosterman werd opgeleid en die veel gewicht legt op meditatie onder begeleiding van een leraar.</td></tr>
+          <tr><td class="term">vajrayana</td><td>De tantrische vorm van het boeddhisme waarin met beelden, mantra's en visualisatie wordt gewerkt en waaraan het instituut in Huy zijn naam ontleent.</td></tr>
+          <tr><td class="term">monnik in opleiding</td><td>De status van iemand die de kloostergeloften heeft afgelegd zonder de volledige wijding, in Kloostermans geval zes jaar lang.</td></tr>
+          <tr><td class="term">gehechtheid</td><td>In de boeddhistische leer het vastklampen aan wat prettig is en het wegduwen van wat onprettig is, door Kloosterman aangewezen als de bron van zijn onrust.</td></tr>
+          <tr><td class="term">vergankelijkheid</td><td>De vaststelling dat alles voortdurend verandert, die in het boek de betekenis van het ongeluk draagt.</td></tr>
+          <tr><td class="term">mindfulness</td><td>De aandachtstraining die Kloosterman later onderwijst: waarnemen wat er in lichaam, gevoel en denken gebeurt zonder er onmiddellijk op te reageren.</td></tr>
+          <tr><td class="term">onthechting</td><td>Het loslaten van bezit, status en gewoontes dat de kloosterperiode van hem vroeg en dat hij als oefening beschrijft in plaats van als offer.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek staat of valt met het woord van de schrijver. Wat er gebeurde met het bedrijf, het ongeluk en de jaren in Huy is door de lezer niet na te gaan, en Kloosterman voert geen andere getuigen op. Dat is bij een memoir gebruikelijk, maar het betekent wel dat de lezer geen middel heeft om de zwaarte van de omslag te wegen.</p>
+      <p>Het leerstellige deel rust op een bestaande traditie en niet op eigen onderzoek. De begrippen die hij uitlegt komen uit het Tibetaans boeddhisme, hij noemt de plaats waar hij ze leerde en er is een literatuuropgave. Voor wie wil nagaan of de uitleg klopt, is dat een bruikbaar spoor.</p>
+      <p>Voor de werking van de oefeningen voert het boek geen onderzoek aan. Dat aandachtstraining bij stress en terugkerende somberheid effect heeft is elders onderzocht, maar die literatuur staat hier niet en Kloosterman baseert zijn aanbevelingen op wat het hem zelf heeft gebracht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De bekeringsvorm legt het verhaal een tekening op die zelden helemaal klopt. Het leven ervoor krijgt de kleur van leegte, het leven erna die van inzicht, en tussenposities verdwijnen. Wie wil weten wat er in de tussenjaren werkelijk misging in zijn bedrijf en zijn relaties, krijgt daarvoor minder ruimte dan voor de betekenis die hij er achteraf aan geeft.</p>
+      <p>De twee helften van het boek staan elkaar in de weg. Als levensverhaal wordt het onderbroken door uitleg en oefeningen, en als handleiding is het te weinig geordend om naast je te leggen. Lezers die het om de methode doen, vinden die elders vollediger beschreven; lezers die het om het verhaal doen, moeten de instructies overslaan.</p>
+      <p>Het boek verscheen bij een uitgeverij die aan de schrijver verbonden is en staat in het verlengde van zijn praktijk als coach en trainer. Dat maakt het niet onwaar, maar het verklaart wel de aanprijzende toon rond de methode en de afwezigheid van een tegenstem. Een monnik die na zes jaar besluit dat zijn plaats buiten het klooster ligt, had ook de vraag kunnen behandelen wat dat over de leerweg zegt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlands origineel, <i>Van snob tot monnik</i>, uitgegeven door Mastix Press in Amsterdam, 2014, 303 blz., ISBN 9789081863988, met redactie van Angèle Steentjes en een literatuuropgave. Het e-boek verscheen in 2015 via Johannes van Kessel Advising in Huizen onder ISBN 9789079418350. De uitgever noemt het een bestseller. Kloosterman publiceerde in december 2023 een tweede boek, <i>Wat is geluk?</i>, bij dezelfde uitgeverij.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kloosterman had een bureau voor werving en selectie en beschrijft eerst het leven dat daarbij hoorde: omzet, aanzien, bezit en wisselende relaties. Een auto-ongeluk dat hij ternauwernood overleefde brak die loopbaan af en vormt het scharnier van het boek.</p><p>Wat volgt is een zoektocht die uitkomt bij het Tibetaans boeddhisme. Kloosterman verbond zich aan het Kagyu Vajrayana Instituut in het Belgische Huy, waar een kleine kloostergemeenschap woont met lama's, monniken en nonnen, en leefde daar zes jaar als monnik in opleiding.</p><p>Het boek is voor de helft levensverhaal en voor de helft handleiding. Tussen het relaas door staan uitleg van boeddhistische begrippen en meditatieoefeningen, gericht op het herkennen en veranderen van denk- en gedragspatronen. Kloosterman werkt sinds zijn terugkeer als coach en traumatherapeut.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>monnik</li><li>meditatie</li><li>mindfulness</li><li>ondernemerschap</li><li>ongeluk</li><li>bekering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1665"><a href="1665.html">Wat is geluk?</a>. Kloostermans tweede boek werkt de oefeningen uit dit verhaal uit tot een werkboek met tien hoofdstukken.</li>
+          <li value="230"><a href="230.html">Think Like a Monk</a>. Shetty vertelt hetzelfde gegeven, een westerling die intreedt en terugkeert om les te geven, vanuit de Indiase traditie en met meer verwijzing naar onderzoek.</li>
+          <li value="287"><a href="287.html">Siddhartha</a>. Hesse schreef de romanversie van deze zoektocht, met een hoofdpersoon die het klooster juist verlaat om in de wereld te leren.</li>
+          <li value="1754"><a href="1754.html">Het Tibetaanse boek van leven en sterven</a>. Sogyal Rinpoche geeft de Tibetaanse leer waarin Kloosterman werd opgeleid in haar volle omvang, inclusief wat dit boek erover weglaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

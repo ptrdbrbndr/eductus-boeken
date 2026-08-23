@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shotgun Wedding &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hirsch schrijft geen misdaadboek en geen monument voor een vermoorde advocaat. Zijn onderwerp is wat er met een nabestaande gebeurt wanneer een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1746">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1746 &middot; Roman en memoir</p>
+    <h1>Shotgun Wedding</h1>
+    <p class="lede">Lucas Hirsch, 2022</p>
+    <p class="stats">
+      <span><b>1373</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1746"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hirsch schrijft geen misdaadboek en geen monument voor een vermoorde advocaat. Zijn onderwerp is wat er met een nabestaande gebeurt wanneer een vriendschap niet slijt maar wordt afgebroken, en wanneer die afbraak bovendien nieuws is: een publieke zaak, met camera's, herdenkingen en een landelijke verontwaardiging die niets te maken heeft met de man die hij kende. Zijn stelling, voor zover een verslag van rouw er een heeft, is dat verdriet uit zichzelf op zichzelf gericht is. Ook omringd door een vriendin, ouders en oude vrienden blijft rouwen een eenzame bezigheid waarin de rouwende vooral met zijn eigen verlies bezig is. Daarnaast draait het boek om een tweede verlies: de taal waarmee de dichter zijn leven pleegt te ordenen doet het niet meer op het moment dat hij haar het hardst nodig heeft.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het bericht</h3>
+      <p>Het boek zet in bij het nieuws van 18 september 2019 en bij de plek waar Hirsch was toen hij het hoorde. De moord op Derk Wiersum was binnen een uur landelijk nieuws, met de duiding dat de rechtsstaat was aangevallen. Voor Hirsch viel die duiding samen met iets veel kleiners: de man die was doodgeschoten was zijn vriend sinds hun jeugd in Bussum.</p>
+      <p>Die botsing tussen de publieke en de persoonlijke betekenis van dezelfde gebeurtenis loopt door het hele boek. Hirsch beschrijft hoe hij zijn verdriet moest delen met een land dat de dode niet kende, en hoe de zaak zelf, met haar verdachten en processen, hem eigenlijk niet interesseerde.</p>
+      <h3>De vriendschap</h3>
+      <p>Wat er van Wiersum in beeld komt, komt uit de vriendschap en niet uit zijn loopbaan. Hirsch beschrijft de jaren waarin zij opgroeiden, het studentendispuut waar zij bij hoorden, en de vaste gewoonten tussen hen, waaronder het over en weer sturen van zinnen uit boeken die zij lazen.</p>
+      <p>Hun laatste ontmoeting is een van de weinige scènes die het boek precies plaatst. Zij liepen samen weg bij een uitvaart, ongeveer een maand voor de moord, en Hirsch sprak zijn zorg uit over de zaak die Wiersum had aangenomen. Het antwoord dat hij kreeg was geruststellend en luchtig, en dat antwoord blijft in de rest van het boek terugkomen.</p>
+      <p>Hirsch schrijft weinig over Wiersums vrouw en kinderen. Die terughoudendheid is een bewuste keuze; het gezin werd na de moord door een woordvoerder afgeschermd en Hirsch neemt die afscherming over.</p>
+      <h3>Het eerste jaar</h3>
+      <p>Het middendeel volgt de maanden erna, zonder duidelijke fasen en zonder verbetering die zich laat aanwijzen. Er zijn de plichtplegingen rond een moord die nieuws is, er is de eigen vriendin die er is maar er niet bij kan, er zijn ouders en vrienden die het proberen.</p>
+      <p>Wat Hirsch daarvan laat zien, is vooral het onvermogen om er iets van te maken. Hij kon in dat eerste jaar niet schrijven. Het boek ontstond pas toen dat weer ging, wat betekent dat het geen dagboek is maar een reconstructie achteraf van een periode waarin niets werd vastgelegd.</p>
+      <h3>De taal die terugkomt</h3>
+      <p>Naarmate het boek vordert, keert de beeldspraak terug. De bekendste zin beschrijft een ochtend waarop hij wakker wordt met duizend meter sneeuw op zijn hart, die het verdriet koelt zodat het niet gaat trillen. Zulke zinnen staan niet aan het begin maar verderop, en dat is geen toeval: het boek laat zien dat het vermogen tot beeldspraak zelf een teken van herstel is.</p>
+      <p>Die vorm heeft gevolgen voor het lezen. Er is nauwelijks handeling, de hoofdstukken zijn kort, en de spanning zit in de vraag of de schrijver de woorden vindt. De recensent van Tzum noemde het een boek waarbij de lezer af en toe de moed moet vinden om door te lezen.</p>
+      <h3>Geen afsluiting</h3>
+      <p>Het boek eindigt na ongeveer een jaar, zonder verzoening en zonder les. De strafzaak was op dat moment nog in volle gang en de daders van de moord waren nog niet veroordeeld, wat het slot open houdt op een manier die de auteur niet gekozen heeft.</p>
+      <p>Wat er wel staat aan het eind, is dat het schrijven zelf iets heeft gedaan. Hirsch presenteert dat nadrukkelijk niet als genezing. Het boek is er, de vriend is er niet, en de verhouding tussen die twee feiten blijft ongelijk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Shotgun wedding</td><td>De Engelse uitdrukking voor een huwelijk dat onder dwang en met haast wordt gesloten, hier als titel boven een verslag van gedwongen rouw.</td></tr>
+          <tr><td class="term">Elegie</td><td>De klaagdichtvorm waarnaar recensenten grepen om dit boek te typeren, omdat het eerder klaagzang dan verhaal is.</td></tr>
+          <tr><td class="term">Kroongetuige</td><td>Een verdachte die in ruil voor strafvermindering verklaart tegen medeverdachten; Wiersum stond zo iemand bij in het proces tegen de organisatie rond Ridouan Taghi.</td></tr>
+          <tr><td class="term">Rouw als eenzaamheid</td><td>Hirsch beschrijft rouwen als een op zichzelf gerichte bezigheid, ook bij mensen die om je heen staan.</td></tr>
+          <tr><td class="term">Publieke rouw</td><td>De situatie waarin een persoonlijk verlies tegelijk landelijk nieuws is en de nabestaande zijn verdriet moet delen met vreemden.</td></tr>
+          <tr><td class="term">Zinnen uitwisselen</td><td>Het vaste gebruik tussen de twee vrienden om elkaar regels uit boeken te sturen, in het boek een maat voor wat er is weggevallen.</td></tr>
+          <tr><td class="term">Autobiografische roman</td><td>De aanduiding waaronder het boek verscheen: het materiaal is waargebeurd, de vorm is die van proza en niet van verslaggeving.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De feitelijke kern van het boek is openbaar en controleerbaar. Derk Wiersum werd op 18 september 2019 in Amsterdam-Buitenveldert doodgeschoten; hij was de raadsman van kroongetuige Nabil B. in het Marengoproces tegen de organisatie rond Ridouan Taghi. Alles wat daarnaast in het boek staat berust op de herinnering van één nabestaande.</p>
+      <p>Hirsch legt zelf uit dat hij in het jaar na de moord niet kon schrijven. Het boek is dus geen gelijktijdige aantekening maar een reconstructie, en de auteur verbergt dat niet. Dat maakt de tijdlijn zachter dan zij lijkt: gevoelens zijn achteraf geordend door iemand die inmiddels weer taal had.</p>
+      <p>De keuze om het gezin van Wiersum buiten beeld te laten scheelt het boek een hoop materiaal, maar geeft het ook zijn houding. Hirsch schrijft over wat van hem is, de vriendschap, en laat de rest aan anderen. Daarmee vermijdt hij het bezwaar dat bij dit soort boeken het snelst opkomt, dat een schrijver het verdriet van nabestaanden gebruikt.</p>
+      <p>Wat het boek als literatuur staande houdt, is de zichtbare beweging in de taal: van vlakke, bijna registrerende zinnen naar beeldspraak. Die opbouw is geen stijlkeuze achteraf maar de weergave van het proces dat het boek beschrijft, en zij is voor de lezer na te lopen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek weinig te lezen geeft aan wie zelf niets met de zaak of met de auteur heeft. Er is geen verhaallijn, weinig gebeurtenis en een verteller die naar eigen zeggen vooral met zichzelf bezig is. Lezersoordelen lopen daardoor sterk uiteen: op openbare lezerssites blijft het boek rond het midden steken, terwijl de literaire ontvangst positief was.</p>
+      <p>De beeldspraak die het boek zijn kwaliteit geeft, kan ook tegen het onderwerp werken. Beelden als sneeuw op het hart zijn mooi opgeschreven, en juist die schoonheid staat op gespannen voet met de ruwheid van wat er gebeurde. Wie daar gevoelig voor is, leest de sterkste zinnen als versiering van iemand anders zijn dood.</p>
+      <p>Het portret van Wiersum blijft bewust dun. Dat is te verdedigen, maar het heeft een prijs: de lezer krijgt weinig zicht op wie de vermoorde man was, waardoor het verlies vooral als gemis wordt beschreven en niet als het wegvallen van iemand met een eigen gewicht. Het boek vraagt de lezer op gezag aan te nemen dat deze vriendschap bijzonder was.</p>
+      <p>De titel wordt niet uitgelegd. Een shotgun wedding is een verbintenis onder dwang, en het verband met gedwongen rouw laat zich raden, maar het boek helpt daar nauwelijks bij. Dat past bij de vorm en laat tegelijk zien hoeveel de lezer zelf moet invullen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De Arbeiderspers, Amsterdam, 2022, 150 blz., ISBN 9789029547574; e-boek 9789029547642 en luisterboek 9789029549837. Het boek is in het Nederlands geschreven, zodat er geen vertaling is; het verscheen als roman, hoewel het materiaal autobiografisch is. Hirsch, geboren in 1975 in Hilversum, publiceerde eerder poëzie bij dezelfde uitgeverij, waaronder <i>familie gebiedt</i> (2006), <i>tastzin</i> (2009), <i>Dolhuis</i> (2012) en <i>Ontsla me van alles wat ik liefheb</i> (2015).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Op 18 september 2019 werd advocaat Derk Wiersum voor zijn huis in Amsterdam doodgeschoten. Hij stond kroongetuige Nabil B. bij in de zaak tegen de organisatie rond Ridouan Taghi. Lucas Hirsch verloor die dag zijn jeugdvriend.</p><p>Dit boek beschrijft het jaar daarna. Het gaat niet over de moordzaak en levert geen portret van Wiersum; Hirsch houdt afstand van diens gezin en beperkt zich tot wat er met hemzelf gebeurde. Wat overblijft is het verslag van iemand die zijn vriend kwijt is en zijn taal erbij.</p><p>Hirsch is dichter, en het boek maakt daar een probleem van. Het gereedschap waarmee hij normaal werkt, laat hem in de zwaarste maanden in de steek; pas later keert de beeldspraak terug. Het resultaat is kort, fragmentarisch en zonder troostende afloop.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>rouw</li><li>vriendschap</li><li>Derk Wiersum</li><li>autobiografisch</li><li>poëzie</li><li>geweld</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="49"><a href="49.html">When Breath Becomes Air</a>. Kalanithi schrijft eveneens tegen de tijd in over een dood die dichtbij is, maar houdt de vorm van een afgerond verslag aan waar Hirsch juist alles openlaat.</li>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringer laat zien wat een memoir over mannenvriendschap kan als er ruimte is voor scènes en personages; het verschil met dit boek is de terughoudendheid van Hirsch.</li>
+          <li value="7"><a href="07.html">We Need to Hang Out</a>. Baker onderzoekt waarom mannenvriendschappen na het dertigste jaar verwateren; bij Hirsch is te zien wat er verloren gaat wanneer zo'n vriendschap juist stand hield.</li>
+          <li value="1210"><a href="1210.html">Brieven aan een jonge dichter</a>. Rilke behandelt de vraag waar taal vandaan komt en wanneer zij faalt, precies het probleem waar Hirsch in dit boek op stuit.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

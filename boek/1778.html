@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ik (k)en mijn ikken &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De auteurs verwerpen het idee van een enkelvoudige persoonlijkheid. Iemand bestaat volgens hen uit een veelheid van ikken, deelpersonen die elk hun eigen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1778">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1778 &middot; Gewoontes en denken</p>
+    <h1>Ik (k)en mijn ikken</h1>
+    <p class="lede">Karin Brugman, Judith Budde en Berry Collewijn, 2010</p>
+    <p class="stats">
+      <span><b>1638</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1778"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De auteurs verwerpen het idee van een enkelvoudige persoonlijkheid. Iemand bestaat volgens hen uit een veelheid van ikken, deelpersonen die elk hun eigen waarneming, gevoelens, lichaamshouding en belangen hebben, en het gevoel een samenhangend iemand te zijn ontstaat doordat een vaste groep van die ikken het vaakst aan het stuur zit. Tegenstrijdig gedrag is in die lezing geen zwakte maar de gewone toestand: er zat gewoon een andere ik op de stoel. De ambitie van Voice Dialogue is niet om ikken op te ruimen of te verzoenen, maar om een positie te ontwikkelen van waaruit iemand ze allemaal hoort en zelf kan kiezen wie er spreekt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De grondgedachte: een gezelschap in plaats van een persoon</h3>
+      <p>Het boek opent met de omkering waar alles op rust. De vraag is niet wie iemand is, maar wie er op dit moment in hem aan het woord is. De auteurs laten dat zien aan alledaagse tegenstrijdigheden: iemand die op het werk beslist en thuis besluiteloos is, iemand die zichzelf een uur na een beslissing niet meer herkent.</p>
+      <p>Ikken worden beschreven als volwaardige persoonlijkheden in het klein, met een eigen leeftijd, een eigen stem en een eigen manier van zitten. Die lichamelijkheid is voor de methode belangrijk, omdat een sessie mede op houding, ademhaling en toon afgaat.</p>
+      <h3>Primaire en verstoten ikken</h3>
+      <p>De ikken die iemand van huis uit heeft leren waarderen, en die daarom vooraan staan, heten primaire ikken. Vaak zijn dat de aanjager die doorwerkt, de perfectionist die controleert, de pleaser die zorgt dat niemand boos wordt en de beschermer die risico's afdekt. Zij hebben iemand ooit uit de problemen gehouden en zijn daarom blijven zitten.</p>
+      <p>Wat daardoor geen ruimte kreeg, verdwijnt niet maar wordt verstoten. Bij een sterke aanjager is dat de luie kant; bij een sterke pleaser de kant die iets voor zichzelf wil. Die verstoten ikken merkt iemand vooral op bij anderen: als hevige ergernis, of als aantrekking. De auteurs noemen dat het bindingspatroon en gebruiken het om te verklaren waarom mensen steeds hetzelfde soort partner of collega treffen.</p>
+      <h3>De innerlijke criticus</h3>
+      <p>Aan een ik wijden de auteurs afzonderlijk aandacht: de innerlijke criticus, de stem die commentaar levert op alles wat er misgaat en die het meest gehoorde bezwaar tegen de eigen persoon vormt. Zij behandelen die stem niet als vijand die weg moet, maar als een beschermer die zijn taak te ruim opvat, in de veronderstelling dat vooraf afkraken erger leed bespaart.</p>
+      <p>De praktische lijn is daaruit afgeleid. Zolang iemand met de criticus samenvalt, is er alleen schaamte. Zodra hij de criticus als een van zijn stemmen kan horen, ontstaat er ruimte om te wegen wat er van het commentaar klopt.</p>
+      <h3>Het bewuste ik</h3>
+      <p>De positie die de methode nastreeft heet in het Nederlands het bewuste ik, naar het aware ego van de Stones. Dat is geen extra ik en ook geen middenweg tussen de stemmen, maar een plaats van waaruit iemand meerdere ikken tegelijk hoort en de spanning ertussen kan verdragen zonder dat er meteen een van hen het roer overneemt.</p>
+      <p>De auteurs benadrukken dat die positie niet blijvend is. Iemand valt er voortdurend uit en komt er even zo vaak in terug; het is eerder een vaardigheid die geoefend wordt dan een toestand die bereikt wordt.</p>
+      <h3>Hoe een sessie verloopt</h3>
+      <p>Het praktische deel beschrijft de gang van een Voice Dialogue-gesprek. De begeleider vraagt de client van plaats te veranderen en spreekt daarna met de betreffende ik in de tweede persoon, alsof die zelfstandig aanwezig is. Er wordt gevraagd hoe lang die er al is, wat zijn taak is, waar hij bang voor is en wat hij van de andere ikken vindt.</p>
+      <p>Na het gesprek gaat de client terug naar de oorspronkelijke stoel, en de begeleider vat samen wat er gezegd is terwijl de client van een afstand luistert. Die laatste stap is de plaats waar het bewuste ik geoefend wordt. De auteurs waarschuwen dat het gesprek niet mag doorschieten in toneel en dat de begeleider zich van zijn eigen ikken bewust moet zijn, omdat hij anders met een van de stemmen van de client meegaat.</p>
+      <h3>Toepassingen buiten de spreekkamer</h3>
+      <p>Het laatste deel plaatst de methode in werk en samenleven. In een team kan een taak steeds bij dezelfde persoon terechtkomen omdat diens primaire ik zich meldt, en kan een conflict tussen twee mensen begrepen worden als een gesprek tussen twee stemmen die elkaars verstoten kant vertegenwoordigen.</p>
+      <p>De auteurs zijn daarbij voorzichtiger dan de rest van het boek doet vermoeden. Zij stellen dat een volledige sessie thuishoort bij een geschoolde begeleider en dat de lezer op eigen kracht vooral kan oefenen in het herkennen van stemmen, niet in het uitwerken ervan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ik of deelpersoon</td><td>Een afgerond deel van de persoonlijkheid met een eigen waarneming, stem, gevoel en lichaamshouding.</td></tr>
+          <tr><td class="term">Primaire ikken</td><td>De ikken die iemand vroeg heeft ontwikkeld en waarmee hij zich vereenzelvigt, zoals de aanjager, de perfectionist of de pleaser.</td></tr>
+          <tr><td class="term">Verstoten ikken</td><td>De kanten die iemand heeft weggeduwd omdat ze in zijn omgeving niet mochten en die hij vooral bij anderen opmerkt.</td></tr>
+          <tr><td class="term">Bindingspatroon</td><td>Het verschijnsel dat twee mensen elkaars verstoten kanten dragen en daardoor in een vast en herhaald samenspel raken.</td></tr>
+          <tr><td class="term">Beschermer</td><td>De ik die risico's afdekt en de andere ikken buiten gevaar houdt, meestal door in te perken.</td></tr>
+          <tr><td class="term">Innerlijke criticus</td><td>De stem die vooraf en achteraf commentaar levert op het eigen doen, opgevat als beschermer die te ver gaat.</td></tr>
+          <tr><td class="term">Pleaser</td><td>De ik die de verhouding met anderen bewaakt door zich aan te passen en wrijving te voorkomen.</td></tr>
+          <tr><td class="term">Bewuste ik</td><td>De positie waarin iemand meerdere ikken tegelijk hoort en de spanning ertussen kan dragen zonder er een te worden.</td></tr>
+          <tr><td class="term">Facilitator</td><td>De begeleider die de sessie leidt, van stoel laat wisselen en achteraf teruggeeft wat er is gezegd.</td></tr>
+          <tr><td class="term">Energetische verbinding</td><td>De aanname dat een ik in een sessie ook aan houding, toon en ademhaling herkenbaar is en niet alleen aan wat hij zegt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek presenteert geen onderzoek. De onderbouwing bestaat uit gespreksverslagen uit de eigen praktijk van de drie auteurs, uit voorbeelden die zij herkenbaar achten, en uit de verwijzing naar het werk van Hal en Sidra Stone, die de methode in de jaren zeventig ontwikkelden.</p>
+      <p>De gedachte van deelpersoonlijkheden zelf is ouder en breder dan Voice Dialogue. Zij ligt in het verlengde van Jungs werk over complexen en over de schaduw, van de psychosynthese van Roberto Assagioli en van latere schoolvormen die met innerlijke delen werken. Dat maakt het model minder eigenzinnig dan het lijkt, maar levert er ook geen bewijs voor.</p>
+      <p>Voor de doeltreffendheid van Voice Dialogue als methode bestaan geen gecontroleerde uitkomststudies van betekenis. Wel is er onderzoek naar verwante werkwijzen met innerlijke delen bij traumaklachten, met bemoedigende maar nog beperkte resultaten; dat onderzoek gaat over andere methoden met andere begrippen en kan hier niet als steun gelden.</p>
+      <p>Wat het boek wel waarmaakt is iets anders dan een waarheidsclaim. Het levert een woordenschat waarmee een lezer zijn eigen tegenstrijdigheden kan benoemen, en gebruiksaanwijzing voor gesprekken die in de praktijk van coaches al veertig jaar gevoerd worden. De vraag of die gesprekken meer opleveren dan aandacht en tijd blijft onbeantwoord.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het model kan niet onjuist blijken. Elk gedrag, ook het tegenovergestelde, is te verklaren met een ik die op dat moment aan het woord was, en wie de aanwezigheid van een ik ontkent kan te horen krijgen dat de ontkenning zelf uit een beschermer komt. Een verklaring die alles dekt, verklaart niets in strikte zin, en het boek gaat op dat bezwaar niet in.</p>
+      <p>De ikken worden in de tekst en in de tekeningen steeds meer als echte wezens behandeld. Er wordt met ze gepraat, ze hebben leeftijden, ze zijn boos op elkaar. De auteurs zeggen dat het om een beeldspraak gaat, maar de hele methode leunt erop dat de client het beeld even niet als beeldspraak neemt. Dat schuurt, zeker bij lezers die de neiging hebben in de eigen binnenwereld letterlijkheden te zien.</p>
+      <p>Er is weinig aandacht voor grenzen aan het gebruik. Bij mensen met ernstige dissociatieve klachten of met een trauma dat niet is behandeld, kan het uitvergroten van losse innerlijke stemmen schade doen; het boek waarschuwt vooral dat volledige sessies bij een geschoolde begeleider horen en laat verder ongezegd wanneer de methode ongeschikt is.</p>
+      <p>De drie auteurs zijn tegelijk aanbieder van de opleidingen waarin de methode wordt onderwezen, onder meer bij het opleidingscentrum Het Balkon en de Voice Dialogue Academie. Dat is niet verborgen, maar het boek is er ook een wervingsmiddel voor, en dat kleurt de afwezigheid van kritische passages.</p>
+      <p>Ten slotte is de behandeling van macht en omstandigheden dun. Waarom iemand een pleaser werd, en of dat in zijn omgeving verstandig was, komt zelden verder dan het gezin van herkomst. Dat werk wordt binnen de persoon gelegd, terwijl een deel ervan buiten hem ligt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een week lang bij elke sterke reactie welke ik daar aan het woord was en wat die probeerde af te dekken.</li>
+        <li>Zoek uit welke drie eigenschappen bij anderen de meeste ergernis oproepen en onderzoek wat die eigenschappen in het eigen leven niet mochten.</li>
+        <li>Laat de innerlijke criticus zijn zin afmaken op papier en scheid daarna wat er feitelijk in staat van wat er dreigt.</li>
+        <li>Neem bij een terugkerend conflict aan dat beide partijen een stem vertegenwoordigen en zoek de stem die aan de eigen kant ontbreekt.</li>
+        <li>Doe een volledige sessie met een geschoolde begeleider en niet alleen, zeker als er onverwerkte gebeurtenissen in het spel zijn.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Ik (k)en mijn ikken: ontdek andere kanten van jezelf met Voice Dialogue</i>. Eerste druk bij Uitgeverij Thema, Zaltbommel, 2010, 190 blz., ISBN 9789058715241, met tekeningen van Luuk Poorthuis. Het boek bleef in druk en verscheen in 2023 in een veertiende druk, 192 blz., ISBN 9789462723153; er is ook een e-boek, ISBN 9789462723757. Het is in het Nederlands geschreven en niet vertaald. Van Karin Brugman verscheen bij dezelfde uitgever eerder <i>Coachen met Voice Dialogue</i>; het onderliggende werk van de grondleggers Hal en Sidra Stone is wel in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De drie auteurs vragen de lezer zichzelf niet als een persoon te zien maar als een gezelschap. In die voorstelling bestaat iemand uit veel ikken, deelpersonen met elk hun eigen kijk, gewoonten, gevoelens en stem, en is wat men karakter noemt vooral het gezelschap dat het vaakst het woord voert.</p><p>Het boek is de Nederlandse toegangspoort tot Voice Dialogue, een gespreksmethode die Hal en Sidra Stone in de jaren zeventig in Californie ontwikkelden. In een sessie spreekt een begeleider achtereenvolgens met losse ikken van de client, die daarvoor letterlijk van stoel wisselt, zodat de verschillende stemmen elk hun eigen plaats krijgen.</p><p>De kern van de leer is dat de ikken die iemand het hardst afwijst, zijn verstoten kanten, in het gedrag van anderen terugkeren als ergernis of aantrekking. Het boek is geschreven voor lezers zonder voorkennis en werkt met veel voorbeelden en tekeningen; het onderscheid tussen zelfhulp en scholing van coaches blijft er tamelijk vaag.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Voice Dialogue</li><li>zelfkennis</li><li>deelpersoonlijkheden</li><li>coaching</li><li>innerlijke criticus</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1693"><a href="1693.html">De innerlijke criticus ontmaskerd</a>. Hal Stone werkt de innerlijke criticus uit die hier een enkel hoofdstuk krijgt, met dezelfde begrippen maar meer klinische toon.</li>
+          <li value="1541"><a href="1541.html">Partnering: A New Kind of Relationship</a>. Hal en Sidra Stone passen het model toe op de verhouding tussen twee mensen; het bindingspatroon uit dit boek staat daar centraal.</li>
+          <li value="361"><a href="361.html">Psychologische typen</a>. Jung levert de begrippen waar dit model op teruggaat, inclusief de gedachte dat wat men afwijst in de omgeving wordt teruggezien.</li>
+          <li value="1530"><a href="1530.html">De NLP-Coach als inspirator</a>. Ook een Nederlands praktijkboek voor coaches, met een andere methodeschool en een vergelijkbaar gebrek aan toetsing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

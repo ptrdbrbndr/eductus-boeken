@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Een nieuwe werkelijkheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bont gaat ervan uit dat een mens naast zijn zichtbare lichaam een energetisch systeem heeft, opgebouwd uit zeven hoofdchakra's en een aantal auravelden,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1660">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1660 &middot; Filosofie en mystiek</p>
+    <h1>Een nieuwe werkelijkheid</h1>
+    <p class="lede">Carolina Bont, 1992</p>
+    <p class="stats">
+      <span><b>1603</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1660"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bont gaat ervan uit dat een mens naast zijn zichtbare lichaam een energetisch systeem heeft, opgebouwd uit zeven hoofdchakra's en een aantal auravelden, en dat dit systeem waarneembaar is voor wie er aandacht voor leert hebben. Wat iemand meemaakt slaat volgens haar in dat systeem neer: overtuigingen die hij van anderen overnam, angst die hij niet durfde te voelen, rollen die hij aannam om erbij te horen. Die neerslag gaat zitten als verstopping in een chakra of als een zwakke plek in de aura. Intuïtie is in haar boek geen gave van enkelingen maar een waarnemingsvermogen dat iedereen heeft en dat door die verstoppingen wordt overstemd. Het opruimen ervan noemt zij het betreden van een nieuwe werkelijkheid: dezelfde wereld, maar gezien door ogen die minder vertekenen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee delen en een omweg langs het sprookje</h3>
+      <p>Het boek valt in twee helften uiteen. De eerste behandelt de chakra's, de tweede de aura. Beide helften zijn opgezet als uitleg, maar Bont onderbreekt die uitleg voortdurend met sprookjes, korte symbolische vertellingen en stukken uit een dagboek. Haar verantwoording daarvoor is dat het onderwerp zich slecht laat vangen in de taal van een handleiding: een verhaal laat volgens haar iets zien wat een definitie plat slaat.</p>
+      <p>Dat maakt het boek prettig leesbaar en tegelijk lastig te gebruiken. De verhalen nemen veel ruimte in en de feitelijke uitleg raakt erdoor versnipperd. Een Nederlandse recensent merkte op dat de vertellingen de kerninformatie eerder verhullen dan verhelderen. Wie het boek als naslagwerk over chakra's wil openslaan, moet erin bladeren; wie het van voor naar achter leest, krijgt de opbouw wel mee.</p>
+      <h3>De zeven chakra's, elk een hoofdstuk</h3>
+      <p>In het eerste deel krijgt elk hoofdchakra een eigen hoofdstuk. Bont beschrijft ze als draaiende energiecentra die elk bij een niveau van bewustzijn horen, van overleven en veiligheid onderaan tot overzicht en verbondenheid bovenaan. Bij ieder centrum benoemt zij wat er goed gaat als het open is, wat er misgaat als het dicht zit en welke levenservaringen dat dichtzitten meestal veroorzaken.</p>
+      <p>De volgorde is die van de gangbare Indiase indeling, maar de invulling is van haarzelf. Zij betrekt de chakra's sterk op alledaagse zaken: grenzen stellen, geld, seksualiteit, spreken, zien wat er werkelijk speelt. Het gaat haar minder om het beschrijven van een leerstelsel dan om herkenning bij de lezer. De toon is die van een docent die dezelfde patronen al honderden keren voorbij heeft zien komen.</p>
+      <h3>De aura in lagen</h3>
+      <p>Het tweede deel gaat over de aura, die Bont opdeelt in gebieden: een fysiek, een emotioneel, een mentaal, een karmisch en een spiritueel gebied. Elk gebied bewaart volgens haar een ander soort informatie. In het emotionele gebied zit wat iemand voelt en niet uitte, in het mentale wat hij denkt en gelooft, in het karmische wat volgens haar uit eerdere levens of uit de familielijn meekomt.</p>
+      <p>Zij besteedt veel aandacht aan wat zij aanvoelt als beschadiging: gaten, aanhechtingen van anderen, plekken die te ver uitstaan of te strak zijn ingetrokken. Hooggevoelige mensen krijgen een aparte behandeling, omdat zij volgens Bont een aura hebben die te wijd openstaat en daardoor voortdurend informatie van anderen binnenhaalt. Het herstellen van de eigen begrenzing is in dit deel het terugkerende thema.</p>
+      <h3>Oefeningen, kaarten en het dagboek</h3>
+      <p>Latere drukken bevatten oefeningen die de lezer thuis kan doen: aarden, de eigen ruimte afbakenen, de aandacht bij een chakra brengen en kijken wat zich meldt. De cassette-uitgave voegde daar een set kaarten met vragen en suggesties aan toe. De oefeningen zijn kort en vragen weinig voorbereiding, wat past bij de bedoeling van het boek om spiritualiteit praktisch te maken.</p>
+      <p>Het dagboekgedeelte laat zien hoe Bont zelf tegen haar eigen ontwikkeling aankijkt. Dat is het eerlijkste stuk van het boek, omdat er twijfel in staat en geen leerstuk. Lezers noemen die passages vaak het deel dat het langst bijblijft, sterker dan de uitleg over de energiecentra.</p>
+      <h3>De opleiding achter het boek</h3>
+      <p>Het boek staat niet op zichzelf. Het is de leestekst bij een meerjarige opleiding intuïtieve ontwikkeling die Bont sinds 1985 geeft, waarin cursisten leren waarnemen wat zij een reading noemt. Dat verklaart de zekerheid waarmee het geschreven is: het beschrijft geen hypothese maar een lesprogramma dat in de praktijk al vorm had gekregen.</p>
+      <p>Het verklaart ook de grens van het boek. Wie leest krijgt de kaart, niet de correctie die een docent in een leslokaal kan geven. Bont schrijft zelf dat waarnemen geoefend moet worden en dat de eerste indrukken van een beginner vaak zijn eigen projectie zijn, maar een lezer heeft geen manier om dat onderscheid te toetsen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Chakra</td><td>In Bonts uitleg een draaiend energiecentrum dat bij een bepaald niveau van bewustzijn hoort. Zij houdt de zeven hoofdcentra van de Indiase indeling aan, maar geeft er een eigen, sterk op het dagelijks leven gerichte invulling aan.</td></tr>
+          <tr><td class="term">Aura</td><td>Het veld dat volgens haar om het lichaam heen ligt, opgedeeld in een fysiek, emotioneel, mentaal, karmisch en spiritueel gebied. Elk gebied bewaart een ander soort informatie over de persoon.</td></tr>
+          <tr><td class="term">Effectieve intuïtie</td><td>De naam van Bonts methode en van haar centrum. Het woord effectief staat er om aan te geven dat intuïtie voor haar geen zweverige gave is maar een vermogen dat je kunt oefenen en waarvan je in gewone beslissingen iets hebt.</td></tr>
+          <tr><td class="term">Blokkade</td><td>Een verstopping in een chakra, ontstaan doordat iemand een gevoel, een gedachte of een ervaring niet heeft kunnen verwerken. In dit mensbeeld is het opheffen van blokkades de kern van innerlijk werk.</td></tr>
+          <tr><td class="term">Aarden</td><td>Het oefenen van de verbinding met het lichaam en met de grond, bedoeld om te voorkomen dat aandacht en waarneming alle kanten op zwerven. Het is bij Bont de eerste stap, ook voor wie verder wil met de bovenste chakra's.</td></tr>
+          <tr><td class="term">Karmisch gebied</td><td>De auralaag waarin volgens Bont informatie zit die niet uit dit leven komt, maar uit eerdere levens of uit de familielijn. Het is het onderdeel van haar stelsel dat het verst van toetsbaarheid af staat.</td></tr>
+          <tr><td class="term">Reading</td><td>Het gericht waarnemen van andermans energiesysteem, de vaardigheid die in haar opleiding wordt geoefend. In het boek komt het terug als de bron van de voorbeelden: Bont beschrijft wat zij bij mensen zegt te hebben gezien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen bewijs en zoekt het ook niet. De grond eronder bestaat uit twee dingen: wat Bont zelf waarneemt en wat zij bij een groot aantal cursisten heeft teruggezien. Dat is een respectabele basis voor een lesmethode en een zwakke basis voor een uitspraak over hoe de mens in elkaar zit, en het boek maakt tussen die twee geen onderscheid.</p>
+      <p>Het chakrastelsel zelf komt uit Indiase tantrische teksten, waar het hoort bij een meditatiepraktijk met een heel ander doel dan zelfontwikkeling. Bont neemt de zeven centra over en vult ze in met westerse psychologische thema's. Die verplaatsing wordt in het boek niet verantwoord; de lezer krijgt de indruk dat hij een oude leer voorgeschoteld krijgt terwijl het om een moderne bewerking gaat.</p>
+      <p>De sprookjes en verhalen zijn bedoeld als illustratie, niet als onderbouwing, en Bont beweert dat ook nergens anders. Ze werken goed voor herkenning en slecht als controle: een verhaal dat klopt met het stelsel bewijst niets over het stelsel.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Er is geen enkele manier waarop een lezer kan nagaan of wat hier beschreven wordt bestaat. Chakra's en auralagen worden gepresenteerd als waarneembare feiten, terwijl de enige waarnemer de auteur is en haar leerlingen leren waarnemen volgens haar eigen kaart. Wie in zo'n opleiding zit, bevestigt het stelsel al doende.</p>
+      <p>De omweg langs verhalen en dagboek gaat ten koste van bruikbaarheid. Wat het boek aan uitleg te bieden heeft, ligt verspreid over honderden bladzijden vertelling. Dat is een keuze, maar het maakt het lastig om achteraf iets terug te vinden en het geeft de indruk dat de uitleg dunner is dan het aantal bladzijden doet vermoeden.</p>
+      <p>Het grootste bezwaar zit in de koppeling tussen klacht en blokkade. Als lichamelijke en psychische klachten stelselmatig als energetische verstopping worden gelezen, ligt uitstel van gewone hulp op de loer, en ligt schuld bij de klager: hij heeft blijkbaar iets niet verwerkt. Bont waarschuwt daar niet uitdrukkelijk tegen.</p>
+      <p>Het karmische gebied maakt het stelsel sluitend op de verkeerde manier. Alles wat niet uit dit leven verklaard kan worden, kan daarheen worden geschoven. Daarmee kan het stelsel nooit meer ergens op stuklopen, en dat is geen sterkte maar een gebrek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als de leertekst van één school en niet als beschrijving van hoe mensen in elkaar zitten.</li>
+        <li>De oefeningen om te aarden en de eigen ruimte af te bakenen zijn ongevaarlijk en voor wie snel overspoeld raakt bruikbaar, ook zonder het stelsel eromheen te geloven.</li>
+        <li>Houd bij lichamelijke klachten de gewone weg open. Een chakra-uitleg is geen diagnose.</li>
+        <li>Merk op wanneer een verklaring alles kan verklaren; dat is het punt waarop zij ophoudt informatie te geven.</li>
+        <li>Wie het boek nuttig vindt, heeft er meer aan als leesstof naast lessen met een docent die kan tegenspreken dan als zelfstudie.</li>
+        <li>Sla de sprookjes over als je de uitleg zoekt, en lees alleen de sprookjes als je de sfeer zoekt; beide werken los van elkaar beter dan door elkaar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlands: <i>Een nieuwe werkelijkheid: impulsen voor intuïtie, liefde en levenskracht</i>, Kosmos, Utrecht 1992, 288 blz. Het boek bleef in herziene vorm verschijnen, bij Kosmos-Z&amp;K en bij Spirit; de achtste herziene druk kwam in 2004 uit te Utrecht, 252 blz., ISBN 9021544156. Later volgden een uitgave in cassette met een set intuïtiekaarten, ISBN 9789021546629, 272 blz., en nieuwe drukken onder ISBN 9789021519173 en ISBN 9789021589190. Bont schreef daarna onder meer <i>Werken met je intuïtie</i> en <i>Hoogsensitiviteit als kracht</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Carolina Bont begon in 1985 een centrum voor wat zij effectieve intuïtie noemt en gaf daar jarenlang les voordat zij dit boek schreef. <i>Een nieuwe werkelijkheid</i> verscheen in 1992 en is sindsdien in steeds herziene vorm blijven verschijnen. Het is haar uitleg van het energetische mensbeeld dat in haar opleiding wordt gebruikt: zeven chakra's die volgens haar de bewustzijnsniveaus van een mens dragen, en een aura die in lagen om het lichaam ligt.</p><p>De opbouw is tweedelig. Het eerste deel behandelt de zeven hoofdchakra's, elk in een eigen hoofdstuk. Het tweede deel loopt de gebieden van de aura langs, van het fysieke via het emotionele, het mentale en het karmische naar het spirituele. Tussen de uitleg door staan sprookjes, symbolische verhalen en dagboekfragmenten. In latere drukken zijn oefeningen toegevoegd waarmee de lezer thuis kan proberen wat er beschreven wordt.</p><p>Het boek wil geen onderzoek zijn en doet ook niet alsof. De grond eronder is wat Bont zelf zegt waar te nemen en wat zij bij cursisten heeft gezien. Wie het leest krijgt een gesloten en goed doordacht stelsel aangeboden waarin klachten, karaktertrekken en levensloop op elkaar worden betrokken. Of dat stelsel ergens mee overeenkomt buiten de waarneming van de auteur, komt in het boek niet aan de orde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>chakra's</li><li>aura</li><li>intuïtie</li><li>hooggevoeligheid</li><li>energetisch werk</li><li>sprookjes</li><li>new age</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1605"><a href="1605.html">Yoga and Ayurveda</a>. Frawley beschrijft de chakra's binnen het stelsel waar ze vandaan komen, met de bijbehorende yoga en ayurveda, wat duidelijk maakt hoeveel Bont eraan heeft toegevoegd en veranderd.</li>
+          <li value="1667"><a href="1667.html">Sensitive Is the New Strong</a>. Moorjani werkt hetzelfde thema uit dat bij Bont de aura te wijd doet openstaan: hooggevoeligheid opgevat als vermogen in plaats van als kwetsbaarheid.</li>
+          <li value="195"><a href="195.html">Healing Is the New High</a>. Vex King staat in dezelfde hoek van energetisch zelfwerk, maar dan in de taal van sociale media, wat laat zien hoe oud en hoe uitgesleten dit genre inmiddels is.</li>
+          <li value="1591"><a href="1591.html">The Celestine Prophecy</a>. Redfield maakte van het waarnemen van energievelden een roman; naast Bont valt op hoe dezelfde aannames zich net zo makkelijk in fictie als in uitleg laten verpakken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liefdeskunst &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Cuppen gaat ervan uit dat inzicht in het eigen liefdespatroon dat patroon niet verandert. Iemand kan precies uitleggen waarom hij zich terugtrekt zodra…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1737">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1737 &middot; Levenskunst</p>
+    <h1>Liefdeskunst</h1>
+    <p class="lede">Hannah Cuppen, 2019</p>
+    <p class="stats">
+      <span><b>1509</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1737"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Cuppen gaat ervan uit dat inzicht in het eigen liefdespatroon dat patroon niet verandert. Iemand kan precies uitleggen waarom hij zich terugtrekt zodra een ander dichtbij komt, en zich vervolgens opnieuw terugtrekken. Haar verklaring is dat de angst niet in het denken zit maar in het lichaam en in vroege ervaring, en dat er dus iets nodig is wat het denken niet doet: voelen wat er onder de reactie zit, in kleine stappen en herhaald. Vandaar de vorm van dit boek. Het legt vrijwel niets uit wat in <i>Liefdesbang</i> al staat en bestaat in plaats daarvan uit opdrachten die de lezer op zichzelf uitvoert, in een volgorde die van herkennen naar hechten naar loslaten naar zelfherstel loopt. De impliciete belofte is dat een patroon dat in relaties is ontstaan ook buiten een relatie te bewerken valt, door de verhouding tot zichzelf te veranderen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een liefdesvrij perspectief</h3>
+      <p>Het eerste deel dient om te zien wat er speelt voordat er iets aan gedaan wordt. De opdrachten gaan over terugkerende patronen in de eigen relatiegeschiedenis: wie werd er aangetrokken, op welk moment sloeg het om, wat werd er telkens weggegeven of juist afgehouden.</p>
+      <p>Cuppen introduceert hier haar begrip liefdespotentieel: het vermogen tot liefhebben dat volgens haar bij iedereen aanwezig is en dat door angst wordt afgeschermd. Het uitgangspunt van het hele werkboek is dat er niets aangeleerd hoeft te worden dat er niet is, maar dat er iets weggehaald moet worden dat ervoor staat.</p>
+      <h3>De liefdesbange dans doorbreken</h3>
+      <p>Het tweede deel neemt de kern van <i>Liefdesbang</i> als werkmateriaal: het samenspel waarin de een toenadering zoekt en de ander afstand neemt, en waarin beide bewegingen elkaar versterken. De opdrachten vragen om dat samenspel in de eigen relaties in kaart te brengen, met de aanleidingen en de volgorde erbij.</p>
+      <p>Cuppen behandelt hier ook afhankelijkheid: het verschil tussen behoefte aan de ander en het niet zonder kunnen. Zij laat de lezer benoemen welk gedrag het patroon in stand houdt aan de eigen kant, wat de moeilijkste opdracht van dit deel is, omdat de neiging is om bij de ander te beginnen.</p>
+      <h3>Van overleven naar leven</h3>
+      <p>Dit deel gaat over wat Cuppen liefdesstress noemt: de lichamelijke en emotionele staat waarin iemand verkeert zodra het patroon actief is. Er komen oefeningen aan te pas die naar het lichaam wijzen, ademhaling en het opmerken van spanning, en meditaties die de heftigheid moeten laten zakken voordat er verder gewerkt wordt.</p>
+      <p>De onderliggende gedachte is dat werken aan een patroon geen zin heeft zolang iemand in overlevingsstand staat, omdat er dan geen ruimte is om iets nieuws te ervaren. Cuppen noemt dat de helende beweging en beschrijft die als een omkering: van weg van de pijn naar er even bij blijven.</p>
+      <h3>Verbinden en loslaten</h3>
+      <p>Twee delen behandelen de twee kanten van het patroon apart. Het eerste gaat over verbinden: contactvaardigheden, het herkennen van het eigen hechtingspatroon, en het stellen van grenzen zonder de ander weg te duwen. Cuppen werkt hier met concrete gespreksituaties en met de vraag wat er in het lichaam gebeurt op het moment dat nabijheid ontstaat.</p>
+      <p>Het tweede gaat over loslaten en is gericht op verlatingsangst. De stappen lopen van het herkennen van de aanleiding, via het voelen van de oude pijn die eronder zit, naar het onderscheiden van heden en verleden. Cuppen werkt hier met visualisaties waarin de lezer zich tot het kind verhoudt dat de ervaring ooit opdeed.</p>
+      <h3>Jezelf ophalen</h3>
+      <p>Het zesde deel gaat over eigenwaarde en zelfliefde. Het gaat volgens Cuppen om het terugnemen van wat aan anderen is uitbesteed: de bevestiging, de beoordeling, het gevoel te bestaan. De opdrachten vragen om te benoemen welke oordelen van anderen zijn overgenomen en wanneer die voor het eerst zijn gehoord.</p>
+      <p>Zij besteedt hier aandacht aan de valkuil dat zelfliefde als prestatie wordt opgevat, waarbij iemand zichzelf gaat afrekenen op de mate waarin hij goed voor zichzelf zorgt. Dat is volgens Cuppen hetzelfde mechanisme in een ander jasje.</p>
+      <h3>Liefdeskunst</h3>
+      <p>Het laatste deel voegt de eerdere delen samen. Cuppen onderscheidt daarbij een verticale verbinding, die met zichzelf en met wat zij het grotere geheel noemt, en een horizontale, die met een partner en met anderen. Haar stelling is dat de horizontale verbinding alleen draagt wanneer de verticale er is.</p>
+      <p>Het slot gaat over overgave, waarmee Cuppen niet berusting bedoelt maar het opgeven van de poging om de uitkomst van een relatie te beheersen. Dat is de moeilijkste stap in haar reeks en tegelijk de minst uitgewerkte in opdrachten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Liefdesbange dans</td><td>Het samenspel waarin de een toenadering zoekt en de ander afstand neemt, zodat beide bewegingen elkaar versterken en de afstand gelijk blijft.</td></tr>
+          <tr><td class="term">Liefdespotentieel</td><td>Het vermogen tot liefhebben dat volgens Cuppen bij iedereen aanwezig is en door angst wordt afgeschermd.</td></tr>
+          <tr><td class="term">Liefdesstress</td><td>De lichamelijke en emotionele alarmstand die optreedt zodra het angstpatroon in een relatie geraakt wordt.</td></tr>
+          <tr><td class="term">De helende beweging</td><td>Het omkeren van de gewoonte om weg te gaan bij pijn, naar er kort bij blijven zonder er iets aan te doen.</td></tr>
+          <tr><td class="term">Verticale en horizontale verbinding</td><td>De verbinding met zichzelf en het grotere geheel tegenover die met een partner en met anderen; de tweede draagt volgens Cuppen alleen als de eerste er is.</td></tr>
+          <tr><td class="term">Overgave</td><td>Het loslaten van de poging om de afloop van een relatie te sturen, uitdrukkelijk niet bedoeld als berusting.</td></tr>
+          <tr><td class="term">Het innerlijke kind</td><td>De aanduiding voor de kant van iemand die de vroege ervaring opdeed en waarmee in de visualisaties contact wordt gezocht.</td></tr>
+          <tr><td class="term">Grenzen stellen</td><td>Aangeven wat wel en niet gaat zonder daarmee het contact te verbreken, in het werkboek als afzonderlijke vaardigheid geoefend.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als werkboek verantwoordt <i>Liefdeskunst</i> zich vooral door bruikbaarheid. De opdrachten zijn opgebouwd in een volgorde die van herkennen naar voelen naar handelen loopt, en lezers noemen in besprekingen juist die opbouw als de reden dat zij verder komen dan bij losse oefeningen. Er is een literatuuropgave opgenomen, wat in dit genre niet vanzelfsprekend is.</p>
+      <p>De inhoudelijke onderbouwing komt van elders. De begrippen over hechting, over het innerlijke kind en over lichaamsgerichte verwerking zijn gemeengoed in de therapeutische praktijk waarin Cuppen is opgeleid, maar het boek laat na te melden welke stromingen het gebruikt en hoe stevig het onderzoek daarachter is. Dat verschilt sterk: hechtingstheorie rust op decennia observatiestudies, werken met een innerlijk kind veel minder.</p>
+      <p>Wat er niet is, is enige aanwijzing dat het boek doet wat het wil. Er is geen groep gebruikers gevolgd, er zijn geen metingen voor en na, en er is geen vergelijking met mensen die het boek niet gebruikten. De enige beschikbare aanwijzingen zijn lezersoordelen, en die komen van mensen die het boek zelf kochten en uitwerkten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat het werkboek een zwaar onderwerp aan iemand zonder begeleiding overlaat. De opdrachten over verlatingsangst en over vroege ervaringen raken bij een deel van de lezers aan trauma, en Cuppen geeft wel aandacht aan het reguleren van spanning maar geen duidelijke ondergrens waarbij iemand beter kan stoppen en hulp kan zoeken. Bij een boek dat expliciet naar het gevoel toe wil werken is dat een gemis.</p>
+      <p>Inhoudelijk erft het de zwakte van <i>Liefdesbang</i>: de tweedeling verlatingsangst tegenover bindingsangst is helder maar grof. Onderzoek naar hechting onderscheidt meer patronen en beschrijft ze als variabel per relatie en per situatie. Wie zichzelf in het werkboek als het ene of het andere type gaat zien, kan daarmee eerder vastzitten dan opschieten.</p>
+      <p>De vorm heeft ook een prijs. Doordat het boek nauwelijks uitlegt en vooral vraagt, staat of valt de opbrengst met de eerlijkheid en de volharding van de gebruiker. Wie de vragen oppervlakkig invult, krijgt bevestiging van wat hij al dacht. Cuppen bouwt weinig in dat zulke antwoorden ontregelt.</p>
+      <p>Ten slotte is de reikwijdte beperkt tot de eigen binnenkant. Relaties lopen ook stuk op zaken die niets met angst te maken hebben: geldzorgen, ziekte, ontrouw, geweld, of eenvoudigweg te weinig overeenkomst. Het werkboek behandelt die niet, en de suggestie dat het patroon vanuit de eigen verhouding tot zichzelf op te lossen valt, legt daarmee veel bij een van de twee neer.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees <i>Liefdesbang</i> eerst; het werkboek herhaalt de uitleg niet en de opdrachten veronderstellen die kennis.</li>
+        <li>Werk de zeven delen in volgorde af en neem er weken per deel voor, in plaats van de opdrachten te selecteren die het minst ongemak geven.</li>
+        <li>Schrijf antwoorden op en bewaar ze, zodat de latere delen op de eerdere kunnen voortbouwen.</li>
+        <li>Spreek van tevoren af bij welk soort reactie het verstandiger is te stoppen en een therapeut te zoeken, en houd je daaraan.</li>
+        <li>Bespreek de bevindingen niet meteen als aanklacht met de partner; het boek is opgezet om eerst de eigen kant van het patroon aan te wijzen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Liefdeskunst. Het werkboek bij Liefdesbang</i>, uitgeverij AnkhHermes, Utrecht, eerste druk mei 2019, ISBN 9789020215564; het e-boek heeft ISBN 9789020215571. De opgaven over de omvang lopen uiteen: de bibliotheekcatalogus vermeldt 255 blz., de uitgever noemt op de boekpagina 144 blz. De redactie was in handen van Hester Bruning en er is een literatuuropgave opgenomen. Het boek is in het Nederlands geschreven en niet vertaald; van Cuppen verscheen wel <i>Liefdesbang</i> (2014) in het Engels als <i>Love Phobia</i>. Naast het werkboek biedt Cuppen een online training van zeven delen die dezelfde indeling volgt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vijf jaar na <i>Liefdesbang</i> leverde Cuppen het werkboek erbij. Haar eigen omschrijving van het verschil is kort: het eerste boek geeft bewustwording, dit boek moet die bewustwording met het gevoel verbinden. Waar <i>Liefdesbang</i> beschrijft hoe verlatingsangst en bindingsangst elkaar opzoeken, staat hier wat er te doen valt.</p><p>Het bestaat vrijwel geheel uit opdrachten, vragenreeksen, visualisaties en meditaties, verdeeld over zeven delen. Die lopen van het herkennen van het eigen liefdespatroon, via het doorbreken van de dans tussen twee angsten, naar hechting, grenzen, het helen van verlatingsangst en het herstel van eigenwaarde.</p><p>Cuppen raadt aan <i>Liefdesbang</i> eerst te lezen maar stelt het niet als voorwaarde. Het werkboek is bedoeld om er maanden mee bezig te zijn, alleen of naast begeleiding; wie het als leesboek doorneemt houdt er weinig aan over.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>werkboek</li><li>verlatingsangst</li><li>bindingsangst</li><li>hechting</li><li>oefeningen</li><li>meditatie</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1549"><a href="1549.html">Liefdesbang</a>. Het boek waar dit het werkboek bij is; de begrippen en de dans tussen de twee angsten worden daar uitgelegd en hier alleen bewerkt.</li>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller behandelen in <i>Attached</i> dezelfde hechtingspatronen, maar dan wel met verwijzing naar het onderzoek waarop de indeling rust.</li>
+          <li value="1745"><a href="1745.html">Hold Me Tight</a>. Sue Johnson biedt in <i>Houd me vast</i> een aanpak voor hetzelfde patroon die met de partner samen wordt uitgevoerd in plaats van alleen.</li>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff geeft in <i>Self-Compassion</i> oefeningen voor het deel over eigenwaarde en zelfliefde, met de meetgegevens erbij die Cuppen niet levert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

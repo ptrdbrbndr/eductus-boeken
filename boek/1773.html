@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tantra &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Den Boer en Van Wijngaarden vatten tantra op als een manier van leven waarin verlangen niet wordt bestreden en ook niet zonder meer wordt gevolgd, maar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1773">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1773 &middot; Filosofie en mystiek</p>
+    <h1>Tantra</h1>
+    <p class="lede">Jan den Boer en Caroline van Wijngaarden, 2004</p>
+    <p class="stats">
+      <span><b>1568</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1773"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Den Boer en Van Wijngaarden vatten tantra op als een manier van leven waarin verlangen niet wordt bestreden en ook niet zonder meer wordt gevolgd, maar wordt verbonden met meditatieve aandacht. Hun stelling is dat een liefdevolle verbinding tussen mensen geen kwestie is van geluk, karakter of de juiste partner, maar van vaardigheden die te oefenen zijn: aandacht richten, het eigen lichaam voelen, oordelen herkennen en laten liggen, en het verlangen van de ander verdragen zonder het onmiddellijk in te vullen of over te nemen. Daaruit volgt hun verklaring voor vastgelopen relaties: er is niet te weinig liefde, er is te weinig geoefend. Het boek zet zich daarbij tegen twee lezingen af, die waarin tantra samenvalt met seksuele techniek en die waarin het een leer zonder lichaam is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Tantra als het geheim van de liefde</h3>
+      <p>Het eerste deel legt uit wat de auteurs onder tantra verstaan. Zij plaatsen het niet in de sfeer van geloof of leerstelling maar in die van de dagelijkse omgang: hoe iemand kijkt, ademt, aanraakt en luistert. Meditatie is daarbij geen aparte bezigheid voor op een kussen maar de aandacht waarmee de rest wordt gedaan.</p>
+      <p>In deze opzet is de liefdesrelatie de plek waar die aandacht het snelst wegvalt, omdat gewoonte, verwachting en oud zeer het waarnemen overnemen. Het geheim waarnaar de ondertitel verwijst is dan ook geen verborgen kennis maar een houding die door herhaling wordt opgebouwd.</p>
+      <h3>Genieten van verlangen</h3>
+      <p>Het tweede deel gaat over lust en opwinding. De gangbare omgang daarmee loopt volgens de auteurs op twee manieren mis: door het verlangen te onderdrukken uit schaamte, of door het zo snel mogelijk af te wikkelen in een handeling met een doel. Beide halen de aandacht uit het lichaam weg.</p>
+      <p>Daartegenover stellen zij een tragere omgang, waarin opwinding mag stijgen en dalen zonder dat er iets bereikt hoeft te worden. Seksualiteit krijgt in dat kader de plaats van een oefening in aanwezig blijven. De praktische aanwijzingen in dit deel gaan over ademhaling, tempo, aanraking en het benoemen van wat er gebeurt.</p>
+      <h3>Tantrische ethiek</h3>
+      <p>Het derde deel behandelt de vraag waar de grenzen liggen. De auteurs koppelen tantra aan afspraken, aan toestemming die telkens opnieuw wordt gegeven en aan de verantwoordelijkheid van wie een oefening begeleidt. Zij weten dat het onderwerp misbruikt wordt en zeggen dat ook.</p>
+      <p>Daarbij hoort hun standpunt over oordelen. Een oordeel over de ander of over zichzelf is in hun uitleg geen morele fout maar een gewoonte van het denken, die pas schade doet wanneer zij onbesproken blijft. De oefening bestaat uit het opmerken en benoemen ervan.</p>
+      <h3>Klassieke tantra en wetenschap</h3>
+      <p>Het vierde deel legt de verbinding met twee gezagsbronnen tegelijk. Aan de ene kant de klassieke, vooral boeddhistische tantra met haar meditaties, mantra's en voorstellingen; aan de andere kant hedendaags onderzoek naar meditatie, aandacht en hechting.</p>
+      <p>De auteurs gebruiken die twee om aannemelijk te maken dat hun oefeningen geen verzinsel van deze tijd zijn en dat er inmiddels ook buiten de traditie iets over te zeggen valt. De opzet blijft daarbij die van een handboek: bevindingen worden kort weergegeven, met een literatuurlijst achterin en zonder verantwoording per bewering.</p>
+      <h3>De oefeningen en de eigen verhalen</h3>
+      <p>Door het hele boek staan oefeningen die uit de training komen: alleen te doen, met een partner, of in een groep. Zij zijn stap voor stap beschreven en meestal kort, met aanwijzingen over houding, ademhaling, oogcontact en de nabespreking.</p>
+      <p>Daarnaast vertellen Den Boer en Van Wijngaarden over hun eigen relatie en over wat er in hun trainingen gebeurt. Die stukken doen het werk van het bewijsmateriaal in dit boek: zij laten zien dat de auteurs zelf doen wat zij voorstellen, en zij dienen tegelijk als voorbeeld waarin de lezer zich kan herkennen.</p>
+      <h3>Wat er in de latere drukken bij kwam</h3>
+      <p>Het boek is sinds 2004 meermalen bewerkt. De auteurs spreken van vijfentwintig jaar training, studie en onderzoek waarin de opvattingen aan de praktijk zijn getoetst en bijgesteld; vanaf de zesde druk is er een vijfde deel toegevoegd en is de tekst opnieuw herzien.</p>
+      <p>Die geschiedenis verklaart de toon van het geheel. Het is geen boek dat zijn lezer overtuigen wil van een leerstelsel, maar het schriftelijke verslag van een oefenpraktijk die zichzelf gaandeweg heeft geordend, met de sterke en de zwakke kanten die daarbij horen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tantra</td><td>Bij deze auteurs een manier van leven waarin verlangen en meditatieve aandacht samengaan, en niet een leer of een verzameling seksuele technieken.</td></tr>
+          <tr><td class="term">Meditatieve aandacht</td><td>Aandacht die bij het lichaam en het huidige ogenblik blijft, ook tijdens opwinding, ruzie of gewone bezigheden.</td></tr>
+          <tr><td class="term">Verlangen</td><td>De beweging naar iets of iemand toe, in dit boek behandeld als brandstof die aandacht nodig heeft en geen vijand van een geestelijke weg.</td></tr>
+          <tr><td class="term">Verbinding</td><td>De ontmoeting waarin twee mensen elkaar waarnemen zonder elkaar in te vullen; het doel waarnaar alle oefeningen in het boek verwijzen.</td></tr>
+          <tr><td class="term">Oordeel</td><td>Een gewoonte van het denken die de waarneming van de ander vervangt door een vaststaand beeld en die volgens de auteurs opgemerkt en benoemd moet worden.</td></tr>
+          <tr><td class="term">Tantrische ethiek</td><td>Het geheel van afspraken, toestemming en verantwoordelijkheid dat de auteurs om de oefeningen heen leggen, in het bijzonder waar aanraking in het spel is.</td></tr>
+          <tr><td class="term">Klassieke tantra</td><td>De Indiase en Tibetaans-boeddhistische traditie waarnaar het boek verwijst voor zijn herkomst, met meditatie, mantra en visualisatie als kern.</td></tr>
+          <tr><td class="term">Oefening</td><td>De vaste bouwsteen van het boek: een korte, beschreven handeling die alleen of met een ander wordt gedaan en die daarna wordt nabesproken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De grond onder dit boek is een oefenpraktijk, geen onderzoek. Jan den Boer geeft sinds 1994 trainingen, samen met Caroline van Wijngaarden sinds 2008, en zij organiseren sinds 2004 jaarlijks een tantrafestival met tientallen workshops en enkele honderden bezoekers. Wat in het boek staat is in die jaren voorgelegd aan veel deelnemers en op grond van hun reacties bijgesteld. Dat is een serieuze vorm van beproeving en tegelijk een vorm zonder controlegroep, zonder meting vooraf en achteraf, en zonder deelnemers die zijn afgehaakt.</p>
+      <p>De verwijzing naar de klassieke tantra doet in het boek het werk van een stamboom. De boeddhistische traditie waarnaar de auteurs wijzen bestaat en is goed gedocumenteerd, maar de stap van die teksten naar de oefeningen in dit boek wordt niet tekst voor tekst verantwoord.</p>
+      <p>Het deel over wetenschap vat bevindingen samen over meditatie, aandacht en hechting. Welke onderzoeken dat precies zijn, moet de lezer uit de literatuurlijst opmaken; in de lopende tekst staan de uitkomsten zonder opgave van opzet, aantallen of herhaalbaarheid, zodat niet na te gaan valt hoe stevig zij zijn. Voor het onderdeel meditatie geldt dat het onderzoeksveld de laatste jaren zelf voorzichtiger is geworden over de omvang van de gevonden effecten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de herkomst. Wat in het Westen sinds de vorige eeuw tantra heet, is grotendeels een eigen ontwikkeling, die via John Woodroffe, Pierre Bernard, Osho en Margot Anand zich vooral op paren, intimiteit en seksualiteit is gaan richten. Godsdienstwetenschappers als Hugh Urban en David Gordon White hebben laten zien dat de Indiase en Tibetaanse tantra in de eerste plaats bestaat uit ritueel, mantra, visualisatie en inwijding, en dat de seksuele riten die er voorkomen aan geheimhouding en aan een leraar gebonden waren en niet aan het onderhoud van een liefdesrelatie. Een boek dat zijn oefeningen aan die traditie verbindt, neemt daarmee meer gezag over dan de vergelijking draagt.</p>
+      <p>Over de uitwerking zegt het boek niets dat gecontroleerd is. Of paren die deze oefeningen doen na een jaar meer tevreden zijn dan paren die iets anders deden, is niet gemeten. De verhalen in het boek komen van de auteurs zelf en van deelnemers die tevreden genoeg waren om te blijven.</p>
+      <p>Het boek hoort bij een bedrijf. Het beschrijft de training die de auteurs verkopen, en verwijst naar hun festival en hun begeleiding. Dat maakt de inhoud niet onwaar, maar het betekent wel dat de lezer nergens een oordeel tegenkomt dat tegen de eigen praktijk in gaat.</p>
+      <p>Ten slotte de veiligheid. Oefeningen met aanraking, ontkleding en intimiteit stellen eisen aan toestemming, aan het vermogen om te stoppen en aan toezicht op wie ze begeleidt. De auteurs besteden er een deel aan, en toch kan een boek die voorwaarden bij een lezer thuis niet regelen. In de bredere Nederlandse tantrawereld, die geen beroepsregister en geen tuchtrecht kent, zijn de laatste jaren herhaaldelijk klachten over grensoverschrijding naar buiten gekomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe de oefeningen in de volgorde van het boek en sla het deel over ethiek niet over; daar staan de afspraken die de rest hanteerbaar maken.</li>
+        <li>Spreek voor een oefening met een partner af wanneer en hoe er gestopt wordt, en houd je daaraan zonder uitleg te vragen.</li>
+        <li>Bespreek na elke oefening wat er gebeurde, in gewone woorden en zonder er een oordeel aan vast te knopen.</li>
+        <li>Lees het deel over wetenschap als een uitnodiging om de literatuurlijst zelf na te lopen, en niet als bewijs voor de werking van de oefeningen.</li>
+        <li>Ga bij een training of festival na wie de begeleiding doet, welke opleiding daarachter zit en waar een klacht terechtkomt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>Het geheim van de liefde</i>, verschenen bij uitgeverij De Driehoek (Milinda Uitgevers), eerste druk 2004. Het boek is meermalen herzien en uitgebreid: de zesde, herziene druk kwam eind december 2023 uit (192 blz., ISBN 9789060307823) en bevat een nieuw vijfde deel; eind 2025 volgde een zevende druk. Een eerdere gebonden uitgave verscheen in 2019 onder ISBN 9789060307670 (206 blz., met literatuurlijst). Er bestaat geen vertaling; Den Boer publiceerde eerder ook <i>Het is tijd voor een liefdesrevolutie</i> (2007). Beide auteurs geven sinds jaren tantratrainingen in Nederland, Jan den Boer sinds 1994 en samen met Van Wijngaarden sinds 2008.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Twee Nederlandse tantratrainers zetten in dit boek hun hele training op papier: de opvatting waarop zij werken, de achtergronden die zij daarbij geven, en de oefeningen die zij hun deelnemers laten doen. Het is bedoeld als praktisch boek, niet als studie.</p><p>De kern van hun opvatting is dat verlangen en meditatieve aandacht bij elkaar horen. Wie zijn verlangen wegdrukt, verliest zijn levendigheid; wie het alleen volgt, komt in dwang terecht. Tantra is in hun uitleg de oefening waarin die twee samengaan, in seksualiteit en evengoed in een gesprek aan tafel.</p><p>Het boek bestaat uit delen over de liefde, over verlangen, over tantrische ethiek en over de verhouding tussen klassieke tantra en wetenschappelijk onderzoek. Tussendoor staan oefeningen en eigen verhalen van de auteurs. Vanaf de zesde druk is er een deel bijgekomen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>tantra</li><li>neotantra</li><li>relaties</li><li>seksualiteit</li><li>meditatie</li><li>oefeningen</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1717"><a href="1717.html">Tantra: The Supreme Understanding</a>. Osho behandelt hetzelfde onderwerp als spreker en zonder oefenschema; veel van wat in Nederland tantra heet, komt via zijn beweging binnen.</li>
+          <li value="1103"><a href="1103.html">Tantraloka</a>. De Tantraloka laat zien hoe de klassieke tantra er van binnenuit uitziet, en hoe ver een hedendaags oefenboek daarvan af staat.</li>
+          <li value="1548"><a href="1548.html">De waarheid over seks</a>. Laan en Van Lunsen behandelen dezelfde vragen over opwinding en verlangen vanuit onderzoek, en geven het tegenwicht dat dit boek niet levert.</li>
+          <li value="1775"><a href="1775.html">Introduction to Tantra</a>. Lama Yeshe legt uit wat de boeddhistische tantra zelf onder verlangen verstaat, en waarom die traditie de seksuele lezing juist afwijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

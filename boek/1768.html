@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eenvoudiger leven &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Verhees stelt dat de onrust die mensen ervaren minder te maken heeft met wat hen overkomt dan met de stand van tien innerlijke instellingen, en dat die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1768">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1768 &middot; Levenskunst</p>
+    <h1>Eenvoudiger leven</h1>
+    <p class="lede">Mark Verhees, 2020</p>
+    <p class="stats">
+      <span><b>1545</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1768"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Verhees stelt dat de onrust die mensen ervaren minder te maken heeft met wat hen overkomt dan met de stand van tien innerlijke instellingen, en dat die stand door de lezer zelf te verzetten is. Wie ziet waar zijn energie weglekt, kan per gebied een schuifregelaar verplaatsen: van angst naar vertrouwen, van piekeren naar rust, van vergelijken naar waarderen. Het leven wordt in die redenering eenvoudiger doordat er minder aan de gebeurtenissen wordt toegevoegd door het eigen denken, niet doordat er minder gebeurt. Dat is een stelling met een prijs: zij legt de verantwoordelijkheid voor de ervaren rust vrijwel geheel bij de persoon zelf en laat weinig ruimte voor omstandigheden waar iemand niets aan kan veranderen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Verhees is geen psycholoog en presenteert zich ook niet zo. Hij begon in 2011 met korte positieve berichten, richtte in 2012 Voor Positiviteit op en verkoopt sindsdien spreuken, kalenders, trainingen en online programma's. Het boek is in eigen beheer uitgegeven onder de eigen bedrijfsnaam en is daarmee zowel het werk van een schrijver als het middenstuk van een groter aanbod.</p>
+      <p>Het verscheen medio mei 2020. De ondertitel over onrustige tijden en de opzet rond angst, onzekerheid en stress sluiten aan bij het moment waarop het uitkwam, al is de inhoud algemeen gehouden en niet aan een gebeurtenis opgehangen.</p>
+      <h3>De tien gelukzones</h3>
+      <p>De kern van het boek zijn tien zones, die elk een hoofdstuk krijgen en elk als een persoonstype zijn benoemd. De zelfverzekerde overwinnaar staat tegenover onzekerheid en twijfel, de vrije dromer tegenover de neiging het eigen verlangen weg te redeneren, het stralende middelpunt tegenover de angst om gezien te worden, de relaxte verlosser tegenover de drang om alles voor anderen op te lossen.</p>
+      <p>Daarna volgen de begripvolle veranderaar, die over tegenslag en verandering gaat, de haarscherpe verbeteraar, die zich op kritiek richt, de levendige optimist, die zich op somberheid richt, de waarderende verbinder, die over vergelijken en jaloezie gaat, de geduldige uitblinker, die over ongeduld en prestatiedrang gaat, en de gelukzalige ontdekkingsreiziger, die over het zoeken zelf gaat.</p>
+      <p>De tien zones vormen geen opklimmende reeks. Ze staan naast elkaar, zodat een lezer kan beginnen bij het hoofdstuk dat op hem van toepassing is. Dat maakt het boek bruikbaar om in te bladeren en tegelijk herhalend, omdat elk hoofdstuk dezelfde beweging maakt.</p>
+      <h3>De schuifregelaar</h3>
+      <p>De schuifregelaar is het beeld dat het boek bij elkaar houdt. Bij elke zone hoort een schuif die tussen twee uitersten kan staan: geheel aan de kant van de angst, de zorg of de vergelijking, of geheel aan de kant van het vertrouwen, de rust of de waardering. Verhees vraagt de lezer telkens eerst vast te stellen waar die schuif op dit moment staat.</p>
+      <p>De tweede stap is de vraag waar de energie weglekt. Dat is in het boek geen beeld voor vermoeidheid alleen, maar voor aandacht die aan het verkeerde wordt besteed: aan meningen van anderen, aan wat nog niet gebeurd is, aan vergelijken. De derde stap is de kleine verschuiving. Verhees zoekt uitdrukkelijk geen ommekeer, maar een schuif die een stukje opschuift en daar blijft.</p>
+      <h3>Toon en vorm</h3>
+      <p>Het boek is geschreven in korte stukken met veel wit, in de eerste persoon en met eigen voorbeelden. De schrijver stelt zich niet voor als iemand die het opgelost heeft; twijfel, tegenslag en terugval komen in de voorbeelden terug. Lezers die het boek positief bespreken, noemen die openheid het sterkste deel.</p>
+      <p>Elk hoofdstuk sluit af met een gekleurd kader waarin de kern in enkele regels staat. Bij 320 bladzijden en tien hoofdstukken komt dat neer op ongeveer dertig bladzijden per zone, wat ruimte laat voor verhalen en het aantal echte aanwijzingen per hoofdstuk beperkt houdt.</p>
+      <h3>Wat het boek van de lezer vraagt</h3>
+      <p>De opdracht die in alle hoofdstukken terugkeert is dezelfde: kijk waar de schuif staat, benoem de gedachte die hem daar houdt, en verzet hem. Verhees behandelt gedachten als iets waarover iemand zeggenschap heeft, en gevoelens als iets wat daarop volgt.</p>
+      <p>Daarmee staat het boek in de lijn van het populaire deel van de cognitieve gedragsleer en van de positieve psychologie, zonder dat het die kaders benoemt of naar onderzoek verwijst. De lezer wordt gevraagd de aanpak aan te nemen op grond van herkenning in de verhalen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gelukzone</td><td>Een van de tien innerlijke gebieden die Verhees onderscheidt, elk benoemd als een persoonstype en elk met een eigen hoofdstuk.</td></tr>
+          <tr><td class="term">Schuifregelaar</td><td>Het beeld waarmee Verhees elke zone weergeeft als een schuif tussen twee uitersten, waarvan de stand door de lezer zelf te verplaatsen is.</td></tr>
+          <tr><td class="term">Energielek</td><td>De plek waar aandacht en energie volgens Verhees verloren gaan, meestal aan vergelijken, piekeren of het oordeel van anderen.</td></tr>
+          <tr><td class="term">Onrustige tijden</td><td>De aanduiding uit de ondertitel voor omstandigheden die de lezer niet in de hand heeft, en die in het boek als gegeven worden behandeld.</td></tr>
+          <tr><td class="term">De relaxte verlosser</td><td>De zone die gaat over de neiging de problemen van anderen op zich te nemen, en over het loslaten daarvan.</td></tr>
+          <tr><td class="term">De haarscherpe verbeteraar</td><td>De zone die over kritiek gaat: hoe die aankomt, wat eruit te halen valt en wat ervan terzijde gelegd kan worden.</td></tr>
+          <tr><td class="term">De waarderende verbinder</td><td>De zone die gaat over vergelijken met anderen en over het vervangen daarvan door waardering voor wat er is.</td></tr>
+          <tr><td class="term">Het gekleurde kader</td><td>Het blok aan het einde van elk hoofdstuk waarin de kern in enkele regels staat, bedoeld om later terug te bladeren zonder het hoofdstuk opnieuw te lezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. De onderbouwing bestaat uit eigen ervaring, voorbeelden uit het leven van de schrijver en reacties van volgers van zijn platform. Wie wil weten waarom een schuifregelaar zou werken, vindt geen verwijzing naar een studie, een meting of een tegenproef. Verhees presenteert het ook niet als wetenschap; hij noemt het een eerlijk en open verhaal.</p>
+      <p>Het idee erachter is wel verwant aan iets waarvoor onderzoek bestaat. Dat de waardering van een gebeurtenis het gevoel erover mede bepaalt, is het uitgangspunt van de cognitieve gedragstherapie, die bij angst- en stemmingsklachten in herhaald onderzoek effect laat zien. Wat daar werkt is echter een behandeling met een behandelaar, huiswerk en meting over weken, en niet het lezen van een hoofdstuk.</p>
+      <p>Van de bredere positieve psychologie is een deel van de vroege beweringen later afgezwakt. Het bekendste geval is de positiviteitsverhouding van Barbara Fredrickson en Marcial Losada uit 2005, in 2013 door Nicholas Brown, Alan Sokal en Harris Friedman als wiskundig onhoudbaar aangetoond, waarna het wiskundige deel van dat artikel werd ingetrokken. Dat zegt niets over dit boek, dat die verhouding niet gebruikt, maar wel iets over de vloer waarop het genre staat.</p>
+      <p>Wat wel te controleren valt, is het bereik. Het platform van Verhees heeft een groot publiek en het boek werd door de uitgever als bestseller aangeprezen. Op Hebban staat het gemiddelde na tientallen beoordelingen rond de drie uit vijf, wat lager is dan bij vergelijkbare titels in dit genre gebruikelijk is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de aanwijzingen blijven steken bij wat er moet gebeuren. Meerdere lezers die het boek positief bespreken, komen op hetzelfde punt uit: er staat wel dat de schuif verzet kan worden, maar zelden hoe dat gaat bij iemand voor wie het niet vanzelf lukt. Wie een stappenplan zoekt, vindt verhalen.</p>
+      <p>Het uitgangspunt legt de last bij de lezer. Als onrust vooral uit de eigen gedachten voortkomt, dan is aanhoudende onrust ook de eigen verantwoordelijkheid. Bij geldzorgen, rouw, ziekte, discriminatie of een onhoudbare werkdruk klopt dat niet, en het boek maakt weinig onderscheid tussen wat iemand kan verzetten en wat niet.</p>
+      <p>Er is geen verwijzing naar bronnen, geen literatuuropgave en geen aanduiding waar de aanpak vandaan komt. Dat maakt het onmogelijk te toetsen wat er beweerd wordt, en het maakt het boek moeilijk te onderscheiden van de tientallen Nederlandse titels die in dezelfde jaren met een vergelijkbare belofte verschenen.</p>
+      <p>Ten slotte staat het boek niet los van de handel eromheen. Het is uitgegeven door het bedrijf van de schrijver en verwijst naar diens trainingen en programma's. Dat maakt het niet onwaar, maar het betekent wel dat de schrijver zelf belang heeft bij de gedachte dat er nog iets bij nodig is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies een hoofdstuk op onderwerp en lees het boek niet van voren naar achteren; de tien zones staan naast elkaar.</li>
+        <li>Noteer per zone waar de schuif nu staat en waar hij over drie maanden zou moeten staan, en zet er een datum bij.</li>
+        <li>Schrijf op waar in een gewone werkweek de aandacht weglekt, en meet dat een week lang in plaats van het te schatten.</li>
+        <li>Lees eerst de gekleurde kaders als u wilt weten of het boek iets te bieden heeft; ze geven de kern van elk hoofdstuk.</li>
+        <li>Zoek bij aanhoudende klachten over angst, somberheid of uitputting een behandeling waarvan het effect gemeten is, en gebruik dit boek daar hoogstens naast.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig werk, verschenen als <i>Eenvoudiger leven in onrustige tijden. 10 gelukzones in jezelf</i> in eigen beheer bij Voor Positiviteit B.V., mei 2020 (320 blz., ISBN 9789082904871; e-boek ISBN 9789082904888). Er bestaat geen vertaling; het boek wordt vrijwel alleen via de Nederlandse boekhandel en het eigen platform van de auteur verkocht. Van Verhees verscheen eerder <i>De Vibe</i>, en later onder meer <i>100 spreuken die je leven verrijken</i> (2024), naast scheurkalenders en online programma's onder dezelfde naam.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mark Verhees begon in 2011 met het dagelijks plaatsen van positieve berichten op sociale media en bouwde daar het platform Voor Positiviteit omheen, dat volgens de uitgever meer dan zeshonderdduizend volgers heeft. <i>Eenvoudiger leven</i> is zijn tweede boek en verscheen in mei 2020 in eigen beheer.</p><p>Het boek is opgezet rond tien gelukzones: de zelfverzekerde overwinnaar, de vrije dromer, het stralende middelpunt, de relaxte verlosser, de begripvolle veranderaar, de haarscherpe verbeteraar, de levendige optimist, de waarderende verbinder, de geduldige uitblinker en de gelukzalige ontdekkingsreiziger. Elk hoofdstuk zet een bron van onrust tegenover de zone die daar volgens Verhees tegenover staat.</p><p>De terugkerende beeldspraak is die van schuifregelaars. De lezer stelt per zone vast waar de schuif nu staat, waar zijn energie weglekt en welke kant het op kan. Elk hoofdstuk eindigt met een gekleurd kader waarin de kern van dat hoofdstuk nog eens staat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>positieve psychologie</li><li>rust</li><li>stress</li><li>zelfvertrouwen</li><li>Nederlands</li><li>eigen beheer</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1643"><a href="1643.html">100 spreuken die je leven verrijken</a>. Het latere spreukenboek van dezelfde schrijver laat zien waar dit werk vandaan komt: korte regels voor dagelijks gebruik, zonder betoog.</li>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Peale schreef in 1952 het boek waar dit genre op teruggaat, met dezelfde stelling dat de gedachte de ervaring bepaalt en dezelfde afwezigheid van onderzoek.</li>
+          <li value="1769"><a href="1769.html">Zelfverwoestingsboek</a>. Donner voert het tegenovergestelde aan: dat het aanhoudend werken aan jezelf de klacht veroorzaakt in plaats van verhelpt.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman behandelt dezelfde onrust, maar vertrekt vanuit de grens van wat een mens in een leven kan doen in plaats van vanuit wat er nog bij te stellen valt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

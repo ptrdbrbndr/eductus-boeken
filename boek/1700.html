@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De volmaakte ketter &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De roman zet de scheidslijn tussen rechtgelovig en ketters neer als een lijn die door macht is getrokken en niet door overtuiging. Amaury de Poissy gaat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1700">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1700 &middot; Roman en memoir</p>
+    <h1>De volmaakte ketter</h1>
+    <p class="lede">Hanny Alders, 1999</p>
+    <p class="stats">
+      <span><b>1591</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1700"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De roman zet de scheidslijn tussen rechtgelovig en ketters neer als een lijn die door macht is getrokken en niet door overtuiging. Amaury de Poissy gaat op kruistocht met dezelfde vanzelfsprekendheid waarmee zijn broers gaan, en treft aan de andere kant een geloof aan dat armer, strenger en in de dagelijkse omgang fatsoenlijker is dan het zijne. Alders laat hem daarmee geen nieuwe kerk kiezen; zij laat hem zijn houvast kwijtraken. De stelling die het boek verdedigt is dat wie eenmaal aan beide zijden heeft gestaan nergens meer helemaal thuishoort, en dat de oorlog in de Languedoc niet ging over de vraag wat waar was maar over de vraag wie dat mocht uitmaken.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Vier mannen uit het noorden</h3>
+      <p>Het boek begint in de jaren voor de oorlog, bij een familie uit de omgeving van Parijs en een jongste zoon die vroeg zijn vrouw verliest. Als de paus in 1209 een kruistocht afkondigt tegen de ketters in het zuiden, met dezelfde aflaat als voor een tocht naar het Heilige Land en met een dienstplicht van veertig dagen, gaan drie broers en een neef mee. Voor de meesten is dat een korte veldtocht dicht bij huis met uitzicht op land.</p>
+      <p>De eerste maanden zijn dan ook een strafexpeditie. Béziers wordt in juli 1209 ingenomen en de bevolking wordt afgemaakt zonder dat er onderscheid is gemaakt tussen gelovigen en ketters; Carcassonne geeft zich een maand later over. Alders houdt zich hier aan het bekende verloop en laat de familie Poissy erin meelopen, met de nuchterheid van mannen die vinden dat zij hun plicht doen.</p>
+      <h3>Aan de verkeerde kant wakker worden</h3>
+      <p>Amaury raakt zwaargewond en wordt verzorgd door de mensen tegen wie hij was uitgetrokken. Dat is het scharnier van het boek: hij ligt weken tussen ketters en merkt dat zij hem niet doden, niet bestelen en niet bekeren. Hij ontmoet Colomba, een jonge vrouw die tot de aanhang van de goede mensen behoort en die hem stuk voor stuk vertelt wat er in haar geloof wel en niet staat.</p>
+      <p>Rond dat verblijf bouwt Alders de intrige. Er is een raadselachtige Fries die op de beslissende momenten opduikt en helpt ontkomen, er zijn familieleden die Amaury dood wanen en er is de dreiging dat hij als afvallige wordt herkend. Vanaf dat moment vecht hij mee met de zuiderlingen, zonder ooit te kunnen zeggen dat hij van geloof is veranderd.</p>
+      <h3>Wat de goede mensen geloven</h3>
+      <p>De leer komt het boek binnen in gesprekken. Er zijn twee scheppende beginselen, een goed en een kwaad, en de zichtbare wereld hoort bij het tweede; de ziel zit daarin gevangen. Er zijn geen kerkgebouwen, geen beelden, geen doop met water en geen mis. Er is een enkele handoplegging, het consolamentum, die iemand tot volmaakte maakt en hem bindt aan een leven zonder vlees, zonder eed, zonder bezit en zonder doden.</p>
+      <p>Alders laat daarbij het onderscheid staan dat de bronnen ook maken. De volmaakten zijn een kleine groep die rondtrekt en van wie iedereen weet wie zij zijn; de gelovigen zijn de gewone dorpelingen en edelen die hen onderhouden, verbergen en meestal pas op hun sterfbed om het consolamentum vragen. Dat verklaart in de roman waarom een hele streek een geloof kon dekken dat maar weinigen in strikte zin naleefden.</p>
+      <h3>Van veldtocht naar bezetting</h3>
+      <p>De veertig dagen lopen af en de oorlog niet. Simon de Montfort blijft en verovert kasteel na kasteel; in 1213 wordt bij Muret een leger uit Aragon en Toulouse verslagen en sneuvelt koning Peter II; Montfort zelf komt in 1218 bij het beleg van Toulouse om. Wat als geloofszaak begon eindigt in 1229 in een verdrag waarbij het zuiden aan de Franse kroon komt.</p>
+      <p>Daarna verschuift het boek van veldslag naar rechtszaak. Vanaf 1233 gaan gezanten van de paus, meest dominicanen, dorp voor dorp langs om iedereen boven een bepaalde leeftijd te ondervragen over wie hij een volmaakte heeft zien groeten, voeden of onderdak geven. Alders laat zien wat dat met een streek doet: niet de brandstapel breekt het verzet, maar de wetenschap dat de buurman al is verhoord.</p>
+      <h3>Montségur</h3>
+      <p>Het laatste deel gaat naar de bergvesting in de Ariège waar de leiding van de kathaarse kerk zich had teruggetrokken. Het beleg duurt bijna een jaar. Na de overgave in maart 1244 worden ruim tweehonderd volmaakten aan de voet van de berg verbrand, onder wie mensen die in de laatste weken het consolamentum hadden gevraagd terwijl zij wisten wat dat betekende.</p>
+      <p>Alders schrijft die afloop zonder verheffing. De keuze om te branden wordt niet als heldendaad gebracht maar als sluitstuk van een leer die het lichaam toch al niet als eigendom beschouwde. Het is de plaats waar de titel zijn tweede betekenis krijgt: volmaakte is een ambtsnaam, en de man door wiens ogen de lezer kijkt zal het nooit worden.</p>
+      <h3>Wat het boek openlaat</h3>
+      <p>Het einde is met opzet niet dichtgetimmerd. Amaury en Colomba vinden elkaar, maar de roman zegt niet waar zij heen gaan of hoe lang het duurt, en dat past bij een geschiedenis waarin de vervolging na 1244 nog tachtig jaar doorging. Wat blijft staan is de vraag die het hele boek draagt en die Amaury nooit beantwoordt: of hij van de verkeerde kant is weggelopen of alleen van de kant die won.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Volmaakte</td><td>De aanduiding voor wie het consolamentum heeft ontvangen en daarna onder de kathaarse leefregels leeft; de betrokkenen zelf spraken liever van goede mannen en goede vrouwen.</td></tr>
+          <tr><td class="term">Consolamentum</td><td>De enige wijding die de katharen kenden, een handoplegging die de ziel uit de macht van de stoffelijke schepping haalde en die in nood ook aan een stervende werd gegeven.</td></tr>
+          <tr><td class="term">Gelovige</td><td>De gewone aanhanger die de volmaakten voedde en verborg zonder zelf aan hun regels gebonden te zijn, en die het consolamentum meestal pas op zijn sterfbed vroeg.</td></tr>
+          <tr><td class="term">Kruistocht tegen de Albigenzen</td><td>De veldtocht die in 1209 in de Languedoc begon en waarvoor deelnemers dezelfde aflaat kregen als voor een tocht naar Jeruzalem, tegen een dienstplicht van veertig dagen.</td></tr>
+          <tr><td class="term">Legaat</td><td>De pauselijke gezant met volmacht, in de roman degene die de oorlog aankondigt en in de praktijk bepaalt wie er ketter heet.</td></tr>
+          <tr><td class="term">Montségur</td><td>De bergvesting in de Ariège waar de laatste kathaarse leiding zat en die na een beleg van bijna een jaar in maart 1244 viel.</td></tr>
+          <tr><td class="term">Langue d'oc</td><td>Het zuiden waar oc ja betekende, met eigen recht, eigen dichtkunst en een adel die Rome op afstand hield.</td></tr>
+          <tr><td class="term">Ketter</td><td>Wie volgens de kerk met opzet van de kerkleer afweek; het woord bepaalde de rechtsgang, want alleen wie zo was aangemerkt kon aan de wereldlijke arm worden overgeleverd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Alders werkte lang aan haar boeken en bereidde ze voor met eigen onderzoek. Haar debuut <i>Non nobis</i> uit 1987 ging over de ondergang van de tempeliers en werd een verkoopsucces; over het gebied van de katharen schreef zij naast deze roman ook een reisboek. Het historische raamwerk van <i>De volmaakte ketter</i>, met de val van Béziers in 1209, de slag bij Muret in 1213, het verdrag van 1229, de ondervragingen vanaf 1233 en de val van Montségur in 1244, komt overeen met de gangbare weergave van die jaren.</p>
+      <p>Waar de roman verder gaat dan de bronnen toelaten, is bij de leer zelf. Vrijwel alles wat over het kathaarse geloof bekend is komt uit stukken van tegenstanders: verhoren van de inquisitie, weerleggingen door katholieke geestelijken en kroniekschrijvers die de oorlog rechtvaardigden. Er is maar een handvol teksten die uit de beweging zelf lijkt te komen. Een schrijver die een kathaarse vrouw haar geloof in haar eigen woorden laat uitleggen vult dus een gat dat een historicus niet kan vullen. Dat is het recht van een roman, maar het is wel de plaats waar de lezer het minste houvast heeft.</p>
+      <p>De liefdesgeschiedenis, de familie Poissy en de Fries zijn verzonnen; de belegeringen, de aflaat, de dienstplicht van veertig dagen en de brandstapel onder Montségur zijn dat niet. Alders houdt die twee lagen zichtbaar uit elkaar door haar hoofdpersoon nergens een beslissende rol te geven in gebeurtenissen waarvan de afloop vaststaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de verdeling van het fatsoen. De katharen in dit boek zijn vrijwel zonder uitzondering zachtmoedig, matig en eerlijk, de kruisvaarders vrijwel zonder uitzondering hebzuchtig of dom. Daarmee wordt de vraag die de roman zegt te stellen, hoe een gelovig mens in zo'n oorlog terechtkomt, van tevoren beantwoord. Amaury's geweten is bovendien dat van een lezer uit de twintigste eeuw: hij stelt vragen over verdraagzaamheid die in zijn eigen eeuw nauwelijks te formuleren waren.</p>
+      <p>Er is daarnaast een bezwaar dat de schrijfster niet valt aan te rekenen maar dat een lezer van nu moet weten. Sinds ongeveer 2000 betogen historici als Mark Gregory Pegg, R.I. Moore en Jean-Louis Biget dat de goed georganiseerde dualistische tegenkerk waarover deze roman beschikt grotendeels bestond in het hoofd van haar vervolgers, en dat de verhoren de leer aan de ondervraagden hebben opgedrongen. <i>De volmaakte ketter</i> verscheen in 1999 en rust volledig op het oudere beeld. Wie het nu leest, krijgt een reconstructie die omstreden is geworden.</p>
+      <p>Als roman is het boek aan de lange kant. Er volgen belegeringen op elkaar die zich in opzet herhalen, en de raadselachtige Fries lost op meerdere plaatsen een verhaaltechnisch probleem op dat de schrijfster zelf heeft gemaakt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledig <i>De volmaakte ketter: roman over de katharen</i>, verschenen bij Uitgeverij Conserve in Schoorl, 1999, 423 blz., onder meer ISBN 9789054291183; er kwam later een grootletteruitgave en een e-boek onder ISBN 9789493271593. Hanny Alders (Rotterdam, 1946; overleden in Schoorl op 22 juli 2010) debuteerde in 1987 met <i>Non nobis</i> over de ondergang van de tempeliers, dat de Gouden Ezelsoor voor het best verkochte literaire debuut kreeg. Zij schreef daarnaast de historische roman <i>Marcabru</i> over de gelijknamige troubadour en enkele reisboeken, waaronder er een over het gebied van de katharen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Als paus Innocentius III in 1209 oproept tot een kruistocht tegen de ketters in het zuiden van Frankrijk, trekken drie broers en een neef uit het geslacht Poissy mee. De jongste, Amaury, overleeft de eerste veldtocht ternauwernood en komt terecht tussen de mensen die hij kwam uitroeien. Daar leert hij Colomba kennen, een jonge kathaarse, die hem vertelt wat haar geloof inhoudt.</p><p>Wat volgt is een roman van ruim vierhonderd bladzijden waarin Amaury tussen twee kanten in blijft hangen. Hij vecht mee met de zuiderlingen, verliest zijn plaats in zijn eigen familie en houdt tegelijk zijn eigen doop. Alders laat de kathaarse leer uitleggen in gesprekken en niet in uitweidingen van de verteller: twee scheppende beginselen, een kerk zonder gebouwen, en een enkele wijding, het consolamentum, die iemand tot volmaakte maakt.</p><p>Het verhaal loopt van de winter van 1207 tot maart 1244, van de eerste preken van de pauselijke gezanten tot de brandstapel onder Montségur. Het slot is open gelaten: Amaury en Colomba vinden elkaar terug, maar wat er daarna van hen wordt staat er niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>katharen</li><li>albigenzenkruistocht</li><li>Languedoc</li><li>Montségur</li><li>geloofsvervolging</li><li>dertiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1702"><a href="1702.html">De Katharen</a>. Moerland behandelt hetzelfde geloof als leer in plaats van als decor, en laat zien waar de romanversie van de kathaarse overtuiging vandaan komt.</li>
+          <li value="1701"><a href="1701.html">De geschiedenis van de katharen</a>. Roquebert geeft de geschiedenis waarop deze roman rust, met de bronnen erbij, zodat te zien is wat Alders heeft overgenomen en wat zij heeft ingevuld.</li>
+          <li value="1649"><a href="1649.html">De laatste kathaar</a>. Bridgeman gebruikt dezelfde geschiedenis voor een eigen spirituele zoektocht; het verschil in omgang met hetzelfde materiaal is leerzaam.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

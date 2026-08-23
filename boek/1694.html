@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misschien moet je iets lager mikken &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van de Kamp stelt dat kansenongelijkheid in Nederland niet vooral zit in wat kinderen uit arme gezinnen ontberen aan geld, maar in een stelsel van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1694">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1694 &middot; Roman en memoir</p>
+    <h1>Misschien moet je iets lager mikken</h1>
+    <p class="lede">Milio van de Kamp, 2023</p>
+    <p class="stats">
+      <span><b>1299</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1694"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van de Kamp stelt dat kansenongelijkheid in Nederland niet vooral zit in wat kinderen uit arme gezinnen ontberen aan geld, maar in een stelsel van onuitgesproken verwachtingen waaraan zij per definitie niet voldoen. School gaat ervan uit dat er thuis rust is, een computer staat, ouders meelezen en iemand de weg kent in de taal van het onderwijs. Wie dat niet heeft, wordt niet als ongelukkig gezien maar als minder geschikt, en krijgt een advies dat bij die inschatting past. Zijn tweede punt is even ongemakkelijk: wie zich er toch doorheen werkt, betaalt daarvoor met vervreemding van zijn eigen achtergrond, en die rekening wordt in het gesprek over kansen zelden genoemd.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De zin die de titel werd</h3>
+      <p>Het boek begint bij de opmerking van de docente. Van de Kamp behandelt haar niet als een boosaardige figuur maar als iemand die een inschatting maakte op grond van wat zij zag: een jongen op het vmbo, uit een gezin zonder studieachtergrond, in een wijk met een slechte naam.</p>
+      <p>Juist daarom werkt het voorval in zijn betoog. Het oordeel was niet persoonlijk bedoeld en werd in vriendelijke vorm uitgesproken, en het kwam precies daardoor binnen als een vaststelling over wat hij waard was. Hij noemt dat symbolisch geweld, het begrip van Pierre Bourdieu voor een ordening die zichzelf als vanzelfsprekend voordoet.</p>
+      <h3>Een huis zonder licht</h3>
+      <p>Het deel over zijn jeugd is het concreetst. Er was geen geld voor elektriciteit en warm water, waardoor het gezin zich avonden met kaarsen en zaklampen behielp. Er was ruzie thuis en geweld in de buurt, en criminaliteit hoorde bij het gewone leven van jongens die hij kende.</p>
+      <p>Van de Kamp beschrijft dat zonder de toon van een aanklacht en zonder de omgekeerde toon van iemand die zijn afkomst romantiseert. Wat hij eraan wil laten zien is dat armoede in de eerste plaats onvoorspelbaarheid betekent: nooit zeker weten of het licht aan blijft, of er gegeten wordt, of het thuis rustig is.</p>
+      <h3>School als vreemd land</h3>
+      <p>Op school kwam daar een tweede laag bij. Hij was de enige in de klas zonder computer thuis, en hij beschrijft de schaamte van een moeder die de broodtrommel niet kan vullen. De inrichting van het onderwijs gaat uit van middelen die in zijn huis ontbraken, en die aanname wordt nergens hardop gedaan.</p>
+      <p>De uitkomst daarvan is het schooladvies. Dat leerlingen met dezelfde toetsscore een lager advies krijgen naarmate hun ouders lager zijn opgeleid, is in Nederland herhaaldelijk vastgesteld, onder meer in de jaarlijkse rapportage van de Inspectie van het Onderwijs. Van de Kamp levert bij dat cijfer het verhaal van binnenuit.</p>
+      <h3>Verdacht zijn</h3>
+      <p>Een terugkerend onderdeel is de manier waarop hij als jongen werd bekeken. Hij werd meer dan eens verdacht van iets wat hij niet had gedaan, en hij beschrijft de mengeling van afkeer en medelijden op gezichten van volwassenen.</p>
+      <p>Wat hij daarmee wil aantonen is dat het beeld vooruitloopt op het gedrag. De reputatie van de wijk plakt aan de bewoners, ook aan de kinderen, en die reputatie werkt door in wat er van hen wordt verwacht op school, bij een sollicitatie en op straat.</p>
+      <h3>Wat de klim kost</h3>
+      <p>Het deel over zijn studie gaat over klassenmigratie, een begrip dat hij aan Didier Eribon ontleent. Hij werkte naast zijn studie, liep tegen schulden aan en kampte met langdurige neerslachtigheid, en tegelijk raakte de taal die hij op de universiteit leerde hem van huis af.</p>
+      <p>Van de Kamp benoemt daarbij de terughoudendheid van wie opklom om kritisch over de eigen achtergrond te schrijven, uit vrees voor verraad. Hij houdt daar een dubbele loyaliteit aan over, en het boek laat die spanning staan in plaats van haar op te lossen.</p>
+      <h3>Aan de andere kant van het bureau</h3>
+      <p>Het slot speelt op de universiteit waar hij nu lesgeeft. Hij begeleidt eerstejaars die als eerste in hun familie studeren, in een programma dat hun de ongeschreven regels van het hoger onderwijs bijbrengt: hoe je een docent aanspreekt, hoe een tentamen werkt, wat er van je wordt verwacht buiten de stof.</p>
+      <p>Daarmee sluit het betoog zich. Wat hij aan die studenten doorgeeft is precies het culturele kapitaal dat hij zelf niet meekreeg, en de conclusie die hij trekt is dat dit soort kennis nu nog van toevallige begeleiding afhangt in plaats van van het stelsel zelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kansenongelijkheid</td><td>Het verschil in wat kinderen kunnen bereiken dat samenhangt met de positie van hun ouders en niet met hun vermogen.</td></tr>
+          <tr><td class="term">Symbolisch geweld</td><td>Het begrip van Bourdieu voor een ordening die zich als vanzelfsprekend voordoet, waardoor wie eronder ligt het oordeel over zichzelf overneemt.</td></tr>
+          <tr><td class="term">Cultureel kapitaal</td><td>De kennis van omgangsvormen, taal en ongeschreven regels die thuis wordt meegegeven en op school wordt beloond.</td></tr>
+          <tr><td class="term">Klassenmigratie</td><td>De overgang naar een hogere sociale klasse, in de woorden van Didier Eribon, met de vervreemding die daarbij hoort.</td></tr>
+          <tr><td class="term">Klassenverraad</td><td>Het verwijt dat wie opklom en daarna kritisch over zijn achtergrond schrijft zichzelf oploopt of vreest op te lopen.</td></tr>
+          <tr><td class="term">De lagere klasse</td><td>Bij Van de Kamp een andere groep dan de arbeidersklasse: mensen die niet volwaardig aan de samenleving kunnen meedoen.</td></tr>
+          <tr><td class="term">Arm in reputatie</td><td>De vaststelling dat armoede naast geld ook aanzien kost, en dat het beeld van een wijk aan de bewoners blijft plakken.</td></tr>
+          <tr><td class="term">Het schooladvies</td><td>Het moment aan het eind van de basisschool waarop de inschatting van een leerkracht de loopbaan van een leerling vastlegt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basis is zijn eigen leven, en dat is tegelijk de kracht en de grens van het boek. Hij houdt zich aan wat hij zelf heeft meegemaakt en gaat de ongemakkelijke onderdelen niet uit de weg, ook niet waar die hem in een slecht licht zetten. Voor wat er in zijn huis gebeurde is hij de enige bron.</p>
+      <p>Voor het algemene deel leunt hij op de sociologie. Bourdieu levert het begrippenkader, Eribon het beeld van de klassenreis. Die begrippen ordenen zijn verhaal goed, maar ze worden in het boek niet getoetst; zij worden erop gelegd.</p>
+      <p>Het punt over het onderwijs staat er het steviger voor. Onderadvisering van leerlingen met lager opgeleide ouders is in Nederland over meerdere jaren vastgesteld en wordt door de Inspectie van het Onderwijs gerapporteerd. Van de Kamp voert die cijfers niet uitgebreid aan; hij vult ze aan met wat een leerling in die positie ervaart.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek gaat over de uitzondering en spreekt over de regel. De schrijver is de jongen die het wel haalde, en dat kleurt alles wat hij van binnenuit kan tonen. Over de klasgenoten die op het vmbo bleven of afhaakten weten wij aan het eind weinig, terwijl juist zij de groep zijn waar het betoog over gaat.</p>
+      <p>De titelanekdote draagt veel gewicht. Een opmerking van een docente aan een vijftienjarige, jaren later opgeschreven door degene die haar hoorde, is als bewijsstuk zwak, ook al is zij als beeld sterk. De docente krijgt geen weerwoord en het is niet na te gaan wat er precies is gezegd of bedoeld.</p>
+      <p>Wat er zou moeten gebeuren blijft dun. Het boek stelt scherp vast hoe het stelsel uitpakt, maar het voorstel dat volgt komt neer op begeleiding en bewustwording, en dat is een klein antwoord op een probleem dat hij zelf structureel noemt. De lezer die na de diagnose een richting zoekt, krijgt vooral het voorbeeld van de auteur mee.</p>
+      <p>De opbouw wisselt tussen verslag en betoog, en die twee versterken elkaar niet altijd. De jeugdhoofdstukken zijn het scherpst wanneer er geen begrip aan wordt gehangen, terwijl de sociologische passages soms toelichten wat de scene al had laten zien.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met als ondertitel <i>Een verhaal over armoede en kansenongelijkheid</i>, verschenen bij Atlas Contact in Amsterdam op 23 mei 2023, 216 blz., ISBN 9789045045627; het e-boek heeft ISBN 9789045045634 en latere drukken verschenen onder ISBN 9789045050911. Er is ook een luisterboek. Van de Kamp, geboren in 1991, is socioloog en universitair docent aan de Universiteit van Amsterdam en schreef eerder in onder meer <i>de Volkskrant</i> en <i>Het Parool</i>. De lijst noemt de auteur afgekort; het gaat om Milio van de Kamp.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De titel komt uit een gesprek op school. Van de Kamp was vijftien en vertelde zijn docente Nederlands dat hij psycholoog wilde worden. Haar antwoord was dat hij misschien iets lager moest mikken. Hij haalde later de universiteit en werd er zelf docent, en het boek gaat over de afstand tussen die twee momenten.</p><p>Het is deels een verslag van zijn jeugd in een Amsterdamse volkswijk en deels een sociologisch betoog. Hij beschrijft een huis waar geen geld was voor licht en warm water, ruzie en geweld in de omgeving, een school waar hij als enige geen computer thuis had, en de gewoonte van volwassenen om hem als verdachte te behandelen.</p><p>Wat hij daarnaast wil laten zien is dat armoede breder is dan een tekort aan geld. Hij spreekt over arm zijn in kansen, in mogelijkheden en in reputatie, en hij gebruikt begrippen uit de sociologie om te beschrijven wat een school van kinderen verwacht zonder het uit te spreken. Zijn eigen opklimmen levert daarbij geen geruststellend slot op, want hij beschrijft ook wat die overgang heeft gekost.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>armoede</li><li>kansenongelijkheid</li><li>klasse</li><li>onderwijs</li><li>amsterdam</li><li>memoir</li><li>schaamte</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="45"><a href="45.html">Educated</a>. Westover beschrijft dezelfde overgang naar het onderwijs vanuit een gezin dat er niets van moest hebben, en dezelfde prijs aan de andere kant.</li>
+          <li value="723"><a href="723.html">Outline of a Theory of Practice</a>. Bourdieu levert het begrippenkader dat Van de Kamp gebruikt, met het culturele kapitaal en het symbolische geweld.</li>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringer schrijft eveneens over opgroeien met weinig en over de omweg die naar een opleiding leidde, met meer verhaal en minder betoog.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

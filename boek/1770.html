@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De mens in opstand &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Camus stelt dat de opstand een grens in zich draagt en dat elke opstand die de grens ontkent, in moord eindigt. Wie in verzet komt, doet dat namens iets…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1770">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1770 &middot; Filosofie en mystiek</p>
+    <h1>De mens in opstand</h1>
+    <p class="lede">Albert Camus, 1951; vert. Martine Woudt</p>
+    <p class="stats">
+      <span><b>1658</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1770"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Camus stelt dat de opstand een grens in zich draagt en dat elke opstand die de grens ontkent, in moord eindigt. Wie in verzet komt, doet dat namens iets wat hij in zichzelf en tegelijk in ieder ander erkent; dat is de reden dat opstand niet mag uitlopen op het opofferen van mensen aan een toekomstige toestand. De twintigste eeuw laat volgens hem zien wat er gebeurt zodra dat besef wegvalt: de opstand wordt revolutie, de revolutie wordt geschiedfilosofie, en de geschiedfilosofie levert de rechtvaardiging voor kampen en terechtstellingen. Zijn tegenvoorstel is de maat, een denken dat geen totale oplossing belooft en zijn eigen middelen aan dezelfde toets onderwerpt als de zaak waarvoor het strijdt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De opstandige mens</h3>
+      <p>Het boek opent met de vraag die overblijft nadat <i>Le Mythe de Sisyphe</i> heeft vastgesteld dat het leven geen gegeven zin heeft. Als niets zin heeft, is alles dan geoorloofd? Camus stelt dat het antwoord nee is, en dat het bewijs daarvoor in de opstand zelf ligt.</p>
+      <p>De opstandige is de knecht die op een dag weigert. Hij zegt nee tegen een bevel en tegelijk ja tegen een grens die hij in zichzelf niet overschreden wil zien. Dat wat hij daarmee verdedigt is niet van hem alleen; hij spreekt namens een gemeenschappelijke waardigheid. Vandaar de zin waarmee Camus het samenvat: ik kom in opstand, dus wij zijn.</p>
+      <h3>De metafysische opstand</h3>
+      <p>Het eerste grote deel volgt de opstand tegen de schepping zelf. Camus leest De Sade als de eerste die uit de afwezigheid van God een recht op alles afleidt, en volgt daarna de romantische dandy, Lautreamont, Rimbaud en het surrealisme, dat de opstand tot vormgeving en houding maakte.</p>
+      <p>Het scharnier is Dostojevski. Ivan Karamazov weigert de wereld te aanvaarden zolang er een kind om niets lijdt, en die weigering is bij Camus de eerlijkste vorm van opstand die er is. Zij slaat om zodra Ivan besluit dat, als God dood is, alles is toegestaan.</p>
+      <p>Nietzsche krijgt een eigen hoofdstuk en wordt door Camus verdedigd tegen de partij die zich later op hem beriep. Camus leest hem als iemand die de dood van God vaststelde en er de zwaarste opdracht uit afleidde, en niet als iemand die de weg voor de macht vrijmaakte.</p>
+      <h3>De historische opstand</h3>
+      <p>Het langste deel gaat over de opstand die zich in de geschiedenis vestigt. Het begint bij de terechtstelling van Lodewijk XVI in 1793 en bij Saint-Just, die volgens Camus de deugd tot staatszaak maakte en daarmee de terreur in gang zette. Wie de deugd afdwingt, moet immers straffen wie niet deugt.</p>
+      <p>Daarna komen Hegel en Marx. Camus verwijt hun niet hun analyse van de macht en de armoede, maar de gedachte dat de geschiedenis een richting heeft en een einde. Zodra dat einde vaststaat, wordt elk offer onderweg een rekenpost, en wordt wie zich verzet niet een tegenstander maar een obstakel.</p>
+      <p>Tussen die lijn door staat het hoofdstuk over de Russische opstandigen van 1905, dat Camus de kieskeurige moordenaars noemt. Kaljajev weigerde zijn bom te gooien toen er kinderen in het rijtuig zaten, deed het twee dagen later en aanvaardde daarna zijn eigen doodvonnis. Zij betaalden hun daad met hun leven en trokken daarmee de grens die de latere staatsterreur uitwiste.</p>
+      <h3>Opstand en kunst</h3>
+      <p>Een kort deel behandelt de kunst als een vorm van dezelfde beweging. De roman herschrijft de wereld zoals die zou moeten zijn, en dat is volgens Camus een correctie op wat er is, zonder dat er iemand voor hoeft te sterven.</p>
+      <p>Daarin ligt ook een grens voor de kunstenaar. Wie de kunst geheel in dienst stelt van een leer, verliest de afstand die haar waarde uitmaakt; wie zich geheel terugtrekt uit de tijd, verliest het onderwerp. Camus verdedigt de plaats daartussenin, en verdedigt daarmee ook zijn eigen positie in de discussies van zijn jaren.</p>
+      <h3>Het denken van de middag</h3>
+      <p>Het slotdeel draagt de naam <i>la pensee de midi</i>, het denken van de middag. Camus zet daar de maat tegenover de mateloosheid: een houding die de grens erkent, die geen einde van de geschiedenis belooft en die de middelen aan dezelfde toets onderwerpt als het doel.</p>
+      <p>Politiek loopt dat bij hem uit op iets bescheidens: vakbondswerk, verzet tegen de doodstraf, een voorkeur voor hervorming boven ommekeer, en de weigering het geweld van de eigen kant goed te praten omdat de tegenpartij erger is. Het boek eindigt niet met een program maar met een houding die het volhoudt zonder te winnen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Opstand (revolte)</td><td>De weigering van de enkeling die tegelijk een waarde bevestigt die hij met anderen deelt; bij Camus het beginpunt van alle politiek en van alle grenzen daaraan.</td></tr>
+          <tr><td class="term">Ik kom in opstand, dus wij zijn</td><td>De omkering van het cogito van Descartes: het verzet bewijst niet het eigen bestaan maar het bestaan van iets gemeenschappelijks.</td></tr>
+          <tr><td class="term">Metafysische opstand</td><td>Het verzet tegen de inrichting van het bestaan zelf, tegen dood, lijden en de afwezigheid van een schepper die verantwoording aflegt.</td></tr>
+          <tr><td class="term">Historische opstand</td><td>Het verzet dat zich in de tijd vestigt, macht verovert en zijn eigen beginsel verliest zodra het de geschiedenis als rechter aanvaardt.</td></tr>
+          <tr><td class="term">Maat en mateloosheid</td><td>Het paar waarmee Camus opstand en revolutie onderscheidt: de eerste erkent een grens, de tweede kent er geen en komt daardoor bij de moord uit.</td></tr>
+          <tr><td class="term">De kieskeurige moordenaars</td><td>De Russische opstandigen van 1905 die hun aanslag pleegden en daarna hun eigen doodvonnis aanvaardden, en zo met hun leven voor hun daad betaalden.</td></tr>
+          <tr><td class="term">Rationele terreur</td><td>Het geweld dat niet uit drift maar uit een sluitende leer voortkomt en daarom onbeperkt is, omdat de leer altijd meer offers kan verantwoorden.</td></tr>
+          <tr><td class="term">La pensee de midi</td><td>Het denken van de middag, het slotbegrip waarmee Camus een houding aanduidt die grenzen aanvaardt en geen sluitend stelsel wil zijn.</td></tr>
+          <tr><td class="term">Nihilisme</td><td>Bij Camus niet de opvatting dat niets waar is, maar de praktijk waarin uit de afwezigheid van zin het recht op alles wordt afgeleid.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een boek van lezingen en niet van bewijzen. Camus toetst zijn stelling aan teksten, van De Sade en Dostojevski tot Hegel en Marx, en aan een reeks gebeurtenissen: 1793, de Russische aanslagen van 1905, de revolutie van 1917 en de terreur van de jaren dertig. Wat hij levert is een samenhangende lezing, geen historisch onderzoek, en het staat of valt met de vraag of die lezing de teksten recht doet.</p>
+      <p>Het boek is wel geschreven vanuit iets wat toen nog omstreden was. In Frankrijk werd tussen 1949 en 1951 openlijk gestreden over het bestaan van de Sovjetkampen, onder meer nadat David Rousset, zelf teruggekeerd uit een Duits kamp, opriep tot een onderzoek en daarover een rechtszaak won. Camus koos daarin partij op een moment waarop een groot deel van de Parijse linkerzijde dat weigerde. Wat hij toen beweerde, is later bevestigd.</p>
+      <p>De sterkste passages zijn die waarin hij de leer aan de daad meet. Zijn behandeling van Kaljajev en de aanslagplegers van 1905 rust op hun eigen woorden en op hun proces, en die passage draagt het hele argument: er is verzet geweest dat een grens trok, dus de grens is niet onmogelijk.</p>
+      <p>Camus was geen academisch filosoof en werkte niet met een stelsel. Zijn behandeling van Hegel en Marx is die van een lezer met een stelling, en hij verwerkt de discussie van zijn eigen jaren, niet de bronnen in de breedte. Hij kreeg in 1957 de Nobelprijs voor literatuur, en dit boek geldt sindsdien als zijn belangrijkste betoog buiten de romans.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar kwam uit eigen kring. Francis Jeanson besprak het boek in 1952 in <i>Les Temps Modernes</i> en verweet Camus een zedelijke houding zonder politieke inhoud: mooie beginselen vanaf een plek waar niets te verliezen valt. Camus antwoordde aan de redactie, waarop Sartre zelf hem in augustus 1952 van repliek diende. De vriendschap tussen beiden was daarna voorbij, en de breuk heeft de ontvangst van het boek jarenlang gekleurd.</p>
+      <p>Inhoudelijk raakt dat een reeel punt. Camus zegt duidelijk wat een opstand niet mag doen en veel minder duidelijk wat zij dan wel moet doen. Waar hij concreet wordt, komt hij uit bij hervorming, vakbondswerk en het weigeren van geweld, wat voor wie onder bezetting of dictatuur leeft weinig houvast biedt.</p>
+      <p>Ook de literaire lezingen zijn aangevochten. Andre Breton voerde in 1951 een openlijke ruzie met Camus over diens behandeling van Lautreamont en het surrealisme, die hij als een verminking van beide beschouwde. Wie De Sade, Lautreamont en de surrealisten kent, ziet dat Camus hen leest als stappen in zijn eigen betoog.</p>
+      <p>Het pijnlijkste bezwaar kwam later. In de Algerijnse oorlog, die vijf jaar na dit boek uitbrak, kwam Camus niet verder dan een oproep tot een bestand voor burgers en de bekende uitspraak dat hij tussen rechtvaardigheid en zijn moeder zijn moeder zou kiezen. De maat die hij hier voorschrijft, hield hij bij het geweld in zijn eigen land van herkomst niet aan de kant van de gekoloniseerden vol.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het eerste deel en het slotdeel eerst; daar staat het betoog, de middendelen zijn de bewijsvoering.</li>
+        <li>Toets bij elke rechtvaardiging van geweld of het doel in de toekomst ligt en het offer in het heden; dat is bij Camus het beslissende teken.</li>
+        <li>Vergelijk het hoofdstuk over 1905 met wat er in latere gewapende bewegingen van die grens overbleef.</li>
+        <li>Neem <i>Le Mythe de Sisyphe</i> ernaast als het uitgangspunt over de zinloosheid onduidelijk blijft; dit boek zet dat betoog voort.</li>
+        <li>Lees de briefwisseling met <i>Les Temps Modernes</i> uit 1952 erbij om te zien welk bezwaar Camus zelf niet heeft kunnen weerleggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>L'Homme revolte</i> (Gallimard, Parijs, 1951). Een eerste, onvolledige Nederlandse vertaling verscheen in 1952 bij De Bezige Bij; de eerste integrale vertaling is die van Martine Woudt uit 2004. De achtste druk verscheen in 2023 bij Olympus, Amsterdam, met een nawoord van Daan Roovers (320 blz., ISBN 9789046708040). Vrijwel al het werk van Camus is in het Nederlands verkrijgbaar, waaronder <i>L'Etranger</i> als <i>De vreemdeling</i>, <i>La Peste</i> als <i>De pest</i> en <i>Le Mythe de Sisyphe</i> als <i>De mythe van Sisyphus</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Camus schreef dit boek na de Tweede Wereldoorlog en tijdens de eerste onthullingen over de Sovjetkampen. De vraag die hij stelt is waarom een eeuw die zich op bevrijding beriep, is uitgekomen bij moord op grote schaal, en of er verzet mogelijk is dat niet in die uitkomst eindigt.</p><p>Hij begint bij de opstandige zelf: de slaaf die op een dag nee zegt. In dat nee zit volgens Camus ook een ja, namelijk aan iets in hemzelf dat hij verdedigt en dat hij tegelijk in anderen erkent. Daar leidt hij zijn omkering van Descartes uit af: ik kom in opstand, dus wij zijn.</p><p>De rest van het boek volgt wat er met die opstand gebeurt zodra hij een leer wordt. Camus loopt van De Sade en de romantische dandy via Dostojevski, Lautreamont, het surrealisme en Nietzsche naar de koningsmoord van 1793, naar Hegel en Marx, naar de Russische bommenwerpers van 1905 en naar de staatsterreur van de twintigste eeuw. Zijn slotstelling is dat opstand die haar eigen grens vergeet, altijd uitkomt bij het rechtvaardigen van moord.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>opstand</li><li>revolutie</li><li>geweld</li><li>nihilisme</li><li>Frankrijk</li><li>absurdisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1727"><a href="1727.html">De mythe van Sisyphus</a>. Het eerdere betoog van Camus waarop dit boek voortbouwt: eerst de vaststelling dat het bestaan geen zin geeft, hier het gevolg daarvan voor het handelen.</li>
+          <li value="1757"><a href="1757.html">1984</a>. Orwell tekende in dezelfde jaren de uitkomst die Camus beredeneert: een leer die de geschiedenis bezit en daarmee ook de waarheid over gisteren.</li>
+          <li value="223"><a href="223.html">The Anatomy of Human Destructiveness</a>. Fromm zoekt de verklaring voor hetzelfde geweld in het karakter en de psychologie, waar Camus haar in de leer en de rechtvaardiging zoekt.</li>
+          <li value="1769"><a href="1769.html">Zelfverwoestingsboek</a>. Donner haalt Camus aan als getuige voor het onaangepaste leven; wie dit boek leest, ziet hoeveel voorwaarden hij aan die houding verbindt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

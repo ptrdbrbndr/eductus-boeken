@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIHKAL &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Shulgins betogen dat de werking van een psychoactieve stof alleen te kennen is door haar in te nemen, en dat het achterhouden van die kennis meer…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1714">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1714 &middot; Natuur en wetenschap</p>
+    <h1>PIHKAL</h1>
+    <p class="lede">Alexander Shulgin en Ann Shulgin, 1991</p>
+    <p class="stats">
+      <span><b>1686</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1714"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Shulgins betogen dat de werking van een psychoactieve stof alleen te kennen is door haar in te nemen, en dat het achterhouden van die kennis meer schade aanricht dan het openbaar maken ervan. Uit die twee overtuigingen volgt de hele opzet van het boek. De eerste helft laat zien wie de waarnemers waren, omdat de betrouwbaarheid van een verslag over een geestverruimende stof volgens hen afhangt van de persoon die het aflegt en van de omstandigheden waarin hij verkeerde. De tweede helft geeft de scheikunde zonder achterhouden, inclusief syntheseroutes, doseringen en de eigen aantekeningen bij elk middel. Hun stelling is daarmee zowel wetenschappelijk als politiek: de wet die het onderzoek verbiedt, produceert de onwetendheid waarop zij zich beroept, en het openbaar maken van de gegevens is de enige uitweg die een onderzoeker nog rest.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Boek I: de liefdesgeschiedenis</h3>
+      <p>De eerste helft, getiteld <i>The Love Story</i>, vertelt over Shura Borodin en Alice, doorzichtige verhulling van Alexander en Ann Shulgin. Het is de geschiedenis van een tweede huwelijk: beiden hadden een leven achter zich, en de verhouding komt langzaam en met horten tot stand.</p>
+      <p>De vertelling wisselt van gezichtspunt tussen Shura en Alice. Zij vertelt over haar kant, haar eerdere huwelijken en haar werk als lekentherapeut; hij over het laboratorium en over de jaren waarin zijn eerste vrouw ziek was en stierf. Het geheel is verteld als roman, met dialogen die niet als weergave van werkelijke gesprekken gepresenteerd worden.</p>
+      <h3>Het onderzoeksgezelschap</h3>
+      <p>Een groot deel van Boek I gaat over de kring van vrienden die de stoffen samen met de Shulgins uitprobeerden. Het gaat om een klein, vast gezelschap van volwassenen die elkaar jarenlang kenden, met vaste afspraken over voorbereiding, dosering en het bijhouden van aantekeningen.</p>
+      <p>Shulgin werkte met een vaste opklimmende methode: hij nam een nieuwe stof eerst zelf in een dosis die vrijwel zeker te laag was, en verhoogde die stapsgewijs tot er iets waarneembaar werd. Pas daarna kwam de stof bij de groep. Die volgorde wordt in het boek als voorzorg gepresenteerd en is het dichtst dat het bij een onderzoeksopzet komt.</p>
+      <h3>MDMA en de therapeuten</h3>
+      <p>In de jaren zeventig maakte Shulgin MDMA opnieuw, een stof die al in 1912 was gepatenteerd maar nooit onderzocht, en hij bracht haar onder de aandacht van psychotherapeuten. Zij gebruikten haar enkele jaren in hun praktijk, in een tijd waarin dat niet verboden was.</p>
+      <p>Toen de stof in de jaren tachtig als partydrug bekend werd en op de lijst van verboden middelen kwam, viel dat gebruik weg. Die geschiedenis loopt door het boek heen en verklaart een deel van de verbittering erin: de auteurs zagen een werkwijze die hun waardevol leek verdwijnen door beleid waarover zij niets te zeggen hadden.</p>
+      <h3>Boek II: de scheikundige helft</h3>
+      <p>De tweede helft, <i>The Chemical Story</i>, bevat 179 fenethylaminen. Per stof staan er een syntheseroute met reagentia en opbrengsten, de werkzame dosis, de werkingsduur en een aantal aantekeningen die uit de verslagen van de proefpersonen komen.</p>
+      <p>Die aantekeningen zijn het bijzondere deel. Ze zijn kort, in de eerste persoon en zonder opsmuk, en ze noteren evengoed dat een stof niets deed of dat hij misselijkheid gaf als dat hij iets opleverde. Het geheel leest als een laboratoriumjournaal dat voor publicatie is geordend.</p>
+      <h3>De schaal</h3>
+      <p>Om de sterkte van een ervaring vast te leggen gebruikt Shulgin een eigen schaal, die hij in 1986 met medeauteurs in een vakblad publiceerde en in dit boek toelicht. Zij loopt van MINUS, geen waarneembaar effect, via PLUS/MINUS voor een drempelwerking en de niveaus plus een en plus twee, naar plus drie.</p>
+      <p>Bij plus drie is negeren van de werking geen mogelijkheid meer en is de proefpersoon volledig in beslag genomen. Daarboven staat plus vier, dat hij apart houdt voor een zeldzame toestand die hij als een piekervaring omschrijft. De schaal meet de mate van betrokkenheid en spreekt zich niet uit over de aangenaamheid ervan.</p>
+      <h3>De inval en de nasleep</h3>
+      <p>Op 27 oktober 1994 deed de Amerikaanse drugsbestrijdingsdienst met een dertigtal mensen en acht voertuigen een inval in het huis en het laboratorium in Lafayette. Shulgin had vijftien jaar lang zonder bevindingen controles ondergaan. Hij kreeg een boete van vijfentwintigduizend dollar wegens het bezit van anoniem toegestuurde monsters en leverde zijn vergunning voor stoffen van lijst één in.</p>
+      <p>De publicatie van het boek wordt algemeen als aanleiding gezien. Een woordvoerder van de dienst noemde de boeken in feite kookboeken voor het maken van verboden middelen. Een groot deel van de stoffen die erin staan is sindsdien in veel landen verboden, waaronder 2C-B, 2C-T-2 en 2C-T-7.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">PIHKAL</td><td>Letterwoord van <i>Phenethylamines I Have Known And Loved</i>, de fenethylaminen die de auteur heeft gemaakt en zelf heeft geprobeerd.</td></tr>
+          <tr><td class="term">Fenethylamine</td><td>De scheikundige familie waartoe onder meer mescaline, amfetamine en MDMA behoren en waaruit Shulgin zijn 179 verbindingen afleidde.</td></tr>
+          <tr><td class="term">Bioassay</td><td>Zijn aanduiding voor het uitproberen van een stof op zichzelf en op de onderzoeksgroep, als enige manier om de werking te leren kennen.</td></tr>
+          <tr><td class="term">De schaal</td><td>De eigen maatstaf voor de sterkte van een ervaring, van MINUS via PLUS/MINUS en plus een tot plus vier, die betrokkenheid meet en geen waardering.</td></tr>
+          <tr><td class="term">Plus drie</td><td>Het niveau waarop de werking niet meer te negeren valt en de proefpersoon volledig in beslag is genomen door wat er gebeurt.</td></tr>
+          <tr><td class="term">Plus vier</td><td>Het zeldzame hoogste niveau, door Shulgin beschreven als een piekervaring met een gevoel van verbondenheid, dat niet met een dosis af te dwingen is.</td></tr>
+          <tr><td class="term">Shura en Alice</td><td>De namen waaronder Alexander en Ann Shulgin in de eerste helft van het boek optreden, in een vertelling die als roman is opgeschreven.</td></tr>
+          <tr><td class="term">Onderzoeksgroep</td><td>Het vaste gezelschap van bevriende volwassenen dat de stoffen na Shulgins eigen proeven innam en er aantekeningen over bijhield.</td></tr>
+          <tr><td class="term">Lijst één</td><td>De Amerikaanse categorie voor stoffen zonder erkende medische toepassing, waarvoor Shulgin de vergunning bezat die hij in 1994 inleverde.</td></tr>
+          <tr><td class="term">Transform Press</td><td>De uitgeverij die het echtpaar in 1991 oprichtte omdat geen bestaande uitgever het boek wilde uitbrengen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het scheikundige deel is controleerbaar en is ook gecontroleerd, zij het niet langs de weg van vakbladen. De syntheseroutes zijn door anderen nagelopen en bleken in de praktijk te werken; dat is precies de reden waarom het boek de aandacht van de opsporingsdiensten trok. Op dat punt staat de betrouwbaarheid van het werk buiten kijf.</p>
+      <p>Het farmacologische deel staat er anders voor. De waarnemingen komen van de auteur zelf en van een klein, vast gezelschap dat elkaar goed kende en wist wat het innam. Er is geen controlegroep, geen blindering en geen schijnbehandeling, en het aantal proefpersonen per stof is klein. De auteurs verhullen dat niet en beschrijven hun werkwijze open, waardoor een lezer zelf kan wegen wat de aantekeningen waard zijn.</p>
+      <p>De opklimmende dosering is de sterkste voorzorg in het boek. Door bij elke nieuwe stof te beginnen op een hoogte waarvan vrijwel zeker was dat zij niets zou doen, en pas te verhogen na een uitkomst zonder gevolgen, hielden zij het risico klein bij verbindingen waarvan niemand iets wist. Voor stoffen die nog nooit door een mens waren ingenomen bestond geen andere methode.</p>
+      <p>Wat het boek als bron staande houdt, is de openheid over de omstandigheden. Bij elke aantekening is te achterhalen wie het opschreef, in welke dosis en in welke situatie. Dat maakt de verslagen tot bruikbaar materiaal voor later onderzoek, ook voor onderzoekers die de werkwijze afkeuren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek gegevens openbaar maakte die zonder toezicht bruikbaar bleken. Na verschijnen ontstond een markt voor verbindingen die tot dan alleen in Shulgins laboratorium bestonden, verkocht aan kopers die de doseringen uit het boek niet nauwkeurig aanhielden. Bij 2C-T-7 vielen rond de eeuwwisseling doden, en de omstandigheden daarbij weken af van de voorzorgen die de auteurs zelf beschreven.</p>
+      <p>De opzet van het onderzoek voldoet niet aan wat elders van farmacologisch werk wordt verlangd. Een klein gezelschap dat weet wat het inneemt, dat elkaar kent en dat de uitkomst hoopvol tegemoet ziet, is de omgeving waarin verwachting het meeste effect heeft. De auteur is tegelijk maker, proefpersoon en beoordelaar, en die drie rollen worden nergens gescheiden.</p>
+      <p>De gefictionaliseerde vorm van Boek I ondermijnt het gebruik ervan als getuigenis. Doordat namen zijn veranderd en gesprekken zijn opgeschreven zoals in een roman, valt niet vast te stellen wat er is gebeurd en wat er is gevormd om te vertellen. Voor een boek waarvan de tweede helft op nauwkeurigheid rust, is dat een ongelukkige keuze.</p>
+      <p>De politieke lijn is eenzijdig. De schade van drugsgebruik komt in het boek vrijwel alleen voor als gevolg van verkeerd beleid, zelden als gevolg van de stoffen zelf. Verslaving, psychose en de gevolgen voor mensen met aanleg daarvoor blijven onderbelicht, terwijl de auteurs zich wel op hun eigen ervaring beroepen om over de baten te spreken.</p>
+      <p>Het boek is groot en ongelijk. De 978 bladzijden bevatten een vertelling die traag op gang komt en een naslagwerk dat voor wie geen scheikunde kent onleesbaar is. Er zijn weinig lezers voor wie beide helften bruikbaar zijn, en de samenvoeging is eerder een keuze van de auteurs dan een dienst aan het publiek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees Boek I als memoir en Boek II als naslagwerk; de twee helften vragen een verschillende manier van lezen.</li>
+        <li>Beschouw de aantekeningen bij elke stof als verslagen van een klein gezelschap dat wist wat het innam, en niet als uitkomsten van onderzoek.</li>
+        <li>Gebruik de schaal om te zien hoe de auteur betrokkenheid van waardering scheidde, ook bij het lezen van ander werk over dit onderwerp.</li>
+        <li>Leg het boek naast latere klinische studies naar dezelfde stoffen om te zien welke waarnemingen standhielden.</li>
+        <li>Lees de geschiedenis van de inval van 1994 als bron over het Amerikaanse drugsbeleid, waar het boek ongewild materiaal voor leverde.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>PIHKAL: A Chemical Love Story</i> (Transform Press, Berkeley, 1991, 978 blz., ISBN 9780963009609). De titel is een letterwoord van <i>Phenethylamines I Have Known And Loved</i>. Geen uitgever wilde het boek uitbrengen, waarop de Shulgins Transform Press oprichtten om het zelf uit te geven. Het vervolg <i>TIHKAL: The Continuation</i>, over tryptaminen, verscheen in 1997. Een Nederlandse vertaling bestaat niet; van het onderwerp is in het Nederlands vooral werk van anderen verkrijgbaar. De volledige tekst van beide boeken staat met toestemming van de auteurs online.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Alexander Shulgin was scheikundige en werkte tot in de jaren zeventig bij Dow Chemical, waar hij een winstgevend insecticide ontwikkelde en in ruil een grote mate van vrijheid kreeg. Hij bracht daarna het grootste deel van zijn leven door in een laboratorium achter zijn huis in Californië, waar hij honderden verbindingen maakte die nog niemand had gemaakt.</p><p>Het boek bestaat uit twee helften die weinig op elkaar lijken. Boek I is een licht gefictionaliseerde autobiografie waarin het echtpaar onder de namen Shura en Alice optreedt; het gaat over hun ontmoeting, hun huwelijk en de kring van vrienden met wie zij hun stoffen uitprobeerden. Boek II is een naslagwerk met de bereiding, dosering en werkingsduur van 179 fenethylaminen.</p><p>Die tweede helft maakte het boek berucht. Twee jaar na verschijnen viel de Amerikaanse drugsbestrijdingsdienst het laboratorium binnen; een woordvoerder noemde het werk in feite een kookboek voor het maken van verboden middelen. Shulgin leverde zijn vergunning in en kreeg een boete.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>scheikunde</li><li>psychedelica</li><li>zelfexperiment</li><li>MDMA</li><li>farmacologie</li><li>drugsbeleid</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan beschrijft dezelfde stoffen een generatie later, vanuit klinisch onderzoek met controlegroepen, en laat zien wat er van Shulgins waarnemingen overeind bleef.</li>
+          <li value="765"><a href="765.html">The Road to Eleusis: Unveiling the Secret of the Mysteries</a>. Wasson, Hofmann en Ruck zoeken de historische wortels van hetzelfde onderwerp; Hofmann was de scheikundige met wie Shulgin het vaakst vergeleken wordt.</li>
+          <li value="1162"><a href="1162.html">The Natural Mind: A New Way of Looking at Drugs and the Higher Consciousness</a>. Weil schreef twintig jaar eerder over de omgang met deze middelen en over de rol van verwachting en omgeving, precies het punt waarop Shulgins methode het zwakst staat.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Huxley levert het kader waarin de ervaring op Shulgins hoogste niveau doorgaans wordt geplaatst, dat van de mystieke traditie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

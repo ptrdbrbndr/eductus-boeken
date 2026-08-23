@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kinderen van Moeder Aarde &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Beckman voert een gedachtenexperiment uit: zij laat de mensheid opnieuw beginnen na een kernoorlog en geeft het bestuur aan vrouwen, om te zien wat voor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1695">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1695 &middot; Roman en memoir</p>
+    <h1>Kinderen van Moeder Aarde</h1>
+    <p class="lede">Thea Beckman, 1985</p>
+    <p class="stats">
+      <span><b>1250</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1695"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Beckman voert een gedachtenexperiment uit: zij laat de mensheid opnieuw beginnen na een kernoorlog en geeft het bestuur aan vrouwen, om te zien wat voor samenleving daaruit volgt. Haar Thule kiest voor het onderhouden van de natuur, weigert techniek die de aarde uitput, en verbiedt mannen het dragen van wapens. Vervolgens laat zij die samenleving in botsing komen met een staat die precies het tegenovergestelde deed. De vraag die het boek stelt is of een vreedzame ordening zich kan verdedigen zonder de middelen over te nemen van de macht die haar bedreigt, en Beckman antwoordt bevestigend, met kennis van het land en met list in plaats van wapens. Daarnaast laat zij haar eigen model niet ongemoeid, want haar Thule houdt mannen op hun plaats met dezelfde vanzelfsprekendheid waarmee de oude wereld het omgekeerde deed.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De proloog: de Grote Ramp</h3>
+      <p>Het boek opent met de ondergang van de oude wereld. De Derde Wereldoorlog vernietigt de beschaving, de aardas verschuift en de ijskappen smelten, waardoor Groenland een bewoonbaar land wordt en andere streken onbruikbaar raken.</p>
+      <p>Beckman vertelt dat kort en zonder ramptaferelen. De functie ervan is de startpositie: enkele duizenden overlevenden, geen fabrieken, geen wapens, en de keuze wat er met die schone lei wordt gedaan.</p>
+      <h3>Deel een: de Thulenen</h3>
+      <p>Het eerste deel toont de samenleving die daaruit voortkwam, zes eeuwen na de stichting door Sigrid Helgadottir. Aan het hoofd staat Konega Armina-Dottir, die met de Vrouwenraad bestuurt en die gebeurtenissen soms vooruit aanvoelt. Bezit, opvoeding en gezag lopen langs de vrouwelijke lijn.</p>
+      <p>Beckman besteedt veel ruimte aan het dagelijkse leven: het landschap, het vissen, het onderwijs, de rol van de woudloper die als enige man een wapen mag dragen om het evenwicht tussen dier en plant te bewaken. De uitvinding van de stoommachine is er ooit geweest en is welbewust terzijde gelegd.</p>
+      <h3>Christian en Thura</h3>
+      <p>De hoofdpersoon is Christian, de dertienjarige zoon van de Konega, die voor genezer leert. Hij is nieuwsgierig en vrij van vooroordelen, en hij houdt van Thura, een twee jaar oudere jonge vrouw die voor de zeevaart wordt opgeleid.</p>
+      <p>Die liefde is onmogelijk, want Christian is voorbestemd om de vader van de volgende Konega te worden en heeft daarin geen keuze. Thura ontkent haar gevoel omdat de verhouding verboden is. Beckman gebruikt dat om te laten zien dat ook een goedbedoelde ordening mensen vastzet in een rol.</p>
+      <h3>Deel twee: de Badeners</h3>
+      <p>Dan komt de Badenfelder de haven binnen, een oorlogsschip uit het Badener Rijk in het voormalige midden van Europa. Professor Kunz heeft Thule teruggevonden op oude kaarten. Zijn rijk is technisch ver, streng geordend en door mannen bestuurd, en zoekt grondstoffen en leefruimte.</p>
+      <p>De ontmoeting is het sterkste deel van het boek. De Badeners kunnen niet begrijpen dat vrouwen het gezag voeren en zoeken daarom voortdurend naar de man die werkelijk beslist. Kunz probeert Christian voor zijn plannen te winnen door hem het onbehagen over zijn eigen positie aan te wrijven.</p>
+      <h3>Delen drie en vier: de tocht en de strijd</h3>
+      <p>In het middendeel trekken Thulenen en Badeners samen het land in, waarbij de bezoekers de rijkdommen opnemen en de gastheren doorkrijgen wat het bezoek werkelijk beoogt. De spanning loopt op via wat er niet wordt uitgesproken.</p>
+      <p>De strijd om de Badenfelder die daarop volgt, wordt niet gewonnen met wapens die Thule niet heeft. De Thulenen gebruiken hun kennis van het land, het weer en de zee, en zij benutten dat de Badeners hen onderschatten. Beckman laat de afloop van menselijke fouten afhangen en niet van een technisch wonder.</p>
+      <h3>Deel vijf: vechten voor de liefde</h3>
+      <p>Het slotdeel keert zich naar binnen. Rajo, de vader van Christian en voormalig echtgenoot van de Konega, is Thule ontvlucht omdat hij de positie van mannen niet langer verdroeg, en keert terug om er verandering in te brengen. Christian sluit zich daarbij aan.</p>
+      <p>De inscriptie in de tempel, dat de kinderen van Moeder Aarde Thule zullen bewaren, wordt daarbij anders gelezen dan gebruikelijk was: de kinderen zijn dan niet alleen de dochters. Het boek eindigt met een land dat zijn ordening moet bijstellen, en de twee volgende delen van de trilogie werken dat verder uit.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Thule</td><td>Het voormalige Groenland, na het smelten van het ijs een groen land waar enkele duizenden overlevenden een nieuwe samenleving bouwden.</td></tr>
+          <tr><td class="term">De Grote Ramp</td><td>De kernoorlog met de verschuiving van de aardas die in de proloog de oude wereld beeindigt.</td></tr>
+          <tr><td class="term">Konega</td><td>De vrouwelijke heerser van Thule, in het boek Armina-Dottir, dochter in de lijn die op Sigrid Helgadottir teruggaat.</td></tr>
+          <tr><td class="term">Vrouwenraad</td><td>Het bestuurscollege dat naast de Konega staat en waarin de besluiten over het land worden genomen.</td></tr>
+          <tr><td class="term">Woudloper</td><td>De enige man in Thule die een wapen mag dragen, met als taak het evenwicht tussen dieren en planten te bewaken.</td></tr>
+          <tr><td class="term">Sjamaan</td><td>De genezer van Thule, het vak waarvoor Christian in opleiding is.</td></tr>
+          <tr><td class="term">Het Badener Rijk</td><td>De technisch ontwikkelde, door mannen bestuurde staat in het voormalige Europa die Thule wil inlijven.</td></tr>
+          <tr><td class="term">De Badenfelder</td><td>Het oorlogsschip waarmee de expeditie van professor Kunz in Thule aankomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een roman en zij bewijst niets, maar de bouwstenen zijn herkenbaar uit haar tijd. In 1985 stond de kernwapenwedloop bovenaan de Nederlandse agenda; de demonstratie tegen de kruisraketten in Den Haag trok op 29 oktober 1983 naar schatting een half miljoen mensen. Het uitgangspunt van het boek, dat de wereld aan die wapens ten onder kan gaan, was geen literaire vondst maar de vrees van dat moment.</p>
+      <p>Het natuurdeel is met zorg gemaakt. Beckman werkt de geografie van Groenland, de zeevaart en het leven van een kleine gemeenschap gedetailleerd uit, en de keuzes die Thule maakt over techniek zijn binnen het boek consequent doorgevoerd. Het smelten van de ijskap gebruikt zij in 1985 nog als gevolg van een asverschuiving en niet van opwarming.</p>
+      <p>De maatschappijkritiek berust op een omkering en niet op onderzoek. Beckman keert de rollen om en laat vervolgens zien wat er zichtbaar wordt, wat een beproefde werkwijze is in dit soort verhalen. Dat vrouwelijk bestuur werkelijk tot vrede zou leiden, wordt in het boek aangenomen en niet aangetoond.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De aanname onder het boek is de zwakste plek. Dat mannen de oorlog brachten en vrouwen de vrede bewaken, wordt door de vertelling bevestigd omdat de schrijfster haar wereld zo heeft ingericht. Wie die aanname niet deelt, leest een goed uitgewerkte demonstratie van een stelling die al vaststond voordat het verhaal begon.</p>
+      <p>De Badeners zijn te eenvormig. Zij zijn hebzuchtig, hoogmoedig en blind voor wat zij zien, en het rijk waar zij vandaan komen krijgt nauwelijks binnenkant. Daardoor is de botsing van twee wereldbeelden voor een deel een botsing tussen een uitgewerkt land en een decorstuk.</p>
+      <p>De boodschap staat soms voor de personages. Gesprekken lopen uit op uitleg over hoe Thule is ingericht en waarom dat beter is, en de bedoeling van de schrijfster is dan vlak onder de tekst hoorbaar. De liefdesgeschiedenis tussen Christian en Thura krijgt minder ruimte dan het thema waarvoor zij is bedacht.</p>
+      <p>Tegenover die bezwaren staat wat het boek wel doet, en dat is meer dan de meeste jeugdromans met een boodschap: het laat de eigen heilstaat niet met rust. Dat Rajo en Christian aan het slot voor de positie van mannen opkomen, ondergraaft het uitgangspunt van Thule van binnenuit, en Beckman laat die scheur openstaan.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, verschenen bij Lemniscaat in Rotterdam in 1985. Het is deel een van de Thule-trilogie, gevolgd door <i>Het helse paradijs</i> en <i>Het Gulden Vlies van Thule</i>. Lemniscaat houdt het boek in druk: een gebonden editie uit 2006 onder ISBN 9789056378950, een e-boek uit 2022 onder ISBN 9789047750536 en een nieuwe gebonden uitgave uit 2026 onder ISBN 9789047718772, waarvan Martijn van der Linden de illustraties maakte. De uitgever geeft het op vanaf dertien jaar. Het boek bestaat uit een proloog en vijf delen met samen zevenentwintig hoofdstukken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thea Beckman schreef dit boek in 1985, in de jaren waarin de kruisraketten en het milieu de gesprekken in Nederland beheersten. Het speelt eeuwen na een kernoorlog, op het voormalige Groenland, dat na het smelten van het ijs een aangenaam klimaat heeft gekregen en Thule heet.</p><p>In Thule regeren vrouwen. De Konega staat aan het hoofd, bijgestaan door een Vrouwenraad, en de samenleving is opgezet rond het uitgangspunt dat de oude wereld ten onder ging aan de macht van mannen. Mannen dragen er geen wapens, met uitzondering van de woudlopers die het evenwicht in de natuur bewaken. Techniek die schade aanricht wordt bewust niet ontwikkeld.</p><p>Het verhaal komt op gang wanneer een schip uit het Badener Rijk, het voormalige Europa, aanmeert. Professor Kunz heeft Thule op oude kaarten gevonden en zijn opdrachtgevers willen het land inlijven om de grondstoffen en het klimaat. Een samenleving zonder wapens moet zich dan verhouden tot een die alleen daarin gelooft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>jeugdboek</li><li>toekomstroman</li><li>matriarchaat</li><li>kernoorlog</li><li>natuur</li><li>thule</li><li>kolonisatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1757"><a href="1757.html">1984</a>. Orwell tekent de tegenovergestelde uitkomst van hetzelfde gedachtenexperiment, met een staat die de mens naar haar hand zet.</li>
+          <li value="61"><a href="61.html">Brave New World</a>. Huxley bouwt eveneens een samenleving die na een breuk opnieuw is ingericht, met techniek en genot als bindmiddel.</li>
+          <li value="618"><a href="618.html">The Iron Heel</a>. London schreef een vroeg voorbeeld van de roman die een politieke stelling in een toekomstbeeld uitwerkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

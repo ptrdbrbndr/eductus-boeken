@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liefhebben, een kunst, een kunde &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fromm stelt dat liefde geen gevoel is dat iemand overkomt maar een vermogen dat hij ontwikkelt, en dat de wijdverbreide gedachte dat het om het vinden van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1726">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1726 &middot; Levenskunst</p>
+    <h1>Liefhebben, een kunst, een kunde</h1>
+    <p class="lede">Erich Fromm, 1956; vert. Arie Treurniet en Jakob Mordegaai</p>
+    <p class="stats">
+      <span><b>1811</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1726"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fromm stelt dat liefde geen gevoel is dat iemand overkomt maar een vermogen dat hij ontwikkelt, en dat de wijdverbreide gedachte dat het om het vinden van de juiste persoon gaat de reden is waarom zoveel verhoudingen mislukken. Achter die stelling ligt een tweede, die verder reikt: het vermogen om lief te hebben staat in de westerse samenleving onder druk, omdat een economie die op ruil en op verkoopbaarheid is gebouwd mensen leert zichzelf en anderen als handelswaar te bekijken. Liefde is bij Fromm daarom niet uitsluitend een persoonlijke aangelegenheid maar ook een maatschappelijke kwestie: een samenleving waarin liefde in haar volle vorm mogelijk is, zou anders ingericht moeten zijn dan de bestaande. Wie het boek als handleiding voor betere relaties leest, mist die tweede helft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Is liefde een kunst?</h3>
+      <p>Het eerste hoofdstuk zet de vraag scherp. Mensen besteden jaren aan het leren van een beroep en vrijwel niets aan het leren beminnen, terwijl zij liefde wel als het belangrijkste beschouwen. Fromm wijst drie misvattingen aan: dat het probleem is bemind te worden in plaats van te beminnen, dat het om het voorwerp gaat en niet om het vermogen, en dat de eerste verliefdheid met blijvende liefde wordt verward.</p>
+      <p>Zijn tegenvoorstel is dat liefhebben een kunst is als elke andere, met een theorie die geleerd moet worden en een beoefening die geoefend moet worden, en met de voorwaarde dat het voor de leerling de belangrijkste zaak in zijn leven is. Hij waarschuwt in het voorwoord dat wie eenvoudige aanwijzingen verwacht, teleurgesteld zal worden.</p>
+      <h3>Afgescheidenheid als grondprobleem</h3>
+      <p>De theorie begint bij de mens als het dier dat zich van zichzelf bewust is. Dat bewustzijn brengt het besef mee dat hij van de natuur en van andere mensen gescheiden is, en dat besef maakt angstig. De geschiedenis van godsdiensten en samenlevingen leest Fromm als een reeks pogingen om die scheiding op te heffen.</p>
+      <p>Hij bespreekt de uitwegen die niet voldoen. Roestoestanden, met of zonder middelen, werken kort en laten schuld achter. Aanpassing aan de groep levert gelijkvormigheid op en geen verbondenheid. Scheppend werk verbindt de maker met zijn materiaal maar niet met andere mensen. Alleen liefde heft de afgescheidenheid op zonder dat iemand zijn eigenheid opgeeft, en dat is bij Fromm de toets voor wat liefde mag heten.</p>
+      <h3>Geven, en de vier onderdelen</h3>
+      <p>Liefde is voor Fromm allereerst geven, en geven is geen offer maar de sterkste uiting van vermogen: wie geeft, ervaart zijn eigen kunnen. Wat gegeven wordt is niet materieel maar wat iemand aan levendigheid, belangstelling en begrip in zich heeft, en dat geven maakt de ander eveneens tot gever.</p>
+      <p>In elke vorm van liefde onderscheidt hij vier onderdelen. Zorg is de actieve belangstelling voor het leven en de groei van de ander. Verantwoordelijkheid is het uit eigen beweging antwoorden op diens behoeften. Eerbied is de ander zien zoals hij is en hem naar zijn eigen aard laten groeien, en zonder eerbied slaat verantwoordelijkheid om in overheersing. Kennis is het doordringen tot wat er in de ander omgaat in plaats van tot de buitenkant.</p>
+      <h3>De vormen van liefde</h3>
+      <p>Fromm loopt vijf vormen langs. Broederlijke liefde geldt alle mensen en is de grondvorm; zij kent geen uitsluiting en blijkt volgens hem het duidelijkst uit de omgang met wie niets terug te bieden heeft. Moederlijke liefde is onvoorwaardelijk en moet zichzelf overbodig maken, wat haar de moeilijkste vorm maakt: zij slaagt wanneer het kind weggaat.</p>
+      <p>Erotische liefde streeft naar samensmelting met een enkele ander en is daarmee uitsluitend; Fromm bestrijdt dat zij alleen gevoel zou zijn en noemt haar ook een besluit en een belofte. Zelfliefde onderscheidt hij scherp van zelfzucht: wie zichzelf niet kan beminnen kan niemand beminnen, en de zelfzuchtige mens is er juist een die te weinig van zichzelf houdt. De liefde voor God tekent hij als de godsdienstige tegenhanger van dezelfde ontwikkeling, van afhankelijkheid van een vaderfiguur naar een houding die geen figuur meer nodig heeft.</p>
+      <h3>Het verval in de westerse samenleving</h3>
+      <p>Het derde deel is het meest polemisch. In een samenleving die op ruil is gebouwd, kiezen mensen een partner zoals zij op een markt handelen: zij schatten in wat zij zelf waard zijn en zoeken de beste partij binnen dat bereik. Het huwelijk dat daaruit volgt noemt Fromm een goedlopend team van twee mensen die elkaar beleefd behandelen en verder gescheiden blijven.</p>
+      <p>Hij beschrijft daarnaast wat hij pseudoliefde noemt: de aanbiddende vorm waarin iemand zichzelf wegcijfert voor een afgod, de sentimentele vorm die alleen in film en herinnering wordt beleefd, en de vorm waarin twee mensen elkaars tekorten aanwijzen in plaats van hun eigen. Het slot van dit deel legt de verbinding met zijn eerdere werk: de mens die als handelswaar wordt opgevoed, kan de vier onderdelen van de liefde niet ontwikkelen.</p>
+      <h3>De beoefening</h3>
+      <p>Het laatste deel gaat over wat iemand kan doen, en begint met het voorbehoud dat de beoefening van een kunst zich niet uit een boek laat leren. Fromm noemt vier algemene voorwaarden die voor elke kunst gelden: discipline, concentratie, geduld en de bereidheid er de belangrijkste zaak van te maken.</p>
+      <p>Daarnaast noemt hij eisen die met liefde zelf te maken hebben: het overwinnen van het narcisme, waarbij iemand alleen echt acht wat op hemzelf betrekking heeft; objectiviteit, het vermogen om mensen en zaken te zien zoals ze zijn; en geloof in de zin van een gegrond vertrouwen, in de ander, in jezelf en in de mogelijkheid van verandering. Dat vertrouwen vraagt moed, omdat het risico op teleurstelling erin besloten ligt. Het boek eindigt met de stelling dat een samenleving waarin liefde de grondvorm van de verhoudingen is, andere economische verhoudingen vereist dan de bestaande.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Afgescheidenheid</td><td>Het besef van de mens dat hij losstaat van de natuur en van anderen; volgens Fromm de bron van de angst waarop alle vormen van verbinding een antwoord zijn.</td></tr>
+          <tr><td class="term">Symbiotische verbondenheid</td><td>De onvolgroeide vorm van samengaan waarin de een in de ander opgaat, in passieve gedaante onderwerping en in actieve gedaante overheersing.</td></tr>
+          <tr><td class="term">Geven</td><td>Bij Fromm geen verlies maar de uiting van eigen vermogen, waarbij niet bezit maar levendigheid, belangstelling en begrip worden overgedragen.</td></tr>
+          <tr><td class="term">Zorg, verantwoordelijkheid, eerbied en kennis</td><td>De vier onderdelen die volgens Fromm in elke vorm van liefde aanwezig zijn en die elkaar nodig hebben om niet in bezitsdrang om te slaan.</td></tr>
+          <tr><td class="term">Broederlijke liefde</td><td>De liefde tussen mensen als gelijken, zonder uitsluiting, die Fromm als grondvorm van alle andere vormen beschouwt.</td></tr>
+          <tr><td class="term">Moederlijke liefde</td><td>De onvoorwaardelijke vorm die haar doel bereikt door zichzelf overbodig te maken en het kind te laten gaan.</td></tr>
+          <tr><td class="term">Zelfliefde tegenover zelfzucht</td><td>Fromms onderscheid waarin achting voor de eigen persoon voorwaarde is voor liefde voor anderen, terwijl zelfzucht juist voortkomt uit een tekort daaraan.</td></tr>
+          <tr><td class="term">De menselijke markt</td><td>Fromms beeld van partnerkeuze in een ruilsamenleving, waarin mensen hun eigen waarde inschatten en daarbinnen de gunstigste partij zoeken.</td></tr>
+          <tr><td class="term">Pseudoliefde</td><td>Verzamelnaam voor vormen die op liefde lijken: aanbidding van een afgod, sentimentele beleving op afstand en het wederzijds aanwijzen van tekorten.</td></tr>
+          <tr><td class="term">Rationeel geloof</td><td>Vertrouwen dat op eigen waarneming en denken berust en niet op gezag, en dat Fromm nodig acht om iemand op zijn mogelijkheden aan te spreken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek. Fromm voert geen metingen, geen steekproeven en geen gevalsbeschrijvingen aan; hij redeneert. Zijn uitgangspunten komen uit de psychoanalyse, waarvan hij de opvatting van Freud over liefde als afgeleide van driftbevrediging uitdrukkelijk verwerpt, uit het werk van Marx over vervreemding, en uit de mystieke traditie, met verwijzingen naar onder anderen Meister Eckhart. Waar hij een gedachte staaft, doet hij dat met een citaat of met een historisch voorbeeld.</p>
+      <p>De kracht van het betoog zit in de begripsbepaling. De vier onderdelen van de liefde en het onderscheid tussen zelfliefde en zelfzucht zijn scherp geformuleerd en laten zich op afzonderlijke gevallen leggen; ze geven de lezer taal voor onderscheidingen die hij anders niet zou maken. Dat is geen bewijs dat de theorie klopt, maar het maakt haar bruikbaar in de omgang met concrete verhoudingen.</p>
+      <p>Wat het boek als tijdsdocument stevig maakt, is de samenhang met Fromms overige werk. De analyse van de mens die zichzelf als handelswaar ervaart, is de voortzetting van wat hij eerder over de vlucht uit de vrijheid schreef, en de nadruk op zijn in plaats van hebben komt later in een eigen boek terug. Het is dus geen los stuk levenswijsheid maar een onderdeel van een uitgewerkte maatschappijkritiek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat vrijwel geen enkele bewering wordt onderbouwd. Fromm stelt vast hoe de mens in elkaar zit, wat liefde is en waar de moderne samenleving aan lijdt, en de lezer moet hem daarin volgen op gezag van de toon. Waar latere hechtingsonderzoekers en relatiepsychologen met gegevens komen die de omgang tussen partners in kaart brengen, staat hier een verhandeling die zich aan toetsing onttrekt.</p>
+      <p>Het onderscheid tussen moederlijke en vaderlijke liefde is aan zijn tijd gebonden. Fromm koppelt onvoorwaardelijkheid aan de moeder en voorwaardelijkheid aan de vader alsof dat in de aard van de rollen ligt, terwijl hij een gezinsmodel beschrijft dat in 1956 gangbaar was. Hetzelfde geldt voor zijn behandeling van homoseksualiteit, die hij in de lijn van zijn tijd als een mislukte vorm van vereniging van tegendelen wegzet; die passage is inmiddels moeilijk leesbaar en verzwakt het hoofdstuk waarin zij staat.</p>
+      <p>Er zit een spanning tussen de opzet en de uitvoering. Het boek belooft liefde als kunst met een beoefening, maar het deel over die beoefening opent met de mededeling dat een boek dit onderdeel niet kan overdragen, en blijft daarna bij algemene voorwaarden als discipline en concentratie. Wie het als handleiding leest, houdt weinig over.</p>
+      <p>Het boek is bovendien massaal gelezen als zelfhulp, terwijl het slot een verandering van de economische verhoudingen bepleit. Die lezing is niet alleen de schuld van lezers: door liefde als vermogen van het individu neer te zetten, geeft Fromm zelf aanleiding om zijn maatschappijkritiek over te slaan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een vastgelopen verhouding na of het gebrek in het eigen vermogen zit of in de keuze van de ander, en stel de vraag in die volgorde.</li>
+        <li>Loop de vier onderdelen langs voor een verhouding die je belangrijk vindt: zorg, verantwoordelijkheid, eerbied, kennis, en bepaal welk onderdeel ontbreekt.</li>
+        <li>Let op eerbied als tegenwicht tegen verantwoordelijkheid, om te voorkomen dat zorgen voor iemand overgaat in over iemand beschikken.</li>
+        <li>Oefen concentratie los van verhoudingen: een tijd alleen zitten zonder afleiding, en bij een gesprek werkelijk alleen dat gesprek voeren.</li>
+        <li>Onderzoek bij aanhoudende onvrede over anderen of het narcisme meespeelt dat Fromm beschrijft, waarbij alleen wat de eigen persoon aangaat als werkelijk telt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Art of Loving</i> (Harper &amp; Brothers, New York, 1956), verschenen in de reeks World Perspectives onder redactie van Ruth Nanda Anshen. De Nederlandse vertaling van Arie Treurniet en Jakob Mordegaai verschijnt bij Erven J. Bijleveld in Utrecht; de eenentwintigste druk dateert van 2022 (159 blz., ISBN 9789061315476). Bij dezelfde uitgever verscheen meer werk van Fromm in vertaling, waaronder <i>Escape from Freedom</i> en <i>To Have or To Be</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Fromm opent met de vaststelling dat vrijwel iedereen liefde als een gelukje beschouwt: iets wat je overkomt als je de juiste persoon treft. Hij bestrijdt dat. Liefhebben is volgens hem een vermogen dat geoefend wordt, zoals muziek maken of timmeren, en het probleem is niet dat mensen niet bemind worden maar dat zij niet kunnen beminnen.</p><p>Daarna volgt zijn theorie. De mens is zich bewust van zijn afgescheidenheid van anderen en zoekt daar verlichting voor. Roes, groepsgelijkvormigheid en scheppend werk helpen tijdelijk; alleen liefde heft de scheiding op zonder de eigenheid prijs te geven. Fromm onderscheidt broederlijke liefde, moederliefde, erotische liefde, zelfliefde en liefde voor God, en noemt vier onderdelen die in alle vormen terugkeren: zorg, verantwoordelijkheid, eerbied en kennis.</p><p>Het derde deel is een aanklacht: in een samenleving die op ruil is ingericht, kiezen mensen een partner zoals zij een aankoop doen en noemen zij het resultaat liefde. Het slotdeel gaat over de beoefening, met discipline, concentratie, geduld en aandacht als voorwaarden. Fromm waarschuwt daar zelf dat een boek dit onderdeel niet kan overdragen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>liefde</li><li>psychoanalyse</li><li>Fromm</li><li>kapitalismekritiek</li><li>relaties</li><li>humanistische psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="223"><a href="223.html">The Anatomy of Human Destructiveness</a>. Fromm werkte daarin de andere kant van dezelfde mensopvatting uit: waar destructiviteit vandaan komt als het vermogen tot verbinding uitblijft.</li>
+          <li value="34"><a href="34.html">The 5 Love Languages</a>. Chapman doet precies wat Fromm afwijst, namelijk liefde terugbrengen tot een techniek voor het aflezen van andermans voorkeuren.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Perel onderzoekt de erotische liefde binnen langdurige verhoudingen en komt tot een spanning tussen geborgenheid en verlangen die bij Fromm ontbreekt.</li>
+          <li value="1590"><a href="1590.html">Liefde is een werkwoord</a>. Vansteenwegen bouwt de gedachte dat liefde iets is wat je doet uit tot een relatiepraktijk met concrete aanwijzingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start vandaag met ademen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De manier waarop iemand ademt is volgens Bridgeman en Van den Hout geen bijverschijnsel van zijn toestand maar een ingang ertoe. Wie hoog in de borst…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1756">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1756 &middot; Brein en lichaam</p>
+    <h1>Start vandaag met ademen</h1>
+    <p class="lede">Robert Bridgeman en Marleen van den Hout, 2016</p>
+    <p class="stats">
+      <span><b>1214</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1756"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De manier waarop iemand ademt is volgens Bridgeman en Van den Hout geen bijverschijnsel van zijn toestand maar een ingang ertoe. Wie hoog in de borst ademt houdt het zenuwstelsel in een stand van waakzaamheid; wie de adem laag in de onderbuik brengt, verlaat het hoofd en komt in het lichaam terecht. Daaruit volgt de opzet van het boek: geen inzicht dat tot verandering leidt, maar een reeks oefeningen die het lichaam eerst iets anders laat doen, waarna het denken vanzelf volgt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ademen als afdruk van een karakter</h3>
+      <p>Het eerste deel opent met de stelling dat aan iemands ademhaling af te lezen valt hoe hij in het leven staat. Een opgetrokken borstkas, korte inademingen, een adem die halverwege stokt: de auteurs behandelen die patronen als gestolde gewoonten die ooit ergens vandaan kwamen en daarna zijn blijven staan.</p>
+      <p>Daarmee wordt de ademhaling niet alleen een lichamelijke functie maar ook een biografisch gegeven. Die verbinding is de stille aanname onder het hele boek. Ze wordt gesteld en met voorbeelden uit de praktijk van de auteurs geïllustreerd, niet met onderzoek gestaafd.</p>
+      <h3>Wat er lichamelijk gebeurt</h3>
+      <p>Vervolgens gaat het over het middenrif, de tussenribspieren en het verschil tussen borstademhaling en een ademhaling die tot in de onderbuik reikt. De auteurs beschrijven hoe de eerste bij inspanning en schrik hoort en de tweede bij herstel, en hoe een groot deel van de volwassenen de eerste stand als dagelijkse stand is gaan gebruiken.</p>
+      <p>Dit hoofdstuk is het meest terughoudende van het boek. Het blijft dicht bij wat in elk leerboek fysiologie staat en gaat niet verder dan dat.</p>
+      <h3>De methode naast andere methodes</h3>
+      <p>Voordat de eigen methode komt, bespreken de auteurs wat er al is. Buteyko, dat juist op minder en zuiniger ademen aanstuurt. De methode van Wim Hof, met stevig doorademen en koude. Pranayama uit de yoga en de rustige aandacht van zittende meditatie.</p>
+      <p>Bridgeman en Van den Hout presenteren BAM niet als vervanger daarvan maar als onderlaag: eerst het lichaam en de onderbuikademhaling op orde, daarna werkt volgens hen elk van de andere methodes beter. Bridgeman verwijst hierbij naar zijn eigen samenwerking met Wim Hof bij tochten op hoogte.</p>
+      <h3>Vijf stappen</h3>
+      <p>Het tweede deel geeft de methode. Stap een is de lichaamshouding: het bekken, de wervelkolom en de schouders zo zetten dat het middenrif ruimte krijgt. Stap twee is het verdiepen van de adem, waarbij de beweging omlaag gebracht wordt tot in de onderbuik.</p>
+      <p>Stap drie is het verbinden: in- en uitademing zonder pauze aan elkaar leggen, zodat er een doorlopende cirkel ontstaat. Stap vier is het intensiveren, waarbij tempo en diepte omhoog gaan. Stap vijf is de superademhalingsoefening, de intensieve slotoefening waarin de vier voorgaande stappen bij elkaar komen.</p>
+      <p>De vijf stappen zijn genummerd en cumulatief bedoeld: wie stap drie doet, doet stap een en twee er nog steeds bij. Dat maakt het boek bruikbaar zonder begeleider, wat ook de opzet is.</p>
+      <h3>Drie oefenvormen</h3>
+      <p>Tot slot bieden de auteurs drie manieren om de stappen in te passen. Meditatief ademen van ongeveer tien minuten, als dagelijkse vorm. Meditatief ademen met de superoefening erachteraan, als langere sessie. En een alles-in-een-vorm waarin de hele reeks achter elkaar doorlopen wordt.</p>
+      <p>De beloofde uitkomsten worden in dit deel het breedst: innerlijke rust, minder spanning in nek en schouders, beter slapen, betere concentratie, meer zelfvertrouwen en een scherpere intuïtie. Die opsomming staat in de aanprijzing van het boek en keert in de tekst terug.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bridgeman Ademmethode (BAM)</td><td>De vijfstappenmethode van het boek, bedoeld als onderlaag onder andere ademtechnieken.</td></tr>
+          <tr><td class="term">Onderbuikademhaling</td><td>Ademhaling waarbij de beweging tot laag in de buik reikt in plaats van in de borstkas te blijven steken.</td></tr>
+          <tr><td class="term">Verbonden ademhaling</td><td>In- en uitademing zonder pauze aan elkaar geregen, zodat de adem doorloopt.</td></tr>
+          <tr><td class="term">Superademhalingsoefening</td><td>De intensieve slotoefening van de methode, waarin houding, verdieping, verbinding en intensivering samenkomen.</td></tr>
+          <tr><td class="term">Lichaamsbewustzijn</td><td>Het vermogen om te merken wat er lichamelijk gebeurt, dat volgens de auteurs met de oefening meegroeit.</td></tr>
+          <tr><td class="term">Uit je hoofd en in je lijf</td><td>De formulering waarmee de auteurs het doel van de eerste stappen aanduiden: aandacht weg van het denken, naar de lichamelijke gewaarwording.</td></tr>
+          <tr><td class="term">Borstademhaling</td><td>De hoge, korte ademhaling die bij inspanning en schrik hoort en volgens de auteurs bij veel mensen de dagelijkse stand is geworden.</td></tr>
+          <tr><td class="term">Buteyko-methode</td><td>De besproken tegenpool die op minder en zuiniger ademen aanstuurt in plaats van op meer.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de praktijk van de auteurs en op algemeen bekende fysiologie, niet op eigen onderzoek. De beschrijving van middenrif en borstademhaling is standaardkennis en klopt. Dat langzaam en laag ademen de hartslag omlaag brengt en spanning vermindert, is in het onderzoek naar ademhaling met vertraagde frequentie een van de beter onderbouwde bevindingen.</p>
+      <p>Van de methode zelf bestaat geen gecontroleerd onderzoek. De vijf stappen zijn niet met een controlegroep vergeleken, niet met een andere ademmethode en niet met niets doen. Wie wil weten of BAM iets toevoegt boven eenvoudig langzaam ademen, vindt daar in het boek geen antwoord op.</p>
+      <p>Bridgeman noemt zijn werk met Wim Hof, en rond die methode is wel onderzoek gedaan, onder meer naar de invloed op de ontstekingsreactie na toediening van endotoxine. Dat onderzoek gaat over een ander protocol, met koude erbij, en zegt niets over de methode in dit boek. Het lenen van gezag over die brug is de zwakste schakel in de onderbouwing.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De lijst met beloofde uitkomsten is breder dan wat een ademoefening kan dragen. Rustiger schouders en beter slapen zijn aannemelijk. Meer zelfvertrouwen en een scherpere intuïtie zijn dat niet op dezelfde manier, en het boek maakt geen onderscheid tussen wat het aannemelijk kan maken en wat het hoopt.</p>
+      <p>Verbonden en geïntensiveerd ademen is niet zonder gevolgen. Snel en diep doorademen verlaagt het koolzuurgehalte in het bloed en kan tintelingen, duizeligheid en verkramping van handen en mond geven; bij sommige aandoeningen en tijdens de zwangerschap is voorzichtigheid geboden. Een boek dat deze oefeningen zonder begeleider aanbiedt, draagt daarin een verantwoordelijkheid die zwaarder weegt dan bij een boek over zitten en tellen.</p>
+      <p>De duiding van iemands karakter uit zijn ademhaling is de meest gewaagde bewering van het hele werk en tegelijk de minst onderbouwde. Zij komt uit de traditie van het ademwerk en het lichaamsgerichte werk, waar zij al decennia circuleert zonder dat er systematisch onderzoek naar gedaan is.</p>
+      <p>Met 144 bladzijden waarvan een deel aan instructie opgaat, blijft er weinig ruimte over voor nuance. Het boek is bruikbaar als handleiding en dun als uiteenzetting.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de houding voordat je aan de ademhaling zelf werkt; de eerste stap bepaalt hoeveel ruimte het middenrif krijgt.</li>
+        <li>Houd de dagelijkse vorm van ongeveer tien minuten aan en bewaar de intensieve slotoefening voor momenten met tijd en rust erna.</li>
+        <li>Stop bij tintelingen in handen of om de mond en laat de adem terugzakken naar rustig en laag.</li>
+        <li>Leg naast de oefening kort vast hoe de slaap en de spanning in nek en schouders zich over enkele weken ontwikkelen, zodat er iets te vergelijken valt.</li>
+        <li>Overleg vooraf met een arts bij hart- en longaandoeningen, epilepsie, zwangerschap of een geschiedenis van paniekklachten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands verschenen, met als ondertitel <i>de Bridgeman Ademmethode</i>, bij Uitgeverij AnkhHermes (VBK Media), Utrecht, april 2016, 144 blz., ISBN 9789020212624; het e-boek heeft ISBN 9789020212631. Er bestaat geen vertaling in een andere taal. Van Bridgeman verscheen later onder meer de roman <i>De laatste kathaar</i> (2023), eveneens in het Nederlands.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Robert Bridgeman en Marleen van den Hout beschrijven in 144 bladzijden een ademmethode die zij de Bridgeman Ademmethode noemen, afgekort BAM. De kern ervan is in drie zinnen te vatten: snel naar een ademhaling die laag in de buik zit, snel uit het hoofd en in het lijf, en van daaruit lichaamsbewustzijn opbouwen.</p><p>Het boek valt in twee helften uiteen. De eerste legt uit waarom de manier van ademen ertoe doet en zet de methode af tegen bestaande scholen: Buteyko, de methode van Wim Hof, pranayama uit de yoga en zittende meditatie. De tweede helft geeft de methode zelf, in vijf stappen die oplopen van houding naar een intensieve slotoefening, met drie oefenvormen van tien minuten tot een langere sessie.</p><p>De toon is die van een cursusboek: instructie, oefening, en beloofde uitkomsten die van rustiger schouders en beter slapen tot meer zelfvertrouwen en scherpere intuïtie lopen. Naar onderzoek wordt nauwelijks verwezen. Wie de fysiologie van de ademhaling onderbouwd wil lezen is bij Nestor beter af; wie een instructie zoekt vindt hier een geordende.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ademhaling</li><li>ademwerk</li><li>middenrif</li><li>ontspanning</li><li>lichaamsbewustzijn</li><li>Bridgeman Ademmethode</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. James Nestor gaat in <i>Breath</i> na wat er wetenschappelijk over ademhaling bekend is, met bronvermelding; dat is precies wat dit boek niet doet.</li>
+          <li value="1599"><a href="1599.html">Just Breathe</a>. Dan Brulé werkt in <i>Just Breathe</i> met dezelfde verbonden ademhaling, vanuit dezelfde traditie van het ademwerk.</li>
+          <li value="1649"><a href="1649.html">De laatste kathaar</a>. Bridgeman schreef later een roman, <i>De laatste kathaar</i>, waarin dezelfde belangstelling voor innerlijke ontwikkeling in verhaalvorm terugkeert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

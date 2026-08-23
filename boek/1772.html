@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De eeuwige bron &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rand stelt dat alles wat ooit is gemaakt uit een enkel hoofd komt, en dat het oordeel van dat hoofd geen instemming van anderen nodig heeft en er ook niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1772">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1772 &middot; Roman en memoir</p>
+    <h1>De eeuwige bron</h1>
+    <p class="lede">Ayn Rand, 1943; vert. Theo Veenhof</p>
+    <p class="stats">
+      <span><b>1577</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1772"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rand stelt dat alles wat ooit is gemaakt uit een enkel hoofd komt, en dat het oordeel van dat hoofd geen instemming van anderen nodig heeft en er ook niet naar hoort te vragen. Daartegenover zet zij de tweedehandsmens, die zijn maatstaf ontleent aan wat anderen vinden en daarom niets kan voortbrengen dat er niet al was. Uit die tegenstelling volgt haar zedelijke gevolgtrekking: eigenbelang is bij de maker geen ondeugd maar de voorwaarde voor zijn werk, en de oproep tot zelfopoffering aan de gemeenschap is de vorm waarin machtszucht zich vermomt. De roman voert die stelling niet zijdelings mee. De hele intrige is zo gebouwd dat elke figuur een plaats in het betoog bezet, en de laatste honderd bladzijden bestaan grotendeels uit het uitspreken ervan.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Vier delen, vier mannen</h3>
+      <p>Het boek bestaat uit vier delen die elk de naam van een man dragen: Peter Keating, Ellsworth M. Toohey, Gail Wynand en Howard Roark. De titelfiguur komt als laatste aan de beurt. Rand toont eerst drie manieren waarop iemand zijn oordeel bij anderen kan onderbrengen, en pas daarna de man die dat weigert.</p>
+      <p>Roark verandert in het hele boek niet. Hij leert niets, twijfelt niet en gaat niet door een ontwikkeling heen. De beweging zit bij de mensen om hem heen, die zich telkens opnieuw tot hem moeten verhouden. Daardoor bestaat de roman uit een reeks confrontaties waarin steeds dezelfde vraag terugkeert: waaraan ontleent iemand zijn maatstaf.</p>
+      <h3>Roark en Keating</h3>
+      <p>Roark wordt van het Stanton Institute of Technology gestuurd omdat hij weigert opgelegde stijlen na te tekenen. Hij gaat werken voor Henry Cameron, een architect die ooit gevierd werd en nu zonder opdrachten zit en drinkt. Keating komt terecht bij het bureau van Francon en Heyer en werkt zich omhoog met vleierij, met het wegwerken van een concurrent en met tekeningen die hij door Roark laat verbeteren en onder eigen naam inlevert.</p>
+      <p>De twee loopbanen lopen jarenlang uiteen. Keating wordt vennoot en krijgt de opdrachten; Roark verliest opdrachtgevers zodra hij weigert een gevel aan te passen aan wat een commissie mooi vindt. Hij sluit zijn bureau en gaat werken in een granietgroeve.</p>
+      <h3>De groeve en Dominique</h3>
+      <p>In die groeve ziet Dominique Francon hem, dochter van Keatings vennoot en columniste bij de krant The Banner. Daarop volgt de scene waarom het boek het meest is aangevallen: Roark komt 's nachts haar kamer binnen en neemt haar met geweld, en Dominique noemt dat later zelf verkrachting. Rand hield staande dat het om iets anders ging en sprak van verkrachting op uitnodiging.</p>
+      <p>Dominique gelooft dat wat goed is in deze wereld altijd verliest. Uit die overtuiging werkt zij Roark tegen: zij schrijft tegen zijn gebouwen, haalt opdrachten bij hem weg en trouwt eerst met Keating en daarna met Wynand, telkens met de man die het verst van haar eigen maatstaf staat. Rand liet weten dat Dominique haar eigen slechte bui was, in zoverre dat deze figuur haar overtuiging deelt en er wanhopig van wordt.</p>
+      <h3>De tempel van Stoddard</h3>
+      <p>Hopton Stoddard geeft Roark op aanraden van Toohey opdracht voor een tempel van de menselijke geest. Roark bouwt een laag, open gebouw met in het midden een naakt beeld waarvoor Dominique model staat. Toohey brengt de verontwaardiging op gang en laat Stoddard een rechtszaak beginnen wegens ondeugdelijk werk.</p>
+      <p>Roark voert in dat proces geen verweer en legt alleen foto's van het gebouw over. Hij verliest, het gebouw wordt verbouwd tot tehuis, en Dominique legt in de rechtszaal een verklaring af die als aanklacht is bedoeld en als liefdesverklaring te lezen valt.</p>
+      <h3>Wynand en de krant</h3>
+      <p>Gail Wynand kwam uit de armste wijk van New York omhoog en bouwde The Banner op door te drukken wat verkoopt. Hij koopt mensen om en houdt daar een minachting aan over die hij uiteindelijk op zichzelf betrekt. In Roark ontmoet hij de eerste die hij niet kan kopen; hij wordt zijn vriend en zijn opdrachtgever.</p>
+      <p>Toohey werkt intussen van binnenuit aan diezelfde krant. Hij verzamelt een groep medewerkers om zich heen, verdeelt de gunsten en organiseert de invloed die hij naar buiten toe altijd namens de gemeenschap zegt uit te oefenen. In een gesprek met Keating zegt hij ronduit wat hij wil: mensen zo klein maken dat zij zichzelf niet meer vertrouwen en zich aan hem overleveren.</p>
+      <h3>Cortlandt en het pleidooi</h3>
+      <p>Keating krijgt de opdracht voor Cortlandt Homes, een woningbouwproject voor lage inkomens, en vraagt Roark het te ontwerpen. Roark doet dat onder een voorwaarde die alleen tussen hen beiden geldt: er mag niets aan worden veranderd. Tijdens de bouw wordt het ontwerp toch aangepast. Roark blaast het leegstaande gebouw op, met Dominique als medeplichtige, en laat zich arresteren.</p>
+      <p>Wynand zet zijn krant in om Roark te verdedigen, verliest daarmee zijn lezers en zijn greep op het bedrijf en geeft ten slotte toe aan de druk. Roark verdedigt zichzelf voor de jury met een betoog over scheppers en tweedehandsmensen en wordt vrijgesproken. Het slot toont hem boven op het hoogste bouwwerk van de stad, gebouwd in opdracht van Wynand, die zich daarna terugtrekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tweedehandsmens</td><td>Rands aanduiding voor wie zijn maatstaf, zijn eerzucht en zelfs zijn genot ontleent aan het oordeel van anderen en daardoor niets uit zichzelf kan voortbrengen.</td></tr>
+          <tr><td class="term">De schepper</td><td>De tegenpool daarvan: iemand die werkt naar een oordeel dat hij zelf vormt en die het bijval of afkeur van anderen niet als grond voor zijn werk aanvaardt.</td></tr>
+          <tr><td class="term">Egoisme</td><td>In dit boek geen ondeugd maar de houding van wie voor zichzelf denkt; Rand keert de gangbare betekenis om en laat Roark die omkering in zijn pleidooi uitspreken.</td></tr>
+          <tr><td class="term">Altruisme</td><td>De leer van zelfopoffering, die Toohey gebruikt als middel om mensen aan zichzelf te laten twijfelen en zich te laten leiden.</td></tr>
+          <tr><td class="term">The Banner</td><td>De krant van Gail Wynand, gebouwd op het geven van wat het publiek wil, en daarmee het toonbeeld van macht die van andermans smaak afhangt.</td></tr>
+          <tr><td class="term">One Small Voice</td><td>De rubriek waarin Toohey over bouwkunst en cultuur schrijft en waarmee hij reputaties maakt en afbreekt.</td></tr>
+          <tr><td class="term">Cortlandt Homes</td><td>Het woningbouwproject dat Roark voor Keating ontwerpt en dat hij opblaast nadat anderen er hun toevoegingen aan hebben gedaan.</td></tr>
+          <tr><td class="term">Objectivisme</td><td>De naam die Rand later gaf aan het stelsel waarvan deze roman de eerste uitgewerkte vorm is: kennis uit de rede, eigenbelang als deugd, en een staat die zich tot rechtspraak en veiligheid beperkt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Voor de vakwereld deed Rand echt onderzoek. Zij werkte een tijd als typiste en archiefkracht op het bureau van de New Yorkse architect Ely Jacques Kahn om te zien hoe opdrachten binnenkomen, hoe tekenzalen werken en hoe prijsvragen worden beslist. De beschrijvingen van bureaus, commissies en bouwplaatsen zijn daarop gebouwd en houden stand.</p>
+      <p>De gelijkenis met Frank Lloyd Wright hoort daarbij. Rand heeft altijd gezegd dat zij bepaalde bouwkundige denkbeelden en het verloop van zijn loopbaan gebruikte en zijn opvattingen niet; Wright zelf gaf wisselende antwoorden en ontkende het vaderschap van de figuur.</p>
+      <p>Als betoog rust het boek uitsluitend op zijn eigen inrichting. De enige personen die de andere kant verdedigen zijn een gebroken vleier en een man die aan Keating hardop bekent dat het hem om macht te doen is. Wie in een roman zowel de stelling als de tegenwerping schrijft, kan het pleit binnen de bladzijden altijd winnen; buiten die bladzijden is er niets bewezen. Wat het boek wel aantoont is zijn eigen taaiheid: twaalf weigeringen, een trage start en daarna zeven decennia waarin de verkoop nooit stopte.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de bekentenis van Toohey. Doordat de tegenstander zelf uitlegt dat hij mensen klein wil maken, hoeft Rand het collectivisme nergens in zijn beste vorm te bestrijden. Niemand in het boek bepleit gedeelde zorg uit iets anders dan zwakte of heerszucht, en daarmee is de vraag beslecht voordat zij is gesteld.</p>
+      <p>De onafhankelijkheid van Roark rust op omstandigheden die buiten beeld blijven. Er is altijd net op tijd een opdrachtgever, er zijn geen kinderen, geen ziekte, geen ouder wordende ouders en geen schulden die niet met handenarbeid zijn af te lossen. De keuze tussen buigen en trouw blijven aan het eigen ontwerp wordt daarmee lichter voorgesteld dan zij voor vrijwel iedereen is.</p>
+      <p>De nachtelijke scene met Dominique blijft het punt waarop lezers afhaken die het boek verder waarderen. Rand presenteert overweldiging als de vorm die liefde tussen twee mensen van gelijke rang aanneemt en verdedigde dat met de uitdrukking verkrachting op uitnodiging. Feministische lezers hebben daarin een leer over verkrachting gezien, en de tekst geeft hun daarvoor genoeg aanknopingspunten.</p>
+      <p>Ook juridisch wringt de afloop. Roark vernielt woningen die voor mensen met weinig geld waren bedoeld, beroept zich op een afspraak die nooit een overeenkomst was, en wordt vrijgesproken op de kracht van een toespraak. De roman vraagt daarmee om een rechtspraak die naar het motief van de dader kijkt en niet naar de daad, precies het soort uitzondering waartegen Rand zich elders verzet.</p>
+      <p>Ten slotte de vorm. De figuren zijn standpunten met een naam, en de laatste delen bestaan uit redevoeringen die uitleggen wat de handeling al liet zien. Wie het boek niet mooi vindt, noemt meestal die twee dingen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Fountainhead</i> (The Bobbs-Merrill Company, Indianapolis, 1943, ruim zevenhonderd blz.). Twaalf uitgevers weigerden het manuscript; redacteur Archibald Ogden zette bij Bobbs-Merrill zijn baan op het spel met de mededeling dat als dit niet het boek voor hen was, hij niet de redacteur voor hen was, waarna het huis op 10 december 1941 tekende. De verkoop kwam traag op gang en groeide door mond-tot-mondreclame uit tot ruim tien miljoen exemplaren. De eerste Nederlandse vertaling is van Jan van Rheenen (Luitingh, Laren, jaren zeventig), later herzien door Erica van Rijsewijk; in augustus 2015 verscheen bij Luitingh-Sijthoff, Amsterdam, een nieuwe vertaling van Theo Veenhof (ISBN 9789021016689), in 2024 gevolgd door een luisterboek ingelezen door Louis van Beek (ISBN 9789021051840). King Vidor verfilmde het boek in 1949 met Gary Cooper en Patricia Neal, naar een scenario van Rand zelf.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Howard Roark wordt van de architectuuropleiding gestuurd omdat hij weigert in historische stijlen te ontwerpen. Zijn studiegenoot Peter Keating studeert in hetzelfde jaar als beste af en klimt op bij een van de grootste bureaus van New York. Rand volgt de twee loopbanen bijna twintig jaar naast elkaar.</p><p>Om hen heen bewegen drie anderen. Dominique Francon houdt zo veel van wat af is dat zij het liever vernietigt dan aan de menigte overlaat. Gail Wynand bouwde een krantenketen op door het publiek te geven wat het wil. Ellsworth Toohey schrijft over bouwkunst, spreekt namens de gemeenschap en maakt en breekt loopbanen.</p><p>Het boek loopt uit op een aanslag. Roark blaast een woningbouwproject op waarvan zijn ontwerp tijdens de bouw is aangepast, geeft zichzelf aan en houdt voor de jury een pleidooi over scheppers en tweedehandsmensen. De roman is het voertuig voor het mensbeeld dat Rand later objectivisme noemde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>individualisme</li><li>architectuur</li><li>objectivisme</li><li>New York</li><li>integriteit</li><li>ideeenroman</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="263"><a href="263.html">Beyond Good and Evil</a>. Nietzsche levert de voorstelling van een moraal die door de sterke zelf wordt gesteld; Rand las hem jong, en Roarks pleidooi ligt er dichter bij dan zij later wilde toegeven.</li>
+          <li value="624"><a href="624.html">The Politics of Individualism</a>. Brown onderzoekt wat individualisme nog meer kan betekenen dan de vorm die Rand eraan geeft, en verbindt het juist met samenwerking in plaats van met eigendom.</li>
+          <li value="910"><a href="910.html">Kapitalisme, socialisme en democratie</a>. Schumpeter beschrijft nuchter wat Rand als drama opvoert: de ondernemer die iets nieuws doorzet, en de omstandigheden waaronder een samenleving zulke mensen verdraagt of afstoot.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

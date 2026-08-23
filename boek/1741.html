@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Inner Marriage &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Saxby stelt dat vrijwel alle moeite die mensen in hun verhoudingen en in hun seksualiteit ondervinden terug te voeren is op een onbalans tussen twee…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1741">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1741 &middot; Filosofie en mystiek</p>
+    <h1>The Inner Marriage</h1>
+    <p class="lede">Elliott Saxby, 2022</p>
+    <p class="stats">
+      <span><b>1708</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1741"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Saxby stelt dat vrijwel alle moeite die mensen in hun verhoudingen en in hun seksualiteit ondervinden terug te voeren is op een onbalans tussen twee kanten in henzelf, die hij het innerlijk mannelijke en het innerlijk vrouwelijke noemt en die volgens hem niets met sekse of geslacht te maken hebben. Wie die twee kanten laat rijpen en met elkaar verbindt, sluit wat hij het innerlijk huwelijk noemt, en heeft de ander niet langer nodig als aanvulling op een tekort. De weg daarheen loopt via het herkennen van onrijpe uitdrukkingen, het opzoeken van de schaduwkant daarvan en lichaamsgericht werk waarin de spanning tussen beide polen wordt vastgehouden in plaats van opgelost. Saxby presenteert dat als een praktijk, niet als een leer, en benadrukt dat mannelijk en vrouwelijk bij hem metaforen zijn die het lichaam helpen begrijpen wat anders abstract blijft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de begrippen vandaan komen</h3>
+      <p>Saxby bracht zes jaar door in een ecodorp, reisde daarna naar Azië en studeerde daar yoga, massage en taoïstische en tantrische praktijken. Hij richtte de School of Energetic Bodyworks op en leidt sindsdien therapeuten op. Het boek is uit dat onderwijs voortgekomen en is opgezet als handleiding voor mensen die zelf met anderen werken.</p>
+      <p>In de inleiding legt hij vast wat hij met zijn begrippenpaar bedoelt. Mannelijk en vrouwelijk zijn bij hem geen eigenschappen van mannen en vrouwen maar twee polen die in ieder mens werkzaam zijn: grofweg richting en beweging tegenover ontvankelijkheid en stroom. Hij noemt ze zelf metaforen die helpen om iets in het lichaam te lokaliseren, en hij is daarin voorzichtiger dan een groot deel van het genre waarin hij schrijft.</p>
+      <h3>Het rijpe, het onrijpe en de schaduw</h3>
+      <p>Het eerste deel, negentien hoofdstukken lang, bevat het materiaal waar het boek om bekendstaat: vierenveertig eigenschappen die telkens in vier gedaanten worden beschreven, als rijp mannelijk, onrijp mannelijk, rijp vrouwelijk en onrijp vrouwelijk. Saxby behandelt daarbij zaken als grens, richting, geduld, verlangen, verantwoordelijkheid en overgave.</p>
+      <p>De opzet is diagnostisch bedoeld. De lezer wordt geacht zichzelf in de onrijpe kolommen terug te vinden en vandaaruit te zien welke rijpe vorm van dezelfde eigenschap bereikbaar is. Saxby waarschuwt herhaaldelijk dat de indeling geen rangorde is en dat de onrijpe uitdrukking meestal een beschermende functie had.</p>
+      <p>Bij elke eigenschap hoort ook een schaduwkant: de vorm die iemand bij zichzelf ontkent en bij anderen bestrijdt. Dat begrip komt bij Saxby onmiskenbaar uit de jungiaanse traditie, al noemt hij Jung nauwelijks.</p>
+      <h3>Seksualiteit en polariteit</h3>
+      <p>Het tweede deel past het raamwerk toe op seksualiteit en verlangen. Saxby stelt dat aantrekking tussen mensen ontstaat uit een verschil in polariteit en dat die aantrekking wegvalt zodra beide partners hetzelfde gedrag gaan vertonen. Zijn advies is niet om die spanning kunstmatig in stand te houden, maar om haar in het eigen lichaam te herkennen.</p>
+      <p>Hij behandelt daarbij tantrische en taoïstische praktijken rond het vasthouden en verplaatsen van seksuele opwinding. De toon is nuchterder dan in veel tantraliteratuur: er staan geen beloften over duurzame extase, wel oefeningen en waarschuwingen over wat er misgaat als iemand met onverwerkt trauma aan dit soort werk begint.</p>
+      <h3>Schaduwwerk</h3>
+      <p>Het derde deel, negen hoofdstukken, gaat over de schaduw als zodanig. Saxby beschrijft projectie, afweer en de neiging om bij een ander te bestrijden wat iemand in zichzelf niet toelaat. Zijn stelling is dat een eigenschap pas rijpt als de schaduwkant ervan is erkend, en dat pogingen om rechtstreeks van onrijp naar rijp te springen op onderdrukking uitlopen.</p>
+      <p>De oefeningen in dit deel bestaan uit schrijfopdrachten, ademwerk en het bewust opzoeken van lichamelijke spanning. Saxby raadt aan dit werk niet alleen te doen wanneer het om zwaar materiaal gaat.</p>
+      <h3>Het fysieke, mentale en emotionele lichaam</h3>
+      <p>Het vierde en langste deel, dertien hoofdstukken, behandelt wat Saxby de drie lichamen noemt. Hij stelt dat polariteit zich in alle drie anders uit en dat iemand mentaal ver kan zijn terwijl zijn lichaam of zijn gevoelsleven achterblijft. Het uitlijnen van die drie noemt hij belichaming.</p>
+      <p>Hier komt het lichaamswerk waar hij therapeuten in opleidt het duidelijkst naar voren: ademhaling, houding, aanraking en het opwekken van wat in de tantrische traditie kundalini heet. Saxby beweert dat trauma zich in het lichaam vastzet en dat het langs deze weg vrijkomt, een claim die hij nergens onderbouwt.</p>
+      <h3>Integratie</h3>
+      <p>De laatste twee hoofdstukken beschrijven het innerlijk huwelijk zelf: de toestand waarin de twee polen niet langer afwisselen maar tegelijk aanwezig zijn. Saxby vermijdt daarbij grote woorden over verlichting en beschrijft het als een verschuiving in hoe iemand met verschil omgaat.</p>
+      <p>Het boek eindigt met richtlijnen voor wie hiermee met cliënten werkt, waaronder waarschuwingen over de grenzen van het eigen kunnen en over doorverwijzen. Dat de schrijver die grens expliciet maakt is in dit genre niet vanzelfsprekend.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Polariteitswerk</td><td>Het bewust werken met de spanning tussen twee tegengestelde kanten in iemand, met als doel ze te laten rijpen en samen te brengen in plaats van er een te kiezen.</td></tr>
+          <tr><td class="term">Innerlijk huwelijk</td><td>De toestand waarin het innerlijk mannelijke en het innerlijk vrouwelijke in iemand samenvallen, zodat een verhouding met een ander niet meer op aanvulling van een tekort berust.</td></tr>
+          <tr><td class="term">Innerlijk mannelijke</td><td>Bij Saxby de pool van richting, grens en gerichte beweging, uitdrukkelijk niet gebonden aan sekse.</td></tr>
+          <tr><td class="term">Innerlijk vrouwelijke</td><td>De pool van ontvankelijkheid, stroom en overgave, eveneens los van sekse gedacht.</td></tr>
+          <tr><td class="term">Rijpe en onrijpe uitdrukking</td><td>Twee gedaanten van dezelfde eigenschap, waarbij de onrijpe vorm volgens Saxby ooit een beschermende functie had en daarom niet moet worden bestreden maar bewogen.</td></tr>
+          <tr><td class="term">Schaduw</td><td>De kant van een eigenschap die iemand bij zichzelf ontkent en bij anderen bestrijdt; in het boek de voorwaarde waar rijping doorheen moet.</td></tr>
+          <tr><td class="term">De drie lichamen</td><td>Het fysieke, het mentale en het emotionele lichaam, die volgens Saxby los van elkaar kunnen ontwikkelen en op elkaar uitgelijnd moeten worden.</td></tr>
+          <tr><td class="term">Belichaming</td><td>Het doorleven van een inzicht in het lichaam, tegenover het begrijpen ervan met het verstand alleen.</td></tr>
+          <tr><td class="term">Non-duale therapie</td><td>Saxby's aanduiding voor een werkwijze die tegenstellingen niet oplost maar beide polen tegelijk laat bestaan.</td></tr>
+          <tr><td class="term">Kundalini-lichaamswerk</td><td>Lichaamsgerichte oefening met adem, houding en aanraking, gericht op het opwekken en verplaatsen van wat in de tantrische traditie kundalini heet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op de praktijk van de schrijver en op de traditie waarin hij is opgeleid. Er staat geen onderzoek in, er wordt geen studie aangehaald en er is geen literatuurverantwoording waarmee de lezer de Vedische, taoïstische en tantrische bronnen kan nazoeken. Wie wil weten waar de vierenveertig eigenschappen vandaan komen, krijgt daar geen antwoord op: het is een lijst die in de opleiding van Saxby is gegroeid.</p>
+      <p>De verdeling in een rijpe en een onrijpe uitdrukking van mannelijk en vrouwelijk is niet nieuw. Zij staat dicht bij het jungiaanse begrippenpaar anima en animus en nog dichter bij de archetypen die Moore en Gillette in 1990 beschreven, waar elk archetype eveneens een volgroeide en twee ontspoorde vormen kent. Saxby noemt die voorgangers nauwelijks, waardoor het boek origineler oogt dan het is.</p>
+      <p>Wat het boek wel doet en veel verwante titels niet, is expliciet maken dat mannelijk en vrouwelijk metaforen zijn. Saxby herhaalt dat de indeling niets zegt over mannen en vrouwen en dat de lezer beide polen in zichzelf zoekt. Dat maakt de lijst bruikbaar als woordenschat, ook voor wie de metafysica erachter afwijst.</p>
+      <p>De claim dat trauma in het lichaam wordt opgeslagen en met adem en aanraking op cellulair niveau vrijkomt, is de zwakste schakel. In de traumazorg bestaat brede overeenstemming dat lichamelijke klachten en spanning bij trauma horen; over een opslag in cellen die door lichaamswerk wordt geleegd bestaat die overeenstemming niet, en het boek biedt er geen enkele grond voor.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het begrippenpaar de veronderstellingen binnenhaalt die het zegt te vermijden. Wie richting, grens en daadkracht mannelijk noemt en ontvankelijkheid en overgave vrouwelijk, hanteert een negentiende-eeuwse rolverdeling en zegt er vervolgens bij dat sekse er niets mee te maken heeft. De ontkoppeling is verbaal; de inhoud van de polen blijft die van de rolverdeling waar zij aan ontleend is.</p>
+      <p>Het stelsel is niet te weerleggen. Elke eigenschap heeft een rijpe en een onrijpe vorm en daarnaast een schaduw, zodat elk gedrag ergens in het schema past en geen enkele waarneming het schema kan tegenspreken. Dat maakt het bruikbaar als taal voor zelfonderzoek en ongeschikt als verklaring.</p>
+      <p>Het boek beweegt zich op het terrein van trauma zonder de waarborgen die daarbij horen. Lichaamsgericht werk met aanraking, ademmanipulatie en seksuele opwinding kan bij mensen met een geschiedenis van misbruik hevige reacties oproepen. Saxby waarschuwt daarvoor en raadt doorverwijzing aan, maar de opleiding die hij aanbiedt kent geen toezicht van buiten en geen klachtenregeling die de lezer kan controleren.</p>
+      <p>De verwantschap met het populaire polariteitsdiscours rond David Deida is groot, en dat discours is de afgelopen jaren vooral bekend geworden door het gebruik ervan in mannengroepen die er wel degelijk uitspraken over mannen en vrouwen uit afleiden. Saxby doet dat niet, maar hij levert wel de woordenschat, en het boek bespreekt die ontvangst niet.</p>
+      <p>Voor een lezer zonder voorkennis is het boek lastig te gebruiken. Eenenvijftig korte hoofdstukken, vierenveertig eigenschappen en drie lichamen leveren een stelsel op dat vooral in een opleidingssituatie hanteerbaar is. Wie alleen leest, houdt een indruk over en geen praktijk.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de lijst van eigenschappen eerst als woordenschat en niet als diagnose; zoek per eigenschap een voorval uit de eigen ervaring in plaats van een oordeel.</li>
+        <li>Ga bij een onrijpe uitdrukking na welke bescherming zij ooit bood voordat er iets aan wordt veranderd.</li>
+        <li>Let bij ergernis over een ander op de mogelijkheid dat het om een eigen schaduwkant gaat, en toets dat aan een concreet voorbeeld.</li>
+        <li>Doe het lichaamsgerichte deel niet alleen wanneer er sprake is van ernstig trauma, en zoek dan begeleiding met aantoonbare scholing.</li>
+        <li>Vervang mannelijk en vrouwelijk desgewenst door andere namen voor de twee polen; de oefeningen blijven werken zonder die woorden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Inner Marriage: A Guide to Masculine and Feminine Polarity Work</i>, verschenen op 8 november 2022 bij Findhorn Press, een fonds van Inner Traditions in Rochester, Vermont (240 blz., ISBN 9781644116043; e-boek 9781644116050). Het boek telt eenenvijftig korte hoofdstukken, verdeeld over vijf delen. Er bestaat geen Nederlandse uitgave, en van Saxby is voor zover na te gaan niets in het Nederlands vertaald; wie het onderwerp in het Nederlands wil lezen is aangewezen op vertaald werk van Osho en op Nederlandse tantraboeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Saxby leidt therapeuten op in wat hij non-duale therapie en kundalini-lichaamswerk noemt. Dit boek is de neerslag van dat onderwijs. Het gaat over polariteitswerk: het idee dat ieder mens een innerlijk mannelijke en een innerlijk vrouwelijke kant heeft, los van sekse, en dat beide een rijpe en een onrijpe uitdrukking kennen.</p><p>De kern van het boek is een lijst van vierenveertig eigenschappen, telkens in een rijpe en een onrijpe vorm, met daarnaast de schaduwkant ervan. Saxby beschrijft per eigenschap hoe de onrijpe vorm ontstaat en hoe zij zich naar de rijpe vorm laat bewegen. Daarna volgen delen over seksualiteit, over schaduwwerk en over het fysieke, mentale en emotionele lichaam.</p><p>Het innerlijke huwelijk uit de titel is de toestand waarin die twee kanten in iemand samenvallen. Saxby stelt dat pas daarna een verhouding met een ander niet meer op aanvulling berust. Hij put daarvoor uit Vedische bronnen, uit taoïstische en tantrische praktijk en uit westerse psychologie, zonder daar een verantwoording van bronnen bij te leveren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>polariteit</li><li>tantra</li><li>schaduwwerk</li><li>lichaamswerk</li><li>mannelijk en vrouwelijk</li><li>trauma</li><li>seksualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette beschreven dertig jaar eerder hetzelfde patroon van een volgroeide en een ontspoorde vorm per archetype, waar Saxby zonder bronvermelding dicht tegenaan zit.</li>
+          <li value="1500"><a href="1500.html">The Way of the Superior Man</a>. Deida is de populairste vertegenwoordiger van het polariteitsdenken en gaat de kant op die Saxby uitdrukkelijk vermijdt: uitspraken over hoe mannen en vrouwen zich verhouden.</li>
+          <li value="360"><a href="360.html">Archetypen</a>. Jung leverde het begrip schaduw en het paar anima en animus waar Saxby's stelsel op teruggaat, met een uitgebreidere verantwoording.</li>
+          <li value="1717"><a href="1717.html">Tantra: The Supreme Understanding</a>. Osho behandelt de tantrische achtergrond van dit werk in het Nederlands, met veel meer nadruk op de leer en veel minder op oefening.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zelfverwoestingsboek &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Donner keert de logica van de zelfhulp om. Waar die de klacht bij de persoon legt en de oplossing in zelfverbetering zoekt, stelt zij dat het aanhoudende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1769">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1769 &middot; Levenskunst</p>
+    <h1>Zelfverwoestingsboek</h1>
+    <p class="lede">Marian Donner, 2019</p>
+    <p class="stats">
+      <span><b>1396</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1769"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Donner keert de logica van de zelfhulp om. Waar die de klacht bij de persoon legt en de oplossing in zelfverbetering zoekt, stelt zij dat het aanhoudende werken aan jezelf de klacht mede veroorzaakt. Wie zichzelf behandelt als een project dat altijd beter kan, kan nooit klaar zijn, en het gevoel tekort te schieten is daarvan geen bijverschijnsel maar de uitkomst. Haar antwoord is dan ook geen betere methode maar het opgeven van de opdracht: het recht om te mislukken, om onaangepast te zijn, om nutteloos te zijn. Het menselijke ligt volgens haar in het falen en niet in het slagen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van column naar pamflet</h3>
+      <p>De aanleiding was een stuk in de Volkskrant onder de kop 'Omarm de loser'. Het werd veel gedeeld en leverde Donner brieven op van lezers die zich erin herkenden. Het boek dat eruit voortkwam is kort, in de eerste persoon geschreven en polemisch van toon; het is een pamflet en presenteert zich ook zo. Die vorm bepaalt de aanpak: geen hoofdstukken met verantwoording, maar korte stukken die van een reclame naar een roman naar een eigen herinnering springen.</p>
+      <h3>De vijf hoofdstukken</h3>
+      <p>Het boek bestaat uit vijf delen met de titels Stink, Drink, Bloed, Brand en Dans, elk geopend met een citaat. De titels zijn opdrachten in de gebiedende wijs en staan tegenover de voorschriften van de zelfoptimalisering: schoon zijn, matig zijn, heel zijn, beheerst zijn en nuttig zijn.</p>
+      <p>De volgorde is geen betoog dat opbouwt. Elk deel benadert dezelfde stelling van een andere kant: het lichaam dat niet aan de norm voldoet, het genot dat niet gezond is, de pijn die niet weggewerkt hoeft te worden, de woede die ergens heen moet en de overgave die geen doel dient.</p>
+      <h3>De aanklacht</h3>
+      <p>Het eerste hoofdstuk begint bij een reclame van Apple uit 1997, de campagne die de kijker aanspoorde anders te denken en die de buitenstaanders, de dwarsliggers en de ronde pinnen in vierkante gaten prees. Donner leest die reclame als het beginpunt van een verschuiving: het afwijken werd zelf een merk en een opdracht, en daarmee een norm waaraan te voldoen valt.</p>
+      <p>Vanaf dat punt loopt haar aanklacht door de cultuur van meten en verbeteren: de cursussen, de coaching, de yoga, het eten dat schoon moet zijn, de gezichten die in film digitaal worden bijgewerkt tot ze geen sporen meer dragen. Zij betrekt daar Yuval Noah Harari en Marshall McLuhan bij, en de film <i>Her</i>, om te vragen wat er van een mens overblijft als alles wat hapert eruit gehaald wordt.</p>
+      <p>De maat waarmee zij dat weegt komt van Aldous Huxley. In <i>Brave New World</i> is niemand ongelukkig en niemand vrij; wie daar het recht om te klagen opgeeft, geeft meer op dan hij denkt.</p>
+      <h3>De getuigen</h3>
+      <p>Donner onderbouwt niet met onderzoek maar met schrijvers die het onaangepaste leven hebben beschreven of geleefd: Albert Camus, George Orwell, Jack Kerouac en Charles Bukowski. Het slothoofdstuk begint bij Orwell, en niet bij <i>Animal Farm</i> of <i>1984</i> maar bij <i>Down and Out in Paris and London</i>, over zijn jaren zonder dak in beide steden.</p>
+      <p>Die keuze is veelzeggend: het gaat haar om schrijvers die niet vanaf een veilige plek over armoede hebben nagedacht maar er middenin hebben gezeten. Wat zij aan hen ontleent is geen leer maar een houding.</p>
+      <h3>Wat zij ervoor in de plaats stelt</h3>
+      <p>Het positieve deel van het boek is klein, en dat is met opzet. Donner geeft geen methode, want een methode zou hetzelfde doen als wat zij bestrijdt. Zij noemt vergevingsgezindheid in plaats van strengheid, en het recht om te vallen zonder dat het meteen een leerpunt wordt.</p>
+      <p>De regel die het vaakst uit het boek wordt overgenomen, is de aan Virginia Woolf toegeschreven zin dat wie het gevoel heeft dat er geen plaats voor hem is op deze wereld, zich niet moet afvragen wat er mis is met hemzelf maar wat er mis is met de wereld. Dat is de kern van het pamflet: het probleem verplaatsen van de persoon naar de omstandigheden waarin die het moet uithouden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelfverwoesting</td><td>Niet het te gronde richten van jezelf, maar het opgeven van het zelf als project dat aanhoudend verbeterd moet worden.</td></tr>
+          <tr><td class="term">Maakbaarheidsideaal</td><td>De aanname dat leven, lichaam en geluk het gevolg zijn van eigen inspanning, en dat wie faalt zich onvoldoende heeft ingespannen.</td></tr>
+          <tr><td class="term">De loser</td><td>De figuur uit haar oorspronkelijke column: degene die het niet redt volgens de gangbare maat, en die daarmee volgens Donner de menselijke maat laat zien.</td></tr>
+          <tr><td class="term">Zelfhulpindustrie</td><td>Het geheel van boeken, cursussen, coaches en programma's dat volgens Donner de klacht in stand houdt waarvan het zegt haar te verhelpen.</td></tr>
+          <tr><td class="term">Ronde pinnen in vierkante gaten</td><td>Het beeld uit de Apple-reclame van 1997 voor de afwijkende geest, dat Donner aanhaalt als het moment waarop het afwijken zelf verkoopbaar werd.</td></tr>
+          <tr><td class="term">Stink, Drink, Bloed, Brand, Dans</td><td>De vijf hoofdstuktitels, elk geformuleerd als opdracht en elk gericht tegen een voorschrift van de zelfoptimalisering.</td></tr>
+          <tr><td class="term">Falen</td><td>In dit boek geen fase op weg naar succes maar een blijvende eigenschap van een mensenleven, die geen bestemming nodig heeft.</td></tr>
+          <tr><td class="term">Nutteloosheid</td><td>Het recht om tijd, lichaam en aandacht te besteden aan iets wat niets oplevert, dat Donner tegenover de eis van rendement stelt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een essay en geen onderzoek, en Donner doet ook niet alsof. Haar bewijsvoering bestaat uit voorbeelden uit reclame, film en literatuur, uit eigen herinneringen en uit de brieven die zij na haar column ontving. Wie wil weten of de zelfhulpindustrie werkelijk klachten veroorzaakt, vindt in het boek geen cijfer dat dat aantoont.</p>
+      <p>De achtergrondbewering waarop zij leunt is wel te volgen: in de jaren waarin het boek verscheen namen de gemelde klachten over burn-out toe terwijl het aanbod aan zelfhulp en coaching groeide. Dat de twee samen optreden staat vast; dat het een het ander veroorzaakt volgt daar niet uit, en dat is de zwakke plek in het betoog.</p>
+      <p>Sterker staat zij waar zij de reclame leest. De campagne van Apple uit 1997 bestaat, de tekst is na te lezen en zegt inderdaad wat zij ervan maakt. Op dat punt hoeft de lezer haar niets op gezag aan te nemen. De aan Virginia Woolf toegeschreven regel die zij aanhaalt, wordt daarentegen breed doorgegeven zonder dat er ooit een vindplaats bij staat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek een houding aanprijst die vooral betaalbaar is voor wie het zich kan veroorloven. Stinken, drinken en mislukken zijn keuzes wanneer er een vangnet is; voor wie in armoede leeft, verslaafd is of geen huis heeft, zijn het geen vormen van verzet maar de omstandigheden zelf. Donner ontleent haar voorbeelden aan Bukowski en Kerouac en gaat voorbij aan wat dat leven hun en hun omgeving heeft gekost.</p>
+      <p>Het pamflet benoemt een tegenstander scherper dan een alternatief. Dat is een verdedigbare keuze, maar het laat de lezer met de vraag zitten wat te doen wanneer de klachten die het boek beschrijft zich niet laten wegdenken. Een recensent merkte bij verschijnen op dat de redenering duidelijk is, maar dat er van iemand met deze achtergrond meer eigen ervaring verwacht mocht worden.</p>
+      <p>Er is een ongemak dat het boek zelf niet oplost: het is als aantrekkelijk vormgegeven non-fictie verkocht, aan vijf landen doorverkocht en op dezelfde tafels gelegd als de titels die het bestrijdt. Het verzet tegen het merk is zelf een merk geworden, en dat is precies wat Donner de Apple-reclame verwijt.</p>
+      <p>Ten slotte is het verband tussen zelfhulp en klachten een verklaring en geen bevinding. Onzeker werk, woningnood, veranderde diagnostiek en meer bereidheid om klachten te melden verklaren dezelfde toename, en het boek weegt die niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als tegenwicht bij een stapel zelfhulp, niet als vervanging ervan.</li>
+        <li>Scheid bij elke klacht wat aan de eigen instelling ligt van wat aan de omstandigheden ligt, voordat er aan de instelling gewerkt wordt.</li>
+        <li>Controleer de aan Virginia Woolf toegeschreven regel voordat u hem doorgeeft; een vindplaats ontbreekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig werk, verschenen als <i>Zelfverwoestingsboek. Waarom we meer moeten stinken, drinken, bloeden, branden en dansen</i> (Das Mag, Amsterdam, juni 2019, 142 blz., ISBN 9789492478917; e-boek ISBN 9789493168121). Het boek beleefde meerdere drukken. De vertaalrechten gingen naar uitgevers in Duitsland, Frankrijk, Italie, Spanje en Polen; de Duitse uitgave heet <i>Das kleine Buch der Selbstverwustung</i>. Donner is columnist en publiceerde eerder de column 'Omarm de loser' in de Volkskrant, waaruit dit boek voortkwam.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Marian Donner schreef in de Volkskrant een stuk onder de kop 'Omarm de loser', dat veel werd gedeeld en haar persoonlijke reacties opleverde van mensen die opgelucht waren dat iemand het opschreef. Uit dat stuk groeide dit boek van ruim honderdveertig bladzijden.</p><p>De stelling is dat de zelfhulpindustrie geen medicijn is maar een deel van de kwaal. Er is meer aanbod om aan jezelf te werken dan ooit, en tegelijk meer klachten over depressie, angst en uitputting. Donner legt daar een verband tussen: de opdracht om steeds een betere versie van jezelf te worden maakt van het gewone leven een tekortkoming.</p><p>Wat zij ertegenover zet is geen tegenprogramma. Het boek is een oproep om te mogen falen, lelijk en ongezond te zijn, af te wijken en zich daar niet voor te schamen. De vijf hoofdstukken heten Stink, Drink, Bloed, Brand en Dans.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>essay</li><li>pamflet</li><li>zelfhulpkritiek</li><li>maakbaarheid</li><li>perfectionisme</li><li>Nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1748"><a href="1748.html">The Secret</a>. Byrne levert het uiterste van wat Donner bestrijdt: het idee dat de eigen gedachte de omstandigheden voortbrengt, en dus dat wie het slecht heeft dat aan zichzelf te wijten heeft.</li>
+          <li value="72"><a href="72.html">The Subtle Art of Not Giving a F*ck</a>. Manson bepleit ook het loslaten van de verbeteringsdrang, maar doet dat binnen het genre zelf en met een aanpak, wat Donner juist weigert.</li>
+          <li value="1770"><a href="1770.html">De mens in opstand</a>. Camus is een van de vier schrijvers op wie Donner leunt; bij hem staat de opstand tegen een zinloze orde uitgewerkt tot een leer met grenzen.</li>
+          <li value="105"><a href="105.html">Zo ongelukkig mogelijk in 8 stappen</a>. Den Daas keert de zelfhulp op dezelfde manier om, maar kiest de omgekeerde handleiding als vorm in plaats van het pamflet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

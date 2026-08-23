@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes on a Nervous Planet &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Haig gaat uit van een waarneming over zichzelf die haaks staat op wat je zou verwachten: hij werd beter en tegelijk onrustiger. Daaruit leidt hij af dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1718">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1718 &middot; Brein en lichaam</p>
+    <h1>Notes on a Nervous Planet</h1>
+    <p class="lede">Matt Haig, 2018</p>
+    <p class="stats">
+      <span><b>1303</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1718"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Haig gaat uit van een waarneming over zichzelf die haaks staat op wat je zou verwachten: hij werd beter en tegelijk onrustiger. Daaruit leidt hij af dat de oorzaak van veel hedendaagse angst niet binnen in de mens ligt maar in de omgeving die hij heeft gebouwd. Een zenuwstelsel dat is ingericht op gevaar dichtbij en op een kring van bekenden, krijgt nu de rampen van een hele planeet te verwerken en de levens van duizenden vreemden om zich mee te vergelijken. Dat maakt niemand ziek in de klinische zin, maar het houdt mensen in een lichte staat van paraatheid die nooit afloopt. De omgeving deugt niet, is zijn stelling, en wie zich er slecht bij voelt reageert daarmee normaal.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Beter en toch onrustiger</h3>
+      <p>Het uitgangspunt is persoonlijk. Haig beschreef in zijn vorige boek hoe hij op zijn vierentwintigste instortte en er langzaam bovenop kwam. Hier begint hij jaren later, als een man die het naar eigen zeggen goed heeft en toch merkt dat de spanning terugkeert.</p>
+      <p>Hij zoekt de oorzaak dit keer niet in zijn aanleg of geschiedenis maar in wat er om hem heen is veranderd. Dat is de draai die het boek maakt ten opzichte van zijn eerdere werk, en de reden dat het minder over depressie gaat en meer over de dag van alledag.</p>
+      <h3>Een boek in fragmenten</h3>
+      <p>De vorm is losbladig. Achttien hoofdstukken, met titels als Internet Anxieties, Shock of the News, Phone Fears en The End of Reality, bestaan elk uit korte stukken van soms een halve bladzijde. Er staan lijstjes in, aantekeningen, een gesprek, een enkel gedicht.</p>
+      <p>Dat maakt het boek makkelijk te lezen en makkelijk te citeren. Het maakt het ook lastig ergens tegenin te gaan, omdat een losse aantekening zelden een stelling is die je kunt toetsen. Wie het achter elkaar leest, merkt dat dezelfde gedachte in verschillende vormen terugkeert.</p>
+      <h3>Het nieuws en het lichaam</h3>
+      <p>Een van de sterkste stukken gaat over nieuws. Haig beschrijft hoe een systeem dat het lichaam in gereedheid brengt voor gevaar dat vlakbij is, wordt aangesproken door berichten over gevaar dat duizenden kilometers verderop plaatsvindt en waar de lezer niets aan kan doen.</p>
+      <p>Hij voegt daaraan toe dat nieuws wordt gekozen op wat de aandacht vasthoudt, en dat het beeld van de wereld dat zo ontstaat somberder is dan de wereld zelf. Het is geen nieuwe redenering, maar hij brengt haar terug tot wat zij met een lichaam doet.</p>
+      <h3>Telefoon, vergelijking en verlangen</h3>
+      <p>Het middendeel gaat over het apparaat. Haig behandelt sociale media vooral als vergelijkingsmachine: de maatstaf waaraan iemand zichzelf meet, is niet langer de buurt maar iedereen die iets te tonen heeft.</p>
+      <p>In het hoofdstuk over verlangen trekt hij de lijn door naar reclame, die volgens hem niets verkoopt zonder eerst een tekort te laten voelen. Zijn gevolgtrekking is dat een groot deel van de onrust bestaat uit gewekt verlangen dat nooit was bedoeld om vervuld te raken.</p>
+      <h3>Slaap, tijd en werk</h3>
+      <p>Kortere hoofdstukken behandelen slaap, de beleving van tijd en de plaats van werk. Haig noteert dat hij zijn slaap terugkreeg toen hij het scherm uit de slaapkamer haalde, en dat haast vooral iets is wat mensen elkaar aandoen.</p>
+      <p>Over werk zet hij twee lijstjes tegenover elkaar. Het is de plek waar het boek het dichtst bij een maatschappelijke stelling komt, en tegelijk waar het die het snelst weer laat liggen.</p>
+      <h3>Genoeg</h3>
+      <p>De laatste hoofdstukken keren zich tegen het idee dat een mens een project is dat af moet. Haig eindigt met de gedachte dat iemand genoeg is zoals hij is, en dat het verlangen naar een betere versie van jezelf vaak dezelfde bron heeft als de onrust waar het boek over gaat.</p>
+      <p>De aanwijzingen die hij geeft zijn eenvoudig: minder scherm, meer slaap, buiten lopen, mensen zien. Hij presenteert ze niet als vondst en zegt zelf dat ze bekend zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">nervous planet</td><td>Haigs aanduiding voor een omgeving die de mensen die erin leven voortdurend in lichte staat van paraatheid houdt.</td></tr>
+          <tr><td class="term">life overload</td><td>Het teveel aan keuzes, berichten en mogelijkheden dat volgens hem niet bevrijdt maar vermoeit.</td></tr>
+          <tr><td class="term">shock of the news</td><td>De werking van een nieuwsstroom die het lichaam alarmeert over gevaar waar het niets mee kan.</td></tr>
+          <tr><td class="term">phone fears</td><td>De onrust die niet uit de telefoon komt maar uit wat hij aanvoert, en die toch aan het apparaat blijft kleven.</td></tr>
+          <tr><td class="term">the end of reality</td><td>Haigs term voor het punt waarop het beeld van de wereld dat mensen krijgen aangeleverd hun eigen waarneming verdringt.</td></tr>
+          <tr><td class="term">wanting</td><td>Verlangen dat is opgewekt om onvervuld te blijven, in Haigs behandeling de motor van reclame en van sociale media.</td></tr>
+          <tr><td class="term">the song of you</td><td>Het eigen leven zoals het is, tegenover het leven dat iemand zou moeten leiden volgens wat hij om zich heen ziet.</td></tr>
+          <tr><td class="term">enough</td><td>Het sluitwoord van het boek: de stelling dat een mens niet af hoeft te worden gemaakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Haig schrijft uitdrukkelijk als iemand die het zelf heeft meegemaakt en niet als onderzoeker. Hij zegt dat ook, meer dan eens. Het boek is geen overzicht van de stand van het onderzoek en is daar ook niet voor opgezet; wat er aan cijfers en studies voorbijkomt, komt in het voorbijgaan.</p>
+      <p>Waar hij zich op onderzoek beroept, betreft het een gebied dat op dit moment niet is uitgemaakt. De vraag of schermgebruik en sociale media het welbevinden van jongeren aantasten, wordt in de vakliteratuur verschillend beantwoord. Er zijn samenhangen gevonden, maar ze zijn doorgaans klein, en over de richting van het verband wordt gestreden. Wie dit boek leest als bewijs dat de telefoon de oorzaak is, leest er meer in dan er staat.</p>
+      <p>Sterker staat het boek waar het niet over oorzaken gaat maar over beschrijving. Dat een nieuwsstroom die op alarm is geselecteerd een vertekend wereldbeeld oplevert, is goed vastgesteld. Dat vergelijking met anderen het humeur drukt, ook. Haig voegt daar geen bewijs aan toe, maar hij verzint het niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de reikwijdte. Haig leidt uit een enkel zenuwstelsel, het zijne, een uitspraak af over een planeet. Hij is daar eerlijk over, maar de titel en de toon beloven iets algemeens waar de inhoud een geval van een is.</p>
+      <p>De diagnose is bovendien zo ruim dat er weinig tegenin te brengen valt. Dat de tijd waarin men leeft onrustig maakt en dat de nieuwe techniek de mens van zichzelf vervreemdt, is in vrijwel elke eeuw geschreven, over de drukpers, de spoorweg, de telefoon en de televisie. Een klacht die altijd opgaat, verklaart niets in het bijzonder.</p>
+      <p>De vorm werkt hier tegen. Een lijstje leest prettig maar draagt geen redenering, en waar Haig het bij een aantekening laat, blijft onduidelijk of hij een oorzaak aanwijst of een stemming beschrijft. Het boek is daardoor lastig te weerleggen en even lastig te gebruiken.</p>
+      <p>Ten slotte veronderstellen de aanwijzingen een leven waarin ze mogelijk zijn. Wie zijn telefoon kan wegleggen, geen nachtdienst draait en geen tweede baan nodig heeft, kan doen wat Haig aanraadt. Over onzeker werk, geldzorgen en zorgtaken, die in het onderzoek naar psychische klachten zwaar wegen, gaat het boek vrijwel niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Haal het scherm uit de slaapkamer en kijk na twee weken of je slaap is veranderd.</li>
+        <li>Kies een vast moment op de dag voor het nieuws in plaats van het de hele dag te laten binnenkomen.</li>
+        <li>Ontvolg wat je stelselmatig een slechter humeur bezorgt, zonder er een principe van te maken.</li>
+        <li>Merk op wanneer je iets wilt hebben en zoek waar je het voor het eerst zag.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Notes on a Nervous Planet</i> (Canongate, Edinburgh, 2018, ISBN 9781786892690); de Amerikaanse uitgave verscheen bij Penguin (ISBN 9780143133421). De Nederlandse vertaling van Theo Schoemaker en Monique ter Berg kwam uit bij Lebowski in Amsterdam onder de titel <i>Planeet Paranoia</i> (ISBN 9789048845262). Het boek volgt op <i>Reasons to Stay Alive</i> uit 2015, in het Nederlands <i>Redenen om te blijven leven</i>, waarin Haig de instorting beschreef die hij op vierentwintigjarige leeftijd doormaakte. Haig schrijft daarnaast romans, waaronder <i>The Midnight Library</i> (2020), en kinderboeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Matt Haig was hersteld van de depressie en paniek die hem op zijn vierentwintigste bijna het leven kostten, en merkte daarna dat de onrust terugkwam zodra hij zijn telefoon oppakte. Dat zette hem op de vraag van dit boek: kan een omgeving een geest ziek maken.</p><p>Zijn antwoord is dat de moderne omgeving veel doet wat een zenuwstelsel slecht verdraagt. Nieuws dat dag en nacht doorloopt, beelden van levens die beter lijken, reclame die tekort laat voelen, en een apparaat dat dat alles bij elkaar brengt en altijd binnen handbereik ligt.</p><p>Het boek bestaat uit achttien hoofdstukken die uiteenvallen in korte stukken: lijstjes, aantekeningen, een enkel gedicht, gesprekken. Haig schrijft als patient en niet als onderzoeker, en zegt dat er ook bij. De aanwijzingen aan het slot zijn eenvoudig en niet nieuw.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>angst</li><li>depressie</li><li>sociale media</li><li>aandacht</li><li>technologie</li><li>psychische gezondheid</li><li>essays</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt bouwt hetzelfde vermoeden uit tot een betoog met cijfers en is daarmee zowel de onderbouwing die Haig niet levert als het middelpunt van de wetenschappelijke twist erover.</li>
+          <li value="288"><a href="288.html">Digital Minimalism</a>. Newport behandelt dezelfde onrust als een ontwerpprobleem en geeft de uitgewerkte werkwijze waar Haig het bij losse aanwijzingen laat.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke legt onder Haigs hoofdstuk over verlangen de neurologie die hij zelf niet behandelt, en laat zien hoe dezelfde mechaniek bij zwaardere verslaving werkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

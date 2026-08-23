@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De bonobo en de tien geboden &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Waal betoogt dat de moraal van onderop is gegroeid en niet van bovenaf is opgelegd. Zij komt voort uit sociale emoties die de mens deelt met andere…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1678">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1678 &middot; Natuur en wetenschap</p>
+    <h1>De bonobo en de tien geboden</h1>
+    <p class="lede">Frans de Waal, 2013</p>
+    <p class="stats">
+      <span><b>1532</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1678"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Waal betoogt dat de moraal van onderop is gegroeid en niet van bovenaf is opgelegd. Zij komt voort uit sociale emoties die de mens deelt met andere primaten: medegevoel met wie het slecht gaat, de neiging tot troosten, het bijhouden van wie wat heeft gedaan, en een afkeer van verdelingen die scheef uitvallen. Die bouwstenen zijn bij apen waarneembaar en meetbaar, dus dateren zij van voor elke godsdienst en van voor elke wijsbegeerte. Godsdienst is er later bij gekomen en heeft de bestaande gevoelens geordend, uitvergroot en van gezag voorzien, wat volgens De Waal een reële prestatie is. Wie de godsdienst wil afschaffen moet daarom aangeven wat die ordenende rol overneemt, en op dat punt vindt hij de nieuwe atheïsten zwak.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Bosch als terugkerend beeld</h3>
+      <p>Het boek begint bij De tuin der lusten van Jheronimus Bosch, de schilder uit De Waals geboortestad. De gangbare lezing maakt van het middenpaneel een waarschuwing tegen de zonde. De Waal houdt het op iets anders: hij ziet naakte mensen die zich vermaken zonder besef van schuld, en leest het paneel als een voorstelling van hoe het zou zijn geweest voordat de zondeval werd bedacht.</p>
+      <p>Dat beeld keert in elk hoofdstuk terug en draagt zijn vraag: waar komt ons idee van zonde vandaan, als het gedrag dat wij goed noemen ook zonder dat idee bestaat.</p>
+      <h3>Tegen de vernistheorie</h3>
+      <p>De positie die De Waal bestrijdt, noemt hij de vernistheorie. Zij komt van Thomas Huxley, die de zedelijke mens zag als iemand die de natuur bevecht, en zij is later in scherpere vorm herhaald door schrijvers die altruïsme als verkapte zelfzucht behandelen. Michael Ghiselins uitspraak dat wie een altruïst krabt een huichelaar ziet bloeden, staat er als de kortste weergave van.</p>
+      <p>Zijn tegenwerping is dat het onderscheid tussen echte en schijnbare goedheid op het niveau van het gedrag geen verschil maakt en op het niveau van de evolutie geen vraag is. Een chimpansee die een gewonde soortgenoot opzoekt, doet dat omdat het hem raakt. Dat die neiging ooit is ontstaan omdat zij nakomelingen opleverde, maakt haar niet minder echt.</p>
+      <h3>Wat apen doen wanneer er iets misgaat</h3>
+      <p>Het waarnemingsdeel gaat over troost. Na een vechtpartij in een chimpanseegroep gaat een derde dier naar het verliezende toe, slaat een arm om hem heen of raakt hem aan. De Waal en zijn medewerkers hebben dat gedrag over duizenden geregistreerde ruzies geteld, en het patroon is stelselmatig: het gebeurt bij mensapen wel en bij de meeste apensoorten niet.</p>
+      <p>Daarnaast staan er losse gevallen die hij bewaard heeft: de bonobo Kuni die een verdoofde spreeuw naar de top van een boom draagt en de vleugels uitvouwt, en een oude chimpansee die door jongere dieren geholpen wordt bij het klimmen en het drinken. Zulke waarnemingen bewijzen niets op zichzelf, en De Waal geeft dat toe; ze zijn er om te laten zien wat er te zien valt.</p>
+      <h3>De komkommer en de druif</h3>
+      <p>Het bekendste onderdeel is een proef met kapucijnaapjes, gepubliceerd met Sarah Brosnan in 2003. Twee dieren voeren dezelfde taak uit en krijgen beloning. Zolang beide een stuk komkommer krijgen, gaat het goed. Zodra de buurman een druif krijgt en het dier zelf komkommer houdt, gooit het de komkommer terug en rammelt aan het hok.</p>
+      <p>De filmopname daarvan heeft meer voor het argument gedaan dan de tabellen, en De Waal merkt op dat die reactie geen redenering vergt en dus ouder is dan het vermogen tot redeneren. Later werk breidde de vraag uit naar chimpansees en naar een aangepaste vorm van het ultimatumspel.</p>
+      <h3>Waarom hij de nieuwe atheïsten niet volgt</h3>
+      <p>De Waal is zelf ongelovig, katholiek opgevoed en zonder wrok van het geloof afgestapt. Juist daarom stoort hem de zendingsdrang van Richard Dawkins, Christopher Hitchens en Sam Harris. Hij vindt hun stellingname dogmatisch van vorm, en hij bestrijdt de aanname dat het wegvallen van godsdienst het gedrag van mensen verbetert.</p>
+      <p>Zijn eigen positie is dat de vraag naar het bestaan van God voor de moraal weinig uitmaakt, omdat de moraal er los van functioneert. Wat godsdienst wel doet, is grote groepen mensen die elkaar niet kennen op één lijn houden, en daarvoor bestaat volgens hem nog geen bewezen vervanging.</p>
+      <h3>De grenzen van de apenmoraal</h3>
+      <p>In het slot maakt De Waal onderscheid tussen wat apen hebben en wat de mens daarbovenop heeft. Apen kennen medegevoel, wederkerigheid en gemeenschapszorg, maar hun kring reikt niet verder dan de eigen groep, en zij formuleren geen regels die ook gelden wanneer niemand kijkt.</p>
+      <p>De mens heeft die uitbreiding wel gemaakt, met taal, met redenering en met instellingen. De bouwstenen zijn oud, de ordening is jong. Dat is de stelling waarmee hij eindigt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vernistheorie</td><td>De opvatting dat beschaafd gedrag een dun laagje is over een van nature zelfzuchtig dier, die De Waal door het hele boek bestrijdt.</td></tr>
+          <tr><td class="term">Moraal van onderop</td><td>Het idee dat morele regels zijn opgebouwd uit bestaande sociale gevoelens en niet vanuit een leer op de mens zijn toegepast.</td></tr>
+          <tr><td class="term">Empathie</td><td>Het aangedaan raken door de toestand van een ander, bij De Waal een oud en gelaagd vermogen dat bij veel zoogdieren voorkomt.</td></tr>
+          <tr><td class="term">Troostgedrag</td><td>Het benaderen en aanraken van een verliezer na een conflict door een dier dat er zelf niet bij betrokken was.</td></tr>
+          <tr><td class="term">Afkeer van ongelijkheid</td><td>De reactie van een dier dat minder krijgt dan zijn buurman voor hetzelfde werk, gemeten bij kapucijnaapjes.</td></tr>
+          <tr><td class="term">Wederkerigheid</td><td>Het bijhouden van gunsten en tegengunsten binnen een groep, dat volgens De Waal de basis van rechtvaardigheidsgevoel vormt.</td></tr>
+          <tr><td class="term">Gemeenschapszorg</td><td>Het belang dat een dier heeft bij een groep die goed functioneert, waaruit bemiddeling en het sussen van ruzies voortkomt.</td></tr>
+          <tr><td class="term">Bouwstenen van de moraal</td><td>De Waals aanduiding voor de gedragsneigingen die bij dieren voorkomen en die bij de mens tot regels zijn uitgewerkt.</td></tr>
+          <tr><td class="term">Bonobo tegenover chimpansee</td><td>Het tweetal naaste verwanten waarmee De Waal laat zien dat de mens zowel een gewelddadige als een verzoenende erfenis heeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De Waal beschikt over materiaal dat weinig schrijvers over dit onderwerp hebben: decennia waarneming aan de chimpanseekolonie van Burgers' Zoo in Arnhem en aan de Yerkes-vestiging bij Emory. Het troostgedrag rust niet op anekdotes maar op tellingen over duizenden geregistreerde conflicten, met vergelijking tussen soorten. Dat is het stevigste deel van het boek.</p>
+      <p>De proef met de kapucijnaapjes is minder rustig komen te liggen dan de bekendheid ervan doet vermoeden. Vervolgonderzoek leverde wisselende uitkomsten op, en er is een verklaring in omloop die geen gevoel voor eerlijkheid vergt: het dier reageert op het zichtbare betere voedsel dat het niet krijgt, ook wanneer er helemaal geen tweede aap in het spel is. De Waal noemt die tegenwerping en gaat er kort langs.</p>
+      <p>De twee helften van het boek zijn ongelijk onderbouwd. Het deel over apen berust op eigen metingen; het deel over godsdienst en atheïsme berust op leeservaring, persoonlijke herinnering en oordeel. Er staat geen enkel gegeven in over de vraag of godloze samenlevingen zich anders gedragen, terwijl hij daarover wel uitspraken doet. Ook de lezing van Bosch is zijn eigen, buiten het vak om, en kunsthistorici leggen het paneel anders uit.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek de sprong van beschrijven naar voorschrijven te snel maakt. Aantonen dat morele gevoelens zijn ontstaan zegt niets over welke regels goed zijn. De Waal weet dat en zegt het ook, maar zijn betoog leunt er intussen wel op: dat de moraal oud is, wordt gaandeweg een argument dat zij deugt. Wreedheid, groepsdenken en verstoting zijn even oud en komen er bekaaid af.</p>
+      <p>De behandeling van de nieuwe atheïsten is de zwakste van het boek. De Waal vat hun positie samen om haar te bestrijden en gaat vooral op de toon in. Dat levert een terugkerende klacht op in plaats van een argument, en het neemt ruimte af van waar hij wel wat te melden heeft. Recensenten die verder welwillend waren, wezen daar vrijwel unaniem op.</p>
+      <p>De draad met Bosch is een kwestie van smaak en werkt niet voor elke lezer. De schilder komt in elk hoofdstuk terug zonder dat de lezing van het drieluik ooit hard wordt gemaakt, en zij hangt aan een uitleg die in de kunstgeschiedenis omstreden is. Wie het om de primatologie te doen is, leest daar telkens omheen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken over waarneming aan apen als het gedeelte waarvoor het boek is geschreven en behandel het godsdienstdeel als essay.</li>
+        <li>Bekijk de opname van de kapucijnaapjes voordat of nadat het hoofdstuk erover gelezen is; het gedrag laat zich lastig in woorden overbrengen.</li>
+        <li>Scheid bij elke bewering of zij op een telling rust of op een enkel geval; De Waal geeft dat aan, maar de opbouw van de tekst wist het onderscheid uit.</li>
+        <li>Gebruik het onderscheid tussen bouwstenen en ordening bij gesprekken over de herkomst van normen; het houdt de discussie uit de tegenstelling tussen aanleg en opvoeding.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Bonobo and the Atheist: In Search of Humanism Among the Primates</i>, W.W. Norton, New York, 2013, ongeveer 285 bladzijden. Nederlands als <i>De bonobo en de tien geboden: moraal is ouder dan de mens</i>, vertaald door Nico Groen, Atlas Contact, Amsterdam, maart 2013, 286 blz., ISBN 9789025438630; het e-boek verscheen onder ISBN 9789045023762. De Waal, geboren in Den Bosch en werkzaam aan de Emory University in Atlanta, schreef eerder onder meer <i>Chimpanzee Politics</i> (1982), <i>Good Natured</i> (1996) en <i>The Age of Empathy</i> (2009); dit boek zet die lijn voort en voegt er de vraag naar godsdienst aan toe.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Waal vraagt waar de moraal vandaan komt en antwoordt: van onderop. De bouwstenen ervan, medegevoel, troost, wederkerigheid en een gevoel voor eerlijke verdeling, zijn bij chimpansees en bonobo's waarneembaar, dus zijn ze ouder dan de godsdiensten die ze zeggen te hebben gebracht.</p><p>Het boek voert twee gesprekken tegelijk. Het eerste gaat tegen de opvatting in dat beschaafd gedrag een dun laagje vernis is over een van nature zelfzuchtig dier. Het tweede gaat tegen de nieuwe atheïsten, van wie De Waal de conclusie deelt en de toon afwijst; hij betwijfelt of samenlevingen er beter van worden als godsdienst wordt weggehaald zonder dat er iets voor in de plaats komt.</p><p>Door het hele boek loopt een lezing van het drieluik van Jheronimus Bosch, De tuin der lusten. De Waal ziet daar geen waarschuwing tegen de zonde in maar een schildering van een mensheid zonder schuldgevoel, en gebruikt het paneel als terugkerend beeld bij zijn betoog.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>moraal</li><li>primaten</li><li>empathie</li><li>godsdienst</li><li>atheïsme</li><li>evolutie</li><li>rechtvaardigheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1676"><a href="1676.html">The Descent of Man</a>. Darwin legt daar de oorspronkelijke stelling neer dat het zedelijk gevoel uit sociale instincten voortkomt; De Waal levert de waarnemingen die Darwin niet had.</li>
+          <li value="1344"><a href="1344.html">The Selfish Gene</a>. Dawkins levert de tegenpositie die De Waal aanvalt, en is bovendien een van de atheïsten met wie hij het in dit boek aan de stok heeft.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky behandelt hetzelfde vraagstuk vanuit hersenen, hormonen en cultuur tegelijk, en is uitvoeriger over de gewelddadige kant.</li>
+          <li value="383"><a href="383.html">If Nietzsche Were a Narwhal</a>. Gregg keert de vraag om en betwijfelt of de menselijke vermogens waarmee wij ons van dieren onderscheiden ons per saldo goed hebben gedaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Different &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Waal stelt dat het debat over man en vrouw vastloopt op een valse keuze. De ene kant houdt vol dat alle verschillen worden aangeleerd en dat wie iets…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1675">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1675 &middot; Natuur en wetenschap</p>
+    <h1>Different</h1>
+    <p class="lede">Frans de Waal, 2022</p>
+    <p class="stats">
+      <span><b>1434</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1675"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Waal stelt dat het debat over man en vrouw vastloopt op een valse keuze. De ene kant houdt vol dat alle verschillen worden aangeleerd en dat wie iets anders beweert de ongelijkheid goedpraat; de andere kant leidt uit de biologie rechtstreeks een rolverdeling af. Volgens hem klopt geen van beide. Bij chimpansees en bonobo's zijn duidelijke verschillen tussen de seksen te zien die niemand hun heeft geleerd, en tegelijk verschillen die twee soorten onderling zo sterk dat er van een vast patroon geen sprake is. Zijn gevolgtrekking luidt dat het erkennen van sekseverschillen niets afdoet aan gelijke rechten, en dat wie ze ontkent zijn zaak op een onhoudbare bewering bouwt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat de schrijver meebrengt</h3>
+      <p>De Waal had toen hij dit schreef veertig jaar apen bekeken en daarover eerder geschreven over macht, over moraal en over inleving. Hij vertelt in dit boek ook iets over zichzelf: zijn opvoeding in een groot Nederlands gezin en zijn tijd in een mannengroep die zich met feminisme bezighield.</p>
+      <p>Dat persoonlijke deel heeft een functie. Het boek raakt aan een onderwerp waarbij de herkomst van de spreker meteen wordt gewogen, en De Waal kiest ervoor die kaarten open op tafel te leggen voordat hij aan de waarnemingen begint.</p>
+      <h3>Sekse en gender uit elkaar</h3>
+      <p>Hij houdt het onderscheid strikt aan: sekse gaat over het lichaam, gender over de rol en de aanduiding. Vervolgens laat hij zien dat de twee bij mensen nooit los van elkaar te krijgen zijn, omdat cultuur ingrijpt op wat het lichaam aandraagt en het lichaam meebeweegt met wat de cultuur oplegt.</p>
+      <p>Bij apen spreekt hij eveneens van gender, en dat is voor een bioloog een ongebruikelijke keuze. Zijn argument is dat jonge chimpansees gedrag van soortgenoten van hun eigen sekse overnemen en dat er dus ook bij hen sprake is van aanleren, niet alleen van aanleg.</p>
+      <h3>Speelgoed en de jonge jaren</h3>
+      <p>Het bekendste onderdeel gaat over speelgoed. In onderzoek bij resusapen en bij groene meerkatten, waarbij menselijk speelgoed in de groep werd gelegd, pakten vrouwtjes vaker poppen op en mannetjes vaker voertuigen, terwijl geen enkel dier ooit een reclame had gezien of een opmerking van een ouder had gehoord.</p>
+      <p>De Waal gebruikt dat om te betogen dat de voorkeur die bij mensenkinderen wordt gevonden niet volledig op reclame en opvoeding terug te voeren is. Hij tekent er wel bij aan dat het om een gemiddeld verschil gaat met grote overlap, en dat het niets voorschrijft over wat een afzonderlijk kind hoort te willen.</p>
+      <h3>Macht bij chimpansee en bonobo</h3>
+      <p>Chimpansees leven in groepen waarin een mannetje de hoogste plaats heeft, met geweld binnen bereik. Bonobo's, even nauw aan ons verwant, hebben vrouwtjes bovenaan, lossen spanning op met seksueel contact en kennen nauwelijks dodelijk geweld. Beide zijn evenveel familie van ons, en dat maakt elke rechtstreekse afleiding van aap naar mens onhoudbaar.</p>
+      <p>De Waal grijpt dit aan om zijn oude bezwaar tegen het woord alfamannetje te herhalen. Het hoogste mannetje in een chimpanseegroep dankt zijn plaats volgens hem niet aan brute kracht maar aan bondgenoten, aan het sussen van ruzies en aan zorg voor jongen; wie het alleen op geweld probeert, houdt het kort vol.</p>
+      <h3>Geaardheid en genderdiversiteit</h3>
+      <p>Seksueel contact tussen dieren van dezelfde sekse is bij bonobo's dagelijkse kost en komt bij veel andere soorten voor. De Waal gebruikt dat tegen het argument dat zulk gedrag tegennatuurlijk zou zijn, en behandelt daarnaast afzonderlijke apen die zich niet naar het patroon van hun sekse gedroegen.</p>
+      <p>Voor mensen bespreekt hij onder meer de zaak van David Reimer, de jongen die na een mislukte besnijdenis als meisje werd opgevoed en zich daar nooit in kon vinden. Hij leidt daaruit af dat genderidentiteit niet naar believen te sturen is en dat mensen die zeggen dat hun identiteit niet bij hun lichaam past, op hun woord genomen horen te worden.</p>
+      <h3>Geweld, paren en ouderschap</h3>
+      <p>Verdere hoofdstukken gaan over seksueel geweld, over de verschillen in wat mannen en vrouwen bij het zoeken van een partner laten zien, en over de zorg voor jongen. Hier wijst De Waal juist op wat de mens onderscheidt: vaste gezinnen, gezamenlijke opvoeding door beide ouders, en een omvang van seksueel geweld die bij apen geen tegenhanger heeft.</p>
+      <p>De strekking blijft dubbel. Er is aanleg, en die aanleg schrijft niets voor. Wat mensen ervan maken staat in wetten, gewoonten en afspraken, en die kunnen worden veranderd zonder dat iemand hoeft te ontkennen dat er lichamelijke verschillen bestaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sekse</td><td>Het lichamelijke onderscheid tussen mannelijk en vrouwelijk, dat De Waal uitdrukkelijk scheidt van de rol die eraan wordt gekoppeld.</td></tr>
+          <tr><td class="term">Gender</td><td>De rol, de aanduiding en het gedrag die met een sekse worden verbonden; De Waal gebruikt het woord ook voor apen.</td></tr>
+          <tr><td class="term">Alfamannetje</td><td>Bij De Waal geen tiran maar het mannetje dat zijn plaats dankt aan bondgenoten, bemiddeling en zorg voor jongen.</td></tr>
+          <tr><td class="term">Alfavrouwtje</td><td>Bij bonobo's de hoogste plaats in de groep, gedragen door verbond tussen vrouwtjes en niet door lichaamskracht.</td></tr>
+          <tr><td class="term">Bonobo</td><td>De soort die even nauw aan ons verwant is als de chimpansee, maar door vrouwtjes wordt geleid en nauwelijks dodelijk geweld kent.</td></tr>
+          <tr><td class="term">Speelgoedvoorkeur</td><td>Het verschil tussen mannetjes en vrouwtjes bij apen in de keuze van menselijk speelgoed, gebruikt tegen de verklaring uit reclame alleen.</td></tr>
+          <tr><td class="term">Onbeschreven blad</td><td>De opvatting dat gedrag volledig wordt aangeleerd, die hij als feitelijk onjuist en als strategisch riskant afwijst.</td></tr>
+          <tr><td class="term">Genderbinariteit</td><td>De indeling in precies twee categorieën, waar De Waal bij zowel mens als aap uitzonderingen tegenover zet.</td></tr>
+          <tr><td class="term">Gemiddeld verschil</td><td>Een verschil tussen groepsgemiddelden met grote overlap, dat over geen enkel afzonderlijk individu iets zegt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De sterkste grond is zijn eigen waarneming. Veertig jaar in Arnhem en Atlanta leverde een reeks dieren op die hij bij naam kende en over vele jaren volgde, en dat maakt zijn beschrijvingen van machtswisselingen, vriendschappen en uitzonderlijke individuen ongewoon gedetailleerd. Voor het gedrag van chimpansees en bonobo's is dit eersterangs materiaal.</p>
+      <p>Daarnaast leunt hij op experimenteel werk van anderen, waaronder de speelgoedstudies bij resusapen en meerkatten, en op overzichtsstudies van sekseverschillen bij mensen. Bij dat laatste verlaat hij zijn eigen vakgebied en vat hij samen wat psychologen hebben gevonden, met de beperkingen die daarbij horen.</p>
+      <p>Zwak blijft de brug tussen beide. Dat vrouwtjesapen vaker een pop oppakken en menselijke meisjes vaker een pop kiezen, is een overeenkomst en geen verklaring; de aantallen dieren in die studies zijn klein en de opzet is aangevochten. De Waal is voorzichtiger dan zijn samenvatters, maar de gevolgtrekking rust op minder dan het boek suggereert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het kernbezwaar is de overstap van aap naar mens. Mensen hebben wetten, geld, techniek en een geschiedenis van geschreven afspraken, en wat een chimpansee doet zegt daarom weinig over wat mensen kunnen. Recensenten hebben erop gewezen dat gedrag dat in mensenculturen wordt aangetroffen ook te lezen valt als aanpassing aan bestaande machtsverhoudingen, en niet als aanleg.</p>
+      <p>Op zijn omgang met de menselijke literatuur is aangemerkt dat hij selectief samenvat. In minstens één geval geeft hij een overzichtsstudie over vriendschap tussen vrouwen anders weer dan die studie zelf luidt. Dat is een terugkerend risico bij een bioloog die honderden bladzijden psychologisch onderzoek in enkele alinea's samenneemt.</p>
+      <p>Ook zijn behandeling van genderdiversiteit is bekritiseerd, en van twee kanten. Wie de biologie wil vasthouden vindt dat hij te veel ruimte geeft; wie de gendertheorie aanhangt vindt het bezwaarlijk dat de aanvaarding van transgender mensen wordt opgehangen aan een voorbeeld uit het dierenrijk, alsof daar een vergunning vandaan zou moeten komen.</p>
+      <p>Ten slotte is er zijn campagne tegen het woord alfamannetje. Zijn correctie is terecht en goed onderbouwd, maar hij herhaalt haar zo vaak, ook hier, dat ze het geheel af en toe overneemt. Voor wie zijn eerdere werk kent, is een aanzienlijk deel van dit boek bekend materiaal in een nieuwe ordening.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd het onderscheid tussen een gemiddeld verschil en een uitspraak over een persoon steeds vast; het boek staat of valt ermee.</li>
+        <li>Lees de hoofdstukken over chimpansee en bonobo naast elkaar, want het contrast tussen die twee ondergraaft elke rechtstreekse redenering van aap naar mens.</li>
+        <li>Neem de kritiek op de speelgoedstudies erbij voordat je dat voorbeeld in een gesprek gebruikt.</li>
+        <li>Gebruik zijn omschrijving van het alfamannetje als tegengif tegen het gebruik van dat woord in boeken over leiderschap.</li>
+        <li>Wie alleen het gedrag van apen wil, kan de gedeelten over menselijk onderzoek overslaan; daar staat hij het minst op eigen grond.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Different: Gender Through the Eyes of a Primatologist</i>, W. W. Norton, New York, april 2022, 409 blz., ISBN 9781324007104; paperback in 2023 onder ISBN 9781324050360. De Britse uitgave verscheen bij Granta in Londen onder de titel <i>Different: What Apes Can Teach Us About Gender</i>, 394 blz., ISBN 9781783787302, met een paperback in 2023 onder ISBN 9781783787326; dat laatste nummer hoort bij de omslag die op de boekenlijst van Kukuru staat, waar geen auteur wordt vermeld. Nederlands als <i>Anders: gender door de ogen van een primatoloog</i>, vertaald door Albert Witteveen bij Atlas Contact in Amsterdam, mei 2022, 456 blz., ISBN 9789045050928. Het was het laatste boek van De Waal; hij overleed op 14 maart 2024.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Waal was een Nederlandse primatoloog die veertig jaar met chimpansees en bonobo's werkte, eerst in Burgers' Zoo in Arnhem en daarna bij een onderzoekscentrum in Atlanta. In dit boek legt hij de vraag naar man en vrouw naast wat hij bij die dieren heeft gezien.</p><p>Zijn uitgangspunt is een onderscheid. Sekse is lichamelijk en gender is cultureel, maar volgens hem betekent dat niet dat de biologie er niet toe doet. Hij bestrijdt zowel het idee dat gedrag van mannen en vrouwen volledig wordt aangeleerd als het idee dat het volledig vastligt.</p><p>Per hoofdstuk zet hij een waarneming bij apen naast onderzoek bij mensen: speelgoedvoorkeur, macht en leiderschap, ouderschap, geweld, paren en seksuele geaardheid. Het contrast tussen de door mannetjes geregeerde chimpansee en de door vrouwtjes geregeerde bonobo loopt door het hele boek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gender</li><li>sekse</li><li>primaten</li><li>bonobo</li><li>chimpansee</li><li>biologie</li><li>Frans de Waal</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1678"><a href="1678.html">De bonobo en de tien geboden</a>. De Waal past dezelfde werkwijze toe op moraal en godsdienst, met dezelfde chimpansees en bonobo's als materiaal.</li>
+          <li value="1676"><a href="1676.html">The Descent of Man</a>. Darwin legde het vraagstuk van sekseverschillen en partnerkeuze bij de mens voor het eerst langs de evolutie, en is de tekst waar dit boek op voortbouwt.</li>
+          <li value="339"><a href="339.html">Behave</a>. Sapolsky behandelt dezelfde vraag over aanleg en aanleren bij geweld en seksueel gedrag, met veel meer onderzoek en veel minder anekdote.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

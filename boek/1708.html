@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Story of the Human Body &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lieberman betoogt dat het menselijk lichaam het resultaat is van miljoenen jaren selectie op voortplanting onder omstandigheden die niet meer bestaan, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1708">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1708 &middot; Natuur en wetenschap</p>
+    <h1>The Story of the Human Body</h1>
+    <p class="lede">Daniel E. Lieberman, 2013; vert. Wybrand Scheffer</p>
+    <p class="stats">
+      <span><b>1661</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1708"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lieberman betoogt dat het menselijk lichaam het resultaat is van miljoenen jaren selectie op voortplanting onder omstandigheden die niet meer bestaan, en dat een groot deel van de hedendaagse chronische ziektelast daaruit te verklaren valt. Selectie heeft nooit gezondheid of een lang leven opgeleverd, alleen nakomelingen; wat daarvoor werkte in een omgeving van schaarste en beweging pakt slecht uit in een omgeving van overvloed en stilzitten. Daar voegt hij een tweede stelling aan toe die scherper is. Doordat geneeskunde en techniek vooral symptomen verzachten en de oorzaken laten staan, geven wij die aandoeningen door aan onze kinderen en worden ze in elke generatie gewoner. Dat proces noemt hij dysevolutie, en het is in zijn ogen geen bijverschijnsel van de vooruitgang maar de kern van het probleem.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Apen en mensen</h3>
+      <p>Het eerste deel volgt de lijn vanaf de laatste gemeenschappelijke voorouder met de chimpansee, zo'n zes tot acht miljoen jaar geleden. Lieberman behandelt achtereenvolgens het rechtop lopen bij de vroege hominiden, de overgang van een dieet van rijp fruit naar taaier plantaardig voedsel bij de australopithecinen, en het ontstaan van een vrijwel modern lichaam in het geslacht Homo.</p>
+      <p>Bij die laatste stap ligt zijn eigen onderzoek. Lieberman verdedigt de gedachte dat de mens is gevormd door lopen en draven over lange afstanden: de nekband die het hoofd stabiel houdt, de veerkracht in de voetboog, het vermogen om te zweten en tegelijk door te gaan. Hij publiceerde die opvatting in 2004 samen met Dennis Bramble en gebruikt haar in het boek als verklaring voor een reeks kenmerken die anders los van elkaar blijven staan.</p>
+      <h3>Wat een groot brein kost</h3>
+      <p>Een brein van dit formaat is duur in onderhoud, en het tweede thema van het eerste deel is de energiehuishouding die dat mogelijk maakte. Lieberman beschrijft hoe koken en het bewerken van voedsel de kosten van vertering verlaagden, hoe de darm korter werd, en hoe de mens meer vet opslaat en langzamer groeit dan andere primaten. Kinderen blijven jarenlang afhankelijk, en dat wordt betaald doordat meerdere volwassenen voedsel aandragen.</p>
+      <p>Die opsomming heeft een functie verderop in het boek. Het lichaam is volgens Lieberman geselecteerd op het doorstaan van perioden van tekort en op het aanleggen van reserves zodra er iets te halen valt. Een omgeving waarin er nooit een tekort komt, was in die zes miljoen jaar geen serieuze mogelijkheid.</p>
+      <h3>De landbouw als ruil</h3>
+      <p>Het tweede deel begint bij de landbouw, ongeveer tienduizend jaar geleden. Lieberman verzet zich tegen twee lezingen tegelijk. De landbouw was geen vooruitgang in gezondheid: skeletten uit vroege landbouwsamenlevingen zijn kleiner en tonen meer gaatjes in het gebit, meer tekenen van bloedarmoede en meer sporen van infectieziekten dan die van de jager-verzamelaars ervoor. Toch was het evenmin een vergissing, want er kwamen meer kinderen per vrouw en dus meer boeren.</p>
+      <p>Daarmee zet hij zijn belangrijkste onderscheid neer. Wat de evolutie beloont is voortplanting, en gezondheid is daar hooguit een middel toe. Een gewoonte die mensen zieker maakt en tegelijk meer nakomelingen oplevert, verspreidt zich. Dat verklaart waarom er geen natuurlijke correctie te verwachten valt voor wat er daarna gebeurde.</p>
+      <h3>Moderne tijden, moderne lichamen</h3>
+      <p>Het derde thema is de industriële periode. Riolering, zeep, koeling, vaccins en antibiotica hebben de infectieziekten grotendeels teruggedrongen, en de levensverwachting is in twee eeuwen ongeveer verdubbeld. Tegelijk verschoof de ziektelast naar aandoeningen die vroeger zeldzaam waren. Lieberman noemt dat de paradox van de moderne gezondheid: langer leven, en meer jaren met een chronische aandoening erbij.</p>
+      <h3>Drie families van mismatch</h3>
+      <p>In het derde deel ordent hij de mismatchziekten in drie groepen. De eerste komt voort uit een aanhoudend overschot aan energie: overgewicht, diabetes type 2, hart- en vaatziekten, en volgens hem ook een deel van de hormoongevoelige kankers. De tweede komt voort uit onderbelasting, waarvoor hij het woord disuse gebruikt: botten die te weinig belasting krijgen, spieren en pezen die verzwakken, een rug die het begeeft, bijziendheid door te weinig daglicht en te veel dichtbij kijken.</p>
+      <p>De derde groep is de lastigste, omdat het gaat om nieuwigheden waarvan de schade pas laat zichtbaar wordt: schoenen met een dikke zool en een verhoogde hiel, stoelen met een rugleuning, zacht voedsel dat de kaak te weinig werk geeft, licht na zonsondergang. Hier komt zijn tweede stelling binnen. Wie de klacht wegneemt en de oorzaak laat staan, zorgt ervoor dat de aandoening in de volgende generatie nog vaker voorkomt. Dat is dysevolutie.</p>
+      <h3>Survival of the fitter</h3>
+      <p>Het slothoofdstuk gaat over wat eraan te doen valt. Lieberman verwerpt de gedachte dat de mens terug moet naar een paleolithische leefwijze, onder meer omdat er nooit een enkele zulke leefwijze heeft bestaan. Hij verwerpt ook het vertrouwen dat de evolutie het probleem vanzelf oplost; daarvoor gaat zij te langzaam en beloont zij de verkeerde uitkomst.</p>
+      <p>Wat hij overhoudt is een keuze tussen voorlichting en dwang. Voorlichting werkt volgens hem aantoonbaar slecht: mensen weten in grote lijnen wat gezond is en doen het niet. Hij komt daarom uit bij het veranderen van de omgeving, met belastingen, normen voor voedsel, schoolsport en de inrichting van steden. Hij noemt dat zelf een vorm van zachte dwang en erkent dat het ongemakkelijk ligt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">mismatchziekte</td><td>Een aandoening die vaker of ernstiger voorkomt doordat het lichaam onvoldoende is aangepast aan een omstandigheid die in de evolutie niet of nauwelijks voorkwam.</td></tr>
+          <tr><td class="term">dysevolutie</td><td>Het verschijnsel dat een cultureel antwoord op een mismatchziekte de klacht verzacht maar de oorzaak in stand houdt, waardoor de aandoening zich over generaties verbreidt.</td></tr>
+          <tr><td class="term">positieve energiebalans</td><td>Structureel meer energie binnenkrijgen dan verbruiken, in Liebermans ordening de bron van de eerste familie mismatchziekten.</td></tr>
+          <tr><td class="term">disuse</td><td>Liebermans term voor het verlies aan sterkte en functie van botten, spieren, ogen en gewrichten die de belasting missen waarop ze zijn gebouwd.</td></tr>
+          <tr><td class="term">ontwikkelingsplasticiteit</td><td>Het vermogen van een lichaam om zich tijdens de groei aan te passen aan de omstandigheden waarin het opgroeit, wat verklaart waarom veel mismatch al voor de geboorte begint.</td></tr>
+          <tr><td class="term">uithoudingsloopvermogen</td><td>Het geheel van kenmerken waarmee de mens over lange afstanden kan draven, door Lieberman gebruikt om de bouw van het menselijk lichaam als samenhangend geheel te verklaren.</td></tr>
+          <tr><td class="term">bipedie</td><td>Het rechtop lopen op twee benen, de eerste grote verbouwing in zijn verhaal en de bron van een reeks latere klachten aan rug, knie en voet.</td></tr>
+          <tr><td class="term">survival of the fitter</td><td>Liebermans woordspel voor zijn slotstelling: wat zich verspreidt is de gewoonte die de meeste nakomelingen oplevert, en dat hoeft de gezondste niet te zijn.</td></tr>
+          <tr><td class="term">paleolithische leefwijze</td><td>De leefwijze van voor de landbouw, bij Lieberman een vergelijkingspunt en tegelijk afgewezen als voorschrift, omdat er nooit een enkele zulke leefwijze heeft bestaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal. Het eerste is het fossiele en archeologische bestand, waarmee Lieberman de bouw van het skelet door de tijd volgt en waarover hij als hoogleraar menselijke evolutionaire biologie uit eerste hand schrijft. Het tweede is zijn eigen laboratoriumwerk aan de biomechanica van lopen en draven, waaronder het onderzoek naar hardlopen op blote voeten dat hem in de pers de bijnaam de blotevoetenprofessor opleverde. Het derde is de epidemiologie van welvaartsziekten, aangevuld met waarnemingen aan hedendaagse jager-verzamelaars.</p>
+      <p>De sterkste passages zijn die waarin die drie elkaar raken, zoals bij het gebit, de voetboog en de bijziendheid. Daar is een structuur aan te wijzen, een belasting die is weggevallen, en een klacht die meetbaar vaker voorkomt. Het notenapparaat is uitgebreid en Lieberman geeft geregeld aan waar het bewijs dun is of waar vakgenoten van mening verschillen.</p>
+      <p>Zwakker is de onderbouwing waar de keten van mismatch naar ziekte over veel schakels loopt. Dat een omgeving met overvloed en weinig beweging tot overgewicht en diabetes type 2 leidt, is goed gedocumenteerd. Dat hetzelfde geldt voor bepaalde kankers of voor stemmingsklachten is een aannemelijke redenering en geen vaststelling. Lieberman zegt dat ook, maar het verschil verdwijnt makkelijk in de vaart van het betoog.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat vakgenoten het duidelijkst hebben gemaakt, onder meer in een uitvoerige recensie onder de titel A big batch of mismatch, is dat de stelling zelf niet nieuw is. Dat mismatch bestaat en ertoe doet, is in de evolutionaire geneeskunde al langer gemeengoed, en een deel van de voorbeelden was eerder beschreven. De verdienste van het boek zit in de ordening en de omvang, minder in het inzicht.</p>
+      <p>Een principieler bezwaar is dat het mismatchkader zich moeilijk laat weerleggen. Vrijwel elke moderne kwaal is achteraf te vertellen als een verhaal over een lichaam dat voor iets anders is gebouwd, en zo'n verhaal klinkt overtuigend zonder dat het is getoetst. Lieberman is voorzichtiger dan de meeste populariseerders van het paleo-idee, maar zijn kader nodigt wel tot die manier van redeneren uit.</p>
+      <p>Het derde bezwaar geldt het slot. Na driehonderd bladzijden uitleg over hoe het lichaam werkt, komt het antwoord vrijwel geheel bij de overheid en bij de inrichting van de samenleving te liggen. Wie het boek leest om te weten wat hij zelf zou kunnen doen, houdt weinig concreets over, en dezelfde recensie wijst daarop. Daar komt bij dat Lieberman zijn voorkeur voor zachte dwang wel benoemt maar nauwelijks verdedigt tegenover de bezwaren die daartegen bestaan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel een klacht en zoek er tegelijk de weggevallen belasting bij: te weinig daglicht, te weinig kauwwerk, te weinig staan of lopen.</li>
+        <li>Ga bij een hulpmiddel na of het de oorzaak wegneemt of alleen de klacht; dat onderscheid draagt het hele boek.</li>
+        <li>Verwacht van voorlichting weinig en verander liever de omgeving waarin de keuze valt: wat binnen handbereik ligt, wordt gegeten.</li>
+        <li>Lees het boek niet als pleidooi voor een paleodieet, want Lieberman wijst dat zelf af.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Story of the Human Body: Evolution, Health, and Disease</i> (Pantheon Books, New York, 2013, 460 blz., ISBN 9780307379412). De Nederlandse vertaling van Wybrand Scheffer verscheen als <i>Het verhaal van het menselijk lichaam: evolutie, gezondheid en ziekte</i> bij Atlas Contact, Amsterdam, 2014 (519 blz., ISBN 9789045026558; e-boek 9789045026466). Van Lieberman verscheen later <i>Exercised</i> (2020), over beweging en de vraag waarom mensen die van nature vermijden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lieberman is hoogleraar menselijke evolutionaire biologie in Harvard en vertelt de geschiedenis van het lichaam in drie bewegingen: de zes miljoen jaar waarin de mens een rechtop lopende, ver lopende alleseter werd, de tienduizend jaar landbouw daarna, en de twee eeuwen industrie en comfort die daarop volgden.</p><p>Zijn onderwerp is wat die laatste twee bewegingen met het lichaam hebben gedaan. Mensen worden ouder dan ooit en zijn tegelijk vaker chronisch ziek. Diabetes type 2, bijziendheid, gaatjes in het gebit, platvoeten en rugklachten noemt hij mismatchziekten: kwalen die vaker of erger voorkomen doordat het lichaam voor andere omstandigheden is gebouwd.</p><p>Het tweede deel van zijn betoog gaat over wat wij eraan doen. Een bril, een pijnstiller of een gedempte hardloopschoen neemt de klacht weg en laat de oorzaak staan, waardoor de kwaal in de volgende generatie gewoner wordt. Lieberman noemt dat dysevolutie en vindt het het meest verontrustende deel van het verhaal.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>evolutie</li><li>mismatchziekten</li><li>jager-verzamelaars</li><li>landbouw</li><li>obesitas</li><li>volksgezondheid</li><li>bipedie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari vertelt in <i>Sapiens</i> dezelfde landbouwovergang als geschiedenis van de soort. Lieberman levert de anatomische onderbouwing bij Harari's stelling dat de landbouw de mens zieker maakte.</li>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. Nestor bouwt in <i>Breath</i> op precies dit soort mismatch voort: kaken en luchtwegen die door zacht voedsel smaller werden. Waar Lieberman het mechanisme uitlegt, gaat Nestor in zijn aanbevelingen verder dan zijn bewijs draagt.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker beschrijft in <i>Why We Sleep</i> een mismatch die bij Lieberman maar kort aan bod komt, die van kunstlicht na zonsondergang. De twee lezen goed na elkaar, met bij beide dezelfde waarschuwing over te stellige conclusies.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

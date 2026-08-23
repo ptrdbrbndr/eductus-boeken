@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gevoelige zielen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bakker verlegt de aandacht van de patiënt naar degene die tegenover hem zit. Volgens hem belandt wie in de zorg terechtkomt daar zelden toevallig: veel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1720">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1720 &middot; Brein en lichaam</p>
+    <h1>Gevoelige zielen</h1>
+    <p class="lede">Bram Bakker, 2023</p>
+    <p class="stats">
+      <span><b>1396</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1720"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bakker verlegt de aandacht van de patiënt naar degene die tegenover hem zit. Volgens hem belandt wie in de zorg terechtkomt daar zelden toevallig: veel artsen, verpleegkundigen, therapeuten en coaches dragen zelf een geschiedenis van gemis, geweld of verwaarlozing mee, en juist die geschiedenis maakt hen ontvankelijk voor de nood van anderen. De beroepshouding die daaroverheen wordt gelegd, de professionele distantie, houdt dat eigen verhaal buiten beeld. Bakker betwist dat die afstand bescherming biedt en stelt dat zij de hulpverlener op termijn uitput. Zijn conclusie is dat het zorgstelsel eerder kapotgaat aan het gebrek aan zelfzorg bij professionals dan aan een tekort aan protocollen of behandelmethoden, en dat verandering dus begint bij de mensen die de zorg leveren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het sluitstuk van een drieluik</h3>
+      <p>In <i>Gevoelsarm</i> beschreef Bakker waarom hij na tweeëntwintig jaar zijn registratie als psychiater liet verlopen. In <i>Oud zeer</i> ging het over wat er in een jeugd gebeurd is of juist ontbroken heeft, en hoe dat het latere leven en de gezondheid kleurt. Dit derde boek past dezelfde vraag toe op de beroepsgroep waar hij zelf vandaan komt.</p>
+      <p>De ambitie is beperkt en duidelijk: aandacht voor de hulpverleners zelf. Bakker houdt vast aan de aanpak van de twee eerdere delen, waarbij hij zijn eigen verhaal als uitgangspunt neemt en van daaruit naar het algemene beweegt. Hij noemt dat een bewuste keuze, omdat hij van hulpverleners vraagt wat hij ook zelf doet.</p>
+      <h3>Wat professionele distantie verbergt</h3>
+      <p>De term professionele distantie staat in de zorg voor een houding die de behandelaar op afstand van het leed van de patiënt moet houden. Bakker leest die houding anders: als een manier om niet bij het eigen verdriet te hoeven komen. Wie de hele dag doorvraagt bij anderen, hoeft aan zichzelf geen vragen te stellen.</p>
+      <p>Hij wijst erop dat de opleidingen tot arts en psychiater die afstand aanleren, en dat intervisie en supervisie over casussen gaan en zelden over de biografie van degene die de casus behandelt.</p>
+      <h3>De gewonde helper</h3>
+      <p>Bakker sluit aan bij het oude beeld van de gewonde helper, de genezer die zelf beschadigd is. Hij past het zonder omhaal op zichzelf toe en schrijft dat hij als psychiater vaak in slechtere staat verkeerde dan de mensen die bij hem in de spreekkamer zaten. Hij noemt zichzelf geen genezer of sjamaan, wel gewond, en rekent transgenerationeel doorgegeven leed daartoe.</p>
+      <p>Die openheid is de motor van het boek en tegelijk de grens ervan. Bakker vraagt collega's om hetzelfde te doen, maar erkent dat het beroep daar nauwelijks ruimte voor biedt: wie in de zorg toegeeft dat hij zelf vastloopt, riskeert twijfel aan zijn geschiktheid.</p>
+      <h3>Het lichaam en het onbesproken zeer</h3>
+      <p>Een terugkerend punt is dat de geestelijke gezondheidszorg te weinig weet van trauma en van affectieve verwaarlozing, en dat zij de rol van het lichaam bij psychisch lijden onderschat. Bakker heeft daar zijn hele loopbaan aan gewerkt, eerst met hardlopen als behandelvorm, later met ademwerk. Onderwerpen die in de spreekkamer worden vermeden, waaronder seksueel geweld, komen in het boek wel aan de orde.</p>
+      <p>Zijn redenering is dat het lichaam signalen geeft lang voordat iemand kan zeggen wat er mis is, en dat een beroepsgroep die zichzelf traint in doorgaan die signalen het eerst wegdrukt.</p>
+      <h3>Eerst het eigen masker</h3>
+      <p>De praktische uitkomst is de regel uit de veiligheidsinstructie in het vliegtuig: zet eerst je eigen zuurstofmasker op. Bakker keert daarmee de morele volgorde om die in de zorg gangbaar is, waarin de eigen behoefte pas na die van de patiënt komt.</p>
+      <p>Hij verbindt dat aan zijn werk buiten de reguliere zorg. Sinds hij zijn registratie kwijtraakte, is hij welwillender gaan kijken naar benaderingen die de geneeskunde alternatief noemt, en werkt hij als coach, podcastmaker en initiatiefnemer van de Balanskliniek, een platform voor zorgprofessionals en zorgvragers.</p>
+      <h3>De vorm van het boek</h3>
+      <p>Het is een dun boek van 175 bladzijden dat snel door zijn onderwerpen heen gaat. Bakker wisselt korte beschouwingen af met persoonlijke passages en verwijst geregeld naar het werk van anderen voor wie verder wil lezen. Recensent Akke Tick merkte op dat hij tussen gepolijst proza en haastige, urgente stukken heen en weer schiet, en dat een aantal onderwerpen meer diepgang had verdiend.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Oud zeer</td><td>De verzamelterm uit het voorgaande deel voor alles wat in een jeugd is gebeurd of juist heeft ontbroken en wat in het heden nog doorwerkt.</td></tr>
+          <tr><td class="term">Professionele distantie</td><td>De aangeleerde afstand tussen behandelaar en patiënt, die volgens Bakker vooral de behandelaar bij zijn eigen geschiedenis vandaan houdt.</td></tr>
+          <tr><td class="term">De mens achter de hulpverlener</td><td>De ondertitel en het onderwerp: wie iemand is buiten zijn beroepsrol, en wat dat verklaart over zijn keuze voor dat beroep.</td></tr>
+          <tr><td class="term">De gewonde helper</td><td>Het beeld van de genezer die zelf beschadigd is; Bakker rekent zichzelf daartoe en noemt zich gewond zonder zich genezer te noemen.</td></tr>
+          <tr><td class="term">Gevoelsarm</td><td>De titel van het eerste deel van het drieluik en Bakkers aanduiding voor een zorgstelsel dat gevoel uit zijn omgangsvormen heeft weggeorganiseerd.</td></tr>
+          <tr><td class="term">Zuurstofmasker</td><td>De vergelijking met de instructie in het vliegtuig, waarmee Bakker de volgorde van zelfzorg en zorg voor een ander vastlegt.</td></tr>
+          <tr><td class="term">Transgenerationeel trauma</td><td>Leed dat van ouder op kind wordt doorgegeven zonder dat het benoemd wordt; Bakker past het op zijn eigen familie toe.</td></tr>
+          <tr><td class="term">Balanskliniek</td><td>Het gezondheidsplatform voor zorgprofessionals en zorgvragers waarvan Bakker initiatiefnemer is en waarin hij zijn opvatting over zelfzorg in praktijk brengt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op eigen ervaring en op gesprekken, niet op nieuw onderzoek. Bakker is gepromoveerd op de behandeling van paniekaanvallen en heeft tweeëntwintig jaar als psychiater gewerkt, dus hij kent het veld van binnenuit, maar die kennis wordt hier ingezet als getuigenis en niet als meting. Wie cijfers zoekt over ziekteverzuim, uitval of verslaving onder zorgverleners, vindt die in dit boek niet.</p>
+      <p>De sterkste onderbouwing is dat hij zijn stelling eerst op zichzelf toepast. Dat hij openlijk schrijft dat hij als behandelaar geregeld slechter af was dan zijn patiënten, geeft de rest van het betoog gewicht: het is een verwijt dat hij niet alleen aan anderen richt. Waar hij naar literatuur over trauma en affectieve verwaarlozing verwijst, doet hij dat als leessuggestie, niet als bewijsvoering.</p>
+      <p>Voor de bredere claim dat onverwerkt leed mensen naar de zorg drijft, bestaat wel onderzoek, maar Bakker voert dat niet aan. De lezer moet zelf beoordelen hoe representatief de voorbeelden zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is de sprong van één loopbaan naar een hele beroepsgroep. Dat Bakker zelf oud zeer meedroeg en daardoor psychiater werd, zegt niets over het aandeel collega's voor wie dat opgaat. Het boek doet geen poging die vraag te beantwoorden en gebruikt herkenning als maatstaf, wat betekent dat wie zich niet herkent buiten het betoog valt.</p>
+      <p>Een tweede bezwaar betreft de richting van de oplossing. De problemen in de Nederlandse zorg hebben ook te maken met personeelstekort, werkdruk, bekostiging en administratie. Door de nadruk op zelfzorg te leggen wordt een stelselvraag een persoonlijke opgave, en loopt de lezer het risico dat hij bij uitputting naar zijn eigen jeugd gaat kijken in plaats van naar zijn rooster.</p>
+      <p>Bakker schrijft vanuit een positie buiten de reguliere zorg, na het verlies van zijn registratie, en is welwillender gaan staan tegenover benaderingen waarvoor de bewijsvoering dun is. Dat kleurt zijn oordeel over de geneeskunde die hij verliet. Hij maakt die positie zichtbaar, maar weegt niet af wat de reguliere psychiatrie wél oplost.</p>
+      <p>Ten slotte de omvang. In 175 bladzijden komen trauma, hechting, seksueel geweld, ademwerk, hardlopen, de opleidingen en het stelsel voorbij. Recensies noemen dat tempo als bezwaar: onderwerpen worden aangeraakt en weer losgelaten. Het lezerspubliek op Hebban geeft het boek een middelmatige waardering, wat past bij een boek dat vooral aankomt bij wie het onderwerp al herkent.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel bij uitputting in een zorgberoep eerst de vraag welk deel het rooster is en welk deel de eigen geschiedenis, voordat een van beide de schuld krijgt.</li>
+        <li>Behandel professionele distantie als een keuze die verantwoording verdient, niet als een gegeven van het vak.</li>
+        <li>Regel intervisie waarin ook de biografie van de behandelaar aan bod mag komen, en niet alleen de casus.</li>
+        <li>Lees dit deel na <i>Oud zeer</i>; los gelezen mist het de begrippen waarop het voortbouwt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Gevoelige zielen. Over de mens achter de hulpverlener</i>, Uitgeverij Lucht, 2023, 175 blz., ISBN 9789493272521; het e-boek heeft ISBN 9789493272613. Het boek is in het Nederlands geschreven, dus er is geen vertaling. Het sluit een drieluik af dat begon met <i>Gevoelsarm</i> (2021), waarin Bakker uitlegt waarom hij zijn registratie als psychiater liet verlopen, en <i>Oud zeer</i> (2022), over pijnlijke jeugdervaringen en hun gevolgen op latere leeftijd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bram Bakker was van 1999 tot 2021 psychiater en legde die titel toen neer. In dit derde deel van een drieluik richt hij de aandacht op de beroepsgroep zelf: artsen, verpleegkundigen, therapeuten en coaches. De vraag die het boek stelt is wat voor mens er schuilgaat achter de professionele houding, en waarom iemand er eigenlijk voor kiest om de hele dag voor anderen te zorgen.</p><p>Zijn antwoord is dat veel hulpverleners zelf een geschiedenis van gemis, geweld of verwaarlozing meedragen, en dat die geschiedenis hen juist gevoelig maakt voor de nood van een ander. Het beroep biedt daar een respectabele plek voor, maar de omgangsvorm die erbij hoort, de professionele distantie, houdt het eigen verhaal buiten beeld.</p><p>Daaruit volgt de aansporing waarmee het boek eindigt: eerst voor jezelf zorgen, daarna voor een ander. Bakker legt de vergelijking met het zuurstofmasker in het vliegtuig en stelt dat de zorg niet zozeer bezwijkt onder een tekort aan kennis als wel onder een tekort aan zelfzorg bij de mensen die haar leveren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hulpverlening</li><li>zorg</li><li>oud zeer</li><li>zelfzorg</li><li>psychiatrie</li><li>beroepshouding</li><li>trauma</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="104"><a href="104.html">Oud zeer</a>. Het directe voorgaande deel van hetzelfde drieluik, waarin Bakker het begrip oud zeer uitwerkt dat hier wordt verondersteld.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk levert het onderzoek waarnaar Bakker verwijst als hij zegt dat de zorg de rol van het lichaam bij psychisch lijden onderschat.</li>
+          <li value="1722"><a href="1722.html">Childhood Disrupted</a>. Nakazawa onderbouwt met de ACE-studie wat Bakker als ervaring beschrijft: dat jeugdtegenspoed decennia later in het lichaam terugkomt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

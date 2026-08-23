@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verslaafd aan ons eigen gelijk &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kamphuis stelt dat het probleem van de huidige polarisatie niet in de inhoud van meningen zit maar in de manier waarop mensen ze vasthouden. Wie zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1729">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1729 &middot; Vrij denken en manipulatie</p>
+    <h1>Verslaafd aan ons eigen gelijk</h1>
+    <p class="lede">Lammert Kamphuis, 2023</p>
+    <p class="stats">
+      <span><b>1367</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1729"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kamphuis stelt dat het probleem van de huidige polarisatie niet in de inhoud van meningen zit maar in de manier waarop mensen ze vasthouden. Wie zijn overtuiging als deel van zijn identiteit beschouwt, ervaart tegenspraak als een aanval en gaat zijn eigen gelijk verdedigen in plaats van onderzoeken. Zijn stelling is dat filosofie daartegen als oefening kan werken: niet als leer die vertelt wat waar is, maar als training in het innemen van standpunten die niet de eigen zijn. Dat vermogen noemt hij perspectivistische lenigheid, en hij behandelt het als een vaardigheid die met herhaling toeneemt, vergelijkbaar met lichamelijke lenigheid.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vertrek uit een gesloten wereld</h3>
+      <p>Het boek begint bij Kamphuis zelf. Hij groeide op in een streng gereformeerd gezin, waarin vaststond wat waar was en wie erbuiten viel. Toen hij dat milieu verliet, verwachtte hij een omgeving waarin men langer twijfelde. In plaats daarvan zag hij dezelfde stelligheid terug, alleen met andere onderwerpen: klimaat, migratie, gezondheid, opvoeding.</p>
+      <p>Die vergelijking tussen kerk en publieke discussie loopt door het hele boek. Zij levert hem zijn maatstaf: hoe herkenbaar dogmatisch een groep is, valt af te lezen aan wat er gebeurt met iemand die twijfelt.</p>
+      <h3>Waarom gelijk hebben verslavend werkt</h3>
+      <p>Kamphuis beschrijft het gevoel gelijk te hebben als iets dat beloont. Het bevestigt het zelfbeeld, het bevestigt de plaats in de groep en het spaart denkwerk uit. Daarom noemt hij het een verslaving: niet omdat er een stof in het spel is, maar omdat de kortetermijnopbrengst het gedrag in stand houdt terwijl het op langere termijn schaadt.</p>
+      <p>Bij die beschrijving hoort wat hij intellectuele luiheid noemt. Denken kost inspanning, en het hoofd volgt liever de paden die er al liggen. Meningen die eenmaal zijn ingenomen worden zelden herzien, ook niet als de aanleiding ervoor verdwenen is.</p>
+      <h3>De inventaris van denkfouten</h3>
+      <p>Het middendeel loopt een reeks bekende vertekeningen langs. De bevestigingsvertekening laat mensen vooral informatie zoeken die past bij wat zij al menen. De zelfbevoordelende vertekening schrijft successen aan het eigen kunnen toe en mislukkingen aan de omstandigheden. Het Dunning-Kruger-effect beschrijft dat wie weinig van iets weet, ook slecht kan inschatten hoe weinig dat is.</p>
+      <p>Daarnaast behandelt hij cognitieve dissonantie, de frequentie-illusie waarbij iets opeens overal lijkt op te duiken zodra het is opgemerkt, en de neiging de eigen generatie als maatstaf te nemen. Kamphuis brengt deze begrippen niet als nieuw onderzoek maar als gereedschap om het eigen denken mee te bekijken.</p>
+      <h3>Filosofen als tegengif</h3>
+      <p>Tegenover de vertekeningen zet hij een reeks denkers. Socrates staat voor het besef van eigen onwetendheid, Thales voor het verschil tussen zelfkennis en het uitdelen van adviezen. Karl Popper levert het criterium dat een bewering pas iets waard is als duidelijk is wat haar zou weerleggen.</p>
+      <p>Martha Nussbaum brengt hij in met haar begrip overgangswoede, waarin woede over onrecht wordt omgezet in gerichtheid op wat er verbeterd kan worden in plaats van op vergelding. Yuval Noah Harari gebruikt hij voor de gedachte dat de moderne wetenschap begon bij het toegeven van onwetendheid.</p>
+      <h3>Het oefenboek</h3>
+      <p>Het tweede deel van het boek bestaat uit opdrachten. De bekendste is de omkering van honderdtachtig graden: kies een overtuiging waar je zeker van bent en schrijf de sterkst mogelijke verdediging van het tegendeel op. Een andere oefening vraagt bij een spottende of vinnige opmerking te zoeken naar de wens die eronder ligt.</p>
+      <p>Andere opdrachten richten zich op het opzoeken van bronnen buiten de eigen kring, op het uitstellen van een oordeel, en op het benoemen van de omstandigheden waaronder je van mening zou veranderen. De oefeningen staan achterin nog eens bij elkaar.</p>
+      <h3>Wat Kamphuis vraagt</h3>
+      <p>De slotgedachte is bescheiden gehouden. Kamphuis vraagt niet om het opgeven van standpunten en ook niet om het midden opzoeken tussen alle meningen. Hij vraagt om het losser vasthouden ervan, en om vriendelijkheid tegenover degenen die irritatie opwekken. De winst die hij belooft is vooral persoonlijk: minder ergernis en meer bruikbare gesprekken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Perspectivistische lenigheid</td><td>Het vermogen zich in andere standpunten dan het eigen te verplaatsen, door Kamphuis behandeld als een te trainen vaardigheid.</td></tr>
+          <tr><td class="term">Bevestigingsvertekening</td><td>De neiging informatie te zoeken en te onthouden die past bij wat iemand al meent, en tegenspraak lager te waarderen.</td></tr>
+          <tr><td class="term">Zelfbevoordelende vertekening</td><td>Successen aan het eigen kunnen toeschrijven en mislukkingen aan de omstandigheden of aan anderen.</td></tr>
+          <tr><td class="term">Dunning-Kruger-effect</td><td>Het verschijnsel dat wie weinig van een gebied weet, ook slecht kan beoordelen hoe beperkt zijn kennis is.</td></tr>
+          <tr><td class="term">Cognitieve dissonantie</td><td>De onaangename spanning tussen twee overtuigingen of tussen overtuiging en gedrag, die vaak wordt opgelost door de overtuiging bij te stellen in plaats van het gedrag.</td></tr>
+          <tr><td class="term">Frequentie-illusie</td><td>Het gevoel dat iets opeens overal opduikt zodra het eenmaal is opgemerkt, terwijl alleen de aandacht is veranderd.</td></tr>
+          <tr><td class="term">Generatiebias</td><td>De neiging de gewoonten en maatstaven van de eigen generatie als het normale te nemen waaraan andere tijden worden afgemeten.</td></tr>
+          <tr><td class="term">Falsifieerbaarheid</td><td>Het criterium van Popper dat een bewering pas gehalte heeft als aan te geven valt welke waarneming haar zou weerleggen.</td></tr>
+          <tr><td class="term">Overgangswoede</td><td>Nussbaums begrip voor woede die zich van vergelding afwendt en zich richt op wat er in de toekomst beter kan.</td></tr>
+          <tr><td class="term">Socratisch niet-weten</td><td>Het besef van de eigen onwetendheid als voorwaarde om iets te kunnen leren, bij Kamphuis het beginpunt van elke oefening.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek doet geen eigen onderzoek. Het leunt op psychologische begrippen die elders zijn onderzocht en op filosofen die het argument leveren, aangevuld met voorbeelden uit Kamphuis' lespraktijk en uit zijn eigen geschiedenis. Er is een literatuurlijst, maar er zijn geen cijfers of steekproeven waarmee de lezer zelf iets kan narekenen.</p>
+      <p>De begrippen die hij gebruikt verschillen sterk in stevigheid. Cognitieve dissonantie en de bevestigingsvertekening zijn in tientallen jaren onderzoek herhaaldelijk aangetoond. Het Dunning-Kruger-effect ligt slechter: sinds ongeveer 2020 hebben verschillende heranalyses laten zien dat het patroon voor een groot deel te verklaren is als een statistisch verschijnsel dat ook optreedt bij toevalsgegevens. Kamphuis geeft dat voorbehoud niet.</p>
+      <p>Wat het boek wel biedt, is toetsbaarheid op een ander niveau. De oefeningen zijn zo beschreven dat een lezer ze kan uitvoeren en zelf kan vaststellen of ze iets doen. Dat is geen bewijs voor de stelling, maar het maakt het pleidooi controleerbaar op de plaats waar het om te doen is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het vaakst tegen dit boek wordt ingebracht, is dat het door de verkeerden gelezen wordt. Wie zich aangesproken voelt door een pleidooi voor nuance, beschikt vermoedelijk al over enige nuance. Voor de stellige lezer die Kamphuis op het oog heeft, biedt het boek geen enkele reden om eraan te beginnen. De Belgische bespreker van het Humanistisch Verbond noemt dat als de belangrijkste beperking.</p>
+      <p>Er ontbreekt een grens. Kamphuis vraagt om lenigheid tegenover andere standpunten, maar geeft geen maatstaf voor het geval dat een standpunt aantoonbaar onjuist is of dat het perspectief van de ander schade toebrengt. Zonder zo'n grens kan perspectivistische lenigheid overgaan in het gelijk geven van iedereen, wat de polarisatie hooguit beleefder maakt.</p>
+      <p>De behandeling van de denkfouten blijft een opsomming. De begrippen komen achter elkaar langs zonder dat duidelijk wordt hoe zij zich tot elkaar verhouden, welke het zwaarst wegen of wanneer een oefening bij welke vertekening past. Ook de diagnose dat de samenleving dogmatischer is geworden dan vroeger, blijft een indruk; het boek voert geen gegevens aan die haar staven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies een overtuiging waarvan je zeker bent en schrijf de sterkst mogelijke verdediging van het tegendeel op, zonder ironie.</li>
+        <li>Noteer vooraf welke waarneming je van mening zou doen veranderen; blijft die lijst leeg, dan gaat het niet om een oordeel maar om een positie.</li>
+        <li>Zoek bij een vinnige opmerking naar de wens die eronder ligt, voordat je antwoordt.</li>
+        <li>Lees per maand één stuk uit een bron die je normaal overslaat, en vat het samen zoals de schrijver het bedoeld heeft.</li>
+        <li>Gebruik de oefeningenlijst achterin als naslag; de theorie uit het eerste deel hoeft daarvoor niet herlezen te worden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Nederlands geschreven, met de ondertitel <i>Pleidooi voor perspectivistische lenigheid</i>. De Bezige Bij, Amsterdam, 2023, 175 blz., ISBN 9789403128351; e-boek ISBN 9789403129723, en een door de auteur ingelezen luisterboek. Het boek bevat een literatuurlijst en achterin een samenvatting van de oefeningen. Er bestaat geen vertaling. Van Kamphuis verscheen eerder <i>Filosofie voor een weergaloos leven</i> (2018) en <i>Filosofie voor een weergaloze liefde</i> (2020).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lammert Kamphuis, theoloog en filosoof en docent bij The School of Life in Amsterdam, verliet ruim tien jaar voor het schrijven van dit boek het strenge gereformeerde milieu waarin hij opgroeide. Hij verwachtte terecht te komen bij mensen die minder in zwart en wit dachten. Wat hij zag was het omgekeerde: een samenleving die in zijn ogen steeds meer op de kerk begon te lijken die hij had verlaten.</p><p>Daaruit komt de diagnose van het boek voort. Mensen hebben over vrijwel alles een mening, houden daaraan vast en zoeken vooral informatie die hun gelijk bevestigt. Kamphuis loopt de bekende denkfouten langs die daarbij horen en laat zien hoe het gevoel gelijk te hebben zichzelf in stand houdt.</p><p>Het tegengif dat hij voorstelt noemt hij perspectivistische lenigheid: het vermogen om je in andere standpunten te verplaatsen. Het tweede deel van het boek bestaat uit oefeningen die dat vermogen moeten trainen, van het beargumenteren van het tegenovergestelde van je eigen overtuiging tot het zoeken naar de wens achter een sneer.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>polarisatie</li><li>denkfouten</li><li>perspectief</li><li>dogma</li><li>oefeningen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft de denkfouten waar Kamphuis naar verwijst in hun oorspronkelijke onderzoeksvorm, met de cijfers erbij.</li>
+          <li value="1724"><a href="1724.html">Filosofie voor een weergaloos leven</a>. Kamphuis' eerdere boek gebruikt dezelfde werkwijze, filosofen als hulpmiddel bij dagelijkse kwesties, maar dan gericht op het eigen leven in plaats van op het gesprek.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Harari's stelling dat de moderne wetenschap begon bij het toegeven van onwetendheid, die Kamphuis overneemt, staat hier uitgewerkt.</li>
+          <li value="69"><a href="69.html">Ruis</a>. Kahneman, Sibony en Sunstein laten zien dat oordelen ook zonder vertekening uiteenlopen, wat een grens stelt aan wat oefening kan opleveren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

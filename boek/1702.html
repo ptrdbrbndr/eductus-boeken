@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De Katharen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Moerland leest de katharen niet als een middeleeuwse afwijking maar als de laatste zichtbare vorm van de gnostiek in het Westen, een lijn die volgens hem…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1702">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1702 &middot; Geschiedenis en samenleving</p>
+    <h1>De Katharen</h1>
+    <p class="lede">Bram Moerland, 2014</p>
+    <p class="stats">
+      <span><b>1478</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1702"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Moerland leest de katharen niet als een middeleeuwse afwijking maar als de laatste zichtbare vorm van de gnostiek in het Westen, een lijn die volgens hem van de vroege christelijke geschriften uit Nag Hammadi via de bogomilen op de Balkan in de Languedoc uitkomt. De kern van die leer is voor hem geen dualistische kosmologie maar een verhouding: liefde die wordt afgedwongen is geen liefde, dus een geloof dat zich op liefde beroept kan geen macht over gewetens uitoefenen zonder zichzelf te ontkennen. Daarom moest Rome hen wel uitroeien, en daarom, zegt Moerland, hebben zij op de lange duur toch gewonnen: de vrijheid van geweten die de moderne samenleving kent is de zaak waarvoor zij op de brandstapel gingen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van Nag Hammadi naar de Languedoc</h3>
+      <p>Moerland begint bij de gnostiek van de eerste eeuwen. De vondst van een verzameling koptische geschriften bij Nag Hammadi in Egypte in 1945, waaronder het Thomasevangelie, leverde teksten op die niet in de bijbel zijn opgenomen en die het inzicht in de mens zelf zoeken in plaats van in een leer die van buiten wordt opgelegd. Hij vertaalde het Thomasevangelie zelf en het klinkt in dit boek voortdurend mee.</p>
+      <p>Daarna trekt hij de lijn door: van de gnostische stromingen die door de kerk werden weggedrukt, via de bogomilen in Bulgarije, naar de handelssteden van Noord-Italië en het zuiden van Frankrijk. Die lijn is de aanname waarop het hele boek rust, en Moerland behandelt haar meer als vaststaand dan als betwist.</p>
+      <h3>Wat de katharen geloofden</h3>
+      <p>Het middendeel geeft de leer. De zichtbare wereld is niet het werk van de goede God maar van een lagere macht; de ziel is een gevangen vonk die naar haar herkomst terugwil. Er is geen doop met water, geen mis en geen biecht, maar een enkele handoplegging, het consolamentum, die iemand tot goed mens maakt. Wie die ontving at geen vlees, legde geen eed af, bezat niets en doodde niet.</p>
+      <p>Moerland legt nadruk op wat hem aanspreekt: de gelijke plaats van vrouwen, die net als mannen konden worden gewijd en in eigen huizen samenwoonden; het ontbreken van gebouwen en beelden; en het feit dat de gewone aanhanger nergens toe verplicht was. Wie niets hoeft, zegt hij, gelooft uit eigen beweging of niet.</p>
+      <h3>De kerk die het niet verdroeg</h3>
+      <p>Het historische deel is beknopt en volgt de gangbare weergave. Paus Innocentius III kondigt in 1209 een kruistocht af, Béziers wordt uitgemoord, Simon de Montfort verovert de streek, in 1229 komt het zuiden aan de Franse kroon en vanaf 1233 nemen dominicanen de vervolging over. In maart 1244 valt Montségur en worden ruim tweehonderd gewijden verbrand.</p>
+      <p>Moerland vertelt dat niet als veldtochtgeschiedenis maar als illustratie van zijn stelling. De kerk kon een geloof zonder priesterlijke bemiddeling niet naast zich dulden, omdat zij dan zelf overbodig werd. Het geweld is voor hem geen ontsporing maar het logische gevolg van een gezag dat zijn eigen noodzaak moet bewijzen.</p>
+      <h3>Waarom hij dit vertelt</h3>
+      <p>Moerland maakt zijn eigen positie niet onzichtbaar. Hij kwam uit een streng gereformeerd gezin in Zeeland en beschrijft de katharen als de tegenpool van wat hij daar leerde: geen leer die van buiten wordt opgelegd, maar zelfkennis als weg. Zijn gnostiek is dan ook een praktische, met een reeks stappen die hij in zijn lezingen uitwerkte.</p>
+      <p>Dat maakt het boek tegelijk toegankelijk en gekleurd. Het is bedoeld voor lezers die iets zoeken en niet alleen iets willen weten, en dat is te merken aan de keuze van wat wel en niet wordt behandeld.</p>
+      <h3>De overwinning</h3>
+      <p>Het slotdeel legt uit wat de titel bedoelt. De katharen zijn als beweging vernietigd, maar de gedachte waarvoor zij stonden, dat niemand een ander zijn geweten kan voorschrijven, is volgens Moerland de gedachte die eeuwen later de doorslag heeft gegeven in de westerse rechtsorde. Hij trekt daarbij een lijn van de brandstapels naar de latere vrijheid van godsdienst en meningsuiting.</p>
+      <p>Die lijn is de zwakste en tegelijk de meest gemeende van het boek. Zij is niet met stukken te bewijzen, en Moerland doet ook geen poging dat te doen; hij presenteert haar als een verhouding tussen ideeën, niet als een historisch verband.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gnosis</td><td>Kennis die iemand alleen zelf kan opdoen over zijn eigen herkomst en bestemming, tegenover een leer die door een instelling wordt overgedragen.</td></tr>
+          <tr><td class="term">Gnostiek</td><td>De verzamelnaam voor stromingen uit de eerste eeuwen die zulke kennis centraal stelden en die door de kerk als ketters werden weggezet.</td></tr>
+          <tr><td class="term">Demiurg</td><td>De lagere macht die in gnostische teksten de zichtbare wereld heeft gemaakt en die daarin ten onrechte voor de hoogste God doorgaat.</td></tr>
+          <tr><td class="term">Consolamentum</td><td>De enige kathaarse wijding, een handoplegging zonder water, olie of priesterschap, die de ontvanger tot goed mens maakte en aan strenge leefregels bond.</td></tr>
+          <tr><td class="term">Goede mensen</td><td>De naam die de gewijden zichzelf gaven; de naam kathaar is afkomstig van hun bestrijders en de herkomst ervan is onzeker.</td></tr>
+          <tr><td class="term">Bogomilen</td><td>Een beweging op de Balkan vanaf de tiende eeuw met een vergelijkbare leer, die Moerland als de schakel tussen de late oudheid en de Languedoc beschouwt.</td></tr>
+          <tr><td class="term">Nag Hammadi</td><td>De plaats in Egypte waar in 1945 een verzameling koptische gnostische geschriften werd gevonden, waaronder het Thomasevangelie.</td></tr>
+          <tr><td class="term">Endura</td><td>Het vasten tot de dood na een ontvangen consolamentum; Moerland behandelt het kort en bestrijdt de uitleg dat het om zelfdoding ging.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Wat Moerland aan vast materiaal heeft is echt genoeg. De geschriften van Nag Hammadi bestaan en zijn in vertaling uitgegeven; de bogomilen zijn in Byzantijnse bronnen beschreven; de kruistocht, de inquisitie en de val van Montségur staan in akten en registers. Hij verzint geen gebeurtenissen en hij houdt zich bij de jaartallen aan wat gangbaar is.</p>
+      <p>Het bewijs voor de lijn die zijn boek bijeenhoudt is veel dunner. Er is geen doorlopende overlevering van Egyptische teksten uit de tweede eeuw naar de Languedoc van de twaalfde. Het dichtst bij een schakel komt een geschrift dat uit de bogomilse kring lijkt te komen en dat in het Westen circuleerde, en dat is één tekst. Moerland betoogt dan ook geen overlevering van boeken maar een verwantschap van geest, en dat is een ander soort bewering, die met andere middelen moet worden beoordeeld dan met bronnenonderzoek.</p>
+      <p>Verder is dit een boek dat andermans onderzoek verwerkt. Moerland was filosoof, geen mediëvist; hij las de bronnen in vertaling, doet geen archiefwerk en levert geen nieuwe vondsten. Als kennismaking is dat geen bezwaar, zolang de lezer het boek niet aanziet voor een verslag van onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op de waarde die de titel noemt. Vrijheid is een moeilijk woord voor een beweging die het lichaam als gevangenis zag, voortplanting afwees, en haar gewijden bond aan een regel die strenger was dan die van welk klooster ook, met vasten tot de dood als sluitstuk. Moerland kiest uit de kathaarse leer wat een hedendaagse lezer kan onderschrijven en laat het strengste deel op de achtergrond. Wie dat deel meeweegt, houdt eerder een leer over die de wereld verwierp dan een die de vrijheid vierde.</p>
+      <p>Daarnaast rust het boek op precies het beeld dat sinds ongeveer 2000 wordt afgebroken. Historici als Mark Gregory Pegg, R.I. Moore en Jean-Louis Biget betogen dat de georganiseerde gnostische tegenkerk in hoge mate een constructie van de vervolgers is en dat de verhoren de leer aan de ondervraagden hebben voorgezegd. Als zij gelijk hebben, verliest de kern van dit boek haar onderwerp. Moerland gaat op dat verzet niet in.</p>
+      <p>Tot slot de gedachte van een ondergrondse gnostische stroom die van de oudheid tot in de middeleeuwen doorloopt. Die voorstelling is zelf een product van de negentiende en twintigste eeuw en hoort bij het esoterische milieu waarin zij is uitgevonden. Dat Moerland haar overneemt is opmerkelijk, want hij schreef in 1991 een scherp boek over het rassendenken bij Steiner en Blavatsky en kon dat milieu dus kritisch lezen. Hier doet hij dat met een van zijn geliefde figuren niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als kennismaking met een leer en niet als geschiedschrijving; voor het tweede is er beter materiaal.</li>
+        <li>Zoek bij elke uitspraak over de kathaarse leer uit waar Moerland haar vandaan haalt: een gnostische tekst, een verhoor, of een gevolgtrekking van hemzelf.</li>
+        <li>Lees het Thomasevangelie in een van de beschikbare vertalingen naast dit boek; daar staat de toon die Moerland toeschrijft aan de hele lijn.</li>
+        <li>Houd de vraag vast of vrijheid van geweten werkelijk was wat de katharen bedoelden, of wat wij graag in hen terugzien.</li>
+        <li>Neem de jaartallen en de gang van de vervolging over; die zijn niet omstreden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledig <i>De katharen: de overwinning van de vrijheid</i>, Ankh-Hermes, Utrecht, 2014, 255 blz., ISBN 9789020210750; als e-boek ISBN 9789020210767. Het is een bewerkte uitgave van <i>Katharen en de val van Montségur</i> uit 2003, dat zelf voortkwam uit een boek over Montségur uit 1992. Bram Moerland (Sint-Annaland, 1939; overleden op 21 augustus 2025) groeide op in een streng gereformeerd Zeeuws gezin, studeerde wiskunde en filosofie in Leiden en gaf cultuurfilosofie aan de academie voor beeldende kunsten in Rotterdam en aan de School voor Journalistiek in Utrecht. Van hem verschenen ook <i>Gnosis en gnostiek</i> (2014), een vertaling met toelichting van het Thomasevangelie, en <i>Racisme met charisma</i> (1991) over het rassendenken bij Rudolf Steiner en Helena Blavatsky.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Moerland behandelt de katharen als de laatste gnostische beweging van het Westen: een groep die leerde dat de mens zijn eigen weg naar inzicht gaat en dat een kerk die de moraal afdwingt daarmee kapotmaakt wat zij zegt te beschermen. Het boek beschrijft hun leer, hun herkomst en hun ondergang tussen 1209 en 1244.</p><p>De rode draad is de zin die Moerland zelf de kern noemt: liefde kan alleen bloeien in vrijheid. Daaruit leidt hij af waarom de katharen geen kerkgebouwen, geen dwang en geen priesterlijke bemiddeling kenden, en waarom Rome hen niet kon laten bestaan.</p><p>Het is geen boek van een vakhistoricus. Moerland was filosoof en gaf lezingen; hij schrijft over de katharen als over een traditie waarbij hij zich thuis voelt, en hij eindigt bij de vraag wat er van hen valt over te nemen. De titel geeft zijn slotsom: zij verloren de oorlog en wonnen op den duur de zaak waar het om ging.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>katharen</li><li>gnostiek</li><li>gnosis</li><li>Languedoc</li><li>kerkgeschiedenis</li><li>geloofsvrijheid</li><li>bogomilen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1701"><a href="1701.html">De geschiedenis van de katharen</a>. Roquebert geeft dezelfde geschiedenis met de stukken erbij en zonder de spirituele slotsom; het verschil in bewijsvoering is meteen zichtbaar.</li>
+          <li value="1700"><a href="1700.html">De volmaakte ketter</a>. Alders verwerkte het geloof dat Moerland uitlegt tot een roman, met dezelfde sympathie en dezelfde blinde vlek.</li>
+          <li value="1223"><a href="1223.html">The Nag Hammadi Library in English</a>. De teksten uit Nag Hammadi waarop Moerland zijn lijn baseert, in de standaarduitgave, zodat te controleren valt wat er wel en niet in staat.</li>
+          <li value="940"><a href="940.html">The Gnostic Religion</a>. Jonas geeft de klassieke behandeling van de laat-antieke gnostiek, waaruit blijkt hoe ver die wereld van dertiende-eeuws Frankrijk af staat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

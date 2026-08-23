@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wat is geluk? &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kloosterman stelt dat geluk geen toestand is die iemand overkomt maar een vaardigheid die te oefenen valt, en dat de meeste mensen ongelukkig zijn omdat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1665">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1665 &middot; Levenskunst</p>
+    <h1>Wat is geluk?</h1>
+    <p class="lede">Hans Kloosterman, 2023</p>
+    <p class="stats">
+      <span><b>1446</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1665"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kloosterman stelt dat geluk geen toestand is die iemand overkomt maar een vaardigheid die te oefenen valt, en dat de meeste mensen ongelukkig zijn omdat zij hun eigen patronen niet kennen. Onwetendheid is in zijn opzet het beginpunt: wie niet weet welke gezinsgeschiedenis, welke gedachten, welke gevoelens en welke manier van praten hem sturen, wordt door die patronen geleefd. Het boek biedt daarom geen leer maar een reeks onderzoeksopdrachten, waarin de lezer zijn eigen materiaal invult en daarna met oefeningen uit het boeddhisme en uit de westerse therapie bewerkt. Het doel dat hij formuleert is dat de lezer zelf de producent, de regisseur en de speler van zijn leven wordt in plaats van een figurant in het draaiboek van anderen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Onwetendheid als beginpunt</h3>
+      <p>Het eerste hoofdstuk heet Onwetendheid en zet de toon voor het geheel. Kloosterman gebruikt het woord in de boeddhistische betekenis: geen gebrek aan kennis over de wereld, maar het niet doorzien van de eigen geest. Zolang iemand zijn gedachten voor de werkelijkheid houdt, blijft hij reageren op iets wat hij zelf heeft gemaakt.</p>
+      <p>Daarmee legt hij het gewicht bij zelfonderzoek en niet bij omstandigheden. Dat is een keuze met gevolgen voor de rest van het boek: bijna elk hoofdstuk stelt een vraag over de lezer zelf en zelden over de wereld waarin die zich bevindt.</p>
+      <h3>De vier voorbereidende gedachten en het leren mediteren</h3>
+      <p>Het tweede hoofdstuk behandelt de vier voorbereidende gedachten, in de Tibetaanse traditie de overwegingen waarmee een beoefenaar begint: de zeldzaamheid van een menselijk leven, de zekerheid van de dood, de werking van oorzaak en gevolg, en het onbevredigende van het bestaan zoals het zich aandient. Kloosterman brengt ze over naar gewone omstandigheden zonder de leerstellige omlijsting.</p>
+      <p>Het derde hoofdstuk gaat over meditatie en is het meest instruerende deel. Houding, adem, wat er met de aandacht gebeurt als die afdwaalt en hoe daarmee om te gaan. Zonder dat hoofdstuk zouden de latere oefeningen in de lucht hangen, want vrijwel alles wat daarna komt vraagt om stilzitten en waarnemen.</p>
+      <h3>Waar iemand vandaan komt</h3>
+      <p>Het vierde hoofdstuk ordent het leven in zevenjaarfasen en het vijfde vraagt wat de lezer heeft gevormd. Hier komen gezinspatronen, opvoeding en vroege ervaringen aan de orde, met invulopdrachten die de lezer zijn eigen geschiedenis laten uitschrijven.</p>
+      <p>Het zesde hoofdstuk zet daar de vraag naast welke basisbehoeften een kind heeft en welke een volwassene. Kloosterman gebruikt dat onderscheid om te laten zien dat volwassenen vaak nog het antwoord zoeken op een vraag die uit hun kindertijd stamt, en dat de teleurstelling die daaruit volgt zich in relaties herhaalt.</p>
+      <h3>Stress, verandering en zelfregulatie</h3>
+      <p>Het zevende hoofdstuk behandelt stress en geluk en is het punt waarop zijn werk als traumatherapeut zichtbaar wordt. Spanning wordt hier beschreven als iets wat zich in het lichaam vastzet en dus ook via het lichaam benaderd moet worden.</p>
+      <p>Het achtste en negende hoofdstuk bieden de gereedschapskist: verandertechnieken en transformatiemethoden, en daarna manieren om jezelf te reguleren. Ademhaling, aandacht en het onderbreken van een reactie voordat die uitloopt komen hier samen. Dit is het praktische midden van het boek en tegelijk het deel waar de herkomst van de methoden het meest gemengd is, met stukken uit het boeddhisme naast stukken uit westerse therapievormen.</p>
+      <h3>Concentratie, verbeelding en manifestatie</h3>
+      <p>Het tiende hoofdstuk legt een verband tussen concentratie, beeldend vermogen en manifestatie. De eerste twee zijn in de meditatietraditie vertrouwd terrein: aandacht vasthouden en een beeld voor ogen houden zijn oefeningen met een lange geschiedenis, in het vajrayana zelfs een kernbezigheid.</p>
+      <p>De derde stap is van andere orde. Waar de traditie visualisatie inzet om de geest te scholen, verbindt Kloosterman haar aan het tot stand brengen van omstandigheden in de buitenwereld. Dat is de plaats waar het boek de leer die het gebruikt verlaat en aansluit bij de manifestatieliteratuur.</p>
+      <p>Daarmee eindigt het boek op zijn zwakste been. De negen hoofdstukken ervoor vragen van de lezer dat hij zijn eigen geschiedenis onder ogen ziet, wat werk is; het tiende belooft dat gerichte aandacht de omstandigheden zelf meebeweegt, wat dat werk overbodig zou maken. Het boek behandelt die spanning niet.</p>
+      <h3>De vorm van het boek</h3>
+      <p>Het geheel is uitgevoerd als invulboek: gebonden, met leeslint, en met ruimte om te schrijven. Tussen de uitleg staan verhalen van de schrijver, verhalen van anderen, gedichten en citaten die hij tijdens zijn eigen onderzoek bruikbaar vond.</p>
+      <p>Die vorm bepaalt hoe het gelezen wil worden. Achter elkaar uitlezen levert weinig op, omdat de tekst tussen de opdrachten door dun is. Het boek rekent op een lezer die de opdrachten werkelijk maakt, en het sluit aan bij de trainingen die Kloosterman rond dezelfde tien onderwerpen geeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">onwetendheid</td><td>Het niet doorzien van de eigen geest, in het boek aangewezen als de eerste oorzaak van lijden.</td></tr>
+          <tr><td class="term">de vier voorbereidende gedachten</td><td>De Tibetaanse overwegingen over het kostbare mensenleven, de dood, oorzaak en gevolg en het onbevredigende bestaan, waarmee de beoefening begint.</td></tr>
+          <tr><td class="term">zevenjaarfasen</td><td>De indeling van een mensenleven in perioden van zeven jaar die het boek gebruikt om ervaringen te ordenen.</td></tr>
+          <tr><td class="term">basisbehoeften</td><td>Wat een kind nodig heeft tegenover wat een volwassene nodig heeft, gebruikt om vast te stellen welke oude behoefte iemand nog steeds probeert te vervullen.</td></tr>
+          <tr><td class="term">patroon</td><td>Een vaste manier van denken, voelen, gedragen of praten die uit gezin en geschiedenis stamt en die zich buiten het bewustzijn om herhaalt.</td></tr>
+          <tr><td class="term">verandertechnieken</td><td>De verzameling oefeningen waarmee een patroon wordt onderbroken, in het boek afkomstig uit zowel de meditatietraditie als de therapiepraktijk.</td></tr>
+          <tr><td class="term">zelfregulatie</td><td>Het vermogen om de eigen spanning omlaag te brengen voordat een reactie zich voltrekt, benaderd via adem en lichaam.</td></tr>
+          <tr><td class="term">manifestatie</td><td>Het tot stand brengen van gewenste omstandigheden door aanhoudende concentratie en verbeelding, het onderwerp van het slothoofdstuk.</td></tr>
+          <tr><td class="term">dualiteit</td><td>Het beleven van de wereld in tegenstellingen, waar Kloosterman de ervaring van eenheid tegenover stelt als richting van het hele traject.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. De verantwoording bestaat uit de herkomst van de oefeningen, vijftien jaar studie van boeddhisme en hindoeïsme en de jaren die de schrijver in een kloostergemeenschap doorbracht, en uit wat hij in zijn praktijk heeft gezien. Voor de meditatieve oefeningen is dat een redelijke bodem, omdat die oefeningen zelf oud zijn en hun werking bij stress en somberheid elders is onderzocht.</p>
+      <p>Voor de ordenende schema's ligt dat anders. De indeling van een leven in zevenjaarfasen komt uit de antroposofische en esoterische traditie en niet uit de ontwikkelingspsychologie, die overgangen niet op zulke vaste tijdstippen aantreft. Het boek presenteert de indeling als gegeven en niet als keuze.</p>
+      <p>Het slothoofdstuk over manifestatie is het zwakst onderbouwd. Dat concentratie en verbeelding de aandacht scherpen is aannemelijk en oefenbaar; dat zij gebeurtenissen buiten de beoefenaar tot stand brengen is een bewering van andere aard, waarvoor het boek geen grond aandraagt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De herkomst van de onderdelen wordt niet uit elkaar gehouden. Boeddhistische begrippen, lichaamsgerichte traumabehandeling, zevenjaarfasen uit een esoterische stroming en manifestatie staan naast elkaar alsof zij uit één leer voortkomen. Wie wil nagaan waar een oefening vandaan komt en wat daarover bekend is, kan dat via dit boek niet.</p>
+      <p>De nadruk op eigen verantwoordelijkheid heeft een keerzijde die het boek niet behandelt. Wie leert dat zijn ongeluk uit zijn eigen patronen voortkomt, kan daaruit afleiden dat armoede, ziekte, rouw of een slechte werkgever ook zijn eigen werk zijn. Bij het hoofdstuk over manifestatie wordt dat risico het grootst, en juist daar ontbreekt een waarschuwing.</p>
+      <p>Het boek staat dicht bij de trainingen, workshops en voorstellingen die de schrijver rond dezelfde tien onderwerpen aanbiedt en verschijnt bij een uitgeverij die aan hem verbonden is. Dat verklaart de opzet als invulboek en de afwezigheid van tegenspraak. Een lezer die het alleen gebruikt, houdt tien onderwerpen over met oefeningen en zonder iemand die meekijkt, terwijl het materiaal over gezinsgeschiedenis en trauma dat wel kan vragen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Maak de invulopdrachten werkelijk; de doorlopende tekst is te dun om er zonder die opdrachten iets aan over te houden.</li>
+        <li>Behandel hoofdstuk drie over meditatie als voorwaarde voor de rest en niet als één hoofdstuk van de tien.</li>
+        <li>Zoek bij elke oefening op uit welke traditie zij komt en wat daarover bekend is, want het boek houdt de herkomst bij elkaar.</li>
+        <li>Lees het slothoofdstuk over manifestatie apart van de rest en beoordeel het op zijn eigen gronden.</li>
+        <li>Zoek begeleiding wanneer de opdrachten over gezinsgeschiedenis of vroege ervaringen meer losmaken dan een invulblad aankan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlands origineel, <i>Wat is geluk?</i>, verschenen op 1 december 2023 bij Mastix Press, een imprint van De Vrije Uitgevers, gebonden met leeslint, 170 bij 239 mm, ISBN 9789492110299. Er bestaat een kleinere uitgave onder de titel <i>Wat is geluk voor jou?</i> met ISBN 9789492110312. De schrijver gebruikt de zinsnede 'vanuit de dualiteit naar éénheid' als ondertitel bij de gelijknamige training. Het boek volgt op zijn debuut <i>Van snob tot monnik</i> uit 2014.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kloosterman ordent in tien hoofdstukken wat hij in vijftien jaar studie van boeddhisme en hindoeïsme en in zijn jaren als monnik heeft opgestoken, en zet dat om in een werkboek. Elk hoofdstuk behandelt een oorzaak van lijden en biedt een oefening om die te onderzoeken.</p><p>De opbouw loopt van onwetendheid en de vier voorbereidende gedachten via meditatie, de levenscyclus in zevenjaarfasen, vorming en basisbehoeften naar stress, verandertechnieken, zelfregulatie en het verband tussen concentratie, verbeelding en manifestatie.</p><p>Het boek is een gebonden invulboek met eigen verhalen, verhalen van anderen, gedichten en citaten. Het bevat geen onderzoeksverwijzingen; de onderbouwing bestaat uit de traditie waaruit de oefeningen komen en uit de praktijk van de schrijver als coach en traumatherapeut.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geluk</li><li>zelfonderzoek</li><li>boeddhisme</li><li>meditatie</li><li>patronen</li><li>werkboek</li><li>traumatherapie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1664"><a href="1664.html">Van snob tot monnik</a>. Kloostermans eerste boek vertelt het levensverhaal waaruit deze oefeningen voortkomen en maakt duidelijk waar hij ze heeft geleerd.</li>
+          <li value="230"><a href="230.html">Think Like a Monk</a>. Shetty maakt dezelfde beweging van kloosterleer naar handleiding voor lezers, met meer verwijzing naar onderzoek en zonder invulopdrachten.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle behandelt het onderscheid tussen de gedachte en de werkelijkheid dat het eerste hoofdstuk van dit boek als beginpunt neemt.</li>
+          <li value="1586"><a href="1586.html">You Can Heal Your Life</a>. Hay staat aan het begin van de manifestatieliteratuur waarbij het slothoofdstuk aansluit, met dezelfde zwakke plek rond schuld en ziekte.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eat, Pray, Love &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gilbert vertelt haar jaar als betoog dat een leven dat aan alle eisen voldoet toch niet van jou hoeft te zijn, en dat er daarna niets rest dan het uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1767">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1767 &middot; Roman en memoir</p>
+    <h1>Eat, Pray, Love</h1>
+    <p class="lede">Elizabeth Gilbert, 2006</p>
+    <p class="stats">
+      <span><b>1560</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1767"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gilbert vertelt haar jaar als betoog dat een leven dat aan alle eisen voldoet toch niet van jou hoeft te zijn, en dat er daarna niets rest dan het uit elkaar halen en opnieuw samenstellen. Haar drie termen zijn genot, toewijding en evenwicht, en haar stelling is dat je die achter elkaar moet leren en niet tegelijk. Wie eerst leert iets te willen zonder schuldgevoel, kan daarna leren stil te zitten, en pas wie dat kan, kan een verhouding aangaan zonder zichzelf erin op te lossen. Het boek presenteert die volgorde niet als leer maar als wat haar overkwam, en werd door miljoenen lezers toch als leer gelezen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De badkamervloer</h3>
+      <p>Het boek opent met een vrouw van in de dertig die 's nachts huilend op de badkamervloer van haar huis buiten New York ligt en tot haar eigen verbazing begint te bidden. Zij heeft een echtgenoot, een huis op het platteland en een loopbaan, en zij wil er niets van. Wat volgt is een scheiding die jaren duurt en veel geld kost, en een verhouding met een jongere man die eindigt in afhankelijkheid en slapeloosheid.</p>
+      <p>Gilbert beschrijft die periode als een depressie met antidepressiva, en zij houdt de beschrijving kort. Wie het boek als reisverslag kent, vergeet vaak dat de eerste bladzijden over instorten gaan en niet over pasta.</p>
+      <h3>Honderdacht verhalen</h3>
+      <p>De vorm is expliciet gemaakt. Het boek bestaat uit honderdacht korte stukken, verdeeld over drie delen van zesendertig, naar het gebedssnoer met honderdacht kralen dat in India wordt gebruikt bij het herhalen van een mantra. Gilbert noemt de inleiding zelf de honderdnegende kraal.</p>
+      <p>De drie landen zijn gekozen op een manier die zij ook zelf gekunsteld noemt: alle drie beginnen met dezelfde letter, alle drie staan voor een woord uit de titel. Die opzet geeft het boek zijn tempo en maakt tegelijk zichtbaar dat de reis vanaf het begin als boek was bedacht.</p>
+      <h3>Italië</h3>
+      <p>In Rome leert zij Italiaans zonder er iets mee te willen, eet zij zonder zich te verontschuldigen en komt zij bijna tien kilo aan. Haar taalpartner heet Giovanni, haar vriend Luca Spaghetti neemt haar mee naar de voetbalwedstrijden en het eten van zijn familie, en van een Zweedse vriendin, Sofie, leert zij dat zij niet de enige is die haar leven omgooit.</p>
+      <p>Zij leeft er vier maanden zonder seks, na jaren waarin zij nooit zonder man was. Dat is in dit deel het eigenlijke onderwerp: leren iets te willen dat niets oplevert. Het bel far niente, het aangename nietsdoen, komt hier als begrip binnen, samen met het Italiaanse woord attraversiamo, laten we oversteken, dat zij van Giovanni leert.</p>
+      <h3>India</h3>
+      <p>In India woont zij in de ashram van haar goeroe. Zij staat om drie uur op, zingt de Guru Gita, mediteert, en krijgt als taak de tempelvloeren te boenen; later wordt zij ingedeeld als gastvrouw voor bezoekers, wat haar dwingt om onder de mensen te blijven in plaats van zich in stilte terug te trekken.</p>
+      <p>De belangrijkste figuur is een Texaan die zij Richard noemt en die haar Groceries doopt, naar de hoeveelheid die zij eet. Hij verwijt haar dat zij haar ex-man en de jongere minnaar in haar hoofd blijft ronddragen en dringt aan op vergeving als praktische maatregel.</p>
+      <p>Het deel loopt uit op een meditatie waarin zij zichzelf en de anderen loslaat, en op de vaststelling dat de rust die zij zocht niet in de vorm zat waarin zij haar had verwacht. Gilbert is hier het meest concreet over wat mediteren feitelijk inhoudt: zitten, afdwalen, terugkeren, urenlang.</p>
+      <h3>Bali</h3>
+      <p>Op Bali zoekt zij Ketut Liyer op, de oude medicijnman bij wie zij jaren eerder tijdens een opdracht was geweest en die haar toen had voorspeld dat zij zou terugkomen om hem Engels te leren. Zij huurt een fiets en een huis, gaat dagelijks bij hem langs en tekent zijn spreuken op.</p>
+      <p>Daarnaast raakt zij bevriend met Wayan, een genezeres die na een scheiding met haar dochter in gehuurde ruimte woont. Gilbert zamelt onder haar vrienden geld in zodat Wayan een huis kan kopen. De inzameling loopt anders dan gedacht, en zij beschrijft haar eigen ergernis daarover met meer eerlijkheid dan de rest van het boek doet vermoeden.</p>
+      <p>Aan het eind ontmoet zij Felipe, een Braziliaanse zakenman die ook uit een scheiding komt. Het boek eindigt met een verhouding die duurzaam lijkt. Dat einde is het meest besproken deel: een verslag over het opnieuw opbouwen van een zelfstandig leven sluit af met het vinden van een man.</p>
+      <h3>Wat er daarna gebeurde</h3>
+      <p>Het boek stond honderdzevenentachtig weken op de bestsellerlijst van de New York Times en werd in 2010 verfilmd door Ryan Murphy met Julia Roberts in de hoofdrol. In Nederland gingen er meer dan 450.000 exemplaren over de toonbank.</p>
+      <p>Met het succes kwam de tegenbeweging. Het tijdschrift Bitch muntte in 2010 in het stuk Eat, Pray, Spend de term priv-lit voor boeken die bevrijding aanbieden aan wie de reis kan betalen. Gilbert schreef er zelf een vervolg op, <i>Committed</i>, waarin zij haar aarzeling over een tweede huwelijk onderzoekt, en later <i>Big Magic</i> over creatief werk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Japa mala</td><td>Het gebedssnoer met honderdacht kralen dat het boek zijn indeling in honderdacht stukken en drie delen van zesendertig gaf.</td></tr>
+          <tr><td class="term">Il bel far niente</td><td>Het aangename nietsdoen, het Italiaanse begrip waarmee Gilbert haar eerste deel verdedigt tegen haar eigen prestatiedrang.</td></tr>
+          <tr><td class="term">Attraversiamo</td><td>Laten we oversteken, het Italiaanse woord dat zij van Giovanni leert en dat in het boek staat voor de overgang naar iets anders.</td></tr>
+          <tr><td class="term">Ashram</td><td>De Indiase gemeenschap rond een goeroe waar Gilbert drie maanden woont, mediteert en de vloeren boent.</td></tr>
+          <tr><td class="term">Guru Gita</td><td>De lange zang die in de ashram elke ochtend wordt gereciteerd en die zij eerst haat en later gebruikt.</td></tr>
+          <tr><td class="term">Groceries</td><td>De bijnaam die de Texaan Richard haar in de ashram geeft, naar de hoeveelheid die zij eet.</td></tr>
+          <tr><td class="term">Ketut Liyer</td><td>De Balinese medicijnman die haar jaren eerder had voorspeld dat zij zou terugkomen, en bij wie zij haar laatste maanden dagelijks over de vloer komt.</td></tr>
+          <tr><td class="term">Priv-lit</td><td>De term die het tijdschrift Bitch in 2010 muntte voor literatuur die zelfontplooiing aanbiedt aan lezers die zich de bijbehorende uitgaven kunnen veroorloven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een memoir, dus het bewijs is de herinnering van de schrijfster en verder niets. Gesprekken zijn achteraf opgeschreven, personen dragen soms een bijnaam, en de tegenpartijen in haar scheiding komen niet aan het woord. Gilbert schrijft dat zelf ook: zij vertelt hoe het voor haar was en doet geen poging om recht te doen aan de man met wie zij getrouwd was.</p>
+      <p>Wat de opzet doorzichtig maakt, is dat de reis van tevoren was verkocht. Haar uitgever betaalde het jaar via een voorschot op het boek dat zij zou schrijven. Dat is geen verzwegen feit, het staat in het boek, maar het verandert wel wat de lezer voor zich heeft: geen sprong in het onbekende maar een opdracht met een leverdatum. De drie landen met dezelfde beginletter en de honderdacht stukken zijn daarvan de zichtbare gevolgen.</p>
+      <p>De religieuze en culturele achtergronden zijn niet onderzocht maar beleefd. Over de ashram, de Balinese genezerspraktijk en de Italiaanse eetcultuur staat wat Gilbert ervan meemaakte, niet wat er feitelijk gaande is. Wie iets over yoga, over Bali of over de siddha-traditie wil weten, heeft aan dit boek weinig.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar is dat van het tijdschrift Bitch, dat het boek in 2010 tot voorbeeld van priv-lit uitriep: een verhaal over bevrijding dat begint met een jaar vrij nemen en de wereld rondreizen, en dat zijn lezers een vorm van zelfverwezenlijking aanbiedt die grotendeels uit uitgaven bestaat. Dat verwijt raakt het boek, maar het raakt vooral wat de markt ervan maakte: de reisbureaus, de merchandise en de film gingen verder dan het boek zelf.</p>
+      <p>Inhoudelijk weegt zwaarder dat de drie delen ongelijk zijn. Het Italiaanse deel is scherp en grappig, het Indiase deel is het serieuste en het meest concrete over de praktijk van mediteren, en het Balinese deel zakt weg in een liefdesverhaal. Ook welwillende recensenten, onder wie Jennifer Egan, vonden dat het boek onderweg blijft hangen.</p>
+      <p>Verder valt de omgang met India en Bali aan te vechten. Beide landen leveren vooral leraren, wijsheid en achtergrond voor een Amerikaanse zoektocht; de mensen die er wonen komen in beeld voor zover zij haar verder helpen. Het duidelijkst is dat bij Wayan, wier huis het onderwerp wordt van een inzameling waarvan het verloop vooral als beproeving van Gilberts geduld wordt verteld.</p>
+      <p>Ten slotte ondermijnt het slot de opzet. Een boek dat gaat over leren alleen te staan, eindigt met het vinden van een man, en het vervolg dat Gilbert erop schreef gaat over de vraag of zij met hem moest trouwen. Dat maakt het verhaal niet onwaar, maar wie het als leerweg leest, komt bij een andere afloop uit dan de eerste tweehonderd bladzijden beloofden.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Eat, Pray, Love: One Woman's Search for Everything Across Italy, India and Indonesia</i>, Viking (Penguin), New York, 16 februari 2006, 352 blz., ISBN 9780670034710. Het boek stond honderdzevenentachtig weken op de bestsellerlijst van de New York Times. Nederlands als <i>Eten, bidden, beminnen</i>, vertaald door Martine Jellema, uitgeverij Cargo (De Bezige Bij), Amsterdam; de huidige paperback telt 480 blz., ISBN 9789403115818. In Nederland zijn er meer dan 450.000 exemplaren van verkocht. Ryan Murphy verfilmde het in 2010 met Julia Roberts en Javier Bardem. Gilbert schreef een vervolg, <i>Committed</i> (2010), en later <i>Big Magic</i> (2015).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Elizabeth Gilbert had rond haar dertigste alles wat zij zich had voorgenomen: een man, een huis en werk als schrijver. In plaats van tevredenheid kwam er paniek. Na een scheiding en een verhouding die stukliep, sloot zij met haar uitgever een afspraak: zij zou een jaar reizen en er een boek over schrijven, en dat voorschot betaalde de reis.</p><p>Het jaar valt in drie stukken uiteen. Vier maanden Italië voor het genot, waar zij Italiaans leert en aankomt; drie maanden India in een ashram, waar zij mediteert en de vloeren boent; en de rest van het jaar op Bali, waar zij bij een oude medicijnman in de leer gaat en verliefd wordt op een Braziliaan.</p><p>Het boek bestaat uit honderdacht korte stukken, zesendertig per land, naar het model van een gebedssnoer. Het werd een van de best verkochte memoirs van deze eeuw en riep tegelijk het verwijt op dat het een zoektocht beschrijft die alleen mogelijk was doordat iemand anders de rekening betaalde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>reizen</li><li>Italië</li><li>India</li><li>Bali</li><li>scheiding</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="8"><a href="08.html">De alchemist</a>. Coelho stuurt zijn held eveneens op reis om iets te vinden dat thuis al lag; de twee boeken delen hun publiek en hun bezwaar, dat de wereld er vooral is om de zoeker te onderwijzen.</li>
+          <li value="1763"><a href="1763.html">Be Here Now</a>. Ram Dass beschrijft de Amerikaanse gang naar een Indiase goeroe een generatie eerder en van binnenuit, wat laat zien hoe kort Gilberts drie maanden ashram eigenlijk zijn.</li>
+          <li value="1583"><a href="1583.html">Tiny Beautiful Things</a>. Strayed schrijft over dezelfde soort inzinking en dezelfde lezersgroep, maar dan als antwoord aan anderen in plaats van als verslag over zichzelf.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle levert de leer waarnaar het Indiase deel van Gilberts boek in populaire vorm verwijst, met dezelfde nadruk op aandacht en dezelfde zwakke onderbouwing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

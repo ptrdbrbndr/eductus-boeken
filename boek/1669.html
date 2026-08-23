@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ongekend vrij &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Engelen stelt dat ondernemers hun vrijheid niet verliezen aan hun agenda maar aan hun gestel, en dat elke poging om meer rust of meer omzet te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1669">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1669 &middot; Levenskunst</p>
+    <h1>Ongekend vrij</h1>
+    <p class="lede">Sharon van Engelen, 2024</p>
+    <p class="stats">
+      <span><b>1451</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1669"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Engelen stelt dat ondernemers hun vrijheid niet verliezen aan hun agenda maar aan hun gestel, en dat elke poging om meer rust of meer omzet te organiseren zonder eerst het lichaam op orde te brengen daarom strandt. Gezondheid is bij haar geen randvoorwaarde maar het fundament: vertering, slaap, stress en zenuwstelsel bepalen hoeveel iemand aankan, en pas daarboven hebben mindset en ondernemerschap zin. Haar tweede aanname is dat de natuur die ordening al kent en dat de mens er alleen bij hoeft aan te sluiten, met kruiden, traditioneel bereid voedsel en ritme. Het boek is daarmee een omkering van de gebruikelijke ondernemersliteratuur: niet harder werken aan de zaak, maar de eigenaar herstellen en de zaak zich daarnaar laten voegen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Het uitgangspunt is haar eigen geschiedenis. Van Engelen beschrijft een periode met relatieproblemen, overgewicht en overbelasting, die eindigde in een burn-out en hartklachten op haar achtendertigste. Zij noemt dat het moment waarop zij de regie over haar leven terugnam.</p>
+      <p>Wat volgde was een omschakeling naar de kruidengeneeskunde. Zij liet zich opleiden tot herborist in de Traditionele Chinese Geneeskunde, richtte InFlow Academy op en gaf dit boek uit onder haar eigen naam Arcadia. Het boek doet dus twee dingen tegelijk: het vertelt haar verhaal en het beschrijft de methode die zij daaruit heeft afgeleid en aan anderen verkoopt.</p>
+      <h3>Vertering als beginpunt</h3>
+      <p>Het eerste hoofdstuk vraagt hoe gezond de vertering van de lezer is, en dat is geen willekeurige opening. In de Chinese geneeskunde geldt de spijsvertering als de plaats waar voedsel in bruikbare energie wordt omgezet, en wie daar tekortschiet houdt volgens die leer nergens anders genoeg over.</p>
+      <p>De hoofdstukken erna gaan van gemak naar bewustzijn en van bewustzijn naar gezondheid. Van Engelen beschrijft daar hoe dagelijkse keuzes, vaak gemaakt uit tijdgebrek, zich opstapelen tot een toestand die de lezer als normaal is gaan ervaren, en zij onderscheidt stadia waarin het evenwicht wegzakt voordat er een diagnose is.</p>
+      <h3>Opruimen en de investerende mindset</h3>
+      <p>Het vierde hoofdstuk heet opruimen en opladen. Het gaat over het loslaten van wat energie kost, in het lichaam en in de omgeving, om ruimte te maken voor herstel. De volgorde is hier belangrijk in haar betoog: eerst weghalen, dan pas toevoegen.</p>
+      <p>Daarop volgt wat zij een investerende mindset noemt. Belemmerende overtuigingen worden vervangen door de gewoonte om tijd, geld en aandacht in zichzelf te steken, en om te blijven leren. Dit is het meest klassieke zelfhulpdeel van het boek en het sluit aan bij het aanbod van haar academie.</p>
+      <h3>Stress en het systeem</h3>
+      <p>Het zesde hoofdstuk draagt de titel handleiding om niet om te vallen en behandelt het herkennen van stress voordat die uitmondt in wat haarzelf overkwam. Zij werkt daarbij met signalen die eerder komen dan uitputting, zoals slecht slapen, verteringsklachten en het verlies van plezier.</p>
+      <p>Het zevende hoofdstuk, systeemupdate, brengt daar lichamelijke regelsystemen bij, waaronder het endocannabinoïdesysteem en de stoffen die het lichaam zelf aanmaakt bij beweging en ontspanning. Dat is het hoofdstuk waar zij het dichtst bij de fysiologie komt en tegelijk het hoofdstuk waarin de lezer het minst kan controleren wat er wordt beweerd.</p>
+      <h3>Eerste hulp en traditionele bereiding</h3>
+      <p>De laatste twee hoofdstukken zijn het meest praktisch. Eerste hulp bij gezondheid gaat over het herzien van dagelijkse gewoontes en over zelfzorg bij klachten die de meeste mensen negeren.</p>
+      <p>Traditionele bereiding sluit het boek af met voeding: wat er met eten gebeurt als het lang wordt gekookt, gefermenteerd of getrokken, en waarom zij die manier van bereiden verkiest boven snelle vormen. Hier komt haar vak als herborist het duidelijkst naar voren.</p>
+      <h3>De vorm</h3>
+      <p>Het boek is met driehonderdzestig gebonden bladzijden fors, en het is nadrukkelijk vormgegeven, met illustraties, kleur en veel ruimte op de pagina. Dat is een bewuste keuze: zij wil dat werken aan jezelf er aantrekkelijk uitziet. De prijs van bijna dertig euro hangt daarmee samen.</p>
+      <p>Het is uitgegeven in eigen beheer, buiten een gevestigde uitgeverij om, en het verwijst geregeld naar haar academie. Wie het boek leest, leest ook een uitnodiging voor wat daarna komt. Dat is geen verzwegen constructie, maar het kleurt wel wat er wordt aanbevolen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vertering</td><td>Bij haar de spil van gezondheid: de mate waarin het lichaam voedsel in bruikbare energie omzet, ontleend aan de Chinese geneeskunde en niet aan de westerse gastro-enterologie.</td></tr>
+          <tr><td class="term">Investerende mindset</td><td>De gewoonte om tijd, geld en aandacht structureel in het eigen herstel en leren te steken, in plaats van alles in de onderneming te stoppen.</td></tr>
+          <tr><td class="term">Zelfleiderschap</td><td>Haar term voor het zelf voeren van de regie over gezondheid, werk en keuzes, tegenover het afwachten van een diagnose of een oplossing van buiten.</td></tr>
+          <tr><td class="term">Intelligentie van de natuur</td><td>Het uitgangspunt dat natuurlijke ritmes, planten en traditionele bereidingswijzen een ordening kennen waarbij de mens kan aansluiten; het draagt het hele boek en wordt nergens scherp omschreven.</td></tr>
+          <tr><td class="term">Systeemupdate</td><td>Haar aanduiding voor het bijstellen van lichamelijke regelsystemen, waaronder het endocannabinoïdesysteem, met leefstijl in plaats van middelen.</td></tr>
+          <tr><td class="term">Traditionele bereiding</td><td>Langzaam koken, fermenteren en trekken, als tegenhanger van bewerkt voedsel; het slothoofdstuk en het meest concrete deel van het boek.</td></tr>
+          <tr><td class="term">Herborist</td><td>Haar beroep: iemand die met medicinale planten werkt, in dit geval binnen de Traditionele Chinese Geneeskunde, buiten de reguliere zorg om.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op twee soorten bewijs, en beide hebben grenzen. Het eerste is haar eigen herstel: burn-out, hartklachten en fors overgewicht, gevolgd door een omslag die zij toeschrijft aan leefstijl en kruiden. Dat is een geloofwaardig verhaal en het is een geval van een. Wat bij haar samenviel met de verandering is niet te scheiden van wat de tijd, de rust en het stoppen met een uitputtende situatie op zichzelf al doen.</p>
+      <p>Het tweede is de Traditionele Chinese Geneeskunde. Die levert haar een samenhangend model waarin vertering, ritme en kruiden een plaats hebben, en dat model is oud en intern consistent. Het is geen model dat westers onderzoek bevestigt. Voor afzonderlijke kruiden bestaat wisselend bewijs, voor het onderliggende stelsel niet, en de begrippen die zij gebruikt zijn niet die van de fysiologie, ook als de woorden soms hetzelfde lijken.</p>
+      <p>Waar het boek naar westerse wetenschap grijpt, zoals bij het endocannabinoïdesysteem, is voorzichtigheid op zijn plaats. Dat systeem bestaat en het speelt een rol bij pijn, eetlust en stemming, maar de stap van dat feit naar leefstijladviezen die het zouden bijstellen, is groter dan zulke passages laten zien. Verwijzingen waarmee de lezer dat zelf kan nagaan, biedt het boek niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De doelgroep is smal en dat wordt niet benoemd. Het boek richt zich op ondernemers die hun agenda kunnen herzien, in hun gezondheid kunnen investeren en dertig euro aan een boek en meer aan een programma kunnen besteden. Wie in loondienst met een vast rooster zit, of geen ruimte heeft om iets af te zeggen, vindt hier weinig dat werkt.</p>
+      <p>Verder ontbreekt de tegenstem. Van Engelen presenteert een sluitend geheel waarin gezondheid de basis is van alles en de natuur de ordening al kent. Nergens komt de vraag aan bod waar die aanpak niet opgaat, welke klachten reguliere zorg vragen, of wanneer kruiden en leefstijl tekortschieten. Bij een boek dat over het lichaam gaat, is dat een gemis.</p>
+      <p>De constructie rond het boek verdient aandacht. Het is uitgegeven in eigen beheer, het verwijst naar haar eigen academie en het bevestigt de methode die zij daar verkoopt. Dat maakt de inhoud niet onjuist, maar het betekent wel dat er geen redacteur of uitgever tussen zat die de sterkste beweringen heeft moeten verdedigen.</p>
+      <p>Tot slot maakt het formaat het lezen makkelijk en het toetsen moeilijk. De illustraties, de kaders en de korte stukken zorgen dat het boek prettig doorloopt; ze zorgen er ook voor dat een bewering en een sfeerbeeld naast elkaar op de bladzijde staan zonder dat het onderscheid duidelijk is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem de volgorde van het boek serieus: het begint bewust bij vertering en slaap en niet bij doelen.</li>
+        <li>Gebruik het opruimhoofdstuk voordat er iets wordt toegevoegd; het toevoegen kost anders energie die er niet is.</li>
+        <li>Leg de vroege signalen van overbelasting vast waarover het zesde hoofdstuk gaat, en spreek af wat er bij welk signaal gebeurt.</li>
+        <li>Bespreek kruidenadviezen met een arts zodra er medicatie in het spel is; wisselwerking is bij planten geen theoretisch risico.</li>
+        <li>Scheid bij het lezen het verhaal van haar herstel van de algemene aanbeveling; het eerste is beschrijving, het tweede is een claim zonder bron.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, uitgegeven in eigen beheer onder haar eigen imprint Uitgeverij Arcadia en in de handel gebracht via De Vrije Uitgevers, 1 juli 2024, 360 blz., gebonden en rijk geïllustreerd, ISBN 9789083432809. Er bestaat geen vertaling. Van Engelen is herborist in de Traditionele Chinese Geneeskunde en oprichter van InFlow Academy, het platform waarop zij haar programma's voor ondernemers aanbiedt; het boek verwijst naar die praktijk en is er ook de toegangsweg naartoe. Op het omslag staat een aanbeveling van Giel Beelen, wiens podcast KUKURU de titel op zijn boekenlijst zette. Het boek stond in de Top 100 van Managementboek en is haar eerste.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sharon van Engelen kreeg op haar achtendertigste een burn-out en hartklachten, woog toen naar eigen zeggen ruim vijftig kilo meer dan nu, en bouwde daarna een praktijk als herborist en een opleidingsplatform op. Dit boek is de neerslag van die omslag, gericht op ondernemers die hetzelfde patroon herkennen.</p><p>Haar volgorde begint bij het lichaam. De negen hoofdstukken lopen van de vertering, via bewustzijn en gezondheid, naar opruimen, mindset, stress, het zenuwstelsel, dagelijkse zorg en tot slot voeding en traditionele bereiding. De redenering is dat een onderneming niet meer aankan dan het lichaam van de ondernemer, en dat werken aan de zaak dus begint bij vertering, slaap en rust.</p><p>Het boek is groot, gebonden en zwaar geïllustreerd, en leest meer als een gids dan als een betoog. Onderbouwing komt uit de Chinese kruidengeneeskunde en uit haar eigen herstel; wie de uitspraken over lichaam en voeding wil natrekken, moet daarvoor buiten het boek terecht.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemers</li><li>leefstijl</li><li>burn-out</li><li>kruiden</li><li>mindset</li><li>vitaliteit</li><li>zelfleiderschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1759"><a href="1759.html">OERsterk</a>. Richard de Leth bepleit dezelfde omkering, gezondheid eerst, met meer aandacht voor het reguliere kader waarbinnen die adviezen vallen.</li>
+          <li value="1688"><a href="1688.html">Gezonde routines</a>. Arie Boomsma houdt het bij dagelijkse routines en laat de grote verklarende modellen weg; nuttig als tegenwicht tegen de sluitende leer hier.</li>
+          <li value="1683"><a href="1683.html">Stress is een kunst</a>. Timo Hans behandelt het stressdeel afzonderlijk en werkt daar dieper uit wat hier tot een hoofdstuk beperkt blijft.</li>
+          <li value="1647"><a href="1647.html">Emotionele gezondheid</a>. Mohammed Boulahrir schrijft over hetzelfde grensgebied van emotie en gezondheid, met een andere achtergrond en zonder kruidengeneeskunde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

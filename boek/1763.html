@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Be Here Now &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ram Dass stelt dat de gewone waaktoestand een vorm van slaap is: mensen leven in herinneringen en verwachtingen en zijn zelden aanwezig bij wat er nu…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1763">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1763 &middot; Filosofie en mystiek</p>
+    <h1>Be Here Now</h1>
+    <p class="lede">Ram Dass (Richard Alpert), 1971</p>
+    <p class="stats">
+      <span><b>1566</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1763"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ram Dass stelt dat de gewone waaktoestand een vorm van slaap is: mensen leven in herinneringen en verwachtingen en zijn zelden aanwezig bij wat er nu gebeurt. Zijn eerste bewering is dat psychedelica die slaap tijdelijk kunnen doorbreken en laten zien dat er andere bewustzijnstoestanden bestaan, en zijn tweede, waar het boek werkelijk om draait, dat zij die toestand niet kunnen vasthouden omdat de gebruiker er telkens weer uit valt. Wat er volgens hem wel toe leidt, is jarenlange oefening in meditatie, dienstbaarheid en overgave, en het liefst onder leiding van een levende leraar. Het boek voert die stelling niet aan als betoog met bewijs, maar als getuigenis: hier is wat mij overkwam, hier is de handleiding, kijk zelf maar.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Journey: van Richard Alpert naar Ram Dass</h3>
+      <p>Het eerste deel is het enige dat in gewone letters is gezet en leest als een terugblik. Alpert beschrijft zijn positie aan Harvard, zijn aanstellingen, zijn auto's en zijn onvrede: hij had alles waarvan hij dacht dat het genoeg zou zijn, en het was niet genoeg. Het psilocybineonderzoek met Timothy Leary bracht ervaringen die hij met zijn vak niet kon rijmen, en in 1963 werden beiden door de universiteit ontslagen.</p>
+      <p>Daarna volgen jaren waarin hij honderden keren psychedelica gebruikte en telkens weer terugviel in dezelfde persoon. In India ontmoet hij eerst de zwervende westerling Bhagavan Das, van wie de zin be here now afkomstig is, en vervolgens diens leraar Neem Karoli Baba. Het keerpunt in het verhaal is het moment waarop Maharaj-ji hem iets over zijn overleden moeder vertelt dat hij aan niemand had verteld, en waarop Alpert een dosis LSD krijgt toegediend die zonder zichtbaar gevolg blijft.</p>
+      <h3>From Bindu to Ojas: het kernboek</h3>
+      <p>Het middendeel is het langste en het bekendste. Het is met de hand geletterd, gedrukt op bruinig papier, doorschoten met tekeningen van goden, cirkels, ogen en aanwijzingen, en het loopt door als een aaneengeschakeld gedicht dat de lezer rechtstreeks aanspreekt. Er staat geen doorlopend betoog in maar een reeks stellingen, uitspraken uit uiteenlopende tradities en herhaalde aansporingen om terug te keren naar het huidige moment.</p>
+      <p>De titel komt uit de yogatraditie en verwijst naar het omzetten van lichamelijke levenskracht in geestelijke energie. Inhoudelijk mengt het deel hindoeistische, boeddhistische, christelijke en soefibronnen zonder onderscheid te maken, vanuit de gedachte die het boek nergens verdedigt maar overal veronderstelt, namelijk dat alle tradities naar dezelfde ervaring wijzen.</p>
+      <h3>Cookbook for a Sacred Life</h3>
+      <p>Het derde deel is praktisch en verrassend zakelijk van toon. Het behandelt zithoudingen, ademhaling, mantra's, vasten, voeding, seksualiteit, het bijhouden van dromen en het inrichten van een dagelijkse oefening, met aanwijzingen over hoe lang, hoe vaak en wat er te verwachten valt.</p>
+      <p>Ram Dass onderscheidt daarbij verschillende wegen: de weg van de kennis, van de toewijding, van het handelen en van de lichamelijke oefening, en laat de keuze aan de lezer, met de opmerking dat wat bij de een werkt bij de ander niets doet. Dit deel maakt duidelijk dat het boek geen verheerlijking van roeservaringen is maar een pleidooi voor discipline.</p>
+      <h3>Painted Cakes Do Not Satisfy Hunger</h3>
+      <p>Het slotdeel is een leeslijst, ingedeeld naar de mate waarin een boek voor de lezer van nut kan zijn: boeken om mee samen te leven, boeken om bij op bezoek te gaan, en boeken die nuttig zijn om eens te hebben gezien. Er staat commentaar bij en er staan uitgeversgegevens bij.</p>
+      <p>De titel van het deel is een boeddhistische zegswijze: een geschilderde koek stilt geen honger, en een gelezen boek vervangt geen oefening. Dat Ram Dass zijn eigen boek met die waarschuwing afsluit, hoort bij de toon van het geheel.</p>
+      <h3>Vorm en verspreiding</h3>
+      <p>De vorm verklaart een deel van de doorwerking. Het boek werd gemaakt door bewoners van de Lama Foundation, een gemeenschap in de bergen van New Mexico, in vierkant formaat, met een omslag waarop een mandala staat met een stoel, uitstralende lijnen en viermaal het woord Remember. Het was goedkoop, het zag er niet uit als een uitgeversproduct en het werd doorgegeven.</p>
+      <p>De invloed reikte ver buiten de kring van lezers die het serieus namen. George Harrison schreef er een lied naar, Steve Jobs noemde het als boek dat op hem indruk maakte, en de belangstelling van westerse lezers voor yoga en meditatie kreeg er in de jaren zeventig een duw van. Het boek is intussen ook een tijdsdocument: de taal, de tekeningen en de vanzelfsprekendheid waarmee over drugs wordt gesproken plaatsen het onmiskenbaar in 1971.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Be here now</td><td>De aansporing waar het boek naar is vernoemd, afkomstig van Bhagavan Das: houd de aandacht bij wat er op dit moment gebeurt in plaats van bij verleden of toekomst.</td></tr>
+          <tr><td class="term">Maharaj-ji</td><td>De naam waarmee de leerlingen Neem Karoli Baba aanduidden, de leraar die Alpert in India ontmoette en die hem de naam Ram Dass gaf.</td></tr>
+          <tr><td class="term">Bhagavan Das</td><td>De jonge Amerikaan die in India als sadhoe leefde, Alpert door het land begeleidde en hem bij Neem Karoli Baba bracht.</td></tr>
+          <tr><td class="term">Ram Dass</td><td>De naam die Alpert kreeg, te vertalen als dienaar van Ram, en die staat voor de omslag van onderzoeker naar leerling.</td></tr>
+          <tr><td class="term">Sadhana</td><td>De aanhoudende geestelijke oefening waar het derde deel over gaat: meditatie, dieet, ademhaling en toewijding als dagelijks werk.</td></tr>
+          <tr><td class="term">From bindu to ojas</td><td>Uitdrukking uit de yogatraditie voor het omzetten van lichamelijke levenskracht in geestelijke energie; de titel van het middendeel.</td></tr>
+          <tr><td class="term">Painted cakes</td><td>Boeddhistische zegswijze die het boek gebruikt voor kennis uit boeken: een geschilderde koek stilt geen honger.</td></tr>
+          <tr><td class="term">Guru</td><td>De levende leraar aan wie de leerling zich volgens het boek overgeeft, en zonder wie de oefening volgens Ram Dass zelden ver komt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Van het boek is de biografische laag controleerbaar en de rest niet. Richard Alpert had een aanstelling aan Harvard en werkte er samen met Timothy Leary aan psilocybineonderzoek; beiden werden in 1963 ontslagen, Alpert omdat hij een student van de universiteit de stof had gegeven. Dat hij daarna naar India reisde, daar Neem Karoli Baba ontmoette en als Ram Dass terugkeerde, is eveneens vastgelegd, onder meer in latere interviews en in de archieven van de stichting die zijn werk beheert.</p>
+      <p>Wat het boek daarnaast beweert, is van een andere orde. De uitspraken over bewustzijnstoestanden, over de gaven van de leraar en over wat oefening op termijn oplevert, zijn getuigenis. Ram Dass presenteert ze ook niet anders: hij vertelt wat hem is overkomen en wat hij daaruit heeft afgeleid, en verwijst voor de rest naar de oefening zelf. Er staat geen onderzoek in het boek en er wordt niet naar onderzoek verwezen.</p>
+      <p>De praktische aanwijzingen in het derde deel zijn wel te herleiden. Zij komen uit bestaande tradities van yoga, vipassana en toewijdingspraktijk, en de meeste zijn nog steeds na te lopen in de teksten waar zij vandaan komen. Dat maakt het boek ook nu bruikbaar als handleiding, ook voor lezers die niets met het middendeel kunnen. Wel is de tekst niet stabiel: op verzoek van Maharaj-ji is later gesleuteld aan de passages over Hari Dass, die Alpert in India in de oefening had onderwezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de rol van de leraar. Het boek beveelt overgave aan een guru aan als de gewoonste zaak, zonder enig criterium waarmee een leerling kan vaststellen of hij met een betrouwbaar iemand te maken heeft. De jaren die op de verschijning volgden hebben laten zien waar dat op uit kan lopen: verschillende westerse volgelingen kwamen terecht bij leraren die hun positie misbruikten. Ram Dass zelf raadde later voorzichtigheid aan, maar in dit boek staat die waarschuwing niet.</p>
+      <p>Het tweede bezwaar geldt de gelijkschakeling van tradities. Hindoeistische, boeddhistische, christelijke en soefiteksten worden door elkaar geciteerd alsof zij hetzelfde zeggen, terwijl zij op punten die er binnen die tradities toe doen tegengestelde beweringen doen over de ziel, over het zelf en over wat er na de dood gebeurt. Wie het boek als eerste kennismaking leest, krijgt een beeld waarin die verschillen niet bestaan.</p>
+      <p>Het derde bezwaar is praktisch. De aansporing om aanwezig te zijn bij wat er is, richt zich op de binnenkant van een leven en heeft weinig te bieden aan wie in de knel zit door omstandigheden buiten hem. In de jaren zeventig is het boek daar ook op aangevallen: aandacht voor de eigen bewustzijnstoestand ging bij een deel van de lezers samen met het verlaten van politieke betrokkenheid. Ram Dass heeft dat verwijt serieus genomen en later met <i>How Can I Help?</i> en met zijn werk voor stervenden geprobeerd het te beantwoorden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de vier delen als afzonderlijke boeken; het derde deel is bruikbaar zonder dat het middendeel aanspreekt.</li>
+        <li>Kies uit het handboek een enkele oefening en houd die enkele weken vol voordat er een tweede bij komt.</li>
+        <li>Neem de uitspraken over bewustzijnstoestanden als verslag van ervaring en niet als vaststelling over de wereld.</li>
+        <li>Behandel de aanbeveling tot overgave aan een leraar met de terughoudendheid die het boek zelf mist.</li>
+        <li>Gebruik de leeslijst in het slotdeel als ingang tot de bronteksten in plaats van het boek als vervanging ervan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Be Here Now</i>, samengesteld door Ram Dass met de Lama Foundation, San Cristobal, New Mexico, 1971. De kern verscheen in 1970 als het losbladige <i>From Bindu to Ojas</i>. De handelseditie loopt sinds jaar en dag bij Crown en Three Rivers Press, met ongenummerde bladzijden in vier delen (ISBN 9780517543054); er zijn wereldwijd ruim twee miljoen exemplaren van verkocht. In 1977 droeg de Lama Foundation het auteursrecht en de helft van de opbrengst over aan de Hanuman Foundation. Een Nederlandse vertaling bestaat niet. Wel zijn andere boeken van Ram Dass vertaald: <i>How Can I Help?</i> als <i>De kunst van het helpen</i> (Servire, 1997), <i>Still Here</i> als <i>Vanaf hier, vanaf nu</i> (Servire, 2000) en <i>Be Love Now</i> als <i>Wees nu liefde</i> (AnkhHermes, 2012).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Richard Alpert was hoogleraarsmateriaal aan Harvard en deed daar samen met Timothy Leary onderzoek naar psilocybine, tot beiden in 1963 werden ontslagen. Hij reisde naar India, ontmoette daar de leraar Neem Karoli Baba, die zijn leerlingen Maharaj-ji noemden, en keerde terug als Ram Dass. Dit boek is het verslag van die overgang en van wat hij daarna aanbeveelt.</p><p>Het bestaat uit vier delen. Eerst een autobiografisch hoofdstuk in gewone typografie, daarna het handgeschreven en getekende middenstuk From Bindu to Ojas op bruin papier, vervolgens een praktisch handboek met yoga-, adem- en meditatieoefeningen, en tot slot een lange, becommentarieerde leeslijst.</p><p>De stelling van het boek is dat psychedelica een toestand kunnen tonen maar niet kunnen vasthouden, en dat er voor dat vasthouden oefening en een leraar nodig zijn. De vorm, met de hand geletterd door bewoners van de Lama Foundation in New Mexico, maakte het tot een boek dat werd doorgegeven; er gingen ruim twee miljoen exemplaren van over de toonbank.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spiritualiteit</li><li>meditatie</li><li>psychedelica</li><li>guru</li><li>tegencultuur</li><li>yoga</li><li>India</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan beschrijft vijftig jaar later hetzelfde onderzoeksveld waar Alpert uit werd gezet, nu met gecontroleerde studies erbij, en komt tot terughoudender gevolgtrekkingen.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Huxley bracht in 1945 dezelfde gedachte onder woorden dat alle tradities naar een gemeenschappelijke ervaring wijzen, in de betogende vorm die dit boek niet kiest.</li>
+          <li value="287"><a href="287.html">Siddhartha</a>. Hesse vertelt in romanvorm dezelfde gang: leer, roes, leraar, en uiteindelijk oefening; Alperts eigen verhaal volgt die lijn opvallend nauw.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle bracht de aansporing tot aanwezigheid in de jaren negentig opnieuw op de markt, losgemaakt van guru, ashram en leeslijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

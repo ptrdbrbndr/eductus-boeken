@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DINO &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Asporaat vertelt zijn leven als bewijs dat afkomst een startpositie is en geen eindstand, en dat het verschil zit in doorgaan op het moment dat iemand je…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1765">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1765 &middot; Roman en memoir</p>
+    <h1>DINO</h1>
+    <p class="lede">Jandino Asporaat, opgetekend door Guus Pengel, 2019</p>
+    <p class="stats">
+      <span><b>1331</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1765"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Asporaat vertelt zijn leven als bewijs dat afkomst een startpositie is en geen eindstand, en dat het verschil zit in doorgaan op het moment dat iemand je vertelt dat je hier niet hoort. Zijn motto, stop complaining and get the fuck up, is daarvan de samenballing. Tegelijk laat het boek zien wat dat kost: de vooroordelen die hij beschrijft verdwijnen niet doordat hij harder werkt, ze verplaatsen zich mee naar elke volgende zaal. Het boek beweert dus tegelijk dat de weg openligt en dat de weg zwaarder is voor wie eroverheen moet.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De vraag van Elijah</h3>
+      <p>Het boek opent met zijn vijfjarige zoon Elijah, die vraagt wanneer zij eens naar het oude huis van zijn vader gaan. De vraag is onschuldig bedoeld en komt hard aan, want aan dat huis heeft Asporaat weinig herinneringen die hij aan een kind wil doorgeven. Vanuit die aarzeling begint hij te vertellen.</p>
+      <p>Die opzet bepaalt de rest. Het boek is niet in de eerste plaats aan de lezer gericht maar aan zijn zoon, en verklaart zo waarom er zoveel les in staat. Wie het als loopbaanverslag leest, houdt te veel motto's over; wie het leest als wat een vader aan zijn kind wil meegeven, begrijpt de vorm beter.</p>
+      <h3>Buena Vista</h3>
+      <p>De eerste elf jaar spelen in Willemstad, in de wijk Buena Vista. Zijn moeder houdt vijf kinderen draaiende, zijn vader woont elders op het eiland bij een andere vrouw en draagt niets bij. Asporaat beschrijft honger, schaamte en het besef dat andere kinderen dingen hadden die bij hem thuis onbespreekbaar waren.</p>
+      <p>De afwezige vader is het onderwerp dat het hele boek doorsnijdt. Asporaat rekent niet af en spaart hem ook niet; hij beschrijft vooral wat de leegte met hem deed en welke behoefte aan bevestiging eruit voortkwam.</p>
+      <h3>IJsselmonde</h3>
+      <p>In 1992 verhuist het gezin naar Rotterdam, naar IJsselmonde op Zuid. De armoede gaat mee, de taal en de kou komen erbij, en de vanzelfsprekendheid van het eiland valt weg. Zijn moeder werkt door; haar arbeidsethos noemt hij later de bron van het zijne.</p>
+      <p>In deze jaren ontdekt hij dat hij mensen aan het lachen kan maken, eerst op school en in de buurt, daarna op open podia. Humor is in zijn beschrijving eerst een manier om erbij te horen en pas veel later een vak.</p>
+      <h3>Antilliaanse Pot en de jaren daarna</h3>
+      <p>In 2006 breekt hij door met zijn eerste avondvullende programma, Antilliaanse Pot, dat meteen aanslaat. Daarna komen televisie, het typetje Judeska, De Dino Show vanaf 2011, en vanaf 2013 werk voor RTL. Het boek verzwijgt de terugval niet: er is een periode na zijn vertrek bij de Lama's waarin hij weer in kleine zalen staat.</p>
+      <p>Juist die passages geven het boek zijn waarde. De opgang verloopt niet in een rechte lijn, en Asporaat beschrijft de jaren waarin het minder ging uitgebreider dan de jaren waarin de zalen vol zaten.</p>
+      <h3>Vooroordelen</h3>
+      <p>De scherpste scene speelt bij RTL, waar presentator Gordon hem tijdens een opname hard aanpakt op zijn autocuelezen met de opmerking dat wij hier niet bij de migrantentelevisie zijn. Asporaat beschrijft die vernedering en wat hij ermee deed: hij ging het lezen oefenen tot het geen aanleiding meer gaf.</p>
+      <p>Daartegenover staan de mensen die hem wel ruimte gaven. Producent John de Mol komt naar voren als iemand die hem aanmoedigde toen anderen hem afschreven. De recensent Aart G. Broek wijst erop dat het boek daarmee iets doet wat weinig Nederlandse showbizzmemoires doen: het benoemt de druk die op het zelfbeeld van iemand met een migratieachtergrond staat, zonder van de auteur een slachtoffer te maken.</p>
+      <h3>De Kuip</h3>
+      <p>Het doel waar het boek naartoe werkt, is de uitverkochte Kuip in 2017, in de stad waar het gezin ooit zonder geld aankwam. Asporaat beschrijft de voorbereiding, de twijfel of het stadion vol zou komen, en de avond zelf.</p>
+      <p>Hij laat er de schaduwzijde op volgen. Bij de zichtbaarheid horen doodsbedreigingen, en het boek beschrijft wat dat met een gezin doet. Het hoogtepunt is bij hem geen slot maar een aanleiding om te vragen waar hij het eigenlijk voor deed.</p>
+      <h3>Vader zijn</h3>
+      <p>Het boek eindigt waar het begon, bij Elijah. Asporaat zet zijn eigen vaderschap uitdrukkelijk tegenover dat van zijn vader: aanwezig zijn, uitleggen, meegaan. De les die hij zijn zoon wil meegeven staat in het motto dat door het hele boek terugkeert, stop complaining and get the fuck up, en in de ondertitel, dromen met je ogen open.</p>
+      <p>Wat hij met die ondertitel bedoelt, is dat dromen zonder werk niets oplevert en werk zonder droom evenmin. Het is geen nieuwe gedachte, en hij brengt haar ook niet als nieuw; hij brengt haar als iets waarvan hij het bewijs zelf heeft geleverd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dromen met je ogen open</td><td>De ondertitel van het boek en de formule waarmee Asporaat verlangen en dagelijks werk aan elkaar koppelt.</td></tr>
+          <tr><td class="term">Stop complaining and get the fuck up</td><td>Het levensmotto dat door het hele boek terugkeert en de kern vormt van wat hij zijn zoon wil meegeven.</td></tr>
+          <tr><td class="term">Buena Vista</td><td>De wijk in Willemstad waar hij tot zijn elfde opgroeide met zijn moeder, drie broers en een zus.</td></tr>
+          <tr><td class="term">IJsselmonde</td><td>De Rotterdamse wijk waar het gezin in 1992 terechtkwam en waar zijn Nederlandse leven begon.</td></tr>
+          <tr><td class="term">Antilliaanse Pot</td><td>Zijn eerste avondvullende programma uit 2006, waarmee hij doorbrak.</td></tr>
+          <tr><td class="term">Judeska</td><td>Het onbehouwen vrouwelijke typetje waarmee hij het bekendst werd en dat later de Bon Bini-films droeg.</td></tr>
+          <tr><td class="term">De Kuip</td><td>Het Rotterdamse stadion dat hij in 2017 uitverkocht, in het boek de bevestiging dat zijn plan klopte.</td></tr>
+          <tr><td class="term">Opgetekend</td><td>De aanduiding op het omslag voor het aandeel van Guus Pengel, die het verhaal van Asporaat op schrift bracht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een memoir en geen onderzoek. Alles komt uit de herinnering van de hoofdpersoon, opgeschreven door een medeauteur, en er is geen tegenspraak ingebouwd. Van de scenes waarin anderen slecht uit de verf komen, hoort de lezer maar een kant. Het boek maakt dat overigens niet onduidelijk: het presenteert zich als het openhartige verhaal van Jandino, niet als reconstructie.</p>
+      <p>Wat de weergave steun geeft, zijn de getuigenissen van familieleden en collega's die tussen de hoofdstukken zijn opgenomen, en het feit dat de publieke feiten controleerbaar zijn: het jaar van doorbraak, de programma's, de Kuip in 2017. De gebeurtenissen achter de schermen, zoals het incident bij RTL, staan of vallen met zijn geloofwaardigheid.</p>
+      <p>De vorm zegt iets over de bedoeling. Naast het verhaal staan citaten van Oprah Winfrey, Barack Obama en P. Diddy en zijn kernzinnen in groot lettertype afgedrukt. Dat is de opmaak van een motivatieboek, niet van een levensbeschrijving, en het maakt duidelijk dat het boek de lezer ergens toe wil brengen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar zit in de boodschap zelf. Het boek beschrijft racisme en armoede scherp en biedt er vervolgens een individueel antwoord op: harder werken, doorgaan, niet klagen. Dat antwoord werkte voor deze man, maar het volgt niet uit zijn verhaal dat het voor anderen werkt, en het laat de vraag onaangeroerd waarom die drempels er waren. Wie het als recept leest, krijgt de last terug op zijn eigen bord gelegd.</p>
+      <p>Aart G. Broek wees in zijn bespreking op onevenwichtigheden in de opbouw en op de onduidelijkheid over de beoogde lezer. Het boek schommelt tussen levensverhaal, motivatieboek en brief aan een zoon, en de citaten en de vergrote zinnen versterken die aarzeling.</p>
+      <p>Verder blijft het privéleven behoedzaam. Over zijn huwelijk, zijn geld en zijn zakelijke keuzes staat weinig, en de doodsbedreigingen worden genoemd zonder dat duidelijk wordt wat er verder mee gebeurde. Voor een boek dat zich openhartig noemt, is de openhartigheid nogal gericht: zij betreft vooral de jaren waarin hij nog niets te verliezen had.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>DINO: Dromen met je ogen open</i>, Kosmos Uitgevers, Utrecht, verschenen op 17 september 2019, ISBN 9789021572222; de opgaven over de omvang lopen uiteen van 255 tot 272 blz. Ook als e-book (ISBN 9789021572253) en als luisterboek. Binnen een dag na verschijnen was er een tweede druk. Nederlandstalig origineel, opgetekend door schrijver en journalist Guus Pengel; er bestaat geen vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jandino Asporaat werd in 1981 geboren in Willemstad op Curacao en groeide op in de wijk Buena Vista bij zijn moeder, drie broers en een zus. Zijn vader woonde elders op het eiland met een andere vrouw en betaalde niets. In 1992 verhuisde het gezin naar Rotterdam-IJsselmonde, waar de armoede meeverhuisde.</p><p>Het boek begint met een vraag van zijn vijfjarige zoon Elijah: wanneer gaan we nou eens naar je oude huis? Aan de hand van die vraag vertelt Asporaat over zijn jeugd, zijn doorbraak in 2006 met het programma Antilliaanse Pot, zijn jaren bij televisie en film, en de uitverkochte Kuip in 2017.</p><p>Het is een opklimverhaal met een motto dat er meermalen letterlijk staat: stop complaining and get the fuck up. De tekst is opgetekend door Guus Pengel en aangevuld met citaten van Oprah Winfrey, Barack Obama en P. Diddy, getuigenissen van familie en collega's, en passages die in groot lettertype zijn afgedrukt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>Curacao</li><li>Rotterdam</li><li>cabaret</li><li>vaderschap</li><li>armoede</li><li>vooroordelen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringer beschrijft eveneens een jongen die opgroeit zonder vader en zijn beeld van mannelijkheid elders bij elkaar zoekt, alleen in een Amerikaanse kroeg in plaats van in Rotterdam-Zuid.</li>
+          <li value="178"><a href="178.html">My Father's Daughter</a>. Tina Sinatra schrijft over dezelfde verhouding vanaf de andere kant, over een kind van een beroemde vader; naast Asporaat laat dat zien hoe verschillend afwezigheid en aanwezigheid uitpakken.</li>
+          <li value="3"><a href="03.html">The Will to Change</a>. Bell hooks behandelt wat jongens leren over gevoel en hardheid; het geeft taal aan wat Asporaat beschrijft maar niet benoemt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

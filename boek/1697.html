@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Universeel onderwijs &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Glaudemans stelt dat het bestaande onderwijs kinderen voorbereidt op een arbeidsmarkt en op maatschappelijke verwachtingen, en dat het daarmee voorbijgaat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1697">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1697 &middot; Filosofie en mystiek</p>
+    <h1>Universeel onderwijs</h1>
+    <p class="lede">Willem Glaudemans, 2024</p>
+    <p class="stats">
+      <span><b>1398</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1697"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Glaudemans stelt dat het bestaande onderwijs kinderen voorbereidt op een arbeidsmarkt en op maatschappelijke verwachtingen, en dat het daarmee voorbijgaat aan wat een kind werkelijk is. In zijn opvatting wordt ieder mens geboren met het besef van zijn eigen goddelijkheid, en bestaat opvoeding en onderwijs eruit dat besef niet weg te leren. Universeel onderwijs is bij hem daarom geen extra vak en geen aparte schoolsoort, maar een andere houding tegenover het kind: uitgaan van wijsheid die er al is in plaats van van een tekort dat moet worden aangevuld. Hij presenteert dat niet als voorstel dat nog moet worden getoetst, maar als het onderwijs van een nieuwe tijd die volgens hem al aan het aanbreken is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een manifest, geen betoog</h3>
+      <p>Glaudemans zet in zijn voorwoord zelf de grenzen van het boek uit. Het is volgens hem een manifest en een oproep, geen verhandeling en geen handboek, al bevat het praktische levenslessen voor de jongere generatie. Die aankondiging bepaalt de vorm van de honderdachtentwintig bladzijden die volgen.</p>
+      <p>De tekst bestaat uit korte stellingen, meestal een alinea lang, die naast elkaar staan zonder tussenstappen. Er wordt niet naar bronnen verwezen, geen tegenwerping besproken en geen voorbeeld uit een klas of gezin uitgewerkt. Wie het leest als argumentatie leest het verkeerd; het is geschreven om beaamd of terzijde gelegd te worden.</p>
+      <h3>Deel een: opvoeden in goddelijkheid</h3>
+      <p>Het eerste deel richt zich tot ouders en leraren. Glaudemans vraagt hun het kind te zien als iemand die zijn eigen weg al kent, en niet als iemand die nog moet worden gevormd naar wat de volwassene voor ogen heeft. Gezag verschuift daarmee van sturen naar bijstaan.</p>
+      <p>Hij verbindt dat aan onvoorwaardelijkheid. Waardering die afhangt van prestatie leert een kind volgens hem dat het zijn liefde moet verdienen, en dat is de eerste stap naar het beeld van zichzelf als tekortschietend. Wat hij daartegenover zet is een houding waarin het kind niet hoeft te presteren om te tellen.</p>
+      <h3>Deel twee: goddelijkheid onderwijzen</h3>
+      <p>Het middendeel gaat over het onderwijs als stelsel. Glaudemans schrijft dat schoolsystemen kinderen in een mal drukken en dat daarbij vooral intuïtie en scheppingskracht sneuvelen, de vermogens die zich niet laten toetsen. Vakken en cijfers zijn in zijn lezing niet verkeerd, maar ze meten het verkeerde deel van een mens.</p>
+      <p>Wat hij ervoor in de plaats stelt blijft algemeen. Hij spreekt van onderwijs dat kinderen helpt hun plaats te vinden in wat hij het grote weefwerk noemt, en van kennis die iedereen nodig heeft ongeacht godsdienst, afkomst of opvoeding. Hoe zo'n school er op maandagochtend uitziet, staat er niet.</p>
+      <h3>Deel drie: opgroeien in goddelijkheid</h3>
+      <p>Het laatste deel is rechtstreeks aan jongeren gericht en behandelt een tiental onderwerpen, van het luisteren naar de eigen zielsstem tot wat hij de tekenen van de nieuwe tijd noemt. Het gaat daarbij over levensmissie, over de omgang met anderen en over het verschil tussen ego en ziel.</p>
+      <p>Dit deel is het concreetste van de drie en werd in besprekingen ook zo ontvangen: eerder een gebruiksaanwijzing voor het leven dan een beschouwing over onderwijs. Het staat daarmee wat los van de titel, die over scholen en opvoeders gaat.</p>
+      <h3>De gnostieke achtergrond</h3>
+      <p>Glaudemans werkt al decennia met twee tekstverzamelingen. Hij was medevertaler van de Nag Hammadi-geschriften, de koptische handschriften die in 1945 in Egypte werden gevonden, en hij was eindredacteur van de Nederlandse vertaling van <i>Een cursus in wonderen</i>. Beide gaan uit van een kern in de mens die niet gemaakt is maar herinnerd moet worden.</p>
+      <p>Die herkomst verklaart de sleutelwoorden van het boek. Goddelijkheid staat er niet voor iets wat een kind moet bereiken maar voor iets wat het al is; onderwijs is dan het wegnemen van wat dat besef bedekt. Het is de gnostieke figuur van kennis als herinnering, overgezet op de klas.</p>
+      <h3>Plaats in de reeks</h3>
+      <p>Het boek staat tussen <i>Universele spiritualiteit</i> uit 2022 en <i>Universele vrede</i> uit 2024. Alle drie hebben dezelfde opzet van bondige stellingen en dezelfde stelling eronder: dat er een universele waarheid van eenheid en liefde bestaat die boven godsdiensten uitgaat.</p>
+      <p>De uitgever presenteert die reeks als geschreven vanuit een goddelijke inspiratiebron die de auteur een kortere weg naar de antwoorden geeft. Glaudemans zelf spreekt in dit boek eerder over schrijven vanuit de ziel. Waar de tekst precies vandaan komt, wordt in het boek niet uitgelegd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Universeel onderwijs</td><td>Onderwijs dat volgens Glaudemans boven schoolsystemen en godsdiensten uitgaat en zich op de ziel richt in plaats van op kennis.</td></tr>
+          <tr><td class="term">Goddelijkheid</td><td>De kern die ieder mens volgens de auteur bij de geboorte al bezit en die door opvoeding eerder wordt bedekt dan aangeleerd.</td></tr>
+          <tr><td class="term">Ziel tegenover ego</td><td>Het onderscheid dat het hele boek draagt: het ego als het zelfbeeld dat presteert en vergelijkt, de ziel als wat er onder zit.</td></tr>
+          <tr><td class="term">Zielsstem</td><td>De innerlijke aanwijzing waarnaar jongeren in het derde deel wordt gevraagd te luisteren bij keuzes.</td></tr>
+          <tr><td class="term">Levensmissie</td><td>De eigen opdracht die iemand volgens Glaudemans meebrengt en die onderwijs zou moeten helpen vinden, in plaats van een loopbaan.</td></tr>
+          <tr><td class="term">Het grote weefwerk</td><td>Zijn beeld voor het geheel waarin ieder mens een plaats heeft; de tegenhanger van het idee dat een plaats moet worden verworven.</td></tr>
+          <tr><td class="term">Nieuwe tijd</td><td>De periode waarvan de auteur aanneemt dat zij is begonnen en waarin dit onderwijs vanzelfsprekend zou worden.</td></tr>
+          <tr><td class="term">Een cursus in wonderen</td><td>De Amerikaanse tekst uit 1976 waarvan Glaudemans de Nederlandse vertaling bezorgde en waaruit veel van zijn woordenschat komt.</td></tr>
+          <tr><td class="term">Nag Hammadi-geschriften</td><td>De in 1945 in Egypte gevonden gnostieke handschriften die Glaudemans mee vertaalde en die de achtergrond van zijn werk vormen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bewijs aan en wil dat ook niet. Glaudemans zegt in het voorwoord dat het een manifest is en geen betoog. Er staan geen verwijzingen in naar onderwijsonderzoek, geen cijfers over leerlingen en geen vergelijking met bestaande schoolvormen. Wat er staat, staat er op gezag van de schrijver.</p>
+      <p>Voor zover er iets naast te leggen valt, is dat het onderwijsonderzoek dat hij niet noemt. De gedachte dat kinderen vooral zichzelf moeten ontdekken en dat sturing schaadt, is in de afgelopen twintig jaar herhaaldelijk onderzocht, en de uitkomsten wijzen eerder de andere kant op: voor het aanleren van lezen, rekenen en vakkennis blijkt uitleg en oefening onder leiding doorgaans effectiever dan ontdekkend leren.</p>
+      <p>Dat maakt het boek niet weerlegd, want het gaat over iets anders dan leerprestatie. Maar het betekent wel dat de zinnen over scholen die kinderen in een mal drukken niet zijn te lezen als een bevinding. Het zijn uitspraken over wat onderwijs zou moeten zijn, niet over wat het doet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vorm die de auteur kiest maakt tegenspraak onmogelijk. Stellingen zonder onderbouwing kunnen alleen worden aanvaard of verworpen, en de lezer die wil weten waarom iets waar zou zijn, krijgt geen aanknopingspunt. Dat is een verdedigbare keuze voor een manifest, maar het beperkt de tekst tot lezers die de uitgangspunten al delen.</p>
+      <p>Inhoudelijk blijft het voorstel abstract op de plaats waar het concreet zou moeten worden. Het boek noemt wat er mis is met toetsen, mallen en verwachtingen, maar niet hoe een leraar met dertig kinderen en een eindexamen dit dan doet. Wie het als onderwijsvernieuwing leest, houdt weinig over dat morgen bruikbaar is.</p>
+      <p>Verder zit er een risico in het uitgangspunt zelf. Als een kind alle wijsheid al bezit, verschuift ook de verantwoordelijkheid: wat niet lukt, wordt dan iets van de ziel of van de weg van dat kind. Grenzen stellen, corrigeren en volhouden bij iets wat een kind niet wil, krijgen in deze opvatting nauwelijks een plaats, terwijl juist daar het dagelijkse werk van opvoeden ligt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als manifest en niet als handleiding; de tekst is daar zelf duidelijk over.</li>
+        <li>Neem uit het eerste deel de vraag mee of waardering thuis afhangt van prestatie, en toets dat aan het eigen gedrag.</li>
+        <li>Gebruik het derde deel eventueel met een jongere erbij, want dat is het enige deel dat concrete onderwerpen aansnijdt.</li>
+        <li>Zoek de onderbouwing over wat werkt in een klas ergens anders; dit boek levert die niet.</li>
+        <li>Lees eerst <i>Ingangen tot Een cursus in wonderen</i> als de woordenschat vreemd blijft; de begrippen komen daar vandaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen als <i>Universeel onderwijs: alles is één, groeien in goddelijkheid</i> bij AnkhHermes in Utrecht op 31 januari 2024, 128 blz., ISBN 9789020221190; e-boek onder ISBN 9789020221206 en luisterboek onder ISBN 9789020222340. Het is het tweede deel van de reeks die Glaudemans in 2022 begon met <i>Universele spiritualiteit</i> en later in 2024 vervolgde met <i>Universele vrede</i>. Glaudemans is neerlandicus, was eindredacteur van de Nederlandse vertaling van <i>Een cursus in wonderen</i> en medevertaler van de Nag Hammadi-geschriften. Eerder schreef hij de Biblos-reeks en <i>Ingangen tot Een cursus in wonderen</i> (2013).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Glaudemans schrijft over onderwijs dat volgens hem niet over kennis of vaardigheden gaat maar over de ziel. Elk kind draagt in zijn opvatting alle wijsheid en liefde al in zich; de taak van ouders en leraren is dan niet die van vullen en vormen, maar van herkennen en ruimte geven. Het boek richt zich achtereenvolgens tot opvoeders, tot het onderwijs als geheel en tot jongeren zelf.</p><p>Hij noemt zijn tekst in het voorwoord een manifest en een oproep, en uitdrukkelijk geen betoog en geen handboek. Dat is meer dan bescheidenheid: het boek bestaat grotendeels uit korte, stellige uitspraken die elkaar opvolgen zonder onderbouwing, in de vorm die hij ook in de andere delen van de reeks gebruikt.</p><p>De achtergrond is de gnostiek en <i>Een cursus in wonderen</i>, waarvan Glaudemans de Nederlandse editie bezorgde. Wie die achtergrond kent herkent de bouwstenen: de eenheid achter de verschijnselen, het ego tegenover de ziel, en het idee dat vergeving en herinnering belangrijker zijn dan verwerving.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>onderwijs</li><li>opvoeding</li><li>goddelijkheid</li><li>ziel</li><li>Een cursus in wonderen</li><li>non-dualiteit</li><li>nieuwe tijd</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1644"><a href="1644.html">Universele vrede</a>. Hetzelfde stramien van korte stellingen, nu toegepast op oorlog en vrede; het latere deel uit dezelfde reeks.</li>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Glaudemans legt daar uit waar de begrippen vandaan komen die in dit boek zonder toelichting worden gebruikt.</li>
+          <li value="1629"><a href="1629.html">Conversations with God: An Uncommon Dialogue, Book 1</a>. Walsch schrijft in dezelfde traditie van teksten die zich als doorgegeven presenteren, maar dan in dialoogvorm.</li>
+          <li value="1639"><a href="1639.html">Het einde van de opvoeding</a>. Geurtz komt vanuit een heel andere hoek tot een verwant voorstel over opvoeden, en werkt dat wel praktisch uit.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

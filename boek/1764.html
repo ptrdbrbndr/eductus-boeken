@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoe de fuck vind ik geluk? &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lindhout stelt dat er geen stappenplan naar geluk bestaat en dat geluk ook geen keuze is die iemand op een ochtend maakt, omdat het leven zich niet laat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1764">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1764 &middot; Levenskunst</p>
+    <h1>Hoe de fuck vind ik geluk?</h1>
+    <p class="lede">Thijs Lindhout, 2020</p>
+    <p class="stats">
+      <span><b>1686</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1764"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lindhout stelt dat er geen stappenplan naar geluk bestaat en dat geluk ook geen keuze is die iemand op een ochtend maakt, omdat het leven zich niet laat sturen. Tegelijk beweert hij dat in de verhalen van mensen die er iets van gemaakt hebben steeds dezelfde vier onderwerpen terugkomen: in beweging komen, de manier waarop iemand tegenslag uitlegt, de liefde voor zichzelf en anderen, en het gezelschap waarin iemand leeft. Zijn claim is dus dubbel. Het recept bestaat niet, maar de ingredienten liggen wel vast, en wie er drie van verwaarloost komt er volgens hem niet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Lindhout komt uit Utrecht en maakt sinds 2016 de 100% Inspiratie Podcast, waarin hij Nederlanders ondervraagt over geluk en succes. Onder zijn gasten zijn Pieter van den Hoogenband, Andre Kuipers, Guido Weijers, Gerard Ekdom en Angela Groothuizen. Het boek is de neerslag van die reeks. De flaptekst spreekt van ongeveer honderdtachtig gesprekken met bekende Nederlanders, geluksdeskundigen en ervaringsdeskundigen; in aankondigingen rond de verschijning staat op andere plaatsen ruim honderdzestig.</p>
+      <p>Daarnaast bezocht hij jarenlang seminars van sprekers die geluk aanbieden als methode, volgens zijn eigen opgave voor meer dan vijftigduizend euro. Dat bedrag noemt hij zelf, en het bepaalt de houding van het boek. Hij schrijft niet als buitenstaander die de zelfhulpindustrie bespot, maar als iemand die er diep in zat en er deels uit is gestapt. Wat hij op die podia bruikbaar vond, gebruikt hij; de verkooptechniek erachter wijst hij af.</p>
+      <h3>De stelling dat er geen stappenplan is</h3>
+      <p>Het boek opent met de vaststelling dat het leven niet maakbaar is. Lindhout keert zich tegen de veelgehoorde zin dat geluk een keuze is, met het argument dat die zin alleen te verdedigen valt zolang er niets ernstigs gebeurt. Ziekte, verlies en ontslag laten zich niet wegkiezen. Wie dat toch beweert, legt volgens hem de schuld voor pech bij degene die pech heeft.</p>
+      <p>Daar staat tegenover dat hij wel degelijk patronen aanwijst. De vier thema's noemt hij de rode draad in ieders eigen zoektocht; de volgorde en de invulling laat hij aan de lezer. Die constructie geeft het boek ruimte en levert tegelijk zijn zwakste plek op, want een rode draad die iedereen zelf invult, is met geen enkel voorbeeld te weerleggen.</p>
+      <h3>Actie</h3>
+      <p>Het eerste thema gaat over in beweging komen en over dromen die nooit worden opgeschreven. Lindhout betoogt dat mensen hun verlangens vaag houden en ze daardoor ook nooit toetsen. Hij vraagt de lezer op te schrijven wat die zou doen als geld en het oordeel van anderen geen rol speelden, en dringt daarna aan op een eerste stap die klein genoeg is om deze week te zetten.</p>
+      <p>De voorbeelden komen uit zijn eigen loopbaan en uit de podcastgesprekken: mensen die ergens aan begonnen terwijl de omstandigheden nog niet klopten. De les die hij eruit trekt is dat motivatie op handelen volgt in plaats van eraan vooraf te gaan. Wachten tot de zin er is, betekent volgens hem meestal blijven wachten.</p>
+      <h3>Mindset</h3>
+      <p>Het tweede thema betreft de manier waarop iemand gebeurtenissen uitlegt. Lindhout onderscheidt wat iemand overkomt van wat iemand ervan maakt, en biedt oefeningen aan rond dankbaarheid, aandacht voor wat wel goed ging, en het herkennen van terugkerende gedachtepatronen.</p>
+      <p>Hij waarschuwt in hetzelfde hoofdstuk voor de doorgeslagen versie daarvan. Positief blijven denken terwijl er iets ernstigs speelt, noemt hij een manier om jezelf te ontlopen. Verdriet toelaten hoort in zijn opzet bij dezelfde vaardigheid. Dat is een van de plaatsen waar het boek zich duidelijk afzet tegen de manifestatieliteratuur waarmee het in de winkel op dezelfde tafel ligt.</p>
+      <h3>Liefde</h3>
+      <p>Het derde thema begint bij de verhouding tot jezelf. Lindhout beschrijft hoe hij zijn eigen waarde lang ophing aan prestaties, publiek en cijfers, en hoe juist de gesprekken met bekende Nederlanders hem lieten zien dat bekendheid daar niets aan verhelpt. Mensen die op het podium of op televisie staan, blijken in zijn opname even vaak te twijfelen aan hun waarde als wie dan ook.</p>
+      <p>Van daaruit gaat het over relaties: wat mensen van een partner verwachten, wat zij zelf inbrengen, en hoe vaak een tekort bij de ander wordt gezocht. Lindhout blijft hier dicht bij de gangbare relatieadviezen en voegt er weinig aan toe dat elders niet ook staat.</p>
+      <h3>Verbinding</h3>
+      <p>Het vierde thema gaat over het gezelschap waarin iemand leeft: vrienden, familie en het gevoel ergens bij te horen. Dit is volgens Lindhout het onderwerp dat in de gesprekken het vaakst werd genoemd door mensen die zeiden gelukkig te zijn, en het onderwerp dat in de zelfhulpliteratuur de minste aandacht krijgt omdat het zich niet in de eentje laat regelen.</p>
+      <p>Hij koppelt dat aan eenzaamheid onder mensen die er van buiten goed voor staan, en aan de moeite die volwassenen hebben om vriendschappen te onderhouden zodra werk en gezin de agenda vullen. De oefeningen in dit hoofdstuk zijn de meest concrete van het boek: iemand bellen, iets afzeggen, een afspraak vastleggen.</p>
+      <h3>De vorm van het boek</h3>
+      <p>Elk hoofdstuk wisselt anekdote, citaat uit een podcastaflevering, vraag aan de lezer en oefening af. De titel geeft de toon aan: spreektaal, inclusief de vloek, gericht op lezers die van een geluksboek geen wierook verwachten. Het boek telt 224 bladzijden en is in een paar uur uit.</p>
+      <p>Lezers die de podcast al volgden, melden in hun besprekingen dat zij weinig nieuws tegenkwamen. Dat is te verwachten bij een boek dat uit een reeks afleveringen is samengesteld, en het maakt de bundeling voor wie de reeks niet kent juist bruikbaar.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gelukszoeker</td><td>Hoe Lindhout zichzelf aanduidt: iemand die het antwoord bij anderen ophaalt en het zelf nog niet gevonden heeft.</td></tr>
+          <tr><td class="term">De vier thema's</td><td>Actie, mindset, liefde en verbinding, de onderwerpen die volgens Lindhout in vrijwel elk van zijn gesprekken terugkwamen.</td></tr>
+          <tr><td class="term">Actie</td><td>In beweging komen voordat de motivatie er is, met een eerste stap die klein genoeg is om deze week te zetten.</td></tr>
+          <tr><td class="term">Mindset</td><td>De manier waarop iemand gebeurtenissen uitlegt, waarbij Lindhout onderscheid maakt tussen wat iemand overkomt en wat iemand ervan maakt.</td></tr>
+          <tr><td class="term">Verbinding</td><td>Het gezelschap waarin iemand leeft, in zijn gesprekken het onderwerp dat gelukkige mensen het vaakst noemden.</td></tr>
+          <tr><td class="term">Rode draad</td><td>De term waarmee hij de vier thema's aanduidt, uitdrukkelijk niet als volgorde en niet als methode.</td></tr>
+          <tr><td class="term">Ervaringsdeskundige</td><td>Gesprekspartner zonder titel of bekendheid die uit eigen ondervinding spreekt, naast de bekende Nederlanders en de geluksdeskundigen.</td></tr>
+          <tr><td class="term">Zelfhulp voor wie een hekel heeft aan zelfhulp</td><td>De omschrijving waarmee het boek zichzelf aanbiedt en waarmee het zich afzet tegen de seminarwereld waar de auteur uit komt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is journalistiek noch wetenschappelijk. Zij bestaat uit gesprekken die Lindhout zelf voerde voor zijn podcast, aangevuld met wat hij op seminars hoorde en met zijn eigen leven. Er staat geen notenapparaat in, er worden geen onderzoeken met vindplaats aangehaald, en er is bij deze opzet ook geen controlegroep denkbaar. Wie wil weten of een advies werkt, komt met dit boek niet verder dan de vaststelling dat het bij de verteller werkte.</p>
+      <p>De gesprekspartners zijn bovendien geselecteerd op zichtbaarheid. Wie in een podcast over geluk en succes wordt uitgenodigd, is doorgaans iemand bij wie het goed afliep. Mensen die dezelfde houding aannamen en er niets mee bereikten, komen in het materiaal niet voor. Dat is de klassieke fout van alleen de overlevenden tellen, en het boek corrigeert er nergens voor.</p>
+      <p>Wat de vier thema's voor zich hebben, is dat zij aansluiten bij wat in het geluksonderzoek al decennia terugkeert, vooral het gewicht van sociale banden en de beperkte houdbaarheid van bezit en status. Dat Lindhout langs eigen weg bij verbinding uitkomt, maakt zijn boek geen bewijs, maar zet het ook niet buiten de literatuur. De hoofdstukken over actie en mindset staan zwakker: daar leunt hij op formuleringen uit de seminarwereld die hij elders juist wantrouwt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de spanning tussen de openingsstelling en de rest. Lindhout begint met de vaststelling dat geluk geen keuze is en dat het leven niet maakbaar is, en legt daarna, hoofdstuk na hoofdstuk vol oefeningen, de verantwoordelijkheid toch geheel bij de lezer. Geld, gezondheid, veiligheid en de vraag of iemand een netwerk heeft om op terug te vallen, blijven vrijwel buiten beeld. Het gezelschap dat hij bij verbinding aanbeveelt, is voor een deel van zijn lezers eenvoudigweg minder beschikbaar.</p>
+      <p>Daarnaast is de vier-thema-indeling niet af te wijzen. Elke uitkomst valt onder een van de vier te brengen, en wie ongelukkig blijft, heeft achteraf blijkbaar een van de vier verwaarloosd. Een uitspraak die niet fout kan zijn, verklaart weinig.</p>
+      <p>Lezers die zijn podcast kenden, noemen in hun besprekingen herhaling en een schrijver die zichzelf veel citeert. Ook de diepgang wordt gemist: onderwerpen worden aangeraakt en dan verlaten. Tegenover die bezwaren staat dat het boek eerlijk is over zijn eigen aard, geen genezing belooft en op meerdere plaatsen uitdrukkelijk waarschuwt tegen de positieve psychologie die alles wegdenkt wat pijn doet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op wat je zou doen als geld en het oordeel van anderen geen rol speelden, en zet er een eerste stap onder die binnen een week af kan zijn.</li>
+        <li>Ga na welk van de vier onderwerpen bij jou het langst is blijven liggen, en begin daar in plaats van bij het onderwerp waar je toch al goed in bent.</li>
+        <li>Noteer een week lang aan het eind van de dag wat er wel goed ging, en kijk daarna of de aantekeningen iets aanwijzen dat je vaker kunt doen.</li>
+        <li>Zet de vriend of het familielid dat je al maanden had willen spreken in de agenda met een datum, in plaats van het voornemen te bewaren.</li>
+        <li>Lees het boek als verslag van gesprekken en niet als bewijs; zoek de onderbouwing van een advies dat je overneemt elders op.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Kosmos Uitgevers, Utrecht/Antwerpen, 2020, 224 blz., ISBN 9789021576374; e-book ISBN 9789021576381, luisterboek ISBN 9789021576404, door de auteur zelf ingesproken. Van de paperback verschenen herdrukken onder ISBN 9789021579665. Nederlandstalig origineel; er bestaat geen vertaling. Het materiaal komt grotendeels uit de 100% Inspiratie Podcast, die Lindhout sinds 2016 maakt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thijs Lindhout is spreker, ondernemer en podcastmaker. Voor zijn 100% Inspiratie Podcast ondervroeg hij jarenlang bekende Nederlanders, geluksdeskundigen en ervaringsdeskundigen over de vraag waar hun geluk vandaan komt. Daarnaast bezocht hij seminars van sprekers die geluk als methode verkopen, naar eigen zeggen voor meer dan vijftigduizend euro.</p><p>Zijn conclusie is dat een stappenplan naar geluk niet bestaat en dat de zin dat geluk een keuze is, niet standhoudt zodra iemand ziek wordt of iemand verliest. Wat hij wel meende te zien is dat in vrijwel elk gesprek dezelfde vier onderwerpen terugkwamen: actie, mindset, liefde en verbinding. Die vier vormen de hoofdstukken.</p><p>Het boek presenteert zich als zelfhulpboek voor mensen die een hekel hebben aan zelfhulp. De toon is spreektaal, met veel anekdotes uit zijn eigen leven, vragen aan de lezer en korte oefeningen. Onderzoek met vindplaats staat er niet in; de onderbouwing bestaat uit de gesprekken die hij zelf voerde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geluk</li><li>zelfhulp</li><li>interviews</li><li>podcast</li><li>positieve psychologie</li><li>Nederland</li><li>zingeving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1665"><a href="1665.html">Wat is geluk?</a>. Kloosterman stelt dezelfde vraag rechtstreeks en zoekt het antwoord in de filosofie in plaats van in interviews, wat laat zien hoeveel de methode uitmaakt voor de uitkomst.</li>
+          <li value="1648"><a href="1648.html">Geluk zit in een klein boekje</a>. Mudder houdt het bij korte notities over geluk zonder methode; naast Lindhout maakt dat zichtbaar hoe weinig de vier thema's aan die notities toevoegen.</li>
+          <li value="105"><a href="105.html">Zo ongelukkig mogelijk in 8 stappen</a>. Den Daas draait de vraag om en beschrijft hoe je jezelf ongelukkig maakt, een omkering die de zwakke plekken in Lindhouts positieve opzet blootlegt.</li>
+          <li value="1761"><a href="1761.html">Leven met wind mee</a>. Hermus schrijft in hetzelfde Nederlandse zelfhulpsegment en met dezelfde toon; de twee boeken laten zien hoe groot dat segment inmiddels is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stress is een kunst &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De vraag waarmee Hans begint is of iemand gezondheidsklachten heeft doordat hij last van stress heeft, of last van stress heeft doordat hij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1683">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1683 &middot; Brein en lichaam</p>
+    <h1>Stress is een kunst</h1>
+    <p class="lede">Timo Hans, 2024</p>
+    <p class="stats">
+      <span><b>1347</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1683"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De vraag waarmee Hans begint is of iemand gezondheidsklachten heeft doordat hij last van stress heeft, of last van stress heeft doordat hij gezondheidsklachten heeft. Hij kiest het tweede. Stress is in zijn opvatting geen ziekmakende kracht van buiten maar een normale belasting die een gezond lichaam aankan, en de klachten ontstaan pas als slaap, ademhaling en voeding de draagkracht hebben ondermijnd. Daaruit volgt een advies dat tegen het gangbare ingaat: bij klachten niet minder doen maar de lichamelijke basis herstellen, en spanning daarna leren gebruiken in plaats van vermijden. De stelling is te toetsen op één punt. De omkering van oorzaak en gevolg is aannemelijk voor een deel van de gevallen, en het boek laat na te onderzoeken voor welk deel dat geldt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De omkering</h3>
+      <p>Het openingsdeel zet af tegen de gangbare aanpak van overspannenheid: gas terugnemen, verlof, een tijdje niets. Hans stelt dat dat de draagkracht niet vergroot en dat mensen na terugkeer opnieuw vastlopen, omdat de lichamelijke oorzaak onaangeroerd is gebleven.</p>
+      <p>Zijn benadering komt uit zijn eigen loopbaan. Hij begon als sportfysiotherapeut en liep binnen een half jaar vast op protocollen en administratie, waarna hij klachten breder ging bekijken. Wie een schouder behandelde en tegelijk aan slaap, voeding en ademhaling werkte, zag volgens hem niet alleen de schouder opknappen maar ook de energie en de spijsvertering.</p>
+      <h3>Stap één: het gaat niet over stress</h3>
+      <p>De eerste stap is lichamelijk en beslaat het grootste praktische deel. Beter slapen en rustiger wakker worden, ademhalingsoefeningen om spanning en pijn te verminderen, en een eetpatroon dat de energie over de dag stabiel houdt.</p>
+      <p>Op het punt van voeding gaat Hans in tegen het advies dat diëtisten vaak geven om regelmatig en vaak te eten. Hij bepleit juist minder eetmomenten, met als redenering dat het lichaam tussen de maaltijden werk te doen heeft dat bij voortdurende aanvoer niet aan bod komt.</p>
+      <h3>Stap twee: de stressmindset</h3>
+      <p>De tweede stap gaat over de houding tegenover spanning. Wie stress als beschadigend beschouwt, reageert er anders op dan wie haar leest als teken van inspanning en betekenis, en dat verschil werkt volgens Hans door in wat het lichaam ermee doet.</p>
+      <p>Hij trekt daar een gevolgtrekking uit die voor de lezer ongemakkelijk kan zijn: langdurige spanning hoeft niet ziekmakend te zijn, mits de lichamelijke basis op orde is. Stress is in die redenering ook een aanwijzing dat iemand met iets bezig is dat hem iets waard is.</p>
+      <h3>Stap drie: die houding oefenen</h3>
+      <p>Het slotdeel bestaat uit vijf oefeningen waarmee de lezer de houding uit stap twee kan trainen, met de bedoeling de geestelijke weerbaarheid te vergroten en het herstel na belasting te versnellen.</p>
+      <p>De oefeningen sluiten aan bij het lichamelijke deel: adem, slaapritme en beweging zijn er ook de dragers van. Het boek eindigt daarmee waar het begon, bij de gedachte dat houding en lichaam niet los van elkaar zijn te behandelen.</p>
+      <h3>De zes domeinen en de praktijk erachter</h3>
+      <p>Onder het boek ligt het model waarmee Hans zijn opleiding inricht: ademhaling, slaap, stress, voeding, immuunsysteem en bewegen, die elkaar over en weer beïnvloeden. Physis Academy leidt paramedici op tot wat hij brede generalisten noemt, tegen de gespecialiseerde inrichting van de zorg in.</p>
+      <p>In gesprekken over het boek noemt hij uitkomsten uit die praktijk: mensen met een burn-out die binnen vier tot acht weken hun energie terugkrijgen en het werk hervatten, energieniveaus die van een drie naar een acht gaan, en patiënten met een auto-immuunziekte bij wie de bloedwaarden binnen drie maanden normaliseren. Dat zijn cijfers uit zijn eigen praktijk en niet uit vergelijkend onderzoek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De zes domeinen</td><td>Ademhaling, slaap, stress, voeding, immuunsysteem en bewegen, die Hans als onderling verbonden behandelt in plaats van afzonderlijk.</td></tr>
+          <tr><td class="term">Stressmindset</td><td>De houding tegenover spanning, die volgens Hans bepaalt hoeveel schade dezelfde belasting aanricht.</td></tr>
+          <tr><td class="term">Draagkracht</td><td>Het vermogen van het lichaam om gewone dagelijkse belasting te verdragen, dat door slaap, ademhaling en voeding wordt opgebouwd of afgebroken.</td></tr>
+          <tr><td class="term">De omgekeerde vraag</td><td>Zijn openingsvraag of de klachten door de stress komen of de stress door de klachten, waarmee hij de gebruikelijke volgorde van oorzaak en gevolg omdraait.</td></tr>
+          <tr><td class="term">Brede generalist</td><td>De zorgverlener die klachten over de zes domeinen heen bekijkt, tegenover de specialist die één gebied behandelt.</td></tr>
+          <tr><td class="term">Eetmomenten</td><td>Het aantal keren per dag dat iemand eet, dat Hans wil verlagen tegen het gangbare advies in om regelmatig en vaak te eten.</td></tr>
+          <tr><td class="term">Ademhalingstechniek</td><td>De oefeningen waarmee hij spanning, pijn en slaapkwaliteit aanpakt, in zijn opzet de snelste ingang van de zes domeinen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het uitgangspunt is verdedigbaar en niet nieuw. Dat slaaptekort, weinig beweging en een ontregeld eetpatroon de gevoeligheid voor spanning vergroten, is in de leefstijlgeneeskunde goed gedocumenteerd, en dat een deel van de klachten die als overspannenheid binnenkomen een lichamelijke grond heeft, is in de huisartsenpraktijk bekend. Op dat niveau brengt Hans een redelijke samenvatting van bestaande inzichten.</p>
+      <p>De onderbouwing van de omkering zelf is van een andere orde. De bewering dat de meeste burn-outklachten geen geestelijke oorzaak hebben en dat vier tot acht weken lichamelijke begeleiding volstaat, rust op wat hij in zijn eigen praktijk ziet. Er is geen vergelijkingsgroep, geen registratie vooraf van wie er wel en niet opknapt, en geen navolging op langere termijn. Mensen die zich bij een leefstijlpraktijk melden zijn bovendien een geselecteerde groep: zij zijn gemotiveerd en veranderen tegelijk meerdere dingen, waardoor niet is uit te maken welk domein het werk doet.</p>
+      <p>Het deel over de stressmindset sluit aan bij bestaand onderzoek naar de invloed van opvattingen over stress op lichamelijke reacties. Dat onderzoek bestaat en wijst een kant op, maar de gemeten effecten zijn bescheiden en de herhaalbaarheid ervan is in de psychologie onderwerp van discussie. Het boek geeft de lezer geen apparaat om dat na te lopen; wie de grond onder deze stap wil zien, moet buiten deze 128 bladzijden zoeken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar gaat over wat de omkering doet met mensen bij wie de oorzaak wel in het werk of in de omstandigheden ligt. Wie vastloopt door een onmogelijke opdracht, een slechte leidinggevende, mantelzorg of geldzorgen, krijgt hier te horen dat het lichaam de zwakke plek is. Dat verplaatst de verantwoordelijkheid naar de persoon en laat de omstandigheden buiten beschouwing. Hans bestrijdt de gedachte dat rust helpt, terwijl bij een deel van de gevallen het wegnemen van de belasting wel degelijk de behandeling is.</p>
+      <p>Ten tweede is de belofte van resultaat binnen vier weken een verkoopargument dat als bevinding wordt gebracht. Een termijn hoort bij een uitkomstmaat en bij een groep waarop die is gemeten, en beide ontbreken. Datzelfde geldt voor de sprong van energieniveau drie naar acht en voor de auto-immuunwaarden: het zijn zelfrapportages uit een praktijk die er belang bij heeft.</p>
+      <p>Ten derde is het bestek te klein voor de ambitie. Zes domeinen die elkaar beïnvloeden, in 128 bladzijden, levert per domein weinig meer op dan een aanwijzing en een oefening. Het advies over minder eetmomenten wordt bijvoorbeeld tegenover de beroepsgroep van diëtisten gezet zonder dat de lezer de afweging voorgelegd krijgt waarop dat verschil berust. Voor wie de aanpak wil beoordelen is het boek daarmee vooral een uitnodiging voor de opleiding erachter.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij aanhoudende klachten eerst na of slaap, ademhaling en eetpatroon op orde zijn voordat je aan de belasting zelf gaat sleutelen.</li>
+        <li>Houd twee weken bij hoeveel eetmomenten en hoeveel uur slaap een dag telt; het boek gaat ervan uit dat mensen dat verkeerd inschatten.</li>
+        <li>Begin met de ademhalingsoefeningen; dat is het onderdeel met de laagste drempel en het snelste merkbare gevolg.</li>
+        <li>Onderscheid bij jezelf welke spanning hoort bij iets dat je iets waard is en welke voortkomt uit omstandigheden die je kunt veranderen.</li>
+        <li>Ga bij klachten die met het werk of met de thuissituatie samenhangen niet alleen op dit boek af; de aanpak laat die oorzaken buiten beeld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen bij Haystack, Amsterdam, in maart 2024, 128 blz., ISBN 9789461265845; het e-boek heeft ISBN 9789461266163. Er bestaat geen vertaling. Hans is opgeleid als fysiotherapeut en richtte ruim zeven jaar geleden Physis Academy op, waar hij paramedici, artsen en coaches opleidt in wat hij de zes domeinen noemt; daarnaast maakt hij podcasts en verzorgt hij een meerjarige opleiding.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Timo Hans draait de gebruikelijke vraag om. Hij vraagt niet hoe iemand de stress in zijn leven vermindert. Hij vraagt waarom het lichaam de gewone belasting van een week niet meer aankan. Zijn antwoord is dat slecht slapen, verkeerd ademen en eten dat niet uitkomt de weerstand hebben afgebroken, en dat rust nemen daar niets aan verandert.</p><p>Het boek is dun en in drie stappen ingedeeld. Eerst het lichamelijke: slaap, ademhaling en voeding. Dan wat hij de stressmindset noemt, de houding tegenover spanning. Tot slot vijf oefeningen om die houding te trainen.</p><p>Achter het boek staat de praktijk van Physis Academy, waar Hans zes domeinen aanhoudt die elkaar beïnvloeden: ademhaling, slaap, stress, voeding, immuunsysteem en bewegen. Hij zegt dat mensen met die aanpak binnen vier weken herstel merken en dat de meeste burn-outklachten geen geestelijke oorzaak hebben.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stress</li><li>burn-out</li><li>ademhaling</li><li>slaap</li><li>voeding</li><li>leefstijl</li><li>fysiotherapie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="458"><a href="458.html">The Upside of Stress</a>. McGonigal behandelt dezelfde gedachte over de houding tegenover spanning, en wel met het onderzoek erbij waaraan Hans zijn tweede stap ontleent.</li>
+          <li value="318"><a href="318.html">Breath: The New Science of a Lost Art</a>. Nestor doet met ademhaling wat Hans in enkele bladzijden afdoet, inclusief de geschiedenis van de technieken en de plaatsen waar het onderzoek dun is.</li>
+          <li value="1759"><a href="1759.html">OERsterk</a>. De Leth bouwt zijn Nederlandse leefstijlaanpak op dezelfde pijlers van slaap, voeding en beweging, en de twee boeken laten samen zien hoe dit genre zijn beloften formuleert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

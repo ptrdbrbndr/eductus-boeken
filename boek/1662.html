@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Practice of Lojong &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kyabgon stelt dat mededogen in het boeddhisme geen gevoel is dat je overkomt maar een vermogen dat je oefent, en dat lojong precies daarvoor de methode…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1662">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1662 &middot; Filosofie en mystiek</p>
+    <h1>The Practice of Lojong</h1>
+    <p class="lede">Traleg Kyabgon, 2007</p>
+    <p class="stats">
+      <span><b>1655</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1662"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kyabgon stelt dat mededogen in het boeddhisme geen gevoel is dat je overkomt maar een vermogen dat je oefent, en dat lojong precies daarvoor de methode is. De negenenvijftig spreuken zijn in zijn lezing geen wijsheden om over na te denken maar tegengif tegen bepaalde gewoonten van de geest: het voortdurend voortrekken van jezelf, het uit de weg gaan van ongemak, en de aanname dat je ervaring vast en gegeven is. De oefening werkt volgens hem in twee richtingen tegelijk. Relatieve bodhichitta traint de bereidheid om andermans last op je te nemen, onder meer in de tonglen-meditatie waarin je op de inademing het lijden van een ander binnenlaat en op de uitademing verlichting terugstuurt. Absolute bodhichitta traint het inzicht dat de vaste zelf die dat allemaal ondergaat er niet op die manier is. Zonder het tweede verandert het eerste volgens hem in een uitputtende vorm van plichtsbesef.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar lojong vandaan komt</h3>
+      <p>De inleiding schetst de herkomst. Atisha (982-1054) bracht de mondelinge onderrichtingen naar Tibet die hij onder meer van zijn leraren in Sumatra en India had ontvangen. Ruim een eeuw later kwam Chekawa Yeshe Dorje een regel tegen die luidde dat winst en overwinning aan anderen toekomen en verlies en nederlaag aan jezelf. Hij ging op zoek naar de herkomst van die zin, studeerde twaalf jaar bij een leerling van Langri Tangpa, en bracht de leer daarna onder in zeven punten.</p>
+      <p>Kyabgon benadrukt dat lojong lange tijd geheim werd gehouden, niet uit geheimzinnigheid maar omdat de spreuken zonder toelichting makkelijk verkeerd worden begrepen. Pas toen Chekawa ze opschreef werden ze breder toegankelijk. Die geschiedenis is voor hem geen anekdote: zij verklaart waarom een commentaar nodig is en waarom de spreuken op zichzelf gelezen tot vergissingen leiden.</p>
+      <h3>De voorbereiding</h3>
+      <p>Het eerste punt bestaat uit de voorbereidende beschouwingen die het hele Tibetaanse curriculum kent: de zeldzaamheid van een menselijk leven waarin oefening mogelijk is, de zekerheid van de dood en de onzekerheid van het tijdstip, de werking van handelingen en hun gevolgen, en de onbevredigendheid van het gewone bestaan.</p>
+      <p>Kyabgon verzet zich tegen de neiging van westerse lezers om dit deel over te slaan en meteen naar de spreuken te gaan. De voorbereiding is volgens hem wat de rest zijn ernst geeft. Wie niet doorheeft hoe kort en hoe onzeker zijn tijd is, zal het ongemak van tonglen niet lang volhouden, omdat er geen aanleiding is om het vol te houden.</p>
+      <h3>Twee soorten bodhichitta</h3>
+      <p>Het tweede punt bevat de eigenlijke oefening. Kyabgon behandelt eerst de absolute kant: de spreuken die zeggen dat je alle verschijnselen als een droom moet beschouwen en dat je de aard van het gewaarzijn zelf moet onderzoeken. Dat is geen ontkenning dat er iets is, maar de vaststelling dat wat er is geen vaste kern heeft, ook de waarnemer niet.</p>
+      <p>Daarna volgt de relatieve kant, met tonglen als kern. De beweging gaat tegen de natuurlijke richting in: op de inademing neem je binnen wat je liever kwijt zou zijn, op de uitademing geef je weg wat je liever zou houden. Kyabgon waarschuwt uitdrukkelijk dat dit geen overdracht van lijden is en dat de beoefenaar er niet ziek van wordt. Wat er wordt geoefend is de bereidheid, en die bereidheid is wat de gewoonte om zichzelf voor te trekken ondergraaft.</p>
+      <h3>Tegenslag als het pad</h3>
+      <p>Het derde punt behandelt wat lojong onder westerse beoefenaars bekend heeft gemaakt: het omzetten van tegenslag in oefenmateriaal. Ziekte, verlies, vernedering en verraad zijn in deze leer niet de onderbreking van de oefening maar de gelegenheid ertoe, omdat zij het zelfbeeld raken op een manier die een rustige zitting niet kan.</p>
+      <p>Kyabgon is hier voorzichtiger dan veel populaire uitleggers. Hij stelt dat dit punt niet betekent dat je tegenslag moet opzoeken, dat je onrecht niet mag aanwijzen, of dat je je moet laten mishandelen. Het gaat om wat je met de eigen reactie doet, niet om berusting in de omstandigheid. Dat onderscheid gaat in de spreukvorm makkelijk verloren, en het is een van de misverstanden die hij zegt te willen rechtzetten.</p>
+      <h3>Volhouden, meten, en de regels eromheen</h3>
+      <p>De laatste vier punten gaan over de lange termijn. Het vierde betreft het inpassen van de oefening in een heel leven, tot en met de instructies voor het moment van sterven. Het vijfde geeft de maat waaraan een beoefenaar kan aflezen of er iets verandert, waarbij het opvallende criterium is dat er niets bijzonders hoort te gebeuren: minder gepieker, minder behoefte om gelijk te krijgen, meer bruikbaarheid voor anderen.</p>
+      <p>Het zesde en zevende punt bevatten de verplichtingen en de praktische richtlijnen: niet met je oefening te koop lopen, niet oordelen over anderen die het minder goed doen, geen misbruik maken van iemands zwakke plek, niet verwachten dat er dank tegenover staat. Deze regels zijn het nuchterste deel van het boek en tegelijk het deel dat het scherpst laat zien hoe makkelijk een oefening in mededogen in zelfingenomenheid omslaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Lojong</td><td>Tibetaans voor geestestraining. De naam voor het geheel van negenenvijftig spreuken en de oefeningen eromheen, geordend in zeven punten, gericht op het kweken van mededogen en het losser maken van de vanzelfsprekendheid van het ik.</td></tr>
+          <tr><td class="term">Tonglen</td><td>Zenden en nemen. De ademmeditatie waarin je op de inademing het lijden van anderen tot je neemt en op de uitademing verlichting en welzijn terugstuurt. De beweging gaat opzettelijk in tegen de gewone neiging om onaangenaams weg te duwen.</td></tr>
+          <tr><td class="term">Relatieve bodhichitta</td><td>De praktische kant van het ontwaakte hart: de daadwerkelijke bereidheid om het welzijn van anderen zwaarder te laten wegen dan het eigen gemak. Zij wordt geoefend, niet gevoeld, en het onderscheid tussen die twee is bij Kyabgon van belang.</td></tr>
+          <tr><td class="term">Absolute bodhichitta</td><td>Het inzicht dat verschijnselen, met inbegrip van de persoon die ze waarneemt, geen vaste eigen kern hebben. Zonder deze kant wordt mededogen volgens Kyabgon een last, omdat er dan iemand blijft die het allemaal moet dragen.</td></tr>
+          <tr><td class="term">Zelfkoestering</td><td>De gewoonte om het eigen belang stelselmatig voorrang te geven, in het boeddhisme aangewezen als de bron van het meeste zelfgemaakte lijden. Vrijwel elke spreuk in lojong is als tegengif tegen deze gewoonte bedoeld.</td></tr>
+          <tr><td class="term">Spreuk</td><td>De korte, vaak raadselachtige formulering waarin een oefeninstructie is samengebald, zoals de regel dat je alles de schuld moet geven van één ding. De vorm is bedoeld om te onthouden en op te roepen op het moment dat het nodig is, niet om zelfstandig te worden gelezen.</td></tr>
+          <tr><td class="term">Tulku</td><td>Een leraar die is aangewezen als de voortzetting van een eerdere leraar en die van jongs af aan daarop wordt opgeleid. Kyabgon was de negende Traleg Kyabgon; hij legde in 1981 zijn kloostergeloften af en bleef als leek lesgeven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een commentaar binnen een overlevering en ontleent zijn gezag daaraan: aan de tekst van Chekawa, aan de commentaren van Jamgön Kongtrul en anderen, en aan de opleiding en positie van de auteur. Wie dat gezag niet aanvaardt, houdt een reeks aanbevelingen over die nergens op steunen behalve op de vraag of ze in de praktijk iets doen.</p>
+      <p>Kyabgon voert zijn ruim twintig jaar lesgeven aan westerse leerlingen aan als grond voor zijn correcties. Dat is bruikbaar materiaal over hoe de leer wordt misverstaan, en het is het beste deel van zijn onderbouwing, maar het blijft ongeordende ervaring van één leraar.</p>
+      <p>Er bestaat inmiddels onderzoek naar het effect van compassietraining op stress en op gedrag tegenover anderen, waarvan sommige vormen rechtstreeks van lojong zijn afgeleid. Het boek verwijst daar niet naar en heeft dat ook niet nodig: het doel van lojong is niet welbevinden maar het ondergraven van zelfkoestering, en dat laat zich met de gangbare uitkomstmaten slecht meten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is minder toegankelijk dan het zich voordoet. Kyabgon schrijft nauwkeurig, maar hij veronderstelt een vertrouwdheid met boeddhistische begrippen die een eerste lezer niet heeft. Wie hier begint, is beter af met een inleiding ernaast; de verklarende woordenlijst achterin dekt maar een deel van de behoefte.</p>
+      <p>De tonglen-instructie blijft ondanks zijn waarschuwingen gevoelig voor misverstand. Het beeld van andermans lijden binnenademen roept bij mensen die zelf op hun tandvlees lopen precies de verkeerde reactie op, en het onderscheid tussen bereidheid oefenen en werkelijk iets overnemen is met woorden lastig vast te houden.</p>
+      <p>Het voorwoord van Ken Wilber trekt het boek een richting op die de tekst zelf niet nodig heeft. Wilber plaatst lojong in zijn eigen ontwikkelingsschema, wat de indruk wekt dat de oefening pas betekenis krijgt binnen dat kader. De hoofdstukken die volgen doen daar niets mee.</p>
+      <p>Het derde punt over tegenslag als pad blijft ook bij deze zorgvuldige uitleg ongemakkelijk. Waar precies de grens ligt tussen het oefenen met de eigen reactie en het goedpraten van een schadelijke situatie, is een vraag die het boek benoemt maar niet oplost.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de spreuken niet los; ze zijn ontworpen om samen met een toelichting te werken en gaan zonder die toelichting hun eigen leven leiden.</li>
+        <li>Begin bij het voorbereidende deel, ook als het traag lijkt, want de rest steunt erop.</li>
+        <li>Oefen tonglen eerst voor iemand van wie je houdt en niet voor de hele wereld; de opschaling komt later of komt niet.</li>
+        <li>Neem de richtlijnen uit de laatste twee punten letterlijk, in het bijzonder die over niet met je oefening te koop lopen.</li>
+        <li>Toets het resultaat aan de maatstaf die het boek zelf geeft: minder behoefte om gelijk te krijgen, niet meer bijzondere ervaringen.</li>
+        <li>Wie het te droog vindt, kan Chödrön ernaast leggen; wie Chödrön te vaag vindt, heeft aan dit boek precies wat daar ontbreekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Practice of Lojong: Cultivating Compassion through Training the Mind</i>, Shambhala Publications, Boston 2007, met een voorwoord van Ken Wilber, ISBN 9781590303788. Het boek is een commentaar op de <i>Zeven punten van geestestraining</i> van Chekawa Yeshe Dorje (1101-1175) en volgt die zeven punten in zeven hoofdstukken, gevolgd door de lojong-gebedstekst van Jamgön Kongtrul, een verklarende woordenlijst en een bibliografie. Traleg Kyabgon (1955-2012) publiceerde tussen 2001 en 2015 een reeks boeken bij Shambhala en bij zijn eigen Shogam Publications. Er is geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Traleg Kyabgon was de negende in een reeks tulku's van de Kagyu-school, op tweejarige leeftijd aangewezen door de zestiende Karmapa en opgeleid in India nadat zijn familie in 1959 Tibet had verlaten. Hij legde in 1981 zijn kloostergeloften af, trouwde, en bouwde vanuit Melbourne een reeks instituten op. Hij studeerde daarnaast vergelijkende wijsbegeerte aan een Australische universiteit, wat aan zijn boeken te merken is.</p><p><i>The Practice of Lojong</i> is zijn commentaar op de zeven punten van geestestraining, een Tibetaanse oefenvorm die teruggaat op de Bengaalse leraar Atisha en die in de twaalfde eeuw door Chekawa Yeshe Dorje in negenenvijftig korte spreuken werd geordend. Elk van de zeven punten krijgt een hoofdstuk, van de voorbereiding tot de richtlijnen waaraan een beoefenaar zich houdt.</p><p>Wat het boek onderscheidt van andere westerse lojong-boeken is de nadruk op nauwkeurigheid. Kyabgon schrijft dat hij na ruim twintig jaar lesgeven in het Westen bepaalde misverstanden steeds terug zag komen en dat hij die wil rechtzetten. Het levert een boek op dat minder warm is dan de bekendere uitgaven en preciezer over wat de oefening wel en niet inhoudt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>lojong</li><li>tonglen</li><li>bodhichitta</li><li>mededogen</li><li>Tibetaans boeddhisme</li><li>geestestraining</li><li>Kagyu</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1168"><a href="1168.html">Als je wereld instort</a>. Chödrön behandelt dezelfde oefening voor een breed publiek en veel warmer; naast Kyabgon valt op wat er aan scherpte verdwijnt zodra het toegankelijk wordt gemaakt.</li>
+          <li value="1559"><a href="1559.html">Cutting Through Spiritual Materialism</a>. Trungpa waarschuwt voor precies de valkuil waar de laatste twee punten van lojong regels tegen geven: het inzetten van de oefening ter versteviging van het ego.</li>
+          <li value="1754"><a href="1754.html">Het Tibetaanse boek van leven en sterven</a>. Sogyal Rinpoche werkt uit wat in het vierde punt van lojong alleen wordt aangestipt: hoe deze training zich verhoudt tot het sterven zelf.</li>
+          <li value="1525"><a href="1525.html">Compassievol leven</a>. Van den Brink en Koster laten zien wat er van mededogenstraining overblijft wanneer zij uit haar boeddhistische kader wordt gehaald en als therapie wordt aangeboden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

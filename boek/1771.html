@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slaughterhouse-Five &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Vonnegut schreef een boek over een bombardement dat hij zelf overleefde, en kwam tot de slotsom dat er over een slachting niets verstandigs te zeggen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1771">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1771 &middot; Roman en memoir</p>
+    <h1>Slaughterhouse-Five</h1>
+    <p class="lede">Kurt Vonnegut jr., 1969; vert. Else Hoog</p>
+    <p class="stats">
+      <span><b>1596</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1771"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Vonnegut schreef een boek over een bombardement dat hij zelf overleefde, en kwam tot de slotsom dat er over een slachting niets verstandigs te zeggen valt. Die slotsom bepaalt de vorm. In plaats van een verhaal met opbouw en betekenis levert hij losse scherven in willekeurige volgorde, verteld door een man die beweert dat verleden, heden en toekomst even werkelijk zijn en dat er dus niets te voorkomen viel. Daarmee dwingt het boek een keuze af: die opvatting is een troost voor wie het heeft meegemaakt en tegelijk de opheffing van alle verantwoordelijkheid, en Vonnegut laat uitdrukkelijk in het midden of hij zijn eigen verteller gelooft. Wat hij niet in het midden laat, is dat er in Dresden mensen zijn verbrand die er niets aan konden doen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het eerste hoofdstuk</h3>
+      <p>Vonnegut opent in zijn eigen naam. Hij vertelt dat hij dit boek al jaren wil schrijven, dat hij aantekeningen maakte op de achterkant van behang en dat hij zijn oude krijgsmakker Bernard O'Hare opzocht om herinneringen op te halen. Diens vrouw Mary was woedend: hij zou een boek maken waarin de oorlog door volwassen mannen wordt gevoerd, waarna er weer nieuwe oorlogen komen. Zij waren kinderen, zei zij.</p>
+      <p>Vonnegut belooft haar dat er geen rol voor een filmster in zal zitten en geeft het boek de ondertitel De kinderkruistocht. Hij vertelt ook over de vrouw van Lot, die omkeek naar de brandende stad en in een zoutpilaar veranderde. Dat omkijken noemt hij menselijk, en hij zegt dat hij precies dat gedaan heeft.</p>
+      <h3>Billy Pilgrim raakt los in de tijd</h3>
+      <p>Het tweede hoofdstuk begint met de mededeling dat Billy Pilgrim los is geraakt in de tijd. Hij is opticien in Ilium, getrouwd met Valencia, de dochter van zijn welgestelde werkgever, en heeft twee kinderen. Zijn leven is naar buitenaf geslaagd en van binnen leeg.</p>
+      <p>Het boek springt met hem mee: naar zijn jeugd, naar het ziekenhuis waar hij na een vliegtuigongeluk ligt, naar zijn dood, naar de oorlog. Die volgorde is de vorm van het boek. Er is geen spanningsboog, want alles is al gebeurd en zal opnieuw gebeuren.</p>
+      <h3>De oorlog</h3>
+      <p>In december 1944 loopt Billy als hulp van een aalmoezenier zonder helm en zonder wapen achter de linies verloren in het Ardennenoffensief. Hij trekt op met Roland Weary, een jongen die zich een held waant en hem het leven redt om daarna kwaad te worden dat hij er niet dankbaar voor is. Zij worden gevangengenomen en in een goederenwagon naar het oosten gebracht.</p>
+      <p>Weary sterft onderweg aan koudvuur en geeft Paul Lazzaro de opdracht Billy te doden, wat Lazzaro belooft en jaren later uitvoert. In het doorgangskamp krijgen de Amerikanen een onthaal van Engelse officieren die daar al jaren zitten en van het Rode Kruis te veel voedsel ontvangen. Billy krijgt een te kleine jas en een paar zilveren toneellaarzen, waarin hij de rest van het boek rondloopt.</p>
+      <h3>Dresden</h3>
+      <p>De gevangenen worden ondergebracht in een leegstaand abattoir, Schlachthof funf. Dresden is onbeschadigd, vol vluchtelingen en volgens iedereen geen doelwit. In de nacht van 13 op 14 februari 1945 wordt de stad in brand gebombardeerd. Billy en de anderen overleven het in een vleeskelder onder de grond.</p>
+      <p>Wat er boven gebeurd is, ziet hij pas de volgende dag: een landschap dat volgens het boek op het oppervlak van de maan lijkt. De krijgsgevangenen worden ingezet om lijken uit de kelders te halen. Edgar Derby, de oudste van hen, een leraar die zich vrijwillig had gemeld, wordt na afloop gefusilleerd omdat hij een theepot uit de puinhopen heeft meegenomen. Dat is de gebeurtenis waar het hele boek volgens Vonnegut om draait, en zij krijgt twee zinnen.</p>
+      <h3>Tralfamadore</h3>
+      <p>Billy vertelt dat hij op zijn achttiende trouwdag door wezens van de planeet Tralfamadore is ontvoerd en daar naakt in een dierentuin is tentoongesteld, later samen met de filmster Montana Wildhack. De Tralfamadoriërs zien alle tijdstippen tegelijk, zoals een mens een bergketen ziet. Iemand die dood is, is volgens hen op dat ene moment dood en op alle andere momenten in leven.</p>
+      <p>Daaruit volgt hun houding tegenover de dood en de zin die het boek meer dan honderd keer herhaalt: zo gaat dat. Het is niet duidelijk of Billy dit heeft meegemaakt of heeft opgebouwd uit de sciencefictionromans van Kilgore Trout, die hij las in de psychiatrische afdeling waar hij na de oorlog terechtkwam, naast een veteraan die hetzelfde had gezien als hij.</p>
+      <h3>Het slot</h3>
+      <p>In het laatste hoofdstuk neemt Vonnegut het woord weer over. Hij noemt de moorden op Robert Kennedy en Martin Luther King, de dagelijkse dodentallen uit Vietnam en de dood van zijn eigen vader, en zet die naast Dresden.</p>
+      <p>De oorlog eindigt, de gevangenen lopen een lege weg op en een vogel zegt tegen Billy: poo-tee-weet. Dat is het laatste woord van het boek en het enige dat er volgens Vonnegut over een slachting te zeggen valt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zo gaat dat</td><td>De zin die na elk sterfgeval in het boek volgt, ontleend aan de Tralfamadoriërs, in het Engels 'so it goes'.</td></tr>
+          <tr><td class="term">Los in de tijd</td><td>Billy's toestand waarin hij zijn eigen leven niet op volgorde beleeft maar in sprongen, zonder invloed op waar hij uitkomt.</td></tr>
+          <tr><td class="term">Tralfamadore</td><td>De planeet waarvan de bewoners alle tijdstippen tegelijk waarnemen en daarom geen vrije wil en geen verandering kennen.</td></tr>
+          <tr><td class="term">De kinderkruistocht</td><td>De ondertitel, gegeven op verzoek van Mary O'Hare, om vast te leggen dat de soldaten van dit boek jongens waren en geen mannen.</td></tr>
+          <tr><td class="term">Schlachthof funf</td><td>Het Dresdense slachthuis waarin de krijgsgevangenen sliepen en waarvan de koelkelder hun het leven redde; het adres bestond werkelijk.</td></tr>
+          <tr><td class="term">De vrouw van Lot</td><td>Het beeld uit het eerste hoofdstuk voor het omkijken naar wat vernietigd is, dat Vonnegut menselijk noemt en waarvoor hij de straf aanvaardt.</td></tr>
+          <tr><td class="term">Kilgore Trout</td><td>De mislukte sciencefictionschrijver die in meer boeken van Vonnegut opduikt en van wiens verhalen Billy's beeld van Tralfamadore afkomstig kan zijn.</td></tr>
+          <tr><td class="term">Poo-tee-weet</td><td>Het vogelgeluid waarmee het boek eindigt, en het antwoord dat Vonnegut op de vraag naar de zin van een slachting overhoudt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het feitelijke deel van het boek klopt. Vonnegut werd in december 1944 in het Ardennenoffensief gevangengenomen, zat in Dresden in een slachthuis, overleefde het bombardement in een kelder en werd daarna ingezet bij het bergen van lijken. Ook Bernard O'Hare, die hij in het eerste hoofdstuk opzoekt, bestond werkelijk.</p>
+      <p>Bij het aantal doden ligt dat anders. Vonnegut noemt in het boek een getal van ongeveer honderdvijfendertigduizend, dat hij overnam uit <i>The Destruction of Dresden</i> van David Irving uit 1963. Dat getal is niet houdbaar gebleken. Een commissie van historici, in opdracht van de stad Dresden, kwam in 2010 uit op vijfentwintigduizend doden als bovengrens. Irving zelf is later in een rechtszaak in Londen als vervalser van de geschiedenis aangemerkt. Wie het boek nu leest, leest dus een cijfer dat het gewicht van de gebeurtenis niet nauwkeurig weergeeft.</p>
+      <p>De vorm doet wat de inhoud beweert. Doordat elk sterfgeval dezelfde vier woorden krijgt, of het nu om champagne, om een luis of om een stad gaat, verliest de dood in het boek zijn rangorde. Dat is geen achteloosheid maar het beschreven gevolg van wat de verteller heeft gezien, en het is de reden dat de sciencefiction in dit boek niet als ontsnapping werkt maar als symptoom.</p>
+      <p>De ontvangst is te volgen. Het boek verscheen tijdens de oorlog in Vietnam, kwam meteen op de bestsellerlijsten, werd in 1972 verfilmd en staat sindsdien op de lijsten van belangrijkste Engelstalige romans van de eeuw. Het hoort ook tot de meest bestreden boeken in Amerikaanse scholen: in 1973 liet een schoolbestuur in Drake, North Dakota, de exemplaren verbranden, en het boek was een van de titels in de zaak die in 1982 tot een uitspraak van het Amerikaanse Hooggerechtshof over schoolbibliotheken leidde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt het fatalisme. Als alle tijdstippen even werkelijk zijn en niets te veranderen valt, dan valt er ook niets te verwijten, en dat geldt zowel voor de bemanning van de bommenwerpers als voor iedere volgende oorlog. Voor een boek dat als aanklacht tegen de oorlog wordt gelezen, is dat een merkwaardige uitkomst. Vonnegut is zich daarvan bewust en laat de verteller in het eerste hoofdstuk zeggen dat het boek mislukt is, maar die erkenning lost het bezwaar niet op.</p>
+      <p>Billy Pilgrim ondergaat alles. Hij verzet zich niet, kiest niet en leert niets. Dat maakt hem een geloofwaardige getuige van een verwoesting en een lastige hoofdpersoon: de lezer die wil weten wat een mens hiermee aan moet, krijgt van hem geen antwoord.</p>
+      <p>Het cijfer van Irving is de zwakste plek in de feitelijke onderbouwing. Vonnegut kon in 1969 niet weten wat later bekend werd, maar het getal draagt in het boek wel gewicht: het maakt van Dresden de grootste slachting van de oorlog in Europa, wat het niet was.</p>
+      <p>De vrouwen in het boek zijn nauwelijks personages. Valencia is de dikke, goedbedoelende echtgenote, Montana Wildhack is een filmster die naakt in een dierentuin wordt gezet, en Mary O'Hare heeft de scherpste zinnen van het boek maar staat alleen in het eerste hoofdstuk. Het is een veelgemaakt bezwaar en het is terecht.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Slaughterhouse-Five, or The Children's Crusade: A Duty-Dance with Death</i> (Delacorte Press, New York, 1969). De Nederlandse vertaling van Else Hoog verscheen in 1970 bij Meulenhoff, Amsterdam, als <i>Slachthuis vijf, of De kinderkruistocht: een verplichte dans met de dood</i>; de uitgave die nu leverbaar is heeft ISBN 9789029088589. Ook ander werk van Vonnegut is in het Nederlands vertaald. George Roy Hill verfilmde het boek in 1972.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kurt Vonnegut zat in februari 1945 als Amerikaans krijgsgevangene in Dresden, ondergebracht in een slachthuis met het nummer vijf, toen de stad door Britse en Amerikaanse bommenwerpers in brand werd gezet. Hij overleefde het in een koelkelder en deed er drieentwintig jaar over om er een boek van te maken.</p><p>Het boek dat eruit kwam is geen oorlogsroman in de gebruikelijke vorm. Het eerste hoofdstuk gaat over Vonnegut zelf en over zijn onvermogen het te schrijven. Daarna volgt Billy Pilgrim, een opticien uit het verzonnen stadje Ilium, die volgens eigen zeggen los is geraakt in de tijd en zijn leven in willekeurige volgorde beleeft.</p><p>Billy springt van zijn jeugd naar het Ardennenoffensief, naar zijn huwelijk, naar de brand van Dresden en naar de planeet Tralfamadore, waar hij in een dierentuin wordt tentoongesteld. Bij elk sterfgeval in het boek staat dezelfde zin: zo gaat dat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>oorlog</li><li>Dresden</li><li>trauma</li><li>sciencefiction</li><li>metafictie</li><li>tijd</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl schreef eveneens als overlevende, maar zocht juist de zin die Vonnegut weigert te geven; de twee boeken lezen als elkaars tegenproef.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft wat er in het geheugen gebeurt na geweld, en levert de verklaring voor de vorm die Vonnegut koos: gebeurtenissen die zonder volgorde terugkomen.</li>
+          <li value="1770"><a href="1770.html">De mens in opstand</a>. Camus stelt tegenover dezelfde eeuw dat er wel iets te doen valt, mits het verzet zijn eigen grens erkent; waar Vonnegut berust, tekent hij bezwaar aan.</li>
+          <li value="61"><a href="61.html">Brave New World</a>. Huxley gebruikt sciencefiction net als Vonnegut om iets over het heden te zeggen, met een even ongemakkelijke vorm van berusting als uitkomst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

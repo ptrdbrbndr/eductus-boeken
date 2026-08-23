@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hold Me Tight &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Johnson stelt dat volwassen liefde geen overeenkomst is tussen twee zelfstandige mensen die hun behoeften op elkaar afstemmen, maar een hechtingsband van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1745">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1745 &middot; Samenwerken en gesprek</p>
+    <h1>Hold Me Tight</h1>
+    <p class="lede">Sue Johnson, 2008; vert. Dick van Alkemade</p>
+    <p class="stats">
+      <span><b>1659</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1745"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Johnson stelt dat volwassen liefde geen overeenkomst is tussen twee zelfstandige mensen die hun behoeften op elkaar afstemmen, maar een hechtingsband van hetzelfde soort als tussen kind en ouder. Ruzies in een relatie gaan volgens haar bijna nooit over het onderwerp waarover ze gaan; het zijn protesten tegen het uitblijven van een antwoord op de vraag of de ander bereikbaar en betrokken is. Daaruit volgt haar aanval op de gangbare relatietherapie van haar tijd, die paren leerde onderhandelen, luistervaardigheden aan te leren en compromissen te sluiten. Wie techniek aanleert zonder de onderliggende paniek aan te raken, verandert volgens Johnson de toon van de ruzie en niet de band. Het herstel loopt daarom via emotie die hardop wordt uitgesproken, en niet via afspraken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een ander licht op liefde</h3>
+      <p>Het eerste deel zet de theorie neer. Johnson leunt op John Bowlby, die hechting beschreef als een aangeboren systeem dat mensen bij gevaar naar een vertrouwde ander doet zoeken, en op het werk van Harry Harlow met jonge apen, dat liet zien dat troostend contact zwaarder weegt dan voedsel. Haar stap is dat dit systeem bij volwassenen niet verdwijnt maar zich verplaatst naar de partner.</p>
+      <p>Daartegenover zet zij het beeld van liefde als ruilverhouding, waarin twee volwassenen vooral zelfstandig moeten blijven en afhankelijkheid een gebrek is. Dat beeld zit volgens haar zowel in de populaire cultuur als in de therapiekamer, en het maakt paren blind voor wat er werkelijk speelt.</p>
+      <h3>Wanneer de verbinding wegvalt</h3>
+      <p>Vervolgens beschrijft zij hoe de band scheurt. Het gaat zelden om één gebeurtenis; vaker om een reeks momenten waarop iemand zich meldt en geen antwoord krijgt. Johnson vat de voorwaarden voor een veilige band samen in drie kenmerken, aangeduid met A.R.E.: bereikbaar, ontvankelijk en betrokken.</p>
+      <p>Wie op die drie punten geen antwoord krijgt, raakt in wat zij hechtingspaniek noemt. Het gedrag dat daaruit voortkomt, aandringen of juist dichtklappen, is voor de ander precies het signaal dat de band onveilig is. Zo houdt het paar samen het patroon in stand zonder dat een van beiden dat wil.</p>
+      <h3>De duivelse dialogen</h3>
+      <p>Het eerste van de zeven gesprekken gaat over het herkennen van drie vaste patronen. In het eerste, zoek de schuldige, verwijten partners elkaar om beurten en gaat het gesprek alleen nog over wie begon. In het tweede, de protestpolka, zoekt de een steeds harder contact terwijl de ander zich steeds verder terugtrekt; Johnson noemt dit het meest voorkomende en het gevaarlijkste patroon.</p>
+      <p>In het derde, bevriezen en vluchten, hebben beiden zich teruggetrokken en is er alleen nog beleefde afstand. Het gesprek bestaat eruit dat het paar het patroon een naam geeft en het als gezamenlijke tegenstander gaat zien, in plaats van elkaar.</p>
+      <h3>Gevoelige plekken en een moment opnieuw bekijken</h3>
+      <p>Het tweede gesprek zoekt naar wat Johnson rauwe of gevoelige plekken noemt: overgevoeligheden die uit eerdere ervaringen stammen, in het gezin van herkomst of in eerdere relaties, en die door een klein signaal geraakt worden. Het derde gesprek pakt één concrete ruzie terug en loopt hem stap voor stap na, om te laten zien hoe die plek werd geraakt en welk gedrag daarop volgde.</p>
+      <p>Beide gesprekken hebben dezelfde functie: het gedrag van de ander wordt leesbaar als reactie op angst en niet als karakter. Johnson werkt dit uit met opgetekende gesprekken uit haar praktijk, waarin zij paren onderbreekt op het moment dat de toon omslaat.</p>
+      <h3>Het kerngesprek en wat erna komt</h3>
+      <p>Het vierde gesprek geeft het boek zijn titel. Beide partners spreken om beurten uit wat zij het moeilijkst hardop zeggen, in de vorm van een verzoek in plaats van een verwijt, en de ander antwoordt daarop. Johnson beschrijft dit als het punt waarop een relatie kantelt, en zij benadrukt dat het niet lukt zolang een van beiden nog in de verdediging staat.</p>
+      <p>De laatste drie gesprekken bouwen daarop voort. Het vijfde behandelt hechtingswonden: gebeurtenissen waarbij iemand er niet was op het moment dat het ertoe deed, en die zonder erkenning niet slijten. Het zesde koppelt seks aan de band en onderscheidt seks die spanning afvoert, seks die bevestiging zoekt en seks als vorm van contact. Het zevende gaat over onderhoud, met rituelen en herhaalde gesprekken.</p>
+      <h3>Het slotdeel</h3>
+      <p>Het derde deel verbreedt de toepassing naar paren waarvan er een een ingrijpende gebeurtenis heeft meegemaakt, en beschrijft hoe een partner bij posttraumatische klachten kan helpen zonder de behandelaar te worden. Johnson sluit af met de stelling dat hechting geen privékwestie is maar de bodem waarop mensen risico durven nemen en zelfstandig durven zijn.</p>
+      <p>Achterin staan een begrippenlijst en verwijzingen naar het onderzoek waarop de methode leunt, plus informatie over het groepsprogramma dat onder dezelfde naam wordt aangeboden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hechting</td><td>Het aangeboren systeem dat mensen bij dreiging naar een vertrouwde ander doet zoeken, volgens Johnson bij volwassenen even werkzaam als bij kinderen.</td></tr>
+          <tr><td class="term">A.R.E.</td><td>De drie voorwaarden voor een veilige band: bereikbaar, ontvankelijk en betrokken.</td></tr>
+          <tr><td class="term">Duivelse dialogen</td><td>De drie vaste ruziepatronen waarin paren vast komen te zitten en die het gesprek van de inhoud losmaken.</td></tr>
+          <tr><td class="term">Zoek de schuldige</td><td>Het patroon waarin beide partners elkaar verwijten maken en het gesprek nog uitsluitend gaat over wie is begonnen.</td></tr>
+          <tr><td class="term">De protestpolka</td><td>Het patroon waarin de een aandringt en de ander zich terugtrekt, waarbij elk gedrag het gedrag van de ander versterkt.</td></tr>
+          <tr><td class="term">Bevriezen en vluchten</td><td>Het patroon waarin beide partners zich hebben teruggetrokken en er alleen nog beleefde afstand overblijft.</td></tr>
+          <tr><td class="term">Gevoelige plek</td><td>Een overgevoeligheid uit eerdere ervaringen die door een klein signaal van de partner geraakt wordt.</td></tr>
+          <tr><td class="term">Hechtingspaniek</td><td>De alarmtoestand die ontstaat wanneer de partner niet bereikbaar blijkt, en die het aandringen of dichtklappen verklaart.</td></tr>
+          <tr><td class="term">Hechtingswond</td><td>Een moment waarop de partner er niet was toen het ertoe deed, dat zonder erkenning blijft doorwerken.</td></tr>
+          <tr><td class="term">Emotionally focused therapy</td><td>De door Johnson ontwikkelde relatietherapie waaruit de zeven gesprekken zijn afgeleid.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Van de methode achter dit boek bestaat vergelijkend onderzoek, wat in dit genre ongebruikelijk is. Johnson bracht in 1999 de uitkomsten van vier gecontroleerde studies bijeen, met een effectgrootte die hoger uitkwam dan die van de andere onderzochte vormen van relatietherapie. Latere overzichtsstudies wijzen dezelfde kant op en vinden dat het effect na een half jaar tot een jaar overeind blijft.</p>
+      <p>Voor het onderdeel over aanraking leunt zij op hersenonderzoek. In een studie uit 2006 van James Coan, Hillary Schaefer en Richard Davidson kregen zestien getrouwde vrouwen in een scanner de dreiging van een stroomstootje, terwijl zij de hand van hun man vasthielden, de hand van een onbekende, of niemands hand. De reactie in de hersengebieden die bij dreiging aanslaan was het kleinst bij de hand van de echtgenoot, en dat verschil hing samen met hoe goed de relatie werd beoordeeld. In 2013 herhaalde Johnson die opzet met paren die de therapie hadden gevolgd en zag zij de dreigingsreactie na afloop afnemen.</p>
+      <p>De zwakke schakel zit tussen dat onderzoek en dit boek. Onderzocht is de therapie zoals een opgeleide behandelaar die geeft, meestal in acht tot twintig zittingen. Het boek is daarvan een afgeleide, bedoeld voor paren zonder therapeut, en over die vorm is aanzienlijk minder bekend. Het groepsprogramma dat onder dezelfde titel wordt aangeboden is wel onderzocht, maar in kleinere en minder streng opgezette studies.</p>
+      <p>De studies naar deze methode zijn grotendeels uitgevoerd door Johnson zelf en door onderzoekers die in haar traditie zijn opgeleid. Dat is in psychotherapieonderzoek een bekend probleem, omdat de betrokkenheid van de onderzoeker bij de methode het gevonden effect stelselmatig groter maakt. De uitkomsten zijn daarmee niet ongeldig, maar de vergelijking met andere vormen van relatietherapie staat er minder stevig door dan het boek suggereert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de reikwijdte van de verklaring. Johnson leest vrijwel elk conflict als protest tegen verloren verbinding. Verschillen over geld, over de verdeling van huishouden en zorg, over kinderen of over een partner die eenvoudigweg iets anders wil, worden daarmee vertaald naar hechtingstaal. Dat maakt de theorie moeilijk te weerleggen: elke uitkomst past erin. Voor een deel van de paren is het onderliggende probleem een verschil in belang en niet in gevoel.</p>
+      <p>De praktijkverhalen zijn samengestelde gevallen, gekozen om de methode te tonen. Zij lopen bijna allemaal goed af, ook waar het boek zegt dat het herstel jaren kan duren. Paren die afhaakten of bij wie het gesprek verkeerd uitpakte komen er nauwelijks in voor, terwijl juist die gevallen zouden laten zien waar de grens van de aanpak ligt.</p>
+      <p>De overdracht van de hechtingstheorie van kinderen naar volwassenen is minder vanzelfsprekend dan het boek doet voorkomen. Hechtingsstijlen bij volwassenen blijken minder stabiel dan het woord stijl suggereert en verschillen per relatie; de indeling in typen is eerder een handzame beschrijving dan een vastgestelde eigenschap. Johnson gaat op die discussie niet in.</p>
+      <p>Er zit een risico in het zelf toepassen. Het vierde gesprek vraagt van beide partners dat zij zich blootgeven op het moment dat zij zich het onveiligst voelen. Johnson waarschuwt dat de aanpak ongeschikt is bij geweld, en dat is terecht, maar zij besteedt weinig ruimte aan de situatie waarin een van beiden zich openstelt en de ander daar niet op ingaat. Dat is voor een boek zonder begeleider de meest waarschijnlijke misgang.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Geef het terugkerende ruziepatroon een naam en gebruik die naam op het moment dat het begint.</li>
+        <li>Neem één concrete ruzie en loop na welk signaal bij wie iets raakte, voordat er over de inhoud verder wordt gepraat.</li>
+        <li>Vertaal een verwijt naar een verzoek: benoem wat er gevoeld werd en wat er nodig is, zonder te zeggen wat de ander verkeerd deed.</li>
+        <li>Erken een oude gebeurtenis waarbij iemand er niet was, ook als die naar eigen inzicht klein was; erkenning gaat vooraf aan uitleg.</li>
+        <li>Zoek professionele begeleiding wanneer er sprake is van geweld, verslaving of een verhouding waarin een van beiden zich niet veilig voelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Hold Me Tight. Seven Conversations for a Lifetime of Love</i> (Little, Brown and Company, New York, 2008). Nederlands als <i>Houd me vast. Zeven gesprekken voor een hechte(re) en veilige relatie</i>, vertaald door Dick van Alkemade, Kosmos Uitgevers, Utrecht en Antwerpen, 2009, 288 blz., ISBN 9789021565231; het boek beleefde tientallen drukken en verscheen ook als e-boek en luisterboek. Sue Johnson (1947-2024) ontwikkelde vanaf de jaren tachtig met Les Greenberg de emotionally focused therapy en schreef daarnaast <i>Love Sense</i> (2013) en het vakhandboek <i>The Practice of Emotionally Focused Couple Therapy</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sue Johnson was klinisch psycholoog en ontwikkelde emotionally focused therapy, een vorm van relatietherapie die uitgaat van de hechtingstheorie. Dit boek brengt die methode over naar de huiskamer: zeven gesprekken die paren zelf kunnen voeren, elk met voorbeelden uit haar praktijk en oefeningen aan het eind.</p><p>Haar uitgangspunt is dat ruzies over de vaatwasser of over geld zelden over de vaatwasser of over geld gaan. Onder de herhaalde conflicten zit volgens Johnson één vraag: ben je er voor mij als ik je nodig heb. Zolang die vraag onbeantwoord blijft, blijven partners hangen in vaste patronen die zij duivelse dialogen noemt.</p><p>Het boek leert die patronen herkennen, de gevoelige plekken benoemen die eronder liggen, en een gesprek voeren waarin beide partners hun angst uitspreken in plaats van hem te verbergen achter aanval of afstand. De laatste gesprekken gaan over vergeven, over seks en aanraking, en over het onderhouden van wat er hersteld is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relaties</li><li>hechting</li><li>gesprekstechniek</li><li>psychotherapie</li><li>emoties</li><li>EFT</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller passen dezelfde hechtingstheorie op volwassen relaties toe, maar delen mensen in vaste typen in waar Johnson vooral naar het patroon tussen twee mensen kijkt.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Perel zet zich af tegen precies de veiligheid die Johnson nastreeft en betoogt dat verlangen juist afstand nodig heeft.</li>
+          <li value="1590"><a href="1590.html">Liefde is een werkwoord</a>. Vansteenwegen behandelt dezelfde stof in het Nederlands vanuit de vaardigheidsbenadering waar Johnson tegen ageert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Houden van dingen die niet perfect zijn &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Haemin Sunim betoogt dat aanvaarding van de eigen onvolkomenheid de voorwaarde is voor alles wat mensen van hun leven met anderen verwachten. Zolang…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1713">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1713 &middot; Levenskunst</p>
+    <h1>Houden van dingen die niet perfect zijn</h1>
+    <p class="lede">Haemin Sunim, 2016; vert. Hennie Volkers</p>
+    <p class="stats">
+      <span><b>1434</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1713"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Haemin Sunim betoogt dat aanvaarding van de eigen onvolkomenheid de voorwaarde is voor alles wat mensen van hun leven met anderen verwachten. Zolang iemand zichzelf afmeet aan een beeld waaraan hij niet voldoet, oefent hij diezelfde meting uit op zijn ouders, zijn partner en zijn collega's, en blijft hij teleurgesteld in iedereen. Zelfcompassie is bij hem daarom geen troostprijs voor wie het niet redt, maar de plek waar inleving vandaan komt. De tweede lijn in het boek is dat lijden dat erkend wordt bruikbaar is: wie het eigen falen en verdriet onder ogen ziet, herkent het bij anderen en kan het dragen. Het geheel is geschreven in de vorm die hem bekend maakte, korte passages die zich als aantekeningen laten lezen en geen betoog opbouwen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De schrijver en zijn positie</h3>
+      <p>Haemin Sunim werd in 1973 in Seoul geboren, ging voor zijn studie naar de Verenigde Staten en studeerde aan Berkeley, Harvard en Princeton. Hij werd gewijd in de Koreaanse zentraditie en doceerde jarenlang Aziatische religies aan Hampshire College in Massachusetts.</p>
+      <p>Die dubbele achtergrond bepaalt de toon. Hij schrijft als monnik en als iemand die het westerse studentenleven van binnenuit kent, en hij haalt zijn voorbeelden even vaak uit een klooster als uit een e-mailwisseling met een lezer. Na het succes van zijn eerste boek keerde hij terug naar Korea, waar hij een school begon voor mensen met verdriet.</p>
+      <h3>Zelfzorg en familie</h3>
+      <p>De eerste afdeling gaat over de omgang met zichzelf. De redenering is steeds dezelfde: de strengheid waarmee iemand zichzelf toespreekt is aangeleerd, en zij is niet nodig om iets van het leven te maken. Wie zichzelf uitput met een oordeel over wat hij nalaat, houdt weinig over voor wat hij wel kan.</p>
+      <p>De tweede afdeling gaat over familie en is de persoonlijkste van het boek. Hij schrijft over zijn ouders, over de teleurstelling die hij hun bezorgde toen hij monnik werd, en over de jaren die nodig waren voordat dat besproken kon worden. Het onderwerp keert later terug bij vergeving.</p>
+      <h3>Inleving en relaties</h3>
+      <p>In de derde en vierde afdeling verschuift de aandacht naar anderen. Naarmate iemand geestelijk rijper wordt, aldus Haemin Sunim, gaat hij vanzelf meer vanuit het gezichtspunt van de ander kijken, en leert hij de tekortkomingen van anderen milder te bezien.</p>
+      <p>Hij past dat toe op alledaagse strubbelingen: een collega die niet luistert, een partner die iets anders wil, een vriend die zich terugtrekt. Zijn advies blijft klein en concreet, en bestaat vaker uit iets nalaten dan uit iets ondernemen.</p>
+      <h3>Moed en heling</h3>
+      <p>De afdeling over moed gaat over het maken van keuzes zonder zekerheid, en over de vraag hoeveel van de angst voor een verkeerde keuze in feite angst voor het oordeel van anderen is. Hij dringt niet aan; hij beschrijft wat er gebeurt als iemand blijft wachten.</p>
+      <p>De afdeling over heling behandelt verdriet en verlies. Hier staat het idee dat erkende pijn zich laat gebruiken: wie zijn eigen moeilijkheden onder ogen ziet, krijgt daarmee de mogelijkheid anderen te herkennen die in hetzelfde zitten. Zelfmedelijden houdt hij daarbuiten, zonder erop af te geven.</p>
+      <h3>Verlichting en aanvaarding</h3>
+      <p>De laatste twee afdelingen brengen het boeddhistische kader het dichtst aan de oppervlakte. Verlichting wordt bij hem niet neergezet als een toestand die aan het eind van een lange oefening wacht, maar als een manier van kijken die in gewone momenten beschikbaar is.</p>
+      <p>Aanvaarding sluit het boek. De redenering keert terug naar het begin: wie de onvolkomenheid van dingen aanvaardt, ook die van zichzelf, houdt aandacht over voor wat er wel is. Dat is het punt waarop de titel en de stelling samenvallen.</p>
+      <h3>De vorm van het boek</h3>
+      <p>Elke afdeling begint met enkele bladzijden aaneengesloten proza waarin hij iets vertelt dat hem is overkomen. Daarna volgen korte passages van soms twee regels, soms een halve bladzijde, die op zichzelf staan en in willekeurige volgorde gelezen kunnen worden.</p>
+      <p>De illustraties van Lisk Feng vullen hele bladzijden en dragen bij aan het tempo: er staat weinig tekst op veel papier. Het boek van 272 bladzijden is daardoor in een avond uit te lezen, en is bedoeld om er daarna nog eens in te bladeren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Onvolkomenheid</td><td>De vaststelling dat niets en niemand af of foutloos is, die bij Haemin Sunim de grond is voor mildheid in plaats van een reden tot verbetering.</td></tr>
+          <tr><td class="term">Zelfcompassie</td><td>Vriendelijkheid voor zichzelf, die in dit boek voorafgaat aan vriendelijkheid voor anderen en er de voorwaarde voor is.</td></tr>
+          <tr><td class="term">Inleving</td><td>Het vermogen vanuit het gezichtspunt van een ander te kijken, dat volgens hem toeneemt naarmate iemand geestelijk rijper wordt.</td></tr>
+          <tr><td class="term">Vergeving</td><td>Het loslaten van de aanspraak op herstel van oud onrecht, bij hem vooral toegepast op ouders en op de eigen jongere zelf.</td></tr>
+          <tr><td class="term">Aanvaarding</td><td>De houding waarmee het boek eindigt: dingen laten zijn zoals ze zijn zonder de eis dat ze eerst in orde komen.</td></tr>
+          <tr><td class="term">Verlichting</td><td>In zijn behandeling geen eindtoestand na jaren oefening, maar een manier van kijken die in gewone momenten beschikbaar is.</td></tr>
+          <tr><td class="term">Heling</td><td>Het onder ogen zien van eigen verdriet, waardoor het volgens hem bruikbaar wordt om anderen in hetzelfde te herkennen.</td></tr>
+          <tr><td class="term">Moed</td><td>Het maken van een keuze zonder zekerheid, waarbij de angst voor de verkeerde keuze bij hem vaak angst voor het oordeel van anderen blijkt.</td></tr>
+          <tr><td class="term">Perfectionisme</td><td>De maatstaf van buiten die iemand op zichzelf toepast en vervolgens op zijn omgeving, in dit boek de oorzaak van de meeste teleurstelling.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan en pretendeert dat ook niet. Wat het aandraagt is van twee soorten: de boeddhistische traditie waarin de schrijver is opgeleid, en de gesprekken die hij als monnik en als docent voerde. Zijn voorbeelden zijn afkomstig uit zijn eigen leven en uit wat lezers hem schreven, en zij worden zonder namen en zonder aantallen weergegeven.</p>
+      <p>De persoonlijke stukken aan het begin van elke afdeling zijn het meest te vertrouwen deel. Daarin staat wat hem overkwam met zijn ouders, in het klooster en tijdens zijn jaren in Amerika, en die passages zijn navolgbaar. Zij dragen ook de rest: de korte passages winnen aan gewicht doordat er iemand aan het woord is die zijn eigen positie eerst heeft laten zien.</p>
+      <p>De verkoopcijfers zeggen iets over de ontvangst en niets over de juistheid. Van zijn boeken zijn in Nederlandse vertaling meer dan een half miljoen exemplaren verkocht, en zijn eerste boek werd in Korea een verschijnsel. Dat verklaart de aandacht voor dit tweede boek, maar het levert geen grond onder de uitspraken die erin staan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de vorm. Korte passages die los van elkaar staan hoeven zich niet te verantwoorden en kunnen elkaar tegenspreken zonder dat het opvalt. Er wordt niets opgebouwd waar een lezer het mee oneens kan zijn, waardoor het boek moeilijk te weerleggen en daardoor ook moeilijk te toetsen is.</p>
+      <p>De boeddhistische herkomst blijft dun. Wie het boek leest zonder voorkennis, krijgt weinig mee van de traditie waarin de schrijver staat: geen leerstelling wordt uitgelegd, geen tekst aangehaald, geen oefening voorgeschreven. Wat overblijft, ligt dicht bij de algemene zelfhulp waarvan het zich in herkomst onderscheidt.</p>
+      <p>Het advies richt zich uitsluitend op de houding van de lezer. Een deel van wat mensen in Korea en daarbuiten uitput heeft te maken met werktijden, onderwijsdruk en onzekerheid van bestaan. Door de oplossing bij het innerlijk te leggen blijft dat buiten beeld, en verandert een gedeelde last in een persoonlijke opgave.</p>
+      <p>Voor wie zijn eerste boek las, is de opbrengst beperkt. De thema's overlappen, de vorm is dezelfde en de toon is ongewijzigd. Het onderscheid zit vooral in de nadruk op vergeving en op de verhouding met de ouders, en dat is niet in elk hoofdstuk genoeg om het boek naast het vorige te rechtvaardigen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees per keer een enkele afdeling en laat het boek daarna liggen; achter elkaar uitlezen vlakt de passages af.</li>
+        <li>Begin bij de persoonlijke stukken vooraan elke afdeling en gebruik de korte passages als naslag.</li>
+        <li>Schrijf op welke passage bleef hangen en waarom, omdat het boek zelf geen redenering aanreikt om die keuze aan te toetsen.</li>
+        <li>Neem de uitspraken over ouders en vergeving als uitnodiging tot nadenken, niet als voorschrift over wat besproken moet worden.</li>
+        <li>Zoek voor de boeddhistische achtergrond een tekst die de leer wel uitlegt, want dit boek doet dat niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk in het Koreaans verschenen in 2016 als <i>Wanbyeokhaji anheun geotdeure daehan sarang</i>. De Engelse vertaling van Deborah Smith, die ook het werk van Han Kang vertaalde, kwam in 2018 uit bij Penguin Life als <i>Love for Imperfect Things: How to Accept Yourself in a World Striving for Perfection</i> (ISBN 9780143132288), met illustraties van Lisk Feng. De Nederlandse vertaling van Hennie Volkers verscheen bij Boekerij, Amsterdam, 272 blz., ISBN 9789022583722; latere drukken onder ISBN 9789022599105 (2023) en 9789402311808. Van Haemin Sunim verschenen in het Nederlands ook <i>Dingen die je alleen ziet als je er de tijd voor neemt</i> en <i>Dingen die je hoop geven</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Haemin Sunim is een Koreaanse zenmonnik die in de Verenigde Staten studeerde en er Aziatische religies doceerde voordat hij terugkeerde naar Korea. Dit is zijn tweede boek, geschreven na het onverwachte succes van zijn eerste.</p><p>Het uitgangspunt is dat vriendelijkheid voor anderen begint bij vriendelijkheid voor zichzelf. Wie de eigen tekortkomingen niet verdraagt, verdraagt ze volgens hem ook bij anderen niet, en houdt daarmee een maatstaf overeind waaraan niemand voldoet.</p><p>Het boek is opgebouwd uit acht afdelingen die achtereenvolgens zelfzorg, familie, inleving, relaties, moed, heling, verlichting en aanvaarding behandelen. Elke afdeling opent met een persoonlijk stuk proza en gaat daarna over in korte, los staande passages, tussen kleurige illustraties van Lisk Feng.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfcompassie</li><li>boeddhisme</li><li>vergeving</li><li>perfectionisme</li><li>zen</li><li>Korea</li><li>aforismen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="111"><a href="111.html">Dingen die je hoop geven</a>. Zijn derde boek uit 2023, in dezelfde vorm en toon, waarin het onderwerp verschuift van aanvaarding naar hoop.</li>
+          <li value="379"><a href="379.html">Wabi Sabi</a>. Kempton werkt het Japanse wabi sabi uit, de esthetische waardering voor wat onaf en beschadigd is, die naast Haemin Sunims stelling over onvolkomenheid ligt.</li>
+          <li value="1525"><a href="1525.html">Compassievol leven</a>. Van den Brink en Koster geven de oefeningen en de onderbouwing van zelfcompassie waar dit boek de houding wel beschrijft maar niet leert.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown komt vanuit onderzoek naar schaamte tot een vergelijkbare uitkomst over het aanvaarden van eigen tekortkomingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

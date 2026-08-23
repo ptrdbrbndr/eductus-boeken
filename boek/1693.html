@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De innerlijke criticus ontmaskerd &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Stones stellen dat de innerlijke criticus geen karakterfout is en geen aangeleerde negativiteit, maar een afzonderlijke stem in de persoonlijkheid met…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1693">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1693 &middot; Gewoontes en denken</p>
+    <h1>De innerlijke criticus ontmaskerd</h1>
+    <p class="lede">Hal Stone en Sidra Stone, 1993</p>
+    <p class="stats">
+      <span><b>1586</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1693"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Stones stellen dat de innerlijke criticus geen karakterfout is en geen aangeleerde negativiteit, maar een afzonderlijke stem in de persoonlijkheid met een eigen geschiedenis en een eigen opdracht. Die opdracht is bescherming: de criticus kwam in de kindertijd tot stand door het oordeel van de omgeving over te nemen, en hij spreekt dat oordeel voortaan zelf uit, zodat de afwijzing van buiten niet meer hoeft te komen. Daarom werkt bestrijden averechts, want wie zijn criticus aanvalt valt zijn eigen bewaker aan en krijgt er een stem bij die het aanvallen weer veroordeelt. De uitweg loopt volgens hen langs de andere kant: de stem apart aanspreken, uitzoeken waar zij bang voor is, en er van daaruit een plaats voor vinden die kleiner is dan het hele huis.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de stem vandaan komt</h3>
+      <p>Het eerste deel beschrijft de herkomst. Een kind leert wat er thuis en op school aanvaard wordt, en het neemt de blik van de beoordelaars in zich op. Wat aanvankelijk correctie van buiten was, gaat verder als een stem van binnen die voor is op de omgeving: liever zelf vaststellen wat er niet deugt dan het van een ander te horen krijgen.</p>
+      <p>De Stones benadrukken dat de criticus in die zin bedoeld is als bescherming tegen afwijzing en uitsluiting. Dat verklaart volgens hen waarom de stem zo hardnekkig is en waarom zij aanzwelt op momenten waarop iemand iets nieuws wil, want juist dan neemt de kans op afkeuring toe.</p>
+      <h3>Een stem apart aanspreken</h3>
+      <p>Het tweede hoofdstuk legt de werkwijze uit. Bij Voice Dialogue spreekt een begeleider niet de persoon aan maar een van diens ikken, die dan het woord krijgt. De cliënt verschuift daarvoor letterlijk van plaats, zodat de stem los komt te staan van het geheel. De vragen zijn gewoon: wat wil je, waar ben je bang voor, sinds wanneer ben je er.</p>
+      <p>Wat de Stones met dat gesprek beogen is een tussenpositie. Zolang iemand samenvalt met een stem, kan hij haar niet horen; zolang hij haar wegduwt, komt zij van achteren terug. Het boek bevat oefeningen om dit alleen te doen, met schrijven in plaats van een begeleider, al waarschuwen de auteurs dat het gesprek met een tweede persoon verder komt.</p>
+      <h3>Hoe de criticus te werk gaat</h3>
+      <p>Het tweede deel, veruit het langste, beschrijft de werkwijzen van de stem. De criticus die zich voordoet als waarheidsspreker is de moeilijkste, omdat zijn opmerkingen vaak deels kloppen en daardoor niet te weerleggen zijn. Daarnaast staan er hoofdstukken over het lichaam en het uiterlijk, over de drang tot zelfverbetering, en over de aanval: de plotselinge stortvloed van oordelen die iemand dagenlang lam kan leggen.</p>
+      <p>De Stones verbinden de stem met schaamte en met neerslachtigheid. Schaamte is bij hen het gevoel dat de criticus achterlaat wanneer hij niet over een daad maar over de persoon spreekt. Bij neerslachtigheid beschrijven zij een stem die het pleit gewonnen heeft en waar geen tegenspraak meer tegenover staat. Een apart hoofdstuk gaat over het verschil tussen mannen en vrouwen in de onderwerpen waar de criticus zich op richt.</p>
+      <h3>Het gezelschap rond de criticus</h3>
+      <p>De criticus werkt in het boek zelden alleen. De aanjager houdt het tempo hoog en levert de norm waaraan de criticus vervolgens toetst. De perfectionist stelt de maat vast. De beschermer regelt wat er naar buiten mag. De innerlijke rechter richt hetzelfde oordeel op anderen, en de Stones wijzen erop dat wie streng is voor zichzelf dat doorgaans ook voor zijn omgeving is.</p>
+      <p>Tegenover die groep staat het kwetsbare kind, de stem die de criticus zegt te beschermen. Die verbinding is het scharnier van het boek: de kritiek richt zich hard op de plek die het zachtst is, en zolang die plek geen andere bescherming heeft, blijft de criticus nodig.</p>
+      <h3>In relaties</h3>
+      <p>Het derde deel gaat over wat de stem tussen mensen doet. Ouders geven hun eigen criticus door in de vorm van wat er in huis vanzelfsprekend werd gevonden. In partnerrelaties ontstaan patronen waarin de ene stem de andere aanroept, bijvoorbeeld wanneer de kritiek van de een het verweer van de ander in stelling brengt.</p>
+      <p>De Stones behandelen daarnaast het vergelijken, dat volgens hen het voedsel van de criticus is, en de zelfsabotage, waarbij iemand het bewijs levert voor het oordeel dat hij al over zichzelf had. Zij beschrijven ook hoe kritiek van buiten alleen aankomt wanneer de stem van binnen haar bevestigt.</p>
+      <h3>De omslag</h3>
+      <p>Het slotdeel behandelt de verandering. Daaronder ligt eerst de angst waar de criticus voor werkt, en die angst hoort volgens de Stones bij het kwetsbare deel dat aandacht nodig heeft. Zij besteden een hoofdstuk aan opvoeding, met de vraag hoe een ouder de eigen strengheid niet doorgeeft.</p>
+      <p>De uitkomst die zij beschrijven heet het bewuste ego: geen nieuwe stem, maar een positie ertussenin van waaruit meerdere ikken gehoord worden zonder dat een ervan het bestuur overneemt. De criticus wordt in dat model een adviseur met beperkte bevoegdheid, die opmerkt wat er niet klopt zonder over de persoon te oordelen. Het boek geeft daarvoor gesprekken uit de praktijk als voorbeeld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Innerlijke criticus</td><td>De stem die het oordeel van de omgeving heeft overgenomen en het voortaan zelf uitspreekt, met bescherming tegen afwijzing als doel.</td></tr>
+          <tr><td class="term">Innerlijke rechter</td><td>Dezelfde beoordelende stem, maar gericht op anderen; volgens de Stones de buitenkant van dezelfde gewoonte.</td></tr>
+          <tr><td class="term">Aanjager</td><td>De ik die tempo en hoeveelheid werk bewaakt en de norm levert waar de criticus vervolgens aan toetst.</td></tr>
+          <tr><td class="term">Perfectionist</td><td>De ik die vaststelt hoe goed iets moet zijn, en daarmee bepaalt wanneer de kritiek begint.</td></tr>
+          <tr><td class="term">Beschermer of regelaar</td><td>De ik die de omgang met de buitenwereld regelt en bepaalt wat er wel en niet getoond wordt.</td></tr>
+          <tr><td class="term">Primaire ikken</td><td>De delen van de persoonlijkheid die in de opvoeding beloond werden en daardoor het dagelijkse bestuur voeren.</td></tr>
+          <tr><td class="term">Verstoten ikken</td><td>De tegenovergestelde eigenschappen die zijn weggeduwd en die volgens de Stones vaak juist bewondering of ergernis oproepen bij anderen.</td></tr>
+          <tr><td class="term">Kwetsbare kind</td><td>Het deel dat de criticus zegt te beschermen en waar zijn oordelen het hardst aankomen.</td></tr>
+          <tr><td class="term">Criticusaanval</td><td>De plotselinge stortvloed van oordelen na een fout of een afwijzing, die uren tot dagen kan aanhouden.</td></tr>
+          <tr><td class="term">Bewust ego</td><td>Geen extra stem maar een positie tussen de ikken in, van waaruit meerdere stemmen gehoord worden zonder dat er een het roer overneemt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal komt uit de eigen praktijk. De Stones waren allebei opgeleid als klinisch psycholoog, Hal Stone met een jungiaanse achtergrond, en zij baseren zich op sessieverslagen en op gesprekken die zij zelf voerden. Dat levert nauwkeurige beschrijvingen op van wat mensen zeggen wanneer hun criticus aan het woord is, en het is precies zo sterk als een praktijkverslag kan zijn.</p>
+      <p>Gecontroleerd onderzoek naar de methode staat er niet in en is er nauwelijks. Voice Dialogue is buiten de kring van eigen opleiders weinig getoetst, komt in de gangbare handboeken niet voor als behandelvorm, en het boek noemt geen enkel effectcijfer. Wat er staat over hoeveel mensen erdoor opknappen, berust op de indruk van de auteurs.</p>
+      <p>De verwantschap met beter onderzochte werkwijzen is zichtbaar. Het uiteenleggen van de persoonlijkheid in delen komt eerder voor bij de transactionele analyse en bij de stoelentechniek uit de gestalttherapie, en later kreeg het een vergelijkbare uitwerking in Internal Family Systems van Richard Schwartz. Dat plaatst het boek in een traditie, maar de gelijkenis is geen bewijs voor de aanpak die hier wordt voorgesteld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belofte in de ondertitel wordt beweerd en niet aangetoond. Dat de criticus verandert in een bruikbare adviseur, blijkt in het boek uit gesprekken waarin dat gebeurde, opgetekend door degenen die de gesprekken voerden. Hoe vaak het misgaat, hoe lang de verandering standhoudt en wat er gebeurt bij wie er niet vatbaar voor is, komt niet aan bod.</p>
+      <p>Het personifieren van gedachten heeft een prijs. Zolang stemmen namen en bedoelingen krijgen, wordt het aantrekkelijk om ze als personen te behandelen, en dan verschuift de vraag van wat iemand denkt naar wie er in hem aan het woord is. Voor wie snel in verhalen over zichzelf gaat wonen, kan dat het probleem verplaatsen in plaats van verkleinen.</p>
+      <p>Het boek maakt onvoldoende verschil tussen kritiek die klopt en kritiek die alleen pijn doet. Het hoofdstuk over de criticus als waarheidsspreker komt daar het dichtst bij, maar de uitweg blijft dezelfde: het gesprek. Wie werkelijk iets verkeerd doet, heeft daarnaast een oordeel nodig, en daarover zegt het boek weinig.</p>
+      <p>Voor zware klachten is de aanpak te licht. Bij aanhoudende neerslachtigheid of bij een geschiedenis van mishandeling voert een gesprek met een stem eerder naar het probleem toe dan eruit, en de waarschuwingen daarover zijn in dit boek kort. Het hoofdstuk over de verschillen tussen mannen en vrouwen draagt bovendien duidelijk het jaar 1993 in zich.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf een week lang de zinnen op zoals ze binnenkomen, in de tweede persoon, zonder ze te weerleggen.</li>
+        <li>Zoek bij elke terugkerende zin uit van wie de formulering oorspronkelijk was.</li>
+        <li>Stel de stem de drie vragen uit het boek: wat wil je, waar ben je bang voor, sinds wanneer ben je er.</li>
+        <li>Merk op bij welke stap in een project de kritiek aanzwelt; dat is doorgaans de stap waarbij anderen meekijken.</li>
+        <li>Ga na welk oordeel over een ander woordelijk overeenkomt met een oordeel over jezelf.</li>
+        <li>Laat een aanval eerst uitwoeden en beslis pas daarna over het werk waar hij over ging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Embracing Your Inner Critic: Turning Self-Criticism into a Creative Asset</i>, verschenen bij HarperSanFrancisco in 1993, ISBN 9780062507570. Nederlands als <i>De innerlijke criticus ontmaskerd</i>, vertaald door Hilde Bervoets, eerst bij uitgeverij De Zaak in Groningen, later bij AnkhHermes; de tiende druk uit 2016 telt 221 blz. en de herziene editie uit 2022, met de ondertitel <i>Werken met de Voice Dialogue-methode</i>, 247 blz. onder ISBN 9789020219104. Er zijn een e-boek en een luisterboek. Het is het vierde boek van het echtpaar over hun eigen methode, na <i>Embracing Our Selves</i> en <i>Embracing Each Other</i> uit 1989. De lijst noemt alleen Hal Stone; Sidra Stone is medeauteur.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hal en Sidra Stone waren allebei klinisch psycholoog. Zij ontwikkelden in de vroege jaren zeventig een werkwijze die zij Voice Dialogue noemden, trouwden in 1977 en bouwden hun praktijk daarna uit tot een theorie die zij de psychologie van de ikken doopten. Dit boek uit 1993 past die werkwijze toe op een enkele stem: de innerlijke criticus.</p><p>Het uitgangspunt is dat een mens geen enkel ik heeft maar een gezelschap. Sommige ikken komen naar voren omdat zij in de opvoeding beloond werden, zoals de verantwoordelijke, de pleaser of het verstand. De tegenovergestelde eigenschappen worden weggeduwd en gaan verder als verstoten ikken. De criticus is in dat schema geen vijand van buiten maar een van de ikken die het huis bewaakt.</p><p>Het boek beschrijft eerst waar die stem vandaan komt en hoe hij werkt, daarna wat hij in relaties aanricht, en tot slot hoe de verhouding ermee verandert. De belofte in de ondertitel is dat de criticus een bruikbare gesprekspartner wordt. De weg daarheen loopt niet via het uitschakelen van de stem maar via het apart aanspreken ervan, met oefeningen die de lezer zelf kan doen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>innerlijke criticus</li><li>voice dialogue</li><li>zelfkritiek</li><li>schaamte</li><li>subpersoonlijkheden</li><li>perfectionisme</li><li>bewust ego</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1778"><a href="1778.html">Ik (k)en mijn ikken</a>. Brugman brengt dezelfde methode in het Nederlands, met de ikken als uitgangspunt en meer aandacht voor het werk.</li>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff behandelt hetzelfde onderwerp met onderzoek erbij en kiest voor een andere uitweg dan het gesprek met de stem.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown werkt de schaamte uit die bij de Stones het spoor is dat de criticus achterlaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

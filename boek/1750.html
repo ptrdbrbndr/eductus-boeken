@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Levenskracht &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Stoop stelt dat de periode van ongeveer veertig dagen voor de conceptie tot twee jaar na de geboorte de aanleg vormt voor gezondheid, vitaliteit en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1750">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1750 &middot; Brein en lichaam</p>
+    <h1>Levenskracht</h1>
+    <p class="lede">Nienke Stoop, 2021</p>
+    <p class="stats">
+      <span><b>1621</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1750"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Stoop stelt dat de periode van ongeveer veertig dagen voor de conceptie tot twee jaar na de geboorte de aanleg vormt voor gezondheid, vitaliteit en zelfvertrouwen in de rest van een leven. Omdat er in die tijd nog geen taal is, worden ervaringen volgens haar niet als verhaal maar als lichaamstoestand opgeslagen, en daarom blijven zij buiten het bereik van het gewone geheugen werkzaam. Daaruit volgt haar tweede stelling: die vroege indrukken zijn geen vaststaand lot. Wie ze leert herkennen, kan de eigen levenskracht opnieuw vrijmaken en voorkomt bovendien dat wat in de eigen lijn is doorgegeven ook aan een volgend kind wordt doorgegeven. De aanspraak is dus tweeledig, een verklaring van klachten en een belofte van herstel, en die tweede aanspraak reikt aanmerkelijk verder dan wat er over de eerste duizend dagen is aangetoond.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom een arts hierover schrijft</h3>
+      <p>Stoop opent bij haar eigen aanleiding. Haar eerste zoon werd te vroeg geboren, en in die periode stelde zij vast dat haar opleiding vooral over ziekte ging en nauwelijks over de vraag hoe gezondheid tot stand komt. Vanaf dat moment richtte zij haar praktijk in op de tijd voor en rond de conceptie.</p>
+      <p>Zij plaatst haar werk uitdrukkelijk buiten het gangbare medische kader en noemt zichzelf holistisch arts, met scholing in westerse en oosterse geneeskunde. Dat bepaalt de toon van het hele boek: verwijzingen naar wetenschappelijk werk staan naast beeldspraak, ervaringen uit de praktijk en persoonlijke waarneming, zonder dat het onderscheid tussen die soorten uitspraken steeds wordt aangegeven.</p>
+      <h3>De duizend dagen als afgebakende periode</h3>
+      <p>De kern van de indeling is de periode zelf. Stoop rekent vanaf ongeveer veertig dagen voor de conceptie, dus vanaf de rijping van eicel en zaadcel en de toestand waarin de ouders verkeren, via de zwangerschap en de geboorte tot de tweede verjaardag. Het getal duizend dagen sluit aan bij een indeling die in de internationale volksgezondheid gangbaar is en daar loopt van conceptie tot twee jaar.</p>
+      <p>Zij noemt dit een tijd zonder woorden. Wat er gebeurt, wordt volgens haar opgeslagen in gevoelens, beelden, klanken en tonen, en werkt daarna door zonder dat er een herinnering bij hoort. Die aanname draagt de rest van het boek.</p>
+      <h3>Indrukken en de bedding waarin een kind ontstaat</h3>
+      <p>Een groot deel van het boek gaat over wat Stoop indrukken of imprints noemt: de sfeer rond de conceptie, de gemoedstoestand van de moeder tijdens de zwangerschap, het verloop van de bevalling, de eerste aanraking, de voeding en de mate waarin een baby wordt opgepakt en getroost.</p>
+      <p>Zij verwijst daarbij naar bevindingen over stress in de vroege jeugd, waaronder de waarneming dat baby's die veel en lang huilen zonder gerustgesteld te worden een actiever stresssysteem ontwikkelen, en dat aanraking en verbinding samengaan met een beter werkend afweersysteem. Uit die bevindingen leidt zij af dat de omgeving rond geboorte en kraamtijd niet vrijblijvend is.</p>
+      <h3>Wat er van de vorige generatie meekomt</h3>
+      <p>Stoop behandelt transgenerationele patronen: ervaringen van ouders en grootouders die volgens haar in gedrag en in het lichaam worden doorgegeven aan wie daarna komt. Zij haakt daarbij aan bij het begrip epigenetica, de aanpassing van de aflezing van genen door omgevingsinvloeden.</p>
+      <p>Hier ligt de scharnier van het boek. Als vroege en overgeleverde indrukken bepalend zijn, kan het doorbreken ervan bij één persoon volgens Stoop de hele lijn erna raken. Dat is de reden waarom zij zich in het bijzonder richt tot mensen met een kinderwens: de voorbereiding op ouderschap wordt in haar redenering een vorm van behandeling van wat er nog niet is.</p>
+      <h3>Van indruk naar levenskracht</h3>
+      <p>Het laatste deel keert zich naar de lezer. Stoop onderscheidt indrukken die groei en veiligheid voedden van indrukken die aanpassing of overleving opriepen, en beschrijft dat tweede soort niet als zwakte maar als een oplossing die het lichaam destijds vond. Patronen die daaruit voortkomen behandelt zij als aanwijzingen die te lezen zijn.</p>
+      <p>De doelen die zij noemt zijn ruim: rust, helderheid, vitaliteit, vruchtbaarheid, keuzes die aansluiten bij wie iemand is. Zij noemt het uitdrukkelijk geen methode maar een gids, en biedt vragen en oefeningen aan waarmee de lezer aan de eigen geschiedenis werkt. Het boek is zo opgezet dat het meelezend wordt gebruikt en niet in één keer uitgelezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De eerste 1000 dagen</td><td>De periode van ongeveer veertig dagen voor de conceptie tot twee jaar na de geboorte, die Stoop als één samenhangende vormende fase behandelt.</td></tr>
+          <tr><td class="term">Levenskracht</td><td>De term voor het geheel aan vitaliteit, veerkracht en vermogen tot herstel dat volgens Stoop in die eerste periode wordt aangelegd.</td></tr>
+          <tr><td class="term">Imprint of indruk</td><td>Een ervaring uit de talenloze tijd die in het lichaam is vastgelegd en later doorwerkt zonder dat er een herinnering bij hoort.</td></tr>
+          <tr><td class="term">Blauwdruk voor geluk</td><td>Het beeld waarmee Stoop de oorspronkelijke aanleg aanduidt waarnaar iemand volgens haar kan terugkeren.</td></tr>
+          <tr><td class="term">Transgenerationele patronen</td><td>Ervaringen en reactiepatronen van eerdere generaties die volgens haar via gedrag en lichaam worden doorgegeven.</td></tr>
+          <tr><td class="term">Epigenetica</td><td>De aanpassing van de aflezing van genen door omgevingsinvloeden, door Stoop gebruikt als verklaring voor die doorgifte.</td></tr>
+          <tr><td class="term">Bedding</td><td>De omstandigheden waarin nieuw leven ontstaat en opgroeit, van de toestand van de ouders tot de sfeer rond bevalling en kraamtijd.</td></tr>
+          <tr><td class="term">Preconceptiezorg</td><td>Zorg en voorbereiding in de maanden voor een zwangerschap, in het boek het punt waar volgens Stoop de meeste winst te behalen valt.</td></tr>
+          <tr><td class="term">Integrale gezondheid</td><td>De benadering waarin lichaam, gevoel, leefwijze en omgeving als één geheel worden bekeken, en waaruit Stoop haar praktijk heeft opgebouwd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het uitgangspunt van het boek staat niet alleen. Dat de vroegste levensfase gevolgen heeft voor gezondheid later is een gevestigd onderzoeksterrein: de bevindingen over ondervoeding in de baarmoeder en latere hart- en vaatziekten, het werk over vroege tegenslag en latere ziektelast, en het onderzoek naar hechting geven daar een basis voor. De aanduiding eerste duizend dagen komt uit datzelfde veld en wordt door de Wereldgezondheidsorganisatie en door Nederlandse programma's rond kansrijke start gebruikt.</p>
+      <p>Wat Stoop daar bovenop bouwt, heeft die basis niet. In het onderzoek gaat het om verbanden op groepsniveau en om kansen, gemeten over grote aantallen mensen. Het boek maakt daar uitspraken over de afzonderlijke lezer van: dit gevoel bij grenzen komt uit die zwangerschap, dat patroon uit die bevalling. Zo'n herleiding is bij een individu niet vast te stellen, en het boek geeft geen methode waarmee dat wel zou kunnen.</p>
+      <p>Het beroep op epigenetica is het zwakste onderdeel. Dat omgevingsinvloeden de aflezing van genen aanpassen, staat vast; dat ervaringen van grootouders langs die weg bij kleinkinderen terechtkomen, is bij mensen niet aangetoond. Het bewijs daarvoor komt vrijwel geheel uit dierproeven en uit een klein aantal bevolkingsonderzoeken waarvan de uitkomsten worden betwist. Stoop schrijft dat verschil niet uit.</p>
+      <p>De verhalen uit haar praktijk vormen het overige bewijsmateriaal. Ze zijn niet nagegaan door derden, ze zijn gekozen door de auteur, en de gevallen waarin haar aanpak niets veranderde komen er niet in voor. Dat is bij dit genre gebruikelijk, maar het betekent dat het boek voor zijn kernaanspraak leunt op de instemming van de lezer.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het ernstigste bezwaar is dat de redenering schuld kan opleveren waar zij troost belooft. Wie leest dat de gemoedstoestand van de moeder tijdens de zwangerschap en het verloop van de bevalling het latere leven van haar kind mede bepalen, en wie een zware zwangerschap, een keizersnede of een vroeggeboorte achter de rug heeft, krijgt er een verklaring bij voor problemen van haar kind die bij haarzelf uitkomt. Het boek is vriendelijk van toon en waarschuwt tegen die lezing, maar de opzet nodigt er wel toe uit.</p>
+      <p>Daarnaast is de aanspraak niet te weerleggen. Indrukken uit een tijd zonder taal laten zich per definitie niet controleren aan een herinnering, en er is geen uitkomst denkbaar die het verband zou tegenspreken: gaat het goed, dan was de bedding goed, gaat het niet goed, dan zat er iets in de eerste duizend dagen. Een verklaring die alles dekt, verklaart niets in het bijzonder.</p>
+      <p>Er is ook een praktisch bezwaar. Het boek richt zich op de voorbereiding op ouderschap en op het herstellen van vroege indrukken, terwijl een deel van wat er in die eerste duizend dagen misgaat te maken heeft met armoede, huisvesting, werkdruk en toegang tot zorg. Die factoren zijn eerder een zaak van beleid dan van innerlijk werk. Door het vraagstuk vrijwel geheel bij de ouder te leggen, verdwijnt dat deel uit beeld.</p>
+      <p>Ten slotte de opzet zelf. Stoop noemt haar boek geen methode maar een gids, en dat is eerlijk, maar het maakt de tekst ook moeilijk te toetsen. Er staat geen literatuurverantwoording waarin de lezer per bewering kan nagaan waarop zij rust, en de overgang van aangetoond onderzoek naar persoonlijke overtuiging voltrekt zich zonder waarschuwing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag na wat er feitelijk bekend is over de eigen geboorte en eerste jaren, bij ouders, in het geboortekaartje, in het dossier van de verloskundige, voordat er iets uit gevoel wordt gereconstrueerd.</li>
+        <li>Houd het onderscheid vast tussen wat er over groepen is aangetoond en wat over de eigen geschiedenis wordt vermoed.</li>
+        <li>Gebruik het boek bij een kinderwens naast reguliere preconceptiezorg, niet in plaats daarvan; leefstijl, foliumzuur, medicatie en aandoeningen horen bij de huisarts of verloskundige.</li>
+        <li>Vermijd de stap van verklaring naar verwijt, ook bij de eigen ouders; het boek biedt geen middel om oorzaak en gevolg in een individueel geval vast te stellen.</li>
+        <li>Bij aanhoudende klachten die naar vroege ervaringen wijzen, ligt een behandelaar met een erkende opleiding meer voor de hand dan een oefening uit een boek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Levenskracht: jouw eerste 1000 dagen in een nieuw licht</i> (Esprit de Coeur, 2021, 216 blz., ISBN 9789492597731), oorspronkelijk in het Nederlands geschreven. In 2022 verscheen een herziene tweede druk. Stoop is arts, werkt sinds 2008 in Zutphen in een praktijk voor integrale gezondheid rond preconceptie, vruchtbaarheid en zwangerschap, en is medeoprichter van Stichting de Geboortenis. Van het boek bestaat ook een uitvoering met audio. Een vertaling in een andere taal is niet verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Stoop behandelt de periode van veertig dagen voor de conceptie tot twee jaar na de geboorte. In die tijd is er nog geen taal, zegt zij, en worden ervaringen opgeslagen als gevoel, beeld, klank en lichaamsherinnering. Bewuste herinneringen aan die tijd zijn er nauwelijks, wat volgens haar niet betekent dat er niets is vastgelegd.</p><p>Het boek stelt dat wat er in die duizend dagen gebeurde doorwerkt in hoe iemand later met stress omgaat, grenzen voelt, nabijheid toelaat en het eigen lichaam vertrouwt. Ze noemt dat geheel de levenskracht, en spreekt van een blauwdruk voor geluk die opnieuw benaderd kan worden.</p><p>Het is geen studieboek. Stoop schrijft met anekdotes uit haar praktijk en uit haar eigen leven, en zet er vragen en oefeningen tussen. Ze richt zich zowel op mensen met een kinderwens als op volwassenen die hun eigen begin willen begrijpen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eerste duizend dagen</li><li>zwangerschap</li><li>geboorte</li><li>hechting</li><li>epigenetica</li><li>transgenerationeel</li><li>holistische geneeskunde</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft hetzelfde uitgangspunt, dat vroege ervaring in het lichaam wordt vastgelegd, met veel meer verantwoording van het onderzoek waarop dat rust.</li>
+          <li value="1722"><a href="1722.html">Childhood Disrupted</a>. Nakazawa werkt de gevolgen van tegenslag in de kindertijd uit langs het onderzoek naar nadelige jeugdervaringen, waar Stoop naar dit soort bevindingen alleen verwijst.</li>
+          <li value="1731"><a href="1731.html">The Myth of Normal</a>. Maté legt de oorzaak van chronische klachten eveneens in de vroege jaren, maar betrekt de maatschappelijke omstandigheden erbij die in dit boek buiten beeld blijven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

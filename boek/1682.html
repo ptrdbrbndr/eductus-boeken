@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verbaal Meesterschap &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Claassen stelt dat de inhoud van wat iemand zegt maar een klein deel van het resultaat bepaalt, en dat de rest afhangt van wat er in het hoofd van de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1682">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1682 &middot; Samenwerken en gesprek</p>
+    <h1>Verbaal Meesterschap</h1>
+    <p class="lede">Remco Claassen, 2012</p>
+    <p class="stats">
+      <span><b>1504</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1682"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Claassen stelt dat de inhoud van wat iemand zegt maar een klein deel van het resultaat bepaalt, en dat de rest afhangt van wat er in het hoofd van de toehoorder gebeurt voordat die inhoud daar aankomt. Aandacht is volgens hem niets waar een spreker recht op heeft; hij moet die verdienen tegen een brein in dat op gevaar, verveling en eigen belang is ingesteld. Daaruit volgt de opzet van het boek: eerst leren welke obstakels dat brein opwerpt, dan leren met vorm, lichaam, verhaal en taal om die obstakels heen te werken. De stelling is te bestrijden op haar verdeling. Wie aanneemt dat vorm het meeste doet, komt uit bij een boek dat sprekers overtuigender maakt zonder de vraag te stellen of wat zij zeggen deugt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het boek is gebouwd</h3>
+      <p>De opzet is ongebruikelijk. Elk hoofdstuk sluit af met een samenvatting, en die samenvattingen worden in de volgende hoofdstukken opnieuw afgedrukt onder de kop <i>Nogmaals</i>. Wie het boek doorleest, ziet de eerste samenvatting daardoor twaalf keer langskomen.</p>
+      <p>Dat is geen slordigheid maar de toepassing van zijn eigen leer over herhaling en onthouden. Het maakt het boek wel dik: 384 bladzijden waarvan een deel uit hergebruik bestaat, aangevuld met cartoons van Mike Pearse en woordgrappen die de toon licht houden.</p>
+      <h3>Vier obstakels in het hoofd van de toehoorder</h3>
+      <p>Claassen noemt vier zaken die tegenwerken. Het reptielenbrein, dat direct en zonder bewustzijn op de omgeving reageert. De amygdala, die angst en spanning levert en mensen fel en uit balans maakt. De neiging om af te wijzen wat afwijkt van het eigen denken. En het ego, dat liever zelf spreekt dan luistert.</p>
+      <p>Die vier zijn bij hem geen wetenschappelijke uiteenzetting maar werkmateriaal. Voor het reptielenbrein gebruikt hij het beeld van een overijverige huisknecht naar het model van Manuel uit <i>Fawlty Towers</i>: een bediende die zonder opdracht handelt en die de spreker eerst tot bedaren moet brengen, bij zichzelf en bij zijn publiek.</p>
+      <h3>Wat een publiek meeneemt</h3>
+      <p>Zijn regel van vijf plus of min twee zegt dat een toehoorder na afloop één gevoel overhoudt en hooguit vijf inhoudelijke punten. Alles wat een spreker daarboven aanbiedt, verdringt wat hij al had verteld.</p>
+      <p>De praktische gevolgen daarvan lopen door het hele boek. De keuze van het gevoel gaat vooraf aan de keuze van de inhoud, het aantal punten wordt tevoren beperkt, en herhaling is geen zwakte van een presentatie maar de manier waarop die vijf punten blijven staan.</p>
+      <h3>De drie E's</h3>
+      <p>Educatie, entertainment en empowerment vormen bij Claassen de verhouding waarin een optreden moet zijn samengesteld: inhoud die iets toevoegt, vermaak dat de aandacht vasthoudt, en een reden om na afloop iets te doen. Wie alleen inhoud brengt raakt zijn publiek kwijt, wie alleen vermaakt levert niets af, en wie alleen aanspoort krijgt geen vertrouwen.</p>
+      <p>Van de drie krijgt entertainment de meeste bladzijden, en dan vooral de anekdote. Een verhaal houdt de aandacht vast zonder dat de toehoorder daar moeite voor doet, en het is bovendien het enige onderdeel van een presentatie dat mensen naderhand kunnen navertellen.</p>
+      <h3>Het lichaam en de ruimte</h3>
+      <p>Een aanzienlijk deel gaat over wat er te zien is: houding, stand van de voeten, oogcontact, handen, tempo, stilte, en hoe een spreker de ruimte gebruikt en zich erdoorheen beweegt. Claassen behandelt dat als vaardigheid die is te oefenen, met opdrachten erbij.</p>
+      <p>Daarnaast staat het voorwerk. Onder pre-framing verstaat hij alles wat vóór het eigenlijke optreden de verwachting van het publiek stuurt: de aankondiging, de opstelling van de zaal, het moment van binnenkomen, de eerste zin. Wie dat overlaat aan de organisator begint achter.</p>
+      <h3>Taal die stuurt</h3>
+      <p>Het laatste deel gaat over woordkeuze: beeldspraak, verhalen met een opbouw, en wat hij hypnotische taalpatronen noemt, formuleringen die een aanname meesmokkelen of een tegenwerping wegnemen voordat zij is uitgesproken. Dat materiaal komt uit de school van het neurolinguïstisch programmeren waarin Claassen is opgeleid.</p>
+      <p>Hij stelt de spreker daarbij één vraag als richtsnoer: wat wil dit publiek, en wat beweegt het. Die vraag moet voorkomen dat de technieken op zichzelf komen te staan, en zij is tegelijk het enige wat het boek als rem inbouwt.</p>
+      <h3>Wat de editie van 2022 toevoegt</h3>
+      <p>De jubileumeditie kreeg ruim zestig bladzijden erbij over spreken via een scherm: hoe aandacht wegloopt als het publiek onzichtbaar is, wat een camera met houding en tempo doet, en hoe kort een filmpje kan zijn voordat het niets meer overbrengt.</p>
+      <p>In datzelfde deel kijkt Claassen terug op tien jaar les geven met dit materiaal en geeft hij aan welke onderdelen in de praktijk minder opleverden dan hij in 2012 dacht. Dat is het enige stuk waarin het boek zichzelf tegenspreekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hyperbutler</td><td>Claassens beeld voor het reptielenbrein: een overijverige bediende die zonder opdracht op prikkels reageert en die eerst tot bedaren moet worden gebracht.</td></tr>
+          <tr><td class="term">Vijf plus of min twee</td><td>Zijn regel dat een publiek van een optreden één gevoel overhoudt en hooguit vijf inhoudelijke punten.</td></tr>
+          <tr><td class="term">De drie E's</td><td>Educatie, entertainment en empowerment als de drie bestanddelen waaruit een optreden volgens hem moet zijn samengesteld.</td></tr>
+          <tr><td class="term">Pre-framing</td><td>Alles wat vóór het spreken de verwachting van het publiek stuurt: aankondiging, zaalopstelling, binnenkomst en eerste zin.</td></tr>
+          <tr><td class="term">Hypnotische taalpatronen</td><td>Formuleringen die een aanname in de zin verstoppen of een tegenwerping wegnemen voordat de toehoorder haar uitspreekt.</td></tr>
+          <tr><td class="term">Nogmaals</td><td>De kop waaronder eerdere hoofdstuksamenvattingen in latere hoofdstukken terugkeren, zodat de stof twaalf keer langskomt.</td></tr>
+          <tr><td class="term">Anekdote</td><td>Het korte verhaal uit eigen ervaring dat bij Claassen het middel is om aandacht vast te houden en dat het publiek naderhand kan navertellen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een verslag van praktijk en niet van onderzoek. Claassen heeft jarenlang meerdaagse seminars gegeven waarin hij zelf twaalf uur achtereen aan het woord was, en de aanwijzingen zijn daar geslepen. Voor de meeste adviezen over houding, opbouw, herhaling en verhaal is dat een redelijke grond: het zijn ambachtelijke regels, en zij worden ook als zodanig gebracht.</p>
+      <p>Waar het boek zich op de hersenen beroept, verandert de aard van de bewering zonder dat de onderbouwing meegroeit. Het reptielenbrein en de amygdala staan er als vaststaande feiten, terwijl zij bij Claassen de rol van beeldspraak vervullen. Het model van het reptielenbrein gaat terug op de indeling in drie lagen die Paul MacLean in de jaren zestig voorstelde en die in de neurowetenschap al lang niet meer wordt aangehouden. Voor de praktische aanwijzingen maakt dat weinig uit; voor de geloofwaardigheid van de verklaring erachter wel.</p>
+      <p>De taalpatronen uit het laatste deel komen uit het neurolinguïstisch programmeren. Dat is de zwakste plek in de onderbouwing: onderzoek naar de werkzaamheid van die technieken heeft de gestelde effecten niet bevestigd, en de school waaruit zij komen wordt buiten haar eigen kring niet als vakgebied erkend. Claassen brengt ze als beproefd, en de lezer heeft niets in handen om dat na te gaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ernstigste tegenwerping betreft de verhouding waarmee het boek werkt. Recensenten brengen het terug tot tachtig procent vorm tegen twintig procent inhoud, en dat ligt niet ver van wat Claassen zelf beweert. Een handboek dat zo is ingericht, maakt sprekers overtuigender zonder een toets in te bouwen op de vraag of wat zij zeggen waar is of hun publiek dient. Het richtsnoer dat hij aanreikt, wat wil dit publiek, is een vraag naar de wens van de toehoorder en niet naar de juistheid van de boodschap.</p>
+      <p>Ten tweede is de toon een deel van het aanbod. De schrijver treedt op als opstandige spreker, met grappen, cartoons en stelligheid, en dat werkt in een zaal beter dan op papier. Een recensent constateerde dat de boodschap niet nieuw is en rauw en weinig doordacht wordt gebracht. Wie de onderliggende literatuur over aandacht, geheugen en overtuiging kent, vindt hier weinig dat daar niet al staat, en dan wel met bronvermelding.</p>
+      <p>Ten derde is het boek sinds 2022 in eigen beheer uitgegeven, zonder uitgever die meeleest. Dat is te merken aan de omvang: de herhaalstructuur is verdedigbaar als didactiek, maar zij dekt ook af dat er in 384 bladzijden minder verschillende stof staat dan het aantal doet vermoeden. Wie het seminar heeft gevolgd, koopt hier vooral het naslagwerk erbij.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal voor elk optreden eerst welk gevoel het publiek moet overhouden, en kies pas daarna de inhoud.</li>
+        <li>Beperk je tot vijf punten en herhaal die; wat je als zesde toevoegt, gaat af van de eerste vijf.</li>
+        <li>Regel het voorwerk zelf: de aankondiging, de opstelling van de zaal en je eerste zin.</li>
+        <li>Bouw per onderdeel één anekdote in die je publiek naderhand kan navertellen.</li>
+        <li>Oefen houding, oogcontact en stilte los van de inhoud; het zijn aparte vaardigheden.</li>
+        <li>Toets bij elke techniek uit het laatste deel of je haar ook zou gebruiken als je publiek wist dat je haar gebruikte.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De eerste druk verscheen in 2012 (ISBN 9789049103927). Sinds 2022 geeft Claassen het boek in eigen beheer uit bij Remco Claassen Producties als jubileumeditie, met ruim zestig nieuwe bladzijden over online spreken en over wat hij in tien jaar aan het materiaal veranderde (384 blz., ISBN 9789464372083, geteld als achttiende druk). De cartoons zijn van Mike Pearse. Er bestaat geen vertaling. Claassen schreef daarnaast boeken over leiderschap en persoonlijke ontwikkeling en gaf jarenlang het gelijknamige meerdaagse seminar.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een handboek over spreken voor publiek, geschreven door een trainer die zelf dagenlange seminars vult. Het gaat over presentaties, maar evengoed over vergaderingen, verkoopgesprekken, lesgeven en filmpjes voor een scherm.</p><p>Claassen begint bij de vraag waarom mensen niet luisteren, en beantwoordt die met vier obstakels in het hoofd van de toehoorder. Daarna volgen de middelen: weten wat een publiek onthoudt, een verhouding tussen inhoud, vermaak en aansporing, het gebruik van het lichaam en van de ruimte, verhalen, beeldspraak en taalpatronen die sturen zonder op te vallen.</p><p>Het boek is opzettelijk herhalend gebouwd. Elk hoofdstuk krijgt een samenvatting die in de volgende hoofdstukken terugkeert, zodat de eerste samenvatting aan het eind twaalf keer is langsgekomen. De jubileumeditie uit 2022 voegde daar een deel over spreken via een scherm aan toe.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spreken in het openbaar</li><li>presenteren</li><li>overtuigen</li><li>aandacht</li><li>lichaamstaal</li><li>storytelling</li><li>training</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="253"><a href="253.html">Talk Like TED</a>. Gallo ontleedt honderden gefilmde optredens en komt bij vergelijkbare regels uit over verhaal, beperking en herhaling, alleen met de opnamen erbij als onderbouwing.</li>
+          <li value="444"><a href="444.html">Supercommunicators</a>. Duhigg behandelt hetzelfde onderwerp vanuit onderzoek in plaats van vanuit de zaal, en laat zien wat er van de aannames over aandacht en overtuiging overeind blijft.</li>
+          <li value="271"><a href="271.html">Never Split the Difference</a>. Voss werkt met dezelfde soort taalmiddelen in een gesprek onder druk, en stelt de vraag naar de grens tussen sturen en manipuleren scherper dan Claassen doet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radical Candor &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Scott stelt dat de kern van goed leidinggeven niet in strategie of in systemen zit maar in de bereidheid om mensen te zeggen wat er aan hun werk mankeert,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1740">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1740 &middot; Samenwerken en gesprek</p>
+    <h1>Radical Candor</h1>
+    <p class="lede">Kim Scott, 2017</p>
+    <p class="stats">
+      <span><b>1887</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1740"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Scott stelt dat de kern van goed leidinggeven niet in strategie of in systemen zit maar in de bereidheid om mensen te zeggen wat er aan hun werk mankeert, en dat die bereidheid alleen ontstaat als zij merken dat de leidinggevende persoonlijk om hen geeft. Zwijgen uit vriendelijkheid noemt zij de duurste fout die een baas kan maken: het houdt iemand maanden in een rol waarin hij faalt en ontneemt hem de kans om iets te veranderen. Het boek zet die stelling neer als een schema van vier vakken en werkt daarna uit welke gesprekken, vergaderingen en beslisvormen erbij horen. De achterliggende belofte is dat openhartigheid, mits gedragen door een echte verhouding, tegelijk vriendelijker en doeltreffender is dan de omgangsvormen die de meeste kantoren hanteren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het begrip vandaan komt</h3>
+      <p>Scott vertelt hoe zij na een geslaagde presentatie bij Google door haar leidinggevende Sheryl Sandberg werd meegenomen voor een gesprek. Na een aantal complimenten kwam de opmerking dat Scott voortdurend eh zei, en dat dat haar dom deed klinken. Scott had de eerdere signalen genegeerd; pas dat woord kwam binnen. Sandberg regelde een spraakcoach.</p>
+      <p>Uit die anekdote haalt Scott twee dingen. Het eerste is dat een opmerking die pijn doet ook een dienst kan zijn. Het tweede is de onderscheiding die in het boek terugkomt als de laatste letter van haar geheugensteun: er werd niet gezegd dat zij dom was, maar dat zij dom klonk als zij eh zei. Het verschil tussen iemands gedrag en iemands persoon draagt de rest van het boek.</p>
+      <h3>De twee assen en de vier vakken</h3>
+      <p>De verticale as heet care personally: aandacht voor de hele mens, niet alleen voor de werknemer. De horizontale as heet challenge directly: zeggen wat er niet deugt en tegenspraak ook zelf verdragen. Beide hoog levert radical candor op.</p>
+      <p>De drie andere vakken krijgen namen die de reden van hun bestaan verklaren. Obnoxious aggression is tegenspreken zonder betrokkenheid, en Scott merkt op dat dit vak nog altijd betere resultaten geeft dan zwijgen, omdat er in elk geval iets gezegd wordt. Ruinous empathy is betrokkenheid zonder tegenspraak, volgens haar veruit de meest voorkomende fout. Manipulative insincerity is geen van beide: geveinsde lof in het openbaar en giftige opmerkingen achter iemands rug.</p>
+      <p>In de herziene editie legt Scott er nadruk op dat het schema niet meet wat een leidinggevende bedoelt maar wat er aankomt bij degene tegenover hem. Openhartigheid wordt gemeten aan het oor van de luisteraar. Dat is haar antwoord op lezers die het boek gebruikten als vrijbrief om onaardig te zijn.</p>
+      <h3>Het verhaal van Bob</h3>
+      <p>De langste anekdote van het boek gaat over een medewerker die Scott Bob noemt. Hij kwam met goede aanbevelingen binnen bij haar softwarebedrijf, was aardig en geliefd, en leverde werk af dat niet deugde: presentaties vol slordigheden en zinnen zonder inhoud. Scott zei tien maanden lang niets scherps, omdat zij hem mocht en hem niet wilde kwetsen.</p>
+      <p>Toen zij hem uiteindelijk moest ontslaan, vroeg hij waarom niemand hem dat eerder had verteld. Anderen in het team waren intussen vertrokken of hadden zijn werk stilzwijgend overgedaan. Scott gebruikt de afloop om te laten zien dat vriendelijkheid zonder duidelijkheid niet alleen Bob schaadde maar het hele team, en dat zij zelf de kosten van haar aardigheid bij anderen had neergelegd.</p>
+      <h3>Begeleiding krijgen, geven en aanmoedigen</h3>
+      <p>Scott vermijdt het woord feedback en spreekt van guidance. Zij behandelt die in een vaste volgorde: eerst zelf om kritiek vragen, dan pas kritiek geven, vervolgens kritiek tussen teamleden onderling aanmoedigen, en tot slot nagaan hoe de opmerkingen zijn geland. De volgorde is bewust: wie zelf nooit tegenspraak uitlokt, heeft geen recht van spreken.</p>
+      <p>Voor het geven van kritiek hanteert zij de geheugensteun HHIPP. Openhartigheid is bescheiden, behulpzaam, onmiddellijk en persoonlijk, dus onder vier ogen bij kritiek en in het openbaar bij lof, en zij richt zich op wat iemand deed en niet op wie iemand is. Onmiddellijk betekent bij haar binnen dagen, niet in een halfjaarlijks beoordelingsgesprek, en persoonlijk betekent in gesprek en niet per bericht.</p>
+      <h3>Rockstars en superstars</h3>
+      <p>Scott verzet zich tegen het sorteren van mensen op hun vermeende aanleg en stelt voor om naar hun groeirichting van dit moment te kijken. Wie in een steile leercurve zit noemt zij een superstar; die persoon wil binnen afzienbare tijd iets anders. Wie in een vlakke curve zit en goed werk levert noemt zij een rockstar; die persoon houdt de zaak overeind en moet niet weggepromoveerd worden.</p>
+      <p>Bij de loopbaangesprekken leunt zij op een aanpak van haar collega Russ Laraway, in drie gesprekken. Het eerste gaat over iemands levensverhaal en over de momenten waarop hij van richting veranderde. Het tweede gaat over de droom aan het eind van de loopbaan, waarbij Scott aanraadt meerdere dromen naast elkaar te leggen en te kijken welke vaardigheden er in alle voorkomen. Het derde vertaalt dat naar een plan voor de komende achttien maanden.</p>
+      <h3>Werk gedaan krijgen</h3>
+      <p>Het laatste deel beschrijft een wiel met zeven stappen: luisteren, verduidelijken, bediscussiëren, besluiten, overtuigen, uitvoeren en leren. Scott stelt dat de meeste teams struikelen doordat zij een van die stappen overslaan, meestal het overtuigen na een besluit of het leren na de uitvoering.</p>
+      <p>Daarbij hoort een reeks vergadervormen die zij bij Google en Apple in gebruik zag: wekelijkse gesprekken onder vier ogen waarvan de agenda van de medewerker is, een teamvergadering waarin geen besluiten vallen, en aparte bijeenkomsten voor discussie en voor besluitvorming. Scott raadt aan dat degene die het dichtst bij het werk staat het besluit neemt, ook als dat niet de leidinggevende is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Radical candor</td><td>De combinatie van persoonlijke betrokkenheid en rechtstreekse tegenspraak, door Scott aangeduid als de enige houding waarin kritiek zowel duidelijk als vriendelijk kan zijn.</td></tr>
+          <tr><td class="term">Care personally</td><td>Aandacht voor iemand als mens en niet alleen als functiehouder, volgens Scott de voorwaarde waaronder kritiek als hulp wordt gehoord.</td></tr>
+          <tr><td class="term">Challenge directly</td><td>Zeggen wat er aan iemands werk mankeert en zelf tegenspraak uitlokken en verdragen.</td></tr>
+          <tr><td class="term">Ruinous empathy</td><td>Betrokkenheid zonder tegenspraak: vage lof en verzachte kritiek uit vrees iemand te kwetsen, in het boek de meest voorkomende fout van welwillende leidinggevenden.</td></tr>
+          <tr><td class="term">Obnoxious aggression</td><td>Tegenspraak zonder betrokkenheid, dus onaardige kritiek en onoprechte lof; volgens Scott schadelijk maar nog altijd minder schadelijk dan zwijgen.</td></tr>
+          <tr><td class="term">Manipulative insincerity</td><td>Noch betrokkenheid noch tegenspraak: geveinsde lof waar mensen bij zijn en scherpe opmerkingen buiten hun gehoor.</td></tr>
+          <tr><td class="term">Guidance</td><td>Scotts verzamelwoord voor lof en kritiek samen, in het boek geordend als iets dat een leidinggevende eerst vraagt, dan geeft, dan aanmoedigt en tot slot nameet.</td></tr>
+          <tr><td class="term">HHIPP</td><td>De geheugensteun voor de vorm van een opmerking: bescheiden, behulpzaam, onmiddellijk, in persoon, en gericht op gedrag in plaats van op de persoon.</td></tr>
+          <tr><td class="term">Rockstar en superstar</td><td>Twee groeirichtingen in plaats van twee soorten mensen: de vlakke curve van iemand die stabiliteit levert en de steile curve van iemand die snel verder wil.</td></tr>
+          <tr><td class="term">Career conversation</td><td>Een reeks van drie gesprekken over iemands levensverhaal, zijn droom aan het eind van de loopbaan en een plan voor de komende achttien maanden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de loopbaan van de schrijfster en niet op onderzoek. Scott leidde bij Google een groot deel van de advertentieverkoop, gaf bij Apple een cursus over leidinggeven en werkte daarna als adviseur bij een reeks technologiebedrijven. Vrijwel elke stelling wordt gedragen door een verhaal uit die jaren. Er staat geen enkele meting in het boek waaruit blijkt dat teams die volgens het schema werken beter presteren dan teams die dat niet doen.</p>
+      <p>Het schema zelf is een tweeassig model met vier kwadranten, een vorm die in de managementliteratuur al sinds de jaren zestig in omloop is. Scotts toevoeging zit vooral in de naamgeving. Ruinous empathy is de vondst waar het boek zijn verspreiding aan dankt, omdat het een gedrag benoemt dat veel leidinggevenden bij zichzelf herkennen zodra het een naam heeft.</p>
+      <p>De sterkste redenering in het boek is de kostenrekening bij het verhaal van Bob. Scott laat zien dat het uitstellen van kritiek niet neutraal is: de rekening verschuift naar collega's die het werk overdoen, naar het teamresultaat, en uiteindelijk naar de betrokkene zelf, die tien maanden verliest die hij aan iets anders had kunnen besteden. Die redenering staat los van de vraag of het kwadrantenschema klopt.</p>
+      <p>In de herziene editie voegde Scott toe dat het schema gemeten wordt bij de ontvanger. Dat maakt het model beter bestand tegen misbruik, maar ook moeilijker te toetsen: elke leidinggevende die te horen krijgt dat hij hufterig was, kan volhouden dat hij openhartig was en dat de ander het verkeerd opvatte, en het boek biedt geen scheidsrechter voor dat meningsverschil.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest genoemde bezwaar is dat het begrip in de praktijk vooral is gebruikt als dekmantel. Bedrijven namen het over en lieten de eerste as vallen: mensen gingen elkaar onaangenaam toespreken en noemden dat openhartigheid. Scott heeft daar zelf herhaaldelijk voor gewaarschuwd en er een deel van de herziene editie aan besteed, wat aangeeft hoe voorspelbaar de verschuiving was.</p>
+      <p>Het boek gaat nauwelijks in op het verschil in macht. Voor de leidinggevende kost openhartigheid weinig; voor de werknemer die zijn baas tegenspreekt kan zij een loopbaan kosten. Scott raadt bazen aan om zelf kritiek uit te lokken, maar erkent niet dat een uitnodiging van iemand die over je beoordeling gaat geen veilige uitnodiging is. Ook verschilt de ontvangst van een scherpe opmerking naargelang wie hem geeft en wie hem krijgt; Scott ging daar pas in <i>Just Work</i> op in.</p>
+      <p>In de recensie van Erin Vanderhoof in Vice wordt het boek gerekend tot het genre dat uitgaat van de gedachte dat verdienste vanzelf boven komt drijven. De problemen die Scott beschrijft zijn organisatorisch, haar oplossingen zijn persoonlijk: een betere houding van de individuele baas. Over beloningsstructuren, vaste aanstellingen of medezeggenschap staat er niets.</p>
+      <p>De voorbeelden komen bijna zonder uitzondering uit technologiebedrijven met hoge marges, waar werknemers schaars zijn en gemakkelijk elders terechtkunnen. Of dezelfde openhartigheid werkt in een distributiecentrum, een verpleeghuis of een schoolteam blijft onbeantwoord. Ook de aanbeveling om binnen dagen iets te zeggen veronderstelt een dagelijkse nabijheid die in veel organisaties niet bestaat.</p>
+      <p>De taal van rockstars en superstars blijft, hoe zorgvuldig Scott haar ook herdefinieert, een sorteersysteem. Wie eenmaal als vlakke curve staat genoteerd, wordt daar door leidinggevenden op behandeld, en het boek geeft geen procedure om die indeling te herzien.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag eerst zelf om kritiek voordat er kritiek gegeven wordt, en blijf doorvragen tot er iets ongemakkelijks komt.</li>
+        <li>Benoem in een opmerking de situatie, het waargenomen gedrag en het gevolg ervan, en vermijd uitspraken over iemands karakter.</li>
+        <li>Zeg wat er mankeert binnen enkele dagen en niet in een halfjaarlijkse beoordeling.</li>
+        <li>Houd wekelijkse gesprekken onder vier ogen waarvan de agenda bij de medewerker ligt en niet bij de leidinggevende.</li>
+        <li>Voer de drie loopbaangesprekken los van de beoordelingsronde, zodat het gesprek over dromen niet met een salarisbesluit verweven raakt.</li>
+        <li>Ga bij elke opmerking na hoe zij is aangekomen; het schema meet de ontvangst, niet de bedoeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Radical Candor: Be a Kick-Ass Boss Without Losing Your Humanity</i> (St. Martin's Press, New York, 2017, 272 blz., ISBN 9781250103505). In 2019 verscheen een herziene en uitgebreide editie waarin Scott een aantal begrippen bijstelde (ISBN 9781250235374). De Nederlandse vertaling van Tijmen Roozenboom kwam in augustus 2017 uit bij Lev., het non-fictiefonds van A.W. Bruna in Amsterdam, als <i>Radicaal openhartig: wees een baas door mens te blijven</i> (ISBN 9789400508774; e-boek 9789044976458). Scott schreef daarna <i>Just Work</i> (2021), over vooroordeel en machtsverschil op de werkvloer.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kim Scott gaf leiding bij Google en gaf daarna bij Apple een cursus voor beginnende leidinggevenden. Uit dat materiaal komt dit boek, dat draait om een schema met twee assen: persoonlijk om iemand geven, en iemand rechtstreeks tegenspreken. Wie beide doet, oefent wat zij radical candor noemt.</p><p>De drie andere vakken van het schema krijgen namen die blijven hangen. Wie tegenspreekt zonder om iemand te geven, is hufterig. Wie geeft om iemand maar niets durft te zeggen, oefent ruinous empathy, de meest voorkomende fout van aardige bazen. Wie geen van beide doet, is onoprecht.</p><p>De tweede helft van het boek is praktischer: gesprekken over de loopbaan van iemand, wekelijkse gesprekken onder vier ogen, vergadervormen, en een wiel dat beschrijft hoe een team van luisteren naar een besluit en naar uitvoering komt. Het bewijs bestaat vrijwel geheel uit verhalen uit Scotts eigen loopbaan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leidinggeven</li><li>feedback</li><li>gesprekstechniek</li><li>Silicon Valley</li><li>teams</li><li>kritiek geven</li><li>loopbaan</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Patterson en zijn medeauteurs geven wel een uitgewerkte gespreksvolgorde voor het moment waarop de inzet hoog is en de emoties oplopen, precies waar Scott het bij een houding laat.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg werkt de scheiding tussen waarneming en oordeel veel verder uit dan Scott, en komt daarbij tot een tegenovergestelde toon.</li>
+          <li value="42"><a href="42.html">The Five Dysfunctions of a Team</a>. Lencioni zet gebrek aan onderling vertrouwen en vermeden conflict als eerste twee gebreken van een team neer; dat is dezelfde diagnose als ruinous empathy, maar op teamniveau.</li>
+          <li value="1682"><a href="1682.html">Verbaal Meesterschap</a>. Claassen behandelt hetzelfde onderwerp voor een Nederlands publiek en met een nadruk op de formulering ter plekke.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

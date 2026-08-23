@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leven met wind mee &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hermus stelt dat vrijwel alle ellende die mensen dagelijks ervaren niet uit de gebeurtenissen zelf voortkomt maar uit de gedachten erover, en dat wie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1761">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1761 &middot; Levenskunst</p>
+    <h1>Leven met wind mee</h1>
+    <p class="lede">Jelle Hermus, 2019</p>
+    <p class="stats">
+      <span><b>1444</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1761"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hermus stelt dat vrijwel alle ellende die mensen dagelijks ervaren niet uit de gebeurtenissen zelf voortkomt maar uit de gedachten erover, en dat wie leert die gedachten te zien voor wat ze zijn, losse verschijnselen die vanzelf opkomen en weer verdwijnen, het grootste deel van die ellende kwijtraakt. De uitkomst noemt hij dramaloosheid. Wat zijn boek onderscheidt van de meeste zelfhulp is de smalheid van het voorstel: er staat geen lijst van tientallen adviezen in, maar een enkele dagelijkse gewoonte, een korte meditatie, waarvan hij beweert dat zij op termijn de verhouding tot het eigen denken verandert. Alle overige hoofdstukken zijn toepassingen van dat ene idee op oordelen, controle, zelfbeeld en drukte.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Gedachten zijn scheten</h3>
+      <p>Het eerste deel heet Tegenwind uitschakelen en opent met de vergelijking waar het boek om bekendstaat: gedachten komen op zoals winden opkomen, ze zijn er ongevraagd, ze zeggen weinig over wie je bent, en het is verstandiger ze te laten passeren dan ze vast te houden. De grap is niet vrijblijvend; Hermus gebruikt haar om het verschil aan te brengen tussen een gedachte hebben en een gedachte geloven.</p>
+      <p>Daaruit volgt zijn hoofdregel: iemand is zijn gedachten niet, hij heeft ze. Wie dat onderscheid eenmaal ziet, kan volgens Hermus ook zien dat het lijden aan een situatie meestal ontstaat in de laag erbovenop, in het commentaar dat het hoofd erbij levert.</p>
+      <h3>Het drama leren observeren</h3>
+      <p>Het tweede hoofdstuk gaat over waarnemen. Hermus vraagt de lezer een tijdlang bij te houden wat er in het hoofd langskomt tijdens gewone bezigheden, en te merken hoeveel daarvan bestaat uit herhaling, vooruitlopen en terugkijken. Zijn stelling is dat het drama vrijwel altijd in die laag zit en zelden in het feit.</p>
+      <p>Hij benoemt daarbij de neiging om gedachten te behandelen als berichten die aandacht verdienen omdat ze zich aandienen. Het alternatief dat hij aanbiedt is geen betere gedachte, maar een andere plek: die van de waarnemer die het langskomen ziet.</p>
+      <h3>De gewoonte die het boek draagt</h3>
+      <p>Het derde en vierde hoofdstuk voeren de dagelijkse meditatie in. Hermus houdt die bewust klein: een korte zitting, elke dag, zonder plechtigheid en zonder eis dat het hoofd stil wordt. Zijn argument is dat het oefenen zelf het werk doet, doordat iemand honderden keren merkt dat hij is afgedwaald en terugkeert, en dat dat merken precies de vaardigheid is die het boek beoogt.</p>
+      <p>Hij besteedt een apart hoofdstuk aan het imago van mindfulness, omdat hij verwacht dat een deel van zijn lezers afhaakt bij het woord. Zijn verweer is nuchter: het gaat om aandacht, niet om wierook, en de oefening werkt of werkt niet, ongeacht wat men ervan vindt.</p>
+      <h3>Dramaloos leven</h3>
+      <p>Het tweede deel, zeven hoofdstukken lang, past het idee toe op terreinen waar mensen vastlopen: negatieve gedachtenpatronen, oordelen over anderen, de drang alles onder controle te houden, en het gevecht met het eigen zelfbeeld. Telkens is de beweging dezelfde: het verschijnsel benoemen, laten zien dat het uit denken bestaat, en de waarnemershouding aanbieden als uitweg.</p>
+      <p>Zelfacceptatie krijgt daarin de meeste ruimte. Hermus betoogt dat een groot deel van de dagelijkse onvrede bestaat uit het verschil tussen hoe iemand is en hoe hij vindt dat hij zou moeten zijn, en dat dat verschil zelf een gedachte is. Voor het loslaten van controle gebruikt hij het beeld van een lama die zich nergens door laat opjagen.</p>
+      <h3>Wat als het niet lukt</h3>
+      <p>Het derde deel, vijf hoofdstukken, gaat over volhouden. Hermus behandelt de bezwaren die hij in tienduizenden reacties op zijn website heeft zien terugkomen: geen tijd, te onrustig, al eens geprobeerd, kleine kinderen in huis. Zijn antwoorden zijn praktisch en klein van formaat: korter mediteren, aan iets bestaands vastkoppelen, de lat zo laag leggen dat overslaan geen zin heeft.</p>
+      <p>Daarmee is het boek eerder een gewoontehandleiding dan een beschouwing. De inhoud van de meditatie interesseert Hermus minder dan de vraag of de lezer haar over drie maanden nog doet.</p>
+      <h3>Vorm en toon</h3>
+      <p>Elk hoofdstuk sluit af met wolkjes, korte samenvattingen van wat er is behandeld, en verwijst naar een afgeschermde webomgeving met extra hoofdstukken, lijsten en oefeningen. Die opzet komt rechtstreeks uit zijn werk als blogger en maakt het boek makkelijk te doorlopen.</p>
+      <p>De keerzijde is de hoeveelheid herhaling. Wie de eerste vier hoofdstukken heeft gelezen, kent het argument; de rest is variatie. Recensenten noemden dat een voordeel, omdat de kern erdoor blijft hangen, en dat is bij een gewoonteboek geen onredelijke verdediging.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dramaloosheid</td><td>Hermus' woord voor een leven met weinig zelfgemaakte ellende, waarin gedachten wel opkomen maar niet meer sturen.</td></tr>
+          <tr><td class="term">Tegenwind en wind mee</td><td>De beeldspraak van het boek: tegenwind is het gevecht met de eigen gedachten, wind mee is meebewegen met wat er is.</td></tr>
+          <tr><td class="term">Gedachten zijn scheten</td><td>De openingsvergelijking, bedoeld om duidelijk te maken dat gedachten ongevraagd opkomen en niets zeggen over wie iemand is.</td></tr>
+          <tr><td class="term">Het drama</td><td>De laag commentaar die het hoofd bovenop een gebeurtenis legt en die volgens Hermus het eigenlijke lijden veroorzaakt.</td></tr>
+          <tr><td class="term">De waarnemer</td><td>De houding waarin iemand zijn gedachten opmerkt zonder erin mee te gaan; het doel van de oefening in het boek.</td></tr>
+          <tr><td class="term">De simpele gewoonte</td><td>De korte dagelijkse meditatie waar het hele boek op rust, met opzet klein gehouden zodat volhouden waarschijnlijk blijft.</td></tr>
+          <tr><td class="term">Wolkjes</td><td>De kaders aan het eind van elk hoofdstuk waarin de kernpunten van dat hoofdstuk nog eens kort staan.</td></tr>
+          <tr><td class="term">De windmachine</td><td>De afgeschermde webomgeving bij het boek met bonushoofdstukken, lijsten en oefeningen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Hermus is geen onderzoeker en presenteert zich ook niet zo. Zijn onderbouwing bestaat uit eigen ervaring, uit reacties van lezers van soChicken.nl en uit het feit dat de oefening die hij aanbeveelt al eeuwen wordt gedaan. Een notenapparaat ontbreekt, en waar hij naar onderzoek verwijst doet hij dat in algemene bewoordingen.</p>
+      <p>Het onderliggende idee is intussen niet zijn vondst en is wel onderzocht. Dat iemand een gedachte kan waarnemen zonder haar te geloven heet in de klinische psychologie defusie en is een onderdeel van acceptance and commitment therapy; het ligt ook ten grondslag aan op mindfulness gebaseerde behandelingen. Dat geeft het boek meer grond dan de toon doet vermoeden.</p>
+      <p>Over de omvang van de opbrengst is het beeld nuchterder dan Hermus suggereert. Het overzicht van Goyal en collega's in JAMA Internal Medicine uit 2014, dat tientallen gerandomiseerde onderzoeken naar meditatieprogramma's samenvatte, vond matige aanwijzingen voor vermindering van angst, somberheid en pijn, en weinig tot geen bewijs voor de bredere claims over stemming, gewoontes en welbevinden. Dat is een reele opbrengst, maar een kleinere dan een leven waarin bijna alle ellende verdwijnt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de eenzijdige oorzaak. Door bijna alle ellende in het denken te leggen, laat Hermus weinig ruimte voor ellende die er buiten ligt: schulden, ziekte, een slechte werkgever, rouw, geweld. Zijn model is daar niet onwaar, maar wel ongepast: iemand die zijn baan verliest heeft geen last van een gedachte over de baan. Het boek benoemt die grens wel eens terzijde, maar bouwt er niets omheen, en het risico is dat een lezer zijn eigen verzet als drama gaat lezen.</p>
+      <p>Het tweede bezwaar betreft dramaloosheid als doel. Boosheid, verdriet en ongerustheid zijn ook signalen dat er iets moet veranderen. Een oefening die leert die reacties te bekijken zonder erop in te gaan, kan bij iemand met een houdbare situatie rust brengen en bij iemand met een onhoudbare situatie het vertrek uitstellen. Waar de scheidslijn ligt, zegt het boek niet.</p>
+      <p>Het derde bezwaar is van vorm. De hoeveelheid herhaling en de aanhoudende grappen maken het boek lang voor de hoeveelheid inhoud, en de doorverwijzing naar een afgeschermde webomgeving koppelt de lezer aan het bedrijf achter het boek. Wie het onderwerp strakker behandeld wil zien, vindt hetzelfde in kortere en beter onderbouwde vorm elders.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd een dag bij hoeveel van wat er in het hoofd langskomt herhaling, vooruitlopen of terugkijken is.</li>
+        <li>Zet de dagelijkse zitting zo kort dat overslaan geen tijdwinst oplevert, en koppel haar aan een handeling die er al is.</li>
+        <li>Scheid bij een tegenvaller op papier het feit van het commentaar erop, en behandel alleen het feit.</li>
+        <li>Merk bij een oordeel over iemand anders op dat het een gedachte is die opkwam, en laat na er iets mee te doen.</li>
+        <li>Ga bij aanhoudende onrust na of de situatie zelf verandering vraagt, voordat de oefening als antwoord wordt ingezet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Leven met wind mee. Minder drama in je leven, meer rust in je hoofd</i>, Kosmos Uitgevers, Utrecht/Antwerpen, 2019, 256 blz., ISBN 9789021572659; e-boek ISBN 9789021572666. Het boek is in het Nederlands geschreven en is niet vertaald. Hermus is de man achter het platform soChicken.nl en schreef eerder <i>Steeds leuker</i> (2017) en daarna <i>Kom maar op</i> (2024). Bij dit boek hoort een afgeschermde webomgeving met bonusmateriaal en oefeningen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jelle Hermus schreef een boek over een enkel idee: bijna alle ellende die mensen op een dag meemaken komt niet uit de gebeurtenissen zelf, maar uit de gedachten die zij erover hebben. Zijn beeldspraak daarvoor is de wind. Wie zijn gedachten serieus neemt, leeft met tegenwind; wie ze leert waarnemen zonder erin mee te gaan, leeft met de wind mee.</p><p>De uitkomst noemt hij dramaloosheid. Het boek bestaat uit drie delen en zestien hoofdstukken, en zet vrijwel alles op een enkele gewoonte: een korte dagelijkse meditatie, met daarnaast de houding die daaruit voortkomt, namelijk gedachten opmerken zonder ze te geloven. Elk hoofdstuk sluit af met wolkjes waarin de kern nog eens staat.</p><p>De toon is die van zijn blog: grappen, alledaagse voorbeelden en veel herhaling. De vergelijking waarmee het boek opent, dat gedachten scheten zijn die je beter niet kunt vasthouden, geeft het niveau van de humor aan. Onder die vorm zit een tamelijk strak boeddhistisch en mindfulnessidee, zonder dat het boek zich zo aandient.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gedachten</li><li>meditatie</li><li>mindfulness</li><li>rust</li><li>zelfhulp</li><li>soChicken</li><li>gewoontes</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1654"><a href="1654.html">Steeds leuker</a>. Zijn debuut uit 2017 behandelt hetzelfde publiek met een bredere insteek, over vrijheid en plezier, waar dit boek alles op een enkele gewoonte zet.</li>
+          <li value="1653"><a href="1653.html">Kom maar op</a>. Het latere boek uit 2024 gaat over tegenslag en veerkracht en laat zien hoe Hermus dezelfde denkwijze toepast op zwaardere omstandigheden.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle formuleert dertig jaar eerder dezelfde kern, dat het denken de bron van het lijden is, in plechtige taal waar Hermus grappen gebruikt.</li>
+          <li value="401"><a href="401.html">10% Happier</a>. Harris beschrijft de weg naar dezelfde oefening vanuit scepsis, en is aanmerkelijk voorzichtiger over wat meditatie oplevert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

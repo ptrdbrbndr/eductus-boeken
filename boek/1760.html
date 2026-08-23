@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Code of the Extraordinary Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lakhiani stelt dat het grootste deel van wat mensen vanzelfsprekend vinden over school, werk, geloof, geld en relaties bestaat uit aangeleerde afspraken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1760">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1760 &middot; Positief denken en manifesteren</p>
+    <h1>The Code of the Extraordinary Mind</h1>
+    <p class="lede">Vishen Lakhiani, 2016</p>
+    <p class="stats">
+      <span><b>1740</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1760"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lakhiani stelt dat het grootste deel van wat mensen vanzelfsprekend vinden over school, werk, geloof, geld en relaties bestaat uit aangeleerde afspraken die zij nooit zelf hebben getoetst. Hij noemt die afspraken brules, en zijn these is dat wie ze een voor een naloopt en vervangt door zelfgekozen regels, zijn leven op eigen voorwaarden kan inrichten. Daaronder ligt een tweede aanname: dat het menselijk denken werkt als een computer met hardware en software, en dat overtuigingen en gewoontes daarom net zo vervangbaar zijn als programmatuur. Het boek beweert bovendien dat geluk in het heden en een groot toekomstbeeld elkaar versterken, en dat wie beide tegelijk vasthoudt merkt dat er vaker kansen langskomen dan toeval verklaart. Die laatste bewering is de omstredenste van het boek, en tegelijk de bewering waar de meeste lezers voor komen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De culturescape</h3>
+      <p>Lakhiani begint met een onderscheid tussen twee soorten werkelijkheid. Er is de absolute werkelijkheid, waarover natuurkunde en scheikunde iets kunnen zeggen, en er is de culturescape: het bouwsel van landsgrenzen, geloofsartikelen, huwelijksvormen, schoolsystemen en geldafspraken dat mensen zelf hebben gemaakt en vervolgens zijn gaan behandelen als natuurwet. Zijn eerste wet luidt dat wie zich boven die laag uit wil werken, eerst moet zien dat zij bestaat.</p>
+      <p>Hij illustreert dat met zijn eigen jeugd in Maleisie, met de druk om ingenieur te worden en met zijn ervaring als jonge verkoper bij een bedrijf in New York, waar hij dagelijks koude telefoontjes pleegde en zichzelf mislukt vond tot hij een cursus meditatie volgde. De biografische toon van dat hoofdstuk zet de toon voor de rest van het boek.</p>
+      <h3>Brules herkennen</h3>
+      <p>De tweede wet is de bekendste. Een brule is een regel die iemand heeft overgenomen zonder haar te onderzoeken, en die hij toch handhaaft alsof er iets van afhangt. Lakhiani noemt er vier met naam: dat een universitaire graad succes verzekert, dat je moet trouwen binnen je eigen bevolkingsgroep, dat je een van de bestaande godsdiensten dient aan te hangen, en dat werk hard en zwaar hoort te zijn.</p>
+      <p>Zijn toets bestaat uit een reeks vragen: is deze regel gebaseerd op vertrouwen en hoop of op angst, komt hij van mensen die zelf het leven leiden dat ik zou willen, is hij nog geldig gegeven wat ik nu weet. Wat opvalt is dat de toets nergens ruimte maakt voor regels die iemand tegen zijn zin zou moeten blijven volgen omdat anderen er belang bij hebben.</p>
+      <h3>Bewustzijnstechniek: hardware en software</h3>
+      <p>Wetten drie tot en met vijf vormen de kern van de methode. Lakhiani noemt haar consciousness engineering en werkt met een beeld uit de informatica. De hardware bestaat uit modellen van de werkelijkheid, dat wil zeggen overtuigingen over hoe het leven in elkaar zit. De software bestaat uit systemen voor het leven, dat wil zeggen de dagelijkse handelingen: hoe iemand eet, slaapt, leest, oefent, geld verdient en met zijn kinderen omgaat.</p>
+      <p>Zijn advies is beide met opzet en met regelmaat te vervangen. Voor de hardware beveelt hij aan een overtuiging op te sporen die verlammend werkt, na te gaan waar zij vandaan komt en er een andere voor in de plaats te oefenen. Voor de software beveelt hij aan een handeling te vervangen zodra er een aantoonbaar betere versie beschikbaar is, en dat te blijven doen, ongeveer zoals iemand zijn telefoon bijwerkt.</p>
+      <h3>De werkelijkheid buigen en blissipline</h3>
+      <p>In het derde deel komen de wetten waar het boek zijn reputatie aan dankt. Bending reality beschrijft Lakhiani als de toestand waarin iemand tegelijk tevreden is met het heden en een groot doel voor ogen houdt. Hij zet dat af tegen drie andere toestanden: gelukkig zonder doel, ongelukkig met doel, en ongelukkig zonder doel. Alleen in de eerste toestand ontstaat volgens hem het gevoel dat de omstandigheden meewerken.</p>
+      <p>Blissipline is zijn woord voor de dagelijkse oefening in tevredenheid: dankbaarheid, vergeving en geven. Hij presenteert die niet als beloning achteraf maar als voorwaarde vooraf, met het argument dat mensen beter presteren wanneer zij al gelukkig zijn. Bij hem gaat die volgorde ver: geluk is bij Lakhiani een gewoonte die je oefent zoals je een spier oefent, ook op dagen dat er weinig aanleiding voor is.</p>
+      <h3>Een toekomstbeeld maken</h3>
+      <p>Voor het opstellen van doelen keert Lakhiani zich tegen wat hij middeldoelen noemt: een diploma, een functietitel, een huis. Die zijn volgens hem overgenomen uit de culturescape en leveren zelden op wat men ervan verwacht. In plaats daarvan stelt hij drie vragen: welke ervaringen wil ik in dit leven meemaken, hoe wil ik groeien om die ervaringen aan te kunnen, en wat wil ik bijdragen aan anderen.</p>
+      <p>De praktische neerslag daarvan is de zesfasenmeditatie, een oefening van ongeveer een kwartier die achtereenvolgens gaat over verbondenheid, dankbaarheid, vergeving, een beeld van de toekomst, een voornemen voor de dag en een zegening. Lakhiani stelde die samen uit stukken van bestaande tradities en oefeningen, en bracht haar later apart uit als eigen boek.</p>
+      <h3>Onaantastbaar worden en een queeste kiezen</h3>
+      <p>De laatste twee wetten sluiten het boek. Wet negen draagt het woord unfuckwithable, Lakhiani's term voor iemand die zo op zijn plaats zit dat lof en afkeuring van anderen hem niet meer sturen. Zijn redenering is dat wie zijn doelen aan de mening van anderen ophangt, altijd bestuurbaar blijft; wie ze aan eigen ervaring, groei en bijdrage ophangt, niet.</p>
+      <p>Wet tien roept op tot een queeste: een doel dat groter is dan de eigen loopbaan en dat anderen ten goede komt. Daarmee eindigt het boek waar veel zelfhulp eindigt, bij de gedachte dat persoonlijke ontwikkeling zichzelf pas rechtvaardigt als er iemand anders wat aan heeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Culturescape</td><td>Het geheel van door mensen gemaakte afspraken, normen en verhalen dat volgens Lakhiani wordt aangezien voor de werkelijkheid zelf.</td></tr>
+          <tr><td class="term">Brule</td><td>Samentrekking van bullshit rule: een overgenomen leefregel die nooit is getoetst en die de toets van vertrouwen, herkomst en houdbaarheid niet doorstaat.</td></tr>
+          <tr><td class="term">Consciousness engineering</td><td>Lakhiani's naam voor het met opzet bijwerken van het eigen denken, met overtuigingen als hardware en gewoontes als software.</td></tr>
+          <tr><td class="term">Models of reality</td><td>De overtuigingen over hoe de wereld werkt die iemand hanteert, in het boek behandeld als vervangbare onderdelen.</td></tr>
+          <tr><td class="term">Systems for living</td><td>De dagelijkse handelingen en routines waarmee iemand zijn leven uitvoert, van eten en slapen tot leren en werken.</td></tr>
+          <tr><td class="term">Bending reality</td><td>De toestand waarin tevredenheid met het heden samengaat met een groot toekomstbeeld, waarna volgens Lakhiani gunstige toevalligheden toenemen.</td></tr>
+          <tr><td class="term">Blissipline</td><td>De dagelijkse oefening in tevredenheid via dankbaarheid, vergeving en geven, opgevat als voorwaarde voor prestatie in plaats van als gevolg ervan.</td></tr>
+          <tr><td class="term">Unfuckwithable</td><td>Zijn term voor iemand die zo met zichzelf in het reine is dat afkeuring of lof van anderen zijn koers niet meer bepaalt.</td></tr>
+          <tr><td class="term">De drie belangrijkste vragen</td><td>Welke ervaringen wil ik meemaken, hoe wil ik groeien en wat wil ik bijdragen; bedoeld als vervanging van doelen die uit de culturescape komen.</td></tr>
+          <tr><td class="term">Zesfasenmeditatie</td><td>Oefening van ongeveer een kwartier met achtereenvolgens verbondenheid, dankbaarheid, vergeving, toekomstbeeld, dagvoornemen en zegening.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust vrijwel geheel op de loopbaan van de auteur zelf. Lakhiani studeerde elektrotechniek en informatica, werkte in de Verenigde Staten, raakte via de Silva Method aan meditatie, werd gecertificeerd instructeur van die methode en bouwde daaruit Mindvalley op, dat zijn naam ontleent aan Silva Mind Control. Die herkomst verklaart veel van de inhoud: de nadruk op geleide oefening, intuitie en veranderde bewustzijnstoestanden komt daar rechtstreeks vandaan. De Silva Method zelf is nooit in gecontroleerd onderzoek bevestigd.</p>
+      <p>Onderdelen van de oefeningen sluiten wel aan bij praktijken die zijn onderzocht. Dankbaarheidsoefeningen en vergevingsoefeningen zijn in de psychologie herhaaldelijk gemeten en laten bescheiden effecten zien op stemming; meditatie van dit type is onderzocht met wisselende uitkomsten. Lakhiani verwijst daar niet systematisch naar en levert geen notenapparaat waarmee een lezer zijn beweringen kan nalopen.</p>
+      <p>Voor de kern van wet zes, het idee dat een gelukkige gemoedstoestand plus een helder toekomstbeeld gunstige toevalligheden aantrekt, voert het boek geen bewijs aan dat die naam verdient. Wat er staat zijn verhalen achteraf: gebeurtenissen die goed afliepen, verteld door iemand die op dat moment in de beschreven toestand verkeerde. Voorbeelden waarin dezelfde toestand niets opleverde, blijven buiten beeld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt het begrip brule zelf. Lakhiani levert wel een toets om regels af te wijzen, maar geen enkele reden waarom een overgeleverde regel ook goed zou kunnen zijn. Regels die de samenleving draaiende houden en die niemand voor zichzelf zou uitvinden, zoals belasting betalen of je aan een afspraak houden wanneer die ongelegen komt, vallen binnen zijn schema even hard af als de regel dat je moet trouwen binnen je eigen groep. Herkomst en gevoel zijn bij hem de maatstaf, gevolg en verplichting niet.</p>
+      <p>Het tweede bezwaar betreft de haalbaarheid. Publishers Weekly wees er bij verschijnen op dat de anekdotes ver af staan van de gemiddelde lezer, en noemde als voorbeeld Lakhiani's eigen regel dat hij zijn werk opzegt zodra hij er twee weken lang tegenop ziet. Dat is een leefregel voor iemand met een eigen bedrijf en spaargeld. Wie een hypotheek en een baas heeft, kan de meeste adviezen in dit boek niet uitvoeren zonder risico dat het boek niet benoemt.</p>
+      <p>Het derde bezwaar is de computervergelijking. Overtuigingen laten zich niet installeren en verwijderen zoals programmatuur, en juist de overtuigingen die iemand het meest in de weg zitten, blijken in de praktijk het hardnekkigst. Door het denken als apparatuur voor te stellen wekt het boek de indruk dat verandering een kwestie van handigheid is. Voor lezers bij wie de oefeningen niet aanslaan, laat die voorstelling maar een verklaring over, namelijk dat zij het verkeerd hebben gedaan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer drie regels waar het eigen leven op draait en zoek per regel uit van wie hij afkomstig is en wanneer hij voor het laatst is nagerekend.</li>
+        <li>Onderscheid bij doelen de uitkomst van het middel: schrijf op welke ervaring achter een gewenst diploma, huis of functie schuilgaat.</li>
+        <li>Beantwoord de drie vragen over ervaringen, groei en bijdrage in eigen woorden voordat er een jaarplan wordt gemaakt.</li>
+        <li>Kies een dagelijkse handeling en vervang die door een aantoonbaar betere versie; leg vast waaraan die verbetering af te lezen valt.</li>
+        <li>Behandel de beloften over meewerkende omstandigheden als onbewezen en houd bij welke oefeningen wel en niet iets opleveren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Code of the Extraordinary Mind: 10 Unconventional Laws to Redefine Your Life and Succeed on Your Own Terms</i> (Rodale, New York, 2016, 256 blz., ISBN 9781623367084). In 2019 verscheen een herziene editie bij Rodale/Harmony (ISBN 9780593135822). Van dit boek bestaat geen Nederlandse vertaling. Van Lakhiani is wel <i>The Buddha and the Badass</i> vertaald, als <i>De Boeddha en de Badass</i> bij Kosmos Uitgevers (ISBN 9789021579221); zijn latere <i>The 6 Phase Meditation Method</i> (2022) verscheen evenmin in het Nederlands.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vishen Lakhiani, oprichter van het Maleisische opleidingsbedrijf Mindvalley, zet tien regels op een rij die volgens hem het verschil maken tussen een leven dat iemand overkomt en een leven dat hij zelf inricht. Zijn vertrekpunt is de culturescape: het geheel van afspraken, normen en verhalen dat mensen van hun omgeving overnemen en voor waarheid houden.</p><p>De regels die daaruit voortkomen noemt hij brules, een samentrekking van bullshit rules. Een diploma dat succes zou garanderen, trouwen binnen de eigen groep, hard werk dat pijn hoort te doen: het zijn volgens Lakhiani voorschriften van anderen die zelden zijn nagerekend. De eerste helft van het boek gaat over het herkennen en opruimen ervan.</p><p>De tweede helft is opbouwend. Lakhiani beschrijft overtuigingen als hardware en gewoontes als software, en stelt dagelijkse oefeningen voor waarmee beide te vervangen zijn, waaronder een meditatie van een kwartier in zes fasen. Het boek leunt op zijn eigen loopbaan en op wat hij van sprekers op zijn eigen podia hoorde; onderzoek komt er weinig aan te pas.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>Mindvalley</li><li>overtuigingen</li><li>meditatie</li><li>gewoontes</li><li>manifesteren</li><li>persoonlijke groei</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1748"><a href="1748.html">The Secret</a>. Byrne belooft dat gedachten de werkelijkheid vormgeven; Lakhiani's wet over het buigen van de werkelijkheid is een voorzichtiger geformuleerde versie van dezelfde claim, met meer aandacht voor gewoontes.</li>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Hill schreef in 1937 de sjabloon waar veel van dit genre op teruggaat: een verzameling gesprekken met geslaagde mensen, vertaald naar leefregels zonder toetsing.</li>
+          <li value="151"><a href="151.html">Essentialism</a>. McKeown behandelt hetzelfde probleem van overgenomen verwachtingen, maar houdt de oplossing bij selectie en weigeren in plaats van bij bewustzijnsoefening.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

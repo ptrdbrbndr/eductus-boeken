@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Velvet Rage &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Downs stelt dat de moeilijkheden waar veel homoseksuele mannen in hun volwassen leven tegenaan lopen, niet voortkomen uit hun seksualiteit maar uit de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1730">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1730 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>The Velvet Rage</h1>
+    <p class="lede">Alan Downs, 2005; herziene uitgave 2012</p>
+    <p class="stats">
+      <span><b>1469</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1730"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Downs stelt dat de moeilijkheden waar veel homoseksuele mannen in hun volwassen leven tegenaan lopen, niet voortkomen uit hun seksualiteit maar uit de schaamte die zij als kind hebben opgelopen door anders te zijn in een omgeving die dat afkeurde. Die schaamte gaat volgens hem niet weg door uit de kast te komen. Zij verandert van vorm en wordt zichtbaar als jacht op bevestiging: op uiterlijk, geld, status, seks of de goedkeuring van een publiek. Zijn stelling is dat pas een leven waarin iemand zijn keuzes niet meer laat bepalen door de vraag hoe hij overkomt, aan die kringloop een eind maakt. Hij noemt dat authenticiteit en beschrijft het als werk, niet als een toestand die je bereikt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De wortels van de woede</h3>
+      <p>Downs opent met de vaststelling dat de bevrijding niet heeft gebracht wat ervan verwacht werd. Homoseksuele mannen mogen sinds enkele decennia openlijk leven, en toch blijven de cijfers voor depressie, alcohol- en drugsgebruik en zelfdoding hoog. Hij weigert die cijfers te verklaren uit de seksualiteit zelf en zoekt de oorzaak in de jaren voor de bevrijding, in de kindertijd.</p>
+      <p>De woede uit de titel omschrijft hij als bedekt: zij wordt niet geuit als aanval maar als scherpte, wrok, spot of zelfbeschadiging. Het woord fluweel staat voor de vorm waarin zij verschijnt, verzorgd en gepolijst.</p>
+      <h3>Stadium een: overweldigd door schaamte</h3>
+      <p>Het eerste deel gaat over het jongetje met het grote geheim. Ruim voordat een kind weet wat seksualiteit is, merkt het dat het op iets betrapt kan worden. Het leert zichzelf gadeslaan, zijn stem en houding bijstellen en zich aanpassen aan wat de omgeving verwacht. Downs noemt dat het begin van een leven waarin de aandacht permanent naar buiten is gericht.</p>
+      <p>Uit die aanpassing komen volgens hem twee vaardigheden voort die later opvallen: een fijne antenne voor de stemming van anderen, en een neiging zich te presenteren zoals het moment vraagt. Het hoofdstuk over lelijke waarheden en modedromen beschrijft hoe de smaak voor schoonheid en stijl bij veel van zijn cliënten samenvalt met het gevoel dat het echte zelf onvertoonbaar is.</p>
+      <h3>Stadium twee: de schaamte compenseren</h3>
+      <p>Het tweede en langste deel beschrijft de jaren na de coming-out. De schaamte verdwijnt niet maar wordt bestreden met prestaties: een goed lichaam, een goede baan, een goed adres, een aantrekkelijke partner, een goede smaak. Elke bevestiging werkt kort, waarna een nieuwe nodig is.</p>
+      <p>Downs beschrijft de bijverschijnselen zonder omhaal: drank en drugs, seks die geen verbinding oplevert, relaties die vastlopen op de vraag wie de ander bevestigt, en het gevoel te verdrinken in een leven dat er van buiten goed uitziet. Het hoofdstuk over vastzitten in schaamte tekent de kringloop: schaamte leidt tot compensatie, compensatie levert kortstondige opluchting, de terugval bevestigt de schaamte.</p>
+      <p>In dit deel komt ook de identiteitscrisis aan bod die volgens hem rond het veertigste levensjaar veel voorkomt. Wie zijn hele leven op bevestiging heeft gebouwd, staat met lege handen zodra het lichaam meewerkt noch de nieuwigheid nog werkt.</p>
+      <h3>Stadium drie: authenticiteit opbouwen</h3>
+      <p>Het derde deel gaat over wat er dan te doen is. Downs zet authenticiteit tegenover validatie: handelen naar wat iemand zelf van waarde vindt, in plaats van naar wat een reactie oplevert. Hij waarschuwt dat dit geen verlichte toestand is maar dagelijks werk, en dat de schaamte terugkomt zodra de aandacht verslapt.</p>
+      <p>Hij behandelt het herstellen van relatietrauma, het aangaan van vriendschappen die niet op wedijver draaien, en het verschil tussen tevredenheid en opwinding. Het slothoofdstuk bevat een lijst vaardigheden voor een authentiek leven: keuzes maken op grond van eigen maatstaven, het aantal aangename ervaringen vergroten, relaties onderhouden en een eigen praktijk bijhouden.</p>
+      <h3>De toon en de vorm</h3>
+      <p>Het boek is geschreven als een mengsel van casuïstiek en betoog. Downs voert cliënten en vrienden op met naam en verhaal, en laat zijn eigen leven meelopen: zijn huwelijk met een vrouw, zijn coming-out, en in de uitgave van 2012 zijn hiv-diagnose. Die uitgave voegde ook een uitwerking toe van het derde stadium, dat in de eerste druk het dunst was gebleven.</p>
+      <p>Er staan geen tabellen in, geen literatuurverwijzingen van enige omvang en geen beschrijving van hoe de cliënten zijn geselecteerd. Het is een praktijkboek dat de ervaring van een behandelaar generaliseert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Fluwelen woede</td><td>De bedekte, naar binnen of zijwaarts gerichte woede die volgens Downs ontstaat wanneer boosheid nooit rechtstreeks getoond mocht worden.</td></tr>
+          <tr><td class="term">Schaamte</td><td>Bij Downs geen gevoel over wat iemand deed maar over wie hij is, opgelopen voordat er woorden voor bestonden.</td></tr>
+          <tr><td class="term">Het jongetje met het grote geheim</td><td>Downs' beeld voor het kind dat leert zichzelf te bewaken omdat het merkt dat iets aan hem niet gezien mag worden.</td></tr>
+          <tr><td class="term">Validatie</td><td>Bevestiging van buitenaf, door bewondering, aandacht of seks, die de schaamte kort verzacht en daarna opnieuw nodig is.</td></tr>
+          <tr><td class="term">De drie stadia</td><td>Downs' indeling van de weg van overweldigd worden door schaamte, via compenseren, naar authenticiteit.</td></tr>
+          <tr><td class="term">Authenticiteit</td><td>Handelen naar eigen maatstaven in plaats van naar de verwachte reactie, door Downs beschreven als dagelijkse oefening.</td></tr>
+          <tr><td class="term">Relatietrauma</td><td>De schade in het vermogen zich te hechten die volgens Downs ontstaat wanneer intimiteit jarenlang gepaard ging met geheimhouding.</td></tr>
+          <tr><td class="term">Tevredenheid tegenover opwinding</td><td>Het onderscheid waarmee Downs het derde stadium meet: een leven dat rust geeft tegenover een leven dat prikkels nodig heeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de klinische praktijk van de auteur en op zijn eigen leven. Downs is gepromoveerd psycholoog en behandelde jarenlang homoseksuele mannen, en de gevallen die hij beschrijft komen uit die spreekkamer. Wat ontbreekt is elke verantwoording daarover: hoeveel cliënten, over welke periode, uit welke plaatsen, met welke klachten aangemeld. De casussen zijn gekozen omdat zij het betoog dragen, niet omdat zij een dwarsdoorsnede vormen.</p>
+      <p>De verschijnselen die hij als startpunt neemt, staan wel vast. Uit bevolkingsonderzoek in verschillende landen komt herhaaldelijk naar voren dat homoseksuele mannen vaker kampen met depressie, angst, middelengebruik en zelfdodingsgedachten dan heteroseksuele mannen. Die bevinding is stevig; de gangbare verklaring ervoor in de literatuur is minderheidsstress, dus de opeenstapeling van stigma, verwachte afwijzing en verborgenheid. Downs' schaamteverhaal past bij die verklaring, maar hij toetst het er niet aan.</p>
+      <p>Het driestadiamodel zelf is geen onderzoeksresultaat. Er is geen meting die vaststelt hoeveel mannen de stadia doorlopen, in welke volgorde, of hoeveel er in stadium twee blijven steken. Het model is een ordening achteraf van wat de auteur in zijn praktijk meende te zien, en het is zo geformuleerd dat vrijwel elk verhaal erin past. Dat maakt het bruikbaar als kader en zwak als bewering.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste tegenwerping is de generalisatie. Downs schrijft over homoseksuele mannen in het algemeen, terwijl zijn materiaal grotendeels bestaat uit welgestelde, veelal blanke Amerikaanse mannen die de middelen en de neiging hadden een psycholoog op te zoeken. Journalist Menno Sedee stelde in Vrij Nederland de vraag die daaruit volgt: worstelen homomannen werkelijk massaal met schaamte, of herkent vooral een bepaalde groep zich in dat verhaal.</p>
+      <p>Daarbij komt dat het boek een verklaring biedt die niet te weerleggen valt. Wie zich in de beschrijving herkent, bevestigt haar; wie zich er niet in herkent, zit volgens de logica van het model in het eerste stadium en heeft de schaamte nog niet onder ogen gezien. Een verhaal dat elke uitkomst kan opnemen, verklaart uiteindelijk weinig.</p>
+      <p>Het boek is ook een tijdsdocument. Het beschrijft mannen die opgroeiden voordat homoseksualiteit in westerse landen wettelijk gelijkgesteld was en voordat scholen er open over spraken. Voor jongere lezers zal de kindertijd die Downs schetst deels vreemd zijn, en het boek geeft geen antwoord op de vraag wat er van het model overblijft wanneer de afwijzing waar het op teruggaat kleiner wordt.</p>
+      <p>Tot slot verschuift de aandacht van de omgeving naar het individu. De oorzaak ligt volgens Downs bij afwijzing van buitenaf, maar de oplossing die hij aanbiedt is inwendig werk. Wie de nadruk op stigma serieus neemt, zou ook iets verwachten over wat scholen, families en instellingen anders zouden moeten doen. Daarover zwijgt het boek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het tweede deel als eerste wanneer de herkenning het doel is; het eerste deel is voorgeschiedenis.</li>
+        <li>Ga bij een keuze na of zij gemaakt wordt om iets te bereiken of om ergens goed uit te komen, en noteer het antwoord.</li>
+        <li>Houd een week bij welke handelingen bevestiging opleverden en hoe lang die opluchting duurde.</li>
+        <li>Beschouw de lijst vaardigheden in het slothoofdstuk als oefenmateriaal, niet als kenmerken die iemand al dan niet bezit.</li>
+        <li>Leg de generalisaties van het boek naast eigen ervaring en die van anderen voordat het model als beschrijving wordt aanvaard.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Velvet Rage: Overcoming the Pain of Growing Up Gay in a Straight Man's World</i> (Da Capo Lifelong Books, Cambridge MA, 2005, 224 blz., ISBN 9780738210110). De herziene en uitgebreide uitgave van 2012 telt 272 blz. (ISBN 9780738215853) en bevat een toegevoegd persoonlijk hoofdstuk over Downs' eigen hiv-diagnose. Nederlands als <i>Fluwelen woede</i>, vertaald door Dennis Keesmaat, Nijgh &amp; Van Ditmar, Amsterdam, 2019, ISBN 9789038807867.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Alan Downs is klinisch psycholoog in de Verenigde Staten en behandelde jarenlang homoseksuele mannen. Hij stelde vast dat veel van zijn cliënten uiterlijk succesvol waren en innerlijk leeg, en zocht daarvoor een gemeenschappelijke verklaring. Die vond hij in schaamte: het besef, opgedaan lang voor er woorden voor waren, dat wie je bent niet deugt.</p><p>De woede uit de titel is volgens Downs de woede van iemand die zijn boosheid nooit rechtstreeks mocht tonen. Zij komt eruit als scherpte, als spot, als perfectionisme of als zelfvernietiging, en zelden als openlijk conflict. Hij verbindt haar met cijfers over depressie, middelengebruik en risicogedrag die onder homoseksuele mannen hoger liggen dan onder de rest van de bevolking.</p><p>Het boek is opgezet rond drie stadia: overweldigd worden door schaamte, haar compenseren met prestaties en bevestiging, en ten slotte een leven inrichten dat niet meer op bevestiging draait. Het derde deel bestaat grotendeels uit praktische aanwijzingen. Downs schrijft over zijn cliënten, zijn vrienden en zichzelf, zonder eigen onderzoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>schaamte</li><li>homoseksualiteit</li><li>mannen</li><li>identiteit</li><li>psychologie</li><li>verslaving</li><li>authenticiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="3"><a href="03.html">The Will to Change</a>. bell hooks beschrijft dezelfde afgesneden emotionaliteit bij mannen in het algemeen en legt de oorzaak bij de opvoeding tot mannelijkheid.</li>
+          <li value="44"><a href="44.html">Daring Greatly</a>. Brown werkt schaamte uit als algemeen begrip, met onderzoek erbij, en scheidt haar van schuld op een manier die Downs veronderstelt maar niet uitwerkt.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk levert de lichamelijke kant van wat Downs relatietrauma noemt, en wel met klinisch onderzoek.</li>
+          <li value="408"><a href="408.html">He: Understanding Masculine Psychology</a>. Johnson leest mannelijke ontwikkeling langs een mythe; een ander soort verklaring voor hetzelfde onderwerp, even weinig toetsbaar.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

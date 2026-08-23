@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1984 &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Een regime dat het verleden beheerst, beheerst de toekomst. Orwell werkt uit wat er nodig is om die zin waar te maken: niet alleen politie en angst, maar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1757">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1757 &middot; Roman en memoir</p>
+    <h1>1984</h1>
+    <p class="lede">George Orwell, 1949</p>
+    <p class="stats">
+      <span><b>1345</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1757"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Een regime dat het verleden beheerst, beheerst de toekomst. Orwell werkt uit wat er nodig is om die zin waar te maken: niet alleen politie en angst, maar een aanhoudende bewerking van het geheugen, van de taal en uiteindelijk van het denken zelf. De macht in dit boek zoekt geen gehoorzaamheid en geen instemming uit berekening, maar oprechte instemming van binnenuit, en zij bereikt die. Daarmee is <i>1984</i> geen waarschuwing tegen wat een staat een mens aandoet, maar tegen wat een staat een mens laat worden.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Londen, Landingsbaan Een</h3>
+      <p>Het boek opent in april, op een koude heldere dag, met een klok die dertien slaat. Winston Smith, negenendertig jaar, klimt de trappen op naar zijn flat in Victory Mansions, waar de lift stilstaat en het naar gekookte kool ruikt. Aan de muur hangt een telescherm dat niet uitgezet kan worden en dat tegelijk zendt en ontvangt.</p>
+      <p>In dat eerste deel wordt de wereld uitgelegd zonder dat het als uitleg voelt: de vier ministeries van Waarheid, Liefde, Vrede en Overvloed, de Twee Minuten Haat, de leuzen Oorlog is Vrede, Vrijheid is Slavernij, Onwetendheid is Kracht. Winstons werk op het Ministerie van Waarheid bestaat uit het gelijkmaken van het verleden aan het heden; wat vervangen is, verdwijnt door de geheugengaten.</p>
+      <h3>Het dagboek</h3>
+      <p>Winston koopt een oud schrift en begint te schrijven. Het schrift zelf is niet verboden, maar het bezit ervan zou hem twintig jaar dwangarbeid of de dood opleveren. Wat hij opschrijft is de eerste stap: een poging om iets vast te leggen dat morgen niet herschreven is.</p>
+      <p>Rond dat schrift draait de eerste helft van het boek. Winston probeert zich zijn moeder te herinneren, en de vraag of Oceanië altijd al met Oostazië in oorlog was, en of hij ooit een krantenknipsel in handen heeft gehad dat drie ter dood veroordeelde partijleiders vrijpleitte. Zijn geheugen zegt het ene, alle bronnen om hem heen het andere.</p>
+      <h3>Julia en de kamer boven de winkel</h3>
+      <p>Julia, die in een andere afdeling van hetzelfde ministerie werkt, drukt hem een briefje in de hand met drie woorden erop. Hun verhouding is verboden en daarom, in Julia's redenering, ook politiek. Zij is niet geïnteresseerd in de leerstellingen van de Partij en gelooft niets van de propaganda; zij wil eenvoudig leven en gelooft dat het regime niet te verslaan is.</p>
+      <p>Ze huren een kamer boven de rommelwinkel van meneer Charrington, waar geen telescherm hangt en waar een glazen presse-papier met een stuk koraal erin op tafel staat. Dat voorwerp, nutteloos en uit een andere tijd, is het enige stukje verleden in het boek dat niet vervalst is.</p>
+      <p>In dezelfde bladzijden groeit Winstons vertrouwen in O'Brien, een hooggeplaatst lid van de Binnenpartij. O'Brien nodigt hem uit, spreekt over de Broederschap van Emmanuel Goldstein en bezorgt hem het boek van Goldstein, waaruit Winston hardop voorleest terwijl Julia in slaap valt.</p>
+      <h3>Het Ministerie van Liefde</h3>
+      <p>De arrestatie komt in de kamer boven de winkel. Achter de gravure blijkt een telescherm te hangen, en meneer Charrington blijkt bij de Gedachtenpolitie te horen. Wat volgt is het derde deel, dat vrijwel geheel binnen de muren van het Ministerie van Liefde speelt.</p>
+      <p>O'Brien voert daar de ondervraging. Hij is geen bureaucraat die een bekentenis nodig heeft; hij wil dat Winston werkelijk gelooft wat hem gezegd wordt. De redenering die O'Brien uiteenzet is de kern van het boek: macht is geen middel maar een doel, en het bewijs van macht is dat een mens vier vingers als vijf kan zien wanneer de Partij dat zegt.</p>
+      <p>De weg loopt via pijn, honger en vernedering naar kamer 101, waar iedereen het ding aantreft waar hij het minst tegen kan. Voor Winston zijn dat ratten. Wat hij daar doet is Julia verraden, en niet met de mond alleen.</p>
+      <h3>De bijlage over Nieuwspraak</h3>
+      <p>Achter de laatste bladzijde staat een essay over de beginselen van Nieuwspraak, geschreven in de verleden tijd. Het legt uit hoe de woordenschat systematisch verkleind wordt, hoe de A-, B- en C-woordenschat zijn opgebouwd en hoe woorden als vrij alleen nog in de zin van vrij van luizen bruikbaar blijven.</p>
+      <p>Die bijlage is meer dan een aanhangsel. Zij beschrijft het regime in de verleden tijd, alsof er een tijd na Oceanië bestaat, en werpt daarmee een schaduw over het slot van de roman zelf. Sommige lezers hebben er de enige hoop in de tekst in gezien.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nieuwspraak</td><td>De staatstaal met een steeds kleinere woordenschat, ingericht om afwijkende gedachten onuitdrukbaar en daarmee ondenkbaar te maken.</td></tr>
+          <tr><td class="term">Dubbeldenken</td><td>Het vermogen twee tegenstrijdige overtuigingen tegelijk aan te hangen en beide te geloven, en het gebruik van dat vermogen te vergeten.</td></tr>
+          <tr><td class="term">Gedachtemisdaad</td><td>De misdaad die uit het denken zelf bestaat en waarvoor geen daad nodig is.</td></tr>
+          <tr><td class="term">Grote Broer</td><td>Het gezicht waaronder de Partij zich toont, van wie nooit vaststaat of hij als persoon bestaat.</td></tr>
+          <tr><td class="term">Telescherm</td><td>Het scherm in elke woning en werkruimte van partijleden dat tegelijk uitzendt en meekijkt en niet uitgezet kan worden.</td></tr>
+          <tr><td class="term">Ministerie van Waarheid</td><td>Het departement dat nieuws, onderwijs en vermaak verzorgt en het verleden voortdurend herschrijft.</td></tr>
+          <tr><td class="term">Geheugengat</td><td>De buis waarin te vernietigen documenten verdwijnen, waarmee de vorige versie van de werkelijkheid ophoudt te bestaan.</td></tr>
+          <tr><td class="term">Prolen</td><td>De vijfentachtig procent van de bevolking die buiten de Partij valt, niet bewaakt wordt en volgens Winston de enige mogelijke bron van verandering vormt.</td></tr>
+          <tr><td class="term">Kamer 101</td><td>De ruimte in het Ministerie van Liefde waar de gevangene wordt geconfronteerd met datgene waar hij het minst tegen kan.</td></tr>
+          <tr><td class="term">Engsoc</td><td>De leer van de Partij in Oceanië, in Nieuwspraak samengetrokken uit Engels socialisme.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een roman en bewijst niets in de gebruikelijke zin, maar het staat niet los van waarnemingen. Orwell had de Spaanse Burgeroorlog van binnenuit meegemaakt en beschreven in <i>Homage to Catalonia</i>, waar hij zag hoe partijkranten gebeurtenissen weergaven die hij zelf anders had meegemaakt. Hij werkte tijdens de oorlog voor de BBC aan uitzendingen naar India en kende de dagelijkse praktijk van voorlichting in oorlogstijd van dichtbij.</p>
+      <p>De machinerie in het boek is grotendeels ontleend aan bestaande praktijk: de showprocessen in Moskou in de jaren dertig, waarin beschuldigden hun eigen schuld met overtuiging beleden, en het uit foto's en encyclopedieën wegwerken van gevallen partijleiders. Ook Zamjatins <i>Wij</i>, dat Orwell in 1946 besprak, leverde bouwstenen.</p>
+      <p>Het minst bewijsbare deel is tegelijk het beslissende: de bewering dat een regime niet alleen gedrag maar ook overtuiging kan afdwingen, blijvend en van binnenuit. Historische voorbeelden gaan tot een eind mee en houden dan op. De totale doelmatigheid van de Partij is een gedachtenexperiment, geen waarneming.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het vaakst is gemaakt, betreft de aannemelijkheid van een macht die zichzelf zonder rest in stand houdt. Echte totalitaire regimes vertoonden corruptie, incompetentie, onderlinge concurrentie en verval; het regime van Orwell heeft daar niets van. Dat maakt het beeld scherper en de voorspelling minder bruikbaar.</p>
+      <p>Julia is als personage dunner uitgewerkt dan Winston en fungeert vooral als wat er met hem gebeurt. Latere lezers hebben opgemerkt dat de vrouwen in het boek in de eerste plaats lichamen of partijfanatici zijn; Sandra Newman schreef in 2023 met <i>Julia</i> een hervertelling vanuit haar kant, wat aangeeft hoeveel ruimte de oorspronkelijke tekst daar liet.</p>
+      <p>De prolen dragen de enige hoop in het boek en worden tegelijk beschreven met een neerbuigendheid die Orwell elders in zijn werk juist bestreed. Winstons overtuiging dat de hoop bij hen ligt, wordt nergens door het verhaal ondersteund.</p>
+      <p>Het boek is bovendien zo bruikbaar geworden als scheldwoord dat het bijna niet meer te lezen is. Orwelliaans wordt gebruikt voor camera's op straat, voor reclametaal en voor elke maatregel die iemand onwelgevallig is. Het boek gaat over iets specifiekers: het uitwissen en opnieuw schrijven van het verleden en het versmallen van de taal waarin daarover te spreken valt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Nineteen Eighty-Four</i>, Secker &amp; Warburg, Londen, 8 juni 1949, 312 blz. Orwell schreef het boek grotendeels tussen 1946 en 1948 op het Schotse eiland Jura en overleed in januari 1950. De eerste Nederlandse vertaling verscheen al in 1950, van de hand van Halbo C. Kool, en beleefde tientallen drukken; in 1984 maakte Tinke Davids een nieuwe vertaling, uitgegeven door De Arbeiderspers, Amsterdam (onder meer ISBN 9789029587099, latere druk 9789029543255). Sinds het werk in 2021 rechtenvrij werd, zijn er meer Nederlandse edities bijgekomen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Winston Smith werkt op het Ministerie van Waarheid in Londen, hoofdstad van Landingsbaan Een in de staat Oceanië. Zijn werk bestaat uit het herschrijven van oude krantenberichten zodat het verleden steeds klopt met wat de Partij vandaag beweert. In het geheim begint hij een dagboek, wat op zichzelf al een misdaad is.</p><p>Wat volgt is een verhouding met Julia, een gehuurde kamer boven een rommelwinkel waar geen scherm hangt, en het vertrouwen in O'Brien, van wie Winston denkt dat hij bij een ondergrondse beweging hoort. Die drie lijnen komen alle drie op hetzelfde uit. De laatste honderd bladzijden spelen in het Ministerie van Liefde.</p><p>Orwell schreef geen voorspelling maar een uitwerking: wat er nodig is om een leugen tot waarheid te maken en of een mens daar tegen bestand is. De bijlage over de beginselen van Nieuwspraak, waarin uitgelegd wordt hoe een taal zo ingericht kan worden dat bepaalde gedachten er niet meer in te denken zijn, is het koelste deel van het boek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dystopie</li><li>totalitarisme</li><li>taal</li><li>propaganda</li><li>surveillance</li><li>Nieuwspraak</li><li>Engeland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="61"><a href="61.html">Brave New World</a>. Huxley's <i>Brave New World</i> beschrijft de tegenovergestelde methode: geen laars maar genot en geconditioneerde tevredenheid, met hetzelfde gevolg voor het eigen oordeel.</li>
+          <li value="935"><a href="935.html">The Origins of Totalitarianism</a>. Hannah Arendt beschrijft in <i>The Origins of Totalitarianism</i> uit dezelfde jaren analytisch wat Orwell in verhaalvorm zet, onder meer over het verdwijnen van het onderscheid tussen waar en onwaar.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Herman en Chomsky onderzoeken in <i>Manufacturing Consent</i> hoe berichtgeving ook zonder ministerie en zonder dwang systematisch in één richting kan uitvallen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

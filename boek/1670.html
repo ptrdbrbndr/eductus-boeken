@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iets met grenzen stellen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Posthouwer stelt dat de meeste mensen hun grenzen wel kennen maar vastlopen op de uitvoering, en dat de weerstand die zij ontmoeten daarom vaker uit de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1670">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1670 &middot; Levenskunst</p>
+    <h1>Iets met grenzen stellen</h1>
+    <p class="lede">Iris Posthouwer, 2023</p>
+    <p class="stats">
+      <span><b>1497</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1670"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Posthouwer stelt dat de meeste mensen hun grenzen wel kennen maar vastlopen op de uitvoering, en dat de weerstand die zij ontmoeten daarom vaker uit de formulering komt dan uit de grens zelf. Nee zeggen mislukt volgens haar niet omdat de ander onredelijk is, maar omdat de zin verontschuldigingen, verwijten of een opening bevat waar de ander in stapt. Haar voorstel is dan ook geen innerlijk werk maar een handwerk: haal de prikkelende woorden eruit, maak de zin af, geef de ander terug wat hij zei en let op de toon. Achter die aanpak ligt de aanname dat een grens de relatie niet hoeft te beschadigen wanneer hij goed gebracht wordt, en dat het gedoe dat mensen vrezen grotendeels vermijdbaar is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Posthouwer traint mensen in gesprekken die zij liever niet voeren. Haar eerste boek, met Liz Luyben geschreven, ging over smalltalk; dit tweede gaat over het tegenovergestelde ongemak, namelijk het moment waarop er juist iets gezegd moet worden dat de ander niet wil horen.</p>
+      <p>Het boek is opgezet als gids en niet als betoog. Het telt acht hoofdstukken en een inleiding, en elk hoofdstuk sluit af met iets dat de lezer kan doen. De voorbeelden komen uit kantoor, uit vriendengroepen en uit families, en zijn klein van formaat: de collega die steeds iets doorschuift, de zwager die een opmerking maakt, het verzoek dat op vrijdagmiddag binnenkomt.</p>
+      <h3>Wat een grens is</h3>
+      <p>Het eerste deel gaat over de vraag waar een grens vandaan komt. Posthouwer behandelt hem niet als een regel maar als een signaal: het ongemak dat opkomt voordat iemand kan benoemen wat er mis is. Dat signaal is bij haar het beginpunt, ook als de rechtvaardiging nog ontbreekt.</p>
+      <p>Zij besteedt daar aandacht aan het verschil tussen niet willen en niet kunnen, en aan de vraag of een grens onderhandelbaar is. Wie dat vooraf niet voor zichzelf heeft uitgemaakt, gaat volgens haar in het gesprek alsnog schuiven, en dat is de belangrijkste reden waarom grenzen niet standhouden.</p>
+      <h3>Nee zeggen</h3>
+      <p>Het nee-hoofdstuk is het praktischst. Posthouwer laat zien hoe de meeste weigeringen mislukken: door uitleg te geven die de ander kan weerleggen, door een opening te laten staan, of door zoveel excuses te maken dat de weigering zelf verdwijnt.</p>
+      <p>Haar alternatief is korter dan lezers verwachten. Een nee heeft geen argument nodig, en een argument nodigt uit tot een tegenargument. Zij werkt hier ook met varianten voor situaties waarin een kaal nee niet kan, bijvoorbeeld tegenover een leidinggevende, en met manieren om tijd te winnen zonder ja te zeggen.</p>
+      <h3>De vijf technieken</h3>
+      <p>Het middendeel bevat wat zij de vijf grenstechnieken noemt. Schone taal betekent het weglaten van woorden die de ander in de verdediging duwen, zoals altijd, nooit en jij moet. Punten zetten betekent de zin afmaken en de stilte laten vallen in plaats van te blijven praten tot de ander instemt. Weerspiegelen betekent eerst teruggeven wat de ander zei, zodat die zich gehoord weet voordat er iets tegenin gaat.</p>
+      <p>De vierde techniek is praten in denkwolkjes: een oordeel niet als feit uitspreken maar als eigen gedachte, waardoor er ruimte blijft. De vijfde is de toon, waar Posthouwer veel gewicht aan geeft; op haar website noemt zij die de spinazietoon, naar de manier waarop iemand iets zegt wat de ander liever niet hoort en toch vriendelijk blijft klinken. Dezelfde zin doet in haar behandeling volledig iets anders afhankelijk van de stem waarmee hij wordt uitgesproken.</p>
+      <h3>Weerstand, schuld en tegenspraak</h3>
+      <p>Daarna behandelt zij wat er terugkomt. Zinnen als doe niet zo moeilijk of eenmalig dan toch, zijn bij haar geen aanval maar een voorspelbare zet, en zij geeft er antwoorden op die de grens intact laten zonder de relatie op scherp te zetten.</p>
+      <p>Het schuldgevoel krijgt een eigen behandeling. Posthouwer beschouwt het niet als bewijs dat iemand fout zit, maar als een gewenning die weer wegtrekt. Dat is het punt waarop haar boek het dichtst bij klassieke assertiviteitstraining komt, al gebruikt zij dat woord nauwelijks.</p>
+      <h3>Voorbereiden en volhouden</h3>
+      <p>De laatste hoofdstukken gaan over het gesprek dat gepland kan worden. Posthouwer laat zien hoe je vooraf bepaalt wat je precies wilt bereiken, welke uitkomst nog aanvaardbaar is, en welke zin je letterlijk gaat gebruiken. Het letterlijk voorbereiden van een openingszin is bij haar geen kunstgreep maar het belangrijkste onderdeel.</p>
+      <p>Het slot gaat over volhouden. Een grens die eenmaal gesteld is maar daarna weer wegzakt, kost volgens haar meer geloofwaardigheid dan hij ooit heeft opgeleverd. De toon is hier, zoals in het hele boek, opgewekt en aanmoedigend.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Schone taal</td><td>Het uit de zin halen van woorden die de ander in de verdediging duwen, zoals altijd, nooit en verwijten in de tweede persoon.</td></tr>
+          <tr><td class="term">Punten zetten</td><td>De zin afmaken en niet doorpraten; de stilte na een grens laten staan in plaats van hem met uitleg te vullen.</td></tr>
+          <tr><td class="term">Weerspiegelen</td><td>Eerst teruggeven wat de ander zei of wilde, zodat die zich gehoord weet voordat het antwoord komt.</td></tr>
+          <tr><td class="term">Praten in denkwolkjes</td><td>Een oordeel als eigen gedachte formuleren in plaats van als vaststelling, waardoor de ander ruimte houdt om te reageren.</td></tr>
+          <tr><td class="term">De toon</td><td>De vijfde techniek: dezelfde zin werkt anders naar gelang de stem waarmee hij wordt uitgesproken; op haar website de spinazietoon genoemd.</td></tr>
+          <tr><td class="term">Ongemakkelijk gesprek</td><td>Haar vakgebied en het overkoepelende begrip: elk gesprek waarin iemand iets moet zeggen dat de ander liever niet hoort.</td></tr>
+          <tr><td class="term">Egosparend tikje</td><td>Haar aanduiding voor een correctie die de ander niet vernedert; feedback die het gedrag raakt zonder de persoon te beschadigen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek presenteert zichzelf als onderbouwd in de nieuwste wetenschappelijke inzichten, en dat is de zwakste claim die het maakt. Er staan geen noten in, geen literatuurlijst en geen namen bij de uitspraken over waarom een formulering werkt. Wie wil nagaan waar bijvoorbeeld het effect van weerspiegelen op is gebaseerd, moet dat zelf zoeken.</p>
+      <p>Wat er wel is, is de praktijk. Posthouwer geeft al jaren trainingen en de voorbeelden dragen dat: het zijn situaties die zij herhaaldelijk heeft zien mislukken, met de zinnen die mensen werkelijk gebruiken. Dat is bruikbaar materiaal om te bedenken wat lezers herkennen; het zegt weinig over hoe vaak de aanbevolen zinnen tot het gewenste resultaat leiden, omdat wie in een training zit al gemotiveerd is en wie afhaakt niet wordt geteld.</p>
+      <p>Voor het onderliggende idee bestaat overigens wel een onderzoekstraditie. Assertiviteitstraining is decennialang onderzocht en levert doorgaans kleine tot matige effecten op het durven aangeven van grenzen, met zwakkere aanwijzingen dat het gedrag buiten de oefensituatie beklijft. Dat plaatst dit boek in een redelijk gezelschap en het maakt de belofte van duidelijkheid zonder gedoe wel optimistischer dan de literatuur rechtvaardigt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is een aanname die het boek niet uitspreekt: dat de ander redelijk is. Alle technieken gaan ervan uit dat weerstand verdwijnt zodra de zin goed staat. Tegenover een collega met een slechte dag klopt dat vaak. Tegenover een leidinggevende die de grens simpelweg overrijdt, of in een gezin waar de verhoudingen scheef liggen, is de formulering niet het probleem, en daar heeft het boek weinig te bieden.</p>
+      <p>Daarmee samen hangt de machtsvraag. Wie een vast contract heeft en gemist kan worden, kan een punt zetten en de stilte laten vallen. Wie op een tijdelijk contract zit of afhankelijk is van opdrachten, betaalt voor diezelfde zin een prijs die het boek niet meeweegt. De voorbeelden komen overwegend uit werksituaties waarin de lezer al enige positie heeft.</p>
+      <p>De vorm helpt en hindert tegelijk. De technieken hebben pakkende namen en dat maakt ze onthoudbaar, maar het maakt ze ook herkenbaar voor de ander: wie in denkwolkjes praat tegen iemand die hetzelfde boek heeft gelezen, praat merkbaar volgens een methode. Enkele lezers merken op dat de toon van het boek zelf zo opgewekt is dat de ernst van sommige situaties eronder verdwijnt.</p>
+      <p>Tot slot valt de waardering uiteen. Op vakportalen krijgt het boek vrijwel uitsluitend lof, terwijl het gemiddelde van lezersbeoordelingen op Hebban rond de vier van de vijf blijft steken. Dat verschil past bij wat het boek is: een goed uitgevoerde praktische gids, en geen boek dat iets nieuws beweert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bepaal voor het gesprek of de grens onderhandelbaar is; wie dat openlaat, schuift tijdens het gesprek alsnog.</li>
+        <li>Formuleer de openingszin letterlijk en spreek hem hardop uit voordat het gesprek begint.</li>
+        <li>Haal altijd, nooit en jij-verwijten uit de zin en kijk wat er overblijft; meestal is dat de eigenlijke boodschap.</li>
+        <li>Zeg nee zonder argument als dat kan; elk argument nodigt uit tot een tegenargument.</li>
+        <li>Reken op weerstand als een normale zet in plaats van als bewijs dat de grens onterecht was, en houd het schuldgevoel dat daarop volgt voor gewenning.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel met de ondertitel <i>Praktische gids voor duidelijkheid zonder gedoe</i>, verschenen bij Ambo|Anthos in Amsterdam op 6 oktober 2023, 248 blz., paperback, ISBN 9789026362453; e-boek ISBN 9789026362460 en luisterboek ISBN 9789026365805, dat laatste door de auteur zelf ingelezen. Het boek stond bijna drie maanden in de Bestseller 60 en beleefde in december 2023 al een volgende druk. Posthouwer schreef eerder samen met Liz Luyben <i>Smalltalk survivor</i>; zij geeft trainingen en lezingen onder de noemer ontspannen grenzen stellen. Van dit boek bestaat geen vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Iris Posthouwer is trainer en spreker en heeft zich toegelegd op wat zij ongemakkelijke gesprekken noemt. Dit boek gaat over de kleinste variant daarvan: het moment waarop iemand iets vraagt of zegt wat niet uitkomt en de aangesprokene niet weet hoe hij dat aangeeft zonder gedoe.</p><p>Haar antwoord ligt vrijwel geheel in de formulering. Na hoofdstukken over wat een grens is en hoe je nee zegt, komen vijf technieken: schone taal, waarmee prikkelende woorden uit de zin worden gehaald, punten zetten in plaats van doorpraten, weerspiegelen van wat de ander zei, praten in denkwolkjes om een gedachte zacht te brengen, en de toon waarop het geheel wordt uitgesproken.</p><p>De rest van het boek gaat over wat er daarna gebeurt: tegenspraak, schuldgevoel, het bepalen van je eigen grens en het voorbereiden van een gesprek. De toon is licht en de voorbeelden komen uit werk en familie. Onderzoek wordt aangeroepen maar niet aangewezen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>grenzen</li><li>nee zeggen</li><li>communicatie</li><li>assertiviteit</li><li>ongemakkelijke gesprekken</li><li>feedback</li><li>werk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="162"><a href="162.html">Boundaries</a>. Cloud en Townsend behandelen hetzelfde onderwerp vanaf de andere kant: niet de formulering maar de vraag waar iemands verantwoordelijkheid ophoudt.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenberg werkt de gedachte dat de vorm van de zin het verschil maakt veel systematischer uit, en zonder de lichte toon van dit boek.</li>
+          <li value="43"><a href="43.html">Crucial Conversations</a>. Patterson en zijn medeauteurs behandelen het zware einde van hetzelfde spectrum: gesprekken waarin er wel iets op het spel staat.</li>
+          <li value="1682"><a href="1682.html">Verbaal Meesterschap</a>. Remco Claassen behandelt de gespreksvaardigheid als geheel en is directer over de machtsverhoudingen die hier buiten beeld blijven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

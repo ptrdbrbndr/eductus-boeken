@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Myth of Normal &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mate stelt dat de westerse geneeskunde ziekte behandelt als een storing in een afzonderlijk lichaam en daarmee de belangrijkste oorzaak buiten beeld laat:…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1731">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1731 &middot; Brein en lichaam</p>
+    <h1>The Myth of Normal</h1>
+    <p class="lede">Gabor Mate met Daniel Mate, 2022</p>
+    <p class="stats">
+      <span><b>1540</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1731"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mate stelt dat de westerse geneeskunde ziekte behandelt als een storing in een afzonderlijk lichaam en daarmee de belangrijkste oorzaak buiten beeld laat: de omstandigheden waaronder mensen opgroeien en leven. Chronische aandoeningen zijn volgens hem geen willekeurige pech en ook geen zuiver genetisch lot, maar aanpassingen aan omstandigheden die te lang te veel vroegen. Wat een samenleving normaal noemt, dus prestatiedruk, onzekerheid, isolement, gehaaste bevallingen en een opvoeding waarin gevoelens hinderlijk zijn, is volgens hem zelf ziekmakend. Zijn tweede stelling is dat de mens onder druk zijn echtheid opgeeft om de band met anderen te behouden, en dat het terugvinden van die echtheid de weg naar herstel opent. Hij bedoelt dat niet als verwijt aan de zieke maar als aanwijzing waar gekeken moet worden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel een: de mens hangt samen</h3>
+      <p>Het eerste deel zet de biologische onderbouwing neer. Mate voert de stressfysiologie op, de wisselwerking tussen zenuwstelsel, hormoonhuishouding en afweer, en de epigenetica, waarin omgeving bepaalt welke genen aan of uit staan. De scheiding tussen geest en lichaam noemt hij een aanname die de geneeskunde in de praktijk allang tegenspreekt.</p>
+      <p>Hier introduceert hij ook zijn ruime opvatting van trauma. Naast wat hij trauma met een hoofdletter noemt, dus geweld, verwaarlozing en verlies, plaatst hij trauma met een kleine letter: gebeurtenissen die van buiten onbeduidend lijken maar een kind leren dat het zichzelf beter kan inhouden. Trauma is bij hem geen gebeurtenis maar wat er in het lichaam van achterblijft.</p>
+      <h3>Deel twee: de vervorming van de ontwikkeling</h3>
+      <p>Het tweede deel gaat over de eerste levensjaren. Mate bespreekt zwangerschap, bevalling, borstvoeding, hechting en de omstandigheden waaronder in westerse landen ouders werken. Hij noemt de gemedicaliseerde bevalling, het korte ouderschapsverlof en de gewoonte kinderen tot zelfstandigheid te dwingen als voorbeelden van gebruiken die tegen de behoeften van een jong kind ingaan.</p>
+      <p>De kern van dit deel is de tegenstelling tussen hechting en echtheid. Een kind heeft de band met zijn verzorgers nodig om te overleven. Wanneer die band alleen te behouden valt door bepaalde gevoelens weg te laten, kiest het kind de band. Dat is een verstandige keuze op dat moment en een last voor de rest van het leven.</p>
+      <h3>Deel drie: kwalen als aanpassing</h3>
+      <p>In het derde deel herleest Mate de psychiatrische en verslavingsdiagnoses. Verslaving beschrijft hij niet als hersenziekte en niet als karakterzwakte, maar als een poging pijn te verzachten; de vraag hoort volgens hem niet te zijn waarom de verslaving, maar waarom de pijn. Ook aandachtsproblemen en stemmingsstoornissen leest hij als aanpassingen aan omstandigheden.</p>
+      <p>Hij richt zich hier tegen wat hij de biologisering van het lijden noemt: het toeschrijven van klachten aan een chemisch tekort dat met een middel te corrigeren zou zijn. Symptomen zijn in zijn beeld signalen die iets aanwijzen, en het wegdrukken ervan laat de aanwijzing onbenut.</p>
+      <h3>Deel vier: de toxiciteit van de cultuur</h3>
+      <p>Het vierde deel verlegt de aandacht van het gezin naar de samenleving. Mate behandelt bestaansonzekerheid, werkdruk, eenzaamheid, racisme en de gezondheidsverschillen die daarmee samenhangen. Hij wijst op de hogere sterfte- en ziektecijfers onder zwarte en inheemse bevolkingsgroepen in Noord-Amerika en leest die als lichamelijke neerslag van maatschappelijke verhoudingen.</p>
+      <p>Ook de politiek komt aan bod, met een schets van leiders wier gedrag hij als getekend door hun eigen geschiedenis beschrijft. Dit deel is het meest polemisch en het minst gebonden aan de klinische stof van de eerdere delen.</p>
+      <h3>Deel vijf: wegen naar heelheid</h3>
+      <p>Het slotdeel, met negen hoofdstukken het langste, gaat over herstel. Mate beschrijft mededogend onderzoeken, de gespreksvorm die hij zelf ontwikkelde en waarin de vraag centraal staat welke overtuiging over zichzelf iemand als kind moest aannemen om erbij te horen. Hij behandelt het onderscheid tussen genezen en herstellen: een aandoening kan blijven terwijl de verhouding ertoe verandert.</p>
+      <p>Verder komen aan bod het werken met verdrongen woede, rouw, de rol van gemeenschap en, met de nodige voorbehouden, het gebruik van psychedelica onder begeleiding. Het boek eindigt zonder programma; Mate geeft richtingen en weigert een schema.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De mythe van normaal</td><td>De aanname dat wat in een samenleving gangbaar is ook gezond is, waardoor ziekmakende omstandigheden onzichtbaar blijven.</td></tr>
+          <tr><td class="term">Toxische cultuur</td><td>Mate's aanduiding voor een samenleving die door haar inrichting stress, isolement en onechtheid produceert.</td></tr>
+          <tr><td class="term">Trauma met een hoofdletter en met een kleine letter</td><td>Het onderscheid tussen geweld, verlies en verwaarlozing enerzijds, en gewone tekorten aan afstemming anderzijds, die beide sporen achterlaten.</td></tr>
+          <tr><td class="term">Hechting tegenover echtheid</td><td>De keuze die een kind maakt wanneer de band met zijn verzorgers alleen te behouden valt door delen van zichzelf weg te laten.</td></tr>
+          <tr><td class="term">Kwalen als aanpassing</td><td>Het idee dat verslaving, aandachtsproblemen en stemmingsklachten geen defecten zijn maar oplossingen die ooit werkten.</td></tr>
+          <tr><td class="term">Epigenetica</td><td>De regeling waardoor omgevingsinvloeden bepalen welke erfelijke aanleg tot uitdrukking komt, bij Mate de brug tussen omstandigheid en lichaam.</td></tr>
+          <tr><td class="term">Mededogend onderzoeken</td><td>De gespreksmethode van Mate waarin gezocht wordt naar de overtuiging over zichzelf die iemand vroeg in het leven moest aannemen.</td></tr>
+          <tr><td class="term">Genezen tegenover herstellen</td><td>Het verschil tussen het verdwijnen van een aandoening en het veranderen van de verhouding ertoe, waarbij Mate alleen het tweede belooft.</td></tr>
+          <tr><td class="term">Nadelige jeugdervaringen</td><td>De categorieën uit het Amerikaanse ACE-onderzoek waarmee de opeenstapeling van tegenslag in de kindertijd wordt geteld.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De stevigste steunpilaar is het onderzoek naar nadelige jeugdervaringen, dat Vincent Felitti en Robert Anda vanaf de jaren negentig bij Kaiser Permanente uitvoerden onder ruim zeventienduizend verzekerden. Daaruit komt een dosisverband: hoe meer soorten tegenslag iemand in zijn jeugd meemaakte, hoe groter de kans op verslaving, depressie, hart- en vaatziekten en vroege sterfte. Dat verband is sindsdien in veel landen teruggevonden en staat niet ter discussie.</p>
+      <p>Wat wel ter discussie staat, is hoe zwaar het weegt. De verbanden zijn voor de meeste lichamelijke aandoeningen bescheiden, en het merendeel van de mensen met een zware jeugd wordt niet ziek. Nick Haslam, hoogleraar psychologie in Melbourne, wees daar in 2023 op in een bespreking van Mate's werk: de onderliggende bevindingen zijn juist, de sterkte waarmee Mate ze presenteert is dat niet.</p>
+      <p>Op één punt gaat het boek verder dan het bewijs draagt. Mate handhaaft de gedachte, ook bekend uit zijn eerdere <i>When the Body Says No</i>, dat een bepaald karakter, dus de mens die zijn eigen behoeften wegcijfert en anderen te vriend houdt, vatbaarder is voor kanker en auto-immuunziekten. Grote prospectieve studies naar persoonlijkheid en kanker hebben zulke verbanden niet gevonden. Hij nuanceert dat hij niet beweert dat karakter kanker veroorzaakt, maar de opbouw van zijn hoofdstukken en de gekozen patiëntverhalen wijzen die kant wel op.</p>
+      <p>De rest van het boek leunt op klinische verhalen en op gesprekken die Mate voerde met patiënten en met bekende personen. Die verhalen zijn overtuigend geschreven en ze zijn geselecteerd. Voor mededogend onderzoeken, de werkwijze die het slotdeel draagt, bestaat geen gecontroleerd onderzoek naar werkzaamheid.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek een verklaring aanbiedt die alles omvat. Trauma verklaart bij Mate verslaving, aandachtsstoornis, auto-immuunziekte, kanker, politiek gedrag en de toestand van de samenleving. Een begrip dat overal past, sluit weinig uit. Waar de geneeskunde onderscheid maakt tussen aandoeningen met heel verschillende oorzaken, legt hij daar één laag onder.</p>
+      <p>Bij aandoeningen met een sterke erfelijke component wringt dat het meest. Voor ADHD is in tweeling- en genoomonderzoek herhaaldelijk een hoge erfelijkheid vastgesteld; Mate houdt vast aan een overwegend ontwikkelingspsychologische verklaring en zet die aanleg opzij. Zijn stelling dat er voor verslaving geen genen zijn gevonden, is niet vol te houden nu genoomonderzoek voor verwante aandoeningen tientallen betrokken plaatsen op het genoom heeft aangewezen.</p>
+      <p>Er kleeft een risico aan de boodschap dat Mate zelf onderkent en niet wegneemt. Wanneer ziekte wordt teruggevoerd op onderdrukte gevoelens en op de opvoeding, ligt de gedachte voor de hand dat de patiënt iets verkeerd deed en dat zijn ouders schuld dragen. Hij schrijft nadrukkelijk dat hij dat niet bedoelt, maar zijn beeldspraak en zijn casussen nodigen die lezing uit, en in de praktijk van zijn lezerspubliek wordt zij ook zo opgevat.</p>
+      <p>Ten slotte de positie van de auteur. Mate is huisarts geweest, geen onderzoeker en geen psychiater, en hij schrijft over gebieden waar hij afhankelijk is van andermans werk. Hij springt geregeld van vaststelling naar aanbeveling zonder de tussenstap te zetten, en waar hij van de gangbare wetenschap afwijkt, doet hij dat op grond van klinische indruk. Het boek is dan ook eerder een betoog met een moraal dan een overzicht van de stand van het onderzoek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de delen een tot en met drie als de aanleiding het begrijpen van een eigen of andermans aandoening is; deel vier staat er los van.</li>
+        <li>Vul de vragenlijst met nadelige jeugdervaringen in en lees de uitkomst als kansverdeling, niet als voorspelling.</li>
+        <li>Stel bij een terugkerend gedragspatroon de vraag welke overtuiging over jezelf je ooit moest aannemen om erbij te horen.</li>
+        <li>Leg de hoofdstukken over persoonlijkheid en ziekte naast onafhankelijk onderzoek voordat je er gevolgtrekkingen aan verbindt.</li>
+        <li>Gebruik het onderscheid tussen genezen en herstellen wanneer een aandoening blijvend is; het boek belooft alleen het tweede.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Myth of Normal: Trauma, Illness, and Healing in a Toxic Culture</i>, geschreven met zijn zoon Daniel Mate, verschenen bij Avery, een uitgeverij van Penguin Random House, New York, 2022, ISBN 9780593083888. Nederlands als <i>De mythe van normaal: trauma, ziekte en genezing in een toxische cultuur</i>, vertaald door Jorgen van Drunen, AnkhHermes, Utrecht, 2022, 496 blz., ISBN 9789020219456. Eerder van Mate in het Nederlands: <i>Wanneer het lichaam nee zegt</i>, <i>Het rijk van de hongerige geesten</i> en <i>Verstrooide geesten</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gabor Mate, in 1944 in Boedapest geboren als joods kind onder de Duitse bezetting en later huisarts in Vancouver, schreef dit boek samen met zijn zoon Daniel. Het is met bijna vijfhonderd bladzijden zijn breedste werk en brengt de lijnen samen uit zijn eerdere boeken over ziekte, verslaving en aandachtsproblemen.</p><p>De vraag is waarom in welvarende landen met dure zorgstelsels de chronische aandoeningen toenemen: auto-immuunziekten, verslaving, depressie, angst. Het antwoord dat Mate geeft is dat wat er in die landen voor normaal doorgaat, niet gezond is. De ziekte zit volgens hem niet alleen in het lichaam van de patiënt maar in de manier waarop mensen leven, werken en hun kinderen grootbrengen.</p><p>Het centrale begrip is trauma, ruim opgevat: niet alleen mishandeling of oorlog, maar ook het gewone tekort aan aandacht waardoor een kind leert zijn gevoelens weg te stoppen om de band met zijn ouders niet te verliezen. Het laatste en langste deel gaat over herstel, met Mate's eigen werkwijze van mededogend onderzoeken als hoofdmoot.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>trauma</li><li>chronische ziekte</li><li>hechting</li><li>stress</li><li>verslaving</li><li>geneeskunde</li><li>maatschappijkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1521"><a href="1521.html">Scattered Minds</a>. Mate's eerdere boek over aandachtsproblemen, waarin hij de erfelijkheid van ADHD op dezelfde manier terzijde schuift als hier.</li>
+          <li value="1719"><a href="1719.html">In the Realm of Hungry Ghosts</a>. Zijn boek over verslaving, waar de stelling dat de pijn en niet het middel de vraag hoort te zijn, uitvoerig wordt uitgewerkt.</li>
+          <li value="1722"><a href="1722.html">Childhood Disrupted</a>. Nakazawa behandelt het ACE-onderzoek waar Mate op steunt afzonderlijk, met meer aandacht voor de cijfers en de beperkingen.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft dezelfde lichamelijke sporen van trauma vanuit klinisch onderzoek in plaats van vanuit maatschappijkritiek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

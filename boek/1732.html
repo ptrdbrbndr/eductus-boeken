@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep Relax &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bernhard stelt dat een groot deel van de klachten waar mensen mee bij de huisarts komen, chronische pijn voorop, niet in het aangedane lichaamsdeel zit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1732">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1732 &middot; Brein en lichaam</p>
+    <h1>Deep Relax</h1>
+    <p class="lede">Eliane Bernhard, 2023</p>
+    <p class="stats">
+      <span><b>1502</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1732"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bernhard stelt dat een groot deel van de klachten waar mensen mee bij de huisarts komen, chronische pijn voorop, niet in het aangedane lichaamsdeel zit maar in een zenuwstelsel dat jarenlang op scherp heeft gestaan en niet meer uit zichzelf terugschakelt. Zolang dat zo blijft, werkt behandeling van het symptoom hooguit tijdelijk. Haar antwoord is een dagelijkse praktijk van geleide diepe ontspanning, yoga nidra, waarin het lichaam in slaap valt terwijl er nog iets wakker blijft. In die toestand zou het herstelvermogen van het lichaam weer op gang komen en zouden ook oude emotionele ladingen kunnen loskomen. Het boek voert die stelling niet als betoog, maar als verslag van haar eigen twintigjarige zoektocht, met na elk hoofdstuk een oefening om het beweerde zelf te toetsen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twintig jaar zoeken</h3>
+      <p>Het grootste deel van het boek is autobiografisch. Bernhard beschrijft hoe zij vanaf haar zestiende pijn kreeg die geen enkele arts kon plaatsen, en hoe het traject dat daarop volgde eruitzag: specialisten voor pijn, spieren, botten en zenuwen, langdurige fysiotherapie, gesprekstherapie en antidepressiva.</p>
+      <p>Naast de pijn beschrijft zij angst, drang tot controle en het gevoel voortdurend aan te staan. Die twee sporen, het lichamelijke en het psychische, houdt zij in het hele boek bij elkaar: zij behandelt ze niet als twee losse aandoeningen maar als twee uitingen van dezelfde overbelasting.</p>
+      <h3>Gas en rem</h3>
+      <p>Haar verklaringsmodel is dat van het autonome zenuwstelsel, dat zij als een gaspedaal en een rempedaal voorstelt. Bij langdurige spanning blijft het gas ingedrukt en reageert de rem niet meer. Slapen, vakantie houden en op de bank liggen zijn dan geen echte ontspanning, omdat het systeem intussen aan blijft staan.</p>
+      <p>Yoga nidra is volgens haar de ingang die wel werkt, omdat de beoefenaar er niets voor hoeft te doen behalve liggen en luisteren. Zij beschrijft de opeenvolging van hersengolven van alfa via theta naar delta, waarbij het lichaam in slaap raakt terwijl de aandacht nog aanwezig is.</p>
+      <h3>De praktijk van yoga nidra</h3>
+      <p>Yoga nidra is een geleide oefening waarbij de beoefenaar op de rug ligt en een stem de aandacht langs het lichaam voert, langs de adem, langs gevoelens en beelden. Bernhard behandelt het als een vaardigheid die je opbouwt: de eerste keren valt men in slaap of raakt afgeleid, en dat hoort erbij.</p>
+      <p>Naast yoga nidra beschrijft zij ademwerk en wandelmeditatie als lichtere vormen voor momenten waarop liggen niet lukt. De sessies staan niet in het boek maar in de app; het boek geeft per hoofdstuk aan welke sessie erbij hoort en waarvoor die bedoeld is.</p>
+      <h3>Puinruimen</h3>
+      <p>Een deel van het boek gaat over wat er tijdens die ontspanning bovenkomt. Bernhard beschrijft hoe zij in de rust pas merkte hoeveel oud verdriet en hoeveel behoefte aan controle er onder haar klachten lag, en hoe zij die stukken een voor een langsliep.</p>
+      <p>Ze schrijft daarbij openhartig over haar jeugd, over de manier waarop ouders een kind vormen en over perfectionisme als overlevingsstrategie. Dat is het deel waarvoor lezers het boek doorgaans prijzen; het is ook het deel dat het minst met yoga nidra te maken heeft en het meest met gewone zelfreflectie.</p>
+      <h3>Wat zij ervan verwacht</h3>
+      <p>In interviews rond het boek noemt Bernhard yoga nidra een natuurlijk antidepressivum, een alternatief voor slaapmedicatie en een steun bij burn-out en bij ernstige ziekte. Zij verwijst daarbij naar het zelfhelend vermogen van het lichaam, dat volgens haar in diepe ontspanning weer aangaat.</p>
+      <p>In het boek zelf is de toon voorzichtiger en persoonlijker: zij zegt vooral wat het haar heeft opgeleverd. De ruimere claims staan er wel, maar zonder onderbouwing en zonder afbakening van de gevallen waarin dit geen vervanging van medische zorg is.</p>
+      <h3>Boek en app</h3>
+      <p>House of Deeprelax, de app die Bernhard mede oprichtte, bevat enkele tientallen sessies en had ten tijde van het boek naar eigen opgave tienduizenden dagelijkse gebruikers. Het boek en de app zijn aan elkaar vastgemaakt via de QR-codes en via de gratis proefperiode.</p>
+      <p>Dat maakt het boek deels een handleiding bij een dienst. Wie de app niet gebruikt, houdt een levensverhaal over met uitleg over ontspanning, en niet de oefeningen zelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Yoga nidra</td><td>Geleide liggende oefening, ook slaapyoga genoemd, waarbij het lichaam in slaap zakt terwijl de aandacht wakker blijft.</td></tr>
+          <tr><td class="term">Diepe ontspanning</td><td>Bernhards term voor een toestand die verder gaat dan rust nemen, waarin het herstelsysteem van het lichaam volgens haar pas echt aan kan.</td></tr>
+          <tr><td class="term">Overprikkeld zenuwstelsel</td><td>Een zenuwstelsel dat door langdurige spanning in de alarmstand blijft staan, ook als er geen directe aanleiding meer is.</td></tr>
+          <tr><td class="term">Gas en rem</td><td>Beeld voor het sympathische en parasympathische deel van het zenuwstelsel, die bij chronische stress niet meer samenwerken.</td></tr>
+          <tr><td class="term">Hersengolven</td><td>De reeks alfa, theta en delta waarmee zij beschrijft hoe diep een beoefenaar tijdens een sessie wegzakt.</td></tr>
+          <tr><td class="term">Zelfhelend vermogen</td><td>Het herstelvermogen van het lichaam dat volgens haar in diepe ontspanning weer op gang komt.</td></tr>
+          <tr><td class="term">Deeprelax-methode</td><td>Haar samenstel van yoga nidra, ademwerk en wandelmeditatie zoals dat in de gelijknamige app is uitgewerkt.</td></tr>
+          <tr><td class="term">Puinruimen</td><td>Het langslopen van oud verdriet en oude patronen die in de rust bovenkomen.</td></tr>
+          <tr><td class="term">Natuurlijk antidepressivum</td><td>Haar aanduiding voor het effect dat zij aan regelmatige yoga nidra toeschrijft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijs in dit boek is er een van het type getuigenis. Bernhard vertelt haar eigen geschiedenis in detail en zegt daarvan dat zij grotendeels dankzij yoga nidra herstelde van een chronische aandoening waaronder zij vanaf haar zestiende leed. Daarnaast leunt het op de ervaringen van gebruikers van haar app. Er staat geen notenapparaat in en er worden geen studies aangehaald; waar zij naar onderzoek verwijst, blijft dat bij de mededeling dat er onderzoek naar gedaan wordt.</p>
+      <p>Wat er buiten het boek om over yoga nidra bekend is, wijst dezelfde kant op maar veel voorzichtiger. Er zijn kleine studies naar effecten op ervaren stress, slaapkwaliteit en angst, meestal met tientallen deelnemers, zonder blindering, met zelfrapportage als uitkomstmaat en met korte nameting. Dat ontspanningsoefeningen ervaren spanning verlagen is redelijk goed vastgesteld; dat yoga nidra dat beter doet dan andere ontspanningsvormen is dat niet.</p>
+      <p>De verklaring die zij erbij geeft, is losser dan de waarneming. Het evenwicht tussen sympathisch en parasympathisch zenuwstelsel is een gangbaar model en is met hartslagvariabiliteit ook te meten. Het balanceren van beide hersenhelften en de precieze koppeling van alfa, theta en delta aan herstel zijn dat niet: dat is populaire uitleg, geen bevinding. De uitspraak dat yoga nidra werkt als een natuurlijk antidepressivum is een claim over behandeling van een aandoening, en die is met dit materiaal niet te dragen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek iets anders is dan wat de omslag doet verwachten. Lezers die kwamen voor uitleg en oefening over yoga nidra kregen vooral een autobiografie; dat verwijt keert terug in recensies, met daarnaast het bezwaar dat het boek te veel als aanprijzing van het eigen platform leest. De oefeningen staan immers niet in het boek maar achter een QR-code, in een app met een abonnement. Dat is geen verborgen constructie, maar het bepaalt wel wat een lezer overhoudt.</p>
+      <p>Inhoudelijk ontbreekt de afbakening. Chronische pijn is een verzamelnaam voor zeer verschillende aandoeningen, en ontspanning is bij de ene wel en bij de andere niet zinvol. Het boek maakt dat onderscheid niet en zegt niet wanneer iemand met klachten juist naar een arts moet. Bij de vergelijking met antidepressiva en slaapmedicatie is dat een echt risico, omdat lezers die stap zelf kunnen zetten.</p>
+      <p>Er zit ook een spanning in de houding. Bernhard is sceptisch over de mindfulnessgolf en over snelle beloften, maar doet vervolgens zelf uitspraken over resultaat die weinig ruimte laten. Lezers hebben die tegenstrijdigheid opgemerkt. Wie het boek leest als het verhaal van een vrouw die na twintig jaar iets vond dat haar hielp, krijgt een eerlijk en goed geschreven verslag. Wie het leest als handboek, krijgt te weinig.</p>
+      <p>Ten slotte blijft het onbeslist wat er precies werkte. In haar verhaal lopen dagelijkse ontspanning, het loslaten van perfectionisme, het beëindigen van medicatie, therapie en verstrijkende tijd door elkaar. Het boek schrijft het herstel toe aan de oefening, maar bevat niets waarmee die toeschrijving van de andere te onderscheiden is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel vooraf of het levensverhaal het onderwerp is dat interesseert; de oefeningen zelf staan in de app, niet in het boek.</li>
+        <li>Doe een sessie liggend en op een vast tijdstip, en reken erop dat de eerste keren op wegdommelen uitlopen.</li>
+        <li>Houd een paar weken bij hoe de slaap en de pijn zich ontwikkelen, zodat er iets meer is dan een indruk achteraf.</li>
+        <li>Blijf bij klachten die niet verklaard zijn de arts betrekken en stop nooit op eigen houtje met voorgeschreven medicatie.</li>
+        <li>Wie alleen de praktijk wil en niet het verhaal, kan beter een geleide yoga nidra van een half uur uitproberen en het boek overslaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Deep Relax. Een ontspannen jij in een overspannen wereld</i>, Kosmos Uitgevers, Utrecht, 16 mei 2023, 256 blz., ISBN 9789043926201; e-boek en luisterboek (door de auteur ingesproken, ISBN 9789043926225). Het boek is in het Nederlands geschreven en niet vertaald. Elk hoofdstuk sluit af met een QR-code die naar een sessie in de app House of Deeprelax leidt; bij het boek hoort twee maanden gratis toegang tot die app.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eliane Bernhard had vanaf haar zestiende chronische pijn en psychische klachten. Ze bezocht artsen voor pijn, spieren, botten en zenuwen, deed jarenlang fysiotherapie, volgde therapie en gebruikte antidepressiva. Pas na ongeveer twintig jaar zoeken kwam ze uit bij yoga nidra, een vorm van geleide diepe ontspanning die ook slaapyoga wordt genoemd.</p><p>Het boek is voor het grootste deel haar levensverhaal. Daaromheen legt zij uit wat er volgens haar in een overbelast zenuwstelsel gebeurt en waarom rusten op commando niet werkt zolang het lichaam in de stand van alarm staat. Na elk hoofdstuk staat een QR-code naar een bijbehorende sessie in de app die zij mede oprichtte.</p><p>De belofte is dat diepe ontspanning het zelfherstel van het lichaam op gang brengt en dat dit helpt bij pijn, slapeloosheid, burn-out en angst. Die belofte rust op haar eigen herstel en op de ervaringen van gebruikers, niet op onderzoek dat in het boek wordt aangehaald.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>yoga nidra</li><li>ontspanning</li><li>chronische pijn</li><li>zenuwstelsel</li><li>meditatie</li><li>memoir</li><li>stress</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1731"><a href="1731.html">The Myth of Normal</a>. Maté werkt hetzelfde grondidee uit met een medische onderbouwing die Bernhard niet geeft: klachten als uitkomst van langdurige stress en onderdrukking.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft waarom een lichaam in de alarmstand blijft staan en waarom praten daar vaak niet bij komt.</li>
+          <li value="1599"><a href="1599.html">Just Breathe</a>. Brulé behandelt de ademkant van dezelfde praktijk, met meer oefening en minder levensverhaal.</li>
+          <li value="401"><a href="401.html">10% Happier</a>. Harris laat zien hoe een sceptische lezer met meditatie omgaat zonder de beloften over te nemen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

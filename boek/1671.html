@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De weg naar verandering &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dyer stelt dat het westerse leven draait om ingrijpen, sturen en verwerven, en dat daarin de oorzaak ligt van de onrust waarmee mensen bij hem aankloppen.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1671">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1671 &middot; Positief denken en manifesteren</p>
+    <h1>De weg naar verandering</h1>
+    <p class="lede">Wayne W. Dyer, 2007; vert. SpiritTalk</p>
+    <p class="stats">
+      <span><b>1610</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1671"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dyer stelt dat het westerse leven draait om ingrijpen, sturen en verwerven, en dat daarin de oorzaak ligt van de onrust waarmee mensen bij hem aankloppen. De Tao Te Ching biedt volgens hem de omgekeerde beweging: niet-forceren, meegeven, ophouden met oordelen, en vertrouwen dat er genoeg is. Zijn stelling is dat wie zijn gedachten op die manier verandert, zijn leven verandert, omdat de omstandigheden zich naar de innerlijke houding voegen en niet andersom. Daarmee legt hij het klassieke taoïstische wu wei uit als een houding die resultaat oplevert, en dat is een aanzienlijke verschuiving ten opzichte van de tekst waarin het niet-handelen juist niet op resultaat is gericht. De eenentachtig hoofdstukken zijn eenentachtig variaties op die ene omkering.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Dyer was hoogleraar en therapeut voordat hij in 1976 met <i>Your Erroneous Zones</i> een van de best verkochte zelfhulpboeken ooit schreef. Daarna volgde een lange reeks boeken, lezingen en televisieprogramma's waarin de nadruk geleidelijk verschoof van psychologie naar spiritualiteit.</p>
+      <p>Dit boek is het resultaat van een jaar waarin hij zich naar eigen zeggen volledig aan de Tao Te Ching wijdde. Hij werkte zich vers voor vers door de tekst, las daarbij tien gerespecteerde Engelse vertalingen, en schreef telkens een essay nadat hij op een vers had gemediteerd. Hij was toen zesenzestig; het boek verscheen in 2007 en werd een van zijn best verkochte.</p>
+      <h3>Wat de Tao Te Ching is</h3>
+      <p>De Tao Te Ching is een van de invloedrijkste teksten uit de Chinese oudheid, eenentachtig korte verzen over de tao, de weg of de bron waar alles uit voortkomt en naar terugkeert. De tekst is beknopt tot op het raadselachtige toe en laat zich op veel manieren lezen; dat verklaart zowel het aantal vertalingen als de onderlinge verschillen daartussen.</p>
+      <p>Over de herkomst bestaat geen overeenstemming. De sinologische lezing is dat Laozi eerder een legendarische dan een historische figuur is en dat de tekst in de vierde of derde eeuw voor onze jaartelling is samengesteld uit ouder materiaal. Dyer volgt die lezing niet: hij presenteert Laozi als een verlicht wezen dat de verzen omstreeks vijfhonderd voor Christus dicteerde.</p>
+      <h3>De opzet: eenentachtig keer hetzelfde stramien</h3>
+      <p>Elk hoofdstuk begint met Dyers weergave van het vers. Die weergave is geen vertaling maar een samenstelling: hij las de tien Engelse versies naast elkaar en koos of combineerde tot een tekst die hem het beste beviel. Chinees leest hij niet.</p>
+      <p>Daarna volgt zijn essay, waarin hij het vers uitlegt en toepast, en dat draagt een eigen titel die met leven begint. Elk hoofdstuk sluit af met doe de tao nu, een opdracht van enkele regels: iets nalaten, iets opmerken, een dag zonder oordeel. De hoofdstukken zijn kort en onderling verwisselbaar, wat het boek geschikt maakt voor de dagelijkse lezing waar de Nederlandse ondertitel op wijst.</p>
+      <h3>Wat hij met wu wei doet</h3>
+      <p>Wu wei, het niet-forceren, is het begrip waar het boek op draait. In de klassieke tekst gaat het om handelen dat de loop der dingen volgt in plaats van ertegen in te gaan, zonder dat daar een uitkomst mee wordt beoogd; de wijze bereikt iets juist doordat hij niet streeft.</p>
+      <p>Bij Dyer wordt dat een werkzaam beginsel. Loslaten leidt tot krijgen, niet oordelen leidt tot betere verhoudingen, vertrouwen op overvloed leidt tot overvloed. Dat is herkenbaar de taal van het positieve denken waarin hij grootgebracht is, en het is precies de wending die de tekst niet maakt. Wie het boek leest als kennismaking met het taoïsme, krijgt hier een vertekening mee die nergens wordt aangewezen.</p>
+      <h3>De terugkerende thema's</h3>
+      <p>Over eenentachtig hoofdstukken keren dezelfde punten terug. Het ego als de bron van moeite, oordeel als iets wat vooral de oordelende zelf schaadt, dood en vergankelijkheid als iets om je mee te verzoenen, eenvoud boven bezit, en het loslaten van de behoefte om gelijk te krijgen.</p>
+      <p>Dyer put daarbij ruim uit zijn eigen leven: zijn kinderen, zijn gezondheid, zijn huis op Maui, brieven van lezers. Dat maakt de essays persoonlijk en het maakt ze ook voorspelbaar. Wie tien hoofdstukken heeft gelezen, kent de beweging die de andere eenenzeventig zullen maken.</p>
+      <h3>De vorm en de Nederlandse uitgave</h3>
+      <p>Het Engelse origineel telt bijna vierhonderd bladzijden, de Nederlandse uitgave driehonderdtachtig. Het boek is bewust zo ingedeeld dat het per hoofdstuk gelezen kan worden, en dat is ook de manier waarop de meeste lezers het gebruiken.</p>
+      <p>De Nederlandse titel wijkt sterk af van het origineel. <i>Change Your Thoughts, Change Your Life</i> is de kernstelling van het boek; <i>De weg naar verandering</i> met daarbij adviezen voor elke dag maakt er een dagboek van. Wie op zoek is naar de Nederlandse editie van deze titel moet daar rekening mee houden, temeer omdat Dyer eerder al onder verwante Nederlandse titels is verschenen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tao</td><td>De weg of bron waaruit alles voortkomt; in de tekst uitdrukkelijk niet in woorden te vatten, bij Dyer een aanwezigheid waarmee de lezer zich kan verbinden.</td></tr>
+          <tr><td class="term">Wu wei</td><td>Niet-forceren. In de klassieke tekst handelen dat de loop der dingen volgt zonder op uitkomst te mikken; bij Dyer een houding die de gewenste uitkomst juist dichterbij brengt.</td></tr>
+          <tr><td class="term">Doe de tao nu</td><td>Het vaste slot van elk hoofdstuk: een korte opdracht van enkele regels waarmee het vers die dag in praktijk wordt gebracht.</td></tr>
+          <tr><td class="term">Leven vanuit overvloed</td><td>Zijn tegenstelling met denken vanuit tekort; het uitgangspunt dat er genoeg is, waaruit volgens hem ook gedrag voortkomt dat meer oplevert.</td></tr>
+          <tr><td class="term">Ego</td><td>Bij Dyer het beeld dat iemand van zichzelf ophoudt en verdedigt; de belangrijkste hindernis tussen de lezer en de tao.</td></tr>
+          <tr><td class="term">Oordeelloosheid</td><td>Het staken van de gewoonte om mensen en gebeurtenissen in goed en fout in te delen, in zijn behandeling vooral in het belang van de oordelende zelf.</td></tr>
+          <tr><td class="term">Laozi</td><td>De figuur aan wie de tekst wordt toegeschreven. Dyer behandelt hem als een historisch en verlicht persoon; in de sinologie geldt hij overwegend als legendarisch.</td></tr>
+          <tr><td class="term">Verandering van gedachten</td><td>De titelstelling: de innerlijke houding gaat vooraf aan de omstandigheden, zodat het veranderen van gedachten het leven zelf verandert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is geen boek dat zich op onderzoek beroept, en het beoordelen ervan op bewijs zou de plank misslaan. De vraag die wel gesteld kan worden is die naar trouw aan de tekst, en daar valt iets over te zeggen. Dyer leest geen Chinees en werkte uit tien Engelse vertalingen; zijn versie is dus een keuze uit keuzes van anderen. Dat is een legitieme werkwijze voor een bewerking en het maakt het resultaat ongeschikt als bron over wat er in het origineel staat.</p>
+      <p>Bij de historische inleiding is meer voorzichtigheid geboden. De voorstelling dat een verlichte Laozi de verzen omstreeks vijfhonderd voor Christus dicteerde, is de traditionele legende en niet wat de tekstgeschiedenis laat zien; vondsten als de manuscripten uit Mawangdui en Guodian wijzen op een tekst die in lagen is gegroeid. Dyer meldt die stand van zaken niet, en de lezer die alleen dit boek heeft, weet het dus niet.</p>
+      <p>Wat het boek wel aantoonbaar heeft, is bereik. Het werd een grote bestseller, verscheen in tientallen talen en bracht een aanzienlijk aantal lezers voor het eerst bij de Tao Te Ching. Dat is een reëel effect, en het is een ander effect dan het effect waarop de titel aanspraak maakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het hoofdbezwaar is dat de tekst wordt binnengehaald in een stelsel dat er haaks op staat. De Tao Te Ching prijst het niet-streven; Dyer maakt van niet-streven een methode om te bereiken. Dat is geen nuanceverschil, want het draait de kern om: het niet-handelen wordt bij hem alsnog een handeling met een oogmerk. Wie de tekst wil leren kennen, moet dit boek daarom naast een gewone vertaling leggen.</p>
+      <p>Verder past elk van de eenentachtig verzen verdacht goed bij zijn boodschap. Een tekst die zoveel vertalers zoveel moeite kost, levert bij Dyer nergens verzet op; elk vers zegt uiteindelijk hetzelfde als het vorige. Dat is een teken dat de lezing meer van de lezer komt dan van het gelezene, zeker bij de politieke verzen over de heerser en het volk, die hij consequent naar het persoonlijke ombuigt.</p>
+      <p>De omvang werkt tegen het boek. Eenentachtig hoofdstukken met een vast stramien en een beperkt aantal thema's leveren veel herhaling op. In de dagelijkse lezing waarvoor de Nederlandse uitgave zich aandient, is dat geen probleem; achter elkaar gelezen wel.</p>
+      <p>Tot slot is er de aanspraak in de oorspronkelijke titel. Dat het veranderen van gedachten het leven verandert, is een bewering over oorzaak en gevolg, en die wordt nergens getoetst. Wat het boek biedt is de ervaring van de auteur en die van zijn lezers, en dat is geen materiaal om vast te stellen of de omkering ook werkt bij wie er niet al in gelooft.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees hooguit een hoofdstuk per dag; het boek is daarvoor gemaakt en verliest achter elkaar gelezen zijn werking.</li>
+        <li>Leg er een gewone vertaling van de Tao Te Ching naast en vergelijk het vers met Dyers weergave voordat u zijn uitleg leest.</li>
+        <li>Behandel de opdracht onder doe de tao nu als het eigenlijke boek; zonder die opdracht blijft het bij lezen.</li>
+        <li>Let bij de politieke verzen op de ombuiging naar het persoonlijke; daar wijkt zijn lezing het verst af.</li>
+        <li>Neem de inleidende beweringen over Laozi en de ouderdom van de tekst niet over zonder ze elders na te kijken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Change Your Thoughts, Change Your Life: Living the Wisdom of the Tao</i> (Hay House, Carlsbad, 2007, 392 blz., ISBN 9781401911843). De Nederlandse vertaling, van vertaalbureau SpiritTalk, verscheen als <i>De weg naar verandering: adviezen voor elke dag, de tao van dr. Wayne W. Dyer</i> bij Servire, een imprint van Kosmos Uitgevers in Utrecht en Antwerpen, 15 mei 2008, 380 blz., ISBN 9789021525709, met een derde druk in 2011. De ondertitel over adviezen voor elke dag is een Nederlandse toevoeging en maakt van het boek een dagboek dat het in het Engels niet is. Dyer (1940-2015) brak door met <i>Your Erroneous Zones</i> (1976), in het Nederlands <i>Niet morgen, maar nu</i>, en schreef daarna ruim veertig titels.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Wayne Dyer bracht naar eigen zeggen een jaar door met de Tao Te Ching, het Chinese geschrift van eenentachtig korte verzen dat aan Laozi wordt toegeschreven. Hij las tien Engelse vertalingen naast elkaar, stelde daaruit een eigen weergave samen en schreef bij elk vers een essay.</p><p>De opzet is eenentachtig keer dezelfde. Eerst het vers, dan Dyers uitleg van wat het volgens hem betekent voor een westers leven, dan een korte opdracht onder het kopje doe de tao nu. De hoofdstukken dragen titels als leven met soepelheid, leven zonder vijanden en leven door los te laten.</p><p>Wat hij in de tekst leest is grotendeels wat hij in zijn eerdere werk al verkondigde: oordelen loslaten, niet forceren, uitgaan van overvloed in plaats van tekort. Het boek is daarmee eerder een toepassing van Dyers eigen leer op een oude tekst dan een lezing van die tekst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>taoïsme</li><li>Tao Te Ching</li><li>Laozi</li><li>zelfhulp</li><li>loslaten</li><li>wu wei</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="394"><a href="394.html">Tao Te Ching</a>. De tekst zelf, waaraan dit boek zijn stof ontleent; nodig om te zien wat Dyer eraan toevoegt en wat hij weglaat.</li>
+          <li value="1584"><a href="1584.html">Your Erroneous Zones</a>. Het boek waarmee Dyer in 1976 doorbrak; dezelfde leer, zonder de Chinese omlijsting, en daardoor makkelijker te beoordelen op wat zij nu eigenlijk beweert.</li>
+          <li value="1104"><a href="1104.html">Awakening to the Tao</a>. Liu Yiming schrijft van binnenuit over dezelfde weg, in een taoïstische traditie die de tekst niet naar een westerse toepassing toe hoeft te buigen.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Eckhart Tolle bepleit een verwante omkering van doen naar zijn, met dezelfde aantrekkingskracht en dezelfde weerstand tegen toetsing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

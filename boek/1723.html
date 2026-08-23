@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minder moeten meer FLOW &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bommerez stelt dat wat mensen voor hun persoonlijkheid houden grotendeels een verzameling afweermechanismen is die in de kindertijd is opgebouwd om pijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1723">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1723 &middot; Levenskunst</p>
+    <h1>Minder moeten meer FLOW</h1>
+    <p class="lede">Jan Bommerez en Janny ter Meer, 2007</p>
+    <p class="stats">
+      <span><b>1493</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1723"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bommerez stelt dat wat mensen voor hun persoonlijkheid houden grotendeels een verzameling afweermechanismen is die in de kindertijd is opgebouwd om pijn buiten te houden. Die afweer bepaalt hun reacties, hun oordelen en hun gejaagdheid, en zij houdt hen weg van wat hij hun wezen noemt. FLOW is bij hem geen prestatietoestand maar wat er overblijft wanneer de afweer wegvalt: een open hart, spontane dankbaarheid, blij zijn zonder aanleiding. Daaruit volgt zijn tegenstelling met de gangbare zelfhulp. Positief denken helpt niet, omdat het opnieuw denkwerk is en FLOW volgens hem voorbij het denken ligt. Minder moeten is dus geen luiheid maar het loslaten van de dwang waarmee de afweer zichzelf in stand houdt, en de weg daarheen loopt naar binnen in plaats van naar meer inspanning.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De gouden Boeddha</h3>
+      <p>Het boek opent met het verhaal dat de rest ervan draagt. Thaise monniken bedekten eeuwen geleden een gouden Boeddhabeeld met een laag klei om het voor plunderaars te verbergen. In 1957 ontstond bij een verhuizing een barst in de klei, waarachter het goud zichtbaar werd.</p>
+      <p>Bommerez leest dat als het beeld van een mensenleven: onder de beschermlaag die iemand tegen pijn heeft aangebracht zit iets dat niet beschadigd is. Geluk wordt vervolgens gezocht bij anderen of in bezit, terwijl het volgens hem alleen bereikbaar is door de eigen laag af te breken. Aan het begin staat ook een zelftest, waarmee de lezer vaststelt hoeveel afweer hij in stand houdt.</p>
+      <h3>Waarom positief denken niet volstaat</h3>
+      <p>Het eerste hoofdstuk zet zich af tegen de zelfhulptraditie waarin de lezer zijn gedachten moet ombuigen. FLOW ligt volgens Bommerez voorbij het denken, dus er is geen route naartoe via positieve gedachten en evenmin via negatieve. Wie zichzelf toespreekt, houdt het mechanisme in werking dat hij wil verlaten.</p>
+      <p>Daaruit volgt de richting van de rest van het boek. In plaats van harder werken aan het zelfbeeld bepleit Bommerez waarnemen: zien wat de afweer doet op het moment dat zij het doet. Hij noemt dat de weg naar binnen en behandelt daarbij aandacht, stilte en het onderscheid tussen denken en gewaarzijn.</p>
+      <h3>Het hart</h3>
+      <p>Een apart hoofdstuk gaat over het hart, dat Bommerez behandelt als een eigen bron van kennen naast het verstand. Hij verbindt daaraan zijn stelling dat oordelen, vooroordelen en het rekenen in voordelen alle drie uit hetzelfde mechanisme voortkomen: het beschermen van een beeld van zichzelf.</p>
+      <p>In dat deel staat ook de aanwijzing waarmee het boek zijn lezer benadert: lezen met het hart en niet met het hoofd. Dat is bedoeld als uitnodiging, en het is tegelijk het punt waarop het boek zich aan tegenspraak onttrekt.</p>
+      <h3>Hoe de prins een kikker werd</h3>
+      <p>Hier staat de ontstaansgeschiedenis van de afweer. Een kind dat afwijzing, kritiek of onvoorspelbaarheid tegenkomt, leert zich aanpassen, en die aanpassing stolt tot karakter. De volwassene verdedigt vervolgens de kikker die hij denkt te zijn, met alle overtuiging die bij een identiteit hoort.</p>
+      <p>De ondertitel van het boek, over het opnieuw ontdekken van de magie uit de kinderjaren, slaat op de toestand van vóór die aanpassing. Bommerez beschrijft die als het uitgangspunt waarnaar teruggekeerd kan worden, en niet als een verloren tijd waarover men treurt.</p>
+      <h3>De zes draken</h3>
+      <p>Het langste inhoudelijke hoofdstuk brengt de afweer onder in zes gedaanten, door Bommerez drakenkoppen genoemd. Daartoe behoren onder meer het opvatten van negatieve emoties als iets wat men is in plaats van een reactie op een prikkel, het zich laten leiden door wat men denkt dat anderen vinden, het zichzelf zo lang anders voordoen dat men het zelf gaat geloven, en het automatisch praten waarin geen ruimte voor luisteren overblijft.</p>
+      <p>De bedoeling van die indeling is herkenning in het moment zelf. Zolang de draak niet gezien wordt, verdedigt hij zich als vanzelfsprekend gedrag; zodra hij wordt herkend, verliest hij volgens Bommerez zijn vanzelfsprekendheid en daarmee zijn kracht.</p>
+      <h3>De haven en de wind</h3>
+      <p>De laatste hoofdstukken gaan over de omgang met verandering. Het beeld van de haven en de wind staat voor de spanning tussen veiligheid zoeken en zich laten meenemen, en Bommerez werkt daarmee de reis van de held uit die volgens hem in de meeste mythen en sprookjes verteld wordt.</p>
+      <p>Het slot gaat over tijd en over de vraag wat werkelijk belangrijk is. De redenering is dat het gevoel van tijdsdruk zelf een verschijnsel van de afweer is, en dat er voor wat er echt toe doet altijd tijd blijkt te zijn zodra het moeten wegvalt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">FLOW</td><td>De toestand die overblijft als de afweer wegvalt en het hart openstaat: spontane liefde en dankbaarheid, zonder aanwijsbare aanleiding.</td></tr>
+          <tr><td class="term">De kikker</td><td>Het geheel van afweermechanismen uit de kindertijd dat iemand voor zijn persoonlijkheid houdt en met overtuiging verdedigt.</td></tr>
+          <tr><td class="term">De prins of prinses</td><td>Wat er van een mens overblijft wanneer de afweer is opgelost; in het boek zijn wezen of essentie.</td></tr>
+          <tr><td class="term">De gouden Boeddha</td><td>Het openingsverhaal over een gouden beeld onder een kleilaag, gebruikt als beeld voor een onbeschadigde kern onder een beschermlaag.</td></tr>
+          <tr><td class="term">De zes drakenkoppen</td><td>De zes gedaanten waarin de afweer zich voordoet, van het vereenzelvigen met emoties tot het automatische praten.</td></tr>
+          <tr><td class="term">Moeten</td><td>De dwang waarmee de afweer zichzelf in stand houdt; het afnemen daarvan is in de titel de voorwaarde voor het toenemen van FLOW.</td></tr>
+          <tr><td class="term">De weg naar binnen</td><td>De methode van het boek: waarnemen wat de afweer doet, in plaats van het zelfbeeld met gedachten proberen bij te sturen.</td></tr>
+          <tr><td class="term">De reis van de held</td><td>Het verhaalpatroon uit mythen en sprookjes dat Bommerez als schema voor persoonlijke ontwikkeling gebruikt.</td></tr>
+          <tr><td class="term">Transpersoonlijke psychologie</td><td>De stroming waaruit het boek zijn begrippen betrekt, die het gewone ik als een te overstijgen laag opvat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Er is een literatuurlijst achterin en er wordt naar denkers uit de transpersoonlijke traditie verwezen, maar de redenering rust op verhalen, metaforen en de trainerservaring van de auteur. Bommerez traint sinds 1978 duizenden verkopers en leidinggevenden, en die praktijk is zijn feitelijke grondslag.</p>
+      <p>De onderliggende psychologie is niet nieuw. Dat mensen in hun jeugd afweer opbouwen tegen pijn, en dat die afweer later hun waarneming stuurt, is een gedachte uit de psychodynamische traditie die in het hechtings- en traumaonderzoek deels bevestiging heeft gekregen. Bommerez presenteert haar echter als vaststaand vertrekpunt en niet als een claim die toetsing behoeft.</p>
+      <p>De zwakste plek zit in de sprong van die aanname naar de belofte. Dat afweer bestaat, is aannemelijk; dat het oplossen ervan leidt tot een blijvende toestand van dankbaarheid zonder reden, is een bewering waarvan het boek zelf zegt dat zij niet met het verstand te beoordelen valt. Daarmee is er geen waarneming denkbaar die haar zou kunnen weerleggen.</p>
+      <p>Het begrip flow is in dit boek een ander begrip dan dat van Mihaly Csikszentmihalyi, dat op decennia meetwerk berust en over volledige opgaan in een taak gaat. Bommerez gebruikt het woord voor een toestand van open zijn en dankbaarheid. De overlap in naam suggereert een onderbouwing die het boek niet uit dat onderzoek betrekt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De aanwijzing om met het hart te lezen en niet met het hoofd is de kern van het bezwaar. Zij maakt van elk voorbehoud een teken dat de lezer nog in zijn afweer zit. Wie het niet gelooft, bewijst daarmee het gelijk van het boek. Dat is een gesloten redenering, en zij komt in dit genre vaker voor dan de lezer aangenaam is.</p>
+      <p>De omvang is een tweede bezwaar. Ruim vierhonderd bladzijden voor een idee dat in het openingsverhaal al volledig staat, betekent veel herhaling in andere bewoordingen. Lezers die het boek waarderen noemen het geregeld een boek om af en toe in te herlezen, wat een eerlijke omschrijving is van een tekst die niet van kaft tot kaft doorloopt.</p>
+      <p>De verantwoordelijkheid ligt in dit boek volledig bij de lezer en zijn afweer. Omstandigheden die iemand vastzetten, zoals armoede, ziekte, een slecht huwelijk of een slechte werkgever, komen nauwelijks in beeld. Voor het publiek van managementteams waarvoor Bommerez traint, is dat minder bezwaarlijk dan voor lezers met minder speelruimte.</p>
+      <p>Ten slotte de bron van de begrippen. De transpersoonlijke psychologie waaruit het boek put staat buiten de gangbare psychologie en heeft zich nooit aan de gebruikelijke toetsing onderworpen. Dat maakt de begrippen niet waardeloos, maar wel iets anders dan het onderzoek waaraan het woord flow zijn bekendheid dankt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Merk in een gesprek op wanneer het antwoord al klaarligt voordat de ander is uitgesproken; dat is in dit boek de vierde drakenkop aan het werk.</li>
+        <li>Onderscheid een emotie als reactie op een prikkel van een emotie als eigenschap, en let op het verschil in taal tussen beide.</li>
+        <li>Ga na welke van de gebruikte moeten daadwerkelijk gevolgen hebben en welke alleen een beeld beschermen.</li>
+        <li>Lees het openingsverhaal en het hoofdstuk over de zes draken als kern; de rest is uitwerking en herhaling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Minder moeten meer FLOW. Ontdek opnieuw de magie uit je kinderjaren</i>, verschenen in 2007 bij Nieuwe Dimensies (432 blz., ISBN 9789077341315). Latere drukken verschijnen bij MultiLibris in Almere; de meest recente herziene druk dateert van 2023 en telt 416 blz., ISBN 9789460002908, met een e-boek onder ISBN 9789460002007. Het boek is in het Nederlands geschreven en niet vertaald. Van Bommerez verscheen eerder <i>Kun je een rups leren vliegen?</i> (2001).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jan Bommerez, geboren in België in 1951 en sinds 1995 woonachtig in Californië, traint sinds 1978 managementteams in Europa, Azië en de Verenigde Staten. Dit boek, geschreven met Janny ter Meer, is zijn bekendste. Het put uit de transpersoonlijke psychologie en presenteert persoonlijke ontwikkeling als de reis van de held.</p><p>De metafoor die het geheel draagt is die van de kikker en de prins. De kikker bestaat volgens Bommerez vooral uit afweermechanismen die in de kindertijd zijn ontstaan; wat overblijft als die afweer wegvalt en het hart opengaat, noemt hij de prins of prinses. Die toestand heet in het boek FLOW: spontane liefde en dankbaarheid, blij zijn zonder reden.</p><p>Daaruit volgt de titel. Wie voortdurend meent te moeten, houdt de afweer in stand. De hoofdstukken behandelen waarom positief denken tekortschiet, hoe de afweer is ontstaan, welke gedaanten zij aanneemt en wat er nodig is om haar te laten oplossen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>flow</li><li>afweermechanismen</li><li>transpersoonlijke psychologie</li><li>ego</li><li>jeugd</li><li>zelfhulp</li><li>hart</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi onderzocht het begrip flow empirisch en komt tot een geheel andere omschrijving dan Bommerez; het verschil is leerzaam.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschreef het patroon van de heldenreis waarop Bommerez zijn opbouw baseert, zonder de zelfhulpbelofte die dit boek eraan verbindt.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle bepleit dezelfde beweging van denken naar waarnemen, met dezelfde sterke aantrekkingskracht en dezelfde onweerlegbaarheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Levenskunst &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Seneca behandelt de vraag hoe iemand moet leven als een praktisch probleem waarop de filosofie antwoord hoort te geven, en niet als stof voor schoolse…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1728">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1728 &middot; Levenskunst</p>
+    <h1>Levenskunst</h1>
+    <p class="lede">Seneca, essays uit ca. 49&ndash;65 n.Chr.; gebundeld en vertaald door Vincent Hunink, 2018</p>
+    <p class="stats">
+      <span><b>1770</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1728"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Seneca behandelt de vraag hoe iemand moet leven als een praktisch probleem waarop de filosofie antwoord hoort te geven, en niet als stof voor schoolse redeneringen. Zijn stelling is dat het leven niet te kort is, maar dat de meeste mensen het weggeven: aan bezigheden die anderen voor hen kozen, aan hoop op een toekomst die nooit aanbreekt, aan de zorg om wat het lot toevallig doet. Wie zijn tijd als eigendom behandelt en zich dagelijks oefent in het feit dat hij sterfelijk is, wordt volgens Seneca onafhankelijk van het lot. De zes teksten in deze bundel werken die gedachte uit langs verschillende kanten: de omgang met tijd, de onrust van iemand die niet weet wat hij wil, de vraag of een mens beledigd kan worden, de verhouding tussen geluk en bezit, de verdediging van een teruggetrokken leven en de omgang met de dood.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De lengte van het leven</h3>
+      <p>Het openingsstuk is gericht aan Paulinus, een hoge ambtenaar die toezicht hield op de graanvoorraad van Rome. Seneca keert de gangbare klacht om: de natuur geeft genoeg tijd, mensen verkwisten haar. Zij zijn gierig met hun geld en met hun grond, en spilziek met het enige bezit waarvan verspilling niet goed te maken valt.</p>
+      <p>Hij tekent daarbij het type van de <i>occupatus</i>, de bezette man, die zijn dagen vult met verplichtingen, cliëntenbezoek en rechtszaken en pas aan zichzelf toekomt als er niets meer van hem over is. Zelfs keizer Augustus, schrijft Seneca, klaagde in brieven over het gebrek aan rust en stelde zijn terugtreden telkens uit. Het verleden is volgens hem het enige deel van het leven dat vaststaat en dat niemand kan afnemen; wie druk is, heeft geen verleden om op terug te kijken, omdat hij nergens bij stil heeft gestaan.</p>
+      <h3>Innerlijke rust</h3>
+      <p><i>De tranquillitate animi</i> opent met een brief van Serenus, een jongere vriend, die zijn eigen toestand beschrijft: hij leeft sober maar betrapt zich op verlangen naar luxe, hij wil zich terugtrekken maar wil ook gezien worden, hij begint aan geschriften en maakt ze niet af. Seneca stelt vast dat dit geen ziekte is maar een vorm van walging van zichzelf.</p>
+      <p>Zijn adviezen zijn concreet: kies werk naar draagkracht, kies vrienden die geen last zijn, beperk bezit zodat het lot minder aangrijpingspunten heeft, en aanvaard dat rust ook ontspanning vraagt, wandelingen, spel en af en toe wijn. Reizen als geneesmiddel wijst hij af: wie zichzelf meeneemt, verandert alleen van uitzicht.</p>
+      <h3>Onkwetsbaarheid</h3>
+      <p>In <i>De constantia sapientis</i>, eveneens aan Serenus, verdedigt Seneca de stoïsche stelling dat de wijze geen onrecht en geen belediging kan worden aangedaan. Hij scheidt daarvoor twee begrippen: <i>iniuria</i>, werkelijke schade, en <i>contumelia</i>, krenking. Schade veronderstelt dat er iets af te nemen valt, en wie zijn goed in zijn karakter heeft liggen, kan niets verliezen; krenking bestaat alleen als de gekrenkte haar aanvaardt.</p>
+      <p>Het voorbeeld waar de tekst op steunt is Cato de Jongere, die op het forum werd geslagen en bespuwd en daarop volgens Seneca niet vergaf en niet klaagde, maar ontkende dat er iets gebeurd was. De redenering is die van een definitie: onrecht wordt zo omschreven dat de wijze er buiten valt.</p>
+      <h3>Het ware geluk</h3>
+      <p><i>De vita beata</i> is gericht aan Gallio, Seneca's oudere broer. Het eerste deel zet uiteen dat geluk bestaat in leven volgens de natuur en volgens de rede, en dat genot hooguit een bijverschijnsel van deugd kan zijn, nooit haar doel. Wie de meerderheid volgt, volgt volgens Seneca het spoor van schapen: mensen kiezen hun leven zoals zij hun kleding kiezen, naar wat gangbaar is.</p>
+      <p>Het tweede deel is een verweer in de eerste persoon tegen het verwijt dat Seneca zelf schatrijk was terwijl hij armoede prees. Zijn antwoord luidt dat de wijze rijkdom niet zoekt en niet nodig heeft, maar haar wel mag bezitten zolang zij hem niet bezit, en dat een filosoof mag spreken over wat hij nog niet bereikt heeft. Dat deel maakt de tekst tot een van de weinige plaatsen waar hij zijn eigen positie verdedigt.</p>
+      <h3>Leven in de luwte</h3>
+      <p><i>De otio</i> is onvolledig overgeleverd: begin en eind ontbreken. Wat er staat, is een verdediging van het recht zich uit het openbare leven terug te trekken, tegen de stoïsche regel in dat de wijze de staat hoort te dienen. Seneca onderscheidt twee gemeenschappen: de staat waarin iemand toevallig geboren is, en de grote gemeenschap van alle mensen, die met denken en schrijven gediend kan worden.</p>
+      <p>Hij voegt eraan toe dat er staten bestaan waarin de wijze niets goeds kan uitrichten, en dat terugtrekking dan geen desertie is. Deze tekst was in de bundel van 2018 nieuw vertaald; de andere vijf verschenen eerder afzonderlijk.</p>
+      <h3>De goede dood</h3>
+      <p>Het slotdeel is samengesteld door de vertaler en geen zelfstandig werk van Seneca. Het bevat passages uit negen brieven aan Lucilius, aangevuld met korte fragmenten uit de essays. De lijn erin is dat sterven geen gebeurtenis aan het einde is maar iets wat dagelijks gebeurt, dat een lang leven zonder inhoud niets voorstelt, en dat wie de dood vreest zich door die vrees laat regeren.</p>
+      <p>Als afsluiting staat de beschrijving die Tacitus in boek vijftien van de <i>Annalen</i> gaf van Seneca's dood in het jaar 65: door Nero gedwongen zich van het leven te beroven na de samenzwering van Piso, met opengesneden aderen, een gifbeker en ten slotte een dampbad. De redacteur zet die scène naast de leer, zodat de lezer zelf kan beoordelen of het een en het ander bij elkaar passen.</p>
+      <h3>De uitgave</h3>
+      <p>Hunink vertaalt in korte zinnen en hedendaags Nederlands, met behoud van Seneca's antithesen en puntige slotregels. In zijn nawoord schetst hij de loopbaan van Seneca, van balling op Corsica tot leermeester en later slachtoffer van Nero, en bespreekt hij de vraag die de receptie van deze schrijver al eeuwen bepaalt: hoe iemand die zoveel bezat kon schrijven over onthechting.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Occupati</td><td>De bezetten: mensen die hun dagen laten vullen met verplichtingen en zaken van anderen en daardoor nooit aan hun eigen leven toekomen.</td></tr>
+          <tr><td class="term">Otium</td><td>Vrije tijd of teruggetrokken leven, bij Seneca geen luiheid maar de voorwaarde om te denken en te schrijven, tegenover <i>negotium</i>, het bezette leven.</td></tr>
+          <tr><td class="term">Tranquillitas animi</td><td>De rust van het gemoed: een gelijkmatige toestand waarin iemand niet heen en weer wordt geslingerd tussen verlangen en tegenzin.</td></tr>
+          <tr><td class="term">Constantia</td><td>Standvastigheid; het vermogen van de wijze om onder krenking en tegenslag dezelfde te blijven.</td></tr>
+          <tr><td class="term">Iniuria en contumelia</td><td>Onrecht dat werkelijke schade toebrengt tegenover krenking die alleen bestaat wanneer de gekrenkte haar erkent.</td></tr>
+          <tr><td class="term">Leven volgens de natuur</td><td>De stoïsche maatstaf voor geluk: handelen in overeenstemming met de rede, die volgens Seneca de natuur van de mens uitmaakt.</td></tr>
+          <tr><td class="term">Fortuna</td><td>Het lot of toeval, dat bezit, aanzien en gezondheid geeft en weer afneemt en waar de deugd volgens Seneca buiten valt.</td></tr>
+          <tr><td class="term">Oefenen in sterven</td><td>De gewoonte om dagelijks bij de eigen sterfelijkheid stil te staan, zodat de dood niet als een verrassing aankomt.</td></tr>
+          <tr><td class="term">Sapiens</td><td>De wijze: een grensgeval dat Seneca als maatstaf gebruikt en waarvan hij toegeeft dat hij er zelf niet aan voldoet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Seneca voert geen onderzoek aan en verwijst zelden naar bewijs in de moderne zin. Zijn argumentatie loopt langs twee wegen: definities die vaststellen wat schade, geluk of tijd eigenlijk zijn, en voorbeelden uit de Romeinse geschiedenis die de lezer geacht wordt te kennen. Cato de Jongere, Augustus, Cicero en de rijke Romeinen die hun dagen aan cliënten besteden zijn daarin geen illustraties maar dragende schakels. Wie de definities niet aanvaardt, houdt van het betoog weinig over.</p>
+      <p>De teksten zijn filologisch niet allemaal even goed overgeleverd. <i>De otio</i> mist begin en slot, en de datering van de dialogen is onzeker; de meeste worden tussen ongeveer 49 en 62 geplaatst. Het slotdeel <i>De goede dood</i> is een keuze van de vertaler uit brieven en essays, geen boek dat Seneca als zodanig schreef. De bundel maakt dat kenbaar, maar het betekent dat de compositie van dit deel op het conto van de uitgave staat.</p>
+      <p>Wat de teksten toetsbaar maakt, is Seneca's eigen leven, waarover onafhankelijke bronnen bestaan. Tacitus beschrijft zijn positie aan het hof van Nero en zijn dood; Cassius Dio beschuldigt hem van woekerleningen in Britannia die daar tot opstand zouden hebben bijgedragen. Die kritiek was al bij zijn leven in omloop, en <i>De vita beata</i> is voor een deel een antwoord erop. De lezer kan de leer dus naast de biografie leggen, iets wat bij weinig filosofische teksten mogelijk is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is even oud als de teksten zelf: de man die schrijft dat bezit niets voorstelt, bezat een van de grootste vermogens van zijn tijd en diende een keizer die zijn moeder liet doden. Seneca ziet dat verwijt aankomen en beantwoordt het met de stelling dat de wijze rijkdom mag hebben zolang hij eraan kan verzaken. Dat antwoord is niet te weerleggen en ook niet te bevestigen, omdat het over een innerlijke houding gaat waarvan alleen de bezitter kan getuigen.</p>
+      <p>De stelling dat de wijze niet gekwetst kan worden, berust op een herdefinitie van kwetsen. Voor wie werkelijk machteloos is, een slaaf, een balling zonder middelen, biedt zij geen troost die verder gaat dan taal. De teksten zijn geschreven voor welgestelde Romeinse mannen die de keus hadden zich terug te trekken; de vrijheid die Seneca aanprijst veronderstelt een positie die de meeste mensen niet hadden.</p>
+      <p>De zes teksten herhalen elkaar. Wie <i>De lengte van het leven</i> gelezen heeft, komt dezelfde gedachten over tijd, uitstel en de dood in de brieven opnieuw tegen, soms in dezelfde formuleringen. Voor lezers die de eerdere losse uitgaven van Hunink al bezitten, is <i>Leven in de luwte</i> het enige werkelijk nieuwe stuk in deze bundel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees <i>De lengte van het leven</i> als eerste; de andere teksten bouwen op de gedachte die daar staat.</li>
+        <li>Houd bij één week bij welke uren zijn opgegaan aan zaken die iemand anders had geagendeerd, en welke aan wat zelf gekozen was.</li>
+        <li>Neem Seneca's onderscheid tussen schade en krenking over als toetsvraag bij een ergernis: is er iets weggenomen, of is er alleen iets gezegd.</li>
+        <li>Lees het nawoord van Hunink voordat het oordeel over Seneca's geloofwaardigheid valt; de biografie is onderdeel van de tekst.</li>
+        <li>Gebruik de verklarende namenlijst achterin bij de historische voorbeelden; zonder die namen valt de helft van het betoog weg.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandse bundel zonder Latijns origineel als geheel: Athenaeum-Polak &amp; Van Gennep, Amsterdam, 2018, 304 blz., gebonden ISBN 9789025309268, paperback ISBN 9789025322472, e-boek ISBN 9789025309398. Vertaling, aantekeningen en nawoord van Vincent Hunink, met een verklarende lijst van persoons- en plaatsnamen. De bundel brengt zes eerder afzonderlijk verschenen Hunink-vertalingen samen: <i>De lengte van het leven</i> (<i>De brevitate vitae</i>), <i>Innerlijke rust</i> (<i>De tranquillitate animi</i>), <i>Onkwetsbaarheid</i> (<i>De constantia sapientis</i>), <i>Het ware geluk</i> (<i>De vita beata</i>) en <i>De goede dood</i> (een keuze uit de <i>Epistulae morales ad Lucilium</i>, eerder los verschenen in 2015), aangevuld met een nieuwe vertaling van het onvolledig overgeleverde <i>Leven in de luwte</i> (<i>De otio</i>).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Zes teksten van Seneca in een Nederlandse bundel, gekozen rond een vraag die hij steeds opnieuw stelt: hoe richt een mens zijn leven in als hij weet dat het eindigt en dat het lot zich niets van hem aantrekt. De teksten ontstonden over een periode van bijna twintig jaar, tijdens ballingschap, tijdens zijn jaren als adviseur van Nero en in de tijd waarin hij zich uit de politiek terugtrok.</p><p>Het bekendste stuk is <i>De lengte van het leven</i>, waarin Seneca de klacht dat het leven te kort is omdraait. Het leven is lang genoeg; wie het weggeeft aan bezigheden die hij niet zelf gekozen heeft, houdt er niets van over. Daarnaast staan een brief over rusteloosheid, een verdediging van de gedachte dat de wijze onkwetsbaar is, een tekst over geluk waarin Seneca zijn eigen rijkdom verdedigt, een pleidooi voor terugtrekking uit het openbare leven en een reeks passages over sterven.</p><p>Vincent Hunink vertaalt in kort, alledaags Nederlands en houdt de retorische schokjes van het Latijn intact. Hij voegt een nawoord toe over Seneca's leven en over de spanning tussen zijn leer en zijn loopbaan, en sluit af met de beschrijving die Tacitus gaf van Seneca's gedwongen zelfdoding in het jaar 65.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Stoa</li><li>Seneca</li><li>Romeinse filosofie</li><li>tijd</li><li>dood</li><li>gemoedsrust</li><li>vertaling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Hetzelfde essay in Engelse vertaling; wie <i>On the Shortness of Life</i> al kent, treft het hier terug als <i>De lengte van het leven</i>.</li>
+          <li value="292"><a href="292.html">Letters from a Stoic</a>. De brieven aan Lucilius waaruit het slotdeel van deze bundel is samengesteld, in een volledige Engelse keuze.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schrijft ruim een eeuw later dezelfde stof op, maar voor zichzelf en zonder publiek, wat het verschil in toon verklaart.</li>
+          <li value="1710"><a href="1710.html">A Guide to the Good Life</a>. Irvine zet de stoïsche oefeningen om in een hedendaags programma en laat zien wat er van Seneca's adviezen bruikbaar blijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

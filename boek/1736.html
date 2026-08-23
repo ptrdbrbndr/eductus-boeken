@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liefdesroep &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Cuppen stelt dat ieder mens een verlangen met zich meedraagt dat niet weggaat door het te negeren, en dat het uitblijven van vervulling zelden komt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1736">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1736 &middot; Levenskunst</p>
+    <h1>Liefdesroep</h1>
+    <p class="lede">Hannah Cuppen, 2017</p>
+    <p class="stats">
+      <span><b>1566</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1736"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Cuppen stelt dat ieder mens een verlangen met zich meedraagt dat niet weggaat door het te negeren, en dat het uitblijven van vervulling zelden komt doordat iemand niet weet wat hij wil. Volgens haar weten de meeste mensen het wel en durven zij het niet, omdat het volgen van dat verlangen zekerheid kost: inkomen, aanzien, relaties, of het beeld dat men van zichzelf had. De tweede helft van haar stelling is dat de weg die daarna komt geen improvisatie is maar een herkenbaar verloop, met fasen die zich in ongeveer dezelfde volgorde aandienen bij een vrouw die een kindertehuis begint en bij iemand die een baan opzegt om iets kleins te gaan maken. Wie dat verloop kent, houdt volgens Cuppen de moeilijke fasen beter uit, omdat die dan niet worden gelezen als bewijs van een verkeerde keuze.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat de liefdesroep is</h3>
+      <p>Het eerste deel omschrijft het begrip. De liefdesroep is bij Cuppen geen plan en geen doel, maar een aantrekkingskracht die zich meldt als onrust, als jaloezie op iemand anders, als een terugkerende dagdroom of als lichamelijke klachten die met de omstandigheden meebewegen. Zij onderscheidt de roep van de wens: een wens komt voort uit iets wat ontbreekt, de roep uit iets wat er al is en eruit wil.</p>
+      <p>Cuppen behandelt hier ook wat zij initiatief noemt, in fasen: het toelaten van de gedachte, het uitspreken ervan tegen iemand anders, en de eerste handeling die niet meer terug te draaien is. Tussen de tekst staan richtingaanwijzers, vragen die beantwoord moeten worden voordat het volgende stuk zin heeft. Zij zijn opgezet om te wringen; in lezersbesprekingen worden ze zowel verhelderend als confronterend genoemd.</p>
+      <h3>De fasen van de reis</h3>
+      <p>Het langste deel beschrijft zeven fasen, van het moment waarop de roep zich laat horen tot de terugkeer. Daartussen liggen het uitstel, het vertrek, de periode waarin het oude leven wegvalt zonder dat het nieuwe er al staat, de beproeving, en de fase waarin er iets ontstaat dat er zonder die keuze niet was geweest.</p>
+      <p>De terugkeer is bij Cuppen niet het einde van de beweging maar de plek waar zij haar waarde krijgt: wat iemand alleen doorleefde, wordt bruikbaar voor anderen. Zij benadrukt dat de fasen elkaar niet netjes opvolgen en dat terugvallen naar een eerdere fase de regel is en niet de uitzondering.</p>
+      <p>De indeling loopt sterk parallel aan het schema dat Joseph Campbell voor mythen en heldenverhalen beschreef. Cuppen presenteert het als een patroon dat zij in haar praktijk en in levensverhalen terugzag, en verantwoordt die overeenkomst niet.</p>
+      <h3>Het hart als anker</h3>
+      <p>Hier komt het onderwerp van <i>Liefdesbang</i> terug, in ander verband. Wie zich door angst laat leiden, kiest volgens Cuppen ook in zijn levensrichting voor het bekende; dezelfde beweging die in een relatie tot vastklampen of tot afstand leidt, leidt in een loopbaan tot blijven zitten of tot voortdurend wisselen.</p>
+      <p>Cuppen zet verstand en gevoel niet tegenover elkaar maar voegt er een derde ijkpunt aan toe, dat zij het hart noemt. Waar denken en voelen elkaar tegenspreken en de keuze vastloopt, is dat volgens haar het teken dat op het verkeerde niveau wordt gezocht. Zij behandelt in dit deel ook synchroniciteit: samenlopen van omstandigheden die zij leest als bevestiging dat een richting klopt.</p>
+      <h3>De liefdesroepcirkel</h3>
+      <p>Het vierde deel bevat het model waarmee Cuppen ook in haar trainingen werkt. Het beschrijft vijf fasen die als een cirkel worden doorlopen: inspiratie, waarin het beeld opkomt; verandering, waarin oude gewoonten en verhoudingen het begeven; creatie, waarin er echt gewerkt wordt; manifestatie, waarin het zichtbaar wordt voor anderen; en integratie, waarin het gewoon wordt en een volgende inspiratie ruimte krijgt.</p>
+      <p>De cirkel dient vooral als middel tot plaatsbepaling. Iemand die uitgeput raakt in de creatiefase heeft volgens Cuppen iets anders nodig dan iemand die vastloopt in de manifestatiefase. Zij geeft per fase aan wat er misgaat wanneer een fase wordt overgeslagen, en het meest uitgewerkt is het overslaan van de veranderingsfase, waarna volgens haar de oude patronen in het nieuwe werk terugkeren.</p>
+      <h3>Geboren om te stralen</h3>
+      <p>Het slot is het meest beschouwelijke deel. Cuppen betoogt dat het achterhouden van wat iemand te geven heeft geen bescheidenheid is maar een vorm van angst, en dat de omgeving daar niet mee gediend is. Zij verbindt het volgen van de eigen roep aan een groter geheel: wie de eigen wond helend maakt, geeft die niet door aan kinderen, leerlingen of medewerkers.</p>
+      <p>In dit deel verdwijnt de laatste terughoudendheid uit de toon en wordt het boek bezwerend van aard. Wie de eerdere delen als praktisch las, treft hier vooral bevestiging aan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Liefdesroep</td><td>Het aanhoudende verlangen naar iets wat iemand te doen of te maken heeft, dat zich volgens Cuppen meldt als onrust en niet verdwijnt door het te negeren.</td></tr>
+          <tr><td class="term">Richtingaanwijzer</td><td>Reeks vragen tussen de hoofdstukken waarmee het besprokene op de eigen situatie wordt toegepast.</td></tr>
+          <tr><td class="term">Fasen van de reis</td><td>De zeven stappen van geroepen worden tot terugkeer, waarin Cuppen het verloop van zo'n keuze samenvat.</td></tr>
+          <tr><td class="term">De liefdesroepcirkel</td><td>Model van vijf fasen, inspiratie, verandering, creatie, manifestatie en integratie, waarmee te bepalen is waar iemand in het proces staat.</td></tr>
+          <tr><td class="term">Het hart als anker</td><td>Cuppens derde ijkpunt naast verstand en gevoel, dat volgens haar de doorslag geeft wanneer die twee elkaar tegenspreken.</td></tr>
+          <tr><td class="term">Liefdesbang</td><td>Het begrip uit haar eerste boek voor het leven vanuit angst om de liefde te verliezen, hier toegepast op levenskeuzen in plaats van op relaties.</td></tr>
+          <tr><td class="term">Synchroniciteit</td><td>Het samenvallen van gebeurtenissen dat Cuppen leest als aanwijzing dat een gekozen richting klopt.</td></tr>
+          <tr><td class="term">De terugkeer</td><td>De laatste fase, waarin wat iemand alleen heeft doorgemaakt wordt teruggegeven aan anderen.</td></tr>
+          <tr><td class="term">Doorgifte van de wond</td><td>De gedachte dat onverwerkte pijn zich aan de volgende generatie of aan de omgeving doorgeeft zolang iemand er niet naar kijkt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal: Cuppens eigen levensloop, gesprekken uit haar praktijk als integratief therapeut en trainer, en een reeks portretten van mensen die een ingrijpende keuze maakten. Het uitvoerigst uitgewerkte portret is dat van Helena van Engelen, die in Peru een tehuis voor verlaten kinderen opzette; Cuppen ontmoette haar en beschrijft die ontmoeting als de aanleiding voor het boek.</p>
+      <p>Onderzoek komt er niet aan te pas. Er staan geen verwijzingen naar studies, er is geen poging om de zeven fasen of de vijf fasen van de cirkel aan gegevens te toetsen, en er is geen groep mensen gevolgd om na te gaan of het verloop zich werkelijk zo voordoet. Het model is een ordening achteraf van verhalen die Cuppen kende, en die verhalen zijn geselecteerd op afloop: het gaat om mensen bij wie de sprong goed uitpakte.</p>
+      <p>Wat het boek wel biedt is samenhang. De begrippen sluiten aan op die uit <i>Liefdesbang</i>, de fasen worden consequent volgehouden, en de richtingaanwijzers dwingen op vaste momenten tot antwoord geven. Dat maakt het bruikbaar als werkstuk, ook zonder dat de onderliggende beweringen zijn nagegaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de selectie. Een model dat de weg van roep tot vervulling beschrijft en dat uitsluitend wordt toegelicht met mensen die aankwamen, kan niets zeggen over de mensen die hun baan opzegden en drie jaar later met schulden en een verbroken relatie iets anders gingen doen. Die groep komt in het boek niet voor. Daardoor is de bemoedigende strekking niet los te maken van de manier waarop de voorbeelden zijn gekozen.</p>
+      <p>Daar komt bij dat het model zichzelf lastig kan tegenspreken. Gaat het goed, dan is dat de creatiefase; gaat het slecht, dan is dat de fase waarin het oude wegvalt en moet er worden volgehouden. Een uitkomst die het schema zou weerleggen is nergens aangegeven. Synchroniciteit werkt op dezelfde manier: opvallende samenlopen tellen als bevestiging, uitblijvende samenlopen tellen niet als tegenspraak.</p>
+      <p>Lezers die <i>Liefdesbang</i> waardeerden om de scherpe beschrijving van een concreet patroon, noemen dit boek vaker vaag. Dat is te begrijpen: het eerste boek beschreef gedrag dat in een relatie aanwijsbaar is, dit boek beschrijft een innerlijke beweging die alleen de lezer zelf kan vaststellen. Wie geen roep in zichzelf herkent, heeft aan het begrippenapparaat weinig.</p>
+      <p>Ten slotte blijft de vraag naar de omstandigheden onbesproken. Het volgen van een verlangen vraagt tijd, geld, of iemand die het huishouden draaiend houdt. Cuppen behandelt de belemmering vrijwel uitsluitend als angst en bijna nooit als een kwestie van middelen of verplichtingen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beantwoord de richtingaanwijzers schriftelijk voordat het volgende hoofdstuk aan de beurt is; het boek is daarop gebouwd en verliest zonder dat zijn functie.</li>
+        <li>Bepaal met de vijf fasen van de cirkel waar een vastgelopen plan staat, en kijk vooral of de veranderingsfase is overgeslagen.</li>
+        <li>Schrijf van tevoren op waaraan te merken zou zijn dat een richting toch niet klopt, zodat volhouden niet vanzelf het enige antwoord wordt.</li>
+        <li>Zoek naast de voorbeelden in het boek twee mensen op wie de sprong niet bracht wat zij hoopten, en weeg wat dat aan de eigen afweging verandert.</li>
+        <li>Lees eerst <i>Liefdesbang</i> als het om angst in relaties gaat; dit boek behandelt dat onderwerp alleen in de vorm van levenskeuzen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Liefdesroep</i>, uitgeverij AnkhHermes, Utrecht, eerste druk 17 januari 2017, 224 blz., ISBN 9789020213065, met illustraties van Lara Hellendoorn; er is ook een e-boek en een luisterboek. Het boek is in het Nederlands geschreven en is voor zover na te gaan niet vertaald. Het is het tweede boek van Cuppen, na <i>Liefdesbang</i> (2014), dat wel in het Engels verscheen als <i>Love Phobia</i>. In 2019 volgde het werkboek <i>Liefdeskunst</i>. Bij het boek hoort een gelijknamige lezing en online training van de auteur.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Na <i>Liefdesbang</i>, dat over verlatingsangst en bindingsangst ging, verlegt Cuppen haar onderwerp van de relatie naar het leven als geheel. Het gaat nu om wat zij de liefdesroep noemt: het verlangen dat blijft aankloppen en waar de meeste mensen omheen leven omdat het niet uitkomt.</p><p>Het boek beschrijft de weg die volgens haar iedereen aflegt die dat verlangen wel volgt. Er is een moment waarop de roep hoorbaar wordt, een periode van twijfel en verlies, een fase van doen, en een terugkeer waarin het geleerde aan anderen ten goede komt. Cuppen zet die stappen neer als een terugkerend patroon dat losstaat van de vraag waartoe iemand geroepen wordt.</p><p>Tussen de hoofdstukken staan richtingaanwijzers: reeksen vragen die op de eigen situatie moeten worden toegepast. Als doorlopend voorbeeld gebruikt Cuppen Helena van Engelen, die in Peru een tehuis voor verlaten kinderen opzette. Verder put zij uit haar eigen geschiedenis en uit haar werk als integratief therapeut en trainer.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roeping</li><li>zingeving</li><li>zelfhulp</li><li>hart</li><li>levenskeuzen</li><li>spiritualiteit</li><li>Hannah Cuppen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1549"><a href="1549.html">Liefdesbang</a>. Het eerste boek van Cuppen, over verlatingsangst en bindingsangst; de begrippen daaruit komen hier terug in het deel over het hart als anker.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft in <i>the hero with a thousand faces</i> hetzelfde verloop van roep, weigering, beproeving en terugkeer, in mythen in plaats van in levensverhalen.</li>
+          <li value="12"><a href="12.html">The War of Art</a>. Pressfield behandelt in <i>The War of Art</i> dezelfde weigering om te beginnen, maar noemt die weerstand en laat het spirituele kader weg.</li>
+          <li value="1767"><a href="1767.html">Eat, Pray, Love</a>. Gilbert beschrijft in <i>Eat, Pray, Love</i> een van binnenuit gedreven vertrek van dichtbij, wat laat zien hoe grillig de fasen in werkelijkheid verlopen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

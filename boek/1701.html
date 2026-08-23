@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De geschiedenis van de katharen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Roquebert houdt vol dat de katharen een echte kerk waren en geen verzinsel van hun vervolgers: met een eigen leer, een eigen wijding, bisschoppen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1701">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1701 &middot; Geschiedenis en samenleving</p>
+    <h1>De geschiedenis van de katharen</h1>
+    <p class="lede">Michel Roquebert, 1999; vert. Zsuzso Pennings</p>
+    <p class="stats">
+      <span><b>1693</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1701"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Roquebert houdt vol dat de katharen een echte kerk waren en geen verzinsel van hun vervolgers: met een eigen leer, een eigen wijding, bisschoppen, diakenen en huizen, geworteld in de steden en dorpen van de Languedoc en gedekt door een adel die er belang bij had. Daaruit volgt zijn tweede stelling, dat de kruistocht van 1209 geen uitbarsting van vrome woede was maar een voorbereide veldtocht met een politieke uitkomst, de inlijving van het zuiden bij de Franse kroon, en zijn derde, dat pas de inquisitie de beweging brak, doordat zij niet de leiders aanviel maar het onderlinge vertrouwen van hele dorpen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de ketterij vandaan komt</h3>
+      <p>Het eerste deel gaat over het ontstaan van de dualistische ketterij. Roquebert volgt de lijn vanuit de Balkan, waar de bogomilen leerden dat de zichtbare wereld het werk van een lagere macht is, naar Noord-Italië en de Languedoc, en laat zien hoe de beweging in de twaalfde eeuw in heel West-Europa opduikt voordat zij zich in het zuiden van Frankrijk vastzet.</p>
+      <p>Hij onderscheidt daarbij een gematigd en een volstrekt dualisme, en rekent de akte van het concilie van Saint-Félix uit 1167, waarin de kathaarse bisdommen zouden zijn ingedeeld, tot het bruikbare materiaal. Dat stuk is pas in de zeventiende eeuw uitgegeven en de echtheid ervan wordt sindsdien betwist; wie het schrapt, houdt veel minder organisatie over dan Roquebert beschrijft.</p>
+      <h3>De kerk van de goede mensen</h3>
+      <p>Roquebert beschrijft de beweging van binnenuit, voor zover de stukken dat toelaten. Er zijn bisschoppen met twee aangewezen opvolgers, er zijn diakenen, en er zijn huizen waar goede vrouwen samenwoonden en werkten. De enige wijding is het consolamentum, dat de ontvanger bindt aan een leven zonder vlees, zonder eed en zonder doden, en dat aan stervenden werd toegediend.</p>
+      <p>Daaromheen staat de veel grotere groep gelovigen, die aan niets gebonden was en de volmaakten voedde en verborg. Roquebert wijst erop dat het geloof zich hechtte in een streek met veel kleine adel, veel handel en een geestelijkheid met een slechte naam; het gedrag van de eigen priesters is in zijn weergave een van de redenen dat de goede mensen zoveel aanzien genoten.</p>
+      <h3>De kruistocht</h3>
+      <p>Het tweede deel behandelt de jaren 1209 tot 1229. Béziers wordt uitgemoord, Carcassonne geeft zich over, Simon de Montfort verovert stelselmatig door en bij Muret sneuvelt in 1213 de koning van Aragon. Roquebert bestrijdt de gedachte dat dit een chaotische strooptocht was: de aflaat, de dienstplicht van veertig dagen en de opvolging van de veroverde heerlijkheden waren geregeld voordat het eerste leger vertrok.</p>
+      <p>Het slot van dat deel is het verdrag van 1229, waarbij het graafschap Toulouse via een huwelijk aan de Franse kroon kwam. Roquebert laat het rekensommetje voor zichzelf spreken: de ketterij was na twintig jaar oorlog niet verdwenen, maar de kaart van Frankrijk was wel veranderd.</p>
+      <h3>De inquisitie</h3>
+      <p>Het derde deel begint in 1233, als de vervolging in Toulouse aan dominicanen wordt opgedragen. Roquebert beschrijft de werkwijze in detail: hele dorpen worden opgeroepen, iedereen boven een bepaalde leeftijd wordt gevraagd wie hij een volmaakte heeft zien groeten of voeden, de antwoorden worden opgeschreven en met elkaar vergeleken. Wie bekende kreeg meestal boetedoening, een bedevaart of een gele kruis op de kleding; de brandstapel was het sluitstuk voor wie volhardde.</p>
+      <p>Hij wijst er tegelijk op dat de inquisitie geen eenheid was. Inquisiteurs botsten met bisschoppen, met de graaf en met stadsbesturen, werden verjaagd en in 1242 in Avignonet vermoord. Wat de beweging uiteindelijk brak was niet het geweld maar het wantrouwen: na twee generaties ondervragingen wist niemand meer wie hem al had aangegeven.</p>
+      <h3>Het lange einde</h3>
+      <p>Anders dan de meeste boeken over dit onderwerp stopt Roquebert niet bij de brandstapel onder Montségur in 1244. Hij vervolgt met de laatste vestingen, de vlucht naar Lombardije, de terugkeer van rondtrekkende predikers in de Pyreneeën rond 1300 en de laatste veroordelingen in de jaren twintig van de veertiende eeuw. Daarmee komt de vervolging uit op ruim honderd jaar.</p>
+      <p>Dat lange staartstuk levert hem ook zijn beste bronnen op. Juist de late verhoren zijn uitvoerig bewaard en gaan over het dagelijkse leven van gewone mensen, wat maakt dat over de laatste jaren van de beweging meer bekend is dan over haar bloeitijd.</p>
+      <h3>Hoe hij met zijn stukken omgaat</h3>
+      <p>Roquebert verantwoordt zijn methode telkens waar hij haar toepast. Een verhoor is voor hem bruikbaar, maar hij trekt eraf wat de vraagsteller er zichtbaar in heeft gelegd; een polemiek van een katholiek geestelijke gebruikt hij voor de leerstellingen die de schrijver bestrijdt, niet voor het beeld dat hij van de ketters ophangt. Die correctie is verdedigbaar, maar zij blijft een oordeel van de historicus, en daarop is het meeste verzet tegen zijn werk gericht.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dualisme</td><td>De leer dat goed en kwaad twee zelfstandige beginselen zijn; in de gematigde vorm is de kwade macht een gevallen schepsel, in de volstrekte vorm is zij van eeuwigheid.</td></tr>
+          <tr><td class="term">Goede mensen</td><td>De naam die de katharen zelf gebruikten voor hun gewijden; de naam kathaar komt uit de mond van hun tegenstanders en werd in de streek zelf niet gebruikt.</td></tr>
+          <tr><td class="term">Consolamentum</td><td>De enige wijding, een handoplegging die de ziel bevrijdde van de stof en die de ontvanger bond aan strenge leefregels tot zijn dood.</td></tr>
+          <tr><td class="term">Gelovige</td><td>De aanhanger zonder wijding, die de gewijden onderhield en die pas op zijn sterfbed het consolamentum vroeg; deze groep was verreweg de grootste.</td></tr>
+          <tr><td class="term">Endura</td><td>Het vasten tot de dood van iemand die het consolamentum op zijn sterfbed had ontvangen en daarna weer opknapte; in de verhoren komt het voor, in de kathaarse teksten zelf niet als voorschrift.</td></tr>
+          <tr><td class="term">Inquisitieregister</td><td>Het boek waarin verhoren woordelijk werden opgetekend en dat later bij nieuwe zaken werd geraadpleegd; het is tegelijk de belangrijkste bron over de leer en de meest gekleurde.</td></tr>
+          <tr><td class="term">Aflaat van veertig dagen</td><td>De regel dat een kruisvaarder na veertig dagen dienst zijn beloning had verdiend en naar huis mocht, waardoor de legers voortdurend van samenstelling wisselden.</td></tr>
+          <tr><td class="term">Faidit</td><td>De edelman die door de veroveraars uit zijn bezit was gezet en die daarna als balling of als strijder in het verzet verderging.</td></tr>
+          <tr><td class="term">Deconstructionisme</td><td>De naam die Roquebert gaf aan de school die betoogt dat het catharisme als samenhangende leer door de vervolgers is geconstrueerd; hij schreef er in 2006 een strijdschrift tegen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De kracht van het boek zit in het materiaal. Roquebert werkt met de weinige teksten die uit de beweging zelf lijken te komen, waaronder een Occitaans ritueel dat in Lyon bewaard is en een Latijns geschrift over de twee beginselen, en verder vooral met de stukken van de tegenpartij. Van de verhoren is een aanzienlijke hoeveelheid bewaard; het register dat Bernard de Caux en Jean de Saint-Pierre in 1245 en 1246 in het Lauragais aanlegden bevat duizenden ondervragingen uit tientallen dorpen, en het register van bisschop Jacques Fournier uit de jaren twintig van de veertiende eeuw bevat de verhoren waaruit later het beeld van het dorp Montaillou is opgebouwd.</p>
+      <p>De zwakte zit in dezelfde bron. Alles wat in die registers over de leer staat is gezegd door mensen die onder druk antwoord gaven op vragen die de inhoud al bevatten. Roquebert weet dat en zegt het, maar zijn oplossing, aftrekken wat de vraagsteller er zichtbaar in legde, is geen meetbare bewerking. Twee historici kunnen hetzelfde register lezen en er een andere beweging in aantreffen, en dat is precies wat er is gebeurd: Mark Gregory Pegg baseerde in 2001 op datzelfde register uit het Lauragais het betoog dat er van een kathaarse kerk geen sprake was.</p>
+      <p>Waar Roquebert het sterkst staat is bij de oorlog en de rechtsgang. Data, veldtochten, verdragen, benoemingen, opbrengsten en aantallen veroordelingen zijn in de akten na te lopen en zijn weergave daarvan wordt weinig bestreden. Het meningsverschil gaat vrijwel volledig over de vraag wat de vervolgden geloofden, niet over wat hun is aangedaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek een omstreden standpunt geeft zonder het debat erbij te leveren. Sinds de jaren negentig betogen Monique Zerner, Jean-Louis Biget, R.I. Moore en Pegg dat er in de Languedoc wel afwijkend geloof was maar geen tegenkerk, en dat de indeling in bisdommen, de leerstelsels en zelfs de naam grotendeels uit de kokers van geleerde vervolgers komen. Roquebert heeft daar in 2006 uitvoerig op geantwoord, maar dit boek is uit 1999 en de Nederlandse lezer krijgt in 2017 een reconstructie aangeboden alsof zij vaststaat.</p>
+      <p>Er is daarnaast een bezwaar tegen de uitvoering. Nederlandse recensenten wezen erop dat de kathaarse geloofsartikelen meermalen worden herhaald, dat er honderden namen van bijfiguren langskomen die de gang eruit halen, en dat termen als waldenzen en arianen onverklaard blijven staan voor een lezer die het onderwerp niet al kent. Vierhonderdvierennegentig bladzijden is dan veel voor wie een eerste boek over het onderwerp zoekt.</p>
+      <p>Tot slot de toon. Roquebert was Occitaan en journalist in Toulouse, en hij noemde zijn levenswerk een epos. De sympathie ligt onmiskenbaar bij het zuiden, en de kruistocht komt naar voren als de gewapende inlijving van een beschaafde streek door een ruw noorden. Dat is een lezing met een lange politieke naklank in het zuiden van Frankrijk zelf, en zij kleurt de weging van personen: Simon de Montfort krijgt weinig krediet, de graven van Toulouse veel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het derde deel, over de inquisitie, voordat je het eerste leest: dan is meteen duidelijk waar de kennis over de leer vandaan komt.</li>
+        <li>Zet bij elke uitspraak over wat katharen geloofden in gedachten de bron erbij: verhoor, polemiek van een tegenstander, of een tekst uit de beweging zelf.</li>
+        <li>Leg er een boek uit de andere school naast voordat je het beeld overneemt.</li>
+        <li>Gebruik de jaartallen en verdragen gerust; over dat deel bestaat weinig onenigheid.</li>
+        <li>Sla de opsommingen van namen over bij een eerste lezing en houd de lijn van de gebeurtenissen vast.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Histoire des Cathares: hérésie, croisade, inquisition du XIe au XIVe siècle</i> (Perrin, Parijs, 1999), de samenvatting in een deel van Roqueberts vijfdelige <i>L'Épopée cathare</i>, waaraan hij van 1970 tot 1998 werkte en dat ruim drieduizend bladzijden telt. Nederlands als <i>De geschiedenis van de katharen</i>, vertaald door Zsuzso Pennings bij Uitgeverij IJzer, 2017, 494 blz., ISBN 9789086841509. Michel Roquebert (Bordeaux, 1928; overleden in Toulouse op 15 juni 2020) was journalist bij <i>La Dépêche du Midi</i> en gold decennialang als de belangrijkste kenner van het onderwerp; voor het eerste deel van zijn reeks kreeg hij in 1970 een prijs van de Académie française.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Roquebert vat in dit ene deel samen waar hij dertig jaar en vijf boeken over deed: het ontstaan van de dualistische ketterij in Europa, de kruistocht die de paus in 1209 tegen het zuiden van Frankrijk afkondigde, en de inquisitie die vanaf 1233 vanuit Toulouse afmaakte wat het leger niet had kunnen afmaken.</p><p>Zijn stof zijn de stukken: rituelen en handleidingen van de katharen zelf, kronieken, verhoren en vonnissen van de inquisitie, brieven tussen pausen en vorsten, besluiten van concilies en losse akten. Omdat vrijwel alles wat over de leer bekend is uit de pen van tegenstanders komt, leest hij die stukken met een vaste correctie mee, wat hij per keer verantwoordt.</p><p>Het boek loopt van de elfde tot de veertiende eeuw en eindigt niet bij de val van Montségur in 1244 maar bij de laatste vervolgden, drie generaties later. De Nederlandse vertaling verscheen in 2017, achttien jaar na het Franse origineel, en bracht daarmee ook een standpunt binnen dat in Frankrijk inmiddels bestreden werd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>katharen</li><li>kruistocht</li><li>inquisitie</li><li>Languedoc</li><li>middeleeuwen</li><li>ketterij</li><li>bronnenkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1702"><a href="1702.html">De Katharen</a>. Moerland gebruikt dezelfde geschiedenis voor een spirituele stelling; naast Roquebert gelezen valt op hoeveel van dat beeld op een enkele reconstructie rust.</li>
+          <li value="1700"><a href="1700.html">De volmaakte ketter</a>. Alders verwerkte deze geschiedenis in 1999 tot een roman en volgt daarbij vrijwel dezelfde reconstructie.</li>
+          <li value="940"><a href="940.html">The Gnostic Religion</a>. Jonas beschrijft de laat-antieke gnostiek waaraan de dualistische leer van de katharen steeds wordt vastgeknoopt; de vraag is juist of die knoop houdt.</li>
+          <li value="822"><a href="822.html">Herfsttij der Middeleeuwen</a>. Huizinga laat voor een latere eeuw zien hoe een samenleving met haar geloof omging, en levert daarmee de maat waarmee het Occitaanse geval te vergelijken is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

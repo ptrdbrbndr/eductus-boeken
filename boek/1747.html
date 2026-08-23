@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asociale media &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Launspach betoogt dat sociale media niet ontsporen maar precies doen waarvoor zij gebouwd zijn. Het verdienmodel is advertentieruimte, advertentieruimte…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1747">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1747 &middot; Vrij denken en manipulatie</p>
+    <h1>Asociale media</h1>
+    <p class="lede">Thijs Launspach, 2023</p>
+    <p class="stats">
+      <span><b>1386</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1747"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Launspach betoogt dat sociale media niet ontsporen maar precies doen waarvoor zij gebouwd zijn. Het verdienmodel is advertentieruimte, advertentieruimte vraagt schermtijd, en schermtijd wordt geleverd door aanbevelingssystemen die uitzoeken welke prikkel een gebruiker langer vasthoudt. Dat die prikkel vaak boosheid, vergelijking of onzekerheid is, is volgens hem geen ongelukkig neveneffect maar de goedkoopste manier om het doel te halen. Daaruit volgt zijn tweede punt: wie het probleem als gebrek aan zelfbeheersing behandelt, legt de rekening bij de gebruiker en laat de constructie ongemoeid. Persoonlijke maatregelen zijn nuttig, maar de oplossing ligt in andere aanbevelingssystemen en in wetgeving, en die kunnen alleen van buitenaf worden afgedwongen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het aanbod</h3>
+      <p>Het boek opent met een verkoopgesprek. Launspach schetst een nieuw product, Het Netwerk, dat gratis is, contact met iedereen belooft en in ruil daarvoor het gedrag van de gebruiker vastlegt en verkoopt. De vraag of iemand daarop zou ingaan, en of hij zijn kinderen zou aanmelden, staat boven de rest van het boek.</p>
+      <p>Die opzet bepaalt de toon. Launspach schrijft als psycholoog en als gebruiker, niet als technicus, en houdt vast dat hij zelf ook op deze platforms zit.</p>
+      <h3>De tovenaars van Silicon Valley</h3>
+      <p>Het eerste hoofdstuk vertelt de geschiedenis, van MSN en Hyves via Facebook naar de huidige verzameling apps, en laat zien hoe het verdienmodel zich uitkristalliseerde rond gerichte advertenties. Wie de klant is, is daarmee bepaald: de adverteerder betaalt, de gebruiker levert.</p>
+      <p>Launspach legt uit hoe daaruit de aandacht als handelswaar volgt, en hoe ontwerpkeuzes die niets met inhoud te maken hebben, zoals eindeloos doorscrollen, het vertraagd tonen van reacties en de meldingen, precies dat doel dienen.</p>
+      <h3>Het spel</h3>
+      <p>Het tweede hoofdstuk beschrijft de driehoek van adverteerders, makers en gebruikers. Influencers leveren het materiaal waaraan het platform verdient en worden zelf door het aanbevelingssysteem beloond of afgestraft, zonder inzicht in de regels.</p>
+      <p>Hier komt de vergelijking met gokken langs: beloningen die onvoorspelbaar komen houden gedrag langer in stand dan beloningen die altijd komen. Launspach gebruikt dat om te verklaren waarom mensen blijven kijken terwijl zij zich er slechter door voelen.</p>
+      <h3>Ophef</h3>
+      <p>Het derde hoofdstuk gaat over de manier waarop verontwaardiging bereik oplevert. Launspach vertelt hier over zijn eigen ervaring: een bericht over minder werken leverde hem een golf van boze reacties op, waarbij zijn woorden werden losgemaakt van de context waarin ze stonden.</p>
+      <p>Van daaruit komt hij bij groepsgedrag, bij de manier waarop een tijdlijn de indruk wekt dat een mening algemeen is, en bij polarisatie. Hij noemt daarbij de zwaarste bekende gevolgen, waaronder de rol die Facebook speelde bij het geweld tegen de Rohingya in Myanmar.</p>
+      <h3>Nooit goed genoeg</h3>
+      <p>Het vierde hoofdstuk behandelt het effect op zelfbeeld, vooral bij tieners. Voortdurende vergelijking met bewerkte beelden, de zichtbaarheid van sociale afwijzing, verstoorde slaap en een kortere aandachtsspanne komen aan bod, met de interviews als illustratie.</p>
+      <p>Launspach houdt hier de meeste slagen om de arm van het hele boek. Hij stelt dat het verband tussen schermgebruik en klachten bij meisjes het duidelijkst is, en dat het over gemiddelden gaat waaronder grote verschillen schuilgaan.</p>
+      <h3>Tot hier en niet verder</h3>
+      <p>Het laatste hoofdstuk geeft tien manieren om de invloed te beperken. Ze lopen van selectief zijn in wie je volgt en het wegleggen van de telefoon tot het instellen van plekken en tijden waar geen scherm komt, het gebruik van blokkeersoftware, het aanleren van bronkritiek en het onderhouden van contact dat niet via een app loopt.</p>
+      <p>Daarnaast bepleit Launspach maatregelen die de gebruiker zelf niet kan nemen: leeftijdsgrenzen, toezicht op aanbevelingssystemen en de eis dat platforms een tijdlijn zonder ordening op betrokkenheid aanbieden. Hij erkent dat een advieslijst mager afsteekt bij zijn eigen diagnose.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Aandachtseconomie</td><td>De ordening waarin de tijd en de aandacht van gebruikers het product zijn dat aan adverteerders wordt verkocht.</td></tr>
+          <tr><td class="term">Het Netwerk</td><td>Het verzonnen product waarmee het boek opent, bedoeld om te laten zien wat er in het aanbod van sociale media besloten ligt.</td></tr>
+          <tr><td class="term">Betrokkenheid</td><td>De maat waarop aanbevelingssystemen sturen, en die inhoud die reacties uitlokt zwaarder laat wegen dan rustige inhoud.</td></tr>
+          <tr><td class="term">Ophef</td><td>De golf van verontwaardiging die bereik oplevert en waarin uitspraken van hun context worden losgemaakt.</td></tr>
+          <tr><td class="term">Onvoorspelbare beloning</td><td>Het principe uit de gedragsleer dat gedrag het langst in stand blijft wanneer de beloning onregelmatig komt, zoals bij het vernieuwen van een tijdlijn.</td></tr>
+          <tr><td class="term">Filterbubbel</td><td>De situatie waarin het aanbevelingssysteem vooral bevestigend materiaal toont en gebruikers een verschillende werkelijkheid voorgeschoteld krijgen.</td></tr>
+          <tr><td class="term">Sociale vergelijking</td><td>Het meten van het eigen leven aan de geselecteerde beelden van anderen, in dit boek de belangrijkste route naar een slechter zelfbeeld.</td></tr>
+          <tr><td class="term">Digitale ontgifting</td><td>Het tijdelijk staken van gebruik, dat Launspach nuttig maar op zichzelf ontoereikend noemt.</td></tr>
+          <tr><td class="term">Schermvrije zone</td><td>Een plek of tijdstip waar de telefoon niet komt, in het boek een van de tien praktische maatregelen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek leunt op drie soorten materiaal: bestaande literatuur over de platformeconomie, onderzoek naar schermgebruik en welbevinden, en acht gesprekken met mensen die er schade van ondervonden. Dat laatste is het meest indringende deel om te lezen en het minst geschikt om conclusies op te baseren, omdat het gaat om mensen die juist vanwege hun ervaring zijn gezocht.</p>
+      <p>De historische en zakelijke beschrijving is goed te controleren en komt overeen met wat elders is gedocumenteerd. De rol van Facebook in Myanmar is vastgesteld door een onderzoeksmissie van de Verenigde Naties in 2018 en later door Amnesty International; dat is geen aanname van de auteur.</p>
+      <p>Het gedeelte over jongeren staat zwakker dan de stelligheid van de titel doet vermoeden. Het meeste onderzoek daarnaar gaat over samenhang en niet over oorzaak: wie ongelukkig is gaat ook meer scrollen. Amy Orben en Andrew Przybylski lieten in 2019 in Nature Human Behaviour zien dat het gevonden verband tussen schermgebruik en welbevinden van adolescenten klein is, van dezelfde orde als het verband met aardappelen eten of een bril dragen. Launspach noemt de beperkingen wel, maar ordent zijn hoofdstukken alsof het verband vaststaat.</p>
+      <p>Ook het woord verslaving doet meer werk dan het aankan. Er bestaat geen erkende diagnose voor verslaving aan sociale media: noch de DSM-5 noch de ICD-11 kent haar; alleen gokken en in beperkte vorm gamen zijn opgenomen. De vergelijking met een gokautomaat is beschrijvend bedoeld, maar het boek gebruikt haar ook als verklaring.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wie Shoshana Zuboff, Jaron Lanier of Jonathan Haidt heeft gelezen, vindt hier weinig dat nieuw is. De verdienste van het boek is de bewerking voor Nederlandse lezers, met Nederlandse voorbeelden en in 176 bladzijden, niet het onderzoek. Recensenten die het boek aanraden noemen dat zelf als het belangrijkste bezwaar.</p>
+      <p>De grootste spanning zit tussen diagnose en advies. Launspach betoogt dat het probleem in het verdienmodel zit en dat individuele wilskracht daar niet tegenop kan, en sluit vervolgens af met tien persoonlijke tips. Dat is dezelfde beweging die hij het genre verwijt. Zijn voorstellen voor regulering blijven daarnaast algemeen en gaan niet in op wat er in de Europese wetgeving over digitale diensten al is geregeld.</p>
+      <p>De ondertitel spreekt van manipulatie, en dat woord veronderstelt opzet. Aanbevelingssystemen zijn afgesteld op betrokkenheid, wat iets anders is dan een plan om mensen ongelukkig te maken. Het boek maakt dat onderscheid niet altijd scherp, waardoor de bedrijven soms slimmer en doelgerichter lijken dan zij zijn.</p>
+      <p>De toon is welwillend en de auteur stelt zich kwetsbaar op door zijn eigen ophefgeschiedenis te vertellen, maar daardoor blijft de analyse licht. Vragen die het onderwerp opwerpt, over wie mag bepalen welke inhoud verspreid wordt en waar toezicht in censuur overgaat, komen nauwelijks aan bod.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schoon de lijst met wie je volgt op en beoordeel per account of je je na het kijken beter of slechter voelt.</li>
+        <li>Zet meldingen uit en leg de telefoon buiten handbereik tijdens werk, maaltijden en de laatste uren voor het slapen.</li>
+        <li>Wijs een of twee plekken in huis aan waar geen telefoon komt, en houd dat vol als afspraak en niet als voornemen.</li>
+        <li>Controleer bij een bericht dat verontwaardiging opwekt eerst de oorspronkelijke bron voordat je reageert of deelt.</li>
+        <li>Plan contact dat niet via een app loopt, en behandel dat als een afspraak die niet verschoven wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Asociale media. Hoe de socials je manipuleren en hoe je ontsnapt aan hun greep</i>, Unieboek | Het Spectrum, Amsterdam, 2023, 176 blz., ISBN 9789000387236; e-boek 9789000387243, luisterboek 9789000389940. Het boek is in het Nederlands geschreven en niet vertaald. Launspach, geboren in 1988, is psycholoog en schreef eerder <i>Fokking druk</i> (2018), <i>Werken met millennials</i> (2019), <i>Werk kan ook uit</i> (2020) en <i>Je bent al genoeg</i> (2022).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Psycholoog Thijs Launspach beschrijft hoe de grote sociale platforms zijn gebouwd, waarom zij aandacht vasthouden en wat dat doet met stemming, zelfbeeld en publiek debat. Hij begint met een gedachte-experiment: stel dat sociale media nog niet bestonden en iemand kwam ze vandaag aanbieden, zou je meedoen, en zou je je kinderen laten meedoen.</p><p>De hoofdstukken behandelen de opkomst van het bedrijfsmodel in Silicon Valley, de manier waarop advertentiegeld, influencers en gebruikers elkaar in stand houden, de rol van ophef in het aanjagen van bereik, en de gevolgen voor het zelfbeeld van jongeren. Launspach voert acht mensen op die schade opliepen door sociale media.</p><p>Het laatste hoofdstuk geeft tien manieren om de invloed te beperken zonder helemaal te stoppen, van selectief volgen en telefoonvrije zones tot het onderhouden van vriendschappen buiten het scherm. Daarnaast bepleit hij regulering, omdat hij het probleem niet als een kwestie van wilskracht ziet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sociale media</li><li>algoritmes</li><li>aandacht</li><li>verslaving</li><li>jongeren</li><li>polarisatie</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt behandelt hetzelfde onderwerp voor jongeren met veel meer onderzoek en met dezelfde discussie over de vraag of samenhang oorzaak is.</li>
+          <li value="294"><a href="294.html">Hooked</a>. Eyal beschrijft van de bouwerskant precies de gewoontelus die Launspach van de gebruikerskant aanklaagt.</li>
+          <li value="288"><a href="288.html">Digital Minimalism</a>. Newport werkt de praktische kant die Launspach in tien tips samenvat uit tot een volledig programma.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke levert de biologische onderbouwing bij het beloningsmechanisme waarnaar Launspach verwijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

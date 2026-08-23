@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jij bent de liefste &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De bundel gaat ervan uit dat het gevoelsleven van een kind van vier of vijf niet kleiner is dan dat van een volwassene, alleen anders verwoord, en dat een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1681">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1681 &middot; Roman en memoir</p>
+    <h1>Jij bent de liefste</h1>
+    <p class="lede">Hans Hagen en Monique Hagen, 2000; met tekeningen van Marit Törnqvist</p>
+    <p class="stats">
+      <span><b>1214</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1681"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De bundel gaat ervan uit dat het gevoelsleven van een kind van vier of vijf niet kleiner is dan dat van een volwassene, alleen anders verwoord, en dat een gedicht dat daarbij aansluit geen versimpeling nodig heeft. Hans en Monique Hagen schrijven daarom in korte regels, met weinig woorden en zonder uitleg achteraf, over dingen die in kinderpoëzie vaak worden vermeden: jaloezie, angst, weg zijn van huis, doodgaan. De aanspraak van het boek is dat met die middelen iets groots is te zeggen zonder het groot te maken. Of dat lukt, hangt af van de vraag of de eenvoud draagt of dat zij vertedering oplevert, en de bundel geeft de lezer beide te zien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het openingsgedicht</h3>
+      <p>De bundel opent met het gedicht waaraan zij haar naam ontleent. Het is het bekendste van de reeks, het staat op honderdduizenden kaarten en het duikt geregeld op in tijdlijnen van mensen die verder niets met poëzie hebben. Het is een klein gedicht over iets dat groot is, en het zet de toon voor de rest: geen beeldspraak die uitleg nodig heeft, geen moraal aan het slot.</p>
+      <p>Die opening bepaalt ook hoe het boek wordt gelezen. Wie er om die regels naar grijpt, komt daarna gedichten tegen die minder gemakkelijk vallen.</p>
+      <h3>Een meisje als middelpunt</h3>
+      <p>Remco Ekkers schreef in <i>Literatuur zonder leeftijd</i> over de gedichten van de Hagens en wees erop dat de bundel het innerlijk leven van één klein meisje volgt: haar dromen, haar vallen, haar spelen, haar verlangen naar een hond, haar grootouders. Het kind verwondert zich volgens hem niet alleen over de dingen om zich heen, maar ook over de woorden zelf en over het feit dat denken mogelijk is.</p>
+      <p>Daardoor krijgt de bundel iets van een reeks in plaats van een verzameling losse verzen. De gedichten staan naast elkaar zoals dagen naast elkaar staan, zonder verhaallijn, wel met hetzelfde gezichtspunt.</p>
+      <h3>Wat de gedichten met taal doen</h3>
+      <p>De middelen zijn beperkt en herkenbaar. Herhaling met kleine wijziging is de belangrijkste: een regel komt terug met één woord anders, en dat verschil draagt het gedicht. Daarnaast staan er woorden in die de dichters zelf maakten, zoals zwaaistaart, die zonder uitleg zijn te begrijpen omdat een kind ze zo ook zou vormen.</p>
+      <p>Ekkers wijst vooral op wat er niet staat. Alles wat te veel zou worden of te veel voor de hand ligt, is weggelaten. Wat overblijft is kort genoeg om te onthouden en open genoeg om er zelf iets in te leggen, wat verklaart waarom volwassenen de regels op hun eigen leven kunnen betrekken.</p>
+      <h3>De tekeningen van Törnqvist</h3>
+      <p>Marit Törnqvist illustreerde niet regel voor regel. Zij tekende een warme, kleurige wereld rond het meisje, waarin details voorkomen die in de gedichten niet worden genoemd en die er een eigen verhaal naast leggen. De jury van de Kinderboekwinkelprijs noemde juist dat: de platen vullen de gedichten aan en vertellen tegelijk iets van zichzelf.</p>
+      <p>Törnqvist komt uit een familie waarin kinderliteratuur het vak was. Haar moeder Rita Törnqvist-Verschuur vertaalde het werk van Astrid Lindgren in het Nederlands, en zij illustreerde later zelf boeken van Lindgren. Die achtergrond is in de bundel te zien aan de Scandinavische inslag van de kleuren en de landschappen.</p>
+      <h3>Het slot en het tweede leven van de bundel</h3>
+      <p>Het gedicht <i>Genoeg</i> sluit de reeks af, en de tekening erbij staat op het omslag. Daarnaast is er <i>Onzichtbaar</i>, dat samen met het titelgedicht is losgeraakt van het boek en op kaarten bij geboorte, huwelijk en overlijden terechtkwam, en op grafstenen.</p>
+      <p>Dat tweede leven verklaart de drieëndertig drukken en de drie formaten beter dan de literaire waardering dat doet. De bundel werkt in Nederland als kraamcadeau en als troosttekst, en wordt daardoor gekocht door mensen die hem niet als poëzie voor kinderen benaderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Poëzieprentenboek</td><td>De vorm van deze bundel: gedichten en platen die op dezelfde bladzijde even veel ruimte krijgen, zodat geen van beide illustratie van de ander is.</td></tr>
+          <tr><td class="term">Herhaling met variatie</td><td>Het middel dat de Hagens het vaakst gebruiken: dezelfde regel keert terug met één gewijzigd woord, waardoor de wijziging het gewicht draagt.</td></tr>
+          <tr><td class="term">Zwaaistaart</td><td>Voorbeeld van een zelfgemaakt woord in de bundel, gevormd zoals een jong kind een woord zou vormen en daardoor zonder uitleg te volgen.</td></tr>
+          <tr><td class="term">Kindperspectief</td><td>Het gezichtspunt van waaruit vrijwel alle gedichten zijn geschreven: dat van één jong meisje, zonder volwassen commentaar erbij.</td></tr>
+          <tr><td class="term">Weglating</td><td>De werkwijze waarin alles wat te veel of te voorspelbaar zou zijn is geschrapt, zodat het gedicht ruimte overlaat aan de lezer.</td></tr>
+          <tr><td class="term">Kinderboekwinkelprijs</td><td>Onderscheiding die in 2001 aan de bundel werd toegekend en die alleen gaat naar boeken die nog geen andere prijs hadden gekregen.</td></tr>
+          <tr><td class="term">Jubileumeditie</td><td>De uitgave uit 2025 met rode linnen rug, verschenen bij het vijfentwintigjarig bestaan, naast het mini- en het maxiformaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bij een dichtbundel is er geen onderzoek waar de waarde op rust, en het is eerlijker dat vast te stellen dan er een onderbouwing bij te zoeken. Wat er wel is: een jury van boekverkopers die in 2001 unaniem en snel besloot, met als grond dat klanten in de winkel de gedichten al meer dan een jaar spontaan hardop voorlazen, en een letterkundige bespreking door Remco Ekkers die de middelen benoemt waarmee de gedichten werken.</p>
+      <p>Verder is er het gebruik. Drieëndertig drukken sinds 2000, vertalingen in vijf landen, liedjes van Floor Minnaert en een plaats op kaarten en grafstenen zijn geen kwaliteitsoordeel, maar zij laten wel zien dat de teksten buiten hun eigen boek blijven werken. Voor kindergedichten is dat zeldzaam.</p>
+      <p>Wat niet vaststaat is de leeftijdsgroep. Uitgever en boekhandel houden het op kleuters, terwijl het boek aantoonbaar door volwassenen wordt gekocht voor volwassen aanleidingen. De bundel is voor beide te gebruiken en voor geen van beide precies geschreven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de keerzijde van de eenvoud. Waar een gedicht in vier regels iets liefs zegt, ligt vertedering dichtbij, en een deel van de bundel komt daar niet ver vandaan. De regels die het meest worden aangehaald, zijn ook de regels die het minst te overwinnen hebben. Wie de bundel als poëzie beoordeelt en niet als voorleesboek, houdt een kleiner aantal gedichten over dan de verkoopcijfers doen vermoeden.</p>
+      <p>Daarnaast trekt het tweede leven van het boek de gedichten weg van het kind voor wie zij zijn geschreven. Een tekst die op een rouwkaart staat, wordt gelezen als troost voor de achterblijver, en de dubbele bodem die Ekkers in het kindperspectief aanwijst verdwijnt dan. De jubileumedities, de drie formaten en de linnen rug versterken die beweging: het boek wordt verkocht als geschenk, en een geschenk hoeft niet te worden gelezen.</p>
+      <p>Ten slotte leunen verschillende gedichten zwaar op de platen. Los van Törnqvists tekeningen blijft van een aantal verzen weinig over, en dat is bij een bundel die als poëzie wordt aangeboden een reële beperking. De prijs uit 2001 werd dan ook aan de combinatie toegekend en niet aan de teksten alleen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen bij Querido, Amsterdam, in 2000, 56 blz., met tekeningen van Marit Törnqvist en vormgeving van Barbara van Dongen Torman. De bundel kreeg in 2001 de Kinderboekwinkelprijs en beleefde drieëndertig drukken. Er bestaan drie formaten, van mini tot maxi; in 2025 verscheen bij het vijfentwintigjarig bestaan een jubileumeditie met rode linnen rug (ISBN 9789045130859). De gedichten zijn in vijf landen vertaald en Floor Minnaert maakte er liedjes van. Kukuru vermeldt alleen Hans Hagen; de bundel is van hem en Monique Hagen samen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ruim twintig korte gedichten over de wereld van een jong kind: nieuwe schoenen, een hond die er niet komt, vallen, wolken, weg zijn van huis, grootouders, doodgaan. De bundel is bedoeld om er eentje uit te kiezen en dat voor te lezen, niet om in één keer door te nemen.</p><p>Hans en Monique Hagen schreven de gedichten samen. Marit Törnqvist tekende er een eigen wereld omheen, met een klein meisje als steeds terugkerende figuur, zodat de platen ook zonder de tekst een verhaal vertellen.</p><p>Het boek won in 2001 de Kinderboekwinkelprijs en is sindsdien niet meer uit de handel geweest. Twee gedichten zijn losgeraakt van de bundel en staan inmiddels op geboortekaartjes, trouwkaarten, rouwkaarten en grafstenen, waarmee het werk een tweede publiek kreeg dat de dichters niet voor ogen hadden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>poëzie</li><li>kindergedichten</li><li>voorlezen</li><li>liefde</li><li>prentenboek</li><li>Querido</li><li>illustratie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1597"><a href="1597.html">Ronja de roversdochter</a>. Vertaald door Rita Törnqvist-Verschuur, de moeder van de illustratrice van deze bundel; die familielijn verklaart de Scandinavische inslag van de platen.</li>
+          <li value="1666"><a href="1666.html">Winnie de Poeh</a>. Ook een boek voor jonge kinderen dat volwassen lezers houdt, en om dezelfde reden: het neemt het gevoelsleven van het kind serieus zonder het uit te leggen.</li>
+          <li value="1540"><a href="1540.html">De Profeet</a>. Eveneens een bundel korte stukken over liefde, kinderen en verlies die vooral buiten het boek voortleeft, op bruiloften en begrafenissen; de vergelijking laat zien wat er met teksten gebeurt die als citaat gaan rondgaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

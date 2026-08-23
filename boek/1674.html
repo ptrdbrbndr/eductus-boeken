@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Musicofilia &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sacks betoogt dat muziek geen bijverschijnsel van de menselijke geest is maar er diep in verankerd zit, en dat je dat het scherpst ziet wanneer er iets…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1674">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1674 &middot; Brein en lichaam</p>
+    <h1>Musicofilia</h1>
+    <p class="lede">Oliver Sacks, 2007</p>
+    <p class="stats">
+      <span><b>1500</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1674"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sacks betoogt dat muziek geen bijverschijnsel van de menselijke geest is maar er diep in verankerd zit, en dat je dat het scherpst ziet wanneer er iets stukgaat. Waar taal in een omschreven gebied woont en bij schade in zijn geheel kan verdwijnen, blijkt muziek verspreid over veel netwerken tegelijk, tot in de gebieden voor beweging en gevoel. Daardoor houdt iemand met een verwoest geheugen zijn repertoire, loopt een parkinsonpatiënt op ritme wel en zonder ritme niet, en kan een dementerende bij een oud lied even terug zijn. Muziek is bij hem geen aangename toevoeging maar een van de laatste dingen die een mens kwijtraakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Sacks had eerder over blindheid, over autisme en over de bewegingsstoornissen na de slaapziekte geschreven. Muziek liep door dat werk heen, maar had nooit een eigen boek gekregen. Hij was zelf een fervent luisteraar en amateurpianist, en de aanleiding waren mede de brieven van lezers die hem vertelden wat muziek bij hen deed of juist niet meer deed.</p>
+      <p>De opzet is die van zijn overige werk: een reeks ziektegeschiedenissen, geordend naar wat er misgaat, met beschouwing ertussendoor en met de vakliteratuur in de voetnoten. Hij begint bij het buitenissige geval en werkt van daaruit terug naar wat er over het gezonde brein te zeggen valt.</p>
+      <h3>Deel een: overvallen door muziek</h3>
+      <p>Het eerste deel gaat over muziek die zich opdringt. Het opent met een chirurg die op middelbare leeftijd door de bliksem wordt getroffen en daarna een onstuitbare drang krijgt om piano te spelen en te componeren, terwijl hij daar tot dan toe weinig mee had. Daarna volgen muzikale epileptische aanvallen, en het omgekeerde geval waarin juist bepaalde muziek een aanval uitlokt.</p>
+      <p>In hetzelfde deel staan de twee hoofdstukken die het bekendst zijn geworden: dat over oorwurmen, de flarden muziek die zich in het hoofd vastzetten en niet weggaan, en dat over muzikale hallucinaties, waarbij mensen, vaak slechthorende ouderen, voortdurend een orkest of een kerkorgel horen dat er niet is en zich pas na lang aarzelen bij een arts melden.</p>
+      <h3>Deel twee: hoe muzikaal een mens kan zijn</h3>
+      <p>Het tweede deel gaat over de spreiding. Aan de ene kant staan mensen met absoluut gehoor, die een toon benoemen zoals een ander een kleur benoemt, en autistische savants die na één keer horen een heel stuk kunnen naspelen. Aan de andere kant staat amusie: mensen die muziek horen als lawaai, als het rammelen van potten of als het piepen van een deur.</p>
+      <p>Tussen die uitersten behandelt Sacks toondoofheid, verstoorde harmonie na hersenschade, het horen met twee oren, en het verband tussen blindheid en muzikaliteit. Een apart hoofdstuk gaat over synesthesie, waarbij toonsoorten een vaste kleur hebben; de titel van dat hoofdstuk komt van een musicus voor wie een bepaalde toonsoort helder groen was.</p>
+      <h3>Deel drie: geheugen en beweging</h3>
+      <p>Hier staat het geval waar het boek om bekendstaat. Clive Wearing, musicus en kenner van oude muziek, kreeg een hersenontsteking die zijn geheugen vernietigde: hij leeft in een heden van enkele seconden en denkt bij elke ontmoeting dat hij zojuist is bijgekomen. Toch speelt hij foutloos, dirigeert hij een koor en herkent hij zijn vrouw. Muziek blijkt zich in een ander soort geheugen te bevinden dan feiten en gebeurtenissen.</p>
+      <p>Verder gaat dit deel over spraak en zang bij afasie, waarbij patiënten die geen zin meer kunnen uitspreken die wel kunnen zingen; over Tourette en het effect van samen musiceren; over parkinson, waarbij iemand die bij het lopen vastloopt op muziek weer op gang komt; en over de dystonie waaraan musici hun loopbaan kunnen verliezen.</p>
+      <h3>Deel vier: gevoel en identiteit</h3>
+      <p>Het laatste deel gaat over wat muziek met de stemming doet: muzikale dromen, onverschilligheid voor muziek, en de rol van muziek bij zwaarmoedigheid en manie. Er is een hoofdstuk over het syndroom van Williams, waarbij een verstandelijke beperking samengaat met een uitzonderlijke gerichtheid op muziek en op andere mensen.</p>
+      <p>Het boek eindigt bij dementie. Sacks beschrijft hoe mensen die hun naam kwijt zijn bij een lied uit hun jeugd weer een houding, een gezichtsuitdrukking en soms een heel gesprek terugkrijgen, en hoe muziektherapie in verpleeghuizen daarop steunt. Dat effect duurt kort, en juist die kortheid maakt zijn beschrijving ervan zorgvuldig.</p>
+      <h3>Hoe hij te werk gaat</h3>
+      <p>Sacks werkt met ziektegeschiedenissen, niet met getallen. Hij beschrijft één mens tegelijk, meestal iemand die hij zelf heeft gezien of die hem heeft geschreven, en hij vertelt erbij wat hij niet weet. De verwijzingen naar hersenonderzoek staan in voetnoten en zijn bedoeld als achtergrond, niet als sluitstuk.</p>
+      <p>Die keuze is een standpunt. Sacks vond dat de neurologie te veel was gaan lijken op het invullen van een lijst symptomen, en zocht de negentiende-eeuwse traditie op waarin de arts een heel leven beschrijft. Het boek is daarmee eerder een verzameling portretten dan een uiteenzetting met een sluitende conclusie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Musicofilie</td><td>De aantrekking tot muziek die Sacks als soorteigenschap van de mens beschouwt, en die bij hersenschade kan opkomen of verdwijnen.</td></tr>
+          <tr><td class="term">Oorwurm</td><td>Een kort muziekfragment dat zich in het hoofd vastzet en zich uit zichzelf blijft herhalen, ook als de luisteraar dat niet wil.</td></tr>
+          <tr><td class="term">Muzikale hallucinatie</td><td>Het horen van muziek die er niet is, vaak bij slechthorende ouderen; anders dan een oorwurm klinkt het als een echte bron in de kamer.</td></tr>
+          <tr><td class="term">Amusie</td><td>Het onvermogen om muziek als muziek waar te nemen, waarbij tonen worden gehoord als lawaai of als losse geluiden.</td></tr>
+          <tr><td class="term">Absoluut gehoor</td><td>Het vermogen een toon te benoemen zonder vergelijking, dat volgens het boek samenhangt met vroege muzikale scholing.</td></tr>
+          <tr><td class="term">Musicogene epilepsie</td><td>Een aanval die door bepaalde muziek wordt uitgelokt, soms door één stuk of één stem.</td></tr>
+          <tr><td class="term">Muziek en afasie</td><td>Het verschijnsel dat iemand die niet meer kan spreken nog wel kan zingen, waarop een vorm van spraaktherapie is gebouwd.</td></tr>
+          <tr><td class="term">Syndroom van Williams</td><td>Een aandoening waarbij een verstandelijke beperking samengaat met sterke gerichtheid op muziek en op contact met anderen.</td></tr>
+          <tr><td class="term">Synesthesie</td><td>Het ervaren van vaste kleuren of vormen bij tonen en toonsoorten, dat bij sommige musici levenslang gelijk blijft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijsmateriaal bestaat uit gevallen. Sacks put uit zijn eigen praktijk in New York, uit de brieven die hij van lezers ontving en uit de neurologische literatuur, en hij beschrijft steeds één persoon met naam of initiaal. Dat levert waarnemingen op die in een gemiddelde zouden verdwijnen, zoals de patiënt die alleen bij één bepaald stuk een aanval krijgt.</p>
+      <p>Daarnaast verwijst hij in voetnoten naar hersenonderzoek, onder meer naar beeldvormend werk waaruit blijkt dat bij musici bepaalde gebieden anders zijn ontwikkeld dan bij niet-musici. Die verwijzingen staan naast de verhalen en dragen ze niet: de conclusies van het boek volgen uit de gevallen, niet uit de metingen.</p>
+      <p>Wat er niet is, is een reeks of een vergelijking. Er wordt nergens geteld hoe vaak iets voorkomt, er is geen controlegroep en er wordt geen hypothese getoetst. Sacks zegt dat ook, en presenteert het boek als een verzameling verhalen; het woord tales staat in de Engelse ondertitel.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De methode heeft een ingebouwde vertekening. Mensen schrijven een beroemde neuroloog aan wanneer hun iets buitengewoons overkomt, en juist die brieven vormen een deel van het materiaal. Wat vaak voorkomt en saai verloopt, komt het boek niet binnen, zodat de lezer een beeld krijgt van het brein dat vooral uit uitzonderingen bestaat.</p>
+      <p>Er is geen theorie die het geheel bijeenhoudt. Achtentwintig hoofdstukken leveren achtentwintig verschijnselen op, en de gemeenschappelijke stelling dat muziek verspreid in het brein zit, is te ruim om ergens door weerlegd te kunnen worden. Wie wil weten hoe muziekwaarneming werkt, vindt hier voorbeelden en geen model.</p>
+      <p>Sacks is verweten dat hij patiënten als curiositeit gebruikt. De socioloog Tom Shakespeare noemde hem in dat verband de man die zijn patiënten voor een schrijverscarrière aanzag. Sacks was zich daarvan bewust en beschrijft mensen met veel zorg, maar de spanning tussen behandelaar en verteller blijft in het boek aanwezig.</p>
+      <p>Bij muziektherapie loopt de belofte voor op het bewijs. Dat een dementerende bij een oud lied opleeft, is waarneembaar; dat daar een behandeling op te bouwen valt die iets blijvends oplevert, is een stap verder die het boek suggereert zonder hem hard te maken. Het effect dat hij beschrijft is bijna altijd van korte duur.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken over Clive Wearing en over de blikseminslag eerst; daar staat de stelling van het boek in haar scherpste vorm.</li>
+        <li>Gebruik het als naslag per verschijnsel in plaats van als doorlopend betoog, want de hoofdstukken staan los van elkaar.</li>
+        <li>Neem de voetnoten mee wanneer je verder wilt lezen; daar staat de vakliteratuur die in de hoofdtekst ontbreekt.</li>
+        <li>Controleer welke uitgave je hebt, want de herziene versie uit 2008 is uitgebreider dan de eerste druk uit 2007.</li>
+        <li>Herken bij ouderen die muziek horen die er niet is dat dit meestal met slechthorendheid samenhangt en niet met verstandsverlies; dat is de nuttigste mededeling uit het boek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Musicophilia: Tales of Music and the Brain</i>, verschenen bij Alfred A. Knopf in New York op 16 oktober 2007, 381 blz., ISBN 9781400040810. Een herziene en uitgebreide uitgave kwam in 2008 bij Vintage Books uit, met xv en 425 blz., ISBN 9781400033539; die telt achtentwintig hoofdstukken in vier delen. Nederlands als <i>Musicofilia: verhalen over muziek en het brein</i>, vertaald door Han Visserman bij Meulenhoff in Amsterdam in 2007, 381 blz., ISBN 9789029080668; een latere Nederlandse druk verscheen onder ISBN 9029085037. De Amerikaanse wetenschapsserie NOVA maakte er in 2009 de aflevering <i>Musical Minds</i> over, waarin vier van de gevallen uit het boek terugkomen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sacks was neuroloog in New York en schreef zijn hele leven ziektegeschiedenissen op de manier van een verteller. Dit boek gaat over wat er met muziek gebeurt als het brein verandert: door een beroerte, een tumor, een blikseminslag, dementie of doofheid.</p><p>Het bestaat uit achtentwintig hoofdstukken in vier delen. Achtereenvolgens gaat het over mensen die plotseling door muziek worden overvallen, over de spreiding van muzikaliteit tussen absoluut gehoor en volledige toondoofheid, over muziek die geheugen en beweging aanstuurt, en over muziek en gevoel.</p><p>Bekende gevallen zijn de chirurg die na een blikseminslag onbedwingbaar piano wilde spelen, en de musicus Clive Wearing, wiens geheugen zo goed als volledig verdween maar die nog altijd een koor kon dirigeren. Sacks gebruikt zulke gevallen om te laten zien dat muziek in het brein overal en nergens zit.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>muziek</li><li>neurologie</li><li>geheugen</li><li>oorwurm</li><li>hallucinaties</li><li>dementie</li><li>casuïstiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1307"><a href="1307.html">An Anthropologist on Mars</a>. Sacks past dezelfde werkwijze toe op zeven mensen bij wie waarneming en persoonlijkheid door hersenschade anders werden.</li>
+          <li value="85"><a href="85.html">Singing in the brain</a>. Scherder behandelt hetzelfde onderwerp vanuit het onderzoek in plaats van vanuit het geval, met metingen bij zingen en musiceren.</li>
+          <li value="1680"><a href="1680.html">Wij zijn ons brein</a>. Swaab geeft de systematische beschrijving van het brein waar Sacks bewust van afziet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

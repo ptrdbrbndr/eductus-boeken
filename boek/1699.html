@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jouw ziel wil zingen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kortie stelt dat vrijwel iedereen kan zingen en dat de uitzonderingen die mensen van zichzelf menen te zijn, bijna altijd terug te voeren zijn op een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1699">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1699 &middot; Maken en scheppen</p>
+    <h1>Jouw ziel wil zingen</h1>
+    <p class="lede">Jan Kortie, 2010</p>
+    <p class="stats">
+      <span><b>1254</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1699"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kortie stelt dat vrijwel iedereen kan zingen en dat de uitzonderingen die mensen van zichzelf menen te zijn, bijna altijd terug te voeren zijn op een oordeel dat ooit is uitgesproken en sindsdien is overgenomen. Zingen is bij hem geen prestatie die beter kan worden maar een uiting die er al is, en de hele kunst bestaat eruit het toezicht van het eigen hoofd even weg te halen. Daarom werkt hij niet met techniek, want techniek voert dat toezicht juist op, maar met omstandigheden waarin het toezicht vanzelf verslapt: een groep, een eenvoudig geluid, geen tekst, geen goed of fout. Wat er dan uit komt noemt hij de stem van de ziel, en de vreugde die dat oplevert is voor hem het bewijs dat er niets meer aan hoeft te worden toegevoegd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Zingen als natuurverschijnsel</h3>
+      <p>Het boek begint met een omkering van de gebruikelijke vraag. Niet: hoe leer je zingen, maar: hoe komt het dat iemand ermee is opgehouden. Kortie wijst erop dat jonge kinderen zingen zonder erover na te denken en dat het bij bijna iedereen ergens in de schooltijd stopt.</p>
+      <p>Daaruit volgt zijn hele aanpak. Als zingen aangeboren is, hoeft het niet te worden aangeleerd maar teruggevonden. Het woord bevrijding in stembevrijding slaat op die richting: er hoeft iets weg, niet iets bij.</p>
+      <h3>Wat de stem tegenhoudt</h3>
+      <p>Kortie verzamelt de zinnen waarmee mensen hun stem hebben dichtgezet. Doe jij maar mee met de bewegingen. Je zingt vals. Wij zijn geen muzikale familie. Hij laat zien hoe zo'n opmerking, vaak achteloos gemaakt, decennia later nog het lichaam laat verkrampen zodra er gezongen moet worden.</p>
+      <p>Wat er daarna gebeurt noemt hij belangrijker dan de opmerking zelf: de luisteraar wordt de eigen bewaker. Het oordeel is niet meer nodig van buiten, want het staat inmiddels binnen. Zijn werk richt zich op die bewaker en niet op de stembanden.</p>
+      <h3>Hoe een sessie verloopt</h3>
+      <p>Het praktische deel beschrijft wat er in zijn workshops gebeurt. Er wordt gewerkt zonder muziekboek, vaak met klanken in plaats van woorden, met eenvoudige patronen die een groep zonder oefening kan meedragen. Wie durft zingt een keer alleen, met de rest eromheen.</p>
+      <p>De begeleider stuurt daarbij vooral op veiligheid en tempo. Er wordt niet gecorrigeerd, niet op zuiverheid gelet en niet toegewerkt naar een uitvoering. Kortie beschrijft dat dit voor deelnemers vaak het verwarrendste onderdeel is: er is niets te bereiken.</p>
+      <h3>Vijfentwintig jaar praktijk</h3>
+      <p>Door het boek heen loopt het verslag van zijn eigen weg. Kortie werkte met de meest uiteenlopende groepen en op de meest uiteenlopende plekken, van kleine cursusruimtes tot het Vondelpark en het Concertgebouw, en vaak samen met mensen uit andere vakgebieden.</p>
+      <p>Die verscheidenheid gebruikt hij als argument. Als het bij zulke verschillende mensen werkt, zegt hij, dan zit het niet in de aanleg van de deelnemers maar in wat er wordt weggehaald. Het is een aannemelijke gedachte, maar het blijft zijn eigen waarneming van zijn eigen deelnemers.</p>
+      <h3>Wat hij met ziel bedoelt</h3>
+      <p>De titel belooft meer dan het boek uitwerkt. Kortie gebruikt ziel voor wat er van iemand hoorbaar wordt zodra de bewaking wegvalt, en niet als godsdienstig of wijsgerig begrip. Hij definieert het nergens en verdedigt het nergens.</p>
+      <p>Dat past bij de toon, maar het is ook de reden dat het boek moeilijk is te plaatsen. Wie er een beschouwing over de ziel in zoekt vindt die niet; wie het leest als beeldspraak voor onbewaakte zelfexpressie, leest het zoals het is bedoeld.</p>
+      <h3>Toon en vorm</h3>
+      <p>Het boek is licht geschreven, met korte hoofdstukken, anekdotes en rijmpjes ertussendoor, en met voorwoorden van drie mensen uit verschillende hoeken: een cabaretière, een psychiater en een klassiek musicus.</p>
+      <p>Die opzet is een keuze en geen slordigheid. Kortie wil dat een lezer die zichzelf onmuzikaal vindt niet afhaakt, en houdt daarom alles laagdrempelig. De prijs ervan is dat er weinig blijft staan dat iemand kan natrekken of tegenspreken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Stembevrijding</td><td>Korties werkwijze waarin niet techniek wordt aangeleerd maar de belemmering wordt weggehaald die het zingen tegenhoudt.</td></tr>
+          <tr><td class="term">De innerlijke bewaker</td><td>Het overgenomen oordeel dat tijdens het zingen meeluistert en corrigeert; volgens Kortie het eigenlijke obstakel.</td></tr>
+          <tr><td class="term">Ziel</td><td>In dit boek geen godsdienstig begrip maar een aanduiding voor wat hoorbaar wordt zodra iemand niet meer op zichzelf let.</td></tr>
+          <tr><td class="term">Klankwerk</td><td>Zingen zonder tekst, met open klanken, zodat er geen woorden zijn om achter weg te kruipen of over na te denken.</td></tr>
+          <tr><td class="term">Vrijuit zingen</td><td>Zingen wat er op dat moment in iemand leeft, zonder vooropgezet resultaat; het doel van de hele praktijk.</td></tr>
+          <tr><td class="term">De groep als drager</td><td>Het gegeven dat een individuele stem in een groep minder blootstaat, wat het risico van beginnen verkleint.</td></tr>
+          <tr><td class="term">Valszingen</td><td>Voor Kortie zelden een kwestie van gehoor en meestal het gevolg van spanning en van het inhouden van adem.</td></tr>
+          <tr><td class="term">Onmuzikaal</td><td>Het etiket dat mensen zichzelf opplakken; in het boek behandeld als overgenomen oordeel en niet als eigenschap.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert zelf geen onderzoek aan. Het steunt op wat Kortie in vijfentwintig jaar in zijn eigen groepen heeft gezien, aangevuld met verhalen van deelnemers. Dat materiaal komt van mensen die zich hadden opgegeven en zijn blijven komen, wat de uitkomst bij voorbaat kleurt.</p>
+      <p>Buiten het boek bestaat er wel onderzoek dat de richting ondersteunt. Sinds de studies van Clift en Hancox rond 2001 is samen zingen herhaaldelijk onderzocht, en er zijn metingen die na koorrepetities een daling van het stresshormoon cortisol laten zien, en onderzoek dat oxytocine en afweerstoffen in het speeksel volgt.</p>
+      <p>Die uitkomsten zijn bescheidener dan de toon van het boek doet vermoeden. Het gaat vaak om kleine groepen, om metingen kort na afloop, en om het effect van samen iets doen dat evengoed uit andere groepsactiviteiten kan komen. Dat zingen mensen opknapt is redelijk ondersteund; dat het geneest, is dat niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste beperking is dat het boek een praktijk beschrijft die maar half in een boek past. Het werk gebeurt in een ruimte met andere mensen en een begeleider die het tempo bepaalt, en juist die omstandigheden zijn volgens Kortie zelf het werkzame deel. Wat de lezer thuis overhoudt is aanmoediging.</p>
+      <p>Verder wordt de tegenwerping nauwelijks toegelaten dat sommige mensen wel degelijk moeite hebben met toonhoogte. Er bestaat een klein deel van de bevolking dat toonverschillen slecht onderscheidt, en voor hen is de geruststelling dat het alleen om spanning gaat niet juist. Het boek maakt dat onderscheid niet.</p>
+      <p>Ten slotte lopen beschrijving en belofte door elkaar. Dat deelnemers na een dag zingen opgelucht naar huis gaan, is goed voorstelbaar; dat zingen genezend en vitaliserend werkt, zoals de uitgever het aankondigt, is een claim van een andere orde. Het boek doet geen poging dat verschil te bewaken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zing eerst waar niemand meeluistert, om te merken wat de bewaker doet zodra er wel iemand is.</li>
+        <li>Begin met klanken in plaats van met een lied; er valt dan minder te onthouden en minder te beoordelen.</li>
+        <li>Zoek een groep, want het effect dat het boek beschrijft komt vooral uit het samen doen.</li>
+        <li>Let op de adem voordat je op de toon let; spanning in de buik doet meer met de zuiverheid dan het gehoor.</li>
+        <li>Ga na welke opmerking ooit is blijven hangen, en schrijf hem op; dat is in het boek de eerste stap.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen als <i>Jouw ziel wil zingen: over de vreugde van stembevrijding</i> bij Ten Have in Kampen, 2010, 192 blz., ISBN 9789025960865; herdruk als paperback bij Ten Have in 2016 onder ISBN 9789025905835 en als e-boek onder ISBN 9789025902704. Met literatuuropgave. De redactionele bewerking was in handen van Gimpel Tekst & Redactie, dat in de bestanden van kukuru.nl en enkele boekhandels ten onrechte als auteur staat vermeld; het boek is van Jan Kortie, oprichter van het Centrum voor Stembevrijding in Amsterdam. Volgens de uitgeversinformatie bevat het voorwoorden van Brigitte Kaandorp, van psychiater Maarten van Rossum en van musicus Jan van de Berg.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kortie bracht het begrip stembevrijding naar Nederland en beschrijft in dit boek wat hij er in vijfentwintig jaar mee heeft gedaan. Zijn uitgangspunt is dat zingen geen vaardigheid is die sommigen wel en anderen niet hebben, maar iets wat bij de mens hoort zoals ademen, en dat het bij de meesten ergens onderweg is dichtgegaan.</p><p>Het boek gaat daarom niet over zangtechniek. Het gaat over wat de stem tegenhoudt: de opmerking van een leraar, het oordeel over de eigen klank, de gewoonte om eerst te bedenken hoe het moet klinken. Kortie zoekt naar manieren om dat te omzeilen in plaats van het te bestrijden, meestal in een groep en meestal zonder bladmuziek.</p><p>De toon is opgewekt en losjes, met rijmpjes tussendoor. Het is geen methode en geen studie, maar een verslag van een praktijk, geschreven om lezers over de drempel te krijgen. Wie een onderbouwing zoekt voor de genezende werking die het boek aan zingen toeschrijft, moet elders zijn.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zingen</li><li>stembevrijding</li><li>stem</li><li>expressie</li><li>schaamte</li><li>vreugde</li><li>groepswerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1674"><a href="1674.html">Musicofilia</a>. Sacks beschrijft wat muziek in de hersenen doet en levert daarmee de kant die Kortie bewust weglaat.</li>
+          <li value="14"><a href="14.html">The Artist's Way</a>. Cameron werkt met hetzelfde uitgangspunt, dat het scheppende vermogen er al is en alleen wordt geblokkeerd, maar dan voor schrijven en beeldend werk.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown behandelt de schaamte die volgens Kortie de stem dichtzet, en doet dat wel op grond van onderzoek.</li>
+          <li value="17"><a href="17.html">The Creative Act</a>. Rubin verdedigt eveneens dat techniek pas na de uiting komt, geschreven vanuit de muziekproductie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

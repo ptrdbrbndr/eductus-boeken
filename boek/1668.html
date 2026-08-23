@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Mindbody Prescription &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sarno stelt dat de meeste langdurige pijn in rug, nek, schouders en ledematen geen structurele oorzaak heeft maar een psychologische functie vervult. In…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1668">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1668 &middot; Brein en lichaam</p>
+    <h1>The Mindbody Prescription</h1>
+    <p class="lede">John E. Sarno, 1998</p>
+    <p class="stats">
+      <span><b>1766</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1668"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sarno stelt dat de meeste langdurige pijn in rug, nek, schouders en ledematen geen structurele oorzaak heeft maar een psychologische functie vervult. In het onbewuste zou zich woede ophopen die niet gevoeld mag worden, en het brein zou daar een lichamelijke afleiding tegenover zetten door de zuurstoftoevoer naar spieren en zenuwen iets te knijpen. De pijn is in die redenering volstrekt echt, maar de plaats waar zij opduikt is willekeurig; wat telt is dat de aandacht bij het lichaam blijft en niet bij de emotie. Daaruit volgt zijn behandeling: geen operatie, geen fysiotherapie en geen ontzien, maar de patiënt uitleggen hoe het mechanisme in elkaar zit, omdat dat mechanisme volgens hem alleen werkt zolang het onopgemerkt blijft. Kennis is bij Sarno de behandeling zelf en niet de voorbereiding erop.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Sarno (1923-2017) werkte vanaf 1965 aan het Rusk Institute for Rehabilitation Medicine en was hoogleraar revalidatiegeneeskunde aan New York University. Hij begon als gewone revalidatiearts en raakte ontevreden over zijn eigen resultaten: de behandelingen die hij gaf hielpen ongeveer even goed als niets doen, en de afwijkingen die hij op de beelden zag verklaarden niet wie er pijn had en wie niet.</p>
+      <p>Zijn eerste twee boeken, <i>Mind Over Back Pain</i> uit 1984 en <i>Healing Back Pain</i> uit 1991, gingen over de rug. Dit derde boek uit 1998 doet twee dingen tegelijk: het herhaalt die leer voor nieuwe lezers en het breidt haar uit naar een lange lijst andere klachten. Het verscheen buiten de medische vakuitgeverij om, bij een publieksuitgever, en werd verspreid door mondreclame van lezers.</p>
+      <h3>Het psychologische deel: woede die niet gevoeld mag worden</h3>
+      <p>Het eerste deel van het boek is een schets van het onbewuste. Sarno werkt met een reservoir van woede dat zich vult vanuit drie bronnen: wat er in de kindertijd is blijven liggen, wat het leven van alledag oplevert aan vernedering en druk, en wat iemand zichzelf oplegt. Die derde bron is bij hem de belangrijkste, en zij hangt samen met karakter.</p>
+      <p>De patiënten die hij beschrijft zijn plichtsgetrouw, perfectionistisch en gericht op het goedkeuren van anderen. Sarno noemt dat goodism. Juist wie zich voortdurend inspant om aardig en betrouwbaar te zijn, zou de meeste onderdrukte woede opbouwen, omdat die woede nergens naar buiten mag. Het onbewuste beschouwt zij als onaanvaardbaar en houdt haar tegen; de pijn is het middel waarmee dat lukt.</p>
+      <h3>Het lichamelijke deel: zuurstoftekort als mechanisme</h3>
+      <p>Voor de vraag hoe een emotie pijn maakt, wijst Sarno naar het autonome zenuwstelsel. Dat regelt de doorbloeding zonder tussenkomst van de wil, en het zou de bloedtoevoer naar bepaalde spieren, zenuwen en pezen licht kunnen beperken. Het gevolg is een mild zuurstoftekort, en dat geeft pijn, tintelingen, gevoelloosheid en zwakte, precies de klachten waarvoor mensen bij hem kwamen.</p>
+      <p>Het aantrekkelijke van deze verklaring is dat zij de pijn serieus neemt. Sarno benadrukt herhaaldelijk dat de klacht niet ingebeeld is en dat de patiënt niet aanstelt. Het onaantrekkelijke is dat hij het zuurstoftekort nergens meet. Hij noemt een enkele oudere spierbiopsiestudie en laat het daarbij; de rest van de onderbouwing is redenering.</p>
+      <h3>De uitbreiding: wat er allemaal nog meer onder valt</h3>
+      <p>Waar de eerste boeken bij de rug bleven, trekt Sarno de diagnose hier veel breder. Onder dezelfde noemer brengt hij maagzuur, prikkelbare darm, spanningshoofdpijn, migraine, duizeligheid, oorsuizen, eczeem, acne, hooikoorts, frequente verkoudheden, RSI, peesontstekingen en whiplash. Hij noemt deze klachten equivalenten: verschillende uitgangen van hetzelfde mechanisme.</p>
+      <p>Daarbij hoort het begrip symptoom-dwang. Als een klacht verdwijnt zonder dat de onderliggende woede is aangepakt, verschijnt volgens Sarno vanzelf een andere. Dat verklaart waarom een geslaagde rugoperatie zo vaak gevolgd wordt door schouderklachten, en het levert hem tegelijk een antwoord op elk tegenvoorbeeld dat een lezer zou kunnen aandragen.</p>
+      <h3>De behandeling: kennis in plaats van therapie</h3>
+      <p>De behandeling die Sarno voorschrijft is kort. De patiënt moet eerst medisch worden nagekeken om ernstige aandoeningen uit te sluiten. Daarna leest hij het boek, woont eventueel een of twee groepsbijeenkomsten bij, schrijft over wat hem werkelijk dwarszit, en gaat verder met zijn leven: geen steunkussens, geen rugoefeningen, geen ontzien van bewegingen die pijn deden.</p>
+      <p>Het scharnier is de aandacht. Zolang de patiënt over zijn rug denkt in lichamelijke termen, blijft de afleiding werken; zodra hij de pijn ziet als afleiding, verliest die haar nut en zakt zij weg. Sarno geeft daarbij een lijst herinneringen die dagelijks doorgenomen moet worden. Voor de kleine groep bij wie dit niet lukt, verwijst hij naar psychotherapie.</p>
+      <h3>De vorm en de toon</h3>
+      <p>Het boek is niet lang en telt in de Engelse pocket ruim tweehonderd bladzijden. Sarno schrijft in de eerste persoon, met een stellige toon en met veel patiëntverhalen; de vertaling uit 2025 heeft een literatuuropgave en een register.</p>
+      <p>Opvallend is hoe openlijk hij zich tegen zijn eigen vakgebied keert. Hij verwijt collega's dat zij onnodig opereren en dat de geneeskunde weigert het onbewuste serieus te nemen. Die toon verklaart een deel van de aantrekkingskracht van het boek en verklaart ook waarom het buiten de medische literatuur is gebleven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tension myositis syndrome</td><td>Sarno's diagnose: pijn die het brein opwekt door de doorbloeding van spieren, zenuwen of pezen licht te beperken, met als doel de aandacht van onderdrukte emoties af te leiden.</td></tr>
+          <tr><td class="term">Reservoir van woede</td><td>De opgehoopte, onbewuste kwaadheid uit kindertijd, dagelijks leven en zelfopgelegde druk, die volgens hem de brandstof van de klacht vormt.</td></tr>
+          <tr><td class="term">Goodism</td><td>Zijn aanduiding voor de neiging om altijd aardig, plichtsgetrouw en behulpzaam te zijn; juist die neiging houdt woede binnen en maakt vatbaar voor de klacht.</td></tr>
+          <tr><td class="term">Zuurstoftekort</td><td>Het veronderstelde lichamelijke mechanisme: een milde beperking van de bloedtoevoer die echte pijn, tintelingen en zwakte veroorzaakt zonder blijvende schade.</td></tr>
+          <tr><td class="term">Equivalenten</td><td>Klachten buiten het bewegingsapparaat, van maagzuur tot eczeem, die Sarno als andere uitgangen van hetzelfde mechanisme beschouwt.</td></tr>
+          <tr><td class="term">Symptoom-dwang</td><td>Het idee dat een klacht die verdwijnt zonder dat de emotie is aangepakt, wordt vervangen door een andere klacht.</td></tr>
+          <tr><td class="term">Kennistherapie</td><td>De behandeling zelf: het mechanisme begrijpen. Sarno gaat ervan uit dat de afleiding haar werking verliest zodra de patiënt haar doorziet.</td></tr>
+          <tr><td class="term">Dagelijkse herinneringen</td><td>Een korte lijst uitspraken die de patiënt elke dag doorneemt om zijn aandacht van het lichaam naar het psychologische te verleggen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste dat Sarno aanvoert is een waarneming die inmiddels goed vaststaat: de afwijkingen die op scans van de rug te zien zijn, zeggen weinig over wie pijn heeft. Onderzoek uit die jaren, waaronder een veelgeciteerde studie van Jensen en collega's in de New England Journal of Medicine uit 1994, liet zien dat een ruime meerderheid van de mensen zonder enige rugklacht uitpuilende tussenwervelschijven op de MRI heeft. Dat ondergraaft de mechanische verklaring die Sarno bestrijdt en het is de reden waarom zijn kritiek op onnodige operaties destijds hout sneed.</p>
+      <p>Zwakker is alles wat daarna komt. Voor zijn eigen mechanisme heeft Sarno geen enkele gecontroleerde studie. Wat het boek biedt zijn de uitkomsten van zijn eigen spreekuur, geteld door hemzelf, zonder controlegroep en zonder onafhankelijke beoordeling. Bovendien had hij een sterk geselecteerde populatie: wie bij hem terechtkwam, had vaak al alles geprobeerd, geloofde in zijn aanpak en viel bij twijfel af. Bij die opzet is niet te scheiden wat de leer doet, wat de tijd doet en wat het vertrouwen in een overtuigde dokter doet.</p>
+      <p>Het onderdeel van zijn gedachtegoed dat wel is beproefd, is niet van hemzelf. Pain reprocessing therapy, dat op zijn kernidee voortbouwt maar met omschreven technieken werkt, werd in de Boulder Back Pain Study getoetst tegen een placebo-injectie en gebruikelijke zorg; het verslag verscheen in JAMA Psychiatry (online 2021, in het nummer van januari 2022). Van de deelnemers in de behandelgroep was ongeveer twee derde na vier weken pijnvrij of vrijwel pijnvrij, met effect na een jaar. Dat is de beste steun die er voor deze denkrichting bestaat, en zij komt uit een onderzoek met honderdvijftig zorgvuldig geselecteerde deelnemers, niet uit dit boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de theorie zichzelf tegen weerlegging beschermt. Wie geneest, bevestigt haar. Wie niet geneest, heeft de leer nog niet echt aanvaard of verzet zich onbewust. Wie een andere klacht krijgt, illustreert de symptoom-dwang. En wie aantoonbaar iets lichamelijks blijkt te hebben, viel buiten de doelgroep. Er is geen uitkomst denkbaar waarmee Sarno ongelijk zou krijgen, en dat maakt zijn stelling geen wetenschappelijke stelling maar een sluitend verhaal.</p>
+      <p>Daarbij komt de verouderde psychologie. Het model van een reservoir dat zich vult met verdrongen woede en zich elders ontlaadt, komt regelrecht uit de vroege psychoanalyse en is nooit onafhankelijk vastgesteld. Ook de karakterschets van de patiënt, plichtsgetrouw en perfectionistisch, is een indruk uit zijn eigen spreekkamer; dat soort typeringen herkent bijna iedere lezer bij zichzelf, wat er weinig over zegt.</p>
+      <p>De uitbreiding in dit boek is riskanter dan de leer over de rug. Hooikoorts, huidaandoeningen en maag-darmklachten hebben mechanismen die goed onderzocht zijn, en ze onder een psychologische noemer schuiven kan uitstel van diagnose opleveren. Sarno schrijft nadrukkelijk voor dat er eerst medisch onderzoek plaatsvindt, maar hij schrijft ook dat artsen het bij het verkeerde eind hebben, en dat is een ongelukkige combinatie voor een boek dat lezers zonder arts bereikt.</p>
+      <p>Tot slot legt de aanpak de last stilzwijgend bij de lezer. Als pijn een boodschap is van het eigen onbewuste, dan is aanhoudende pijn te lezen als iets waar iemand zelf niet doorheen komt. Sarno bedoelt dat niet zo en zegt herhaaldelijk dat er geen sprake is van aanstellen, maar de bouw van zijn redenering brengt dat verwijt toch mee, en lezers met langdurige klachten merken dat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Laat de klacht eerst medisch nakijken; het boek zelf stelt die voorwaarde en die is niet optioneel.</li>
+        <li>Gebruik het gegeven dat afwijkingen op een scan slecht samenhangen met pijn als vraag aan de behandelaar, niet als reden om behandeling te staken.</li>
+        <li>Beoordeel per klacht of de redenering opgaat; voor rug- en nekpijn staat zij sterker dan voor huid, darm of luchtwegen.</li>
+        <li>Zoek voor de kern van deze aanpak de nieuwere versie op, pain reprocessing therapy, waarvoor wel gecontroleerd onderzoek bestaat.</li>
+        <li>Let bij het lezen op de plaatsen waar elke uitkomst de theorie bevestigt; daar is de redenering niet meer te controleren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Mindbody Prescription: Healing the Body, Healing the Pain</i> (Warner Books, New York, 1998, ISBN 9780446520768; paperback 2001, 208 blz., ISBN 9780446675154). De schrijfwijze met schuine streep die op kukuru.nl staat komt niet van het omslag; het boek heet Mindbody aan elkaar. De Nederlandse vertaling liet ruim een kwarteeuw op zich wachten en verscheen als <i>De mind-body connectie: chronische pijn begrijpen en helen</i>, vertaald door Jörgen van Dunen bij AnkhHermes in Utrecht, 16 juli 2025, 256 blz., ISBN 9789020222401, met literatuuropgave en register, daarnaast als e-boek en luisterboek. Het is het derde van vier boeken die Sarno over hetzelfde onderwerp schreef, na <i>Mind Over Back Pain</i> (1984) en <i>Healing Back Pain</i> (1991) en vóór <i>The Divided Mind</i> (2006); dezelfde uitgever bracht eind 2025 ook <i>Healing Back Pain</i> in het Nederlands uit, als <i>Heel je rug</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>John Sarno was revalidatiearts aan het Rusk Institute van New York University en behandelde daar dertig jaar lang mensen met langdurige rugpijn. Hij zag dat de afwijkingen op de foto's, zoals slijtage en uitpuilende tussenwervelschijven, ongeveer even vaak voorkomen bij mensen zonder klachten, en trok daaruit de conclusie dat de gangbare verklaring voor die pijn niet deugt.</p><p>Zijn eigen verklaring noemt hij tension myositis syndrome. Het brein zou de doorbloeding van spieren, zenuwen en pezen licht knijpen, waardoor er echte pijn ontstaat, en het zou dat doen om de aandacht weg te houden bij woede die de patiënt niet onder ogen wil zien. De behandeling bestaat dan uit begrijpen wat er gebeurt, stoppen met de lichamelijke behandelingen en weer gaan bewegen.</p><p>Dit derde boek rekt de diagnose op tot ver voorbij de rug: maagklachten, migraine, huidaandoeningen, hooikoorts en RSI vallen er ook onder. Gecontroleerd onderzoek staat er niet in. Wat Sarno aanvoert zijn zijn eigen patiënten, in aantallen die hij zelf heeft bijgehouden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>chronische pijn</li><li>rugpijn</li><li>onderdrukte emoties</li><li>psychosomatiek</li><li>TMS</li><li>geneeskunde</li><li>zenuwstelsel</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Bessel van der Kolk behandelt hetzelfde grensgebied tussen emotie en lichaam, maar met verwijzingen naar onderzoek en zonder de sluitende verklaring die Sarno hanteert.</li>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Peter Levine zoekt de oorzaak van blijvende lichamelijke klachten ook in een onafgemaakte reactie, en komt tot een behandeling die eerder bij het lichaam begint dan bij het begrip.</li>
+          <li value="1731"><a href="1731.html">The Myth of Normal</a>. Gabor Mate verdedigt een verwante stelling over ziekte en onderdrukte emotie, uitgebreider onderbouwd en met dezelfde neiging om veel klachten onder een noemer te brengen.</li>
+          <li value="1513"><a href="1513.html">You Are the Placebo</a>. Joe Dispenza gaat een flinke stap verder in dezelfde richting; nuttig om te zien waar de redenering van Sarno ophoudt en waar zij losraakt van elke controle.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

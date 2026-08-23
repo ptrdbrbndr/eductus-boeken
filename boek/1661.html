@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seth Speaks &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek beweert dat het niet door Jane Roberts is geschreven maar door een bewustzijn dat zichzelf beschrijft als een energiepersoonlijkheid die niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1661">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1661 &middot; Filosofie en mystiek</p>
+    <h1>Seth Speaks</h1>
+    <p class="lede">Jane Roberts, 1972</p>
+    <p class="stats">
+      <span><b>1680</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1661"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek beweert dat het niet door Jane Roberts is geschreven maar door een bewustzijn dat zichzelf beschrijft als een energiepersoonlijkheid die niet langer in stoffelijke vorm leeft en dat via haar spreekt. Wat dat bewustzijn te melden heeft, komt neer op één stelling met verstrekkende gevolgen: de werkelijkheid waarin iemand zich bevindt is geen gegeven waarin hij terechtkwam, maar het gevolg van zijn eigen overtuigingen, verwachtingen en aandacht. De ziel is in deze voorstelling niet iets wat een mens heeft maar iets waarvan hij een uitloper is; hij leeft niet één leven na het andere maar meerdere levens tegelijk, en daarnaast bestaan de versies van hemzelf die andere keuzes maakten in even werkelijke, parallelle uitvoeringen. De dood verandert daar volgens Seth weinig aan, omdat het bewustzijn niet aan de stof gebonden was om te beginnen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het boek tot stand kwam</h3>
+      <p>In september 1963 zaten Roberts en Butts met een ouijabord aan tafel. Het bord spelde boodschappen die zich toeschreven aan iemand die zich eerst Frank Withers noemde en daarna Seth. Roberts merkte al snel dat zij de woorden hoorde voordat het bord ze spelde, en ging ze uitspreken. Daarmee begon een reeks zittingen die tot haar dood in 1984 doorliep en die Butts vrijwel volledig heeft genoteerd.</p>
+      <p>Wat dit boek onderscheidt van het eerdere <i>The Seth Material</i> is dat het niet uit zittingsverslagen is samengesteld maar volgens de betrokkenen door Seth als boek is gedicteerd, hoofdstuk voor hoofdstuk, tussen januari 1970 en april 1971. Butts voegde er aantekeningen aan toe over de omstandigheden van elke zitting: het weer, bezoekers, de tijd, en hoe Roberts erbij zat. Die aantekeningen geven het boek een huiselijke laag die tegenwicht vormt voor de plechtige toon van de tekst zelf.</p>
+      <h3>Wie Seth zegt te zijn</h3>
+      <p>Seth presenteert zich als een energiepersoonlijkheidsessentie die niet meer in de stof is gericht. Hij is naar eigen zeggen geen geest van een overledene en geen engel, maar een bewustzijn dat zijn stoffelijke levens achter zich heeft en zich daarom vrijer kan bewegen. Hij spreekt over Roberts in de derde persoon en behandelt haar apparaat, zoals hij het noemt, met een mengeling van respect en spot.</p>
+      <p>Voor de lezer is de vraag wie hier spreekt onvermijdelijk. Het boek anticipeert daarop en Seth gaat er zelf op in: hij ontkent dat hij een afsplitsing van Roberts zou zijn, maar geeft toe dat hij haar woordenschat en haar zenuwstelsel gebruikt. Dat is een handige verdediging, omdat elk stilistisch bezwaar er bij voorbaat door wordt opgevangen. Het maakt de vraag naar de herkomst van de tekst tegelijk onbeantwoordbaar.</p>
+      <h3>Je schept je eigen werkelijkheid</h3>
+      <p>De zin die uit dit werk in de hele latere zelfhulpliteratuur is beland, luidt dat je je eigen werkelijkheid schept. Bij Seth is dat geen aanmoediging maar een beschrijving van hoe hij denkt dat het toegaat. Overtuigingen komen eerst, gebeurtenissen daarna. Wie ervan overtuigd is dat de wereld vijandig is, ontmoet vijandigheid; niet omdat hij pech heeft, maar omdat zijn overtuiging de gebeurtenis mede voortbrengt.</p>
+      <p>Seth trekt dat consequent door, ook naar ziekte, armoede en geweld. Dat is het punt waar het materiaal het meest onaangenaam wordt, en waar het ook zijn grootste aantrekkingskracht heeft: het belooft dat niets iemand overkomt zonder dat hij er zelf iets aan kan doen. In latere delen, vooral in <i>The Nature of Personal Reality</i>, wordt het uitgewerkt tot een praktische methode voor het opsporen van eigen overtuigingen.</p>
+      <h3>Reïncarnatie, waarschijnlijke zelven en het multidimensionale zelf</h3>
+      <p>Seth ontkent dat levens op elkaar volgen. Tijd bestaat volgens hem alleen binnen het stoffelijk gerichte bewustzijn; van buitenaf gezien vinden alle levens tegelijk plaats. Wat een mens zijn ziel noemt, is een groter geheel dat hij het multidimensionale zelf noemt en waarvan de afzonderlijke levens uitlopers zijn. Wat in het ene leven wordt geleerd, werkt daarom door in wat wij vorige levens noemen, en niet alleen andersom.</p>
+      <p>Daarnaast voert hij waarschijnlijke werkelijkheden op: bij elke keuze bestaat de niet gekozen mogelijkheid volgens hem even werkelijk verder, met een versie van dezelfde persoon erin. Dat idee doet oppervlakkig denken aan interpretaties uit de kwantummechanica, en het boek speelt met die gelijkenis, maar er is geen inhoudelijke verbinding: de natuurkundige varianten volgen uit een formalisme, deze uit een dictaat.</p>
+      <h3>De dood, en wat Seth zegt dat erna komt</h3>
+      <p>Een aanzienlijk deel van het boek gaat over sterven. Seth beschrijft de toestand na de dood als een reeks fasen waarin het bewustzijn eerst zijn eigen verwachtingen tegenkomt: wie een hemel verwachtte, ziet er een, tot hij doorheeft dat hij die zelf maakte. Daarna volgt een terugblik op het geleefde leven en een keuze over wat er nu weer nodig is.</p>
+      <p>Deze hoofdstukken verklaren voor een deel het succes van het boek. Het geeft een uitgewerkt en nergens dreigend antwoord op de vraag wat er gebeurt na de dood, zonder oordeel, zonder straf, en zonder de instemming van een kerk. Voor lezers die in de jaren zeventig de kerk hadden verlaten maar niet met niets wilden achterblijven, was dat een aantrekkelijk aanbod.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Energiepersoonlijkheidsessentie</td><td>Seths eigen aanduiding voor wat hij is: een bewustzijn met een herkenbare persoonlijkheid dat niet langer in stoffelijke vorm leeft. Het woord vermijdt zowel geest als engel en plaatst hem buiten bestaande religieuze categorieën.</td></tr>
+          <tr><td class="term">Trancezitting</td><td>De vorm waarin het materiaal ontstond. Roberts ging in trance, sprak met veranderde stem en tempo, en Butts schreef mee. Ruim twee decennia aan zittingsverslagen liggen tegenwoordig in de bibliotheek van Yale.</td></tr>
+          <tr><td class="term">Je schept je eigen werkelijkheid</td><td>De kernstelling van het hele Seth-materiaal: gebeurtenissen volgen uit overtuigingen en verwachtingen, niet andersom. Vrijwel alle latere manifestatieliteratuur gaat hierop terug, meestal zonder bronvermelding.</td></tr>
+          <tr><td class="term">Waarschijnlijke werkelijkheden</td><td>De niet gekozen mogelijkheden bij elke beslissing, die volgens Seth even werkelijk voortbestaan met een eigen versie van de persoon erin. Het idee lijkt op interpretaties uit de natuurkunde zonder er iets mee te delen.</td></tr>
+          <tr><td class="term">Multidimensionale zelf</td><td>Het grotere geheel waarvan een enkel mensenleven volgens Seth een uitloper is. Het vervangt bij hem het gangbare zielsbegrip: de ziel is niet iets wat je hebt maar iets waar je een deel van bent.</td></tr>
+          <tr><td class="term">All That Is</td><td>Seths woord voor het geheel waarin alles bestaat, en zijn vervanging van het woord God. Het is niet een wezen dat de wereld maakte maar een bewustzijn dat zich in alles voortzet en zich door alles heen ontwikkelt.</td></tr>
+          <tr><td class="term">Innerlijke zintuigen</td><td>Waarnemingsvermogens die volgens Seth naast de gewone vijf bestaan en waarmee informatie buiten tijd en ruimte bereikbaar zou zijn. In het boek staan oefeningen om ze te gebruiken, wat de lezer een rol geeft naast die van toehoorder.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bewijs in de gewone zin ontbreekt en kan hier ook niet bestaan. Wat er ligt is een tekst met een herkomstverhaal, en de vraag is uitsluitend wat je van dat verhaal aanneemt. Het materiaal doet geen enkele voorspelling die kan uitkomen of falen, en er zijn geen feiten in verwerkt die Roberts niet had kunnen weten.</p>
+      <p>Wat wel opvalt is de omvang en de samenhang. Eenentwintig jaar zittingen, honderden bladzijden per boek, met een stijl en een leerstelsel die over die hele periode consistent blijven. Psycholoog Paul Cunningham betoogde dat bedrog en cryptomnesie, het onbewust terughalen van eerder gelezen materiaal, daarvoor onwaarschijnlijke verklaringen zijn. Dat is geen bevestiging van Seths bestaan; het maakt alleen de meest platte verklaringen minder aannemelijk.</p>
+      <p>Skeptici als James Alcock houden vol dat een psychologische verklaring volstaat: een schrijfster met literair talent en een tweede persoonlijkheid die zich in trance kan uiten. Die verklaring dekt de tekst even goed als Seths eigen verklaring en vraagt minder van de lezer. Er is geen waarneming die de twee uit elkaar kan houden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De stelling dat je je eigen werkelijkheid schept levert een probleem op zodra hij op tegenslag wordt losgelaten. Wie ziek wordt, bestolen wordt of in een oorlog terechtkomt, heeft dat volgens deze leer op enig niveau zelf gewild of toegelaten. Het boek zegt dat zonder wreedheid, maar de gevolgtrekking is er niet minder hard om, en zij is in de decennia erna door talloze navolgers hardvochtig herhaald.</p>
+      <p>De tekst is niet te weerleggen en ook niet te bevestigen. Elk bezwaar wordt binnen het stelsel opgevangen: twijfel is een overtuiging, tegenspraak is een gebrek aan begrip van gelijktijdige tijd. Een leer die alles kan opnemen, sluit zichzelf af van correctie.</p>
+      <p>De passages die klinken als natuurkunde zijn de zwakste. Seth spreekt over coördinatiepunten, energiedrempels en gelijktijdige uitvoeringen van de werkelijkheid in een woordenschat die aan de wetenschap is ontleend zonder dat er iets van de bijbehorende toetsing bij hoort. Dat leverde het materiaal veel gezag op bij lezers die het verschil niet konden zien.</p>
+      <p>Charles Upton merkte op dat de aantrekkingskracht van het materiaal vooral zit in de doodsangst die het wegneemt. Dat is een verklaring van het succes, niet een weerlegging van de inhoud, maar het legt wel bloot waarom de vraag naar de herkomst voor de meeste lezers geen rol speelde.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als het document waar een groot deel van de moderne spirituele zelfhulp uit voortkomt; veel van wat je elders leest is hiervan een verdunning.</li>
+        <li>Let bij het lezen op het verschil tussen de uitspraak dat overtuigingen je waarneming kleuren, wat verdedigbaar is, en de uitspraak dat zij gebeurtenissen voortbrengen, wat dat niet is.</li>
+        <li>De aantekeningen van Butts zijn het lezen waard: zij laten de gewone huiskamer zien waarin dit ontstond.</li>
+        <li>Wees op je hoede zodra de leer op ziekte of geweld wordt toegepast; daar wordt zij schadelijk.</li>
+        <li>Wie de vraag naar echtheid wil laten rusten, kan de tekst lezen als literatuur; hij is als literatuur beter dan zijn reputatie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Seth Speaks: The Eternal Validity of the Soul</i> (Prentice-Hall, Englewood Cliffs, 1972), gedicteerd in trancezittingen tussen januari 1970 en april 1971 en van aantekeningen voorzien door Jane Roberts' echtgenoot Robert F. Butts. Nederlands als <i>Seth spreekt: de eeuwige waarde van de ziel</i>, vertaald door Hannie van Till en Margot Bakker bij Ankh-Hermes in Deventer, 1979, 487 blz., ISBN 9020254138, met herdrukken in 1981, 1985 en 1986 en een nieuwe uitgave bij AnkhHermes in 2022 onder ISBN 9789020219326. Het boek volgt op <i>The Seth Material</i> (1970) en werd gevolgd door <i>The Nature of Personal Reality</i> (1974).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jane Roberts (1928-1984) was schrijfster van science fiction toen zij in 1963 met een ouijabord ging experimenteren voor een boek over buitenzintuiglijke waarneming. Wat er volgens haar volgde was contact met een persoonlijkheid die zich Seth noemde. Vanaf dat moment hield zij twee keer per week zittingen waarin zij in trance ging en Seth sprak; haar man Robert Butts noteerde alles. Dat bleef zij eenentwintig jaar doen.</p><p><i>Seth Speaks</i> is het eerste boek dat Seth naar eigen zeggen zelf dicteerde in plaats van dat het uit de zittingen werd samengesteld. Het behandelt wie of wat Seth beweert te zijn, wat er volgens hem na de dood gebeurt, hoe reïncarnatie werkt, en de stelling waar het hele werk om draait: dat ieder mens zijn eigen werkelijkheid schept met zijn overtuigingen en verwachtingen.</p><p>Het boek werd de kerntekst van het Seth-materiaal en een van de invloedrijkste boeken van de new age. Veel latere auteurs over manifesteren en gedachtekracht putten er direct of indirect uit, meestal zonder de bron te noemen. Wie wil begrijpen waar het idee dat je je eigen werkelijkheid maakt zijn moderne vorm kreeg, komt bij dit boek uit.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>channeling</li><li>Seth</li><li>reïncarnatie</li><li>je schept je eigen werkelijkheid</li><li>new age</li><li>bewustzijn</li><li>trance</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="768"><a href="768.html">The Nature of Personal Reality</a>. Het directe vervolg, waarin de stelling over overtuigingen wordt uitgewerkt tot een methode; wie wil weten wat het Seth-materiaal in de praktijk voorschrijft, moet dat deel hebben.</li>
+          <li value="1585"><a href="1585.html">Out on a Limb</a>. MacLaine laat zien wat er tien jaar later met channeling gebeurde toen het van een huiskamer in Elmira naar de bestsellerlijst en de televisie verhuisde.</li>
+          <li value="1629"><a href="1629.html">Conversations with God: An Uncommon Dialogue, Book 1</a>. Walsch gebruikt dezelfde vorm van een gedicteerde tekst met een bovenmenselijke bron, maar dan in de jaren negentig en met God zelf als gesprekspartner.</li>
+          <li value="1748"><a href="1748.html">The Secret</a>. Byrne verkocht drie decennia later de kern van dit boek terug aan een miljoenenpubliek, ontdaan van Seths voorbehouden en van elke vraag naar herkomst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

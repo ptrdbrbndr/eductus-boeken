@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wij zijn ons brein &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Swaab vat de mens op als het werk van zijn hersenen: karakter, aanleg, geaardheid, geloofsneiging en de kans op een psychiatrische ziekte liggen volgens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1680">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1680 &middot; Brein en lichaam</p>
+    <h1>Wij zijn ons brein</h1>
+    <p class="lede">Dick Swaab, 2010</p>
+    <p class="stats">
+      <span><b>1744</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1680"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Swaab vat de mens op als het werk van zijn hersenen: karakter, aanleg, geaardheid, geloofsneiging en de kans op een psychiatrische ziekte liggen volgens hem grotendeels vast voordat iemand ter wereld komt, bepaald door genen en door wat er tijdens de zwangerschap met het zich vormende brein gebeurt. Opvoeding en omgeving veranderen daar minder aan dan de meeste mensen aannemen. Wie iets doet, doet dat omdat zijn hersenen op dat moment niet anders konden, en de ervaring van vrij kiezen noemt hij een aangename illusie. Dat is een uitspraak over de hele mens, gedaan door iemand die zijn leven lang hersenweefsel van overledenen heeft onderzocht. Zij valt op twee plaatsen aan te vallen: draagt dat onderzoek wat hij eruit haalt, en is een uitspraak over hersenen wel hetzelfde als een uitspraak over personen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek dat uit stukjes is gebouwd</h3>
+      <p>De hoofdstukken zijn kort, vaak een tot drie bladzijden, en gaan terug op columns. Dat bepaalt hoe het boek leest. Elk stuk staat op zichzelf, opent met een geval uit de kliniek of een krantenbericht, en eindigt met een uitspraak over wat de hersenen bepalen.</p>
+      <p>Over bijna vijfhonderd bladzijden levert die vorm herhaling op. Dezelfde onderzoeken en dezelfde voorbeelden komen meermaals langs, telkens als illustratie van hetzelfde punt. Het boek bouwt geen argument op dat aan het slot rond is; het legt hetzelfde standpunt hoofdstuk na hoofdstuk tegen steeds nieuw materiaal aan.</p>
+      <h3>De baarmoeder als beslissende periode</h3>
+      <p>Het eerste deel gaat over de aanleg van het brein voor de geboorte en over alles wat die aanleg verstoort: alcohol, nicotine, drugs, medicijnen, ondervoeding van de moeder, een moeizame bevalling. Swaab gebruikt hier het cohort van kinderen die tijdens de hongerwinter van 1944 en 1945 in de baarmoeder zaten, een groep die decennialang is gevolgd en die op latere leeftijd meer stofwisselingsziekten en psychiatrische aandoeningen vertoont.</p>
+      <p>Hij beschrijft ook wat het ongeboren kind al doet: het herkent de stem van de moeder en reageert op geluiden die het vaak heeft gehoord, en het zet zelf met hormonen de bevalling in gang. Die feiten dienen een doel in zijn betoog. Ze laten zien dat het brein niet als onbeschreven blad begint en dat de omgeving al invloed heeft voordat er van opvoeding sprake is.</p>
+      <h3>Seksuele aanleg, geaardheid en genderidentiteit</h3>
+      <p>Het bekendste deel van Swaabs eigen werk gaat over verschillen tussen mannelijke en vrouwelijke hersenen, en over de vraag wanneer die ontstaan. Zijn antwoord is: tijdens de zwangerschap, onder invloed van geslachtshormonen, en in een andere periode dan de aanleg van de geslachtsorganen. Daaruit volgt zijn stelling dat seksuele voorkeur en genderidentiteit voor de geboorte vastliggen en later niet te sturen of te behandelen zijn.</p>
+      <p>Hij steunt daarbij op anatomische bevindingen uit de hypothalamus. Met Michel Hofman beschreef hij een vergrote suprachiasmatische kern bij homoseksuele mannen; met Louis Gooren en anderen publiceerde hij in 1995 in <i>Nature</i> over de bed nucleus van de stria terminalis, die bij transseksuele vrouwen de vrouwelijke maat had. Toen hij deze richting in 1989 naar buiten bracht kwam er woede uit de homobeweging, die vreesde dat een verschil in de hersenen als ziekte zou worden gelezen. Swaab gebruikt die geschiedenis in het boek als bewijs dat mensen liever een aangenaam verhaal horen dan een bevinding.</p>
+      <h3>Wat er misgaat</h3>
+      <p>Een groot middendeel behandelt hersenziekten en gedrag dat de samenleving als afwijkend behandelt: verslaving, agressie, depressie, schizofrenie, autisme, anorexia, pedofilie, dementie. De lijn is telkens dezelfde. Wat als karakterfout of als keuze wordt gezien, is een afwijking in de aanleg of de werking van hersengebieden, en schuld is daarop het verkeerde antwoord.</p>
+      <p>Hier komt de hersenbank in beeld. Sinds 1985 kunnen mensen hun hersenen na hun dood aan het onderzoek geven, met de ziektegeschiedenis erbij, waardoor weefsel van patiënten met weefsel van gezonde donoren is te vergelijken. Vrijwel alle anatomische bevindingen in het boek komen uit die verzameling of uit vergelijkbare buitenlandse banken.</p>
+      <h3>Geloof, moraal en de vrije wil</h3>
+      <p>Religie behandelt Swaab als een verschijnsel van het brein: een neiging die evolutionair is te verklaren, in de kindertijd wordt ingeprent en bij bepaalde vormen van epilepsie en bij drugsgebruik in versterkte vorm terugkomt. Hij leunt in dat hoofdstuk zwaar op Richard Dawkins en laat de theologische en filosofische literatuur over hetzelfde onderwerp buiten beeld.</p>
+      <p>Het hoofdstuk over de vrije wil is het scharnier van het boek. Swaab beroept zich op de proeven van Benjamin Libet, waarin in de hersenen al activiteit meetbaar is voordat de proefpersoon zegt te hebben besloten, en concludeert dat de wil geen oorzaak is maar een verslag achteraf. Voor het strafrecht trekt hij daaruit de gevolgtrekking dat vergelding zinloos is en dat het alleen om beveiliging en behandeling kan gaan. Daniel Dennett heeft hem daarover in het openbaar tegengesproken, met het argument dat vrijheid niet betekent dat iemand aan de natuurwetten ontsnapt.</p>
+      <h3>Sterven en wat er daarna gebeurt</h3>
+      <p>Het laatste deel gaat over veroudering, alzheimer, coma en het locked-in syndroom, euthanasie en de dood. Swaab bestrijdt hier de uitleg die Pim van Lommel aan bijna-doodervaringen geeft: waar Van Lommel bewustzijn los van het brein mogelijk acht, wijst Swaab op zuurstofgebrek, medicatie en de werking van slaapstadia.</p>
+      <p>Hij eindigt bij de hersenbank waarmee het onderzoek begon en bij zijn eigen doodswens, en sluit daarmee de cirkel van de ondertitel. Het brein dat in de baarmoeder werd aangelegd, wordt aan het eind materiaal voor de volgende reeks onderzoeken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Programmering in de baarmoeder</td><td>Het idee dat hormonen, voeding en schadelijke stoffen tijdens de zwangerschap de bouw van het brein blijvend vastleggen.</td></tr>
+          <tr><td class="term">Hersenbank</td><td>De in 1985 door Swaab opgerichte verzameling gedoneerd hersenweefsel met bijbehorende ziektegeschiedenissen, de bron van veel van zijn bevindingen.</td></tr>
+          <tr><td class="term">Hypothalamus</td><td>Het gebied onder in de hersenen dat hormonen, honger, temperatuur en seksueel gedrag regelt en waarin Swaab zijn verschillen tussen groepen mensen vond.</td></tr>
+          <tr><td class="term">Suprachiasmatische kern</td><td>Kern in de hypothalamus die het dag- en nachtritme regelt en die Swaab bij homoseksuele mannen groter aantrof.</td></tr>
+          <tr><td class="term">Bed nucleus van de stria terminalis</td><td>Kern waarvan de omvang bij transseksuele vrouwen overeenkwam met die bij vrouwen, in 1995 gepubliceerd als aanwijzing dat genderidentiteit in het brein ligt.</td></tr>
+          <tr><td class="term">Hongerwintercohort</td><td>De groep Nederlanders die als ongeboren kind de hongerwinter van 1944 en 1945 meemaakte en die decennia later meer ziekten bleek te hebben.</td></tr>
+          <tr><td class="term">Vrije wil als illusie</td><td>Swaabs stelling dat de ervaring van kiezen een verslag achteraf is van een beslissing die de hersenen al hadden genomen.</td></tr>
+          <tr><td class="term">Use it or lose it</td><td>Zijn advies dat hersengebieden die in gebruik blijven langer op peil blijven, wat hij tegenover dementie als het weinige stelt dat iemand zelf in de hand heeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste materiaal in het boek is epidemiologisch en niet anatomisch. Het hongerwintercohort telt duizenden mensen, is over decennia gevolgd en laat een verband zien tussen ondervoeding van de moeder en ziekten van het kind op late leeftijd. Datzelfde geldt voor de gegevens over alcohol en roken tijdens de zwangerschap. Wie het boek alleen op dit onderdeel beoordeelt, leest een degelijke samenvatting van de stand van zaken rond 2010.</p>
+      <p>De anatomische bevindingen waarop Swaabs bekendste stellingen rusten zijn van een andere orde. Onderzoek aan hersenweefsel van overledenen werkt met kleine aantallen, soms enkele tientallen mensen, waarbij ziekte, medicijngebruik, hormoonbehandeling en doodsoorzaak allemaal meespelen. Zulk onderzoek levert samenhang op en geen richting: dat een kern bij een groep anders van maat is, zegt op zichzelf niet of die maat de oorzaak is van het gedrag, het gevolg ervan, of het gevolg van een behandeling die met dat gedrag samenhing. Swaab noemt die beperking wel, maar zij verdwijnt in de stelligheid waarmee de gevolgtrekkingen zijn opgeschreven.</p>
+      <p>Het hoofdstuk over de vrije wil rust op één reeks proeven. Libets opzet is sinds de jaren tachtig aangevochten op de meting van het moment waarop iemand zegt te hebben besloten, en op de vraag of een willekeurige polsbeweging in een laboratorium te vergelijken is met een besluit dat er in een leven toe doet. Van die discussie is in het boek weinig terug te vinden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is niet biologisch van aard maar gaat over taal. Filosofen hebben tegengeworpen dat hersenen niets zien, willen, geloven of beslissen; mensen doen dat, met hun hersenen. Wie eigenschappen van de persoon aan een orgaan toeschrijft, gebruikt een woord op een plaats waar het niet thuishoort, en de zin die dan ontstaat lijkt wel een bevinding maar is het niet. De titel van het boek is precies zo'n zin. Swaab verdedigt hem nergens; hij herhaalt hem.</p>
+      <p>Inhoudelijk is de weging van aanleg en omgeving eenzijdig. Het onderzoek naar epigenetica, waarin ervaringen de aflezing van erfelijk materiaal veranderen, was in 2010 al in opkomst en past slecht bij de scheidslijn die Swaab trekt tussen wat voor de geboorte vastligt en wat daarna nog kan. Datzelfde geldt voor de plasticiteit van het volwassen brein. Hij noemt beide, maar zij krijgen niet het gewicht dat zij in het vak inmiddels hebben.</p>
+      <p>Recensenten hebben verder gewezen op de herhaling en op de keuze van literatuur. René Fransen telde onderzoeken die met dezelfde bronvermelding zesmaal terugkomen, en constateerde dat Swaab bij zijn eigen vakgebied uitstekend uit de voeten kan maar bij geloof, vrije wil, seksualiteit en euthanasie in zwart en wit vervalt en de tegenliteratuur negeert. Bij pedofilie en homoseksualiteit trekt hij ongelijke gevolgtrekkingen uit hetzelfde soort argument zonder die stap uit te leggen. Voor een boek dat een half miljoen Nederlanders heeft gevormd in hun beeld van zichzelf is dat een reëel bezwaar.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken over de zwangerschap en de vroege ontwikkeling als de kern; daar staat het onderzoek waar de rest op leunt.</li>
+        <li>Onderscheid bij elk hoofdstuk of een uitspraak uit epidemiologie komt of uit anatomisch materiaal van een klein aantal overledenen.</li>
+        <li>Zoek bij de hoofdstukken over geloof, moraal en vrije wil de tegenliteratuur erbij; het boek biedt die niet.</li>
+        <li>Neem <i>use it or lose it</i> voor wat het is: een aannemelijk advies over hersengebruik, en geen aangetoonde bescherming tegen dementie.</li>
+        <li>Wie het onderzoek waardevol vindt, kan zich bij de hersenbank als donor laten inschrijven; het boek legt uit waarom dat materiaal schaars is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen als <i>Wij zijn ons brein. Van baarmoeder tot alzheimer</i> (Contact, Amsterdam, 2010, 479 blz., ISBN 9789025435226). Het boek groeide uit korte stukken die Swaab voor <i>NRC Handelsblad</i> schreef. Het bereikte na negen weken de eerste plaats van de Bestseller 60 en stond honderdachttien weken in die lijst; in 2018 verscheen de vijftigste druk. Sinds 2023 geeft Uitgeverij Pluim het uit (480 blz., ISBN 9789493304727), met op het omslag de vermelding van meer dan een half miljoen verkochte exemplaren. De Engelse vertaling van Jane Hedley-Prôle kwam in 2014 uit als <i>We Are Our Brains: A Neurobiography of the Brain, from the Womb to Alzheimer's</i> (Spiegel &amp; Grau, New York). In 2016 volgde <i>Ons creatieve brein</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dick Swaab was hoogleraar neurobiologie in Amsterdam, leidde jarenlang het Nederlands Instituut voor Hersenonderzoek en richtte in 1985 de Nederlandse Hersenbank op. Dit boek zet zijn werk om in een reeks korte stukken die de mens volgen van de bevruchting tot de dood.</p><p>De volgorde is die van een leven. Eerst de aanleg van het brein in de baarmoeder en alles wat dat kan verstoren, dan de geboorte, de seksuele aanleg van de hersenen, de puberteit, verslaving, agressie, psychiatrische ziekten, geheugen, geloof, veroudering en dementie, en tot slot het sterven en wat er daarna met een gedoneerd brein gebeurt.</p><p>De titel is de stelling. Volgens Swaab ligt het meeste van wat iemand is al vast voordat hij geboren wordt, en is de ervaring van vrij kiezen een prettige vergissing. Het boek verkocht in Nederland meer dan een half miljoen exemplaren en leverde hem jarenlang ruzie op met filosofen, gelovigen en een deel van zijn eigen vakgebied.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hersenen</li><li>neurobiologie</li><li>vrije wil</li><li>ontwikkeling</li><li>alzheimer</li><li>populair-wetenschappelijk</li><li>hersenbank</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1679"><a href="1679.html">Ons creatieve brein</a>. Het vervolg uit 2016, waarin Swaab dezelfde benadering op kunst, muziek en scheppend werk toepast; wie de redenering hier heeft leren kennen, ziet daar hoe ver zij is te rekken.</li>
+          <li value="1317"><a href="1317.html">Consciousness Explained</a>. Dennett bestrijdt precies de stap die Swaab zet en betoogt dat bewustzijn en vrijheid volledig materieel zijn te verklaren zonder dat de wil een illusie wordt.</li>
+          <li value="1524"><a href="1524.html">Eindeloos bewustzijn</a>. Van Lommel leest bijna-doodervaringen als aanwijzing voor bewustzijn buiten het brein; Swaab wijst die uitleg in zijn slothoofdstukken af, en de twee boeken naast elkaar leggen het hele meningsverschil bloot.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Descent of Man &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Darwin betoogt dat de mens langs dezelfde weg is ontstaan als elke andere soort, uit eerdere diervormen, en dat er geen enkel vermogen van de mens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1676">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1676 &middot; Natuur en wetenschap</p>
+    <h1>The Descent of Man</h1>
+    <p class="lede">Charles Darwin, 1871</p>
+    <p class="stats">
+      <span><b>1540</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1676"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Darwin betoogt dat de mens langs dezelfde weg is ontstaan als elke andere soort, uit eerdere diervormen, en dat er geen enkel vermogen van de mens overblijft dat een afzonderlijke verklaring nodig heeft. Ook verstand, taal, geweten en godsdienstzin zijn volgens hem in de dierenwereld in aanleg aanwezig; het verschil is er een van graad. Daarnaast voert hij een tweede mechanisme in naast natuurlijke selectie: seksuele selectie, waarbij kenmerken zich verbreiden doordat ze de bezitter aan een partner helpen, ook wanneer ze het overleven bemoeilijken. Met dat mechanisme verklaart hij het verenkleed van vogels, het gewei van herten en, in het laatste deel, de verschillen tussen mannen en vrouwen en tussen menselijke bevolkingsgroepen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het lichaam verraadt de herkomst</h3>
+      <p>De eerste hoofdstukken zetten het bewijs op een rij dat de mens uit eerdere vormen voortkomt. Darwin wijst op de overeenkomst in botten, spieren en organen met andere zoogdieren, op de gelijkenis van embryo's in een vroeg stadium, en op lichaamsdelen die geen dienst meer doen: de spieren rond het oor waarmee vrijwel niemand nog kan bewegen, het staartbeen, de verstandskiezen, het wormvormig aanhangsel.</p>
+      <p>Zijn redenering is er een van optelling. Geen van die aanwijzingen bewijst op zichzelf iets; samen laten ze zich volgens hem alleen verklaren door afstamming van een gemeenschappelijke voorouder. Fossielen van vroege mensachtigen had hij niet, op enkele skeletvondsten na waarover de discussie nog volop liep.</p>
+      <h3>Verstand, taal en geweten</h3>
+      <p>Het gevoeligste deel van het betoog gaat over de geest. Darwin verzamelt gevallen van dieren die leren, gereedschap gebruiken, zich iets herinneren, verdriet tonen of hun jongen verdedigen, en concludeert dat alle bouwstenen van het menselijke verstand elders in de natuur al aanwezig zijn.</p>
+      <p>Voor het geweten geeft hij een opbouw in vier stappen. Een dier met sociale instincten zoekt gezelschap en helpt soortgenoten. Wordt zo'n dier verstandig genoeg om zich gebeurtenissen te herinneren, dan gaat het knagen wanneer een sterkere drift het sociale gevoel opzij heeft geduwd. Taal maakt daarna mogelijk dat de groep uitspreekt wat zij verwacht. Gewoonte legt het geheel ten slotte vast. Dat model, moraal als voortzetting van sociaal instinct, is de kern die anderhalve eeuw later nog steeds in gebruik is.</p>
+      <h3>Beschaving en de passages die zijn blijven staan</h3>
+      <p>In hetzelfde deel bespreekt Darwin wat er met natuurlijke selectie gebeurt in beschaafde samenlevingen. Hij merkt op dat artsen, inentingen en armenzorg mensen in leven houden die anders zouden zijn bezweken, en noemt de gevolgen daarvan voor de soort ongunstig.</p>
+      <p>Meteen daarna schrijft hij dat het medegevoel waaruit die zorg voortkomt zelf een sociaal instinct is, en dat het onderdrukken ervan het edelste deel van onze natuur zou aantasten. Hij bepleit dus geen ingrijpen. Zijn neef Francis Galton en de latere eugenetische beweging hebben de eerste helft van die redenering overgenomen en de tweede laten liggen.</p>
+      <h3>Eén soort, en toch een rangorde</h3>
+      <p>Darwin kiest partij in het debat van zijn tijd over de vraag of de mensenrassen aparte soorten zijn. Hij vindt van niet: de verschillen lopen geleidelijk in elkaar over, de groepen krijgen onderling vruchtbare kinderen, en de overeenkomsten in bouw en gedrag zijn te groot. Voor de negentiende eeuw was dat de minst racistische van de beschikbare posities.</p>
+      <p>Tegelijk hanteert hij een rangorde van beschaving, spreekt hij van hogere en lagere volkeren, en voorspelt hij dat de beschaafde rassen de wilde zullen verdringen. Die zinnen staan er, ze zijn niet uit hun verband te redden, en ze horen bij het boek.</p>
+      <h3>Seksuele selectie in het dierenrijk</h3>
+      <p>Het middendeel is verreweg het langste en is een aaneenschakeling van waarnemingen: insecten, vissen, amfibieën, reptielen, en dan honderden bladzijden over vogels. Darwin onderscheidt twee wegen. Mannetjes kunnen elkaar verdringen met horens, sporen of gewicht, en dan wint de sterkste. Of vrouwtjes kiezen, en dan wint de opvallendste.</p>
+      <p>De tweede weg was de omstreden. Zij veronderstelt dat dieren voorkeur hebben voor wat mooi is, en dat vond zelfs Alfred Russel Wallace, die het idee van natuurlijke selectie met Darwin deelde, te ver gaan. Darwin houdt vol en onderbouwt het met de pauw, de paradijsvogels, het gedrag van vinken en de zangwedstrijden van vogels in het voorjaar.</p>
+      <h3>De mens aan het slot</h3>
+      <p>De laatste hoofdstukken passen het mechanisme toe op de mens. De baard, het verdwenen lichaamshaar, de verschillen in huidskleur tussen bevolkingsgroepen en de verschillen in bouw tussen mannen en vrouwen brengt Darwin onder bij keuze en wedijver, en niet bij klimaat of nut.</p>
+      <p>Hier komt ook zijn oordeel over de sekseverschillen in vermogens, dat mannen door de eeuwen van wedijver verder zijn gekomen dan vrouwen. Het slot van het boek zegt dat de mens met al zijn edele eigenschappen het onuitwisbare stempel van zijn lage afkomst blijft dragen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Seksuele selectie</td><td>Het verbreiden van kenmerken doordat zij hun drager aan nakomelingen helpen, ook als ze het overleven bemoeilijken.</td></tr>
+          <tr><td class="term">Vrouwelijke keuze</td><td>De tak van seksuele selectie waarin het vrouwtje beslist en het mannetje daarom opvalt.</td></tr>
+          <tr><td class="term">Wedijver tussen mannetjes</td><td>De andere tak, waarin mannetjes elkaar verdringen en wapens en lichaamsgewicht de doorslag geven.</td></tr>
+          <tr><td class="term">Secundaire geslachtskenmerken</td><td>Kenmerken die met de voortplanting samenhangen zonder er rechtstreeks toe te dienen, zoals gewei, sierveren, zang en baard.</td></tr>
+          <tr><td class="term">Rudimentaire organen</td><td>Lichaamsdelen zonder functie die Darwin leest als overblijfsel van een voorouder waarbij ze nog wel dienst deden.</td></tr>
+          <tr><td class="term">Sociale instincten</td><td>De aangeboren neiging tot gezelschap en onderlinge hulp die Darwin als grondslag van het zedelijk gevoel aanwijst.</td></tr>
+          <tr><td class="term">Zedelijk gevoel</td><td>Het geweten, bij Darwin opgebouwd uit sociaal instinct, geheugen, taal en gewoonte.</td></tr>
+          <tr><td class="term">Verschil in graad</td><td>Darwins stelling dat menselijke vermogens in de dierenwereld in aanleg voorkomen en niet van een andere orde zijn.</td></tr>
+          <tr><td class="term">Gebruik en niet-gebruik</td><td>De aanname dat wat een dier gedurende zijn leven oefent of verwaarloost gedeeltelijk overgaat op zijn nakomelingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijs bestaat vrijwel geheel uit vergelijking en verzameling. Darwin zet overeenkomsten in bouw, embryo's en overtollige organen naast elkaar, en put voor het gedrag uit brieven van fokkers, jagers, zendelingen en dierentuinhouders over de hele wereld. Er is geen enkel proefondervindelijk onderdeel. Voor de afstamming van de mens ontbraken de fossielen: de vondsten van vroege mensachtigen die de zaak zouden beslissen kwamen pas decennia later.</p>
+      <p>De zwakste plek zit in de erfelijkheid. Darwin wist niet hoe eigenschappen worden doorgegeven. Mendels werk uit 1866 lag ongelezen, en de gangbare aanname dat kenmerken van beide ouders zich vermengen zou elke nieuwe variatie binnen enkele generaties uitwissen. Dat bezwaar was in 1871 al ingebracht. Darwin ving het op door te leunen op overerving van geoefende gewoonten, een aanname die niet klopt en die door zijn hele redenering over verstand en zeden loopt.</p>
+      <p>Voor seksuele selectie is de nasleep gunstiger. Het idee van vrouwelijke keuze lag bijna een eeuw stil en is vanaf de jaren zeventig en tachtig alsnog op de proef gesteld. Malte Andersson knipte in 1982 bij de langstaartwida de staartveren van de ene groep mannetjes in en plakte ze bij de andere groep aan, waarna de verlengde mannetjes duidelijk meer nesten in hun gebied kregen. Niet elk voorbeeld hield stand: bij pauwen vond Japans onderzoek van Takahashi in 2008 geen verband tussen de staart en de keuze van de hen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de bladzijden over volkeren. Darwin verwerpt de opvatting dat de mensenrassen aparte soorten vormen, en schrijft tegelijk in een rangorde waarin Europeanen boven aan staan en waarin het verdwijnen van andere volkeren als een te verwachten uitkomst wordt beschreven. Dat is geen losse ontsporing in een verder neutraal boek; het zit in de opbouw van het argument, en het heeft daarna dienstgedaan als wetenschappelijke dekking voor koloniaal beleid.</p>
+      <p>Hetzelfde geldt voor wat hij over vrouwen schrijft. Antoinette Brown Blackwell reageerde al in 1875 met <i>The Sexes Throughout Nature</i> en wees erop dat Darwin bij dieren juist het vrouwtje als de kiezende partij opvoert, en die redenering bij de mens laat vallen zodra zij hem niet meer uitkomt. Die tegenwerping is nooit weerlegd.</p>
+      <p>Verder is dit een moeilijk boek om te lezen. De tweede helft is een opeenstapeling van diersoorten waarin de lijn van het betoog verdwijnt, en de latere drukken zijn voorzichtiger geworden onder druk van critici, zodat de scherpste formuleringen juist in de eerste editie staan. Wie het om de kernstelling te doen is, heeft aan het eerste deel genoeg.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het eerste deel als het argument en behandel het middendeel over vogels als naslagwerk waarin gebladerd mag worden.</li>
+        <li>Kies een vertaling of editie die aangeeft welke druk zij volgt, want de tekst is tussen 1871 en 1877 op inhoudelijke punten gewijzigd.</li>
+        <li>Leg Darwins opbouw van het geweten in vier stappen naast wat hedendaags gedragsonderzoek erover zegt, en let op wat er sindsdien is bijgekomen.</li>
+        <li>Sla de passages over volkeren en over vrouwen niet over en lees ze evenmin als tijdgebonden bijzaak; ze laten zien hoe de aannames van een tijd zich in een argument nestelen.</li>
+        <li>Neem geen enkele uitspraak over erfelijkheid uit dit boek over; die is achterhaald.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Descent of Man, and Selection in Relation to Sex</i>, verschenen bij John Murray in Londen op 24 februari 1871, in twee delen van elk ongeveer 450 bladzijden. Het boek was binnen drie weken aan een herdruk toe; in maart 1871 waren er zo'n 4.500 exemplaren gedrukt. Een tweede, herziene uitgave volgde in 1874, en de druk van 1877 geldt als de eindtekst. Nederlands verscheen het werk al in Darwins eigen tijd, vertaald door Hermanus Hartogh Heijs van Zouteveen als <i>De afstamming van den mensch en de seksueele teeltkeus</i>. De hedendaagse vertaling is van Ludo Hellemans en heet <i>De afstamming van de mens en selectie in relatie tot sekse</i>, uitgegeven door Nieuwezijds in Amsterdam, 2002, ISBN 9789057121036. Let op: er bestaat een gelijknamig boek van Grayson Perry uit 2016 over mannelijkheid; dat is een ander werk.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Twaalf jaar na <i>On the Origin of Species</i> deed Darwin wat hij daar had vermeden: hij paste zijn theorie toe op de mens. Het boek uit 1871 betoogt dat de mens afstamt van eerdere diervormen, en dat het verschil tussen het menselijke verstand en dat van hogere dieren een verschil in graad is en geen verschil in soort.</p><p>Ruim twee derde van het werk gaat over iets anders dan afstamming, namelijk over seksuele selectie. Darwin had een verklaring nodig voor sierveren, geweien, gezang en kleur, kenmerken die het overleven eerder hinderen dan helpen. Zijn antwoord is dat ze bestaan doordat mannetjes om vrouwtjes strijden en doordat vrouwtjes kiezen. Op die basis probeert hij ook baarden, haarloosheid en huidskleur bij de mens te verklaren.</p><p>Het is tegelijk het boek waarin Darwins tijdgebondenheid het scherpst zichtbaar wordt. Hij bestrijdt de opvatting dat mensenrassen aparte soorten zijn, en schrijft in datzelfde boek passages over volkeren en over vrouwen die inmiddels als het pijnlijkste deel van zijn werk gelden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>evolutie</li><li>seksuele selectie</li><li>afstamming</li><li>moraal</li><li>negentiende eeuw</li><li>antropologie</li><li>Darwin</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1677"><a href="1677.html">On the Origin of Species</a>. De theorie die Darwin hier op de mens toepast, staat daar uiteengezet; wie met dit boek begint mist de onderbouwing.</li>
+          <li value="1344"><a href="1344.html">The Selfish Gene</a>. Dawkins herformuleert dezelfde selectie op het niveau van het gen en lost daarmee het erfelijkheidsprobleem op dat Darwin openliet.</li>
+          <li value="1678"><a href="1678.html">De bonobo en de tien geboden</a>. De Waal werkt Darwins gedachte over het zedelijk gevoel uit met waarnemingen aan apen die Darwin niet tot zijn beschikking had.</li>
+          <li value="1708"><a href="1708.html">The Story of the Human Body</a>. Lieberman vertelt hetzelfde verhaal van menselijke afstamming met de fossielen en het onderzoek die na 1871 beschikbaar kwamen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

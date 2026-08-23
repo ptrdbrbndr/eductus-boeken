@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barking Up the Wrong Tree &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Barker betoogt dat de adviezen die over succes circuleren elkaar tegenspreken omdat zij allemaal een halve waarheid bevatten, en dat de vraag welke helft…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1766">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1766 &middot; Gewoontes en denken</p>
+    <h1>Barking Up the Wrong Tree</h1>
+    <p class="lede">Eric Barker, 2017</p>
+    <p class="stats">
+      <span><b>1900</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1766"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Barker betoogt dat de adviezen die over succes circuleren elkaar tegenspreken omdat zij allemaal een halve waarheid bevatten, en dat de vraag welke helft geldt afhangt van de omgeving waarin iemand werkt. Wat op school een deugd is, kan in een bedrijf een rem zijn; wat een chirurg redt, brengt een kunstenaar tot stilstand. Zijn eigen antwoord luidt daarom dat iemand eerst moet vaststellen welke eigenschappen hij nu eenmaal heeft, en daarna een terrein moet kiezen waarop diezelfde eigenschappen een voordeel zijn in plaats van een gebrek. Succes is in die opvatting geen eigenschap van een persoon maar van een combinatie van persoon en plaats.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat voor boek dit is</h3>
+      <p>Barker is geen onderzoeker. Hij schrijft sinds 2009 een blog waarop hij studies samenvat en onderzoekers ondervraagt, en dit boek is daarvan de geordende neerslag. Elk hoofdstuk volgt dezelfde opzet: een gangbaar advies, een tegenovergesteld gangbaar advies, onderzoek dat beide gedeeltelijk steunt, en een slot waarin hij zegt wat een lezer ermee kan.</p>
+      <h3>Loont het om je aan de regels te houden</h3>
+      <p>Het eerste hoofdstuk begint bij onderzoek van Karen Arnold aan Boston College, die eenentachtig leerlingen volgde die als beste of op een na beste van hun eindexamenjaar afsloten. Vrijwel allen deden het daarna behoorlijk: goede studies, degelijke beroepen. Geen van hen veranderde iets aan het vak waarin zij terechtkwamen. Arnolds verklaring is dat school beloont wie doet wat er gevraagd wordt, en dat vernieuwen iets anders vergt dan het systeem goed bespelen.</p>
+      <p>Barker koppelt dat aan het onderscheid van Gautam Mukunda tussen gefilterde en ongefilterde leiders. Gefilterde leiders zijn door alle selecties heen gekomen en lijken daardoor op elkaar; hun uitkomsten zijn voorspelbaar en middelmatig. Ongefilterde leiders komen langs een omweg binnen en leveren zowel de rampen als de doorbraken.</p>
+      <p>Daarbij hoort zijn begrip intensifiers: eigenschappen die tegelijk een gebrek en een voordeel zijn, afhankelijk van de plaats. De ziekelijke bezorgdheid van pianist Glenn Gould maakte hem in het dagelijks leven moeilijk en in de opnamestudio buitengewoon. Michael Phelps heeft een lichaamsbouw die hem in het water vooruithelpt en op de atletiekbaan zou hinderen. De les die Barker eruit trekt noemt hij afstemming: zoek de omgeving waarin je afwijking meetelt.</p>
+      <h3>Winnen aardige mensen</h3>
+      <p>Het tweede hoofdstuk zet twee waarnemingen naast elkaar. Onderzoek van Jeffrey Pfeffer laat zien dat wie goed is in het maken van indruk betere beoordelingen krijgt, en werk van Jennifer Chatman dat zelfs doorzichtige vleierij loont. Daartegenover staat het onderzoek van Adam Grant naar gevers, nemers en ruilers, waarin gevers zowel onderaan als bovenaan de ranglijst staan.</p>
+      <p>Barker gebruikt vervolgens het toernooi van Robert Axelrod rond het gevangenendilemma, waarin de eenvoudigste strategie won: beginnen met samenwerken en daarna doen wat de ander deed, met vergeving ingebouwd. Het spiegelbeeld haalt hij uit de piratenreglementen van de achttiende eeuw, waar misdadigers uit eigenbelang regels opstelden en zich eraan hielden.</p>
+      <p>De uitkomst is dat oneerlijkheid op korte termijn loont en op langere termijn niet, omdat gedrag zichtbaar wordt en zichzelf versterkt. Zijn advies luidt gever te zijn maar niet naief: kies je omgeving, reageer op wat de ander doet en vergeef af en toe zonder aanleiding.</p>
+      <h3>Doorzetten of opgeven</h3>
+      <p>Het derde hoofdstuk zet volharding tegenover de kunst van het stoppen. Barker bespreekt de opleiding van de Navy SEALs, waar niet de sterkste kandidaten overblijven maar degenen die zichzelf een verhaal kunnen vertellen waarin de beproeving betekenis heeft; humor blijkt daarbij een van de betrouwbaarste voorspellers van volhouden.</p>
+      <p>Tegen naief positief denken zet hij het werk van Gabriele Oettingen over mentaal contrasteren, samengevoegd in de vier stappen van wens, uitkomst, obstakel en plan. Wie zich alleen de afloop voorstelt, verzwakt zijn inzet; wie zich de afloop en de hindernis samen voorstelt, doet het beter.</p>
+      <p>Daarnaast leent Barker uit de spelontwerpwereld de vier kenmerken die een taak volhoudbaar maken: hij moet te winnen zijn, nieuwe uitdagingen bevatten, duidelijke doelen hebben en snelle terugkoppeling geven. Zijn eigen conclusie is dat volharding en opgeven bij elkaar horen. Wie nergens mee stopt, heeft geen tijd over voor het ene ding waarop volharding rendeert.</p>
+      <h3>Wie je kent</h3>
+      <p>Het vierde hoofdstuk gaat over netwerken. Barker zet Adam Rifkin neer, die door Fortune tot best genetwerkte man van Silicon Valley werd uitgeroepen en dat bereikte met kleine gunsten die hem hooguit vijf minuten kostten. Daarnaast staat de wiskundige Paul Erdos, die zonder vaste woonplaats leefde en meer dan vijftienhonderd artikelen schreef, vrijwel allemaal met anderen.</p>
+      <p>Over persoonlijkheid meldt hij dat extraverte mensen gemiddeld meer verdienen, introverte mensen vaker uitgroeien tot specialisten, en dat in verkoop de mensen daartussenin het beste presteren. Voor het leggen van contact haalt hij de werkwijze van gijzelingsonderhandelaars van de FBI aan, die begint bij luisteren en pas heel laat bij beinvloeden uitkomt.</p>
+      <p>De praktische kern is dat netwerken bij de meeste mensen faalt omdat zij het opvatten als vragen. Barker draait dat om: geef eerst iets kleins, ook aan mensen die niets voor je kunnen betekenen.</p>
+      <h3>Helpt zelfvertrouwen</h3>
+      <p>Het vijfde hoofdstuk keert zich tegen het advies om in jezelf te geloven. Zelfvertrouwen brengt op korte termijn voordelen, omdat anderen zekerheid voor bekwaamheid aanzien, en het maakt op langere termijn blind voor tegenspraak en fouten. Wie zijn zelfbeeld ophangt aan prestaties, stort bij tegenslag hard in.</p>
+      <p>Als alternatief presenteert Barker het werk van Kristin Neff over zelfcompassie: jezelf behandelen zoals je een vriend zou behandelen, zonder de fout te ontkennen. Dat levert volgens het aangehaalde onderzoek dezelfde volharding op als hoog zelfvertrouwen, zonder de zelfoverschatting.</p>
+      <p>Het onderliggende punt is bescheiden: het gaat er minder om hoe iemand over zichzelf denkt dan of hij nog kan leren van wat er misgaat.</p>
+      <h3>Hoeveel moet je werken</h3>
+      <p>Het slothoofdstuk gaat over de verhouding tussen werk en de rest van het leven. Barker laat zien dat de mensen die op een gebied uitzonderlijk werden, daar meestal alles voor opzij zetten, met honkballer Ted Williams als voorbeeld, en dat de rekening daarvan elders wordt betaald.</p>
+      <p>Om die rekening te lezen gebruikt hij de vier maatstaven van Laura Nash en Howard Stevenson: geluk, prestatie, betekenis voor anderen en nalatenschap. Hun bevinding is dat mensen die hun leven geslaagd noemen op alle vier genoeg scoren en op geen enkele het uiterste najagen. Wie een van de vier tot nul laat dalen, blijkt achteraf ontevreden, hoe hoog de andere ook staan.</p>
+      <p>Barkers praktische slot is dat niemand die vier tegelijk kan laten meelopen zonder ze in te plannen, en dat de meeste mensen hun tijd verdelen zonder ooit te hebben vastgesteld wat voor hen genoeg is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Alignment</td><td>De afstemming tussen iemands eigenschappen en de omgeving waarin hij werkt, bij Barker het antwoord op vrijwel elke vraag in het boek.</td></tr>
+          <tr><td class="term">Intensifiers</td><td>Eigenschappen die in de ene omgeving een gebrek zijn en in de andere een voordeel, zoals de bezorgdheid van Glenn Gould.</td></tr>
+          <tr><td class="term">Gefilterde en ongefilterde leiders</td><td>Het onderscheid van Gautam Mukunda tussen leiders die alle selecties doorliepen en leiders die langs een omweg binnenkwamen en zowel rampen als doorbraken opleveren.</td></tr>
+          <tr><td class="term">Gevers, nemers en ruilers</td><td>De indeling van Adam Grant naar wat iemand in ruilverhoudingen doet, waarbij de gevers zowel de onderkant als de bovenkant van de ranglijst bezetten.</td></tr>
+          <tr><td class="term">Vergevende wederkerigheid</td><td>De strategie die het toernooi van Robert Axelrod won: beginnen met samenwerken, daarna doen wat de ander deed, en af en toe zonder aanleiding vergeven.</td></tr>
+          <tr><td class="term">Mentaal contrasteren</td><td>De werkwijze van Gabriele Oettingen waarin wens, uitkomst, obstakel en plan achter elkaar worden benoemd in plaats van alleen de gewenste afloop.</td></tr>
+          <tr><td class="term">Vijfminutengunst</td><td>Het gebaar waarmee Adam Rifkin zijn netwerk opbouwde: iets doen voor een ander dat hooguit vijf minuten kost en niets terugvraagt.</td></tr>
+          <tr><td class="term">Zelfcompassie</td><td>Het begrip van Kristin Neff waarmee Barker zelfvertrouwen vervangt: jezelf toespreken zoals je een vriend zou toespreken, zonder de fout te ontkennen.</td></tr>
+          <tr><td class="term">De vier maatstaven</td><td>Geluk, prestatie, betekenis voor anderen en nalatenschap, ontleend aan Laura Nash en Howard Stevenson, met genoeg op alle vier als norm.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Barker werkt vrijwel geheel met tweedehands materiaal: gepubliceerde studies, boeken van anderen en gesprekken met de onderzoekers erachter. Dat is voor dit genre gebruikelijk en het is hier zorgvuldiger gedaan dan gemiddeld, met een uitgebreid notenapparaat waarin de vindplaatsen staan. De studie van Karen Arnold, het werk van Adam Grant en het toernooi van Robert Axelrod zijn goed gedocumenteerd en dragen wat hij erop bouwt.</p>
+      <p>Zwakker is dat hij sterk en zwak onderzoek naast elkaar zet zonder rangorde. Een deel van het aangehaalde werk komt uit de sociale psychologie van de jaren voor de herhaalbaarheidsdiscussie, en het boek geeft de lezer geen aanwijzing welke uitkomsten stevig staan en welke op een enkel klein onderzoek rusten. Ook zet hij per hoofdstuk een studie voor elk standpunt neer, wat evenwicht suggereert maar niets zegt over de bewijskracht.</p>
+      <p>De anekdotes doen in de tekst meer werk dan de studies. Piratenreglementen, de opleiding van de SEALs en een wiskundige zonder woonplaats zijn goed verteld en generaliseren slecht: het zijn uiterste gevallen, gekozen omdat zij het punt scherp maken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de ondertitel. De belofte dat vrijwel alles wat de lezer over succes weet onjuist is, wordt niet ingelost. De uitkomsten luiden dat aardig zijn meestal loont maar niet altijd, dat doorzetten goed is behalve wanneer stoppen beter is, en dat zelfvertrouwen helpt tot het schaadt. Dat is verstandig en het is geen omkering van wat mensen al dachten.</p>
+      <p>Daaronder ligt een probleem met de bruikbaarheid. Als het antwoord telkens luidt dat het van de omgeving afhangt en dat iemand zichzelf moet kennen, dan verschuift het werk naar de lezer op precies het punt waar hij hulp zocht. Barker geeft geen procedure om vast te stellen welke van iemands eigenschappen een intensifier is, en zijn voorbeelden zijn achteraf gekozen: van iedereen die het redde valt te vertellen dat zijn afwijking hem hielp.</p>
+      <p>Ten slotte is het succesbegrip nauw en Amerikaans. Wat er onderzocht wordt zijn beroepsprestaties, verdiensten en zichtbaarheid; de vraag of het najagen daarvan verstandig is, komt pas in het laatste hoofdstuk aan bod en wordt daar opgelost met de vier maatstaven van Nash en Stevenson, die zelf uit gesprekken met geslaagde beroepsbeoefenaars komen en dus dezelfde selectiefout dragen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op welke eigenschap van jezelf op de ene plek werd afgekeurd en op een andere plek gewaardeerd, en gebruik dat verschil bij de keuze van je volgende werkplek.</li>
+        <li>Benoem bij een voornemen niet alleen wat je wilt bereiken, maar ook de hindernis die je het vaakst tegenhoudt en wat je op dat moment doet.</li>
+        <li>Doe wekelijks een gunst die je hooguit vijf minuten kost aan iemand die niets voor je kan terugdoen, en houd bij of je die gewoonte volhoudt.</li>
+        <li>Kies bewust waarmee je stopt voordat je besluit waarin je gaat volharden; volharding zonder ruimte levert niets op.</li>
+        <li>Vervang bij een fout het toespreken van jezelf door de vraag wat je een vriend in dezelfde situatie zou zeggen.</li>
+        <li>Zet geluk, prestatie, betekenis voor anderen en nalatenschap onder elkaar, en stel per onderdeel vast wat voor jou genoeg is voordat je je agenda invult.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Barking Up the Wrong Tree: The Surprising Science Behind Why Everything You Know About Success Is (Mostly) Wrong</i>, HarperOne, New York, 2017, ruim 300 blz., ISBN 9780062416049; paperback 9780062416056. Het boek is in ruim twintig talen vertaald, maar niet in het Nederlands. Ook Barkers tweede boek, <i>Plays Well with Others</i> (2022), is in Nederland alleen in het Engels te koop; er is van hem niets in het Nederlands verschenen. De titel is ontleend aan zijn blog uit 2009.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eric Barker verzamelt op zijn blog sinds 2009 onderzoek over gedrag en loopbaan. Dit boek bundelt dat werk rond zes vragen waarover de gangbare adviezen elkaar tegenspreken: moet je je aan de regels houden, moet je aardig zijn, moet je doorzetten of opgeven, telt wie je kent of wat je kunt, helpt zelfvertrouwen, en hoeveel moet je werken.</p><p>Per vraag zet Barker de argumenten van beide kanten naast elkaar met studies, anekdotes en gesprekken met onderzoekers, om vervolgens uit te komen op een tussenpositie. De rode draad is dat een eigenschap zelden goed of slecht is en meestal past of niet past bij de omgeving waarin iemand terechtkomt.</p><p>Het boek leest vlot en is dicht bezet met voorbeelden, van de beste leerlingen van hun eindexamenjaar tot piratenreglementen en gijzelingsonderhandelaars. De keerzijde is dat de conclusie vaak neerkomt op ken jezelf en kies de juiste omgeving, wat lastig in gedrag om te zetten valt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>succes</li><li>populaire wetenschap</li><li>netwerken</li><li>doorzetten</li><li>zelfcompassie</li><li>werk en privé</li><li>loopbaan</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth levert de volhardingsliteratuur waar Barkers derde hoofdstuk zich deels op baseert en deels tegen afzet, doordat hij het nut van stoppen ernaast legt.</li>
+          <li value="274"><a href="274.html">Outliers</a>. Gladwell bewerkt hetzelfde materiaal met dezelfde methode, en de vergelijking laat zien hoezeer de keuze van de anekdote de conclusie stuurt.</li>
+          <li value="1645"><a href="1645.html">Self-Compassion</a>. Neff schreef het boek waaruit Barkers vijfde hoofdstuk zijn alternatief voor zelfvertrouwen haalt, met het onderzoek dat hij alleen samenvat.</li>
+          <li value="28"><a href="28.html">Think Again</a>. Grant behandelt het herzien van je eigen oordeel, wat de vaardigheid is die Barker nodig heeft maar niet uitwerkt wanneer hij zegt dat je jezelf moet kennen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

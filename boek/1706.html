@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Een samenzwering van idioten &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Toole schreef geen roman over een miskend genie maar over iemand die zichzelf daarvoor houdt. Ignatius Reilly beschikt over eruditie, over een scherp oog…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1706">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1706 &middot; Roman en memoir</p>
+    <h1>Een samenzwering van idioten</h1>
+    <p class="lede">John Kennedy Toole, geschreven 1963, postuum verschenen 1980</p>
+    <p class="stats">
+      <span><b>1543</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1706"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Toole schreef geen roman over een miskend genie maar over iemand die zichzelf daarvoor houdt. Ignatius Reilly beschikt over eruditie, over een scherp oog voor wat er aan zijn tijd niet deugt en over een volstrekt onvermogen om ook maar iets van zichzelf te dragen, en de roman weigert te kiezen tussen die twee. Zijn oordelen over reclame, vermaak, seksuele bevrijding en vooruitgang zijn geregeld raak; zijn leven is een aaneenschakeling van luiheid, leugens en op anderen afgewentelde kosten. Daaromheen bouwt Toole een stad waarin niemand het overzicht heeft en waarin elk personage zijn eigen ondoordachte plan uitvoert, met als gevolg dat de gebeurtenissen zich vanzelf tot een noodlot aaneenrijgen. De vraag die het boek stelt is niet of Ignatius gelijk heeft, maar wat gelijk hebben waard is bij iemand die er niets mee doet.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Onder de klok van D.H. Holmes</h3>
+      <p>Het boek opent bij het warenhuis D.H. Holmes aan Canal Street, waar Ignatius in een groene jachtmuts met oorkleppen op zijn moeder staat te wachten en het voorbijgaande publiek beoordeelt op smaak en fatsoen. Een onhandige rechercheur, Mancuso, wil hem meenemen als verdachte, waarop Ignatius zo hard begint te schreeuwen dat een oude man het voor hem opneemt en zelf wordt gearresteerd.</p>
+      <p>Om de gemoederen te bedaren wijken moeder en zoon uit naar de kroeg Nacht van Vreugde, waar mevrouw Reilly te veel drinkt. Op de terugweg rijdt zij een gevel aan. De rekening voor die schade is de motor van het hele boek: zonder haar was Ignatius nooit de deur uit gekomen.</p>
+      <h3>Levy Pants</h3>
+      <p>Ignatius vindt werk bij Levy Pants, een broekenfabriek die door de eigenaar allang aan zijn lot is overgelaten. Hij richt het archief in door het weg te gooien, ontwerpt reclameborden en raakt gehecht aan de stokoude boekhoudster Miss Trixie, die met pensioen wil en dat niet mag.</p>
+      <p>Vervolgens roept hij de zwarte fabrieksarbeiders op tot een kruistocht voor waardigheid en leidt hen naar het kantoor van de directie. De opstand loopt binnen enkele minuten uit op een chaos waarbij Ignatius zich achter een gordijn verstopt. Hij verlaat Levy Pants met een brief aan een afnemer die hij op firmapapier heeft geschreven en die later voor een rechtszaak zorgt.</p>
+      <h3>De hotdogkar</h3>
+      <p>Zijn volgende betrekking is een kar met worstjes van Paradise Vendors, die hij door de Franse wijk moet duwen in een uitmonstering met een piratenoorring. Hij eet meer van de handel dan hij verkoopt en meldt aan zijn baas dat er nauwelijks klanten zijn.</p>
+      <p>Ondertussen zwerft hij door de stad, bezoekt bioscopen om zich luidkeels te ergeren aan de films en verzamelt indrukken voor het aanklachtwerk in zijn schriften. De kar geeft hem voor het eerst bewegingsvrijheid, en juist die vrijheid brengt hem in de buurt van alle andere verhaallijnen.</p>
+      <h3>De Nacht van Vreugde</h3>
+      <p>In de kroeg van Lana Lee werkt Burma Jones voor een hongerloon, omdat de politie hem anders als landloper oppakt. Hij doorziet dat de zaak meer verdient aan iets anders dan aan drank en werkt met een traag soort tegenwerking toe op de val van zijn bazin. De danseres Darlene traint intussen een kaketoe voor haar optreden.</p>
+      <p>Ignatius, die de kroeg wil aanvallen met een pamflet, en Jones, die haar van binnenuit ondermijnt, werken zonder het te weten aan hetzelfde doel. Wanneer de kaketoe zich tijdens het optreden aan Ignatius vergrijpt, komt de zaak in een klap in de openbaarheid.</p>
+      <h3>Myrna Minkoff en de brieven</h3>
+      <p>Door het hele boek loopt de briefwisseling met Myrna Minkoff, een studiegenote uit New York die gelooft in politiek activisme, therapie en seksuele bevrijding, en die Ignatius met grote stelligheid uitlegt dat al zijn problemen uit onthouding voortkomen. Hij bestrijdt haar in lange brieven waarin hij zijn eigen leven aanzienlijk gunstiger voorstelt dan het is.</p>
+      <p>De twee zijn elkaars tegendeel en kunnen niet van elkaar afblijven. Zij is de enige persoon in het boek die Ignatius serieus neemt, en zij is de enige die hem uiteindelijk uit de klem haalt waarin hij zichzelf heeft gewerkt.</p>
+      <h3>De strop trekt zich aan</h3>
+      <p>In het laatste deel komen alle lijnen samen. De brief van Levy Pants dreigt de eigenaar een proces te bezorgen, mevrouw Reilly krijgt een vrijer en genoeg zelfvertrouwen om zich tegen haar zoon te keren, Mancuso doet in vermomming een inval en Jones zorgt dat de politie de juiste zaak binnenvalt.</p>
+      <p>Mevrouw Reilly besluit haar zoon in een inrichting te laten opnemen. Op het moment dat de ziekenwagen voorrijdt, staat Myrna voor de deur. Ignatius vertrekt met haar naar New York, met zijn schriften op de achterbank, en Toole laat in het midden of dat een redding is of alleen een verplaatsing.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ignatius J. Reilly</td><td>De hoofdpersoon: dertig jaar, zwaarlijvig, hooggeschoold, werkschuw, met een groene jachtmuts en een maag die volgens hem op elke onrechtvaardigheid reageert.</td></tr>
+          <tr><td class="term">Fortuna en haar wiel</td><td>Ignatius verklaart elke tegenslag uit de godin Fortuna die haar wiel omlaag draait, waarmee hij consequent iedere eigen verantwoordelijkheid buiten zichzelf legt.</td></tr>
+          <tr><td class="term">Boethius</td><td>De laat-Romeinse filosoof wiens <i>De vertroosting van de wijsbegeerte</i> Ignatius als enige geldige leidraad erkent; het is de bron van zijn beeld van Fortuna.</td></tr>
+          <tr><td class="term">Big Chief-schriften</td><td>De goedkope schoolschriften waarin Ignatius zijn aanklacht tegen de moderne tijd bijhoudt en die hij ongeordend onder zijn bed bewaart.</td></tr>
+          <tr><td class="term">Levy Pants</td><td>De vervallen broekenfabriek waar Ignatius zijn eerste baan krijgt en waar hij een kruistocht voor waardigheid ontketent die binnen een kwartier instort.</td></tr>
+          <tr><td class="term">Paradise Vendors</td><td>Het bedrijfje met de hotdogkarren dat hem als verkoper de straat op stuurt en waarvan hij vooral zelf de handel opeet.</td></tr>
+          <tr><td class="term">Nacht van Vreugde</td><td>De kroeg van Lana Lee, waar de meeste verhaallijnen samenkomen en waar Burma Jones van binnenuit toewerkt naar de ondergang van zijn werkgeefster.</td></tr>
+          <tr><td class="term">Myrna Minkoff</td><td>De tegenpool van Ignatius, afkomstig uit New York, gelovig in activisme en therapie, met wie hij een briefwisseling voert die de tijdlijn van het boek draagt.</td></tr>
+          <tr><td class="term">De titel</td><td>Ontleend aan Jonathan Swift: dat de idioten samenspannen is het teken waaraan een echt genie te herkennen is; het is de verklaring die Ignatius zelf voor zijn leven hanteert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een roman, en de vraag is niet of het klopt maar of het overtuigt. Wat het draagt is de stem. Toole geeft elk personage een eigen woordkeus, ritme en spelling, en die stemmen zijn zo consequent volgehouden dat de lezer aan drie regels dialoog genoeg heeft om te weten wie er praat. Het geleerde en opgeblazen Engels van Ignatius is daarbij het meest volgehouden stuk werk in het boek.</p>
+      <p>De stad zelf is nagetrokken. New Orleans van rond 1960 staat er met straatnamen, warenhuizen, buslijnen, wijken en klassenverschillen in, en het boek is voor lezers uit die stad daarom deels een herkenningsboek. De keerzijde is dat het ook de omgangsvormen van die tijd en plaats bevat, met inbegrip van de rassenverhoudingen en het taalgebruik dat daarbij hoorde.</p>
+      <p>De ontstaansgeschiedenis is goed vastgelegd en verklaart een deel van de reputatie. Toole schreef het manuscript in 1963, kreeg jarenlang correspondentie met een redacteur van Simon and Schuster die het bleef afwijzen, en verkeerde in de jaren daarna in toenemende verwarring. Zijn moeder heeft het manuscript daarna zeven jaar lang aan uitgevers aangeboden. Het verhaal daarvan is inmiddels zo bekend dat het de lezing van het boek kleurt, en men doet er goed aan dat gegeven van de tekst te scheiden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Ignatius is voor veel lezers niet vol te houden. Hij is luidruchtig, vies, ondankbaar en heeft geen enkele ontwikkeling door, en wie sympathie voor een hoofdpersoon nodig heeft, legt het boek in het derde hoofdstuk weg. Toole vraagt van zijn lezer dat die iemand blijft volgen die hij in het echt zou ontlopen.</p>
+      <p>De roman is een aaneenschakeling van toevalligheden. Alle verhaallijnen komen samen doordat de personages elkaar telkens net op het juiste moment tegen het lijf lopen, en dat is een oud komisch procédé waarvan Toole rijkelijk gebruikmaakt. Wie het serieus als roman beoordeelt, ziet een machinerie die zichtbaarder is dan de bouw van de gebeurtenissen rechtvaardigt.</p>
+      <p>Het boek is een kind van zijn tijd en plaats. De beschrijving van zwarte personages, van homoseksuele figuren en van vrouwen is die van een blanke zuidelijke schrijver uit 1963, en hoewel Toole zijn spot vrijwel gelijkmatig over alle groepen uitdeelt, ligt niet elke passage nog even goed. Burma Jones is daarbij de scherpste en de verstandigste figuur in het boek en tegelijk de zwaarst gestileerde.</p>
+      <p>Ten slotte draagt de mythe het boek verder dan het uit eigen kracht zou komen. De zelfmoord, de moeder, de Pulitzerprijs en het standbeeld onder de klok in Canal Street vormen samen een verhaal dat prettiger te vertellen is dan de roman te lezen. Dat is geen bezwaar tegen de tekst, maar wel tegen de vanzelfsprekendheid waarmee die tot een van de mooiste boeken aller tijden wordt uitgeroepen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>A Confederacy of Dunces</i> (Louisiana State University Press, Baton Rouge, 1980, ISBN 9780807104064). Toole schreef het boek in 1963 in Puerto Rico, kreeg het bij geen enkele uitgever geplaatst en maakte in 1969 op eenendertigjarige leeftijd een einde aan zijn leven. Zijn moeder Thelma bleef het manuscript aanbieden tot de schrijver Walker Percy het las en het bij de universiteitsuitgeverij van Louisiana onderbracht. In 1981 kreeg het postuum de Pulitzerprijs voor fictie. De titel komt uit een aantekening van Jonathan Swift: wanneer een echt genie in de wereld verschijnt, herkent men hem hieraan dat alle idioten samenspannen tegen hem. De Nederlandse vertaling is van Paul Syrier en verscheen bij Veen (Utrecht, 1981); herziene uitgaven volgden bij Vassallucci (2000) en bij Lebowski (Amsterdam, 2011 en 2013, 493 blz., ISBN 9789048808281). Van Toole is verder alleen <i>The Neon Bible</i> bewaard, geschreven op zijn zestiende en pas in 1989 uitgegeven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ignatius J. Reilly is dertig, zwaarlijvig, hooggeleerd, werkloos en woont bij zijn moeder in New Orleans. Hij verafschuwt de moderne wereld, meet die af aan de middeleeuwen en houdt zijn aanklacht bij in schoolschriften die hij onder zijn bed bewaart. Wanneer zijn moeder een auto-ongeluk veroorzaakt en de schade moet worden betaald, wordt hij voor het eerst van zijn leven de straat op gestuurd om werk te zoeken.</p><p>Wat volgt is een komedie van botsingen. Ignatius werkt zich achtereenvolgens door een noodlijdende broekenfabriek en een hotdogkar heen, zet in beide een kruistocht op touw en laat overal een spoor van schade achter. Om hem heen loopt een tiental figuren dat elk een eigen belang najaagt, en Toole laat hun wegen zo kruisen dat elke handeling van de een iets bij de ander in beweging zet.</p><p>Het boek is beroemd om zijn taal. Elke figuur heeft een eigen manier van spreken, van het geleerde Engels van Ignatius tot het straattaaltje van de zwarte schoonmaker Burma Jones, en die stemmen dragen het verhaal. Wie het leest merkt vooral hoe weinig het boek zijn hoofdpersoon spaart terwijl het hem tegelijk niet loslaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>klassieker</li><li>satire</li><li>New Orleans</li><li>komedie</li><li>postuum</li><li>Pulitzerprijs</li><li>Amerika</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1200"><a href="1200.html">Het boek der rusteloosheid</a>. Pessoa laat een andere grootspreker aan het woord die zijn leven in schriften bijhoudt in plaats van het te leiden, maar dan van binnenuit en zonder komedie.</li>
+          <li value="173"><a href="173.html">The Metamorphosis</a>. Kafka zet dezelfde botsing tussen een onmogelijk lichaam en een familie die het moet verdragen om in een verhaal van veertig bladzijden.</li>
+          <li value="1771"><a href="1771.html">Slaughterhouse-Five</a>. Vonnegut bouwt zijn komedie eveneens op een noodlot dat de personages niet in de hand hebben, met een verteller die daar even laconiek over doet.</li>
+          <li value="10"><a href="10.html">Ten oosten van Eden</a>. Steinbeck schreef de Amerikaanse tegenhanger waarin de vraag naar eigen verantwoordelijkheid juist wel wordt beantwoord in plaats van aan Fortuna toegeschreven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
