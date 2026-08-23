@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Highly Sensitive Child &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Aron stelt dat een aanzienlijke minderheid van de kinderen wordt geboren met een zenuwstelsel dat prikkels dieper verwerkt, en dat vrijwel alles wat aan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1523">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1523 &middot; Brein en lichaam</p>
+    <h1>The Highly Sensitive Child</h1>
+    <p class="lede">Elaine N. Aron, 2002</p>
+    <p class="stats">
+      <span><b>1599</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1523"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Aron stelt dat een aanzienlijke minderheid van de kinderen wordt geboren met een zenuwstelsel dat prikkels dieper verwerkt, en dat vrijwel alles wat aan deze kinderen als probleem wordt aangemerkt, van verlegenheid tot huilbuien en schoolweigering, geen kenmerk van die aanleg is maar het gevolg van een omgeving die er niet op is ingericht. Uit die scheiding tussen aanleg en gevolg volgt haar hele betoog. Als de aanleg neutraal is, dan bepaalt de opvoeding welke kant het opgaat, en dan kan het kind dat in het ene gezin angstig en teruggetrokken wordt, in het andere opgroeien tot iemand die opvalt door zorgvuldigheid en invoelingsvermogen. Aron voegt daaraan toe dat de aanleg zelf niet moet worden weggewerkt maar benoemd, ook tegenover het kind zelf, omdat het kind anders de verkeerde verklaring voor zijn eigen reacties vindt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat de aanleg is</h3>
+      <p>Aron opent met een omschrijving van wat zij sensorische verwerkingsgevoeligheid noemt: de neiging om binnenkomende informatie grondiger te verwerken voordat er gehandeld wordt. Kinderen met die aanleg merken geuren, geluiden, stemmingen en veranderingen eerder op, hebben langer nodig om aan iets nieuws te wennen en raken sneller vol.</p>
+      <p>Zij zet die aanleg af tegen de etiketten die er in de praktijk op geplakt worden: verlegen, angstig, moeilijk, overgevoelig. Verlegenheid is volgens haar aangeleerd gedrag en geen aanleg, en het onderscheid daartussen is de reden dat zij het boek schreef. Zij wijst er ook op dat een deel van de gevoelige kinderen juist naar buiten gericht is, waardoor de aanleg bij hen doorgaans onopgemerkt blijft.</p>
+      <h3>De vragenlijst en de valkuilen ervan</h3>
+      <p>Vroeg in het boek staat een lijst met uitspraken waarmee een ouder zijn kind kan scoren. Aron voegt er zelf een waarschuwing bij: de lijst is bedoeld als aanzet tot herkenning en niet als test, en een enkele opvallende uitkomst zegt weinig.</p>
+      <p>Zij besteedt daarna aandacht aan wat er anders kan zijn dan de aanleg. Autisme, een aandachtsstoornis, gehoorproblemen en de gevolgen van geweld thuis kunnen op hetzelfde lijken, en zij verwijst voor die gevallen naar een deskundige. Die passage is korter dan de rest, maar zij staat er wel.</p>
+      <h3>Vier aanwijzingen voor ouders</h3>
+      <p>De kern van het opvoeddeel bestaat uit vier punten. Het eerste is zelfwaardering: het kind moet niet leren dat er iets met hem mis is. Het tweede is schaamte verminderen, doordat de ouder onderscheid maakt tussen wat het kind doet en wie het is.</p>
+      <p>Het derde is wijs disciplineren, waarmee Aron bedoelt dat een klein signaal bij een gevoelig kind vaak volstaat en dat harde straf averechts werkt omdat het kind al overweldigd is. Het vierde is bespreken hoe met de gevoeligheid om te gaan, en dus het kind zelf de taal geven waarmee het zijn eigen reacties kan benoemen.</p>
+      <h3>Per leeftijd</h3>
+      <p>Daarna loopt het boek de leeftijden af. Bij zuigelingen gaat het over slaap, huilen en de hoeveelheid prikkels op een dag; bij peuters over overgangen, driftbuien en wennen aan opvang. Aron adviseert bij nieuwe situaties consequent voor te bereiden en de eerste keer kort te houden.</p>
+      <p>Bij schoolkinderen komen vriendschappen, sport en logeren aan de orde, met steeds dezelfde grondregel: nieuwe dingen wel doen, maar in kleinere stappen en met de mogelijkheid om terug te trekken. Bij pubers verschuift het naar de vraag hoe een gevoelige jongere zijn eigen tempo bewaart in een omgeving die groepsdruk uitoefent.</p>
+      <h3>School en de buitenwereld</h3>
+      <p>Aron besteedt afzonderlijke hoofdstukken aan school. Zij bespreekt volle klassen, lawaai in de gang, het effect van beoordeeld worden in het bijzijn van anderen, en pesten, waar gevoelige kinderen volgens haar bovengemiddeld vaak mee te maken krijgen. Zij geeft ouders aanwijzingen voor het gesprek met leerkrachten en pleit voor kleine aanpassingen in plaats van uitzonderingsposities.</p>
+      <p>Ook bespreekt zij de omgang met familie en met de omgeving, waarin ouders vaak te horen krijgen dat zij hun kind verwennen. Haar antwoord daarop is steeds hetzelfde: een kind blootstellen aan meer dan het aankan levert geen gewenning op maar terugtrekking.</p>
+      <h3>De ouder zelf</h3>
+      <p>In het laatste deel keert Aron zich naar de ouder. Een gevoelige ouder van een gevoelig kind loopt volgens haar het risico met het kind mee overprikkeld te raken; een ongevoelige ouder loopt het risico het kind niet te geloven. Beide gevallen krijgen aandacht, met adviezen over hoe ouders hun eigen rust bewaken.</p>
+      <p>Zij sluit af met de gedachte die het hele boek draagt: dat de samenleving deze kinderen nodig heeft, omdat er in elke groep mensen nodig zijn die eerst kijken en dan pas handelen. Die claim is meer overtuiging dan aangetoonde stelling, en zij presenteert haar ook als het beeld dat zij ouders wil meegeven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sensorische verwerkingsgevoeligheid</td><td>Arons vakterm voor de aanleg: prikkels worden dieper en trager verwerkt voordat er gehandeld wordt.</td></tr>
+          <tr><td class="term">Hoogsensitief kind</td><td>De populaire aanduiding voor een kind met die aanleg, volgens Aron ongeveer vijftien tot twintig procent van alle kinderen.</td></tr>
+          <tr><td class="term">Overprikkeling</td><td>De toestand waarin het aanbod aan indrukken de verwerkingscapaciteit overtreft en het kind afhaakt, huilt of uitvalt.</td></tr>
+          <tr><td class="term">Verlegenheid als gedrag</td><td>Arons onderscheid tussen de aangeboren gevoeligheid en de teruggetrokkenheid die daarvan het gevolg kan zijn, maar dat niet hoeft te zijn.</td></tr>
+          <tr><td class="term">Zelfwaardering</td><td>De eerste van haar vier aanwijzingen: voorkomen dat het kind zijn eigen reacties uitlegt als bewijs dat het niet deugt.</td></tr>
+          <tr><td class="term">Wijs disciplineren</td><td>Corrigeren met de kleinst mogelijke maatregel, omdat een gevoelig kind aan een signaal genoeg heeft en op harde straf dichtklapt.</td></tr>
+          <tr><td class="term">Pauzeren en overwegen</td><td>Het gedragspatroon dat Aron ook bij dieren beschrijft: een deel van een soort dat afwacht en observeert voordat het reageert.</td></tr>
+          <tr><td class="term">Extraverte gevoelige</td><td>Het deel van de gevoelige kinderen dat naar buiten gericht is en daardoor zelden als gevoelig wordt herkend.</td></tr>
+          <tr><td class="term">Gedifferentieerde vatbaarheid</td><td>Het latere onderzoeksbegrip waarmee Arons stelling wordt getoetst: dezelfde aanleg leidt tot slechtere uitkomsten in een ongunstige omgeving en betere in een gunstige.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Aron bouwt op haar eigen werk met Arthur Aron uit 1997, waarin zij de vragenlijst voor hoogsensitieve personen ontwikkelde en betoogde dat de aanleg iets anders meet dan introversie of neuroticisme. Voor dit boek voegde zij daaraan gesprekken met ouders en met kinderen toe en materiaal uit haar praktijk. Voor het opvoeddeel is dat de onderbouwing: praktijkervaring, geen effectonderzoek.</p>
+      <p>Sterker dan haar eigen materiaal is het onderzoek dat na dit boek verscheen. De lijn die inmiddels gedifferentieerde vatbaarheid heet, laat in meerdere studies zien dat gevoelige kinderen ongunstiger uitkomsten hebben in een belastende omgeving en gunstiger in een ondersteunende. Dat is precies wat Aron in 2002 beweerde, en het is het deel van haar betoog dat het best is blijven staan.</p>
+      <p>Het getal van vijftien tot twintig procent is minder hard dan het klinkt. Het komt uit verdelingen op zelfrapportage en niet uit een gemeten grens; recentere analyses beschrijven de gevoeligheid als een doorlopende schaal met drie ruwe groepen in plaats van een scherp afgebakende minderheid. Aron zelf is in later werk mee opgeschoven, maar het boek houdt het bij het percentage.</p>
+      <p>De meetinstrumenten zijn het meest bekritiseerde onderdeel. De vragenlijsten leunen op wat mensen over zichzelf of over hun kind rapporteren en meten daarmee de beleving en niet het waarnemingsvermogen. Onderzoek waarin gevoeligheid met objectieve taken werd gemeten, vindt weinig samenhang met de scores op die lijsten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de aanleg zich moeilijk laat onderscheiden van eigenschappen die al lang beschreven zijn. Een deel van wat de vragenlijst meet, valt samen met neuroticisme en openheid uit het gangbare persoonlijkheidsmodel, en verschillende onderzoekers concluderen dat er na aftrek van die twee weinig eigens overblijft. Wie de aanleg als een aparte categorie wil verdedigen, moet dat bezwaar beantwoorden, en het boek doet dat niet.</p>
+      <p>Daarnaast is de lijst in het boek geen diagnostisch middel, hoe zorgvuldig Aron dat ook opschrijft. In de praktijk wordt hij wel zo gebruikt. Ouders scoren hun kind, komen tot een etiket en verklaren daarmee gedrag waarvoor andere verklaringen bestaan, van slaaptekort tot een ontwikkelingsstoornis tot spanning in het gezin. De aantrekkelijkheid van het etiket zit erin dat het niets afkeurt, en dat maakt het ook lastig los te laten.</p>
+      <p>De evolutionaire onderbouwing is de zwakste schakel. Dat er bij verschillende diersoorten twee reactiestijlen bestaan, is aangetoond; dat dit hetzelfde is als wat Aron bij kinderen beschrijft, is een gelijkenis en geen bewijs. In het boek functioneert die vergelijking vooral om ouders gerust te stellen dat de aanleg zinvol is.</p>
+      <p>Wat het boek onverminderd waard maakt, is de praktische inhoud. De adviezen over voorbereiding, over kleine stappen, over rustmomenten en over hoe je met een leerkracht praat, zijn bruikbaar voor elk kind dat moeite heeft met verandering, ongeacht of de onderliggende categorie standhoudt. Aron schrijft bovendien zonder de belofte dat het overgaat, en dat scheelt de lezer teleurstelling.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de vragenlijst om te herkennen, nooit om vast te stellen.</li>
+        <li>Sluit eerst andere verklaringen uit: slaap, gehoor, ontwikkelingsstoornissen, spanning thuis.</li>
+        <li>Bereid nieuwe situaties voor en houd de eerste keer kort; regel vooraf een manier om eruit te stappen.</li>
+        <li>Corrigeer met het kleinst werkzame signaal en vermijd correctie waar anderen bij zijn.</li>
+        <li>Geef het kind woorden voor wat het merkt, zodat het zijn reacties niet uitlegt als een gebrek.</li>
+        <li>Bewaak als ouder de eigen rust, en houd bij welke dagen te vol waren voor het huishouden als geheel.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Highly Sensitive Child: Helping Our Children Thrive When the World Overwhelms Them</i> (Broadway Books, New York, 2002, ISBN 9780767908726). Nederlands als <i>Het hoogsensitieve kind</i>, vertaald door Marce Noordenbos, Archipel, Amsterdam, 2004 (379 blz., ISBN 9789063051181); latere drukken verschenen bij Lev. en A.W. Bruna (ISBN 9789400512351). Het is het vervolg op <i>The Highly Sensitive Person</i> (1996), in het Nederlands verschenen als <i>Hoog sensitieve personen</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Elaine Aron, psycholoog en zelf naar eigen zeggen hoogsensitief, beschrijft in dit boek een aanleg die volgens haar bij ongeveer vijftien tot twintig procent van de kinderen voorkomt. Zulke kinderen verwerken indrukken dieper, merken kleine verschillen op, raken sneller overprikkeld en reageren heftiger op nieuwe situaties.</p><p>Aron benadrukt dat dit geen stoornis is maar een temperamentskenmerk dat ook bij dieren voorkomt en dat evolutionair voordeel zou opleveren: een deel van een soort dat eerst kijkt voordat het handelt. Verlegenheid en angst zijn volgens haar geen kenmerken van de aanleg zelf, maar wat ervan wordt wanneer de omgeving niet meewerkt.</p><p>Het grootste deel van het boek bestaat uit opvoedadvies, per leeftijdsgroep uitgewerkt van baby tot puber. Er is een vragenlijst waarmee ouders hun kind kunnen scoren, er zijn hoofdstukken over slapen, eten, driftbuien, vriendschappen, school en logeerpartijen, en er staan gesprekken met ouders in die vertellen wat wel en niet hielp.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hoogsensitiviteit</li><li>temperament</li><li>opvoeding</li><li>kinderen</li><li>school</li><li>prikkelverwerking</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="33"><a href="33.html">Quiet</a>. Cain doet voor introversie wat Aron voor gevoeligheid doet, en de twee begrippen worden zo vaak door elkaar gehaald dat de vergelijking loont.</li>
+          <li value="1521"><a href="1521.html">Scattered Minds</a>. Mate legt gevoeligheid voor de omgeving uit als de plek waar aandachtsproblemen ontstaan, waar Aron dezelfde gevoeligheid neutraal wil houden.</li>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller laten zien wat een vroege gevoeligheid voor de omgeving later in volwassen relaties doet.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft wat er gebeurt wanneer de omgeving wel schadelijk is, en levert daarmee de vergelijkingsmaat die Arons neutrale aanleg mist.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

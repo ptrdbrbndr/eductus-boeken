@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Greyson stelt dat bijna-doodervaringen een gewoon en veelvoorkomend verschijnsel zijn dat zich net zo goed laat onderzoeken als andere ervaringen, en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1506">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1506 &middot; Brein en lichaam</p>
+    <h1>After</h1>
+    <p class="lede">Bruce Greyson, 2021</p>
+    <p class="stats">
+      <span><b>1921</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1506"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Greyson stelt dat bijna-doodervaringen een gewoon en veelvoorkomend verschijnsel zijn dat zich net zo goed laat onderzoeken als andere ervaringen, en dat dat onderzoek op een lastige uitkomst uitloopt: de ervaringen worden beschreven als helderder en beter geordend dan het gewone waakbewustzijn, juist op momenten waarop de hersenfunctie zwaar is aangetast. Als de geest zonder rest een product van hersenwerking zou zijn, hoort dat niet te kunnen. Hij concludeert daar niet uit dat er een ziel voortleeft. Hij concludeert dat het materialistische uitgangspunt over bewustzijn een aanname is die als aanname behandeld moet worden, en dat een arts die met stervenden werkt daar praktische gevolgen aan kan verbinden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe een scepticus erin verzeild raakte</h3>
+      <p>Greyson opent met zijn eigen achtergrond. Hij groeide op in het huis van een scheikundige, waar alles wat niet te meten viel onzin heette, en begon zijn loopbaan als psychiater met datzelfde uitgangspunt. Dan komt Holly binnen, na een overdosis. Terwijl zij bewusteloos ligt, spreekt hij in een andere kamer met haar huisgenote Susan, na een haastig afgebroken maaltijd waarbij tomatensaus op zijn stropdas is beland.</p>
+      <p>De volgende dag beschrijft Holly dat gesprek, met de vlek erbij. Greyson probeert het weg te verklaren en komt er niet uit. Hij vertelt het jarenlang aan niemand, uit vrees voor zijn aanzien. Het hoofdstuk zet daarmee ook het onderwerp van het boek neer: het verschijnsel is niet zeldzaam, maar het wordt zelden gemeld omdat zowel de betrokkene als de arts iets te verliezen heeft.</p>
+      <h3>Wat mensen vertellen</h3>
+      <p>Daarna volgt de inhoud van de verhalen. Terugkerende onderdelen zijn een gevoel buiten de tijd te staan, een indruk het lichaam te hebben verlaten, een doorgang naar licht, een aanwezigheid die als liefdevol wordt beschreven, ontmoetingen met overledenen, een grens en een terugkeer die niet zelf gekozen is. Greyson brengt die onderdelen niet als een vast draaiboek: de meeste mensen melden er een paar en vrijwel niemand meldt ze allemaal.</p>
+      <p>Hij geeft de verhalen uitgebreid weer. Bill Hernlund, brandweerman bij de Amerikaanse luchtmacht, raakte in 1970 betrokken bij een vliegtuigexplosie. Gregg Nome verdronk bijna. Sir Francis Beaufort, de negentiende-eeuwse marineofficier van de windschaal, beschreef na een bijna-verdrinking als jongen wat later een levensoverzicht zou gaan heten. Tom Sawyer raakte bekneld onder een auto. Barbara Harris Whitfield kwam tijdens haar ervaring bij jeugdtrauma uit dat zij eerder niet onder ogen had gezien.</p>
+      <p>Een terugkerend onderdeel krijgt een apart hoofdstuk: het levensoverzicht. Mensen beschrijven dat zij hun leven opnieuw doorlopen, vaak in korte tijd en met een dubbel gezichtspunt, waarbij zij niet alleen ervaren wat zij deden maar ook hoe het bij de ander aankwam. Dat onderdeel blijkt achteraf het meeste effect te hebben op hoe iemand verder leeft.</p>
+      <h3>Meten wat zich moeilijk laat meten</h3>
+      <p>Greyson beschrijft hoe hij begin jaren tachtig een meetschaal opstelde met zestien punten, om te kunnen bepalen of twee verslagen over hetzelfde verschijnsel gaan en om verhalen onderling te kunnen vergelijken. Zonder zo'n instrument bestaat er geen onderzoeksveld, alleen een verzameling anekdotes.</p>
+      <p>De schaal werd later door anderen doorgerekend. Rense Lange en Jim Houran, die het onderwerp met scepsis benaderden, onderwierpen de gegevens aan een aparte statistische analyse en vonden dat de schaal als meetinstrument houdbaar was. Dat is een van de weinige punten waarop het veld iets in handen heeft dat buiten de eigen kring standhoudt. Verder noemt Greyson de bevinding dat ongeveer tien tot twintig procent van de mensen die een hartstilstand overleven achteraf zo'n ervaring meldt.</p>
+      <h3>De verklaringen langsgelopen</h3>
+      <p>Een groot deel van het boek loopt de lichamelijke verklaringen na. Zuurstofgebrek, ophoping van koolzuurgas, narcosemiddelen zoals ketamine, activiteit in de slaapkwab, het stervende brein, de invloed van verwachting en cultuur, en de mogelijkheid dat de herinnering achteraf is opgebouwd.</p>
+      <p>Greyson voert tegen elk daarvan hetzelfde soort bezwaar aan. Toestanden met zuurstofgebrek of narcose leveren doorgaans verwarde en fragmentarische belevingen op, terwijl deze verslagen juist geordend zijn. Verwachting verklaart weinig, omdat kinderen en mensen die nooit van het verschijnsel hoorden hetzelfde melden, en omdat de inhoud vaak afwijkt van wat iemands geloof voorschrijft. Hij verwijst ook naar onderzoek waarin herinneringen aan zulke ervaringen werden vergeleken met herinneringen aan werkelijke en aan verbeelde gebeurtenissen; ze bleken op de kenmerken van werkelijke herinneringen te scoren en daar zelfs bovenuit te komen.</p>
+      <p>Hij is eerlijk over de grens van dat betoog. Geen van deze verklaringen is weerlegd; wat hij laat zien is dat geen ervan het geheel dekt.</p>
+      <h3>De geest en de hersenen</h3>
+      <p>Het scharnier van het boek is een ander model. Greyson oppert dat de hersenen zich tot het bewustzijn verhouden als een filter of een ontvanger, en niet als een voortbrenger. Beschadiging van het toestel verandert dan wat er doorkomt, zonder dat het bewustzijn zelf daar wordt gemaakt. Hij noemt dat een oude gedachte, die hij bij eerdere auteurs aantrof, en hij zegt er nadrukkelijk bij dat het een vergelijking is en geen aangetoond mechanisme.</p>
+      <p>Als tweede aanwijzing voert hij helderheid vlak voor de dood aan bij mensen met vergevorderde dementie, die soms kortstondig weer aanspreekbaar zijn en namen kennen die zij jaren niet meer gebruikten. Bij een brein dat aantoonbaar is afgebroken, hoort dat volgens hem niet te kunnen.</p>
+      <h3>Wat het met mensen doet</h3>
+      <p>Het laatste derde deel gaat over de nasleep, en dat is het gedeelte waarover het meeste gewone onderzoek bestaat. Betrokkenen melden minder angst voor de dood, minder belangstelling voor bezit en status, meer aandacht voor anderen en een sterker gevoel van zin. Greyson noemt ook zijn eigen bevinding dat mensen die na een zelfmoordpoging zo'n ervaring hadden, daarna minder vaak opnieuw een poging doen, terwijl een prettige ervaring van sterven het omgekeerde zou doen verwachten.</p>
+      <p>De keerzijde krijgt een eigen hoofdstuk. Wie terugkomt met andere waarden past soms niet meer in zijn huwelijk, zijn werk of zijn kerk. Er zijn scheidingen, ontslagen en jarenlange vervreemding. Greyson beschrijft ook de verontrustende ervaringen, die minder vaak worden gemeld en waarschijnlijk vaker voorkomen dan de cijfers aangeven, juist omdat mensen ze verzwijgen.</p>
+      <p>Over God en hemel houdt hij zich op de vlakte: de beschrijvingen sluiten zelden aan bij de leer waarin iemand is opgegroeid, en verder laat hij de vraag liggen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bijna-doodervaring</td><td>De verzamelnaam voor ervaringen die worden gemeld door mensen die dicht bij de dood waren of dachten te zijn, met een herkenbare reeks terugkerende onderdelen.</td></tr>
+          <tr><td class="term">De NDE-schaal</td><td>De meetschaal met zestien punten die Greyson begin jaren tachtig opstelde om verslagen vergelijkbaar te maken, en die later door anderen statistisch is nagerekend.</td></tr>
+          <tr><td class="term">Levensoverzicht</td><td>Het onderdeel waarbij iemand zijn leven opnieuw doorloopt en daarbij ook ervaart hoe zijn daden bij anderen aankwamen.</td></tr>
+          <tr><td class="term">Uittreding</td><td>De indruk het eigen lichaam van buitenaf waar te nemen, en soms daarbij dingen op te merken die achteraf te controleren zijn.</td></tr>
+          <tr><td class="term">Verontrustende ervaring</td><td>De variant die als angstig of leeg wordt beleefd, minder vaak wordt gemeld en volgens Greyson daardoor in de cijfers ondervertegenwoordigd is.</td></tr>
+          <tr><td class="term">Het filtermodel</td><td>De veronderstelling dat de hersenen bewustzijn doorlaten of beperken in plaats van voortbrengen, door Greyson aangevoerd als vergelijking en niet als aangetoond mechanisme.</td></tr>
+          <tr><td class="term">Helderheid vlak voor de dood</td><td>Het verschijnsel dat mensen met vergevorderde dementie kort voor het sterven weer aanspreekbaar en samenhangend kunnen zijn.</td></tr>
+          <tr><td class="term">Materialisme als aanname</td><td>De opvatting dat bewustzijn geheel uit hersenwerking voortkomt, die Greyson niet weerlegt maar als onbewezen uitgangspunt behandelt.</td></tr>
+          <tr><td class="term">Nasleep</td><td>De blijvende veranderingen in waarden en gedrag na zo'n ervaring, door Greyson als het best onderzochte deel van het onderwerp aangewezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op een archief dat Greyson vanaf de jaren zeventig aan de University of Virginia heeft opgebouwd, en op vakpublicaties die hij en zijn collega's daarover schreven. De opbouw van dat archief is het beste wat het veld heeft: gevallen zijn met een vaste vragenlijst afgenomen en niet uit de krant geplukt.</p>
+      <p>De sterkste onderdelen zijn de meetschaal en het onderzoek naar de nasleep. Een schaal die door critici met een andere statistische methode wordt doorgerekend en overeind blijft, is een echt resultaat. Hetzelfde geldt voor het volgen van mensen na een zelfmoordpoging: dat is gewoon epidemiologisch werk met een uitkomst die tegen de verwachting ingaat en daarom iets betekent.</p>
+      <p>De zwakste onderdelen zijn juist de gevallen die de lezer het meest bijblijven. De vlek op de stropdas, de gesprekken die bewusteloze patienten navertellen, de dingen die van bovenaf gezien zouden zijn: dat zijn verslagen die achteraf zijn opgetekend, meestal na herhaald navertellen, en zonder dat vooraf iets was opgesteld om de waarneming vast te leggen. Greyson zegt dat er zelf bij. Het probleem is dat de dragende werking van het boek toch bij die gevallen ligt.</p>
+      <p>Het prospectieve onderzoek dat wel is opgezet komt in het boek langs, waaronder het Nederlandse onderzoek van Pim van Lommel dat in 2001 in <i>The Lancet</i> verscheen en waarin patienten na een hartstilstand systematisch werden ondervraagd. Zulke opzetten leverden wel betrouwbare cijfers over hoe vaak het gebeurt, en vrijwel geen bevestigde waarnemingen die van buitenaf te toetsen waren. Dat gat blijft in het boek open staan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de tijdsbepaling. Het betoog leunt op de gedachte dat de ervaring plaatsvond terwijl de hersenen niets deden, maar er bestaat geen manier om een belevenis achteraf op de klok te leggen. Zij kan even goed in de minuten van de inzinking of tijdens het bijkomen zijn ontstaan, wanneer er wel activiteit is. Critici als Gerald Woerlee en Jason Braithwaite hebben dat punt herhaaldelijk gemaakt en het boek beslist het niet.</p>
+      <p>Het filtermodel verklaart niet meer dan het model dat het wil vervangen. Het is met elke uitkomst verenigbaar en voorspelt daardoor niets. Bovendien moet het uitleggen waarom hersenbeschadiging in alle gewone gevallen wel geheugen, taal en persoonlijkheid vernietigt. Greyson noemt dat bezwaar, maar zijn antwoord blijft bij de vergelijking met een kapot toestel steken.</p>
+      <p>De keuze van de gevallen is niet neutraal. Mensen melden zich omdat hun ervaring indruk maakte, en Greyson kiest voor het boek de sprekendste verslagen uit een groot archief. Dat is voor een boek voor een breed publiek begrijpelijk, maar het geeft de lezer geen zicht op hoe de doorsnee eruitziet, en dus ook niet op hoeveel gewicht een enkel geval mag krijgen.</p>
+      <p>De tegenliteratuur wordt genoemd maar niet gewogen op het niveau dat een vakgenoot zou willen. Verklaringen worden in enkele bladzijden afgehandeld en meestal met hetzelfde argument, dat de ervaringen te helder zijn.</p>
+      <p>Tot slot laat Greyson de laatste stap aan de lezer over. Hij zegt dat het materialisme geen uitgemaakte zaak is en dat bewustzijn mogelijk verder gaat, maar hij trekt de conclusie niet en verdedigt haar dus ook niet. Dat maakt het boek moeilijk aan te vallen en tegelijk moeilijk te gebruiken: de lezer krijgt een verzameling afwijkende gevallen en mag zelf beslissen wat ze waard zijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem een verslag van een patient of een naaste serieus zonder er meteen een verklaring of een geloof aan te verbinden; volgens dit boek is verzwijgen het grootste probleem.</li>
+        <li>Onderscheid bij het lezen de drie lagen: hoe vaak het voorkomt, wat mensen beschrijven, en wat het over bewustzijn zou betekenen. Alleen de eerste twee zijn hier onderbouwd.</li>
+        <li>Let bij de nasleep op de moeilijke kant, want veranderde waarden kunnen een huwelijk of een baan onder druk zetten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>After: A Doctor Explores What Near-Death Experiences Reveal About Life and Beyond</i> (St. Martin's Press, New York, 2021, 272 blz., ISBN 9781250265869). Nederlands als <i>Daarna: wat nabij-de-dood-ervaringen onthullen over het leven en ons bewustzijn</i>, Unieboek Het Spectrum, 2021 (304 blz., ISBN 9789000369867); in Belgie werd diezelfde vertaling onder de titel <i>Hierna</i> uitgebracht. Greyson publiceerde daarnaast vooral in vaktijdschriften; dit is zijn enige boek voor een breed publiek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bruce Greyson was hoogleraar psychiatrie aan de University of Virginia en heeft ruim vijfenveertig jaar bijna-doodervaringen onderzocht. Dit boek is het verslag van dat onderzoek, geschreven voor lezers zonder voorkennis, met de gevallen die hem van gedachten deden veranderen.</p><p>Het begint bij een patiente, Holly, die na een overdosis bewusteloos lag en de volgende dag beschreef hoe hij in een andere kamer met haar huisgenote had gepraat, tot de saus op zijn stropdas aan toe. Greyson, opgevoed in een streng materialistisch huis, kon dat niet plaatsen en kon het ook niet wegzetten.</p><p>Wat volgt is een overzicht van wat er in vijf decennia over het verschijnsel is verzameld: hoe vaak het voorkomt, welke onderdelen terugkeren, hoe het te meten valt, welke lichamelijke verklaringen zijn onderzocht en wat mensen erna overkomt. Greyson trekt geen conclusie over een hiernamaals. Zijn punt is dat het uitgangspunt dat de hersenen het bewustzijn voortbrengen, niet vaststaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bijna-doodervaring</li><li>bewustzijn</li><li>psychiatrie</li><li>hersenen</li><li>sterven</li><li>onderzoeksmethode</li><li>Bruce Greyson</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1524"><a href="1524.html">Eindeloos bewustzijn</a>. Van Lommel deed het prospectieve hartstilstandonderzoek waarnaar Greyson verwijst, en trekt dezelfde gegevens verder door dan Greyson wil.</li>
+          <li value="1317"><a href="1317.html">Consciousness Explained</a>. Dennett verdedigt precies het uitgangspunt dat Greyson als onbewezen aanname behandelt, en laat zien hoe die kant het gesprek voert.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan levert de maatstaf waaraan dit soort verslagen zich moet meten: hoe men een verschijnsel serieus neemt zonder de bewijslast te verlagen.</li>
+          <li value="1307"><a href="1307.html">An Anthropologist on Mars</a>. Sacks beschrijft hoe hersenbeschadiging de beleving verandert, wat de kant van het bezwaar tegen het filtermodel invulling geeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

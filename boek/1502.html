@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I Am That &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Nisargadatta stelt dat alles wat iemand van zichzelf weet, tot en met het gevoel te bestaan, iets is dat is opgekomen en dus weer zal verdwijnen. Het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1502">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1502 &middot; Filosofie en mystiek</p>
+    <h1>I Am That</h1>
+    <p class="lede">Nisargadatta Maharaj, 1973; vert. uit het Marathi Maurice Frydman</p>
+    <p class="stats">
+      <span><b>1626</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1502"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Nisargadatta stelt dat alles wat iemand van zichzelf weet, tot en met het gevoel te bestaan, iets is dat is opgekomen en dus weer zal verdwijnen. Het lichaam, de herinnering, de persoonlijkheid en zelfs het besef 'ik ben' behoren volgens hem tot het waarneembare, en wat waargenomen wordt kan niet de waarnemer zijn. Wie dat werkelijk ziet, ontdekt dat hij nooit iemand is geweest die iets moest bereiken. Daarmee zet hij het hele idee van geestelijke oefening op losse schroeven: er is niets te worden, want de bevrijding die gezocht wordt is de toestand waarin de zoeker zich al bevindt en die hij alleen niet herkent omdat hij zich met een lichaam heeft vereenzelvigd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vorm: honderdeen gesprekken</h3>
+      <p>Het boek kent geen betoog en geen ontwikkeling. Het bestaat uit losse gesprekken van gemiddeld vier bladzijden, in de volgorde waarin ze zijn opgenomen, en elk gesprek begint opnieuw bij een bezoeker met een vraag. Daardoor is het van voren naar achteren lezen niet nodig en misschien niet eens de beste manier.</p>
+      <p>De vragen bepalen de toon. Bezoekers vragen naar wedergeboorte, naar karma, naar meditatietechniek, naar de zin van lijden, naar het verschil tussen droom en waken. Nisargadatta gaat op de inhoud in en verlegt het gesprek daarna telkens naar de vragensteller zelf: wie is het die dit wil weten, en waar berust die zekerheid op.</p>
+      <h3>Het besef 'ik ben' als aangrijpingspunt</h3>
+      <p>De aanwijzing die door het hele boek loopt, is dat iemand zich vasthoudt aan het naakte besef te zijn, zonder er iets aan toe te voegen. Niet 'ik ben zus' of 'ik ben zo', alleen 'ik ben'. Volgens Nisargadatta is dat het enige punt waarop iedereen zeker is, en tegelijk het enige gereedschap dat er is.</p>
+      <p>Hij noemt dat besef ook een product. Het is meegekomen met het lichaam, en het lichaam is opgebouwd uit voedsel; hij spreekt over de smaak of de geur van 'ik ben' die aan de voedselvorm kleeft. Het besef is daarmee kostbaar als ingang en tijdelijk als toestand. Wie erbij blijft, ziet vanzelf dat het is opgekomen, en dan komt de vraag aan de orde wat er was voordat het opkwam.</p>
+      <h3>De persoon en het getuige-zijn</h3>
+      <p>Nisargadatta onderscheidt drie lagen die zijn bezoekers gewoonlijk door elkaar halen. De persoon is het geheel van naam, lichaam, geschiedenis en voorkeuren; hij noemt die een verzameling gewoontes zonder eigen bestaan. Daarachter ligt het getuige-zijn, het bewustzijn waarin die persoon verschijnt. En daarachter ligt wat aan bewustzijn voorafgaat en waarvoor hij geen naam heeft.</p>
+      <p>Uit dat onderscheid komen zijn scherpste uitspraken voort. Op de vraag wat er met hem gebeurt bij de dood antwoordt hij dat er niemand is die geboren werd, dus ook niemand die sterft. Op de vraag naar zijn ervaringen zegt hij dat ervaringen komen en gaan en dat niets wat komt en gaat hem betreft.</p>
+      <h3>Tegen oefening en verworvenheid</h3>
+      <p>Bezoekers komen met de vraag welke oefening zij moeten doen, hoeveel jaar het duurt en welke leraar zij moeten volgen. Nisargadatta wijst dat kader af. Oefening kan het verlangen scherpen en de aandacht richten, maar zij kan niets voortbrengen wat er niet al is, en een toestand die door inspanning is verkregen zal door het uitblijven van inspanning weer verdwijnen.</p>
+      <p>Toch schrijft hij wel iets voor, en dat is de enige aanwijzing die hij vaak herhaalt: blijf bij 'ik ben', laat de rest gaan, en geloof wat je leraar zegt zolang je het niet zelf ziet. Zijn eigen weg vat hij zo samen: zijn leraar zei hem dat hij het Zijn zelf was, hij heeft dat zonder tegenwerpingen aangenomen, en daarmee was het klaar.</p>
+      <h3>Wereld, lijden en moraal</h3>
+      <p>De wereld noemt Nisargadatta een verschijnsel binnen het bewustzijn, van dezelfde orde als een droom. Dat leidt bij hem niet tot onverschilligheid; hij zegt dat wie zichzelf in alles herkent onmogelijk kwaad kan doen, omdat er niemand overblijft aan wie het gedaan zou worden.</p>
+      <p>Over lijden is hij nuchter en soms hard. Hij weigert het te verklaren met karma of met een goddelijk plan, en zegt dat lijden bestaat zolang iemand meent een afzonderlijk lichaam te zijn dat iets te verliezen heeft. Zijn eigen leven biedt daarbij weinig troostende opsmuk: hij werkte in een winkeltje, verloor kinderen, kreeg keelkanker en bleef tot vlak voor zijn dood in 1981 bezoekers ontvangen.</p>
+      <h3>De herkomst van de leer</h3>
+      <p>Nisargadatta stond in de Navnath Sampradaya, een lijn van leraren waarin zijn eigen leraar Siddharameshwar Maharaj hem in 1933 opnam. Die leraar overleed drie jaar later. Wat Nisargadatta doorgeeft is dus geen eigen stelsel maar een korte, mondelinge overlevering, waarin het aannemen van het woord van de leraar zelf een onderdeel van de methode is.</p>
+      <p>In zijn woordkeus klinkt de vedanta door: maya, jnani, sadhana, saguna en nirguna. Frydman heeft die termen in het Engels grotendeels laten staan, en de Nederlandse uitgave heeft er een woordenlijst bij. Nisargadatta zelf hecht er weinig aan en zegt herhaaldelijk dat woorden slechts wijzers zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ik ben</td><td>Het naakte besef te bestaan, bij Nisargadatta het enige zekere gegeven en tegelijk het enige aanknopingspunt voor onderzoek.</td></tr>
+          <tr><td class="term">Het voedsellichaam</td><td>Zijn aanduiding voor het lichaam als opgebouwd uit voedsel, waaraan het besef 'ik ben' volgens hem kleeft als een smaak of geur.</td></tr>
+          <tr><td class="term">Getuige</td><td>Het bewustzijn waarin gedachten, waarnemingen en de persoon verschijnen, dat zelf niet verschijnt en dus niet gezien kan worden.</td></tr>
+          <tr><td class="term">De persoon</td><td>Het geheel van naam, lichaam, herinnering en gewoontes, dat volgens hem geen zelfstandig bestaan heeft en louter uit gewoonte samenhangt.</td></tr>
+          <tr><td class="term">Maya</td><td>De aanname dat wat verschijnt op zichzelf bestaat; bij Nisargadatta geen bedrieglijke kracht van buitenaf maar de verwarring zelf.</td></tr>
+          <tr><td class="term">Jnani</td><td>Iemand bij wie de vereenzelviging met een afzonderlijk persoon is weggevallen; volgens hem geen bijzonder mens maar iemand die niets bijzonders meer aan zichzelf toekent.</td></tr>
+          <tr><td class="term">Sadhana</td><td>Geestelijke oefening, die hij bruikbaar noemt om de aandacht te richten en ongeschikt om iets voort te brengen dat er niet al zou zijn.</td></tr>
+          <tr><td class="term">Saguna en nirguna</td><td>Het werkelijke met eigenschappen en zonder eigenschappen, waarbij hij het eerste als tijdelijke ingang gebruikt en naar het tweede wijst.</td></tr>
+          <tr><td class="term">Navnath Sampradaya</td><td>De lijn van leraren waarin Siddharameshwar Maharaj hem in 1933 opnam en waaruit zijn methode van aannemen en onderzoeken voortkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bewijs aan en pretendeert dat ook niet. Wat er staat is een verslag van gesprekken, en de waarde ervan hangt af van wat een lezer bij zichzelf kan nagaan. Nisargadatta zegt dat zelf ook herhaaldelijk: neem niets aan op zijn gezag, kijk of het klopt met wat je van jezelf weet.</p>
+      <p>Over de tekst zelf is wel het een en ander bekend. Frydman sprak Marathi, nam de gesprekken op, vertaalde ze en stelde er een boek uit samen; Sudhakar S. Dikshit heeft dat vervolgens geredigeerd. Frydman was daarbij geen doorgeefluik. Een deel van de opnamen bestond uit gesprekken in verschillende talen door elkaar, die achteraf zijn ontcijferd. Tegenover die redactionele hand staat dat er een Marathi-versie van de gesprekken is verschenen die Nisargadatta zelf heeft nagekeken.</p>
+      <p>De vragen sturen het boek meer dan gewoonlijk wordt opgemerkt. Veel bezoekers waren westerse zoekers uit de jaren zestig en zeventig met vragen over meditatie, drugs, psychotherapie en wedergeboorte. De antwoorden zijn daardoor mede gevormd door wat er in die jaren aan een leraar werd gevraagd, en niet alleen door wat hij uit zichzelf te zeggen had.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de leer zo is opgezet dat er niets tegenin te brengen valt. Elke tegenwerping komt van de persoon, en van de persoon is bij voorbaat vastgesteld dat hij niet bestaat. Wie zegt dat hij het niet ziet, krijgt te horen dat de ziener het al is. Dat is intern sluitend en daarmee ook onvatbaar voor toetsing; het boek heeft daar geen antwoord op en zoekt dat ook niet.</p>
+      <p>De Nederlandse lezer krijgt bovendien een vertaling van een vertaling. Wolter Keers werkte aan het Engels van Frydman en niet aan het Marathi. Waar Frydman keuzes maakte in het overzetten van vedantische termen, liggen die keuzes in het Nederlands dus dubbel vast. Voor een boek waarin zoveel op woordkeus aankomt, is dat een reële beperking.</p>
+      <p>Inhoudelijk valt op hoe weinig het boek te zeggen heeft over samenleven, werk, opvoeding en rechtvaardigheid. Nisargadatta stelt dat wie zichzelf in alles herkent geen kwaad kan doen, maar hij werkt niet uit hoe iemand tot dat punt op zijn gedrag moet letten. De geschiedenis van moderne goeroes laat zien dat de aanname dat inzicht vanzelf goed gedrag oplevert niet betrouwbaar is.</p>
+      <p>Tot slot is het boek herhalend. Honderdeen gesprekken met vrijwel dezelfde kern leveren veel bladzijden op waarin een lezer weinig nieuws tegenkomt. Wie het als leerboek van voren naar achteren doorwerkt, zal dat ervaren als traagheid; het is eerder bedoeld om er telkens een gesprek uit te nemen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het niet aan een stuk door: neem een gesprek, leg het boek weg en kijk wat er van overblijft.</li>
+        <li>Houd de aanwijzing zo eng als hij is bedoeld: blijf bij het besef te zijn en voeg er geen inhoud aan toe.</li>
+        <li>Ga na welke van je stellige uitspraken over jezelf herinneringen zijn en welke waarnemingen van dit moment.</li>
+        <li>Wees erop bedacht dat het boek geen leefregels geeft; zoek die elders en verwacht ze hier niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>I Am That: Talks with Sri Nisargadatta Maharaj</i>, vertaald uit de Marathi bandopnamen door Maurice Frydman en geredigeerd door Sudhakar S. Dikshit, in twee gebonden delen uitgegeven door Chetana in Bombay, 1973; sinds de herziening van 1976 in één band, met 101 gesprekken van gemiddeld vier bladzijden. In de Verenigde Staten en Canada verschijnt het bij The Acorn Press. Een door Nisargadatta zelf nagekeken Marathi-uitgave van de gesprekken is afzonderlijk verschenen. In Nederland kwamen de gesprekken uit bij Ankh-Hermes in Deventer als <i>Ik ben</i> (1982) en <i>Zijn</i> (1983), vertaald door Wolter A. Keers; volgens de uitgever vormen die twee samen de volledige vertaling van <i>I Am That</i>. Altamira-Becht in Haarlem bracht ze in 2004 in één band; de uitgave <i>Ik ben ; Zijn</i> uit 2015 telt 912 blz. (ISBN 9789401302050) en bevat een uitgebreide woordenlijst van Sanskriet-termen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nisargadatta Maharaj (1897-1981) verkocht bidi's in Bombay en ontving vanaf de jaren dertig bezoekers in een kleine bovenkamer in de wijk Khetwadi. Wie kwam mocht vragen stellen. Maurice Frydman nam die gesprekken op band op, vertaalde ze uit het Marathi en gaf ze in 1973 uit.</p><p>Het boek bestaat uit 101 gesprekken in vraag en antwoord. De vragenstellers zijn Indiërs en westerlingen, vaak met een achtergrond in yoga, boeddhisme of psychologie. Nisargadatta beantwoordt hun vragen zelden op het niveau waarop zij gesteld zijn; hij brengt het gesprek steeds terug naar de vraag wie er eigenlijk vraagt.</p><p>Zijn aanwijzing is kort. Houd vast aan het besef 'ik ben', het enige waarvan iedereen zeker is, en laat alles wat daarbij is gaan horen los: het lichaam, de naam, de geschiedenis, de rollen. Dat besef zelf is volgens hem ook nog gekomen en zal gaan, en wat overblijft ligt eraan vooraf. Het boek geldt sinds de jaren zeventig als een standaardwerk van de advaita vedanta.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>advaita</li><li>vedanta</li><li>non-dualiteit</li><li>India</li><li>gesprekken</li><li>zelfonderzoek</li><li>Bombay</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="527"><a href="527.html">Who Am I?</a>. Ramana Maharshi geeft in <i>Who Am I?</i> in enkele bladzijden dezelfde aanwijzing, in de vorm van zelfonderzoek naar de bron van de gedachte 'ik'.</li>
+          <li value="1101"><a href="1101.html">Talks with Sri Ramana Maharshi</a>. <i>Talks with Sri Ramana Maharshi</i> heeft dezelfde vorm van opgetekende gesprekken en laat zien hoe verschillend twee leraren binnen dezelfde leer op vragenstellers ingaan.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Eckhart Tolle bewerkt in <i>The Power of Now</i> ditzelfde uitgangspunt tot een boek voor een breed publiek; het verschil in strengheid tussen beide teksten is leerzaam.</li>
+          <li value="519"><a href="519.html">The First and Last Freedom</a>. Krishnamurti wijst in <i>The First and Last Freedom</i> de leraar en de traditie juist af, waar Nisargadatta het aannemen van het woord van de leraar tot onderdeel van de methode maakt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

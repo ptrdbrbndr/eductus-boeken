@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De wereld ligt aan je voeten &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Veen stelt dat de afstand tussen een leven zoals het is en een leven zoals iemand het zou willen niet wordt overbrugd door een plan of door talent,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1514">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1514 &middot; Levenskunst</p>
+    <h1>De wereld ligt aan je voeten</h1>
+    <p class="lede">Jeroen van Veen, 2026</p>
+    <p class="stats">
+      <span><b>1477</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1514"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Veen stelt dat de afstand tussen een leven zoals het is en een leven zoals iemand het zou willen niet wordt overbrugd door een plan of door talent, maar door de eerste stap daadwerkelijk te zetten en daarna niet meer te stoppen. Hij bewijst dat aan zichzelf door in negenennegentig dagen van Amsterdam naar Sparta te lopen, bijna elke dag een marathon, met de as van zijn overleden zoon op zak. De onderliggende bewering is dat verdriet dat geen uitweg krijgt een mens stil zet, en dat beweging, letterlijk genomen, de vorm was waarin hij het wel kon dragen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Kasper</h3>
+      <p>Wat aan de tocht voorafgaat is de ziekte van zijn zoon Kasper. Een hersentumor, ruim duizend dagen behandeling in het Prinses Máxima Centrum in Utrecht, en in 2022 het einde daarvan. Kasper werd vier jaar.</p>
+      <p>Van Veen beschrijft de jaren van behandeling van de kant van de ouder: het ziekenhuis dat het huis wordt, het leven van het gezin dat om de opnames heen wordt gebouwd, en de manier waarop hoop en berusting in dezelfde week naast elkaar bestaan. Die periode bepaalt de toon van alles wat erna in het boek gebeurt.</p>
+      <h3>Het jaar van elke dag</h3>
+      <p>Na de dood van zijn zoon begon Van Veen te lopen. Hij nam zich voor een jaar lang elke dag minstens tien kilometer af te leggen en gebruikte dat om geld op te halen voor het centrum waar Kasper werd behandeld. Aan het einde van dat jaar stond de teller op ruim 2,2 miljoen euro, opgehaald bij donateurs en bedrijven.</p>
+      <p>Het lopen is in die periode zowel een inzamelingsactie als een dagelijkse verplichting die zin geeft aan een dag die anders leeg is. Van Veen is er eerlijk over dat de tweede functie de belangrijkste was en dat hij zonder die verplichting niet wist wat hij met zijn dagen aan moest.</p>
+      <h3>Het besluit</h3>
+      <p>Daarna komt het plan dat het boek zijn vorm geeft: te voet van Amsterdam naar Sparta, ruim drieduizendzevenhonderd kilometer door Nederland, Duitsland, Oostenrijk, de Balkan en Griekenland, in ongeveer honderd dagen. Op 1 juli 2025 zette hij de eerste stap.</p>
+      <p>De voorbereiding krijgt in het boek minder ruimte dan de gedachte erachter. Van Veen behandelt het besluit als het moment waarop iets kantelt: zodra het is uitgesproken en aangekondigd, is het onttrokken aan de dagelijkse afweging of hij er zin in heeft.</p>
+      <h3>De route</h3>
+      <p>Het grootste deel van het boek is het reisverslag. Ongeveer achtentachtig marathons achter elkaar, dag na dag, met een begeleidingsbusje, wisselende slaapplaatsen, hitte in de Balkan en verkeer dat op sommige trajecten geen berm overlaat.</p>
+      <p>Daartussendoor staan de ontmoetingen: mensen die een stuk meelopen, gezinnen die hem onderdak geven, en berichten van ouders die hetzelfde meemaakten als hij. Van Veen hield zijn tocht dagelijks bij op sociale media, en die dagelijkse verslaglegging is in het boek herkenbaar terug te lezen in de korte hoofdstukken.</p>
+      <h3>Het lichaam en het hoofd</h3>
+      <p>Bijna elke dag een marathon lopen is fysiek niet vol te houden zonder schade, en het boek verzwijgt dat niet: blessures, ontstoken pezen, voeten die niet meer in de schoen willen, dagen waarop het tempo naar wandelen zakt.</p>
+      <p>Het hoofd is het tweede onderwerp. Van Veen beschrijft dagen waarop het lopen leeg en helder is en dagen waarop het verdriet met de kilometers meeloopt. De as die hij bij zich draagt maakt van de tocht een vorm van meenemen, en de aankomst in Sparta krijgt daarmee de betekenis van een aankomst voor twee.</p>
+      <h3>De boodschap</h3>
+      <p>Om het verslag heen legt Van Veen zijn conclusie: dat wat hij deed voor iedereen geldt in eigen maat, dat een droombaan, een eigen bedrijf of een andere richting op dezelfde manier begint, en dat de rest van het leven volgt op die ene stap. De ondertitel stelt de vraag rechtstreeks aan de lezer.</p>
+      <p>Die laag is nadrukkelijk aanwezig maar blijft dun in vergelijking met het verslag. Wie het boek om het verhaal leest, krijgt een gedetailleerde tocht; wie het om de levenslessen leest, krijgt een handvol algemene aansporingen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De eerste stap</td><td>Het beeld waarop de hele opzet van het boek rust: elk plan van welke omvang ook wordt pas werkelijkheid op het moment dat er een stap wordt gezet.</td></tr>
+          <tr><td class="term">Kasper</td><td>De zoon van de auteur, in 2022 op vierjarige leeftijd overleden aan een hersentumor na ruim duizend dagen behandeling.</td></tr>
+          <tr><td class="term">Het Prinses Máxima Centrum</td><td>Het Utrechtse centrum voor kinderoncologie waar Kasper werd behandeld en waarvoor Van Veen als ouderambassadeur en sponsorloper geld ophaalt.</td></tr>
+          <tr><td class="term">Negenennegentig dagen</td><td>De duur van de tocht van Amsterdam naar Sparta, gestart op 1 juli 2025 en geëindigd begin oktober van dat jaar.</td></tr>
+          <tr><td class="term">3.728 kilometer</td><td>De afgelegde afstand, door de auteur omgerekend naar bijna vier miljoen stappen en ongeveer achtentachtig marathons.</td></tr>
+          <tr><td class="term">Lef</td><td>Het woord waarmee hij het verschil aanduidt tussen een voornemen en een besluit dat wordt uitgesproken en daarmee bindend wordt.</td></tr>
+          <tr><td class="term">Levenslust</td><td>De houding die hij als tegenwicht tegen het verlies stelt en die in het boek eerder als beslissing dan als gevoel wordt beschreven.</td></tr>
+          <tr><td class="term">De as</td><td>Het kleine deel van de as van zijn zoon dat hij de hele tocht bij zich droeg en dat de reis tot een vorm van meenemen maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De tocht zelf is controleerbaar en breed gedocumenteerd. Nederlandse media volgden hem onderweg, de aankomst in Sparta was begin oktober 2025 nieuws, en de afstand van 3.728 kilometer in negenennegentig dagen is met de dagelijkse verslaglegging na te gaan. Het opgehaalde bedrag van ruim 2,2 miljoen euro voor het Prinses Máxima Centrum is eveneens openbaar. Dat onderscheidt dit boek van veel inspirerend werk: de prestatie waar het op rust heeft daadwerkelijk plaatsgevonden.</p>
+      <p>Wat niet is onderbouwd, is de stap van de prestatie naar de algemene les. Dat het Van Veen lukte, zegt iets over Van Veen en over de omstandigheden waarin hij verkeerde: een getraind lichaam, een begeleidingsploeg, sponsors, media-aandacht en de tijd om honderd dagen weg te zijn. Het boek weegt die voorwaarden niet en presenteert de uitkomst alsof de eerste stap het enige verschil maakte.</p>
+      <p>Over rouw doet het boek geen algemene uitspraken en dat is zijn sterkste kant. Van Veen beschrijft wat er bij hem werkte zonder te beweren dat dit de juiste manier is. Rouwonderzoek wijst dezelfde kant op: er bestaat geen vast verloop en geen voorgeschreven volgorde, en wat de een draagt werkt bij de ander niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de gelijkstelling die de ondertitel maakt. De vraag wat de eerste stap van de lezer wordt, veronderstelt dat het verschil tussen wel en niet beginnen aan wilskracht ligt. De meeste mensen die geen honderd dagen kunnen weglopen van hun leven, worden niet tegengehouden door gebrek aan lef maar door werk, geld, zorgtaken en gezondheid. Het boek noemt die ongelijkheid niet.</p>
+      <p>Verlies wordt in de opzet ook de aanjager van de prestatie, en dat is een gevoelige constructie. Wie het boek welwillend leest, ziet een vader die zijn verdriet een vorm gaf. Wie er kritisch naar kijkt, ziet dat de dood van een kind in de vertelling functioneert als de motor van een heldenverhaal met een meetbare afloop, waarbij zich de vraag opdringt hoe het gezin dat achterbleef die honderd dagen doorkwam. Het boek gaat daar niet op in.</p>
+      <p>De afstand in tijd is klein. De tocht eindigde in oktober 2025, het boek verscheen in april 2026. Dat levert een levendig en gedetailleerd verslag op en het levert weinig reflectie op: wat de tocht op langere termijn heeft veranderd aan zijn rouw kan het boek nog niet weten en het doet er niettemin uitspraken over.</p>
+      <p>Ten slotte is het boek geschreven in de stijl van het Nederlandse inspiratieboek, met korte hoofdstukken, aansporingen en zinnen die uit de sociale media meekomen. Dat leest snel en het maakt de onderscheidende delen, de kilometers en het ziekenhuis, soms ondergeschikt aan een opgewekte toon die er niet altijd bij past.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als verslag van een tocht en van een rouwproces, niet als handleiding voor het bereiken van doelen.</li>
+        <li>Wie zelf een grote onderneming overweegt, kan uit het boek vooral de rol van openbaarheid halen: Van Veen kondigde zijn plan aan en maakte terugkrabbelen daarmee duur.</li>
+        <li>Weeg bij het lezen van de conclusies mee welke voorwaarden zijn tocht mogelijk maakten en welke daarvan in de eigen situatie ontbreken.</li>
+        <li>Voor wie het boek om de kinderoncologie leest: het Prinses Máxima Centrum publiceert zelf gegevens over behandeling en overleving die het boek niet geeft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, met de ondertitel <i>Hij begon met één stap en eindigde na 99 dagen rennen in Sparta. Wat wordt jouw eerste stap?</i>. Xander Uitgevers, Amsterdam, 14 april 2026, 224 blz., ISBN 9789401626293; ebook ISBN 9789401626286; luisterboek door de auteur zelf ingelezen, ISBN 9789401626873. Er bestaat geen vertaling. Het is het eerste boek van Van Veen, die daarnaast als spreker optreedt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jeroen van Veen verloor in 2022 zijn zoon Kasper, vier jaar oud, aan een hersentumor, na ruim duizend dagen behandeling. Hij ging lopen. Eerst een jaar lang elke dag ten minste tien kilometer voor het Prinses Máxima Centrum, waarmee hij ruim 2,2 miljoen euro ophaalde, en daarna verder.</p><p>Op 1 juli 2025 vertrok hij vanuit Amsterdam te voet naar Sparta in Griekenland. Negenennegentig dagen en 3.728 kilometer later liep hij daar binnen, ongeveer vier miljoen stappen verder, met een klein deel van de as van zijn zoon bij zich. Het boek is het verslag van die tocht.</p><p>Van Veen wil er meer mee dan verslag doen. De ondertitel stelt de lezer de vraag wat diens eerste stap wordt, en het boek is opgezet rond de gedachte dat elk groot plan bij een enkele stap begint. Die tweede laag maakt het minder een sportboek dan een boek over lef en over doorgaan na verlies.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hardlopen</li><li>rouw</li><li>Sparta</li><li>kinderkanker</li><li>Prinses Máxima Centrum</li><li>uithoudingsvermogen</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl behandelt dezelfde kwestie, hoe iemand doorleeft na een verlies dat niet ongedaan te maken is, en komt tot een antwoord dat minder van doen en meer van betekenis uitgaat.</li>
+          <li value="1512"><a href="1512.html">Wat moed dat moet</a>. Keizer schrijft eveneens een Nederlandse memoir over verlies en over de vraag wat een mens ermee doet, en kiest daarvoor stilzitten waar Van Veen beweging kiest.</li>
+          <li value="529"><a href="529.html">Gates of Fire</a>. Pressfield schreef een roman over Sparta, het eindpunt van de tocht, en over uithoudingsvermogen als aangeleerde eigenschap; het contrast tussen de mythe en het hedendaagse doel is het lezen waard.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

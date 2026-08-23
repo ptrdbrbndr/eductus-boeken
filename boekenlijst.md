@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 23
-augustus 2026: 1030 titels in 21 rubrieken.
+augustus 2026: 1068 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,25 +13,25 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800, 1301 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586, 1168, 1206, 1208 |
-| Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 819, 830, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942, 1114, 1200, 1202, 1204, 1205, 1209, 1211, 1212, 1213, 1312, 1327, 1400, 1401, 1402 |
-| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550, 824, 828, 832, 952, 1299, 1321, 1322, 1323 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586, 1168, 1206, 1208, 1503, 1509, 1510, 1514, 1515, 1517, 1525, 1527 |
+| Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408, 1500 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 819, 830, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942, 1114, 1200, 1202, 1204, 1205, 1209, 1211, 1212, 1213, 1312, 1327, 1400, 1401, 1402, 1512, 1518, 1519, 1534, 1538 |
+| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550, 824, 828, 832, 952, 1299, 1321, 1322, 1323, 1501 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19, 1210, 1330 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803, 1292, 1295 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174, 1203, 1302, 1307, 1308, 1309, 1310, 1311, 1314, 1315, 1316, 1317, 1319, 1320, 1325, 1326, 1328, 1329 |
-| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803, 1292, 1295, 1511, 1526 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174, 1203, 1302, 1307, 1308, 1309, 1310, 1311, 1314, 1315, 1316, 1317, 1319, 1320, 1325, 1326, 1328, 1329, 1506, 1513, 1521, 1523, 1524, 1528 |
+| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931, 1532 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913, 1279, 1280, 1281, 1283, 1284, 1285, 1286, 1287, 1288, 1331 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551, 1294, 1297 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
-| Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447, 1303, 1304, 1305, 1306, 1313 |
+| Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447, 1303, 1304, 1305, 1306, 1313, 1522, 1539 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298, 1345 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762, 805, 818, 820, 823, 938, 941, 944, 945, 946, 947, 948, 949, 950, 951, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1265, 1267, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1282, 1318, 1344 |
-| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560, 768 |
-| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122, 1123, 1124, 1125, 1126, 1139, 1140, 1141, 1142, 1143, 1144, 1147, 1149, 1150, 1151, 1152, 1154, 1156, 1157, 1158, 1161, 1163, 1164, 1165, 1166, 1167, 1169, 1170, 1207, 1214, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1227, 1228, 1229, 1230, 1231, 1232, 1234, 1235, 1236, 1237, 1238, 1239, 1241, 1242, 1244, 1266, 1268, 1296, 1300, 1324 |
+| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560, 768, 1505, 1507, 1531 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243, 1530, 1533 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122, 1123, 1124, 1125, 1126, 1139, 1140, 1141, 1142, 1143, 1144, 1147, 1149, 1150, 1151, 1152, 1154, 1156, 1157, 1158, 1161, 1163, 1164, 1165, 1166, 1167, 1169, 1170, 1207, 1214, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1227, 1228, 1229, 1230, 1231, 1232, 1234, 1235, 1236, 1237, 1238, 1239, 1241, 1242, 1244, 1266, 1268, 1296, 1300, 1324, 1502, 1504, 1508, 1520, 1535, 1536, 1537 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 826, 827, 910, 935, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -214074,6 +214074,8565 @@ en land.
 Latijns-Amerikaanse traditie: geen overvloed maar een gesloten bedenksel op
 een leeg eiland.
 
+## 1500. The Way of the Superior Man
+
+David Deida, 1997. Oorspronkelijk *The Way of the Superior Man: A Spiritual
+Guide to Mastering the Challenges of Women, Work, and Sexual Desire* (Plexus,
+1997, 224 blz., ISBN 9781889762104). Sounds True geeft het boek sinds 2004 uit
+(202 blz., ISBN 9781591792574) en bracht in 2017 een uitgave uit bij het
+twintigjarig bestaan (ISBN 9781622038329). De Nederlandse vertaling van Geerta
+Pluut verscheen in 2019 bij Altamira als *De kracht van echte mannen* (223
+blz., ISBN 9789401304511). Deida bouwt in de inleiding voort op zijn eerdere
+*Intimate Communion* (Health Communications, 1995), dat niet in het Nederlands
+is vertaald. Rubriek: mannen, vriendschap, verbinding.
+Tags: `mannelijkheid`, `relaties`, `seksualiteit`, `polariteit`, `zelfhulp`,
+`spiritualiteit`, `genderrollen`
+
+David Deida schrijft voor mannen die zich niet meer thuis voelen bij het oude
+rolpatroon en evenmin bij de gelijkschakeling die daarop volgde. Zijn diagnose
+is dat de spanning tussen partners is weggevallen sinds mannen en vrouwen in
+werk en huishouden op elkaar zijn gaan lijken, en dat daarmee ook de
+hartstocht verdween.
+
+Hij stelt dat ieder mens een seksuele kern heeft, mannelijk, vrouwelijk of in
+evenwicht, en dat wie tegen die kern in leeft leeg blijft. Een man met een
+mannelijke kern moet volgens Deida eerst zijn levensdoel kennen en dat boven
+zijn relatie stellen. Pas van daaruit kan hij liefhebben zonder zichzelf kwijt
+te raken.
+
+Het boek telt eenenvijftig korte hoofdstukken van een tot vier bladzijden,
+verdeeld over acht delen. Elk hoofdstuk begint met een cursieve stelling en
+gaat daarna over in huiselijke voorbeelden en oefeningen. Er zijn meer dan een
+miljoen exemplaren van verkocht en het staat sinds de jaren negentig op de
+leeslijst van mannengroepen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Deida stelt dat de gelijkheid die mannen en vrouwen op het
+werk en in het huishouden hebben bereikt in de slaapkamer een verlies
+oplevert. Aantrekking ontstaat volgens hem alleen tussen twee polen, zoals
+stroom tussen een plus en een min, en waar partners in alles op elkaar gaan
+lijken dooft die stroom uit. Zijn antwoord luidt niet dat de macho en de
+gedweeë huisvrouw moeten terugkeren. Hij beschrijft een derde fase, waarin een
+man zijn mannelijke kern bewust aanzet en tegelijk zijn hart open houdt. Dat
+vraagt dat hij zijn levensdoel kent, daaraan voorrang geeft boven zijn
+relatie, en zijn angst dagelijks een klein stukje opzoekt in plaats van hem te
+ontlopen.
+
+#### De gang van het boek
+
+**De inleiding: drie fasen**
+
+Deida schetst eerst een geschiedenis in drie stappen. In de eerste fase lagen
+de rollen vast: de man verdiende, de vrouw zorgde, en beide partijen
+manipuleerden elkaar met de middelen die bij die rol hoorden. In de tweede
+fase, die volgens hem in de jaren zestig begon en nog doorloopt, zochten
+mannen hun binnenste vrouwelijke kant op en vrouwen hun binnenste mannelijke
+kant. Hij noemt dat een verbetering: mensen werden heler en minder afhankelijk
+van elkaar.
+
+De prijs van die tweede fase is volgens hem seksuele neutraliteit. Hij vat het
+samen als bankrekeningen die in evenwicht komen terwijl de hartstocht
+uitdooft. De derde fase die hij voorstelt houdt de gelijkheid buiten de
+slaapkamer in stand en versterkt het verschil daarbinnen.
+
+Hij benadrukt dat polariteit los staat van geslacht en van geaardheid: bij
+twee mannen of twee vrouwen werkt hetzelfde mechanisme, en in een verhouding
+tussen man en vrouw mag de vrouw de mannelijke pool spelen. Het boek is
+niettemin geschreven voor iemand met een mannelijke kern die een partner met
+een vrouwelijke kern heeft, en spreekt die lezer aan over 'je vrouw'.
+
+**Deel een: de weg van een man**
+
+Het eerste en langste deel gaat over levensrichting. Deida opent met de raad
+te stoppen met hopen dat iets in het leven ooit af is: werk, relatie en
+zelfinzicht komen nooit tot een punt waarop de spanning wegvalt, en wie op dat
+punt wacht stelt zijn leven uit. Wie zijn doel niet kent moet dat volgens hem
+vandaag gaan zoeken, desnoods door alles in zijn leven om te gooien.
+
+Twee hoofdstukken zijn los van de rest bekend geworden. In 'Live As If Your
+Father Were Dead' vraagt hij de lezer zich voor te stellen dat zijn vader is
+overleden, na te gaan welke opluchting daarin zit, en drie dagen lang elke dag
+iets te doen dat hij uit ontzag voor zijn vader heeft nagelaten. In 'Lean Just
+Beyond Your Edge' beschrijft hij de rand als de plaats waar angst begint: wie
+ver binnen die rand blijft stagneert, wie er ver overheen duikt raakt
+overbelast, en de groei zit in het stukje dat er net voorbij ligt.
+
+Aan die rand hangt een eerlijkheidseis: Deida noemt het eervol dat een man
+zijn angst toegeeft en oneervol dat hij doet alsof hij verder is dan hij is.
+
+**Omgaan met vrouwen en wat vrouwen willen**
+
+Deel twee en deel vier gaan over gedrag in de relatie. De stelling die er
+onder ligt is dat een vrouw met een vrouwelijke kern reageert op de
+aanwezigheid en de richting van haar man, en dat de inhoud van haar klacht
+daar minder over zegt dan de klacht zelf. In 'Her Complaint Is Content-Free'
+werkt hij dat uit met een huiselijke scene over een verloren baan, een
+televisie en een rommelige garage: de man voert alle punten uit die zij noemt
+en de spanning blijft, omdat het haar om iets anders gaat.
+
+De raad die daarbij hoort is dat een man de klacht hoort als een alarmbel om
+zijn leven op zijn eigen richting af te stemmen, zonder haar woorden
+letterlijk te nemen. Andere hoofdstukken luiden dat vrouwen niet liegen, dat
+een man zijn vrouw niet moet analyseren en dat hij haar niet moet vragen haar
+eigen gevoel op te lossen.
+
+**Polariteit, energie en vrouwelijke aantrekking**
+
+Deel drie en deel zes werken de natuurkundige beeldspraak uit. De aantrekking
+tot het vrouwelijke noemt Deida onvermijdelijk, en hij raadt aan een partner
+te kiezen die het complementaire tegendeel is. Hij stelt dat ongeveer negentig
+procent van de mensen zo'n uitgesproken kern heeft en ongeveer tien procent
+een kern in evenwicht, en dat het boek voor die laatste groep niet bruikbaar
+en misschien aanstootgevend zal zijn.
+
+Deze delen bevatten ook de hoofdstukken die het slechtst zijn verouderd: dat
+een man vaak meer dan een vrouw zal willen, dat jonge vrouwen een eigen soort
+energie bieden, en dat elke vrouw een 'temperatuur' heeft die kan helen of
+irriteren. Zijn raad is de begeerte niet te onderdrukken en er evenmin naar te
+handelen, maar haar om te zetten in wat hij een gave noemt.
+
+**De donkere kant**
+
+Deel vijf gaat over agressie en begeerte. Deida schrijft dat een vrouw de
+moordenaar in haar man wil voelen: niet dat hij doodt, wel dat hij in staat is
+de angst voor de dood te overstijgen als dat nodig is. Zijn voorbeelden zijn
+de kakkerlak in de woonkamer en het geluid beneden in het holst van de nacht,
+waarbij de man die op de bank klimt of zijn partner naar beneden stuurt haar
+interesse verliest.
+
+In hetzelfde deel roept hij de lezer op zijn donkerste verlangens te erkennen,
+omdat onderdrukking volgens hem in slapheid eindigt. Vrijheid noemt hij het
+verlangen dat onder alle mannelijke ambitie ligt, waar liefde dat is voor de
+vrouwelijke kern.
+
+**Lichaamsoefeningen en de yoga van intimiteit**
+
+De laatste twee delen zijn de meest praktische en de meest omstreden. Deida
+beschrijft ademhalingsoefeningen langs de voorkant van het lichaam en langs de
+wervelkolom, en stelt dat zaadlozing bewust gekozen of omgezet zou moeten
+worden in plaats van vanzelf te gebeuren. Hij geeft daarvoor aanwijzingen die
+hij aan tantrische en taoïstische praktijken ontleent, zonder bron of
+onderbouwing.
+
+Het slotdeel gaat over wat hij de asymmetrie tussen partners noemt: de man
+draagt volgens hem de verantwoordelijkheid voor de groei van de verhouding,
+herstelt zijn richting in eenzaamheid en onder andere mannen, en oefent zich
+in oplossen. Het laatste hoofdstuk vat dat samen als sterven in het geven van
+je gave.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Seksuele kern | Wat Deida sexual essence noemt: de mannelijke, vrouwelijke of in evenwicht verkerende grondtoon van iemands begeerte, volgens hem los van geslacht en geaardheid en niet te veranderen. |
+| Seksuele polariteit | De aantrekking die volgens Deida alleen ontstaat tussen een mannelijke en een vrouwelijke pool, naar het model van een magneet of een accu. |
+| De rand | Deida's edge: de grens waar iemands durf ophoudt en angst begint, die hij dagelijks net iets zou moeten overschrijden. |
+| Levensdoel | De purpose of missie die volgens hem bij een mannelijke kern hoort en die voorrang moet krijgen boven de relatie, op straffe van innerlijke leegte. |
+| Derde fase | De fase na de vaste rolverdeling en na de gelijkschakeling van vijftig om vijftig, waarin het verschil in intimiteit bewust wordt aangezet. |
+| Ravishen | Deida's woord voor de manier waarop een man zijn partner seksueel neemt, met nadruk op overgave en niet op overheersing. |
+| Klacht zonder inhoud | Zijn stelling dat de letterlijke inhoud van een klacht de stemming van het moment weerspiegelt en zelden de gewoonte die werkelijk aan verandering toe is. |
+| De moordenaar in je | Het vermogen om de angst voor de dood te overstijgen wanneer dat nodig is, dat volgens Deida aanwezig moet zijn ook als het nooit wordt gebruikt. |
+| Oplossen | De slotoefening van het boek, waarin de man zijn greep op zichzelf loslaat in het geven van zijn gave, naar het beeld van een orgasme. |
+
+#### Waar het argument op rust
+
+Het boek berust op wat Deida in zijn werkgroepen en gesprekken heeft gehoord.
+Hij zegt dat zelf ook: de verhouding van negentig om tien tussen uitgesproken
+en in evenwicht verkerende kernen presenteert hij als 'in my experience'. Er
+staan geen noten, geen literatuurlijst en geen verwijzing naar onderzoek in.
+De enige bron die hij aanhaalt is zijn eigen eerdere boek *Intimate Communion*
+uit 1995, waar de leer van de drie fasen vandaan komt.
+
+De biografie achterin vermeldt dat Deida onderwijs gaf en onderzoek deed aan
+onder meer de medische faculteit van de universiteit van Californië in San
+Diego en aan de Ecole Polytechnique in Parijs. Welk onderzoek dat was en of
+het met dit onderwerp te maken had, staat er niet bij.
+
+Wat het boek voor lezers overtuigend maakt is de vorm: korte hoofdstukken met
+een stelling vooraf en een uitgeschreven huiselijke scene erachter, zoals het
+gesprek over de garage, de kakkerlak in de kamer en het geluid in de keuken.
+Die scenes zijn herkenbaar genoeg om als bewijs te voelen, terwijl ze bedacht
+zijn en niet zijn opgetekend uit een geval.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek een verschil dat het beschrijft als
+'energetisch' overal aan de biologie vastknoopt. Deida zegt met zoveel woorden
+dat de mannelijke en de vrouwelijke pool losstaan van geslacht, maar zijn hele
+boek richt zich tot een man over 'zijn vrouw', zijn voorbeelden geven de man
+richting en de vrouw stemming, en de aanwijzing dat een man de intensiteit van
+zijn partner moet dragen zet haar gevoel neer als iets dat opvang nodig heeft.
+Het voorbehoud aan het begin wordt door de tekst daarna nergens waargemaakt.
+
+Praktisch is de raad om de inhoud van een klacht niet letterlijk te nemen
+moeilijk te onderscheiden van het wegwuiven van wat iemand zegt. Deida bouwt
+daar een grens in, namelijk dat de klacht als waarschuwing voor de eigen koers
+moet gelden, maar hij geeft een lezer daarmee ook een sluitende reden om nooit
+inhoudelijk op bezwaren in te gaan.
+
+De hoofdstukken over zaadlozing en ademhaling doen lichamelijke beweringen die
+nergens worden onderbouwd. Dat zaad langs de wervelkolom omhoog gestuurd kan
+worden is een beeld uit tantrische en taoïstische leer, geen beschrijving van
+wat er in een lichaam gebeurt, en het boek maakt dat onderscheid niet.
+
+Ten slotte is de leer zo gebouwd dat zij niet kan falen. Blijft de hartstocht
+uit, dan leefde de man kennelijk niet vanuit zijn kern, kende hij zijn
+levensdoel niet, of leunde hij niet tegen zijn rand aan. Elke tegenvaller
+wordt teruggelegd bij de lezer. Dat maakt het boek bruikbaar als aansporing en
+ongeschikt als verklaring, en het verklaart waarom lezers het even vaak
+bevrijdend als vernederend hebben gevonden.
+
+#### Wat er concreet mee te doen is
+
+- Lees het als een document over een bepaald soort mannelijkheid uit de jaren
+negentig, en toets elke aanwijzing aan wat de betrokken partner er zelf van
+vindt.
+- Neem de oefening over de vader los van de rest: schrijf op wat er anders zou
+zijn gegaan zonder diens oordeel, en doe daar drie dagen lang iets mee.
+- Gebruik het beeld van de rand voor werk en oefening, waar het toetsbaar is,
+en wees terughoudend met de toepassing ervan op andermans gevoel.
+- Sla de hoofdstukken over ademhaling en zaadlozing over als lichamelijke
+voorlichting; daarvoor bestaan bronnen die wel onderbouwd zijn.
+
+#### Wat je hierna leest
+
+- 3. The Will to Change. bell hooks beschrijft in *The Will to Change*
+hetzelfde onbehagen bij mannen en komt tot de tegenovergestelde slotsom: dat
+het vasthouden aan een mannelijke rol de oorzaak is en niet de oplossing.
+- 407. King, Warrior, Magician, Lover. Moore en Gillette werken in *King,
+Warrior, Magician, Lover* ook met vaste mannelijke grondvormen, maar leiden
+die af uit Jungiaanse archetypen in plaats van uit polariteit tussen partners.
+- 406. No More Mr. Nice Guy. Glover richt zich in *No More Mr. Nice Guy* op
+dezelfde lezer, de man die zich wegcijfert om te behagen, en houdt het bij
+gedrag zonder een leer over seksuele kernen.
+
+## 1501. De creatiespiraal
+
+Marinus Knoope, 1998. *De creatiespiraal: natuurlijke weg van wens naar
+werkelijkheid* (KIC Uitgeverij, Nijmegen, 1998, 223 blz., ISBN 9789080467712).
+Oorspronkelijk in het Nederlands geschreven, in 1997 voltooid; er bestaan
+vertalingen in het Engels, het Duits en het Italiaans. In 2007 waren er in
+Nederland meer dan honderdduizend exemplaren van verkocht. Knoope (Rotterdam
+1947, Nijmegen 2021) was natuurkundige, opgeleid aan de Radboud Universiteit;
+hij zegt de spiraal in 1989 te hebben gevonden en presenteerde haar vanaf 1992
+in lezingen. Het vervolg *De ontknooping*, aangeduid als deel twee, verscheen
+in 2009 (ISBN 9789080467743). Er is ook een gesproken uitgave. Rubriek: maken
+en scheppen.
+Tags: `creativiteit`, `doelen stellen`, `wensen`, `loopbaan`, `zelfhulp`,
+`Nederlands`, `volharding`
+
+Marinus Knoope stelt dat er in de natuur een vaste route loopt van bloesem
+naar vrucht en van zaad naar oogst, en dat er tussen een wens en de
+werkelijkheid ook zo'n route bestaat. Die route telt twaalf stappen en heet de
+creatiespiraal.
+
+De twaalf zijn: wensen, verbeelden, geloven, uiten, onderzoeken, plannen,
+beslissen, handelen, volharden, ontvangen, waarderen en ontspannen. Daarna
+begint de spiraal opnieuw, een slag verder. Knoope behandelt elke stap in een
+eigen hoofdstuk, met anekdotes uit zijn lezingen en met oefeningen.
+
+Zijn verklaring voor mislukking is dat mensen stappen overslaan of in de
+verkeerde volgorde zetten: aan het plannen beginnen voordat er een wens is
+uitgesproken, of handelen zonder te hebben besloten. Het boek is in Nederland
+goed verkocht en wordt in loopbaanbegeleiding en in trainingen veel gebruikt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Knoope stelt dat het verwezenlijken van een wens geen kwestie
+is van talent, geluk of doorzettingsvermogen alleen, maar van volgorde. Hij
+beschrijft twaalf stappen die volgens hem in de natuur vastliggen zoals
+bloesem aan vrucht voorafgaat, en zegt dat wie een stap overslaat of omdraait
+vastloopt, hoe hard hij verder ook werkt. De draagwijdte daarvan is groot:
+verlangen, verbeelden en geloven staan bij hem vóór onderzoeken en plannen,
+zodat het managementdenken dat met doelen en middelen begint volgens deze leer
+al bij de tweede stap iets overslaat. De spiraal sluit bovendien met
+ontvangen, waarderen en ontspannen, drie stappen die in gangbare methodes voor
+doelen stellen ontbreken.
+
+#### De gang van het boek
+
+**Het beeld van de spiraal**
+
+Het boek opent met de vergelijking waar alles op rust. In de natuur ligt de
+weg van bloesem naar vrucht vast, en volgens Knoope ligt de weg van wens naar
+werkelijkheid net zo vast. Hij tekent die weg als een spiraal en niet als een
+lijn, omdat het proces zich herhaalt: wat aan het eind wordt ontvangen en
+gewaardeerd, geeft ruimte aan een volgende wens op een ander niveau.
+
+Knoope was natuurkundige en gebruikt die achtergrond vooral voor de vorm van
+zijn betoog, niet voor bewijs. Zijn toon is die van iemand die iets heeft
+opgemerkt en het ordelijk wil opschrijven, met veel voorbeelden uit gewone
+levens en uit zijn eigen lezingen.
+
+**Wensen, verbeelden, geloven**
+
+De eerste drie stappen spelen zich af binnen de persoon. Wensen begint bij de
+vraag wat iemand werkelijk wil, waarbij Knoope onderscheid maakt tussen wat
+iemand echt verlangt en wat hij meent te moeten willen omdat de omgeving dat
+verwacht. Hij besteedt veel ruimte aan de moeite die volwassenen hebben om die
+vraag rechtstreeks te beantwoorden.
+
+Verbeelden is het beeld van de gewenste toestand zo volledig maken dat het
+herkenbaar wordt: niet als vage hoop, wel als een voorstelling met plaats,
+tijd en toon. Geloven is de stap waarin iemand het voor mogelijk gaat houden.
+Knoope behandelt hier de tegenwerpingen die mensen zichzelf maken, en geeft
+affirmaties en visualisatie als hulpmiddelen om de eigen twijfel te
+ondervangen.
+
+**Uiten, onderzoeken, plannen**
+
+Met uiten treedt de wens naar buiten. Wie zijn wens uitspreekt tegen anderen,
+zegt Knoope, ontdekt pas hoe die klinkt, loopt tegen weerstand op en trekt
+tegelijk hulp aan waar hij niet om had kunnen vragen. De stap is bij hem geen
+tactiek maar een noodzaak: een wens die binnen blijft, komt niet verder.
+
+Onderzoeken is het in kaart brengen van wie en wat er kan helpen, van de wegen
+die anderen al hebben afgelegd en van de middelen die er zijn. Pas daarna
+volgt plannen, waarin uit die mogelijkheden een route wordt gekozen. Deze
+volgorde is een van de vaste punten van het boek: eerst kijken wat er is, dan
+pas vastleggen hoe het zal gaan.
+
+**Beslissen, handelen, volharden**
+
+Beslissen is bij Knoope een aparte stap en niet het gevolg van het plan. Het
+gaat om een duidelijk ja of nee, waarmee andere mogelijkheden worden
+losgelaten. Wie dat overslaat, houdt volgens hem opties open en komt daardoor
+niet echt in beweging.
+
+Handelen krijgt in het boek verhoudingsgewijs weinig ruimte, omdat het volgens
+Knoope vanzelf komt zodra de eerdere stappen zijn gezet. Volharden krijgt
+juist veel ruimte. Dat is de stap van pieken en dalen, van tegenslag en van de
+verleiding om terug te vallen op een eerdere stap. Knoope beschrijft dat
+terugvallen niet als falen maar als een normaal onderdeel van de spiraal,
+waarin iemand tijdelijk terugkeert naar geloven of verbeelden.
+
+**Ontvangen, waarderen, ontspannen**
+
+De laatste drie stappen zijn de eigenste bijdrage van het boek en de meest
+verwaarloosde in de praktijk. Ontvangen betekent dat wat er komt ook werkelijk
+wordt aangenomen, in plaats van meteen te worden weggewuifd of afgezwakt.
+Knoope wijst erop hoeveel mensen een compliment of een gerealiseerde wens
+onmiddellijk kleiner maken.
+
+Waarderen is het stilstaan bij wat er is bereikt en bij wie eraan heeft
+meegewerkt. Ontspannen is de rust die daarop volgt en die volgens hem de
+ruimte maakt waarin een volgende wens kan opkomen. Zonder die rust wordt de
+spiraal een tredmolen, waarin de ene wens de andere opjaagt.
+
+**De keerzijde: wat er misgaat**
+
+Het boek is diagnostisch bedoeld. Wie ergens vastzit, kan volgens Knoope
+nagaan bij welke stap dat gebeurt, en daar terugkeren. Iemand die eindeloos
+plannen maakt en niets uitvoert, heeft vermoedelijk niet beslist. Iemand die
+uitgeput raakt, heeft vermoedelijk nooit ontvangen of gewaardeerd. Iemand die
+zijn wens niet kan benoemen, komt niet verder dan wat hij denkt te moeten
+willen.
+
+Die aanpak verklaart de aantrekkingskracht van het boek in
+loopbaanbegeleiding. Het geeft een woordenschat waarmee een begeleider en een
+deelnemer kunnen aanwijzen waar het schuurt, zonder dat er een oordeel over de
+persoon aan te pas komt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Creatiespiraal | De twaalf stappen van wens naar werkelijkheid, getekend als spiraal omdat het proces zich na afloop op een volgend niveau herhaalt. |
+| Wensen | De eerste stap, waarin iemand vaststelt wat hij werkelijk wil in plaats van wat hij meent te moeten willen. |
+| Verbeelden | Het uitwerken van de gewenste toestand tot een voorstelling die concreet genoeg is om te herkennen wanneer zij er is. |
+| Geloven | De stap waarin iemand het voor mogelijk houdt, bij Knoope het punt waarop de meeste wensen sneuvelen. |
+| Uiten | Het uitspreken van de wens tegenover anderen, dat volgens Knoope weerstand oplevert en tegelijk hulp aantrekt. |
+| Onderzoeken | Het verkennen van wegen, mensen en middelen die aan de wens kunnen bijdragen, vóór er een plan wordt gemaakt. |
+| Beslissen | Een afzonderlijke stap tussen plan en handeling: een ja of nee waarmee de overige mogelijkheden worden losgelaten. |
+| Volharden | De stap van pieken en dalen, waarin tijdelijk terugvallen op een eerdere stap in de leer geen mislukking heet. |
+| Ontvangen | Het werkelijk aannemen van wat er komt, in plaats van het te bagatelliseren of door te schuiven naar de volgende wens. |
+| Ontspannen | De twaalfde en laatste stap, de rust waarin volgens Knoope de ruimte ontstaat voor een volgende wens. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan. Knoope zegt de spiraal in 1989 te hebben
+opgemerkt, presenteerde haar vanaf 1992 in lezingen en schreef er in 1997 het
+boek over. Wat er als onderbouwing staat, zijn anekdotes uit die lezingen,
+gevallen uit zijn omgeving en de vergelijking met bloesem en vrucht. Die
+vergelijking is een beeld en geen argument: dat een appelboom een vaste
+volgorde kent, zegt niets over de volgorde waarin mensen iets tot stand
+brengen.
+
+De verkoopcijfers en het gebruik in trainingen zeggen iets over
+herkenbaarheid, niet over juistheid. Wel is het zo dat een deel van de stappen
+samenvalt met dingen waarover buiten dit boek om wel onderzoek bestaat: het
+opschrijven van concrete voornemens met plaats en tijd, het opdelen van een
+doel in kleinere handelingen, en het effect van sociale steun bij volhouden.
+Knoope komt tot die punten langs eigen weg en verwijst er niet naar.
+
+De sterkste aanwijzing dat het boek iets vat, is de diagnostische
+bruikbaarheid ervan. Begeleiders melden dat deelnemers zonder veel uitleg
+kunnen aanwijzen bij welke stap zij stilvallen. Dat maakt het model bruikbaar
+als gespreksinstrument, wat iets anders is dan een aangetoonde beschrijving
+van hoe creatie verloopt.
+
+#### Wat er tegen in te brengen valt
+
+De kernbewering, dat de volgorde vastligt, is nooit getoetst en is in deze
+vorm ook lastig te toetsen. Mensen komen langs allerlei wegen tot iets: door
+toeval, door opdracht van een ander, door al doende te ontdekken wat zij
+wilden. In de leer van Knoope zijn dat geen tegenvoorbeelden, want elke afloop
+laat zich achteraf in de twaalf stappen inpassen. Een model dat alles
+verklaart, verklaart weinig.
+
+De stap uiten is minder onschuldig dan het boek doet voorkomen. Onderzoek van
+Peter Gollwitzer en anderen, gepubliceerd in *Psychological Science* in 2009,
+liet zien dat het aankondigen van een doel dat met iemands zelfbeeld te maken
+heeft juist tot minder inspanning kan leiden, doordat de erkenning al binnen
+is. Knoope behandelt uiten als vanzelfsprekend nuttig en kent die keerzijde
+niet.
+
+Geloven als afzonderlijke stap brengt het boek dicht bij het manifesteren,
+waar de gedachte zelf de werkelijkheid zou aansturen. Knoope gaat die kant
+niet helemaal op, want hij houdt onderzoeken, plannen en handelen in het
+rijtje. Het boek maakt echter nergens duidelijk waar het geloof ophoudt
+hulpmiddel te zijn, en dat verklaart waarom het zowel bij loopbaanadviseurs
+als in manifesteerkringen wordt gelezen.
+
+Er ontbreekt een gesprek over wensen die niet uitkomen omdat zij buiten
+iemands bereik liggen: geld, gezondheid, discriminatie, pech. In het boek
+loopt de verantwoordelijkheid steeds terug naar de persoon en zijn stappen.
+Wie na twaalf stappen niets bereikt, houdt volgens dit model over dat hij iets
+heeft overgeslagen.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de twaalf stappen als diagnose: zoek de stap waar het stilvalt in
+plaats van harder door te werken aan de stap waar je al staat.
+- Schrijf de wens op in de vorm van een toestand met plaats, tijd en
+betrokkenen, zodat herkenbaar is wanneer die er is.
+- Spreek de wens uit tegen mensen die kunnen helpen, en wees erop bedacht dat
+aankondigen alleen niet hetzelfde is als vooruitkomen.
+- Zet beslissen apart in de agenda: leg vast wat je niet gaat doen, niet
+alleen wat wel.
+- Sluit af met ontvangen en waarderen voordat de volgende wens aan de beurt
+komt.
+
+#### Wat je hierna leest
+
+- 14. The Artist's Way. Julia Cameron werkt in *The Artist's Way* met
+eenzelfde volgorde waarin verlangen en verbeelding vóór planning komen, maar
+richt zich op geblokkeerde makers en niet op wensen in het algemeen.
+- 22. Atomic Habits. James Clear behandelt in *Atomic Habits* vooral de
+stappen die bij Knoope handelen en volharden heten, en doet dat wel met
+verwijzing naar onderzoek.
+- 76. Think and Grow Rich. Napoleon Hill legt in *Think and Grow Rich* het
+zwaartepunt bij wensen en geloven, en laat zien waar deze manier van denken
+naartoe loopt als onderzoeken en plannen wegvallen.
+- 130. Manifesteren kun je leren. Willemijn Welten schrijft in *Manifesteren
+kun je leren* over dezelfde binnenste stappen, zonder de nuchtere stappen die
+Knoope er nog naast zet.
+
+## 1502. I Am That
+
+Nisargadatta Maharaj, 1973; vert. uit het Marathi Maurice Frydman. *I Am That:
+Talks with Sri Nisargadatta Maharaj*, vertaald uit de Marathi bandopnamen door
+Maurice Frydman en geredigeerd door Sudhakar S. Dikshit, in twee gebonden
+delen uitgegeven door Chetana in Bombay, 1973; sinds de herziening van 1976 in
+één band, met 101 gesprekken van gemiddeld vier bladzijden. In de Verenigde
+Staten en Canada verschijnt het bij The Acorn Press. Een door Nisargadatta
+zelf nagekeken Marathi-uitgave van de gesprekken is afzonderlijk verschenen.
+In Nederland kwamen de gesprekken uit bij Ankh-Hermes in Deventer als *Ik ben*
+(1982) en *Zijn* (1983), vertaald door Wolter A. Keers; volgens de uitgever
+vormen die twee samen de volledige vertaling van *I Am That*. Altamira-Becht
+in Haarlem bracht ze in 2004 in één band; de uitgave *Ik ben ; Zijn* uit 2015
+telt 912 blz. (ISBN 9789401302050) en bevat een uitgebreide woordenlijst van
+Sanskriet-termen. Rubriek: filosofie en mystiek.
+Tags: `advaita`, `vedanta`, `non-dualiteit`, `India`, `gesprekken`,
+`zelfonderzoek`, `Bombay`
+
+Nisargadatta Maharaj (1897-1981) verkocht bidi's in Bombay en ontving vanaf de
+jaren dertig bezoekers in een kleine bovenkamer in de wijk Khetwadi. Wie kwam
+mocht vragen stellen. Maurice Frydman nam die gesprekken op band op, vertaalde
+ze uit het Marathi en gaf ze in 1973 uit.
+
+Het boek bestaat uit 101 gesprekken in vraag en antwoord. De vragenstellers
+zijn Indiërs en westerlingen, vaak met een achtergrond in yoga, boeddhisme of
+psychologie. Nisargadatta beantwoordt hun vragen zelden op het niveau waarop
+zij gesteld zijn; hij brengt het gesprek steeds terug naar de vraag wie er
+eigenlijk vraagt.
+
+Zijn aanwijzing is kort. Houd vast aan het besef 'ik ben', het enige waarvan
+iedereen zeker is, en laat alles wat daarbij is gaan horen los: het lichaam,
+de naam, de geschiedenis, de rollen. Dat besef zelf is volgens hem ook nog
+gekomen en zal gaan, en wat overblijft ligt eraan vooraf. Het boek geldt sinds
+de jaren zeventig als een standaardwerk van de advaita vedanta.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Nisargadatta stelt dat alles wat iemand van zichzelf weet,
+tot en met het gevoel te bestaan, iets is dat is opgekomen en dus weer zal
+verdwijnen. Het lichaam, de herinnering, de persoonlijkheid en zelfs het besef
+'ik ben' behoren volgens hem tot het waarneembare, en wat waargenomen wordt
+kan niet de waarnemer zijn. Wie dat werkelijk ziet, ontdekt dat hij nooit
+iemand is geweest die iets moest bereiken. Daarmee zet hij het hele idee van
+geestelijke oefening op losse schroeven: er is niets te worden, want de
+bevrijding die gezocht wordt is de toestand waarin de zoeker zich al bevindt
+en die hij alleen niet herkent omdat hij zich met een lichaam heeft
+vereenzelvigd.
+
+#### De gang van het boek
+
+**De vorm: honderdeen gesprekken**
+
+Het boek kent geen betoog en geen ontwikkeling. Het bestaat uit losse
+gesprekken van gemiddeld vier bladzijden, in de volgorde waarin ze zijn
+opgenomen, en elk gesprek begint opnieuw bij een bezoeker met een vraag.
+Daardoor is het van voren naar achteren lezen niet nodig en misschien niet
+eens de beste manier.
+
+De vragen bepalen de toon. Bezoekers vragen naar wedergeboorte, naar karma,
+naar meditatietechniek, naar de zin van lijden, naar het verschil tussen droom
+en waken. Nisargadatta gaat op de inhoud in en verlegt het gesprek daarna
+telkens naar de vragensteller zelf: wie is het die dit wil weten, en waar
+berust die zekerheid op.
+
+**Het besef 'ik ben' als aangrijpingspunt**
+
+De aanwijzing die door het hele boek loopt, is dat iemand zich vasthoudt aan
+het naakte besef te zijn, zonder er iets aan toe te voegen. Niet 'ik ben zus'
+of 'ik ben zo', alleen 'ik ben'. Volgens Nisargadatta is dat het enige punt
+waarop iedereen zeker is, en tegelijk het enige gereedschap dat er is.
+
+Hij noemt dat besef ook een product. Het is meegekomen met het lichaam, en het
+lichaam is opgebouwd uit voedsel; hij spreekt over de smaak of de geur van 'ik
+ben' die aan de voedselvorm kleeft. Het besef is daarmee kostbaar als ingang
+en tijdelijk als toestand. Wie erbij blijft, ziet vanzelf dat het is
+opgekomen, en dan komt de vraag aan de orde wat er was voordat het opkwam.
+
+**De persoon en het getuige-zijn**
+
+Nisargadatta onderscheidt drie lagen die zijn bezoekers gewoonlijk door elkaar
+halen. De persoon is het geheel van naam, lichaam, geschiedenis en voorkeuren;
+hij noemt die een verzameling gewoontes zonder eigen bestaan. Daarachter ligt
+het getuige-zijn, het bewustzijn waarin die persoon verschijnt. En daarachter
+ligt wat aan bewustzijn voorafgaat en waarvoor hij geen naam heeft.
+
+Uit dat onderscheid komen zijn scherpste uitspraken voort. Op de vraag wat er
+met hem gebeurt bij de dood antwoordt hij dat er niemand is die geboren werd,
+dus ook niemand die sterft. Op de vraag naar zijn ervaringen zegt hij dat
+ervaringen komen en gaan en dat niets wat komt en gaat hem betreft.
+
+**Tegen oefening en verworvenheid**
+
+Bezoekers komen met de vraag welke oefening zij moeten doen, hoeveel jaar het
+duurt en welke leraar zij moeten volgen. Nisargadatta wijst dat kader af.
+Oefening kan het verlangen scherpen en de aandacht richten, maar zij kan niets
+voortbrengen wat er niet al is, en een toestand die door inspanning is
+verkregen zal door het uitblijven van inspanning weer verdwijnen.
+
+Toch schrijft hij wel iets voor, en dat is de enige aanwijzing die hij vaak
+herhaalt: blijf bij 'ik ben', laat de rest gaan, en geloof wat je leraar zegt
+zolang je het niet zelf ziet. Zijn eigen weg vat hij zo samen: zijn leraar zei
+hem dat hij het Zijn zelf was, hij heeft dat zonder tegenwerpingen aangenomen,
+en daarmee was het klaar.
+
+**Wereld, lijden en moraal**
+
+De wereld noemt Nisargadatta een verschijnsel binnen het bewustzijn, van
+dezelfde orde als een droom. Dat leidt bij hem niet tot onverschilligheid; hij
+zegt dat wie zichzelf in alles herkent onmogelijk kwaad kan doen, omdat er
+niemand overblijft aan wie het gedaan zou worden.
+
+Over lijden is hij nuchter en soms hard. Hij weigert het te verklaren met
+karma of met een goddelijk plan, en zegt dat lijden bestaat zolang iemand
+meent een afzonderlijk lichaam te zijn dat iets te verliezen heeft. Zijn eigen
+leven biedt daarbij weinig troostende opsmuk: hij werkte in een winkeltje,
+verloor kinderen, kreeg keelkanker en bleef tot vlak voor zijn dood in 1981
+bezoekers ontvangen.
+
+**De herkomst van de leer**
+
+Nisargadatta stond in de Navnath Sampradaya, een lijn van leraren waarin zijn
+eigen leraar Siddharameshwar Maharaj hem in 1933 opnam. Die leraar overleed
+drie jaar later. Wat Nisargadatta doorgeeft is dus geen eigen stelsel maar een
+korte, mondelinge overlevering, waarin het aannemen van het woord van de
+leraar zelf een onderdeel van de methode is.
+
+In zijn woordkeus klinkt de vedanta door: maya, jnani, sadhana, saguna en
+nirguna. Frydman heeft die termen in het Engels grotendeels laten staan, en de
+Nederlandse uitgave heeft er een woordenlijst bij. Nisargadatta zelf hecht er
+weinig aan en zegt herhaaldelijk dat woorden slechts wijzers zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ik ben | Het naakte besef te bestaan, bij Nisargadatta het enige zekere gegeven en tegelijk het enige aanknopingspunt voor onderzoek. |
+| Het voedsellichaam | Zijn aanduiding voor het lichaam als opgebouwd uit voedsel, waaraan het besef 'ik ben' volgens hem kleeft als een smaak of geur. |
+| Getuige | Het bewustzijn waarin gedachten, waarnemingen en de persoon verschijnen, dat zelf niet verschijnt en dus niet gezien kan worden. |
+| De persoon | Het geheel van naam, lichaam, herinnering en gewoontes, dat volgens hem geen zelfstandig bestaan heeft en louter uit gewoonte samenhangt. |
+| Maya | De aanname dat wat verschijnt op zichzelf bestaat; bij Nisargadatta geen bedrieglijke kracht van buitenaf maar de verwarring zelf. |
+| Jnani | Iemand bij wie de vereenzelviging met een afzonderlijk persoon is weggevallen; volgens hem geen bijzonder mens maar iemand die niets bijzonders meer aan zichzelf toekent. |
+| Sadhana | Geestelijke oefening, die hij bruikbaar noemt om de aandacht te richten en ongeschikt om iets voort te brengen dat er niet al zou zijn. |
+| Saguna en nirguna | Het werkelijke met eigenschappen en zonder eigenschappen, waarbij hij het eerste als tijdelijke ingang gebruikt en naar het tweede wijst. |
+| Navnath Sampradaya | De lijn van leraren waarin Siddharameshwar Maharaj hem in 1933 opnam en waaruit zijn methode van aannemen en onderzoeken voortkomt. |
+
+#### Waar het argument op rust
+
+Het boek voert geen bewijs aan en pretendeert dat ook niet. Wat er staat is
+een verslag van gesprekken, en de waarde ervan hangt af van wat een lezer bij
+zichzelf kan nagaan. Nisargadatta zegt dat zelf ook herhaaldelijk: neem niets
+aan op zijn gezag, kijk of het klopt met wat je van jezelf weet.
+
+Over de tekst zelf is wel het een en ander bekend. Frydman sprak Marathi, nam
+de gesprekken op, vertaalde ze en stelde er een boek uit samen; Sudhakar S.
+Dikshit heeft dat vervolgens geredigeerd. Frydman was daarbij geen
+doorgeefluik. Een deel van de opnamen bestond uit gesprekken in verschillende
+talen door elkaar, die achteraf zijn ontcijferd. Tegenover die redactionele
+hand staat dat er een Marathi-versie van de gesprekken is verschenen die
+Nisargadatta zelf heeft nagekeken.
+
+De vragen sturen het boek meer dan gewoonlijk wordt opgemerkt. Veel bezoekers
+waren westerse zoekers uit de jaren zestig en zeventig met vragen over
+meditatie, drugs, psychotherapie en wedergeboorte. De antwoorden zijn daardoor
+mede gevormd door wat er in die jaren aan een leraar werd gevraagd, en niet
+alleen door wat hij uit zichzelf te zeggen had.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de leer zo is opgezet dat er niets tegenin te
+brengen valt. Elke tegenwerping komt van de persoon, en van de persoon is bij
+voorbaat vastgesteld dat hij niet bestaat. Wie zegt dat hij het niet ziet,
+krijgt te horen dat de ziener het al is. Dat is intern sluitend en daarmee ook
+onvatbaar voor toetsing; het boek heeft daar geen antwoord op en zoekt dat ook
+niet.
+
+De Nederlandse lezer krijgt bovendien een vertaling van een vertaling. Wolter
+Keers werkte aan het Engels van Frydman en niet aan het Marathi. Waar Frydman
+keuzes maakte in het overzetten van vedantische termen, liggen die keuzes in
+het Nederlands dus dubbel vast. Voor een boek waarin zoveel op woordkeus
+aankomt, is dat een reële beperking.
+
+Inhoudelijk valt op hoe weinig het boek te zeggen heeft over samenleven, werk,
+opvoeding en rechtvaardigheid. Nisargadatta stelt dat wie zichzelf in alles
+herkent geen kwaad kan doen, maar hij werkt niet uit hoe iemand tot dat punt
+op zijn gedrag moet letten. De geschiedenis van moderne goeroes laat zien dat
+de aanname dat inzicht vanzelf goed gedrag oplevert niet betrouwbaar is.
+
+Tot slot is het boek herhalend. Honderdeen gesprekken met vrijwel dezelfde
+kern leveren veel bladzijden op waarin een lezer weinig nieuws tegenkomt. Wie
+het als leerboek van voren naar achteren doorwerkt, zal dat ervaren als
+traagheid; het is eerder bedoeld om er telkens een gesprek uit te nemen.
+
+#### Wat er concreet mee te doen is
+
+- Lees het niet aan een stuk door: neem een gesprek, leg het boek weg en kijk
+wat er van overblijft.
+- Houd de aanwijzing zo eng als hij is bedoeld: blijf bij het besef te zijn en
+voeg er geen inhoud aan toe.
+- Ga na welke van je stellige uitspraken over jezelf herinneringen zijn en
+welke waarnemingen van dit moment.
+- Wees erop bedacht dat het boek geen leefregels geeft; zoek die elders en
+verwacht ze hier niet.
+
+#### Wat je hierna leest
+
+- 527. Who Am I?. Ramana Maharshi geeft in *Who Am I?* in enkele bladzijden
+dezelfde aanwijzing, in de vorm van zelfonderzoek naar de bron van de gedachte
+'ik'.
+- 1101. Talks with Sri Ramana Maharshi. *Talks with Sri Ramana Maharshi* heeft
+dezelfde vorm van opgetekende gesprekken en laat zien hoe verschillend twee
+leraren binnen dezelfde leer op vragenstellers ingaan.
+- 149. The Power of Now. Eckhart Tolle bewerkt in *The Power of Now* ditzelfde
+uitgangspunt tot een boek voor een breed publiek; het verschil in strengheid
+tussen beide teksten is leerzaam.
+- 519. The First and Last Freedom. Krishnamurti wijst in *The First and Last
+Freedom* de leraar en de traditie juist af, waar Nisargadatta het aannemen van
+het woord van de leraar tot onderdeel van de methode maakt.
+
+## 1503. Leven zonder stress
+
+Patrick Kicken, 2019. *Leven zonder stress: een nuchtere gids voor geluk*
+(Kosmos Uitgevers, 29 oktober 2019, 208 blz., ISBN 9789043921633; e-boek ISBN
+9789043921640). Het boek is in het Nederlands geschreven en niet vertaald. Het
+komt voort uit Kickens gelijknamige podcast, waarvoor hij honderden gesprekken
+voerde met onder anderen Byron Katie, Eckhart Tolle, Guido Weijers en Lisette
+Thooft. Rubriek: levenskunst.
+Tags: `burn-out`, `stress`, `geluk`, `podcast`, `zelfhulp`, `radio`,
+`perfectionisme`
+
+Patrick Kicken maakte radio bij onder meer 3FM en Radio Veronica en liep in
+2010 tijdens een ochtendprogramma een burn-out op. Er volgde er nog een.
+Daarna herzag hij wat hij tot dan toe onder succes had verstaan.
+
+Voor zijn podcast *Leven zonder stress* sprak hij honderden gasten, van Byron
+Katie en Eckhart Tolle tot Guido Weijers en Lisette Thooft. Dit boek zet bij
+elkaar wat hij uit die gesprekken heeft overgehouden, geordend naar onderwerp:
+geluk, liefde, zelfvertrouwen, geld, angst, stress en rust.
+
+De ondertitel belooft een nuchtere gids en dat is ongeveer wat het is. Kicken
+vertelt zijn eigen verhaal, vlecht daar uitleg over stress doorheen en
+verwijst naar boeken, films, documentaires en podcasts om verder te kijken.
+Zijn eigen slotsom is bescheidener dan de titel: stress helemaal kwijtraken
+lukt niet, ermee leren omgaan wel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Kicken stelt dat stress in zijn geval niet uit de hoeveelheid
+werk voortkwam maar uit de reden waarom hij dat werk deed. Wie zichzelf weinig
+waard vindt, kan dat volgens hem met geen enkel succes goedmaken: elke
+prestatie vraagt om de volgende, en de bodem blijft weg. Zijn slotsom is dat
+het antwoord niet in minder werken of in ontspanningstechniek ligt, maar in de
+vraag wat iemand met zijn leven aanmoet als de bevestiging van buitenaf
+wegvalt. De titel belooft daarbij meer dan het boek waarmaakt, want Kicken
+schrijft zelf dat stress niet verdwijnt en dat het erom gaat er anders naast
+te gaan staan.
+
+#### De gang van het boek
+
+**De aanleiding: twee burn-outs**
+
+Kicken was in 2010 bezig met een ochtendprogramma toen hij vastliep. Hij
+beschrijft de aanloop zoals veel mensen die kennen: doorgaan omdat het kan,
+plezier in het werk als bewijs dat er niets aan de hand is, en dan een lichaam
+dat het opgeeft. Er volgde een tweede burn-out, die hem dwong verder te kijken
+dan herstel alleen.
+
+Dat persoonlijke verhaal loopt door het hele boek heen. Hij is er open over en
+houdt het licht van toon, met de humor van iemand die jarenlang voor de
+microfoon heeft gezeten. Die toon is de belangrijkste reden dat het boek
+toegankelijk is voor lezers die zich bij een zelfhulpboek gewoonlijk
+ongemakkelijk voelen.
+
+**De podcast als bron**
+
+Het materiaal komt uit gesprekken. Voor zijn podcast sprak Kicken honderden
+mensen: leraren en schrijvers zoals Byron Katie, Eckhart Tolle en Lisette
+Thooft, maar ook cabaretiers en ervaringsdeskundigen zoals Guido Weijers. Hij
+vat hun standpunten samen, citeert wat hem is bijgebleven en zet zijn eigen
+twijfel ernaast.
+
+Die opzet bepaalt ook de grenzen. Wat de gasten zeggen wordt weergegeven en
+niet nagegaan. Het boek is daardoor eerder een verslag van wat er in dit veld
+gedacht wordt dan een afweging tussen die opvattingen.
+
+**Geluk en betekenis**
+
+Het boek is thematisch geordend rond de onderwerpen die de uitgever ook noemt,
+en niet als een stappenplan. Onder geluk behandelt Kicken de gedachte dat een
+leven zonder tegenslag niet bestaat en dat het najagen van een permanent goed
+gevoel zelf een bron van spanning is. Hij haalt daarbij de psychiater Dirk de
+Wachter aan, die ervoor pleit ongeluk als deel van een gewoon leven te
+aanvaarden.
+
+Bij betekenis komt zijn eigen omkering aan bod: hij deed werk waar hij van
+hield en voelde zich toch leeg, omdat de waardering van luisteraars en
+collega's het werk moest dragen. Onder de adviezen die hij geeft zit ook een
+ongemakkelijke: ga in een verzorgingshuis langs, om te zien waar een leven op
+uitloopt en wat er dan nog telt.
+
+**Liefde, zelfvertrouwen en geld**
+
+Deze drie onderwerpen behandelt Kicken vanuit dezelfde gedachte. Wie zijn
+eigenwaarde ophangt aan wat een ander vindt, aan wat hij verdient of aan wat
+hij presteert, blijft afhankelijk van omstandigheden die hij niet in de hand
+heeft.
+
+Bij geld gaat het over de rekensom die veel mensen maken: nog even dit
+project, nog even deze baan, dan komt de rust. Kicken laat aan zichzelf zien
+hoe die som steeds opnieuw wordt uitgesteld. Bij zelfvertrouwen komt het
+perfectionisme aan bod, in zijn ogen de gewoonte waarmee hij zichzelf het
+hardst heeft toegetakeld.
+
+**Angst, stress en rust**
+
+Het gedeelte over stress bevat de meest feitelijke bladzijden: wat spanning
+met een lichaam doet, waarom kortdurende stress iets anders is dan aanhoudende
+stress, en waarom herstel tijd kost. Kicken houdt die uitleg eenvoudig en
+verwijst voor verdieping door naar andere bronnen.
+
+Zijn eigen positie is voorzichtiger dan de titel. Hij schrijft dat hij stress
+niet is kwijtgeraakt en dat hij dat ook niet verwacht. Wat hij beschrijft is
+een andere verhouding ertoe: eerder opmerken wat er gebeurt, minder betekenis
+toekennen aan de gedachten die daarbij opkomen, en de rust die daaruit
+ontstaat niet verwarren met het uitblijven van spanning.
+
+**De vorm: tips en doorverwijzingen**
+
+Door het boek heen staan tips voor documentaires, films, boeken en podcasts.
+Dat is een keuze die past bij een radiomaker en die het boek nuttig maakt als
+startpunt: wie op een van de onderwerpen dieper wil gaan, krijgt een adres in
+plaats van een slotwoord.
+
+Boekenkrant kende het drie sterren toe en noemde het een bruikbare eerste
+oriëntatie voor mensen met werkgerelateerde spanning. Die inschatting past bij
+wat het boek is: een verslag met leestips, geen behandeling en geen studie.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Burn-out | In het boek de uitputting die Kicken in 2010 en later nog eens overkwam, en die hij beschrijft als het einde van een manier van leven en niet als een tijdelijke storing. |
+| Stress | De spanning die hij niet als vijand neerzet: kortdurend hoort zij bij het leven, aanhoudend en zonder herstel maakt zij ziek. |
+| Perfectionisme | De gewoonte om de eigen lat steeds hoger te leggen, bij Kicken de belangrijkste innerlijke oorzaak van zijn overbelasting. |
+| Zelfwaardering | Zijn kernpunt: wie zichzelf niet waardeert, kan dat met geen enkel succes van buitenaf compenseren. |
+| Aanvaarding | Het toelaten van tegenslag en ongemak als deel van een gewoon leven, een lijn die hij ontleent aan de psychiater Dirk de Wachter. |
+| Het nu | De aandacht voor wat er op dit moment is, in het boek overgenomen uit zijn gesprek met Eckhart Tolle. |
+| The Work | De vragenreeks van Byron Katie waarmee iemand nagaat of een stellige gedachte over zichzelf of een ander waar is; Kicken beschrijft haar en past haar op zichzelf toe. |
+| Rust | Bij Kicken geen afwezigheid van spanning maar een andere verhouding ertoe, waarin gedachten minder gewicht krijgen. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit twee dingen: het eigen verhaal van de auteur en de
+gesprekken uit zijn podcast. Beide zijn eerlijk als zodanig gepresenteerd. Het
+boek doet geen poging zich als studie voor te doen, heeft geen noten en geen
+literatuurlijst, en de uitleg over stress blijft op het niveau van algemene
+voorlichting.
+
+De gasten zijn overwegend leraren, schrijvers en publieke figuren en geen
+onderzoekers. Van de methoden die zij aandragen is de basis ongelijk. De
+aandachtsoefening die Tolle propageert overlapt met vormen van
+aandachttraining waarvan bij aanhoudende stress een bescheiden effect is
+gemeten; The Work van Byron Katie kent nauwelijks onafhankelijk onderzoek.
+Kicken maakt dat onderscheid niet en zet beide naast elkaar.
+
+Wat het boek wel controleerbaar maakt, zijn de doorverwijzingen. Bij vrijwel
+elk onderwerp noemt hij boeken, films en podcasts, zodat een lezer zelf kan
+nagaan waar een gedachte vandaan komt. Dat is voor dit genre eerder
+uitzondering dan regel.
+
+#### Wat er tegen in te brengen valt
+
+De titel dekt de lading niet. Kicken schrijft zelf dat leven zonder stress
+niet bestaat en dat het om de omgang ermee gaat, maar de kaft belooft het
+tegenovergestelde. Voor een boek dat mensen met overbelasting wil bereiken is
+dat geen onschuldig verschil, omdat de lezer die het hardst naar een uitweg
+zoekt precies op zo'n belofte afkomt.
+
+Het boek behandelt burn-out vrijwel geheel als een innerlijke aangelegenheid.
+Werkdruk, roosters, personeelstekorten, onzeker werk en leidinggevenden komen
+er nauwelijks in voor. Daarmee komt de verantwoordelijkheid voor herstel en
+voor het uitblijven ervan bij de persoon te liggen, terwijl een deel van de
+oorzaken op de werkvloer ligt en daar ook aangepakt moet worden.
+
+De vorm van het herstelverhaal met een goede afloop kent een bekende
+vertekening. Wie erdoorheen is gekomen schrijft het boek; wie na jaren nog
+niet is hersteld, doet dat niet. Dat de burn-out achteraf een verrijking
+blijkt, is daarom een uitkomst die vaker wordt opgeschreven dan zij voorkomt.
+
+De raad om een verzorgingshuis te bezoeken om het eigen leven in verhouding te
+zien, werkt op de vergelijking met andermans lot. Zulke vergelijkingen geven
+een tijdelijke opluchting en zeggen weinig over de vraag waarom iemand
+zichzelf te weinig waard vindt, wat volgens Kicken zelf de kern is.
+
+#### Wat er concreet mee te doen is
+
+- Lees het als eerste oriëntatie bij werkgerelateerde spanning en niet als
+behandeling; bij aanhoudende klachten is een huisarts of bedrijfsarts de
+aangewezen weg.
+- Gebruik de lijstjes met boeken, films en podcasts en kies er een of twee uit
+die aansluiten bij wat er speelt.
+- Ga na welke prestaties je nodig hebt om je de moeite waard te voelen, en
+schrijf op wat er van jezelf overblijft als je die weglaat.
+- Kijk naast de innerlijke oorzaken naar de omstandigheden: rooster, werkdruk,
+zeggenschap over je eigen tijd.
+
+#### Wat je hierna leest
+
+- 458. The Upside of Stress. Kelly McGonigal onderbouwt in *The Upside of
+Stress* met onderzoek wat Kicken uit gesprekken opmaakt: dat de houding
+tegenover spanning uitmaakt voor de schade die zij aanricht.
+- 71. Four Thousand Weeks. Oliver Burkeman gaat in *Four Thousand Weeks* op
+dezelfde vraag in, maar redeneert vanuit de eindigheid van een leven in plaats
+van vanuit eigenwaarde.
+- 516. The Antidote. *The Antidote* van Burkeman levert het tegengeluid bij
+het genre waarin Kickens gasten thuishoren en laat zien waar het najagen van
+een goed gevoel op stukloopt.
+- 149. The Power of Now. Eckhart Tolle is een van Kickens gesprekspartners;
+*The Power of Now* geeft de leer waarnaar hij verwijst in de oorspronkelijke
+vorm.
+
+## 1504. The Book on the Taboo Against Knowing Who You Are
+
+Alan Watts, 1966. Oorspronkelijk *The Book: On the Taboo Against Knowing Who
+You Are* (Pantheon Books, New York, 1966, x + 146 blz.); de courante
+heruitgave is die van Vintage Books, ISBN 9780679723004. Het boek verscheen in
+1982 voor het eerst in het Nederlands als *Het boek: over het taboe op het
+weten wie je bent*; een latere druk kwam in 1993 uit bij Altamira in
+Heemstede. De huidige uitgave heet *Het taboe op weten wie je bent*, vertaald
+door Jeff van Exel, Panta Rhei, Katwijk aan Zee, 2021 (156 blz., ISBN
+9789088402364). Van Watts zijn daarnaast onder meer *The Wisdom of Insecurity*
+en *The Way of Zen* in het Nederlands verschenen. Rubriek: filosofie en
+mystiek.
+Tags: `Vedanta`, `ego`, `identiteit`, `bewustzijn`, `zen`, `tegencultuur`,
+`non-dualiteit`
+
+Watts schreef dit boek als de mededeling die volwassenen aan opgroeiende
+kinderen zouden moeten doen en zelden doen: dat het gevoel een afzonderlijk ik
+te zijn, opgesloten in een huid en tegenover een vreemde buitenwereld
+geplaatst, niet klopt. Hij noemt dat gevoel een hallucinatie, aangeleerd en in
+stand gehouden door taal, opvoeding en godsdienst.
+
+In zes korte hoofdstukken zet hij daar een ander beeld tegenover, ontleend aan
+de Vedanta: wat er is, is een enkel proces dat zich in ontelbare gedaanten
+voordoet en met zichzelf verstoppertje speelt. Organisme en omgeving zijn twee
+namen voor een gebeurtenis, zoals een golf en de zee. De huid is een membraan
+en geen grens.
+
+De titel wijst op wat volgens Watts de kern is: er rust een verbod op dit
+weten. De ordening van schuld, beloning, prestatie en bezit veronderstelt
+afzonderlijke personen, dus wordt het inzicht wel in bewaring gegeven aan
+mystici en kunstenaars, maar niet doorgegeven aan wie de samenleving moet
+draaiende houden. Het boek is uit 1966 en richtte zich op een Amerikaans
+publiek dat aan het losraken was van kerk en gezin.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Watts stelt dat het gevoel een afgezonderd ik te zijn, gevat
+in een huid en geplaatst tegenover een wereld die het niet is, geen waarneming
+is maar een aangeleerde vergissing. Wat er werkelijk gebeurt is een enkel
+proces waarin organisme en omgeving elkaar veronderstellen, zoals een golf de
+zee veronderstelt en een figuur zijn achtergrond. Dat de westerse cultuur dit
+niet doorgeeft noemt hij een taboe: er rust een verbod op het weten wie men
+is, omdat de hele ordening van schuld, verdienste en bezit op de
+veronderstelde afzondering rust. Het boek wil die mededeling alsnog doen, in
+de vorm waarin hij haar aan zijn eigen kinderen zou willen doen.
+
+#### De gang van het boek
+
+**Voorkennis**
+
+Het eerste hoofdstuk begint met de vraag wat een jongmens zou moeten weten om
+ingewijd te zijn: bestaat er voorkennis over het bestaan die ouders en leraren
+niet hebben of niet willen geven. Watts stelt dat elke cultuur haar leden een
+verhaal over de mens meegeeft en dat het Westen er twee kent die elkaar hebben
+opgevolgd. In het eerste is de wereld een gemaakt voorwerp met een maker, en
+is de mens een pop die van buitenaf leven kreeg ingeblazen. In het tweede, dat
+van de negentiende eeuw, is de wereld een machine zonder maker en is het
+bewustzijn een toevallig bijproduct van dood materiaal.
+
+Beide verhalen laten de mens achter als vreemdeling. Watts zet er een derde
+tegenover, ontleend aan de Vedanta: de werkelijkheid is een spel waarin het
+ene zich in ontelbare rollen verkleedt en zichzelf daarbij vergeet, omdat
+verstoppertje zonder vergeten niet werkt. De rest van het boek werkt uit wat
+dat betekent en waarom het niet als geloofsartikel bedoeld is.
+
+**Het spel van zwart-en-wit**
+
+Watts betoogt dat tegenstellingen elkaar dragen. Een figuur bestaat niet
+zonder achtergrond, geluid niet zonder stilte, leven niet zonder dood, ik niet
+zonder ander. Wat als twee vijandige partijen wordt beleefd, is in
+werkelijkheid het uitdijen en samentrekken van een en hetzelfde. Hij noemt dat
+het spel van zwart-en-wit, gespeeld onder de regel dat wit moet winnen.
+
+Die regel is volgens hem de bron van de vermoeidheid van de moderne mens. Wie
+meent dat het goede het kwade kan uitroeien, of het leven de dood, speelt een
+spel waarvan de winst het einde van het spel zou zijn. Watts leidt er geen
+berusting uit af maar een andere houding tegenover het aandeel dat men in de
+strijd neemt.
+
+**Hoe men echte namaak wordt**
+
+Het ego is volgens Watts geen orgaan en geen waarneming, maar een sociale
+afspraak: een beeld dat een kind van anderen krijgt aangereikt en gaandeweg
+voor zichzelf houdt. Het bestaat uit een naam, een geschiedenis, een rol en
+een aantal verwachtingen, en het valt niet samen met het organisme dat ademt,
+verteert en waarneemt.
+
+De opvoeding legt het kind een opdracht op die zichzelf tegenspreekt. Het moet
+uit vrije wil doen wat het hoort te doen, spontaan zijn op bevel, en zich
+verantwoordelijk voelen voor een ik dat het als rol heeft gekregen. Wie die
+opdracht aanvaardt wordt wat Watts een echte namaak noemt: iemand die zijn
+eigen vermomming voor zijn wezen houdt en zich daar dagelijks aan uitput.
+
+**De wereld is je lichaam**
+
+Hier voert Watts zijn taalkundige hoofdargument aan. De taal splitst
+gebeurtenissen in dingen die iets doen, terwijl waarneming alleen
+samenhangende processen aantreft. Hij gebruikt het woord goeswith: bepaalde
+verschijnselen komen nooit los voor, zoals voor- en achterkant, koper en
+verkoper, organisme en omgeving. Wie de een noemt heeft de ander al genoemd,
+ook als de grammatica anders suggereert.
+
+De huid is in dat licht geen wand maar een doorlaatbaar vlak waar lucht, licht
+en voedsel doorheen gaan. Het lichaam houdt op te bestaan zonder atmosfeer en
+zonlicht, dus horen die er even goed bij als hart en longen. Daaruit trekt
+Watts een gevolgtrekking over techniek: een beschaving die de omgeving als
+tegenstander behandelt en haar wil onderwerpen, richt de schade op haar eigen
+lichaam. Hij schreef dat in 1966 en het is het gedeelte dat het best is
+blijven staan.
+
+**En wat dan nog**
+
+Het vijfde hoofdstuk gaat over wat het inzicht praktisch betekent, en vooral
+over wat het niet betekent. Watts wijst voorschriften af. Er volgt geen
+gedragsleer uit, geen politiek programma en geen verplichting tot
+vriendelijkheid, want een verplichting zou het ego opnieuw in stelling brengen
+dat hier juist wegvalt.
+
+Wat er volgens hem wel verandert is de dwang. Wie niet meer meent dat een
+afzonderlijk ik zich tegen de rest moet verdedigen, houdt energie over die
+eerder in die verdediging ging zitten. Watts waarschuwt tegelijk tegen het
+maken van een nieuwe overtuiging uit dit boek. Een leerstelling over eenheid
+is nog steeds een leerstelling, en het gevoel van afzondering laat zich niet
+wegdenken door er iets over te geloven.
+
+**IT**
+
+Het slothoofdstuk beschrijft de wereld zoals die volgens Watts verschijnt als
+het onderscheid tussen waarnemer en waargenomene wegvalt. Hij gebruikt
+daarvoor het onzijdige woord IT, om te vermijden dat de lezer aan een persoon
+of een god gaat denken. Alles wat er gebeurt is dan een gebaar van hetzelfde,
+inclusief het lezen van deze bladzijde.
+
+Watts sluit af bij de samenleving. Het taboe blijft volgens hem bestaan omdat
+instellingen mensen nodig hebben die zich als los onderdeel beleven en zich
+daarop laten aanspreken. Hij verwacht geen opheffing van dat taboe, wel dat
+het bij genoeg mensen doorbreekt om het gedrag tegenover de aarde te
+veranderen. Het boek eindigt zonder programma en met een literatuurlijst van
+twee bladzijden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Het taboe | Het stilzwijgende verbod om te weten wie men werkelijk is, volgens Watts in stand gehouden omdat de samenleving mensen nodig heeft die zich als afzonderlijk onderdeel beleven. |
+| Het huidbegrensde ego | Watts' aanduiding voor het beeld van het zelf als een centrum dat binnen de huid huist en tegenover de buitenwereld staat. |
+| Goeswith | Het door Watts gemunte woord voor verschijnselen die nooit los voorkomen, zoals voor- en achterkant of organisme en omgeving, en die de taal ten onrechte uit elkaar trekt. |
+| Het spel van zwart-en-wit | De verhouding tussen tegenpolen die elkaar dragen, gespeeld onder de regel dat een van beide moet winnen, wat volgens Watts de moderne rusteloosheid verklaart. |
+| Echte namaak | Iemand die zijn sociale rol voor zijn wezen aanziet en zich daaraan uitput, in de overtuiging dat hij die rol uit vrije wil speelt. |
+| Tat tvam asi | De zin uit de Upanishaden die Watts als kern van zijn betoog neemt en gewoonlijk wordt weergegeven als: dat zijt gij. |
+| Verstoppertje | Het beeld waarmee Watts de Vedanta weergeeft: het ene speelt met zichzelf een spel dat alleen werkt zolang het vergeet wie het is. |
+| Organisme en omgeving | Het paar dat Watts als een enkel veld behandelt, waarin de huid een doorlaatbaar vlak is en niet de rand van een persoon. |
+| IT | Het onzijdige woord waarmee Watts in het slothoofdstuk naar de werkelijkheid verwijst, gekozen om de gedachte aan een god of een persoon te vermijden. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan en pretendeert dat ook niet. Wat het
+aanvoert zijn drie soorten steun. Ten eerste taalkritiek: Watts laat zien dat
+de grammatica ons dwingt processen als dingen met werkwoorden te beschrijven,
+en dat veel filosofische puzzels aan die vorm hangen en niet aan de wereld.
+Ten tweede biologie: een organisme laat zich niet bepalen zonder zijn
+omgeving, en dat gegeven uit de ecologie van zijn tijd gebruikt hij als
+ruggengraat van het vierde hoofdstuk. Ten derde de Vedanta, waarvan hij de
+kern zonder sanskritische omhaal weergeeft.
+
+De biologische stap is de sterkste. Dat het lichaam niet bestaat los van
+lucht, licht en voedsel is niet omstreden, en de gevolgtrekking dat de
+scheidslijn tussen binnen en buiten praktisch is en niet natuurkundig, is
+verdedigbaar. De stap daarna, van doorlaatbare grens naar identiteit met het
+geheel, is van een andere orde. Watts erkent dat hij daarvoor bij een traditie
+te rade gaat en niet bij een meetresultaat.
+
+Het boek heeft geen notenapparaat, wel een literatuurlijst van twee
+bladzijden. Wie de bronnen wil nalezen komt uit bij de Upanishaden, bij de
+Chinese natuurfilosofie en bij een handvol tijdgenoten uit de systeem- en
+communicatieleer. Watts was zelf een beroepsverteller: hij hield
+radiovoordrachten en had een opleiding tot anglicaans geestelijke, geen
+wetenschappelijke aanstelling. Het boek is dan ook geschreven om te overtuigen
+door de zaak anders te laten zien, niet door haar aan te tonen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de sprong in het midden van het betoog. Uit de
+vaststelling dat grenzen tussen dingen door mensen worden getrokken volgt niet
+dat er geen verschillen zijn. Dat een golf de zee veronderstelt maakt de ene
+golf nog niet de andere. Watts glijdt van het inzicht dat het ik geen
+zelfstandig ding is naar de mededeling dat de lezer het heelal is, en die
+tweede zin heeft een andere status dan de eerste. Wie op dat punt niet
+meegaat, houdt een aantrekkelijk beeld over en geen argument.
+
+De weergave van de Vedanta is Watts' eigen bewerking. Hij las geen sanskriet
+en presenteert een gladgestreken versie waarin de leerstellige verschillen
+tussen scholen, de rituele omgeving en de eeuwenlange interne twist zijn
+weggelaten. Indologen hebben er herhaaldelijk op gewezen dat de Aziatische
+bronnen bij hem passen bij een Amerikaans betoog over vrijheid, en dat de
+bewerking die richting op gestuurd is.
+
+De ethiek blijft dun. Als goed en kwaad polen van hetzelfde spel zijn, wordt
+lastig te zeggen waarom wreedheid bezwaarlijk is. Watts antwoordt dat wie zich
+niet afgescheiden voelt vanzelf niet wreed is, maar dat is een verwachting en
+geen redenering, en zij wordt in het boek niet getoetst aan gevallen waarin
+zij niet uitkomt. Zijn eigen leven werd hem op dit punt vaak tegengeworpen:
+hij dronk zwaar en liet twee gezinnen achter.
+
+Het boek is ook een tijdsdocument. Het richtte zich op lezers die in 1966 uit
+kerk en gezin wegliepen, en de toon veronderstelt dat instellingen vooral last
+zijn. Zestig jaar later is de vraag eerder hoe men zich aan iets bindt dan hoe
+men zich losmaakt, en op die vraag heeft Watts weinig te zeggen. Wat wel is
+blijven staan is het hoofdstuk over techniek en natuur.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als een oefening in kijken en niet als een leer waarmee in te
+stemmen valt; Watts verzet zich zelf tegen die tweede lezing.
+- Let bij eigen formuleringen op de plaatsen waar de taal een proces in een
+ding en een handeling splitst, en kijk of het onderscheid daar nog iets doet.
+- Neem het hoofdstuk over de wereld als lichaam apart als het gaat om
+vraagstukken over natuur en techniek; dat gedeelte staat los van de
+metafysica.
+- Zoek naast Watts een bron die de Vedanta filologisch behandelt, als het om
+de traditie zelf gaat en niet om zijn gebruik ervan.
+
+#### Wat je hierna leest
+
+- 341. The Wisdom of Insecurity. Watts zette vijftien jaar eerder dezelfde
+gedachte op de vraag naar zekerheid; dat boek is korter en beter geordend.
+- 604. The Perennial Philosophy. Huxley verzamelde de mystieke bronnen waaruit
+Watts put, en doet dat met bronvermelding en meer terughoudendheid.
+- 1502. I Am That. Nisargadatta geeft dezelfde leer vanuit de Indiase traditie
+zelf, zonder de vertaalslag naar een westers publiek die Watts maakt.
+- 528. An Introduction to Zen Buddhism. Suzuki leverde de zenuitleg waarmee
+Watts begon; het verschil in toon laat zien hoeveel Watts aan zijn Amerikaanse
+lezers heeft aangepast.
+
+## 1505. Zero Limits
+
+Joe Vitale en Ihaleakala Hew Len, 2007. Oorspronkelijk *Zero Limits: The
+Secret Hawaiian System for Wealth, Health, Peace, and More* (John Wiley &
+Sons, Hoboken, 2007, ISBN 9780470402566). Nederlands als *Zero limits: een
+Hawaiiaanse methode voor overvloed, gezondheid, innerlijke rust, vrede en
+meer*, vertaald door Rene Swinkels, uitgeverij Hajefa, 2015 (224 blz., ISBN
+9789077677827). Het vervolg *At Zero* (2014) verscheen in het Nederlands als
+*Het mysterie achter Zero Limits* (ISBN 9789077677964). Van Vitale zijn
+daarnaast meer titels in het Nederlands uitgebracht, waaronder *The Attractor
+Factor*. Rubriek: positief denken en manifesteren.
+Tags: `ho'oponopono`, `Hawaii`, `zelfhulp`, `vergeving`,
+`verantwoordelijkheid`, `manifesteren`, `Joe Vitale`
+
+Marketeer en zelfhulpauteur Joe Vitale hoorde het verhaal van een therapeut
+die op de gesloten forensische afdeling van het Hawaii State Hospital werkte,
+daar de dossiers las zonder de patienten te spreken, en na verloop van tijd
+een lege afdeling achterliet. Hij zocht de man op, Ihaleakala Hew Len, en
+schreef dit boek over diens werkwijze.
+
+Die werkwijze heet ho'oponopono, in de bewerking die Morrnah Nalamaku Simeona
+in de jaren zeventig maakte van een oud Hawaiiaans verzoeningsritueel. De kern
+is dat iemand honderd procent verantwoordelijk is voor alles wat in zijn
+waarneming opduikt, ook voor het gedrag van anderen, en dat hij dat opruimt
+door in stilte vier zinnen te herhalen: het spijt me, vergeef me, dank je, ik
+hou van je.
+
+De titel verwijst naar de nulstaat: de toestand waarin geen herinneringen of
+programma's meer meespelen en er ruimte is voor ingeving. Vitale schrijft het
+boek als bekeerling en houdt tegelijk vast aan zijn achtergrond in reclame en
+manifesteren, wat het een dubbel karakter geeft. Het staat of valt met een
+verhaal dat nergens is nagetrokken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Vitale en Hew Len stellen dat een mens honderd procent
+verantwoordelijk is voor alles wat in zijn waarneming verschijnt, inclusief
+ziekte, tegenslag en het gedrag van anderen. Wat er buiten opduikt is volgens
+hen de zichtbaar geworden neerslag van herinneringen die in de onderbewuste
+laag zijn opgeslagen en die met de hele mensheid worden gedeeld. De aangewezen
+weg is dan ook niet het probleem aanpakken maar de herinnering opruimen, door
+in stilte vier zinnen te herhalen die aan een goddelijke instantie zijn
+gericht en niet aan de betrokkene. Wie zo is schoongemaakt staat op nul:
+zonder programma, ontvankelijk voor wat de auteurs ingeving noemen, en volgens
+hen daarmee zonder grens.
+
+#### De gang van het boek
+
+**Het verhaal waar alles op rust**
+
+Vitale opent met de anekdote die hem op het spoor zette. Een psycholoog zou
+vier jaar hebben gewerkt op de gesloten afdeling voor forensische patienten
+van het Hawaii State Hospital, waar het personeelsverloop hoog was en het
+geweld dagelijks. Hij sprak de patienten niet, maar las hun dossiers en werkte
+aan zichzelf. Na verloop van tijd zouden dwangmiddelen niet meer nodig zijn
+geweest, kwamen patienten vrij en liep de afdeling leeg.
+
+Vitale zoekt de man op. Dat is Ihaleakala Hew Len, die in de periode 1983 tot
+1987 aan dat ziekenhuis verbonden was. Het boek is grotendeels een verslag van
+hun gesprekken, aangevuld met seminars en met de reacties van mensen die de
+methode gingen gebruiken. Wat er verder in het boek gebeurt, hangt telkens
+terug op dit ene voorval.
+
+**Waar ho'oponopono vandaan komt**
+
+Ho'oponopono is oorspronkelijk een Hawaiiaans verzoeningsritueel binnen de
+familie, geleid door een oudere of een genezer, waarbij betrokkenen
+samenkomen, spreken, schuld erkennen en vergeving vragen. Het is een
+groepsgebeuren met een bemiddelaar.
+
+Wat het boek behandelt is een andere zaak. Morrnah Nalamaku Simeona bewerkte
+het ritueel vanaf de jaren zeventig tot een oefening die iemand alleen kan
+doen, zonder de ander erbij, onder de naam Self I-Dentity through
+Ho'oponopono. Hew Len was haar leerling en werkt haar versie uit. Het boek
+vermeldt dat onderscheid, maar gebruikt daarna toch de oude naam en de daaraan
+verbonden ouderdom als aanbeveling.
+
+**De vier zinnen en het schoonmaken**
+
+De oefening bestaat uit het inwendig herhalen van vier zinnen: het spijt me,
+vergeef me, dank je, ik hou van je. Ze worden niet tot de ander gericht maar
+tot wat de auteurs Goddelijkheid noemen, en er is geen bepaalde volgorde of
+aantal voorgeschreven. Wie het doet erkent dat het waargenomene bij hem hoort
+en vraagt dat de bijbehorende herinnering wordt uitgewist.
+
+Dat proces heet schoonmaken. Het is nooit af, want er komt telkens nieuw
+materiaal boven, en de auteurs schrijven dat schoonmaken de enige bezigheid is
+die er werkelijk toe doet. Bij een lastige klant, een zieke naaste of een
+bericht in de krant is de instructie steeds dezelfde: niet handelen naar
+buiten, maar binnen opruimen.
+
+**Herinnering tegenover ingeving**
+
+Het model achter de oefening kent drie delen van het zelf, met Hawaiiaanse
+namen: unihipili voor het onderbewuste, dat als een kind wordt aangesproken,
+uhane voor het bewuste denken, en aumakua voor de bovenbewuste laag die met
+het goddelijke in verbinding staat. Herinneringen zitten in het onderbewuste
+en spelen zich telkens opnieuw af.
+
+Daartegenover staat ingeving, die van boven komt en nieuw is. Volgens de
+auteurs kan een mens maar uit twee bronnen handelen, uit herinnering of uit
+ingeving, en het overgrote deel van het menselijk doen komt uit de eerste. De
+nulstaat is de toestand waarin de herinnering is opgeruimd en de ingeving vrij
+spel heeft. In die toestand hoeft niets meer gewild te worden, wat het boek
+als het punt voorbij manifesteren presenteert.
+
+**Het gereedschap**
+
+Naast de vier zinnen komt een reeks hulpmiddelen langs die Hew Len gebruikt:
+blauw zonnewater, gemaakt door water in een blauwe fles in de zon te zetten,
+een potlood met gum waarmee over een blad wordt gegaan, aardbeien en
+bosbessen, een ademhalingsoefening met de naam HA, en het woord Ceeport, dat
+op voorwerpen wordt geschreven.
+
+Vitale vraagt herhaaldelijk hoe die middelen zouden werken en krijgt geen
+uitleg die hij kan navertellen. Het antwoord luidt telkens dat het denken dit
+niet hoeft te begrijpen en dat het schoonmaken het werk doet. Het boek laat
+die vraag open staan en gaat verder.
+
+**Wat het van de lezer vraagt**
+
+De praktische eis is dat de lezer ophoudt te wachten tot anderen veranderen en
+ophoudt zijn tegenslag buiten zichzelf te leggen. Alles wat hem stoort is zijn
+eigen materiaal, ook als hij het niet herkent en ook als de gebeurtenis ver
+van hem af staat.
+
+Vitale zet dat af tegen zijn eigen eerdere werk. Hij schreef over
+aantrekkingskracht en het stellen van doelen, en verscheen in de film *The
+Secret*. In dit boek noemt hij intentie een beperking, omdat wie iets wil
+daarmee de uitkomst vastlegt op wat het denken kan bedenken. Loslaten van de
+intentie en schoonmaken zou meer opleveren. Het slot bestaat uit
+ervaringsverslagen van cursisten en uit een uitnodiging voor de seminars van
+Hew Len.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Honderd procent verantwoordelijkheid | De stelling dat alles wat in iemands waarneming verschijnt van hem is en door hem opgeruimd moet worden, ook het gedrag en het lijden van anderen. |
+| Ho'oponopono | Hawaiiaans woord dat ongeveer recht zetten betekent, oorspronkelijk voor een verzoeningsritueel binnen de familie onder leiding van een bemiddelaar. |
+| Self I-Dentity through Ho'oponopono | De bewerking van Morrnah Nalamaku Simeona waarin het ritueel een oefening voor een enkele persoon werd, en die in dit boek wordt onderwezen. |
+| De vier zinnen | Het spijt me, vergeef me, dank je, ik hou van je: inwendig herhaald en gericht tot het goddelijke, niet tot de betrokken ander. |
+| Schoonmaken | Het voortdurend wissen van herinneringen door de vier zinnen te herhalen, volgens de auteurs de enige bezigheid die werkelijk iets uithaalt. |
+| Herinneringen en ingeving | De twee bronnen waaruit een mens volgens het boek kan handelen: oud materiaal dat zich herhaalt, of iets nieuws dat van boven komt. |
+| De nulstaat | De toestand waarin geen programma's meer meespelen, door de auteurs als grensloos aangeduid en de plaats waar het boek zijn titel aan ontleent. |
+| Unihipili, uhane en aumakua | De drie delen van het zelf in het model van het boek: het onderbewuste kind, het bewuste denken en de bovenbewuste laag. |
+| Blauw zonnewater | Water dat in een blauwe fles in de zon heeft gestaan en volgens Hew Len helpt bij het schoonmaken, zonder dat het boek uitlegt waarom. |
+| Ceeport | Een woord dat volgens Hew Len op voorwerpen kan worden geschreven om ze schoon te houden; de herkomst en de werking blijven in het boek onbesproken. |
+
+#### Waar het argument op rust
+
+De hele stelling rust op een enkel voorval, en dat voorval is nooit
+nagetrokken. Dat Hew Len in de jaren tachtig aan het Hawaii State Hospital
+verbonden was, wordt niet bestreden. Wat wel wordt bestreden is het verband
+tussen zijn oefening en het verloop op de afdeling. Er zijn geen
+ziekenhuisdossiers, geen ontslagcijfers, geen verklaringen van collega's of
+van patienten aangevoerd, niet in dit boek en niet daarna. Vitale schrijft na
+wat hem is verteld en presenteert dat vervolgens als grond voor de rest.
+
+Onderzoek naar de vier zinnen komt in het boek niet voor. Er worden geen
+metingen genoemd, geen vergelijkingsgroep, geen gevallen die met naam en
+uitkomst te volgen zijn. Het materiaal bestaat uit verslagen van
+seminardeelnemers, uit voorvallen die Vitale zelf meemaakte en uit de indruk
+die Hew Len op hem maakte. Zulk materiaal kan niet uitwijzen of het
+schoonmaken iets deed, of dat de betrokkene de dingen anders ging bezien, of
+dat het probleem vanzelf overging.
+
+Wat er nuchter over te zeggen valt is beperkt en gaat over de oefening zelf,
+niet over de wereld. Een stille herhaling van vaste zinnen is een vorm van
+gerichte aandacht die op een mantra lijkt, en het innemen van een houding
+waarin men de ander niets meer verwijt kan een eind maken aan blijven malen.
+Dat zijn effecten op de beoefenaar. Zij verklaren niets over ziekten die
+zouden verdwijnen of over gedrag van derden dat zou veranderen, en dat laatste
+is precies wat het boek claimt.
+
+Ook het commerciele kader hoort bij de beoordeling. Vitale is van beroep
+marketeer en beschrijft zichzelf ook zo. Het boek loopt uit op seminars, en er
+kwam een vervolg met dezelfde opbouw en dezelfde belofte van een dieper
+niveau. Dat maakt de inhoud niet onwaar, maar het verklaart wel waarom de
+vragen die Vitale stelt telkens ophouden op het punt waar een antwoord lastig
+zou worden.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de verantwoordelijkheidsleer zelf. Als alles wat
+iemand waarneemt zijn eigen materiaal is, dan is het misbruik in een
+patientendossier ook zijn materiaal, en dan is de kanker van een kind die van
+de omstander. De auteurs bedoelen niet dat iemand schuldig is, en zeggen dat
+ook, maar hun leer heeft geen enkele rem die dat onderscheid vasthoudt. In de
+praktijk komt de gedachte terecht bij mensen die al geneigd zijn zichzelf aan
+te wijzen, en bij slachtoffers is dat schadelijk.
+
+De methode is zo ingericht dat zij niet kan falen. Blijft het probleem
+bestaan, dan is er nog niet genoeg schoongemaakt. Verdwijnt het, dan bewijst
+dat de werking. Er is geen uitkomst denkbaar die de auteurs als weerlegging
+zouden aanvaarden, en daarmee valt er over waar of onwaar niets meer te
+zeggen.
+
+Bij ziekte wordt dat gevaarlijk. Het boek behandelt lichamelijke klachten als
+te wissen herinneringen en besteedt geen aandacht aan wat er gebeurt als
+iemand op grond daarvan een behandeling uitstelt. Er staat geen enkele
+afbakening in over wanneer een arts nodig blijft.
+
+Cultureel is er bezwaar gemaakt tegen het gebruik van de naam. Hawaiiaanse
+beoefenaars hebben erop gewezen dat het traditionele ho'oponopono een
+familieaangelegenheid is met een bemiddelaar, gericht op werkelijke verzoening
+tussen mensen, en dat de aanspraak op eeuwenoude wijsheid voor een individuele
+oefening uit de jaren zeventig misleidend is. Het boek noemt Simeona wel, maar
+leunt in de opbouw en de titel op de ouderdom van iets anders.
+
+Tot slot spreekt het boek zichzelf tegen op zijn eigen terrein. Het
+presenteert de nulstaat als het einde van willen en verlangen, en verkoopt die
+tegelijk met een ondertitel over rijkdom en overvloed. Wie het als geestelijke
+oefening leest, moet de beloften wegdenken; wie het om de beloften leest,
+ondergraaft de oefening.
+
+#### Wat er concreet mee te doen is
+
+- Scheid de oefening van de leer: de vier zinnen zijn goedkoop en
+ongevaarlijk, de stelling dat alles buiten van de beoefenaar is, is dat niet.
+- Gebruik het schoonmaken niet in plaats van een arts, een gesprek of een
+aangifte, maar hooguit ernaast.
+- Let bij toepassing op anderen op wat er gebeurt met de neiging tot
+zelfverwijt; wie daar al gevoelig voor is, kan beter een andere ingang kiezen.
+- Zoek voor het traditionele ho'oponopono een Hawaiiaanse bron, want dit boek
+behandelt de bewerking van Simeona en niet het ritueel zelf.
+
+#### Wat je hierna leest
+
+- 76. Think and Grow Rich. Hill legde in 1937 de vorm vast waarin dit soort
+boeken tot vandaag geschreven wordt: een geheim, een leermeester en een reeks
+getuigen.
+- 83. The Power of Positive Thinking. Peale bepleit hetzelfde omkeren van de
+aandacht binnen een christelijk kader, en loopt op dezelfde onderbouwing vast.
+- 259. The Power of Your Subconscious Mind. Murphy plaatst het onderbewuste in
+de rol die Hew Len aan unihipili geeft, en is de directe voorganger van dit
+soort modellen.
+- 1531. The Intention Experiment. McTaggart probeert wel te meten wat dit boek
+als vanzelfsprekend aanneemt, en laat zien hoe lastig dat is.
+
+## 1506. After
+
+Bruce Greyson, 2021. Oorspronkelijk *After: A Doctor Explores What Near-Death
+Experiences Reveal About Life and Beyond* (St. Martin's Press, New York, 2021,
+272 blz., ISBN 9781250265869). Nederlands als *Daarna: wat
+nabij-de-dood-ervaringen onthullen over het leven en ons bewustzijn*, Unieboek
+Het Spectrum, 2021 (304 blz., ISBN 9789000369867); in Belgie werd diezelfde
+vertaling onder de titel *Hierna* uitgebracht. Greyson publiceerde daarnaast
+vooral in vaktijdschriften; dit is zijn enige boek voor een breed publiek.
+Rubriek: brein en lichaam.
+Tags: `bijna-doodervaring`, `bewustzijn`, `psychiatrie`, `hersenen`,
+`sterven`, `onderzoeksmethode`, `Bruce Greyson`
+
+Bruce Greyson was hoogleraar psychiatrie aan de University of Virginia en
+heeft ruim vijfenveertig jaar bijna-doodervaringen onderzocht. Dit boek is het
+verslag van dat onderzoek, geschreven voor lezers zonder voorkennis, met de
+gevallen die hem van gedachten deden veranderen.
+
+Het begint bij een patiente, Holly, die na een overdosis bewusteloos lag en de
+volgende dag beschreef hoe hij in een andere kamer met haar huisgenote had
+gepraat, tot de saus op zijn stropdas aan toe. Greyson, opgevoed in een streng
+materialistisch huis, kon dat niet plaatsen en kon het ook niet wegzetten.
+
+Wat volgt is een overzicht van wat er in vijf decennia over het verschijnsel
+is verzameld: hoe vaak het voorkomt, welke onderdelen terugkeren, hoe het te
+meten valt, welke lichamelijke verklaringen zijn onderzocht en wat mensen erna
+overkomt. Greyson trekt geen conclusie over een hiernamaals. Zijn punt is dat
+het uitgangspunt dat de hersenen het bewustzijn voortbrengen, niet vaststaat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Greyson stelt dat bijna-doodervaringen een gewoon en
+veelvoorkomend verschijnsel zijn dat zich net zo goed laat onderzoeken als
+andere ervaringen, en dat dat onderzoek op een lastige uitkomst uitloopt: de
+ervaringen worden beschreven als helderder en beter geordend dan het gewone
+waakbewustzijn, juist op momenten waarop de hersenfunctie zwaar is aangetast.
+Als de geest zonder rest een product van hersenwerking zou zijn, hoort dat
+niet te kunnen. Hij concludeert daar niet uit dat er een ziel voortleeft. Hij
+concludeert dat het materialistische uitgangspunt over bewustzijn een aanname
+is die als aanname behandeld moet worden, en dat een arts die met stervenden
+werkt daar praktische gevolgen aan kan verbinden.
+
+#### De gang van het boek
+
+**Hoe een scepticus erin verzeild raakte**
+
+Greyson opent met zijn eigen achtergrond. Hij groeide op in het huis van een
+scheikundige, waar alles wat niet te meten viel onzin heette, en begon zijn
+loopbaan als psychiater met datzelfde uitgangspunt. Dan komt Holly binnen, na
+een overdosis. Terwijl zij bewusteloos ligt, spreekt hij in een andere kamer
+met haar huisgenote Susan, na een haastig afgebroken maaltijd waarbij
+tomatensaus op zijn stropdas is beland.
+
+De volgende dag beschrijft Holly dat gesprek, met de vlek erbij. Greyson
+probeert het weg te verklaren en komt er niet uit. Hij vertelt het jarenlang
+aan niemand, uit vrees voor zijn aanzien. Het hoofdstuk zet daarmee ook het
+onderwerp van het boek neer: het verschijnsel is niet zeldzaam, maar het wordt
+zelden gemeld omdat zowel de betrokkene als de arts iets te verliezen heeft.
+
+**Wat mensen vertellen**
+
+Daarna volgt de inhoud van de verhalen. Terugkerende onderdelen zijn een
+gevoel buiten de tijd te staan, een indruk het lichaam te hebben verlaten, een
+doorgang naar licht, een aanwezigheid die als liefdevol wordt beschreven,
+ontmoetingen met overledenen, een grens en een terugkeer die niet zelf gekozen
+is. Greyson brengt die onderdelen niet als een vast draaiboek: de meeste
+mensen melden er een paar en vrijwel niemand meldt ze allemaal.
+
+Hij geeft de verhalen uitgebreid weer. Bill Hernlund, brandweerman bij de
+Amerikaanse luchtmacht, raakte in 1970 betrokken bij een vliegtuigexplosie.
+Gregg Nome verdronk bijna. Sir Francis Beaufort, de negentiende-eeuwse
+marineofficier van de windschaal, beschreef na een bijna-verdrinking als
+jongen wat later een levensoverzicht zou gaan heten. Tom Sawyer raakte bekneld
+onder een auto. Barbara Harris Whitfield kwam tijdens haar ervaring bij
+jeugdtrauma uit dat zij eerder niet onder ogen had gezien.
+
+Een terugkerend onderdeel krijgt een apart hoofdstuk: het levensoverzicht.
+Mensen beschrijven dat zij hun leven opnieuw doorlopen, vaak in korte tijd en
+met een dubbel gezichtspunt, waarbij zij niet alleen ervaren wat zij deden
+maar ook hoe het bij de ander aankwam. Dat onderdeel blijkt achteraf het
+meeste effect te hebben op hoe iemand verder leeft.
+
+**Meten wat zich moeilijk laat meten**
+
+Greyson beschrijft hoe hij begin jaren tachtig een meetschaal opstelde met
+zestien punten, om te kunnen bepalen of twee verslagen over hetzelfde
+verschijnsel gaan en om verhalen onderling te kunnen vergelijken. Zonder zo'n
+instrument bestaat er geen onderzoeksveld, alleen een verzameling anekdotes.
+
+De schaal werd later door anderen doorgerekend. Rense Lange en Jim Houran, die
+het onderwerp met scepsis benaderden, onderwierpen de gegevens aan een aparte
+statistische analyse en vonden dat de schaal als meetinstrument houdbaar was.
+Dat is een van de weinige punten waarop het veld iets in handen heeft dat
+buiten de eigen kring standhoudt. Verder noemt Greyson de bevinding dat
+ongeveer tien tot twintig procent van de mensen die een hartstilstand
+overleven achteraf zo'n ervaring meldt.
+
+**De verklaringen langsgelopen**
+
+Een groot deel van het boek loopt de lichamelijke verklaringen na.
+Zuurstofgebrek, ophoping van koolzuurgas, narcosemiddelen zoals ketamine,
+activiteit in de slaapkwab, het stervende brein, de invloed van verwachting en
+cultuur, en de mogelijkheid dat de herinnering achteraf is opgebouwd.
+
+Greyson voert tegen elk daarvan hetzelfde soort bezwaar aan. Toestanden met
+zuurstofgebrek of narcose leveren doorgaans verwarde en fragmentarische
+belevingen op, terwijl deze verslagen juist geordend zijn. Verwachting
+verklaart weinig, omdat kinderen en mensen die nooit van het verschijnsel
+hoorden hetzelfde melden, en omdat de inhoud vaak afwijkt van wat iemands
+geloof voorschrijft. Hij verwijst ook naar onderzoek waarin herinneringen aan
+zulke ervaringen werden vergeleken met herinneringen aan werkelijke en aan
+verbeelde gebeurtenissen; ze bleken op de kenmerken van werkelijke
+herinneringen te scoren en daar zelfs bovenuit te komen.
+
+Hij is eerlijk over de grens van dat betoog. Geen van deze verklaringen is
+weerlegd; wat hij laat zien is dat geen ervan het geheel dekt.
+
+**De geest en de hersenen**
+
+Het scharnier van het boek is een ander model. Greyson oppert dat de hersenen
+zich tot het bewustzijn verhouden als een filter of een ontvanger, en niet als
+een voortbrenger. Beschadiging van het toestel verandert dan wat er doorkomt,
+zonder dat het bewustzijn zelf daar wordt gemaakt. Hij noemt dat een oude
+gedachte, die hij bij eerdere auteurs aantrof, en hij zegt er nadrukkelijk bij
+dat het een vergelijking is en geen aangetoond mechanisme.
+
+Als tweede aanwijzing voert hij helderheid vlak voor de dood aan bij mensen
+met vergevorderde dementie, die soms kortstondig weer aanspreekbaar zijn en
+namen kennen die zij jaren niet meer gebruikten. Bij een brein dat aantoonbaar
+is afgebroken, hoort dat volgens hem niet te kunnen.
+
+**Wat het met mensen doet**
+
+Het laatste derde deel gaat over de nasleep, en dat is het gedeelte waarover
+het meeste gewone onderzoek bestaat. Betrokkenen melden minder angst voor de
+dood, minder belangstelling voor bezit en status, meer aandacht voor anderen
+en een sterker gevoel van zin. Greyson noemt ook zijn eigen bevinding dat
+mensen die na een zelfmoordpoging zo'n ervaring hadden, daarna minder vaak
+opnieuw een poging doen, terwijl een prettige ervaring van sterven het
+omgekeerde zou doen verwachten.
+
+De keerzijde krijgt een eigen hoofdstuk. Wie terugkomt met andere waarden past
+soms niet meer in zijn huwelijk, zijn werk of zijn kerk. Er zijn scheidingen,
+ontslagen en jarenlange vervreemding. Greyson beschrijft ook de verontrustende
+ervaringen, die minder vaak worden gemeld en waarschijnlijk vaker voorkomen
+dan de cijfers aangeven, juist omdat mensen ze verzwijgen.
+
+Over God en hemel houdt hij zich op de vlakte: de beschrijvingen sluiten
+zelden aan bij de leer waarin iemand is opgegroeid, en verder laat hij de
+vraag liggen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Bijna-doodervaring | De verzamelnaam voor ervaringen die worden gemeld door mensen die dicht bij de dood waren of dachten te zijn, met een herkenbare reeks terugkerende onderdelen. |
+| De NDE-schaal | De meetschaal met zestien punten die Greyson begin jaren tachtig opstelde om verslagen vergelijkbaar te maken, en die later door anderen statistisch is nagerekend. |
+| Levensoverzicht | Het onderdeel waarbij iemand zijn leven opnieuw doorloopt en daarbij ook ervaart hoe zijn daden bij anderen aankwamen. |
+| Uittreding | De indruk het eigen lichaam van buitenaf waar te nemen, en soms daarbij dingen op te merken die achteraf te controleren zijn. |
+| Verontrustende ervaring | De variant die als angstig of leeg wordt beleefd, minder vaak wordt gemeld en volgens Greyson daardoor in de cijfers ondervertegenwoordigd is. |
+| Het filtermodel | De veronderstelling dat de hersenen bewustzijn doorlaten of beperken in plaats van voortbrengen, door Greyson aangevoerd als vergelijking en niet als aangetoond mechanisme. |
+| Helderheid vlak voor de dood | Het verschijnsel dat mensen met vergevorderde dementie kort voor het sterven weer aanspreekbaar en samenhangend kunnen zijn. |
+| Materialisme als aanname | De opvatting dat bewustzijn geheel uit hersenwerking voortkomt, die Greyson niet weerlegt maar als onbewezen uitgangspunt behandelt. |
+| Nasleep | De blijvende veranderingen in waarden en gedrag na zo'n ervaring, door Greyson als het best onderzochte deel van het onderwerp aangewezen. |
+
+#### Waar het argument op rust
+
+Het boek rust op een archief dat Greyson vanaf de jaren zeventig aan de
+University of Virginia heeft opgebouwd, en op vakpublicaties die hij en zijn
+collega's daarover schreven. De opbouw van dat archief is het beste wat het
+veld heeft: gevallen zijn met een vaste vragenlijst afgenomen en niet uit de
+krant geplukt.
+
+De sterkste onderdelen zijn de meetschaal en het onderzoek naar de nasleep.
+Een schaal die door critici met een andere statistische methode wordt
+doorgerekend en overeind blijft, is een echt resultaat. Hetzelfde geldt voor
+het volgen van mensen na een zelfmoordpoging: dat is gewoon epidemiologisch
+werk met een uitkomst die tegen de verwachting ingaat en daarom iets betekent.
+
+De zwakste onderdelen zijn juist de gevallen die de lezer het meest
+bijblijven. De vlek op de stropdas, de gesprekken die bewusteloze patienten
+navertellen, de dingen die van bovenaf gezien zouden zijn: dat zijn verslagen
+die achteraf zijn opgetekend, meestal na herhaald navertellen, en zonder dat
+vooraf iets was opgesteld om de waarneming vast te leggen. Greyson zegt dat er
+zelf bij. Het probleem is dat de dragende werking van het boek toch bij die
+gevallen ligt.
+
+Het prospectieve onderzoek dat wel is opgezet komt in het boek langs,
+waaronder het Nederlandse onderzoek van Pim van Lommel dat in 2001 in *The
+Lancet* verscheen en waarin patienten na een hartstilstand systematisch werden
+ondervraagd. Zulke opzetten leverden wel betrouwbare cijfers over hoe vaak het
+gebeurt, en vrijwel geen bevestigde waarnemingen die van buitenaf te toetsen
+waren. Dat gat blijft in het boek open staan.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de tijdsbepaling. Het betoog leunt op de gedachte
+dat de ervaring plaatsvond terwijl de hersenen niets deden, maar er bestaat
+geen manier om een belevenis achteraf op de klok te leggen. Zij kan even goed
+in de minuten van de inzinking of tijdens het bijkomen zijn ontstaan, wanneer
+er wel activiteit is. Critici als Gerald Woerlee en Jason Braithwaite hebben
+dat punt herhaaldelijk gemaakt en het boek beslist het niet.
+
+Het filtermodel verklaart niet meer dan het model dat het wil vervangen. Het
+is met elke uitkomst verenigbaar en voorspelt daardoor niets. Bovendien moet
+het uitleggen waarom hersenbeschadiging in alle gewone gevallen wel geheugen,
+taal en persoonlijkheid vernietigt. Greyson noemt dat bezwaar, maar zijn
+antwoord blijft bij de vergelijking met een kapot toestel steken.
+
+De keuze van de gevallen is niet neutraal. Mensen melden zich omdat hun
+ervaring indruk maakte, en Greyson kiest voor het boek de sprekendste
+verslagen uit een groot archief. Dat is voor een boek voor een breed publiek
+begrijpelijk, maar het geeft de lezer geen zicht op hoe de doorsnee eruitziet,
+en dus ook niet op hoeveel gewicht een enkel geval mag krijgen.
+
+De tegenliteratuur wordt genoemd maar niet gewogen op het niveau dat een
+vakgenoot zou willen. Verklaringen worden in enkele bladzijden afgehandeld en
+meestal met hetzelfde argument, dat de ervaringen te helder zijn.
+
+Tot slot laat Greyson de laatste stap aan de lezer over. Hij zegt dat het
+materialisme geen uitgemaakte zaak is en dat bewustzijn mogelijk verder gaat,
+maar hij trekt de conclusie niet en verdedigt haar dus ook niet. Dat maakt het
+boek moeilijk aan te vallen en tegelijk moeilijk te gebruiken: de lezer krijgt
+een verzameling afwijkende gevallen en mag zelf beslissen wat ze waard zijn.
+
+#### Wat er concreet mee te doen is
+
+- Neem een verslag van een patient of een naaste serieus zonder er meteen een
+verklaring of een geloof aan te verbinden; volgens dit boek is verzwijgen het
+grootste probleem.
+- Onderscheid bij het lezen de drie lagen: hoe vaak het voorkomt, wat mensen
+beschrijven, en wat het over bewustzijn zou betekenen. Alleen de eerste twee
+zijn hier onderbouwd.
+- Let bij de nasleep op de moeilijke kant, want veranderde waarden kunnen een
+huwelijk of een baan onder druk zetten.
+
+#### Wat je hierna leest
+
+- 1524. Eindeloos bewustzijn. Van Lommel deed het prospectieve
+hartstilstandonderzoek waarnaar Greyson verwijst, en trekt dezelfde gegevens
+verder door dan Greyson wil.
+- 1317. Consciousness Explained. Dennett verdedigt precies het uitgangspunt
+dat Greyson als onbewezen aanname behandelt, en laat zien hoe die kant het
+gesprek voert.
+- 63. The Demon-Haunted World. Sagan levert de maatstaf waaraan dit soort
+verslagen zich moet meten: hoe men een verschijnsel serieus neemt zonder de
+bewijslast te verlagen.
+- 1307. An Anthropologist on Mars. Sacks beschrijft hoe hersenbeschadiging de
+beleving verandert, wat de kant van het bezwaar tegen het filtermodel
+invulling geeft.
+
+## 1507. Reality Transurfing. Steps I-V
+
+Vadim Zeland, 2004-2006; Engelse vertaling Joanna Dobson, 2016. De vijf delen
+verschenen tussen 2004 en 2006 in het Russisch bij uitgeverij Ves in
+Sint-Petersburg, te beginnen met *Transerfing realnosti: prostranstvo
+variantov* (2004). De verzameluitgave *Reality transurfing. Steps I-V* bundelt
+alle vijf delen in de Engelse vertaling van Joanna Dobson (CreateSpace, 2016,
+760 blz., ISBN 9781532814655); de delen dragen daarin de titels *The Space of
+Variations*, *A Rustle of Morning Stars*, *Forward to the Past*, *Ruling
+Reality* en *Apples Fall to the Sky*. In het Nederlands is alleen het eerste
+deel vertaald, als *Transsurfing: de realiteit is stuurbaar* (Deltas,
+Aartselaar en Oosterhout, 2012, 214 blz., ISBN 9789044727944). De delen II tot
+en met V bestaan niet in het Nederlands. Rubriek: positief denken en
+manifesteren.
+Tags: `manifesteren`, `Rusland`, `zelfhulp`, `kwantumtaal`, `loslaten`, `Vadim
+Zeland`, `levensrichting`
+
+Vadim Zeland, over wie vrijwel niets vaststaat behalve dat hij zich als
+voormalig natuurkundige presenteert, publiceerde tussen 2004 en 2006 vijf
+delen die in Rusland een langlopende bestseller werden. De Engelse
+verzameluitgave brengt ze samen in ruim zevenhonderdvijftig bladzijden.
+
+Zijn model gaat ervan uit dat alle mogelijke levenslopen al bestaan in wat hij
+de ruimte van varianten noemt. Een mens schept zijn werkelijkheid niet, hij
+kiest er een sector uit door zijn uitstraling af te stemmen. Wat de overgang
+tegenhoudt is belang: zodra iemand een doel te zwaar maakt, ontstaat er een
+overtollig potentiaal en komen evenwichtskrachten in beweging die het
+tegendeel opleveren.
+
+Daarnaast beschrijft hij slingers: energiestructuren die van menselijke
+aandacht leven en die scholen, media, partijen en godsdiensten in stand
+houden. Wie zich uit hun ritme houdt, komt vrij om een eigen doel te kiezen.
+Het geheel is uitvoerig, herhalend en zo opgezet dat elk uitblijven van
+resultaat aan resterend belang kan worden toegeschreven.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Zeland stelt dat alle mogelijke levenslopen al bestaan als
+een onveranderlijk gegeven in wat hij de ruimte van varianten noemt, en dat
+een mens zijn werkelijkheid niet maakt maar er een sector uit kiest. Kiezen
+gebeurt niet met wilskracht maar met afstemming: aan een gedachte die zonder
+spanning wordt vastgehouden beantwoordt een lijn in die ruimte. Wat de
+overgang tegenhoudt is belang. Zodra iemand een doel te zwaar maakt of
+zichzelf te belangrijk, ontstaat er een verschil in potentiaal en komen
+evenwichtskrachten in beweging die precies het tegendeel opleveren van wat
+gewild werd. Daarnaast bestaan er volgens hem energie-informatiestructuren,
+slingers, die van menselijke aandacht leven en mensen in conflicten trekken
+waar zij niets aan hebben.
+
+#### De gang van het boek
+
+**De ruimte van varianten**
+
+Het model begint bij een veld waarin alle mogelijke gebeurtenissen al
+vastliggen, ongeveer zoals een filmrol alle beelden bevat voordat er iets is
+afgedraaid. Zeland noemt dat de ruimte van varianten. Wat er gebeurt is dat de
+aandacht van een mens een bepaalde sector belicht en dat zijn beleving die
+sector volgt.
+
+Een sector die telkens opnieuw belicht wordt vormt een levenslijn. Wisselen
+van levenslijn gaat volgens hem niet met inspanning maar met afstemming van
+wat hij de uitstraling van gedachte-energie noemt. De natuurkundige
+woordenschat die hier langskomt, varianten, golven, energie, wordt nergens
+uitgerekend of aan onderzoek verbonden; zij dient als beeldtaal.
+
+**Slingers**
+
+De opvallendste vondst van het boek zijn de slingers: structuren die ontstaan
+wanneer een groep mensen in hetzelfde ritme denkt, en die zich vervolgens
+voeden met de aandacht van hun aanhangers. Een godsdienst, een politieke
+beweging, een bedrijf, een mode, een nieuwsonderwerp: alles wat mensen aan
+zich bindt kan er een zijn.
+
+Een slinger wil groeien en heeft daarvoor gemoedsbeweging nodig, ook
+negatieve. Wie zich boos maakt over een bericht voedt het bericht. Zeland
+geeft drie manieren om eruit te stappen: de slinger doven door niet te
+reageren zoals hij uitlokt, meegaan zonder erin te geloven, en de provocatie
+laten mislukken door met iets ongerijmds te antwoorden. De strekking is dat
+een mens zijn aandacht als bezit moet behandelen.
+
+**Overtollig potentiaal en evenwichtskrachten**
+
+Het centrale mechanisme is dat elke sterke waardering een spanning in het veld
+schept. Wie iets te belangrijk maakt, zichzelf te hoog of te laag inschat, of
+een uitkomst te zwaar laat wegen, brengt volgens Zeland evenwichtskrachten op
+gang die de spanning gelijkmaken. Die krachten werken niet in het voordeel van
+de wens; zij nemen de kortste weg.
+
+Van daaruit verklaart hij een reeks alledaagse teleurstellingen. Het
+sollicitatiegesprek dat te veel betekende gaat mis, de aanbeden persoon haakt
+af, de angst voor een fout roept de fout op, schuldgevoel trekt straf aan. De
+aangewezen ingreep is telkens dezelfde: het belang verlagen, zowel het
+binnenbelang, dat over de eigen betekenis gaat, als het buitenbelang, dat over
+het gewicht van het doel gaat. Zeland benadrukt dat verlagen van belang iets
+anders is dan het doel opgeven.
+
+**Binnenintentie en buitenintentie**
+
+Zeland onderscheidt wensen, willen en intentie, en zegt dat alleen het laatste
+iets doet. Binnenintentie is de gerichtheid om zelf iets tot stand te brengen,
+met inspanning en tegendruk. Buitenintentie is de gerichtheid waarbij iemand
+de wereld zich laat schikken, doordat hij de uitkomst als vanzelfsprekend
+behandelt en er geen spanning omheen legt.
+
+Dat onderscheid draagt de rest van het boek. Waar gewone zelfhulp aandringt op
+harder werken en meer geloven, luidt het voorschrift hier dat de lezer ophoudt
+te duwen. Het aantrekkelijke daarvan is dat het aansluit bij een bekende
+ervaring: het lukt vaak beter als er minder van afhangt. Het bezwaarlijke is
+dat het als kosmische wetmatigheid wordt gepresenteerd en niet als
+psychologie.
+
+**De oefeningen**
+
+Aan de begrippen hangt een reeks oefeningen. Dia's zijn mentale beelden van
+het doel, telkens kort opgeroepen en zonder verlangen vastgehouden, waarbij de
+instructie luidt zichzelf van binnenuit in het beeld te zetten en niet als
+toeschouwer. Coordinatie van intentie houdt in dat iemand elke gebeurtenis,
+ook een tegenvaller, als gunstig behandelt en zo op de golf van geluk blijft.
+Er zijn ademhalings- en aandachtsoefeningen voor wat hij de energie van
+intentie noemt.
+
+Een aparte techniek heet frailing: iemand krijgt van een ander wat hij wil
+door zijn eigen belang te laten vallen en zich volledig op het belang van die
+ander te richten. Zeland beschrijft dat als een manier van omgaan met chefs,
+klanten en geliefden. Het is de meest concrete en meteen de meest berekenende
+passage in het boek.
+
+**Doel en deur**
+
+In de latere delen verschuift het accent van techniek naar richting. Zeland
+stelt dat de meeste mensen doelen najagen die door slingers zijn opgelegd: een
+opleiding, een beroep, een levensstijl waar zij niets bij voelen. Hij noemt
+het eigen doel het doel van de ziel, en de weg ernaartoe de deur.
+
+De toets is niet redelijk maar lichamelijk: bij het eigen doel valt er een
+zwaarte weg, bij een opgelegd doel blijft er een onbehagen dat het verstand
+wegredeneert. Zeland spreekt van eenheid van ziel en verstand, waarbij het
+verstand het doel kiest en de ziel de instemming levert. Zonder die instemming
+werkt volgens hem geen enkele techniek.
+
+**De vijf delen en de spiegel**
+
+De vijf delen bouwen op elkaar zonder duidelijke breuk. Deel I zet het model
+neer, deel II werkt de intentie uit, deel III en IV voegen oefeningen en
+verklaringen toe, en deel V vat het geheel in het beeld van de wereld als
+spiegel: wat iemand uitzendt komt terug, met vertraging, en wie voortdurend
+naar het spiegelbeeld kijkt houdt dat beeld in stand.
+
+De verzameluitgave leest daardoor herhalend. Dezelfde principes komen vier of
+vijf keer terug in andere bewoordingen en met andere voorbeelden, waarbij
+Zeland zijn eerdere formuleringen aanhaalt alsof het gevestigde leerstof is.
+Wie het eerste deel heeft gelezen, kent het model.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ruimte van varianten | Het veld waarin volgens Zeland alle mogelijke gebeurtenissen al vastliggen en waaruit een mens door zijn afstemming een deel belicht. |
+| Sector en levenslijn | Een sector is een afgebakend stuk van de ruimte van varianten; een reeks sectoren die telkens opnieuw wordt gekozen vormt een levenslijn. |
+| Slinger | Een energie-informatiestructuur die ontstaat als mensen in hetzelfde ritme denken, en die zich met hun aandacht en gemoedsbeweging voedt. |
+| Overtollig potentiaal | De spanning die ontstaat wanneer iemand iets of zichzelf te zwaar waardeert, en die volgens Zeland vanzelf wordt gladgestreken. |
+| Evenwichtskrachten | De werking die overtollig potentiaal opheft, meestal langs de weg die het gewilde resultaat juist onmogelijk maakt. |
+| Belang | De waarde die iemand aan zichzelf of aan een uitkomst toekent; het binnenbelang gaat over de eigen persoon, het buitenbelang over het doel. |
+| Binnen- en buitenintentie | Binnenintentie duwt met eigen inspanning tegen de wereld in; buitenintentie laat de wereld zich schikken doordat de uitkomst als vanzelfsprekend wordt behandeld. |
+| Dia | Een mentaal beeld van het bereikte doel, van binnenuit bekeken en kort en zonder verlangen opgeroepen. |
+| Coordinatie van intentie | De gewoonte elke gebeurtenis als gunstig te behandelen, waarmee iemand volgens Zeland op de golf van geluk blijft. |
+| Frailing | De techniek om van een ander te krijgen wat men wil door het eigen belang los te laten en zich op het belang van die ander te richten. |
+| Doel van de ziel en de deur | Het doel dat iemand werkelijk toebehoort en de weg ernaartoe, herkenbaar aan het wegvallen van zwaarte en niet aan een redenering. |
+
+#### Waar het argument op rust
+
+Er is geen bewijsvoering in de gewone zin. Het boek bevat geen onderzoek, geen
+metingen, geen vergelijkingsgroep, geen namen van mensen met een te volgen
+uitkomst en geen literatuurverwijzingen. De voorbeelden zijn korte anekdotes
+zonder namen, vaak van de auteur zelf, en zij worden aangevoerd als
+illustratie van een regel die al is vastgesteld.
+
+De natuurkundige woordenschat is opsmuk. Termen als varianten, golven en
+energie doen denken aan de veelwereldenuitleg van de kwantummechanica, maar in
+die uitleg is er geen mechanisme waarmee een waarnemer een tak zou kunnen
+kiezen, en Zeland geeft er ook geen. Hij rekent niets uit en verwijst naar
+geen enkele publicatie. Dat hij zich als voormalig natuurkundige presenteert,
+valt bovendien niet na te gaan: Zeland treedt niet in het openbaar op en zijn
+levensloop is nergens onafhankelijk vastgelegd.
+
+Wat wel vaststaat is de ontvangst. De reeks werd in Rusland vanaf 2004 een
+langlopende bestseller en is in een reeks talen vertaald, waaronder het
+Engels; in het Nederlands verscheen alleen deel I. Er zijn cursussen en
+trainers omheen ontstaan die niet van Zeland uitgaan.
+
+De aannemelijkste kern is psychologisch en staat los van het model. Dat
+prestaties vaak verbeteren wanneer de inzet gevoelsmatig lager wordt, dat
+aandacht voor een tegenstander die tegenstander groter maakt, en dat het
+loslaten van een uitkomst spanning wegneemt, zijn waarnemingen die in gewone
+psychologie thuishoren en daar ook onderzocht zijn. Zeland legt die verbinding
+niet en levert er geen verwijzing bij.
+
+#### Wat er tegen in te brengen valt
+
+Het model kan niet falen en dat is het zwaarste bezwaar. Blijft het gewenste
+uit, dan zat er nog belang in de weg, of werd het doel door een slinger
+opgelegd, of was de ziel het niet eens met het verstand. Er is geen uitkomst
+denkbaar die als weerlegging telt. Dat maakt het aangenaam om te lezen en
+waardeloos als verklaring.
+
+De leer over slingers is in de kern wantrouwen tegen elk gezamenlijk verband.
+Scholen, vakbonden, kerken, partijen en nieuwsmedia worden alle als parasieten
+op aandacht beschreven, zonder dat er een maatstaf wordt geboden om een
+schadelijk verband van een nuttig verband te onderscheiden. Wie de leer volgt,
+heeft een reden om zich overal aan te onttrekken en zich nergens aan te
+binden.
+
+De verantwoordelijkheid komt volledig bij de lezer te liggen. Ziekte, ontslag
+en verlies volgen in dit model uit de eigen afstemming. Het boek besteedt geen
+aandacht aan de vraag wat dat betekent voor mensen die iets overkwam waar zij
+niets aan konden doen, en het bevat geen enkele afbakening naar situaties
+waarin hulp of behandeling nodig blijft.
+
+Frailing is moreel het minst aantrekkelijke onderdeel. Het presenteert het
+schijnbaar dienen van andermans belang als een manier om het eigen belang
+alsnog te halen, en het verschil met manipulatie wordt niet gemaakt.
+
+De omvang staat in geen verhouding tot de inhoud. In de Engelse
+verzameluitgave gaat het om ruim zevenhonderdvijftig bladzijden waarin een
+handvol principes telkens terugkeert, met een toon die op elke bladzij
+aanneemt dat de lezer het inmiddels eens is. De Nederlandse lezer krijgt
+daarnaast maar een vijfde van het geheel te zien, wat het beoordelen van de
+latere delen praktisch onmogelijk maakt.
+
+#### Wat er concreet mee te doen is
+
+- Neem het verlagen van belang als praktische raad en laat het model waarin
+het is verpakt buiten beschouwing; die raad staat op eigen benen.
+- Toets bij een doel of het uit eigen aandrang komt of uit de omgeving is
+overgenomen, en let daarbij op wat er lichamelijk gebeurt bij de gedachte
+eraan.
+- Let op de eigen aandacht bij nieuws en conflicten: het idee dat
+verontwaardiging het onderwerp voedt, is bruikbaar zonder de theorie erachter.
+- Verwacht van de vijf delen samen niet meer inhoud dan van het eerste deel;
+de rest bestaat vooral uit herhaling en oefeningen.
+
+#### Wat je hierna leest
+
+- 1531. The Intention Experiment. McTaggart probeert de invloed van gerichte
+aandacht wel te meten, en laat zien hoe weinig er overblijft als dat serieus
+wordt aangepakt.
+- 259. The Power of Your Subconscious Mind. Murphy schreef veertig jaar eerder
+de westerse versie van hetzelfde idee, met het onderbewuste in de rol van de
+ruimte van varianten.
+- 1505. Zero Limits. Vitale en Hew Len komen langs een andere weg bij dezelfde
+raad uit: houd op te willen, en de uitkomst schikt zich.
+- 63. The Demon-Haunted World. Sagan behandelt precies dit soort betogen:
+natuurkundige woorden zonder natuurkunde, en beweringen die zo zijn gebouwd
+dat toetsing onmogelijk is.
+
+## 1508. Emotioneel volwassen
+
+Swami Dayananda Saraswati, Nederlandse uitgave 2009; vert. Rob H. van Dijk. De
+boekenkast van kukuru voert dit boek onder zijn ondertitel, *De psychologie
+van de Bhagavad Gita*; de titel op het omslag is *Emotioneel volwassen*.
+Uitgeverij Viveki, een klein huis dat sinds 2006 werk over Advaita Vedanta in
+het Nederlands uitgeeft, bracht een eerste druk in januari 2009 (136 blz.,
+ISBN 9789078555025) en een herziene uitgave in september 2019 (128 blz., ISBN
+9789078555186), vertaald door Rob H. van Dijk en geredigeerd door Manon van
+Dijk-Hullegie. Het boek bestaat uit zes lezingen, voorafgegaan door een korte
+inleiding op de Bhagavad Gita. Welke Engelse uitgave of welke reeks lezingen
+eraan ten grondslag ligt, staat niet in de gegevens van de uitgever. Van
+Dayananda verschenen bij Viveki nog een tiental Nederlandse titels, waaronder
+*De essentie van de Bhagavad Gita*, *De waarde van waarden* en het
+interviewboekje *Psychologie in Vedanta* (2021). Rubriek: filosofie en
+mystiek.
+Tags: `Advaita Vedanta`, `Bhagavad Gita`, `emoties`, `hindoeisme`, `lezingen`,
+`acceptatie`, `Isvara`
+
+Swami Dayananda Saraswati (1930-2015) onderwees Advaita Vedanta in de lijn van
+Adi Shankara en gaf tussen 1987 en 1990 een reeks van 363 lessen over de
+Bhagavad Gita. Dit dunne boek is daar geen samenvatting van. Het zijn zes
+lezingen waarin hij een handvol verzen gebruikt om iets anders te bespreken:
+waarom volwassen mensen zich gedragen als een kind dat huilt om een
+kapotgegaan speelgoedautootje.
+
+Zijn antwoord is dat lichamelijke groei vanzelf gaat en emotionele groei niet.
+De persoonlijkheid bestaat uit een verzameling voorkeuren en afkeren, en
+zolang iemand van de werkelijkheid eist dat zij zich naar die voorkeuren
+voegt, blijft hij afhankelijk van uitkomsten waarover hij niet gaat.
+Volwassenheid noemt Dayananda het vermogen te zien wat er is.
+
+De laatste lezingen verleggen dat psychologische betoog naar Vedanta. Wie de
+wereld ziet als de orde van Isvara, en Isvara niet als een instantie ergens
+anders maar als datgene wat alles doordringt, houdt geen partij meer over om
+iets van te eisen. Het zelf is dan al volledig, en daarmee is de aanleiding
+voor het huilen weggenomen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dayananda stelt dat emotionele volwassenheid geen bijproduct
+van leeftijd is en ook geen kwestie van betere gevoelsbeheersing, maar het
+gevolg van begrip. Zijn redenering loopt in twee stappen. De eerste is
+psychologisch: een persoonlijkheid is een verzameling voorkeuren en afkeren,
+en het probleem zit niet in die voorkeuren zelf maar in de onuitgesproken eis
+dat de werkelijkheid zich eraan houdt. De tweede stap is metafysisch: die eis
+verdwijnt pas werkelijk wanneer iemand ziet dat de wereld de orde van Isvara
+is en dat het zelf al volledig is, zodat er niets valt te verwerven om heel te
+zijn. Daarmee maakt het boek volwassenheid afhankelijk van het aanvaarden van
+een leer, en dat is precies het punt waarop het te bestrijden valt.
+
+#### De gang van het boek
+
+**Een korte ingang tot de Gita**
+
+De Nederlandse uitgave opent met een inleiding op de Bhagavad Gita voor lezers
+die het boek niet kennen: het gesprek tussen Arjuna en Krishna op het
+slagveld, waarin een man die moet handelen verlamd raakt en zich tot zijn
+wagenmenner wendt. Dayananda leest dat gesprek als een leergesprek over iemand
+die niet weet wie hij is en daarom niet weet wat hij moet doen.
+
+Die ingang is kort en dient een doel. De verzen die daarna langskomen worden
+niet vers voor vers uitgelegd, zoals Dayananda elders wel deed; ze steunen een
+betoog dat hij zelf voert.
+
+**Het kind dat huilt om een kapot autootje**
+
+Het beeld waarmee het boek opent is een jongetje dat huilt omdat zijn
+speelgoedauto stuk is. Dat is bij een kind vanzelfsprekend. Dayananda's punt
+is dat volwassenen hetzelfde doen, alleen met duurder speelgoed en met een
+uitleg erbij die het gedrag redelijk laat lijken.
+
+Lichamelijke groei voltrekt zich zonder dat iemand er iets voor doet.
+Emotionele groei moet bewust in gang worden gezet, en gebeurt bij veel mensen
+nooit.
+
+**Voorkeuren en afkeren**
+
+De kern van de psychologische lezingen is dat de persoonlijkheid samenvalt met
+wat iemand prettig vindt en wat hij vermijdt. Dayananda wil die voorkeuren
+niet uitroeien. Hij wil dat iemand er verstandig mee omgaat, wat in zijn
+woorden betekent: weten welke voorkeur er speelt, en weten dat een voorkeur
+geen recht is.
+
+Daaronder ligt een tweede laag. Ervaringen uit de kindertijd blijven werkzaam
+in het onderbewuste en kleuren de waarneming, zodat iemand meent de
+werkelijkheid te zien terwijl hij een oud patroon ziet. Het verwerken van die
+gevoelscomplexen noemt hij de eerste stap: het maakt de waarneming minder
+subjectief.
+
+**Het handelen is van jou, het resultaat niet**
+
+Het vers waar het boek op steunt is Bhagavad Gita 2.47: over het handelen gaat
+de handelende, over de vrucht van dat handelen niet. Dayananda gebruikt het om
+acceptatie te scheiden van berusting. Wie ziet dat de uitkomst uit meer
+voortkomt dan zijn eigen inspanning, kan een situatie aanvaarden en er
+vervolgens op reageren zoals de situatie vraagt.
+
+Dat is de scharnierpassage van het boek. Zij verklaart waarom hij
+volwassenheid niet als gevoelsregulering behandelt: het gaat hem om een andere
+verhouding tot uitkomsten, niet om betere technieken bij tegenslag.
+
+**Isvara en het beeld van de droom**
+
+In de latere lezingen verschuift het onderwerp naar Isvara. Dayananda ontkent
+dat God ergens anders zit dan in wat er is. Om dat te laten zien gebruikt hij
+het beeld van de droom: zoals een dromer een hele wereld met mensen en
+gebeurtenissen uit zijn eigen bewustzijn opbouwt, zo brengt Isvara het heelal
+voort uit kennis en vermogen.
+
+Wie de wereld zo bekijkt, heeft geen tegenpartij meer die hem iets onthoudt.
+De orde waarin hij handelt is niet vijandig en ook niet welwillend.
+
+**Volwassenheid als objectiviteit**
+
+Het slot brengt de twee lijnen samen in een formule: volwassenheid is het
+erkennen van wat is, ontvankelijk zijn voor de werkelijkheid. De
+psychologische stappen dienen om de subjectiviteit te verkleinen; de
+Vedantische stap verklaart waarom er daarna niets meer te halen valt. Het zelf
+is volgens Advaita Vedanta al vol en zonder gebrek, en daarmee eindigt een
+boek dat als psychologie begon in een uitspraak die niet psychologisch van
+aard is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Emotionele volwassenheid | Bij Dayananda het vermogen te zien wat er is en het daarbij te laten, tegenover het aanhouden van de eis dat het anders was. |
+| Voorkeuren en afkeren | De verzameling van wat iemand wil en vermijdt, die volgens het boek de persoonlijkheid uitmaakt en die niet weggewerkt maar doorzien moet worden. |
+| Isvara | Niet een god op afstand, maar de orde die alles doordringt en waarbinnen elk handelen zijn uitkomst krijgt. |
+| Bhagavad Gita 2.47 | Het vers waarmee Dayananda vaststelt dat het handelen bij de handelende ligt en het resultaat daarbuiten. |
+| Advaita Vedanta | De leer van de niet-tweeheid zoals onderwezen in de lijn van Adi Shankara, waarin Dayananda zijn hele uitleg plaatst. |
+| Het onderbewuste | De opslag van kindertijdervaringen die de waarneming subjectief kleurt zolang zij niet is doorzien. |
+| Objectiviteit | De maat voor volwassenheid in dit boek: de werkelijkheid ontvangen zonder haar door oude voorkeuren te vervormen. |
+| Volledigheid van het zelf | De stelling dat het zelf al zonder gebrek is, waarmee de aanleiding tot het verwerven van geluk vervalt. |
+
+#### Waar het argument op rust
+
+Er staat geen onderzoek in dit boek, en dat is geen omissie maar de aard van
+het genre. Wat Dayananda aanvoert is de tekst zelf en zijn gezag als leraar in
+een leertraditie. Zijn geloofsbrieven op dat punt zijn stevig: hij gaf tussen
+1987 en 1990 in Saylorsburg 363 lessen over alle zevenhonderd verzen van de
+Gita, waarvan een negendelige uitgave van ruim vierduizend bladzijden bestaat.
+Dit boekje is daar het tegendeel van in omvang.
+
+De vorm is die van gesproken les. Zes lezingen, opgeschreven en vertaald, met
+de herhalingen en de opbouw van een klaslokaal. Dat maakt de tekst helder en
+de redenering traceerbaar: elk hoofdstuk zet een begrip neer waarop het
+volgende voortbouwt. Het maakt de tekst ook dun waar een lezer een uitwerking
+zou willen, bijvoorbeeld bij de vraag hoe je gevoelscomplexen uit de
+kindertijd verwerkt.
+
+De psychologische helft van het betoog is toetsbaar noch getoetst. Dat
+ervaringen uit de jeugd de waarneming kleuren is een uitspraak waarover in de
+psychologie het nodige te vinden is, maar het boek verwijst er niet naar. De
+tweede helft is naar haar aard geen uitspraak waarover gegevens te verzamelen
+zijn.
+
+#### Wat er tegen in te brengen valt
+
+De titel op de boekenkast van kukuru belooft de psychologie van de Bhagavad
+Gita. Het boek behandelt de Gita zeer selectief: 2.47 en enkele verzen
+daaromheen. Het strijdtoneel, de vraag naar plicht en de kastenorde waarbinnen
+Arjuna's dilemma zich afspeelt, blijven buiten beeld. Wie het boek als ingang
+tot de Gita leest, krijgt een deel te zien dat is uitgekozen omdat het bij het
+betoog past.
+
+Het boek leent psychologische woorden, onderbewuste, gevoelscomplexen, het
+kind in de volwassene, zonder de psychologie zelf ter sprake te brengen. Uit
+het latere interviewboekje *Psychologie in Vedanta* blijkt hoe Dayananda die
+verhouding ziet: psychologie is een voorportaal en Vedanta is de afloop. Dat
+is een houdbaar standpunt, maar het is een standpunt en het wordt hier niet
+verdedigd.
+
+Het sterkste bezwaar geldt de acceptatiegedachte. De redenering dat wat buiten
+je handelen ligt aanvaard moet worden, laat zich lastig begrenzen. Dayananda
+onderscheidt het aanvaarden van een situatie van het niets doen aan die
+situatie, maar hij werkt niet uit waar die grens loopt. Bij iemand die onder
+onrecht leeft, is het verschil tussen objectiviteit en gelatenheid geen
+detail.
+
+Ten slotte staat of valt de tweede helft met het aanvaarden van Isvara en van
+de niet-tweeheid. Een lezer die daar niet in meegaat, houdt een handzaam maar
+tamelijk gewoon pleidooi over voor het loslaten van verwachtingen.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij elke tegenslag wat aan het eigen handelen lag van wat aan de rest
+lag, voordat er een oordeel volgt.
+- Benoem bij een sterke reactie welke voorkeur of afkeer geraakt is; dat is de
+stap die het boek de eerste noemt.
+- Toets de acceptatiegedachte aan een situatie waarin ingrijpen wel kan; het
+boek geeft daar geen maatstaf voor en die moet elders vandaan komen.
+
+#### Wat je hierna leest
+
+- 569. The Gita for Gen Z. Rania Sen bewerkt dezelfde tekst voor een jong
+publiek; het contrast met Dayananda's leertraditie laat zien hoe verschillend
+de Gita ingezet kan worden.
+- 527. Who Am I?. Ramana Maharshi komt langs een andere weg, het onderzoek
+naar wie de vraag stelt, bij dezelfde conclusie over de volledigheid van het
+zelf.
+- 242. Autobiography of a Yogi. Yogananda bracht dezelfde traditie naar het
+Westen in de vorm van een levensverhaal met wonderen, waar Dayananda het bij
+uitleg houdt.
+- 169. The Heartbeat of the Absolute. Osho becommentarieert een verwante tekst
+in dezelfde vorm van uitgeschreven lezingen, met een geheel andere toon en
+gezagsopvatting.
+
+## 1509. Hoe word ik de beste minnaar van de wereld?
+
+Toña Wong Chung, 2015. Nederlandstalig geschreven en in eigen beheer
+uitgegeven door Healing Space, de praktijk van de auteur, met tekeningen van
+Niko Mailand (200 blz., ISBN 9789082438406). Het Surinaamse tijdschrift
+*Parbode* dateert de uitgave op 2015; de presentatie in Suriname was in april
+2016 en de Nederlandse boekhandel voert een druk uit januari 2018. Er is een
+e-boek bij Kobo en het boek staat in de catalogus van de openbare bibliotheek.
+Van een vertaling in een andere taal is niets bekend. Wong Chung houdt een
+website bij onder de titel van het boek. Rubriek: levenskunst.
+Tags: `liefde`, `relaties`, `seksualiteit`, `vertrouwen`, `ontrouw`,
+`Suriname`, `zelfhulp`
+
+Toña Wong Chung werkt ruim twintig jaar als healer en holistisch coach, met
+een praktijk die zij Healing Space noemt. Dit boek gaat over goed beminnen, en
+zij zegt er meteen bij wat het niet behandelt: standjes, hulpmiddelen en de
+Kamasutra. Wat er wel in staat zijn de voorwaarden waarvan volgens haar
+afhangt of er in bed iets te beleven valt.
+
+Vijf hoofdstukken werken die voorwaarden uit. Het eerste zet drie pijlers
+neer: liefdevol gedrag cultiveren, seksuele aantrekkingskracht en vertrouwen.
+Het tweede en derde gaan over ontrouw en over de verwerking daarvan. Het
+vierde gaat over het bepalen van prioriteiten en het maken van afspraken, het
+vijfde over openstaan voor intimiteit.
+
+Het opvallendste standpunt in het boek is dat een derde persoon een relatie
+niet hoeft te beschadigen en de bestaande band zelfs kan aanwakkeren. Wong
+Chung noemt dat seksuele inclusiviteit. Zij zet het neer als een gegeven en
+niet als een voorstel, en dat is ook waar de recensies over vallen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wong Chung stelt dat de kwaliteit van het vrijen een afdruk
+is van de relatie, en de relatie een afdruk van de verhouding die iemand met
+zichzelf en met de wereld heeft. Daaruit volgt haar keuze om over techniek te
+zwijgen: als de voorwaarden kloppen, vinden geliefden hun manier van vrijen
+vanzelf, en als de voorwaarden niet kloppen helpt geen enkele techniek. Die
+voorwaarden zijn liefdevol gedrag dat wordt onderhouden, seksuele
+aantrekkingskracht die niet vanzelf blijft bestaan, en vertrouwen dat na een
+breuk opnieuw gebouwd moet worden. Aan die drie voegt zij een stelling toe die
+de rest van het boek kleurt: exclusiviteit is geen voorwaarde voor een goede
+relatie, en de aanwezigheid van een derde kan de hoofdband voeden in plaats
+van uithollen.
+
+#### De gang van het boek
+
+**Drie pijlers**
+
+Het eerste hoofdstuk zet de fundering neer. Liefdevol gedrag noemt Wong Chung
+iets dat je cultiveert, met de nadruk op het werkwoord: het gaat om
+handelingen die worden herhaald tot ze de omgang bepalen, niet om een gevoel
+dat er wel of niet is. Seksuele aantrekkingskracht behandelt zij op dezelfde
+manier, als iets dat onderhoud vraagt.
+
+De derde pijler, vertrouwen, draagt het meeste gewicht in de rest van het
+boek. Zij koppelt vertrouwen niet aan zekerheid over wat de ander doet, maar
+aan de vraag of er tussen twee mensen genoeg gezegd wordt om te weten waar men
+aan toe is.
+
+**Het incident**
+
+Het tweede hoofdstuk gaat over ontrouw en over relaties die naast elkaar
+bestaan. Hier introduceert zij de gedachte die het boek zijn eigen plaats
+geeft: dat een relatie een derde kan omvatten zonder dat de hoofdband schade
+lijdt, en dat de energie die daarbij vrijkomt de bestaande verbinding kan
+aanwakkeren.
+
+Zij presenteert dit niet als een leefvorm waarvoor iets te zeggen valt, maar
+als iets dat zo werkt. Dat verschil in toonhoogte is het punt waarop de
+recensie in *Parbode* haar aannames absoluut noemt.
+
+**De verwerking**
+
+Het derde hoofdstuk behandelt wat er na een incident te doen valt: hoe
+partners de gebeurtenis verwerken en de relatie weer gezond maken. De aanpak
+is die van een coach. Er wordt gevraagd wat er precies gebeurd is, wat er
+gemist werd, en wat ieder van beiden nodig heeft om verder te kunnen.
+
+De schuldvraag krijgt weinig ruimte. Wong Chung behandelt ontrouw als
+informatie over de relatie, niet als een vergrijp waarvoor eerst een oordeel
+geveld moet worden.
+
+**Prioriteiten en afspraken**
+
+Het vierde hoofdstuk is het meest praktische. Het gaat over uitzoeken wat in
+een relatie voorrang heeft en dat vervolgens vastleggen in afspraken. De
+redenering is dat de meeste conflicten ontstaan doordat twee mensen
+verschillende ongesproken regels hanteren en pas bij een botsing ontdekken dat
+die niet gelijk zijn.
+
+Hier valt het boek samen met vrij gangbare relatieadvieskost, en dat werkt in
+zijn voordeel: dit is het hoofdstuk waar lezers in de besprekingen het vaakst
+naar verwijzen.
+
+**Openstaan voor intimiteit**
+
+Het slothoofdstuk keert terug naar de belofte van de titel. Wie liefdevol
+gedrag heeft gecultiveerd en bewust leeft, staat volgens Wong Chung open voor
+intimiteit, en dan komt het vrijen op zijn plaats zonder dat er iets over
+standjes gezegd hoeft te worden.
+
+Daarmee sluit de cirkel van de opzet: de titel belooft de beste minnaar van de
+wereld, en het antwoord luidt dat die niet in bed wordt gemaakt.
+
+**Vorm en herkomst**
+
+Het boek is in eigen beheer uitgegeven, met tekeningen van Niko Mailand die de
+toon licht houden. De taal is spreektaal en de hoofdstukken zijn kort. Wong
+Chung schrijft vanuit een praktijk in de natuurgeneeskunde en de reiki, en het
+boek werd in Suriname gepresenteerd, waar zij bekender is dan in Nederland.
+
+Die herkomst verklaart een deel van de opzet. Het is geen boek dat een debat
+voert met andere relatieboeken; het is de neerslag van wat de auteur in
+twintig jaar praktijk tegen mensen heeft gezegd.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Liefdevol gedrag cultiveren | Het herhalen van handelingen die genegenheid tonen, tot ze de omgang bepalen, los van of het gevoel er op dat moment is. |
+| Seksuele aantrekkingskracht | In dit boek geen eigenschap maar iets dat onderhouden wordt, en dat verdwijnt zodra er niets meer aan gedaan wordt. |
+| Vertrouwen | De derde pijler, door Wong Chung gekoppeld aan wat er wordt uitgesproken en niet aan zekerheid over het gedrag van de ander. |
+| Het incident | Haar aanduiding voor ontrouw of een gelijktijdige relatie, gekozen om de gebeurtenis bespreekbaar te houden. |
+| Seksuele inclusiviteit | De stelling dat een relatie een derde kan omvatten zonder dat de hoofdband beschadigt, en dat dit de bestaande band kan voeden. |
+| De verwerking | Het traject waarin partners na een incident uitzoeken wat er gebeurd is en de relatie weer gezond maken. |
+| Afspraken | Het vastleggen van wat in de relatie voorrang heeft, bedoeld om ongesproken regels zichtbaar te maken voordat ze botsen. |
+| Het pad van het hart | Wong Chungs eigen aanduiding voor leven naar wat iemand van binnenuit wil, ook wanneer dat tegen de gewoonte ingaat. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit de praktijk van de auteur. Wong Chung werkt ruim
+twintig jaar als healer en holistisch coach en put uit wat zij in die jaren
+aan verhalen heeft gehoord. Er staan geen verwijzingen in het boek, geen
+cijfers, geen namen van onderzoekers en geen gevallen die met bronnen zijn
+onderbouwd. Wie wil nagaan waarop een uitspraak rust, kan dat niet.
+
+Dat is verdedigbaar voor de vier hoofdstukken die over gedrag en gesprek gaan.
+Dat afspraken helpen, dat vertrouwen na een breuk opnieuw opgebouwd moet
+worden en dat aantrekking onderhoud vraagt, zijn stellingen die in de
+relatieliteratuur breed voorkomen en die een lezer aan zijn eigen ervaring kan
+houden.
+
+Bij de stelling over seksuele inclusiviteit ligt dat anders. Dat is een
+empirische bewering: een derde persoon zou de hoofdband voeden. Er bestaat
+onderzoek naar consensueel niet-monogame relaties, maar het boek verwijst er
+niet naar en levert zelf geen gegevens. De bewering staat er als vaststelling,
+en er is niets in het boek waarmee een lezer haar kan wegen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is het bezwaar dat de bespreking in *Parbode* ook maakt:
+de aannames zijn nogal absoluut geformuleerd, waardoor de vraag hoe je dit in
+de praktijk brengt onbeantwoord blijft. Een boek dat over voorwaarden gaat,
+moet uitleggen wat er gebeurt wanneer twee mensen die voorwaarden verschillend
+wegen. Dat gesprek voert Wong Chung nauwelijks.
+
+Rond de inclusiviteitsgedachte ontbreekt de behandeling van machtsverschil.
+Instemming met een derde is iets anders wanneer een van beiden financieel
+afhankelijk is, wanneer er kinderen zijn, of wanneer de instemming wordt
+gegeven om de relatie te redden. Het boek behandelt de partners als twee
+mensen met gelijke ruimte om ja of nee te zeggen, en die gelijkheid is bepaald
+niet de regel.
+
+De bron is een geselecteerde groep. Wat een healer in twintig jaar hoort, komt
+van mensen die de weg naar een healer hebben gevonden. Uitspraken over hoe
+relaties werken, gebouwd op dat materiaal, zeggen minder over relaties in het
+algemeen dan de stellige toon suggereert.
+
+De titel is ten slotte een grap die het boek zelf ondergraaft. Er wordt geen
+minnaar van gemaakt en dat is de bedoeling, maar wie het boek koopt op de
+belofte krijgt tweehonderd bladzijden over gedrag, gesprek en afspraken, met
+tekeningen erbij.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf met de partner op welke drie dingen in de relatie voorrang hebben,
+ieder apart, en leg de lijsten daarna naast elkaar.
+- Benoem de ongesproken regels die in de relatie gelden voordat er een botsing
+is die ze zichtbaar maakt.
+- Behandel aantrekking als iets dat onderhoud vraagt en plan dat onderhoud, in
+plaats van te wachten tot het gevoel zich meldt.
+- Lees het hoofdstuk over seksuele inclusiviteit als standpunt van de auteur,
+en zoek er onafhankelijke bronnen bij voordat er iets mee gedaan wordt.
+
+#### Wat je hierna leest
+
+- 164. Mating in Captivity. Esther Perel behandelt dezelfde vraag, waarom
+begeerte in vaste relaties wegloopt, met veel meer klinisch materiaal en met
+aandacht voor de macht die het boek van Wong Chung overslaat.
+- 34. The 5 Love Languages. Chapman werkt de gedachte dat liefdevol gedrag
+onderhouden moet worden uit tot een indeling in vijf vormen; dezelfde aanpak,
+strakker geordend.
+- 1517. Wat ik eerder had willen weten over de liefde. Ook een Nederlandstalig
+boek dat achteraf opschrijft wat iemand over liefde had willen weten, en dat
+op dezelfde ervaringsbasis rust.
+- 1500. The Way of the Superior Man. Deida schrijft over hetzelfde onderwerp
+vanuit een uitgesproken opvatting over mannelijkheid en polariteit, waar Wong
+Chung de partners als gelijken behandelt.
+
+## 1510. De fontein, vind je plek
+
+Els van Steijn, 2016. Uitgeverij Het Noorderlicht, eerste druk 5 november
+2016, met de ondertitel *Grip op je leven door inzicht in je familiesysteem*
+(gebonden, 316 blz., ISBN 9789492331328). Het e-boek heeft ISBN 9789492331595,
+het luisterboek 9789083104157; de uitgever stond in 2025 op de dertiende druk
+en spreekt van meer dan tweehonderdduizend verkochte exemplaren. Er is een
+Engelse uitgave onder de titel *The Fountain, Find Your Place*. Van Steijn
+schreef er drie boeken achteraan: *De fontein, maak wijze keuzes*, *De
+fontein, vier je leven* en *De fontein, de aanmoediging*. Zij schreef ook het
+voorwoord bij de Nederlandse uitgave van Thomas Harris uit 2024. Rubriek:
+levenskunst.
+Tags: `systemisch werk`, `familieopstellingen`, `familiesysteem`, `Bert
+Hellinger`, `ouders`, `patronen`, `coaching`
+
+Els van Steijn (1969) is coach en familie- en organisatieopsteller. In dit
+boek vat zij het familiesysteem in een beeld: een fontein met schalen boven
+elkaar, als een bruidstaart. Bovenin de voorouders, daaronder de grootouders,
+dan de ouders, dan jij met je broers en zussen, dan je kinderen. Het water
+stroomt van boven naar beneden en je kunt het alleen opnemen en doorgeven als
+je in je eigen schaal staat.
+
+Haar stelling is dat de meeste mensen dat niet doen. Zij zijn als kind hoger
+in de fontein gaan zitten, meestal omdat er thuis iets was: een ouder die
+wegviel, een ouder die niet kon zorgen, een scheiding. Dat kind neemt dan
+verantwoordelijkheid die niet bij hem hoort, en blijft dat als volwassene
+doen, op het werk, in vriendschappen en in de eigen relatie.
+
+Het boek beschrijft in twaalf hoofdstukken drie manieren waarop mensen van hun
+plek raken, wat dat kost, en hoe het afdalen naar de eigen schaal eruitziet.
+De methode komt uit het systemisch werk van Bert Hellinger; de fontein is Van
+Steijns eigen vondst om die leer zonder vaktaal over te brengen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Van Steijn stelt dat hardnekkige problemen in werk, liefde en
+ouderschap terug te voeren zijn op de plek die iemand in zijn familiesysteem
+inneemt, en dat die plek bijna altijd te hoog is. Een kind dat de zorg van een
+ouder overneemt, dat over zijn ouders oordeelt, of dat zich zonder het te
+weten met een familielid identificeert, stapt uit zijn eigen schaal in een
+schaal daarboven. Het krijgt daarmee een last die niet van hem is en verliest
+tegelijk de stroom die van boven zou moeten komen. De uitweg is niet inzicht
+in de last zelf, maar het teruggaan naar de eigen plek, en dat vraagt dat
+iemand zijn ouders aanvaardt zoals zij zijn, inclusief wat zij niet konden
+geven. Wie dat doet, houdt zijn eigen leven over in plaats van dat van iemand
+anders.
+
+#### De gang van het boek
+
+**Geluk en de onderstroom**
+
+Het boek opent met de vaststelling dat mensen hun tegenslagen meestal
+verklaren met wat zichtbaar is: het karakter van een collega, de
+omstandigheden, de opvoeding. Van Steijn zet daar een tweede laag naast die
+zij de onderstroom noemt: het geheel van verbindingen en verhoudingen binnen
+een familie, dat onzichtbaar werkt en zich over generaties doorzet.
+
+Twee uitgangspunten dragen de rest. Het eerste is dat onzichtbare patronen
+hanteerbaar worden zodra ze zichtbaar zijn. Het tweede is dat het aankijken
+van de werkelijkheid heelt. Beide zijn ontleend aan het systemisch werk en
+worden in het boek als uitgangspunt gebruikt, niet als stelling die bewezen
+wordt.
+
+**De fontein**
+
+Het beeld zelf staat in het tweede deel van het boek. Een fontein met schalen
+boven elkaar, de voorouders bovenin, dan de grootouders, de ouders, de eigen
+generatie met broers en zussen, en daaronder de kinderen en kleinkinderen. Het
+water stroomt naar beneden. Wie in de juiste schaal staat, ontvangt en geeft
+door; wie te hoog staat, ontvangt niets en moet zelf leveren.
+
+De aantrekkingskracht van het beeld zit in zijn eenvoud. Het maakt een reeks
+abstracte systemische regels, over verbondenheid, ordening en het evenwicht
+tussen geven en nemen, in een oogopslag begrijpelijk. Van Steijn zegt zelf dat
+daar de reden ligt waarom het boek zo veel lezers vond die met systemisch werk
+niets hadden.
+
+**Drie manieren om te stijgen**
+
+Het scharnier van het boek is de beschrijving van drie manieren waarop iemand
+van zijn plek af raakt. De eerste is verantwoordelijkheid overnemen die niet
+van hem is: het kind dat zorgt voor een ouder, dat bemiddelt tussen ouders,
+dat de stemming in huis bewaakt.
+
+De tweede is oordelen en uit verbinding gaan. Wie zijn vader afschrijft, gaat
+daarmee boven hem staan, en dat is dezelfde beweging omhoog. De derde is
+onbewuste identificatie: iemand neemt zonder het te weten de rol of het lot
+over van een familielid dat is uitgesloten, jong gestorven of doodgezwegen.
+
+Alle drie leveren dezelfde reeks gevolgen op, die Van Steijn met voorbeelden
+invult: te veel verantwoordelijkheid op het werk, moeite met nee zeggen, snel
+oordelen, gevoelens wegdrukken, relaties waarin de een de ander opvoedt.
+
+**Schuld, onschuld en lot**
+
+Twee hoofdstukken gaan over schuld en onschuld. Van Steijn behandelt
+schuldgevoel niet als een morele kwestie maar als een signaal van het systeem:
+het gevoel zich schuldig te voelen komt op zodra iemand een familieregel
+overtreedt, ook wanneer die regel schadelijk is. Loskomen van een
+familiepatroon voelt daarom als verraad, en dat gevoel is volgens haar geen
+reden om terug te gaan.
+
+Daarnaast staat het hoofdstuk over lot. Sommige dingen in een familie zijn
+niet te repareren: een vroeg gestorven kind, een oorlog, een ziekte. Van
+Steijn onderscheidt wat aan iemand toebehoort van wat aan de familie
+toebehoort, en haar stelling is dat het overnemen van andermans lot niemand
+helpt.
+
+**Afdalen naar de eigen plek**
+
+De tweede helft van het boek gaat over het teruggaan. De centrale handeling is
+wat Van Steijn het hele pakket nemen noemt: de ouders aanvaarden zoals zij
+waren, met wat zij gaven en met wat zij niet konden geven, zonder daar een
+rekening voor te sturen. Dat is niet hetzelfde als goedkeuren; het is ophouden
+met het openhouden van de zaak.
+
+Daarop volgen hoofdstukken over ouders, over partnerschap en scheiding, en
+over de behoeftigheid die ontstaat wanneer iemand niet op zijn plek staat: hij
+haalt bij een partner, een werkgever of een kind wat hij in de fontein niet
+heeft ontvangen. Het boek sluit af met een zelftest waarmee een lezer zijn
+eigen positie kan nagaan.
+
+**De toon en de vorm**
+
+Het boek is geschreven in de vorm van een handboek: korte hoofdstukken, veel
+voorbeelden uit haar praktijk, opsommingen van herkenbare gevolgen en aan het
+eind van elk deel iets om zelf te doen. De toon is direct en soms hard, wat
+besprekers zowel als verdienste als als bezwaar noemen.
+
+Van Steijn schrijft nadrukkelijk voor lezers zonder voorkennis. Sanskriet noch
+de gebruikelijke opstellingenterminologie komt eraan te pas; de fontein doet
+dat werk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De fontein | Het beeld van het familiesysteem als een reeks schalen boven elkaar, waarin het water van boven naar beneden stroomt. |
+| Je plek | De schaal waar iemand op grond van zijn positie in de generatievolgorde thuishoort, en waar hij zowel kan ontvangen als doorgeven. |
+| Hoger in de fontein zitten | Het innemen van een schaal boven de eigen, waardoor iemand een last draagt die niet van hem is en de stroom van boven mist. |
+| Onderstroom | De onzichtbare laag van verbindingen en verhoudingen in een familie, tegenover de bovenstroom van wat mensen tegen elkaar zeggen. |
+| Verantwoordelijkheid overnemen | De eerste manier om te stijgen: zorgen voor of bemiddelen tussen mensen die een schaal hoger staan. |
+| Oordelen en uit verbinding gaan | De tweede manier: een ouder afschrijven, wat volgens Van Steijn hetzelfde effect heeft als boven hem gaan staan. |
+| Onbewuste identificatie | De derde manier: het overnemen van de rol of het lot van een uitgesloten of doodgezwegen familielid, zonder dat iemand dat weet. |
+| Het hele pakket nemen | De ouders aanvaarden zoals zij zijn, met hun beperkingen en met wat zij niet gaven, als voorwaarde voor het afdalen. |
+| Behoeftigheid | Het onbewust halen bij partner, werkgever of kind van wat in de fontein niet is ontvangen. |
+| Lot | Wat in een familie niet te herstellen valt en aan die familie toebehoort, en dat volgens Van Steijn niet overgenomen moet worden. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit gevallen uit de praktijk van de auteur en uit de
+systemische leer waarop zij voortbouwt. Van Steijn werkt als familie- en
+organisatieopsteller; de ordening, de verbondenheid en het evenwicht tussen
+geven en nemen die zij als wetmatigheden presenteert, komen uit het
+opstellingenwerk van Bert Hellinger. Het boek verwijst nauwelijks naar de
+herkomst van die regels en behandelt ze als gegevens.
+
+Empirisch onderzoek naar familieopstellingen bestaat wel, maar staat niet in
+dit boek. Een overzichtsstudie in *Family Process* uit 2021 van Konkoly Thege
+en collega's vond twaalf studies met in totaal 568 deelnemers; negen daarvan
+lieten een statistisch beduidende verbetering van algemene klachten zien, met
+een middelmatige effectgrootte, en vijf tot acht procent van de deelnemers
+meldde lichte negatieve gevolgen. Een gerandomiseerde studie uit 2024 met
+tachtig deelnemers vond kleine verbeteringen die na een halfjaar grotendeels
+weer verdwenen waren.
+
+Dat is het beeld waarin dit boek geplaatst moet worden: er is enige steun voor
+het idee dat een opstellingsbijeenkomst mensen op korte termijn opknapt, en er
+is geen steun voor de specifieke verklaringen die het boek geeft. Dat iemand
+klachten heeft doordat hij zich met een uitgesloten oudoom heeft
+geidentificeerd, is een uitspraak van een andere orde dan een gemeten
+verbetering na een weekendbijeenkomst.
+
+Wat het boek zelf sterk maakt is de herhaalbaarheid van de beschrijving. De
+reeks gevolgen die Van Steijn aan een te hoge plek verbindt, moeite met nee
+zeggen, overmatig verantwoordelijkheidsgevoel, gevoelens wegdrukken, wordt
+door veel lezers herkend. Dat is tegelijk het punt waarop haar redenering het
+kwetsbaarst is.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het model niet te weerleggen is. Elke klacht past
+ergens in: te veel verantwoordelijkheid wijst op stijgen, afstand tot een
+ouder wijst op stijgen, en een klacht waarvoor geen aanleiding te vinden is
+wijst op onbewuste identificatie met iemand over wie in de familie is
+gezwegen. Een verklaring die alles dekt, sluit niets uit, en daarmee is de
+fontein eerder een taal om ervaringen in te ordenen dan een verklaring die
+getoetst kan worden.
+
+De herkomst blijft onderbelicht. Bert Hellinger, van wie de systemische regels
+komen, is een omstreden figuur, zowel om zijn uitspraken over slachtoffers en
+daders als om zijn werkwijze in grote groepen. Van Steijn haalt de bruikbare
+kern uit dat werk en laat de rest weg, wat voor de lezer prettig is maar de
+vraag oproept op welk gezag de wetmatigheden dan nog rusten.
+
+De ouderparagraaf legt een last bij de lezer. Het hele pakket nemen betekent
+in de praktijk dat iemand ophoudt met het verwijten van zijn ouders, ook
+wanneer die ouders hem schade hebben toegebracht. Van Steijn onderscheidt
+aanvaarden van goedkeuren, maar dat onderscheid is bij ernstige mishandeling
+of misbruik moeilijk vol te houden, en het boek werkt die situaties niet uit.
+Besprekers wijzen er terecht op dat dit geen vervanging van behandeling is.
+
+Er zit ten slotte een spanning tussen de belofte en de vorm. Een boek van
+driehonderd bladzijden met zelftest kan iemand een taal geven, maar het
+afdalen dat Van Steijn beschrijft is in haar eigen praktijk het werk van een
+opstelling met een begeleider. Haar vierde boek, *De aanmoediging*, is er
+blijkens haar eigen toelichting gekomen omdat lezers na verloop van tijd in
+hun oude patronen terugvielen.
+
+#### Wat er concreet mee te doen is
+
+- Teken de eigen fontein met alle schalen en zet daar ook de mensen in die in
+de familie zijn weggevallen of doodgezwegen.
+- Ga bij een terugkerende botsing op het werk na of er verantwoordelijkheid
+wordt gedragen die aan iemand anders toebehoort.
+- Onderscheid bij een familieverhaal wat aan het lot toebehoort van wat te
+veranderen valt, voordat er iets ondernomen wordt.
+- Behandel de zelftest achterin als aanleiding tot een gesprek, niet als
+uitslag; het boek levert geen genormeerd meetinstrument.
+- Zoek bij klachten die met geweld of misbruik samenhangen behandeling, en
+gebruik dit boek er hooguit naast.
+
+#### Wat je hierna leest
+
+- 1511. I'm OK, You're OK. Van Steijn schreef het voorwoord bij de Nederlandse
+uitgave van Harris uit 2024; beide boeken leggen volwassen gedrag uit als het
+innemen van de juiste positie tegenover ouders.
+- 386. The Body Keeps the Score. Van der Kolk behandelt dezelfde doorwerking
+van vroege ervaringen met onderzoek erbij, en laat zien wat een lichamelijk
+onderbouwde verklaring wel en niet kan.
+- 152. Attached. Levine en Heller verklaren hetzelfde relatiegedrag uit
+hechtingsstijlen, een model dat wel op vragenlijsten en onderzoek rust.
+- 213. Games People Play. Berne beschrijft de vaste rollen tussen mensen als
+spelen; een andere taal voor de vraag waarom volwassenen elkaar als ouder en
+kind blijven behandelen.
+
+## 1511. I'm OK, You're OK
+
+Thomas A. Harris, 1967. Oorspronkelijk *I'm OK, You're OK* (Harper & Row, New
+York, 1967). Het boek kwam in 1972 op de bestsellerlijst van *The New York
+Times* en bleef daar bijna twee jaar; de uitgever houdt het op meer dan
+vijftien miljoen verkochte exemplaren en vertalingen in meer dan tien talen.
+De Nederlandse uitgave verschijnt al decennia bij Ambo|Anthos, eerst als *Ik
+ben o.k., jij bent o.k.*, sinds 14 augustus 2024 als *Ik ben oké Jij bent oké*
+met de ondertitel *Hoe je op een volwassen manier kunt omgaan met je medemens*
+en een voorwoord van Els van Steijn (336 blz., ISBN 9789026367816,
+zesenveertigste druk). Er is ook een luisterboek. Rubriek: gewoontes en
+denken.
+Tags: `transactionele analyse`, `Eric Berne`, `populaire psychologie`,
+`ego-toestanden`, `levensposities`, `jaren zeventig`, `psychiatrie`
+
+Thomas A. Harris was psychiater en werkte met de transactionele analyse die
+Eric Berne in de jaren vijftig en zestig had ontwikkeld. Dit boek maakt die
+theorie toegankelijk voor een publiek zonder opleiding: iedereen draagt drie
+ego-toestanden bij zich, de Ouder, de Volwassene en het Kind, en welke van de
+drie er spreekt bepaalt wat er tussen twee mensen gebeurt.
+
+Op die drie zet Harris zijn eigen bijdrage: vier levensposities. Ieder kind
+komt volgens hem uit tot de conclusie dat het zelf niet oké is en de grote
+mensen wel. Die positie, ik ben niet oké en jij bent oké, wordt zonder woorden
+vastgelegd en blijft levenslang meedoen tenzij iemand haar bewust vervangt
+door de vierde: ik ben oké, jij bent oké.
+
+De tweede helft van het boek past het model toe op huwelijk, kinderen,
+adolescenten, moraal en religie, en op de politieke spanningen van de jaren
+zestig. Het boek verkocht miljoenen exemplaren en de titel werd een
+uitdrukking die losraakte van de theorie erachter.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Harris stelt dat het gedrag van volwassenen wordt bepaald
+door beslissingen die zij als klein kind hebben genomen en nooit hebben
+herzien. Zijn redenering rust op twee dingen. Het eerste is Berne's model van
+drie ego-toestanden: de Ouder met de overgenomen regels, het Kind met de
+opgeslagen gevoelens, en de Volwassene die in het heden gegevens verwerkt. Het
+tweede is zijn eigen toevoeging, dat elk kind door zijn afhankelijkheid en
+kleinheid tot de slotsom komt dat het niet oké is terwijl de anderen dat wel
+zijn. Die positie stuurt de rest van een leven, en er groeit niemand vanzelf
+uit. Alleen een bewuste, in woorden genomen beslissing voor de vierde positie,
+ik ben oké en jij bent oké, geeft de Volwassene de leiding. Daarmee legt
+Harris de sleutelbeslissing van een mensenleven in een handeling die niet
+meetbaar is en die hij vooral vanuit zijn spreekkamer beschrijft.
+
+#### De gang van het boek
+
+**De hersenen als bandrecorder**
+
+Het boek begint met het werk van de neurochirurg Wilder Penfield, die bij
+patienten met slaapkwabepilepsie tijdens operaties de hersenschors elektrisch
+prikkelde. Sommige patienten meldden daarbij dat zij een gebeurtenis uit hun
+verleden opnieuw beleefden, met het gevoel dat er destijds bij hoorde.
+
+Harris leest dat als bewijs dat ervaringen volledig worden vastgelegd,
+inclusief de emotie, en dat die opnamen levenslang afspeelbaar blijven. Op die
+aanname staat de rest van het boek: de Ouder en het Kind zijn in zijn
+beschrijving letterlijk opnamen uit de eerste levensjaren.
+
+**Ouder, Volwassene, Kind**
+
+De Ouder bevat wat het kind aan regels, waarschuwingen en oordelen van zijn
+verzorgers heeft opgenomen, ongetoetst en in hun bewoordingen. Het Kind bevat
+de gevoelens die het bij die gebeurtenissen had, vooral de gevoelens van
+kleinheid en afhankelijkheid. De Volwassene ontstaat vanaf ongeveer het tiende
+levensmaand en verwerkt gegevens uit het heden.
+
+De taak van de Volwassene is volgens Harris niet het uitschakelen van de
+andere twee, maar het toetsen ervan: klopt wat de Ouder zegt nog, en past wat
+het Kind voelt bij wat er nu gebeurt. Onder spanning raakt de Volwassene
+vertroebeld en nemen de opnamen het over, en dat is wat mensen doen wanneer
+zij zich naderhand afvragen waarom zij zo reageerden.
+
+**De vier levensposities**
+
+Harris beschrijft vier grondhoudingen. Ik ben niet oké, jij bent oké is de
+positie van vrijwel ieder kind, en zij zet mensen aan tot het zoeken van
+bevestiging bij anderen. Ik ben niet oké, jij bent niet oké ontstaat volgens
+hem bij kinderen die ook de aandacht van de verzorgers verliezen en leidt tot
+opgeven. Ik ben oké, jij bent niet oké ziet hij bij kinderen die zijn
+mishandeld en die zichzelf leren troosten; hij verbindt die positie met mensen
+die geen schuld kunnen erkennen.
+
+De vierde, ik ben oké en jij bent oké, is bij hem van een andere soort. De
+eerste drie worden zonder woorden en voor het derde levensjaar vastgelegd; de
+vierde is een beslissing die met woorden en met kennis genomen wordt. Dat
+verschil is het scharnier van het boek en tegelijk het punt waarop Berne het
+met hem oneens was.
+
+**Transacties, strelingen en spelen**
+
+Van Berne neemt Harris de analyse van transacties over: elke uitwisseling
+tussen twee mensen gaat uit van een ego-toestand en richt zich op een
+ego-toestand. Loopt dat parallel, dan kan het gesprek doorgaan; kruist het,
+dan valt het stil of ontspoort het. Het schoolvoorbeeld is een vraag van
+Volwassene aan Volwassene die met een verwijt van Ouder aan Kind wordt
+beantwoord.
+
+Daarbij hoort het begrip streling, de aandacht die mensen bij elkaar zoeken en
+die zij desnoods in negatieve vorm nemen. Spelen zijn vaste reeksen
+transacties die eindigen in een bekend en onaangenaam gevoel, en die volgens
+Harris in stand blijven omdat zij de oude positie bevestigen.
+
+**Toepassing op het gewone leven**
+
+De tweede helft van het boek zet het model in bij huwelijk, opvoeding en
+adolescentie. Harris behandelt echtelijke ruzies als kruisende transacties, en
+het opvoeden van een puber als de vraag welke ego-toestand een ouder
+aanspreekt. Zijn advies is telkens hetzelfde: haal de Volwassene erbij, benoem
+wat er gebeurt en beslis.
+
+De praktische waarde daarvan is dat het gedrag benoembaar wordt zonder dat
+iemand zich hoeft te verdedigen. Dat is ook de reden waarom de transactionele
+analyse in bedrijven en opleidingen zo veel is gebruikt.
+
+**Moraal, godsdienst en de wereld**
+
+In de laatste hoofdstukken breidt Harris zijn model uit naar moraal,
+godsdienst en de politiek van zijn tijd, met de koude oorlog en Vietnam als
+voorbeelden. Landen en groepen gedragen zich in zijn beschrijving als mensen
+met een levenspositie, en wapenwedlopen worden spelen op grote schaal.
+
+Deze hoofdstukken zijn het meest gedateerd en het minst onderbouwd. Ze
+verklaren wel waarom het boek in 1972 zo aansloeg: het bood een vocabulaire
+waarmee huiselijke ruzies en wereldpolitiek in dezelfde termen te bespreken
+waren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ego-toestand | Een samenhangend geheel van gedrag, denken en voelen dat op een gegeven moment de leiding heeft; Harris onderscheidt er drie. |
+| Ouder | De opgeslagen regels en oordelen van de verzorgers, overgenomen zonder toetsing en in hun eigen bewoordingen. |
+| Volwassene | Het deel dat gegevens uit het heden verwerkt, de Ouder toetst en het Kind plaatst; volgens Harris al vanaf het eerste levensjaar in ontwikkeling. |
+| Kind | De opgeslagen gevoelens uit de eerste jaren, vooral die van kleinheid en afhankelijkheid tegenover grote mensen. |
+| Ik ben niet oké, jij bent oké | De eerste levenspositie, die volgens Harris vrijwel ieder kind inneemt en die zonder woorden wordt vastgelegd. |
+| Ik ben oké, jij bent oké | De vierde positie, bij Harris geen gevoel maar een bewuste beslissing die met kennis en woorden genomen wordt. |
+| Transactie | Een uitwisseling tussen twee mensen, beschreven naar de ego-toestand waarvandaan zij vertrekt en die zij aanspreekt. |
+| Kruisende transactie | Een uitwisseling waarbij het antwoord uit een andere ego-toestand komt dan werd aangesproken, waarop het gesprek stilvalt. |
+| Streling | De aandacht die mensen bij elkaar zoeken; blijft die uit, dan nemen zij haar volgens Harris ook in negatieve vorm. |
+| Spel | Een vaste reeks transacties die op een bekend onaangenaam gevoel uitloopt en die de oude levenspositie bevestigt. |
+
+#### Waar het argument op rust
+
+Het boek steunt op drie dingen: het werk van Penfield, de theorie van Berne,
+en de eigen praktijk van Harris als psychiater. Van de drie is alleen de
+eerste een verwijzing naar onderzoek, en juist die verwijzing draagt de
+zwaarste last. Penfields waarnemingen zijn echt gedaan, maar de zogeheten
+ervaringsreacties traden op bij een minderheid van de geprikkelde patienten,
+allen met slaapkwabepilepsie, en het resultaat is niet zonder meer herhaalbaar
+gebleken.
+
+De sprong van die waarnemingen naar het beeld van de hersenen als bandrecorder
+maakt Harris zelf, en die sprong houdt geen stand. Wat er in het
+geheugenonderzoek sinds de jaren zestig is gevonden, wijst op herinneren als
+reconstructie en niet als het afspelen van een opname. Daarmee valt de
+fysiologische onderbouwing van de Ouder en het Kind als letterlijke opnamen
+weg, terwijl het model als beschrijving overeind kan blijven.
+
+Er staan in het boek geen effectmetingen, geen controlegroepen en geen
+verwijzingen naar uitkomstonderzoek. Wat Harris aanvoert zijn gesprekken uit
+zijn spreekkamer en uit de groepen die hij begeleidde. De kracht van het
+materiaal zit in de herkenbaarheid van de dialogen; de zwakte is dat er geen
+enkele manier is om na te gaan hoe vaak het werkte en bij wie niet.
+
+De vier levensposities zijn evenmin gemeten. Er is geen instrument om vast te
+stellen in welke positie iemand zit, en er is geen criterium waaraan een
+indeling getoetst kan worden. Zij zijn een typologie die zichzelf onderbouwt:
+wie zich niet in de vierde positie herkent, zit blijkbaar in een van de andere
+drie.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar geldt de fundering. Harris bouwt zijn hele beeld van de
+opgeslagen Ouder en het opgeslagen Kind op een lezing van Penfield die de
+neurowetenschap niet is gevolgd. Wie dat weet, leest het boek als een handzame
+metafoor. Wie dat niet weet, leest het als een verklaring uit de hersenen, en
+dat is precies hoe het boek in 1967 werd gepresenteerd.
+
+Berne zelf was het oneens met Harris over de aard van de eerste levenspositie.
+Harris' stelling dat vrijwel elk kind tot ik ben niet oké komt, en dat de
+vierde positie een bewuste beslissing vergt die in de praktijk meestal via
+behandeling tot stand komt, is bekritiseerd als bijna religieus van vorm: er
+is een staat van gebrek, een bekering en een verlossing. Dat is een structuur,
+geen bevinding.
+
+De uitbreiding naar moraal, godsdienst en wereldpolitiek rekt het model verder
+dan het draagt. Dat twee grootmachten een spel spelen zoals twee echtelieden
+dat doen, is een aardige vergelijking en geen verklaring, en Harris voert er
+geen aanvullend argument voor aan.
+
+Ten slotte heeft de titel het boek overleefd en beschadigd. Ik ben oké, jij
+bent oké werd een uitdrukking voor onverschillige goedkeuring, terwijl Harris
+er een beslissing mee bedoelde die niets zegt over gedrag: iemand kan oké zijn
+en zich slecht gedragen. Wie het boek leest nadat hij de uitdrukking kent,
+moet die betekenis eerst weer afpellen.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een gesprek dat plotseling stilvalt na welke ego-toestand er sprak en
+welke werd aangesproken.
+- Noteer bij een sterke reactie of de zin die opkwam van een ouder afkomstig
+is, en of hij nu nog klopt.
+- Onderscheid bij een terugkerende ruzie de aanleiding van het bekende gevoel
+waarop zij uitloopt; dat gevoel is bij Harris het doel van het spel.
+- Lees de hoofdstukken over Penfield als tijdsbeeld en niet als onderbouwing.
+- Gebruik het onderscheid tussen iemand oké vinden en zijn gedrag goedkeuren,
+waar de uitdrukking die twee door elkaar haalt.
+
+#### Wat je hierna leest
+
+- 213. Games People Play. Berne legde het model waarop Harris voortbouwt drie
+jaar eerder neer; wie de spelen zelf wil zien beschreven, moet daar zijn.
+- 1510. De fontein, vind je plek. Els van Steijn schreef het voorwoord bij de
+Nederlandse uitgave van 2024 en werkt met een vergelijkbare gedachte, dat
+volwassenheid het innemen van de juiste positie is.
+- 411. Psycho-Cybernetics. Maltz bouwde zeven jaar eerder een bestseller op
+hetzelfde idee, dat een zelfbeeld uit de jeugd als een opname blijft draaien
+tot het bewust wordt vervangen.
+- 386. The Body Keeps the Score. Van der Kolk behandelt de doorwerking van
+vroege ervaringen met het onderzoek dat bij Harris nog ontbrak, en met een
+ander beeld van hoe het geheugen werkt.
+
+## 1512. Wat moed dat moet
+
+Simon Keizer, 2025. Nederlandstalig origineel, ondertiteld *Mijn leven in
+flarden*. Verscheen eerst als luisterboek, door de auteur zelf ingelezen en
+uitgebracht als Storytel Original op 31 december 2025, precies vijfentwintig
+jaar na de cafébrand in Volendam (luisterboek ISBN 9789180876155, ebook ISBN
+9789180876162). De gedrukte uitgave volgde op 2 juni 2026 bij Invictus
+Publishing, onderdeel van Van Lindonk & De Bres, uitgebreid en aangevuld met
+veertig bladzijden fotomateriaal (224 blz., ISBN 9789079679164). Er bestaat
+geen vertaling; dit is het eerste boek van Keizer. Rubriek: roman en memoir.
+Tags: `memoir`, `Volendam`, `cafébrand`, `rouw`, `vaderverlies`, `muziek`,
+`retraite`
+
+Simon Keizer, geboren in 1984 in Volendam en bekend als de helft van het duo
+Nick en Simon, kijkt rond zijn veertigste terug op zijn leven. Het boek heet
+naar het dorpsgezegde dat het einde van de titel al aankondigt: wat moet, dat
+moet, en moed is het woord dat daar tussen wordt geschoven.
+
+De onderdelen zijn bekend uit het openbare leven van de zanger: de vroege dood
+van zijn vader, de brand in het café in zijn dorp in de nieuwjaarsnacht van
+2001, elf albums die op de eerste plaats binnenkwamen, en het besluit in 2022
+om met het duo te stoppen. Wat het boek eraan toevoegt is de volgorde waarin
+hij die gebeurtenissen nu zet.
+
+De verteltijd ligt grotendeels op een retraite in Costa Rica, waar hij rond
+zijn veertigste terechtkomt met de vraag waarom het succes geen richting meer
+geeft. Het boek is opgezet als flarden, korte stukken herinnering zonder
+doorlopende chronologie, en de titel van de luisterversie maakt dat expliciet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Keizer stelt dat zijn leven van buitenaf geslaagd was en van
+binnen leeg, en dat de rekening daarvoor pas werd gepresenteerd toen er niets
+meer te bereiken viel. Hij voert dat terug op wat hij als jongen niet heeft
+gevoeld: een vader die vroeg wegviel, een dorp waarin de nieuwjaarsnacht van
+2001 een gat sloeg en waarin doorgaan de gewoonte was, en een carrière die hem
+twintig jaar lang een reden gaf om niet stil te staan. Moed betekent in dit
+boek niet iets groots ondernemen, maar ophouden met wegkijken van wat er onder
+het presteren zit.
+
+#### De gang van het verhaal
+
+**Volendam**
+
+Het boek begint bij het dorp. Keizer wordt in 1984 in Volendam geboren, in een
+gemeenschap waar muziek, familie en kerk dicht op elkaar zitten en waar het
+zangersvak een uitgesleten pad is. Hij beschrijft een jeugd die van buiten
+opgewekt oogt en waarin hij vroeg leert wat er van hem wordt verwacht.
+
+De dood van zijn vader valt in die periode. Keizer beschrijft niet zozeer de
+gebeurtenis als wel wat eromheen ontbrak: er werd doorgeleefd, er werd weinig
+over gesproken, en de manier waarop hij toen met verdriet omging is de manier
+waarop hij er daarna dertig jaar mee omging.
+
+**De nieuwjaarsnacht**
+
+In de nacht van 31 december 2000 op 1 januari 2001 breekt brand uit in het
+café 't Hemeltje aan de Haven in Volendam, tijdens de jaarwisseling, door
+kerstversiering die vlam vat. Veertien jongeren komen om, honderden raken
+gewond, veel van hen met brandwonden en longschade waarvan zij hun leven lang
+last houden. Keizer was toen een tiener in dat dorp.
+
+Het boek behandelt de brand als de gebeurtenis die de generatie waartoe hij
+behoort heeft getekend en waarover in Volendam lang niet openlijk werd
+gesproken. Dat het luisterboek precies op de vijfentwintigste jaarwisseling na
+de brand verscheen, is geen toeval: de uitgever zette dat deel van het verhaal
+voorop en Keizer spreekt zich er voor het eerst uitgebreid over uit.
+
+**Het duo**
+
+Daarna volgt de carrière. Met Nick Schilder vormt hij vanaf 2006 een duo dat
+binnen enkele jaren de grootste Nederlandstalige act van het land wordt, met
+elf albums die op de eerste plaats van de albumlijst binnenkwamen,
+uitverkochte zalen, televisieprogramma's en een publiek dat hen als een vast
+koppel ziet.
+
+Keizer beschrijft dat succes zonder valse bescheidenheid en zonder er een
+leerzaam verhaal van te maken. Wat hij eraan toevoegt is de kant die het
+publiek niet zag: een agenda die het denken overneemt, een rol die van hem
+verwacht wordt en die hij goed speelt, en het gevoel dat er iets ontbreekt
+waarvoor hij geen woorden had.
+
+**Stoppen**
+
+In 2022 besluiten Keizer en Schilder te stoppen; in 2023 volgen de
+afscheidsconcerten. Het boek behandelt dat besluit als het punt waarop de
+vraag niet langer uit te stellen was. Wie is hij zonder het duo, en wat blijft
+er over van een identiteit die twintig jaar met een tweede naam werd genoemd.
+
+De verhouding met Schilder blijft in het boek op de achtergrond. Keizer
+schrijft over zijn eigen aandeel en houdt het bij wat hem betreft, wat het
+boek eerlijker maakt over zichzelf dan compleet over de breuk.
+
+**Costa Rica**
+
+Het heden van het boek speelt op een retraite in Costa Rica. Daar wordt hij
+geconfronteerd met andere lezingen van zijn verleden: de patronen die hij
+herkende als karakter blijken aangeleerde reacties, en de overtuigingen die
+hij als vanzelfsprekend beschouwde blijken keuzes die hij als kind maakte om
+te overleven.
+
+Keizer formuleert de uitkomst voorzichtig. De retraite heeft hem naar eigen
+zeggen niet iemand anders gemaakt, maar teruggebracht bij wie hij al was. In
+de aflevering van de podcast Kukuru waarin hij het boek bespreekt komen
+daarbij Choose Again, ego, rouw en meditatie ter sprake; het gedachtegoed
+waarin hij zich beweegt is dat van de attitudinal healing en van *Een cursus
+in wonderen*.
+
+**Flarden**
+
+De vorm past bij de inhoud. Het boek loopt niet als een levensverhaal van
+begin tot eind, maar springt tussen scènes: een auditie, een begrafenis, een
+hotelkamer, een gesprekskring. Dat maakt de opbouw losser dan een biografie en
+dichter bij hoe herinnering zich aandient.
+
+De gedrukte editie zet daar veertig bladzijden foto's naast, uit de
+familiealbums en uit de jaren van het duo. Die keuze bepaalt mede wie het boek
+leest: het richt zich in eerste instantie op mensen die de zanger kennen en
+pas daarna op lezers die niets met Nederlandstalige muziek hebben.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Flarden | De ondertitel en het vormprincipe van het boek: losse stukken herinnering in plaats van een doorlopend levensverhaal. |
+| Moed | In Keizers gebruik niet het aandurven van iets groots, maar het toelaten van gevoel dat hij jarenlang buiten de deur hield. |
+| De cafébrand | De brand in 't Hemeltje in de nieuwjaarsnacht van 2001, met veertien doden en honderden gewonden, die in Volendam een generatie tekende. |
+| Het dorp | Volendam als gemeenschap waarin saamhorigheid en zwijgen samengaan, en waarin doorgaan geldt als de gepaste reactie op verlies. |
+| Retraite | De verblijfsperiode in Costa Rica waar het heden van het boek zich afspeelt en waar zijn verleden opnieuw wordt doorgenomen. |
+| Ego | De term uit het gedachtegoed van de retraite voor het zelfbeeld dat een mens bouwt om zich veilig te voelen en dat het contact met de werkelijkheid vertroebelt. |
+| Rouw | Het woord waaronder Keizer de dood van zijn vader, de brand en het einde van het duo als een reeks van hetzelfde verschijnsel behandelt. |
+| Voelen | Het werkwoord waar het boek naartoe werkt: het toelaten van lichamelijk waarneembaar verdriet in plaats van het benoemen ervan. |
+
+#### Waar het argument op rust
+
+Dit is een herinneringsboek en het staat of valt met de eerlijkheid van de
+verteller. Er is geen bronnenapparaat, er zijn geen interviews met derden en
+er is geen ghostwriter genoemd. Wat controleerbaar is, is het geraamte:
+geboortejaar, de datum en de toedracht van de brand in 't Hemeltje, de
+discografie van het duo, het besluit uit 2022 en de afscheidsconcerten van
+2023. Die gegevens kloppen met wat er buiten het boek over te vinden is.
+
+Wat niet controleerbaar is, is het binnenwerk: de gevoelens die hij aan zijn
+zestiende of zijn vijfentwintigste toeschrijft, en de gedachtegang die hij nu
+terugleest in beslissingen van twintig jaar geleden. Dat is de gebruikelijke
+beperking van elke memoir en Keizer doet er niet geheimzinnig over; hij
+presenteert zijn versie als een versie.
+
+De audioversie legt een eigen gewicht in de schaal. Keizer las het boek zelf
+in, ongeveer acht uur lang, en dat maakt van sommige passages een hoorbaar
+moeilijk gesprek in plaats van een gladde tekst. Wie de twee versies naast
+elkaar legt, merkt dat de gedrukte uitgave uitgebreid is en op punten verder
+gaat dan de gesproken versie.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de inzichten algemeen blijven. Dat succes niet
+gelukkig maakt, dat verdriet dat niet gevoeld wordt later terugkomt, dat een
+mens meer is dan zijn rol: het zijn juiste observaties die in dit genre al
+vaak zijn opgeschreven. Wat het boek eigen maakt zijn de details van Volendam
+en van het vak, niet de conclusies.
+
+De taal van de retraite wordt overgenomen zonder dat er iets tegenover wordt
+gezet. Begrippen als ego, kernovertuiging en vergeving komen uit de
+attitudinal healing en uit *Een cursus in wonderen*, een stroming met een
+eigen kosmologie en met weinig onderzoek achter zich. Keizer schrijft die
+begrippen op als beschrijvingen van hoe het werkt, terwijl het aannames van
+een school zijn. Lezers die daarin meegaan lezen een bevestiging, lezers die
+dat niet doen zien een vocabulaire zonder onderbouwing.
+
+Rond de brand blijft het boek voorzichtig. Vijfentwintig jaar na de
+nieuwjaarsnacht is er in Volendam nog altijd verschil tussen wie erbij was,
+wie iemand verloor en wie er langs de zijkant stond, en het boek gaat die
+verhoudingen niet in. Dat is verdedigbaar terughoudendheid, maar het zet wel
+een vraag bij de keuze van de uitgever om de verschijningsdatum precies op die
+verjaardag te leggen.
+
+Ten slotte is er de vorm zelf. De flarden geven het boek vaart, maar ze
+ontslaan de schrijver ook van de plicht om verbanden te leggen. Waar een
+doorlopend verhaal had moeten uitleggen hoe het ene op het andere volgde, kan
+een reeks scènes volstaan met naast elkaar zetten. Het boek is daardoor
+prettig te lezen en op de kernvraag, wat er nu werkelijk is veranderd, blijft
+het antwoord open.
+
+#### Wat je hierna leest
+
+- 1515. Choose Again. Het boek van Diederik Wolsak beschrijft de methode en
+het centrum in Costa Rica waarnaar het heden van Keizers verhaal verwijst; wie
+wil weten waar zijn woordenschat vandaan komt, vindt het daar.
+- 48. Man's Search for Meaning. Frankl behandelt dezelfde vraag, hoe iemand
+betekenis geeft aan verlies, vanuit een leven waarin de omstandigheden
+onvergelijkbaar zwaarder waren en de conclusie soberder is.
+- 386. The Body Keeps the Score. Van der Kolk levert het klinische kader voor
+wat Keizer als patroon beschrijft: waarom onverwerkt verlies zich in het
+lichaam vastzet en decennia later terugkomt.
+- 1539. The Choice. Eger schrijft eveneens een memoir waarin een
+therapeutische leer wordt verweven met een levensverhaal, en laat zien hoe dat
+er uitziet wanneer de auteur zelf behandelaar is.
+
+## 1513. You Are the Placebo
+
+Joe Dispenza, 2014. Oorspronkelijk *You Are the Placebo: Making Your Mind
+Matter* (Hay House, Carlsbad, 2014, ISBN 9781401944599). Nederlands als *Jij
+bent de placebo. Maak je gedachten tot realiteit*, vertaald door Vera Groen,
+uitgegeven door Succesboeken, 2017, 456 blz., ISBN 9789492665034. Bij het boek
+horen twee afzonderlijk verkochte meditatie-opnamen. Van Dispenza verschenen
+in het Nederlands ook *Breaking the Habit of Being Yourself* en *Becoming
+Supernatural*. Rubriek: brein en lichaam.
+Tags: `placebo`, `suggestie`, `meditatie`, `epigenetica`, `zelfhulp`,
+`kwantumfysica`, `Hay House`
+
+Dispenza, chiropractor van beroep, betoogt dat het placebo-effect laat zien
+wat een mens met zijn eigen verwachting kan doen aan zijn eigen lichaam. Als
+een suikerpil werkt omdat de patiënt gelooft dat hij werkt, dan is de pil
+overbodig zodra iemand dat geloof rechtstreeks kan opwekken.
+
+Het eerste deel van het boek is een geschiedenis van het placebo-onderzoek,
+met bekende gevallen: de man die zijn tumoren zag slinken door een middel dat
+later waardeloos bleek, patiënten met de ziekte van Parkinson die dopamine
+aanmaken op een zoutinjectie, en een knieoperatie die net zo goed werkte
+wanneer alleen de sneden werden gezet.
+
+Het tweede deel is een oefenprogramma. Dispenza beschrijft een meditatie
+waarin de lezer zijn eigen overtuigingen en gevoelens opspoort en vervangt,
+met de bewering dat dit tot in de genexpressie doorwerkt. Dat laatste deel is
+de sprong die het boek maakt en waar het meeste bezwaar tegen bestaat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dispenza stelt dat het placebo-effect geen storende
+bijkomstigheid van medisch onderzoek is maar het bewijs van wat de mens zelf
+vermag: als een middel zonder werkzame stof meetbare veranderingen in hersenen
+en lichaam veroorzaakt, dan is niet de stof maar de verwachting de werkzame
+factor, en dan valt die verwachting ook zonder pil op te roepen. Daaruit volgt
+zijn belofte dat iemand die zijn overtuigingen, gevoelens en aandacht
+doelgericht verandert, zijn eigen genexpressie kan beïnvloeden en aandoeningen
+kan laten verdwijnen die de geneeskunde als blijvend beschouwt. De eerste
+helft van die redenering rust op bestaand onderzoek, de tweede helft niet.
+
+#### De gang van het boek
+
+**De vraag**
+
+Het boek opent met de vraag of het mogelijk is de werkzame beginselen van het
+placebo te onderwijzen, zodat iemand zonder middel dezelfde verandering in
+zijn gezondheid tot stand brengt. Dispenza kondigt aan dat hij die vraag met
+ja gaat beantwoorden en zet daarvoor zijn eigen geschiedenis in.
+
+Die geschiedenis speelt in april 1986. Dispenza, dan drieëntwintig, wordt
+tijdens een triatlon in Californië door een auto geraakt en breekt zes
+wervels. Vier chirurgen adviseren een operatie met staven langs de
+wervelkolom. Hij weigert, laat zich naar huis brengen en werkt naar eigen
+zeggen negeneneenhalve week aan het beeld van een gezonde wervelkolom, waarna
+hij weer loopt. Het boek voert dat op als het beginpunt van alles wat erna
+komt.
+
+**Een geschiedenis van het placebo**
+
+Het historische deel loopt van de negentiende eeuw tot het hedendaagse
+geneesmiddelenonderzoek en verzamelt de gevallen die in de vakliteratuur
+bekend zijn. Het eerste is Sam Londe, een schoenverkoper met slokdarmkanker
+die in de jaren zeventig binnen enkele maanden overlijdt nadat hem is verteld
+dat hij nog kort te leven heeft; bij de sectie wordt veel minder tumorweefsel
+aangetroffen dan het beeld deed vermoeden. Dispenza concludeert dat hij aan de
+verwachting stierf.
+
+Het tweede is het geval dat de psycholoog Bruno Klopfer in 1957 beschreef: een
+patiënt met lymfeklierkanker wiens tumoren binnen dagen slonken na toediening
+van het middel krebiozen, weer terugkwamen toen de pers het middel
+afserveerde, opnieuw slonken na een injectie zonder werkzame stof die als
+verbeterde versie werd aangeprezen, en die stierf kort nadat het middel
+definitief waardeloos werd verklaard.
+
+Daarnaast noemt Dispenza onderzoek waarin patiënten met de ziekte van
+Parkinson na een injectie zonder werkzame stof aantoonbaar dopamine
+aanmaakten, en de studie waarin een kijkoperatie aan de knie geen beter
+resultaat gaf dan een schijnoperatie waarbij alleen de sneden werden gezet.
+
+**Hoe het volgens hem werkt**
+
+Vervolgens legt hij de werking uit in twee lagen. In de hersenen zorgt
+verwachting ervoor dat gebieden actief worden die bij beloning en pijndemping
+horen, en de eigen apotheek van het lichaam maakt de stoffen aan die anders
+van buiten hadden moeten komen. In het lichaam verloopt de vertaling via de
+stresshormonen en, in zijn versie, via de genexpressie.
+
+Hier introduceert hij epigenetica als sluitstuk: genen liggen vast, hun aan-
+en uitzetten niet, en gedachten en gevoelens horen tot de omgevingsfactoren
+die daarop ingrijpen. De redenering is dat een gedachte een gevoel oproept,
+dat een gevoel een chemische toestand is en dat een aanhoudende chemische
+toestand het aflezen van genen verandert.
+
+**Vatbaarheid en overtuiging**
+
+Twee hoofdstukken gaan over de voorwaarden. Vatbaarheid voor suggestie is
+volgens Dispenza geen zwakte maar een vermogen dat te trainen valt, en de weg
+ernaartoe loopt via hersengolven in het alfa- en thetagebied, waarin de
+scheidslijn tussen het bewuste en het onderbewuste dunner wordt.
+
+Overtuigingen behandelt hij als conclusies die iemand ooit trok en daarna
+nooit meer toetste, met een gevoelslading eronder die ze in stand houdt. Een
+overtuiging wijzigen vraagt in zijn model dus twee dingen tegelijk: de
+gedachte en het gevoel dat eraan vastzit.
+
+**De kwantumgeest**
+
+Het hoofdstuk over de kwantumgeest is het meest omstreden deel van het boek.
+Dispenza gebruikt het begrip veld en het gegeven dat waarneming in de
+kwantummechanica een rol speelt om te betogen dat aandacht en intentie invloed
+hebben op welke mogelijkheid werkelijkheid wordt.
+
+Voor de lezer die de natuurkunde niet kent, klinkt dat als een verklaring. Het
+is er geen. De waarnemer in de kwantummechanica is elke wisselwerking die
+informatie vastlegt, niet een menselijk bewustzijn met een wens, en er bestaat
+geen aangetoonde weg van intentie naar de toestand van een systeem op de
+schaal van een lichaam.
+
+**Het programma**
+
+Het tweede deel van het boek is praktisch. Het bevat drie verslagen van mensen
+die naar eigen zeggen op zijn bijeenkomsten van ernstige aandoeningen
+herstelden, een hoofdstuk over de metingen die hij tijdens zijn vierdaagse
+bijeenkomsten laat doen aan hersenactiviteit en hartritme, en daarna een
+voorbereiding op de meditatie.
+
+De meditatie zelf heet Het veranderen van overtuigingen en waarnemingen. De
+oefening bestaat uit lichaamsgerichte ontspanning, het benoemen van een
+overtuiging en het bijbehorende gevoel, het loslaten daarvan, en het herhaald
+opwekken van de gevoelstoestand die bij het gewenste resultaat hoort, met de
+instructie dankbaarheid te voelen alsof het al gebeurd is. Bij het boek zijn
+afzonderlijke opnamen te koop waarin hij die meditatie voorleest.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Placebo-effect | De verandering die optreedt na een behandeling zonder werkzame stof, volgens Dispenza veroorzaakt door verwachting, betekenisgeving en conditionering samen. |
+| Nocebo | De tegenhanger: een negatieve verwachting die klachten of verslechtering oproept, waarmee Dispenza het overlijden van Sam Londe verklaart. |
+| Conditionering | Het aanleren van een lichamelijke reactie door herhaalde koppeling, in zijn model de reden dat een pil ook zonder inhoud blijft werken. |
+| Vatbaarheid voor suggestie | De mate waarin iemand een aanwijzing zonder tussenkomst van het kritische verstand aanvaardt; volgens Dispenza te vergroten door oefening. |
+| Alfa- en thetatoestand | De hersengolfgebieden waarin volgens het boek de toegang tot het onderbewuste openstaat en waarin de meditatie moet plaatsvinden. |
+| Epigenetica | Het vakgebied dat bestudeert hoe genen worden aan- en uitgezet; Dispenza rekent gedachten en gevoelens tot de factoren die dat sturen. |
+| Overlevingsemoties | Zijn verzamelnaam voor angst, boosheid en schuld, gevoelens die het lichaam in een stresstoestand houden en volgens hem herstel blokkeren. |
+| De kwantumgeest | Zijn aanduiding voor het idee dat aandacht en intentie meebepalen welke mogelijkheid uit een veld van mogelijkheden werkelijkheid wordt. |
+| Het onbekende | De toestand waarin de uitkomst nog niet vaststaat; volgens Dispenza de plaats waar verandering vandaan komt en waar de meeste mensen voor terugdeinzen. |
+
+#### Waar het argument op rust
+
+De onderzoeksgevallen in het eerste deel bestaan. Klopfer publiceerde het
+geval van de krebiozenpatiënt in 1957 in een vakblad, het dopamine-onderzoek
+bij Parkinson is in de jaren rond 2001 in Vancouver uitgevoerd en herhaald, en
+de studie waarin een kijkoperatie aan de knie niet beter uitpakte dan een
+schijnoperatie verscheen in 2002 in het New England Journal of Medicine. Wie
+het boek leest als inleiding op wat er over verwachting en behandeling bekend
+is, krijgt echte literatuur voorgeschoteld.
+
+De sprong zit in wat die literatuur laat zien. Placebo-effecten zijn het
+duidelijkst bij uitkomsten die de patiënt zelf ervaart en rapporteert: pijn,
+misselijkheid, stemming, bewegingsonrust. De grote overzichtsstudie van
+Hrobjartsson en Gotzsche uit 2001, eveneens in het New England Journal of
+Medicine, vond over tientallen aandoeningen nauwelijks effect van placebo op
+objectief gemeten uitkomsten. Dispenza bespreekt die bevinding niet, terwijl
+zijn hele betoog juist over objectieve uitkomsten gaat.
+
+De gevallen die het meeste indruk maken zijn losse ziektegeschiedenissen
+zonder controlegroep. Bij Sam Londe berust de conclusie op een sectieverslag
+uit de jaren zeventig zoals doorverteld door een arts, bij de krebiozenpatiënt
+op de waarneming van een behandelaar die zelf het bedrog opzette. Zulke
+gevallen zijn interessant als aanleiding voor onderzoek en zij dragen geen
+algemene uitspraak.
+
+De metingen op zijn eigen bijeenkomsten zijn niet in een gecontroleerde opzet
+gedaan. De deelnemers hebben zichzelf aangemeld, betaald en verwachten
+resultaat, er is geen vergelijkingsgroep en de resultaten zijn niet in de
+gebruikelijke vakbladen verschenen met de gegevens erbij. Wat er wel is, zijn
+hersenfilmpjes en hartritmemetingen die tonen dat mensen tijdens langdurige
+meditatie in een andere toestand komen, wat op zichzelf niet omstreden is en
+niets over genezing zegt.
+
+Ten slotte de auteur. Dispenza is doctor of chiropractic, geen arts en geen
+hersenonderzoeker. Zijn eigen herstel na het ongeluk uit 1986 is niet
+onafhankelijk gedocumenteerd; herstel na wervelbreuken zonder beschadigd
+ruggenmerg komt voor zonder operatie, en de vier chirurgen die hij aanhaalt
+zijn niet te horen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de omkering die het boek maakt. Uit het gegeven
+dat verwachting invloed heeft op klachten volgt niet dat verwachting de
+oorzaak van ziekte is. Dispenza schuift die twee in elkaar, en daarmee komt de
+verantwoordelijkheid voor het beloop van een aandoening bij de zieke te
+liggen. Wie beter wordt heeft goed gemediteerd, wie niet beter wordt heeft
+kennelijk aan zijn overtuigingen te weinig gedaan. Het boek waarschuwt daar
+nergens voor.
+
+Het gebruik van de kwantummechanica is onhoudbaar. De vaktermen dienen als
+gezag, niet als redenering, en er is geen enkele stap in het boek waarin de
+natuurkunde daadwerkelijk iets afleidt. Hetzelfde geldt in mindere mate voor
+de epigenetica: dat gedrag en stress invloed hebben op genexpressie is bekend,
+dat een geleide meditatie een tumor uitschakelt volgt daar niet uit.
+
+De opzet van het boek is bovendien een verkoopkanaal. De meditaties worden
+apart verkocht, het boek verwijst naar meerdaagse bijeenkomsten met een
+aanzienlijk tarief, en de verhalen van deelnemers dienen zowel als bewijs als
+als aanbeveling. Dat maakt de beweringen niet vanzelf onwaar en het maakt de
+selectie van gevallen wel verdacht: wie op zulke bijeenkomsten niets
+meemaakte, komt in het boek niet voor.
+
+Er staat tegenover dat Dispenza een reëel probleem aanwijst. De geneeskunde
+behandelt het placebo-effect meestal als ruis die uit een onderzoeksopzet moet
+worden weggerekend, terwijl het in de spreekkamer een deel van de werking van
+elke behandeling is. Onderzoek naar open toediening, waarbij patiënten weten
+dat zij een placebo krijgen en toch verbetering melden bij
+prikkelbaredarmklachten en chronische pijn, laat zien dat daar iets te halen
+valt. Dispenza legt daar de vinger op en gaat er vervolgens ver voorbij.
+
+#### Wat er concreet mee te doen is
+
+- Lees deel een als geschiedenis van het placebo-onderzoek en zoek de genoemde
+studies zelf op; de meeste zijn met naam en jaartal terug te vinden.
+- Let bij elk verhaal in het boek op de vraag of er een controlegroep was. Bij
+de losse ziektegeschiedenissen is die er niet.
+- Gebruik de meditaties desgewenst als ontspanningsoefening, en beoordeel ze
+op wat ze feitelijk doen: ademhaling, aandacht en rust.
+- Staak nooit een voorgeschreven behandeling en stel geen diagnose uit op
+grond van dit boek.
+- Scheid bij het lezen de twee beweringen die door elkaar lopen: dat
+verwachting klachten beïnvloedt, en dat gedachten ziekten veroorzaken en
+opheffen. Alleen de eerste heeft onderzoek achter zich.
+
+#### Wat je hierna leest
+
+- 208. Breaking the Habit of Being Yourself. Het eerdere boek van Dispenza
+legt het denkkader neer waarop dit voortbouwt; de bezwaren tegen de
+onderbouwing gelden daar in dezelfde mate.
+- 386. The Body Keeps the Score. Van der Kolk beschrijft de wisselwerking
+tussen geest en lichaam met klinisch materiaal en met verwijzing naar
+gecontroleerd onderzoek, en laat zo zien hoe ver een onderbouwde versie van
+hetzelfde onderwerp reikt.
+- 83. The Power of Positive Thinking. Peale deed in 1952 een vergelijkbare
+belofte met een religieus in plaats van een natuurkundig vocabulaire; de
+overeenkomst in redeneervorm is leerzaam.
+
+## 1514. De wereld ligt aan je voeten
+
+Jeroen van Veen, 2026. Nederlandstalig origineel, met de ondertitel *Hij begon
+met één stap en eindigde na 99 dagen rennen in Sparta. Wat wordt jouw eerste
+stap?*. Xander Uitgevers, Amsterdam, 14 april 2026, 224 blz., ISBN
+9789401626293; ebook ISBN 9789401626286; luisterboek door de auteur zelf
+ingelezen, ISBN 9789401626873. Er bestaat geen vertaling. Het is het eerste
+boek van Van Veen, die daarnaast als spreker optreedt. Rubriek: levenskunst.
+Tags: `hardlopen`, `rouw`, `Sparta`, `kinderkanker`, `Prinses Máxima Centrum`,
+`uithoudingsvermogen`, `memoir`
+
+Jeroen van Veen verloor in 2022 zijn zoon Kasper, vier jaar oud, aan een
+hersentumor, na ruim duizend dagen behandeling. Hij ging lopen. Eerst een jaar
+lang elke dag ten minste tien kilometer voor het Prinses Máxima Centrum,
+waarmee hij ruim 2,2 miljoen euro ophaalde, en daarna verder.
+
+Op 1 juli 2025 vertrok hij vanuit Amsterdam te voet naar Sparta in
+Griekenland. Negenennegentig dagen en 3.728 kilometer later liep hij daar
+binnen, ongeveer vier miljoen stappen verder, met een klein deel van de as van
+zijn zoon bij zich. Het boek is het verslag van die tocht.
+
+Van Veen wil er meer mee dan verslag doen. De ondertitel stelt de lezer de
+vraag wat diens eerste stap wordt, en het boek is opgezet rond de gedachte dat
+elk groot plan bij een enkele stap begint. Die tweede laag maakt het minder
+een sportboek dan een boek over lef en over doorgaan na verlies.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Van Veen stelt dat de afstand tussen een leven zoals het is
+en een leven zoals iemand het zou willen niet wordt overbrugd door een plan of
+door talent, maar door de eerste stap daadwerkelijk te zetten en daarna niet
+meer te stoppen. Hij bewijst dat aan zichzelf door in negenennegentig dagen
+van Amsterdam naar Sparta te lopen, bijna elke dag een marathon, met de as van
+zijn overleden zoon op zak. De onderliggende bewering is dat verdriet dat geen
+uitweg krijgt een mens stil zet, en dat beweging, letterlijk genomen, de vorm
+was waarin hij het wel kon dragen.
+
+#### De gang van het boek
+
+**Kasper**
+
+Wat aan de tocht voorafgaat is de ziekte van zijn zoon Kasper. Een
+hersentumor, ruim duizend dagen behandeling in het Prinses Máxima Centrum in
+Utrecht, en in 2022 het einde daarvan. Kasper werd vier jaar.
+
+Van Veen beschrijft de jaren van behandeling van de kant van de ouder: het
+ziekenhuis dat het huis wordt, het leven van het gezin dat om de opnames heen
+wordt gebouwd, en de manier waarop hoop en berusting in dezelfde week naast
+elkaar bestaan. Die periode bepaalt de toon van alles wat erna in het boek
+gebeurt.
+
+**Het jaar van elke dag**
+
+Na de dood van zijn zoon begon Van Veen te lopen. Hij nam zich voor een jaar
+lang elke dag minstens tien kilometer af te leggen en gebruikte dat om geld op
+te halen voor het centrum waar Kasper werd behandeld. Aan het einde van dat
+jaar stond de teller op ruim 2,2 miljoen euro, opgehaald bij donateurs en
+bedrijven.
+
+Het lopen is in die periode zowel een inzamelingsactie als een dagelijkse
+verplichting die zin geeft aan een dag die anders leeg is. Van Veen is er
+eerlijk over dat de tweede functie de belangrijkste was en dat hij zonder die
+verplichting niet wist wat hij met zijn dagen aan moest.
+
+**Het besluit**
+
+Daarna komt het plan dat het boek zijn vorm geeft: te voet van Amsterdam naar
+Sparta, ruim drieduizendzevenhonderd kilometer door Nederland, Duitsland,
+Oostenrijk, de Balkan en Griekenland, in ongeveer honderd dagen. Op 1 juli
+2025 zette hij de eerste stap.
+
+De voorbereiding krijgt in het boek minder ruimte dan de gedachte erachter.
+Van Veen behandelt het besluit als het moment waarop iets kantelt: zodra het
+is uitgesproken en aangekondigd, is het onttrokken aan de dagelijkse afweging
+of hij er zin in heeft.
+
+**De route**
+
+Het grootste deel van het boek is het reisverslag. Ongeveer achtentachtig
+marathons achter elkaar, dag na dag, met een begeleidingsbusje, wisselende
+slaapplaatsen, hitte in de Balkan en verkeer dat op sommige trajecten geen
+berm overlaat.
+
+Daartussendoor staan de ontmoetingen: mensen die een stuk meelopen, gezinnen
+die hem onderdak geven, en berichten van ouders die hetzelfde meemaakten als
+hij. Van Veen hield zijn tocht dagelijks bij op sociale media, en die
+dagelijkse verslaglegging is in het boek herkenbaar terug te lezen in de korte
+hoofdstukken.
+
+**Het lichaam en het hoofd**
+
+Bijna elke dag een marathon lopen is fysiek niet vol te houden zonder schade,
+en het boek verzwijgt dat niet: blessures, ontstoken pezen, voeten die niet
+meer in de schoen willen, dagen waarop het tempo naar wandelen zakt.
+
+Het hoofd is het tweede onderwerp. Van Veen beschrijft dagen waarop het lopen
+leeg en helder is en dagen waarop het verdriet met de kilometers meeloopt. De
+as die hij bij zich draagt maakt van de tocht een vorm van meenemen, en de
+aankomst in Sparta krijgt daarmee de betekenis van een aankomst voor twee.
+
+**De boodschap**
+
+Om het verslag heen legt Van Veen zijn conclusie: dat wat hij deed voor
+iedereen geldt in eigen maat, dat een droombaan, een eigen bedrijf of een
+andere richting op dezelfde manier begint, en dat de rest van het leven volgt
+op die ene stap. De ondertitel stelt de vraag rechtstreeks aan de lezer.
+
+Die laag is nadrukkelijk aanwezig maar blijft dun in vergelijking met het
+verslag. Wie het boek om het verhaal leest, krijgt een gedetailleerde tocht;
+wie het om de levenslessen leest, krijgt een handvol algemene aansporingen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De eerste stap | Het beeld waarop de hele opzet van het boek rust: elk plan van welke omvang ook wordt pas werkelijkheid op het moment dat er een stap wordt gezet. |
+| Kasper | De zoon van de auteur, in 2022 op vierjarige leeftijd overleden aan een hersentumor na ruim duizend dagen behandeling. |
+| Het Prinses Máxima Centrum | Het Utrechtse centrum voor kinderoncologie waar Kasper werd behandeld en waarvoor Van Veen als ouderambassadeur en sponsorloper geld ophaalt. |
+| Negenennegentig dagen | De duur van de tocht van Amsterdam naar Sparta, gestart op 1 juli 2025 en geëindigd begin oktober van dat jaar. |
+| 3.728 kilometer | De afgelegde afstand, door de auteur omgerekend naar bijna vier miljoen stappen en ongeveer achtentachtig marathons. |
+| Lef | Het woord waarmee hij het verschil aanduidt tussen een voornemen en een besluit dat wordt uitgesproken en daarmee bindend wordt. |
+| Levenslust | De houding die hij als tegenwicht tegen het verlies stelt en die in het boek eerder als beslissing dan als gevoel wordt beschreven. |
+| De as | Het kleine deel van de as van zijn zoon dat hij de hele tocht bij zich droeg en dat de reis tot een vorm van meenemen maakt. |
+
+#### Waar het argument op rust
+
+De tocht zelf is controleerbaar en breed gedocumenteerd. Nederlandse media
+volgden hem onderweg, de aankomst in Sparta was begin oktober 2025 nieuws, en
+de afstand van 3.728 kilometer in negenennegentig dagen is met de dagelijkse
+verslaglegging na te gaan. Het opgehaalde bedrag van ruim 2,2 miljoen euro
+voor het Prinses Máxima Centrum is eveneens openbaar. Dat onderscheidt dit
+boek van veel inspirerend werk: de prestatie waar het op rust heeft
+daadwerkelijk plaatsgevonden.
+
+Wat niet is onderbouwd, is de stap van de prestatie naar de algemene les. Dat
+het Van Veen lukte, zegt iets over Van Veen en over de omstandigheden waarin
+hij verkeerde: een getraind lichaam, een begeleidingsploeg, sponsors,
+media-aandacht en de tijd om honderd dagen weg te zijn. Het boek weegt die
+voorwaarden niet en presenteert de uitkomst alsof de eerste stap het enige
+verschil maakte.
+
+Over rouw doet het boek geen algemene uitspraken en dat is zijn sterkste kant.
+Van Veen beschrijft wat er bij hem werkte zonder te beweren dat dit de juiste
+manier is. Rouwonderzoek wijst dezelfde kant op: er bestaat geen vast verloop
+en geen voorgeschreven volgorde, en wat de een draagt werkt bij de ander niet.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar geldt de gelijkstelling die de ondertitel maakt. De vraag
+wat de eerste stap van de lezer wordt, veronderstelt dat het verschil tussen
+wel en niet beginnen aan wilskracht ligt. De meeste mensen die geen honderd
+dagen kunnen weglopen van hun leven, worden niet tegengehouden door gebrek aan
+lef maar door werk, geld, zorgtaken en gezondheid. Het boek noemt die
+ongelijkheid niet.
+
+Verlies wordt in de opzet ook de aanjager van de prestatie, en dat is een
+gevoelige constructie. Wie het boek welwillend leest, ziet een vader die zijn
+verdriet een vorm gaf. Wie er kritisch naar kijkt, ziet dat de dood van een
+kind in de vertelling functioneert als de motor van een heldenverhaal met een
+meetbare afloop, waarbij zich de vraag opdringt hoe het gezin dat achterbleef
+die honderd dagen doorkwam. Het boek gaat daar niet op in.
+
+De afstand in tijd is klein. De tocht eindigde in oktober 2025, het boek
+verscheen in april 2026. Dat levert een levendig en gedetailleerd verslag op
+en het levert weinig reflectie op: wat de tocht op langere termijn heeft
+veranderd aan zijn rouw kan het boek nog niet weten en het doet er niettemin
+uitspraken over.
+
+Ten slotte is het boek geschreven in de stijl van het Nederlandse
+inspiratieboek, met korte hoofdstukken, aansporingen en zinnen die uit de
+sociale media meekomen. Dat leest snel en het maakt de onderscheidende delen,
+de kilometers en het ziekenhuis, soms ondergeschikt aan een opgewekte toon die
+er niet altijd bij past.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als verslag van een tocht en van een rouwproces, niet als
+handleiding voor het bereiken van doelen.
+- Wie zelf een grote onderneming overweegt, kan uit het boek vooral de rol van
+openbaarheid halen: Van Veen kondigde zijn plan aan en maakte terugkrabbelen
+daarmee duur.
+- Weeg bij het lezen van de conclusies mee welke voorwaarden zijn tocht
+mogelijk maakten en welke daarvan in de eigen situatie ontbreken.
+- Voor wie het boek om de kinderoncologie leest: het Prinses Máxima Centrum
+publiceert zelf gegevens over behandeling en overleving die het boek niet
+geeft.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl behandelt dezelfde kwestie, hoe iemand
+doorleeft na een verlies dat niet ongedaan te maken is, en komt tot een
+antwoord dat minder van doen en meer van betekenis uitgaat.
+- 1512. Wat moed dat moet. Keizer schrijft eveneens een Nederlandse memoir
+over verlies en over de vraag wat een mens ermee doet, en kiest daarvoor
+stilzitten waar Van Veen beweging kiest.
+- 529. Gates of Fire. Pressfield schreef een roman over Sparta, het eindpunt
+van de tocht, en over uithoudingsvermogen als aangeleerde eigenschap; het
+contrast tussen de mythe en het hedendaagse doel is het lezen waard.
+
+## 1515. Choose Again
+
+Diederik Wolsak, 2018. Oorspronkelijk *Choose Again: Six Steps to Freedom*
+(Fearless Books in samenwerking met de Choose Again Society, 2018, 212 blz.,
+ISBN 9781732185005). Gerald Jampolsky, de grondlegger van de attitudinal
+healing, staat als bijdrager vermeld; Gabor Maté schreef een aanbeveling. Er
+bestaat geen Nederlandse uitgave en geen ander vertaald werk van Wolsak,
+hoewel hij in Nederland opgroeide en Nederlands spreekt. Rubriek: levenskunst.
+Tags: `vergeving`, `attitudinal healing`, `Een cursus in wonderen`,
+`kernovertuiging`, `Costa Rica`, `zelfhulp`, `jeugd`
+
+Diederik Wolsak, geboren in 1942 op Java en de eerste drie jaar van zijn leven
+doorgebracht in Japanse kampen, beschrijft hoe hij van een zelfhatende en
+destructieve man veranderde in de leider van een genezingscentrum. De methode
+die hij daarbij ontwikkelde bestaat uit zes stappen en staat in dit boek.
+
+De redenering is dat elke ergernis, hoe klein ook, verwijst naar een
+overtuiging die iemand als kind over zichzelf vormde: er is iets mis met mij,
+ik ben schuldig, ik ben machteloos, ik hoor er niet bij. Het heden is dan niet
+de oorzaak van de ergernis maar de aanleiding om die oude overtuiging opnieuw
+te voelen.
+
+De zes stappen voeren de lezer van het opmerken van de ergernis naar het
+herinneren van het eerste moment waarop dat gevoel er was, en eindigen bij een
+vorm van vergeving die op de persoon zelf is gericht. Wolsak leidt daarmee
+sinds de jaren negentig bijeenkomsten in Vancouver en op een verblijfscentrum
+in Costa Rica.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wolsak stelt dat niemand ooit van streek raakt om de reden
+die hij denkt. Achter elke ergernis, hoe onbeduidend ook, zit een gevoel dat
+iemand als kind voor het eerst had, en achter dat gevoel een conclusie die hij
+toen over zichzelf trok en sindsdien onbesproken meedraagt. Zolang die
+conclusie er ligt, blijft het leven aanleidingen leveren om haar te
+bevestigen. Zijn zes stappen zijn de weg terug naar het oorspronkelijke moment
+en naar de vergeving die zich niet op de ander richt maar op de eigen aanname,
+en volgens Wolsak is dat de enige plek waar verandering mogelijk is.
+
+#### De gang van het boek
+
+**Het kamp en wat erop volgde**
+
+Het boek begint met de eigen geschiedenis. Wolsak wordt in 1942 geboren in een
+dorp ten zuiden van het huidige Jakarta en brengt de eerste drie jaar van zijn
+leven door in Japanse interneringskampen. Op zijn achtste wordt hij naar een
+pleeggezin in Nederland gestuurd; als hij twee jaar later bij zijn ouders en
+broers terugkomt, is hij naar eigen beschrijving vervuld van zelfhaat en angst
+voor de wereld om hem heen.
+
+Wat daarop volgde beschrijft hij zonder verzachting: een man die anderen
+kleineerde, die zichzelf ondermijnde en die zijn omgeving beschadigde. Die
+zelfbeschrijving is het fundament van het boek. Het gezag dat Wolsak claimt
+komt niet uit een opleiding maar uit de bewering dat hij de methode op zijn
+eigen geval heeft toegepast.
+
+**De leer erachter**
+
+Twee bronnen bepalen zijn denken. De eerste is *Een cursus in wonderen*, de
+tekst die Helen Schucman in de jaren zestig en zeventig opschreef en die stelt
+dat de waargenomen wereld een projectie van schuld is en dat vergeving de weg
+terug vormt. De tweede is de attitudinal healing van Gerald Jampolsky, die dat
+gedachtegoed vanaf de jaren zeventig omzette in begeleidingsgroepen voor zieke
+kinderen en hun ouders.
+
+Wolsak neemt daaruit twee aannames over. De eerste is dat de oorzaak van het
+ongemak nooit buiten de mens ligt. De tweede is dat de kern van de mens
+ongeschonden is en dat alle ellende voortkomt uit het vergeten daarvan. Zijn
+zes stappen zijn de praktische vorm die hij aan die twee aannames gaf.
+
+**De zes stappen**
+
+De stappen zijn kort te noemen. De eerste is opmerken: ik ben van streek, hoe
+klein ook, en daaronder ligt een vraag om liefde. De tweede is
+verantwoordelijkheid nemen: het gaat niet om wat er gebeurt, deze ergernis
+komt uit mijn eigen uitleg en uit mijn eigen hoofd. De derde is het gevoel
+voelen, zonder het te benoemen of weg te redeneren.
+
+De vierde is herinneren: wanneer voelde ik dit als kind, en dan een bepaald
+voorval, geen vage periode. De vijfde is onderzoeken: wat geloofde ik op dat
+moment over mezelf. Daar komen de kernovertuigingen vandaan die hij steeds
+noemt: er is iets mis met mij, ik ben schuldig, ik ben machteloos, ik hoor er
+niet bij.
+
+De zesde is vergeven en beseffen: vergeef mij dat ik geloofde dat ik dit was,
+en vergeef mij dat ik de waarheid over mezelf vergat. Die waarheid vult Wolsak
+in als heel, oneindig en volledig. De stappen zijn bedoeld om in enkele
+minuten te doorlopen, zo vaak als er ergernis is.
+
+**Reageren of antwoorden**
+
+Het onderscheid dat het boek daarbij hanteert is dat tussen reageren en
+antwoorden. Een reactie komt uit de oude conclusie en herhaalt haar; een
+antwoord komt tot stand nadat de zes stappen zijn doorlopen en de lading eraf
+is.
+
+Wolsak past dat vooral toe op verhoudingen tussen mensen. Zijn stelling is dat
+wat een partner, kind of collega bij iemand oproept, hoort bij het eigen
+verleden van die iemand, en dat elke poging om de ander te veranderen daarom
+niets oplevert.
+
+**Het centrum**
+
+Achter het boek ligt een praktijk. Wolsak richtte de Choose Again Society op
+in Vancouver en leidt daarnaast een verblijfscentrum in Costa Rica waar mensen
+enkele weken blijven en de methode dagelijks in groepen oefenen. Het boek
+bevat verslagen uit die groepen.
+
+Dat centrum verklaart mede het bereik van de methode buiten de Engelstalige
+zelfhulpmarkt. Nederlandse bezoekers vinden er de weg naartoe, en het boek
+functioneert deels als toelichting vooraf en deels als naslag achteraf voor
+wie er is geweest.
+
+**De belofte**
+
+Wat het boek in het vooruitzicht stelt is nuchterder geformuleerd dan bij veel
+zelfhulp: minder spanning, betere verhoudingen, meer vreugde, en het ophouden
+met het toewijzen van schuld. Er wordt geen genezing van ziekten en geen
+materieel resultaat beloofd.
+
+Wel is de belofte onbegrensd in de tijd. Er is geen eindpunt aan het doorlopen
+van de stappen; het is een handeling die telkens opnieuw wordt gedaan. Wolsak
+beschrijft dat als een oefening, vergelijkbaar met een dagelijkse gewoonte, en
+niet als een behandeling met een afsluiting.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kernovertuiging | De conclusie die iemand als kind over zichzelf trok en sindsdien voor waar houdt, zoals er is iets mis met mij of ik hoor er niet bij. |
+| Van streek zijn | Elke ergernis, hoe klein ook, opgevat als het beginpunt van het proces en volgens Wolsak altijd een vraag om liefde. |
+| Verantwoordelijkheid | Bij Wolsak niet schuld, maar de aanname dat de betekenis van een gebeurtenis door de betrokkene zelf wordt toegekend. |
+| Het oorspronkelijke voorval | Het bepaalde moment in de kindertijd waarnaar stap vier terugvoert en waar de kernovertuiging volgens het model is ontstaan. |
+| Vergeving | In dit boek een handeling die op de eigen aanname is gericht en niet op de ander, ontleend aan *Een cursus in wonderen*. |
+| Attitudinal healing | De door Gerald Jampolsky in de jaren zeventig opgezette benadering waarin innerlijke vrede het gevolg is van het loslaten van oordeel en angst. |
+| Reageren en antwoorden | Het onderscheid tussen de automatische reactie die de oude conclusie herhaalt en de gekozen reactie na het doorlopen van de stappen. |
+| Het ego | Het zelfbeeld dat op de kernovertuiging is gebouwd en dat volgens Wolsak alles doet om die overtuiging bevestigd te krijgen. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan. Wat het aanvoert is de eigen geschiedenis
+van de auteur en de verslagen van deelnemers aan zijn groepen. Er zijn geen
+metingen, geen vergelijkingsgroep en geen navraag na afloop, en de deelnemers
+zijn zelf naar het centrum gekomen en hebben betaald. Wie de methode op grond
+van dit boek beoordeelt, beoordeelt getuigenissen.
+
+Het onderliggende idee heeft wel verwantschap met werk dat beter is
+onderzocht. De gedachte dat vroege ervaringen leiden tot vaste opvattingen
+over zichzelf, die in het heden verkeerd worden toegepast, is het uitgangspunt
+van de schematherapie en van het begrip kernovertuiging in de cognitieve
+gedragstherapie. Beide zijn in gecontroleerde studies onderzocht, met
+resultaten bij persoonlijkheidsproblematiek en depressie. Wolsak verwijst naar
+die literatuur niet.
+
+De verschillen zijn echter groot genoeg om de vergelijking niet als steun te
+laten gelden. In de cognitieve gedragstherapie wordt een overtuiging getoetst
+aan de werkelijkheid; bij Wolsak wordt zij vergeven. De eerste is een
+onderzoek, de tweede een handeling met een religieuze herkomst.
+
+De tekst waarop de leer rust, *Een cursus in wonderen*, is een gedicteerd
+geschrift dat Helen Schucman naar eigen zeggen van een innerlijke stem
+ontving. Wolsak behandelt die tekst als gezaghebbend uitgangspunt en niet als
+iets wat zelf ter discussie staat. Dat is de aard van het boek en het is
+nuttig om te weten voordat men de zes stappen als een neutrale techniek opvat.
+
+#### Wat er tegen in te brengen valt
+
+De tweede stap draagt het zwaarste bezwaar. De uitspraak dat een ergernis
+geheel uit de eigen uitleg voortkomt, is bruikbaar bij dagelijkse irritatie en
+houdt geen stand waar iemand werkelijk wordt benadeeld. Wie mishandeld,
+ontslagen of bedrogen wordt, heeft een gevoel dat een oorzaak buiten hemzelf
+heeft. Wolsak maakt weliswaar onderscheid tussen verantwoordelijkheid en
+schuld, en dat onderscheid is in de praktijk van een groep moeilijk vol te
+houden. Het risico dat het slachtoffer met de rekening blijft zitten is reëel
+en het boek besteedt er weinig aandacht aan.
+
+De zesde stap laat de ander volledig buiten beeld. De vergeving is gericht op
+de eigen aanname, wat betekent dat er over de dader niets wordt gezegd en dat
+er geen herstel, geen begrenzing en geen consequentie uit voortvloeit. Voor
+wie een verstoorde verhouding wil beeindigen of een grens wil stellen, biedt
+de methode geen aanknopingspunt.
+
+Stap vier vraagt om het opsporen van een bepaald voorval uit de kindertijd.
+Dat is precies het gebied waarop het geheugen zich in onderzoek onbetrouwbaar
+heeft betoond: onder verwachting en groepsdruk laten mensen zich herinneringen
+aanpraten die niet hebben plaatsgevonden. Wolsak werkt met groepen waarin die
+verwachting hoog is en bespreekt dat gevaar niet.
+
+De methode wordt bovendien vooral verkocht in de vorm waarin zij het duurst
+is. Het boek verwijst naar meerdaagse en meerweekse programma's in Vancouver
+en Costa Rica, en de verhalen die als bewijs dienen komen uit die programma's.
+Dat maakt de beweringen niet onwaar en het verklaart wel welke gevallen wel en
+niet worden opgetekend.
+
+Wat het boek tegenover die bezwaren zet, is beknoptheid en toepasbaarheid. De
+zes stappen zijn in een halve bladzijde weer te geven, vragen geen begeleiding
+en zijn te oefenen op een ergernis van niets. Wie ze zonder de metafysica
+gebruikt, houdt een bruikbare oefening in zelfwaarneming over.
+
+#### Wat er concreet mee te doen is
+
+- Doorloop de zes stappen op een kleine ergernis voordat er een grote aan de
+beurt is; het model is bedoeld voor alledaagse aanleidingen.
+- Houd bij welke kernovertuiging telkens terugkomt. Wolsak verwacht dat het er
+per persoon een of twee zijn, niet tien.
+- Scheid de oefening van de leer erachter. De stappen werken als
+zelfwaarneming, ook zonder de aannames van *Een cursus in wonderen* te
+aanvaarden.
+- Gebruik het model niet bij ernstige gebeurtenissen zoals mishandeling of
+misbruik zonder professionele begeleiding, en hecht geen waarde aan
+herinneringen die pas in een groep opkomen.
+- Wie de vierde stap niet ingevuld krijgt, kan hem overslaan; het benoemen van
+het gevoel en van de aanname eronder is het deel waar de oefening op steunt.
+
+#### Wat je hierna leest
+
+- 102. Ingangen tot Een cursus in wonderen. Glaudemans opent de tekst waarop
+Wolsak zijn begrippen bouwt; wie wil weten waar vergeving in deze betekenis
+vandaan komt, moet daar zijn.
+- 1512. Wat moed dat moet. Keizer beschrijft van binnenuit wat een verblijf op
+het centrum van Wolsak in Costa Rica met iemand doet, en levert daarmee het
+geval bij de methode.
+- 386. The Body Keeps the Score. Van der Kolk behandelt hetzelfde
+uitgangspunt, dat vroege ervaringen het heden sturen, met klinisch onderzoek
+erbij en met een uitgesproken andere opvatting over de rol van herinnering.
+
+## 1517. Wat ik eerder had willen weten over de liefde
+
+Marian Mudder, 2026. Nederlandstalig oorspronkelijk werk, verschenen bij
+Ambo|Anthos, Amsterdam, in mei 2026 (200 blz., ISBN 9789026363634), ook als
+e-boek (ISBN 9789026363641) en als luisterboek. Het sluit aan bij *Wat ik
+eerder had willen weten* over angst, zelfliefde en acceptatie, waarmee Mudder
+in januari 2022 bij dezelfde uitgever doorbrak (ISBN 9789026357831). De
+uitgever meldt dat er van haar boeken meer dan vijftigduizend exemplaren zijn
+verkocht. Een vertaling in een andere taal bestaat niet; het boek is
+geschreven voor de Nederlandse markt en verwijst naar het Nederlandse
+therapielandschap. Rubriek: levenskunst.
+Tags: `liefde`, `hechting`, `relaties`, `verlatingsangst`, `bindingsangst`,
+`zelfliefde`, `EFT`
+
+Marian Mudder is actrice en werkt ruim vijftien jaar als EFT-therapeut met
+mensen die vastlopen op angstklachten. In dit boek verplaatst zij die praktijk
+naar de liefde: waarom iemand telkens weer bij hetzelfde soort partner
+uitkomt, en waarom dat patroon zich zo moeilijk laat doorbreken.
+
+De onderwerpen die zij langsloopt zijn bindingsangst en verlatingsangst,
+hechtingsstijlen, liefdesverslaving, emotioneel onbeschikbare partners,
+seksualiteit en schaamte, en de vraag hoe geven en nemen in een relatie in
+evenwicht komen. Steeds zet zij een stuk uitleg naast een geval uit haar
+praktijk of uit haar eigen leven.
+
+De uitkomst waar het boek naartoe werkt is niet een betere partnerkeuze maar
+een andere verhouding tot zichzelf. Wie geen veiligheid in zichzelf heeft,
+herkent die veiligheid ook bij een ander niet, en verwart onrust met
+verliefdheid. Alleen zijn is in dat licht geen tussenfase maar een houdbare
+uitkomst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mudder stelt dat partnerkeuze zelden een keuze is. Wie in de
+jeugd heeft geleerd dat liefde onzeker, voorwaardelijk of onvoorspelbaar is,
+herkent later precies die onzekerheid als aantrekkingskracht, omdat het
+zenuwstelsel het vertrouwde aanziet voor het juiste. De hevigheid die daarbij
+hoort, het wachten op een bericht, het opluchten bij toenadering, het
+wegzakken bij afstand, wordt in het gewone spraakgebruik verliefdheid genoemd,
+terwijl het volgens haar een stressreactie is die zichzelf in stand houdt.
+Daaruit volgt haar praktische these: het patroon verandert niet door een
+andere partner te zoeken, maar door het eigen alarmsysteem te leren herkennen
+en te leren verdragen dat rust in de omgang met een ander eerst saai aanvoelt.
+Wie dat niet doet, verwisselt volgens haar de personen en houdt de dynamiek.
+
+#### De gang van het boek
+
+**Verliefdheid en liefde uit elkaar houden**
+
+Het boek begint bij het onderscheid dat de rest ervan draagt. Verliefdheid
+beschrijft Mudder als een toestand van het lichaam: gejaagdheid, weinig slaap,
+een aandacht die volledig op een ander gericht staat. Liefde beschrijft zij
+als iets wat pas zichtbaar wordt als die toestand voorbij is, en wat zich laat
+afmeten aan of iemand in het gezelschap van de ander zichzelf kan blijven.
+
+De praktische winst van dat onderscheid is dat het de hevigheid van een
+beginnende verhouding onbruikbaar maakt als bewijs. Wie zich in het begin het
+meest levend voelt bij de partner die het minst beschikbaar is, heeft volgens
+haar geen bijzondere klik gevonden maar een oude ervaring herhaald.
+
+**Hechting en de jeugd**
+
+Vervolgens legt Mudder de hechtingsstijlen uit: veilig, angstig, vermijdend en
+de gemengde vorm. Zij doet dat niet als leerstof maar aan de hand van
+situaties die de lezer waarschijnlijk herkent, zoals de behoefte om
+bevestiging te vragen tot de ander geïrriteerd raakt, of de neiging om afstand
+te nemen zodra iemand dichtbij komt.
+
+De verbinding met de jeugd is bij haar niet dat er iets ergs gebeurd hoeft te
+zijn. Ook een gezin waar niets misging kan een kind hebben geleerd dat het
+beter is geen last te zijn. Dat is bij haar de kern van wat later in relaties
+terugkomt: niet een gebeurtenis maar een aangeleerde regel over wat er van
+iemand mag worden gevraagd.
+
+**Liefdesverslaving, trauma bond en bevriezing**
+
+Het middendeel gaat over verhoudingen die schadelijk zijn en toch niet te
+verlaten. Mudder gebruikt daarvoor de begrippen liefdesverslaving en trauma
+bond: de afwisseling van afwijzing en toenadering maakt de goede momenten
+zeldzamer en daardoor sterker beloond, waardoor iemand aan de relatie gehecht
+raakt juist omdat zij onvoorspelbaar is.
+
+Daarnaast beschrijft zij de functionele bevriezing, de toestand waarin iemand
+nog werkt, kookt en praat maar innerlijk is afgesloten en nauwelijks meer
+voelt wat er gebeurt. Dat verklaart bij haar waarom mensen jarenlang in een
+situatie blijven zonder die te kunnen benoemen: het voelen zelf is
+uitgeschakeld, en dus ook het signaal om weg te gaan.
+
+**Seks, schaamte en veiligheid**
+
+Over seksualiteit schrijft Mudder opvallend openhartig, ook over haar eigen
+geschiedenis. Haar punt is dat seks bij een onveilige hechting vaak wordt
+ingezet om nabijheid af te dwingen of om een dreigend vertrek te voorkomen, en
+dat het lichaam daarbij meedoet aan iets waarvoor het geen ruimte heeft
+gekregen.
+
+Schaamte behandelt zij als de reden dat dit alles zelden ter sprake komt.
+Zolang iemand het eigen gedrag als een gebrek ziet in plaats van als een
+aangeleerde beschermingsvorm, blijft het buiten het gesprek, ook in therapie.
+
+**Geven, nemen en alleen zijn**
+
+Het laatste deel gaat over evenwicht. Mudder beschrijft het patroon waarin de
+een blijft geven in de hoop ooit gezien te worden en de ander dat aanbod
+accepteert zonder er iets tegenover te stellen. Zij noemt dat geen offer maar
+een ruilhandel: er wordt gegeven met een verwachting die niet wordt
+uitgesproken.
+
+Het boek eindigt niet bij het vinden van een betere partner. Het eindigt bij
+de vaststelling dat alleen zijn draaglijk moet worden voordat een relatie iets
+kan toevoegen, omdat iemand anders elke verhouding blijft aangaan vanuit de
+angst dat er niets anders is. Lezers noemen dat in besprekingen de kern van
+het boek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hechtingsstijl | De aangeleerde manier waarop iemand nabijheid en afstand regelt in een relatie, bij Mudder onderverdeeld in veilig, angstig, vermijdend en de gemengde vorm. |
+| Verlatingsangst | De verwachting dat de ander weggaat, die zich uit in controleren, geruststelling zoeken en het vergroten van elke aanwijzing dat er afstand ontstaat. |
+| Bindingsangst | De tegenhanger daarvan: het terugtrekken zodra een verhouding dichtbij komt, door Mudder beschreven als bescherming en niet als gebrek aan gevoel. |
+| Liefdesverslaving | Het patroon waarin de hevigheid van de verhouding zelf het doel wordt, en de afwezigheid van de ander sterker wordt gevoeld dan zijn aanwezigheid. |
+| Trauma bond | De binding die ontstaat door afwisselende afwijzing en toenadering, waarbij de zeldzame goede momenten de hele verhouding blijven dragen. |
+| Functionele bevriezing | De toestand waarin iemand naar buiten toe blijft functioneren maar innerlijk is afgesloten en het contact met de eigen gevoelens grotendeels kwijt is. |
+| Emotioneel onbeschikbare partner | Iemand die wel aanwezig is maar geen toegang geeft tot wat er in hem omgaat, waardoor de ander blijft proberen die toegang te verdienen. |
+| Toxische relatie | Een verhouding waarin de schade structureel is en niet incidenteel, bij Mudder herkenbaar aan het verlies van eigen oordeel en eigen contacten. |
+| EFT | De kloptechniek waarmee Mudder als therapeut werkt, waarbij iemand op vaste punten op het lichaam tikt terwijl hij de spanning benoemt. |
+
+#### Waar het argument op rust
+
+De ruggengraat van het boek is de hechtingstheorie, die als kader breed is
+onderbouwd. Dat mensen in hun vroege jaren een patroon aanleren voor nabijheid
+en dat dit patroon meetbaar doorwerkt in latere relaties, is in de
+ontwikkelingspsychologie goed vastgesteld. Mudder geeft dat kader getrouw weer
+in gewone taal.
+
+Wat het boek daarnaast aandraagt is geen onderzoek maar praktijk. De gevallen
+komen uit haar spreekkamer en uit haar eigen leven, en zij presenteert ze ook
+zo. Er staat geen notenapparaat in en er wordt niet naar studies verwezen; wie
+de onderbouwing wil nagaan, moet dat buiten het boek doen.
+
+Van de sleutelbegrippen uit het middendeel is de status ongelijk.
+Hechtingsstijlen zijn onderzocht en gemeten. Trauma bond en functionele
+bevriezing zijn termen uit de traumapraktijk en de populaire psychologie die
+geen plaats hebben in de gangbare diagnostische handboeken; zij beschrijven
+iets herkenbaars, maar zijn niet vastgelegd in criteria die zich laten
+toetsen.
+
+Over EFT als behandeling is onderzoek gedaan, maar het gaat om kleine studies
+met zwakke opzet, vaak zonder geloofwaardige controlegroep. Dat mensen zich er
+rustiger door voelen is aannemelijk; dat het kloppen zelf het werkzame deel
+is, is niet aangetoond.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar geldt de verklaringsvorm. Zodra elk terugkerend patroon
+in de liefde wordt teruggevoerd op de jeugd, is er geen geval meer denkbaar
+dat de verklaring tegenspreekt. Dat maakt het boek geruststellend en tegelijk
+moeilijk te weerleggen. Partnerkeuze hangt ook af van omstandigheden,
+leeftijd, geld, gelegenheid en toeval, en die factoren blijven vrijwel buiten
+beeld.
+
+Hechtingsstijlen worden in het boek gebruikt als typen waartoe iemand behoort.
+In onderzoek gedragen zij zich eerder als een schaal die per relatie en over
+de jaren verschuift. Wie zich na lezing als vermijdend of angstig bestempelt,
+heeft daarmee een etiket dat meer vastheid suggereert dan de theorie
+rechtvaardigt.
+
+Een deel van de recensenten waardeert juist de openhartigheid over het eigen
+leven. Die openhartigheid heeft ook een prijs: de gevallen zijn geselecteerd
+op herkenbaarheid en op een goede afloop. Wat er gebeurt met mensen bij wie
+het patroon niet doorbreekt, en hoe vaak dat voorkomt, blijft ongenoemd.
+
+Het boek is in twee jaar tijd het derde in dezelfde vorm, met dezelfde
+titelformule en dezelfde afwisseling van uitleg en persoonlijk verhaal. Voor
+wie het eerdere werk heeft gelezen is de opbrengst van dit deel beperkt tot
+het onderwerp; het denkkader is hetzelfde.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf van de laatste drie verliefdheden op wat er in de eerste weken
+gebeurde met slaap, eetlust en aandacht, en kijk of de hevigheid samenviel met
+onbeschikbaarheid.
+- Noteer bij een terugkerend conflict welke zin erachter zit die uit de jeugd
+komt, bijvoorbeeld dat vragen om iets lastig maakt.
+- Toets het evenwicht in geven en nemen aan wat er is uitgesproken: welke
+verwachting is werkelijk benoemd en welke wordt stilzwijgend verondersteld.
+- Merk op wanneer rust in het contact als saai wordt gelezen, en behandel dat
+als een gegeven over het eigen alarmsysteem in plaats van als een oordeel over
+de ander.
+- Reken bij twijfel over een verhouding niet met gevoelens maar met gedrag
+over een langere periode: wat is er in een halfjaar feitelijk gedaan en
+nagelaten.
+
+#### Wat je hierna leest
+
+- 152. Attached. Levine en Heller behandelen dezelfde hechtingsstijlen, maar
+met verwijzing naar het onderzoek waarop zij rusten; dat is de onderbouwing
+die Mudder weglaat.
+- 164. Mating in Captivity. Perel keert de vraag om en onderzoekt waarom
+veiligheid en verlangen in dezelfde relatie zo slecht samengaan, precies waar
+Mudder veiligheid als oplossing aanwijst.
+- 386. The Body Keeps the Score. Van der Kolk levert de lichamelijke kant van
+wat Mudder bevriezing noemt, met de klinische geschiedenis en het onderzoek
+erbij.
+- 1521. Scattered Minds. Mate voert eveneens volwassen klachten terug op
+vroege omstandigheden en loopt tegen hetzelfde bezwaar aan dat de verklaring
+alles kan verklaren.
+
+## 1518. De kleur paars
+
+Alice Walker, 1982; vert. Robert Dorsman. Oorspronkelijk *The Color Purple*
+(Harcourt Brace Jovanovich, New York, 1982), bekroond met de Pulitzer Prize
+voor fictie en de American Book Award van 1983; Walker was de eerste zwarte
+vrouw die de Pulitzer voor fictie kreeg. De eerste Nederlandse vertaling was
+van Irma van Dam en verscheen in oktober 1983 bij In de Knipscheer, Haarlem
+(ISBN 9062651224), met een paperbackuitgave in 1985. De Geus, Amsterdam,
+bracht in september 2020 een nieuwe vertaling van Robert Dorsman uit (320
+blz., ISBN 9789044541519), ook als e-boek en luisterboek. Steven Spielberg
+verfilmde het boek in 1985; in 2005 volgde een musicalbewerking op Broadway en
+in 2023 een verfilming daarvan. Rubriek: roman en memoir.
+Tags: `roman`, `brievenroman`, `Georgia`, `zusters`, `racisme`, `geweld`,
+`Afrika`
+
+Celie is veertien en schrijft brieven aan God, omdat zij verder niemand heeft
+aan wie zij het kan vertellen. Zij wordt misbruikt door de man die zij voor
+haar vader houdt, raakt twee keer zwanger en ziet beide kinderen verdwijnen.
+Daarna wordt zij uitgehuwelijkt aan een weduwnaar die zij in haar brieven
+alleen Mister noemt.
+
+Het boek speelt op het platteland van Georgia in de eerste helft van de
+twintigste eeuw en beslaat ongeveer veertig jaar. Het bestaat volledig uit
+brieven: eerst die van Celie aan God, later die van haar zuster Nettie, die
+als zendelinge in West-Afrika terechtkomt en jarenlang schrijft zonder te
+weten of er iets aankomt.
+
+De wending komt met Shug Avery, de bluezangeres van wie Mister houdt en die
+door Celie wordt verpleegd. Uit die verhouding komt bij Celie het besef voort
+dat zij een lichaam heeft dat van haar is, een eigen oordeel over God, en
+uiteindelijk de mogelijkheid om weg te gaan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Walker laat zien wat er gebeurt met een mens die van alle
+kanten wordt gerangschikt als het laagste: zwart, vrouw, arm, ongeschoold en
+lelijk genoemd door de mensen om haar heen. Haar stelling is dat de macht die
+dat in stand houdt niet alleen van de blanke wereld komt maar binnen de eigen
+gemeenschap wordt doorgegeven, van vader op dochter en van man op vrouw, en
+dat het geweld daar zo gewoon is dat het geen naam heeft. Daartegenover stelt
+zij geen politieke actie maar de vriendschap tussen vrouwen: Celie komt niet
+los door recht te halen of te vluchten, maar doordat drie vrouwen haar laten
+zien dat het ook anders kan. De roman voert dat uit in de vorm zelf. Doordat
+Celie zelf schrijft, in haar eigen taal en met haar eigen spelling, staat er
+geen verslag over haar maar een stem die zich in veertig jaar hoorbaar
+ontwikkelt.
+
+#### De gang van het verhaal
+
+**Brieven aan God**
+
+De eerste brieven zijn kort en vlak van toon. Celie beschrijft wat Alphonso,
+de man die zij voor haar vader houdt, met haar doet, en de twee kinderen die
+hem geboren worden en die hij wegbrengt. Haar moeder sterft. De waarschuwing
+waarmee het boek opent, dat zij dit aan niemand mag vertellen behalve aan God,
+verklaart de vorm van het hele boek.
+
+Als Alphonso Celie uithuwelijkt aan een weduwnaar met vier kinderen, gaat zij
+van het ene huis naar het andere zonder dat er iets verandert. Zij noemt haar
+man in haar brieven consequent Mister, met een blanco waar zijn naam zou
+staan. Haar houding is die van iemand die heeft besloten dat overleven het
+hoogst haalbare is.
+
+**Nettie**
+
+Nettie, de jongere zuster, is degene op wie Celie haar hoop richt. Zij vlucht
+voor Alphonso naar het huis van Mister, wijst Mister af en moet vertrekken.
+Zij belandt bij het zendelingenechtpaar Samuel en Corrine, dat zonder het te
+weten Celie's beide kinderen heeft geadopteerd, en gaat met hen mee naar
+West-Afrika.
+
+Nettie schrijft jarenlang. Mister onderschept de brieven en verstopt ze. Celie
+leeft in de veronderstelling dat haar zuster dood is. Als Shug de stapel
+vindt, verandert de roman van vorm: vanaf dat punt wisselen Celie's brieven af
+met die van Nettie, en krijgt het boek er een tweede plaats en een tweede toon
+bij.
+
+**Shug Avery**
+
+Shug Avery is zangeres, ongebonden, en de vrouw van wie Mister altijd heeft
+gehouden. Zij komt ziek in huis en wordt door Celie verzorgd. Uit die
+verzorging komt eerst bewondering voort en daarna een verhouding waarin Celie
+voor het eerst wordt aangeraakt zonder dat het haar wordt aangedaan.
+
+Shug brengt ook de theologische wending. Zij zegt Celie dat de God tot wie zij
+schrijft een oude blanke man is die zij van anderen heeft overgenomen, en dat
+God in alles zit wat er is, ook in haarzelf. De titel komt uit dat gesprek:
+het zou God kwaad maken als iemand langs een veld met paarse bloemen loopt en
+ze niet opmerkt.
+
+**Sofia en Harpo**
+
+Naast Celie staat Sofia, de vrouw van Mister's zoon Harpo. Zij is groot, sterk
+en weigert zich te laten slaan; als Harpo het toch probeert, slaat zij terug.
+Celie geeft hem in een zwak moment het advies haar te slaan en krijgt dat door
+Sofia recht in haar gezicht teruggezegd, wat het eerste barstje in Celie's
+berusting oplevert.
+
+Sofia laat ook zien waar die weerbaarheid op stukloopt. Als de vrouw van de
+burgemeester haar vraagt om dienstbode te worden en Sofia weigert, slaat zij
+de burgemeester die haar een klap geeft. Zij wordt in elkaar geslagen,
+jarenlang opgesloten en daarna alsnog als dienstbode in datzelfde huis gezet.
+Wie zich niet schikt, wordt gebroken.
+
+**Memphis**
+
+Bij een familiediner kondigt Celie aan dat zij met Shug meegaat naar Memphis,
+en zij vervloekt Mister waar iedereen bij zit. In Memphis begint zij broeken
+te naaien, eerst voor Shug, dan voor anderen, en bouwt daar een bedrijfje mee
+op onder de naam Folkspants, Unlimited.
+
+Ondertussen komt er bericht dat Alphonso niet haar vader is maar haar
+stiefvader, en dat het huis en de winkel waarin hij zit van haar moeder waren.
+Na zijn dood erft Celie dat bezit. Haar zelfstandigheid rust dus op twee
+dingen tegelijk: op werk dat zij zelf heeft opgezet en op een erfenis die haar
+toevallig toevalt.
+
+**De terugkeer**
+
+Mister raakt na Celie's vertrek aan de grond, ruimt zijn huis op, geeft de
+achtergehouden brieven terug en wordt in de late hoofdstukken iemand met wie
+Celie kan zitten naaien en praten. Hij krijgt daarmee laat in het boek zijn
+voornaam Albert terug.
+
+Nettie keert terug met Samuel, met Olivia en Adam en met Tashi, het
+Olinka-meisje dat Adam trouwt. Het slot valt op de vierde juli, de Amerikaanse
+onafhankelijkheidsdag, waarop de familie bij elkaar zit terwijl de blanke
+buren de vlag uithangen. Celie schrijft dat zij zich nog nooit zo jong heeft
+gevoeld.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Brievenroman | De vorm van het boek: alles staat in brieven, eerst van Celie aan God, later ook van Nettie aan Celie en van Celie aan Nettie. |
+| Mister | De aanduiding waarmee Celie haar man aanspreekt en beschrijft, met een leeg vak waar zijn naam zou horen; pas aan het eind noemt zij hem Albert. |
+| Shug Avery | De zangeres die zich niet aan de regels voor vrouwen houdt en die Celie achtereenvolgens haar lichaam, haar oordeel en haar vertrek teruggeeft. |
+| Folkspants, Unlimited | Het naaibedrijfje dat Celie in Memphis begint, waar zij broeken maakt die zowel mannen als vrouwen kunnen dragen. |
+| De Olinka | Het verzonnen West-Afrikaanse volk waar Nettie werkt en waarvan het dorp wordt opgeofferd aan een rubberplantage en een weg. |
+| De paarse kleur | Het beeld uit Shug's uitleg over God: wie langs een veld met paarse bloemen loopt zonder te kijken, doet God tekort. |
+| Celie's spreektaal | Het zwarte Engels van het platteland waarin Celie schrijft, met eigen spelling en grammatica, waarvan de ontwikkeling in de roman haar groei hoorbaar maakt. |
+| Womanism | De term die Walker in 1983 muntte voor het feminisme van zwarte vrouwen, waarmee haar lezers deze roman sindsdien plegen te duiden. |
+
+#### Waar het argument op rust
+
+De omgeving van het boek is die waarin Walker zelf opgroeide. Zij werd in 1944
+geboren in Eatonton, Georgia, in een gezin van deelpachters, in dezelfde
+landbouw en dezelfde rassenscheiding die Celie beschrijft. De materiële kant
+van het verhaal, het werk op het land, het winkeltje, de kerk, de
+afhankelijkheid van blanke grondbezitters, komt daar rechtstreeks vandaan.
+
+Wat de roman in de eerste plaats staande houdt is de taal. Celie schrijft
+zoals zij spreekt, en de enige aanwijzing die de lezer over haar ontwikkeling
+krijgt zit in hoe die zinnen veranderen: van korte mededelingen zonder oordeel
+naar zinnen waarin zij redeneert en tegenspreekt. Dat is een bewijsvoering die
+zich in de vorm afspeelt en niet in wat er beweerd wordt.
+
+De Afrikaanse hoofdstukken rusten op een ander soort materiaal. Nettie's
+brieven beschrijven zending, koloniale wegenaanleg en de gedwongen ontruiming
+van een dorp voor een plantage, en raken aan besnijdenis van meisjes bij de
+Olinka. Walker werkte dat laatste tien jaar later uit in een aparte roman. In
+dit boek blijven die passages uitleggend van toon: Nettie legt uit wat zij
+ziet, terwijl Celie laat zien wat zij meemaakt.
+
+#### Wat er tegen in te brengen valt
+
+Het bekendste bezwaar tegen het boek is dat de zwarte mannen erin vrijwel
+zonder uitzondering gewelddadig, lui of beide zijn, en dat een blank
+lezerspubliek daarin zijn eigen beeld bevestigd kreeg. Die aanval kwam vooral
+van zwarte schrijvers en critici, onder wie Ishmael Reed, en zwol aan na de
+verfilming van Spielberg in 1985, die het verhaal verzachtte en tegelijk het
+bereik enorm vergrootte. Walker heeft er in 1996 een heel boek over
+geschreven.
+
+Een tweede bezwaar geldt het slot. Mister wordt een aardige man, Nettie komt
+terug met beide kinderen, het huis en de winkel vallen Celie in de schoot en
+iedereen zit op de laatste bladzijden bij elkaar. Na driehonderd bladzijden
+waarin niets vanzelf goed komt, wordt in het laatste deel bijna alles
+opgelost, deels door toeval. Lezers die de eerste helft geloofwaardig vinden,
+vinden de tweede vaak te welwillend.
+
+De Afrikaanse brieven worden ook door welwillende lezers als het zwakste deel
+gezien. Zij staan in een andere, veel formelere taal, ze dragen de historische
+uitleg die de rest van het boek niet nodig heeft, en het contrast tussen de
+twee zusters gaat daardoor gelijken op een tegenstelling die de auteur wil
+laten zien.
+
+In de Verenigde Staten staat het boek al veertig jaar in de bovenste regionen
+van de lijsten van meest aangevochten titels op scholen en in bibliotheken,
+wegens seksuele inhoud, geweld en godsdienstige aanstootgevendheid. Dat zegt
+weinig over de kwaliteit, maar het bepaalt wel voor een groot deel hoe de
+roman in de Verenigde Staten wordt gelezen en besproken.
+
+#### Wat je hierna leest
+
+- 1519. Spaar de spotvogel. Lee schrijft over hetzelfde Zuiden in dezelfde
+jaren, maar vanuit een blank gezin; naast elkaar gelezen laten de twee boeken
+zien wat elk van beide buiten beeld houdt.
+- 3. The Will to Change. hooks onderzoekt hoe mannen wordt geleerd hun gevoel
+af te sluiten en geweld als vorm van gezag te gebruiken, wat de figuren Mister
+en Harpo van binnenuit verklaart.
+- 1522. Vlieg, wilde zwanen. Chang volgt drie generaties vrouwen door een
+politiek stelsel dat hen probeert te breken, met dezelfde nadruk op wat
+vrouwen aan elkaar doorgeven.
+
+## 1519. Spaar de spotvogel
+
+Harper Lee, 1960; vert. Ko Kooman. Oorspronkelijk *To Kill a Mockingbird*
+(J.B. Lippincott, Philadelphia, 1960), bekroond met de Pulitzer Prize voor
+fictie in 1961. Hans Edinga vertaalde het boek al in 1961 als *Spaar de
+spotvogels* voor De Fontein in de Dolfijnreeks. De Bezige Bij, Amsterdam,
+bracht in 2010 een nieuwe vertaling van Ko Kooman uit onder de titel *Spaar de
+spotvogel*, met een inleiding van Kristien Hemmerechts; de uitgave uit 2015
+telt 418 blz. (ISBN 9789023493617). Robert Mulligan verfilmde het boek in 1962
+met Gregory Peck als Atticus Finch. In 2015 verscheen *Go Set a Watchman*, in
+het Nederlands *Ga heen, zet een wachter*, eveneens vertaald door Ko Kooman:
+een eerdere bewerking van hetzelfde materiaal die Lee in de jaren vijftig
+schreef. Rubriek: roman en memoir.
+Tags: `roman`, `Alabama`, `racisme`, `rechtspraak`, `jeugd`, `moed`, `Zuiden`
+
+Scout Finch is zes als het boek begint en woont met haar broer Jem en haar
+vader Atticus in Maycomb, een klein stadje in Alabama, midden in de
+crisisjaren. Zij vertelt het verhaal terugkijkend, als volwassene, maar houdt
+de blik van het kind aan: zij ziet alles en begrijpt de helft.
+
+Het eerste deel gaat vrijwel geheel over de zomers met buurjongen Dill en over
+Boo Radley, de buurman die al jaren niet buiten komt en over wie het hele
+stadje verhalen vertelt. Het tweede deel gaat over de zaak van Tom Robinson,
+een zwarte man die wordt beschuldigd van verkrachting en die Atticus als
+advocaat moet verdedigen.
+
+De twee lijnen komen aan het eind bij elkaar. Wat de kinderen over de
+gevreesde buurman dachten te weten, blijkt even onhoudbaar als wat het stadje
+over Tom Robinson dacht te weten, en de spotvogel uit de titel staat voor
+allebei: een dier dat niets doet behalve zingen en dat men daarom niet doodt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lee bouwt haar roman op één regel van Atticus Finch: iemand
+begrijp je pas als je in zijn huid kruipt en er even in rondloopt. Zij zet die
+regel niet neer als vrome les maar als iets wat de kinderen in de loop van
+drie jaar met tegenzin leren, aan de moeilijkste gevallen: aan de eenzame
+buurman van wie zij bang zijn, aan de dochter van de meest gehate familie van
+het stadje, aan de dronken buurvrouw en aan de man die hen wil vermoorden.
+Daarnaast staat een tweede stelling, die minder geruststellend is. Atticus
+doet in de rechtszaal wat een advocaat kan doen, toont aan dat zijn cliënt de
+verwondingen niet kan hebben toegebracht, en verliest toch, omdat de jury doet
+wat het stadje van haar verlangt. Het boek laat daarmee zien dat fatsoen van
+één man het stelsel niet keert, en dat de winst zich beperkt tot de kinderen
+die het zagen gebeuren.
+
+#### De gang van het verhaal
+
+**Maycomb**
+
+Het stadje wordt eerst neergezet, met zijn families, zijn kerken en zijn
+ongeschreven rangorde. De Finches zijn oud en gezeten, de Cunninghams zijn arm
+maar betalen hun schulden in brandhout, de Ewells leven van de bijstand achter
+de vuilnisbelt, en de zwarte gemeenschap woont buiten het stadje bij de
+vuilstort.
+
+Atticus is advocaat, weduwnaar en in de ogen van zijn kinderen vooral oud en
+saai. Calpurnia, de zwarte huishoudster, voedt hen mee op en corrigeert hen
+strenger dan hij. Als zij Scout en Jem een keer meeneemt naar haar eigen kerk,
+merken de kinderen voor het eerst dat er twee gescheiden werelden naast elkaar
+bestaan.
+
+**Boo Radley**
+
+Scout, Jem en Dill zijn geobsedeerd door het huis van de Radleys. Zij bedenken
+spelletjes over de zoon die naar verluidt zijn vader met een schaar in het
+been stak en sindsdien binnen wordt gehouden, en zij dagen elkaar uit het huis
+aan te raken.
+
+Ondertussen vinden zij spullen in een holte van een boom aan de rand van het
+erf: kauwgom, twee gepolijste centen, twee zeeppoppetjes die op henzelf
+lijken. Als Jem zijn broek verliest bij een vlucht, hangt die de volgende dag
+hersteld over het hek. De boomholte wordt door de oudste Radley met cement
+dichtgestopt.
+
+**De zaak Tom Robinson**
+
+De rechter wijst Atticus aan als raadsman van Tom Robinson, die ervan wordt
+beschuldigd Mayella Ewell te hebben verkracht. Atticus neemt de zaak aan en
+verdedigt haar werkelijk, wat in Maycomb als verraad wordt opgevat. De
+kinderen krijgen op het schoolplein en van familieleden te horen wat hun vader
+is.
+
+De avond voor het proces staat Atticus met een leeslamp voor de deur van de
+gevangenis als er een groep mannen komt om Tom te halen. De kinderen glippen
+erheen. Scout herkent Mr. Cunningham en begint hem over zijn zoon en over een
+erfrechtzaak aan te spreken, tot hij zich schaamt en de groep afdruipt.
+
+**Het proces**
+
+In de rechtszaal, met de kinderen op de galerij bij de zwarte toeschouwers,
+toont Atticus aan dat Mayella aan de rechterkant van haar gezicht is
+toegetakeld, dat haar vader linkshandig is en dat Tom Robinson zijn linkerarm
+niet kan gebruiken sinds een ongeluk met een dorsmachine. Uit Toms eigen
+verklaring komt naar voren dat Mayella hem heeft benaderd en dat haar vader
+hen zag.
+
+De jury veroordeelt hem. Jem, die tot dat moment overtuigd was dat het goed
+zou aflopen, huilt van kwaadheid; het is zijn eerste ervaring met een
+uitspraak die niet over de feiten gaat. Kort daarna wordt Tom doodgeschoten
+bij een vluchtpoging uit de gevangenis, met zeventien kogels.
+
+**Wat er tussendoor gebeurt**
+
+Rond het proces staan de scenes waarin Lee haar les over huid en rondlopen
+uitwerkt op figuren die daar niet vanzelfsprekend voor in aanmerking komen.
+Mrs. Dubose, de oude buurvrouw die de kinderen uitscheldt, blijkt bezig te
+zijn geweest met afkicken van morfine en wilde vrij sterven; Jem moet haar
+wekenlang voorlezen en begrijpt pas achteraf waarom.
+
+Tante Alexandra komt inwonen om Scout tot dame te maken en brengt de
+standenleer van het stadje het huis binnen. Bij de damesvereniging spreken de
+aanwezigen bewogen over de nood van een volk in Afrika en ondertussen
+minachtend over hun eigen personeel. Scout ziet dat, zonder er woorden voor te
+hebben.
+
+**Halloween**
+
+Bob Ewell, die zich in het proces vernederd voelde, valt de kinderen op een
+donkere weg aan als zij terugkomen van een schoolvoorstelling. Jem breekt zijn
+arm. Iemand grijpt in en draagt Jem naar huis; het is Boo Radley, die daarmee
+voor het eerst buiten komt.
+
+Bob Ewell blijkt dood, met een keukenmes in zijn ribben. Sheriff Heck Tate
+weigert het onderzoek voort te zetten en houdt het erop dat de man in zijn
+eigen mes is gevallen, om Boo Radley een proces en de aandacht van het stadje
+te besparen. Scout vat dat samen met de regel over de spotvogel. Aan het slot
+brengt zij Boo naar huis en kijkt vanaf zijn veranda de straat in.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De spotvogel | Het vogeltje dat volgens Atticus niets doet behalve zingen en dat men daarom niet schiet; in het boek het beeld voor Tom Robinson en voor Boo Radley. |
+| In iemands huid kruipen | De regel van Atticus dat je een ander pas begrijpt als je zijn standpunt inneemt en er even in rondloopt, waar het hele boek naar terugkeert. |
+| Maycomb | Het verzonnen stadje in Alabama waar het verhaal speelt, met een vaste rangorde van families die niemand hardop hoeft uit te leggen. |
+| Boo Radley | Arthur Radley, de buurman die al jaren binnen blijft en over wie het stadje verhalen vertelt; hij observeert de kinderen jarenlang en grijpt eenmaal in. |
+| Calpurnia | De zwarte huishoudster die de kinderen mee opvoedt en die in haar eigen kerk anders spreekt dan bij de Finches, wat Scout opvalt. |
+| De Ewells | De familie achter de vuilnisbelt, die in de rangorde van het stadje onderaan staat en juist daarom de rassenscheiding het hardst nodig heeft. |
+| Fine Folks | De opvatting van tante Alexandra dat families een aangeboren aard hebben en dat de Finches daarvan de goede kant vertegenwoordigen. |
+| De lynchgroep bij de gevangenis | De mannen die Tom Robinson komen halen en die uiteenvallen zodra Scout een van hen bij naam aanspreekt over zijn eigen zoon. |
+
+#### Waar het argument op rust
+
+Het boek staat dicht bij de jeugd van de schrijfster. Harper Lee groeide op in
+Monroeville, Alabama, haar vader Amasa Coleman Lee was advocaat en
+krantenuitgever, en zij was als kind bevriend met Truman Capote, die naar
+algemeen aanvaarde lezing model stond voor Dill. Het stadje, de rangorde en
+het spraakgebruik komen uit die omgeving.
+
+Voor de rechtszaak zelf is geen enkele bron aan te wijzen. De processen tegen
+de negen jonge zwarte mannen in Scottsboro, die vanaf 1931 in Alabama op grond
+van een aanklacht wegens verkrachting werden veroordeeld en waarvan de zaken
+tot bij het hooggerechtshof kwamen, vormen de historische achtergrond die
+vrijwel elke lezer erbij haalt. Lee heeft die verbinding zelf nooit bevestigd.
+
+De vertelvorm doet het meeste werk. Doordat Scout als volwassene terugkijkt
+maar het oordeel van het kind laat staan, komt de lezer steeds iets eerder bij
+de betekenis aan dan de verteller. Dat is ook de zwakke plek van de
+constructie: op de momenten waarop het boek zijn stelling wil uitspreken, moet
+Atticus het woord nemen, en die passages klinken merkbaar anders dan de rest.
+
+De ontvangst is buitengewoon geweest en heeft de tekst deels overwoekerd. De
+roman is in meer dan veertig talen vertaald en werd in tientallen miljoenen
+exemplaren verkocht; de verfilming uit 1962 heeft het beeld van Atticus Finch
+vastgelegd in een gedaante die aan Gregory Peck vastzit.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de zwarte figuren in het boek nauwelijks handelen.
+Tom Robinson mag één keer spreken en sterft vervolgens buiten beeld; Calpurnia
+wordt vrijwel alleen gezien in wat zij voor het gezin Finch betekent; de
+zwarte toeschouwers op de galerij staan op als Atticus vertrekt, en dat is hun
+laatste optreden. De roman gaat over racisme en geeft de mensen om wie het
+gaat weinig eigen bestaan.
+
+Daarmee samen hangt de kritiek op Atticus zelf. Malcolm Gladwell betoogde in
+2009 in The New Yorker dat Atticus een vertegenwoordiger is van het meegaande
+liberalisme van het Zuiden: hij bepleit begrip voor de leden van de
+lynchgroep, verklaart de rassenhaat uit onwetendheid en stelt het stelsel geen
+moment ter discussie. Wie het boek als aanklacht leest, leest volgens die
+redenering iets anders dan wat er staat.
+
+De uitgave van *Go Set a Watchman* in 2015 maakte die discussie scherper.
+Daarin is dezelfde Atticus, twintig jaar later, lid van een raad die tegen de
+opheffing van de rassenscheiding strijdt. Het boek verscheen kort nadat de
+zuster en advocaat van Lee was overleden, terwijl Lee zelf oud en verzwakt in
+een verzorgingshuis woonde, wat vragen opriep over de vraag of zij publicatie
+werkelijk wilde.
+
+Praktisch bezwaar van een andere orde: de roman is in de Verenigde Staten
+sinds jaar en dag een van de meest aangevochten schoolboeken, aanvankelijk om
+het onderwerp en tegenwoordig vooral om het veelvuldige gebruik van een
+scheldwoord voor zwarte Amerikanen en om de vraag of zwarte leerlingen dit
+boek voorgeschoteld moeten krijgen als het standaardwerk over hun
+geschiedenis.
+
+#### Wat je hierna leest
+
+- 1518. De kleur paars. Walker beschrijft hetzelfde Zuiden in dezelfde jaren
+van binnenuit, met de stem van een zwarte vrouw; precies wat bij Lee
+ontbreekt.
+- 10. Ten oosten van Eden. Steinbeck gebruikt eveneens een vader die zijn
+kinderen een moreel kader probeert mee te geven, en stelt daarbij de vraag of
+iemand zijn afkomst kan overstijgen.
+- 68. Black Rednecks and White Liberals. Sowell verklaart de omgangsvormen van
+het blanke zuiden, waaronder de eer en de neiging tot geweld die de Ewells
+belichamen, uit meegebrachte cultuur en niet uit ras.
+
+## 1520. Eastern Body, Western Mind
+
+Anodea Judith, 1996. Oorspronkelijk *Eastern Body, Western Mind: Psychology
+and the Chakra System as a Path to the Self* (Celestial Arts, Berkeley, 1996);
+de herziene uitgave verscheen in 2004 bij Ten Speed Press (512 blz., ISBN
+9781587612251). Nederlands als *Handboek chakrapsychologie:
+zelfverwerkelijking in zeven stappen*, vertaald door Marijke Koekoek en Hajo
+Geurink, eerst bij Altamira (ISBN 9789023009542) en later bij HarperCollins
+Holland, Amsterdam, 2015 (496 blz., ISBN 9789401302203). Judith schreef eerder
+*Wheels of Life* (1987), dat het chakrasysteem beschrijft zonder de
+psychologische toepassing die dit boek eraan toevoegt. Rubriek: filosofie en
+mystiek.
+Tags: `chakra's`, `ontwikkelingspsychologie`, `lichaamsgerichte therapie`,
+`jungiaans`, `yoga`, `esoterie`, `trauma`
+
+Anodea Judith legt het zevenvoudige chakrasysteem uit de tantrische traditie
+naast de westerse ontwikkelingspsychologie. Elk chakra krijgt een hoofdstuk,
+en elk hoofdstuk volgt hetzelfde stramien: een element, een levensfase, een
+recht dat in die fase verworven wordt, een tegenkracht die dat recht
+ondermijnt, en de klachten die ontstaan wanneer er te veel of te weinig
+energie in dat centrum zit.
+
+Onderaan staat het lichaam: aarde, overleven, veiligheid, het recht om er te
+zijn. Bovenaan staat het denken: inzicht, betekenis, het recht om te weten.
+Judith beschrijft de weg omhoog als bevrijding en de weg omlaag als
+verwerkelijking, en stelt dat een mens beide richtingen nodig heeft.
+
+Het boek is bedoeld als werkboek voor therapeuten en voor lezers die hun eigen
+klachten willen plaatsen. Bij elk hoofdstuk staan lichaamsoefeningen, vragen
+en yogahoudingen. De psychologische bouwstenen komen uit Jung, uit de
+bio-energetica van Alexander Lowen en uit de fasenleer van Erik Erikson; het
+raamwerk waarin ze gehangen worden komt uit de yogatraditie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Judith stelt dat het zevenvoudige chakrasysteem bruikbaar is
+als ordeningsmodel voor de westerse psychologie, en dat elk van de zeven
+centra samenvalt met een fase in de vroege ontwikkeling van een kind, met een
+recht dat in die fase verworven wordt en met een manier waarop dat recht
+geschonden kan raken. Wie het model aanvaardt, kan aan een klacht aflezen in
+welke levensfase de schade zou zijn ontstaan, welk lichaamsgebied daarbij
+hoort en welke oefening ertegen helpt. De inzet is dubbel. Het chakrasysteem
+levert een raster om klachten te ordenen, en tegelijk houdt Judith staande dat
+de chakra's werkelijke energiecentra zijn en niet alleen een handige indeling.
+Dat tweede deel plaatst het boek buiten de gangbare ontwikkelingspsychologie,
+ook waar de psychologische inhoud daar rechtstreeks aan ontleend is.
+
+#### De gang van het boek
+
+**Het model en waar het vandaan komt**
+
+De inleiding zet het systeem neer: zeven centra langs de wervelkolom, van het
+staartbeen tot de kruin, elk verbonden met een element, een lichaamsgebied en
+een thema. Judith noemt het geheel een regenboogbrug tussen materie en
+bewustzijn. Zij onderscheidt twee bewegingen: een bevrijdende stroom die van
+onder naar boven loopt, van lichaam naar denken, en een verwerkelijkende
+stroom die van boven naar beneden loopt, van gedachte naar daad.
+
+Zij verantwoordt haar aanpak door te stellen dat de yogatraditie een ordening
+van de menselijke ervaring bevat die de westerse psychologie in stukken heeft
+beschreven zonder ze aan elkaar te knopen. Haar eigen scholing komt uit de
+bio-energetica, de yoga en de jungiaanse psychologie, en die drie lopen door
+alle hoofdstukken heen.
+
+**Aarde: het recht om er te zijn**
+
+Het eerste chakra, muladhara, hoort bij het element aarde, bij het
+bekkenbodemgebied en bij het eerste levensjaar. Het recht is het recht om er
+te zijn en het lichaam te bewonen; de tegenkracht die Judith daarbij zet is
+angst. Verwaarlozing, een gespannen zwangerschap of een gebrek aan
+lichamelijke verzorging leiden volgens haar tot een tekort in dit centrum.
+
+Zij beschrijft het gevolg in termen die uit de bio-energetica komen: een dun,
+gespannen lichaam, moeite met eten en slapen, het gevoel niet helemaal
+aanwezig te zijn. Bij een teveel ziet zij het omgekeerde, vastzittendheid en
+hamsteren. De herstelweg heet aarden, met oefeningen waarin het gewicht bewust
+op de voeten en de benen wordt gebracht.
+
+**Water en vuur: voelen en willen**
+
+Het tweede chakra, svadhisthana, hoort bij water, bij het onderbuikgebied en
+bij de tweede helft van het eerste levensjaar tot ongeveer het tweede. Het
+thema is beweging, genot en emotie, het recht is het recht om te voelen, de
+tegenkracht is schuld. Judith koppelt dit centrum aan seksualiteit, aan
+verslaving en aan de vraag of iemand in staat is verlangen toe te laten zonder
+zich er meteen voor te schamen.
+
+Het derde chakra, manipura, hoort bij vuur, bij de zonnevlecht en bij de fase
+van ongeveer achttien maanden tot vier jaar, de leeftijd waarop een kind zijn
+wil ontdekt. Het recht is het recht om te handelen, de tegenkracht is
+schaamte. Hier komen de karakterstructuren binnen die Judith aan de
+bio-energetica ontleent: de meegaande dulder die zijn wil heeft ingeleverd, en
+de uitdager die macht gebruikt om nooit meer overgeleverd te zijn.
+
+**Lucht: het hart**
+
+Het vierde chakra, anahata, staat in het midden van de reeks en hoort bij
+lucht, bij de borstkas en bij de kleuterjaren waarin vriendschap en
+gezinsverhoudingen vorm krijgen. Het recht is het recht om lief te hebben en
+bemind te worden, de tegenkracht is verdriet. Judith beschrijft dit centrum
+als het scharnier waar de onderste drie chakra's, die over lichaam en persoon
+gaan, overgaan in de bovenste drie, die over uitwisseling en betekenis gaan.
+
+Het bijbehorende lichaamsbeeld is de opgetrokken, harde borstkas van iemand
+die een verlies niet heeft verwerkt. Bij een teveel spreekt zij van klampen en
+van zorgen voor anderen tot er niets overblijft; bij een tekort van
+eenzaamheid en oordeel.
+
+**Geluid, licht en gedachte**
+
+Het vijfde chakra, vishuddha, hoort bij de keel en bij het recht om te spreken
+en waarheid te horen; de tegenkracht is de leugen. Judith trekt de lijn naar
+gezinnen waarin iets niet benoemd mag worden en waarin kinderen leren dat wat
+zij zien niet klopt met wat er gezegd wordt.
+
+Het zesde chakra, ajna, hoort bij licht, bij zien en bij verbeelding; de
+tegenkracht is illusie. Het zevende, sahasrara, hoort bij bewustzijn en bij
+het recht om te weten; de tegenkracht is gehechtheid. Bij deze twee wordt het
+boek merkbaar minder klinisch en meer beschouwend: de ontwikkelingsfasen
+liggen hier in de adolescentie en het volwassen leven, en het bewijsmateriaal
+bestaat vooral uit voorbeelden uit haar praktijk en uit verwijzingen naar
+Jung.
+
+**Te veel en te weinig**
+
+De diagnostische as van het hele boek is het paar teveel en tekort. Een chakra
+kan volgens Judith dichtslibben of juist leeglopen, en de klachten die daaruit
+voortkomen zijn elkaars spiegelbeeld. Wie te weinig energie in het derde
+chakra heeft, is passief en geeft zijn wil weg; wie er te veel heeft, is
+dominant en drammerig.
+
+Zij waarschuwt zelf dat mensen zelden zuiver in een van beide vallen en dat
+een tekort vaak wordt afgedekt met gedrag dat op een teveel lijkt. Die nuance
+maakt de beschrijving levensecht en maakt het model tegelijk lastig te
+weerleggen, omdat vrijwel elk gedrag ergens in het schema past.
+
+**Herstel**
+
+Elk hoofdstuk sluit af met een herstelweg. Die bestaat uit lichaamswerk,
+ademhaling, yogahoudingen, schrijfopdrachten en gesprekken. Judith houdt vast
+aan de volgorde: een hoger chakra laat zich niet openen zolang het lagere niet
+draagt, en werk aan het spirituele dat het lichaam overslaat noemt zij
+vluchtgedrag.
+
+In de slothoofdstukken keert zij terug naar de twee stromen. Bevrijding zonder
+verwerkelijking levert iemand op die veel begrijpt en weinig doet;
+verwerkelijking zonder bevrijding levert iemand op die veel doet zonder te
+weten waarom. De opdracht die het boek geeft, is de hele reeks in beide
+richtingen begaanbaar maken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Chakra | Sanskriet voor wiel; bij Judith een draaiend centrum van energie langs de wervelkolom, verbonden met een element, een lichaamsgebied en een psychologisch thema. |
+| Recht | Per chakra een aanspraak die in de bijbehorende levensfase verworven wordt, van het recht om er te zijn tot het recht om te weten. |
+| Demon | De tegenkracht die het recht van een chakra ondermijnt; van onder naar boven achtereenvolgens angst, schuld, schaamte, verdriet, leugen, illusie en gehechtheid. |
+| Teveel en tekort | De twee richtingen waarin een chakra uit balans kan raken, met klachtenbeelden die elkaars spiegelbeeld vormen. |
+| Karakterstructuur | Vaste houding van lichaam en gedrag die volgens Judith bij een bepaald chakra hoort, overgenomen uit de bio-energetica van Alexander Lowen. |
+| Bevrijdende stroom | De beweging van onder naar boven, van lichaam en materie naar denken en bewustzijn. |
+| Verwerkelijkende stroom | De beweging van boven naar beneden, waarin een gedachte of voornemen afdaalt tot een handeling in de stoffelijke wereld. |
+| Regenboogbrug | Judiths beeld voor het chakrasysteem als geheel: een verbinding in zeven kleuren tussen het lichaam en het bewustzijn. |
+| Aarden | Het herstelwerk bij het eerste chakra, waarin aandacht en gewicht bewust naar benen en voeten worden gebracht. |
+| Ontwikkelingsfase | De leeftijdsperiode die Judith aan elk chakra koppelt, in navolging van de fasenleer van Erik Erikson en de hechtingsliteratuur. |
+
+#### Waar het argument op rust
+
+De psychologische inhoud van het boek is grotendeels geleend en dat is te
+volgen. De fasenindeling komt uit de ontwikkelingspsychologie van Erik
+Erikson, de karakterstructuren komen uit de bio-energetica van Alexander
+Lowen, die op zijn beurt teruggaat op Wilhelm Reich, en de taal over schaduw
+en individuatie komt uit Jung. Wie die drie bronnen kent, herkent ze zin voor
+zin.
+
+Het boek bevat geen eigen onderzoek. De onderbouwing bestaat uit de praktijk
+van Judith als therapeut en uit voorbeelden van clienten, zonder aantallen,
+controlegroepen of nameting. Er wordt geen enkele studie aangehaald die de
+gestelde koppeling tussen een chakra en een levensfase zou hebben getoetst, en
+die studie bestaat ook niet.
+
+Voor de chakra's zelf is er geen anatomische onderbouwing. Er zijn geen
+organen, klieren of zenuwknopen aangewezen die met de zeven centra
+samenvallen, en Judith beweert dat ook niet; zij spreekt over energie in een
+betekenis die buiten de natuurkunde valt. Wat wel steek houdt is de waarneming
+waar het model op leunt, namelijk dat spanning zich in het lichaam vastzet en
+dat lichaamshouding en gemoedstoestand met elkaar meebewegen. Die waarneming
+is in de traumaliteratuur breder onderbouwd dan in dit boek.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de historische pretentie. Het systeem van zeven
+chakra's in de kleuren van de regenboog is geen oude Indiase leer maar een
+westerse samenstelling uit de vroege twintigste eeuw, waarin theosofen als
+Charles Leadbeater een rol speelden en waarin de vertaalde weergave van
+tantrische teksten door Arthur Avalon werd hergebruikt. De tantrische bronnen
+kennen wisselende aantallen centra en verbinden er geen kleurenreeks aan.
+Judith presenteert het model als eeuwenoud terwijl de vorm waarin zij het
+gebruikt ongeveer even oud is als de psychoanalyse.
+
+Het diagnostische schema is nauwelijks te weerleggen. Doordat elk chakra zowel
+een teveel als een tekort kent, en doordat een tekort zich volgens de auteur
+kan vermommen als een teveel, past elke klacht ergens in het raster. Een model
+dat alles verklaart, sluit niets uit, en dat is precies wat het onbruikbaar
+maakt als toets.
+
+De koppeling van leeftijden aan centra suggereert een precisie die nergens
+vandaan komt. Dat woede met vuur en de zonnevlecht te maken zou hebben, is een
+beeldspraak die in het boek als vaststelling functioneert. Waar de gangbare
+hechtingsliteratuur voorzichtig is over het toeschrijven van volwassen
+klachten aan een bepaald levensjaar, doet dit boek dat op elke bladzijde.
+
+Er zit ook een risico in de therapeutische toepassing. Wie leert dat zijn
+klacht bij een chakra hoort en met ademhaling en houdingen te verhelpen is,
+kan zorg uitstellen die hij nodig heeft. Judith zegt daar weinig over. Wat het
+boek wel goed doet, is de vertaling van vage lichamelijke ervaring naar taal;
+dat is de reden dat het in opleidingen voor lichaamsgericht werk en yoga zo
+lang is blijven staan.
+
+#### Wat er concreet mee te doen is
+
+- Lees het als ordeningstaal voor lichamelijke ervaring, niet als leer over
+anatomie.
+- Ga bij een klacht na of het schema iets toevoegt dat een gewone beschrijving
+niet al gaf; voegt het niets toe, laat het dan staan.
+- Neem de leeftijdskoppelingen als beeldspraak en niet als reconstructie van
+wat er in een bepaald jaar is gebeurd.
+- Doe de oefeningen als lichaamswerk en beoordeel ze op wat zij lichamelijk
+doen, los van de verklaring die erbij staat.
+- Zoek voor traumaklachten daarnaast literatuur en behandeling waarvan het
+effect wel is onderzocht.
+
+#### Wat je hierna leest
+
+- 386. The Body Keeps the Score. Van der Kolk beschrijft dezelfde waarneming,
+dat spanning zich in het lichaam vastzet, maar dan met onderzoek waarop het te
+controleren valt.
+- 359. Het Rode Boek. Judith leent haar beeldtaal over innerlijke figuren en
+individuatie rechtstreeks van Jung, die in dit boek zijn eigen beelden aan het
+werk zet.
+- 242. Autobiography of a Yogi. Yogananda schrijft van binnenuit over de
+yogatraditie waar het chakrasysteem uit stamt, zonder de psychologische
+vertaalslag die Judith maakt.
+- 1508. Emotioneel volwassen. Ook daar wordt een Indiase tekst gelezen als
+handleiding voor westerse zelfkennis, met dezelfde vraag naar wat er onderweg
+verandert.
+
+## 1521. Scattered Minds
+
+Gabor Mate, 1999. Oorspronkelijk *Scattered Minds: A New Look at the Origins
+and Healing of Attention Deficit Disorder* (Knopf Canada, Toronto, 1999); de
+Britse uitgave heet *Scattered Minds: The Origins and Healing of Attention
+Deficit Disorder* (Vermilion, Londen, 2019, ISBN 9781785042218). Nederlands
+als *Het verstrooide brein: ADD begrijpen en helen*, AnkhHermes, Utrecht, 2021
+(368 blz., ISBN 9789020218404). Van Mate verschenen in het Nederlands verder
+*Hongerige geesten* over verslaving en *De mythe van normaal* (AnkhHermes,
+2022, ISBN 9789020219456), dat hij met zijn zoon Daniel Mate schreef. Rubriek:
+brein en lichaam.
+Tags: `ADD`, `ADHD`, `hechting`, `ontwikkeling`, `opvoeding`, `psychiatrie`,
+`medicatie`
+
+Gabor Mate, huisarts in Vancouver, kreeg op middelbare leeftijd de diagnose
+ADD, net als drie van zijn kinderen. Dat gegeven staat aan het begin van dit
+boek en keert er voortdurend in terug: hij beschrijft zijn eigen
+verstrooidheid, zijn werkverslaving en zijn tekortschieten als vader met
+dezelfde openheid als de gevallen uit zijn praktijk.
+
+Zijn stelling is dat ADD geen erfelijke hersenziekte is die je hebt of niet
+hebt, maar het gevolg van een verstoorde afstemming tussen ouder en kind in de
+eerste levensjaren. Aandacht, zegt hij, is een vermogen dat zich vormt in een
+rustige, aanwezige relatie; ontbreekt die rust, dan blijft het rijpingsproces
+van de betrokken hersengebieden onaf.
+
+Uit die diagnose volgt zijn behandeladvies. Medicatie kan volgens hem nuttig
+zijn en hij schreef die zelf voor, maar zij verhelpt niets aan de oorzaak. Het
+werk zit in het herstellen van afstemming: bij kinderen door de ouder, bij
+volwassenen door henzelf. Het boek geeft daar hoofdstukken vol aanwijzingen
+voor, met de ondertitel van de Britse uitgave als aanduiding van de inzet: het
+ontstaan en het herstel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mate bestrijdt het beeld van ADD als een aangeboren afwijking
+in het brein die met medicatie beheerd moet worden. Zijn stelling is dat de
+aandoening ontstaat wanneer de omgeving in de eerste levensjaren te onrustig,
+te gespannen of te weinig aanwezig is voor het kind dat er gevoelig voor is,
+waardoor de rijping van de hersengebieden die aandacht en impulsbeheersing
+regelen niet afkomt. Erfelijkheid speelt volgens hem wel een rol, maar dan als
+gevoeligheid voor de omgeving en niet als noodlot. Daaruit volgt zijn tweede
+stelling, die verder gaat en meer op het spel zet: als de ontwikkeling is
+blijven steken, kan zij alsnog op gang komen, ook bij volwassenen, doordat de
+hersenen levenslang veranderbaar blijven. Het boek is daarmee tegelijk een
+aanklacht tegen een medisch model en een aanbod van hoop dat aan dat model
+ontbreekt.
+
+#### De gang van het boek
+
+**Wat ADD is en wat het niet is**
+
+Mate opent met een beschrijving van de aandoening zoals hij die bij zichzelf
+en bij patienten ziet: afdwalen, uitstellen, prikkelbaarheid, tijdblindheid,
+een geheugen dat het op onhandige momenten laat afweten en een innerlijk
+gevoel van tekortschieten dat er niet uit te praten valt. Hij hecht meer
+waarde aan die geleefde beschrijving dan aan de vinklijsten van de
+diagnostische handboeken.
+
+Vervolgens zet hij het gangbare beeld neer waar hij tegenin gaat: ADD als
+hersenziekte met een sterke erfelijke component, vast te stellen met een lijst
+gedragskenmerken en te behandelen met stimulantia. Hij noemt dat het
+ziektemodel en verwijt het dat het de vraag naar de herkomst dichtzet.
+
+**Hoe het brein zich vormt**
+
+Het middendeel van het boek gaat over hersenontwikkeling. Mate legt uit dat de
+menselijke hersenschors bij de geboorte grotendeels onaf is en zich pas in de
+eerste levensjaren bedraadt, en dat die bedrading gestuurd wordt door wat er
+in de omgeving gebeurt. Het gaat dan vooral om de prefrontale gebieden en de
+verbindingen daarvan met het emotionele deel van het brein.
+
+Daar zet hij het begrip afstemming naast. Een ouder die kalm en aanwezig is,
+spiegelt de toestand van het kind en helpt het zo zijn eigen opwinding te
+reguleren. Een ouder die door depressie, armoede, verhuizing, ruzie of eigen
+onverwerkte geschiedenis in beslag genomen is, kan die spiegel niet bieden,
+ook zonder een spoor van onwil of verwaarlozing. Dat laatste onderstreept Mate
+herhaaldelijk: hij zoekt geen schuldigen.
+
+**Het gezin dat hij zelf beschrijft**
+
+Mate voert zijn eigen geschiedenis aan als voorbeeld. Hij werd in 1944 in
+Boedapest geboren, als joods kind onder de Duitse bezetting; zijn moeder gaf
+hem als zuigeling weg aan een vreemde om hem in veiligheid te brengen. Hij
+beschrijft die eerste maanden als de omgeving waarin zijn eigen verstrooidheid
+is ontstaan.
+
+Diezelfde lijn trekt hij door naar zijn vaderschap. Hij vertelt hoe hij als
+drukbezette arts afwezig was, hoe zijn kinderen daarop reageerden en hoe hij
+dat later in zijn praktijk terugzag bij anderen. Die openheid is de reden dat
+het boek bij lezers aankomt, en tegelijk het punt waarop het het kwetsbaarst
+is: het argument leunt zwaar op een enkele geschiedenis.
+
+**Wat ouders kunnen doen**
+
+Voor ouders van kinderen met ADD werkt Mate een aanpak uit die begint bij de
+eigen toestand van de ouder. Rust en aanwezigheid gaan voor techniek; straf,
+beloningssystemen en gedragsprogramma's beschouwt hij als middelen die het
+onderliggende probleem eerder vergroten, omdat zij de band tussen ouder en
+kind afhankelijk maken van prestatie.
+
+Hij bepleit een omgeving waarin het kind niet voortdurend hoeft te verdienen
+dat het welkom is: minder correctie, meer voorspelbaarheid, en een
+schoolaanpak die aansluit bij hoe het kind leert in plaats van andersom. Ook
+adviseert hij ouders hun eigen geschiedenis onder ogen te zien, omdat de
+spanning die zij doorgeven meestal niet bij henzelf begon.
+
+**Wat volwassenen kunnen doen**
+
+Voor volwassenen met ADD komt Mate uit bij zelfaanvaarding als eerste stap.
+Het schaamtegevoel dat na jaren tekortschieten is opgebouwd, houdt volgens hem
+het gedrag in stand, omdat het de aandacht permanent naar binnen richt.
+
+Daarna volgen praktische aanwijzingen die minder opzienbarend zijn dan zijn
+theorie: structuur aanbrengen, slaap en beweging serieus nemen, aandacht
+oefenen door meditatie, en de eigen reacties leren opmerken voordat zij zich
+voltrekken. Over medicatie is hij genuanceerder dan zijn critici hem soms
+nageven: hij schreef die voor, gebruikte die zelf en noemt haar bruikbaar om
+ruimte te maken voor het eigenlijke werk.
+
+**Het bredere betoog**
+
+In de slothoofdstukken verbreedt Mate zijn onderwerp. Als afstemming afhangt
+van de rust van ouders, dan is de toename van aandachtsproblemen volgens hem
+een gevolg van de omstandigheden waaronder er in westerse landen wordt
+opgevoed: werkdruk, geldzorgen, korte zwangerschapsverloven en versplinterde
+gezinnen.
+
+Daarmee schuift hij de verantwoordelijkheid weg van het afzonderlijke gezin
+naar de samenleving. Die lijn werkt hij in dit boek nog niet uit; dat gebeurt
+pas ruim twintig jaar later in *De mythe van normaal*, waar hetzelfde argument
+over veel meer aandoeningen wordt uitgestrekt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| ADD | De aandachtstekortstoornis zonder overwegende hyperactiviteit, de vorm die Mate bij zichzelf en bij het merendeel van zijn patienten beschrijft. |
+| Afstemming | De rustige, aanwezige wederkerigheid tussen ouder en jong kind waarin het kind leert zijn eigen opwinding te reguleren; volgens Mate de spil van zowel het ontstaan als het herstel. |
+| Ziektemodel | Mate's aanduiding voor de opvatting dat ADD een aangeboren hersenafwijking is, waarmee de vraag naar de omgeving buiten beeld raakt. |
+| Genetisch fundamentalisme | Zijn term voor het toeschrijven van gedrag aan erfelijkheid alsof de omgeving daar niets aan verandert. |
+| Gevoeligheid | Wat er volgens Mate werkelijk geerfd wordt: niet de aandoening zelf, maar een grotere vatbaarheid voor wat de omgeving doet. |
+| Nabije scheiding | Het geleidelijk loskomen van een kind dat weet dat de ouder beschikbaar blijft; loopt dat mis, dan blijft er volgens Mate een onrust achter die op aandachtsproblemen lijkt. |
+| Neuroplasticiteit | Het vermogen van de hersenen om zich levenslang te blijven vormen, waar Mate zijn stelling op bouwt dat herstel op elke leeftijd mogelijk is. |
+| Tegenwil | De reflexmatige weerstand van een kind tegen sturing die het als druk ervaart, en volgens Mate een reden om beloning en straf te wantrouwen. |
+| Schaamte | De opgestapelde overtuiging van volwassenen met ADD dat er iets met henzelf mis is, die het gedrag volgens hem in stand houdt. |
+
+#### Waar het argument op rust
+
+Waar Mate stevig staat, is de neurobiologische ontwikkelingsliteratuur die hij
+aanhaalt: dat de prefrontale schors zich na de geboorte vormt, dat vroege
+stress meetbare gevolgen heeft voor stresshormonen en hersenrijping, en dat de
+hersenen ook op volwassen leeftijd veranderbaar blijven. Dat is geen omstreden
+materiaal.
+
+Zwakker staat de stap van die literatuur naar de bewering dat afstemming de
+doorslaggevende oorzaak van ADD is. Voor die stap voert hij geen onderzoek aan
+waarin de bijdrage van omgeving en erfelijkheid tegen elkaar is afgewogen.
+Zijn onderbouwing bestaat uit gevallen uit zijn praktijk, uit zijn eigen leven
+en uit een redenering: als aandacht zich vormt in relatie, dan moet een gebrek
+aan relatie de aandacht schaden.
+
+Dat botst met de tweelingliteratuur, waarin de erfelijke bijdrage aan ADHD
+steevast hoog uitvalt. Mate weerlegt die studies niet zozeer als dat hij hun
+opzet ter discussie stelt: kinderen met dezelfde erfelijke aanleg roepen
+volgens hem ook vergelijkbare reacties op bij hun ouders, waardoor aanleg en
+omgeving in de meting door elkaar lopen. Dat bezwaar is niet onzinnig, maar
+het is een tegenwerping en geen tegenbewijs.
+
+Er is sinds 1999 wel onderzoek bijgekomen dat een deel van zijn richting
+steunt. Vroege deprivatie, zoals bij kinderen uit Roemeense tehuizen die na
+1989 werden geadopteerd, gaat samen met een sterk verhoogd aantal
+aandachtsproblemen. Dat laat zien dat de omgeving er in het uiterste geval toe
+doet. Of het ook geldt voor het gewone gezin met een drukke of neerslachtige
+ouder, waar Mate het over heeft, is daarmee niet aangetoond.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Mate een aannemelijk deelverhaal presenteert als
+het hele verhaal. Dat vroege omstandigheden meewegen, wordt breed aangenomen;
+dat zij de oorzaak zijn, is een claim van een andere orde en die maakt hij
+niet waar. Zijn behandeling van het erfelijkheidsonderzoek komt daarbij dicht
+bij een karikatuur: nauwelijks een onderzoeker verdedigt de positie die hij
+bestrijdt.
+
+De keerzijde van zijn hoopvolle boodschap is schuld. Wie leest dat de
+aandoening van zijn kind is ontstaan doordat hij in het eerste levensjaar te
+gespannen was, kan zich moeilijk aan de conclusie onttrekken dat het aan hem
+lag, hoe vaak Mate ook schrijft dat het niemands schuld is. Dat effect is bij
+ouders van kinderen met ADHD veelvuldig beschreven en is een reden waarom het
+boek in de klinische praktijk omstreden blijft.
+
+Bij volwassen lezers speelt hetzelfde in omgekeerde richting. De belofte dat
+de ontwikkeling alsnog kan worden ingehaald, is niet aangetoond en kan
+behandeling met bewezen effect in de weg gaan zitten. Mate raadt medicatie
+nergens af, maar de toon van het boek maakt haar tot een noodgreep, en lezers
+vatten haar ook op die manier op.
+
+Wat het boek daartegenover zet, is de kwaliteit van zijn beschrijving. De
+hoofdstukken over hoe het van binnen voelt om jarenlang tekort te schieten en
+daar niets aan te kunnen doen, worden door lezers met ADD vaker aangehaald dan
+zijn theorie. Wie het boek leest voor die beschrijving en niet voor de
+oorzaakverklaring, houdt er het meeste aan over.
+
+#### Wat er concreet mee te doen is
+
+- Neem de beschrijvingen van het innerlijke beloop serieus en de
+oorzaakverklaring onder voorbehoud.
+- Beoordeel bij een kind eerst de rust in huis en het dagritme voordat er aan
+gedragsprogramma's wordt begonnen.
+- Laat medicatie een beslissing van de behandelaar zijn en niet van dit boek.
+- Werk als volwassene aan slaap, beweging en vaste structuur, ook als dat geen
+genezing is.
+- Scheid de schaamte van het gedrag: houd bij welk gedrag daadwerkelijk schade
+doet en welk gedrag vooral schuldgevoel oproept.
+
+#### Wat je hierna leest
+
+- 386. The Body Keeps the Score. Van der Kolk verdedigt met meer onderzoek
+dezelfde grondgedachte, dat vroege omstandigheden zich in lichaam en brein
+vastzetten.
+- 152. Attached. Levine en Heller werken de hechtingsliteratuur uit die Mate
+als vanzelfsprekend veronderstelt, maar dan toegepast op volwassen relaties.
+- 1523. The Highly Sensitive Child. Aron beschrijft dezelfde gevoeligheid voor
+de omgeving als aanleg met twee kanten, waar Mate haar vooral als
+kwetsbaarheid opvoert.
+- 53. The Anxious Generation. Haidt zoekt de oorzaak van toenemende
+aandachtsproblemen bij telefoons en schermen, waar Mate bij de
+opvoedomstandigheden uitkomt.
+
+## 1522. Vlieg, wilde zwanen
+
+Jung Chang, 2025; vert. Paul Syrier en Ton Heuvelmans. Oorspronkelijk *Fly,
+Wild Swans: My Mother, Myself and China* (William Collins, Londen, 16
+september 2025; Harper, New York, ISBN 9780063480049). De Nederlandse
+vertaling van Paul Syrier en Ton Heuvelmans verscheen op 7 oktober 2025
+gebonden bij Boekerij, Amsterdam (416 blz., ISBN 9789049208394), met een
+paperback in februari 2026 (304 blz., ISBN 9789049212148). Het boek is het
+vervolg op *Wilde zwanen: drie dochters van China* (1991); van Chang
+verschenen in het Nederlands verder de biografie van Mao, geschreven met haar
+man Jon Halliday, en die van keizerin-weduwe Cixi. Rubriek: overleven en
+getuigen.
+Tags: `memoir`, `China`, `Mao`, `ballingschap`, `censuur`, `moeder en
+dochter`, `Culturele Revolutie`
+
+*Wilde zwanen* eindigde in 1978, toen Jung Chang op zesentwintigjarige
+leeftijd China verliet met een studiebeurs. Dit boek begint waar dat boek
+ophield: bij aankomst in Londen, in een stad van punk, demonstraties en
+glamrock, onder toezicht van de ambassade en met de opdracht nooit alleen naar
+buiten te gaan.
+
+Vanaf daar loopt het verhaal door tot het heden. Chang promoveert als eerste
+vrouw uit de Volksrepubliek aan een Britse universiteit, schrijft het boek dat
+vijftien miljoen keer wordt verkocht en dat in China verboden blijft, en werkt
+jarenlang met Jon Halliday aan de biografie van Mao die haar de toegang tot
+haar geboorteland uiteindelijk kost.
+
+De hoofdpersoon is echter haar moeder, aan wie het boek is opgedragen. Zij
+blijft in China, houdt haar partijlidmaatschap, wordt oud in een land dat
+onherkenbaar verandert, en dochter en moeder houden hun band in stand over
+telefoonlijnen waarvan zij aannemen dat er wordt meegeluisterd. Sinds 2018
+krijgt Chang geen visum meer en heeft zij haar moeder niet meer gezien.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Chang schrijft het vervolg op haar familiegeschiedenis als de
+rekening van een keuze: zij koos in 1978 voor het leven buiten China en
+betaalt daarvoor met een afwezigheid die zich niet meer laat repareren. Haar
+stelling gaat verder dan het persoonlijke. Zij houdt staande dat de opening
+van China na Mao nooit een breuk is geweest maar een tussenpoos, dat het
+apparaat dat haar ouders vermorzelde intact bleef en dat het onder Xi Jinping
+weer volledig in werking is gezet. De aanwijzing daarvoor zoekt zij niet in de
+politiek maar in wat er met woorden gebeurt: welke boeken het land in mogen,
+wat haar moeder aan de telefoon nog kan zeggen, welke namen in China niet meer
+gedrukt worden. Het boek betoogt dat een land dat zijn eigen geschiedenis niet
+mag lezen, die geschiedenis nog niet achter zich heeft.
+
+#### De gang van het verhaal
+
+**Aankomst in Londen, 1978**
+
+Chang komt aan als lid van een klein gezelschap Chinese studenten dat samen
+wordt gehuisvest, in uniform loopt en niet zonder begeleiding de straat op
+mag. Zij beschrijft de eerste jaren als een dubbele ervaring: de opluchting
+van een stad waar mensen zeggen wat zij willen, en de reflex om zich in te
+houden omdat de ambassade meekijkt.
+
+Tegelijk laat zij zien hoe langzaam de indoctrinatie van haar jeugd afsleet.
+Zij kwam aan als iemand die nog geloofde in wat haar geleerd was en moest
+gebeurtenis voor gebeurtenis ontdekken dat het niet klopte. Dat proces, en
+niet de aankomst zelf, is wat zij als haar werkelijke emigratie beschrijft.
+
+**Het schrijven van Wilde zwanen**
+
+In 1988 komt haar moeder voor het eerst naar Londen. In enkele maanden vertelt
+zij haar dochter haar leven, inclusief wat zij nooit eerder had gezegd, en die
+gesprekken worden de grondstof van *Wilde zwanen*. Chang beschrijft dat
+vertellen als de eigenlijke daad van het boek: haar moeder gaf haar
+toestemming om alles op te schrijven.
+
+Het boek verschijnt in 1991 en wordt een wereldwijd verkoopsucces. In China
+wordt het verboden, en Chang merkt dat de gevolgen daarvan niet bij haar
+terechtkomen maar bij haar familie ter plaatse. Dat patroon keert daarna
+telkens terug: zij publiceert in vrijheid en anderen dragen de last.
+
+**De moeder**
+
+Het portret van haar moeder is het hart van het boek. Zij was een communiste
+van het eerste uur die zich in de jaren vijftig omhoogwerkte, tijdens de
+Culturele Revolutie werd vernederd, verhoord en vastgezet, en die haar man
+verloor nadat hij was gebroken door de aanklachtbijeenkomsten waarin hij moest
+verschijnen.
+
+Wat Chang aan haar bewondert is dat zij niet cynisch werd. Zij bleef
+partijlid, bleef zich bemoeien met het lot van kennissen en bleef, tot op hoge
+leeftijd, oordelen vellen over partijfunctionarissen die haar dochter niet
+altijd deelt. De liefdesverklaring waar het boek volgens de recensies op
+neerkomt, heeft haar bezwaren erin verwerkt.
+
+**Mao en de gevolgen**
+
+Chang en Jon Halliday werkten meer dan tien jaar aan hun biografie van Mao,
+die in 2005 verscheen. Zij beschrijft de reizen, de gesprekken met oude
+getuigen en de moeite om archiefmateriaal los te krijgen, en de onmiddellijke
+gevolgen: haar reizen naar China werden bewaakt, haar familie werd
+gewaarschuwd, en de sinologische wereld reageerde verdeeld.
+
+Dat laatste laat zij niet weg. Vakgenoten verweten het boek dat het conclusies
+trok die het bronmateriaal niet droeg. Chang gaat er in dit boek kort maar
+niet ontwijkend op in; zij houdt haar oordeel over Mao staande en erkent dat
+de ontvangst haar heeft gevormd.
+
+**Een land dat zich sluit**
+
+De laatste delen volgen China vanaf de hervormingsjaren van Deng Xiaoping tot
+het bewind van Xi Jinping. Chang beschrijft hoe zij aanvankelijk kon reizen,
+hoe de controles bij aankomst strenger werden, en hoe zij op een luchthaven
+borden zag die straf beloofden aan wie boeken van buiten het land invoerde.
+
+Sinds 2018 worden haar visumaanvragen geweigerd. Haar moeder, inmiddels in de
+negentig, kan zij alleen nog spreken over lijnen die vermoedelijk worden
+afgeluisterd. Het boek eindigt in die toestand, zonder verzoening en zonder
+uitzicht op een bezoek.
+
+**De vorm**
+
+Chang vertelt niet strikt in de tijd. Zij schuift heen en weer tussen Engeland
+en China en tussen heden en jeugd, waardoor het leven van haar moeder in
+flarden terugkomt op de momenten waarop het haar eigen keuzes verklaart.
+
+De toon is vlakker dan in *Wilde zwanen*. Waar dat boek de gruwelen van de
+Culturele Revolutie uitschreef, houdt dit boek zich vaker in en laat het de
+feiten hun werk doen. Recensenten hebben dat gelezen als de afstand van iemand
+die haar onderwerp inmiddels van buitenaf bekijkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Wilde zwanen | Het boek uit 1991 waarin Chang de levens van haar grootmoeder, haar moeder en zichzelf vertelde tot aan haar vertrek uit China in 1978. |
+| Aanklachtbijeenkomst | De publieke vernederingssessie uit de Culturele Revolutie waarin partijleden door menigten werden beschuldigd; haar vader werd er gebroken. |
+| Culturele Revolutie | De campagne van 1966 tot 1976 waarin Mao de partij en de samenleving liet zuiveren en waarin het gezin van Chang zijn positie en zijn vader verloor. |
+| Studiebeurs van 1978 | Het programma waarmee de Volksrepubliek na Mao voor het eerst weer studenten naar het Westen stuurde, en waarmee Chang naar Engeland kwam. |
+| Verboden auteur | De status van Chang in China: haar boeken mogen daar niet verschijnen, en haar naam wordt in publicaties vermeden. |
+| Visumweigering | De sinds 2018 herhaalde afwijzing van haar aanvragen, waardoor zij haar bejaarde moeder niet meer kan bezoeken. |
+| Mao: The Unknown Story | De biografie uit 2005 die zij met Jon Halliday schreef en die haar zowel lezers als aanhoudende kritiek uit de sinologie opleverde. |
+| De geest van Mao | Changs aanduiding voor de bestuursstijl die zij onder Xi Jinping terugziet, ondanks de tussenliggende decennia van economische opening. |
+
+#### Waar het argument op rust
+
+Het boek is een memoir en steunt op wat de auteur zelf heeft meegemaakt,
+aangevuld met wat haar moeder haar vertelde. Voor het persoonlijke deel is dat
+de enige beschikbare bron, en Chang maakt duidelijk waar zij op geheugen vaart
+en waar op de gesprekken uit 1988.
+
+De publieke feiten eromheen zijn wel controleerbaar. Dat de Volksrepubliek
+vanaf 1978 studenten naar het buitenland zond, dat *Wilde zwanen* in China
+verboden is en internationaal miljoenen keren werd verkocht, en dat Changs
+werk daar niet verkrijgbaar is, staat vast. Ook haar promotie in Engeland is
+een vastliggend gegeven.
+
+Het zwakste punt in de onderbouwing zit in de oordelen over personen. Chang
+schrijft met warmte over sommige partijfunctionarissen en met afkeer over
+andere, en zij kende die mensen persoonlijk. Een Nederlandse recensent wees
+erop dat de lezer die passages met voorzichtigheid moet lezen, omdat er geen
+ander materiaal tegenover staat dan haar eigen herinnering.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar tegen dit boek is dat het de verhouding tot haar
+Mao-biografie te snel afhandelt. De kritiek van sinologen op dat boek ging
+niet over de vraag of Mao veel doden op zijn naam heeft, maar over de omgang
+met bronnen: interviews zonder verifieerbare herkomst, conclusies die verder
+gingen dan het materiaal droeg. Chang erkent de commotie zonder de bezwaren
+zelf te behandelen, en wie daar meer over wil weten, moet elders zijn.
+
+Er zit ook een structureel probleem in het genre. Het leven van een
+succesvolle schrijfster in Londen levert nu eenmaal minder spanning op dan het
+leven van drie vrouwen in het China van Mao. De lezer die *Wilde zwanen* kent,
+merkt dat het middendeel over boekpromotie, lezingen en uitgevers vlakker is
+dan het materiaal waar het naar terugkijkt.
+
+Het beeld van China dat het boek geeft is bovendien dat van iemand die er
+sinds 2018 niet meer is geweest, en dat zegt zij zelf. De diagnose over Xi
+Jinping rust daardoor op berichtgeving, op gesprekken op afstand en op de
+eigen ervaring bij grenscontroles, en niet op waarneming ter plaatse. Wie een
+gedetailleerd verslag van het hedendaagse China zoekt, zit hier verkeerd.
+
+Wat het boek daartegenover levert is de figuur van de moeder. Een vrouw die de
+partij die haar vernietigde nooit heeft verlaten en die haar dochter
+toestemming gaf alles op te schrijven, is een tegenstrijdigheid die Chang niet
+gladstrijkt. Dat portret is de reden om het boek te lezen, ook als de
+politieke analyse weinig nieuws brengt.
+
+#### Wat je hierna leest
+
+- 1539. The Choice. Eger vertelt eveneens een leven na een totalitair regime,
+met dezelfde vraag hoe iemand met die geschiedenis in het lichaam verder
+leeft.
+- 48. Man's Search for Meaning. Frankl schreef het boek waarmee
+getuigenisliteratuur uit dictaturen meestal wordt vergeleken; Chang zoekt
+betekenis nadrukkelijk buiten die richting.
+- 45. Educated. Westover beschrijft eveneens hoe studie iemand losmaakt van
+het gezin waarin zij is opgevoed, en wat die afstand daarna kost.
+- 348. Mr. China. Clissold laat het China van de hervormingsjaren zien vanuit
+het zakenleven, de periode die Chang vanuit Londen op afstand volgde.
+
+## 1523. The Highly Sensitive Child
+
+Elaine N. Aron, 2002. Oorspronkelijk *The Highly Sensitive Child: Helping Our
+Children Thrive When the World Overwhelms Them* (Broadway Books, New York,
+2002, ISBN 9780767908726). Nederlands als *Het hoogsensitieve kind*, vertaald
+door Marce Noordenbos, Archipel, Amsterdam, 2004 (379 blz., ISBN
+9789063051181); latere drukken verschenen bij Lev. en A.W. Bruna (ISBN
+9789400512351). Het is het vervolg op *The Highly Sensitive Person* (1996), in
+het Nederlands verschenen als *Hoog sensitieve personen*. Rubriek: brein en
+lichaam.
+Tags: `hoogsensitiviteit`, `temperament`, `opvoeding`, `kinderen`, `school`,
+`prikkelverwerking`, `psychologie`
+
+Elaine Aron, psycholoog en zelf naar eigen zeggen hoogsensitief, beschrijft in
+dit boek een aanleg die volgens haar bij ongeveer vijftien tot twintig procent
+van de kinderen voorkomt. Zulke kinderen verwerken indrukken dieper, merken
+kleine verschillen op, raken sneller overprikkeld en reageren heftiger op
+nieuwe situaties.
+
+Aron benadrukt dat dit geen stoornis is maar een temperamentskenmerk dat ook
+bij dieren voorkomt en dat evolutionair voordeel zou opleveren: een deel van
+een soort dat eerst kijkt voordat het handelt. Verlegenheid en angst zijn
+volgens haar geen kenmerken van de aanleg zelf, maar wat ervan wordt wanneer
+de omgeving niet meewerkt.
+
+Het grootste deel van het boek bestaat uit opvoedadvies, per leeftijdsgroep
+uitgewerkt van baby tot puber. Er is een vragenlijst waarmee ouders hun kind
+kunnen scoren, er zijn hoofdstukken over slapen, eten, driftbuien,
+vriendschappen, school en logeerpartijen, en er staan gesprekken met ouders in
+die vertellen wat wel en niet hielp.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Aron stelt dat een aanzienlijke minderheid van de kinderen
+wordt geboren met een zenuwstelsel dat prikkels dieper verwerkt, en dat
+vrijwel alles wat aan deze kinderen als probleem wordt aangemerkt, van
+verlegenheid tot huilbuien en schoolweigering, geen kenmerk van die aanleg is
+maar het gevolg van een omgeving die er niet op is ingericht. Uit die
+scheiding tussen aanleg en gevolg volgt haar hele betoog. Als de aanleg
+neutraal is, dan bepaalt de opvoeding welke kant het opgaat, en dan kan het
+kind dat in het ene gezin angstig en teruggetrokken wordt, in het andere
+opgroeien tot iemand die opvalt door zorgvuldigheid en invoelingsvermogen.
+Aron voegt daaraan toe dat de aanleg zelf niet moet worden weggewerkt maar
+benoemd, ook tegenover het kind zelf, omdat het kind anders de verkeerde
+verklaring voor zijn eigen reacties vindt.
+
+#### De gang van het boek
+
+**Wat de aanleg is**
+
+Aron opent met een omschrijving van wat zij sensorische
+verwerkingsgevoeligheid noemt: de neiging om binnenkomende informatie
+grondiger te verwerken voordat er gehandeld wordt. Kinderen met die aanleg
+merken geuren, geluiden, stemmingen en veranderingen eerder op, hebben langer
+nodig om aan iets nieuws te wennen en raken sneller vol.
+
+Zij zet die aanleg af tegen de etiketten die er in de praktijk op geplakt
+worden: verlegen, angstig, moeilijk, overgevoelig. Verlegenheid is volgens
+haar aangeleerd gedrag en geen aanleg, en het onderscheid daartussen is de
+reden dat zij het boek schreef. Zij wijst er ook op dat een deel van de
+gevoelige kinderen juist naar buiten gericht is, waardoor de aanleg bij hen
+doorgaans onopgemerkt blijft.
+
+**De vragenlijst en de valkuilen ervan**
+
+Vroeg in het boek staat een lijst met uitspraken waarmee een ouder zijn kind
+kan scoren. Aron voegt er zelf een waarschuwing bij: de lijst is bedoeld als
+aanzet tot herkenning en niet als test, en een enkele opvallende uitkomst zegt
+weinig.
+
+Zij besteedt daarna aandacht aan wat er anders kan zijn dan de aanleg.
+Autisme, een aandachtsstoornis, gehoorproblemen en de gevolgen van geweld
+thuis kunnen op hetzelfde lijken, en zij verwijst voor die gevallen naar een
+deskundige. Die passage is korter dan de rest, maar zij staat er wel.
+
+**Vier aanwijzingen voor ouders**
+
+De kern van het opvoeddeel bestaat uit vier punten. Het eerste is
+zelfwaardering: het kind moet niet leren dat er iets met hem mis is. Het
+tweede is schaamte verminderen, doordat de ouder onderscheid maakt tussen wat
+het kind doet en wie het is.
+
+Het derde is wijs disciplineren, waarmee Aron bedoelt dat een klein signaal
+bij een gevoelig kind vaak volstaat en dat harde straf averechts werkt omdat
+het kind al overweldigd is. Het vierde is bespreken hoe met de gevoeligheid om
+te gaan, en dus het kind zelf de taal geven waarmee het zijn eigen reacties
+kan benoemen.
+
+**Per leeftijd**
+
+Daarna loopt het boek de leeftijden af. Bij zuigelingen gaat het over slaap,
+huilen en de hoeveelheid prikkels op een dag; bij peuters over overgangen,
+driftbuien en wennen aan opvang. Aron adviseert bij nieuwe situaties
+consequent voor te bereiden en de eerste keer kort te houden.
+
+Bij schoolkinderen komen vriendschappen, sport en logeren aan de orde, met
+steeds dezelfde grondregel: nieuwe dingen wel doen, maar in kleinere stappen
+en met de mogelijkheid om terug te trekken. Bij pubers verschuift het naar de
+vraag hoe een gevoelige jongere zijn eigen tempo bewaart in een omgeving die
+groepsdruk uitoefent.
+
+**School en de buitenwereld**
+
+Aron besteedt afzonderlijke hoofdstukken aan school. Zij bespreekt volle
+klassen, lawaai in de gang, het effect van beoordeeld worden in het bijzijn
+van anderen, en pesten, waar gevoelige kinderen volgens haar bovengemiddeld
+vaak mee te maken krijgen. Zij geeft ouders aanwijzingen voor het gesprek met
+leerkrachten en pleit voor kleine aanpassingen in plaats van
+uitzonderingsposities.
+
+Ook bespreekt zij de omgang met familie en met de omgeving, waarin ouders vaak
+te horen krijgen dat zij hun kind verwennen. Haar antwoord daarop is steeds
+hetzelfde: een kind blootstellen aan meer dan het aankan levert geen gewenning
+op maar terugtrekking.
+
+**De ouder zelf**
+
+In het laatste deel keert Aron zich naar de ouder. Een gevoelige ouder van een
+gevoelig kind loopt volgens haar het risico met het kind mee overprikkeld te
+raken; een ongevoelige ouder loopt het risico het kind niet te geloven. Beide
+gevallen krijgen aandacht, met adviezen over hoe ouders hun eigen rust
+bewaken.
+
+Zij sluit af met de gedachte die het hele boek draagt: dat de samenleving deze
+kinderen nodig heeft, omdat er in elke groep mensen nodig zijn die eerst
+kijken en dan pas handelen. Die claim is meer overtuiging dan aangetoonde
+stelling, en zij presenteert haar ook als het beeld dat zij ouders wil
+meegeven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Sensorische verwerkingsgevoeligheid | Arons vakterm voor de aanleg: prikkels worden dieper en trager verwerkt voordat er gehandeld wordt. |
+| Hoogsensitief kind | De populaire aanduiding voor een kind met die aanleg, volgens Aron ongeveer vijftien tot twintig procent van alle kinderen. |
+| Overprikkeling | De toestand waarin het aanbod aan indrukken de verwerkingscapaciteit overtreft en het kind afhaakt, huilt of uitvalt. |
+| Verlegenheid als gedrag | Arons onderscheid tussen de aangeboren gevoeligheid en de teruggetrokkenheid die daarvan het gevolg kan zijn, maar dat niet hoeft te zijn. |
+| Zelfwaardering | De eerste van haar vier aanwijzingen: voorkomen dat het kind zijn eigen reacties uitlegt als bewijs dat het niet deugt. |
+| Wijs disciplineren | Corrigeren met de kleinst mogelijke maatregel, omdat een gevoelig kind aan een signaal genoeg heeft en op harde straf dichtklapt. |
+| Pauzeren en overwegen | Het gedragspatroon dat Aron ook bij dieren beschrijft: een deel van een soort dat afwacht en observeert voordat het reageert. |
+| Extraverte gevoelige | Het deel van de gevoelige kinderen dat naar buiten gericht is en daardoor zelden als gevoelig wordt herkend. |
+| Gedifferentieerde vatbaarheid | Het latere onderzoeksbegrip waarmee Arons stelling wordt getoetst: dezelfde aanleg leidt tot slechtere uitkomsten in een ongunstige omgeving en betere in een gunstige. |
+
+#### Waar het argument op rust
+
+Aron bouwt op haar eigen werk met Arthur Aron uit 1997, waarin zij de
+vragenlijst voor hoogsensitieve personen ontwikkelde en betoogde dat de aanleg
+iets anders meet dan introversie of neuroticisme. Voor dit boek voegde zij
+daaraan gesprekken met ouders en met kinderen toe en materiaal uit haar
+praktijk. Voor het opvoeddeel is dat de onderbouwing: praktijkervaring, geen
+effectonderzoek.
+
+Sterker dan haar eigen materiaal is het onderzoek dat na dit boek verscheen.
+De lijn die inmiddels gedifferentieerde vatbaarheid heet, laat in meerdere
+studies zien dat gevoelige kinderen ongunstiger uitkomsten hebben in een
+belastende omgeving en gunstiger in een ondersteunende. Dat is precies wat
+Aron in 2002 beweerde, en het is het deel van haar betoog dat het best is
+blijven staan.
+
+Het getal van vijftien tot twintig procent is minder hard dan het klinkt. Het
+komt uit verdelingen op zelfrapportage en niet uit een gemeten grens;
+recentere analyses beschrijven de gevoeligheid als een doorlopende schaal met
+drie ruwe groepen in plaats van een scherp afgebakende minderheid. Aron zelf
+is in later werk mee opgeschoven, maar het boek houdt het bij het percentage.
+
+De meetinstrumenten zijn het meest bekritiseerde onderdeel. De vragenlijsten
+leunen op wat mensen over zichzelf of over hun kind rapporteren en meten
+daarmee de beleving en niet het waarnemingsvermogen. Onderzoek waarin
+gevoeligheid met objectieve taken werd gemeten, vindt weinig samenhang met de
+scores op die lijsten.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de aanleg zich moeilijk laat onderscheiden van
+eigenschappen die al lang beschreven zijn. Een deel van wat de vragenlijst
+meet, valt samen met neuroticisme en openheid uit het gangbare
+persoonlijkheidsmodel, en verschillende onderzoekers concluderen dat er na
+aftrek van die twee weinig eigens overblijft. Wie de aanleg als een aparte
+categorie wil verdedigen, moet dat bezwaar beantwoorden, en het boek doet dat
+niet.
+
+Daarnaast is de lijst in het boek geen diagnostisch middel, hoe zorgvuldig
+Aron dat ook opschrijft. In de praktijk wordt hij wel zo gebruikt. Ouders
+scoren hun kind, komen tot een etiket en verklaren daarmee gedrag waarvoor
+andere verklaringen bestaan, van slaaptekort tot een ontwikkelingsstoornis tot
+spanning in het gezin. De aantrekkelijkheid van het etiket zit erin dat het
+niets afkeurt, en dat maakt het ook lastig los te laten.
+
+De evolutionaire onderbouwing is de zwakste schakel. Dat er bij verschillende
+diersoorten twee reactiestijlen bestaan, is aangetoond; dat dit hetzelfde is
+als wat Aron bij kinderen beschrijft, is een gelijkenis en geen bewijs. In het
+boek functioneert die vergelijking vooral om ouders gerust te stellen dat de
+aanleg zinvol is.
+
+Wat het boek onverminderd waard maakt, is de praktische inhoud. De adviezen
+over voorbereiding, over kleine stappen, over rustmomenten en over hoe je met
+een leerkracht praat, zijn bruikbaar voor elk kind dat moeite heeft met
+verandering, ongeacht of de onderliggende categorie standhoudt. Aron schrijft
+bovendien zonder de belofte dat het overgaat, en dat scheelt de lezer
+teleurstelling.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de vragenlijst om te herkennen, nooit om vast te stellen.
+- Sluit eerst andere verklaringen uit: slaap, gehoor,
+ontwikkelingsstoornissen, spanning thuis.
+- Bereid nieuwe situaties voor en houd de eerste keer kort; regel vooraf een
+manier om eruit te stappen.
+- Corrigeer met het kleinst werkzame signaal en vermijd correctie waar anderen
+bij zijn.
+- Geef het kind woorden voor wat het merkt, zodat het zijn reacties niet
+uitlegt als een gebrek.
+- Bewaak als ouder de eigen rust, en houd bij welke dagen te vol waren voor
+het huishouden als geheel.
+
+#### Wat je hierna leest
+
+- 33. Quiet. Cain doet voor introversie wat Aron voor gevoeligheid doet, en de
+twee begrippen worden zo vaak door elkaar gehaald dat de vergelijking loont.
+- 1521. Scattered Minds. Mate legt gevoeligheid voor de omgeving uit als de
+plek waar aandachtsproblemen ontstaan, waar Aron dezelfde gevoeligheid
+neutraal wil houden.
+- 152. Attached. Levine en Heller laten zien wat een vroege gevoeligheid voor
+de omgeving later in volwassen relaties doet.
+- 386. The Body Keeps the Score. Van der Kolk beschrijft wat er gebeurt
+wanneer de omgeving wel schadelijk is, en levert daarmee de vergelijkingsmaat
+die Arons neutrale aanleg mist.
+
+## 1524. Eindeloos bewustzijn
+
+Pim van Lommel, 2007. *Eindeloos bewustzijn. Een wetenschappelijke visie op de
+bijna-dood ervaring*, Uitgeverij Ten Have, Kampen, 2007 (ISBN 9789025970000).
+De eerste zes drukken verschenen alle in november en december 2007, de zevende
+in 2008; het boek telt ruim 400 bladzijden, waarvan een kleine vijftig noten,
+bronnen en registers. Bij Ten Have verschenen later herdrukken en in 2017 een
+jubileumeditie met nieuw voorwoord (464 blz., ISBN 9789025906177). De Engelse
+vertaling van Laura Vroomen verscheen in 2010 bij HarperOne als *Consciousness
+Beyond Life. The Science of the Near-Death Experience*. Van Lommel publiceerde
+eerder, met Ruud van Wees, Vincent Meyers en Ingrid Elfferich, het onderzoek
+waar het boek op steunt in *The Lancet* van 15 december 2001. Rubriek: brein
+en lichaam.
+Tags: `bijna-dood ervaring`, `bewustzijn`, `hartstilstand`, `cardiologie`,
+`non-lokaliteit`, `kwantumfysica`, `sterven`
+
+Pim van Lommel was cardioloog in het Rijnstate Ziekenhuis in Arnhem toen hij
+in 1986 systematisch aan gereanimeerde patienten begon te vragen wat zij zich
+van hun hartstilstand herinnerden. In twee jaar tijd hoorde hij twaalf
+verhalen van ruim vijftig aangesproken mensen. Daaruit groeide een
+prospectieve studie in tien Nederlandse ziekenhuizen, in 2001 gepubliceerd in
+*The Lancet*, en zes jaar later dit boek.
+
+De eerste helft beschrijft wat een bijna-dood ervaring is, welke elementen
+erin voorkomen, hoe mensen erdoor veranderen en wat het Nederlandse onderzoek
+opleverde. Daarna loopt Van Lommel de gangbare verklaringen langs:
+zuurstoftekort, te veel kooldioxide, chemische reacties in de hersenen,
+elektrische activiteit, angst voor de dood, persoonlijkheidskenmerken,
+geboorteherinneringen, hallucinaties, dromen en medicijngebruik. Geen daarvan
+verklaart naar zijn oordeel waarom mensen een geordende, heldere ervaring
+melden op het moment dat hun hart stilstaat.
+
+De tweede helft is een voorstel. Bewustzijn zit volgens Van Lommel niet in de
+hersenen maar is non-lokaal aanwezig; de hersenen ontvangen en beperken het,
+zoals een toestel een uitzending doorgeeft die ook zonder toestel bestaat. Hij
+zoekt de onderbouwing in de kwantumfysica en in de rol van DNA. Dat deel is
+van een andere orde dan het eerste en leverde hem zowel een groot
+lezerspubliek als scherpe tegenspraak uit de neurowetenschap op.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Van Lommel stelt dat de bijna-dood ervaring niet is te rijmen
+met de opvatting dat bewustzijn een product van hersenwerking is. Mensen
+melden een heldere, geordende ervaring met tijdsbesef, waarneming en
+herinnering op een moment dat hun hart stilstaat en de meetbare
+hersenactiviteit binnen tientallen seconden is weggevallen. Zijn conclusie is
+dat het bewustzijn niet in de hersenen wordt gemaakt maar er doorheen komt:
+het is non-lokaal, dat wil zeggen niet aan plaats en tijd gebonden, en het
+houdt bij de dood van het lichaam niet op. De hersenen zijn in die opvatting
+een doorgeefluik dat het bewustzijn tegelijk beperkt. Wie die stelling wil
+weerleggen, moet laten zien dat er tijdens een hartstilstand toch
+hersenactiviteit is die de ervaring kan dragen, of dat de ervaring buiten die
+periode ontstaat.
+
+#### De gang van het boek
+
+**Hoe de vraag ontstond**
+
+Van Lommel opent met een reanimatie op de hartbewaking in 1969, het jaar
+waarin hij aan zijn opleiding cardiologie begon. De patient overleefde en was
+als enige aanwezige teleurgesteld: hij vertelde over een tunnel, kleuren,
+licht en muziek. De term bijna-dood ervaring bestond nog niet en Van Lommel
+had geleerd dat bewustzijn tijdens bewusteloosheid onmogelijk was.
+
+Pas in 1986 kwam hij erop terug, na lezing van *Terugkeer uit de dood* van
+George Ritchie, die in 1943 als medisch student na een dubbelzijdige
+longontsteking negen minuten voor dood was gehouden. Een van Ritchies latere
+studenten was Raymond Moody, die in 1975 *Leven na dit leven* schreef en de
+term near-death experience muntte. Van Lommel gaat er nadrukkelijk bij staan
+dat hij academisch was opgevoed met de gedachte dat voor alles een
+materialistische verklaring bestaat, en dat hij die tot dan toe zonder
+discussie had aanvaard.
+
+**Wat de ervaring inhoudt**
+
+Het derde hoofdstuk zet de indelingen naast elkaar: Moody met zijn elementen,
+Ring met vijf fasen, Sabom met drie hoofdtypen, Greyson met vier componenten.
+Van Lommel werkt zelf met twaalf elementen, van onuitsprekelijkheid en het
+besef dood te zijn tot de buitenlichamelijke ervaring, de tunnel, de
+ontmoeting met overledenen en met een licht, de levensschouw en de terugkeer
+in het lichaam. Hij noemt ook de angstwekkende variant en de empathische,
+waarbij een omstander de ervaring meebeleeft.
+
+Elke gemelde herinnering krijgt een score op een index die het aantal en het
+gewicht van de gemelde elementen optelt. Hoe hoger de score, hoe dieper de
+ervaring wordt genoemd. Vanaf zes heet het een kernervaring; dat is de grens
+die in eerder retrospectief onderzoek werd gehanteerd.
+
+Een apart hoofdstuk gaat over wat er na afloop verandert: zelfaanvaarding,
+medeleven, waardering van het leven, verdwenen doodsangst bij toegenomen
+geloof in voortbestaan, minder kerkelijkheid bij meer religieus gevoel, en ook
+de last van onbegrip, echtscheiding en jarenlang zwijgen. Kinderen krijgen een
+eigen hoofdstuk, omdat zij nog geen aangeleerde voorstelling van de dood
+hebben.
+
+**De Nederlandse studie**
+
+Tussen 1988 en 1992 werden in tien ziekenhuizen 344 opeenvolgende patienten
+opgenomen die een hartstilstand overleefden, samen goed voor 509 geslaagde
+reanimaties. Alle overlevenden werden binnen enkele dagen op dezelfde manier
+geinterviewd. 282 patienten (82 procent) hadden geen enkele herinnering aan de
+periode van bewusteloosheid; 62 patienten (18 procent) wel. Van die 62 hadden
+er 21 een lage score, 18 een matig diepe, 17 een diepe en 6 een zeer diepe
+ervaring. Twaalf procent van het totaal haalde de drempel van een
+kernervaring. Gerekend over het aantal reanimaties in plaats van het aantal
+patienten blijft vijf procent over.
+
+Het opvallende resultaat is negatief van aard: duur van de bewusteloosheid,
+duur van de reanimatie, intubatie, medicatie en eerdere hartinfarcten
+verklaarden de ervaring niet. Wat wel samenhing was leeftijd, geslacht en een
+reanimatie buiten het ziekenhuis. Ook overleden mensen met een diepe ervaring
+binnen dertig dagen significant vaker, iets waarvoor Van Lommel schrijft geen
+verklaring te hebben.
+
+Dezelfde mensen werden na twee en na acht jaar opnieuw ondervraagd, met een
+gestandaardiseerde lijst van 34 vragen over levensverandering. De verhalen
+bleken bij herhaling vrijwel woordelijk gelijk. Van de 62 waren er na twee
+jaar negentien overleden; uiteindelijk konden 23 mensen met en 15 zonder
+ervaring driemaal worden gesproken. Van Lommel meldt dat zes mensen bij nader
+inzien toch geen ervaring bleken te hebben gehad, en vier uit de controlegroep
+juist wel.
+
+**De verklaringen die hij afwijst**
+
+Twee hoofdstukken behandelen wat er in de hersenen gebeurt als het hart stopt
+en wat er over hersenfunctie bekend is. Van Lommel voert aan dat het
+elektro-encefalogram binnen tientallen seconden vlak wordt en de
+hersenstamreflexen uitvallen, terwijl juist in die periode de helderste
+ervaringen worden gemeld. Daarnaast bespreekt hij neuroplasticiteit, het
+placebo-effect en geheugenopslag, om te betogen dat de hersenen ook elders
+minder eenduidig een producent van geest zijn dan wordt aangenomen.
+
+Als losse casus behandelt hij de operatie van Pamela Reynolds, die in 1991
+onder diepe hypothermie en met een leeggemaakte bloedsomloop een aneurysma
+liet verwijderen en achteraf de operatiekamer beschreef. Uit de eigen studie
+haalt hij het verhaal van een man wiens kunstgebit tijdens de reanimatie werd
+verwijderd en die de verpleegkundige daar later op aansprak.
+
+**Non-lokaal bewustzijn**
+
+Vanaf hoofdstuk elf verandert het boek van karakter. Van Lommel legt
+complementariteit, verstrengeling en non-lokaliteit uit, en stelt voor het
+bewustzijn te denken als waarschijnlijkheidsgolven in een non-lokale ruimte,
+waaruit de hersenen een deel ontvangen. Voor de koppeling tussen die ruimte en
+het brein oppert hij virtuele fotonen, het kwantum Zeno-effect en
+spincorrelatie in neuronen. Hij schrijft zelf dat deze hoofdstukken
+overgeslagen kunnen worden.
+
+Een volgend hoofdstuk zoekt hetzelfde principe in het lichaam: DNA als
+ontvanger van informatie in plaats van als bouwtekening, epigenetica, een
+mogelijke functie voor niet-coderend DNA, biofotonen en getransplanteerd
+geheugen. Daarna verbreedt hij naar sterfbedvisioenen, ervaringen van contact
+met overledenen, waarnemen op afstand en de invloed van bewustzijn op materie.
+De bijna-dood ervaring is in die opzet een van de vensters op iets algemeners.
+
+**Traditie en praktijk**
+
+Het vijftiende hoofdstuk plaatst het idee in een lange lijn: hindoeisme,
+Tibetaans boeddhisme, het visioen van Er uit Plato's *Staat*, joodse mystiek,
+christendom en islam, plus verslagen uit de achtste en de negentiende eeuw. De
+strekking is dat er niets nieuws onder de zon is en dat de moderne geneeskunde
+alleen meer mensen terughaalt.
+
+De laatste hoofdstukken zijn praktisch. Van Lommel behandelt de weerstand in
+de wetenschap, reincarnatie, en uitvoerig de orgaandonatie: of hersendood
+hetzelfde is als dood, en of donoren en nabestaanden daarover volledig worden
+voorgelicht. Hij pleit voor opvang na een reanimatie en voor aandacht in de
+palliatieve zorg.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| bijna-dood ervaring | Een gemelde bewustzijnstoestand met herkenbare elementen, opgetreden tijdens een periode van dreigende of feitelijke lichamelijke dood. |
+| prospectieve studie | Onderzoek waarin vooraf wordt vastgelegd wie er wordt gevolgd en wat er gemeten wordt, zodat alle overlevenden worden bevraagd en niet alleen de mensen die zich uit zichzelf melden. |
+| kernervaring | Een ervaring die op de gebruikte diepte-index zes punten of hoger haalt, de drempel waarboven eerdere onderzoekers van een echte bijna-dood ervaring spraken. |
+| buitenlichamelijke ervaring | Het element waarbij iemand het eigen lichaam en de omgeving van buitenaf meent waar te nemen, doorgaans van bovenaf. |
+| levensschouw | Het element waarbij het eigen leven in flarden of in een keer wordt overzien, vaak met de beleving van hoe het eigen handelen voor anderen voelde. |
+| verborgen teken | Een teken dat in een Arnhemse reanimatiekamer op de operatielamp was gelegd, alleen van bovenaf zichtbaar, als objectieve toets voor een buitenlichamelijke waarneming. |
+| non-lokaal bewustzijn | Het voorstel dat bewustzijn niet in de hersenen zit en niet aan plaats en tijd gebonden is, maar overal aanwezig is en door de hersenen wordt ontvangen. |
+| continuiteit van bewustzijn | De gevolgtrekking dat het bewustzijn de dood van het lichaam overleeft, omdat het er nooit door werd voortgebracht. |
+| interface | Van Lommels term voor de veronderstelde overgang tussen de non-lokale ruimte en de hersenen. |
+
+#### Waar het argument op rust
+
+De empirische kern van het boek is smal en solide. De studie uit *The Lancet*
+is prospectief, includeert opeenvolgende patienten in tien ziekenhuizen,
+gebruikt bij iedereen hetzelfde interview en volgt dezelfde mensen na twee en
+acht jaar. Dat opzetje is beter dan het meeste eerdere onderzoek, dat werkte
+met mensen die zichzelf meldden. De vondst dat medische omstandigheden de
+ervaring niet voorspellen is een echt resultaat en is in latere prospectieve
+studies in Amerika en Engeland teruggevonden.
+
+Van dat resultaat naar de stelling van het boek is een grote stap, en die stap
+rust niet op meting. Het uitgangspunt dat de hersenen tijdens de ervaring
+stillagen komt uit algemene kennis over hersenstroom bij hartstilstand, niet
+uit registraties bij deze 344 patienten. Op welk moment binnen de
+bewusteloosheid de ervaring plaatsvond is bij niemand vastgesteld; dat het
+tijdens en niet vlak voor of vlak na de stilstand gebeurde is een aanname.
+
+Het enige onderdeel van het onderzoek dat een objectieve bevestiging had
+kunnen opleveren, het verborgen teken op de operatielamp, leverde niets op
+omdat er in die ene kamer nooit iemand met een buitenlichamelijke waarneming
+werd gereanimeerd. Wat overblijft is het verhaal van het kunstgebit,
+opgetekend uit de herinnering van een verpleegkundige. Voor de tweede helft
+geldt iets anders: de kwantumfysica die Van Lommel aanhaalt bestaat, maar er
+is geen experiment dat non-lokaliteit in de fysica met bewustzijn verbindt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de vorm van de redenering. Van Lommel loopt de bekende
+fysiologische en psychologische verklaringen langs, vindt ze tekortschieten,
+en concludeert dat het bewustzijn dan wel buiten de hersenen moet liggen. Dat
+er nog geen goede verklaring is, is geen bewijs voor een bepaalde andere.
+Bovendien is zijn eigen voorstel in de vorm waarin hij het geeft nauwelijks te
+weerleggen: elke hersenbevinding kan worden opgevat als iets over de ontvanger
+in plaats van over de zender.
+
+Zijn eigen cijfers laten zich ook anders lezen. Vierentachtig van de honderd
+overlevenden meldden niets. Als het bewustzijn los van de hersenen doorloopt,
+is die verhouding lastig te verklaren; bij een hersenverklaring past zij goed,
+omdat geheugenvorming onder die omstandigheden zeldzaam is. De anesthesioloog
+Gerald Woerlee heeft daar tegenover Van Lommel aan toegevoegd dat de aanname
+van een vlakke hersenstroom bij deze patienten niet gemeten is en dat het
+kunstgebitverhaal ook past bij kortstondig bewustzijn tijdens de reanimatie.
+Van Lommel bestrijdt dat, maar het geschil is met de beschikbare gegevens niet
+te beslechten.
+
+De hoofdstukken over kwantumfysica, DNA, biofotonen en getransplanteerd
+geheugen liggen buiten Van Lommels vakgebied en steunen op auteurs die in hun
+eigen vakgebieden een randpositie innemen. Wie de eerste helft leest als een
+zorgvuldige cardioloog die een raadsel netjes beschrijft, en de tweede als een
+wereldbeeld dat daar overheen wordt gelegd, doet het boek waarschijnlijk het
+meeste recht. Dat het zichzelf in de ondertitel een wetenschappelijke visie
+noemt, maakt dat onderscheid voor de argeloze lezer moeilijker dan nodig.
+
+#### Wat er concreet mee te doen is
+
+- Lees hoofdstuk 7 over de Nederlandse studie apart van de rest; daar staan de
+cijfers waar alles op steunt.
+- Houd bij de latere hoofdstukken het onderscheid vast tussen wat gemeten is
+en wat wordt voorgesteld als verklaring.
+- De hoofdstukken over opvang na een reanimatie en over hersendood en
+orgaandonatie staan los van de metafysica en zijn ook zo te lezen.
+- Leg er een boek naast dat dezelfde verschijnselen vanuit de hersenen
+verklaart.
+
+#### Wat je hierna leest
+
+- 585. Dying to Live. Susan Blackmore behandelt in *Dying to Live* hetzelfde
+materiaal en komt tot de tegengestelde conclusie; wie Van Lommel serieus wil
+toetsen, leest dit ernaast.
+- 763. Consciousness and the Brain: Deciphering How the Brain Codes Our
+Thoughts. Dehaene laat in *Consciousness and the Brain* zien hoeveel er
+inmiddels wel over de hersensignatuur van bewuste waarneming te meten valt,
+precies het terrein waarvan Van Lommel zegt dat het leeg blijft.
+- 1317. Consciousness Explained. Dennett verdedigt in *Consciousness
+Explained* de materialistische positie die Van Lommel als achterhaald
+presenteert.
+- 1167. The Idea of the World: A Multi-Disciplinary Argument for the Mental
+Nature of Reality. Kastrup bepleit in *The Idea of the World* een verwante
+omkering van geest en materie, maar dan filosofisch geargumenteerd in plaats
+van via kwantumfysica en DNA.
+
+## 1525. Compassievol leven
+
+Erik van den Brink en Frits Koster, 2012. *Compassievol leven. Een
+mindfulness-based verdiepingsprogramma*, Boom, Amsterdam. De eerste druk
+verscheen in 2012 (ISBN 9789461057297); herziene edities volgden in 2016 en
+2019 (376 blz., ISBN 9789058755643), met een voorwoord van Paul Gilbert en
+achtentwintig oefeningen en werkbladen die via de uitgever te downloaden zijn.
+Naast dit handboek, dat zich richt op trainers en hulpverleners, schreven de
+auteurs voor deelnemers het zelfhulpboek *Compassie in je leven* (Boom, 2015).
+De Engelse editie verscheen in 2015 bij Routledge als *Mindfulness-Based
+Compassionate Living. A New Training Programme to Deepen Mindfulness with
+Heartfulness*. Rubriek: levenskunst.
+Tags: `compassie`, `zelfcompassie`, `mindfulness`, `MBCL`, `meditatie`,
+`geestelijke gezondheidszorg`, `Paul Gilbert`
+
+Erik van den Brink is psychiater en psychotherapeut, Frits Koster
+meditatieleraar en verpleegkundige. Zij zagen in de geestelijke
+gezondheidszorg dat deelnemers aan mindfulnesstrainingen wel leerden opmerken
+wat er in hen omging, maar daar vervolgens even hard over oordeelden als
+tevoren. Daarop bouwden zij een vervolgprogramma van acht bijeenkomsten,
+Mindfulness-Based Compassionate Living, en dit boek is er de handleiding bij.
+
+Het eerste deel geeft de theorie. Centraal staat het evolutionaire model van
+Paul Gilbert, met drie systemen voor emotieregulatie: een dreigsysteem gericht
+op veiligheid, een jaagsysteem gericht op bevrediging en een zorgsysteem
+gericht op verbondenheid en kalmte. Veel psychisch lijden ontstaat volgens de
+auteurs doordat de eerste twee systemen overheersen en het derde te weinig
+wordt gevoed.
+
+Het tweede, grotere deel is het programma zelf: oefeningen als de kalmerende
+ademruimte, de veilige plek en de compassievolle metgezel, gevolgd door werken
+met weerstand, verlangen, schuld, schaamte en de innerlijke criticus, en aan
+het slot vergeving en de vier levensvrienden vriendelijkheid, mededogen,
+medevreugde en gelijkmoedigheid. Achterin staan verwijzingen naar het
+onderzoek waar de auteurs zich op beroepen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De auteurs stellen dat aandachtstraining zonder compassie
+halverwege blijft steken. Wie leert waarnemen wat er in hem omgaat, komt
+daarmee ook zijn eigen zelfkritiek, schaamte en oude pijn scherper tegen, en
+zonder een geoefende vriendelijke houding levert die scherpere blik alleen
+maar meer lijden op. Compassie is volgens Van den Brink en Koster geen
+karaktertrek en geen stemming, maar een houding die net als aandacht te
+trainen is, met oefeningen die het zorgsysteem in het lichaam aanspreken.
+Achter die stelling ligt de aanname dat de mens drie evolutionair gevormde
+systemen voor emotieregulatie heeft en dat het derde daarvan, gericht op zorg
+en verbondenheid, in de moderne westerse omstandigheden structureel te weinig
+aan bod komt. De opdracht is dan niet het dreigsysteem uit te schakelen, wat
+niet kan, maar het zorgsysteem zo te versterken dat het tegenwicht biedt.
+
+#### De gang van het boek
+
+**Waar het programma vandaan komt**
+
+Het boek begint bij de vaststelling dat de op mindfulness gebaseerde
+trainingen zoals die van Jon Kabat-Zinn en de cognitieve variant daarvan
+effect hebben, maar dat een deel van de deelnemers vastloopt op zelfkritiek.
+Van den Brink en Koster spreken van heartfulness als het ontbrekende deel:
+dezelfde aandacht, maar met een warme in plaats van een neutrale toon.
+
+Zij noemen hun bronnen expliciet. De compassion focused therapy van Paul
+Gilbert levert het model en het grootste deel van de theorie; het mindful
+self-compassion van Christopher Germer en Kristin Neff levert oefeningen;
+daarnaast putten zij uit de boeddhistische beoefening waaruit ook de
+mindfulnesstrainingen zijn afgeleid, en uit werk van onder anderen Tara Brach.
+
+**Drie systemen voor emotieregulatie**
+
+Het dreigsysteem is snel, gericht op gevaar en werkt met angst, woede en
+walging; het is opgebouwd om liever tienmaal vals alarm te geven dan eenmaal
+te laat. Het jaagsysteem drijft tot zoeken, verwerven en presteren en beloont
+met opwinding en kortstondige voldoening. Het zorgsysteem, dat pas met de
+zoogdieren ontstond, hoort bij hechting, verzorging en aanraking, en geeft
+rust en verbondenheid.
+
+De klacht van de auteurs over de moderne samenleving is dat zij de eerste twee
+systemen voortdurend prikkelt en het derde nauwelijks. Wie onder druk staat,
+gaat harder werken of vecht harder, wat het dreigsysteem verder aanjaagt. Zij
+noemen dat een vicieuze cirkel die zich zowel van buitenaf als van binnenuit
+voedt, want zelfkritiek werkt op het dreigsysteem alsof zij van een aanvaller
+komt.
+
+Aan die uitleg hangt een morele redenering die in het hele boek terugkomt: het
+brein dat wij hebben geerfd hebben wij niet gekozen, de omstandigheden waarin
+het zich vormde evenmin, dus is het niet onze schuld dat het zo werkt. Wel is
+het onze verantwoordelijkheid er iets mee te doen. Dat onderscheid tussen
+schuld en verantwoordelijkheid is bedoeld om de schaamte weg te nemen die het
+oefenen anders blokkeert.
+
+**De innerlijke criticus en de gedeelde menselijkheid**
+
+Van den Brink en Koster besteden veel ruimte aan zelfkritiek, die zij niet als
+een gedachte behandelen maar als een innerlijke stem met een eigen toon,
+bedoeling en geschiedenis. In de oefeningen wordt die stem uitgevraagd: waar
+komt ze vandaan, waartegen probeert ze te beschermen, hoe klinkt ze precies.
+
+Daartegenover zetten zij de drie bestanddelen die Kristin Neff aan
+zelfcompassie onderscheidt: vriendelijkheid voor zichzelf, het besef dat falen
+en pijn bij het mens zijn horen en niet een persoonlijk gebrek zijn, en de
+aandachtige houding die voorkomt dat men in het eigen verhaal verdwijnt.
+Vooral het tweede, de gedeelde menselijkheid, keert in bijna elke oefening
+terug, omdat isolement volgens de auteurs de schaamte in stand houdt.
+
+**Het programma in acht bijeenkomsten**
+
+Het tweede deel is opgezet als een cursus met acht sessies en een stiltedag,
+in dezelfde vorm als de mindfulnesstrainingen waar deelnemers vandaan komen.
+Elke sessie heeft een thema, een aantal begeleide oefeningen, huiswerk en
+werkbladen.
+
+De eerste sessies gaan over de drie systemen en over de kalmerende ademruimte,
+een korte oefening die de dagelijkse mindfulnessoefening van een vriendelijke
+toon voorziet. Daarna volgen oefeningen in verbeelding: de veilige plek en de
+compassievolle metgezel, een voorgestelde figuur die precies dat aan warmte en
+wijsheid heeft wat de deelnemer voor zichzelf niet kan opbrengen. De auteurs
+behandelen expliciet hoe verbeelding zowel voor als tegen ons kan werken,
+omdat piekeren dezelfde machinerie gebruikt.
+
+De latere sessies richten zich op wat er dan boven komt: weerstand, verlangen,
+schuld, schaamte, hardnekkige patronen en de innerlijke criticus. Daarna
+verschuift het accent naar compassie belichamen, het goede binnenlaten en
+ruimte maken voor geluk, vergeving van zichzelf en anderen, en de vier
+levensvrienden vriendelijkheid, mededogen, medevreugde en gelijkmoedigheid,
+waarmee het programma eindigt bij de boeddhistische reeks waar het begrip
+vandaan komt.
+
+**Wat de auteurs van de begeleider vragen**
+
+Het boek is geschreven voor mensen die de training geven, en dat is aan de
+toon te merken. De auteurs waarschuwen dat compassieoefeningen verdriet, woede
+en oude rouw kunnen losmaken, juist bij deelnemers die vriendelijkheid weinig
+hebben gekend, en dat een deelnemer daarop kan reageren met afkeer van de
+oefening zelf. De begeleider moet daar op voorbereid zijn en doseren.
+
+Zij stellen daarom de eis dat de begeleider eerst zelf oefent, en houden de
+volgorde vast: mindfulness eerst, compassie daarna. Deelname zonder
+voorafgaande aandachtstraining raden zij af. Het zelfhulpboek *Compassie in je
+leven* is bedoeld voor wie het programma buiten een groep om wil doorlopen,
+met dezelfde oefeningen in eenvoudiger taal.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| compassie | De gevoeligheid voor lijden bij zichzelf en anderen, samen met de bereidheid er iets aan te doen; de omschrijving die de auteurs van Paul Gilbert overnemen. |
+| heartfulness | De term waarmee de auteurs de warme kant van aandacht aanduiden, als aanvulling op de neutraler opgevatte mindfulness. |
+| dreigsysteem | Het emotieregulatiesysteem dat op gevaar reageert met angst, woede of walging en dat liever te vaak dan te laat alarm slaat. |
+| jaagsysteem | Het systeem dat aanzet tot zoeken, verwerven en presteren en dat beloont met opwinding en kortdurende voldoening. |
+| zorgsysteem | Het systeem dat bij hechting, verzorging en aanraking hoort en dat rust, veiligheid en verbondenheid geeft; het systeem dat de training wil versterken. |
+| kalmerende ademruimte | Een korte dagelijkse oefening waarin de gebruikelijke ademruimte uit de mindfulnesstraining wordt gedaan met een vriendelijke houding en aandacht voor het lichaam. |
+| veilige plek | Een verbeeldingsoefening waarin de deelnemer een plaats oproept waar hij zich veilig en welkom voelt, om het zorgsysteem te leren aanspreken. |
+| compassievolle metgezel | Een voorgestelde figuur, mens of dier of iets anders, die de warmte, wijsheid en betrouwbaarheid heeft die de deelnemer voor zichzelf nog niet kan opbrengen. |
+| gedeelde menselijkheid | Het besef dat falen, pijn en tekortschieten bij het mens zijn horen en geen persoonlijk gebrek zijn; bij Kristin Neff een van de drie bestanddelen van zelfcompassie. |
+| vier levensvrienden | Vriendelijkheid, mededogen, medevreugde en gelijkmoedigheid, de vier houdingen uit de boeddhistische beoefening waarmee het programma afsluit. |
+
+#### Waar het argument op rust
+
+Het boek doet zelf geen onderzoek maar leunt op twee bestaande bouwwerken. Het
+eerste is de compassion focused therapy van Paul Gilbert, die het
+driesystemenmodel leverde; het tweede is het onderzoek naar zelfcompassie van
+Kristin Neff, waarin de samenhang tussen zelfcompassie en minder depressie,
+angst en piekeren steeds opnieuw wordt gevonden. Die samenhang is groot en
+robuust, maar zij is correlationeel: het meeste ervan komt uit vragenlijsten
+die op een moment worden ingevuld, en zegt op zichzelf niets over de richting.
+
+Over MBCL zelf is minder bekend dan over de mindfulnesstrainingen waar het op
+voortbouwt. De effectstudies naar compassietrainingen zijn overwegend klein,
+worden vaak uitgevoerd door de ontwikkelaars, vergelijken met een wachtlijst
+in plaats van met een geloofwaardig alternatief programma, en meten met
+zelfrapportage door deelnemers die weten in welke groep zij zitten.
+Meta-analyses laten in die omstandigheden matige effecten zien met veel
+spreiding tussen studies. De herziene druk van het boek geeft een uitgebreid
+notenapparaat waarin dat na te lopen is.
+
+Het driesystemenmodel is de zwakste schakel in de onderbouwing en tegelijk de
+spil van de uitleg. Het is een didactisch model, geen kaart van drie
+aanwijsbare hersencircuits, ook al doen de plaatjes en de taal soms anders
+vermoeden. Als geheugensteun bij het oefenen werkt het; als
+neurowetenschappelijke bewering is het aanzienlijk minder hard dan de
+stelligheid waarmee het wordt gebracht.
+
+#### Wat er tegen in te brengen valt
+
+Het handboek presenteert een evolutionair verhaal over drie systemen als
+vaststaande achtergrondkennis. Dat verhaal is aannemelijk en verklaart veel,
+maar het is ook precies het soort verklaring achteraf dat zich moeilijk laat
+weerleggen: elk gedrag past wel bij een van de drie. Wie het model uit het
+boek weghaalt, houdt een reeks oefeningen over die waarschijnlijk even goed
+werkt, wat de vraag oproept hoeveel de theorie feitelijk draagt.
+
+De overlap met het mindful self-compassion van Germer en Neff is groot, en de
+auteurs zijn daar open over. Wat MBCL eraan toevoegt is vooral de aansluiting
+op de bestaande mindfulnesstrainingen in de Nederlandse geestelijke
+gezondheidszorg en de inbedding van Gilberts model. Dat is een reele
+verdienste voor de praktijk, maar het maakt het boek eerder een goed gemaakte
+samenstelling dan een eigen theorie.
+
+Er zit een spanning tussen het aanbod en de doelgroep. Het programma is
+bedoeld voor mensen met langdurige klachten en veel zelfkritiek, dus voor de
+groep bij wie compassieoefeningen het meest kunnen losmaken en het snelst
+weerstand oproepen. De auteurs erkennen dat en bouwen waarschuwingen in, maar
+de eis van voorafgaande mindfulnesstraining en van een geoefende begeleider
+maakt het programma in de praktijk moeilijk bereikbaar voor precies die groep.
+Het zelfhulpboek naast dit handboek lost dat maar half op, want daarin valt de
+begeleiding weg die zij zelf noodzakelijk noemen.
+
+#### Wat er concreet mee te doen is
+
+- Doe eerst een reguliere aandachtstraining; de auteurs bouwen daar zonder
+omwegen op voort.
+- Begin met de kalmerende ademruimte en houd die enkele weken vol voordat de
+verbeeldingsoefeningen aan de beurt komen.
+- Schrijf op wat de innerlijke criticus letterlijk zegt en waartegen die stem
+denkt te beschermen, voordat er iets tegenover wordt gezet.
+- Merk weerstand tegen een oefening op als informatie over waar het pijn doet,
+en niet als reden om harder te oefenen.
+- Voor begeleiders: loop het programma eerst zelf door, en houd rekening met
+deelnemers bij wie vriendelijkheid rouw losmaakt.
+
+#### Wat je hierna leest
+
+- 1526. Get Out of Your Mind and Into Your Life. Hayes werkt in *Get Out of
+Your Mind and Into Your Life* met dezelfde stof, aanvaarden wat er is en
+handelen naar waarden, maar zonder de warme toon en met een expliciete
+gedragstheorie eronder.
+- 333. Altered Traits. Goleman en Davidson lopen in *Altered Traits* na wat
+het onderzoek naar meditatie werkelijk aantoont en wat niet, inclusief het
+onderzoek naar compassietraining.
+- 32. The Gifts of Imperfection. Brene Brown behandelt in *The Gifts of
+Imperfection* schaamte en zelfkritiek vanuit interviewonderzoek in plaats van
+vanuit een trainingsprogramma.
+- 1527. Vrijer leven door jezelf te zijn. Guiot neemt in zijn handboek een
+compleet klaverblad voor zorgzaam voelen op en verwijst voor die stof naar
+dezelfde compassietraditie.
+
+## 1526. Get Out of Your Mind and Into Your Life
+
+Steven C. Hayes met Spencer Smith, 2005. *Get Out of Your Mind and Into Your
+Life. The New Acceptance and Commitment Therapy*, New Harbinger Publications,
+Oakland, 2005 (224 blz., ISBN 9781572244252), verschenen in de reeks
+zelfhulpwerkboeken van die uitgever. De Nederlandse uitgave verscheen in 2006
+bij Uitgeverij Nieuwezijds, Amsterdam, als *Uit je hoofd, in het leven. Een
+werkboek voor een waardevol leven met mindfulness en Acceptatie en Commitment
+Therapie* (251 blz., ISBN 9789057122279); latere drukken voeren de ondertitel
+*ACT: psychotherapie voor angst, depressie of paniek*. Van Hayes verschenen in
+het Nederlands verder onder meer *Bevrijd je geest* en, voor behandelaars, de
+handboeken over acceptance and commitment therapy die hij met Kirk Strosahl en
+Kelly Wilson schreef. Rubriek: gewoontes en denken.
+Tags: `ACT`, `acceptatie`, `waarden`, `mindfulness`, `gedragstherapie`,
+`piekeren`, `werkboek`
+
+Steven Hayes is klinisch psycholoog en de bedenker van acceptance and
+commitment therapy. Dit is de eerste versie van die aanpak voor lezers zonder
+behandelaar: een werkboek met dertien hoofdstukken en enkele tientallen
+oefeningen, geschreven samen met journalist Spencer Smith.
+
+De redenering is kort samen te vatten. Pijn hoort bij het leven; lijden
+ontstaat pas doordat mensen die pijn proberen kwijt te raken. Omdat taal alles
+met alles verbindt, roept elke poging om niet aan iets te denken het juist op.
+Het gevecht met de eigen gedachten en gevoelens kost daardoor steeds meer
+terrein aan het leven dat men wilde leiden.
+
+In plaats van het gevecht biedt Hayes twee dingen: het loslaten van de strijd,
+met oefeningen die gedachten hun letterlijke gewicht afnemen, en het kiezen
+van waarden met concrete stappen daarnaartoe. Het boek is uitdrukkelijk
+bedoeld om te doen, met werkbladen en dagboeken; wie het alleen leest, mist
+volgens Hayes waar het om gaat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hayes stelt dat de gangbare aanname over psychisch lijden
+verkeerd is. Die aanname luidt dat nare gedachten en gevoelens het probleem
+zijn en dat men er beter aan toe is als zij verdwijnen. Volgens Hayes is pijn
+onvermijdelijk en is het lijden vooral het gevolg van de pogingen die pijn te
+vermijden, weg te redeneren of te bestrijden. Die pogingen werken averechts,
+omdat menselijke taal alles met alles in verband brengt en het onderdrukken
+van een gedachte die gedachte juist versterkt. De uitweg loopt niet via minder
+pijn maar via twee andere bewegingen: bereidheid om te voelen wat er te voelen
+valt zonder er iets aan te doen, en het kiezen van richtingen die men
+werkelijk belangrijk vindt om daar dan naar te handelen. De vraag die het boek
+stelt is dan niet hoe iemand zich beter kan voelen, maar of hij bereid is zich
+te voelen zoals hij zich voelt en ondertussen te leven zoals hij wil leven.
+
+#### De gang van het boek
+
+**De inventarisatie van het lijden**
+
+Het eerste hoofdstuk laat de lezer opschrijven waar hij onder lijdt en hoe
+lang al. Daarna volgt een oefening die het boek later steeds herhaalt: stel
+dat de pijn weg is, wat dan. Meestal blijkt dat er dan iets moet gebeuren
+waarvoor de pijn juist de reden was om het uit te stellen.
+
+Hayes zet daar de vaststelling naast dat psychisch lijden algemeen is, niet
+uitzonderlijk, en dat de meeste mensen op enig moment aan de criteria van een
+diagnose voldoen. De strekking is dat de lezer niet kapot is en dus ook niet
+gerepareerd hoeft te worden.
+
+**Waarom taal lijden veroorzaakt**
+
+Het theoretische hart van het boek staat in hoofdstuk twee. Hayes legt uit dat
+mensen willekeurige verbanden leggen tussen woorden en dingen en die verbanden
+in twee richtingen gebruiken. Hij demonstreert dat met kleine oefeningen: leg
+een verband tussen twee volstrekt ongelijke voorwerpen, en het lukt altijd.
+Denk niet aan een gele jeep, en de jeep verschijnt.
+
+Daaruit volgt zijn diagnose van het probleem. In de buitenwereld werkt de
+regel dat je iets wat je niet wilt hebben, weghaalt. In de binnenwereld werkt
+die regel omgekeerd, omdat elke poging tot verwijderen het onderwerp opnieuw
+benoemt en dus oproept. Hayes noemt dat experientiele vermijding en beschouwt
+het als de gemeenschappelijke motor onder heel verschillende klachten.
+
+De lezer vult een werkblad in met alle strategieen waarmee hij tot nu toe
+probeerde van de pijn af te komen, en beoordeelt per strategie hoe goed die op
+korte en op lange termijn heeft gewerkt. De bedoeling is niet dat hij zich
+schaamt maar dat hij zelf tot de vaststelling komt dat het niet werkt. Hayes
+noemt dat creatieve hopeloosheid, al gebruikt hij die term in dit boek
+spaarzaam.
+
+**Bereidheid in plaats van vermijding**
+
+Het alternatief heet willingness, in het Nederlands bereidheid. Hayes
+onderscheidt het scherp van berusting en van doorbijten: het gaat om de
+bereidheid een gevoel te hebben zonder er iets mee te hoeven, en die
+bereidheid is een keuze en geen gevoel. Hij toetst het met een lichamelijke
+oefening waarin de lezer bewust buiten adem raakt.
+
+In latere hoofdstukken wordt het concreet gemaakt met een schaal waarop
+bereidheid en spanning tegen elkaar worden gezet, en met oefeningen waarin een
+moeilijk gevoel wordt onderzocht alsof het een voorwerp is met een vorm, een
+kleur en een gewicht. De uitvoerigste daarvan heet het blikkenmonster: een
+gevoel wordt uit elkaar gehaald in de losse gedachten, lichamelijke sensaties
+en herinneringen waar het uit bestaat, en die worden een voor een aangekeken.
+
+**Een gedachte hebben of een gedachte kopen**
+
+Vier hoofdstukken gaan over de omgang met gedachten. Hayes wil niet dat de
+lezer zijn gedachten uitdaagt of vervangt, zoals in de cognitieve therapie,
+maar dat hij de greep verzwakt waarmee een gedachte samenvalt met wat zij
+beschrijft. Dat heet defusie.
+
+De bekendste oefening is het woord melk zo snel mogelijk hardop herhalen tot
+het zijn betekenis verliest en alleen geluid overblijft. Andere oefeningen
+laten de lezer zijn gedachten labelen (ik heb de gedachte dat...), ze als
+bladeren op een stroom voorbij laten drijven, en het verschil oefenen tussen
+beschrijven en beoordelen. Hayes moedigt aan om zelf technieken te bedenken,
+omdat elke techniek slijt.
+
+Daarop volgt de vraag wie er dan overblijft als iemand zijn gedachten niet is.
+Hayes onderscheidt drie vormen van zelf: het zelf als verhaal, het zelf als
+voortdurend proces, en het waarnemende zelf dat er bij alles bij is geweest
+zonder zelf inhoud te hebben. De lezer schrijft zijn eigen levensverhaal, en
+schrijft het daarna nog een keer, met dezelfde feiten en een andere strekking.
+
+**Aandacht als dagelijkse oefening**
+
+Het hoofdstuk over mindfulness is het praktischte van het boek en het minst
+theoretisch. Het bevat een reeks korte oefeningen: zwijgend lopen, rozijnen
+eten, thee drinken, luisteren naar muziek, aandacht voor de voeten tijdens het
+lezen, en gewoon zitten. Hayes plaatst ze uitdrukkelijk in dienst van de rest
+en niet als doel op zich: aandacht is de vaardigheid waarmee defusie en
+bereidheid in het dagelijks leven te oefenen zijn.
+
+**Waarden en toegewijd handelen**
+
+De laatste drie hoofdstukken draaien het boek om. Waarden zijn bij Hayes
+gekozen levensrichtingen, geen doelen: een doel kan worden bereikt en
+afgevinkt, een richting niet. Hij onderscheidt ze ook van wat anderen willen,
+van wat de lezer denkt te moeten willen en van wat er goed uitziet.
+
+De bekendste oefening laat de lezer zijn eigen begrafenis bijwonen en
+opschrijven wat hij daar gezegd zou willen horen. Daarna volgen tien
+levensgebieden waarin hij zijn waarden formuleert, rangschikt en toetst, en
+vervolgens werkbladen met doelen, met concrete acties en met de obstakels die
+te verwachten zijn.
+
+Het slot bestaat uit patronen van handelen opbouwen, met de nadrukkelijke
+waarschuwing dat de bereidheid uit het eerdere deel daarbij nodig blijft. Een
+appendix vat de theorie en het onderzoek achter de aanpak samen voor lezers
+die dat willen nalopen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| acceptance and commitment therapy | De door Hayes ontwikkelde gedragstherapie die aanvaarden van innerlijke ervaring combineert met handelen naar gekozen waarden, in het Nederlands acceptatie- en commitmenttherapie. |
+| experientiele vermijding | De poging om ongewenste gedachten, gevoelens of herinneringen weg te houden of te veranderen; bij Hayes de gemeenschappelijke oorzaak onder uiteenlopende klachten. |
+| relationeel kaderen | Het menselijke vermogen om willekeurige verbanden tussen dingen te leggen en die in beide richtingen te gebruiken; de taalleer waarop de hele redenering van het boek rust. |
+| defusie | Het losmaken van een gedachte van datgene wat zij beschrijft, zodat zij als taal wordt ervaren en niet als de werkelijkheid zelf. |
+| bereidheid | De gekozen houding om een ervaring te hebben zoals zij is, zonder haar te bestrijden of te veranderen; bij Hayes een handeling en geen gevoel. |
+| het waarnemende zelf | Het perspectief van waaruit iemand zijn hele leven heeft waargenomen, dat zelf geen inhoud heeft en dus ook niet bedreigd kan worden door welke gedachte dan ook. |
+| waarden | Gekozen richtingen voor het handelen die nooit af zijn, te onderscheiden van doelen die wel kunnen worden bereikt. |
+| toegewijd handelen | Het opbouwen van steeds grotere patronen van gedrag die in de richting van de gekozen waarden gaan, inclusief het herstellen na een terugval. |
+| het blikkenmonster | Oefening waarin een overweldigend gevoel wordt uiteengelegd in de losse gedachten, sensaties en herinneringen waaruit het bestaat, die stuk voor stuk worden aangekeken. |
+
+#### Waar het argument op rust
+
+Het boek is een werkboek en geeft zijn onderbouwing pas in de appendix. Daar
+staan twee soorten steun. De eerste is de gedragsanalytische theorie over taal
+die Hayes met anderen ontwikkelde, waarvoor laboratoriumonderzoek bestaat naar
+hoe mensen en andere dieren verbanden leren gebruiken. De tweede is de reeks
+proeven waarin experientiele vermijding samenhangt met slechter functioneren
+en waarin defusieoefeningen de geloofwaardigheid van een gedachte verlagen
+zonder de inhoud aan te pakken. Dat laatste is meermalen in kleine proeven
+gevonden, ook door groepen buiten Hayes om.
+
+Over de aanpak als geheel bestaat inmiddels veel meer onderzoek dan in 2005,
+en de uitkomst is gemengd. Acceptance and commitment therapy doet het beter
+dan geen behandeling en beter dan een wachtlijst, bij uiteenlopende klachten.
+In vergelijking met de gevestigde cognitieve gedragstherapie zijn de
+verschillen klein tot afwezig, en de vroege studies waren klein en werden vaak
+uitgevoerd door onderzoekers die aan de aanpak verbonden waren. Het
+zelfhulpboek is bovendien iets anders dan de therapie: onderzoek naar dit boek
+als zelfhulp is beperkt en de uitval bij zelfhulpwerkboeken is doorgaans hoog.
+
+De bewering waar het meeste aan hangt, dat verandering loopt via defusie,
+bereidheid en waarden en niet via het bijstellen van gedachte-inhoud, is het
+moeilijkst hard te maken. Onderzoek naar werkzame bestanddelen laat wel zien
+dat psychologische flexibiliteit meebeweegt met verbetering, maar dat is niet
+hetzelfde als aantonen dat zij de oorzaak van die verbetering is.
+
+#### Wat er tegen in te brengen valt
+
+Het scherpste bezwaar betreft de tegenstelling die het boek opzet met de
+cognitieve therapie. Hayes presenteert het uitdagen van gedachten als de
+vergissing waar zijn aanpak mee breekt, terwijl het klinische verschil in de
+praktijk kleiner is dan de retoriek suggereert en de vergelijkende uitkomsten
+dat verschil ook niet laten zien. Het boek verkoopt zichzelf daarmee als een
+nieuwe generatie, en die aanspraak is groter dan de gegevens dragen.
+
+Er zit ook een lastige eigenschap in de theorie zelf. Als elke poging om zich
+beter te voelen als vermijding kan worden geduid, is er weinig wat de aanpak
+kan weerleggen: wie het gevoel houdt dat het niet werkt, kan te horen krijgen
+dat hij nog te veel aan resultaat hecht. Hayes waarschuwt daar zelf voor, maar
+het boek geeft de lezer weinig gereedschap om vast te stellen wanneer de
+aanpak voor hem niet de goede is.
+
+Als zelfhulpboek is het bovendien zwaar. Het taalhoofdstuk vraagt
+abstractievermogen, de oefeningen vragen doorzettingsvermogen zonder
+begeleider, en een deel van de lezers begint eraan in een periode waarin beide
+er niet zijn. De Nederlandse ondertitel, die angst, depressie en paniek
+belooft, wekt daarbij verwachtingen die het boek zelf juist ondergraaft, want
+het belooft nadrukkelijk niet dat die klachten verdwijnen.
+
+#### Wat er concreet mee te doen is
+
+- Vul het werkblad met copingstrategieen in en beoordeel per strategie het
+effect op korte en op lange termijn.
+- Zeg een woord dat pijn doet dertig seconden lang hardop tot alleen het
+geluid overblijft, en kijk wat er dan met de gedachte gebeurt.
+- Zet voor elke terugkerende gedachte de formulering om naar: ik heb de
+gedachte dat...
+- Schrijf op wat er op de begrafenis over het eigen leven gezegd zou moeten
+worden, en leid daar de waarden uit af.
+- Kies per levensgebied een doel en een eerstvolgende handeling, en noteer
+vooraf welk obstakel te verwachten is.
+- Doe de oefeningen schriftelijk; wie ze alleen leest, houdt volgens het boek
+niets over.
+
+#### Wat je hierna leest
+
+- 1525. Compassievol leven. Van den Brink en Koster behandelen in
+*Compassievol leven* dezelfde omgang met pijnlijke ervaring, maar met warmte
+als vertrekpunt in plaats van bereidheid.
+- 1527. Vrijer leven door jezelf te zijn. Guiot bouwt zijn Nederlandse
+handboek expliciet op de procesgerichte benadering die Hayes later uitwerkte,
+en neemt defusie en waarden als twee van zijn vier klaverbladen over.
+- 401. 10% Happier. Dan Harris beschrijft in *10% Happier* vanuit de ervaring
+van een scepticus wat aandachtsoefening wel en niet oplevert, waar Hayes dat
+als techniek behandelt.
+- 149. The Power of Now. Tolle komt in *The Power of Now* langs een geheel
+andere weg uit bij hetzelfde onderscheid tussen de denker en de waarnemer,
+zonder gedragstheorie eronder.
+
+## 1527. Vrijer leven door jezelf te zijn
+
+Martijn Guiot, 2024. *Vrijer leven door jezelf te zijn. Handboek voor de
+geest*, in eigen beheer uitgegeven bij Vrijer Leven, 2024, 235 blz., ISBN
+9789083341873, NUR 770; vormgeving en illustraties van Marieke de
+Beurs-Brommersma, redactie Janneke van Bemmel. Het colofon van het
+inkijkexemplaar draagt het jaartal 2025. Er is geen vertaling en Guiot
+publiceerde geen ander boek. Op vrijerleven.nl staan het inkijkexemplaar, een
+artikel waarin hij zijn methode als process-based therapy verantwoordt, en de
+literatuurlijst waarop hij zich baseert. Rubriek: levenskunst.
+Tags: `psychiatrie`, `zelfhulp`, `compassie`, `waarden`, `acceptatie`,
+`oefeningen`, `Nederlands`
+
+Martijn Guiot is psychiater en psychotherapeut, sinds 2001 arts en sinds 2007
+psychiater, werkzaam in de poliklinische psychiatrie, de verslavingszorg, het
+ziekenhuis en zijn eigen praktijk. Hij schreef dit handboek naar eigen zeggen
+omdat de zorg afbrokkelt en de wachtlijsten groeien, en omdat patienten hem
+geregeld vroegen waarom niemand hun dit eerder had geleerd.
+
+Het boek bundelt technieken uit de psychotherapieen waarin hij zich bekwaamde
+en ordent ze in wat hij het Klavertje Vier Model noemt: vriendelijke aandacht,
+bewuste perspectieven, zorgzaam voelen en waardevolle verbindingen. Elk
+klaverblad krijgt een hoofdstuk met zes of zeven paragrafen, elk gebaseerd op
+een onderdeel uit een bestaande therapie, met oefeningen en werkbladen erbij.
+
+Het eerste hoofdstuk gaat over wat jezelf zijn inhoudt en introduceert het
+model met een zelfscoringslijst; het laatste gaat over het integreren van het
+geheel, over wijsheid, zelfvertrouwen, tevredenheid en keuzes maken. Guiot
+schrijft er zelf bij dat het boek geen vervanging is voor therapie en dat wie
+ernstig lijdt beter zorg kan organiseren.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Guiot stelt dat het overgrote deel van de stress en
+frustratie waar mensen mee bij hem komen niet voortkomt uit een stoornis, maar
+uit twijfelen aan zichzelf, zichzelf afkeuren en zich anders voordoen dan men
+is. Waar hij als psychiater een mens ziet die lijdt, ziet het zorgstelsel een
+diagnose met een bijbehorend protocol dat een beperkt aantal vaardigheden
+aanleert. Zijn voorstel is een omkering: geef mensen niet een behandeling die
+bij hun diagnose hoort, maar een verzameling vaardigheden waaruit zij per
+situatie kiezen wat werkt. Die vaardigheden ordent hij in vier domeinen die
+volgens hem samen dekken wat er nodig is en die elkaar versterken. De belofte
+die daarachter zit is dat wie zichzelf mag zijn, vrijer leeft, en dat wie
+vrijer leeft vanzelf meer zichzelf wordt.
+
+#### De gang van het boek
+
+**De aanleiding en de opzet**
+
+De inleiding is voor een zelfhulpboek ongebruikelijk politiek. Guiot begint
+bij de bezuinigingen op de geestelijke gezondheidszorg van de afgelopen
+twintig jaar, bij de sluiting van hooggespecialiseerde instellingen die hij
+zag gebeuren, en bij een crisisdienst die op een vrijdagmiddag meldde dat er
+dat weekend te weinig personeel was. Het boek is expliciet bedoeld om mensen
+te bereiken die anders wachten.
+
+Hij legt de opbouw vooraf uit: hoofdstuk een introduceert het model, de
+hoofdstukken twee tot en met vijf werken de vier klaverbladen uit, hoofdstuk
+zes integreert. De hoofdstukken hangen samen maar zijn ook los te lezen.
+Vrijwel elke paragraaf is volgens hem gebaseerd op een onderdeel uit een
+bewezen werkzame psychotherapie en kan op zichzelf al iets opleveren.
+
+Twee waarschuwingen staan er meteen bij. Het boek helpt niet iedereen en
+vervangt geen therapie; wie ernstig lijdt, doet er goed aan zorg te
+organiseren en het boek hooguit ernaast te gebruiken. En lezen alleen doet
+niets: de oefeningen moeten worden uitgevoerd, want vaardigheden leert men
+door ervaring.
+
+**Jezelf zijn en het Klavertje Vier Model**
+
+Het eerste hoofdstuk behandelt zelfkennis, meditatie, ontspanning en balans,
+en zet het model neer. Guiot beschrijft hoe hij jarenlang zocht naar iets
+eenvoudigs dat onder alle omstandigheden bruikbaar is, en waarom hij vier
+onderdelen aanhoudt: veel methoden richten zich op een of twee daarvan en
+schieten daardoor in bepaalde situaties tekort.
+
+Bij het hoofdstuk hoort de Vrijer Leven Schaal, een vragenlijst over de
+afgelopen twee weken waarmee de lezer per klaverblad een rapportcijfer
+berekent. De items zijn gewone uitspraken (ik was erg kritisch op mijzelf) met
+een schaal van zelden tot continu. Guiot presenteert de uitkomst als een
+check-up die laat zien waar winst te halen is.
+
+Hij werkt het model uit aan een voorbeeld: een nieuwe leidinggevende die op
+alle kleinigheden kritiek geeft. Met vriendelijke aandacht wordt eerst
+waargenomen wat dat oproept, met bewuste perspectieven worden de stressvolle
+gedachten aangekeken of vervangen door verstandiger gedachten, met zorgzaam
+voelen wordt de boosheid en machteloosheid onderzocht en verzacht, en met
+waardevolle verbindingen wordt gekeken wat de lezer in zijn werk werkelijk
+belangrijk vindt.
+
+**Vriendelijke aandacht**
+
+Het tweede hoofdstuk is de aandachtskant van het model, met een warme in
+plaats van neutrale toon. Guiot behandelt achtereenvolgens focus, liefdevolle
+vriendelijkheid, zelfkalmering, aanvaarden, erkennen, toestaan en vrede
+sluiten. De opbouw loopt van aandacht richten naar aanvaarden van wat er is.
+
+Het materiaal komt herkenbaar uit de mindfulness- en compassietraditie, met de
+nadruk op het hier en nu en op niet oordelen. Wat Guiot eraan toevoegt is de
+reeks: aanvaarden is bij hem niet een houding maar een aantal opeenvolgende
+stappen, van erkennen dat iets er is via toestaan dat het er mag zijn tot
+vrede sluiten met wat niet te veranderen valt.
+
+**Bewuste perspectieven**
+
+Het derde hoofdstuk gaat over denken. Het opent met het observerende zelf, het
+standpunt van waaruit gedachten te bekijken zijn, en behandelt daarna
+complexen van gedachten en gevoelens, mentaliseren, gedachten analyseren,
+verstandig denken, gedachten vrijlaten en mindsets.
+
+Hier lopen twee tradities naast elkaar die elders tegenover elkaar worden
+gezet. Gedachten analyseren en verstandig denken komen uit de cognitieve
+gedragstherapie: stressvolle gedachten worden onderzocht en bewust omgezet in
+functionele, waarderende of steunende gedachten. Gedachten vrijlaten en het
+observerende zelf komen uit de acceptatie- en commitmentbenadering: de
+gedachte wordt niet bestreden maar losgelaten. Guiot behandelt beide als
+gereedschap waaruit de lezer kiest wat op dat moment werkt, en verantwoordt
+dat elders met een beroep op process-based therapy.
+
+**Zorgzaam voelen**
+
+Het vierde hoofdstuk stelt dat een beter gevoel ontstaat door beter te voelen
+en niet door zich tegen het gevoel te verzetten. De paragrafen lopen van je
+goed voelen en gevoel ervaren via gevoelens ontrafelen naar compassie,
+zorgzaam meeleven, doseren en verzachten, en verwerken.
+
+De boodschap is dat gevoelens richtingaanwijzers zijn en geen tegenstanders:
+erkennen, serieus nemen, vrede sluiten. Het doseren is daarbij een eigen stap,
+wat het hoofdstuk onderscheidt van de gebruikelijke oproep om alles toe te
+laten. De laatste paragraaf gaat over verwerken van wat er in het verleden is
+gebeurd.
+
+**Waardevolle verbindingen**
+
+Het vijfde hoofdstuk is het langste en gaat over waarden en over anderen:
+eigen waarden, levensgebieden, zelfwaardering, verbindingen, motivatie en
+levensbehoeften, waardevolle acties en de eigen koers. De opbouw is die van de
+waardenhoofdstukken in de acceptatie- en commitmentliteratuur, met
+levensgebieden waarop de lezer zijn waarden verheldert en er acties aan
+verbindt.
+
+De paragraaf over zelfwaardering geeft de eigen draai van het boek. Guiot legt
+uit dat zelfwaardering beter op het proces dan op het resultaat gericht kan
+zijn, dat kleine waardevolle handelingen daar meer aan bijdragen dan grote
+successen omdat ze vaker voorkomen, en dat waardering ook mogelijk is als iets
+misging. Hij bespreekt daarbij conflicterende waarden, botsende levensgebieden
+en de situatie dat de omgeving de eigen waarden niet honoreert, met de
+conclusie dat het dan verstandig kan zijn ergens anders te zoeken.
+
+**Vrijer leven**
+
+Het slothoofdstuk gaat over integreren en volhouden, met paragrafen over
+wijsheid, zichzelf vertrouwen, tevredenheid en keuzes maken. Guiot benadrukt
+dat processen ontstaan door ze toe te passen en uitdoven als men stopt, en dat
+samen oefenen met anderen beter werkt dan alleen.
+
+Hij vertelt hier waar het idee vandaan kwam: op de terugweg van een
+zomervakantie, met de vraag hoe het vakantiegevoel vast te houden is, terwijl
+op zijn werk polikliniek, verslavingszorg, ziekenhuisconsulten en crisisdienst
+van alle kanten aanspraak op hem maakten. Zijn antwoord was het verschil
+tussen moeten en kiezen, en die verschuiving van moeten naar mogen, willen en
+waarderen noemt hij de Vrijer Leven Mindset.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Klavertje Vier Model | Guiots ordening van de vier domeinen vriendelijke aandacht, bewuste perspectieven, zorgzaam voelen en waardevolle verbindingen, die volgens hem samen meer doen dan afzonderlijk. |
+| vriendelijke aandacht | Heldere aandacht met een milde toon, gericht op het hier en nu en in beginsel zonder oordeel. |
+| bewuste perspectieven | Vanuit een overstijgend standpunt naar de eigen gedachten kijken en ze ofwel bewust omzetten in verstandiger gedachten, ofwel loslaten. |
+| zorgzaam voelen | Gevoelens erkennen, serieus nemen en verzachten in plaats van bestrijden, met dosering als eigen stap. |
+| waardevolle verbindingen | Leven vanuit de eigen waarden en zich verbinden met wat men belangrijk vindt, meestal in de vorm van contact met anderen. |
+| het observerende zelf | Het standpunt van waaruit gedachten en gevoelens te bekijken zijn zonder ermee samen te vallen. |
+| Vrijer Leven Schaal | Zelfscoringslijst over de afgelopen twee weken waarmee de lezer per klaverblad en in totaal een rapportcijfer berekent. |
+| Vrijer Leven Mindset | De verschuiving van moeten naar mogen, willen, wensen en waarderen, die volgens Guiot de druk wegneemt die uit normen en controledrang voortkomt. |
+| process-based therapy | Het modulaire raamwerk waarin behandeling wordt opgebouwd uit werkzame processen in plaats van uit stoornisspecifieke protocollen; de verantwoording die Guiot buiten het boek om voor zijn opzet geeft. |
+
+#### Waar het argument op rust
+
+Guiot doet geen eigen onderzoek en presenteert dat ook niet zo. Zijn
+verantwoording bestaat uit twee delen: elke paragraaf is volgens hem ontleend
+aan een onderdeel uit een psychotherapie waarvan de werkzaamheid is
+aangetoond, en de vaardigheden zijn geselecteerd op wat hij in decennia
+praktijk zag werken. De genoemde bronnen zijn cognitieve gedragstherapie,
+acceptance and commitment therapy, mindfulness, metacognitieve therapie,
+compassiegerichte interventies en positieve psychologie. Wie dat wil nalopen
+wordt naar zijn website verwezen, waar een artikel en een literatuurlijst
+staan; in het boek zelf staat het notenapparaat niet.
+
+Het argument voor de opzet is dat van de transdiagnostische behandeling:
+protocollen werken goed bij enkelvoudige klachten, maar sluiten slecht aan bij
+mensen met meerdere aandoeningen tegelijk of met problematiek die niet op
+behandeling reageert, en transdiagnostische interventies doen het in onderzoek
+minstens even goed. Dat argument is in de literatuur inderdaad te vinden. Wat
+er niet uit volgt is dat deze bepaalde ordening in vier domeinen beter werkt
+dan een andere.
+
+De voorbeeldverhalen zijn geen bewijsmateriaal en Guiot zegt dat ook: zij
+berusten op echte gebeurtenissen, zijn niet herleidbaar tot personen en de
+namen zijn verzonnen. Dat is netter dan gebruikelijk in dit genre. Het
+betekent wel dat het boek nergens een controleerbaar geval bevat, en dat de
+lezer op het klinische oordeel van de auteur moet afgaan.
+
+#### Wat er tegen in te brengen valt
+
+De grootste zwakte is dat het model zelf niet is onderzocht. Dat de losse
+technieken werken is aannemelijk; dat deze verzameling in deze ordening als
+geheel iets toevoegt, is een claim van de auteur. Hij stelt bovendien dat het
+hele klavertje meer doet dan de vier blaadjes afzonderlijk, en daarvoor geeft
+hij geen andere grond dan zijn eigen ervaring. Voor een boek dat zich als
+handboek presenteert en dat professionals als integrale behandelmethode
+aanbiedt, is dat weinig.
+
+Er zit ook een onopgeloste spanning in hoofdstuk drie. Gedachten analyseren en
+omzetten in verstandiger gedachten komt uit een traditie die aanneemt dat de
+inhoud van gedachten ertoe doet; gedachten vrijlaten komt uit een traditie die
+dat juist bestrijdt. Guiot zet ze naast elkaar en laat de keuze aan de lezer.
+Dat is praktisch en past bij zijn procesgerichte verantwoording, maar het laat
+de lezer wel achter met twee tegengestelde adviezen en zonder criterium om te
+weten wanneer welk advies aan de beurt is, anders dan uitproberen.
+
+De toon is die van de behandelkamer en dat werkt twee kanten op. Het boek is
+direct, de gebiedende wijs staat op vrijwel elke bladzijde en de lezer wordt
+voortdurend aangesproken; wie daar behoefte aan heeft, krijgt houvast. Wie in
+het boek gaat zoeken naar waar de aanbevelingen precies vandaan komen, vindt
+binnen de kaften niets: geen noten, geen bronvermelding bij een bewering, en
+een enkele motto-toeschrijving die niet klopt. De verantwoording is naar de
+website verplaatst, en daarmee uit het zicht van de meeste lezers.
+
+#### Wat er concreet mee te doen is
+
+- Vul eerst de Vrijer Leven Schaal in en begin bij het klaverblad met het
+laagste cijfer.
+- Kies per moeilijke situatie een of twee vaardigheden in plaats van het hele
+model te willen toepassen.
+- Doe de oefeningen schriftelijk en herhaal ze; Guiot stelt uitdrukkelijk dat
+lezen alleen niets oplevert.
+- Waardeer bij zelfwaardering het proces en de intentie, ook als de uitkomst
+tegenviel.
+- Sla technieken die niet aanslaan over en pak ze eventueel later op, in
+plaats van door te zetten.
+- Raadpleeg bij ernstige klachten een behandelaar en gebruik het boek
+daarnaast; de auteur schrijft dat zelf voor.
+
+#### Wat je hierna leest
+
+- 1526. Get Out of Your Mind and Into Your Life. Hayes levert de theorie
+achter twee van Guiots vier klaverbladen, en zijn latere procesgerichte
+benadering is de verantwoording waar Guiot zich op beroept.
+- 1525. Compassievol leven. Van den Brink en Koster werken het klaverblad
+zorgzaam voelen uit tot een volledig programma van acht bijeenkomsten.
+- 105. Zo ongelukkig mogelijk in 8 stappen. Niels den Daas schrijft in *Zo
+ongelukkig mogelijk in 8 stappen* over dezelfde Nederlandse zelfhulpstof, maar
+dan via de omgekeerde weg van het aanraden van wat niet werkt.
+- 149. The Power of Now. Tolle behandelt het onderscheid tussen de denker en
+de waarnemer waar Guiots hoofdstuk over bewuste perspectieven op steunt,
+zonder de klinische inbedding.
+
+## 1528. Balance Breathing
+
+Paul Lenferink, 2005. Volledige titel *Balance Breathing: adem en leef met
+hart en ziel*, verschenen bij Eyeopener, Den Haag, 2005, 157 blz., ISBN
+9789080821767. De uitgave bevat een werkboek met oefeningen; er hoort een cd
+met geleide ademsessies bij, die apart wordt verkocht. Het boek is alleen in
+het Nederlands verschenen en is nieuw niet meer leverbaar. Van Lenferink
+verscheen daarnaast *De NLP-Coach als inspirator*, samen met Peter Dalmeijer,
+en in 2022 het luisterboek *Wie ben je echt?* bij Schrijverspunt. Rubriek:
+brein en lichaam.
+Tags: `ademhaling`, `ademwerk`, `verbonden ademhaling`, `lichaamswerk`,
+`coaching`, `spiritualiteit`, `Nederland`
+
+Lenferink beschrijft een ademmethode die hij Balance Breathing noemt. De kern
+is de verbonden ademhaling: liggend en ontspannen doorademen zonder pauze
+tussen inademing en uitademing, onder begeleiding van een coach die
+instructies geeft. Volgens hem komen daarbij gevoelens los die iemand eerder
+heeft weggedrukt.
+
+Om die ademsessies heen bouwt hij een groter geheel van coaching, lichaamswerk
+en wat hij energiewerk noemt. Een sessie begint met een intakegesprek waarin
+patronen in denken, voelen en doen in kaart worden gebracht, gaat over in het
+ademwerk, en eindigt met afspraken over gedrag.
+
+De achterliggende gedachte is dat de mens een spiritueel wezen is dat een
+aardse ervaring doormaakt, dat pijn voortkomt uit zelfverwerping, en dat
+zelfliefde de grondslag van herstel is. Het boek bevat naast die uiteenzetting
+een werkboek met oefeningen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lenferink stelt dat de manier waarop iemand ademt de neerslag
+is van zijn levensgeschiedenis, en dat wie zijn ademhaling doelbewust
+verandert daarmee ook bij opgeslagen emoties en vastgelopen overtuigingen
+uitkomt. De adem is in zijn voorstelling geen louter mechanische functie maar
+de verbinding tussen het lichaam en wat hij het Hoger Bewustzijn noemt.
+Daaruit volgt de belofte van het boek: in een reeks begeleide ademsessies komt
+iemand langs weggedrukte gevoelens, en daarna staat hij anders in zijn leven.
+De onderbouwing die Lenferink daarbij geeft, is deels fysiologisch en deels
+energetisch, en die twee lagen worden in de tekst niet uit elkaar gehouden.
+
+#### De gang van het boek
+
+**Waar de methode vandaan komt**
+
+Balance Breathing staat in de lijn van de verbonden ademhaling, de ademvorm
+die in de jaren zeventig bekend werd door het rebirthing van Leonard Orr en
+die verwant is aan het holotroop ademwerk van Stanislav en Christina Grof.
+Lenferink neemt die basis over en zegt er nadrukkelijk overheen te gaan.
+
+Wat hij eraan toevoegt is de combinatie met coaching, lichaamswerk en
+energiewerk. Hij presenteert het geheel als een methode waarin die vier
+onderdelen elkaar versterken, en positioneert het resultaat als sneller
+werkend dan de verbonden ademhaling op zichzelf.
+
+**De ademtechniek**
+
+De sessie wordt liggend gedaan. De ademende volgt aanwijzingen en houdt de
+ademhaling doorlopend, zonder de gebruikelijke pauze aan het eind van de
+uitademing. Het uitgangspunt is dat dit vanuit volledige ontspanning gebeurt
+en niet vanuit inspanning.
+
+Lenferink koppelt daaraan de stelling dat beter ademen meer zuurstof bij de
+lichaamscellen brengt en zo gezondheid, vitaliteit en weerstand verbetert. Die
+claim keert in zijn beschrijvingen van de methode steeds terug en draagt de
+fysiologische kant van het verhaal.
+
+**Het verloop van een sessie**
+
+De opbouw is vast. Eerst een intake waarin de coach met gesprek en
+lichaamsgerichte oefening de kernpatronen in denken, voelen en doen probeert
+vast te stellen. Daarna het werkende deel, waarin via de adem emoties naar
+boven komen en volgens de methode energetische ladingen worden losgelaten.
+
+Vervolgens een fase die integratie heet, waarin de levensenergie weer moet
+gaan stromen. Tot slot een afronding waarin de coach met de deelnemer
+afspraken maakt over concreet gedrag, zodat het nieuwe patroon buiten de
+sessie iets te doen krijgt.
+
+Binnen de sessie gebruikt de coach hulpmiddelen: visualisatie en associatie
+tijdens het loslaten, affirmaties die het herstel moeten aanzetten, en druk op
+punten op het lichaam die volgens de methode bepaalde emoties oproepen.
+
+**De energetische laag**
+
+Naast de adem werkt de coach met wat Lenferink energetische blokkades noemt,
+in het lichaam en in de auralagen daaromheen. Hij spreekt van een spirituele
+anatomie waarmee de coach vertrouwd moet raken.
+
+Die laag is in het boek geen bijzaak. Zij levert de verklaring waarom een
+sessie werkt en waarom de een er anders op reageert dan de ander. Meetbare
+grootheden komen er niet aan te pas; de coach werkt op waarneming en ervaring.
+
+**Zelfliefde als grondslag**
+
+De inhoudelijke kern van het boek is een uitspraak over de herkomst van pijn:
+pijn komt volgens Lenferink voort uit zelfverwerping. Herstel begint dus bij
+van jezelf houden, en al het overige is daaraan ondergeschikt.
+
+Daarmee hangt zijn mensbeeld samen: de mens is een spiritueel wezen dat hier
+fysieke, aardse ervaringen opdoet. De adem is de plek waar die twee elkaar
+raken, en balans betekent in het boek evenwicht tussen de spirituele kant en
+het aardse leven, in denken, voelen en doen.
+
+**Het werkboek**
+
+Het boek is geen betoog alleen. De uitgave bevat een werkboek waarmee de lezer
+zelf aan de slag kan, met oefeningen die de stof van de hoofdtekst volgen.
+Daarnaast bestaat een cd met begeleide sessies.
+
+Die opzet verraadt de functie van het boek. Het is geschreven vanuit een
+praktijk die individuele sessies, workshops en een opleiding tot Balance
+Breathing-coach aanbiedt, en het leest als de neerslag van dat aanbod.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Verbonden ademhaling | Doorlopend ademen zonder pauze tussen in- en uitademing, de basisvorm waar Balance Breathing op voortbouwt. |
+| Balance Breathing | Lenferinks eigen samenstelling van coaching, ademwerk, lichaamswerk en energiewerk, aangeboden als methode en als opleiding. |
+| Hoger Bewustzijn | De term waarmee Lenferink het deel van de mens aanduidt dat volgens hem niet met het lichaam samenvalt en waarmee de adem contact maakt. |
+| Energetische blokkade | Een veronderstelde ophoping van vastzittende lading in lichaam of aura die het stromen van levensenergie belemmert. |
+| Auralagen | De lagen die volgens de methode om het lichaam heen liggen en waarin de coach tijdens een sessie meewerkt. |
+| Emotionele drukpunten | Plekken op het lichaam waarop de coach druk uitoefent om een bepaalde emotie op te roepen zodat die verwerkt kan worden. |
+| Zelfverwerping | De houding tegenover zichzelf die Lenferink aanwijst als de bron van pijn en waar de methode zich tegen richt. |
+| Levensenergie | De stroom die volgens het boek samenvalt met de adem en die vrij moet komen wil iemand zich met zichzelf verbonden voelen. |
+
+#### Waar het argument op rust
+
+Het boek steunt op de praktijk van de auteur, die naar eigen zeggen ruim
+veertig jaar als hulpverlener, therapeut, coach en opleider werkt. Er wordt
+geen gecontroleerd onderzoek naar Balance Breathing aangehaald en dat is er
+ook niet. De uitgave is in kleine kring verschenen, is niet door vakgenoten
+beoordeeld en heeft geen recensies in de vakpers gekregen. Wat er publiek te
+controleren valt, komt vrijwel geheel uit Lenferinks eigen beschrijvingen.
+
+De fysiologische kern van het verhaal is wel te toetsen, en die loopt vast.
+Het bloed van een gezond mens is in rust al voor ongeveer zevenennegentig
+procent verzadigd met zuurstof; harder en sneller ademen kan daar nauwelijks
+iets bij optellen. Wat het wel doet is koolzuur uitdrijven. Daardoor stijgt de
+zuurgraad van het bloed, gaat hemoglobine zuurstof juist steviger vasthouden,
+en vernauwen de bloedvaten in de hersenen. Netto komt er tijdens een stevige
+ademsessie eerder minder zuurstof bij de weefsels aan dan meer.
+
+Datzelfde verschijnsel verklaart ook de ervaring in de sessie. Tintelingen in
+de vingers en om de mond, licht gevoel in het hoofd en krampstand van de
+handen zijn de bekende gevolgen van kortdurende ademalkalose. In de methode
+worden precies die gewaarwordingen gelezen als bewijs dat er iets losgaat. De
+sensatie is echt, de gegeven verklaring dekt haar niet.
+
+Van ademwerk in bredere zin is wel iets aangetoond, maar dan in de
+tegenovergestelde richting. In een gerandomiseerd onderzoek van Balban en
+collega's, gepubliceerd in Cell Reports Medicine in 2023, verbeterde vijf
+minuten per dag traag ademen met verlengde uitademing gedurende een maand de
+stemming en verlaagde het de ademfrequentie in rust, meer dan meditatie zonder
+ademsturing. Dat is langzaam ademen, niet de snelle verbonden ademhaling. Wie
+de resultaten van het ene op het andere overzet, doet dat zonder grond.
+
+De emotionele ontlading die deelnemers rapporteren staat als verschijnsel niet
+ter discussie. Sterke lichamelijke opwinding, een liggende houding, een
+begeleider die betekenis toekent aan wat er gebeurt en de verwachting waarmee
+iemand binnenkomt, zijn samen ruim voldoende om huilen, schokken en
+herinneringen op te roepen. Dat catharsis optreedt is goed gedocumenteerd; dat
+zij op eigen kracht tot blijvende verandering leidt, is dat niet.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de verklaring die het boek geeft in de verkeerde
+richting wijst. De hele methode wordt opgehangen aan meer zuurstof in de
+cellen, terwijl de gebruikte ademvorm dat effect niet heeft. Een methode kan
+waardevolle ervaringen opleveren en tegelijk een onjuiste theorie hanteren,
+maar wie de theorie tot verkoopargument maakt, moet erop worden aangesproken.
+
+De energetische laag onttrekt de methode aan toetsing. Blokkades in auralagen
+en een spirituele anatomie zijn niet te meten, dus is er geen uitkomst
+denkbaar waarbij de methode ongelijk krijgt. Als een sessie niets oplevert, is
+de blokkade nog niet los; als zij veel oplevert, is dat het bewijs. Dat is
+geen kleine tekortkoming maar het punt waarop het boek buiten de discussie
+stapt.
+
+Er staat weinig over veiligheid. Langdurig geforceerd ademen is niet neutraal
+voor mensen met hart- en vaatziekten, epilepsie, een zwangerschap of een
+psychotische kwetsbaarheid, en bij mensen met onverwerkt geweld in hun
+geschiedenis kan een sessie ontregelend uitpakken. Het boek richt zich op
+leken, en de begeleiders die het opleidt hebben geen beschermde titel en geen
+tuchtrecht boven zich.
+
+Ten slotte is het boek zelf slecht te controleren. Het is nauwelijks
+verkrijgbaar, kent geen tweede uitgever en is nergens inhoudelijk besproken.
+Wie wil weten of de oefeningen in het werkboek deugen, is aangewezen op de
+aanbieder van de opleiding die eraan verdient. Bij een methode die met
+lichamelijke prikkeling en emotionele ontlading werkt, is dat een
+ongemakkelijke situatie.
+
+#### Wat er concreet mee te doen is
+
+- Adem traag als het doel ontspanning of stemming is: verleng de uitademing en
+houd de frequentie laag. Daarvoor bestaat onderzoek, voor snelle verbonden
+ademhaling niet.
+- Lees tintelingen, duizeligheid en krampende handen tijdens een sessie als
+ademalkalose en niet als een blokkade die losschiet.
+- Vraag een begeleider naar opleiding, verzekering, klachtenregeling en de
+vraag bij welke aandoeningen hij iemand weigert. Blijft een van die antwoorden
+uit, ga dan niet liggen.
+- Ga niet alleen aan een intensieve ademsessie beginnen bij hartklachten,
+epilepsie, zwangerschap of een geschiedenis van psychose.
+- Houd de ervaring en de verklaring uit elkaar. Wat er in een sessie gebeurt
+kan waarde hebben zonder dat de theorie erachter klopt.
+
+#### Wat je hierna leest
+
+- 318. Breath: The New Science of a Lost Art. Nestor behandelt dezelfde stof
+met een journalistieke controle op de fysiologie, en komt uit bij trager en
+minder ademen in plaats van meer.
+- 583. The Thirst for Wholeness. Christina Grof beschrijft de spirituele
+lezing van innerlijke crisis vanuit de traditie van het holotroop ademwerk
+waar de verbonden ademhaling uit voortkomt.
+- 386. The Body Keeps the Score. Van der Kolk geeft de onderbouwde versie van
+het uitgangspunt dat het lichaam ervaringen vasthoudt, met de klinische
+voorbehouden die hier ontbreken.
+- 208. Breaking the Habit of Being Yourself. Dispenza bouwt op een
+vergelijkbare mengeling van meetbare fysiologie en niet-meetbare energie, met
+dezelfde toetsingsproblemen.
+
+## 1530. De NLP-Coach als inspirator
+
+Peter Dalmeijer en Paul Lenferink; jaar van eerste druk niet vastgesteld,
+vijfde druk 2020. *De NLP-Coach als inspirator: coaching vanuit hart en ziel*,
+uitgegeven door Vidarte B.V.; de vijfde druk verscheen in 2020, gebonden, 203
+blz., ISBN 9789081182119. Het boek is in eigen beheer van de opleiding
+uitgebracht en niet vertaald. Dalmeijer bracht daarnaast het NLP-spel uit met
+bijbehorende toelichtingen op NLPspel.nl; Lenferink schreef *Balance
+Breathing* (2005) en het luisterboek *Wie ben je echt?* (2022). Rubriek:
+naslag en praktijk.
+Tags: `NLP`, `coaching`, `communicatie`, `coachbloem`, `opleidingsboek`,
+`gespreksvoering`, `Nederland`
+
+Dalmeijer en Lenferink schrijven over neurolinguistisch programmeren als
+houding en niet alleen als gereedschapskist. Hun stelling is dat de coach
+eerst contact met zichzelf moet maken voordat hij contact met een ander kan
+maken, en dat de techniek zonder die grondslag leeg blijft.
+
+Het ordenende beeld van het boek is de coachbloem. Rond een hart met de
+houding van de coach liggen bloembladen die elk een deel van het vak beslaan.
+Daarmee beantwoorden de auteurs de vraag die zij in de praktijk het vaakst
+horen: wanneer pas ik wat toe.
+
+Het boek komt voort uit een opleidingsinstituut en werkt ook zo. Het bundelt
+de begrippen, vooronderstellingen en werkvormen die in een NLP-practitioner-
+en masteropleiding langskomen, in de volgorde waarin een coach ze in een
+traject nodig heeft.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het boek verzet zich tegen de gangbare manier waarop NLP
+wordt aangeboden, namelijk als een verzameling technieken voor betere
+communicatie. Dalmeijer en Lenferink stellen dat NLP een levenshouding is en
+dat de werking van elke techniek staat of valt met de authenticiteit van
+degene die haar gebruikt. Een coach die niet weet wat hem zelf beweegt, kan
+volgens hen wel oefeningen uitvoeren maar niets teweegbrengen. Daaruit volgt
+hun tweede stelling: dat het vak zich laat ordenen in een samenhangend geheel,
+de coachbloem, waarin techniek, houding en levensrichting van de coach
+onderdelen van hetzelfde model zijn. De praktische vraag wanneer je wat
+toepast, is in hun opzet geen kwestie van een keuzelijstje maar van weten waar
+in dat geheel je op dat moment staat.
+
+#### De gang van het boek
+
+**Waar NLP vandaan komt**
+
+Neurolinguistisch programmeren ontstond in het midden van de jaren zeventig in
+Santa Cruz, waar Richard Bandler en John Grinder de werkwijze van drie
+therapeuten probeerden na te bouwen: de gestalttherapeut Fritz Perls, de
+gezinstherapeut Virginia Satir en de hypnotherapeut Milton Erickson. Hun
+uitgangspunt was dat wat de een kan, uit elkaar te halen en aan een ander te
+leren is.
+
+Uit dat modelleren kwamen de bekende onderdelen voort: het metamodel voor het
+doorvragen op vage taal, het werken met rapport, het ankeren van
+gevoelstoestanden, het herkaderen van betekenis, en de logische niveaus die
+Robert Dilts later toevoegde. Het boek behandelt die stof, maar zet haar niet
+voorop.
+
+**NLP als levenshouding**
+
+De opening van het boek is een verwijt aan het eigen vakgebied. NLP wordt
+overal toegepast, van bedrijfsleven en onderwijs tot zorg en mentale training
+in de sport, en wordt daar meestal onderwezen op het niveau van vaardigheden
+en technieken. Dalmeijer en Lenferink noemen dat te weinig.
+
+Hun alternatief is de coach die vanuit een heldere missie en visie contact
+maakt en daarbij zichzelf laat zien. De ondertitel, coaching vanuit hart en
+ziel, geeft de richting aan. Dat maakt de coach zelf tot instrument, met alle
+voordelen en alle problemen die daarbij horen.
+
+**De coachbloem**
+
+De coachbloem vormt het hart van het boek. Het beeld ordent het vak: in het
+midden staat de houding van de coach, daaromheen liggen bloembladen die elk
+een deel van het werk beslaan, en de hoofdstukken die op de introductie volgen
+werken die bladen een voor een uit.
+
+De winst van dat beeld is de volgorde. Wie alleen technieken leert, heeft een
+doos zonder deksel; wie de bloem voor zich heeft, ziet welke stap bij welk
+moment in een traject hoort. Dat is de vraag waar de auteurs het boek voor
+zeggen te hebben geschreven.
+
+**De basiskwaliteiten van de coach**
+
+De auteurs benoemen minimaal zeven basiskwaliteiten waarover een NLP-coach
+moet beschikken. Daartoe behoren het beheersen van het communicatiemodel en de
+vooronderstellingen van NLP, het vermogen om als feitengetuige waar te nemen,
+het werken vanuit goed rapport, en spiritueel bewustzijn.
+
+Die laatste kwaliteit valt op. Zij hoort niet bij de oorspronkelijke opzet van
+Bandler en Grinder, die uitdrukkelijk buiten de vraag naar zin en betekenis
+wilden blijven, en zij verbindt dit boek met het latere werk van beide auteurs
+over ademwerk en bewustzijn.
+
+**Het coachmodel met vier posities**
+
+Het derde fundament dat de auteurs hanteren is het coachmodel, de basisstappen
+van elk veranderingstraject. Dalmeijer beschrijft dat model in het materiaal
+bij zijn NLP-spel als vier posities: de gewenste situatie, de huidige
+situatie, de hindernissen en de hulpbronnen.
+
+Bij die vier horen vier vragen. Wat wil ik bereiken, waar ben ik nu, wat houdt
+mij tegen, en wat heb ik nodig. Het model dient als opzet voor het
+intakegesprek en als afsluiting van de evaluatie. In de spelvorm legt de coach
+de vier posities als kaarten op de grond en loopt de coachee ze fysiek af.
+
+**De vooronderstellingen**
+
+NLP werkt met een reeks vooronderstellingen die als werkafspraak gelden en
+niet als bewezen uitspraken: de kaart is niet het gebied, iedere persoon maakt
+binnen zijn model van de wereld de best beschikbare keuze, achter elk gedrag
+zit een positieve bedoeling, de betekenis van je communicatie is de reactie
+die je krijgt, en er bestaat geen falen maar terugkoppeling.
+
+Het boek behandelt de beheersing van die vooronderstellingen als een van de
+basiskwaliteiten. Dat is verstandiger dan ze als waarheden te presenteren, al
+blijft de vraag staan wat een werkafspraak waard is als niemand haar ooit
+tegen de praktijk aan legt.
+
+**Het boek als opleidingsmateriaal**
+
+De uitgave is gebonden, telt ruim tweehonderd bladzijden en verscheen bij het
+instituut van de auteurs zelf. Zij haalde in twaalf jaar vijf drukken, wat
+voor een boek in eigen beheer veel is en zich laat verklaren doordat cursisten
+het bij hun opleiding aanschaffen.
+
+Lezers gebruiken het naar eigen zeggen vooral als naslag tijdens en na een
+opleiding: de begrippen op een rij, met een ordening waarmee ze de losse
+oefeningen kunnen plaatsen. Wie geen opleiding volgt, houdt een overzicht over
+waarvan de werkvormen niet in het boek staan uitgeschreven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Coachbloem | Het ordenende model van het boek, met de houding van de coach in het hart en de onderdelen van het vak als bloembladen daaromheen. |
+| Vooronderstellingen | De reeks werkafspraken waarop NLP rust, zoals de kaart is niet het gebied en achter elk gedrag zit een positieve bedoeling. |
+| Feitengetuige | De kwaliteit om waar te nemen wat er feitelijk gebeurt en gezegd wordt, zonder er meteen betekenis aan te geven. |
+| Rapport | De afgestemde verstandhouding tussen coach en coachee waarin verandering volgens NLP pas mogelijk wordt. |
+| Coachmodel | De vier posities gewenste situatie, huidige situatie, hindernissen en hulpbronnen, die samen de weg van een veranderingstraject beschrijven. |
+| Hulpbronnen | Interne en externe vermogens van fysieke, mentale en emotionele aard die het bereiken van het doel mogelijk maken. |
+| Metamodel | De vragenreeks uit de begintijd van NLP waarmee weglatingen, veralgemeningen en vervormingen in iemands taal worden opgespoord. |
+| Modelleren | De oorspronkelijke werkwijze van NLP: uitpluizen wat iemand die ergens goed in is precies doet, en dat overdraagbaar maken. |
+| Levensattitude | De term waarmee de auteurs NLP van een techniekenverzameling onderscheiden: een manier van in het contact staan, niet een set ingrepen. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan en pretendeert dat ook niet. Het rust op de
+praktijk van twee opleiders en op de traditie waarin zij staan. Als
+beschrijving van wat er in een Nederlandse NLP-opleiding wordt onderwezen, is
+het betrouwbaar; als uitspraak over wat werkt, staat er niets in wat een lezer
+kan narekenen.
+
+Dat is bezwaarlijker dan bij veel andere coachliteratuur, omdat NLP zelf met
+een aanspraak op wetenschap begon. Bandler en Grinder presenteerden hun werk
+als het uitpluizen van meetbaar gedrag, en juist die aanspraak is in de
+decennia daarna slecht doorstaan. De beoordelingen van Christopher Sharpley
+uit 1984 en 1987 vonden geen steun voor het idee van een voorkeurszintuig dat
+aan oogbewegingen af te lezen zou zijn, een van de bekendste onderdelen van
+het model.
+
+Later onderzoek maakte dat beeld niet beter. Tomasz Witkowski publiceerde in
+2010 in Polish Psychological Bulletin een overzicht van het beschikbare
+onderzoek naar NLP en kwam tot de slotsom dat het overgrote deel van de
+aanspraken geen steun vond. Een systematische beoordeling van Sturt en
+collega's in het British Journal of General Practice in 2012 concludeerde dat
+er te weinig bewijs is om NLP bij gezondheidsuitkomsten aan te bevelen.
+
+Wat wel houdbaar is, staat los van het merk NLP. Aandachtig luisteren,
+doorvragen op vaagheid, een werkbare relatie opbouwen en samen een doel
+formuleren zijn onderdelen waarvan het nut in de bredere literatuur over
+gespreksvoering en therapie herhaaldelijk is aangetoond. Het vierpositiemodel
+van dit boek lijkt sterk op het doelgerichte gespreksmodel dat ook buiten NLP
+wordt gebruikt.
+
+Het praktische bewijs voor dit boek zit dus in het bereik. Vijf drukken en
+tweedehands vraag laten zien dat het als naslag functioneert voor mensen die
+de bijbehorende opleiding volgen. Dat zegt iets over de bruikbaarheid van de
+ordening en niets over de werking van de methode.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek de zwakke plek van NLP verplaatst in
+plaats van oplost. De klacht dat NLP tot losse trucs verwordt is terecht, maar
+het antwoord luidt dat de coach authentiek moet zijn en spiritueel bewustzijn
+moet hebben. Daarmee wordt een moeilijk te toetsen leer vervangen door een
+niet te toetsen leer. Wie kritiek levert op een sessie kan altijd te horen
+krijgen dat hij nog niet genoeg met zichzelf in contact was.
+
+De toevoeging van spiritueel bewustzijn aan de basiskwaliteiten haalt NLP weg
+van zijn eigen uitgangspunt. Bandler en Grinder wilden juist buiten
+verklaringen blijven die niet uit waarneembaar gedrag te halen zijn. Dit boek
+zet die stap wel, zonder de gevolgen ervan te bespreken.
+
+De coachbloem is een ordening, geen theorie. Het beeld maakt inzichtelijk hoe
+de onderdelen zich tot elkaar verhouden, maar er volgt geen voorspelling uit
+die fout kan blijken. Voor een boek dat de vraag wanneer je wat toepast wil
+beantwoorden, blijft het bij een indeling die het antwoord suggereert en niet
+geeft.
+
+Tot slot de positie van de uitgave. Het boek verscheen bij het eigen
+instituut, kreeg geen redactie van buiten en is nergens inhoudelijk besproken.
+Coaching is in Nederland een vrij beroep zonder beschermde titel;
+opleidingsboeken die door de aanbieder zelf worden uitgegeven en verkocht,
+zijn onderdeel van dat aanbod. Dat maakt de inhoud niet onjuist, maar het
+betekent dat er geen enkele buitenstaander tussen de aanspraak en de koper
+heeft gestaan.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de vier posities als opzet voor een eerste gesprek: doel, huidige
+stand, hindernissen, hulpbronnen. Dat werkt ook zonder de rest van het model.
+- Noteer bij het doorvragen wat er letterlijk gezegd is voordat er betekenis
+aan wordt gegeven. Dat is het bruikbaarste deel van de feitengetuige.
+- Behandel de vooronderstellingen als werkafspraak en niet als bevinding, en
+zeg dat er ook bij tegen wie ermee werkt.
+- Ga bij elke techniek na of het effect ook zonder de NLP-verklaring te
+begrijpen is. Meestal is dat zo.
+- Vraag bij een opleiding naar het onderzoek waarop de aanspraken rusten, en
+neem geen genoegen met verwijzingen naar tevreden deelnemers.
+
+#### Wat je hierna leest
+
+- 139. Unlimited Power. Robbins bouwde zijn eerste boek rechtstreeks op NLP en
+laat zien hoe dezelfde stof eruitziet als de spirituele laag ontbreekt en de
+nadruk op prestatie ligt.
+- 1533. Heart of the Mind. Connirae Andreas werkte binnen NLP dezelfde
+beweging naar binnen uit, van techniek naar wat zij de kern achter het gedrag
+noemt.
+- 35. Nonviolent Communication. Rosenberg biedt een gespreksmethode met een
+vergelijkbaar doel en een strakker uitgewerkte procedure, met vergelijkbare
+vragen over de onderbouwing.
+- 63. The Demon-Haunted World. Sagan levert de maatstaf waarmee een methode
+die zich op wetenschap beroept te beoordelen valt, en NLP komt daar slecht
+uit.
+
+## 1531. The Intention Experiment
+
+Lynne McTaggart, 2007. Oorspronkelijk *The Intention Experiment: Using Your
+Thoughts to Change Your Life and the World* (Free Press, een onderdeel van
+Simon & Schuster, New York, 2007, 320 blz., ISBN 9780743276962); de Britse
+uitgave verscheen bij HarperElement met de ondertitel *Use Your Thoughts to
+Change the World*. De Nederlandse vertaling van Gerard Grasman verscheen in
+2007 bij Ankh-Hermes, Deventer, als *Het intentie-experiment: kunnen je
+gedachten de wereld veranderen?*, 339 blz., ISBN 9789020284560. Van McTaggart
+verschenen ook *The Field* en *The Power of Eight* in Nederlandse vertaling.
+Rubriek: positief denken en manifesteren.
+Tags: `intentie`, `bewustzijn`, `parapsychologie`, `kwantumfysica`,
+`biofotonen`, `gebedsonderzoek`, `pseudowetenschap`
+
+McTaggart, journalist en uitgever van het blad What Doctors Don't Tell You,
+verzamelt onderzoek dat volgens haar aantoont dat gerichte gedachten meetbare
+gevolgen hebben voor levende en levenloze doelen. Zij loopt laboratoria en
+onderzoekers af en brengt hun bevindingen samen tot één verhaal over intentie.
+
+Het boek bestaat uit vier delen. Eerst de wetenschap die zij voor intentie
+aanvoert, dan de vraag hoe je die werking versterkt, dan wat gedachten volgens
+haar met gezondheid en met tijd doen, en tot slot een reeks oefeningen.
+
+De eigen inzet van het boek staat in het laatste deel. McTaggart nodigt lezers
+uit deel te nemen aan groepsexperimenten via een bijbehorende website, waarbij
+duizenden mensen tegelijk hun aandacht op één doel richten en de uitkomst
+wordt gemeten. Zij noemde dat het eerste boek waarvan de lezer deel van het
+onderzoek is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** McTaggart betoogt dat een gerichte gedachte een fysieke
+gebeurtenis is die iets buiten het hoofd van de denker teweegbrengt.
+Bewustzijn is in haar voorstelling geen bijproduct van hersenwerking maar een
+deelnemer aan de wereld, verbonden met alle materie via een onderliggend veld.
+Daaruit volgt de tweede en verstrekkendere stelling: als één mens met intentie
+een meetbaar verschil kan maken aan een blaadje, een zaadje of een ziek
+lichaam, dan kunnen duizenden mensen tegelijk iets met de wereld doen. Het
+boek is opgezet om die tweede stelling niet alleen te beweren maar te
+beproeven, door de lezers zelf als proefpersonen in te zetten. Daarmee stelt
+McTaggart haar eigen aanspraak vatbaar voor tegenspraak, en dat is tegelijk
+het meest en het minst overtuigende aan het boek.
+
+#### De gang van het boek
+
+**Deel een: de wetenschap van intentie**
+
+Het eerste deel bestaat uit vijf hoofdstukken die de bouwstenen aandragen. In
+Mutable Matter behandelt zij de kwantumfysica en het nulpuntsveld, het veld
+van vacuümfluctuaties dat zij in haar eerdere boek *The Field* tot dragende
+laag van de werkelijkheid maakte. The Human Antenna gaat over hoe een mens
+daarmee in verbinding zou staan.
+
+In The Two-Way Street komen de plantexperimenten van Cleve Backster langs, de
+polygraafdeskundige die meende dat planten op gedachten reageren, en het werk
+van de Duitse fysicus Fritz-Albert Popp over biofotonen: de zeer zwakke
+lichtuitstoot van levende cellen. Popp las die uitstoot als een vorm van
+uitwisseling tussen organismen, en dat idee draagt een groot deel van het
+boek.
+
+Hearts That Beat as One beschrijft de zogenoemde Love Study van Dean Radin en
+Marilyn Schlitz bij het Institute of Noetic Sciences, waarin de hartslag,
+ademhaling, huidgeleiding en hersengolven van twee gescheiden mensen zouden
+synchroniseren wanneer de een medelevende aandacht naar de ander stuurt.
+Entering Hyperspace behandelt meditatie en de metingen bij Tibetaanse
+monniken.
+
+**Deel twee: de intentie versterken**
+
+Het tweede deel gaat over de omstandigheden waaronder intentie volgens
+McTaggart beter werkt. In the Mood behandelt de gemoedstoestand van de zender:
+samenhang in hart- en hersenritme, waarvoor zij leunt op het werk van Rollin
+McCraty bij het HeartMath Institute.
+
+The Right Time en The Right Place gaan over tijdstip en plaats. Zij bespreekt
+onder meer de invloed van geomagnetische activiteit en zonneactiviteit op de
+uitkomsten van dit soort proeven, en de vraag of bepaalde plekken gunstiger
+zijn. Voor de lezer die het zelf wil doen, staat hier de handleiding voor de
+voorbereiding.
+
+**Deel drie: wat gedachten met lichaam en tijd doen**
+
+Mental Blueprints behandelt het inbeelden van beweging bij sporters en
+revalidatie, waar de wetenschappelijke basis het stevigst is. The Voodoo
+Effect gaat over de tegenovergestelde richting: negatieve verwachting die
+schade doet, met het nocebo-effect als aanknopingspunt.
+
+Praying for Yesterday is het meest gewaagde hoofdstuk. Het gaat over gebed dat
+achteraf zou werken, met als hoofdstuk het onderzoek van Leonard Leibovici,
+gepubliceerd in het British Medical Journal van 2001, waarin patiënten met een
+bloedbaaninfectie jaren na hun opname werden voorbedaan en daarna in de
+dossiers een kortere ziekenhuisopname bleken te hebben.
+
+**Deel vier: de experimenten**
+
+Het slotdeel bevat de oefeningen en de opzet van het lopende onderzoek. Er
+staan instructies voor persoonlijke intentie-oefeningen en voor de
+groepsexperimenten waaraan lezers via de website konden meedoen.
+
+De eerste reeks werd uitgevoerd met Gary Schwartz aan de University of
+Arizona. Deelnemers richtten hun intentie op een van twee gelijk behandelde
+geraniumblaadjes, waarvan de biofotonenuitstoot met gekoelde camera's werd
+gemeten. Bij een sessie met ongeveer vierhonderd congresdeelnemers vond
+Schwartz een verschil tussen het gekozen en het niet gekozen blad. Een tweede
+opzet met bonenzaden liet wel hogere waarden zien bij de doelzaden, maar niet
+in een mate die statistisch iets voorstelde.
+
+Aan die publieksproeven ging werk vooraf met twintig ervaren energetisch
+behandelaars. In negenentwintig van de achtendertig sessies waarin zij de
+lichtuitstoot moesten verlagen, viel de waarde bij het doelblad; in
+tweeëntwintig van de achtendertig sessies gericht op verhogen, steeg zij.
+
+**Het boek als lopend onderzoek**
+
+Wat het boek van vergelijkbare titels onderscheidt, is dat het niet met de
+laatste bladzijde ophoudt. De uitgave verscheen samen met een website waarop
+nieuwe proeven werden aangekondigd, uitgevoerd en teruggekoppeld. McTaggart
+noemde dat een driedimensionaal boek.
+
+Uit die opzet groeide na de verschijning een reeks grotere proeven, waaronder
+intentie-experimenten gericht op geweldsvermindering in conflictgebieden en op
+waterkwaliteit. Zij vormden de aanloop naar haar latere boek over
+groepsintentie.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Intentie | Een doelgerichte, aandachtig vastgehouden gedachte, die McTaggart onderscheidt van een wens door de gerichtheid en de concentratie. |
+| Nulpuntsveld | Het veld van vacuümfluctuaties uit de kwantumelektrodynamica, dat McTaggart opvat als de laag waarin alle materie met alle andere materie in verbinding staat. |
+| Biofotonen | De zeer zwakke lichtuitstoot van levende cellen, gemeten door Fritz-Albert Popp en door McTaggart gelezen als een vorm van informatieoverdracht. |
+| Samenhang | De ordelijke toestand van hart- en hersenritme die de zender volgens het boek moet bereiken voordat zijn intentie effect heeft. |
+| Meebewegen | Het verschijnsel dat twee trillende systemen in de pas gaan lopen, dat McTaggart uitbreidt tot de fysiologie van twee gescheiden mensen. |
+| Directe mentale beïnvloeding | De onderzoekslijn waarin gemeten wordt of de aandacht van de een lichaamsprocessen van de ander op afstand verandert. |
+| Nocebo | De tegenhanger van het placebo-effect, waarbij negatieve verwachting klachten veroorzaakt; McTaggart gebruikt het als brug naar schadelijke intentie. |
+| Retroactief gebed | Voorbede voor gebeurtenissen die al hebben plaatsgevonden, waarvan het boek de mogelijkheid open houdt op grond van het onderzoek van Leibovici. |
+| Groepsintentie | Het samenbrengen van veel mensen die tegelijk hun aandacht op één doel richten, de opzet van de experimenten die met het boek verbonden zijn. |
+
+#### Waar het argument op rust
+
+McTaggart doet iets wat in dit genre zeldzaam is: zij noemt haar bronnen, gaat
+naar de laboratoria toe en laat de onderzoekers zelf aan het woord. Het
+notenapparaat is omvangrijk. Wie wil nagaan waar een bewering vandaan komt,
+kan dat meestal doen, en dat onderscheidt haar van auteurs die zich op de
+wetenschap beroepen zonder ooit een verwijzing te geven.
+
+De losse bouwstenen zijn ook niet allemaal van gelijke aard. Het nulpuntsveld
+bestaat: vacuümfluctuaties zijn een gemeten grootheid in de
+kwantumelektrodynamica. Ultrazwakke lichtuitstoot van cellen bestaat eveneens
+en is een gewoon meetbaar verschijnsel. Het inbeelden van beweging heeft
+aantoonbaar effect op prestatie en herstel. Het nocebo-effect is goed
+gedocumenteerd. De sprong zit telkens tussen het gemeten verschijnsel en de
+betekenis die eraan wordt gegeven.
+
+Voor de kern van het betoog steunt zij op laboratoria met een lange staat van
+dienst en een omstreden reputatie. Het Princeton Engineering Anomalies
+Research-programma van Robert Jahn draaide achtentwintig jaar op afwijkingen
+van toevalsgeneratoren die neerkwamen op enkele extra treffers per
+tienduizend, sloot in februari 2007 zijn deuren, en zag zijn resultaten in een
+gezamenlijke herhaling met Duitse laboratoria niet bevestigd. Radin en Schlitz
+publiceerden hun bevindingen in tijdschriften van hun eigen vakgebied.
+
+Het onderzoek naar genezing op afstand geeft het duidelijkste beeld van hoe
+wankel deze grond is. De studie van Elisabeth Targ naar voorbede voor
+aidspatiënten, verschenen in 1998, werd jarenlang als het beste bewijs
+aangevoerd, tot journalistiek onderzoek van Po Bronson liet zien dat de
+gemeten uitkomstmaten pas na het openen van de gegevens waren vastgesteld. Een
+groot en vooraf vastgelegd onderzoek onder leiding van Herbert Benson,
+gepubliceerd in de American Heart Journal in 2006, volgde 1802 hartpatiënten
+en vond geen enkel voordeel van voorbede; de groep die wist dat er voor haar
+gebeden werd, deed het zelfs iets slechter.
+
+De eigen proeven van het boek zijn niet in de reguliere vakliteratuur
+beoordeeld. Deelnemers meldden zich vrijwillig aan via internet, er was geen
+controle op wie wanneer wat deed, en de uitkomsten werden op de eigen website
+gepresenteerd. Als vertoning van een idee werkt dat; als toetsing niet.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de manier van selecteren. McTaggart is journalist,
+geen onderzoeker, en zij stelt een verhaal samen uit onderzoeken die haar
+richting op wijzen. De mislukte herhalingen, de nulresultaten uit dezelfde
+laboratoria en de statistische kritiek op de gebruikte methoden komen er
+bekaaid af. In een vakgebied waar de gerapporteerde effecten zo klein zijn dat
+publicatiebias alleen ze al kan verklaren, is die selectie beslissend.
+
+Het hoofdstuk over retroactief gebed laat zien waar dat toe leidt. Leibovici
+heeft zelf herhaaldelijk gezegd dat zijn onderzoek bedoeld was als
+tegenvoorbeeld: hij wilde aantonen dat de gebruikelijke opzet van een
+gerandomiseerd onderzoek ook een keurige uitkomst produceert voor een
+hypothese die op voorhand onmogelijk is, en dat een lezer daarom niet alleen
+naar de statistiek moet kijken. Het stuk verscheen in het kerstnummer van het
+British Medical Journal, dat daarvoor bekendstaat. McTaggart neemt de uitkomst
+serieuzer dan de auteur haar bedoelde.
+
+De verklaring die het boek aandraagt houdt geen stand bij natuurkundigen.
+Vacuümfluctuaties zijn geen geheugen, geen informatiedrager en geen kanaal
+waarlangs aandacht zich verplaatst; de betekenis die McTaggart aan het
+nulpuntsveld geeft, is haar eigen toevoeging. Haar eerdere boek *The Field* is
+om precies die reden als pseudowetenschap aangemerkt. Wie kwantumtermen
+gebruikt om verschijnselen op menselijke schaal te verklaren, doet dat vrijwel
+altijd zonder dekking.
+
+Het werk van Masaru Emoto over waterkristallen, dat in deze hoek graag wordt
+aangehaald, is nooit onder blinde omstandigheden overtuigend herhaald; de
+beoordelaars wisten welke foto bij welke behandeling hoorde en kozen zelf
+welke kristallen zij fotografeerden. Dat McTaggart dit soort werk naast
+serieuze fysica plaatst, zonder het verschil in bewijskracht scherp te maken,
+is het patroon waar haar critici op wijzen.
+
+Ten slotte de positie van de auteur. McTaggart geeft het blad What Doctors
+Don't Tell You uit, dat door de Britse reclameautoriteit op tientallen
+overtredingen van de code is aangesproken wegens onvoldoende onderbouwde
+gezondheidsclaims. Dat maakt haar boek niet onjuist, maar het is bij de
+beoordeling van haar omgang met bewijs geen bijkomstigheid.
+
+Wat het boek ook niet doet, is de vraag stellen wat er zou moeten gebeuren om
+haar stelling te weerleggen. Blijft een groepsexperiment zonder resultaat, dan
+luidt de verklaring dat de deelnemers niet samenhangend genoeg waren, of dat
+het tijdstip of de plaats niet deugde. Deel twee van het boek levert daarmee
+ongewild een voorraad uitvluchten voor deel vier.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij het lezen het gemeten verschijnsel van de duiding. Biofotonen,
+vacuümfluctuaties en het nocebo-effect bestaan; wat ze volgens dit boek
+betekenen is een aparte bewering.
+- Zoek bij elk aangehaald onderzoek op of het herhaald is en wat die herhaling
+opleverde. Bij dit onderwerp is dat vrijwel altijd het beslissende gegeven.
+- Let erop of uitkomstmaten vooraf zijn vastgelegd. Bij de bekendste studie
+over genezing op afstand was dat niet zo, en dat kwam pas jaren later aan het
+licht.
+- Gebruik het inbeelden van beweging waarvoor het bewezen is, namelijk bij het
+aanleren van vaardigheden en bij revalidatie, en niet als steun voor de
+bredere stelling.
+- Lees het slotdeel als handleiding voor een groepsoefening en niet als
+onderzoeksverslag; de proeven op de website hadden geen opzet die een uitkomst
+kon uitsluiten.
+
+#### Wat je hierna leest
+
+- 340. The Holographic Universe. Talbot bouwt een vergelijkbaar wereldbeeld op
+uit de natuurkunde en levert het voorbeeld waar McTaggart in vorm en methode
+het dichtst bij staat.
+- 761. Mindful Universe: Quantum Mechanics and the Participating Observer.
+Stapp voert de discussie over bewustzijn en kwantummechanica als
+natuurkundige, met de terughoudendheid die in dit boek ontbreekt.
+- 63. The Demon-Haunted World. Sagan behandelt precies de vraag hoe een lezer
+aanspraken op wetenschap beoordeelt, en zijn maatstaf laat zien waar dit boek
+strandt.
+- 362. Synchroniciteit. Jung probeerde eerder een verband tussen innerlijke
+toestand en uiterlijke gebeurtenis te formuleren zonder er een oorzakelijk
+mechanisme voor te claimen.
+
+## 1532. The Biggest Secret
+
+David Icke, 1999. Oorspronkelijk *The Biggest Secret: The Book That Will
+Change the World*, in eigen beheer uitgegeven bij Bridge of Love Publications
+(Scottsdale, Arizona, 1999), xvii + 517 blz., met literatuurlijst en register,
+ISBN 9780952614760. Het boek werd tussen 1999 en 2006 zes keer herdrukt;
+enkele maanden na verschijnen waren er dertigduizend exemplaren gedrukt. Een
+Nederlandse vertaling bestaat niet. Van Icke verscheen wel *Het fantoomzelf*,
+de vertaling van *Phantom Self* (2016), als eerste Nederlandstalige uitgave
+van zijn werk. Rubriek: vrij denken en manipulatie.
+Tags: `complottheorie`, `reptielen`, `Illuminati`, `bloedlijnen`,
+`antisemitisme`, `New Age`, `David Icke`
+
+Icke betoogt dat de aarde al duizenden jaren wordt bestuurd door een klein
+aantal onderling verwante families die afstammen van een reptielachtig ras.
+Hij noemt dat netwerk de Babylonische Broederschap en volgt het van Sumer en
+Babylon via de Fenicische zeehandel en de Venetiaanse Zwarte Adel naar de
+Windsors, de Rothschilds en de Rockefellers.
+
+Het boek stelt dat godsdienst, geldschepping, media en geheime genootschappen
+alle door datzelfde netwerk zijn opgezet om de mensheid onwetend te houden.
+Oorlogen, revoluties en instituties als de Verenigde Naties zijn in deze
+lezing geen uitkomst van botsende belangen maar uitvoering van een plan.
+
+In de laatste hoofdstukken voert Icke twee met naam genoemde getuigen op,
+Christine Fitzgerald en Arizona Wilder, die bloedrituelen en
+gedaanteverandering bij hooggeplaatste personen zouden hebben gezien. Hij
+sluit af met de stelling dat de greep berust op angst en verdwijnt zodra
+mensen die angst loslaten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Icke stelt dat de wereldgeschiedenis niet het resultaat is
+van botsende belangen maar de uitvoering van een plan, en dat de planners een
+handvol onderling verwante bloedlijnen zijn die afstammen van een
+reptielachtig ras uit het sterrenbeeld Draco. Alles wat mensen als
+afzonderlijke instituties kennen, kerk, koningshuis, centrale bank, geheime
+dienst, pers en geheim genootschap, is volgens hem één apparaat met één
+eigenaar. De these is zo ruim dat zij elk feit kan opnemen: past een
+gebeurtenis in het plan, dan is zij bewijs; past zij niet, dan is zij
+afleiding. Daarmee komt het boek in een positie waarin er geen waarneming
+denkbaar is die het ongelijk zou geven, en dat is precies wat er tegenover te
+zetten valt.
+
+#### De gang van het boek
+
+**Het uitgangspunt**
+
+Icke opent met de stelling dat de mensheid haar eigen geschiedenis niet kent.
+Zijn vertrekpunt is het werk van Zecharia Sitchin, die de Soemerische
+kleitabletten las als verslag van een buitenaards ras, de Anunnaki, dat de
+mens zou hebben gemaakt als arbeidskracht. Het eerste hoofdstuk zet die lezing
+neer als vaststaand en bouwt daarop verder.
+
+Vanaf dat punt loopt het boek chronologisch. Icke gaat ervan uit dat het
+lezerspubliek zijn eerdere boeken kent en dat de vraag niet meer is of er een
+netwerk bestaat, maar wie het bestuurt. Het antwoord dat hij in 1999 toevoegde
+aan zijn eerdere werk is de reptielachtige afkomst van dat netwerk.
+
+**De reptielen en hun herkomst**
+
+In het tweede en derde hoofdstuk voert Icke de reptielachtigen op als een
+interdimensionaal ras uit Draco dat zich met mensen heeft vermengd en dat in
+grotten en gangenstelsels onder de aarde zou leven. Hij verzamelt slangen- en
+drakenmotieven uit uiteenlopende mythologieën en leest die als herinnering aan
+werkelijke wezens in plaats van als beeldspraak.
+
+Een belangrijke bron is de Zuid-Afrikaanse sanusi Credo Mutwa, die Icke in die
+periode ontmoette en die de reptielachtigen aanduidde met het Zoeloewoord
+Chitauri. Icke gebruikt die overeenkomst tussen ver uiteenliggende
+overleveringen als aanwijzing dat het om een historisch feit gaat en niet om
+een terugkerend menselijk motief.
+
+**De bloedlijnen door de geschiedenis**
+
+Het middendeel is de eigenlijke kern. Icke volgt wat hij de Babylonische
+Broederschap noemt van Sumer en Babylon naar de Fenicische zeehandel, de
+Venetiaanse Zwarte Adel, de Europese vorstenhuizen en vandaar naar de
+Windsors, de Rothschilds, de Rockefellers en de Bushes. Genealogie is zijn
+voornaamste instrument: wie met wie verwant is, telt in dit boek als
+verklaring.
+
+In de hoofdstukken over godsdienst betoogt hij dat christendom, jodendom en
+islam alle teruggaan op eenzelfde zonnecultus en door de Broederschap zijn
+opgezet om mensen aan een gezag buiten zichzelf te binden. Het hoofdstuk over
+Groot-Brittannië en dat over de Verenigde Staten passen dezelfde redenering
+toe op het ontstaan van beide staten.
+
+**Geld, netwerk en macht**
+
+Icke wijdt een hoofdstuk aan geldschepping uit het niets en aan de rol van
+particuliere banken bij staatsschuld. Dat deel leunt op een oudere Amerikaanse
+complotliteratuur over de Federal Reserve en verbindt die met zijn
+bloedlijnen: de bankiersfamilies zijn in zijn lezing dezelfde families.
+
+Daarna beschrijft hij het netwerk zoals het volgens hem in de late jaren
+negentig werkte: de Bilderbergconferentie, de Trilaterale Commissie, de
+Council on Foreign Relations, vrijmetselarij en inlichtingendiensten.
+Bestaande organisaties met een reële geschiedenis worden hier als schakels in
+één keten gepresenteerd.
+
+**Ritueel, misbruik en de twee getuigen**
+
+In de hoofdstukken over satanisme en verdwenen kinderen sluit Icke aan bij de
+golf van beschuldigingen over rituele kindermishandeling die in de jaren
+tachtig en negentig door Noord-Amerika en Europa trok. Hij behandelt die
+beschuldigingen als bevestigd en verbindt ze met de bloedlijnen: het bloed zou
+de reptielachtige vorm in stand houden.
+
+Twee met naam genoemde vrouwen dragen dit deel. Christine Fitzgerald wordt
+opgevoerd als vertrouwelinge en genezeres van prinses Diana en zou van haar
+hebben gehoord dat de Windsors geen mensen zijn. Arizona Wilder verklaart dat
+zij als geprogrammeerde priesteres rituelen leidde waarbij zij hooggeplaatsten
+van gedaante zag veranderen. Wilder heeft haar verklaringen later grotendeels
+ingetrokken en gezegd dat zij tot dat verhaal was gebracht.
+
+Het hoofdstuk over Diana leest haar dood in de Pont de l'Alma-tunnel als
+rituele moord, mede omdat de plaatsnaam naar de godin Diana zou verwijzen.
+Naamsovereenkomst en symboolduiding nemen hier de plaats in van bewijsvoering.
+
+**De betovering en het verbreken ervan**
+
+De laatste twee hoofdstukken keren zich naar binnen. Icke stelt dat de greep
+van de Broederschap niet in de eerste plaats militair of financieel is maar
+berust op angst, en dat mensen door hun eigen angst in een beperkte waarneming
+vastzitten. Symboliek, ritueel en massamedia houden die toestand volgens hem
+in stand.
+
+De uitweg die hij aanbiedt is niet politiek. Zij bestaat uit het loslaten van
+angst, het weigeren van gehoorzaamheid en het herkennen van de eigen oneindige
+aard. Daarmee eindigt een boek dat bijna vijfhonderd bladzijden lang over
+macht ging, in de taal van de New Age-beweging.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Babylonische Broederschap | Icke's naam voor het netwerk van onderling verwante families dat volgens hem sinds Sumer en Babylon de macht in handen heeft. |
+| Anunnaki | In navolging van Zecharia Sitchin de buitenaardse wezens uit de Soemerische teksten, die volgens Icke de mens hebben gemaakt en gekruist. |
+| Draco | Het sterrenbeeld waaruit het reptielachtige ras volgens Icke afkomstig is. |
+| Chitauri | Het woord dat Credo Mutwa gebruikte voor de reptielachtigen; Icke voert die term op als onafhankelijke bevestiging uit een andere overlevering. |
+| Gedaanteverandering | Het vermogen van de bloedlijnen om tussen menselijke en reptielachtige vorm te wisselen, in het boek gestaafd met ooggetuigenverklaringen. |
+| Zwarte Adel | De Venetiaanse handelsfamilies die in Icke's lezing de schakel vormen tussen de oude elites van het Nabije Oosten en de Europese vorstenhuizen. |
+| Zonnecultus | De gemeenschappelijke oorsprong die Icke aan jodendom, christendom en islam toeschrijft, waarmee hij alle drie tot bedenksels van de Broederschap verklaart. |
+| De geheime taal | Icke's stelling dat symbolen, getallen en plaatsnamen een code vormen waarin ingewijden elkaar boodschappen doorgeven. |
+| Bloedlijn | De genealogische afstamming die in dit boek de rol van verklaring speelt: verwantschap geldt als bewijs van samenspanning. |
+
+#### Waar het argument op rust
+
+Het boek heeft een literatuurlijst van vier bladzijden en een register, en
+Icke verwijst voortdurend naar bronnen. Bij nalezen blijkt die verwijzing
+meestal naar andere complot- en alternatieve-geschiedenisliteratuur te leiden,
+niet naar archiefmateriaal of vakliteratuur. De keten loopt van boek naar boek
+en niet naar een controleerbaar document.
+
+De fundering onder het geheel is het werk van Zecharia Sitchin. Diens
+vertalingen van Soemerische teksten worden door assyriologen niet aanvaard: de
+woorden waarop zijn buitenaardse lezing steunt betekenen in het vak iets
+anders. Wie dat fundament wegneemt, houdt van het eerste hoofdstuk niets over.
+
+Waar het om de kernbewering gaat, gedaanteverandering, rust het boek op twee
+met naam genoemde getuigen zonder bevestiging van derden. Arizona Wilder heeft
+haar verklaringen later grotendeels ingetrokken. De mededelingen die aan
+Christine Fitzgerald worden toegeschreven zijn niet te toetsen, omdat de
+persoon van wie zij ze zou hebben gehoord was overleden.
+
+De genealogische passages bevatten wel juiste gegevens: Europese vorstenhuizen
+zijn inderdaad sterk verweven en de families die Icke noemt hebben werkelijk
+grote invloed gehad. De sprong zit in de gevolgtrekking. Verwantschap en
+gedeeld belang tonen aan dat elites elkaar kennen; zij tonen geen
+gecoördineerd plan van duizenden jaren aan, en het boek levert geen enkel stuk
+dat zo'n plan zichtbaar maakt.
+
+Er staat geen bewering in die weerlegd zou kunnen worden. Een gebeurtenis die
+het plan bevestigt is bewijs; een gebeurtenis die het tegenspreekt is
+misleiding door dezelfde macht. Een verhaal dat zo is ingericht kan geen
+ongelijk krijgen, en daarmee vertelt het ook niets over de wereld.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is de antisemitische lezing die aan dit werk is
+toegeschreven. Icke onderschreef in *The Robots' Rebellion* (1994) en *And the
+Truth Shall Set You Free* (1995) de Protocollen van de wijzen van Sion, een
+vervalsing uit het begin van de twintigste eeuw. Zijn uitgever Gateway
+weigerde daarna verder werk, waarna hij in eigen beheer ging uitgeven; ook
+*The Biggest Secret* verscheen zo.
+
+De godsdiensthistoricus Michael Barkun noemt in *A Culture of Conspiracy*
+(2003) Icke's gebruik van de Protocollen het eerste van een reeks momenten
+waarop hij antisemitisch terrein betreedt. De Anti-Defamation League en
+onderzoeksgroepen als Political Research Associates wijzen op de vaste plaats
+die de Rothschilds in zijn werk innemen en op de formule Rothschild-zionisten
+die hij later ging hanteren.
+
+Icke ontkent antisemitisme en stelt dat zijn reptielachtigen geen versluierde
+aanduiding van joden zijn maar een letterlijke bewering over buitenaardse
+wezens. Wat de ontkenning moeilijk toetsbaar maakt is de bouw van het verhaal:
+op de plaats waar de Protocollen joden aanwijzen staan bij Icke de Illuminati
+of de reptielachtigen, terwijl de rest van het schema, de eeuwenoude
+samenzwering, de greep op het bankwezen en op de pers, hetzelfde blijft.
+Daarbij komt dat hij de Rothschilds bij naam noemt en het jodendom behandelt
+als een door de Broederschap opgezette zonnecultus.
+
+De Nederlandse staatssecretaris van Justitie en Veiligheid ontzegde Icke in
+november 2022 de toegang tot Nederland en de overige Schengenlanden voor twee
+jaar, kort voor een bijeenkomst in Amsterdam waar hij zou spreken. De minister
+verlengde dat verbod in oktober 2024 met opnieuw twee jaar, onder meer omdat
+hij naar het oordeel van de bewindspersoon antisemitische uitspraken bleef
+doen.
+
+Los daarvan staat het bezwaar tegen de hoofdstukken over rituele
+kindermishandeling. Die volgen de beschuldigingsgolf van de jaren tachtig en
+negentig, waarvan het merendeel bij politieonderzoek en in rechtszaken geen
+stand hield en waarvan de verklaringen vaak onder suggestieve ondervraging tot
+stand kwamen. Icke behandelt dat materiaal als vaststaand.
+
+Wat het boek in stand houdt is niet zijn bewijsvoering maar zijn
+verklaringskracht in psychologische zin: het geeft aan diffuse machteloosheid
+een gezicht en een naam. Dat verklaart de oplage, en ook waarom weerlegging
+van losse onderdelen aan de aantrekkelijkheid van het geheel weinig verandert.
+
+#### Wat er concreet mee te doen is
+
+- Neem een willekeurige bewering uit het boek en volg de verwijzing naar haar
+bron; noteer hoeveel stappen het kost voordat de keten in een ander
+complotboek eindigt of doodloopt.
+- Leg Sitchins vertaling van de Soemerische termen naast een
+standaardwoordenboek van het Akkadisch of Soemerisch en kijk wat er van het
+eerste hoofdstuk overblijft.
+- Let op waar een heel hoofdstuk op één getuige rust en zoek uit of die
+getuige later iets heeft herroepen.
+- Vergelijk het schema van het boek met de opbouw van de Protocollen van de
+wijzen van Sion en noteer waar de namen zijn vervangen en waar het schema
+gelijk is gebleven.
+- Lees er een studie naast die complotdenken als verschijnsel behandelt,
+bijvoorbeeld die van Barkun, zodat de vraag verschuift van of het waar is naar
+waarom dit soort verhalen werkt.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. Sagan behandelt in *The Demon-Haunted World*
+precies de vraag hoe een bewering te toetsen valt, en levert daarmee het
+gereedschap waarmee Icke's redeneringen uit elkaar vallen.
+- 680. None Dare Call It Conspiracy. Gary Allen schreef in 1971 het
+Amerikaanse complotboek over bankiers en wereldregering waarop Icke's
+hoofdstukken over geld en netwerk rechtstreeks voortbouwen.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Robert Anton Wilson
+bespeelt hetzelfde materiaal aan Illuminati-verhalen, maar met de
+uitdrukkelijke bedoeling dat de lezer er niet in gelooft; het verschil in
+houding is leerzaam.
+- 676. Saucers of the Illuminati. Jim Keith bracht in hetzelfde jaar 1999
+ufo-lore en Illuminati-lore bijeen; naast Icke laat dat zien hoe deze motieven
+in dezelfde periode circuleerden.
+
+## 1533. Heart of the Mind
+
+Connirae Andreas en Steve Andreas, 1989. Oorspronkelijk *Heart of the Mind:
+Engaging Your Inner Power to Change with Neuro-Linguistic Programming* (Real
+People Press, Moab, Utah, 1989), 282 blz., ISBN 9780911226317. De Nederlandse
+uitgave verscheen als *Het hart van de geest* bij Servire in 1992, 319 blz.,
+ISBN 9789063254070; catalogi vermelden A. Kiekens bij de Nederlandse
+bewerking. Die editie is later onder Kosmos-Z&K Uitgevers voortgezet en wordt
+in Nederland vooral via NLP-opleidingen verkocht. Van Connirae Andreas
+verscheen ook *Core Transformation*, geschreven met Tamara Andreas, dat een
+ander boek is. Rubriek: naslag en praktijk.
+Tags: `NLP`, `neurolinguïstisch programmeren`, `verandering`, `fobie`, `rouw`,
+`praktijkboek`, `populaire psychologie`
+
+Connirae en Steve Andreas schreven een toegankelijke inleiding op
+neurolinguïstisch programmeren, opgebouwd uit ruim twintig hoofdstukken die
+elk een afzonderlijk probleem behandelen: podiumangst, fobieën, rouw, schuld
+en schaamte, kritiek verdragen, eetgedrag, beslissen, opvoeden, spelling.
+
+Elk hoofdstuk volgt dezelfde vorm. Eerst een verslag van iemand bij wie een
+verandering optrad, daarna de procedure die daartoe leidde, in stappen
+beschreven. De auteurs gaan ervan uit dat een lezer die stappen zelf kan
+volgen, in korte tijd en zonder therapeut.
+
+De aanname onder het geheel is dat klachten samenhangen met de manier waarop
+iemand ervaringen innerlijk weergeeft, in beelden, geluiden en gevoelens met
+hun eigen kenmerken, en dat een verandering in die weergave de klacht
+verandert. Het boek is invloedrijk geworden in het Nederlandse NLP-onderwijs;
+met de onderbouwing van die aanname staat het er minder goed voor.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het boek stelt dat menselijke problemen minder in de inhoud
+van een ervaring zitten dan in de vorm waarin iemand die ervaring innerlijk
+weergeeft: hoe groot en hoe dichtbij het beeld is, waar in het lichaam het
+gevoel zit, met welke stem de gedachte klinkt. Verander die vorm volgens een
+vaste procedure en de klacht verandert mee, doorgaans binnen een gesprek of
+twee. Daarmee verplaatsen Andreas en Andreas de verandering van inzicht naar
+techniek: begrijpen waar een angst vandaan komt is voor hen niet nodig om haar
+kwijt te raken. Die belofte van snelheid is tegelijk het punt waarop het boek
+het meest te verantwoorden heeft.
+
+#### De gang van het boek
+
+**Waar het boek uit voortkomt**
+
+Neurolinguïstisch programmeren ontstond in de jaren zeventig toen Richard
+Bandler en John Grinder het werk van drie therapeuten nauwkeurig gingen
+beschrijven: Fritz Perls, Virginia Satir en Milton Erickson. Zij wilden niet
+weten wat die drie dachten te doen maar wat zij feitelijk deden, en dat in
+overdraagbare stappen vastleggen.
+
+Connirae en Steve Andreas kwamen uit die kring voort; Steve Andreas redigeerde
+eerder de boeken waarin het vroege werk van Bandler en Grinder werd
+vastgelegd. *Heart of the Mind* is hun poging het materiaal buiten de
+opleidingskring te brengen, geschreven voor lezers zonder voorkennis.
+
+**De vaste vorm van elk hoofdstuk**
+
+Elk van de ruim twintig hoofdstukken begint met een verslag van een persoon en
+een klacht, gaat verder met wat er in de sessie gebeurde, en eindigt met de
+procedure in genummerde stappen. Die opzet maakt het boek bruikbaar als
+naslagwerk: hoofdstukken zijn los te lezen en in willekeurige volgorde.
+
+De keerzijde van die vorm is dat elk hoofdstuk met een geslaagd geval opent.
+Gevallen waarin de procedure niets deed komen niet aan bod, en de lezer krijgt
+geen maat voor hoe vaak het werkt.
+
+**Angst, fobie en trauma**
+
+De bekendste procedure uit het boek is de fobiebehandeling. De cliënt stelt
+zich voor dat hij in een bioscoop naar een film van de eigen herinnering
+kijkt, en vervolgens dat hij vanuit de projectiecabine naar zichzelf kijkt
+terwijl hij die film bekijkt. Die dubbele afstand moet de gevoelslading uit de
+herinnering halen, waarna de film versneld achterstevoren wordt afgespeeld.
+
+Dezelfde redenering wordt toegepast op podiumangst en op de nasleep van
+misbruik. De auteurs benadrukken dat de gebeurtenis niet opnieuw doorleefd
+hoeft te worden, wat zij als voordeel boven gangbare behandelingen
+presenteren.
+
+**Verdriet, schuld en schaamte**
+
+Connirae Andreas beschrijft een rouwprocedure die uitgaat van een verschil in
+innerlijke weergave: wie verdriet houdt zou de overledene op een andere plaats
+en in een ander soort beeld bewaren dan wie iemand kwijt is zonder eraan te
+lijden. De procedure verplaatst het beeld naar de plaats die hoort bij
+aanwezigheid.
+
+In de hoofdstukken over schuld en schaamte gaat het om het scheiden van de
+handeling en de persoon, en om het teruggeven van verantwoordelijkheid aan
+degene bij wie die hoort. Ook hier is de behandeling procedureel: er wordt
+niet uitgezocht waar het gevoel vandaan komt.
+
+**Eten, gezondheid en allergie**
+
+Een hoofdstuk beschrijft een aanpak van eetgedrag waarbij de lezer leert
+onderscheiden welk signaal honger is en welk niet, en waarbij de keuze voor
+voedsel op lichamelijke terugkoppeling wordt gebaseerd in plaats van op
+regels.
+
+Verder staan er hoofdstukken in over zelfgenezing en over allergie, waarin
+wordt gesteld dat een allergische reactie met een NLP-procedure te verminderen
+is doordat het afweersysteem opnieuw leert onderscheiden. Dat is de verst
+strekkende bewering in het boek en tegelijk de zwakst gedragen.
+
+**Tijd, motivatie en beslissen**
+
+Het hoofdstuk over persoonlijke tijdlijnen beschrijft hoe mensen verleden,
+heden en toekomst ruimtelijk ordenen, de een als lijn die door het lichaam
+loopt, de ander als lijn die zich voor hem uitstrekt. Volgens de auteurs hangt
+die ordening samen met de vraag of iemand geneigd is te plannen of in het
+moment te leven, en is zij te verzetten.
+
+Daarnaast behandelt het boek motivatie zonder dreiging met zichzelf,
+besluitvorming, onderhandelen tussen innerlijke delen die elkaar tegenwerken,
+opvoeden en een spellingsprocedure. Dat laatste hoofdstuk, waarin spelling
+wordt teruggebracht tot een visuele strategie, hoort tot de best overdraagbare
+stukken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Submodaliteiten | De kenmerken van een innerlijke voorstelling, zoals helderheid, afstand, formaat, geluidssterkte en plaats in het lichaam, die volgens het boek de gevoelslading bepalen. |
+| Ankeren | Het koppelen van een gewenste innerlijke toestand aan een aanraking, woord of beeld, zodat die toestand later opnieuw is op te roepen. |
+| Herkaderen | Hetzelfde gedrag in een ander verband plaatsen zodat de betekenis ervan verandert zonder dat het gedrag zelf hoeft te verdwijnen. |
+| Dissociatie | Naar een herinnering kijken alsof zij iemand anders overkomt, in de fobiebehandeling nog een keer gestapeld tot dubbele afstand. |
+| Swish | Een procedure waarbij een beeld dat een ongewenste reactie oproept snel wordt vervangen door een beeld van de persoon die de klacht al kwijt is. |
+| Delen | De aanduiding van tegenstrijdige neigingen in iemand als onderhandelbare partijen, elk met een eigen bedoeling. |
+| Positieve intentie | De aanname dat achter elk hinderlijk gedrag een bedoeling schuilt die de persoon wil dienen, en dat die bedoeling behouden moet blijven als het gedrag verdwijnt. |
+| Persoonlijke tijdlijn | De ruimtelijke ordening waarin iemand verleden en toekomst voor zich ziet, volgens het boek aanpasbaar met gevolgen voor plannen en herinneren. |
+| Uitkomstvoorwaarden | De eisen die de auteurs aan een geformuleerd doel stellen, onder meer dat het in eigen hand ligt en in waarneembare termen is beschreven. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan. Wat er staat zijn verslagen van sessies die
+de auteurs zelf hebben gedaan of gezien, verteld vanuit hun eigen waarneming,
+zonder controlegroep, zonder meting vooraf en achteraf en zonder navraag na
+verloop van tijd. Voor een boek dat procedures met genummerde stappen aanbiedt
+is dat een dunne grondslag.
+
+Het model waarop NLP steunt is buiten de eigen kring wel onderzocht en kwam er
+slecht uit. De aanname van een voorkeurszintuig per persoon en de koppeling
+tussen oogbewegingen en denkwijze zijn in de jaren tachtig herhaaldelijk
+getoetst, onder meer in overzichten van Christopher Sharpley in de *Journal of
+Counseling Psychology* en door Michael Heap, en werden niet bevestigd. Een
+later overzicht van Tomasz Witkowski (2010) en een stelselmatig overzicht van
+Sturt en anderen in de *British Journal of General Practice* (2012) kwamen tot
+dezelfde uitkomst voor gezondheidstoepassingen.
+
+Eén onderdeel staat er beter voor dan de rest, al is dat niet aan NLP te
+danken. De fobiebehandeling uit dit boek lijkt sterk op wat in de
+gedragstherapie beeldexposure en imagery rescripting heet, en die aanpak heeft
+wel onderbouwing. Dat maakt aannemelijk dat de procedure bij enkelvoudige
+angsten iets doet, maar de verklaring die de auteurs erbij geven, verandering
+van submodaliteiten, is daarmee niet aangetoond.
+
+De allergieprocedure vormt het andere uiterste. Er bestaat geen onderzoek dat
+aantoont dat een immuunreactie op deze manier te wijzigen is, en de
+fysiologische redenering die het boek erbij geeft is niet meer dan een
+beeldspraak over leren. Wie op grond van dat hoofdstuk medische behandeling
+uitstelt, loopt risico.
+
+Wat het boek daadwerkelijk levert is een verzameling gespreksvormen die
+praktisch bruikbaar blijken en die opvallend vaak overeenkomen met wat later
+in andere scholen zelfstandig is uitgewerkt: afstand nemen tot een
+herinnering, een doel in waarneembare termen formuleren, tegenstrijdige
+neigingen apart benoemen. De waarde zit in die vormen, niet in de
+neurologische taal eromheen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de belofte van snelheid. Het boek vertelt telkens
+over een klacht die in één of twee sessies verdween, en die verhalen komen van
+de behandelaars zelf. Zonder navraag na maanden is niet vast te stellen of het
+effect bleef, en zonder vergelijking is niet vast te stellen of het meer was
+dan wat aandacht en verwachting bij vrijwel elke behandeling teweegbrengen.
+
+De taal van het boek maakt van een beeldspraak een werking. Uitdrukkingen als
+codering, programma en strategie suggereren dat er in het zenuwstelsel iets
+wordt herschreven. Er is geen neurologisch onderzoek dat submodaliteiten als
+grootheid aanwijst, en de term neurolinguïstisch dekt in de praktijk geen
+neurologie.
+
+Voor procedures die met misbruik, trauma en rouw werken geeft het boek
+nauwelijks aan wanneer iemand ze beter niet zelf kan uitvoeren. Er staan
+waarschuwingen in, maar de opzet nodigt uit tot toepassen door lezers en door
+pas opgeleide begeleiders bij mensen bij wie een mislukte poging schade doet.
+
+NLP heeft zich buiten de wetenschappelijke psychologie ontwikkeld en heeft die
+positie behouden. Het is in geen enkele Nederlandse behandelrichtlijn
+opgenomen, terwijl het als opleidingsmarkt wel bloeit. Dit boek, dat in
+Nederland al meer dan dertig jaar op literatuurlijsten van NLP-opleidingen
+staat, draagt aan die scheiding bij: het is geschreven om te overtuigen, niet
+om getoetst te worden.
+
+Daar staat tegenover dat de auteurs zich beperken tot wat zij zeggen te hebben
+zien werken en dat zij zich verre houden van de grotere aanspraken die anderen
+aan NLP verbonden. Wie het boek leest als verzameling gespreksvormen met
+verhalen erbij, en de neurologische verpakking negeert, houdt bruikbaar
+materiaal over.
+
+#### Wat er concreet mee te doen is
+
+- Behandel elke procedure als iets dat uitgeprobeerd wordt en niet als iets
+dat werkt: noteer vooraf hoe erg de klacht is op een schaal, en meet opnieuw
+na een week en na drie maanden.
+- Begin met een enkelvoudige klacht, bijvoorbeeld spanning voor een
+presentatie, en laat trauma en misbruik over aan iemand die daarvoor is
+opgeleid.
+- Sla het allergiehoofdstuk over waar het om een medische aandoening gaat, en
+stel geen behandeling uit op grond daarvan.
+- Lees de neurologische verklaringen als beeldspraak en let alleen op wat de
+procedure feitelijk voorschrijft.
+- Zet het spellingshoofdstuk en het hoofdstuk over doelen formuleren apart;
+die twee zijn los van de rest van het model bruikbaar.
+
+#### Wat je hierna leest
+
+- 1530. De NLP-Coach als inspirator. Een Nederlands NLP-praktijkboek uit
+dezelfde traditie, waarmee te zien is wat er van dit materiaal in het
+Nederlandse opleidingsaanbod terechtkwam.
+- 139. Unlimited Power. Tony Robbins bouwde *Unlimited Power* op vrijwel
+hetzelfde NLP-materiaal, maar dan in de vorm van een verkoopbaar
+succesverhaal; het verschil in toon maakt de aannames zichtbaar.
+- 1511. I'm OK, You're OK. De transactionele analyse van Thomas Harris werkt
+met een vergelijkbaar idee van innerlijke partijen die met elkaar
+onderhandelen, maar met een uitgeschreven theorie erachter.
+- 1526. Get Out of Your Mind and Into Your Life. Een boek over angst en
+somberheid vanuit de gedragstherapie, dat laat zien hoe dezelfde klachten
+worden aangepakt in een traditie die haar uitkomsten wel laat meten.
+
+## 1534. Een wereld achter de wereld
+
+Irina Veelders, 2025. *Een wereld achter de wereld*, verschenen 26 november
+2025 bij London Books, in samenwerking met Your Modern Mystics (Stichting
+LevensCollege), ISBN 9789493425736. Verkrijgbaar als paperback, als gebonden
+uitgave en als e-boek; het aantal bladzijden wordt in de catalogi niet
+vermeld. Het boek is in het Nederlands geschreven en niet vertaald. Het is het
+debuut van Veelders (1969), die het presenteert als roman en niet als
+autobiografie, geïnspireerd door gebeurtenissen die zij zelf meemaakte.
+Rubriek: roman en memoir.
+Tags: `debuutroman`, `spiritualiteit`, `zelfonderzoek`, `Ibiza`,
+`Glastonbury`, `Bali`, `reisverhaal`
+
+Joan heeft naar buiten toe alles voor elkaar, maar herkent zichzelf niet meer
+in haar eigen leven. Als haar verhouding met Eric eindigt, vertrekt zij naar
+Ibiza in de hoop daar op adem te komen.
+
+Wat een pauze had moeten zijn wordt een reis die haar verder voert, naar
+Glastonbury en naar Bali. Een ontmoeting die zij te bijzonder vindt om toeval
+te noemen, opent de deur naar herinneringen die haar beeld van zichzelf
+omkeren.
+
+Veelders schrijft in de traditie van de reisroman over innerlijke verandering,
+met mystieke begrippen als inwijding, kundalini en het heilig huwelijk als
+bouwstenen. Zij noemt het boek geen autobiografie maar zegt zich op eigen
+ervaringen te baseren.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Veelders vertelt het verhaal van een vrouw die niet in crisis
+raakt door verlies van buitenaf maar doordat haar bestaan aan de buitenkant
+klopt terwijl er van binnen niemand thuis is. De aanname onder het boek is dat
+zo'n leegte geen psychologisch mankement is maar een aanwijzing: er ligt
+achter de zichtbare wereld een andere orde, en wie de moed heeft de zichtbare
+orde los te laten kan die tweede leren kennen. De roman voert dat niet aan als
+leer maar als reisverslag, waarbij de plaatsen Ibiza, Glastonbury en Bali de
+rol van drempels vervullen. Wat lezers erover verdeelt is de vraag of die
+tweede orde in het verhaal werkelijk wordt getoond of alleen wordt
+aangekondigd.
+
+#### De gang van het verhaal
+
+**Een leven dat aan de buitenkant klopt**
+
+De roman opent bij Joan, een vrouw die alles heeft wat er van een geslaagd
+bestaan wordt verwacht en die zich er niettemin van vervreemd voelt. Het einde
+van haar verhouding met Eric is niet de oorzaak van die vervreemding maar de
+gebeurtenis die haar zichtbaar maakt.
+
+Veelders houdt dat begin kort. Zij besteedt weinig ruimte aan het beschrijven
+van het oude leven en zet de beweging snel in gang, wat het boek een lichte
+aanloop geeft en tegelijk maakt dat de lezer Joan nog nauwelijks kent als zij
+vertrekt.
+
+**Ibiza**
+
+Ibiza is de eerste plaats waar Joan terechtkomt en het eiland dat de auteur
+zelf het beste kent; Veelders werkte er jarenlang aan interieurprojecten
+voordat zij ging schrijven. In de roman is het eiland niet het uitgaanseiland
+maar het oudere, stille Ibiza van de rotskust en de dorpen landinwaarts.
+
+Hier vindt de ontmoeting plaats die Joan te bijzonder vindt om toeval te
+noemen. Vanaf dat punt verandert de aard van het verhaal: wat als herstelreis
+begon wordt een zoektocht met een richting die zij zelf niet uitzet.
+
+**Glastonbury**
+
+De tweede plaats is Glastonbury in Somerset, sinds de vroege twintigste eeuw
+het middelpunt van een Engelse traditie die de streek met Avalon en met de
+graallegende verbindt. Veelders gebruikt die laag zoals zij in de plaats zelf
+leeft, met de Tor, de bronnen en de abdijruïne.
+
+In dit deel komen de herinneringen op waar de titel naar verwijst: beelden die
+Joan niet in haar eigen levensloop kan plaatsen. De roman laat in het midden
+of het om herinnering aan een eerder bestaan gaat of om iets anders, en dringt
+op dat punt geen uitleg op.
+
+**Bali**
+
+De derde plaats is Bali, waar de roman het lichaam binnengaat. Hier komen de
+begrippen naar voren die Veelders in haar werk buiten het boek ook hanteert:
+kundalini als opstijgende levensenergie en hieros gamos, het heilig huwelijk,
+als samenkomen van twee polen in één persoon.
+
+Deze bladzijden vragen het meeste van een lezer die met die begrippen niets
+heeft. Veelders legt ze niet uit zoals een handboek zou doen; zij laat ze aan
+Joan gebeuren en verwacht dat de lezer meegaat.
+
+**Wat er aan het eind staat**
+
+De vraag waar het boek op uitloopt is of Joans leven haar overkomt of dat zij
+het maakt. Veelders zet de twee antwoorden niet tegenover elkaar; in haar
+opzet valt lotsbestemming samen met het besluit die te aanvaarden.
+
+De afloop is geen terugkeer naar het oude leven en ook geen nieuw leven dat al
+is ingericht. Wat Joan meeneemt is een andere verhouding tot de vraag wie zij
+is, en de erkenning dat de wereld waar de titel op doelt er al was voordat zij
+vertrok.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De wereld achter de wereld | De orde die volgens het boek achter de zichtbare werkelijkheid ligt en die zich aandient zodra iemand de vanzelfsprekendheid van het gewone leven verliest. |
+| Inwijding | Een beproeving die het oude zelfbeeld onbruikbaar maakt; in de roman verbonden aan de drie plaatsen waar Joan komt. |
+| Kundalini | In de Indiase yogatraditie de energie die langs de wervelkolom opstijgt; Veelders gebruikt de term voor de lichamelijke kant van Joans verandering. |
+| Hieros gamos | Het heilig huwelijk uit de mysterietradities, in dit boek opgevat als het samenkomen van mannelijke en vrouwelijke kanten binnen één persoon. |
+| Zielsliefde | De ontmoeting die door de betrokkenen als voorbestemd wordt ervaren en die in het verhaal de aanzet tot de reis geeft. |
+| De zoeker | De houding van iemand die naar antwoorden op zoek is; Veelders behandelt het einde van die houding als de eigenlijke uitkomst. |
+| Avalon | De legendarische plaats die in de Engelse traditie met Glastonbury wordt vereenzelvigd en die in de roman als tweede drempel dient. |
+
+#### Waar het argument op rust
+
+Als roman hoeft dit boek geen bewijs te leveren, maar de auteur plaatst het
+zelf op een grensvlak: zij noemt het geen autobiografie en zegt tegelijk dat
+het op werkelijke gebeurtenissen berust, en zij verkoopt het via Your Modern
+Mystics, de organisatie waarmee zij met Bonnie Bessem lessen in bewustzijn en
+mediumschap geeft. Daarmee doet het verhaal wel een aanspraak, ook al staat
+die niet als bewering op papier.
+
+De denkbeelden waaruit de roman put zijn niet van Veelders zelf. Kundalini
+komt uit de tantrische en yogatraditie, hieros gamos uit de mysterietradities
+en uit de lezing die Jung eraan gaf, en de verbinding tussen Glastonbury en
+Avalon is een Engelse constructie uit de late negentiende en vroege twintigste
+eeuw, geen middeleeuws gegeven. Het boek behandelt die lagen als vaststaand.
+
+Onafhankelijk oordeel over de roman is er nauwelijks. Op het moment van
+schrijven bestaan er vrijwel geen besprekingen in literaire media; de
+beoordelingen komen van webwinkels en van de eigen verkoopkanalen, waar het
+publiek grotendeels uit de kring rond de auteur komt. Wat hier over de inhoud
+staat berust dan ook op de uitgeversbeschrijving en op wat de auteur er zelf
+over zegt.
+
+In literair opzicht plaatst het boek zich in een goed gevulde hoek. De opbouw
+van drie plaatsen die drie stappen in een innerlijke ontwikkeling markeren is
+dezelfde die *De alchemist* en *Eat, Pray, Love* bekend maakten, en de roman
+wordt door lezers ook zo aangeprezen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek een uitkomst bezingt die het niet laat
+zien. Joans verandering wordt in de taal van inwijding en herinnering
+aangekondigd, maar wat er in haar dagelijks bestaan verandert blijft
+grotendeels buiten beeld. Een roman over innerlijke ommekeer moet die ommekeer
+in gedrag en in verhouding tot anderen tonen, en dat is het punt waar dit
+debuut het meest te winnen heeft.
+
+De drie plaatsen zijn niet neutraal gekozen. Ibiza, Glastonbury en Bali zijn
+de vaste haltes van een westerse spirituele reisroute, en ze brengen de
+bijbehorende verwachting mee. Veelders doet weinig om die verwachting te
+doorbreken, waardoor de plaatsen eerder als decor werken dan als omgeving met
+eigen bewoners en eigen weerbarstigheid.
+
+Verder is de reis er een die geld en tijd veronderstelt. Joan kan vertrekken;
+het boek staat niet stil bij wat dat kost of bij wie het niet kan. Dat maakt
+het verhaal minder algemeen dan de titel doet vermoeden.
+
+Wat het boek wel doet is een ervaring beschrijven die veel mensen op
+middelbare leeftijd herkennen, het gevoel dat een goed ingericht leven leeg
+kan zijn, en die ervaring serieus nemen zonder haar meteen als klacht te
+behandelen. Voor lezers die aan de vooronderstellingen niets hebben blijft er
+weinig over; voor lezers die er wel iets mee hebben werkt het als bevestiging
+en als reisverslag.
+
+#### Wat je hierna leest
+
+- 8. De alchemist. Coelho schreef het model waar dit soort romans op
+teruggaat: de reis naar buiten die de reis naar binnen blijkt, met plaatsen
+als drempels.
+- 1538. The Forty Rules of Love. Elif Shafak verweeft in *The Forty Rules of
+Love* ook een hedendaagse vrouw met een mystieke traditie, maar met een tweede
+verhaallijn die de traditie zelf laat spreken.
+- 1535. Hemeltaal. Bonnie Bessem geeft samen met Veelders les binnen Your
+Modern Mystics; haar boek laat zien welk mensbeeld achter deze roman ligt,
+maar dan als uitgesproken bewering.
+- 1520. Eastern Body, Western Mind. Anodea Judith zet de begrippen die
+Veelders in het Bali-deel losjes gebruikt, kundalini en de energiecentra,
+uiteen als samenhangend stelsel.
+
+## 1535. Hemeltaal
+
+Bonnie Bessem, 2017. *Hemeltaal: boodschappen uit de ongeziene wereld*,
+Uitgeverij Bewust Zijn, Den Haag, 2017, ISBN 9789492066268; als e-boek ISBN
+9789492066312. Over de omvang lopen de opgaven uiteen: de bibliotheekcatalogus
+vermeldt 313 blz., boekhandels geven 400 blz. voor de paperback. Het boek is
+in het Nederlands geschreven en niet vertaald. Bessem publiceerde daarnaast
+*En ze leerden nog lang en gelukkig* en geeft met Irina Veelders les binnen
+Your Modern Mystics. Rubriek: filosofie en mystiek.
+Tags: `mediumschap`, `rouw`, `leven na de dood`, `spiritisme`, `troost`,
+`channeling`
+
+Op 28 juli 2015 overleed de vader van Bonnie Bessem plotseling. Twee dagen
+later ontvingen zijn vier kinderen, naar eigen zeggen los van elkaar, dezelfde
+boodschappen van hem. *Hemeltaal* bestaat uit de gesprekken die daarna volgden
+tussen Bessem en haar overleden vader.
+
+De vorm is die van korte gespreksverslagen: zij stelt een vraag, hij
+antwoordt. De onderwerpen zijn hoe het bestaan volgens hem doorgaat na de
+dood, wat er van iemand overblijft, en hoe nabestaanden contact kunnen ervaren
+met wie zij verloren.
+
+Bessem is opgeleid als psycholoog en werkt sinds de jaren negentig als medium.
+Zij gebruikt beide achtergronden in het boek, dat rouw en angst voor de dood
+als aangeleerd behandelt en de dood als thuiskomst voorstelt. Wat er staat is
+getuigenis; toetsbare beweringen bevat het niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bessem stelt dat de dood geen einde is maar een overgang, en
+dat de verbinding met een gestorvene blijft bestaan en zelfs merkbaar blijft
+voor wie leert waarnemen. Wat mensen aan de dood vrezen is volgens het boek
+niet de dood zelf maar een voorstelling ervan die de cultuur heeft opgebouwd:
+oordeel, straf, verdwijnen. Haar vader beschrijft daartegenover een toestand
+die hij Thuis noemt en waar geen oordeel bestaat. De aanspraak is niet bedoeld
+als mooie gedachte: het boek beweert dat het zo is. Precies daar ligt het punt
+waarop het te beoordelen valt, want die bewering rust uitsluitend op wat één
+medium doorgeeft over haar eigen vader.
+
+#### De gang van het boek
+
+**Waar het boek uit voortkomt**
+
+Het uitgangspunt is een sterfgeval in de eigen familie. Op 28 juli 2015
+overleed Bessems vader onverwacht. Twee dagen later kregen zijn vier kinderen
+volgens het boek, ieder afzonderlijk en zonder overleg, dezelfde boodschappen
+van hem door, en ook mensen buiten de familie meldden iets vergelijkbaars.
+
+Bessem beschrijft dat voorval als aanleiding en niet als bewijs. Zij vertelt
+wat er gebeurde en gaat vervolgens over tot de gesprekken die zij daarna met
+hem zegt te hebben gevoerd. Het persoonlijke karakter blijft door het hele
+boek voelbaar: het gaat over haar eigen vader, met de details van een familie.
+
+**De vorm van de gesprekken**
+
+Het boek is opgebouwd uit korte stukken. Bessem stelt een vraag, haar vader
+antwoordt, soms in enkele regels, soms in een langer betoog. Die opzet maakt
+de tekst luchtig ondanks de omvang, en geschikt om stuk voor stuk te lezen in
+plaats van achter elkaar.
+
+Wat de vader zegt is in toon en woordkeus herkenbaar Nederlands en alledaags.
+Hij spreekt niet plechtig en gebruikt geen leerstellige taal. Het woord
+hemeltaal duidt op iets anders dan spraak: op een manier van doorgeven die
+volgens Bessem eerder in beelden en gevoel werkt dan in zinnen, en die zij als
+medium in woorden omzet.
+
+**Wat er over de andere kant wordt gezegd**
+
+De kern van wat de vader doorgeeft is dat iedereen teruggaat naar Huis, en dat
+er daar geen oordeel bestaat maar alleen liefde. Er is in dit boek geen hel,
+geen straf en geen weging van een leven door een instantie buiten de persoon
+zelf.
+
+Wel is er terugblik: het overzien van het eigen leven, met de gevolgen van
+eigen keuzes voor anderen. Dat overzien is in de beschrijving geen
+veroordeling maar begrijpen. Wie het boek naast oudere spiritistische
+literatuur legt, ziet dat dit beeld sinds de negentiende eeuw in grote lijnen
+hetzelfde is gebleven.
+
+**De taal van het hart**
+
+Een deel van het boek gaat over hoe nabestaanden zelf contact kunnen ervaren.
+De aanwijzingen zijn eenvoudig en niet ritueel: rust nemen, aandacht richten,
+letten op wat er opkomt in dromen, invallen en het gevoel van aanwezigheid, en
+dat niet meteen wegredeneren.
+
+Bessem waarschuwt tegen het verwachten van spectaculaire tekenen en stelt dat
+het meestal om gewone waarnemingen gaat die achteraf betekenis krijgen. Dat is
+een terughoudender opstelling dan in dit genre gebruikelijk is, maar het maakt
+de waarnemingen ook onmogelijk van toeval te onderscheiden.
+
+**De sluier en de angst voor de dood**
+
+Een terugkerend onderwerp is de vraag waarom de mens de dood tot iets
+angstaanjagends heeft gemaakt. Het boek wijst daarvoor naar overgeleverde
+voorstellingen van oordeel en straf, en naar de gewoonte sterven aan het zicht
+te onttrekken.
+
+Daartegenover zet Bessem dat de scheiding tussen de twee werelden dunner is
+dan mensen aannemen. De term sluier staat bij haar niet voor een muur maar
+voor een aandachtsdrempel: wat er is, wordt niet opgemerkt zolang de aandacht
+ergens anders is.
+
+**De verbinding is eeuwig**
+
+Het slot van het boek werkt de gedachte uit dat de band met een gestorvene
+niet verbroken hoeft te worden om verder te kunnen. Rouw is in deze opvatting
+geen loskomen maar een verandering van de vorm waarin de verbinding bestaat.
+
+Die gedachte staat niet ver van wat in de rouwpsychologie continuing bonds
+heet, een benadering die sinds de jaren negentig het oudere model van
+rouwarbeid en loslaten heeft verdrongen. Bessem verbindt haar echter aan de
+bewering dat de gestorvene werkelijk aanwezig is en antwoordt, en dat is een
+stap verder dan die psychologie zet.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hemeltaal | De manier waarop volgens Bessem uit de ongeziene wereld wordt doorgegeven, eerder in beeld, gevoel en weten dan in zinnen, door het medium omgezet in woorden. |
+| De ongeziene wereld | De werkelijkheid waarin gestorvenen zich volgens het boek bevinden, niet ver weg maar buiten het bereik van de gewone aandacht. |
+| Thuis | De toestand waarnaar iedereen na de dood terugkeert, in het boek gekenmerkt door de afwezigheid van oordeel. |
+| De sluier | De scheiding tussen beide werelden, door Bessem beschreven als drempel van aandacht en niet als ondoordringbare grens. |
+| De taal van het hart | De waarnemingswijze waarmee nabestaanden volgens het boek zelf contact kunnen ervaren, gebaseerd op gevoel in plaats van op redenering. |
+| Mediumschap | Het vermogen dat Bessem zegt te hebben en dat zij als beroep uitoefent: waarnemen wat uit de ongeziene wereld wordt doorgegeven. |
+| De verbinding | De band tussen levende en gestorvene, die volgens het boek niet eindigt en alleen van vorm verandert. |
+
+#### Waar het argument op rust
+
+Het boek levert geen bewijs en houdt dat ook niet voor. Alles wat erin staat
+berust op wat Bessem zegt te hebben ontvangen. Het enige voorval dat in
+beginsel controleerbaar had kunnen zijn, de vier kinderen die twee dagen na
+het sterfgeval afzonderlijk dezelfde boodschappen kregen, is achteraf
+opgetekend door een van de vier en niet onafhankelijk vastgelegd op het moment
+zelf.
+
+De psychologische opleiding van de auteur wordt in de presentatie van het boek
+als gezag gebruikt, maar de beweringen zijn geen psychologische beweringen.
+Dat een psycholoog iets meldt over voortbestaan na de dood zegt over de
+houdbaarheid van die melding evenveel als wanneer iemand anders het meldt.
+
+Mediumschap is buiten deze literatuur onderzocht. Onder omstandigheden waarin
+het medium geen aanwijzingen over de overledene kan opvangen, is de
+nauwkeurigheid van de doorgegeven informatie nooit aangetoond op een manier
+die door de bredere wetenschap is aanvaard; de studies die dat wel claimen
+komen uit een kleine kring en zijn methodisch aangevochten. De herkenning die
+lezers ervaren wordt gangbaar verklaard uit uitspraken die op vrijwel iedereen
+passen, het zogenoemde Barnum-effect, en uit het onthouden van rake
+opmerkingen en vergeten van missers.
+
+Wat wel vaststaat is dat ervaringen van aanwezigheid van een gestorvene veel
+voorkomen. In rouwonderzoek meldt een aanzienlijk deel van de weduwen en
+weduwnaars zulke ervaringen, en die gelden daar niet als stoornis. Het
+verschil met dit boek zit in de uitleg: waar de rouwpsychologie een
+veelvoorkomende ervaring beschrijft, leidt Bessem daaruit af dat de gestorvene
+er werkelijk is.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de tekst niet weersproken kan worden. Blijft het
+uit dat iemand contact ervaart, dan lag het aan de aandacht of aan het
+verdriet; komt er wel iets, dan is het bevestiging. Een verhaal dat elke
+uitkomst opneemt kan geen inlichting over de werkelijkheid bevatten, hoe waar
+het ook aanvoelt.
+
+De vader spreekt in het register van de dochter. Zijn woordkeus, zijn zinsbouw
+en zijn opvattingen sluiten aan bij het gedachtegoed waarin Bessem zelf werkt,
+en er komt niets naar voren dat haar zou tegenspreken of verrassen. Dat is
+precies wat te verwachten is wanneer een tekst uit één hoofd komt, en het boek
+geeft geen enkele manier om die verklaring uit te sluiten.
+
+Er zit een risico in de troost. Voor sommige rouwenden werkt het idee van een
+blijvende band verlichtend; voor anderen kan het vasthouden aan contact het
+aanvaarden van het verlies uitstellen. De rouwliteratuur wijst dat verschil
+aan als afhankelijk van de persoon, en dit boek maakt dat onderscheid niet.
+
+Het boek staat bovendien in een verkoopomgeving. Rond de uitgave worden
+cursussen, meditaties en begeleiding aangeboden door dezelfde organisatie. Dat
+maakt de inhoud niet onwaar, maar het plaatst een tekst die het meest wordt
+gelezen door mensen in de eerste maanden na een sterfgeval in een context
+waarin die kwetsbaarheid ook een markt is.
+
+Daar staat tegenover dat Bessem zich terughoudender opstelt dan veel auteurs
+in dit genre. Zij belooft geen tekenen, wijst spectaculaire verschijnselen af,
+en de teneur van het boek is dat rouwenden hun verdriet niet hoeven weg te
+redeneren. Wie het leest als de neerslag van hoe één familie met een
+sterfgeval omging, houdt daar iets aan over dat niet van de waarheidsvraag
+afhangt.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als getuigenis en niet als uiteenzetting; scheid bij het lezen
+wat er wordt verteld van wat er wordt beweerd.
+- Wie de aanwijzingen over contact wil volgen, schrijf de waarnemingen op het
+moment zelf op en niet achteraf, zodat later te zien is wat er werkelijk
+stond.
+- Let bij aanhoudende rouwklachten op wat het vasthouden aan contact doet;
+helpt het niet of nemen de klachten toe, zoek dan begeleiding die op rouw is
+toegesneden.
+- Bekijk het aanbod aan cursussen en consulten dat aan het boek vastzit apart
+van het boek zelf, en beoordeel prijs en belofte op eigen merites.
+
+#### Wat je hierna leest
+
+- 1524. Eindeloos bewustzijn. Van Lommel bespreekt bijna-doodervaringen met
+verwijzing naar onderzoek in ziekenhuizen; naast Bessem laat dat het verschil
+zien tussen een getoetste en een niet-getoetste aanspraak op hetzelfde
+terrein.
+- 1537. The Light Bringer. Ook *De lichtbrenger* is doorgegeven materiaal uit
+de ongeziene wereld; de overeenkomst in beeld van het hiernamaals over een
+eeuw heen is op zichzelf een gegeven om over na te denken.
+- 1534. Een wereld achter de wereld. Irina Veelders werkt met Bessem samen
+binnen Your Modern Mystics; haar roman brengt hetzelfde mensbeeld als verhaal
+in plaats van als bewering.
+
+## 1536. The End of Your World
+
+Adyashanti, 2008; vert. Prema van Harte. Oorspronkelijk *The End of Your
+World: Uncensored Straight Talk on the Nature of Enlightenment* (Sounds True,
+Boulder, 2008; paperback 2010, 244 blz., ISBN 9781591799634), geredigeerd uit
+bijeenkomsten en gesprekken, met een inleiding van uitgeefster Tami Simon.
+Nederlands als *Het einde van je wereld: ongecensureerde, klare taal over de
+aard van verlichting*, vertaald door Prema van Harte, Uitgeverij Samsara, 2010
+(240 blz., ISBN 9789077228869); herdruk 2023, ISBN 9789493301122. Van dezelfde
+auteur verschenen onder meer *Emptiness Dancing*, *True Meditation*, *Falling
+into Grace* en *The Way of Liberation*. Rubriek: filosofie en mystiek.
+Tags: `verlichting`, `non-dualiteit`, `advaita`, `zen`, `ontwaken`, `ego`,
+`meditatie`
+
+Adyashanti, geboren als Steven Gray in 1962 in Cupertino, kreeg veertien jaar
+zenles van Arvis Joen Justi en begon in 1996 zelf te onderrichten. Dit boek is
+samengesteld uit die bijeenkomsten en gaat over een onderwerp dat volgens hem
+meestal binnenskamers blijft: wat er gebeurt nadat iemand het inzicht heeft
+gehad dat er geen afzonderlijk zelf is.
+
+Hij beschrijft dat inzicht als een verschuiving in de waarneming die kan komen
+en weer weggaan. Wie het kwijtraakt, komt terecht in wat hij het patroon van
+ik had het en ik ben het kwijt noemt. Het grootste deel van het boek behandelt
+de manieren waarop het inzicht daarna vastloopt: het ego eigent zich de
+ontdekking toe, de wereld verliest haar betekenis, of iemand raakt zoals hij
+het noemt dronken van leegte.
+
+Als maatstaf hanteert Adyashanti of het inzicht is doorgedrongen tot hoofd,
+hart en buik. Het hoofd ziet dat de scheiding niet bestaat, het hart moet dat
+nog beminnen, en in de buik zit volgens hem de laatste weerstand: de angst
+voor het eigen verdwijnen. Het boek eindigt bij wat hij de natuurlijke staat
+noemt, waarin er niets bijzonders meer aan de hand is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Adyashanti stelt dat het inzicht dat er geen afzonderlijk
+zelf bestaat een beginpunt is en geen eindpunt. Wat gewoonlijk verlichting
+heet, beschrijft hij als een verschuiving in de waarneming die zich kan
+voordoen en weer kan wegtrekken, en de meeste geestelijke moeilijkheden zitten
+volgens hem niet voor dat moment maar erna. Het ego neemt de ontdekking in
+bezit, de wereld verliest haar gewicht, en de betrokkene houdt een inzicht
+over waar hij in het dagelijks leven niets mee aankan. Daartegenover zet hij
+een maatstaf die aan gedrag af te lezen valt: is het inzicht ook doorgedrongen
+tot het hart en tot de buik, of is het bij een gedachte gebleven. Wie het boek
+wil tegenspreken, kan aanvoeren dat die maatstaf uitsluitend door de leraar
+wordt toegepast en door de leerling niet te controleren is.
+
+#### De gang van het boek
+
+**Een boek over de tijd erna**
+
+Het eerste hoofdstuk zet af tegen de gangbare literatuur over verlichting, die
+in de beschrijving van Adyashanti stopt op het moment dat het inzicht
+doorbreekt. Wat daarna komt is volgens hem onder leraren en leerlingen wel
+besproken maar zelden opgeschreven, en daardoor komen mensen er onvoorbereid
+in terecht.
+
+Uitgeefster Tami Simon schrijft in haar inleiding dat het boek is voortgekomen
+uit opnamen van bijeenkomsten. Dat is aan de tekst te merken: er wordt
+gesproken, niet betoogd, en de hoofdstukken bestaan uit uitleg afgewisseld met
+antwoorden op vragen die uit de zaal kwamen.
+
+**Ontwaken en de verwarring die volgt**
+
+Adyashanti onderscheidt het inzicht van de gevolgen ervan. Het inzicht zelf
+noemt hij eenvoudig: er wordt gezien dat het personage waarvoor iemand zich
+hield een gedachte is en geen ding. De gevolgen zijn dat wat het leven ordende
+wegvalt, en dat de betrokkene daarna nog jaren met de gevolgen bezig is.
+
+Hij besteedt aandacht aan de desoriëntatie die daarop volgt. Mensen weten niet
+meer waarom zij iets zouden doen, verliezen de vanzelfsprekendheid van hun
+werk of hun relaties, en zoeken naar iemand die uitlegt dat dit erbij hoort.
+Het boek is voor een deel bedoeld als die uitleg.
+
+**Ik had het, ik ben het kwijt**
+
+Het derde hoofdstuk behandelt het verschijnsel waar de meeste van zijn
+leerlingen mee komen. Zij hebben een periode gehad waarin alles helder was, en
+die is voorbij. Adyashanti noemt dat blijvende versus niet-blijvende
+realisatie, waarbij het niet-blijvende de regel is en het blijvende de
+uitzondering.
+
+Zijn verklaring is dat het inzicht zelf niet wegtrekt maar dat de aandacht
+ernaartoe terugvalt in oude gewoonten. Het verlies wordt daarmee zelf een
+leerpunt: het laat zien welke delen van iemands leven het inzicht nog niet
+hebben opgenomen. Nirvana bereikt men via samsara, luidt de kop van het
+volgende hoofdstuk, waarmee hij bedoelt dat de weg door het gewone leven loopt
+en niet eromheen.
+
+**Waar het misgaat**
+
+Het langste deel van het boek is een opsomming van manieren waarop het inzicht
+ontspoort. De eerste is dat het ego zich de realisatie toe-eigent en er een
+prestatie van maakt, compleet met het gevoel boven anderen te staan. De tweede
+is wat hij dronken van leegte noemt: iemand ziet dat niets een vaste kern
+heeft en trekt daaruit de gevolgtrekking dat gedrag er niet toe doet.
+
+De derde is de val van de betekenisloosheid. Als alle verhalen wegvallen, valt
+ook weg waarom iets de moeite waard zou zijn, en dat kan jaren duren.
+Adyashanti behandelt daarnaast het vasthouden aan een bijzondere ervaring en
+het inrichten van een geestelijke persoonlijkheid rond het inzicht.
+
+Zijn tegengif is steeds hetzelfde: het leven zelf houdt een spiegel voor. Waar
+iemand in het gewone verkeer met anderen vastloopt, is het inzicht nog niet
+doorgedrongen. Dat maakt de omgang met partners, ouders en werk tot toetssteen
+in plaats van tot afleiding.
+
+**Hoofd, hart en buik**
+
+Het negende hoofdstuk bevat de indeling waar het boek het meest om wordt
+aangehaald. Het inzicht dringt volgens Adyashanti in drie stadia door. In het
+hoofd wordt gezien dat het afzonderlijke zelf een constructie is. In het hart
+slaat dat om in liefde, waarbij de scheiding tussen waarnemer en waargenomene
+ook gevoelsmatig verdwijnt.
+
+De buik is bij hem de laatste en de moeilijkste. Daar zit wat hij de diepste
+angst noemt, de weerstand tegen het eigen verdwijnen, en die laat zich niet
+met inzicht wegnemen. Wie alleen in het hoofd is doorgebroken herkent hij aan
+koelheid; wie in het hart is doorgebroken maar niet in de buik, aan een
+blijvende onrust waar geen aanleiding voor te vinden is.
+
+Hij behandelt in dit verband ook wat hij de energetische kant van het ontwaken
+noemt: lichamelijke verschijnselen, slapeloosheid en heftige
+gevoelsuitbarstingen. Zijn advies is die niet als teken van vooruitgang te
+lezen en er evenmin bang voor te zijn.
+
+**Inspanning of genade, en de natuurlijke staat**
+
+Het tiende hoofdstuk gaat over de oude twistvraag of iemand iets kan doen om
+te ontwaken. Adyashanti antwoordt tweezijdig: het inzicht laat zich niet
+afdwingen, en tegelijk zijn er mensen die er niets voor deden en anderen die
+jaren zaten. Hij weigert daar een methode uit af te leiden en houdt het erop
+dat de bereidheid iets is wat wel in iemands hand ligt.
+
+Het boek eindigt bij de natuurlijke staat, die hij bewust ongespectaculair
+beschrijft: geen aanhoudende gelukzaligheid, geen bijzondere vermogens, alleen
+het wegvallen van de aandrang om ergens anders te zijn dan waar men is. Het
+slotstuk is een verhaal over een bruiloft, gevolgd door een vraaggesprek
+waarin hij zijn eigen loopbaan toelicht.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Blijvende en niet-blijvende realisatie | Het onderscheid tussen een inzicht dat weer wegtrekt en een inzicht dat de gewone dagelijkse waarneming blijvend kleurt; het eerste is volgens Adyashanti het normale geval. |
+| Ik had het, ik ben het kwijt | De term waarmee hij de klacht van zijn leerlingen samenvat dat een periode van helderheid voorbij is gegaan en niet terugkomt. |
+| Dronken van leegte | De toestand waarin iemand het inzicht dat niets een vaste kern heeft gebruikt om zich van gedrag en gevolgen niets meer aan te trekken. |
+| De val van de betekenisloosheid | De periode waarin met de verhalen over het eigen leven ook elke reden wegvalt om iets te ondernemen, door Adyashanti behandeld als doorgangsfase en niet als eindpunt. |
+| Toe-eigening door het ego | Het verschijnsel dat het afgelegde zelfbeeld terugkeert als beeld van iemand die ontwaakt is, met bijbehorend gevoel van meerderheid. |
+| Hoofd, hart en buik | De drie plaatsen waar het inzicht volgens hem achtereenvolgens moet doordringen, waarbij de buik de laatste weerstand herbergt: de angst voor het eigen verdwijnen. |
+| De energetische kant | De lichamelijke en gevoelsmatige verschijnselen die volgens Adyashanti een ontwaken kunnen begeleiden, zonder dat zij er iets over zeggen. |
+| De natuurlijke staat | De toestand die hij als uitkomst beschrijft, opvallend onopvallend: geen aanhoudende gelukzaligheid, wel het wegvallen van de aandrang elders te willen zijn. |
+| Het leven als spiegel | De stelregel dat de omgang met anderen laat zien waar het inzicht nog niet is doorgedrongen, waardoor gewone conflicten toetssteen worden. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan en beroept zich nergens op meetbare
+uitkomsten. Wat het aandraagt is van twee soorten: het eigen verslag van de
+auteur en het beeld dat hij zich vormde uit gesprekken met leerlingen over een
+reeks jaren. Beide zijn niet na te trekken. Adyashanti erkent dat ook, in die
+zin dat hij nergens de indruk wekt iets te bewijzen; hij beschrijft een gebied
+en laat het aan de lezer of die het herkent.
+
+Waar het boek wel steun aan ontleent, is de overeenkomst met oudere teksten.
+De indeling in een inzicht dat komt en gaat en een inzicht dat blijft, komt in
+de chan- en zenliteratuur en in de advaita van Ramana Maharshi en Nisargadatta
+in vergelijkbare vorm voor. Adyashanti kreeg veertien jaar zenles van Arvis
+Joen Justi, zelf leerling van Taizan Maezumi Roshi, en kreeg in 1996 haar
+toestemming om te onderrichten. Die lijn is controleerbaar en geeft de tekst
+een herkomst.
+
+De opbouw van de argumentatie is klinisch van vorm zonder klinisch te zijn: er
+wordt een klachtenbeeld beschreven, er worden verschijningsvormen
+onderscheiden, en er wordt een indeling voorgesteld waarmee die te ordenen
+zijn. Dat maakt het boek bruikbaar als beschrijving en zegt niets over de
+juistheid van de onderliggende stelling dat er geen afzonderlijk zelf is.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de kernstelling niet te weerleggen valt. Wie zegt
+dat hij het inzicht niet herkent, is volgens de opzet van het boek nog niet
+ontwaakt; wie zegt dat hij het wel heeft en er anders over denkt, is nog in
+het hoofd blijven steken of heeft zich de realisatie toegeëigend. Elk denkbaar
+tegenargument wordt daarmee opgenomen in het stelsel dat het aanvalt. Dat is
+een oud probleem van deze literatuur en Adyashanti lost het niet op.
+
+Daarmee samen hangt de positie van de leraar. De maatstaf of het inzicht is
+doorgedrongen tot hart en buik kan alleen door iemand anders worden toegepast,
+en dat legt het oordeel over de vordering van de leerling volledig bij de
+leraar. Het boek bespreekt de misbruikgeschiedenis van westerse geestelijke
+gemeenschappen niet, terwijl die geschiedenis grotendeels op precies deze
+verhouding rust.
+
+Er ontbreekt een ethische en maatschappelijke laag. De uitkomst die het boek
+voorstelt, is een innerlijke: er valt iets weg en er blijft rust over. Wat
+iemand met die rust zou moeten aanvangen ten opzichte van anderen, van werk of
+van de wereld, blijft grotendeels open. De passage over dronken zijn van
+leegte laat zien dat Adyashanti het probleem ziet, maar hij zet er geen
+uitgewerkt antwoord tegenover.
+
+Bij de beschrijving van de energetische verschijnselen loopt het boek tegen
+zijn eigen grens aan. Slapeloosheid, heftige gevoelsuitbarstingen en het
+gevoel dat het bestaan wegvalt zijn ook klachten waarvoor psychiatrische hulp
+bestaat. Adyashanti duidt ze binnen zijn eigen kader en verwijst nauwelijks
+door. Onderzoek naar moeilijke meditatie-ervaringen, dat na het verschijnen
+van het boek op gang kwam, laat zien dat die verwijzing soms nodig is.
+
+Ten slotte compliceert de latere loopbaan van de auteur het beeld van de
+natuurlijke staat. Adyashanti trok zich in 2023 terug uit het openbare
+onderricht wegens aanhoudende pijn en posttraumatische klachten. Dat weerlegt
+niets van wat het boek beweert, maar het maakt zichtbaar dat de toestand die
+het beschrijft geen vrijwaring is van lichamelijk en psychisch lijden, en het
+boek zegt daar zelf weinig over.
+
+#### Wat er concreet mee te doen is
+
+- Lees het hoofdstuk over hoofd, hart en buik als beschrijving en niet als
+ladder waarlangs vooruitgang valt af te meten.
+- Behandel elke ervaring die bijzonder aanvoelt als voorbijgaand; het boek
+stelt zelf dat het vasthouden eraan de eerste valstrik is.
+- Toets bij een aanhoudend gevoel dat niets meer betekenis heeft eerst of het
+om een depressie gaat, voordat het als geestelijke doorgangsfase wordt geduid.
+- Gebruik conflicten met naasten als plaats waar het beweerde inzicht
+zichtbaar wordt; Adyashanti maakt daar zijn enige praktische toetssteen van.
+- Wie het boek naast oudere bronnen wil leggen, begint bij de
+advaitagesprekken van Nisargadatta, waar dezelfde stelling zonder
+therapeutische inkleding staat.
+
+#### Wat je hierna leest
+
+- 1502. I Am That. Nisargadatta formuleert dezelfde stelling over het afwezige
+zelf, maar zonder de aandacht voor wat er daarna met iemand gebeurt.
+- 149. The Power of Now. Tolle beschrijft het inzicht als bereikbaar en
+blijvend; Adyashanti besteedt zijn boek juist aan het feit dat het meestal
+wegtrekt.
+- 519. The First and Last Freedom. Krishnamurti wijst elke leraar en elke
+methode af, en levert daarmee het bezwaar tegen de leraar-leerlingverhouding
+waar dit boek op rust.
+- 1504. The Book on the Taboo Against Knowing Who You Are. Watts legt
+hetzelfde idee van het afwezige afzonderlijke zelf uit als cultuurkritiek in
+plaats van als geestelijke ervaring.
+
+## 1537. The Light Bringer
+
+White Eagle, via het medium Grace Cooke, 2001; vert. Abbie Doeven.
+Oorspronkelijk *The Light Bringer: The Ray of John and the Age of Intuition*
+(The White Eagle Publishing Trust, Liss, Hampshire, 2001, 176 blz., ISBN
+9780854871162; latere druk ISBN 9780854872381). Nederlands als *De
+lichtbrenger: de straal van Johannes en het tijdperk van de intuïtie*,
+vertaald door Abbie Doeven, Ankh-Hermes, Deventer, 2002 (234 blz., ISBN
+9020213849); een nieuwe Nederlandse uitgave verscheen in 2021 (184 blz., ISBN
+9789493226357). De uitgever noemt geen samensteller en schrijft de tekst
+geheel toe aan White Eagle; het boek wordt aangeboden als tegenhanger van *The
+Living Word of St John*. Rubriek: filosofie en mystiek.
+Tags: `channeling`, `spiritualisme`, `Watermantijdperk`, `intuïtie`, `White
+Eagle Lodge`, `Johannes`, `esoterie`
+
+White Eagle is de naam van de geest die Grace Cooke naar eigen zeggen vanaf de
+jaren twintig doorkreeg. Zij richtte in 1936 met haar man Ivan de White Eagle
+Lodge op, een organisatie die door godsdienstwetenschappers wordt gerekend tot
+de nieuwe religieuze bewegingen en die haar teksten sindsdien in eigen beheer
+uitgeeft.
+
+Dit boek gaat over wat de Lodge de straal van Johannes noemt: een geestelijke
+stroming die volgens de tekst hoort bij het Watermantijdperk en die staat voor
+liefde, wijsheid en intuïtie. De visioenen uit de Openbaring van Johannes
+worden gelezen als beschrijving van een nieuwe hemel en een nieuwe aarde die
+zich in deze tijd aan het vormen zouden zijn.
+
+De vraag of er een nieuwe wereldleraar komt, wordt in het boek ontkennend
+beantwoord in de gebruikelijke zin. Het licht kan volgens White Eagle door elk
+mens heen schijnen; de opdracht die de tekst formuleert is denken met het
+hart, zodat de intuïtie zich ontwikkelt en de lezer de omwentelingen in de
+wereld met rust kan aanzien.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De tekst stelt dat de mensheid een tijdperk binnengaat waarin
+de geestelijke leiding niet meer bij één leraar of één instelling ligt maar
+bij het vermogen van ieder mens om met het hart te denken. Die straal,
+aangeduid met de naam van de evangelist Johannes, staat voor liefde en
+wijsheid samen, en het aardse tegendeel ervan is het verstandelijke denken dat
+volgens White Eagle de vorige eeuwen heeft beheerst. De redenering loopt van
+daaruit naar een gerustheid: de omwentelingen in de wereld zijn onderdeel van
+een plan, en wie de intuïtie ontwikkelt kan ze zonder angst gadeslaan. Daarmee
+is de vraag gesteld die het boek zelf niet stelt, namelijk hoe iemand het
+verschil bepaalt tussen intuïtie en wat hij graag wil geloven.
+
+#### De gang van het boek
+
+**Herkomst van de tekst**
+
+Het boek is geen betoog maar een verzameling toespraken en doorgekregen
+teksten, toegeschreven aan White Eagle. Grace Cooke gold in de Engelse
+spiritualistische wereld van het interbellum als medium; haar werk kreeg
+bekendheid door de belangstelling van Arthur Conan Doyle en zijn kring voor
+het spiritualisme.
+
+De toon is die van een spreker tot een zaal: aansprekend, herhalend, zonder
+verwijzingen en zonder tegenspraak. Wie de vorm van het genre niet kent, moet
+weten dat er geen argumentatie in de gebruikelijke zin wordt aangeboden. De
+tekst stelt vast en geeft beelden.
+
+**De straal van Johannes**
+
+De kerngedachte is dat de geestelijke ontwikkeling van de mensheid verloopt
+langs opeenvolgende stralen, en dat de komende straal die van Johannes is.
+Johannes staat in dit stelsel niet voor leerstelligheid maar voor de leerling
+die het dichtst bij het hart van de leraar zat, en daarmee voor kennis die
+door liefde wordt verkregen in plaats van door redenering.
+
+Het boek wordt door de uitgever gepresenteerd als aanvulling op *The Living
+Word of St John*, waarin dezelfde bron het vierde evangelie behandelt. De
+Openbaring wordt hier niet als voorspelling van een rampzalig einde gelezen
+maar als beschrijving van een innerlijke gang.
+
+**Het Watermantijdperk**
+
+De tijdrekening in het boek is astrologisch: de mensheid verlaat het tijdperk
+van de Vissen en gaat het tijdperk van de Waterman binnen. Aan dat tijdperk
+worden eigenschappen toegekend, waaronder broederschap, gelijkheid en het
+wegvallen van tussenpersonen tussen mens en God.
+
+De vraag naar een nieuwe wereldleraar wordt uitdrukkelijk behandeld. Het
+antwoord luidt dat het licht door elk menselijk voertuig kan schijnen, wat
+neerkomt op een afwijzing van de verwachting van één komende figuur. Dat is
+opmerkelijk binnen de theosofische traditie waar de Lodge uit voortkomt, want
+die verwachting speelde daar decennialang een hoofdrol.
+
+**Denken met het hart**
+
+De praktische kern van het boek is de oefening die het denken met het hart
+noemt. Intuïtie wordt niet voorgesteld als ingeving die overkomt maar als
+vermogen dat zich laat scholen, door meditatie, door stilte en door het
+richten van de aandacht op het beeld van de zespuntige ster dat de Lodge als
+teken gebruikt.
+
+Daarbij hoort een leefwijze. De Lodge onderwijst genezing op afstand,
+meditatie en vegetarisme, en spreekt van God als Vader en Moeder. Het
+vrouwelijke beginsel, het Moederprincipe, staat in dit boek voor liefde en
+wijsheid in de ziel.
+
+**Kalmte bij wereldgebeurtenissen**
+
+Het slot van het boek keert terug naar de gemoedstoestand die de lezer wordt
+aangereikt. Wie het plan vertrouwt, kan de veranderingen in de wereld zonder
+ontsteltenis volgen, omdat ze in deze lezing bij de overgang horen. De nieuwe
+hemel en de nieuwe aarde vormen zich zowel stoffelijk als geestelijk.
+
+Karma en wedergeboorte worden daarbij verondersteld. Zij verklaren waarom
+lijden geen willekeur is en waarom er geen haast geboden is: wat in dit leven
+niet af komt, gaat mee naar het volgende.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| White Eagle | De naam van de geest die Grace Cooke naar eigen zeggen doorkreeg en aan wie de Lodge al haar boeken toeschrijft. |
+| De straal van Johannes | De geestelijke stroming die volgens de tekst het komende tijdperk kleurt en die staat voor kennis verkregen langs de weg van liefde. |
+| Het Watermantijdperk | De astrologische periode die volgens het boek die van de Vissen opvolgt en waarin tussenpersonen tussen mens en God overbodig worden. |
+| Denken met het hart | De aanduiding voor het scholen van de intuïtie, waarbij het gevoel en niet de redenering het uitgangspunt van kennis is. |
+| Het Moederprincipe | Het vrouwelijke beginsel in de ziel, in het boek gelijkgesteld aan liefde en wijsheid, en gesteld naast God als Vader. |
+| De zespuntige ster | Het teken van de White Eagle Lodge, gebruikt als voorstelling bij meditatie en bij genezing op afstand. |
+| De nieuwe hemel en de nieuwe aarde | De beelden uit de Openbaring van Johannes, in dit boek gelezen als beschrijving van een verandering die zich nu voltrekt, binnen de mens en daarbuiten. |
+| Genezing op afstand | De praktijk waarbij leden van de Lodge op vaste tijden gericht denken aan zieken die zij niet ontmoeten, een van de vaste bezigheden van de organisatie. |
+
+#### Waar het argument op rust
+
+Voor de inhoud van dit boek bestaat geen bewijs in de gebruikelijke zin, en de
+tekst doet ook geen poging het te leveren. De herkomst is een mediumschap:
+Grace Cooke sprak in trance en de Lodge legde de teksten vast. Wie de bron
+aanvaardt, aanvaardt daarmee het gezag; wie dat niet doet, houdt een
+verzameling uitspraken over waarvoor geen andere grond wordt aangedragen dan
+dat zij zo zijn doorgekomen.
+
+Wat wel na te gaan valt, is de organisatie. De White Eagle Lodge werd in 1936
+opgericht, heeft haar hoofdzetel in Liss in Hampshire, opende in de jaren
+vijftig vestigingen in de Verenigde Staten en bouwde in 1987 een centrum in
+Texas. De uitgeverij bestaat en de boeken zijn in meerdere talen verspreid.
+Dat maakt de beweging tot een historisch verschijnsel dat te beschrijven is,
+los van de vraag of White Eagle bestaat.
+
+Het astrologische raamwerk waar het boek op leunt is toetsbaar en wordt door
+de sterrenkunde niet gedragen. De overgang van het tijdperk van de Vissen naar
+dat van de Waterman berust op de precessie van de aardas, een verschijnsel dat
+bestaat, maar de toekenning van eigenschappen aan tijdvakken op grond daarvan
+is een uitleg zonder waarneembare grond. Voor genezing op afstand geldt
+hetzelfde: het herhaalde onderzoek naar voorbedegenezing heeft geen effect
+laten zien dat van toeval te onderscheiden is.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de bron. Een tekst die zijn gezag ontleent aan
+een geest die alleen via één medium spreekt, kan door niemand worden
+tegengesproken, ook niet door aanhangers. Er is geen manier om vast te stellen
+of White Eagle iets anders is dan het schrijverschap van Grace Cooke, en de
+Lodge draagt daarvoor ook geen toets aan.
+
+De inhoud is bovendien geruststellend op een manier die vragen oproept. Alles
+wat in de wereld misgaat, hoort bij de overgang en heeft een plaats in het
+plan. Wie dat aanneemt, heeft weinig aanleiding om ergens tegen op te treden.
+Het boek zegt zelf dat de lezer de veranderingen met rust kan aanzien, en dat
+is een houding die bij onrecht ongemakkelijk uitpakt.
+
+Het beroep op de intuïtie mist een tegenwicht. De tekst reikt geen manier aan
+om onderscheid te maken tussen een ingeving die klopt en een gedachte die
+iemand graag gelooft. In een stelsel waarin het hart boven het verstand wordt
+gesteld, is dat onderscheid juist de zwakke plek, en het blijft onbesproken.
+
+Ten slotte is er de verhouding tot de theosofie. De Lodge staat in die
+traditie en deelt haar leer over karma, wedergeboorte en geestelijke
+hiërarchieën, maar het boek plaatst zichzelf nergens in dat verband en noemt
+geen voorgangers. Wie de geschiedenis van de beweging niet kent, mist daardoor
+dat vrijwel elk begrip in dit boek al bij Blavatsky en haar opvolgers in
+omloop was.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als document van een religieuze beweging uit het interbellum;
+als beschrijving van de wereld houdt het geen stand.
+- Scheid de meditatieoefeningen van de leerstellingen; de eerste zijn te
+beproeven, de tweede niet.
+- Ga bij elke uitspraak over het Watermantijdperk na wat er precies wordt
+beweerd; meestal blijkt er niets te voorspellen.
+- Wie het onderwerp verder wil volgen, begint bij de geschiedenis van het
+Engelse spiritualisme en de Theosofische Vereniging.
+
+#### Wat je hierna leest
+
+- 606. Esoteric Christianity. Besant levert de theosofische leer waar de
+begrippen van dit boek uit voortkomen, inclusief de verwachting van een
+komende wereldleraar die White Eagle hier juist afwijst.
+- 679. Earth: Pleiadian Keys to the Living Library. Marciniak schrijft in
+dezelfde vorm, met een boodschap uit een niet-menselijke bron over een
+aanstaande verandering van de aarde.
+- 754. Mystiek. Underhill onderzoekt mystiek als verschijnsel dat te
+beschrijven en te vergelijken valt, en biedt daarmee de maatstaf die dit boek
+zelf niet aanlegt.
+
+## 1538. The Forty Rules of Love
+
+Elif Shafak, 2009; vert. Manon Smits. Shafak schreef de roman in het Engels;
+de Turkse versie verscheen eerst, als *Aşk* (Doğan Kitap, Istanbul, 2009), en
+groeide uit tot een van de best verkochte Turkse romans, met meer dan 750.000
+verkochte exemplaren in Turkije en Frankrijk. De Engelse uitgave verscheen bij
+Penguin als *The Forty Rules of Love: A Novel of Rumi* (paperback 354 blz.,
+ISBN 9780141047188). In het Nederlands verscheen het boek eerst als *Liefde
+kent veertig regels* bij De Geus (ISBN 9789044532722) en sinds 2022 als *De
+veertig regels van liefde* in de vertaling van Manon Smits (Nieuw Amsterdam,
+384 blz., ISBN 9789046829714). De roman kreeg een eervolle vermelding bij de
+Prix ALEF, stond in 2012 op de lijst van de IMPAC Dublin Literary Award en
+werd in 2019 door de BBC opgenomen in haar lijst van honderd inspirerende
+romans. Rubriek: roman en memoir.
+Tags: `roman`, `soefisme`, `Rumi`, `Shams van Tabriz`, `Konya`, `Turkije`,
+`raamvertelling`
+
+Ella Rubenstein is bijna veertig, woont in Northampton in Massachusetts met
+haar tandarts David en drie kinderen, en begint als lezeres bij een literair
+agentschap. Haar eerste opdracht is een verslag te schrijven over een
+manuscript, *Sweet Blasphemy*, van een debutant die zich A. Z. Zahara noemt.
+
+Dat manuscript vormt de tweede helft van het boek. Het speelt in het
+dertiende-eeuwse Konya en gaat over de ontmoeting tussen de geleerde en
+prediker Rumi en de zwervende derwisj Shams van Tabriz, en over de veertig
+regels van de liefde die Shams zou hebben nagelaten. Wat Shams met Rumi doet,
+is hem uit zijn geleerdheid halen; wat de stad met Shams doet, loopt uit op
+moord.
+
+De twee verhalen lopen naast elkaar. Terwijl Ella leest, schrijft zij de
+auteur, en de briefwisseling loopt uit op een breuk met haar huwelijk. Shafak
+laat de lezer zelf vaststellen hoe letterlijk de ene lijn de andere navolgt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Shafak zet een dertiende-eeuwse geschiedenis en een
+hedendaags Amerikaans huwelijk naast elkaar om te betogen dat de soefistische
+opvatting van liefde als weg naar het goddelijke ook nu een leven kan
+omgooien. De veertig regels die Shams van Tabriz in de roman formuleert,
+vormen de brug tussen de twee lijnen: zij worden in de dertiende eeuw
+uitgesproken en in de eenentwintigste door een lezeres toegepast. Achter die
+opzet ligt een stelling over godsdienst: het geloof dat de roman verdedigt is
+er een van innerlijke ervaring en verdraagzaamheid, en het wordt uitdrukkelijk
+gesteld tegenover de wetgeleerdheid en de zedenmeesterij die in Konya de macht
+hebben. Dat de veertig regels geen overgeleverde tekst zijn maar door Shafak
+zelf geschreven, is voor de beoordeling van het boek het punt waar alles op
+aankomt.
+
+#### De gang van het verhaal
+
+**Twee boeken in één band**
+
+De roman bestaat uit een raamvertelling en een ingebedde roman. Het raam
+speelt in 2008 in Northampton; de ingebedde roman speelt tussen 1242 en 1248
+in Konya, Bagdad en Damascus. De hoofdstukken van het middeleeuwse deel worden
+afwisselend verteld door een reeks personages die elk hun eigen stem krijgen.
+
+Shafak bouwde er een vormvoorschrift in: elk hoofdstuk begint met de letter b.
+Dat verwijst naar de bismillah, de aanhef van de Koran, en naar de
+soefistische uitleg waarin de Arabische letter ba het geschapene voorstelt.
+Het is een spelregel die de lezer merkt zonder dat het verhaal erdoor
+verandert.
+
+**Ella en het manuscript**
+
+Ella heeft haar leven ingericht rond haar gezin en begint op haar
+achtendertigste te werken. Haar huwelijk is uitgehold: David heeft
+verhoudingen, haar oudste dochter Jeannette wil trouwen met iemand die het
+gezin afkeurt, en Ella zelf staat nergens meer voor.
+
+Het manuscript grijpt haar aan en zij schrijft de auteur. Aziz Z. Zahara
+blijkt een fotograaf die zich tot het soefisme bekeerde en van plaats naar
+plaats trekt. De briefwisseling wordt een correspondentie en de
+correspondentie een verhouding. David ontdekt de berichten en stelt haar ter
+verantwoording; Ella zegt dat zij van Aziz houdt.
+
+**Shams komt naar Konya**
+
+In de ingebedde roman zoekt de zwervende derwisj Shams van Tabriz iemand aan
+wie hij kan doorgeven wat hij weet. Hij komt in Konya terecht bij Rumi, op dat
+moment een gerespecteerd geleerde met een school, een gezin en een positie.
+Shams neemt hem mee de stad in, laat hem drinken met een dronkaard en spreken
+met een prostituee, en haalt hem weg bij zijn leerlingen.
+
+De veertig regels worden verspreid over het boek uitgesproken. Zij gaan over
+de verhouding tussen mens en God, over het oordeel over anderen en over de
+vraag hoe iemand zichzelf leert kennen. Rumi verandert onder Shams' invloed
+van kanselredenaar in dichter.
+
+**De stad keert zich**
+
+De omgeving van Rumi verdraagt de omgang niet. Zijn jongste zoon Aladdin ziet
+Shams als godslasteraar, zeker als die wijn verdedigt; zijn vrouw Kerra
+probeert te bemiddelen; zijn oudste zoon Sultan Walad kiest partij voor Shams.
+In de stad hitst sjeik Yassin op tegen de derwisj.
+
+Shams trouwt met Kimya, het pleegkind van Rumi, in een huwelijk dat niet goed
+afloopt. Aan de rand van het verhaal staan Suleiman de Dronkaard en
+Woestijnroos, de prostituee die zich wil beteren en door de stad wordt
+weggejaagd. Zij zijn de personages aan wie de roman zijn stelling over
+verdraagzaamheid ophangt.
+
+Uiteindelijk huren samenzweerders een huurmoordenaar in, Jakhalskop, die Shams
+in de binnenhof van Rumi doodt en het lichaam in een put werpt. Rumi blijft
+achter met een verdriet dat hij in gedichten omzet, en die gedichten zijn het
+werk waar hij tot vandaag om gelezen wordt.
+
+**Hoe de twee lijnen samenkomen**
+
+Ella verlaat haar man en gaat naar Aziz toe. Hij blijkt ongeneeslijk ziek. Zij
+reist met hem, ook naar Konya, en hij sterft tijdens die reis. Het slot laat
+haar achter als weduwe van een verhouding die maanden duurde, met een leven
+dat zij zelf heeft ingericht.
+
+De navolging tussen de twee lijnen is opzettelijk en vrijwel volledig: de
+vreemdeling die van buiten komt, de omgeving die er niet tegen kan, en het
+verlies dat het geheel bezegelt. Wat in de dertiende eeuw met moord eindigt,
+eindigt in de eenentwintigste met ziekte, wat het gewicht van beide
+gebeurtenissen ongelijk maakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| *Sweet Blasphemy* | Het manuscript binnen de roman, geschreven door Aziz Zahara, dat het middeleeuwse deel van het boek vormt. |
+| De veertig regels | De uitspraken over liefde en godskennis die Shams in de roman formuleert; geen overgeleverde tekst maar door Shafak geschreven. |
+| Shams van Tabriz | De zwervende derwisj die Rumi uit zijn geleerdheid haalt; een historische figuur die Rumi omstreeks 1244 in Konya ontmoette en enkele jaren later verdween. |
+| Konya | De stad in Anatolië waar Rumi leefde en waar zijn graf sindsdien een bedevaartsplaats is; het toneel van het middeleeuwse deel. |
+| De letter b | Het vormvoorschrift waarbij elk hoofdstuk met deze letter begint, verwijzend naar de aanhef van de Koran en naar de soefistische uitleg van de Arabische ba. |
+| Woestijnroos | De prostituee die zich onder invloed van Shams wil losmaken uit het bordeel en die door de stad wordt geweigerd; de proef op de som van de verdraagzaamheid die de roman bepleit. |
+| Kimya | Het pleegkind van Rumi dat met Shams trouwt en aan dat huwelijk ten onder gaat. |
+| Jakhalskop | De ingehuurde moordenaar die in de roman Shams doodt, waarmee de auteur een historisch onopgeloste verdwijning invult. |
+| Aziz Z. Zahara | De schrijver van het manuscript in het raamverhaal, een tot het soefisme bekeerde fotograaf met wie Ella een verhouding krijgt. |
+
+#### Waar het argument op rust
+
+De historische kern is echt. Jalal ad-Din Rumi bestond, was in Konya een
+gevierd geleerde, en zijn ontmoeting met de derwisj Shams van Tabriz omstreeks
+1244 wordt in de vroegste bronnen over hem genoemd als het keerpunt van zijn
+leven. Na Shams' verdwijning ontstond de bundel die Rumi naar hem noemde. Dat
+hij door die ontmoeting van prediker in dichter veranderde, is de gangbare
+lezing van zijn biografie.
+
+Waar de roman zelf invult, is bij de toedracht van de verdwijning. Wat er met
+Shams gebeurde is niet vastgesteld; er bestaan overleveringen waarin hij wordt
+vermoord en overleveringen waarin hij vertrekt. Shafak kiest de moord en geeft
+er een uitvoering aan met een ingehuurde dader, een gebeurtenis die zij
+verzint en die niet als geschiedenis moet worden gelezen.
+
+Hetzelfde geldt voor de veertig regels waar de titel op rust. Er bestaat geen
+middeleeuwse verzameling van die naam. De regels zijn door Shafak geschreven,
+in een taal die aansluit bij de soefistische letterkunde maar er niet uit
+komt. Dat is voor de roman geen bezwaar en voor de lezer die er levenswijsheid
+uit haalt wel iets om te weten.
+
+Wat de roman aan bereik heeft gehad is aantoonbaar. Van de Turkse uitgave en
+de Franse vertaling samen gingen meer dan 750.000 exemplaren over de toonbank,
+en het boek werd genoemd bij de Prix ALEF, op de lijst van de IMPAC Dublin
+Literary Award van 2012 en in de BBC-lijst uit 2019.
+
+#### Wat er tegen in te brengen valt
+
+Het meest gehoorde bezwaar in de wetenschappelijke ontvangst is dat de roman
+meedoet aan wat de Rumi-mode is gaan heten. Onderzoekers als Elena Furlanetto
+hebben betoogd dat Shafak de dichter losmaakt van zijn islamitische en
+Perzische verband en hem toesnijdt op een westers publiek, in dezelfde
+beweging die begon met de vrije bewerkingen van Coleman Barks. Dat een Turkse
+schrijfster daarbij oriëntalistische middelen inzet, maakt het bezwaar niet
+kleiner.
+
+De tweede lijn van kritiek betreft de vrouwen. Kerra, Kimya en Woestijnroos
+zijn moeder, echtgenote en prostituee, en hun handelingsruimte hangt vrijwel
+geheel af van wat Shams hun toestaat. In een boek dat de liefde tot onderwerp
+maakt, is dat een opvallend smalle rolverdeling, en zij wordt nergens door de
+vertelling zelf ter discussie gesteld.
+
+Het raamverhaal is het zwakste deel. Ella's huwelijk wordt in enkele trekken
+neergezet en haar ontwikkeling verloopt langs een lijn die vanaf de eerste
+bladzijden zichtbaar is. Waar de dertiende-eeuwse hoofdstukken meerdere
+vertellers en tegenstrijdige belangen hebben, blijft het hedendaagse deel bij
+één gezichtspunt en één uitkomst, wat de vergelijking tussen beide lijnen
+scheeftrekt.
+
+Ten slotte de gelijkstelling zelf. De roman legt een moord in Konya naast een
+echtscheiding in Massachusetts en stelt beide voor als prijs van dezelfde
+liefde. Wie de constructie niet aanvaardt, houdt een boek over dat de
+middeleeuwse geschiedenis gebruikt om een hedendaagse levensvraag gewicht te
+geven dat zij op eigen kracht niet draagt.
+
+#### Wat je hierna leest
+
+- 754. Mystiek. Underhill beschrijft de mystieke ervaring als verschijnsel dat
+over godsdiensten heen vergelijkbaar is, wat de achtergrond levert waar Shafak
+in verhaalvorm op leunt.
+- 604. The Perennial Philosophy. Huxley verdedigt in betoogvorm dezelfde
+stelling die deze roman in verhaalvorm brengt, namelijk dat de mystiek van
+alle tradities op hetzelfde uitkomt.
+- 1536. The End of Your World. Adyashanti laat zien wat er in de praktijk
+gebeurt na het soort doorbraak dat Rumi in deze roman meemaakt, en waar het
+meestal misgaat.
+
+## 1539. The Choice
+
+Edith Eva Eger met Esmé Schwall Weigand, 2017; vert. Elisabeth van Borselen.
+Oorspronkelijk *The Choice: Embrace the Possible* (Scribner, New York, 2017,
+ISBN 9781501130793), geschreven met Esmé Schwall Weigand en met een voorwoord
+van de psycholoog Philip Zimbardo. Het boek kreeg de National Jewish Book
+Award van 2017 en de Christopher Award van 2018. Nederlands als *De keuze:
+leven in vrijheid*, vertaald door Elisabeth van Borselen, uitgeverij Lev.
+(A.W. Bruna), Amsterdam, 2017 (325 blz., ISBN 9789400510555; latere druk ISBN
+9789400513433). Eger schreef daarna *The Gift* (2020, Nederlands *Het
+geschenk*, A.W. Bruna) en een jeugdbewerking van dit boek, *The Ballerina of
+Auschwitz* (2024). Rubriek: overleven en getuigen.
+Tags: `Holocaust`, `Auschwitz`, `memoir`, `trauma`, `psychotherapie`, `Viktor
+Frankl`, `vergeving`
+
+Edith Eger was zestien en trainde als balletdanseres en turnster toen zij in
+1944 met haar ouders en haar zus Magda uit Hongarije naar Auschwitz werd
+gedeporteerd. Haar ouders werden bij aankomst vergast. Enkele uren later moest
+zij voor Josef Mengele dansen; zij deed het met gesloten ogen en kreeg een
+brood, dat zij deelde met de vrouwen die haar later in leven hielden.
+
+Van de tweeduizend gevangenen op de dodenmars naar Gunskirchen overleefden er
+ongeveer honderd, onder wie zij en haar zus. In mei 1945 werd zij door een
+Amerikaanse soldaat uit een stapel lijken gehaald, met een gebroken rug en
+tyfus. Zij trouwde met Béla Eger, vluchtte in 1949 naar de Verenigde Staten en
+werkte daar aanvankelijk in een fabriek.
+
+Pas op middelbare leeftijd studeerde zij psychologie en werd zij therapeut,
+onder meer bij militairen met oorlogstrauma. Het boek zet die twee levens
+naast elkaar: haar eigen geschiedenis en de behandelingen die zij later gaf.
+Haar stelling is dat de omstandigheden niet te kiezen zijn en de houding
+ertegenover wel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Eger betoogt dat er tussen wat iemand overkomt en wat iemand
+daarvan maakt een ruimte zit waarin een keuze mogelijk blijft, en dat die
+ruimte ook in Auschwitz bestond. Zij trekt die stelling door naar wat zij de
+gevangenissen in het hoofd noemt: de patronen van schuld, schaamte en wraak
+waarin mensen zichzelf opsluiten lang nadat de dwang van buiten is verdwenen.
+Het boek koppelt daarom haar eigen geschiedenis aan de behandelingen die zij
+als psycholoog gaf, met de bedoeling te laten zien dat het om hetzelfde werk
+gaat. De vraag die daarmee open blijft, is of dat verband houdbaar is, want
+het stelt de omstandigheden van een vernietigingskamp op één lijn met die van
+een Amerikaanse cliënt, en de auteur trekt zelf niet altijd scherp waar de
+vergelijking ophoudt.
+
+#### De gang van het verhaal
+
+**Kassa en de deportatie**
+
+Het eerste deel speelt in het Hongaarse Kassa, het huidige Košice. Eger groeit
+op met twee oudere zussen: Klara, een vioolwonder dat in Boedapest studeert,
+en Magda, pianiste. Zij zelf traint als turnster en balletdanseres en hoopt op
+de olympische ploeg, tot zij als joodse leerling van de selectie wordt
+geschrapt.
+
+In 1944 wordt het gezin naar de steenfabriek gebracht en van daar in een
+veewagen gezet. Haar moeder zegt in die wagen dat niemand kan afnemen wat je
+in je hoofd hebt gestopt. Die zin komt in het hele boek terug als het beginsel
+waar Eger zich later op beroept.
+
+**Auschwitz**
+
+Bij aankomst wijst Mengele haar ouders naar links. Eger vraagt waar haar
+moeder heen gaat; een gevangene wijst naar de schoorsteen. Diezelfde avond
+wordt zij naar de barak van Mengele geroepen om te dansen. Zij danst op de
+*Blauwe Donau* die buiten wordt gespeeld en houdt haar ogen dicht, terwijl zij
+zich voorstelt dat zij in de opera van Boedapest staat.
+
+Haar zus Magda blijft bij haar. Het boek beschrijft de dagen als een reeks
+keuzes van weinig omvang met grote gevolgen: welk brood gedeeld wordt, wie wie
+overeind houdt, welke rij iemand kiest. Eger schrijft daar geen heldendom in;
+zij noemt toeval waar toeval aan de orde is.
+
+**De dodenmars en de bevrijding**
+
+Aan het einde van de oorlog worden de zussen op transport en op mars gezet,
+uiteindelijk naar Gunskirchen in Oostenrijk. Van de tweeduizend die vertrekken
+bereiken er ongeveer honderd het einde. Eger is in mei 1945 zo verzwakt dat
+zij tussen de doden ligt; een Amerikaanse soldaat ziet haar hand bewegen.
+
+De genezing duurt maanden: een gebroken rug, tyfus, longvliesontsteking. Terug
+in Kassa vindt zij Klara terug, die de oorlog in Boedapest heeft overleefd.
+Zij trouwt met Béla Eger, die zich bij de partizanen had aangesloten, en
+krijgt een dochter.
+
+**Amerika en de jaren van zwijgen**
+
+In 1949 ontvlucht het gezin het communistische Tsjechoslowakije en komt met
+vrijwel niets in de Verenigde Staten aan. Eger werkt in een fabriek in
+Baltimore, leert Engels en vertelt niemand waar zij vandaan komt. Dit deel van
+het boek beschrijft wat zij later bij haar cliënten zou herkennen: verzwijgen
+als vorm van overleven die op de lange duur de prijs opdrijft.
+
+Het keerpunt komt met het lezen van *Man's Search for Meaning* van Viktor
+Frankl. Zij schrijft hem, er ontstaat contact, en zij spreekt later op zijn
+negentigste verjaardag. Zij gaat studeren, haalt in 1969 haar graad in de
+psychologie aan de universiteit van Texas in El Paso en loopt haar stage bij
+het militair hospitaal op Fort Bliss.
+
+**De praktijk**
+
+De tweede helft van het boek bestaat uit gevallen uit haar praktijk,
+afgewisseld met haar eigen geschiedenis. Zij werkt met militairen met
+posttraumatische klachten, met rouwenden, met ouders van overleden kinderen.
+Het bekendste geval is dat van kapitein Jason Fuller, die in de zomer van 1980
+haar spreekkamer in El Paso binnenkomt met een geladen wapen onder zijn hemd.
+
+Eger werkt met technieken die zij aan Frankl ontleent, waaronder de omkering
+waarbij een cliënt wordt gevraagd te doen wat hij vreest. Zij vermijdt de rol
+van iemand die aan het verleden voorbijgaat en dringt juist aan op teruggaan:
+wie iets niet voelt, komt er niet vanaf.
+
+**Terug naar Auschwitz**
+
+Het boek loopt uit op haar terugkeer naar het terrein van het kamp, jaren
+later, en op wat zij daar met vergeving bedoelt. Zij is uitdrukkelijk:
+vergeven gaat volgens haar niet over de daders, die er niets aan hebben, maar
+over het loslaten van de eis dat het verleden anders was geweest.
+
+Zij benoemt daarbij haar eigen ontsporingen: haar huwelijk met Béla dat op
+scheiding uitliep en later werd hersteld, haar boulimie, de jaren waarin zij
+haar dochters haar geschiedenis onthield. Dat maakt het slot minder glad dan
+de titel doet vermoeden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| De keuze | De ruimte tussen wat iemand overkomt en hoe hij zich daartoe verhoudt, volgens Eger het enige wat ook onder dwang niet af te nemen is. |
+| De vier delen | De indeling van het boek in Gevangenis, Ontsnapping, Vrijheid en Genezing, waarbij de laatste twee betrekking hebben op de tijd na 1945. |
+| Wat je in je hoofd hebt gestopt | De zin van haar moeder in de veewagen, die in het boek terugkeert als grond voor haar hele latere werk. |
+| De gevangenis in het hoofd | De patronen van schuld, schaamte, wraak en vermijding waarin mensen zichzelf vasthouden nadat de dwang van buiten is verdwenen. |
+| Slachtofferschap | Bij Eger het onderscheid tussen slachtoffer zijn van iets, wat een feit is, en slachtofferschap als houding die iemand aanhoudt. |
+| Vergeving | Niet een uitspraak over de daders maar het opgeven van de eis dat het verleden anders had moeten lopen. |
+| Overlevingsschuld | De vraag waarom zij het overleefde en anderen niet, door Eger beschreven als jarenlange rem op haar herstel. |
+| Logotherapie | De richting van Viktor Frankl, waarin zin de aangrijpingsplaats van behandeling is; Eger gebruikt haar begrippen zonder zich tot één school te bekennen. |
+
+#### Waar het argument op rust
+
+Wat het boek als getuigenis aandraagt, is eerstehands. De deportatie uit Kassa
+in 1944, het kamp, de dodenmars naar Gunskirchen en de bevrijding in mei 1945
+sluiten aan bij wat over de deportatie van de Hongaarse joden bekend is; Eger
+heeft er in de decennia daarna herhaaldelijk over gesproken en er is
+filmmateriaal en verslaglegging van haar optredens. De grote lijn is daarmee
+te plaatsen, ook al berust het detail op haar geheugen, vijftig tot zeventig
+jaar na dato.
+
+De praktijkverhalen zijn van een andere orde. Zij zijn geanonimiseerd,
+samengesteld en op een les toegeschreven, zoals in dit genre gebruikelijk is.
+Zij dienen als illustratie en niet als bewijs, en het boek doet ook geen
+poging ze als onderzoek te presenteren. Wie wil weten of de aanpak van Eger
+werkt, vindt in dit boek geen enkele meting.
+
+Haar loopbaan is wel te volgen. Zij haalde in 1969 haar graad in de
+psychologie aan de universiteit van Texas in El Paso, promoveerde later en
+liep haar stage in het militair hospitaal op Fort Bliss, waar zij met
+militairen werkte die na hun uitzending posttraumatische klachten hadden. De
+verbinding met Viktor Frankl is eveneens gedocumenteerd; zij sprak op zijn
+negentigste verjaardag.
+
+Het voorwoord is van Philip Zimbardo, bekend van het gevangenisonderzoek in
+Stanford. Dat plaatst het boek in een lijn van sociaal-psychologische aandacht
+voor wat omstandigheden met mensen doen, wat opvallend is omdat Egers stelling
+juist de tegenovergestelde nadruk legt, namelijk op wat er ondanks de
+omstandigheden overblijft.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de overgang van getuigenis naar levensles. Zodra
+overleven wordt voorgesteld als uitkomst van een houding, ligt de
+gevolgtrekking klaar dat wie het niet overleefde de juiste houding miste. Eger
+schrijft die zin nergens op en verzet zich er in het boek ook tegen, maar de
+opbouw van het genre duwt de lezer die kant op. Hetzelfde bezwaar wordt al
+zeventig jaar tegen Frankl ingebracht en is bij haar niet minder van
+toepassing.
+
+De gelijkstelling van het kamp met de gevangenis in het hoofd is de tweede
+zwakke plek. Auschwitz was geen denkfout maar een fabriek. Wanneer een lezer
+met een moeilijke echtscheiding zijn situatie in dezelfde termen leert
+beschrijven als een vernietigingskamp, verliest de vergelijking aan beide
+kanten iets: het kamp wordt kleiner en de eigen last groter dan hij is.
+
+Het boek zwijgt over de vraag of haar aanpak beter werkt dan andere. In de
+decennia waarin Eger praktiseerde, is er veel onderzoek gedaan naar wat bij
+posttraumatische klachten helpt, en daar komen doorgaans andere behandelingen
+uit dan het gesprek over zin en keuze. Eger noemt dat onderzoek niet en
+positioneert zich nergens ten opzichte van de gangbare traumabehandeling.
+
+Het gedeelte over vergeving zal niet iedereen overtuigen. Er bestaat een
+verdedigbare positie waarin het weigeren van vergeving na een genocide een
+morele daad is en geen blokkade, en Eger behandelt die positie kort en zonder
+er echt op in te gaan. Dat is het punt waar het boek het meest naar de
+zelfhulpkant overhelt en het minst naar de getuigenis.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl bracht Eger tot spreken en leverde de
+begrippen waar zij mee werkte; haar boek is te lezen als de klinische
+uitwerking van het zijne.
+- 386. The Body Keeps the Score. Van der Kolk geeft de tegenhanger vanuit
+onderzoek: trauma zit volgens hem in het lichaam en laat zich met houding en
+zingeving alleen niet aanpakken.
+- 942. Het periodiek systeem. Levi getuigt van hetzelfde kamp en weigert
+uitdrukkelijk elke troostende slotsom, wat de afstand laat zien tussen
+getuigenis en zelfhulp.
+- 1522. Vlieg, wilde zwanen. Jung Chang schrijft eveneens drie generaties
+familiegeschiedenis rond een dictatuur, met dezelfde spanning tussen
+persoonlijk verslag en historische duiding.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -214086,88 +222645,96 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `aantekeningen` 81 · `aantekeningen maken` 420 · `aanwezigheid` 149, 435 ·
 `aarde` 92 · `abonnees` 369 · `absurdisme` 173 · `academisch` 143 ·
 `acausaliteit` 362 · `acceptance and commitment therapy` 457, 460 ·
-`achttiende eeuw` 321 · `acteren` 385 · `actie` 427 · `actualiteit` 237 ·
-`actueel` 67 · `adel` 235 · `ademhaling` 87, 118, 318, 332, 432 · `adhd` 1308,
-1309 · `adleriaanse-psychologie` 335 · `advaita` 527, 1101 · `advaita vedanta`
-520, 1102 · `adventisme` 1138 · `adverteren` 308 · `advies` 473, 1210 ·
-`adviespraktijk` 151 · `adviseren` 511 · `affirmaties` 117, 184, 188, 190,
-380, 403, 439, 560 · `afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2,
-17, 179, 216, 218, 228, 391, 394, 462, 473, 535, 832, 1300 · `afrika` 589,
-591, 593, 594, 595, 596, 597, 599, 600, 602, 1111, 1112, 1113 · `afrikaanse
+`acceptatie` 1508, 1526, 1527 · `achttiende eeuw` 321 · `ACT` 1526 · `acteren`
+385 · `actie` 427 · `actualiteit` 237 · `actueel` 67 · `ADD` 1521 · `adel` 235
+· `ademhaling` 87, 118, 318, 332, 432, 1528 · `ademwerk` 1528 · `adhd` 1308,
+1309 · `ADHD` 1521 · `adleriaanse-psychologie` 335 · `advaita` 527, 1101,
+1502, 1536 · `advaita vedanta` 520, 1102 · `Advaita Vedanta` 1508 ·
+`adventisme` 1138 · `adverteren` 308 · `advies` 473, 1210 · `adviespraktijk`
+151 · `adviseren` 511 · `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 ·
+`afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218,
+228, 391, 394, 462, 473, 535, 832, 1300 · `afrika` 589, 591, 593, 594, 595,
+596, 597, 599, 600, 602, 1111, 1112, 1113 · `Afrika` 1518 · `afrikaanse
 diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid
 nemen` 285 · `afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 ·
-`agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633, 642, 646, 1104,
-1154, 1250 · `alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 ·
-`alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631, 1107 · `allocatie`
-507, 813 · `altruisme` 1344 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18, 832,
-1301 · `ambitie` 75 · `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117,
-118, 120, 132, 133, 134, 136, 158, 1211, 1227 · `amerikaanse
-buitenlandpolitiek` 693, 694 · `amerikaanse droom` 284 · `amerikaanse
-geschiedenis` 621, 691, 827, 1147 · `Amerikaanse geschiedenis` 402 ·
-`amerikaanse revolutie` 243, 924 · `Amsterdam` 295 · `anarchisme` 616, 620,
-621, 624, 625, 626, 916, 917, 926 · `anarchokapitalisme` 627, 629 · `anatomie`
-241, 412, 1128 · `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131,
-136, 140, 181, 214, 252, 341, 401, 440, 548, 1168 · `angst voor de dood` 377 ·
-`animatie` 41 · `anomie` 715 · `Antarctica` 36 · `anthologie` 189 · `antieke
-filosofie` 586 · `antropologie` 223, 410, 602, 716, 717, 718, 719, 722, 723,
-758, 764, 1115, 1169, 1214, 1227, 1233, 1245, 1289, 1290, 1293, 1298, 1305,
-1329 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231, 1331 · `apps`
-294 · `arbeid` 6, 173, 297, 390, 905, 1264, 1301 · `arbeidsethos` 266 ·
-`archeologie` 600, 762, 1117, 1139, 1149, 1155, 1219, 1225, 1240 · `archetype`
-360 · `archetypen` 357, 404, 407, 409, 410, 1123 · `Argentinië` 521, 1209 ·
-`argumentatie` 421, 437, 511 · `argumenten` 63 · `argumenteren` 438 ·
-`Aristoteles` 438 · `armoede` 26, 234, 254 · `Arthashastra` 370 ·
-`assertiviteit` 162 · `astrologie` 632, 836, 1118, 1119, 1123, 1229, 1242,
-1243, 1250, 1251, 1252 · `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 ·
-`Auschwitz` 48 · `Australië` 447 · `autisme` 1302, 1303, 1304, 1305, 1306,
-1307, 1312 · `autobiografie` 358, 440, 1108, 1303 · `automatisering` 297, 539,
-1264 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `ayahuasca`
-759 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `bankwezen` 1332
-· `barok` 216 · `basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 ·
-`bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209,
-293, 903 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur`
-563, 828 · `beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 ·
-`beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
-`belangenverstrengeling` 138, 752 · `beleggen` 21, 64, 144, 233, 277, 351,
-474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492,
-496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807, 808, 810, 811, 812,
-813, 814, 815, 816, 817, 1281, 1283, 1288 · `beleid` 65 · `belichaamde
-cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
-· `beroemdheid` 563 · `beroepskeuze` 1292 · `beschadigd-bestand` 115, 130 ·
-`beschaving` 57, 593, 820, 939 · `beslissen` 55 · `beslissingen` 197 ·
-`besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270,
-282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451, 468, 475, 510, 906,
-908, 909, 1258, 1287 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel`
-559 · `betrokkenheid` 472 · `beurs` 80, 488, 814, 1284 · `beurshandel` 487 ·
-`beurskrach` 809 · `beursrendement` 353 · `beweging` 77, 84, 1131 · `bewijs`
-63, 658, 660 · `bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340,
-377, 518, 580, 585, 652, 663, 759, 760, 761, 763, 767, 918, 927, 928, 1156,
-1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1171, 1172, 1173,
-1174, 1256, 1268, 1311, 1316, 1317, 1318, 1319, 1320, 1324, 1327, 1328, 1329 ·
-`bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 ·
-`bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585, 1174 ·
-`biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328,
-402, 454, 514, 537, 558, 649, 658, 659, 689, 821, 905, 1124, 1153, 1220, 1229,
-1252, 1265, 1315, 1331 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91,
-322, 663, 818, 823, 941, 949, 950, 1120, 1259, 1262, 1273, 1275, 1344 ·
-`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
+`agenda` 512 · `agressie` 223, 339 · `Alabama` 1519 · `alchemie` 631, 633,
+642, 646, 1104, 1154, 1250 · `alcohol` 4 · `algoritmen` 476, 477, 479 ·
+`alledaags` 89 · `alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631,
+1107 · `allocatie` 507, 813 · `altruisme` 1344 · `amazon` 257 · `ambacht` 6,
+12, 13, 17, 18, 832, 1301 · `ambitie` 75 · `amerika` 600 · `Amerika` 114, 431
+· `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158, 1211, 1227 ·
+`amerikaanse buitenlandpolitiek` 693, 694 · `amerikaanse droom` 284 ·
+`amerikaanse geschiedenis` 621, 691, 827, 1147 · `Amerikaanse geschiedenis`
+402 · `amerikaanse revolutie` 243, 924 · `Amsterdam` 295 · `anarchisme` 616,
+620, 621, 624, 625, 626, 916, 917, 926 · `anarchokapitalisme` 627, 629 ·
+`anatomie` 241, 412, 1128 · `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107,
+119, 131, 136, 140, 181, 214, 252, 341, 401, 440, 548, 1168 · `angst voor de
+dood` 377 · `animatie` 41 · `anomie` 715 · `Antarctica` 36 · `anthologie` 189
+· `antieke filosofie` 586 · `antisemitisme` 1532 · `antropologie` 223, 410,
+602, 716, 717, 718, 719, 722, 723, 758, 764, 1115, 1169, 1214, 1227, 1233,
+1245, 1289, 1290, 1293, 1298, 1305, 1329 · `antwerpen` 113 · `apartheid` 26,
+523 · `Apple` 46, 231, 1331 · `apps` 294 · `arbeid` 6, 173, 297, 390, 905,
+1264, 1301 · `arbeidsethos` 266 · `archeologie` 600, 762, 1117, 1139, 1149,
+1155, 1219, 1225, 1240 · `archetype` 360 · `archetypen` 357, 404, 407, 409,
+410, 1123 · `Argentinië` 521, 1209 · `argumentatie` 421, 437, 511 ·
+`argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234,
+254 · `Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632, 836, 1118,
+1119, 1123, 1229, 1242, 1243, 1250, 1251, 1252 · `asymmetrie` 282 · `atletiek`
+31 · `atomisme` 281 · `attitudinal healing` 1515 · `Auschwitz` 48, 1539 ·
+`Australië` 447 · `autisme` 1302, 1303, 1304, 1305, 1306, 1307, 1312 ·
+`autobiografie` 358, 440, 1108, 1303 · `automatisering` 297, 539, 1264 ·
+`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `ayahuasca` 759 ·
+`backtesten` 482, 502 · `Bali` 1534 · `ballingschap` 1522 · `banken en
+verzekeraars` 497 · `bankwezen` 1332 · `barok` 216 · `basisbehoeften` 107 ·
+`bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 ·
+`bedrijfsgroei` 350 · `bedrijfsleven` 209, 293, 903 · `bedrijfsonderzoek` 353
+· `bedrijfssystemen` 264 · `beeldcultuur` 563, 828 · `beeldverhaal` 561 ·
+`beginners` 112 · `behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding`
+399 · `bekentenis` 60 · `belangenverstrengeling` 138, 752 · `beleggen` 21, 64,
+144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485,
+486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807,
+808, 810, 811, 812, 813, 814, 815, 816, 817, 1281, 1283, 1288 · `beleid` 65 ·
+`belichaamde cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 ·
+`beroemdheden` 128 · `beroemdheid` 563 · `beroepskeuze` 1292 · `Bert
+Hellinger` 1510 · `beschadigd-bestand` 115, 130 · `beschaving` 57, 593, 820,
+939 · `beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
+`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
+423, 424, 426, 450, 451, 468, 475, 510, 906, 908, 909, 1258, 1287 ·
+`bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 · `betrokkenheid` 472
+· `beurs` 80, 488, 814, 1284 · `beurshandel` 487 · `beurskrach` 809 ·
+`beursrendement` 353 · `beweging` 77, 84, 1131 · `bewijs` 63, 658, 660 ·
+`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580,
+585, 652, 663, 759, 760, 761, 763, 767, 918, 927, 928, 1156, 1158, 1159, 1160,
+1161, 1162, 1163, 1164, 1165, 1166, 1167, 1171, 1172, 1173, 1174, 1256, 1268,
+1311, 1316, 1317, 1318, 1319, 1320, 1324, 1327, 1328, 1329, 1504, 1506, 1524,
+1531 · `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `Bhagavad
+Gita` 1508 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-dood
+ervaring` 1524 · `bijna-doodervaring` 585, 1174, 1506 · `bindingsangst` 1517 ·
+`biofotonen` 1531 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266,
+267, 269, 320, 328, 402, 454, 514, 537, 558, 649, 658, 659, 689, 821, 905,
+1124, 1153, 1220, 1229, 1252, 1265, 1315, 1331 · `biohacking` 316 · `biologie`
+66, 88, 89, 90, 91, 322, 663, 818, 823, 941, 949, 950, 1120, 1259, 1262, 1273,
+1275, 1344 · `biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
 `biotechnologie` 236, 413 · `bipolaire stoornis` 1315 · `blackjack` 505 ·
-`bloedvaten` 86 · `bloedwaarden` 313 · `bloemlezing` 758 · `blokkade` 14 ·
-`boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125,
-1168 · `Bombay` 1401 · `bootstrapping` 369 · `brainstormen` 33 · `branding`
-443 · `brein` 414 · `brieven` 292, 517, 1210 · `broers` 10 · `bronnenkritiek`
-691, 1143, 1146 · `bronnenuitgave` 641, 1223 · `budgetteren` 159, 233, 464 ·
-`buitenlandse hulp` 221 · `bureaucratie` 1339 · `burgerlijk verzet` 617 ·
-`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
-`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388,
-1278 · `cases` 40 · `cashflow` 37 · `celbiologie` 419, 1273 · `censuur` 685 ·
-`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670,
-677, 678, 679, 768, 1122, 1221, 1222 · `chaos` 74, 347 · `chapbook` 100 ·
-`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394,
-1104, 1105 · `Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom`
-162, 201, 391, 603, 606, 612, 754, 1207, 1237, 1268, 1300 · `chronobiologie`
-326, 329 · `cia` 693, 750 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
-`classificatie` 719 · `coaching` 161, 291, 441, 1297 · `cognitie` 656 ·
+`bloedlijnen` 1532 · `bloedvaten` 86 · `bloedwaarden` 313 · `bloemlezing` 758
+· `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106, 1109,
+1110, 1124, 1125, 1168 · `Bombay` 1401, 1502 · `bootstrapping` 369 ·
+`brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517, 1210 ·
+`brievenroman` 1518 · `broers` 10 · `bronnenkritiek` 691, 1143, 1146 ·
+`bronnenuitgave` 641, 1223 · `Bruce Greyson` 1506 · `budgetteren` 159, 233,
+464 · `buitenlandse hulp` 221 · `bureaucratie` 1339 · `burgerlijk verzet` 617
+· `burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552, 1503 · `bushido` 535
+· `cafébrand` 1512 · `cafeïne` 52 · `Californië` 10 · `cardiologie` 1524 ·
+`carl jung` 258 · `carrière` 146, 158, 388, 1278 · `cases` 40 · `cashflow` 37
+· `celbiologie` 419, 1273 · `censuur` 685, 1522 · `chakra's` 432, 1520 ·
+`challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679, 768,
+1122, 1221, 1222, 1535, 1537 · `chaos` 74, 347 · `chapbook` 100 ·
+`charismatisch christendom` 559 · `China` 348, 1522 · `Chinese filosofie` 389,
+394, 1104, 1105 · `Chinese geschiedenis` 219 · `chiropractie` 432 ·
+`christendom` 162, 201, 391, 603, 606, 612, 754, 1207, 1237, 1268, 1300 ·
+`chronobiologie` 326, 329 · `cia` 693, 750 · `cijfers` 39, 65 ·
+`civilisatiekritiek` 298 · `classificatie` 719 · `coachbloem` 1530 ·
+`coaching` 161, 291, 441, 1297, 1510, 1528, 1530 · `cognitie` 656 ·
 `cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
 · `cognitieve neurowetenschap` 763 · `cognitieve psychologie` 759 ·
 `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
@@ -214175,20 +222742,21 @@ cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 12
 `collectief onbewuste` 357, 360, 362 · `Colombia` 1402 · `columns` 89, 90 ·
 `coma` 763 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122,
 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444,
-466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306 · `communisme` 625 ·
-`complexiteit` 170, 268, 300, 347, 423, 1258, 1274, 1279 · `complimenten
-geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915,
-916, 917, 920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150,
-1152 · `complottheorie` 680 · `concentratie` 70, 441, 802 · `concurrentie`
-293, 902 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
-`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211, 1295
-· `consistentie` 553 · `consument` 703, 704 · `consumptie` 463 ·
-`consumptiekeuzes` 299 · `consumptiemaatschappij` 564 · `content` 308 ·
-`content creatie` 365 · `content marketing` 369 · `copywriting` 695, 697, 698,
-699, 701 · `corruptie` 221, 1269 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
-74, 206, 312, 349, 418, 445, 471, 472, 475, 550, 702, 803, 952, 1203, 1299,
-1310, 1315, 1321, 1322, 1323, 1330 · `cricket` 174 · `crisis` 47, 807 ·
-`CRISPR` 413 · `cultuur` 68, 274, 764, 825, 1267 · `cultuurfilosofie` 580,
+466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306, 1530 · `communisme` 625 ·
+`compassie` 1525, 1527 · `complexiteit` 170, 268, 300, 347, 423, 1258, 1274,
+1279 · `complimenten geven` 356 · `complotdenken` 667, 668, 672, 676, 683,
+684, 688, 690, 914, 915, 916, 917, 920, 921, 923, 925, 926, 931, 1142, 1143,
+1145, 1146, 1147, 1150, 1152 · `complottheorie` 680, 1532 · `concentratie` 70,
+441, 802 · `concurrentie` 293, 902 · `conditionering` 61, 519 · `conflict` 35,
+42, 43, 212, 305 · `conflictbemiddeling` 304 · `conflicthantering` 271 ·
+`conformisme` 211, 1295 · `consistentie` 553 · `consument` 703, 704 ·
+`consumptie` 463 · `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 ·
+`content` 308 · `content creatie` 365 · `content marketing` 369 ·
+`copywriting` 695, 697, 698, 699, 701 · `corruptie` 221, 1269 · `Costa Rica`
+1515 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445,
+471, 472, 475, 550, 702, 803, 952, 1203, 1299, 1310, 1315, 1321, 1322, 1323,
+1330, 1501 · `cricket` 174 · `crisis` 47, 807 · `CRISPR` 413 · `Culturele
+Revolutie` 1522 · `cultuur` 68, 274, 764, 825, 1267 · `cultuurfilosofie` 580,
 826, 1116, 1170, 1296, 1298 · `cultuurgeschiedenis` 822, 1298 ·
 `cultuurkritiek` 54, 405, 592, 672, 722, 824, 1163, 1206, 1264 · `cursus` 108,
 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539, 540,
@@ -214196,55 +222764,57 @@ geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915,
 286, 579, 1200, 1204 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 ·
 `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 · `dagelijkse praktijk`
 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten`
-166 · `de ander` 574 · `debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 ·
-`degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate
-practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753,
-910, 1211 · `denken` 310, 509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510,
-514, 817 · `denkmethode` 471 · `denkmodellen` 426, 928 · `depressie` 403 ·
-`derivaten` 494, 495, 810, 1286 · `design thinking` 150 · `destructiviteit`
-223 · `determinisme` 1342 · `deugd` 247, 459, 581 · `diagnose` 104 · `dialoog`
-335, 572, 1269 · `dichotomie van controle` 194 · `dichtwerk` 524 · `dictatuur`
-221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieptepsychologie`
-646, 1118, 1154, 1235 · `dieren` 555, 1305 · `dierenzintuigen` 322 ·
-`dierkunde` 760 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
-`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
-350 · `direct-marketing` 695, 697, 698, 699 · `DISC` 156, 429 · `discipline`
-12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481, 482, 487, 488, 545,
-800 · `discours` 628 · `disruptie` 293 · `DNA` 419 · `docenten` 116 · `doelen`
-58, 136, 158, 542 · `doelen stellen` 367, 427, 448 · `doelgericht-oefenen` 50
-· `doelgroep` 446 · `doelstellingen` 256 · `donkere-triade` 124 · `dood` 98,
-169, 292, 535, 822 · `doodsangst` 405 · `doorzetten` 20 ·
-`doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314, 418 ·
-`dramaturgie` 1201 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360, 646,
-1121, 1324, 1325, 1326, 1327, 1328, 1329 · `drugs` 568 · `duitse literatuur`
-1202 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92, 1257, 1276 ·
-`dyslexie` 1310 · `dystopie` 61, 618 · `e-commerce` 257 · `e-mail` 70, 512 ·
-`e-mailmarketing` 309 · `ecologie` 298, 1257, 1276 · `economie` 65, 98, 217,
-251, 297, 347, 423, 450, 452, 478, 625, 627, 683, 718, 809, 821, 910, 933,
-1257, 1269, 1276, 1280, 1281, 1332, 1333, 1334, 1336, 1337, 1338, 1339, 1340,
-1341, 1342, 1343 · `economische geschiedenis` 155, 804, 806, 807, 808, 809,
-814, 821, 933, 1287 · `educatief` 327 · `eenvoud` 170, 205, 379 ·
-`eenzaamheid` 7, 96, 98, 111, 288, 302, 1200, 1203, 1204, 1205, 1206, 1207,
-1209, 1210, 1293, 1295, 1305, 1402 · `eer` 530, 534 · `eerlijk` 47 ·
-`eerlijkheid` 62 · `eerste-versie` 19 · `Eerste-Wereldoorlog` 1333 · `ego` 75,
-102, 149, 435 · `ego en zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594,
-595, 596, 597, 599, 602, 1120, 1122, 1126, 1139, 1149, 1219, 1223, 1232, 1265
-· `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546
-· `eigenaarschap` 97 · `eigendom` 1335 · `eindigheid` 442 · `einstein` 94 ·
-`elektriciteit` 267 · `elektrische auto's` 266 · `eleusis` 765 · `elites` 682,
-1145, 1146 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten`
-557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488,
-542, 1311, 1314, 1319 · `empathie` 35, 67, 303, 577 · `enactivisme` 755 ·
-`energetisch werk` 560 · `energie` 92, 195, 291, 377, 1257, 1273, 1276 ·
-`energiewerk` 432 · `entropie` 539, 818, 1272, 1276, 1277, 1316 ·
-`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
-`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164, 914 · `esoterie`
-378, 590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642, 643, 644,
-645, 647, 670, 678, 679, 836, 917, 928, 937, 1119, 1120, 1140, 1154, 1157,
-1164, 1165, 1214, 1217, 1218, 1219, 1220, 1221, 1222, 1228, 1229, 1230, 1232,
-1234, 1237, 1239, 1254, 1268 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197,
-232, 952, 1116, 1294 · `essaybundel` 390, 425, 620, 926, 927, 934, 1259, 1312
-· `essays` 523, 656, 830, 1208 · `esthetica` 756 · `esthetiek` 824, 828, 832,
+166 · `David Icke` 1532 · `de ander` 574 · `debat` 28 · `debuutboek` 226 ·
+`debuutroman` 1534 · `deeltjesfysica` 648 · `degrowth` 298 · `dekoloniaal
+denken` 521 · `delegeren` 434 · `deliberate practice` 376 · `dementie` 84, 85,
+225 · `democratie` 98, 562, 619, 628, 753, 910, 1211 · `denken` 310, 509, 664
+· `denkfouten` 55, 59, 142, 396, 437, 510, 514, 817 · `denkmethode` 471 ·
+`denkmodellen` 426, 928 · `depressie` 403 · `derivaten` 494, 495, 810, 1286 ·
+`design thinking` 150 · `destructiviteit` 223 · `determinisme` 1342 · `deugd`
+247, 459, 581 · `diagnose` 104 · `dialoog` 335, 572, 1269 · `dichotomie van
+controle` 194 · `dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245,
+535 · `diepe-tijd` 239 · `dieptepsychologie` 646, 1118, 1154, 1235 · `dieren`
+555, 1305 · `dierenzintuigen` 322 · `dierkunde` 760 · `dierlijke-cognitie` 383
+· `dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243
+· `direct response` 350 · `direct-marketing` 695, 697, 698, 699 · `DISC` 156,
+429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481,
+482, 487, 488, 545, 800 · `discours` 628 · `disruptie` 293 · `DNA` 419 ·
+`docenten` 116 · `doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448,
+1501 · `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
+`donkere-triade` 124 · `dood` 98, 169, 292, 535, 822 · `doodsangst` 405 ·
+`doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
+418 · `dramaturgie` 1201 · `drogredenen` 421 · `dromen` 52, 357, 358, 359,
+360, 646, 1121, 1324, 1325, 1326, 1327, 1328, 1329 · `drugs` 568 · `duitse
+literatuur` 1202 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92,
+1257, 1276 · `dyslexie` 1310 · `dystopie` 61, 618 · `e-commerce` 257 ·
+`e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298, 1257, 1276 ·
+`economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478, 625, 627, 683, 718,
+809, 821, 910, 933, 1257, 1269, 1276, 1280, 1281, 1332, 1333, 1334, 1336,
+1337, 1338, 1339, 1340, 1341, 1342, 1343 · `economische geschiedenis` 155,
+804, 806, 807, 808, 809, 814, 821, 933, 1287 · `educatief` 327 · `Een cursus
+in wonderen` 1515 · `eenvoud` 170, 205, 379 · `eenzaamheid` 7, 96, 98, 111,
+288, 302, 1200, 1203, 1204, 1205, 1206, 1207, 1209, 1210, 1293, 1295, 1305,
+1402 · `eer` 530, 534 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 ·
+`Eerste-Wereldoorlog` 1333 · `EFT` 1517 · `ego` 75, 102, 149, 435, 1504, 1536
+· `ego en zelf` 409 · `ego-depletie` 382 · `ego-toestanden` 1511 · `egypte`
+591, 594, 595, 596, 597, 599, 602, 1120, 1122, 1126, 1139, 1149, 1219, 1223,
+1232, 1265 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
+`eigen-oordeel` 58, 546 · `eigenaarschap` 97 · `eigendom` 1335 · `eindigheid`
+442 · `einstein` 94 · `elektriciteit` 267 · `elektrische auto's` 266 ·
+`eleusis` 765 · `elites` 682, 1145, 1146 · `emancipatie` 598 · `EMDR` 386 ·
+`emigratie` 240 · `emotie-eten` 557 · `emoties` 3, 43, 137, 142, 147, 153,
+177, 330, 331, 449, 457, 470, 488, 542, 1311, 1314, 1319, 1508 · `empathie`
+35, 67, 303, 577 · `enactivisme` 755 · `energetisch werk` 560 · `energie` 92,
+195, 291, 377, 1257, 1273, 1276 · `energiewerk` 432 · `entropie` 539, 818,
+1272, 1276, 1277, 1316 · `epigenetica` 208, 415, 1513 · `epos` 5, 530, 531,
+532 · `erfelijkheid` 419 · `erfenis` 39 · `Eric Berne` 1511 ·
+`erkenningszucht` 406 · `erotiek` 113, 164, 914 · `esoterie` 378, 590, 603,
+605, 606, 613, 630, 631, 632, 633, 634, 635, 642, 643, 644, 645, 647, 670,
+678, 679, 836, 917, 928, 937, 1119, 1120, 1140, 1154, 1157, 1164, 1165, 1214,
+1217, 1218, 1219, 1220, 1221, 1222, 1228, 1229, 1230, 1232, 1234, 1237, 1239,
+1254, 1268, 1520, 1537 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232,
+952, 1116, 1294 · `essaybundel` 390, 425, 620, 926, 927, 934, 1259, 1312 ·
+`essays` 523, 656, 830, 1208 · `esthetica` 756 · `esthetiek` 824, 828, 832,
 1296, 1299 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665, 819, 1269 ·
 `etnobotanie` 765 · `etnografie` 764, 1245 · `eurazië` 694 · `europa` 751 ·
 `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
@@ -214256,68 +222826,71 @@ practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753,
 `expertise` 283, 320, 376 · `extra dimensies` 648 · `extraversie` 361 ·
 `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312,
 422 · `familie` 45, 325, 466, 1400, 1402 · `familieconflict` 178 ·
-`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`farmaceutische industrie` 752 · `fascisme` 753 · `FBI` 154, 271 ·
-`FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541, 542 ·
-`feiten` 43 · `feminisme` 3, 620, 624, 1117, 1121, 1124, 1125, 1155, 1169,
-1170, 1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240, 1241 ·
-`fenomenologie` 574, 577, 582, 721, 755, 757, 759 · `fictie` 100, 115 · `film`
-41, 832 · `filologie` 641 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247,
-255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 592,
-594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111, 1112, 1115, 1163, 1167,
-1260, 1266, 1268, 1296, 1300, 1317 · `filosofie van de biologie` 760 ·
-`filosofiegeschiedenis` 269, 639, 1251 · `filosofische antropologie` 584 ·
-`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
-499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903, 1279, 1281, 1283, 1288
-· `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
-wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395,
-425 · `financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 ·
-`flow` 78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669, 1216,
-1245 · `fotoboek` 189 · `fotografie` 1313 · `foutcultuur` 422 · `fouten maken`
-509 · `fractals` 811 · `fragmenten` 1200 · `franchise` 544 · `frankrijk` 115 ·
-`Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging`
-323 · `fysiologie` 318, 412, 458, 1128, 1130 · `Galenus` 328 · `gaslighting`
-123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573, 1207 ·
+`familiegeschiedenis` 114, 235 · `familieopstellingen` 1510 · `familieroman`
+10 · `familiesysteem` 1510 · `fantasy` 192, 203 · `farmaceutische industrie`
+752 · `fascisme` 753 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme`
+619 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624,
+1117, 1121, 1124, 1125, 1155, 1169, 1170, 1224, 1225, 1226, 1229, 1231, 1235,
+1236, 1238, 1240, 1241 · `fenomenologie` 574, 577, 582, 721, 755, 757, 759 ·
+`fictie` 100, 115 · `film` 41, 832 · `filologie` 641 · `filosofie` 1, 6, 71,
+93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
+436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111,
+1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296, 1300, 1317 · `filosofie van de
+biologie` 760 · `filosofiegeschiedenis` 269, 639, 1251 · `filosofische
+antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
+351, 480, 481, 483, 499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903,
+1279, 1281, 1283, 1288 · `financiële onafhankelijkheid` 264 · `financiele
+vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline`
+464 · `financiën` 334, 395, 425 · `financiering` 172 · `fitnessbranche` 307,
+544 · `flitshandel` 499 · `flow` 78, 187, 200 · `fobie` 1533 · `focus` 175,
+197, 448, 513 · `folklore` 615, 669, 1216, 1245 · `fotoboek` 189 ·
+`fotografie` 1313 · `foutcultuur` 422 · `fouten maken` 509 · `fractals` 811 ·
+`fragmenten` 1200 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand` 390
+· `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318,
+412, 458, 1128, 1130 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304
+· `gastvrijheid` 531 · `gebed` 83, 259, 573, 1207 · `gebedsonderzoek` 1531 ·
 `gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
 `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425, 802 · `gedragsbiologie`
 322, 339 · `gedragseconomie` 424, 426, 514, 1288 · `gedragsonderzoek` 302, 382
-· `gedragspatronen` 161 · `gedragspsychologie` 294, 817 · `gedragstypen` 156 ·
-`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
-468, 469, 510 · `geduld` 21, 351, 800 · `geest` 584, 652, 1167 · `geestelijke
-gezondheid` 193 · `geestelijke oefeningen` 586 · `gegevensanalyse` 486 ·
+· `gedragspatronen` 161 · `gedragspsychologie` 294, 817 · `gedragstherapie`
+1526 · `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
+`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
+`geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
+gezondheidszorg` 1525 · `geestelijke oefeningen` 586 · `gegevensanalyse` 486 ·
 `gehechtheid` 166 · `geheim genootschap` 202 · `geheime diensten` 665, 668,
 684, 685, 750, 1141, 1147 · `geheime genootschappen` 751 · `geheugen` 66, 85,
 175, 414, 766, 801, 1143, 1144, 1171, 1202, 1402 · `gehoorzaamheid` 215, 617,
 1295 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133,
 158, 159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
 `geldpsychologie` 233, 264 · `geldstelsel` 680 · `geldtheorie` 1332 · `geloof`
-45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
-`gemeenschap` 9, 96, 304, 461, 1291, 1293 · `genealogie` 601 · `geneeskunde`
-49, 328, 823, 1127, 1129, 1135, 1136, 1259, 1263, 1307 · `geneesmiddelen` 752,
-1133 · `generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419, 818,
-941, 1157, 1275, 1344 · `genezing` 340 · `genot en pijn` 314 ·
-`gentechnologie` 413 · `geografie` 825 · `geologie` 239 · `geopolitiek` 220,
-692, 694 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298,
-328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634, 665,
-667, 681, 682, 683, 684, 685, 687, 689, 690, 693, 806, 807, 821, 833, 931,
-935, 939, 944, 1141, 1145, 1150, 1226, 1229, 1270, 1291, 1294, 1338, 1345,
-1401 · `geschiedenis van de geneeskunde` 412, 1132 · `geschiedfilosofie` 235,
-1342 · `geschiedschrijving` 601, 602, 1155, 1233, 1254 · `gesprek` 43, 95,
-302, 444, 1294 · `gesprekstechniek` 182, 186, 438 · `getallen` 657, 835, 1282,
-1312 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld`
-45, 90, 214, 1289 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus` 238 ·
-`gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88,
-97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334,
-382, 439, 442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291,
-294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 ·
-`gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415, 823, 1128,
-1129, 1131, 1133, 1134, 1138 · `gezondheidspsychologie` 458 ·
+45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579, 1503 ·
+`gemeenschap` 9, 96, 304, 461, 1291, 1293 · `genderrollen` 1500 · `genealogie`
+601 · `geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136, 1259, 1263, 1307 ·
+`geneesmiddelen` 752, 1133 · `generaties` 114 · `generatieve drift` 315 ·
+`genetica` 413, 419, 818, 941, 1157, 1275, 1344 · `genezing` 340 · `genot en
+pijn` 314 · `gentechnologie` 413 · `geografie` 825 · `geologie` 239 ·
+`geopolitiek` 220, 692, 694 · `Georgia` 1518 · `geschiedenis` 30, 36, 56, 57,
+68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593,
+595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687, 689,
+690, 693, 806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150, 1226,
+1229, 1270, 1291, 1294, 1338, 1345, 1401 · `geschiedenis van de geneeskunde`
+412, 1132 · `geschiedfilosofie` 235, 1342 · `geschiedschrijving` 601, 602,
+1155, 1233, 1254 · `gesprek` 43, 95, 302, 444, 1294 · `gesprekken` 1502 ·
+`gesprekstechniek` 182, 186, 438 · `gespreksvoering` 1530 · `getallen` 657,
+835, 1282, 1312 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 ·
+`geweld` 45, 90, 214, 1289, 1518 · `geweldloosheid` 612 · `gewicht` 138 ·
+`gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58,
+70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208,
+224, 230, 290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146, 161,
+168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 ·
+`gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414,
+415, 823, 1128, 1129, 1131, 1133, 1134, 1138 · `gezondheidspsychologie` 458 ·
 `gezondheidszorg` 313, 317, 422, 1132 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `globale werkruimte` 763 · `gnostiek` 614,
-666, 940, 1151, 1223, 1232, 1237 · `godin` 611, 1117, 1119, 1224, 1225, 1226,
-1227, 1231, 1235, 1236, 1237, 1238 · `godsdienstkritiek` 341 ·
-`godsdienstpsychologie` 754 · `godsdienstwetenschap` 578, 608, 640, 641, 835,
-940, 1125, 1151, 1223, 1254, 1290 · `goeroe` 242 · `Golden Dawn` 1220 ·
+`gijzelingsonderhandelaar` 271 · `Glastonbury` 1534 · `globale werkruimte` 763
+· `gnostiek` 614, 666, 940, 1151, 1223, 1232, 1237 · `godin` 611, 1117, 1119,
+1224, 1225, 1226, 1227, 1231, 1235, 1236, 1237, 1238 · `godsdienstkritiek` 341
+· `godsdienstpsychologie` 754 · `godsdienstwetenschap` 578, 608, 640, 641,
+835, 940, 1125, 1151, 1223, 1254, 1290 · `goeroe` 242 · `Golden Dawn` 1220 ·
 `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
 `grenswetenschap` 615, 1149, 1156 · `grenzen` 72, 105, 109, 120, 122, 187, 466
 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
@@ -214327,35 +222900,37 @@ literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531, 1238
 616, 619 · `groot-verhaal` 56 · `grootouders` 91 · `habitus` 723 · `handboek`
 493, 495, 1243 · `handel` 80, 251, 1269, 1282 · `handelen` 30, 476, 477, 478,
 479, 501 · `handelspsychologie` 488, 489, 1284, 1285 · `handelssysteem` 489,
-491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 · `hart`
-86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
-`hedendaags India` 202 · `hedgefondsen` 505, 810 · `heelal` 99, 262 ·
+491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 ·
+`hardlopen` 1514 · `hart` 86, 128 · `hartstilstand` 1524 · `Harvard` 457 ·
+`Hawaii` 1505 · `Hay House` 380, 1513 · `hechting` 145, 152, 317, 386, 1517,
+1521 · `hedendaags India` 202 · `hedgefondsen` 505, 810 · `heelal` 99, 262 ·
 `heksenvervolging` 1233 · `hekserij` 1224, 1227, 1228, 1231, 1233, 1244, 1245
 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125,
 134 · `herkomst` 127 · `hermetische filosofie` 378, 1246 · `hermetisme` 613,
 631, 632, 633, 638, 639, 642, 647, 766, 1218, 1232, 1249, 1250, 1253, 1254 ·
-`heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327, 801, 829, 1160, 1307 ·
-`hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 · `herstel` 87,
-552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527,
-569, 1102 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 ·
-`Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
-roman` 529, 922, 923, 924 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood`
-178 · `Holocaust` 48, 1213 · `holografie` 340 · `homoseksualiteit` 325 ·
-`hoogbegaafdheid` 1314 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416
-· `houding` 117 · `huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19,
-26, 105, 227, 561, 1296, 1322 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
+`heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327, 801, 829, 1160, 1307, 1506
+· `hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 · `herstel` 87,
+552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeisme` 1508 ·
+`hindoeïsme` 169, 199, 527, 569, 1102 · `Hindoeïstische mythologie` 192, 202 ·
+`hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische portretten`
+248 · `historische roman` 529, 922, 923, 924 · `ho'oponopono` 1505 ·
+`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48, 1213,
+1539 · `holografie` 340 · `homoseksualiteit` 325 · `hoogbegaafdheid` 1314 ·
+`hoogsensitiviteit` 1523 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice`
+416 · `houding` 117 · `huisvesting` 65 · `humanisme` 236, 643 · `humor` 16,
+19, 26, 105, 227, 561, 1296, 1322 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
 `Huxley` 54 · `hybride werken` 512 · `hypermoderne school` 831 ·
-`hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668, 1144, 1159 · `Idaho` 45 ·
-`ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751, 766, 932, 1246,
-1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255 · `identiteit` 22, 115, 192,
-261, 374, 375, 467, 559, 1116, 1201, 1206, 1302, 1303, 1319 ·
-`identiteitskapitaal` 51 · `ideologie` 628 · `ideologiekritiek` 1341 ·
-`ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 ·
-`imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `india` 649 · `India`
-163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520,
-527, 1101, 1304, 1400, 1401 · `individualisme` 9, 96, 624, 1206 ·
-`individualiteit` 263 · `individuatie` 359, 360, 408, 409, 646 ·
-`individuele-verantwoordelijkheid` 299 · `indonesië` 692 · `industrie` 348,
+`hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668, 1144, 1159 · `Ibiza` 1534
+· `Idaho` 45 · `ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751,
+766, 932, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255 · `identiteit`
+22, 115, 192, 261, 374, 375, 467, 559, 1116, 1201, 1206, 1302, 1303, 1319,
+1504 · `identiteitskapitaal` 51 · `ideologie` 628 · `ideologiekritiek` 1341 ·
+`ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `Illuminati` 1532 ·
+`illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20
+· `india` 649 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242,
+365, 370, 518, 520, 527, 1101, 1304, 1400, 1401, 1502 · `individualisme` 9,
+96, 624, 1206 · `individualiteit` 263 · `individuatie` 359, 360, 408, 409, 646
+· `individuele-verantwoordelijkheid` 299 · `indonesië` 692 · `industrie` 348,
 905 · `inflatie` 1332 · `informatietheorie` 1272, 1277, 1278, 1316 · `inheems
 denken` 521 · `initiatie` 407, 408, 522, 921, 922, 1114, 1235 · `inleiding`
 452, 456 · `inlichtingendiensten` 687, 688, 689, 1345 · `innerlijk-kind` 109 ·
@@ -214363,23 +222938,25 @@ denken` 521 · `initiatie` 407, 408, 522, 921, 922, 1114, 1235 · `inleiding`
 `innovatie` 206, 251, 293, 306, 471, 901, 1270 · `instagram` 129 ·
 `instemming` 616 · `instituties` 392 · `integraal bewustzijn` 580 ·
 `integriteit` 547 · `intellectuelen` 1341 · `intelligentie` 383, 943 ·
-`interactie` 1201 · `internationale betrekkingen` 455 · `internet` 60, 198,
-1302 · `internetcultuur` 666 · `interpretatie` 764 · `interventionisme` 1336 ·
-`interviews` 58, 277, 289 · `intimiteit` 122, 145, 164, 165 · `introspectie`
-579, 1325, 1326 · `introversie` 33, 361, 1203, 1206 · `intuitie` 128 ·
-`intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling`
-577 · `inwijding` 636, 1218, 1230 · `inzicht` 587 · `irrationaliteit` 424 ·
-`islam` 526, 1108, 1216 · `islamitische filosofie` 525, 1107 · `Israël` 514 ·
-`Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `japan` 902 ·
-`Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535, 1306 · `japanse
-filosofie` 576, 1106 · `jaren negentig` 348 · `jaren zestig` 750, 1148 ·
+`intentie` 1531 · `interactie` 1201 · `internationale betrekkingen` 455 ·
+`internet` 60, 198, 1302 · `internetcultuur` 666 · `interpretatie` 764 ·
+`interventionisme` 1336 · `interviews` 58, 277, 289 · `intimiteit` 122, 145,
+164, 165 · `introspectie` 579, 1325, 1326 · `introversie` 33, 361, 1203, 1206
+· `intuitie` 128 · `intuïtie` 214, 283, 320, 1537 · `investeren` 270, 348 ·
+`invloed` 11 · `invoeling` 577 · `inwijding` 636, 1218, 1230 · `inzicht` 587 ·
+`irrationaliteit` 424 · `islam` 526, 1108, 1216 · `islamitische filosofie`
+525, 1107 · `Israël` 514 · `Isvara` 1508 · `Italiaanse non-fictie` 211 ·
+`Italië` 155 · `jaloezie` 19 · `japan` 902 · `Japan` 77, 205, 261, 335, 346,
+379, 462, 517, 528, 535, 1306 · `japanse filosofie` 576, 1106 · `jaren
+negentig` 348 · `jaren zestig` 750, 1148 · `jaren zeventig` 1511 ·
 `jaren-tachtig` 139 · `jaren-twintig` 94 · `jaren-vijftig` 704 ·
-`jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115, 834 · `jodendom`
-630, 640, 942, 1216 · `John Harrison` 321 · `joint ventures` 348 · `jonge
-liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 · `jongvolwassenenroman`
-295 · `joodse filosofie` 572, 574 · `journaling` 147 · `journalistiek` 4, 7,
-46, 82, 238, 257, 285, 401, 499, 566, 669, 690, 816, 903, 950, 1313 · `jung`
-646, 937, 1118, 1123, 1153, 1154 · `Jung` 143, 358, 359, 1292 · `Jungiaanse
+`jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115, 834, 1515, 1519
+· `jodendom` 630, 640, 942, 1216 · `Joe Vitale` 1505 · `Johannes` 1537 · `John
+Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
+`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
+574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
+499, 566, 669, 690, 816, 903, 950, 1313 · `jung` 646, 937, 1118, 1123, 1153,
+1154 · `Jung` 143, 358, 359, 1292 · `jungiaans` 1520 · `Jungiaanse
 psychologie` 404, 407, 408, 409, 410, 1121, 1230, 1234, 1235, 1236 ·
 `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644, 1217, 1253 ·
 `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 ·
@@ -214392,34 +222969,35 @@ Grote` 534 · `karma` 184 · `karmel` 573 · `kashmir-shaivisme` 1100, 1103 ·
 `kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 · `kennisleer`
 525, 587, 929, 1107, 1111, 1112, 1260, 1266, 1267 · `kennissociologie` 721 ·
 `kennistheorie` 654, 820 · `kenniswerk` 6, 50, 400, 472 · `Kerala` 1400 ·
-`kernwaarden` 245 · `kernwapens` 454, 944 · `keuzes` 51, 71, 72, 510 · `KGB`
-1345 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
-`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
-`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
-`klassenverschil` 284 · `klassieke bronnen` 286, 1105 · `klassieke tekst` 219,
-394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351,
-420, 520, 537, 616, 617, 618, 619, 620, 626, 695, 696, 701, 702, 715, 716,
-717, 718, 719, 754, 757, 910, 936, 938, 948, 1208, 1211, 1212, 1213, 1256,
-1257, 1258, 1259, 1262, 1271, 1275, 1280, 1282, 1284, 1289, 1290, 1321 ·
-`kleding` 833 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
-`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
-`klimaatverandering` 299 · `klinische psychologie` 460 · `klokkenluider` 752 ·
-`klokkenmakerij` 321 · `kolonialisme` 298, 592, 1111, 1112, 1113, 1116 ·
-`kookboek` 1137 · `koopgedrag` 705 · `koppen` 697, 699 · `korea` 111 · `kort`
-59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445, 832,
-1271, 1314 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
-`kosmologie` 239, 262, 281, 645, 647, 648, 651, 655, 938, 945, 948, 1115,
-1221, 1222, 1261 · `koude oorlog` 217, 220, 384, 454, 456, 680, 689, 692, 693,
-1141 · `koude-oorlog` 1345 · `krijgsgevangenschap` 31 · `krijgskunde` 212,
-218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50, 1330 · `kritiek
-geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 ·
-`kunst` 11, 445, 1214, 1323 · `kunstenaars` 312, 1315 · `kunstgeschiedenis`
-241, 312, 822, 828, 1299 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 236, 237, 297, 652, 1256, 1258, 1317, 1318 · `kwaad` 404 ·
-`kwaliteit` 1, 400, 912, 1301 · `kwantificering` 392 · `kwantitatief handelen`
-506, 1279 · `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485, 503,
-816, 1286 · `kwantumfysica` 208, 340, 432, 433, 918, 919, 920, 930, 1164,
-1165, 1166, 1261 · `kwantummechanica` 362, 655, 761, 818, 1318 ·
+`kernovertuiging` 1515 · `kernwaarden` 245 · `kernwapens` 454, 944 · `keuzes`
+51, 71, 72, 510 · `KGB` 1345 · `Kierkegaard` 405 · `kinderboek` 167 ·
+`kinderen` 1523 · `kinderjaren` 152 · `kinderkanker` 1514 · `kinesiologie` 449
+· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
+`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
+bronnen` 286, 1105 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48,
+61, 83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619,
+620, 626, 695, 696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936,
+938, 948, 1208, 1211, 1212, 1213, 1256, 1257, 1258, 1259, 1262, 1271, 1275,
+1280, 1282, 1284, 1289, 1290, 1321 · `kleding` 833 · `klein-beginnen` 40 ·
+`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
+`klokkenluider` 752 · `klokkenmakerij` 321 · `kolonialisme` 298, 592, 1111,
+1112, 1113, 1116 · `Konya` 1538 · `kookboek` 1137 · `koopgedrag` 705 ·
+`koppen` 697, 699 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 ·
+`kort-boek` 11, 13, 16, 27, 38, 57, 445, 832, 1271, 1314 · `kort-stuk` 19, 30
+· `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281, 645,
+647, 648, 651, 655, 938, 945, 948, 1115, 1221, 1222, 1261 · `koude oorlog`
+217, 220, 384, 454, 456, 680, 689, 692, 693, 1141 · `koude-oorlog` 1345 ·
+`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
+346 · `kritiek` 24, 41, 50, 1330 · `kritiek geven` 356 · `kritisch denken`
+420, 421 · `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445, 1214, 1323 ·
+`kunstenaars` 312, 1315 · `kunstgeschiedenis` 241, 312, 822, 828, 1299 ·
+`kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237, 297, 652, 1256,
+1258, 1317, 1318 · `kwaad` 404 · `kwaliteit` 1, 400, 912, 1301 ·
+`kwantificering` 392 · `kwantitatief handelen` 506, 1279 · `kwantitatieve
+analyse` 498 · `kwantitatieve financiën` 485, 503, 816, 1286 · `kwantumfysica`
+208, 340, 432, 433, 918, 919, 920, 930, 1164, 1165, 1166, 1261, 1513, 1524,
+1531 · `kwantummechanica` 362, 655, 761, 818, 1318 · `kwantumtaal` 1507 ·
 `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
 `landbouw` 56, 98 · `landmark forum` 344 · `landschap` 825, 1202 ·
 `Latijns-Amerika` 1402 · `leadgeneratie` 308 · `lean manufacturing` 265, 912 ·
@@ -214427,67 +223005,72 @@ intelligentie` 236, 237, 297, 652, 1256, 1258, 1317, 1318 · `kwaad` 404 ·
 `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
 344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551, 900, 907, 911,
 1297, 1331 · `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509,
-538, 801, 803, 1278 · `lesmateriaal` 116 · `leugendetectie` 154, 338 ·
-`levensinrichting` 334 · `levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216,
-227, 586 · `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
-`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
+538, 801, 803, 1278 · `lesmateriaal` 116 · `leugendetectie` 154, 338 · `leven
+na de dood` 1535 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
+`levenskunst` 27, 199, 216, 227, 586 · `levenslessen` 285, 447 · `levensloop`
+91 · `levensposities` 1511 · `levensrichting` 1507 · `levensverhaal` 385 ·
+`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169, 1508 ·
 `liberalisme` 1335 · `libertarisme` 546, 623, 627, 629, 926, 927 · `lichaam`
-80, 757, 1130, 1211 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126,
-154, 303, 338, 399 · `lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160,
-295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390,
-1300 · `list` 531 · `literair` 110 · `literatuur` 49, 934, 1113, 1299, 1330 ·
+80, 757, 1130, 1211 · `lichaamsgericht werken` 386 · `lichaamsgerichte
+therapie` 1520 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk`
+432, 1528 · `licht` 525 · `liefde` 3, 131, 160, 295, 1509, 1517 ·
+`liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390, 1300 ·
+`list` 531 · `literair` 110 · `literatuur` 49, 934, 1113, 1299, 1330 ·
 `logica` 421, 437, 1256, 1266, 1271 · `logotherapie` 48 · `Long-Island` 4 ·
-`longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547, 803 · `loslaten` 377,
-449 · `losmaken` 45 · `lotsbestemming` 261 · `lsd` 750 · `luchtvaart` 422 ·
-`luisteren` 24, 35, 305, 444 · `maatschappijkritiek` 674, 826 · `machinaal
-leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440, 617, 622,
-683, 684, 685, 753, 935, 1145, 1146, 1289 · `machtspolitiek` 220 ·
-`machtstheorie` 221 · `machtsverhoudingen` 155 · `magie` 613, 632, 634, 637,
-638, 639, 641, 1126, 1216, 1218, 1220, 1232, 1242, 1244, 1246, 1247, 1248,
-1249, 1253, 1255 · `magisch realisme` 261, 1401, 1402 · `management` 42, 47,
-170, 183, 256, 350, 353, 364, 472, 900, 901, 902, 904, 907, 908, 909, 912 ·
-`managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129, 130, 131,
-132, 190, 196, 433, 543, 560, 768 · `manipulatie` 123, 124, 125, 126, 212,
-213, 381, 384, 429, 672, 673, 675, 686, 704, 1255 · `mannelijkheid` 3, 406,
-407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403
-· `manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183,
-279, 280, 307, 308, 309, 350, 443, 446, 913 · `marketingwetenschap` 705 ·
-`marktanalyse` 698 · `marktmicrostructuur` 477, 478 · `marxisme` 564 ·
-`matriarchaat` 1240 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564,
-565, 566, 666, 673, 674, 686, 931 · `medische ethiek` 416 · `meditatie` 111,
-141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528,
-590, 630, 638, 836, 1104, 1106, 1109, 1110, 1122, 1159, 1160, 1168 ·
-`meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392 ·
-`melancholie` 1200, 1202 · `melanesië` 717 · `memento mori` 286 · `memoir` 4,
-7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324,
-325, 348, 385, 402, 403, 431, 447, 505, 671, 752, 819, 830, 900, 911, 925,
-934, 941, 942, 949, 1114, 1142, 1204, 1205, 1228, 1283, 1286, 1303, 1304,
-1305, 1306, 1312, 1313 · `mens en dier` 584 · `menselijk gedrag` 155 ·
-`mensenkennis` 126, 356 · `menstruatie` 1121 · `mentale gezondheid` 315 ·
-`mentale helderheid` 148 · `mentale weerbaarheid` 229, 323, 372, 373, 374, 545
-· `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320, 402 · `merken` 279,
-700, 701, 705 · `metabolisme` 313 · `metafysica` 102, 518, 584, 587 · `meten`
-69, 133, 695, 697 · `methode` 81, 764 · `methodologie` 1337, 1340, 1342, 1343
-· `microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
+`longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547, 803, 1501 ·
+`loslaten` 377, 449, 1507 · `losmaken` 45 · `lotsbestemming` 261 · `lsd` 750 ·
+`luchtvaart` 422 · `luisteren` 24, 35, 305, 444 · `maatschappijkritiek` 674,
+826 · `machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388,
+440, 617, 622, 683, 684, 685, 753, 935, 1145, 1146, 1289 · `machtspolitiek`
+220 · `machtstheorie` 221 · `machtsverhoudingen` 155 · `magie` 613, 632, 634,
+637, 638, 639, 641, 1126, 1216, 1218, 1220, 1232, 1242, 1244, 1246, 1247,
+1248, 1249, 1253, 1255 · `magisch realisme` 261, 1401, 1402 · `management` 42,
+47, 170, 183, 256, 350, 353, 364, 472, 900, 901, 902, 904, 907, 908, 909, 912
+· `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129, 130,
+131, 132, 190, 196, 433, 543, 560, 768, 1505, 1507 · `manipulatie` 123, 124,
+125, 126, 212, 213, 381, 384, 429, 672, 673, 675, 686, 704, 1255 ·
+`mannelijkheid` 3, 406, 407, 408, 1500 · `mannen` 7 · `mannenbeweging` 407 ·
+`mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `Mao` 1522 · `maria
+magdalena` 614 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309,
+350, 443, 446, 913 · `marketingwetenschap` 705 · `marktanalyse` 698 ·
+`marktmicrostructuur` 477, 478 · `marxisme` 564 · `matriarchaat` 1240 · `MBCL`
+1525 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565, 566, 666,
+673, 674, 686, 931 · `medicatie` 1521 · `medische ethiek` 416 · `meditatie`
+111, 141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527,
+528, 590, 630, 638, 836, 1104, 1106, 1109, 1110, 1122, 1159, 1160, 1168, 1513,
+1525, 1536 · `mediumschap` 1535 · `meesterschap` 296, 320, 553 ·
+`meetprobleem` 650, 653 · `meetsystemen` 392 · `melancholie` 1200, 1202 ·
+`melanesië` 717 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62,
+95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431,
+447, 505, 671, 752, 819, 830, 900, 911, 925, 934, 941, 942, 949, 1114, 1142,
+1204, 1205, 1228, 1283, 1286, 1303, 1304, 1305, 1306, 1312, 1313, 1512, 1514,
+1522, 1539 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126,
+356 · `menstruatie` 1121 · `mentale gezondheid` 315 · `mentale helderheid` 148
+· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
+· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279, 700, 701, 705 ·
+`metabolisme` 313 · `metafysica` 102, 518, 584, 587 · `meten` 69, 133, 695,
+697 · `methode` 81, 764 · `methodologie` 1337, 1340, 1342, 1343 ·
+`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
 `middeleeuwen` 534, 632, 822, 947, 1107, 1216, 1263, 1282 · `midden-oosten`
 720 · `midlife` 324 · `militaire geschiedenis` 568 · `militaire strategie` 220
 · `millennials` 159 · `minderheden` 68 · `minderheidsstandpunt` 761 ·
-`mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146,
-181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254, 1148 · `misleiding`
-219, 272, 677 · `mislukking` 516, 1331 · `missie` 567 · `mitochondriën` 313 ·
-`mode` 833 · `modellen` 300 · `modelleren` 139 · `modellering` 455 · `moed`
-44, 529 · `moeder-en-zoon` 26 · `moederkoren` 765 · `momentum` 481 ·
-`monniksleven` 230, 1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532
-· `Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 ·
-`moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139,
-146, 183, 200, 207, 315, 427, 468, 469, 472 · `motivatieonderzoek` 703, 704 ·
-`Motley Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85, 762,
-824, 952, 1246, 1256, 1291, 1297 · `muziekfilosofie` 756 · `mysteriecultus`
-765 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636,
-640, 666, 754, 835, 936, 1100, 1103, 1109, 1110, 1124, 1158, 1207, 1222, 1237,
-1263, 1300 · `mythe` 608 · `mythe en ritueel` 756 · `mythevorming` 615, 1140,
-1151, 1238, 1240 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611,
-1117, 1119, 1157, 1225, 1226, 1235, 1237, 1238 · `mythologische fantasy` 202 ·
+`mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401, 1525, 1526 ·
+`mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254, 1148 ·
+`misleiding` 219, 272, 677 · `mislukking` 516, 1331 · `missie` 567 ·
+`mitochondriën` 313 · `mode` 833 · `modellen` 300 · `modelleren` 139 ·
+`modellering` 455 · `moed` 44, 529, 1519 · `moeder en dochter` 1522 ·
+`moeder-en-zoon` 26 · `moederkoren` 765 · `momentum` 481 · `monniksleven` 230,
+1207 · `monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Monty-Python` 16
+· `moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 · `moraalkritiek` 391 ·
+`moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139, 146, 183, 200, 207,
+315, 427, 468, 469, 472 · `motivatieonderzoek` 703, 704 · `Motley Fool` 474 ·
+`motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85, 762, 824, 952, 1246, 1256,
+1291, 1297, 1512 · `muziekfilosofie` 756 · `mysteriecultus` 765 · `mystiek`
+340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636, 640, 666, 754,
+835, 936, 1100, 1103, 1109, 1110, 1124, 1158, 1207, 1222, 1237, 1263, 1300 ·
+`mythe` 608 · `mythe en ritueel` 756 · `mythevorming` 615, 1140, 1151, 1238,
+1240 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611, 1117, 1119,
+1157, 1225, 1226, 1235, 1237, 1238 · `mythologische fantasy` 202 ·
 `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
 oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225,
 426, 477, 478, 486, 491, 500, 504, 640, 661, 662, 806, 813, 815, 817, 835,
@@ -214496,33 +223079,36 @@ oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225
 648, 650, 651, 653, 655, 657, 818, 819, 944, 945, 947, 1261, 1265, 1276, 1279,
 1318 · `natuurlijke-selectie` 1344 · `navigatie` 321 · `navy seals` 229, 364 ·
 `nazisme` 223, 1338 · `neanderthaler` 762 · `necrofilie` 223 · `nederland` 96
-· `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
-131, 141, 1327 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
-emoties` 176 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133,
-1134, 1135, 1136, 1137, 1325 · `negentig dagen` 188 · `neopaganisme` 611, 637,
-1126, 1224, 1227, 1228, 1230, 1231, 1233, 1244, 1245 · `nepnieuws` 237 ·
-`netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie`
-49, 414 · `neurodiversiteit` 1306, 1308, 1309, 1310, 1313 · `neurologie` 325,
-1307, 1319 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
-`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
-418, 513, 585, 801, 829, 943, 1160, 1171, 1172, 1173, 1174, 1311, 1317, 1319,
-1320 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age`
-149, 435, 449, 549, 670, 678, 679, 768, 1122, 1156, 1241, 1242 · `new thought`
-259, 380, 555 · `NeXT` 46, 1331 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378
-· `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nike` 20 ·
-`nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520, 1100, 1102 ·
-`non-fictie` 420 · `non-verbaal` 399 · `non-verbale communicatie` 154 ·
-`noodlot` 533 · `Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173
-· `numineus` 578 · `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284
-· `occultisme` 378, 613, 634, 637, 638, 644, 676, 914, 915, 921, 924, 925,
-1140, 1147, 1214, 1216, 1217, 1220, 1221, 1222, 1228, 1229, 1232, 1239, 1242,
-1243, 1244, 1248, 1250 · `ochtendroutine` 14, 134, 244 · `octopus` 760 ·
-`oefenen` 29, 397, 800 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103,
-109, 118, 120, 122, 130, 549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 ·
-`omgangsvormen` 24, 398, 939 · `omkering` 105 · `omstreden` 37, 73, 76, 83,
-1329 · `onafhankelijkheid` 1401 · `onbegrepen-klachten` 104 · `onbetrouwbaar`
-123, 124, 125, 126 · `onbetrouwbare verteller` 284, 1401 · `onbewezen` 127,
-128, 129, 130, 131, 132, 139, 1239 · `onbewuste` 16, 283, 358, 359, 1316 ·
+· `Nederland` 1528, 1530 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105,
+106, 107, 108, 128, 130, 131, 141, 1327 · `Nederlands` 1501, 1527 ·
+`nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
+`negentiende eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133, 1134, 1135, 1136,
+1137, 1325 · `negentig dagen` 188 · `neopaganisme` 611, 637, 1126, 1224, 1227,
+1228, 1230, 1231, 1233, 1244, 1245 · `nepnieuws` 237 · `netwerken` 24, 246,
+300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
+`neurodiversiteit` 1306, 1308, 1309, 1310, 1313 · `neurolinguïstisch
+programmeren` 1533 · `neurologie` 325, 1307, 1319 · `neuroplasticiteit` 175,
+208, 414 · `neurose` 575 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330,
+331, 333, 339, 340, 386, 418, 513, 585, 801, 829, 943, 1160, 1171, 1172, 1173,
+1174, 1311, 1317, 1319, 1320 · `neurowetenschap-voor-kinderen` 327 ·
+`neusademing` 318 · `new age` 149, 435, 449, 549, 670, 678, 679, 768, 1122,
+1156, 1241, 1242 · `New Age` 1532 · `new thought` 259, 380, 555 · `NeXT` 46,
+1331 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
+`nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nike` 20 · `nlp` 123, 125, 139
+· `NLP` 1530, 1533 · `Nobelprijs` 55 · `non-dualiteit` 520, 1100, 1102, 1502,
+1504, 1536 · `non-fictie` 420 · `non-lokaliteit` 1524 · `non-verbaal` 399 ·
+`non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
+`notitieboeken` 241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 ·
+`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613, 634, 637,
+638, 644, 676, 914, 915, 921, 924, 925, 1140, 1147, 1214, 1216, 1217, 1220,
+1221, 1222, 1228, 1229, 1232, 1239, 1242, 1243, 1244, 1248, 1250 ·
+`ochtendroutine` 14, 134, 244 · `octopus` 760 · `oefenen` 29, 397, 800 ·
+`oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130,
+549, 1527 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24,
+398, 939 · `omkering` 105 · `omstreden` 37, 73, 76, 83, 1329 ·
+`onafhankelijkheid` 1401 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
+124, 125, 126 · `onbetrouwbare verteller` 284, 1401 · `onbewezen` 127, 128,
+129, 130, 131, 132, 139, 1239 · `onbewuste` 16, 283, 358, 359, 1316 ·
 `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134,
 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455 ·
 `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
@@ -214534,136 +223120,144 @@ emoties` 176 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133,
 78, 79, 80, 84, 85, 86, 88, 152, 305, 691, 705, 906, 909, 946, 949, 950, 951,
 1278, 1315, 1328 · `onderzoeksdebat` 53 · `onderzoeksethiek` 215 ·
 `onderzoeksjournalistiek` 665, 687, 688, 692, 1148 · `onderzoekskritiek` 52,
-415, 1292 · `ongemak` 323 · `ongeneeslijke ziekte` 285 · `online ondernemen`
-309 · `onsterfelijkheid` 236, 405, 1209 · `onthechting` 462 · `ontmoeten` 304
-· `ontmoeting` 572, 1294 · `ontologie` 344 · `ontslagen` 47 · `ontwerp` 550 ·
-`ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 ·
-`onzekerheid` 268, 341, 375, 423, 515, 516, 1280, 1281 · `oordeel` 59, 69 ·
-`oorlog` 31, 57, 66, 364, 568, 1293 · `oorlogvoering` 218 · `oorsprong` 599 ·
-`oorsprong van het leven` 1273 · `Oostenrijkse-school` 1332, 1333, 1334, 1335,
-1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343 · `opdrachten` 116 ·
-`opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 ·
-`opties` 494, 495, 506 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3,
-23, 29, 44, 53, 73, 162, 193, 290, 1131 · `opwekking` 558 · `orale traditie`
-522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388, 422, 468, 900, 904,
-906, 911, 1258, 1339 · `organisatiecultuur` 183, 273, 353 · `oriëntalisme` 720
-· `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude
-Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95,
-191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589, 641, 765, 940, 947
-· `Oulipo` 1212, 1213 · `outsourcen` 278 · `overdenken` 148 · `overfitting`
-484, 485, 502, 503 · `overgave` 431 · `overheid` 1339 · `overleven` 31, 36 ·
-`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367, 438 ·
-`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469, 487, 768 ·
-`overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
-`Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
-`parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362, 669, 677,
-929, 1144 · `parapsychologie` 637, 1161, 1324, 1328 · `parawetenschap` 663 ·
-`Parijs` 1212 · `passie` 50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 ·
-`patiëntverhalen` 414 · `patriarchaat` 3, 1155 · `pelgrimage` 8 · `pensioen`
-277 · `perceptie` 30 · `perfectionisme` 19, 32, 44, 575 · `persoonlijk merk`
-198, 365 · `persoonlijke financiën` 163, 233, 395 · `persoonlijke
-ontwikkeling` 161, 465, 467, 1314 · `persoonlijkheid` 33, 338, 538, 1292, 1314
-· `persoonlijkheidstypen` 361, 1292 · `perspectief` 580 · `Perzië` 524, 525,
-526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 · `Pixar`
-41, 46, 1331 · `plaats` 825 · `placebo` 387, 469 · `planeconomie` 1334 ·
-`planeten` 99, 1123 · `planning` 70, 276 · `plantaardig-dieet` 324 ·
-`plastische chirurgie` 411 · `plato` 581 · `plicht` 2 · `podcast` 136, 465,
-513 · `poëzie` 204, 611, 1110, 1115, 1210, 1211, 1304, 1330 · `poker` 137 ·
-`polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
-`politiek` 54, 219, 438, 629, 680, 681, 688, 1269 · `politiek geloof` 751 ·
-`politieke analyse` 753 · `politieke economie` 566, 933 · `politieke
-filosofie` 394, 623, 624, 626, 627, 628, 935 · `politieke orde` 716 ·
-`populair` 77, 129, 133 · `populair-wetenschappelijk` 88, 239, 326, 418, 451,
-1262 · `populaire filosofie` 194 · `populaire psychologie` 156, 429 ·
-`portefeuille` 474 · `portefeuillebeheer` 507, 813 · `portefeuilletheorie` 503
-· `portretten` 75, 94 · `portugese literatuur` 1200 · `positief denken` 83,
-179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506, 812 ·
-`positieve-psychologie` 207 · `positionering` 443, 696, 913 · `postkoloniale
-studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 · `postuum` 49
-· `pr` 686 · `Praag` 173 · `pragmatisme` 1266 · `praktijk` 459 · `praktisch`
-118, 121, 140, 159, 172 · `praxeologie` 1337, 1340, 1343 · `prehistorie` 1225
-· `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397,
-488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
-`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
-`prijscontrole` 1336 · `prijsstelling` 307 · `prijsvorming` 1334 · `prijzen`
-23, 424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311,
-448 · `privacy` 393, 687 · `proactief` 25 · `producer` 17 · `product` 446 ·
-`productie` 912 · `productiviteit` 151, 175, 197, 207, 244, 276, 278, 290,
-311, 400, 434, 442, 448, 512, 552, 802, 904 · `productontwerp` 231, 294 ·
-`productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384, 562, 566, 686 ·
-`propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
-· `pseudowetenschap` 673, 1120, 1139, 1152, 1156, 1219, 1240, 1243 ·
-`psychedelica` 275, 765, 925, 1159, 1162 · `psychiatrie` 1, 48, 95, 96, 104,
-213, 314, 315, 317, 331, 671, 1314, 1315 · `psychoanalyse` 223, 360, 361, 405,
-409, 575, 610, 703, 833, 1203, 1323, 1330 · `psychologie` 23, 28, 29, 55, 73,
-78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254, 258,
-296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463, 467,
-468, 469, 487, 501, 514, 538, 541, 542, 582, 665, 801, 802, 828, 928, 936,
-943, 951, 1161, 1166, 1255, 1258, 1292, 1321, 1322, 1326 · `psychologische
-flexibiliteit` 460 · `psychologische functies` 361 · `psychopathie` 429 ·
-`psychose` 671 · `psychotherapie` 164, 227, 386, 406, 769, 1158, 1309 · `PTSS`
-386 · `publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
+415, 1292 · `onderzoeksmethode` 1506 · `ongemak` 323 · `ongeneeslijke ziekte`
+285 · `online ondernemen` 309 · `onsterfelijkheid` 236, 405, 1209 ·
+`onthechting` 462 · `ontmoeten` 304 · `ontmoeting` 572, 1294 · `ontologie` 344
+· `ontrouw` 1509 · `ontslagen` 47 · `ontwaken` 1536 · `ontwerp` 550 ·
+`ontwikkeling` 46, 85, 1521 · `ontwikkelingslanden` 234 ·
+`ontwikkelingspsychologie` 1520 · `onvolmaaktheid` 379 · `onzekerheid` 268,
+341, 375, 423, 515, 516, 1280, 1281 · `oordeel` 59, 69 · `oorlog` 31, 57, 66,
+364, 568, 1293 · `oorlogvoering` 218 · `oorsprong` 599 · `oorsprong van het
+leven` 1273 · `Oostenrijkse-school` 1332, 1333, 1334, 1335, 1336, 1337, 1338,
+1339, 1340, 1341, 1342, 1343 · `opdrachten` 116 · `opgetekend` 97 · `opgeven`
+249 · `opgroeien` 4, 295 · `opleidingsboek` 1530 · `opoffering` 554 · `opties`
+494, 495, 506 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29,
+44, 53, 73, 162, 193, 290, 1131, 1521, 1523 · `opwekking` 558 · `orale
+traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388, 422, 468,
+900, 904, 906, 911, 1258, 1339 · `organisatiecultuur` 183, 273, 353 ·
+`oriëntalisme` 720 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud
+china` 272 · `Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom`
+77, 84, 91, 95, 191, 402, 416 · `ouders` 1510 · `oudheid` 2, 247, 292, 536,
+537, 588, 589, 641, 765, 940, 947 · `Oulipo` 1212, 1213 · `outsourcen` 278 ·
+`overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
+`overheid` 1339 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
+`overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 · `overtuigingen`
+28, 132, 139, 143, 469, 487, 768 · `overvloed` 17 · `oxytocine` 458 ·
+`Pacific` 31 · `pacifisme` 240, 612 · `Padma-onderscheiding` 189 ·
+`palliatieve zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 · `paradigma`
+543 · `paranormaal` 340, 362, 669, 677, 929, 1144 · `parapsychologie` 637,
+1161, 1324, 1328, 1531 · `parawetenschap` 663 · `Parijs` 1212 · `passie` 50,
+198 · `pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
+`patriarchaat` 3, 1155 · `patronen` 1510 · `Paul Gilbert` 1525 · `pelgrimage`
+8 · `pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32, 44, 575, 1503 ·
+`persoonlijk merk` 198, 365 · `persoonlijke financiën` 163, 233, 395 ·
+`persoonlijke ontwikkeling` 161, 465, 467, 1314 · `persoonlijkheid` 33, 338,
+538, 1292, 1314 · `persoonlijkheidstypen` 361, 1292 · `perspectief` 580 ·
+`Perzië` 524, 525, 526, 536 · `piekeren` 105, 176, 1526 · `pijn` 85, 255 ·
+`pijnlichaam` 435 · `Pixar` 41, 46, 1331 · `plaats` 825 · `placebo` 387, 469,
+1513 · `planeconomie` 1334 · `planeten` 99, 1123 · `planning` 70, 276 ·
+`plantaardig-dieet` 324 · `plastische chirurgie` 411 · `plato` 581 · `plicht`
+2 · `podcast` 136, 465, 513, 1503 · `poëzie` 204, 611, 1110, 1115, 1210, 1211,
+1304, 1330 · `poker` 137 · `polarisatie` 305 · `polariteit` 1500 · `polemiek`
+67 · `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438, 629, 680,
+681, 688, 1269 · `politiek geloof` 751 · `politieke analyse` 753 · `politieke
+economie` 566, 933 · `politieke filosofie` 394, 623, 624, 626, 627, 628, 935 ·
+`politieke orde` 716 · `populair` 77, 129, 133 · `populair-wetenschappelijk`
+88, 239, 326, 418, 451, 1262 · `populaire filosofie` 194 · `populaire
+psychologie` 156, 429, 1511, 1533 · `portefeuille` 474 · `portefeuillebeheer`
+507, 813 · `portefeuilletheorie` 503 · `portretten` 75, 94 · `portugese
+literatuur` 1200 · `positief denken` 83, 179, 516 · `positiegrootte` 489, 490,
+491, 493, 504, 506, 812 · `positieve-psychologie` 207 · `positionering` 443,
+696, 913 · `postkoloniale studies` 720 · `postmarxisme` 628 · `postmodernisme`
+565, 1170 · `postuum` 49 · `pr` 686 · `Praag` 173 · `pragmatisme` 1266 ·
+`praktijk` 459 · `praktijkboek` 1533 · `praktisch` 118, 121, 140, 159, 172 ·
+`praxeologie` 1337, 1340, 1343 · `prehistorie` 1225 · `prentenboek` 167 ·
+`presenteren` 82, 253 · `prestatie` 168, 291, 372, 397, 488, 545 ·
+`prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
+· `prestige` 515 · `preventie` 86, 313 · `prijscontrole` 1336 ·
+`prijsstelling` 307 · `prijsvorming` 1334 · `prijzen` 23, 424 · `prikkels` 60,
+65 · `prikkelverwerking` 1523 · `Prinses Máxima Centrum` 1514 · `prioriteiten`
+25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393, 687 · `proactief` 25 ·
+`producer` 17 · `product` 446 · `productie` 912 · `productiviteit` 151, 175,
+197, 207, 244, 276, 278, 290, 311, 400, 434, 442, 448, 512, 552, 802, 904 ·
+`productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 ·
+`programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
+384, 562, 566, 686 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
+126 · `pseudoniem` 378 · `pseudowetenschap` 673, 1120, 1139, 1152, 1156, 1219,
+1240, 1243, 1531 · `psychedelica` 275, 765, 925, 1159, 1162 · `psychiatrie` 1,
+48, 95, 96, 104, 213, 314, 315, 317, 331, 671, 1314, 1315, 1506, 1511, 1521,
+1527 · `psychoanalyse` 223, 360, 361, 405, 409, 575, 610, 703, 833, 1203,
+1323, 1330 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147,
+152, 154, 162, 200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358,
+375, 381, 382, 384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514,
+538, 541, 542, 582, 665, 801, 802, 828, 928, 936, 943, 951, 1161, 1166, 1255,
+1258, 1292, 1321, 1322, 1326, 1523 · `psychologische flexibiliteit` 460 ·
+`psychologische functies` 361 · `psychopathie` 429 · `psychose` 671 ·
+`psychotherapie` 164, 227, 386, 406, 769, 1158, 1309, 1539 · `PTSS` 386 ·
+`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
 `Pulitzer` 5 · `punk` 834 · `puzzels` 451, 1212 · `Python` 486 · `quantum` 94,
-650, 653 · `queeste` 522 · `quilten` 114 · `quotes` 179 · `racisme` 601, 602 ·
-`radicale transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 ·
-`rationaliteit` 454 · `rationele keuze` 455 · `recht` 393, 827 ·
-`rechtsfilosofie` 827 · `rechtsgeschiedenis` 827 · `rechtspraak` 69 ·
-`rechtvaardigheid` 623 · `reclame` 206, 279, 443, 446, 563, 673, 695, 696,
-697, 698, 699, 700, 701, 702, 705 · `reclamebureau` 701 ·
-`reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 · `reclameonderzoek` 696
-· `reclametheorie` 700 · `reeks` 114, 192 · `regimeverandering` 220 ·
-`regulering` 1336 · `reïncarnatie` 202, 645 · `reïnventie` 344 · `reisverhaal`
-1, 1202 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164,
-166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie` 165 ·
-`relativiteitstheorie` 240, 281, 945 · `religie` 56, 572, 596, 599, 626, 936,
-937, 1138, 1170, 1173, 1226, 1233, 1236, 1290, 1291 · `religieus naturalisme`
-609 · `religieuze beweging` 670, 1153, 1227 · `religieuze symboliek` 409 ·
-`religiewetenschap` 758 · `REM` 52 · `remarkable` 446 · `renaissance` 639,
-643, 766, 1208, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255 ·
-`Renaissance` 15, 241 · `rente` 38, 806 · `replicatie` 79 · `reputatie` 388 ·
-`retorica` 253, 438, 766 · `revisie` 18 · `revolutie` 625 · `ridderepos` 534 ·
-`ridderideaal` 822 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
-423, 425, 480, 481, 482, 487, 496, 500, 501, 804, 811, 815, 816, 1280, 1283,
-1287 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506,
-810, 1285, 1288 · `ritueel` 404, 590, 608, 719, 1103, 1114, 1126, 1169, 1224,
-1231, 1239, 1241, 1244, 1290, 1291, 1298 · `rituelen` 304 · `rivier als
-symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 ·
-`rolgedrag` 1201 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916, 917,
-918, 919, 920, 921, 1209, 1212, 1213, 1327, 1400, 1401, 1402 · `Rome` 537 ·
-`romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 ·
-`rozenkruisers` 631, 645 · `ruil` 717, 718 · `ruimte en tijd` 281 ·
-`ruimtevaart` 266, 819 · `runen` 1217 · `russische literatuur` 235 · `rust` 32
-· `SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90,
-98, 319 · `samenwerken` 25 · `samenwerking` 453, 1297 · `samoerai` 346, 462,
-517, 535 · `Sanskriet` 520, 1100, 1102 · `Santa Fe Institute` 347, 1279 ·
-`satire` 155, 914, 915, 916, 918, 919, 920, 923 · `satori` 528, 769 ·
-`scepsis` 63, 585, 675, 927, 929, 1108, 1208 · `schaalgroei` 434 ·
-`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470, 1309 · `schaarste` 92,
-249 · `schaduw` 404 · `schaken` 831 · `scheiding` 556 · `scheikunde` 92, 942 ·
-`schizofrenie` 671 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81,
-436, 511 · `schrijverschap` 191, 325, 934, 1204, 1210 · `schuld` 254 ·
-`schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316,
-672, 1125, 1134 · `sekten` 675, 1148 · `selectoraattheorie` 221 · `semantiek`
-664, 930 · `seminar` 139, 543 · `semiotiek` 834, 1266, 1299 · `Shaolin` 389 ·
-`Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564
-· `sjamanisme` 758, 1166, 1169, 1241 · `slaap` 52, 87, 88, 171, 181, 316, 329,
-414, 1174, 1325, 1326, 1328, 1329 · `slaapapneu` 332 · `slavernij` 68 ·
-`smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70, 194,
-198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319, 1289, 1295 ·
-`sociale-vaardigheden` 398 · `socialisme` 618, 1334 · `sociobiologie` 722,
-1267 · `sociologie` 300, 622, 715, 721, 723, 805, 826, 834, 939, 1201, 1290,
-1301, 1302 · `soedan` 716 · `soefisme` 524, 526, 1108 · `software` 276, 484 ·
-`somberheid` 119 · `spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta`
-529 · `specialisatie` 349, 803 · `speculatie` 808, 809, 1281, 1283, 1284, 1285
-· `speedreading` 175 · `spel` 550, 1298 · `spelen` 32 · `spellen` 392 ·
-`speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456, 656 ·
-`spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
-`spieropbouw` 316 · `spijt` 447 · `spionage` 1345 · `spiritisme` 677, 1161 ·
-`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
-199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
-604, 614, 679, 754, 1101, 1205, 1224, 1231, 1236, 1241, 1327 · `spirituele
-zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
+650, 653 · `queeste` 522 · `quilten` 114 · `quotes` 179 · `raamvertelling`
+1538 · `racisme` 601, 602, 1518, 1519 · `radicale transparantie` 270 · `radio`
+1503 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 · `rationele
+keuze` 455 · `recht` 393, 827 · `rechtsfilosofie` 827 · `rechtsgeschiedenis`
+827 · `rechtspraak` 69, 1519 · `rechtvaardigheid` 623 · `reclame` 206, 279,
+443, 446, 563, 673, 695, 696, 697, 698, 699, 700, 701, 702, 705 ·
+`reclamebureau` 701 · `reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 ·
+`reclameonderzoek` 696 · `reclametheorie` 700 · `reeks` 114, 192 ·
+`regimeverandering` 220 · `regulering` 1336 · `reïncarnatie` 202, 645 ·
+`reïnventie` 344 · `reisverhaal` 1, 1202, 1534 · `reizen` 278 · `relaties` 34,
+51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398,
+406, 466, 1500, 1509, 1517 · `relatietherapie` 165 · `relativiteitstheorie`
+240, 281, 945 · `religie` 56, 572, 596, 599, 626, 936, 937, 1138, 1170, 1173,
+1226, 1233, 1236, 1290, 1291 · `religieus naturalisme` 609 · `religieuze
+beweging` 670, 1153, 1227 · `religieuze symboliek` 409 · `religiewetenschap`
+758 · `REM` 52 · `remarkable` 446 · `renaissance` 639, 643, 766, 1208, 1246,
+1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255 · `Renaissance` 15, 241 ·
+`rente` 38, 806 · `replicatie` 79 · `reptielen` 1532 · `reputatie` 388 ·
+`retorica` 253, 438, 766 · `retraite` 1512 · `revisie` 18 · `revolutie` 625 ·
+`ridderepos` 534 · `ridderideaal` 822 · `rijkdom` 57, 228 · `risico` 64, 80,
+144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501, 804, 811,
+815, 816, 1280, 1283, 1287 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494,
+497, 498, 504, 506, 810, 1285, 1288 · `ritueel` 404, 590, 608, 719, 1103,
+1114, 1126, 1169, 1224, 1231, 1239, 1241, 1244, 1290, 1291, 1298 · `rituelen`
+304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9,
+12, 160 · `rolgedrag` 1201 · `roman` 61, 113, 114, 115, 254, 554, 904, 915,
+916, 917, 918, 919, 920, 921, 1209, 1212, 1213, 1327, 1400, 1401, 1402, 1518,
+1519, 1538 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95, 467, 1512, 1514,
+1533, 1535 · `rouwverwerking` 204 · `rozenkruisers` 631, 645 · `ruil` 717, 718
+· `ruimte en tijd` 281 · `ruimtevaart` 266, 819 · `Rumi` 1538 · `runen` 1217 ·
+`Rusland` 1507 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 ·
+`sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98, 319 ·
+`samenwerken` 25 · `samenwerking` 453, 1297 · `samoerai` 346, 462, 517, 535 ·
+`Sanskriet` 520, 1100, 1102 · `Santa Fe Institute` 347, 1279 · `satire` 155,
+914, 915, 916, 918, 919, 920, 923 · `satori` 528, 769 · `scepsis` 63, 585,
+675, 927, 929, 1108, 1208 · `schaalgroei` 434 · `schaalvergroting` 350 ·
+`schaamte` 32, 44, 317, 470, 1309 · `schaarste` 92, 249 · `schaduw` 404 ·
+`schaken` 831 · `scheiding` 556 · `scheikunde` 92, 942 · `schizofrenie` 671 ·
+`school` 53, 84, 1523 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 ·
+`schrijverschap` 191, 325, 934, 1204, 1210 · `schuld` 254 · `schulden` 20, 38,
+121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316, 672, 1125, 1134, 1500,
+1509 · `sekten` 675, 1148 · `selectoraattheorie` 221 · `semantiek` 664, 930 ·
+`seminar` 139, 543 · `semiotiek` 834, 1266, 1299 · `Shams van Tabriz` 1538 ·
+`Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 ·
+`situationisme` 564 · `sjamanisme` 758, 1166, 1169, 1241 · `slaap` 52, 87, 88,
+171, 181, 316, 329, 414, 1174, 1325, 1326, 1328, 1329 · `slaapapneu` 332 ·
+`slavernij` 68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale
+media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
+319, 1289, 1295 · `sociale-vaardigheden` 398 · `socialisme` 618, 1334 ·
+`sociobiologie` 722, 1267 · `sociologie` 300, 622, 715, 721, 723, 805, 826,
+834, 939, 1201, 1290, 1301, 1302 · `soedan` 716 · `soefisme` 524, 526, 1108,
+1538 · `software` 276, 484 · `somberheid` 119 · `spanning` 101 · `sparen` 21,
+38, 159, 233, 464 · `Sparta` 529, 1514 · `specialisatie` 349, 803 ·
+`speculatie` 808, 809, 1281, 1283, 1284, 1285 · `speedreading` 175 · `spel`
+550, 1298 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
+452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
+`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spionage` 1345 ·
+`spiritisme` 677, 1161, 1535 · `spiritualisme` 1537 · `spiritualiteit` 8, 14,
+27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
+431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679, 754, 1101,
+1205, 1224, 1231, 1236, 1241, 1327, 1500, 1528, 1534 · `spirituele zoektocht`
+287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
 `sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
 `staartrisico` 494, 496, 811 · `staat` 612 · `staatsgezag` 616 · `staatsgreep`
 220 · `staatskritiek` 621, 622, 623 · `staatsmacht` 1335, 1338 ·
@@ -214672,89 +223266,94 @@ zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
 268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507, 715, 804,
 805, 811, 909, 946, 951, 1283, 1287 · `statistiek van uitzonderingen` 274 ·
 `status` 39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
-416, 516 · `sterrenkunde` 99, 1139 · `sterven` 49, 95, 275, 447 · `stijl` 18,
-436 · `stilte` 1205, 1207 · `stoicijns` 75, 140, 142 · `stoïcijnse filosofie`
-153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
+416, 516 · `sterrenkunde` 99, 1139 · `sterven` 49, 95, 275, 447, 1506, 1524 ·
+`stijl` 18, 436 · `stilte` 1205, 1207 · `stoicijns` 75, 140, 142 · `stoïcijnse
+filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
 `stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292, 516, 586 ·
 `stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
 249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451, 456,
 694, 831, 901, 902, 907, 908 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
-387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
-`structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507, 831 ·
-`studietechniek` 420 · `subcultuur` 834 · `succes` 75, 76, 274 ·
-`superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
-`syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636,
-829, 835, 1118, 1219, 1225, 1234 · `symbolische macht` 723 · `symbooltheorie`
-756 · `symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 ·
-`synesthesie` 1311 · `systeem` 22, 142 · `systeemtheorie` 165 · `systematisch
-handelen` 482, 502 · `taal` 26, 27, 436, 594, 664, 824, 829, 930, 1113, 1213,
-1265, 1277, 1312 · `taal en macht` 344 · `taalfilosofie` 756 · `taaloorsprong`
-762 · `taboe` 719 · `tactische empathie` 271 · `talent` 23, 29, 274 · `tantra`
-1103 · `taoïsme` 341, 394, 1104, 1105 · `tarieven` 121 · `tarot` 644, 1234 ·
+387, 458, 1503 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452
+· `structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507, 831 ·
+`studietechniek` 420 · `subcultuur` 834 · `succes` 75, 76, 274 · `suggestie`
+1513 · `superkrachten` 203 · `supplementen` 171, 316 · `Suriname` 1509 ·
+`surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
+610, 633, 635, 636, 829, 835, 1118, 1219, 1225, 1234 · `symbolische macht` 723
+· `symbooltheorie` 756 · `symmetrie` 659 · `synchroniciteit` 362 ·
+`synchronisatie` 303 · `synesthesie` 1311 · `systeem` 22, 142 ·
+`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `systemisch werk`
+1510 · `taal` 26, 27, 436, 594, 664, 824, 829, 930, 1113, 1213, 1265, 1277,
+1312 · `taal en macht` 344 · `taalfilosofie` 756 · `taaloorsprong` 762 ·
+`taboe` 719 · `tactische empathie` 271 · `talent` 23, 29, 274 · `tantra` 1103
+· `taoïsme` 341, 394, 1104, 1105 · `tarieven` 121 · `tarot` 644, 1234 ·
 `teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork` 156, 256 ·
 `techniek` 1, 6, 43, 61, 92, 1247, 1270, 1278, 1301 · `techniekgeschiedenis`
 666, 820, 1152 · `technische analyse` 483, 500, 1284, 1285 · `technologie`
 160, 288, 294, 306, 393, 499, 907, 1257, 1264, 1270 · `technologiebedrijven`
 293 · `technologiegeschiedenis` 231, 267, 1142 · `technologiekritiek` 297,
 539, 674, 826, 1264 · `tegen-productiviteit` 71 · `tegencultuur` 750, 1162,
-1214 · `tegenslag` 30, 111, 174, 570, 1168 · `tekenen` 15 · `tekstkwaliteit`
-124 · `televisie` 54, 674, 820 · `temperament` 33 · `tempo` 552 ·
-`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
-385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644, 1239 ·
-`theologie` 578, 587, 830, 1236 · `theosofie` 605, 606, 645, 836, 1221 ·
-`therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 · `thermodynamica` 1274
-· `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225
-· `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655, 1261, 1274, 1324 ·
-`tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311, 448 ·
-`tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 ·
-`Tolteeks` 27 · `tonaliteit` 824 · `toon` 72, 118, 119, 121, 132, 145 ·
-`topprestatie` 374 · `topsport` 422, 460, 545 · `totalitarisme` 384, 935 ·
-`tourette` 1313 · `trading` 492, 493, 495 · `traditionalisme` 1218 ·
-`training` 376 · `transpersoonlijke psychologie` 583, 1158 · `trauma` 104,
-119, 195, 229, 317, 386, 1293, 1303 · `trendvolgen` 480, 501, 1285 ·
-`trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 ·
-`tuinontwerp` 205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde
-eeuw` 525 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingen` 1400 ·
-`tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682, 769 ·
-`typologie` 361 · `ufo` 669, 678, 1150, 1157 · `ufo's` 615, 675, 676, 1141,
-1142, 1143, 1144 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99,
-102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
-`uitstellen` 16 · `uitvinding` 267, 1152 · `ultra-triatlon` 324 · `ultralopen`
-229 · `umwelt` 322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 ·
-`vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter`
-178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 ·
-`vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553, 1260, 1301 ·
-`variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 ·
-`vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177,
-189, 317, 375, 459, 460, 461, 467, 470 · `vegetarisme` 1135, 1137 ·
-`veiligheid` 43, 214 · `veiligheidsmarge` 144 · `veldonderzoek` 759 ·
-`veldwerk` 521, 716, 717 · `verandering` 170, 252, 375, 467 ·
-`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
-302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667, 687, 688, 689,
-690, 753, 1245 · `Verenigde-Staten` 464 · `vergaderen` 42 · `vergaderingen`
-276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie` 410, 635 ·
-`vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 · `verhaal`
-74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110,
-136, 196, 470, 903, 942 · `verhalenbundel` 206 · `verhouding` 113 ·
-`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
-185, 186, 188, 246, 280, 307, 308, 350, 367, 427, 913 · `verkooptrechters` 309
-· `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418, 698, 703, 1209 ·
-`verleiding` 381 · `verlichting` 243, 287, 922 · `verlies` 95, 373, 1400 ·
-`vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
-`vermogensbeheer` 498, 813, 815 · `vermogensopbouw` 163, 264, 277 ·
-`veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225, 1132 ·
-`verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314, 324,
-325, 418, 554, 568, 583, 1162 · `vertrouwen` 42, 273, 279, 319 · `vervloekt
-goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
-`verwachtingen` 425 · `verwachtingswaarde` 492 · `verwantschap` 722 ·
-`verwondering` 227 · `verzekeren` 496 · `verzet` 523 · `veteranen` 1293 ·
-`vier deugden` 194 · `visioenen` 359, 758 · `visualisatie` 259, 411, 540 ·
+1214, 1504 · `tegenslag` 30, 111, 174, 570, 1168 · `tekenen` 15 ·
+`tekstkwaliteit` 124 · `televisie` 54, 674, 820 · `temperament` 33, 1523 ·
+`tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463
+· `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644,
+1239 · `theologie` 578, 587, 830, 1236 · `theosofie` 605, 606, 645, 836, 1221
+· `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 · `thermodynamica`
+1274 · `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 ·
+`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655,
+1261, 1274, 1324 · `tijdmanagement` 434 · `tijdsbeleving` 326 ·
+`timemanagement` 311, 448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64,
+93, 137, 274, 362, 483 · `Tolteeks` 27 · `tonaliteit` 824 · `toon` 72, 118,
+119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545 ·
+`totalitarisme` 384, 935 · `tourette` 1313 · `trading` 492, 493, 495 ·
+`traditionalisme` 1218 · `training` 376 · `transactionele analyse` 1511 ·
+`transpersoonlijke psychologie` 583, 1158 · `trauma` 104, 119, 195, 229, 317,
+386, 1293, 1303, 1520, 1539 · `trendvolgen` 480, 501, 1285 · `trilling` 127 ·
+`trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 · `troost` 1535 ·
+`tuinontwerp` 205 · `tumoronderdrukker` 419 · `Turkije` 1538 · `twaalf-weken`
+14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingen`
+1400 · `tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682, 769
+· `typologie` 361 · `ufo` 669, 678, 1150, 1157 · `ufo's` 615, 675, 676, 1141,
+1142, 1143, 1144 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 ·
+`uithoudingsvermogen` 1514 · `uitleg` 99, 102 · `uitleggen` 82 · `uitstel` 71,
+140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 · `uitvinding` 267, 1152
+· `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 · `Upanishaden` 169 ·
+`usp` 696 · `utopie` 681, 919 · `vaardigheden` 40, 50, 349, 397 ·
+`vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173,
+287 · `vaderschap` 49, 226, 324, 385 · `vaderverlies` 1512 · `Vadim Zeland`
+1507 · `vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553, 1260, 1301
+· `variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta`
+518, 1502 · `Vedanta` 1504 · `vedische filosofie` 230 · `veedrift` 5 ·
+`veerkracht` 106, 153, 174, 177, 189, 317, 375, 459, 460, 461, 467, 470 ·
+`vegetarisme` 1135, 1137 · `veiligheid` 43, 214 · `veiligheidsmarge` 144 ·
+`veldonderzoek` 759 · `veldwerk` 521, 716, 717 · `verandering` 170, 252, 375,
+467, 1533 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364,
+1505 · `verbinding` 302, 550 · `verbonden ademhaling` 1528 · `verdriet` 111,
+227 · `verenigde staten` 598, 667, 687, 688, 689, 690, 753, 1245 ·
+`Verenigde-Staten` 464 · `vergaderen` 42 · `vergaderingen` 276 ·
+`vergankelijkheid` 379, 532 · `vergelijkende mythologie` 410, 635 ·
+`vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556, 1505, 1515,
+1539 · `verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen`
+56, 101, 110, 136, 196, 470, 903, 942 · `verhalenbundel` 206 · `verhouding`
+113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132,
+182, 185, 186, 188, 246, 280, 307, 308, 350, 367, 427, 913 ·
+`verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164,
+418, 698, 703, 1209 · `verlatingsangst` 1517 · `verleiding` 381 ·
+`verlichting` 243, 287, 922, 1536 · `verlies` 95, 373, 1400 · `vermaak` 61 ·
+`vermogen` 39, 463 · `vermogen opbouwen` 395 · `vermogensbeheer` 498, 813, 815
+· `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415 ·
+`verpleeghuis` 416 · `verpleegkunde` 225, 1132 · `verplichting` 9 · `verraad`
+534 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554, 568, 583, 1162
+· `vertrouwen` 42, 273, 279, 319, 1509 · `vervloekt goud` 533 · `vervolg` 74,
+131 · `vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
+`verwachtingswaarde` 492 · `verwantschap` 722 · `verwondering` 227 ·
+`verzekeren` 496 · `verzet` 523 · `veteranen` 1293 · `vier deugden` 194 ·
+`Viktor Frankl` 1539 · `visioenen` 359, 758 · `visualisatie` 259, 411, 540 ·
 `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313,
 316, 329, 332, 417, 1129, 1134, 1135, 1136, 1137, 1138 · `voedingswetenschap`
-417 · `volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
-`voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 ·
-`voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
-`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
+417 · `volatiliteit` 494, 495, 506 · `Volendam` 1512 · `volharding` 29, 1501 ·
+`volledigheid` 167 · `voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 ·
+`voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen`
+455 · `voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
 `voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
 stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
 `vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
@@ -214763,15 +223362,16 @@ markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339, 761, 1316 ·
 826 · `vrijmetselarij` 605, 635, 636, 922, 923, 924, 1150 · `vroeg
 christendom` 614, 1151, 1223 · `vroeg pensioen` 264 · `vrouwenhaat` 110, 1226
 · `waardebeleggen` 144, 351, 817 · `waardecreatie` 246, 508 · `waarden` 72,
-142, 392, 457, 461, 553 · `waardering` 24, 34, 814, 815 · `waarheid` 263 ·
-`waarneming` 154, 283, 322, 541, 582, 757, 767, 825, 828, 830, 930, 1171,
-1268, 1303, 1307, 1311, 1317, 1320 · `wabi-sabi` 379 · `wales` 558 · `Wall
-Street` 144, 351, 499, 1286 · `wederkerigheid` 718 · `weerbaarheid` 194 ·
-`weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
-`wereldbeeld` 234, 932 · `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78,
-151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur`
-551 · `werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16,
-702 · `West-Afrika` 522, 1114 · `West-Point` 29 · `westen` 67 · `western` 5 ·
+142, 392, 457, 461, 553, 1526, 1527 · `waardering` 24, 34, 814, 815 ·
+`waarheid` 263 · `waarneming` 154, 283, 322, 541, 582, 757, 767, 825, 828,
+830, 930, 1171, 1268, 1303, 1307, 1311, 1317, 1320 · `wabi-sabi` 379 · `wales`
+558 · `Wall Street` 144, 351, 499, 1286 · `Watermantijdperk` 1537 ·
+`wederkerigheid` 718 · `weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart`
+251, 334 · `welvaartsbewustzijn` 433 · `wensen` 1501 · `wereldbeeld` 234, 932
+· `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78, 151, 252, 466 · `werk
+en rust` 512 · `werkboek` 14, 122, 150, 1526 · `werkcultuur` 551 · `werkdruk`
+400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16, 702 ·
+`West-Afrika` 522, 1114 · `West-Point` 29 · `westen` 67 · `western` 5 ·
 `westerse filosofie` 269, 341 · `westerse psychologie` 769 · `wet van
 aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328, 485, 1286
 · `wetenschap en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie`
@@ -214781,45 +223381,46 @@ aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328, 485, 1286
 651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820, 823, 932,
 937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163, 1164,
 1246, 1247, 1248, 1249, 1251, 1252, 1254, 1260, 1263, 1265, 1268, 1270, 1272,
-1277, 1282, 1310, 1322 · `wetenschapsjournalistiek` 387, 412 · `wicca` 1228,
-1230, 1244 · `wijn` 112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 ·
-`wiskunde` 116, 454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661,
-662, 812, 1256, 1271, 1272, 1278, 1282, 1312, 1318 · `wisselstroom` 267 ·
-`woede` 119, 120, 1204 · `woestijn` 8, 1205 · `Wolfgang Pauli` 362 · `wraak`
-101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394, 1105 · `Yale` 215 ·
-`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
-`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
-· `zeepbellen` 808 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
-`zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105,
-107, 108, 129, 138, 197, 367, 372, 411, 439, 538, 540, 559, 575, 1308, 1309 ·
-`zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
-`zelfbescherming` 214 · `zelfbeschikking` 1333 · `zelfcompassie` 32, 551 ·
-`zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfdoding` 715 ·
-`zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417, 1324, 1325, 1326 ·
+1277, 1282, 1310, 1322 · `wetenschapsjournalistiek` 387, 412 · `White Eagle
+Lodge` 1537 · `wicca` 1228, 1230, 1244 · `wijn` 112 · `wijsheid` 596 ·
+`wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509, 649,
+656, 657, 658, 659, 660, 661, 662, 812, 1256, 1271, 1272, 1278, 1282, 1312,
+1318 · `wisselstroom` 267 · `woede` 119, 120, 1204 · `woestijn` 8, 1205 ·
+`Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei`
+394, 1105 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518, 1520 · `young
+adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie` 182 ·
+`zakendoen` 348, 367, 465, 508 · `zeepbellen` 808 · `zeereis` 36 · `zeevaart`
+321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
+540, 559, 575, 1308, 1309 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382,
+389, 396 · `zelfbescherming` 214 · `zelfbeschikking` 1333 · `zelfcompassie`
+32, 551, 1525 · `zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfdoding` 715
+· `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417, 1324, 1325, 1326 ·
 `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
 136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166,
 168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196,
 199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310,
 334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432,
 435, 439, 449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570,
-768, 800, 802, 1242, 1297, 1329 · `zelfkennis` 258, 260, 361, 519, 526 ·
-`zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek` 315, 470, 520,
-527, 579, 1101, 1203, 1208 · `zelfontplooiing` 393, 1234 · `zelfontwikkeling`
-179 · `zelforganisatie` 1274 · `zelfpraat` 161 · `zelfpromotie` 388 ·
+768, 800, 802, 1242, 1297, 1329, 1500, 1501, 1503, 1505, 1507, 1509, 1513,
+1515, 1527 · `zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195,
+204, 380, 403, 549, 1517 · `zelfonderzoek` 315, 470, 520, 527, 579, 1101,
+1203, 1208, 1502, 1534 · `zelfontplooiing` 393, 1234 · `zelfontwikkeling` 179
+· `zelforganisatie` 1274 · `zelfpraat` 161 · `zelfpromotie` 388 ·
 `zelfpublicatie` 174 · `zelfreferentie` 656 · `zelfregulatie` 153, 165, 177,
 541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
 `zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
 198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
 123, 124, 125, 126, 1302 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187,
 312, 365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109,
-225, 466, 1127 · `zen` 141, 346, 441, 517, 528, 576, 769, 800, 952, 1106 ·
-`zenboeddhisme` 205, 379 · `zenuwstelsel` 87 · `zestiende eeuw` 573 ·
-`zeven-stappen` 129 · `ziekte` 74, 180, 295, 823, 1313 · `zingeving` 9, 48,
-77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547, 1323 · `zintuigen` 582 ·
-`zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 ·
-`zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346, 517 ·
-`zwangerschap` 1136 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262, 651 ·
-`Zweden` 1217
+225, 466, 1127 · `zen` 141, 346, 441, 517, 528, 576, 769, 800, 952, 1106,
+1504, 1536 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 · `zestiende eeuw`
+573 · `zeven-stappen` 129 · `ziekte` 74, 180, 295, 823, 1313 · `zingeving` 9,
+48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547, 1323 · `zintuigen`
+582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 · `Zuiden` 1519 ·
+`zuinigheid` 39 · `zuivere ervaring` 576 · `zusters` 1518 · `zwaar` 143 ·
+`zwaardvechten` 346, 517 · `zwangerschap` 1136 · `zwart bewustzijn` 523 ·
+`zwarte gaten` 99, 262, 651 · `Zweden` 1217
 
 ## Leesroutes
 

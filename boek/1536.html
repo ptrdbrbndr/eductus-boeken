@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The End of Your World &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Adyashanti stelt dat het inzicht dat er geen afzonderlijk zelf bestaat een beginpunt is en geen eindpunt. Wat gewoonlijk verlichting heet, beschrijft hij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1536">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1536 &middot; Filosofie en mystiek</p>
+    <h1>The End of Your World</h1>
+    <p class="lede">Adyashanti, 2008; vert. Prema van Harte</p>
+    <p class="stats">
+      <span><b>1869</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1536"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Adyashanti stelt dat het inzicht dat er geen afzonderlijk zelf bestaat een beginpunt is en geen eindpunt. Wat gewoonlijk verlichting heet, beschrijft hij als een verschuiving in de waarneming die zich kan voordoen en weer kan wegtrekken, en de meeste geestelijke moeilijkheden zitten volgens hem niet voor dat moment maar erna. Het ego neemt de ontdekking in bezit, de wereld verliest haar gewicht, en de betrokkene houdt een inzicht over waar hij in het dagelijks leven niets mee aankan. Daartegenover zet hij een maatstaf die aan gedrag af te lezen valt: is het inzicht ook doorgedrongen tot het hart en tot de buik, of is het bij een gedachte gebleven. Wie het boek wil tegenspreken, kan aanvoeren dat die maatstaf uitsluitend door de leraar wordt toegepast en door de leerling niet te controleren is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek over de tijd erna</h3>
+      <p>Het eerste hoofdstuk zet af tegen de gangbare literatuur over verlichting, die in de beschrijving van Adyashanti stopt op het moment dat het inzicht doorbreekt. Wat daarna komt is volgens hem onder leraren en leerlingen wel besproken maar zelden opgeschreven, en daardoor komen mensen er onvoorbereid in terecht.</p>
+      <p>Uitgeefster Tami Simon schrijft in haar inleiding dat het boek is voortgekomen uit opnamen van bijeenkomsten. Dat is aan de tekst te merken: er wordt gesproken, niet betoogd, en de hoofdstukken bestaan uit uitleg afgewisseld met antwoorden op vragen die uit de zaal kwamen.</p>
+      <h3>Ontwaken en de verwarring die volgt</h3>
+      <p>Adyashanti onderscheidt het inzicht van de gevolgen ervan. Het inzicht zelf noemt hij eenvoudig: er wordt gezien dat het personage waarvoor iemand zich hield een gedachte is en geen ding. De gevolgen zijn dat wat het leven ordende wegvalt, en dat de betrokkene daarna nog jaren met de gevolgen bezig is.</p>
+      <p>Hij besteedt aandacht aan de desoriëntatie die daarop volgt. Mensen weten niet meer waarom zij iets zouden doen, verliezen de vanzelfsprekendheid van hun werk of hun relaties, en zoeken naar iemand die uitlegt dat dit erbij hoort. Het boek is voor een deel bedoeld als die uitleg.</p>
+      <h3>Ik had het, ik ben het kwijt</h3>
+      <p>Het derde hoofdstuk behandelt het verschijnsel waar de meeste van zijn leerlingen mee komen. Zij hebben een periode gehad waarin alles helder was, en die is voorbij. Adyashanti noemt dat blijvende versus niet-blijvende realisatie, waarbij het niet-blijvende de regel is en het blijvende de uitzondering.</p>
+      <p>Zijn verklaring is dat het inzicht zelf niet wegtrekt maar dat de aandacht ernaartoe terugvalt in oude gewoonten. Het verlies wordt daarmee zelf een leerpunt: het laat zien welke delen van iemands leven het inzicht nog niet hebben opgenomen. Nirvana bereikt men via samsara, luidt de kop van het volgende hoofdstuk, waarmee hij bedoelt dat de weg door het gewone leven loopt en niet eromheen.</p>
+      <h3>Waar het misgaat</h3>
+      <p>Het langste deel van het boek is een opsomming van manieren waarop het inzicht ontspoort. De eerste is dat het ego zich de realisatie toe-eigent en er een prestatie van maakt, compleet met het gevoel boven anderen te staan. De tweede is wat hij dronken van leegte noemt: iemand ziet dat niets een vaste kern heeft en trekt daaruit de gevolgtrekking dat gedrag er niet toe doet.</p>
+      <p>De derde is de val van de betekenisloosheid. Als alle verhalen wegvallen, valt ook weg waarom iets de moeite waard zou zijn, en dat kan jaren duren. Adyashanti behandelt daarnaast het vasthouden aan een bijzondere ervaring en het inrichten van een geestelijke persoonlijkheid rond het inzicht.</p>
+      <p>Zijn tegengif is steeds hetzelfde: het leven zelf houdt een spiegel voor. Waar iemand in het gewone verkeer met anderen vastloopt, is het inzicht nog niet doorgedrongen. Dat maakt de omgang met partners, ouders en werk tot toetssteen in plaats van tot afleiding.</p>
+      <h3>Hoofd, hart en buik</h3>
+      <p>Het negende hoofdstuk bevat de indeling waar het boek het meest om wordt aangehaald. Het inzicht dringt volgens Adyashanti in drie stadia door. In het hoofd wordt gezien dat het afzonderlijke zelf een constructie is. In het hart slaat dat om in liefde, waarbij de scheiding tussen waarnemer en waargenomene ook gevoelsmatig verdwijnt.</p>
+      <p>De buik is bij hem de laatste en de moeilijkste. Daar zit wat hij de diepste angst noemt, de weerstand tegen het eigen verdwijnen, en die laat zich niet met inzicht wegnemen. Wie alleen in het hoofd is doorgebroken herkent hij aan koelheid; wie in het hart is doorgebroken maar niet in de buik, aan een blijvende onrust waar geen aanleiding voor te vinden is.</p>
+      <p>Hij behandelt in dit verband ook wat hij de energetische kant van het ontwaken noemt: lichamelijke verschijnselen, slapeloosheid en heftige gevoelsuitbarstingen. Zijn advies is die niet als teken van vooruitgang te lezen en er evenmin bang voor te zijn.</p>
+      <h3>Inspanning of genade, en de natuurlijke staat</h3>
+      <p>Het tiende hoofdstuk gaat over de oude twistvraag of iemand iets kan doen om te ontwaken. Adyashanti antwoordt tweezijdig: het inzicht laat zich niet afdwingen, en tegelijk zijn er mensen die er niets voor deden en anderen die jaren zaten. Hij weigert daar een methode uit af te leiden en houdt het erop dat de bereidheid iets is wat wel in iemands hand ligt.</p>
+      <p>Het boek eindigt bij de natuurlijke staat, die hij bewust ongespectaculair beschrijft: geen aanhoudende gelukzaligheid, geen bijzondere vermogens, alleen het wegvallen van de aandrang om ergens anders te zijn dan waar men is. Het slotstuk is een verhaal over een bruiloft, gevolgd door een vraaggesprek waarin hij zijn eigen loopbaan toelicht.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Blijvende en niet-blijvende realisatie</td><td>Het onderscheid tussen een inzicht dat weer wegtrekt en een inzicht dat de gewone dagelijkse waarneming blijvend kleurt; het eerste is volgens Adyashanti het normale geval.</td></tr>
+          <tr><td class="term">Ik had het, ik ben het kwijt</td><td>De term waarmee hij de klacht van zijn leerlingen samenvat dat een periode van helderheid voorbij is gegaan en niet terugkomt.</td></tr>
+          <tr><td class="term">Dronken van leegte</td><td>De toestand waarin iemand het inzicht dat niets een vaste kern heeft gebruikt om zich van gedrag en gevolgen niets meer aan te trekken.</td></tr>
+          <tr><td class="term">De val van de betekenisloosheid</td><td>De periode waarin met de verhalen over het eigen leven ook elke reden wegvalt om iets te ondernemen, door Adyashanti behandeld als doorgangsfase en niet als eindpunt.</td></tr>
+          <tr><td class="term">Toe-eigening door het ego</td><td>Het verschijnsel dat het afgelegde zelfbeeld terugkeert als beeld van iemand die ontwaakt is, met bijbehorend gevoel van meerderheid.</td></tr>
+          <tr><td class="term">Hoofd, hart en buik</td><td>De drie plaatsen waar het inzicht volgens hem achtereenvolgens moet doordringen, waarbij de buik de laatste weerstand herbergt: de angst voor het eigen verdwijnen.</td></tr>
+          <tr><td class="term">De energetische kant</td><td>De lichamelijke en gevoelsmatige verschijnselen die volgens Adyashanti een ontwaken kunnen begeleiden, zonder dat zij er iets over zeggen.</td></tr>
+          <tr><td class="term">De natuurlijke staat</td><td>De toestand die hij als uitkomst beschrijft, opvallend onopvallend: geen aanhoudende gelukzaligheid, wel het wegvallen van de aandrang elders te willen zijn.</td></tr>
+          <tr><td class="term">Het leven als spiegel</td><td>De stelregel dat de omgang met anderen laat zien waar het inzicht nog niet is doorgedrongen, waardoor gewone conflicten toetssteen worden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan en beroept zich nergens op meetbare uitkomsten. Wat het aandraagt is van twee soorten: het eigen verslag van de auteur en het beeld dat hij zich vormde uit gesprekken met leerlingen over een reeks jaren. Beide zijn niet na te trekken. Adyashanti erkent dat ook, in die zin dat hij nergens de indruk wekt iets te bewijzen; hij beschrijft een gebied en laat het aan de lezer of die het herkent.</p>
+      <p>Waar het boek wel steun aan ontleent, is de overeenkomst met oudere teksten. De indeling in een inzicht dat komt en gaat en een inzicht dat blijft, komt in de chan- en zenliteratuur en in de advaita van Ramana Maharshi en Nisargadatta in vergelijkbare vorm voor. Adyashanti kreeg veertien jaar zenles van Arvis Joen Justi, zelf leerling van Taizan Maezumi Roshi, en kreeg in 1996 haar toestemming om te onderrichten. Die lijn is controleerbaar en geeft de tekst een herkomst.</p>
+      <p>De opbouw van de argumentatie is klinisch van vorm zonder klinisch te zijn: er wordt een klachtenbeeld beschreven, er worden verschijningsvormen onderscheiden, en er wordt een indeling voorgesteld waarmee die te ordenen zijn. Dat maakt het boek bruikbaar als beschrijving en zegt niets over de juistheid van de onderliggende stelling dat er geen afzonderlijk zelf is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de kernstelling niet te weerleggen valt. Wie zegt dat hij het inzicht niet herkent, is volgens de opzet van het boek nog niet ontwaakt; wie zegt dat hij het wel heeft en er anders over denkt, is nog in het hoofd blijven steken of heeft zich de realisatie toegeëigend. Elk denkbaar tegenargument wordt daarmee opgenomen in het stelsel dat het aanvalt. Dat is een oud probleem van deze literatuur en Adyashanti lost het niet op.</p>
+      <p>Daarmee samen hangt de positie van de leraar. De maatstaf of het inzicht is doorgedrongen tot hart en buik kan alleen door iemand anders worden toegepast, en dat legt het oordeel over de vordering van de leerling volledig bij de leraar. Het boek bespreekt de misbruikgeschiedenis van westerse geestelijke gemeenschappen niet, terwijl die geschiedenis grotendeels op precies deze verhouding rust.</p>
+      <p>Er ontbreekt een ethische en maatschappelijke laag. De uitkomst die het boek voorstelt, is een innerlijke: er valt iets weg en er blijft rust over. Wat iemand met die rust zou moeten aanvangen ten opzichte van anderen, van werk of van de wereld, blijft grotendeels open. De passage over dronken zijn van leegte laat zien dat Adyashanti het probleem ziet, maar hij zet er geen uitgewerkt antwoord tegenover.</p>
+      <p>Bij de beschrijving van de energetische verschijnselen loopt het boek tegen zijn eigen grens aan. Slapeloosheid, heftige gevoelsuitbarstingen en het gevoel dat het bestaan wegvalt zijn ook klachten waarvoor psychiatrische hulp bestaat. Adyashanti duidt ze binnen zijn eigen kader en verwijst nauwelijks door. Onderzoek naar moeilijke meditatie-ervaringen, dat na het verschijnen van het boek op gang kwam, laat zien dat die verwijzing soms nodig is.</p>
+      <p>Ten slotte compliceert de latere loopbaan van de auteur het beeld van de natuurlijke staat. Adyashanti trok zich in 2023 terug uit het openbare onderricht wegens aanhoudende pijn en posttraumatische klachten. Dat weerlegt niets van wat het boek beweert, maar het maakt zichtbaar dat de toestand die het beschrijft geen vrijwaring is van lichamelijk en psychisch lijden, en het boek zegt daar zelf weinig over.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het hoofdstuk over hoofd, hart en buik als beschrijving en niet als ladder waarlangs vooruitgang valt af te meten.</li>
+        <li>Behandel elke ervaring die bijzonder aanvoelt als voorbijgaand; het boek stelt zelf dat het vasthouden eraan de eerste valstrik is.</li>
+        <li>Toets bij een aanhoudend gevoel dat niets meer betekenis heeft eerst of het om een depressie gaat, voordat het als geestelijke doorgangsfase wordt geduid.</li>
+        <li>Gebruik conflicten met naasten als plaats waar het beweerde inzicht zichtbaar wordt; Adyashanti maakt daar zijn enige praktische toetssteen van.</li>
+        <li>Wie het boek naast oudere bronnen wil leggen, begint bij de advaitagesprekken van Nisargadatta, waar dezelfde stelling zonder therapeutische inkleding staat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The End of Your World: Uncensored Straight Talk on the Nature of Enlightenment</i> (Sounds True, Boulder, 2008; paperback 2010, 244 blz., ISBN 9781591799634), geredigeerd uit bijeenkomsten en gesprekken, met een inleiding van uitgeefster Tami Simon. Nederlands als <i>Het einde van je wereld: ongecensureerde, klare taal over de aard van verlichting</i>, vertaald door Prema van Harte, Uitgeverij Samsara, 2010 (240 blz., ISBN 9789077228869); herdruk 2023, ISBN 9789493301122. Van dezelfde auteur verschenen onder meer <i>Emptiness Dancing</i>, <i>True Meditation</i>, <i>Falling into Grace</i> en <i>The Way of Liberation</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Adyashanti, geboren als Steven Gray in 1962 in Cupertino, kreeg veertien jaar zenles van Arvis Joen Justi en begon in 1996 zelf te onderrichten. Dit boek is samengesteld uit die bijeenkomsten en gaat over een onderwerp dat volgens hem meestal binnenskamers blijft: wat er gebeurt nadat iemand het inzicht heeft gehad dat er geen afzonderlijk zelf is.</p><p>Hij beschrijft dat inzicht als een verschuiving in de waarneming die kan komen en weer weggaan. Wie het kwijtraakt, komt terecht in wat hij het patroon van ik had het en ik ben het kwijt noemt. Het grootste deel van het boek behandelt de manieren waarop het inzicht daarna vastloopt: het ego eigent zich de ontdekking toe, de wereld verliest haar betekenis, of iemand raakt zoals hij het noemt dronken van leegte.</p><p>Als maatstaf hanteert Adyashanti of het inzicht is doorgedrongen tot hoofd, hart en buik. Het hoofd ziet dat de scheiding niet bestaat, het hart moet dat nog beminnen, en in de buik zit volgens hem de laatste weerstand: de angst voor het eigen verdwijnen. Het boek eindigt bij wat hij de natuurlijke staat noemt, waarin er niets bijzonders meer aan de hand is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>verlichting</li><li>non-dualiteit</li><li>advaita</li><li>zen</li><li>ontwaken</li><li>ego</li><li>meditatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1502"><a href="1502.html">I Am That</a>. Nisargadatta formuleert dezelfde stelling over het afwezige zelf, maar zonder de aandacht voor wat er daarna met iemand gebeurt.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle beschrijft het inzicht als bereikbaar en blijvend; Adyashanti besteedt zijn boek juist aan het feit dat het meestal wegtrekt.</li>
+          <li value="519"><a href="519.html">The First and Last Freedom</a>. Krishnamurti wijst elke leraar en elke methode af, en levert daarmee het bezwaar tegen de leraar-leerlingverhouding waar dit boek op rust.</li>
+          <li value="1504"><a href="1504.html">The Book on the Taboo Against Knowing Who You Are</a>. Watts legt hetzelfde idee van het afwezige afzonderlijke zelf uit als cultuurkritiek in plaats van als geestelijke ervaring.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

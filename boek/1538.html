@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Forty Rules of Love &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shafak zet een dertiende-eeuwse geschiedenis en een hedendaags Amerikaans huwelijk naast elkaar om te betogen dat de soefistische opvatting van liefde als…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1538">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1538 &middot; Roman en memoir</p>
+    <h1>The Forty Rules of Love</h1>
+    <p class="lede">Elif Shafak, 2009; vert. Manon Smits</p>
+    <p class="stats">
+      <span><b>1445</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1538"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shafak zet een dertiende-eeuwse geschiedenis en een hedendaags Amerikaans huwelijk naast elkaar om te betogen dat de soefistische opvatting van liefde als weg naar het goddelijke ook nu een leven kan omgooien. De veertig regels die Shams van Tabriz in de roman formuleert, vormen de brug tussen de twee lijnen: zij worden in de dertiende eeuw uitgesproken en in de eenentwintigste door een lezeres toegepast. Achter die opzet ligt een stelling over godsdienst: het geloof dat de roman verdedigt is er een van innerlijke ervaring en verdraagzaamheid, en het wordt uitdrukkelijk gesteld tegenover de wetgeleerdheid en de zedenmeesterij die in Konya de macht hebben. Dat de veertig regels geen overgeleverde tekst zijn maar door Shafak zelf geschreven, is voor de beoordeling van het boek het punt waar alles op aankomt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Twee boeken in één band</h3>
+      <p>De roman bestaat uit een raamvertelling en een ingebedde roman. Het raam speelt in 2008 in Northampton; de ingebedde roman speelt tussen 1242 en 1248 in Konya, Bagdad en Damascus. De hoofdstukken van het middeleeuwse deel worden afwisselend verteld door een reeks personages die elk hun eigen stem krijgen.</p>
+      <p>Shafak bouwde er een vormvoorschrift in: elk hoofdstuk begint met de letter b. Dat verwijst naar de bismillah, de aanhef van de Koran, en naar de soefistische uitleg waarin de Arabische letter ba het geschapene voorstelt. Het is een spelregel die de lezer merkt zonder dat het verhaal erdoor verandert.</p>
+      <h3>Ella en het manuscript</h3>
+      <p>Ella heeft haar leven ingericht rond haar gezin en begint op haar achtendertigste te werken. Haar huwelijk is uitgehold: David heeft verhoudingen, haar oudste dochter Jeannette wil trouwen met iemand die het gezin afkeurt, en Ella zelf staat nergens meer voor.</p>
+      <p>Het manuscript grijpt haar aan en zij schrijft de auteur. Aziz Z. Zahara blijkt een fotograaf die zich tot het soefisme bekeerde en van plaats naar plaats trekt. De briefwisseling wordt een correspondentie en de correspondentie een verhouding. David ontdekt de berichten en stelt haar ter verantwoording; Ella zegt dat zij van Aziz houdt.</p>
+      <h3>Shams komt naar Konya</h3>
+      <p>In de ingebedde roman zoekt de zwervende derwisj Shams van Tabriz iemand aan wie hij kan doorgeven wat hij weet. Hij komt in Konya terecht bij Rumi, op dat moment een gerespecteerd geleerde met een school, een gezin en een positie. Shams neemt hem mee de stad in, laat hem drinken met een dronkaard en spreken met een prostituee, en haalt hem weg bij zijn leerlingen.</p>
+      <p>De veertig regels worden verspreid over het boek uitgesproken. Zij gaan over de verhouding tussen mens en God, over het oordeel over anderen en over de vraag hoe iemand zichzelf leert kennen. Rumi verandert onder Shams' invloed van kanselredenaar in dichter.</p>
+      <h3>De stad keert zich</h3>
+      <p>De omgeving van Rumi verdraagt de omgang niet. Zijn jongste zoon Aladdin ziet Shams als godslasteraar, zeker als die wijn verdedigt; zijn vrouw Kerra probeert te bemiddelen; zijn oudste zoon Sultan Walad kiest partij voor Shams. In de stad hitst sjeik Yassin op tegen de derwisj.</p>
+      <p>Shams trouwt met Kimya, het pleegkind van Rumi, in een huwelijk dat niet goed afloopt. Aan de rand van het verhaal staan Suleiman de Dronkaard en Woestijnroos, de prostituee die zich wil beteren en door de stad wordt weggejaagd. Zij zijn de personages aan wie de roman zijn stelling over verdraagzaamheid ophangt.</p>
+      <p>Uiteindelijk huren samenzweerders een huurmoordenaar in, Jakhalskop, die Shams in de binnenhof van Rumi doodt en het lichaam in een put werpt. Rumi blijft achter met een verdriet dat hij in gedichten omzet, en die gedichten zijn het werk waar hij tot vandaag om gelezen wordt.</p>
+      <h3>Hoe de twee lijnen samenkomen</h3>
+      <p>Ella verlaat haar man en gaat naar Aziz toe. Hij blijkt ongeneeslijk ziek. Zij reist met hem, ook naar Konya, en hij sterft tijdens die reis. Het slot laat haar achter als weduwe van een verhouding die maanden duurde, met een leven dat zij zelf heeft ingericht.</p>
+      <p>De navolging tussen de twee lijnen is opzettelijk en vrijwel volledig: de vreemdeling die van buiten komt, de omgeving die er niet tegen kan, en het verlies dat het geheel bezegelt. Wat in de dertiende eeuw met moord eindigt, eindigt in de eenentwintigste met ziekte, wat het gewicht van beide gebeurtenissen ongelijk maakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term"><i>Sweet Blasphemy</i></td><td>Het manuscript binnen de roman, geschreven door Aziz Zahara, dat het middeleeuwse deel van het boek vormt.</td></tr>
+          <tr><td class="term">De veertig regels</td><td>De uitspraken over liefde en godskennis die Shams in de roman formuleert; geen overgeleverde tekst maar door Shafak geschreven.</td></tr>
+          <tr><td class="term">Shams van Tabriz</td><td>De zwervende derwisj die Rumi uit zijn geleerdheid haalt; een historische figuur die Rumi omstreeks 1244 in Konya ontmoette en enkele jaren later verdween.</td></tr>
+          <tr><td class="term">Konya</td><td>De stad in Anatolië waar Rumi leefde en waar zijn graf sindsdien een bedevaartsplaats is; het toneel van het middeleeuwse deel.</td></tr>
+          <tr><td class="term">De letter b</td><td>Het vormvoorschrift waarbij elk hoofdstuk met deze letter begint, verwijzend naar de aanhef van de Koran en naar de soefistische uitleg van de Arabische ba.</td></tr>
+          <tr><td class="term">Woestijnroos</td><td>De prostituee die zich onder invloed van Shams wil losmaken uit het bordeel en die door de stad wordt geweigerd; de proef op de som van de verdraagzaamheid die de roman bepleit.</td></tr>
+          <tr><td class="term">Kimya</td><td>Het pleegkind van Rumi dat met Shams trouwt en aan dat huwelijk ten onder gaat.</td></tr>
+          <tr><td class="term">Jakhalskop</td><td>De ingehuurde moordenaar die in de roman Shams doodt, waarmee de auteur een historisch onopgeloste verdwijning invult.</td></tr>
+          <tr><td class="term">Aziz Z. Zahara</td><td>De schrijver van het manuscript in het raamverhaal, een tot het soefisme bekeerde fotograaf met wie Ella een verhouding krijgt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De historische kern is echt. Jalal ad-Din Rumi bestond, was in Konya een gevierd geleerde, en zijn ontmoeting met de derwisj Shams van Tabriz omstreeks 1244 wordt in de vroegste bronnen over hem genoemd als het keerpunt van zijn leven. Na Shams' verdwijning ontstond de bundel die Rumi naar hem noemde. Dat hij door die ontmoeting van prediker in dichter veranderde, is de gangbare lezing van zijn biografie.</p>
+      <p>Waar de roman zelf invult, is bij de toedracht van de verdwijning. Wat er met Shams gebeurde is niet vastgesteld; er bestaan overleveringen waarin hij wordt vermoord en overleveringen waarin hij vertrekt. Shafak kiest de moord en geeft er een uitvoering aan met een ingehuurde dader, een gebeurtenis die zij verzint en die niet als geschiedenis moet worden gelezen.</p>
+      <p>Hetzelfde geldt voor de veertig regels waar de titel op rust. Er bestaat geen middeleeuwse verzameling van die naam. De regels zijn door Shafak geschreven, in een taal die aansluit bij de soefistische letterkunde maar er niet uit komt. Dat is voor de roman geen bezwaar en voor de lezer die er levenswijsheid uit haalt wel iets om te weten.</p>
+      <p>Wat de roman aan bereik heeft gehad is aantoonbaar. Van de Turkse uitgave en de Franse vertaling samen gingen meer dan 750.000 exemplaren over de toonbank, en het boek werd genoemd bij de Prix ALEF, op de lijst van de IMPAC Dublin Literary Award van 2012 en in de BBC-lijst uit 2019.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar in de wetenschappelijke ontvangst is dat de roman meedoet aan wat de Rumi-mode is gaan heten. Onderzoekers als Elena Furlanetto hebben betoogd dat Shafak de dichter losmaakt van zijn islamitische en Perzische verband en hem toesnijdt op een westers publiek, in dezelfde beweging die begon met de vrije bewerkingen van Coleman Barks. Dat een Turkse schrijfster daarbij oriëntalistische middelen inzet, maakt het bezwaar niet kleiner.</p>
+      <p>De tweede lijn van kritiek betreft de vrouwen. Kerra, Kimya en Woestijnroos zijn moeder, echtgenote en prostituee, en hun handelingsruimte hangt vrijwel geheel af van wat Shams hun toestaat. In een boek dat de liefde tot onderwerp maakt, is dat een opvallend smalle rolverdeling, en zij wordt nergens door de vertelling zelf ter discussie gesteld.</p>
+      <p>Het raamverhaal is het zwakste deel. Ella's huwelijk wordt in enkele trekken neergezet en haar ontwikkeling verloopt langs een lijn die vanaf de eerste bladzijden zichtbaar is. Waar de dertiende-eeuwse hoofdstukken meerdere vertellers en tegenstrijdige belangen hebben, blijft het hedendaagse deel bij één gezichtspunt en één uitkomst, wat de vergelijking tussen beide lijnen scheeftrekt.</p>
+      <p>Ten slotte de gelijkstelling zelf. De roman legt een moord in Konya naast een echtscheiding in Massachusetts en stelt beide voor als prijs van dezelfde liefde. Wie de constructie niet aanvaardt, houdt een boek over dat de middeleeuwse geschiedenis gebruikt om een hedendaagse levensvraag gewicht te geven dat zij op eigen kracht niet draagt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Shafak schreef de roman in het Engels; de Turkse versie verscheen eerst, als <i>Aşk</i> (Doğan Kitap, Istanbul, 2009), en groeide uit tot een van de best verkochte Turkse romans, met meer dan 750.000 verkochte exemplaren in Turkije en Frankrijk. De Engelse uitgave verscheen bij Penguin als <i>The Forty Rules of Love: A Novel of Rumi</i> (paperback 354 blz., ISBN 9780141047188). In het Nederlands verscheen het boek eerst als <i>Liefde kent veertig regels</i> bij De Geus (ISBN 9789044532722) en sinds 2022 als <i>De veertig regels van liefde</i> in de vertaling van Manon Smits (Nieuw Amsterdam, 384 blz., ISBN 9789046829714). De roman kreeg een eervolle vermelding bij de Prix ALEF, stond in 2012 op de lijst van de IMPAC Dublin Literary Award en werd in 2019 door de BBC opgenomen in haar lijst van honderd inspirerende romans.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ella Rubenstein is bijna veertig, woont in Northampton in Massachusetts met haar tandarts David en drie kinderen, en begint als lezeres bij een literair agentschap. Haar eerste opdracht is een verslag te schrijven over een manuscript, <i>Sweet Blasphemy</i>, van een debutant die zich A. Z. Zahara noemt.</p><p>Dat manuscript vormt de tweede helft van het boek. Het speelt in het dertiende-eeuwse Konya en gaat over de ontmoeting tussen de geleerde en prediker Rumi en de zwervende derwisj Shams van Tabriz, en over de veertig regels van de liefde die Shams zou hebben nagelaten. Wat Shams met Rumi doet, is hem uit zijn geleerdheid halen; wat de stad met Shams doet, loopt uit op moord.</p><p>De twee verhalen lopen naast elkaar. Terwijl Ella leest, schrijft zij de auteur, en de briefwisseling loopt uit op een breuk met haar huwelijk. Shafak laat de lezer zelf vaststellen hoe letterlijk de ene lijn de andere navolgt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>soefisme</li><li>Rumi</li><li>Shams van Tabriz</li><li>Konya</li><li>Turkije</li><li>raamvertelling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="754"><a href="754.html">Mystiek</a>. Underhill beschrijft de mystieke ervaring als verschijnsel dat over godsdiensten heen vergelijkbaar is, wat de achtergrond levert waar Shafak in verhaalvorm op leunt.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Huxley verdedigt in betoogvorm dezelfde stelling die deze roman in verhaalvorm brengt, namelijk dat de mystiek van alle tradities op hetzelfde uitkomt.</li>
+          <li value="1536"><a href="1536.html">The End of Your World</a>. Adyashanti laat zien wat er in de praktijk gebeurt na het soort doorbraak dat Rumi in deze roman meemaakt, en waar het meestal misgaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

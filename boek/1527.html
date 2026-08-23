@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vrijer leven door jezelf te zijn &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Guiot stelt dat het overgrote deel van de stress en frustratie waar mensen mee bij hem komen niet voortkomt uit een stoornis, maar uit twijfelen aan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1527">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1527 &middot; Levenskunst</p>
+    <h1>Vrijer leven door jezelf te zijn</h1>
+    <p class="lede">Martijn Guiot, 2024</p>
+    <p class="stats">
+      <span><b>1896</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1527"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Guiot stelt dat het overgrote deel van de stress en frustratie waar mensen mee bij hem komen niet voortkomt uit een stoornis, maar uit twijfelen aan zichzelf, zichzelf afkeuren en zich anders voordoen dan men is. Waar hij als psychiater een mens ziet die lijdt, ziet het zorgstelsel een diagnose met een bijbehorend protocol dat een beperkt aantal vaardigheden aanleert. Zijn voorstel is een omkering: geef mensen niet een behandeling die bij hun diagnose hoort, maar een verzameling vaardigheden waaruit zij per situatie kiezen wat werkt. Die vaardigheden ordent hij in vier domeinen die volgens hem samen dekken wat er nodig is en die elkaar versterken. De belofte die daarachter zit is dat wie zichzelf mag zijn, vrijer leeft, en dat wie vrijer leeft vanzelf meer zichzelf wordt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanleiding en de opzet</h3>
+      <p>De inleiding is voor een zelfhulpboek ongebruikelijk politiek. Guiot begint bij de bezuinigingen op de geestelijke gezondheidszorg van de afgelopen twintig jaar, bij de sluiting van hooggespecialiseerde instellingen die hij zag gebeuren, en bij een crisisdienst die op een vrijdagmiddag meldde dat er dat weekend te weinig personeel was. Het boek is expliciet bedoeld om mensen te bereiken die anders wachten.</p>
+      <p>Hij legt de opbouw vooraf uit: hoofdstuk een introduceert het model, de hoofdstukken twee tot en met vijf werken de vier klaverbladen uit, hoofdstuk zes integreert. De hoofdstukken hangen samen maar zijn ook los te lezen. Vrijwel elke paragraaf is volgens hem gebaseerd op een onderdeel uit een bewezen werkzame psychotherapie en kan op zichzelf al iets opleveren.</p>
+      <p>Twee waarschuwingen staan er meteen bij. Het boek helpt niet iedereen en vervangt geen therapie; wie ernstig lijdt, doet er goed aan zorg te organiseren en het boek hooguit ernaast te gebruiken. En lezen alleen doet niets: de oefeningen moeten worden uitgevoerd, want vaardigheden leert men door ervaring.</p>
+      <h3>Jezelf zijn en het Klavertje Vier Model</h3>
+      <p>Het eerste hoofdstuk behandelt zelfkennis, meditatie, ontspanning en balans, en zet het model neer. Guiot beschrijft hoe hij jarenlang zocht naar iets eenvoudigs dat onder alle omstandigheden bruikbaar is, en waarom hij vier onderdelen aanhoudt: veel methoden richten zich op een of twee daarvan en schieten daardoor in bepaalde situaties tekort.</p>
+      <p>Bij het hoofdstuk hoort de Vrijer Leven Schaal, een vragenlijst over de afgelopen twee weken waarmee de lezer per klaverblad een rapportcijfer berekent. De items zijn gewone uitspraken (ik was erg kritisch op mijzelf) met een schaal van zelden tot continu. Guiot presenteert de uitkomst als een check-up die laat zien waar winst te halen is.</p>
+      <p>Hij werkt het model uit aan een voorbeeld: een nieuwe leidinggevende die op alle kleinigheden kritiek geeft. Met vriendelijke aandacht wordt eerst waargenomen wat dat oproept, met bewuste perspectieven worden de stressvolle gedachten aangekeken of vervangen door verstandiger gedachten, met zorgzaam voelen wordt de boosheid en machteloosheid onderzocht en verzacht, en met waardevolle verbindingen wordt gekeken wat de lezer in zijn werk werkelijk belangrijk vindt.</p>
+      <h3>Vriendelijke aandacht</h3>
+      <p>Het tweede hoofdstuk is de aandachtskant van het model, met een warme in plaats van neutrale toon. Guiot behandelt achtereenvolgens focus, liefdevolle vriendelijkheid, zelfkalmering, aanvaarden, erkennen, toestaan en vrede sluiten. De opbouw loopt van aandacht richten naar aanvaarden van wat er is.</p>
+      <p>Het materiaal komt herkenbaar uit de mindfulness- en compassietraditie, met de nadruk op het hier en nu en op niet oordelen. Wat Guiot eraan toevoegt is de reeks: aanvaarden is bij hem niet een houding maar een aantal opeenvolgende stappen, van erkennen dat iets er is via toestaan dat het er mag zijn tot vrede sluiten met wat niet te veranderen valt.</p>
+      <h3>Bewuste perspectieven</h3>
+      <p>Het derde hoofdstuk gaat over denken. Het opent met het observerende zelf, het standpunt van waaruit gedachten te bekijken zijn, en behandelt daarna complexen van gedachten en gevoelens, mentaliseren, gedachten analyseren, verstandig denken, gedachten vrijlaten en mindsets.</p>
+      <p>Hier lopen twee tradities naast elkaar die elders tegenover elkaar worden gezet. Gedachten analyseren en verstandig denken komen uit de cognitieve gedragstherapie: stressvolle gedachten worden onderzocht en bewust omgezet in functionele, waarderende of steunende gedachten. Gedachten vrijlaten en het observerende zelf komen uit de acceptatie- en commitmentbenadering: de gedachte wordt niet bestreden maar losgelaten. Guiot behandelt beide als gereedschap waaruit de lezer kiest wat op dat moment werkt, en verantwoordt dat elders met een beroep op process-based therapy.</p>
+      <h3>Zorgzaam voelen</h3>
+      <p>Het vierde hoofdstuk stelt dat een beter gevoel ontstaat door beter te voelen en niet door zich tegen het gevoel te verzetten. De paragrafen lopen van je goed voelen en gevoel ervaren via gevoelens ontrafelen naar compassie, zorgzaam meeleven, doseren en verzachten, en verwerken.</p>
+      <p>De boodschap is dat gevoelens richtingaanwijzers zijn en geen tegenstanders: erkennen, serieus nemen, vrede sluiten. Het doseren is daarbij een eigen stap, wat het hoofdstuk onderscheidt van de gebruikelijke oproep om alles toe te laten. De laatste paragraaf gaat over verwerken van wat er in het verleden is gebeurd.</p>
+      <h3>Waardevolle verbindingen</h3>
+      <p>Het vijfde hoofdstuk is het langste en gaat over waarden en over anderen: eigen waarden, levensgebieden, zelfwaardering, verbindingen, motivatie en levensbehoeften, waardevolle acties en de eigen koers. De opbouw is die van de waardenhoofdstukken in de acceptatie- en commitmentliteratuur, met levensgebieden waarop de lezer zijn waarden verheldert en er acties aan verbindt.</p>
+      <p>De paragraaf over zelfwaardering geeft de eigen draai van het boek. Guiot legt uit dat zelfwaardering beter op het proces dan op het resultaat gericht kan zijn, dat kleine waardevolle handelingen daar meer aan bijdragen dan grote successen omdat ze vaker voorkomen, en dat waardering ook mogelijk is als iets misging. Hij bespreekt daarbij conflicterende waarden, botsende levensgebieden en de situatie dat de omgeving de eigen waarden niet honoreert, met de conclusie dat het dan verstandig kan zijn ergens anders te zoeken.</p>
+      <h3>Vrijer leven</h3>
+      <p>Het slothoofdstuk gaat over integreren en volhouden, met paragrafen over wijsheid, zichzelf vertrouwen, tevredenheid en keuzes maken. Guiot benadrukt dat processen ontstaan door ze toe te passen en uitdoven als men stopt, en dat samen oefenen met anderen beter werkt dan alleen.</p>
+      <p>Hij vertelt hier waar het idee vandaan kwam: op de terugweg van een zomervakantie, met de vraag hoe het vakantiegevoel vast te houden is, terwijl op zijn werk polikliniek, verslavingszorg, ziekenhuisconsulten en crisisdienst van alle kanten aanspraak op hem maakten. Zijn antwoord was het verschil tussen moeten en kiezen, en die verschuiving van moeten naar mogen, willen en waarderen noemt hij de Vrijer Leven Mindset.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Klavertje Vier Model</td><td>Guiots ordening van de vier domeinen vriendelijke aandacht, bewuste perspectieven, zorgzaam voelen en waardevolle verbindingen, die volgens hem samen meer doen dan afzonderlijk.</td></tr>
+          <tr><td class="term">vriendelijke aandacht</td><td>Heldere aandacht met een milde toon, gericht op het hier en nu en in beginsel zonder oordeel.</td></tr>
+          <tr><td class="term">bewuste perspectieven</td><td>Vanuit een overstijgend standpunt naar de eigen gedachten kijken en ze ofwel bewust omzetten in verstandiger gedachten, ofwel loslaten.</td></tr>
+          <tr><td class="term">zorgzaam voelen</td><td>Gevoelens erkennen, serieus nemen en verzachten in plaats van bestrijden, met dosering als eigen stap.</td></tr>
+          <tr><td class="term">waardevolle verbindingen</td><td>Leven vanuit de eigen waarden en zich verbinden met wat men belangrijk vindt, meestal in de vorm van contact met anderen.</td></tr>
+          <tr><td class="term">het observerende zelf</td><td>Het standpunt van waaruit gedachten en gevoelens te bekijken zijn zonder ermee samen te vallen.</td></tr>
+          <tr><td class="term">Vrijer Leven Schaal</td><td>Zelfscoringslijst over de afgelopen twee weken waarmee de lezer per klaverblad en in totaal een rapportcijfer berekent.</td></tr>
+          <tr><td class="term">Vrijer Leven Mindset</td><td>De verschuiving van moeten naar mogen, willen, wensen en waarderen, die volgens Guiot de druk wegneemt die uit normen en controledrang voortkomt.</td></tr>
+          <tr><td class="term">process-based therapy</td><td>Het modulaire raamwerk waarin behandeling wordt opgebouwd uit werkzame processen in plaats van uit stoornisspecifieke protocollen; de verantwoording die Guiot buiten het boek om voor zijn opzet geeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Guiot doet geen eigen onderzoek en presenteert dat ook niet zo. Zijn verantwoording bestaat uit twee delen: elke paragraaf is volgens hem ontleend aan een onderdeel uit een psychotherapie waarvan de werkzaamheid is aangetoond, en de vaardigheden zijn geselecteerd op wat hij in decennia praktijk zag werken. De genoemde bronnen zijn cognitieve gedragstherapie, acceptance and commitment therapy, mindfulness, metacognitieve therapie, compassiegerichte interventies en positieve psychologie. Wie dat wil nalopen wordt naar zijn website verwezen, waar een artikel en een literatuurlijst staan; in het boek zelf staat het notenapparaat niet.</p>
+      <p>Het argument voor de opzet is dat van de transdiagnostische behandeling: protocollen werken goed bij enkelvoudige klachten, maar sluiten slecht aan bij mensen met meerdere aandoeningen tegelijk of met problematiek die niet op behandeling reageert, en transdiagnostische interventies doen het in onderzoek minstens even goed. Dat argument is in de literatuur inderdaad te vinden. Wat er niet uit volgt is dat deze bepaalde ordening in vier domeinen beter werkt dan een andere.</p>
+      <p>De voorbeeldverhalen zijn geen bewijsmateriaal en Guiot zegt dat ook: zij berusten op echte gebeurtenissen, zijn niet herleidbaar tot personen en de namen zijn verzonnen. Dat is netter dan gebruikelijk in dit genre. Het betekent wel dat het boek nergens een controleerbaar geval bevat, en dat de lezer op het klinische oordeel van de auteur moet afgaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grootste zwakte is dat het model zelf niet is onderzocht. Dat de losse technieken werken is aannemelijk; dat deze verzameling in deze ordening als geheel iets toevoegt, is een claim van de auteur. Hij stelt bovendien dat het hele klavertje meer doet dan de vier blaadjes afzonderlijk, en daarvoor geeft hij geen andere grond dan zijn eigen ervaring. Voor een boek dat zich als handboek presenteert en dat professionals als integrale behandelmethode aanbiedt, is dat weinig.</p>
+      <p>Er zit ook een onopgeloste spanning in hoofdstuk drie. Gedachten analyseren en omzetten in verstandiger gedachten komt uit een traditie die aanneemt dat de inhoud van gedachten ertoe doet; gedachten vrijlaten komt uit een traditie die dat juist bestrijdt. Guiot zet ze naast elkaar en laat de keuze aan de lezer. Dat is praktisch en past bij zijn procesgerichte verantwoording, maar het laat de lezer wel achter met twee tegengestelde adviezen en zonder criterium om te weten wanneer welk advies aan de beurt is, anders dan uitproberen.</p>
+      <p>De toon is die van de behandelkamer en dat werkt twee kanten op. Het boek is direct, de gebiedende wijs staat op vrijwel elke bladzijde en de lezer wordt voortdurend aangesproken; wie daar behoefte aan heeft, krijgt houvast. Wie in het boek gaat zoeken naar waar de aanbevelingen precies vandaan komen, vindt binnen de kaften niets: geen noten, geen bronvermelding bij een bewering, en een enkele motto-toeschrijving die niet klopt. De verantwoording is naar de website verplaatst, en daarmee uit het zicht van de meeste lezers.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vul eerst de Vrijer Leven Schaal in en begin bij het klaverblad met het laagste cijfer.</li>
+        <li>Kies per moeilijke situatie een of twee vaardigheden in plaats van het hele model te willen toepassen.</li>
+        <li>Doe de oefeningen schriftelijk en herhaal ze; Guiot stelt uitdrukkelijk dat lezen alleen niets oplevert.</li>
+        <li>Waardeer bij zelfwaardering het proces en de intentie, ook als de uitkomst tegenviel.</li>
+        <li>Sla technieken die niet aanslaan over en pak ze eventueel later op, in plaats van door te zetten.</li>
+        <li>Raadpleeg bij ernstige klachten een behandelaar en gebruik het boek daarnaast; de auteur schrijft dat zelf voor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Vrijer leven door jezelf te zijn. Handboek voor de geest</i>, in eigen beheer uitgegeven bij Vrijer Leven, 2024, 235 blz., ISBN 9789083341873, NUR 770; vormgeving en illustraties van Marieke de Beurs-Brommersma, redactie Janneke van Bemmel. Het colofon van het inkijkexemplaar draagt het jaartal 2025. Er is geen vertaling en Guiot publiceerde geen ander boek. Op vrijerleven.nl staan het inkijkexemplaar, een artikel waarin hij zijn methode als process-based therapy verantwoordt, en de literatuurlijst waarop hij zich baseert.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Martijn Guiot is psychiater en psychotherapeut, sinds 2001 arts en sinds 2007 psychiater, werkzaam in de poliklinische psychiatrie, de verslavingszorg, het ziekenhuis en zijn eigen praktijk. Hij schreef dit handboek naar eigen zeggen omdat de zorg afbrokkelt en de wachtlijsten groeien, en omdat patienten hem geregeld vroegen waarom niemand hun dit eerder had geleerd.</p><p>Het boek bundelt technieken uit de psychotherapieen waarin hij zich bekwaamde en ordent ze in wat hij het Klavertje Vier Model noemt: vriendelijke aandacht, bewuste perspectieven, zorgzaam voelen en waardevolle verbindingen. Elk klaverblad krijgt een hoofdstuk met zes of zeven paragrafen, elk gebaseerd op een onderdeel uit een bestaande therapie, met oefeningen en werkbladen erbij.</p><p>Het eerste hoofdstuk gaat over wat jezelf zijn inhoudt en introduceert het model met een zelfscoringslijst; het laatste gaat over het integreren van het geheel, over wijsheid, zelfvertrouwen, tevredenheid en keuzes maken. Guiot schrijft er zelf bij dat het boek geen vervanging is voor therapie en dat wie ernstig lijdt beter zorg kan organiseren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychiatrie</li><li>zelfhulp</li><li>compassie</li><li>waarden</li><li>acceptatie</li><li>oefeningen</li><li>Nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1526"><a href="1526.html">Get Out of Your Mind and Into Your Life</a>. Hayes levert de theorie achter twee van Guiots vier klaverbladen, en zijn latere procesgerichte benadering is de verantwoording waar Guiot zich op beroept.</li>
+          <li value="1525"><a href="1525.html">Compassievol leven</a>. Van den Brink en Koster werken het klaverblad zorgzaam voelen uit tot een volledig programma van acht bijeenkomsten.</li>
+          <li value="105"><a href="105.html">Zo ongelukkig mogelijk in 8 stappen</a>. Niels den Daas schrijft in <i>Zo ongelukkig mogelijk in 8 stappen</i> over dezelfde Nederlandse zelfhulpstof, maar dan via de omgekeerde weg van het aanraden van wat niet werkt.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle behandelt het onderscheid tussen de denker en de waarnemer waar Guiots hoofdstuk over bewuste perspectieven op steunt, zonder de klinische inbedding.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

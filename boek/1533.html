@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heart of the Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat menselijke problemen minder in de inhoud van een ervaring zitten dan in de vorm waarin iemand die ervaring innerlijk weergeeft: hoe…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1533">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1533 &middot; Naslag en praktijk</p>
+    <h1>Heart of the Mind</h1>
+    <p class="lede">Connirae Andreas en Steve Andreas, 1989</p>
+    <p class="stats">
+      <span><b>1665</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1533"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat menselijke problemen minder in de inhoud van een ervaring zitten dan in de vorm waarin iemand die ervaring innerlijk weergeeft: hoe groot en hoe dichtbij het beeld is, waar in het lichaam het gevoel zit, met welke stem de gedachte klinkt. Verander die vorm volgens een vaste procedure en de klacht verandert mee, doorgaans binnen een gesprek of twee. Daarmee verplaatsen Andreas en Andreas de verandering van inzicht naar techniek: begrijpen waar een angst vandaan komt is voor hen niet nodig om haar kwijt te raken. Die belofte van snelheid is tegelijk het punt waarop het boek het meest te verantwoorden heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek uit voortkomt</h3>
+      <p>Neurolinguïstisch programmeren ontstond in de jaren zeventig toen Richard Bandler en John Grinder het werk van drie therapeuten nauwkeurig gingen beschrijven: Fritz Perls, Virginia Satir en Milton Erickson. Zij wilden niet weten wat die drie dachten te doen maar wat zij feitelijk deden, en dat in overdraagbare stappen vastleggen.</p>
+      <p>Connirae en Steve Andreas kwamen uit die kring voort; Steve Andreas redigeerde eerder de boeken waarin het vroege werk van Bandler en Grinder werd vastgelegd. <i>Heart of the Mind</i> is hun poging het materiaal buiten de opleidingskring te brengen, geschreven voor lezers zonder voorkennis.</p>
+      <h3>De vaste vorm van elk hoofdstuk</h3>
+      <p>Elk van de ruim twintig hoofdstukken begint met een verslag van een persoon en een klacht, gaat verder met wat er in de sessie gebeurde, en eindigt met de procedure in genummerde stappen. Die opzet maakt het boek bruikbaar als naslagwerk: hoofdstukken zijn los te lezen en in willekeurige volgorde.</p>
+      <p>De keerzijde van die vorm is dat elk hoofdstuk met een geslaagd geval opent. Gevallen waarin de procedure niets deed komen niet aan bod, en de lezer krijgt geen maat voor hoe vaak het werkt.</p>
+      <h3>Angst, fobie en trauma</h3>
+      <p>De bekendste procedure uit het boek is de fobiebehandeling. De cliënt stelt zich voor dat hij in een bioscoop naar een film van de eigen herinnering kijkt, en vervolgens dat hij vanuit de projectiecabine naar zichzelf kijkt terwijl hij die film bekijkt. Die dubbele afstand moet de gevoelslading uit de herinnering halen, waarna de film versneld achterstevoren wordt afgespeeld.</p>
+      <p>Dezelfde redenering wordt toegepast op podiumangst en op de nasleep van misbruik. De auteurs benadrukken dat de gebeurtenis niet opnieuw doorleefd hoeft te worden, wat zij als voordeel boven gangbare behandelingen presenteren.</p>
+      <h3>Verdriet, schuld en schaamte</h3>
+      <p>Connirae Andreas beschrijft een rouwprocedure die uitgaat van een verschil in innerlijke weergave: wie verdriet houdt zou de overledene op een andere plaats en in een ander soort beeld bewaren dan wie iemand kwijt is zonder eraan te lijden. De procedure verplaatst het beeld naar de plaats die hoort bij aanwezigheid.</p>
+      <p>In de hoofdstukken over schuld en schaamte gaat het om het scheiden van de handeling en de persoon, en om het teruggeven van verantwoordelijkheid aan degene bij wie die hoort. Ook hier is de behandeling procedureel: er wordt niet uitgezocht waar het gevoel vandaan komt.</p>
+      <h3>Eten, gezondheid en allergie</h3>
+      <p>Een hoofdstuk beschrijft een aanpak van eetgedrag waarbij de lezer leert onderscheiden welk signaal honger is en welk niet, en waarbij de keuze voor voedsel op lichamelijke terugkoppeling wordt gebaseerd in plaats van op regels.</p>
+      <p>Verder staan er hoofdstukken in over zelfgenezing en over allergie, waarin wordt gesteld dat een allergische reactie met een NLP-procedure te verminderen is doordat het afweersysteem opnieuw leert onderscheiden. Dat is de verst strekkende bewering in het boek en tegelijk de zwakst gedragen.</p>
+      <h3>Tijd, motivatie en beslissen</h3>
+      <p>Het hoofdstuk over persoonlijke tijdlijnen beschrijft hoe mensen verleden, heden en toekomst ruimtelijk ordenen, de een als lijn die door het lichaam loopt, de ander als lijn die zich voor hem uitstrekt. Volgens de auteurs hangt die ordening samen met de vraag of iemand geneigd is te plannen of in het moment te leven, en is zij te verzetten.</p>
+      <p>Daarnaast behandelt het boek motivatie zonder dreiging met zichzelf, besluitvorming, onderhandelen tussen innerlijke delen die elkaar tegenwerken, opvoeden en een spellingsprocedure. Dat laatste hoofdstuk, waarin spelling wordt teruggebracht tot een visuele strategie, hoort tot de best overdraagbare stukken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Submodaliteiten</td><td>De kenmerken van een innerlijke voorstelling, zoals helderheid, afstand, formaat, geluidssterkte en plaats in het lichaam, die volgens het boek de gevoelslading bepalen.</td></tr>
+          <tr><td class="term">Ankeren</td><td>Het koppelen van een gewenste innerlijke toestand aan een aanraking, woord of beeld, zodat die toestand later opnieuw is op te roepen.</td></tr>
+          <tr><td class="term">Herkaderen</td><td>Hetzelfde gedrag in een ander verband plaatsen zodat de betekenis ervan verandert zonder dat het gedrag zelf hoeft te verdwijnen.</td></tr>
+          <tr><td class="term">Dissociatie</td><td>Naar een herinnering kijken alsof zij iemand anders overkomt, in de fobiebehandeling nog een keer gestapeld tot dubbele afstand.</td></tr>
+          <tr><td class="term">Swish</td><td>Een procedure waarbij een beeld dat een ongewenste reactie oproept snel wordt vervangen door een beeld van de persoon die de klacht al kwijt is.</td></tr>
+          <tr><td class="term">Delen</td><td>De aanduiding van tegenstrijdige neigingen in iemand als onderhandelbare partijen, elk met een eigen bedoeling.</td></tr>
+          <tr><td class="term">Positieve intentie</td><td>De aanname dat achter elk hinderlijk gedrag een bedoeling schuilt die de persoon wil dienen, en dat die bedoeling behouden moet blijven als het gedrag verdwijnt.</td></tr>
+          <tr><td class="term">Persoonlijke tijdlijn</td><td>De ruimtelijke ordening waarin iemand verleden en toekomst voor zich ziet, volgens het boek aanpasbaar met gevolgen voor plannen en herinneren.</td></tr>
+          <tr><td class="term">Uitkomstvoorwaarden</td><td>De eisen die de auteurs aan een geformuleerd doel stellen, onder meer dat het in eigen hand ligt en in waarneembare termen is beschreven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Wat er staat zijn verslagen van sessies die de auteurs zelf hebben gedaan of gezien, verteld vanuit hun eigen waarneming, zonder controlegroep, zonder meting vooraf en achteraf en zonder navraag na verloop van tijd. Voor een boek dat procedures met genummerde stappen aanbiedt is dat een dunne grondslag.</p>
+      <p>Het model waarop NLP steunt is buiten de eigen kring wel onderzocht en kwam er slecht uit. De aanname van een voorkeurszintuig per persoon en de koppeling tussen oogbewegingen en denkwijze zijn in de jaren tachtig herhaaldelijk getoetst, onder meer in overzichten van Christopher Sharpley in de <i>Journal of Counseling Psychology</i> en door Michael Heap, en werden niet bevestigd. Een later overzicht van Tomasz Witkowski (2010) en een stelselmatig overzicht van Sturt en anderen in de <i>British Journal of General Practice</i> (2012) kwamen tot dezelfde uitkomst voor gezondheidstoepassingen.</p>
+      <p>Eén onderdeel staat er beter voor dan de rest, al is dat niet aan NLP te danken. De fobiebehandeling uit dit boek lijkt sterk op wat in de gedragstherapie beeldexposure en imagery rescripting heet, en die aanpak heeft wel onderbouwing. Dat maakt aannemelijk dat de procedure bij enkelvoudige angsten iets doet, maar de verklaring die de auteurs erbij geven, verandering van submodaliteiten, is daarmee niet aangetoond.</p>
+      <p>De allergieprocedure vormt het andere uiterste. Er bestaat geen onderzoek dat aantoont dat een immuunreactie op deze manier te wijzigen is, en de fysiologische redenering die het boek erbij geeft is niet meer dan een beeldspraak over leren. Wie op grond van dat hoofdstuk medische behandeling uitstelt, loopt risico.</p>
+      <p>Wat het boek daadwerkelijk levert is een verzameling gespreksvormen die praktisch bruikbaar blijken en die opvallend vaak overeenkomen met wat later in andere scholen zelfstandig is uitgewerkt: afstand nemen tot een herinnering, een doel in waarneembare termen formuleren, tegenstrijdige neigingen apart benoemen. De waarde zit in die vormen, niet in de neurologische taal eromheen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de belofte van snelheid. Het boek vertelt telkens over een klacht die in één of twee sessies verdween, en die verhalen komen van de behandelaars zelf. Zonder navraag na maanden is niet vast te stellen of het effect bleef, en zonder vergelijking is niet vast te stellen of het meer was dan wat aandacht en verwachting bij vrijwel elke behandeling teweegbrengen.</p>
+      <p>De taal van het boek maakt van een beeldspraak een werking. Uitdrukkingen als codering, programma en strategie suggereren dat er in het zenuwstelsel iets wordt herschreven. Er is geen neurologisch onderzoek dat submodaliteiten als grootheid aanwijst, en de term neurolinguïstisch dekt in de praktijk geen neurologie.</p>
+      <p>Voor procedures die met misbruik, trauma en rouw werken geeft het boek nauwelijks aan wanneer iemand ze beter niet zelf kan uitvoeren. Er staan waarschuwingen in, maar de opzet nodigt uit tot toepassen door lezers en door pas opgeleide begeleiders bij mensen bij wie een mislukte poging schade doet.</p>
+      <p>NLP heeft zich buiten de wetenschappelijke psychologie ontwikkeld en heeft die positie behouden. Het is in geen enkele Nederlandse behandelrichtlijn opgenomen, terwijl het als opleidingsmarkt wel bloeit. Dit boek, dat in Nederland al meer dan dertig jaar op literatuurlijsten van NLP-opleidingen staat, draagt aan die scheiding bij: het is geschreven om te overtuigen, niet om getoetst te worden.</p>
+      <p>Daar staat tegenover dat de auteurs zich beperken tot wat zij zeggen te hebben zien werken en dat zij zich verre houden van de grotere aanspraken die anderen aan NLP verbonden. Wie het boek leest als verzameling gespreksvormen met verhalen erbij, en de neurologische verpakking negeert, houdt bruikbaar materiaal over.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel elke procedure als iets dat uitgeprobeerd wordt en niet als iets dat werkt: noteer vooraf hoe erg de klacht is op een schaal, en meet opnieuw na een week en na drie maanden.</li>
+        <li>Begin met een enkelvoudige klacht, bijvoorbeeld spanning voor een presentatie, en laat trauma en misbruik over aan iemand die daarvoor is opgeleid.</li>
+        <li>Sla het allergiehoofdstuk over waar het om een medische aandoening gaat, en stel geen behandeling uit op grond daarvan.</li>
+        <li>Lees de neurologische verklaringen als beeldspraak en let alleen op wat de procedure feitelijk voorschrijft.</li>
+        <li>Zet het spellingshoofdstuk en het hoofdstuk over doelen formuleren apart; die twee zijn los van de rest van het model bruikbaar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Heart of the Mind: Engaging Your Inner Power to Change with Neuro-Linguistic Programming</i> (Real People Press, Moab, Utah, 1989), 282 blz., ISBN 9780911226317. De Nederlandse uitgave verscheen als <i>Het hart van de geest</i> bij Servire in 1992, 319 blz., ISBN 9789063254070; catalogi vermelden A. Kiekens bij de Nederlandse bewerking. Die editie is later onder Kosmos-Z&amp;K Uitgevers voortgezet en wordt in Nederland vooral via NLP-opleidingen verkocht. Van Connirae Andreas verscheen ook <i>Core Transformation</i>, geschreven met Tamara Andreas, dat een ander boek is.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Connirae en Steve Andreas schreven een toegankelijke inleiding op neurolinguïstisch programmeren, opgebouwd uit ruim twintig hoofdstukken die elk een afzonderlijk probleem behandelen: podiumangst, fobieën, rouw, schuld en schaamte, kritiek verdragen, eetgedrag, beslissen, opvoeden, spelling.</p><p>Elk hoofdstuk volgt dezelfde vorm. Eerst een verslag van iemand bij wie een verandering optrad, daarna de procedure die daartoe leidde, in stappen beschreven. De auteurs gaan ervan uit dat een lezer die stappen zelf kan volgen, in korte tijd en zonder therapeut.</p><p>De aanname onder het geheel is dat klachten samenhangen met de manier waarop iemand ervaringen innerlijk weergeeft, in beelden, geluiden en gevoelens met hun eigen kenmerken, en dat een verandering in die weergave de klacht verandert. Het boek is invloedrijk geworden in het Nederlandse NLP-onderwijs; met de onderbouwing van die aanname staat het er minder goed voor.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>NLP</li><li>neurolinguïstisch programmeren</li><li>verandering</li><li>fobie</li><li>rouw</li><li>praktijkboek</li><li>populaire psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1530"><a href="1530.html">De NLP-Coach als inspirator</a>. Een Nederlands NLP-praktijkboek uit dezelfde traditie, waarmee te zien is wat er van dit materiaal in het Nederlandse opleidingsaanbod terechtkwam.</li>
+          <li value="139"><a href="139.html">Unlimited Power</a>. Tony Robbins bouwde <i>Unlimited Power</i> op vrijwel hetzelfde NLP-materiaal, maar dan in de vorm van een verkoopbaar succesverhaal; het verschil in toon maakt de aannames zichtbaar.</li>
+          <li value="1511"><a href="1511.html">I'm OK, You're OK</a>. De transactionele analyse van Thomas Harris werkt met een vergelijkbaar idee van innerlijke partijen die met elkaar onderhandelen, maar met een uitgeschreven theorie erachter.</li>
+          <li value="1526"><a href="1526.html">Get Out of Your Mind and Into Your Life</a>. Een boek over angst en somberheid vanuit de gedragstherapie, dat laat zien hoe dezelfde klachten worden aangepakt in een traditie die haar uitkomsten wel laat meten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

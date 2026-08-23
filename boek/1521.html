@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scattered Minds &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mate bestrijdt het beeld van ADD als een aangeboren afwijking in het brein die met medicatie beheerd moet worden. Zijn stelling is dat de aandoening…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1521">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1521 &middot; Brein en lichaam</p>
+    <h1>Scattered Minds</h1>
+    <p class="lede">Gabor Mate, 1999</p>
+    <p class="stats">
+      <span><b>1665</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1521"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mate bestrijdt het beeld van ADD als een aangeboren afwijking in het brein die met medicatie beheerd moet worden. Zijn stelling is dat de aandoening ontstaat wanneer de omgeving in de eerste levensjaren te onrustig, te gespannen of te weinig aanwezig is voor het kind dat er gevoelig voor is, waardoor de rijping van de hersengebieden die aandacht en impulsbeheersing regelen niet afkomt. Erfelijkheid speelt volgens hem wel een rol, maar dan als gevoeligheid voor de omgeving en niet als noodlot. Daaruit volgt zijn tweede stelling, die verder gaat en meer op het spel zet: als de ontwikkeling is blijven steken, kan zij alsnog op gang komen, ook bij volwassenen, doordat de hersenen levenslang veranderbaar blijven. Het boek is daarmee tegelijk een aanklacht tegen een medisch model en een aanbod van hoop dat aan dat model ontbreekt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat ADD is en wat het niet is</h3>
+      <p>Mate opent met een beschrijving van de aandoening zoals hij die bij zichzelf en bij patienten ziet: afdwalen, uitstellen, prikkelbaarheid, tijdblindheid, een geheugen dat het op onhandige momenten laat afweten en een innerlijk gevoel van tekortschieten dat er niet uit te praten valt. Hij hecht meer waarde aan die geleefde beschrijving dan aan de vinklijsten van de diagnostische handboeken.</p>
+      <p>Vervolgens zet hij het gangbare beeld neer waar hij tegenin gaat: ADD als hersenziekte met een sterke erfelijke component, vast te stellen met een lijst gedragskenmerken en te behandelen met stimulantia. Hij noemt dat het ziektemodel en verwijt het dat het de vraag naar de herkomst dichtzet.</p>
+      <h3>Hoe het brein zich vormt</h3>
+      <p>Het middendeel van het boek gaat over hersenontwikkeling. Mate legt uit dat de menselijke hersenschors bij de geboorte grotendeels onaf is en zich pas in de eerste levensjaren bedraadt, en dat die bedrading gestuurd wordt door wat er in de omgeving gebeurt. Het gaat dan vooral om de prefrontale gebieden en de verbindingen daarvan met het emotionele deel van het brein.</p>
+      <p>Daar zet hij het begrip afstemming naast. Een ouder die kalm en aanwezig is, spiegelt de toestand van het kind en helpt het zo zijn eigen opwinding te reguleren. Een ouder die door depressie, armoede, verhuizing, ruzie of eigen onverwerkte geschiedenis in beslag genomen is, kan die spiegel niet bieden, ook zonder een spoor van onwil of verwaarlozing. Dat laatste onderstreept Mate herhaaldelijk: hij zoekt geen schuldigen.</p>
+      <h3>Het gezin dat hij zelf beschrijft</h3>
+      <p>Mate voert zijn eigen geschiedenis aan als voorbeeld. Hij werd in 1944 in Boedapest geboren, als joods kind onder de Duitse bezetting; zijn moeder gaf hem als zuigeling weg aan een vreemde om hem in veiligheid te brengen. Hij beschrijft die eerste maanden als de omgeving waarin zijn eigen verstrooidheid is ontstaan.</p>
+      <p>Diezelfde lijn trekt hij door naar zijn vaderschap. Hij vertelt hoe hij als drukbezette arts afwezig was, hoe zijn kinderen daarop reageerden en hoe hij dat later in zijn praktijk terugzag bij anderen. Die openheid is de reden dat het boek bij lezers aankomt, en tegelijk het punt waarop het het kwetsbaarst is: het argument leunt zwaar op een enkele geschiedenis.</p>
+      <h3>Wat ouders kunnen doen</h3>
+      <p>Voor ouders van kinderen met ADD werkt Mate een aanpak uit die begint bij de eigen toestand van de ouder. Rust en aanwezigheid gaan voor techniek; straf, beloningssystemen en gedragsprogramma's beschouwt hij als middelen die het onderliggende probleem eerder vergroten, omdat zij de band tussen ouder en kind afhankelijk maken van prestatie.</p>
+      <p>Hij bepleit een omgeving waarin het kind niet voortdurend hoeft te verdienen dat het welkom is: minder correctie, meer voorspelbaarheid, en een schoolaanpak die aansluit bij hoe het kind leert in plaats van andersom. Ook adviseert hij ouders hun eigen geschiedenis onder ogen te zien, omdat de spanning die zij doorgeven meestal niet bij henzelf begon.</p>
+      <h3>Wat volwassenen kunnen doen</h3>
+      <p>Voor volwassenen met ADD komt Mate uit bij zelfaanvaarding als eerste stap. Het schaamtegevoel dat na jaren tekortschieten is opgebouwd, houdt volgens hem het gedrag in stand, omdat het de aandacht permanent naar binnen richt.</p>
+      <p>Daarna volgen praktische aanwijzingen die minder opzienbarend zijn dan zijn theorie: structuur aanbrengen, slaap en beweging serieus nemen, aandacht oefenen door meditatie, en de eigen reacties leren opmerken voordat zij zich voltrekken. Over medicatie is hij genuanceerder dan zijn critici hem soms nageven: hij schreef die voor, gebruikte die zelf en noemt haar bruikbaar om ruimte te maken voor het eigenlijke werk.</p>
+      <h3>Het bredere betoog</h3>
+      <p>In de slothoofdstukken verbreedt Mate zijn onderwerp. Als afstemming afhangt van de rust van ouders, dan is de toename van aandachtsproblemen volgens hem een gevolg van de omstandigheden waaronder er in westerse landen wordt opgevoed: werkdruk, geldzorgen, korte zwangerschapsverloven en versplinterde gezinnen.</p>
+      <p>Daarmee schuift hij de verantwoordelijkheid weg van het afzonderlijke gezin naar de samenleving. Die lijn werkt hij in dit boek nog niet uit; dat gebeurt pas ruim twintig jaar later in <i>De mythe van normaal</i>, waar hetzelfde argument over veel meer aandoeningen wordt uitgestrekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">ADD</td><td>De aandachtstekortstoornis zonder overwegende hyperactiviteit, de vorm die Mate bij zichzelf en bij het merendeel van zijn patienten beschrijft.</td></tr>
+          <tr><td class="term">Afstemming</td><td>De rustige, aanwezige wederkerigheid tussen ouder en jong kind waarin het kind leert zijn eigen opwinding te reguleren; volgens Mate de spil van zowel het ontstaan als het herstel.</td></tr>
+          <tr><td class="term">Ziektemodel</td><td>Mate's aanduiding voor de opvatting dat ADD een aangeboren hersenafwijking is, waarmee de vraag naar de omgeving buiten beeld raakt.</td></tr>
+          <tr><td class="term">Genetisch fundamentalisme</td><td>Zijn term voor het toeschrijven van gedrag aan erfelijkheid alsof de omgeving daar niets aan verandert.</td></tr>
+          <tr><td class="term">Gevoeligheid</td><td>Wat er volgens Mate werkelijk geerfd wordt: niet de aandoening zelf, maar een grotere vatbaarheid voor wat de omgeving doet.</td></tr>
+          <tr><td class="term">Nabije scheiding</td><td>Het geleidelijk loskomen van een kind dat weet dat de ouder beschikbaar blijft; loopt dat mis, dan blijft er volgens Mate een onrust achter die op aandachtsproblemen lijkt.</td></tr>
+          <tr><td class="term">Neuroplasticiteit</td><td>Het vermogen van de hersenen om zich levenslang te blijven vormen, waar Mate zijn stelling op bouwt dat herstel op elke leeftijd mogelijk is.</td></tr>
+          <tr><td class="term">Tegenwil</td><td>De reflexmatige weerstand van een kind tegen sturing die het als druk ervaart, en volgens Mate een reden om beloning en straf te wantrouwen.</td></tr>
+          <tr><td class="term">Schaamte</td><td>De opgestapelde overtuiging van volwassenen met ADD dat er iets met henzelf mis is, die het gedrag volgens hem in stand houdt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Waar Mate stevig staat, is de neurobiologische ontwikkelingsliteratuur die hij aanhaalt: dat de prefrontale schors zich na de geboorte vormt, dat vroege stress meetbare gevolgen heeft voor stresshormonen en hersenrijping, en dat de hersenen ook op volwassen leeftijd veranderbaar blijven. Dat is geen omstreden materiaal.</p>
+      <p>Zwakker staat de stap van die literatuur naar de bewering dat afstemming de doorslaggevende oorzaak van ADD is. Voor die stap voert hij geen onderzoek aan waarin de bijdrage van omgeving en erfelijkheid tegen elkaar is afgewogen. Zijn onderbouwing bestaat uit gevallen uit zijn praktijk, uit zijn eigen leven en uit een redenering: als aandacht zich vormt in relatie, dan moet een gebrek aan relatie de aandacht schaden.</p>
+      <p>Dat botst met de tweelingliteratuur, waarin de erfelijke bijdrage aan ADHD steevast hoog uitvalt. Mate weerlegt die studies niet zozeer als dat hij hun opzet ter discussie stelt: kinderen met dezelfde erfelijke aanleg roepen volgens hem ook vergelijkbare reacties op bij hun ouders, waardoor aanleg en omgeving in de meting door elkaar lopen. Dat bezwaar is niet onzinnig, maar het is een tegenwerping en geen tegenbewijs.</p>
+      <p>Er is sinds 1999 wel onderzoek bijgekomen dat een deel van zijn richting steunt. Vroege deprivatie, zoals bij kinderen uit Roemeense tehuizen die na 1989 werden geadopteerd, gaat samen met een sterk verhoogd aantal aandachtsproblemen. Dat laat zien dat de omgeving er in het uiterste geval toe doet. Of het ook geldt voor het gewone gezin met een drukke of neerslachtige ouder, waar Mate het over heeft, is daarmee niet aangetoond.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat Mate een aannemelijk deelverhaal presenteert als het hele verhaal. Dat vroege omstandigheden meewegen, wordt breed aangenomen; dat zij de oorzaak zijn, is een claim van een andere orde en die maakt hij niet waar. Zijn behandeling van het erfelijkheidsonderzoek komt daarbij dicht bij een karikatuur: nauwelijks een onderzoeker verdedigt de positie die hij bestrijdt.</p>
+      <p>De keerzijde van zijn hoopvolle boodschap is schuld. Wie leest dat de aandoening van zijn kind is ontstaan doordat hij in het eerste levensjaar te gespannen was, kan zich moeilijk aan de conclusie onttrekken dat het aan hem lag, hoe vaak Mate ook schrijft dat het niemands schuld is. Dat effect is bij ouders van kinderen met ADHD veelvuldig beschreven en is een reden waarom het boek in de klinische praktijk omstreden blijft.</p>
+      <p>Bij volwassen lezers speelt hetzelfde in omgekeerde richting. De belofte dat de ontwikkeling alsnog kan worden ingehaald, is niet aangetoond en kan behandeling met bewezen effect in de weg gaan zitten. Mate raadt medicatie nergens af, maar de toon van het boek maakt haar tot een noodgreep, en lezers vatten haar ook op die manier op.</p>
+      <p>Wat het boek daartegenover zet, is de kwaliteit van zijn beschrijving. De hoofdstukken over hoe het van binnen voelt om jarenlang tekort te schieten en daar niets aan te kunnen doen, worden door lezers met ADD vaker aangehaald dan zijn theorie. Wie het boek leest voor die beschrijving en niet voor de oorzaakverklaring, houdt er het meeste aan over.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem de beschrijvingen van het innerlijke beloop serieus en de oorzaakverklaring onder voorbehoud.</li>
+        <li>Beoordeel bij een kind eerst de rust in huis en het dagritme voordat er aan gedragsprogramma's wordt begonnen.</li>
+        <li>Laat medicatie een beslissing van de behandelaar zijn en niet van dit boek.</li>
+        <li>Werk als volwassene aan slaap, beweging en vaste structuur, ook als dat geen genezing is.</li>
+        <li>Scheid de schaamte van het gedrag: houd bij welk gedrag daadwerkelijk schade doet en welk gedrag vooral schuldgevoel oproept.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Scattered Minds: A New Look at the Origins and Healing of Attention Deficit Disorder</i> (Knopf Canada, Toronto, 1999); de Britse uitgave heet <i>Scattered Minds: The Origins and Healing of Attention Deficit Disorder</i> (Vermilion, Londen, 2019, ISBN 9781785042218). Nederlands als <i>Het verstrooide brein: ADD begrijpen en helen</i>, AnkhHermes, Utrecht, 2021 (368 blz., ISBN 9789020218404). Van Mate verschenen in het Nederlands verder <i>Hongerige geesten</i> over verslaving en <i>De mythe van normaal</i> (AnkhHermes, 2022, ISBN 9789020219456), dat hij met zijn zoon Daniel Mate schreef.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gabor Mate, huisarts in Vancouver, kreeg op middelbare leeftijd de diagnose ADD, net als drie van zijn kinderen. Dat gegeven staat aan het begin van dit boek en keert er voortdurend in terug: hij beschrijft zijn eigen verstrooidheid, zijn werkverslaving en zijn tekortschieten als vader met dezelfde openheid als de gevallen uit zijn praktijk.</p><p>Zijn stelling is dat ADD geen erfelijke hersenziekte is die je hebt of niet hebt, maar het gevolg van een verstoorde afstemming tussen ouder en kind in de eerste levensjaren. Aandacht, zegt hij, is een vermogen dat zich vormt in een rustige, aanwezige relatie; ontbreekt die rust, dan blijft het rijpingsproces van de betrokken hersengebieden onaf.</p><p>Uit die diagnose volgt zijn behandeladvies. Medicatie kan volgens hem nuttig zijn en hij schreef die zelf voor, maar zij verhelpt niets aan de oorzaak. Het werk zit in het herstellen van afstemming: bij kinderen door de ouder, bij volwassenen door henzelf. Het boek geeft daar hoofdstukken vol aanwijzingen voor, met de ondertitel van de Britse uitgave als aanduiding van de inzet: het ontstaan en het herstel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ADD</li><li>ADHD</li><li>hechting</li><li>ontwikkeling</li><li>opvoeding</li><li>psychiatrie</li><li>medicatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk verdedigt met meer onderzoek dezelfde grondgedachte, dat vroege omstandigheden zich in lichaam en brein vastzetten.</li>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller werken de hechtingsliteratuur uit die Mate als vanzelfsprekend veronderstelt, maar dan toegepast op volwassen relaties.</li>
+          <li value="1523"><a href="1523.html">The Highly Sensitive Child</a>. Aron beschrijft dezelfde gevoeligheid voor de omgeving als aanleg met twee kanten, waar Mate haar vooral als kwetsbaarheid opvoert.</li>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt zoekt de oorzaak van toenemende aandachtsproblemen bij telefoons en schermen, waar Mate bij de opvoedomstandigheden uitkomt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Way of the Superior Man &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Deida stelt dat de gelijkheid die mannen en vrouwen op het werk en in het huishouden hebben bereikt in de slaapkamer een verlies oplevert. Aantrekking…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1500">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1500 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>The Way of the Superior Man</h1>
+    <p class="lede">David Deida, 1997</p>
+    <p class="stats">
+      <span><b>1896</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1500"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Deida stelt dat de gelijkheid die mannen en vrouwen op het werk en in het huishouden hebben bereikt in de slaapkamer een verlies oplevert. Aantrekking ontstaat volgens hem alleen tussen twee polen, zoals stroom tussen een plus en een min, en waar partners in alles op elkaar gaan lijken dooft die stroom uit. Zijn antwoord luidt niet dat de macho en de gedweeë huisvrouw moeten terugkeren. Hij beschrijft een derde fase, waarin een man zijn mannelijke kern bewust aanzet en tegelijk zijn hart open houdt. Dat vraagt dat hij zijn levensdoel kent, daaraan voorrang geeft boven zijn relatie, en zijn angst dagelijks een klein stukje opzoekt in plaats van hem te ontlopen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De inleiding: drie fasen</h3>
+      <p>Deida schetst eerst een geschiedenis in drie stappen. In de eerste fase lagen de rollen vast: de man verdiende, de vrouw zorgde, en beide partijen manipuleerden elkaar met de middelen die bij die rol hoorden. In de tweede fase, die volgens hem in de jaren zestig begon en nog doorloopt, zochten mannen hun binnenste vrouwelijke kant op en vrouwen hun binnenste mannelijke kant. Hij noemt dat een verbetering: mensen werden heler en minder afhankelijk van elkaar.</p>
+      <p>De prijs van die tweede fase is volgens hem seksuele neutraliteit. Hij vat het samen als bankrekeningen die in evenwicht komen terwijl de hartstocht uitdooft. De derde fase die hij voorstelt houdt de gelijkheid buiten de slaapkamer in stand en versterkt het verschil daarbinnen.</p>
+      <p>Hij benadrukt dat polariteit los staat van geslacht en van geaardheid: bij twee mannen of twee vrouwen werkt hetzelfde mechanisme, en in een verhouding tussen man en vrouw mag de vrouw de mannelijke pool spelen. Het boek is niettemin geschreven voor iemand met een mannelijke kern die een partner met een vrouwelijke kern heeft, en spreekt die lezer aan over 'je vrouw'.</p>
+      <h3>Deel een: de weg van een man</h3>
+      <p>Het eerste en langste deel gaat over levensrichting. Deida opent met de raad te stoppen met hopen dat iets in het leven ooit af is: werk, relatie en zelfinzicht komen nooit tot een punt waarop de spanning wegvalt, en wie op dat punt wacht stelt zijn leven uit. Wie zijn doel niet kent moet dat volgens hem vandaag gaan zoeken, desnoods door alles in zijn leven om te gooien.</p>
+      <p>Twee hoofdstukken zijn los van de rest bekend geworden. In 'Live As If Your Father Were Dead' vraagt hij de lezer zich voor te stellen dat zijn vader is overleden, na te gaan welke opluchting daarin zit, en drie dagen lang elke dag iets te doen dat hij uit ontzag voor zijn vader heeft nagelaten. In 'Lean Just Beyond Your Edge' beschrijft hij de rand als de plaats waar angst begint: wie ver binnen die rand blijft stagneert, wie er ver overheen duikt raakt overbelast, en de groei zit in het stukje dat er net voorbij ligt.</p>
+      <p>Aan die rand hangt een eerlijkheidseis: Deida noemt het eervol dat een man zijn angst toegeeft en oneervol dat hij doet alsof hij verder is dan hij is.</p>
+      <h3>Omgaan met vrouwen en wat vrouwen willen</h3>
+      <p>Deel twee en deel vier gaan over gedrag in de relatie. De stelling die er onder ligt is dat een vrouw met een vrouwelijke kern reageert op de aanwezigheid en de richting van haar man, en dat de inhoud van haar klacht daar minder over zegt dan de klacht zelf. In 'Her Complaint Is Content-Free' werkt hij dat uit met een huiselijke scene over een verloren baan, een televisie en een rommelige garage: de man voert alle punten uit die zij noemt en de spanning blijft, omdat het haar om iets anders gaat.</p>
+      <p>De raad die daarbij hoort is dat een man de klacht hoort als een alarmbel om zijn leven op zijn eigen richting af te stemmen, zonder haar woorden letterlijk te nemen. Andere hoofdstukken luiden dat vrouwen niet liegen, dat een man zijn vrouw niet moet analyseren en dat hij haar niet moet vragen haar eigen gevoel op te lossen.</p>
+      <h3>Polariteit, energie en vrouwelijke aantrekking</h3>
+      <p>Deel drie en deel zes werken de natuurkundige beeldspraak uit. De aantrekking tot het vrouwelijke noemt Deida onvermijdelijk, en hij raadt aan een partner te kiezen die het complementaire tegendeel is. Hij stelt dat ongeveer negentig procent van de mensen zo'n uitgesproken kern heeft en ongeveer tien procent een kern in evenwicht, en dat het boek voor die laatste groep niet bruikbaar en misschien aanstootgevend zal zijn.</p>
+      <p>Deze delen bevatten ook de hoofdstukken die het slechtst zijn verouderd: dat een man vaak meer dan een vrouw zal willen, dat jonge vrouwen een eigen soort energie bieden, en dat elke vrouw een 'temperatuur' heeft die kan helen of irriteren. Zijn raad is de begeerte niet te onderdrukken en er evenmin naar te handelen, maar haar om te zetten in wat hij een gave noemt.</p>
+      <h3>De donkere kant</h3>
+      <p>Deel vijf gaat over agressie en begeerte. Deida schrijft dat een vrouw de moordenaar in haar man wil voelen: niet dat hij doodt, wel dat hij in staat is de angst voor de dood te overstijgen als dat nodig is. Zijn voorbeelden zijn de kakkerlak in de woonkamer en het geluid beneden in het holst van de nacht, waarbij de man die op de bank klimt of zijn partner naar beneden stuurt haar interesse verliest.</p>
+      <p>In hetzelfde deel roept hij de lezer op zijn donkerste verlangens te erkennen, omdat onderdrukking volgens hem in slapheid eindigt. Vrijheid noemt hij het verlangen dat onder alle mannelijke ambitie ligt, waar liefde dat is voor de vrouwelijke kern.</p>
+      <h3>Lichaamsoefeningen en de yoga van intimiteit</h3>
+      <p>De laatste twee delen zijn de meest praktische en de meest omstreden. Deida beschrijft ademhalingsoefeningen langs de voorkant van het lichaam en langs de wervelkolom, en stelt dat zaadlozing bewust gekozen of omgezet zou moeten worden in plaats van vanzelf te gebeuren. Hij geeft daarvoor aanwijzingen die hij aan tantrische en taoïstische praktijken ontleent, zonder bron of onderbouwing.</p>
+      <p>Het slotdeel gaat over wat hij de asymmetrie tussen partners noemt: de man draagt volgens hem de verantwoordelijkheid voor de groei van de verhouding, herstelt zijn richting in eenzaamheid en onder andere mannen, en oefent zich in oplossen. Het laatste hoofdstuk vat dat samen als sterven in het geven van je gave.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Seksuele kern</td><td>Wat Deida sexual essence noemt: de mannelijke, vrouwelijke of in evenwicht verkerende grondtoon van iemands begeerte, volgens hem los van geslacht en geaardheid en niet te veranderen.</td></tr>
+          <tr><td class="term">Seksuele polariteit</td><td>De aantrekking die volgens Deida alleen ontstaat tussen een mannelijke en een vrouwelijke pool, naar het model van een magneet of een accu.</td></tr>
+          <tr><td class="term">De rand</td><td>Deida's edge: de grens waar iemands durf ophoudt en angst begint, die hij dagelijks net iets zou moeten overschrijden.</td></tr>
+          <tr><td class="term">Levensdoel</td><td>De purpose of missie die volgens hem bij een mannelijke kern hoort en die voorrang moet krijgen boven de relatie, op straffe van innerlijke leegte.</td></tr>
+          <tr><td class="term">Derde fase</td><td>De fase na de vaste rolverdeling en na de gelijkschakeling van vijftig om vijftig, waarin het verschil in intimiteit bewust wordt aangezet.</td></tr>
+          <tr><td class="term">Ravishen</td><td>Deida's woord voor de manier waarop een man zijn partner seksueel neemt, met nadruk op overgave en niet op overheersing.</td></tr>
+          <tr><td class="term">Klacht zonder inhoud</td><td>Zijn stelling dat de letterlijke inhoud van een klacht de stemming van het moment weerspiegelt en zelden de gewoonte die werkelijk aan verandering toe is.</td></tr>
+          <tr><td class="term">De moordenaar in je</td><td>Het vermogen om de angst voor de dood te overstijgen wanneer dat nodig is, dat volgens Deida aanwezig moet zijn ook als het nooit wordt gebruikt.</td></tr>
+          <tr><td class="term">Oplossen</td><td>De slotoefening van het boek, waarin de man zijn greep op zichzelf loslaat in het geven van zijn gave, naar het beeld van een orgasme.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op wat Deida in zijn werkgroepen en gesprekken heeft gehoord. Hij zegt dat zelf ook: de verhouding van negentig om tien tussen uitgesproken en in evenwicht verkerende kernen presenteert hij als 'in my experience'. Er staan geen noten, geen literatuurlijst en geen verwijzing naar onderzoek in. De enige bron die hij aanhaalt is zijn eigen eerdere boek <i>Intimate Communion</i> uit 1995, waar de leer van de drie fasen vandaan komt.</p>
+      <p>De biografie achterin vermeldt dat Deida onderwijs gaf en onderzoek deed aan onder meer de medische faculteit van de universiteit van Californië in San Diego en aan de Ecole Polytechnique in Parijs. Welk onderzoek dat was en of het met dit onderwerp te maken had, staat er niet bij.</p>
+      <p>Wat het boek voor lezers overtuigend maakt is de vorm: korte hoofdstukken met een stelling vooraf en een uitgeschreven huiselijke scene erachter, zoals het gesprek over de garage, de kakkerlak in de kamer en het geluid in de keuken. Die scenes zijn herkenbaar genoeg om als bewijs te voelen, terwijl ze bedacht zijn en niet zijn opgetekend uit een geval.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek een verschil dat het beschrijft als 'energetisch' overal aan de biologie vastknoopt. Deida zegt met zoveel woorden dat de mannelijke en de vrouwelijke pool losstaan van geslacht, maar zijn hele boek richt zich tot een man over 'zijn vrouw', zijn voorbeelden geven de man richting en de vrouw stemming, en de aanwijzing dat een man de intensiteit van zijn partner moet dragen zet haar gevoel neer als iets dat opvang nodig heeft. Het voorbehoud aan het begin wordt door de tekst daarna nergens waargemaakt.</p>
+      <p>Praktisch is de raad om de inhoud van een klacht niet letterlijk te nemen moeilijk te onderscheiden van het wegwuiven van wat iemand zegt. Deida bouwt daar een grens in, namelijk dat de klacht als waarschuwing voor de eigen koers moet gelden, maar hij geeft een lezer daarmee ook een sluitende reden om nooit inhoudelijk op bezwaren in te gaan.</p>
+      <p>De hoofdstukken over zaadlozing en ademhaling doen lichamelijke beweringen die nergens worden onderbouwd. Dat zaad langs de wervelkolom omhoog gestuurd kan worden is een beeld uit tantrische en taoïstische leer, geen beschrijving van wat er in een lichaam gebeurt, en het boek maakt dat onderscheid niet.</p>
+      <p>Ten slotte is de leer zo gebouwd dat zij niet kan falen. Blijft de hartstocht uit, dan leefde de man kennelijk niet vanuit zijn kern, kende hij zijn levensdoel niet, of leunde hij niet tegen zijn rand aan. Elke tegenvaller wordt teruggelegd bij de lezer. Dat maakt het boek bruikbaar als aansporing en ongeschikt als verklaring, en het verklaart waarom lezers het even vaak bevrijdend als vernederend hebben gevonden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als een document over een bepaald soort mannelijkheid uit de jaren negentig, en toets elke aanwijzing aan wat de betrokken partner er zelf van vindt.</li>
+        <li>Neem de oefening over de vader los van de rest: schrijf op wat er anders zou zijn gegaan zonder diens oordeel, en doe daar drie dagen lang iets mee.</li>
+        <li>Gebruik het beeld van de rand voor werk en oefening, waar het toetsbaar is, en wees terughoudend met de toepassing ervan op andermans gevoel.</li>
+        <li>Sla de hoofdstukken over ademhaling en zaadlozing over als lichamelijke voorlichting; daarvoor bestaan bronnen die wel onderbouwd zijn.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Way of the Superior Man: A Spiritual Guide to Mastering the Challenges of Women, Work, and Sexual Desire</i> (Plexus, 1997, 224 blz., ISBN 9781889762104). Sounds True geeft het boek sinds 2004 uit (202 blz., ISBN 9781591792574) en bracht in 2017 een uitgave uit bij het twintigjarig bestaan (ISBN 9781622038329). De Nederlandse vertaling van Geerta Pluut verscheen in 2019 bij Altamira als <i>De kracht van echte mannen</i> (223 blz., ISBN 9789401304511). Deida bouwt in de inleiding voort op zijn eerdere <i>Intimate Communion</i> (Health Communications, 1995), dat niet in het Nederlands is vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Deida schrijft voor mannen die zich niet meer thuis voelen bij het oude rolpatroon en evenmin bij de gelijkschakeling die daarop volgde. Zijn diagnose is dat de spanning tussen partners is weggevallen sinds mannen en vrouwen in werk en huishouden op elkaar zijn gaan lijken, en dat daarmee ook de hartstocht verdween.</p><p>Hij stelt dat ieder mens een seksuele kern heeft, mannelijk, vrouwelijk of in evenwicht, en dat wie tegen die kern in leeft leeg blijft. Een man met een mannelijke kern moet volgens Deida eerst zijn levensdoel kennen en dat boven zijn relatie stellen. Pas van daaruit kan hij liefhebben zonder zichzelf kwijt te raken.</p><p>Het boek telt eenenvijftig korte hoofdstukken van een tot vier bladzijden, verdeeld over acht delen. Elk hoofdstuk begint met een cursieve stelling en gaat daarna over in huiselijke voorbeelden en oefeningen. Er zijn meer dan een miljoen exemplaren van verkocht en het staat sinds de jaren negentig op de leeslijst van mannengroepen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mannelijkheid</li><li>relaties</li><li>seksualiteit</li><li>polariteit</li><li>zelfhulp</li><li>spiritualiteit</li><li>genderrollen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="3"><a href="03.html">The Will to Change</a>. bell hooks beschrijft in <i>The Will to Change</i> hetzelfde onbehagen bij mannen en komt tot de tegenovergestelde slotsom: dat het vasthouden aan een mannelijke rol de oorzaak is en niet de oplossing.</li>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette werken in <i>King, Warrior, Magician, Lover</i> ook met vaste mannelijke grondvormen, maar leiden die af uit Jungiaanse archetypen in plaats van uit polariteit tussen partners.</li>
+          <li value="406"><a href="406.html">No More Mr. Nice Guy</a>. Glover richt zich in <i>No More Mr. Nice Guy</i> op dezelfde lezer, de man die zich wegcijfert om te behagen, en houdt het bij gedrag zonder een leer over seksuele kernen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

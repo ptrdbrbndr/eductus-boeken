@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spaar de spotvogel &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lee bouwt haar roman op één regel van Atticus Finch: iemand begrijp je pas als je in zijn huid kruipt en er even in rondloopt. Zij zet die regel niet neer…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1519">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1519 &middot; Roman en memoir</p>
+    <h1>Spaar de spotvogel</h1>
+    <p class="lede">Harper Lee, 1960; vert. Ko Kooman</p>
+    <p class="stats">
+      <span><b>1582</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1519"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lee bouwt haar roman op één regel van Atticus Finch: iemand begrijp je pas als je in zijn huid kruipt en er even in rondloopt. Zij zet die regel niet neer als vrome les maar als iets wat de kinderen in de loop van drie jaar met tegenzin leren, aan de moeilijkste gevallen: aan de eenzame buurman van wie zij bang zijn, aan de dochter van de meest gehate familie van het stadje, aan de dronken buurvrouw en aan de man die hen wil vermoorden. Daarnaast staat een tweede stelling, die minder geruststellend is. Atticus doet in de rechtszaal wat een advocaat kan doen, toont aan dat zijn cliënt de verwondingen niet kan hebben toegebracht, en verliest toch, omdat de jury doet wat het stadje van haar verlangt. Het boek laat daarmee zien dat fatsoen van één man het stelsel niet keert, en dat de winst zich beperkt tot de kinderen die het zagen gebeuren.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Maycomb</h3>
+      <p>Het stadje wordt eerst neergezet, met zijn families, zijn kerken en zijn ongeschreven rangorde. De Finches zijn oud en gezeten, de Cunninghams zijn arm maar betalen hun schulden in brandhout, de Ewells leven van de bijstand achter de vuilnisbelt, en de zwarte gemeenschap woont buiten het stadje bij de vuilstort.</p>
+      <p>Atticus is advocaat, weduwnaar en in de ogen van zijn kinderen vooral oud en saai. Calpurnia, de zwarte huishoudster, voedt hen mee op en corrigeert hen strenger dan hij. Als zij Scout en Jem een keer meeneemt naar haar eigen kerk, merken de kinderen voor het eerst dat er twee gescheiden werelden naast elkaar bestaan.</p>
+      <h3>Boo Radley</h3>
+      <p>Scout, Jem en Dill zijn geobsedeerd door het huis van de Radleys. Zij bedenken spelletjes over de zoon die naar verluidt zijn vader met een schaar in het been stak en sindsdien binnen wordt gehouden, en zij dagen elkaar uit het huis aan te raken.</p>
+      <p>Ondertussen vinden zij spullen in een holte van een boom aan de rand van het erf: kauwgom, twee gepolijste centen, twee zeeppoppetjes die op henzelf lijken. Als Jem zijn broek verliest bij een vlucht, hangt die de volgende dag hersteld over het hek. De boomholte wordt door de oudste Radley met cement dichtgestopt.</p>
+      <h3>De zaak Tom Robinson</h3>
+      <p>De rechter wijst Atticus aan als raadsman van Tom Robinson, die ervan wordt beschuldigd Mayella Ewell te hebben verkracht. Atticus neemt de zaak aan en verdedigt haar werkelijk, wat in Maycomb als verraad wordt opgevat. De kinderen krijgen op het schoolplein en van familieleden te horen wat hun vader is.</p>
+      <p>De avond voor het proces staat Atticus met een leeslamp voor de deur van de gevangenis als er een groep mannen komt om Tom te halen. De kinderen glippen erheen. Scout herkent Mr. Cunningham en begint hem over zijn zoon en over een erfrechtzaak aan te spreken, tot hij zich schaamt en de groep afdruipt.</p>
+      <h3>Het proces</h3>
+      <p>In de rechtszaal, met de kinderen op de galerij bij de zwarte toeschouwers, toont Atticus aan dat Mayella aan de rechterkant van haar gezicht is toegetakeld, dat haar vader linkshandig is en dat Tom Robinson zijn linkerarm niet kan gebruiken sinds een ongeluk met een dorsmachine. Uit Toms eigen verklaring komt naar voren dat Mayella hem heeft benaderd en dat haar vader hen zag.</p>
+      <p>De jury veroordeelt hem. Jem, die tot dat moment overtuigd was dat het goed zou aflopen, huilt van kwaadheid; het is zijn eerste ervaring met een uitspraak die niet over de feiten gaat. Kort daarna wordt Tom doodgeschoten bij een vluchtpoging uit de gevangenis, met zeventien kogels.</p>
+      <h3>Wat er tussendoor gebeurt</h3>
+      <p>Rond het proces staan de scenes waarin Lee haar les over huid en rondlopen uitwerkt op figuren die daar niet vanzelfsprekend voor in aanmerking komen. Mrs. Dubose, de oude buurvrouw die de kinderen uitscheldt, blijkt bezig te zijn geweest met afkicken van morfine en wilde vrij sterven; Jem moet haar wekenlang voorlezen en begrijpt pas achteraf waarom.</p>
+      <p>Tante Alexandra komt inwonen om Scout tot dame te maken en brengt de standenleer van het stadje het huis binnen. Bij de damesvereniging spreken de aanwezigen bewogen over de nood van een volk in Afrika en ondertussen minachtend over hun eigen personeel. Scout ziet dat, zonder er woorden voor te hebben.</p>
+      <h3>Halloween</h3>
+      <p>Bob Ewell, die zich in het proces vernederd voelde, valt de kinderen op een donkere weg aan als zij terugkomen van een schoolvoorstelling. Jem breekt zijn arm. Iemand grijpt in en draagt Jem naar huis; het is Boo Radley, die daarmee voor het eerst buiten komt.</p>
+      <p>Bob Ewell blijkt dood, met een keukenmes in zijn ribben. Sheriff Heck Tate weigert het onderzoek voort te zetten en houdt het erop dat de man in zijn eigen mes is gevallen, om Boo Radley een proces en de aandacht van het stadje te besparen. Scout vat dat samen met de regel over de spotvogel. Aan het slot brengt zij Boo naar huis en kijkt vanaf zijn veranda de straat in.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De spotvogel</td><td>Het vogeltje dat volgens Atticus niets doet behalve zingen en dat men daarom niet schiet; in het boek het beeld voor Tom Robinson en voor Boo Radley.</td></tr>
+          <tr><td class="term">In iemands huid kruipen</td><td>De regel van Atticus dat je een ander pas begrijpt als je zijn standpunt inneemt en er even in rondloopt, waar het hele boek naar terugkeert.</td></tr>
+          <tr><td class="term">Maycomb</td><td>Het verzonnen stadje in Alabama waar het verhaal speelt, met een vaste rangorde van families die niemand hardop hoeft uit te leggen.</td></tr>
+          <tr><td class="term">Boo Radley</td><td>Arthur Radley, de buurman die al jaren binnen blijft en over wie het stadje verhalen vertelt; hij observeert de kinderen jarenlang en grijpt eenmaal in.</td></tr>
+          <tr><td class="term">Calpurnia</td><td>De zwarte huishoudster die de kinderen mee opvoedt en die in haar eigen kerk anders spreekt dan bij de Finches, wat Scout opvalt.</td></tr>
+          <tr><td class="term">De Ewells</td><td>De familie achter de vuilnisbelt, die in de rangorde van het stadje onderaan staat en juist daarom de rassenscheiding het hardst nodig heeft.</td></tr>
+          <tr><td class="term">Fine Folks</td><td>De opvatting van tante Alexandra dat families een aangeboren aard hebben en dat de Finches daarvan de goede kant vertegenwoordigen.</td></tr>
+          <tr><td class="term">De lynchgroep bij de gevangenis</td><td>De mannen die Tom Robinson komen halen en die uiteenvallen zodra Scout een van hen bij naam aanspreekt over zijn eigen zoon.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek staat dicht bij de jeugd van de schrijfster. Harper Lee groeide op in Monroeville, Alabama, haar vader Amasa Coleman Lee was advocaat en krantenuitgever, en zij was als kind bevriend met Truman Capote, die naar algemeen aanvaarde lezing model stond voor Dill. Het stadje, de rangorde en het spraakgebruik komen uit die omgeving.</p>
+      <p>Voor de rechtszaak zelf is geen enkele bron aan te wijzen. De processen tegen de negen jonge zwarte mannen in Scottsboro, die vanaf 1931 in Alabama op grond van een aanklacht wegens verkrachting werden veroordeeld en waarvan de zaken tot bij het hooggerechtshof kwamen, vormen de historische achtergrond die vrijwel elke lezer erbij haalt. Lee heeft die verbinding zelf nooit bevestigd.</p>
+      <p>De vertelvorm doet het meeste werk. Doordat Scout als volwassene terugkijkt maar het oordeel van het kind laat staan, komt de lezer steeds iets eerder bij de betekenis aan dan de verteller. Dat is ook de zwakke plek van de constructie: op de momenten waarop het boek zijn stelling wil uitspreken, moet Atticus het woord nemen, en die passages klinken merkbaar anders dan de rest.</p>
+      <p>De ontvangst is buitengewoon geweest en heeft de tekst deels overwoekerd. De roman is in meer dan veertig talen vertaald en werd in tientallen miljoenen exemplaren verkocht; de verfilming uit 1962 heeft het beeld van Atticus Finch vastgelegd in een gedaante die aan Gregory Peck vastzit.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de zwarte figuren in het boek nauwelijks handelen. Tom Robinson mag één keer spreken en sterft vervolgens buiten beeld; Calpurnia wordt vrijwel alleen gezien in wat zij voor het gezin Finch betekent; de zwarte toeschouwers op de galerij staan op als Atticus vertrekt, en dat is hun laatste optreden. De roman gaat over racisme en geeft de mensen om wie het gaat weinig eigen bestaan.</p>
+      <p>Daarmee samen hangt de kritiek op Atticus zelf. Malcolm Gladwell betoogde in 2009 in The New Yorker dat Atticus een vertegenwoordiger is van het meegaande liberalisme van het Zuiden: hij bepleit begrip voor de leden van de lynchgroep, verklaart de rassenhaat uit onwetendheid en stelt het stelsel geen moment ter discussie. Wie het boek als aanklacht leest, leest volgens die redenering iets anders dan wat er staat.</p>
+      <p>De uitgave van <i>Go Set a Watchman</i> in 2015 maakte die discussie scherper. Daarin is dezelfde Atticus, twintig jaar later, lid van een raad die tegen de opheffing van de rassenscheiding strijdt. Het boek verscheen kort nadat de zuster en advocaat van Lee was overleden, terwijl Lee zelf oud en verzwakt in een verzorgingshuis woonde, wat vragen opriep over de vraag of zij publicatie werkelijk wilde.</p>
+      <p>Praktisch bezwaar van een andere orde: de roman is in de Verenigde Staten sinds jaar en dag een van de meest aangevochten schoolboeken, aanvankelijk om het onderwerp en tegenwoordig vooral om het veelvuldige gebruik van een scheldwoord voor zwarte Amerikanen en om de vraag of zwarte leerlingen dit boek voorgeschoteld moeten krijgen als het standaardwerk over hun geschiedenis.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>To Kill a Mockingbird</i> (J.B. Lippincott, Philadelphia, 1960), bekroond met de Pulitzer Prize voor fictie in 1961. Hans Edinga vertaalde het boek al in 1961 als <i>Spaar de spotvogels</i> voor De Fontein in de Dolfijnreeks. De Bezige Bij, Amsterdam, bracht in 2010 een nieuwe vertaling van Ko Kooman uit onder de titel <i>Spaar de spotvogel</i>, met een inleiding van Kristien Hemmerechts; de uitgave uit 2015 telt 418 blz. (ISBN 9789023493617). Robert Mulligan verfilmde het boek in 1962 met Gregory Peck als Atticus Finch. In 2015 verscheen <i>Go Set a Watchman</i>, in het Nederlands <i>Ga heen, zet een wachter</i>, eveneens vertaald door Ko Kooman: een eerdere bewerking van hetzelfde materiaal die Lee in de jaren vijftig schreef.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Scout Finch is zes als het boek begint en woont met haar broer Jem en haar vader Atticus in Maycomb, een klein stadje in Alabama, midden in de crisisjaren. Zij vertelt het verhaal terugkijkend, als volwassene, maar houdt de blik van het kind aan: zij ziet alles en begrijpt de helft.</p><p>Het eerste deel gaat vrijwel geheel over de zomers met buurjongen Dill en over Boo Radley, de buurman die al jaren niet buiten komt en over wie het hele stadje verhalen vertelt. Het tweede deel gaat over de zaak van Tom Robinson, een zwarte man die wordt beschuldigd van verkrachting en die Atticus als advocaat moet verdedigen.</p><p>De twee lijnen komen aan het eind bij elkaar. Wat de kinderen over de gevreesde buurman dachten te weten, blijkt even onhoudbaar als wat het stadje over Tom Robinson dacht te weten, en de spotvogel uit de titel staat voor allebei: een dier dat niets doet behalve zingen en dat men daarom niet doodt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Alabama</li><li>racisme</li><li>rechtspraak</li><li>jeugd</li><li>moed</li><li>Zuiden</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1518"><a href="1518.html">De kleur paars</a>. Walker beschrijft hetzelfde Zuiden in dezelfde jaren van binnenuit, met de stem van een zwarte vrouw; precies wat bij Lee ontbreekt.</li>
+          <li value="10"><a href="10.html">Ten oosten van Eden</a>. Steinbeck gebruikt eveneens een vader die zijn kinderen een moreel kader probeert mee te geven, en stelt daarbij de vraag of iemand zijn afkomst kan overstijgen.</li>
+          <li value="68"><a href="68.html">Black Rednecks and White Liberals</a>. Sowell verklaart de omgangsvormen van het blanke zuiden, waaronder de eer en de neiging tot geweld die de Ewells belichamen, uit meegebrachte cultuur en niet uit ras.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

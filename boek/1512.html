@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wat moed dat moet &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Keizer stelt dat zijn leven van buitenaf geslaagd was en van binnen leeg, en dat de rekening daarvoor pas werd gepresenteerd toen er niets meer te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1512">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1512 &middot; Roman en memoir</p>
+    <h1>Wat moed dat moet</h1>
+    <p class="lede">Simon Keizer, 2025</p>
+    <p class="stats">
+      <span><b>1479</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1512"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Keizer stelt dat zijn leven van buitenaf geslaagd was en van binnen leeg, en dat de rekening daarvoor pas werd gepresenteerd toen er niets meer te bereiken viel. Hij voert dat terug op wat hij als jongen niet heeft gevoeld: een vader die vroeg wegviel, een dorp waarin de nieuwjaarsnacht van 2001 een gat sloeg en waarin doorgaan de gewoonte was, en een carrière die hem twintig jaar lang een reden gaf om niet stil te staan. Moed betekent in dit boek niet iets groots ondernemen, maar ophouden met wegkijken van wat er onder het presteren zit.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Volendam</h3>
+      <p>Het boek begint bij het dorp. Keizer wordt in 1984 in Volendam geboren, in een gemeenschap waar muziek, familie en kerk dicht op elkaar zitten en waar het zangersvak een uitgesleten pad is. Hij beschrijft een jeugd die van buiten opgewekt oogt en waarin hij vroeg leert wat er van hem wordt verwacht.</p>
+      <p>De dood van zijn vader valt in die periode. Keizer beschrijft niet zozeer de gebeurtenis als wel wat eromheen ontbrak: er werd doorgeleefd, er werd weinig over gesproken, en de manier waarop hij toen met verdriet omging is de manier waarop hij er daarna dertig jaar mee omging.</p>
+      <h3>De nieuwjaarsnacht</h3>
+      <p>In de nacht van 31 december 2000 op 1 januari 2001 breekt brand uit in het café 't Hemeltje aan de Haven in Volendam, tijdens de jaarwisseling, door kerstversiering die vlam vat. Veertien jongeren komen om, honderden raken gewond, veel van hen met brandwonden en longschade waarvan zij hun leven lang last houden. Keizer was toen een tiener in dat dorp.</p>
+      <p>Het boek behandelt de brand als de gebeurtenis die de generatie waartoe hij behoort heeft getekend en waarover in Volendam lang niet openlijk werd gesproken. Dat het luisterboek precies op de vijfentwintigste jaarwisseling na de brand verscheen, is geen toeval: de uitgever zette dat deel van het verhaal voorop en Keizer spreekt zich er voor het eerst uitgebreid over uit.</p>
+      <h3>Het duo</h3>
+      <p>Daarna volgt de carrière. Met Nick Schilder vormt hij vanaf 2006 een duo dat binnen enkele jaren de grootste Nederlandstalige act van het land wordt, met elf albums die op de eerste plaats van de albumlijst binnenkwamen, uitverkochte zalen, televisieprogramma's en een publiek dat hen als een vast koppel ziet.</p>
+      <p>Keizer beschrijft dat succes zonder valse bescheidenheid en zonder er een leerzaam verhaal van te maken. Wat hij eraan toevoegt is de kant die het publiek niet zag: een agenda die het denken overneemt, een rol die van hem verwacht wordt en die hij goed speelt, en het gevoel dat er iets ontbreekt waarvoor hij geen woorden had.</p>
+      <h3>Stoppen</h3>
+      <p>In 2022 besluiten Keizer en Schilder te stoppen; in 2023 volgen de afscheidsconcerten. Het boek behandelt dat besluit als het punt waarop de vraag niet langer uit te stellen was. Wie is hij zonder het duo, en wat blijft er over van een identiteit die twintig jaar met een tweede naam werd genoemd.</p>
+      <p>De verhouding met Schilder blijft in het boek op de achtergrond. Keizer schrijft over zijn eigen aandeel en houdt het bij wat hem betreft, wat het boek eerlijker maakt over zichzelf dan compleet over de breuk.</p>
+      <h3>Costa Rica</h3>
+      <p>Het heden van het boek speelt op een retraite in Costa Rica. Daar wordt hij geconfronteerd met andere lezingen van zijn verleden: de patronen die hij herkende als karakter blijken aangeleerde reacties, en de overtuigingen die hij als vanzelfsprekend beschouwde blijken keuzes die hij als kind maakte om te overleven.</p>
+      <p>Keizer formuleert de uitkomst voorzichtig. De retraite heeft hem naar eigen zeggen niet iemand anders gemaakt, maar teruggebracht bij wie hij al was. In de aflevering van de podcast Kukuru waarin hij het boek bespreekt komen daarbij Choose Again, ego, rouw en meditatie ter sprake; het gedachtegoed waarin hij zich beweegt is dat van de attitudinal healing en van <i>Een cursus in wonderen</i>.</p>
+      <h3>Flarden</h3>
+      <p>De vorm past bij de inhoud. Het boek loopt niet als een levensverhaal van begin tot eind, maar springt tussen scènes: een auditie, een begrafenis, een hotelkamer, een gesprekskring. Dat maakt de opbouw losser dan een biografie en dichter bij hoe herinnering zich aandient.</p>
+      <p>De gedrukte editie zet daar veertig bladzijden foto's naast, uit de familiealbums en uit de jaren van het duo. Die keuze bepaalt mede wie het boek leest: het richt zich in eerste instantie op mensen die de zanger kennen en pas daarna op lezers die niets met Nederlandstalige muziek hebben.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Flarden</td><td>De ondertitel en het vormprincipe van het boek: losse stukken herinnering in plaats van een doorlopend levensverhaal.</td></tr>
+          <tr><td class="term">Moed</td><td>In Keizers gebruik niet het aandurven van iets groots, maar het toelaten van gevoel dat hij jarenlang buiten de deur hield.</td></tr>
+          <tr><td class="term">De cafébrand</td><td>De brand in 't Hemeltje in de nieuwjaarsnacht van 2001, met veertien doden en honderden gewonden, die in Volendam een generatie tekende.</td></tr>
+          <tr><td class="term">Het dorp</td><td>Volendam als gemeenschap waarin saamhorigheid en zwijgen samengaan, en waarin doorgaan geldt als de gepaste reactie op verlies.</td></tr>
+          <tr><td class="term">Retraite</td><td>De verblijfsperiode in Costa Rica waar het heden van het boek zich afspeelt en waar zijn verleden opnieuw wordt doorgenomen.</td></tr>
+          <tr><td class="term">Ego</td><td>De term uit het gedachtegoed van de retraite voor het zelfbeeld dat een mens bouwt om zich veilig te voelen en dat het contact met de werkelijkheid vertroebelt.</td></tr>
+          <tr><td class="term">Rouw</td><td>Het woord waaronder Keizer de dood van zijn vader, de brand en het einde van het duo als een reeks van hetzelfde verschijnsel behandelt.</td></tr>
+          <tr><td class="term">Voelen</td><td>Het werkwoord waar het boek naartoe werkt: het toelaten van lichamelijk waarneembaar verdriet in plaats van het benoemen ervan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een herinneringsboek en het staat of valt met de eerlijkheid van de verteller. Er is geen bronnenapparaat, er zijn geen interviews met derden en er is geen ghostwriter genoemd. Wat controleerbaar is, is het geraamte: geboortejaar, de datum en de toedracht van de brand in 't Hemeltje, de discografie van het duo, het besluit uit 2022 en de afscheidsconcerten van 2023. Die gegevens kloppen met wat er buiten het boek over te vinden is.</p>
+      <p>Wat niet controleerbaar is, is het binnenwerk: de gevoelens die hij aan zijn zestiende of zijn vijfentwintigste toeschrijft, en de gedachtegang die hij nu terugleest in beslissingen van twintig jaar geleden. Dat is de gebruikelijke beperking van elke memoir en Keizer doet er niet geheimzinnig over; hij presenteert zijn versie als een versie.</p>
+      <p>De audioversie legt een eigen gewicht in de schaal. Keizer las het boek zelf in, ongeveer acht uur lang, en dat maakt van sommige passages een hoorbaar moeilijk gesprek in plaats van een gladde tekst. Wie de twee versies naast elkaar legt, merkt dat de gedrukte uitgave uitgebreid is en op punten verder gaat dan de gesproken versie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de inzichten algemeen blijven. Dat succes niet gelukkig maakt, dat verdriet dat niet gevoeld wordt later terugkomt, dat een mens meer is dan zijn rol: het zijn juiste observaties die in dit genre al vaak zijn opgeschreven. Wat het boek eigen maakt zijn de details van Volendam en van het vak, niet de conclusies.</p>
+      <p>De taal van de retraite wordt overgenomen zonder dat er iets tegenover wordt gezet. Begrippen als ego, kernovertuiging en vergeving komen uit de attitudinal healing en uit <i>Een cursus in wonderen</i>, een stroming met een eigen kosmologie en met weinig onderzoek achter zich. Keizer schrijft die begrippen op als beschrijvingen van hoe het werkt, terwijl het aannames van een school zijn. Lezers die daarin meegaan lezen een bevestiging, lezers die dat niet doen zien een vocabulaire zonder onderbouwing.</p>
+      <p>Rond de brand blijft het boek voorzichtig. Vijfentwintig jaar na de nieuwjaarsnacht is er in Volendam nog altijd verschil tussen wie erbij was, wie iemand verloor en wie er langs de zijkant stond, en het boek gaat die verhoudingen niet in. Dat is verdedigbaar terughoudendheid, maar het zet wel een vraag bij de keuze van de uitgever om de verschijningsdatum precies op die verjaardag te leggen.</p>
+      <p>Ten slotte is er de vorm zelf. De flarden geven het boek vaart, maar ze ontslaan de schrijver ook van de plicht om verbanden te leggen. Waar een doorlopend verhaal had moeten uitleggen hoe het ene op het andere volgde, kan een reeks scènes volstaan met naast elkaar zetten. Het boek is daardoor prettig te lezen en op de kernvraag, wat er nu werkelijk is veranderd, blijft het antwoord open.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, ondertiteld <i>Mijn leven in flarden</i>. Verscheen eerst als luisterboek, door de auteur zelf ingelezen en uitgebracht als Storytel Original op 31 december 2025, precies vijfentwintig jaar na de cafébrand in Volendam (luisterboek ISBN 9789180876155, ebook ISBN 9789180876162). De gedrukte uitgave volgde op 2 juni 2026 bij Invictus Publishing, onderdeel van Van Lindonk &amp; De Bres, uitgebreid en aangevuld met veertig bladzijden fotomateriaal (224 blz., ISBN 9789079679164). Er bestaat geen vertaling; dit is het eerste boek van Keizer.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Simon Keizer, geboren in 1984 in Volendam en bekend als de helft van het duo Nick en Simon, kijkt rond zijn veertigste terug op zijn leven. Het boek heet naar het dorpsgezegde dat het einde van de titel al aankondigt: wat moet, dat moet, en moed is het woord dat daar tussen wordt geschoven.</p><p>De onderdelen zijn bekend uit het openbare leven van de zanger: de vroege dood van zijn vader, de brand in het café in zijn dorp in de nieuwjaarsnacht van 2001, elf albums die op de eerste plaats binnenkwamen, en het besluit in 2022 om met het duo te stoppen. Wat het boek eraan toevoegt is de volgorde waarin hij die gebeurtenissen nu zet.</p><p>De verteltijd ligt grotendeels op een retraite in Costa Rica, waar hij rond zijn veertigste terechtkomt met de vraag waarom het succes geen richting meer geeft. Het boek is opgezet als flarden, korte stukken herinnering zonder doorlopende chronologie, en de titel van de luisterversie maakt dat expliciet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>Volendam</li><li>cafébrand</li><li>rouw</li><li>vaderverlies</li><li>muziek</li><li>retraite</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1515"><a href="1515.html">Choose Again</a>. Het boek van Diederik Wolsak beschrijft de methode en het centrum in Costa Rica waarnaar het heden van Keizers verhaal verwijst; wie wil weten waar zijn woordenschat vandaan komt, vindt het daar.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl behandelt dezelfde vraag, hoe iemand betekenis geeft aan verlies, vanuit een leven waarin de omstandigheden onvergelijkbaar zwaarder waren en de conclusie soberder is.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk levert het klinische kader voor wat Keizer als patroon beschrijft: waarom onverwerkt verlies zich in het lichaam vastzet en decennia later terugkomt.</li>
+          <li value="1539"><a href="1539.html">The Choice</a>. Eger schrijft eveneens een memoir waarin een therapeutische leer wordt verweven met een levensverhaal, en laat zien hoe dat er uitziet wanneer de auteur zelf behandelaar is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

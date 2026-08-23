@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Een wereld achter de wereld &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Veelders vertelt het verhaal van een vrouw die niet in crisis raakt door verlies van buitenaf maar doordat haar bestaan aan de buitenkant klopt terwijl er…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1534">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1534 &middot; Roman en memoir</p>
+    <h1>Een wereld achter de wereld</h1>
+    <p class="lede">Irina Veelders, 2025</p>
+    <p class="stats">
+      <span><b>1292</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1534"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Veelders vertelt het verhaal van een vrouw die niet in crisis raakt door verlies van buitenaf maar doordat haar bestaan aan de buitenkant klopt terwijl er van binnen niemand thuis is. De aanname onder het boek is dat zo'n leegte geen psychologisch mankement is maar een aanwijzing: er ligt achter de zichtbare wereld een andere orde, en wie de moed heeft de zichtbare orde los te laten kan die tweede leren kennen. De roman voert dat niet aan als leer maar als reisverslag, waarbij de plaatsen Ibiza, Glastonbury en Bali de rol van drempels vervullen. Wat lezers erover verdeelt is de vraag of die tweede orde in het verhaal werkelijk wordt getoond of alleen wordt aangekondigd.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een leven dat aan de buitenkant klopt</h3>
+      <p>De roman opent bij Joan, een vrouw die alles heeft wat er van een geslaagd bestaan wordt verwacht en die zich er niettemin van vervreemd voelt. Het einde van haar verhouding met Eric is niet de oorzaak van die vervreemding maar de gebeurtenis die haar zichtbaar maakt.</p>
+      <p>Veelders houdt dat begin kort. Zij besteedt weinig ruimte aan het beschrijven van het oude leven en zet de beweging snel in gang, wat het boek een lichte aanloop geeft en tegelijk maakt dat de lezer Joan nog nauwelijks kent als zij vertrekt.</p>
+      <h3>Ibiza</h3>
+      <p>Ibiza is de eerste plaats waar Joan terechtkomt en het eiland dat de auteur zelf het beste kent; Veelders werkte er jarenlang aan interieurprojecten voordat zij ging schrijven. In de roman is het eiland niet het uitgaanseiland maar het oudere, stille Ibiza van de rotskust en de dorpen landinwaarts.</p>
+      <p>Hier vindt de ontmoeting plaats die Joan te bijzonder vindt om toeval te noemen. Vanaf dat punt verandert de aard van het verhaal: wat als herstelreis begon wordt een zoektocht met een richting die zij zelf niet uitzet.</p>
+      <h3>Glastonbury</h3>
+      <p>De tweede plaats is Glastonbury in Somerset, sinds de vroege twintigste eeuw het middelpunt van een Engelse traditie die de streek met Avalon en met de graallegende verbindt. Veelders gebruikt die laag zoals zij in de plaats zelf leeft, met de Tor, de bronnen en de abdijruïne.</p>
+      <p>In dit deel komen de herinneringen op waar de titel naar verwijst: beelden die Joan niet in haar eigen levensloop kan plaatsen. De roman laat in het midden of het om herinnering aan een eerder bestaan gaat of om iets anders, en dringt op dat punt geen uitleg op.</p>
+      <h3>Bali</h3>
+      <p>De derde plaats is Bali, waar de roman het lichaam binnengaat. Hier komen de begrippen naar voren die Veelders in haar werk buiten het boek ook hanteert: kundalini als opstijgende levensenergie en hieros gamos, het heilig huwelijk, als samenkomen van twee polen in één persoon.</p>
+      <p>Deze bladzijden vragen het meeste van een lezer die met die begrippen niets heeft. Veelders legt ze niet uit zoals een handboek zou doen; zij laat ze aan Joan gebeuren en verwacht dat de lezer meegaat.</p>
+      <h3>Wat er aan het eind staat</h3>
+      <p>De vraag waar het boek op uitloopt is of Joans leven haar overkomt of dat zij het maakt. Veelders zet de twee antwoorden niet tegenover elkaar; in haar opzet valt lotsbestemming samen met het besluit die te aanvaarden.</p>
+      <p>De afloop is geen terugkeer naar het oude leven en ook geen nieuw leven dat al is ingericht. Wat Joan meeneemt is een andere verhouding tot de vraag wie zij is, en de erkenning dat de wereld waar de titel op doelt er al was voordat zij vertrok.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De wereld achter de wereld</td><td>De orde die volgens het boek achter de zichtbare werkelijkheid ligt en die zich aandient zodra iemand de vanzelfsprekendheid van het gewone leven verliest.</td></tr>
+          <tr><td class="term">Inwijding</td><td>Een beproeving die het oude zelfbeeld onbruikbaar maakt; in de roman verbonden aan de drie plaatsen waar Joan komt.</td></tr>
+          <tr><td class="term">Kundalini</td><td>In de Indiase yogatraditie de energie die langs de wervelkolom opstijgt; Veelders gebruikt de term voor de lichamelijke kant van Joans verandering.</td></tr>
+          <tr><td class="term">Hieros gamos</td><td>Het heilig huwelijk uit de mysterietradities, in dit boek opgevat als het samenkomen van mannelijke en vrouwelijke kanten binnen één persoon.</td></tr>
+          <tr><td class="term">Zielsliefde</td><td>De ontmoeting die door de betrokkenen als voorbestemd wordt ervaren en die in het verhaal de aanzet tot de reis geeft.</td></tr>
+          <tr><td class="term">De zoeker</td><td>De houding van iemand die naar antwoorden op zoek is; Veelders behandelt het einde van die houding als de eigenlijke uitkomst.</td></tr>
+          <tr><td class="term">Avalon</td><td>De legendarische plaats die in de Engelse traditie met Glastonbury wordt vereenzelvigd en die in de roman als tweede drempel dient.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als roman hoeft dit boek geen bewijs te leveren, maar de auteur plaatst het zelf op een grensvlak: zij noemt het geen autobiografie en zegt tegelijk dat het op werkelijke gebeurtenissen berust, en zij verkoopt het via Your Modern Mystics, de organisatie waarmee zij met Bonnie Bessem lessen in bewustzijn en mediumschap geeft. Daarmee doet het verhaal wel een aanspraak, ook al staat die niet als bewering op papier.</p>
+      <p>De denkbeelden waaruit de roman put zijn niet van Veelders zelf. Kundalini komt uit de tantrische en yogatraditie, hieros gamos uit de mysterietradities en uit de lezing die Jung eraan gaf, en de verbinding tussen Glastonbury en Avalon is een Engelse constructie uit de late negentiende en vroege twintigste eeuw, geen middeleeuws gegeven. Het boek behandelt die lagen als vaststaand.</p>
+      <p>Onafhankelijk oordeel over de roman is er nauwelijks. Op het moment van schrijven bestaan er vrijwel geen besprekingen in literaire media; de beoordelingen komen van webwinkels en van de eigen verkoopkanalen, waar het publiek grotendeels uit de kring rond de auteur komt. Wat hier over de inhoud staat berust dan ook op de uitgeversbeschrijving en op wat de auteur er zelf over zegt.</p>
+      <p>In literair opzicht plaatst het boek zich in een goed gevulde hoek. De opbouw van drie plaatsen die drie stappen in een innerlijke ontwikkeling markeren is dezelfde die <i>De alchemist</i> en <i>Eat, Pray, Love</i> bekend maakten, en de roman wordt door lezers ook zo aangeprezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek een uitkomst bezingt die het niet laat zien. Joans verandering wordt in de taal van inwijding en herinnering aangekondigd, maar wat er in haar dagelijks bestaan verandert blijft grotendeels buiten beeld. Een roman over innerlijke ommekeer moet die ommekeer in gedrag en in verhouding tot anderen tonen, en dat is het punt waar dit debuut het meest te winnen heeft.</p>
+      <p>De drie plaatsen zijn niet neutraal gekozen. Ibiza, Glastonbury en Bali zijn de vaste haltes van een westerse spirituele reisroute, en ze brengen de bijbehorende verwachting mee. Veelders doet weinig om die verwachting te doorbreken, waardoor de plaatsen eerder als decor werken dan als omgeving met eigen bewoners en eigen weerbarstigheid.</p>
+      <p>Verder is de reis er een die geld en tijd veronderstelt. Joan kan vertrekken; het boek staat niet stil bij wat dat kost of bij wie het niet kan. Dat maakt het verhaal minder algemeen dan de titel doet vermoeden.</p>
+      <p>Wat het boek wel doet is een ervaring beschrijven die veel mensen op middelbare leeftijd herkennen, het gevoel dat een goed ingericht leven leeg kan zijn, en die ervaring serieus nemen zonder haar meteen als klacht te behandelen. Voor lezers die aan de vooronderstellingen niets hebben blijft er weinig over; voor lezers die er wel iets mee hebben werkt het als bevestiging en als reisverslag.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Een wereld achter de wereld</i>, verschenen 26 november 2025 bij London Books, in samenwerking met Your Modern Mystics (Stichting LevensCollege), ISBN 9789493425736. Verkrijgbaar als paperback, als gebonden uitgave en als e-boek; het aantal bladzijden wordt in de catalogi niet vermeld. Het boek is in het Nederlands geschreven en niet vertaald. Het is het debuut van Veelders (1969), die het presenteert als roman en niet als autobiografie, geïnspireerd door gebeurtenissen die zij zelf meemaakte.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Joan heeft naar buiten toe alles voor elkaar, maar herkent zichzelf niet meer in haar eigen leven. Als haar verhouding met Eric eindigt, vertrekt zij naar Ibiza in de hoop daar op adem te komen.</p><p>Wat een pauze had moeten zijn wordt een reis die haar verder voert, naar Glastonbury en naar Bali. Een ontmoeting die zij te bijzonder vindt om toeval te noemen, opent de deur naar herinneringen die haar beeld van zichzelf omkeren.</p><p>Veelders schrijft in de traditie van de reisroman over innerlijke verandering, met mystieke begrippen als inwijding, kundalini en het heilig huwelijk als bouwstenen. Zij noemt het boek geen autobiografie maar zegt zich op eigen ervaringen te baseren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>debuutroman</li><li>spiritualiteit</li><li>zelfonderzoek</li><li>Ibiza</li><li>Glastonbury</li><li>Bali</li><li>reisverhaal</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="8"><a href="08.html">De alchemist</a>. Coelho schreef het model waar dit soort romans op teruggaat: de reis naar buiten die de reis naar binnen blijkt, met plaatsen als drempels.</li>
+          <li value="1538"><a href="1538.html">The Forty Rules of Love</a>. Elif Shafak verweeft in <i>The Forty Rules of Love</i> ook een hedendaagse vrouw met een mystieke traditie, maar met een tweede verhaallijn die de traditie zelf laat spreken.</li>
+          <li value="1535"><a href="1535.html">Hemeltaal</a>. Bonnie Bessem geeft samen met Veelders les binnen Your Modern Mystics; haar boek laat zien welk mensbeeld achter deze roman ligt, maar dan als uitgesproken bewering.</li>
+          <li value="1520"><a href="1520.html">Eastern Body, Western Mind</a>. Anodea Judith zet de begrippen die Veelders in het Bali-deel losjes gebruikt, kundalini en de energiecentra, uiteen als samenhangend stelsel.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

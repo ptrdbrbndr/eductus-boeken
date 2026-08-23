@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vlieg, wilde zwanen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Chang schrijft het vervolg op haar familiegeschiedenis als de rekening van een keuze: zij koos in 1978 voor het leven buiten China en betaalt daarvoor met…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1522">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1522 &middot; Overleven en getuigen</p>
+    <h1>Vlieg, wilde zwanen</h1>
+    <p class="lede">Jung Chang, 2025; vert. Paul Syrier en Ton Heuvelmans</p>
+    <p class="stats">
+      <span><b>1422</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1522"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Chang schrijft het vervolg op haar familiegeschiedenis als de rekening van een keuze: zij koos in 1978 voor het leven buiten China en betaalt daarvoor met een afwezigheid die zich niet meer laat repareren. Haar stelling gaat verder dan het persoonlijke. Zij houdt staande dat de opening van China na Mao nooit een breuk is geweest maar een tussenpoos, dat het apparaat dat haar ouders vermorzelde intact bleef en dat het onder Xi Jinping weer volledig in werking is gezet. De aanwijzing daarvoor zoekt zij niet in de politiek maar in wat er met woorden gebeurt: welke boeken het land in mogen, wat haar moeder aan de telefoon nog kan zeggen, welke namen in China niet meer gedrukt worden. Het boek betoogt dat een land dat zijn eigen geschiedenis niet mag lezen, die geschiedenis nog niet achter zich heeft.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Aankomst in Londen, 1978</h3>
+      <p>Chang komt aan als lid van een klein gezelschap Chinese studenten dat samen wordt gehuisvest, in uniform loopt en niet zonder begeleiding de straat op mag. Zij beschrijft de eerste jaren als een dubbele ervaring: de opluchting van een stad waar mensen zeggen wat zij willen, en de reflex om zich in te houden omdat de ambassade meekijkt.</p>
+      <p>Tegelijk laat zij zien hoe langzaam de indoctrinatie van haar jeugd afsleet. Zij kwam aan als iemand die nog geloofde in wat haar geleerd was en moest gebeurtenis voor gebeurtenis ontdekken dat het niet klopte. Dat proces, en niet de aankomst zelf, is wat zij als haar werkelijke emigratie beschrijft.</p>
+      <h3>Het schrijven van Wilde zwanen</h3>
+      <p>In 1988 komt haar moeder voor het eerst naar Londen. In enkele maanden vertelt zij haar dochter haar leven, inclusief wat zij nooit eerder had gezegd, en die gesprekken worden de grondstof van <i>Wilde zwanen</i>. Chang beschrijft dat vertellen als de eigenlijke daad van het boek: haar moeder gaf haar toestemming om alles op te schrijven.</p>
+      <p>Het boek verschijnt in 1991 en wordt een wereldwijd verkoopsucces. In China wordt het verboden, en Chang merkt dat de gevolgen daarvan niet bij haar terechtkomen maar bij haar familie ter plaatse. Dat patroon keert daarna telkens terug: zij publiceert in vrijheid en anderen dragen de last.</p>
+      <h3>De moeder</h3>
+      <p>Het portret van haar moeder is het hart van het boek. Zij was een communiste van het eerste uur die zich in de jaren vijftig omhoogwerkte, tijdens de Culturele Revolutie werd vernederd, verhoord en vastgezet, en die haar man verloor nadat hij was gebroken door de aanklachtbijeenkomsten waarin hij moest verschijnen.</p>
+      <p>Wat Chang aan haar bewondert is dat zij niet cynisch werd. Zij bleef partijlid, bleef zich bemoeien met het lot van kennissen en bleef, tot op hoge leeftijd, oordelen vellen over partijfunctionarissen die haar dochter niet altijd deelt. De liefdesverklaring waar het boek volgens de recensies op neerkomt, heeft haar bezwaren erin verwerkt.</p>
+      <h3>Mao en de gevolgen</h3>
+      <p>Chang en Jon Halliday werkten meer dan tien jaar aan hun biografie van Mao, die in 2005 verscheen. Zij beschrijft de reizen, de gesprekken met oude getuigen en de moeite om archiefmateriaal los te krijgen, en de onmiddellijke gevolgen: haar reizen naar China werden bewaakt, haar familie werd gewaarschuwd, en de sinologische wereld reageerde verdeeld.</p>
+      <p>Dat laatste laat zij niet weg. Vakgenoten verweten het boek dat het conclusies trok die het bronmateriaal niet droeg. Chang gaat er in dit boek kort maar niet ontwijkend op in; zij houdt haar oordeel over Mao staande en erkent dat de ontvangst haar heeft gevormd.</p>
+      <h3>Een land dat zich sluit</h3>
+      <p>De laatste delen volgen China vanaf de hervormingsjaren van Deng Xiaoping tot het bewind van Xi Jinping. Chang beschrijft hoe zij aanvankelijk kon reizen, hoe de controles bij aankomst strenger werden, en hoe zij op een luchthaven borden zag die straf beloofden aan wie boeken van buiten het land invoerde.</p>
+      <p>Sinds 2018 worden haar visumaanvragen geweigerd. Haar moeder, inmiddels in de negentig, kan zij alleen nog spreken over lijnen die vermoedelijk worden afgeluisterd. Het boek eindigt in die toestand, zonder verzoening en zonder uitzicht op een bezoek.</p>
+      <h3>De vorm</h3>
+      <p>Chang vertelt niet strikt in de tijd. Zij schuift heen en weer tussen Engeland en China en tussen heden en jeugd, waardoor het leven van haar moeder in flarden terugkomt op de momenten waarop het haar eigen keuzes verklaart.</p>
+      <p>De toon is vlakker dan in <i>Wilde zwanen</i>. Waar dat boek de gruwelen van de Culturele Revolutie uitschreef, houdt dit boek zich vaker in en laat het de feiten hun werk doen. Recensenten hebben dat gelezen als de afstand van iemand die haar onderwerp inmiddels van buitenaf bekijkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wilde zwanen</td><td>Het boek uit 1991 waarin Chang de levens van haar grootmoeder, haar moeder en zichzelf vertelde tot aan haar vertrek uit China in 1978.</td></tr>
+          <tr><td class="term">Aanklachtbijeenkomst</td><td>De publieke vernederingssessie uit de Culturele Revolutie waarin partijleden door menigten werden beschuldigd; haar vader werd er gebroken.</td></tr>
+          <tr><td class="term">Culturele Revolutie</td><td>De campagne van 1966 tot 1976 waarin Mao de partij en de samenleving liet zuiveren en waarin het gezin van Chang zijn positie en zijn vader verloor.</td></tr>
+          <tr><td class="term">Studiebeurs van 1978</td><td>Het programma waarmee de Volksrepubliek na Mao voor het eerst weer studenten naar het Westen stuurde, en waarmee Chang naar Engeland kwam.</td></tr>
+          <tr><td class="term">Verboden auteur</td><td>De status van Chang in China: haar boeken mogen daar niet verschijnen, en haar naam wordt in publicaties vermeden.</td></tr>
+          <tr><td class="term">Visumweigering</td><td>De sinds 2018 herhaalde afwijzing van haar aanvragen, waardoor zij haar bejaarde moeder niet meer kan bezoeken.</td></tr>
+          <tr><td class="term">Mao: The Unknown Story</td><td>De biografie uit 2005 die zij met Jon Halliday schreef en die haar zowel lezers als aanhoudende kritiek uit de sinologie opleverde.</td></tr>
+          <tr><td class="term">De geest van Mao</td><td>Changs aanduiding voor de bestuursstijl die zij onder Xi Jinping terugziet, ondanks de tussenliggende decennia van economische opening.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een memoir en steunt op wat de auteur zelf heeft meegemaakt, aangevuld met wat haar moeder haar vertelde. Voor het persoonlijke deel is dat de enige beschikbare bron, en Chang maakt duidelijk waar zij op geheugen vaart en waar op de gesprekken uit 1988.</p>
+      <p>De publieke feiten eromheen zijn wel controleerbaar. Dat de Volksrepubliek vanaf 1978 studenten naar het buitenland zond, dat <i>Wilde zwanen</i> in China verboden is en internationaal miljoenen keren werd verkocht, en dat Changs werk daar niet verkrijgbaar is, staat vast. Ook haar promotie in Engeland is een vastliggend gegeven.</p>
+      <p>Het zwakste punt in de onderbouwing zit in de oordelen over personen. Chang schrijft met warmte over sommige partijfunctionarissen en met afkeer over andere, en zij kende die mensen persoonlijk. Een Nederlandse recensent wees erop dat de lezer die passages met voorzichtigheid moet lezen, omdat er geen ander materiaal tegenover staat dan haar eigen herinnering.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen dit boek is dat het de verhouding tot haar Mao-biografie te snel afhandelt. De kritiek van sinologen op dat boek ging niet over de vraag of Mao veel doden op zijn naam heeft, maar over de omgang met bronnen: interviews zonder verifieerbare herkomst, conclusies die verder gingen dan het materiaal droeg. Chang erkent de commotie zonder de bezwaren zelf te behandelen, en wie daar meer over wil weten, moet elders zijn.</p>
+      <p>Er zit ook een structureel probleem in het genre. Het leven van een succesvolle schrijfster in Londen levert nu eenmaal minder spanning op dan het leven van drie vrouwen in het China van Mao. De lezer die <i>Wilde zwanen</i> kent, merkt dat het middendeel over boekpromotie, lezingen en uitgevers vlakker is dan het materiaal waar het naar terugkijkt.</p>
+      <p>Het beeld van China dat het boek geeft is bovendien dat van iemand die er sinds 2018 niet meer is geweest, en dat zegt zij zelf. De diagnose over Xi Jinping rust daardoor op berichtgeving, op gesprekken op afstand en op de eigen ervaring bij grenscontroles, en niet op waarneming ter plaatse. Wie een gedetailleerd verslag van het hedendaagse China zoekt, zit hier verkeerd.</p>
+      <p>Wat het boek daartegenover levert is de figuur van de moeder. Een vrouw die de partij die haar vernietigde nooit heeft verlaten en die haar dochter toestemming gaf alles op te schrijven, is een tegenstrijdigheid die Chang niet gladstrijkt. Dat portret is de reden om het boek te lezen, ook als de politieke analyse weinig nieuws brengt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Fly, Wild Swans: My Mother, Myself and China</i> (William Collins, Londen, 16 september 2025; Harper, New York, ISBN 9780063480049). De Nederlandse vertaling van Paul Syrier en Ton Heuvelmans verscheen op 7 oktober 2025 gebonden bij Boekerij, Amsterdam (416 blz., ISBN 9789049208394), met een paperback in februari 2026 (304 blz., ISBN 9789049212148). Het boek is het vervolg op <i>Wilde zwanen: drie dochters van China</i> (1991); van Chang verschenen in het Nederlands verder de biografie van Mao, geschreven met haar man Jon Halliday, en die van keizerin-weduwe Cixi.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>Wilde zwanen</i> eindigde in 1978, toen Jung Chang op zesentwintigjarige leeftijd China verliet met een studiebeurs. Dit boek begint waar dat boek ophield: bij aankomst in Londen, in een stad van punk, demonstraties en glamrock, onder toezicht van de ambassade en met de opdracht nooit alleen naar buiten te gaan.</p><p>Vanaf daar loopt het verhaal door tot het heden. Chang promoveert als eerste vrouw uit de Volksrepubliek aan een Britse universiteit, schrijft het boek dat vijftien miljoen keer wordt verkocht en dat in China verboden blijft, en werkt jarenlang met Jon Halliday aan de biografie van Mao die haar de toegang tot haar geboorteland uiteindelijk kost.</p><p>De hoofdpersoon is echter haar moeder, aan wie het boek is opgedragen. Zij blijft in China, houdt haar partijlidmaatschap, wordt oud in een land dat onherkenbaar verandert, en dochter en moeder houden hun band in stand over telefoonlijnen waarvan zij aannemen dat er wordt meegeluisterd. Sinds 2018 krijgt Chang geen visum meer en heeft zij haar moeder niet meer gezien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>China</li><li>Mao</li><li>ballingschap</li><li>censuur</li><li>moeder en dochter</li><li>Culturele Revolutie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1539"><a href="1539.html">The Choice</a>. Eger vertelt eveneens een leven na een totalitair regime, met dezelfde vraag hoe iemand met die geschiedenis in het lichaam verder leeft.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl schreef het boek waarmee getuigenisliteratuur uit dictaturen meestal wordt vergeleken; Chang zoekt betekenis nadrukkelijk buiten die richting.</li>
+          <li value="45"><a href="45.html">Educated</a>. Westover beschrijft eveneens hoe studie iemand losmaakt van het gezin waarin zij is opgevoed, en wat die afstand daarna kost.</li>
+          <li value="348"><a href="348.html">Mr. China</a>. Clissold laat het China van de hervormingsjaren zien vanuit het zakenleven, de periode die Chang vanuit Londen op afstand volgde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

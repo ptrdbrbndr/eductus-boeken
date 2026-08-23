@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compassievol leven &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De auteurs stellen dat aandachtstraining zonder compassie halverwege blijft steken. Wie leert waarnemen wat er in hem omgaat, komt daarmee ook zijn eigen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1525">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1525 &middot; Levenskunst</p>
+    <h1>Compassievol leven</h1>
+    <p class="lede">Erik van den Brink en Frits Koster, 2012</p>
+    <p class="stats">
+      <span><b>1734</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1525"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De auteurs stellen dat aandachtstraining zonder compassie halverwege blijft steken. Wie leert waarnemen wat er in hem omgaat, komt daarmee ook zijn eigen zelfkritiek, schaamte en oude pijn scherper tegen, en zonder een geoefende vriendelijke houding levert die scherpere blik alleen maar meer lijden op. Compassie is volgens Van den Brink en Koster geen karaktertrek en geen stemming, maar een houding die net als aandacht te trainen is, met oefeningen die het zorgsysteem in het lichaam aanspreken. Achter die stelling ligt de aanname dat de mens drie evolutionair gevormde systemen voor emotieregulatie heeft en dat het derde daarvan, gericht op zorg en verbondenheid, in de moderne westerse omstandigheden structureel te weinig aan bod komt. De opdracht is dan niet het dreigsysteem uit te schakelen, wat niet kan, maar het zorgsysteem zo te versterken dat het tegenwicht biedt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het programma vandaan komt</h3>
+      <p>Het boek begint bij de vaststelling dat de op mindfulness gebaseerde trainingen zoals die van Jon Kabat-Zinn en de cognitieve variant daarvan effect hebben, maar dat een deel van de deelnemers vastloopt op zelfkritiek. Van den Brink en Koster spreken van heartfulness als het ontbrekende deel: dezelfde aandacht, maar met een warme in plaats van een neutrale toon.</p>
+      <p>Zij noemen hun bronnen expliciet. De compassion focused therapy van Paul Gilbert levert het model en het grootste deel van de theorie; het mindful self-compassion van Christopher Germer en Kristin Neff levert oefeningen; daarnaast putten zij uit de boeddhistische beoefening waaruit ook de mindfulnesstrainingen zijn afgeleid, en uit werk van onder anderen Tara Brach.</p>
+      <h3>Drie systemen voor emotieregulatie</h3>
+      <p>Het dreigsysteem is snel, gericht op gevaar en werkt met angst, woede en walging; het is opgebouwd om liever tienmaal vals alarm te geven dan eenmaal te laat. Het jaagsysteem drijft tot zoeken, verwerven en presteren en beloont met opwinding en kortstondige voldoening. Het zorgsysteem, dat pas met de zoogdieren ontstond, hoort bij hechting, verzorging en aanraking, en geeft rust en verbondenheid.</p>
+      <p>De klacht van de auteurs over de moderne samenleving is dat zij de eerste twee systemen voortdurend prikkelt en het derde nauwelijks. Wie onder druk staat, gaat harder werken of vecht harder, wat het dreigsysteem verder aanjaagt. Zij noemen dat een vicieuze cirkel die zich zowel van buitenaf als van binnenuit voedt, want zelfkritiek werkt op het dreigsysteem alsof zij van een aanvaller komt.</p>
+      <p>Aan die uitleg hangt een morele redenering die in het hele boek terugkomt: het brein dat wij hebben geerfd hebben wij niet gekozen, de omstandigheden waarin het zich vormde evenmin, dus is het niet onze schuld dat het zo werkt. Wel is het onze verantwoordelijkheid er iets mee te doen. Dat onderscheid tussen schuld en verantwoordelijkheid is bedoeld om de schaamte weg te nemen die het oefenen anders blokkeert.</p>
+      <h3>De innerlijke criticus en de gedeelde menselijkheid</h3>
+      <p>Van den Brink en Koster besteden veel ruimte aan zelfkritiek, die zij niet als een gedachte behandelen maar als een innerlijke stem met een eigen toon, bedoeling en geschiedenis. In de oefeningen wordt die stem uitgevraagd: waar komt ze vandaan, waartegen probeert ze te beschermen, hoe klinkt ze precies.</p>
+      <p>Daartegenover zetten zij de drie bestanddelen die Kristin Neff aan zelfcompassie onderscheidt: vriendelijkheid voor zichzelf, het besef dat falen en pijn bij het mens zijn horen en niet een persoonlijk gebrek zijn, en de aandachtige houding die voorkomt dat men in het eigen verhaal verdwijnt. Vooral het tweede, de gedeelde menselijkheid, keert in bijna elke oefening terug, omdat isolement volgens de auteurs de schaamte in stand houdt.</p>
+      <h3>Het programma in acht bijeenkomsten</h3>
+      <p>Het tweede deel is opgezet als een cursus met acht sessies en een stiltedag, in dezelfde vorm als de mindfulnesstrainingen waar deelnemers vandaan komen. Elke sessie heeft een thema, een aantal begeleide oefeningen, huiswerk en werkbladen.</p>
+      <p>De eerste sessies gaan over de drie systemen en over de kalmerende ademruimte, een korte oefening die de dagelijkse mindfulnessoefening van een vriendelijke toon voorziet. Daarna volgen oefeningen in verbeelding: de veilige plek en de compassievolle metgezel, een voorgestelde figuur die precies dat aan warmte en wijsheid heeft wat de deelnemer voor zichzelf niet kan opbrengen. De auteurs behandelen expliciet hoe verbeelding zowel voor als tegen ons kan werken, omdat piekeren dezelfde machinerie gebruikt.</p>
+      <p>De latere sessies richten zich op wat er dan boven komt: weerstand, verlangen, schuld, schaamte, hardnekkige patronen en de innerlijke criticus. Daarna verschuift het accent naar compassie belichamen, het goede binnenlaten en ruimte maken voor geluk, vergeving van zichzelf en anderen, en de vier levensvrienden vriendelijkheid, mededogen, medevreugde en gelijkmoedigheid, waarmee het programma eindigt bij de boeddhistische reeks waar het begrip vandaan komt.</p>
+      <h3>Wat de auteurs van de begeleider vragen</h3>
+      <p>Het boek is geschreven voor mensen die de training geven, en dat is aan de toon te merken. De auteurs waarschuwen dat compassieoefeningen verdriet, woede en oude rouw kunnen losmaken, juist bij deelnemers die vriendelijkheid weinig hebben gekend, en dat een deelnemer daarop kan reageren met afkeer van de oefening zelf. De begeleider moet daar op voorbereid zijn en doseren.</p>
+      <p>Zij stellen daarom de eis dat de begeleider eerst zelf oefent, en houden de volgorde vast: mindfulness eerst, compassie daarna. Deelname zonder voorafgaande aandachtstraining raden zij af. Het zelfhulpboek <i>Compassie in je leven</i> is bedoeld voor wie het programma buiten een groep om wil doorlopen, met dezelfde oefeningen in eenvoudiger taal.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">compassie</td><td>De gevoeligheid voor lijden bij zichzelf en anderen, samen met de bereidheid er iets aan te doen; de omschrijving die de auteurs van Paul Gilbert overnemen.</td></tr>
+          <tr><td class="term">heartfulness</td><td>De term waarmee de auteurs de warme kant van aandacht aanduiden, als aanvulling op de neutraler opgevatte mindfulness.</td></tr>
+          <tr><td class="term">dreigsysteem</td><td>Het emotieregulatiesysteem dat op gevaar reageert met angst, woede of walging en dat liever te vaak dan te laat alarm slaat.</td></tr>
+          <tr><td class="term">jaagsysteem</td><td>Het systeem dat aanzet tot zoeken, verwerven en presteren en dat beloont met opwinding en kortdurende voldoening.</td></tr>
+          <tr><td class="term">zorgsysteem</td><td>Het systeem dat bij hechting, verzorging en aanraking hoort en dat rust, veiligheid en verbondenheid geeft; het systeem dat de training wil versterken.</td></tr>
+          <tr><td class="term">kalmerende ademruimte</td><td>Een korte dagelijkse oefening waarin de gebruikelijke ademruimte uit de mindfulnesstraining wordt gedaan met een vriendelijke houding en aandacht voor het lichaam.</td></tr>
+          <tr><td class="term">veilige plek</td><td>Een verbeeldingsoefening waarin de deelnemer een plaats oproept waar hij zich veilig en welkom voelt, om het zorgsysteem te leren aanspreken.</td></tr>
+          <tr><td class="term">compassievolle metgezel</td><td>Een voorgestelde figuur, mens of dier of iets anders, die de warmte, wijsheid en betrouwbaarheid heeft die de deelnemer voor zichzelf nog niet kan opbrengen.</td></tr>
+          <tr><td class="term">gedeelde menselijkheid</td><td>Het besef dat falen, pijn en tekortschieten bij het mens zijn horen en geen persoonlijk gebrek zijn; bij Kristin Neff een van de drie bestanddelen van zelfcompassie.</td></tr>
+          <tr><td class="term">vier levensvrienden</td><td>Vriendelijkheid, mededogen, medevreugde en gelijkmoedigheid, de vier houdingen uit de boeddhistische beoefening waarmee het programma afsluit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek doet zelf geen onderzoek maar leunt op twee bestaande bouwwerken. Het eerste is de compassion focused therapy van Paul Gilbert, die het driesystemenmodel leverde; het tweede is het onderzoek naar zelfcompassie van Kristin Neff, waarin de samenhang tussen zelfcompassie en minder depressie, angst en piekeren steeds opnieuw wordt gevonden. Die samenhang is groot en robuust, maar zij is correlationeel: het meeste ervan komt uit vragenlijsten die op een moment worden ingevuld, en zegt op zichzelf niets over de richting.</p>
+      <p>Over MBCL zelf is minder bekend dan over de mindfulnesstrainingen waar het op voortbouwt. De effectstudies naar compassietrainingen zijn overwegend klein, worden vaak uitgevoerd door de ontwikkelaars, vergelijken met een wachtlijst in plaats van met een geloofwaardig alternatief programma, en meten met zelfrapportage door deelnemers die weten in welke groep zij zitten. Meta-analyses laten in die omstandigheden matige effecten zien met veel spreiding tussen studies. De herziene druk van het boek geeft een uitgebreid notenapparaat waarin dat na te lopen is.</p>
+      <p>Het driesystemenmodel is de zwakste schakel in de onderbouwing en tegelijk de spil van de uitleg. Het is een didactisch model, geen kaart van drie aanwijsbare hersencircuits, ook al doen de plaatjes en de taal soms anders vermoeden. Als geheugensteun bij het oefenen werkt het; als neurowetenschappelijke bewering is het aanzienlijk minder hard dan de stelligheid waarmee het wordt gebracht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het handboek presenteert een evolutionair verhaal over drie systemen als vaststaande achtergrondkennis. Dat verhaal is aannemelijk en verklaart veel, maar het is ook precies het soort verklaring achteraf dat zich moeilijk laat weerleggen: elk gedrag past wel bij een van de drie. Wie het model uit het boek weghaalt, houdt een reeks oefeningen over die waarschijnlijk even goed werkt, wat de vraag oproept hoeveel de theorie feitelijk draagt.</p>
+      <p>De overlap met het mindful self-compassion van Germer en Neff is groot, en de auteurs zijn daar open over. Wat MBCL eraan toevoegt is vooral de aansluiting op de bestaande mindfulnesstrainingen in de Nederlandse geestelijke gezondheidszorg en de inbedding van Gilberts model. Dat is een reele verdienste voor de praktijk, maar het maakt het boek eerder een goed gemaakte samenstelling dan een eigen theorie.</p>
+      <p>Er zit een spanning tussen het aanbod en de doelgroep. Het programma is bedoeld voor mensen met langdurige klachten en veel zelfkritiek, dus voor de groep bij wie compassieoefeningen het meest kunnen losmaken en het snelst weerstand oproepen. De auteurs erkennen dat en bouwen waarschuwingen in, maar de eis van voorafgaande mindfulnesstraining en van een geoefende begeleider maakt het programma in de praktijk moeilijk bereikbaar voor precies die groep. Het zelfhulpboek naast dit handboek lost dat maar half op, want daarin valt de begeleiding weg die zij zelf noodzakelijk noemen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe eerst een reguliere aandachtstraining; de auteurs bouwen daar zonder omwegen op voort.</li>
+        <li>Begin met de kalmerende ademruimte en houd die enkele weken vol voordat de verbeeldingsoefeningen aan de beurt komen.</li>
+        <li>Schrijf op wat de innerlijke criticus letterlijk zegt en waartegen die stem denkt te beschermen, voordat er iets tegenover wordt gezet.</li>
+        <li>Merk weerstand tegen een oefening op als informatie over waar het pijn doet, en niet als reden om harder te oefenen.</li>
+        <li>Voor begeleiders: loop het programma eerst zelf door, en houd rekening met deelnemers bij wie vriendelijkheid rouw losmaakt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Compassievol leven. Een mindfulness-based verdiepingsprogramma</i>, Boom, Amsterdam. De eerste druk verscheen in 2012 (ISBN 9789461057297); herziene edities volgden in 2016 en 2019 (376 blz., ISBN 9789058755643), met een voorwoord van Paul Gilbert en achtentwintig oefeningen en werkbladen die via de uitgever te downloaden zijn. Naast dit handboek, dat zich richt op trainers en hulpverleners, schreven de auteurs voor deelnemers het zelfhulpboek <i>Compassie in je leven</i> (Boom, 2015). De Engelse editie verscheen in 2015 bij Routledge als <i>Mindfulness-Based Compassionate Living. A New Training Programme to Deepen Mindfulness with Heartfulness</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Erik van den Brink is psychiater en psychotherapeut, Frits Koster meditatieleraar en verpleegkundige. Zij zagen in de geestelijke gezondheidszorg dat deelnemers aan mindfulnesstrainingen wel leerden opmerken wat er in hen omging, maar daar vervolgens even hard over oordeelden als tevoren. Daarop bouwden zij een vervolgprogramma van acht bijeenkomsten, Mindfulness-Based Compassionate Living, en dit boek is er de handleiding bij.</p><p>Het eerste deel geeft de theorie. Centraal staat het evolutionaire model van Paul Gilbert, met drie systemen voor emotieregulatie: een dreigsysteem gericht op veiligheid, een jaagsysteem gericht op bevrediging en een zorgsysteem gericht op verbondenheid en kalmte. Veel psychisch lijden ontstaat volgens de auteurs doordat de eerste twee systemen overheersen en het derde te weinig wordt gevoed.</p><p>Het tweede, grotere deel is het programma zelf: oefeningen als de kalmerende ademruimte, de veilige plek en de compassievolle metgezel, gevolgd door werken met weerstand, verlangen, schuld, schaamte en de innerlijke criticus, en aan het slot vergeving en de vier levensvrienden vriendelijkheid, mededogen, medevreugde en gelijkmoedigheid. Achterin staan verwijzingen naar het onderzoek waar de auteurs zich op beroepen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>compassie</li><li>zelfcompassie</li><li>mindfulness</li><li>MBCL</li><li>meditatie</li><li>geestelijke gezondheidszorg</li><li>Paul Gilbert</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1526"><a href="1526.html">Get Out of Your Mind and Into Your Life</a>. Hayes werkt in <i>Get Out of Your Mind and Into Your Life</i> met dezelfde stof, aanvaarden wat er is en handelen naar waarden, maar zonder de warme toon en met een expliciete gedragstheorie eronder.</li>
+          <li value="333"><a href="333.html">Altered Traits</a>. Goleman en Davidson lopen in <i>Altered Traits</i> na wat het onderzoek naar meditatie werkelijk aantoont en wat niet, inclusief het onderzoek naar compassietraining.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brene Brown behandelt in <i>The Gifts of Imperfection</i> schaamte en zelfkritiek vanuit interviewonderzoek in plaats van vanuit een trainingsprogramma.</li>
+          <li value="1527"><a href="1527.html">Vrijer leven door jezelf te zijn</a>. Guiot neemt in zijn handboek een compleet klaverblad voor zorgzaam voelen op en verwijst voor die stof naar dezelfde compassietraditie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero Limits &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Vitale en Hew Len stellen dat een mens honderd procent verantwoordelijk is voor alles wat in zijn waarneming verschijnt, inclusief ziekte, tegenslag en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1505">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1505 &middot; Positief denken en manifesteren</p>
+    <h1>Zero Limits</h1>
+    <p class="lede">Joe Vitale en Ihaleakala Hew Len, 2007</p>
+    <p class="stats">
+      <span><b>1860</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1505"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Vitale en Hew Len stellen dat een mens honderd procent verantwoordelijk is voor alles wat in zijn waarneming verschijnt, inclusief ziekte, tegenslag en het gedrag van anderen. Wat er buiten opduikt is volgens hen de zichtbaar geworden neerslag van herinneringen die in de onderbewuste laag zijn opgeslagen en die met de hele mensheid worden gedeeld. De aangewezen weg is dan ook niet het probleem aanpakken maar de herinnering opruimen, door in stilte vier zinnen te herhalen die aan een goddelijke instantie zijn gericht en niet aan de betrokkene. Wie zo is schoongemaakt staat op nul: zonder programma, ontvankelijk voor wat de auteurs ingeving noemen, en volgens hen daarmee zonder grens.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het verhaal waar alles op rust</h3>
+      <p>Vitale opent met de anekdote die hem op het spoor zette. Een psycholoog zou vier jaar hebben gewerkt op de gesloten afdeling voor forensische patienten van het Hawaii State Hospital, waar het personeelsverloop hoog was en het geweld dagelijks. Hij sprak de patienten niet, maar las hun dossiers en werkte aan zichzelf. Na verloop van tijd zouden dwangmiddelen niet meer nodig zijn geweest, kwamen patienten vrij en liep de afdeling leeg.</p>
+      <p>Vitale zoekt de man op. Dat is Ihaleakala Hew Len, die in de periode 1983 tot 1987 aan dat ziekenhuis verbonden was. Het boek is grotendeels een verslag van hun gesprekken, aangevuld met seminars en met de reacties van mensen die de methode gingen gebruiken. Wat er verder in het boek gebeurt, hangt telkens terug op dit ene voorval.</p>
+      <h3>Waar ho'oponopono vandaan komt</h3>
+      <p>Ho'oponopono is oorspronkelijk een Hawaiiaans verzoeningsritueel binnen de familie, geleid door een oudere of een genezer, waarbij betrokkenen samenkomen, spreken, schuld erkennen en vergeving vragen. Het is een groepsgebeuren met een bemiddelaar.</p>
+      <p>Wat het boek behandelt is een andere zaak. Morrnah Nalamaku Simeona bewerkte het ritueel vanaf de jaren zeventig tot een oefening die iemand alleen kan doen, zonder de ander erbij, onder de naam Self I-Dentity through Ho'oponopono. Hew Len was haar leerling en werkt haar versie uit. Het boek vermeldt dat onderscheid, maar gebruikt daarna toch de oude naam en de daaraan verbonden ouderdom als aanbeveling.</p>
+      <h3>De vier zinnen en het schoonmaken</h3>
+      <p>De oefening bestaat uit het inwendig herhalen van vier zinnen: het spijt me, vergeef me, dank je, ik hou van je. Ze worden niet tot de ander gericht maar tot wat de auteurs Goddelijkheid noemen, en er is geen bepaalde volgorde of aantal voorgeschreven. Wie het doet erkent dat het waargenomene bij hem hoort en vraagt dat de bijbehorende herinnering wordt uitgewist.</p>
+      <p>Dat proces heet schoonmaken. Het is nooit af, want er komt telkens nieuw materiaal boven, en de auteurs schrijven dat schoonmaken de enige bezigheid is die er werkelijk toe doet. Bij een lastige klant, een zieke naaste of een bericht in de krant is de instructie steeds dezelfde: niet handelen naar buiten, maar binnen opruimen.</p>
+      <h3>Herinnering tegenover ingeving</h3>
+      <p>Het model achter de oefening kent drie delen van het zelf, met Hawaiiaanse namen: unihipili voor het onderbewuste, dat als een kind wordt aangesproken, uhane voor het bewuste denken, en aumakua voor de bovenbewuste laag die met het goddelijke in verbinding staat. Herinneringen zitten in het onderbewuste en spelen zich telkens opnieuw af.</p>
+      <p>Daartegenover staat ingeving, die van boven komt en nieuw is. Volgens de auteurs kan een mens maar uit twee bronnen handelen, uit herinnering of uit ingeving, en het overgrote deel van het menselijk doen komt uit de eerste. De nulstaat is de toestand waarin de herinnering is opgeruimd en de ingeving vrij spel heeft. In die toestand hoeft niets meer gewild te worden, wat het boek als het punt voorbij manifesteren presenteert.</p>
+      <h3>Het gereedschap</h3>
+      <p>Naast de vier zinnen komt een reeks hulpmiddelen langs die Hew Len gebruikt: blauw zonnewater, gemaakt door water in een blauwe fles in de zon te zetten, een potlood met gum waarmee over een blad wordt gegaan, aardbeien en bosbessen, een ademhalingsoefening met de naam HA, en het woord Ceeport, dat op voorwerpen wordt geschreven.</p>
+      <p>Vitale vraagt herhaaldelijk hoe die middelen zouden werken en krijgt geen uitleg die hij kan navertellen. Het antwoord luidt telkens dat het denken dit niet hoeft te begrijpen en dat het schoonmaken het werk doet. Het boek laat die vraag open staan en gaat verder.</p>
+      <h3>Wat het van de lezer vraagt</h3>
+      <p>De praktische eis is dat de lezer ophoudt te wachten tot anderen veranderen en ophoudt zijn tegenslag buiten zichzelf te leggen. Alles wat hem stoort is zijn eigen materiaal, ook als hij het niet herkent en ook als de gebeurtenis ver van hem af staat.</p>
+      <p>Vitale zet dat af tegen zijn eigen eerdere werk. Hij schreef over aantrekkingskracht en het stellen van doelen, en verscheen in de film <i>The Secret</i>. In dit boek noemt hij intentie een beperking, omdat wie iets wil daarmee de uitkomst vastlegt op wat het denken kan bedenken. Loslaten van de intentie en schoonmaken zou meer opleveren. Het slot bestaat uit ervaringsverslagen van cursisten en uit een uitnodiging voor de seminars van Hew Len.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Honderd procent verantwoordelijkheid</td><td>De stelling dat alles wat in iemands waarneming verschijnt van hem is en door hem opgeruimd moet worden, ook het gedrag en het lijden van anderen.</td></tr>
+          <tr><td class="term">Ho'oponopono</td><td>Hawaiiaans woord dat ongeveer recht zetten betekent, oorspronkelijk voor een verzoeningsritueel binnen de familie onder leiding van een bemiddelaar.</td></tr>
+          <tr><td class="term">Self I-Dentity through Ho'oponopono</td><td>De bewerking van Morrnah Nalamaku Simeona waarin het ritueel een oefening voor een enkele persoon werd, en die in dit boek wordt onderwezen.</td></tr>
+          <tr><td class="term">De vier zinnen</td><td>Het spijt me, vergeef me, dank je, ik hou van je: inwendig herhaald en gericht tot het goddelijke, niet tot de betrokken ander.</td></tr>
+          <tr><td class="term">Schoonmaken</td><td>Het voortdurend wissen van herinneringen door de vier zinnen te herhalen, volgens de auteurs de enige bezigheid die werkelijk iets uithaalt.</td></tr>
+          <tr><td class="term">Herinneringen en ingeving</td><td>De twee bronnen waaruit een mens volgens het boek kan handelen: oud materiaal dat zich herhaalt, of iets nieuws dat van boven komt.</td></tr>
+          <tr><td class="term">De nulstaat</td><td>De toestand waarin geen programma's meer meespelen, door de auteurs als grensloos aangeduid en de plaats waar het boek zijn titel aan ontleent.</td></tr>
+          <tr><td class="term">Unihipili, uhane en aumakua</td><td>De drie delen van het zelf in het model van het boek: het onderbewuste kind, het bewuste denken en de bovenbewuste laag.</td></tr>
+          <tr><td class="term">Blauw zonnewater</td><td>Water dat in een blauwe fles in de zon heeft gestaan en volgens Hew Len helpt bij het schoonmaken, zonder dat het boek uitlegt waarom.</td></tr>
+          <tr><td class="term">Ceeport</td><td>Een woord dat volgens Hew Len op voorwerpen kan worden geschreven om ze schoon te houden; de herkomst en de werking blijven in het boek onbesproken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De hele stelling rust op een enkel voorval, en dat voorval is nooit nagetrokken. Dat Hew Len in de jaren tachtig aan het Hawaii State Hospital verbonden was, wordt niet bestreden. Wat wel wordt bestreden is het verband tussen zijn oefening en het verloop op de afdeling. Er zijn geen ziekenhuisdossiers, geen ontslagcijfers, geen verklaringen van collega's of van patienten aangevoerd, niet in dit boek en niet daarna. Vitale schrijft na wat hem is verteld en presenteert dat vervolgens als grond voor de rest.</p>
+      <p>Onderzoek naar de vier zinnen komt in het boek niet voor. Er worden geen metingen genoemd, geen vergelijkingsgroep, geen gevallen die met naam en uitkomst te volgen zijn. Het materiaal bestaat uit verslagen van seminardeelnemers, uit voorvallen die Vitale zelf meemaakte en uit de indruk die Hew Len op hem maakte. Zulk materiaal kan niet uitwijzen of het schoonmaken iets deed, of dat de betrokkene de dingen anders ging bezien, of dat het probleem vanzelf overging.</p>
+      <p>Wat er nuchter over te zeggen valt is beperkt en gaat over de oefening zelf, niet over de wereld. Een stille herhaling van vaste zinnen is een vorm van gerichte aandacht die op een mantra lijkt, en het innemen van een houding waarin men de ander niets meer verwijt kan een eind maken aan blijven malen. Dat zijn effecten op de beoefenaar. Zij verklaren niets over ziekten die zouden verdwijnen of over gedrag van derden dat zou veranderen, en dat laatste is precies wat het boek claimt.</p>
+      <p>Ook het commerciele kader hoort bij de beoordeling. Vitale is van beroep marketeer en beschrijft zichzelf ook zo. Het boek loopt uit op seminars, en er kwam een vervolg met dezelfde opbouw en dezelfde belofte van een dieper niveau. Dat maakt de inhoud niet onwaar, maar het verklaart wel waarom de vragen die Vitale stelt telkens ophouden op het punt waar een antwoord lastig zou worden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de verantwoordelijkheidsleer zelf. Als alles wat iemand waarneemt zijn eigen materiaal is, dan is het misbruik in een patientendossier ook zijn materiaal, en dan is de kanker van een kind die van de omstander. De auteurs bedoelen niet dat iemand schuldig is, en zeggen dat ook, maar hun leer heeft geen enkele rem die dat onderscheid vasthoudt. In de praktijk komt de gedachte terecht bij mensen die al geneigd zijn zichzelf aan te wijzen, en bij slachtoffers is dat schadelijk.</p>
+      <p>De methode is zo ingericht dat zij niet kan falen. Blijft het probleem bestaan, dan is er nog niet genoeg schoongemaakt. Verdwijnt het, dan bewijst dat de werking. Er is geen uitkomst denkbaar die de auteurs als weerlegging zouden aanvaarden, en daarmee valt er over waar of onwaar niets meer te zeggen.</p>
+      <p>Bij ziekte wordt dat gevaarlijk. Het boek behandelt lichamelijke klachten als te wissen herinneringen en besteedt geen aandacht aan wat er gebeurt als iemand op grond daarvan een behandeling uitstelt. Er staat geen enkele afbakening in over wanneer een arts nodig blijft.</p>
+      <p>Cultureel is er bezwaar gemaakt tegen het gebruik van de naam. Hawaiiaanse beoefenaars hebben erop gewezen dat het traditionele ho'oponopono een familieaangelegenheid is met een bemiddelaar, gericht op werkelijke verzoening tussen mensen, en dat de aanspraak op eeuwenoude wijsheid voor een individuele oefening uit de jaren zeventig misleidend is. Het boek noemt Simeona wel, maar leunt in de opbouw en de titel op de ouderdom van iets anders.</p>
+      <p>Tot slot spreekt het boek zichzelf tegen op zijn eigen terrein. Het presenteert de nulstaat als het einde van willen en verlangen, en verkoopt die tegelijk met een ondertitel over rijkdom en overvloed. Wie het als geestelijke oefening leest, moet de beloften wegdenken; wie het om de beloften leest, ondergraaft de oefening.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid de oefening van de leer: de vier zinnen zijn goedkoop en ongevaarlijk, de stelling dat alles buiten van de beoefenaar is, is dat niet.</li>
+        <li>Gebruik het schoonmaken niet in plaats van een arts, een gesprek of een aangifte, maar hooguit ernaast.</li>
+        <li>Let bij toepassing op anderen op wat er gebeurt met de neiging tot zelfverwijt; wie daar al gevoelig voor is, kan beter een andere ingang kiezen.</li>
+        <li>Zoek voor het traditionele ho'oponopono een Hawaiiaanse bron, want dit boek behandelt de bewerking van Simeona en niet het ritueel zelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Zero Limits: The Secret Hawaiian System for Wealth, Health, Peace, and More</i> (John Wiley &amp; Sons, Hoboken, 2007, ISBN 9780470402566). Nederlands als <i>Zero limits: een Hawaiiaanse methode voor overvloed, gezondheid, innerlijke rust, vrede en meer</i>, vertaald door Rene Swinkels, uitgeverij Hajefa, 2015 (224 blz., ISBN 9789077677827). Het vervolg <i>At Zero</i> (2014) verscheen in het Nederlands als <i>Het mysterie achter Zero Limits</i> (ISBN 9789077677964). Van Vitale zijn daarnaast meer titels in het Nederlands uitgebracht, waaronder <i>The Attractor Factor</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Marketeer en zelfhulpauteur Joe Vitale hoorde het verhaal van een therapeut die op de gesloten forensische afdeling van het Hawaii State Hospital werkte, daar de dossiers las zonder de patienten te spreken, en na verloop van tijd een lege afdeling achterliet. Hij zocht de man op, Ihaleakala Hew Len, en schreef dit boek over diens werkwijze.</p><p>Die werkwijze heet ho'oponopono, in de bewerking die Morrnah Nalamaku Simeona in de jaren zeventig maakte van een oud Hawaiiaans verzoeningsritueel. De kern is dat iemand honderd procent verantwoordelijk is voor alles wat in zijn waarneming opduikt, ook voor het gedrag van anderen, en dat hij dat opruimt door in stilte vier zinnen te herhalen: het spijt me, vergeef me, dank je, ik hou van je.</p><p>De titel verwijst naar de nulstaat: de toestand waarin geen herinneringen of programma's meer meespelen en er ruimte is voor ingeving. Vitale schrijft het boek als bekeerling en houdt tegelijk vast aan zijn achtergrond in reclame en manifesteren, wat het een dubbel karakter geeft. Het staat of valt met een verhaal dat nergens is nagetrokken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ho'oponopono</li><li>Hawaii</li><li>zelfhulp</li><li>vergeving</li><li>verantwoordelijkheid</li><li>manifesteren</li><li>Joe Vitale</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Hill legde in 1937 de vorm vast waarin dit soort boeken tot vandaag geschreven wordt: een geheim, een leermeester en een reeks getuigen.</li>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Peale bepleit hetzelfde omkeren van de aandacht binnen een christelijk kader, en loopt op dezelfde onderbouwing vast.</li>
+          <li value="259"><a href="259.html">The Power of Your Subconscious Mind</a>. Murphy plaatst het onderbewuste in de rol die Hew Len aan unihipili geeft, en is de directe voorganger van dit soort modellen.</li>
+          <li value="1531"><a href="1531.html">The Intention Experiment</a>. McTaggart probeert wel te meten wat dit boek als vanzelfsprekend aanneemt, en laat zien hoe lastig dat is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

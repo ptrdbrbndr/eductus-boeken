@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Intention Experiment &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="McTaggart betoogt dat een gerichte gedachte een fysieke gebeurtenis is die iets buiten het hoofd van de denker teweegbrengt. Bewustzijn is in haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1531">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1531 &middot; Positief denken en manifesteren</p>
+    <h1>The Intention Experiment</h1>
+    <p class="lede">Lynne McTaggart, 2007</p>
+    <p class="stats">
+      <span><b>1854</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1531"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>McTaggart betoogt dat een gerichte gedachte een fysieke gebeurtenis is die iets buiten het hoofd van de denker teweegbrengt. Bewustzijn is in haar voorstelling geen bijproduct van hersenwerking maar een deelnemer aan de wereld, verbonden met alle materie via een onderliggend veld. Daaruit volgt de tweede en verstrekkendere stelling: als één mens met intentie een meetbaar verschil kan maken aan een blaadje, een zaadje of een ziek lichaam, dan kunnen duizenden mensen tegelijk iets met de wereld doen. Het boek is opgezet om die tweede stelling niet alleen te beweren maar te beproeven, door de lezers zelf als proefpersonen in te zetten. Daarmee stelt McTaggart haar eigen aanspraak vatbaar voor tegenspraak, en dat is tegelijk het meest en het minst overtuigende aan het boek.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel een: de wetenschap van intentie</h3>
+      <p>Het eerste deel bestaat uit vijf hoofdstukken die de bouwstenen aandragen. In Mutable Matter behandelt zij de kwantumfysica en het nulpuntsveld, het veld van vacuümfluctuaties dat zij in haar eerdere boek <i>The Field</i> tot dragende laag van de werkelijkheid maakte. The Human Antenna gaat over hoe een mens daarmee in verbinding zou staan.</p>
+      <p>In The Two-Way Street komen de plantexperimenten van Cleve Backster langs, de polygraafdeskundige die meende dat planten op gedachten reageren, en het werk van de Duitse fysicus Fritz-Albert Popp over biofotonen: de zeer zwakke lichtuitstoot van levende cellen. Popp las die uitstoot als een vorm van uitwisseling tussen organismen, en dat idee draagt een groot deel van het boek.</p>
+      <p>Hearts That Beat as One beschrijft de zogenoemde Love Study van Dean Radin en Marilyn Schlitz bij het Institute of Noetic Sciences, waarin de hartslag, ademhaling, huidgeleiding en hersengolven van twee gescheiden mensen zouden synchroniseren wanneer de een medelevende aandacht naar de ander stuurt. Entering Hyperspace behandelt meditatie en de metingen bij Tibetaanse monniken.</p>
+      <h3>Deel twee: de intentie versterken</h3>
+      <p>Het tweede deel gaat over de omstandigheden waaronder intentie volgens McTaggart beter werkt. In the Mood behandelt de gemoedstoestand van de zender: samenhang in hart- en hersenritme, waarvoor zij leunt op het werk van Rollin McCraty bij het HeartMath Institute.</p>
+      <p>The Right Time en The Right Place gaan over tijdstip en plaats. Zij bespreekt onder meer de invloed van geomagnetische activiteit en zonneactiviteit op de uitkomsten van dit soort proeven, en de vraag of bepaalde plekken gunstiger zijn. Voor de lezer die het zelf wil doen, staat hier de handleiding voor de voorbereiding.</p>
+      <h3>Deel drie: wat gedachten met lichaam en tijd doen</h3>
+      <p>Mental Blueprints behandelt het inbeelden van beweging bij sporters en revalidatie, waar de wetenschappelijke basis het stevigst is. The Voodoo Effect gaat over de tegenovergestelde richting: negatieve verwachting die schade doet, met het nocebo-effect als aanknopingspunt.</p>
+      <p>Praying for Yesterday is het meest gewaagde hoofdstuk. Het gaat over gebed dat achteraf zou werken, met als hoofdstuk het onderzoek van Leonard Leibovici, gepubliceerd in het British Medical Journal van 2001, waarin patiënten met een bloedbaaninfectie jaren na hun opname werden voorbedaan en daarna in de dossiers een kortere ziekenhuisopname bleken te hebben.</p>
+      <h3>Deel vier: de experimenten</h3>
+      <p>Het slotdeel bevat de oefeningen en de opzet van het lopende onderzoek. Er staan instructies voor persoonlijke intentie-oefeningen en voor de groepsexperimenten waaraan lezers via de website konden meedoen.</p>
+      <p>De eerste reeks werd uitgevoerd met Gary Schwartz aan de University of Arizona. Deelnemers richtten hun intentie op een van twee gelijk behandelde geraniumblaadjes, waarvan de biofotonenuitstoot met gekoelde camera's werd gemeten. Bij een sessie met ongeveer vierhonderd congresdeelnemers vond Schwartz een verschil tussen het gekozen en het niet gekozen blad. Een tweede opzet met bonenzaden liet wel hogere waarden zien bij de doelzaden, maar niet in een mate die statistisch iets voorstelde.</p>
+      <p>Aan die publieksproeven ging werk vooraf met twintig ervaren energetisch behandelaars. In negenentwintig van de achtendertig sessies waarin zij de lichtuitstoot moesten verlagen, viel de waarde bij het doelblad; in tweeëntwintig van de achtendertig sessies gericht op verhogen, steeg zij.</p>
+      <h3>Het boek als lopend onderzoek</h3>
+      <p>Wat het boek van vergelijkbare titels onderscheidt, is dat het niet met de laatste bladzijde ophoudt. De uitgave verscheen samen met een website waarop nieuwe proeven werden aangekondigd, uitgevoerd en teruggekoppeld. McTaggart noemde dat een driedimensionaal boek.</p>
+      <p>Uit die opzet groeide na de verschijning een reeks grotere proeven, waaronder intentie-experimenten gericht op geweldsvermindering in conflictgebieden en op waterkwaliteit. Zij vormden de aanloop naar haar latere boek over groepsintentie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Intentie</td><td>Een doelgerichte, aandachtig vastgehouden gedachte, die McTaggart onderscheidt van een wens door de gerichtheid en de concentratie.</td></tr>
+          <tr><td class="term">Nulpuntsveld</td><td>Het veld van vacuümfluctuaties uit de kwantumelektrodynamica, dat McTaggart opvat als de laag waarin alle materie met alle andere materie in verbinding staat.</td></tr>
+          <tr><td class="term">Biofotonen</td><td>De zeer zwakke lichtuitstoot van levende cellen, gemeten door Fritz-Albert Popp en door McTaggart gelezen als een vorm van informatieoverdracht.</td></tr>
+          <tr><td class="term">Samenhang</td><td>De ordelijke toestand van hart- en hersenritme die de zender volgens het boek moet bereiken voordat zijn intentie effect heeft.</td></tr>
+          <tr><td class="term">Meebewegen</td><td>Het verschijnsel dat twee trillende systemen in de pas gaan lopen, dat McTaggart uitbreidt tot de fysiologie van twee gescheiden mensen.</td></tr>
+          <tr><td class="term">Directe mentale beïnvloeding</td><td>De onderzoekslijn waarin gemeten wordt of de aandacht van de een lichaamsprocessen van de ander op afstand verandert.</td></tr>
+          <tr><td class="term">Nocebo</td><td>De tegenhanger van het placebo-effect, waarbij negatieve verwachting klachten veroorzaakt; McTaggart gebruikt het als brug naar schadelijke intentie.</td></tr>
+          <tr><td class="term">Retroactief gebed</td><td>Voorbede voor gebeurtenissen die al hebben plaatsgevonden, waarvan het boek de mogelijkheid open houdt op grond van het onderzoek van Leibovici.</td></tr>
+          <tr><td class="term">Groepsintentie</td><td>Het samenbrengen van veel mensen die tegelijk hun aandacht op één doel richten, de opzet van de experimenten die met het boek verbonden zijn.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>McTaggart doet iets wat in dit genre zeldzaam is: zij noemt haar bronnen, gaat naar de laboratoria toe en laat de onderzoekers zelf aan het woord. Het notenapparaat is omvangrijk. Wie wil nagaan waar een bewering vandaan komt, kan dat meestal doen, en dat onderscheidt haar van auteurs die zich op de wetenschap beroepen zonder ooit een verwijzing te geven.</p>
+      <p>De losse bouwstenen zijn ook niet allemaal van gelijke aard. Het nulpuntsveld bestaat: vacuümfluctuaties zijn een gemeten grootheid in de kwantumelektrodynamica. Ultrazwakke lichtuitstoot van cellen bestaat eveneens en is een gewoon meetbaar verschijnsel. Het inbeelden van beweging heeft aantoonbaar effect op prestatie en herstel. Het nocebo-effect is goed gedocumenteerd. De sprong zit telkens tussen het gemeten verschijnsel en de betekenis die eraan wordt gegeven.</p>
+      <p>Voor de kern van het betoog steunt zij op laboratoria met een lange staat van dienst en een omstreden reputatie. Het Princeton Engineering Anomalies Research-programma van Robert Jahn draaide achtentwintig jaar op afwijkingen van toevalsgeneratoren die neerkwamen op enkele extra treffers per tienduizend, sloot in februari 2007 zijn deuren, en zag zijn resultaten in een gezamenlijke herhaling met Duitse laboratoria niet bevestigd. Radin en Schlitz publiceerden hun bevindingen in tijdschriften van hun eigen vakgebied.</p>
+      <p>Het onderzoek naar genezing op afstand geeft het duidelijkste beeld van hoe wankel deze grond is. De studie van Elisabeth Targ naar voorbede voor aidspatiënten, verschenen in 1998, werd jarenlang als het beste bewijs aangevoerd, tot journalistiek onderzoek van Po Bronson liet zien dat de gemeten uitkomstmaten pas na het openen van de gegevens waren vastgesteld. Een groot en vooraf vastgelegd onderzoek onder leiding van Herbert Benson, gepubliceerd in de American Heart Journal in 2006, volgde 1802 hartpatiënten en vond geen enkel voordeel van voorbede; de groep die wist dat er voor haar gebeden werd, deed het zelfs iets slechter.</p>
+      <p>De eigen proeven van het boek zijn niet in de reguliere vakliteratuur beoordeeld. Deelnemers meldden zich vrijwillig aan via internet, er was geen controle op wie wanneer wat deed, en de uitkomsten werden op de eigen website gepresenteerd. Als vertoning van een idee werkt dat; als toetsing niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de manier van selecteren. McTaggart is journalist, geen onderzoeker, en zij stelt een verhaal samen uit onderzoeken die haar richting op wijzen. De mislukte herhalingen, de nulresultaten uit dezelfde laboratoria en de statistische kritiek op de gebruikte methoden komen er bekaaid af. In een vakgebied waar de gerapporteerde effecten zo klein zijn dat publicatiebias alleen ze al kan verklaren, is die selectie beslissend.</p>
+      <p>Het hoofdstuk over retroactief gebed laat zien waar dat toe leidt. Leibovici heeft zelf herhaaldelijk gezegd dat zijn onderzoek bedoeld was als tegenvoorbeeld: hij wilde aantonen dat de gebruikelijke opzet van een gerandomiseerd onderzoek ook een keurige uitkomst produceert voor een hypothese die op voorhand onmogelijk is, en dat een lezer daarom niet alleen naar de statistiek moet kijken. Het stuk verscheen in het kerstnummer van het British Medical Journal, dat daarvoor bekendstaat. McTaggart neemt de uitkomst serieuzer dan de auteur haar bedoelde.</p>
+      <p>De verklaring die het boek aandraagt houdt geen stand bij natuurkundigen. Vacuümfluctuaties zijn geen geheugen, geen informatiedrager en geen kanaal waarlangs aandacht zich verplaatst; de betekenis die McTaggart aan het nulpuntsveld geeft, is haar eigen toevoeging. Haar eerdere boek <i>The Field</i> is om precies die reden als pseudowetenschap aangemerkt. Wie kwantumtermen gebruikt om verschijnselen op menselijke schaal te verklaren, doet dat vrijwel altijd zonder dekking.</p>
+      <p>Het werk van Masaru Emoto over waterkristallen, dat in deze hoek graag wordt aangehaald, is nooit onder blinde omstandigheden overtuigend herhaald; de beoordelaars wisten welke foto bij welke behandeling hoorde en kozen zelf welke kristallen zij fotografeerden. Dat McTaggart dit soort werk naast serieuze fysica plaatst, zonder het verschil in bewijskracht scherp te maken, is het patroon waar haar critici op wijzen.</p>
+      <p>Ten slotte de positie van de auteur. McTaggart geeft het blad What Doctors Don't Tell You uit, dat door de Britse reclameautoriteit op tientallen overtredingen van de code is aangesproken wegens onvoldoende onderbouwde gezondheidsclaims. Dat maakt haar boek niet onjuist, maar het is bij de beoordeling van haar omgang met bewijs geen bijkomstigheid.</p>
+      <p>Wat het boek ook niet doet, is de vraag stellen wat er zou moeten gebeuren om haar stelling te weerleggen. Blijft een groepsexperiment zonder resultaat, dan luidt de verklaring dat de deelnemers niet samenhangend genoeg waren, of dat het tijdstip of de plaats niet deugde. Deel twee van het boek levert daarmee ongewild een voorraad uitvluchten voor deel vier.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij het lezen het gemeten verschijnsel van de duiding. Biofotonen, vacuümfluctuaties en het nocebo-effect bestaan; wat ze volgens dit boek betekenen is een aparte bewering.</li>
+        <li>Zoek bij elk aangehaald onderzoek op of het herhaald is en wat die herhaling opleverde. Bij dit onderwerp is dat vrijwel altijd het beslissende gegeven.</li>
+        <li>Let erop of uitkomstmaten vooraf zijn vastgelegd. Bij de bekendste studie over genezing op afstand was dat niet zo, en dat kwam pas jaren later aan het licht.</li>
+        <li>Gebruik het inbeelden van beweging waarvoor het bewezen is, namelijk bij het aanleren van vaardigheden en bij revalidatie, en niet als steun voor de bredere stelling.</li>
+        <li>Lees het slotdeel als handleiding voor een groepsoefening en niet als onderzoeksverslag; de proeven op de website hadden geen opzet die een uitkomst kon uitsluiten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Intention Experiment: Using Your Thoughts to Change Your Life and the World</i> (Free Press, een onderdeel van Simon &amp; Schuster, New York, 2007, 320 blz., ISBN 9780743276962); de Britse uitgave verscheen bij HarperElement met de ondertitel <i>Use Your Thoughts to Change the World</i>. De Nederlandse vertaling van Gerard Grasman verscheen in 2007 bij Ankh-Hermes, Deventer, als <i>Het intentie-experiment: kunnen je gedachten de wereld veranderen?</i>, 339 blz., ISBN 9789020284560. Van McTaggart verschenen ook <i>The Field</i> en <i>The Power of Eight</i> in Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>McTaggart, journalist en uitgever van het blad What Doctors Don't Tell You, verzamelt onderzoek dat volgens haar aantoont dat gerichte gedachten meetbare gevolgen hebben voor levende en levenloze doelen. Zij loopt laboratoria en onderzoekers af en brengt hun bevindingen samen tot één verhaal over intentie.</p><p>Het boek bestaat uit vier delen. Eerst de wetenschap die zij voor intentie aanvoert, dan de vraag hoe je die werking versterkt, dan wat gedachten volgens haar met gezondheid en met tijd doen, en tot slot een reeks oefeningen.</p><p>De eigen inzet van het boek staat in het laatste deel. McTaggart nodigt lezers uit deel te nemen aan groepsexperimenten via een bijbehorende website, waarbij duizenden mensen tegelijk hun aandacht op één doel richten en de uitkomst wordt gemeten. Zij noemde dat het eerste boek waarvan de lezer deel van het onderzoek is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>intentie</li><li>bewustzijn</li><li>parapsychologie</li><li>kwantumfysica</li><li>biofotonen</li><li>gebedsonderzoek</li><li>pseudowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. Talbot bouwt een vergelijkbaar wereldbeeld op uit de natuurkunde en levert het voorbeeld waar McTaggart in vorm en methode het dichtst bij staat.</li>
+          <li value="761"><a href="761.html">Mindful Universe: Quantum Mechanics and the Participating Observer</a>. Stapp voert de discussie over bewustzijn en kwantummechanica als natuurkundige, met de terughoudendheid die in dit boek ontbreekt.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan behandelt precies de vraag hoe een lezer aanspraken op wetenschap beoordeelt, en zijn maatstaf laat zien waar dit boek strandt.</li>
+          <li value="362"><a href="362.html">Synchroniciteit</a>. Jung probeerde eerder een verband tussen innerlijke toestand en uiterlijke gebeurtenis te formuleren zonder er een oorzakelijk mechanisme voor te claimen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emotioneel volwassen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dayananda stelt dat emotionele volwassenheid geen bijproduct van leeftijd is en ook geen kwestie van betere gevoelsbeheersing, maar het gevolg van begrip.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1508">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1508 &middot; Filosofie en mystiek</p>
+    <h1>Emotioneel volwassen</h1>
+    <p class="lede">Swami Dayananda Saraswati, Nederlandse uitgave 2009; vert. Rob H. van Dijk</p>
+    <p class="stats">
+      <span><b>1391</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1508"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dayananda stelt dat emotionele volwassenheid geen bijproduct van leeftijd is en ook geen kwestie van betere gevoelsbeheersing, maar het gevolg van begrip. Zijn redenering loopt in twee stappen. De eerste is psychologisch: een persoonlijkheid is een verzameling voorkeuren en afkeren, en het probleem zit niet in die voorkeuren zelf maar in de onuitgesproken eis dat de werkelijkheid zich eraan houdt. De tweede stap is metafysisch: die eis verdwijnt pas werkelijk wanneer iemand ziet dat de wereld de orde van Isvara is en dat het zelf al volledig is, zodat er niets valt te verwerven om heel te zijn. Daarmee maakt het boek volwassenheid afhankelijk van het aanvaarden van een leer, en dat is precies het punt waarop het te bestrijden valt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een korte ingang tot de Gita</h3>
+      <p>De Nederlandse uitgave opent met een inleiding op de Bhagavad Gita voor lezers die het boek niet kennen: het gesprek tussen Arjuna en Krishna op het slagveld, waarin een man die moet handelen verlamd raakt en zich tot zijn wagenmenner wendt. Dayananda leest dat gesprek als een leergesprek over iemand die niet weet wie hij is en daarom niet weet wat hij moet doen.</p>
+      <p>Die ingang is kort en dient een doel. De verzen die daarna langskomen worden niet vers voor vers uitgelegd, zoals Dayananda elders wel deed; ze steunen een betoog dat hij zelf voert.</p>
+      <h3>Het kind dat huilt om een kapot autootje</h3>
+      <p>Het beeld waarmee het boek opent is een jongetje dat huilt omdat zijn speelgoedauto stuk is. Dat is bij een kind vanzelfsprekend. Dayananda's punt is dat volwassenen hetzelfde doen, alleen met duurder speelgoed en met een uitleg erbij die het gedrag redelijk laat lijken.</p>
+      <p>Lichamelijke groei voltrekt zich zonder dat iemand er iets voor doet. Emotionele groei moet bewust in gang worden gezet, en gebeurt bij veel mensen nooit.</p>
+      <h3>Voorkeuren en afkeren</h3>
+      <p>De kern van de psychologische lezingen is dat de persoonlijkheid samenvalt met wat iemand prettig vindt en wat hij vermijdt. Dayananda wil die voorkeuren niet uitroeien. Hij wil dat iemand er verstandig mee omgaat, wat in zijn woorden betekent: weten welke voorkeur er speelt, en weten dat een voorkeur geen recht is.</p>
+      <p>Daaronder ligt een tweede laag. Ervaringen uit de kindertijd blijven werkzaam in het onderbewuste en kleuren de waarneming, zodat iemand meent de werkelijkheid te zien terwijl hij een oud patroon ziet. Het verwerken van die gevoelscomplexen noemt hij de eerste stap: het maakt de waarneming minder subjectief.</p>
+      <h3>Het handelen is van jou, het resultaat niet</h3>
+      <p>Het vers waar het boek op steunt is Bhagavad Gita 2.47: over het handelen gaat de handelende, over de vrucht van dat handelen niet. Dayananda gebruikt het om acceptatie te scheiden van berusting. Wie ziet dat de uitkomst uit meer voortkomt dan zijn eigen inspanning, kan een situatie aanvaarden en er vervolgens op reageren zoals de situatie vraagt.</p>
+      <p>Dat is de scharnierpassage van het boek. Zij verklaart waarom hij volwassenheid niet als gevoelsregulering behandelt: het gaat hem om een andere verhouding tot uitkomsten, niet om betere technieken bij tegenslag.</p>
+      <h3>Isvara en het beeld van de droom</h3>
+      <p>In de latere lezingen verschuift het onderwerp naar Isvara. Dayananda ontkent dat God ergens anders zit dan in wat er is. Om dat te laten zien gebruikt hij het beeld van de droom: zoals een dromer een hele wereld met mensen en gebeurtenissen uit zijn eigen bewustzijn opbouwt, zo brengt Isvara het heelal voort uit kennis en vermogen.</p>
+      <p>Wie de wereld zo bekijkt, heeft geen tegenpartij meer die hem iets onthoudt. De orde waarin hij handelt is niet vijandig en ook niet welwillend.</p>
+      <h3>Volwassenheid als objectiviteit</h3>
+      <p>Het slot brengt de twee lijnen samen in een formule: volwassenheid is het erkennen van wat is, ontvankelijk zijn voor de werkelijkheid. De psychologische stappen dienen om de subjectiviteit te verkleinen; de Vedantische stap verklaart waarom er daarna niets meer te halen valt. Het zelf is volgens Advaita Vedanta al vol en zonder gebrek, en daarmee eindigt een boek dat als psychologie begon in een uitspraak die niet psychologisch van aard is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Emotionele volwassenheid</td><td>Bij Dayananda het vermogen te zien wat er is en het daarbij te laten, tegenover het aanhouden van de eis dat het anders was.</td></tr>
+          <tr><td class="term">Voorkeuren en afkeren</td><td>De verzameling van wat iemand wil en vermijdt, die volgens het boek de persoonlijkheid uitmaakt en die niet weggewerkt maar doorzien moet worden.</td></tr>
+          <tr><td class="term">Isvara</td><td>Niet een god op afstand, maar de orde die alles doordringt en waarbinnen elk handelen zijn uitkomst krijgt.</td></tr>
+          <tr><td class="term">Bhagavad Gita 2.47</td><td>Het vers waarmee Dayananda vaststelt dat het handelen bij de handelende ligt en het resultaat daarbuiten.</td></tr>
+          <tr><td class="term">Advaita Vedanta</td><td>De leer van de niet-tweeheid zoals onderwezen in de lijn van Adi Shankara, waarin Dayananda zijn hele uitleg plaatst.</td></tr>
+          <tr><td class="term">Het onderbewuste</td><td>De opslag van kindertijdervaringen die de waarneming subjectief kleurt zolang zij niet is doorzien.</td></tr>
+          <tr><td class="term">Objectiviteit</td><td>De maat voor volwassenheid in dit boek: de werkelijkheid ontvangen zonder haar door oude voorkeuren te vervormen.</td></tr>
+          <tr><td class="term">Volledigheid van het zelf</td><td>De stelling dat het zelf al zonder gebrek is, waarmee de aanleiding tot het verwerven van geluk vervalt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er staat geen onderzoek in dit boek, en dat is geen omissie maar de aard van het genre. Wat Dayananda aanvoert is de tekst zelf en zijn gezag als leraar in een leertraditie. Zijn geloofsbrieven op dat punt zijn stevig: hij gaf tussen 1987 en 1990 in Saylorsburg 363 lessen over alle zevenhonderd verzen van de Gita, waarvan een negendelige uitgave van ruim vierduizend bladzijden bestaat. Dit boekje is daar het tegendeel van in omvang.</p>
+      <p>De vorm is die van gesproken les. Zes lezingen, opgeschreven en vertaald, met de herhalingen en de opbouw van een klaslokaal. Dat maakt de tekst helder en de redenering traceerbaar: elk hoofdstuk zet een begrip neer waarop het volgende voortbouwt. Het maakt de tekst ook dun waar een lezer een uitwerking zou willen, bijvoorbeeld bij de vraag hoe je gevoelscomplexen uit de kindertijd verwerkt.</p>
+      <p>De psychologische helft van het betoog is toetsbaar noch getoetst. Dat ervaringen uit de jeugd de waarneming kleuren is een uitspraak waarover in de psychologie het nodige te vinden is, maar het boek verwijst er niet naar. De tweede helft is naar haar aard geen uitspraak waarover gegevens te verzamelen zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De titel op de boekenkast van kukuru belooft de psychologie van de Bhagavad Gita. Het boek behandelt de Gita zeer selectief: 2.47 en enkele verzen daaromheen. Het strijdtoneel, de vraag naar plicht en de kastenorde waarbinnen Arjuna's dilemma zich afspeelt, blijven buiten beeld. Wie het boek als ingang tot de Gita leest, krijgt een deel te zien dat is uitgekozen omdat het bij het betoog past.</p>
+      <p>Het boek leent psychologische woorden, onderbewuste, gevoelscomplexen, het kind in de volwassene, zonder de psychologie zelf ter sprake te brengen. Uit het latere interviewboekje <i>Psychologie in Vedanta</i> blijkt hoe Dayananda die verhouding ziet: psychologie is een voorportaal en Vedanta is de afloop. Dat is een houdbaar standpunt, maar het is een standpunt en het wordt hier niet verdedigd.</p>
+      <p>Het sterkste bezwaar geldt de acceptatiegedachte. De redenering dat wat buiten je handelen ligt aanvaard moet worden, laat zich lastig begrenzen. Dayananda onderscheidt het aanvaarden van een situatie van het niets doen aan die situatie, maar hij werkt niet uit waar die grens loopt. Bij iemand die onder onrecht leeft, is het verschil tussen objectiviteit en gelatenheid geen detail.</p>
+      <p>Ten slotte staat of valt de tweede helft met het aanvaarden van Isvara en van de niet-tweeheid. Een lezer die daar niet in meegaat, houdt een handzaam maar tamelijk gewoon pleidooi over voor het loslaten van verwachtingen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij elke tegenslag wat aan het eigen handelen lag van wat aan de rest lag, voordat er een oordeel volgt.</li>
+        <li>Benoem bij een sterke reactie welke voorkeur of afkeer geraakt is; dat is de stap die het boek de eerste noemt.</li>
+        <li>Toets de acceptatiegedachte aan een situatie waarin ingrijpen wel kan; het boek geeft daar geen maatstaf voor en die moet elders vandaan komen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De boekenkast van kukuru voert dit boek onder zijn ondertitel, <i>De psychologie van de Bhagavad Gita</i>; de titel op het omslag is <i>Emotioneel volwassen</i>. Uitgeverij Viveki, een klein huis dat sinds 2006 werk over Advaita Vedanta in het Nederlands uitgeeft, bracht een eerste druk in januari 2009 (136 blz., ISBN 9789078555025) en een herziene uitgave in september 2019 (128 blz., ISBN 9789078555186), vertaald door Rob H. van Dijk en geredigeerd door Manon van Dijk-Hullegie. Het boek bestaat uit zes lezingen, voorafgegaan door een korte inleiding op de Bhagavad Gita. Welke Engelse uitgave of welke reeks lezingen eraan ten grondslag ligt, staat niet in de gegevens van de uitgever. Van Dayananda verschenen bij Viveki nog een tiental Nederlandse titels, waaronder <i>De essentie van de Bhagavad Gita</i>, <i>De waarde van waarden</i> en het interviewboekje <i>Psychologie in Vedanta</i> (2021).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Swami Dayananda Saraswati (1930-2015) onderwees Advaita Vedanta in de lijn van Adi Shankara en gaf tussen 1987 en 1990 een reeks van 363 lessen over de Bhagavad Gita. Dit dunne boek is daar geen samenvatting van. Het zijn zes lezingen waarin hij een handvol verzen gebruikt om iets anders te bespreken: waarom volwassen mensen zich gedragen als een kind dat huilt om een kapotgegaan speelgoedautootje.</p><p>Zijn antwoord is dat lichamelijke groei vanzelf gaat en emotionele groei niet. De persoonlijkheid bestaat uit een verzameling voorkeuren en afkeren, en zolang iemand van de werkelijkheid eist dat zij zich naar die voorkeuren voegt, blijft hij afhankelijk van uitkomsten waarover hij niet gaat. Volwassenheid noemt Dayananda het vermogen te zien wat er is.</p><p>De laatste lezingen verleggen dat psychologische betoog naar Vedanta. Wie de wereld ziet als de orde van Isvara, en Isvara niet als een instantie ergens anders maar als datgene wat alles doordringt, houdt geen partij meer over om iets van te eisen. Het zelf is dan al volledig, en daarmee is de aanleiding voor het huilen weggenomen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Advaita Vedanta</li><li>Bhagavad Gita</li><li>emoties</li><li>hindoeisme</li><li>lezingen</li><li>acceptatie</li><li>Isvara</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="569"><a href="569.html">The Gita for Gen Z</a>. Rania Sen bewerkt dezelfde tekst voor een jong publiek; het contrast met Dayananda's leertraditie laat zien hoe verschillend de Gita ingezet kan worden.</li>
+          <li value="527"><a href="527.html">Who Am I?</a>. Ramana Maharshi komt langs een andere weg, het onderzoek naar wie de vraag stelt, bij dezelfde conclusie over de volledigheid van het zelf.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Yogananda bracht dezelfde traditie naar het Westen in de vorm van een levensverhaal met wonderen, waar Dayananda het bij uitleg houdt.</li>
+          <li value="169"><a href="169.html">The Heartbeat of the Absolute</a>. Osho becommentarieert een verwante tekst in dezelfde vorm van uitgeschreven lezingen, met een geheel andere toon en gezagsopvatting.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

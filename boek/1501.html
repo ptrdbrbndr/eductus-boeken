@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De creatiespiraal &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Knoope stelt dat het verwezenlijken van een wens geen kwestie is van talent, geluk of doorzettingsvermogen alleen, maar van volgorde. Hij beschrijft…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1501">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1501 &middot; Maken en scheppen</p>
+    <h1>De creatiespiraal</h1>
+    <p class="lede">Marinus Knoope, 1998</p>
+    <p class="stats">
+      <span><b>1618</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1501"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Knoope stelt dat het verwezenlijken van een wens geen kwestie is van talent, geluk of doorzettingsvermogen alleen, maar van volgorde. Hij beschrijft twaalf stappen die volgens hem in de natuur vastliggen zoals bloesem aan vrucht voorafgaat, en zegt dat wie een stap overslaat of omdraait vastloopt, hoe hard hij verder ook werkt. De draagwijdte daarvan is groot: verlangen, verbeelden en geloven staan bij hem vóór onderzoeken en plannen, zodat het managementdenken dat met doelen en middelen begint volgens deze leer al bij de tweede stap iets overslaat. De spiraal sluit bovendien met ontvangen, waarderen en ontspannen, drie stappen die in gangbare methodes voor doelen stellen ontbreken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het beeld van de spiraal</h3>
+      <p>Het boek opent met de vergelijking waar alles op rust. In de natuur ligt de weg van bloesem naar vrucht vast, en volgens Knoope ligt de weg van wens naar werkelijkheid net zo vast. Hij tekent die weg als een spiraal en niet als een lijn, omdat het proces zich herhaalt: wat aan het eind wordt ontvangen en gewaardeerd, geeft ruimte aan een volgende wens op een ander niveau.</p>
+      <p>Knoope was natuurkundige en gebruikt die achtergrond vooral voor de vorm van zijn betoog, niet voor bewijs. Zijn toon is die van iemand die iets heeft opgemerkt en het ordelijk wil opschrijven, met veel voorbeelden uit gewone levens en uit zijn eigen lezingen.</p>
+      <h3>Wensen, verbeelden, geloven</h3>
+      <p>De eerste drie stappen spelen zich af binnen de persoon. Wensen begint bij de vraag wat iemand werkelijk wil, waarbij Knoope onderscheid maakt tussen wat iemand echt verlangt en wat hij meent te moeten willen omdat de omgeving dat verwacht. Hij besteedt veel ruimte aan de moeite die volwassenen hebben om die vraag rechtstreeks te beantwoorden.</p>
+      <p>Verbeelden is het beeld van de gewenste toestand zo volledig maken dat het herkenbaar wordt: niet als vage hoop, wel als een voorstelling met plaats, tijd en toon. Geloven is de stap waarin iemand het voor mogelijk gaat houden. Knoope behandelt hier de tegenwerpingen die mensen zichzelf maken, en geeft affirmaties en visualisatie als hulpmiddelen om de eigen twijfel te ondervangen.</p>
+      <h3>Uiten, onderzoeken, plannen</h3>
+      <p>Met uiten treedt de wens naar buiten. Wie zijn wens uitspreekt tegen anderen, zegt Knoope, ontdekt pas hoe die klinkt, loopt tegen weerstand op en trekt tegelijk hulp aan waar hij niet om had kunnen vragen. De stap is bij hem geen tactiek maar een noodzaak: een wens die binnen blijft, komt niet verder.</p>
+      <p>Onderzoeken is het in kaart brengen van wie en wat er kan helpen, van de wegen die anderen al hebben afgelegd en van de middelen die er zijn. Pas daarna volgt plannen, waarin uit die mogelijkheden een route wordt gekozen. Deze volgorde is een van de vaste punten van het boek: eerst kijken wat er is, dan pas vastleggen hoe het zal gaan.</p>
+      <h3>Beslissen, handelen, volharden</h3>
+      <p>Beslissen is bij Knoope een aparte stap en niet het gevolg van het plan. Het gaat om een duidelijk ja of nee, waarmee andere mogelijkheden worden losgelaten. Wie dat overslaat, houdt volgens hem opties open en komt daardoor niet echt in beweging.</p>
+      <p>Handelen krijgt in het boek verhoudingsgewijs weinig ruimte, omdat het volgens Knoope vanzelf komt zodra de eerdere stappen zijn gezet. Volharden krijgt juist veel ruimte. Dat is de stap van pieken en dalen, van tegenslag en van de verleiding om terug te vallen op een eerdere stap. Knoope beschrijft dat terugvallen niet als falen maar als een normaal onderdeel van de spiraal, waarin iemand tijdelijk terugkeert naar geloven of verbeelden.</p>
+      <h3>Ontvangen, waarderen, ontspannen</h3>
+      <p>De laatste drie stappen zijn de eigenste bijdrage van het boek en de meest verwaarloosde in de praktijk. Ontvangen betekent dat wat er komt ook werkelijk wordt aangenomen, in plaats van meteen te worden weggewuifd of afgezwakt. Knoope wijst erop hoeveel mensen een compliment of een gerealiseerde wens onmiddellijk kleiner maken.</p>
+      <p>Waarderen is het stilstaan bij wat er is bereikt en bij wie eraan heeft meegewerkt. Ontspannen is de rust die daarop volgt en die volgens hem de ruimte maakt waarin een volgende wens kan opkomen. Zonder die rust wordt de spiraal een tredmolen, waarin de ene wens de andere opjaagt.</p>
+      <h3>De keerzijde: wat er misgaat</h3>
+      <p>Het boek is diagnostisch bedoeld. Wie ergens vastzit, kan volgens Knoope nagaan bij welke stap dat gebeurt, en daar terugkeren. Iemand die eindeloos plannen maakt en niets uitvoert, heeft vermoedelijk niet beslist. Iemand die uitgeput raakt, heeft vermoedelijk nooit ontvangen of gewaardeerd. Iemand die zijn wens niet kan benoemen, komt niet verder dan wat hij denkt te moeten willen.</p>
+      <p>Die aanpak verklaart de aantrekkingskracht van het boek in loopbaanbegeleiding. Het geeft een woordenschat waarmee een begeleider en een deelnemer kunnen aanwijzen waar het schuurt, zonder dat er een oordeel over de persoon aan te pas komt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Creatiespiraal</td><td>De twaalf stappen van wens naar werkelijkheid, getekend als spiraal omdat het proces zich na afloop op een volgend niveau herhaalt.</td></tr>
+          <tr><td class="term">Wensen</td><td>De eerste stap, waarin iemand vaststelt wat hij werkelijk wil in plaats van wat hij meent te moeten willen.</td></tr>
+          <tr><td class="term">Verbeelden</td><td>Het uitwerken van de gewenste toestand tot een voorstelling die concreet genoeg is om te herkennen wanneer zij er is.</td></tr>
+          <tr><td class="term">Geloven</td><td>De stap waarin iemand het voor mogelijk houdt, bij Knoope het punt waarop de meeste wensen sneuvelen.</td></tr>
+          <tr><td class="term">Uiten</td><td>Het uitspreken van de wens tegenover anderen, dat volgens Knoope weerstand oplevert en tegelijk hulp aantrekt.</td></tr>
+          <tr><td class="term">Onderzoeken</td><td>Het verkennen van wegen, mensen en middelen die aan de wens kunnen bijdragen, vóór er een plan wordt gemaakt.</td></tr>
+          <tr><td class="term">Beslissen</td><td>Een afzonderlijke stap tussen plan en handeling: een ja of nee waarmee de overige mogelijkheden worden losgelaten.</td></tr>
+          <tr><td class="term">Volharden</td><td>De stap van pieken en dalen, waarin tijdelijk terugvallen op een eerdere stap in de leer geen mislukking heet.</td></tr>
+          <tr><td class="term">Ontvangen</td><td>Het werkelijk aannemen van wat er komt, in plaats van het te bagatelliseren of door te schuiven naar de volgende wens.</td></tr>
+          <tr><td class="term">Ontspannen</td><td>De twaalfde en laatste stap, de rust waarin volgens Knoope de ruimte ontstaat voor een volgende wens.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan. Knoope zegt de spiraal in 1989 te hebben opgemerkt, presenteerde haar vanaf 1992 in lezingen en schreef er in 1997 het boek over. Wat er als onderbouwing staat, zijn anekdotes uit die lezingen, gevallen uit zijn omgeving en de vergelijking met bloesem en vrucht. Die vergelijking is een beeld en geen argument: dat een appelboom een vaste volgorde kent, zegt niets over de volgorde waarin mensen iets tot stand brengen.</p>
+      <p>De verkoopcijfers en het gebruik in trainingen zeggen iets over herkenbaarheid, niet over juistheid. Wel is het zo dat een deel van de stappen samenvalt met dingen waarover buiten dit boek om wel onderzoek bestaat: het opschrijven van concrete voornemens met plaats en tijd, het opdelen van een doel in kleinere handelingen, en het effect van sociale steun bij volhouden. Knoope komt tot die punten langs eigen weg en verwijst er niet naar.</p>
+      <p>De sterkste aanwijzing dat het boek iets vat, is de diagnostische bruikbaarheid ervan. Begeleiders melden dat deelnemers zonder veel uitleg kunnen aanwijzen bij welke stap zij stilvallen. Dat maakt het model bruikbaar als gespreksinstrument, wat iets anders is dan een aangetoonde beschrijving van hoe creatie verloopt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kernbewering, dat de volgorde vastligt, is nooit getoetst en is in deze vorm ook lastig te toetsen. Mensen komen langs allerlei wegen tot iets: door toeval, door opdracht van een ander, door al doende te ontdekken wat zij wilden. In de leer van Knoope zijn dat geen tegenvoorbeelden, want elke afloop laat zich achteraf in de twaalf stappen inpassen. Een model dat alles verklaart, verklaart weinig.</p>
+      <p>De stap uiten is minder onschuldig dan het boek doet voorkomen. Onderzoek van Peter Gollwitzer en anderen, gepubliceerd in <i>Psychological Science</i> in 2009, liet zien dat het aankondigen van een doel dat met iemands zelfbeeld te maken heeft juist tot minder inspanning kan leiden, doordat de erkenning al binnen is. Knoope behandelt uiten als vanzelfsprekend nuttig en kent die keerzijde niet.</p>
+      <p>Geloven als afzonderlijke stap brengt het boek dicht bij het manifesteren, waar de gedachte zelf de werkelijkheid zou aansturen. Knoope gaat die kant niet helemaal op, want hij houdt onderzoeken, plannen en handelen in het rijtje. Het boek maakt echter nergens duidelijk waar het geloof ophoudt hulpmiddel te zijn, en dat verklaart waarom het zowel bij loopbaanadviseurs als in manifesteerkringen wordt gelezen.</p>
+      <p>Er ontbreekt een gesprek over wensen die niet uitkomen omdat zij buiten iemands bereik liggen: geld, gezondheid, discriminatie, pech. In het boek loopt de verantwoordelijkheid steeds terug naar de persoon en zijn stappen. Wie na twaalf stappen niets bereikt, houdt volgens dit model over dat hij iets heeft overgeslagen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de twaalf stappen als diagnose: zoek de stap waar het stilvalt in plaats van harder door te werken aan de stap waar je al staat.</li>
+        <li>Schrijf de wens op in de vorm van een toestand met plaats, tijd en betrokkenen, zodat herkenbaar is wanneer die er is.</li>
+        <li>Spreek de wens uit tegen mensen die kunnen helpen, en wees erop bedacht dat aankondigen alleen niet hetzelfde is als vooruitkomen.</li>
+        <li>Zet beslissen apart in de agenda: leg vast wat je niet gaat doen, niet alleen wat wel.</li>
+        <li>Sluit af met ontvangen en waarderen voordat de volgende wens aan de beurt komt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De creatiespiraal: natuurlijke weg van wens naar werkelijkheid</i> (KIC Uitgeverij, Nijmegen, 1998, 223 blz., ISBN 9789080467712). Oorspronkelijk in het Nederlands geschreven, in 1997 voltooid; er bestaan vertalingen in het Engels, het Duits en het Italiaans. In 2007 waren er in Nederland meer dan honderdduizend exemplaren van verkocht. Knoope (Rotterdam 1947, Nijmegen 2021) was natuurkundige, opgeleid aan de Radboud Universiteit; hij zegt de spiraal in 1989 te hebben gevonden en presenteerde haar vanaf 1992 in lezingen. Het vervolg <i>De ontknooping</i>, aangeduid als deel twee, verscheen in 2009 (ISBN 9789080467743). Er is ook een gesproken uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Marinus Knoope stelt dat er in de natuur een vaste route loopt van bloesem naar vrucht en van zaad naar oogst, en dat er tussen een wens en de werkelijkheid ook zo'n route bestaat. Die route telt twaalf stappen en heet de creatiespiraal.</p><p>De twaalf zijn: wensen, verbeelden, geloven, uiten, onderzoeken, plannen, beslissen, handelen, volharden, ontvangen, waarderen en ontspannen. Daarna begint de spiraal opnieuw, een slag verder. Knoope behandelt elke stap in een eigen hoofdstuk, met anekdotes uit zijn lezingen en met oefeningen.</p><p>Zijn verklaring voor mislukking is dat mensen stappen overslaan of in de verkeerde volgorde zetten: aan het plannen beginnen voordat er een wens is uitgesproken, of handelen zonder te hebben besloten. Het boek is in Nederland goed verkocht en wordt in loopbaanbegeleiding en in trainingen veel gebruikt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>creativiteit</li><li>doelen stellen</li><li>wensen</li><li>loopbaan</li><li>zelfhulp</li><li>Nederlands</li><li>volharding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="14"><a href="14.html">The Artist's Way</a>. Julia Cameron werkt in <i>The Artist's Way</i> met eenzelfde volgorde waarin verlangen en verbeelding vóór planning komen, maar richt zich op geblokkeerde makers en niet op wensen in het algemeen.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. James Clear behandelt in <i>Atomic Habits</i> vooral de stappen die bij Knoope handelen en volharden heten, en doet dat wel met verwijzing naar onderzoek.</li>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. Napoleon Hill legt in <i>Think and Grow Rich</i> het zwaartepunt bij wensen en geloven, en laat zien waar deze manier van denken naartoe loopt als onderzoeken en plannen wegvallen.</li>
+          <li value="130"><a href="130.html">Manifesteren kun je leren</a>. Willemijn Welten schrijft in <i>Manifesteren kun je leren</i> over dezelfde binnenste stappen, zonder de nuchtere stappen die Knoope er nog naast zet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leven zonder stress &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kicken stelt dat stress in zijn geval niet uit de hoeveelheid werk voortkwam maar uit de reden waarom hij dat werk deed. Wie zichzelf weinig waard vindt,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1503">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1503 &middot; Levenskunst</p>
+    <h1>Leven zonder stress</h1>
+    <p class="lede">Patrick Kicken, 2019</p>
+    <p class="stats">
+      <span><b>1448</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1503"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kicken stelt dat stress in zijn geval niet uit de hoeveelheid werk voortkwam maar uit de reden waarom hij dat werk deed. Wie zichzelf weinig waard vindt, kan dat volgens hem met geen enkel succes goedmaken: elke prestatie vraagt om de volgende, en de bodem blijft weg. Zijn slotsom is dat het antwoord niet in minder werken of in ontspanningstechniek ligt, maar in de vraag wat iemand met zijn leven aanmoet als de bevestiging van buitenaf wegvalt. De titel belooft daarbij meer dan het boek waarmaakt, want Kicken schrijft zelf dat stress niet verdwijnt en dat het erom gaat er anders naast te gaan staan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanleiding: twee burn-outs</h3>
+      <p>Kicken was in 2010 bezig met een ochtendprogramma toen hij vastliep. Hij beschrijft de aanloop zoals veel mensen die kennen: doorgaan omdat het kan, plezier in het werk als bewijs dat er niets aan de hand is, en dan een lichaam dat het opgeeft. Er volgde een tweede burn-out, die hem dwong verder te kijken dan herstel alleen.</p>
+      <p>Dat persoonlijke verhaal loopt door het hele boek heen. Hij is er open over en houdt het licht van toon, met de humor van iemand die jarenlang voor de microfoon heeft gezeten. Die toon is de belangrijkste reden dat het boek toegankelijk is voor lezers die zich bij een zelfhulpboek gewoonlijk ongemakkelijk voelen.</p>
+      <h3>De podcast als bron</h3>
+      <p>Het materiaal komt uit gesprekken. Voor zijn podcast sprak Kicken honderden mensen: leraren en schrijvers zoals Byron Katie, Eckhart Tolle en Lisette Thooft, maar ook cabaretiers en ervaringsdeskundigen zoals Guido Weijers. Hij vat hun standpunten samen, citeert wat hem is bijgebleven en zet zijn eigen twijfel ernaast.</p>
+      <p>Die opzet bepaalt ook de grenzen. Wat de gasten zeggen wordt weergegeven en niet nagegaan. Het boek is daardoor eerder een verslag van wat er in dit veld gedacht wordt dan een afweging tussen die opvattingen.</p>
+      <h3>Geluk en betekenis</h3>
+      <p>Het boek is thematisch geordend rond de onderwerpen die de uitgever ook noemt, en niet als een stappenplan. Onder geluk behandelt Kicken de gedachte dat een leven zonder tegenslag niet bestaat en dat het najagen van een permanent goed gevoel zelf een bron van spanning is. Hij haalt daarbij de psychiater Dirk de Wachter aan, die ervoor pleit ongeluk als deel van een gewoon leven te aanvaarden.</p>
+      <p>Bij betekenis komt zijn eigen omkering aan bod: hij deed werk waar hij van hield en voelde zich toch leeg, omdat de waardering van luisteraars en collega's het werk moest dragen. Onder de adviezen die hij geeft zit ook een ongemakkelijke: ga in een verzorgingshuis langs, om te zien waar een leven op uitloopt en wat er dan nog telt.</p>
+      <h3>Liefde, zelfvertrouwen en geld</h3>
+      <p>Deze drie onderwerpen behandelt Kicken vanuit dezelfde gedachte. Wie zijn eigenwaarde ophangt aan wat een ander vindt, aan wat hij verdient of aan wat hij presteert, blijft afhankelijk van omstandigheden die hij niet in de hand heeft.</p>
+      <p>Bij geld gaat het over de rekensom die veel mensen maken: nog even dit project, nog even deze baan, dan komt de rust. Kicken laat aan zichzelf zien hoe die som steeds opnieuw wordt uitgesteld. Bij zelfvertrouwen komt het perfectionisme aan bod, in zijn ogen de gewoonte waarmee hij zichzelf het hardst heeft toegetakeld.</p>
+      <h3>Angst, stress en rust</h3>
+      <p>Het gedeelte over stress bevat de meest feitelijke bladzijden: wat spanning met een lichaam doet, waarom kortdurende stress iets anders is dan aanhoudende stress, en waarom herstel tijd kost. Kicken houdt die uitleg eenvoudig en verwijst voor verdieping door naar andere bronnen.</p>
+      <p>Zijn eigen positie is voorzichtiger dan de titel. Hij schrijft dat hij stress niet is kwijtgeraakt en dat hij dat ook niet verwacht. Wat hij beschrijft is een andere verhouding ertoe: eerder opmerken wat er gebeurt, minder betekenis toekennen aan de gedachten die daarbij opkomen, en de rust die daaruit ontstaat niet verwarren met het uitblijven van spanning.</p>
+      <h3>De vorm: tips en doorverwijzingen</h3>
+      <p>Door het boek heen staan tips voor documentaires, films, boeken en podcasts. Dat is een keuze die past bij een radiomaker en die het boek nuttig maakt als startpunt: wie op een van de onderwerpen dieper wil gaan, krijgt een adres in plaats van een slotwoord.</p>
+      <p>Boekenkrant kende het drie sterren toe en noemde het een bruikbare eerste oriëntatie voor mensen met werkgerelateerde spanning. Die inschatting past bij wat het boek is: een verslag met leestips, geen behandeling en geen studie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Burn-out</td><td>In het boek de uitputting die Kicken in 2010 en later nog eens overkwam, en die hij beschrijft als het einde van een manier van leven en niet als een tijdelijke storing.</td></tr>
+          <tr><td class="term">Stress</td><td>De spanning die hij niet als vijand neerzet: kortdurend hoort zij bij het leven, aanhoudend en zonder herstel maakt zij ziek.</td></tr>
+          <tr><td class="term">Perfectionisme</td><td>De gewoonte om de eigen lat steeds hoger te leggen, bij Kicken de belangrijkste innerlijke oorzaak van zijn overbelasting.</td></tr>
+          <tr><td class="term">Zelfwaardering</td><td>Zijn kernpunt: wie zichzelf niet waardeert, kan dat met geen enkel succes van buitenaf compenseren.</td></tr>
+          <tr><td class="term">Aanvaarding</td><td>Het toelaten van tegenslag en ongemak als deel van een gewoon leven, een lijn die hij ontleent aan de psychiater Dirk de Wachter.</td></tr>
+          <tr><td class="term">Het nu</td><td>De aandacht voor wat er op dit moment is, in het boek overgenomen uit zijn gesprek met Eckhart Tolle.</td></tr>
+          <tr><td class="term">The Work</td><td>De vragenreeks van Byron Katie waarmee iemand nagaat of een stellige gedachte over zichzelf of een ander waar is; Kicken beschrijft haar en past haar op zichzelf toe.</td></tr>
+          <tr><td class="term">Rust</td><td>Bij Kicken geen afwezigheid van spanning maar een andere verhouding ertoe, waarin gedachten minder gewicht krijgen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit twee dingen: het eigen verhaal van de auteur en de gesprekken uit zijn podcast. Beide zijn eerlijk als zodanig gepresenteerd. Het boek doet geen poging zich als studie voor te doen, heeft geen noten en geen literatuurlijst, en de uitleg over stress blijft op het niveau van algemene voorlichting.</p>
+      <p>De gasten zijn overwegend leraren, schrijvers en publieke figuren en geen onderzoekers. Van de methoden die zij aandragen is de basis ongelijk. De aandachtsoefening die Tolle propageert overlapt met vormen van aandachttraining waarvan bij aanhoudende stress een bescheiden effect is gemeten; The Work van Byron Katie kent nauwelijks onafhankelijk onderzoek. Kicken maakt dat onderscheid niet en zet beide naast elkaar.</p>
+      <p>Wat het boek wel controleerbaar maakt, zijn de doorverwijzingen. Bij vrijwel elk onderwerp noemt hij boeken, films en podcasts, zodat een lezer zelf kan nagaan waar een gedachte vandaan komt. Dat is voor dit genre eerder uitzondering dan regel.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De titel dekt de lading niet. Kicken schrijft zelf dat leven zonder stress niet bestaat en dat het om de omgang ermee gaat, maar de kaft belooft het tegenovergestelde. Voor een boek dat mensen met overbelasting wil bereiken is dat geen onschuldig verschil, omdat de lezer die het hardst naar een uitweg zoekt precies op zo'n belofte afkomt.</p>
+      <p>Het boek behandelt burn-out vrijwel geheel als een innerlijke aangelegenheid. Werkdruk, roosters, personeelstekorten, onzeker werk en leidinggevenden komen er nauwelijks in voor. Daarmee komt de verantwoordelijkheid voor herstel en voor het uitblijven ervan bij de persoon te liggen, terwijl een deel van de oorzaken op de werkvloer ligt en daar ook aangepakt moet worden.</p>
+      <p>De vorm van het herstelverhaal met een goede afloop kent een bekende vertekening. Wie erdoorheen is gekomen schrijft het boek; wie na jaren nog niet is hersteld, doet dat niet. Dat de burn-out achteraf een verrijking blijkt, is daarom een uitkomst die vaker wordt opgeschreven dan zij voorkomt.</p>
+      <p>De raad om een verzorgingshuis te bezoeken om het eigen leven in verhouding te zien, werkt op de vergelijking met andermans lot. Zulke vergelijkingen geven een tijdelijke opluchting en zeggen weinig over de vraag waarom iemand zichzelf te weinig waard vindt, wat volgens Kicken zelf de kern is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als eerste oriëntatie bij werkgerelateerde spanning en niet als behandeling; bij aanhoudende klachten is een huisarts of bedrijfsarts de aangewezen weg.</li>
+        <li>Gebruik de lijstjes met boeken, films en podcasts en kies er een of twee uit die aansluiten bij wat er speelt.</li>
+        <li>Ga na welke prestaties je nodig hebt om je de moeite waard te voelen, en schrijf op wat er van jezelf overblijft als je die weglaat.</li>
+        <li>Kijk naast de innerlijke oorzaken naar de omstandigheden: rooster, werkdruk, zeggenschap over je eigen tijd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Leven zonder stress: een nuchtere gids voor geluk</i> (Kosmos Uitgevers, 29 oktober 2019, 208 blz., ISBN 9789043921633; e-boek ISBN 9789043921640). Het boek is in het Nederlands geschreven en niet vertaald. Het komt voort uit Kickens gelijknamige podcast, waarvoor hij honderden gesprekken voerde met onder anderen Byron Katie, Eckhart Tolle, Guido Weijers en Lisette Thooft.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Patrick Kicken maakte radio bij onder meer 3FM en Radio Veronica en liep in 2010 tijdens een ochtendprogramma een burn-out op. Er volgde er nog een. Daarna herzag hij wat hij tot dan toe onder succes had verstaan.</p><p>Voor zijn podcast <i>Leven zonder stress</i> sprak hij honderden gasten, van Byron Katie en Eckhart Tolle tot Guido Weijers en Lisette Thooft. Dit boek zet bij elkaar wat hij uit die gesprekken heeft overgehouden, geordend naar onderwerp: geluk, liefde, zelfvertrouwen, geld, angst, stress en rust.</p><p>De ondertitel belooft een nuchtere gids en dat is ongeveer wat het is. Kicken vertelt zijn eigen verhaal, vlecht daar uitleg over stress doorheen en verwijst naar boeken, films, documentaires en podcasts om verder te kijken. Zijn eigen slotsom is bescheidener dan de titel: stress helemaal kwijtraken lukt niet, ermee leren omgaan wel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>burn-out</li><li>stress</li><li>geluk</li><li>podcast</li><li>zelfhulp</li><li>radio</li><li>perfectionisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="458"><a href="458.html">The Upside of Stress</a>. Kelly McGonigal onderbouwt in <i>The Upside of Stress</i> met onderzoek wat Kicken uit gesprekken opmaakt: dat de houding tegenover spanning uitmaakt voor de schade die zij aanricht.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Oliver Burkeman gaat in <i>Four Thousand Weeks</i> op dezelfde vraag in, maar redeneert vanuit de eindigheid van een leven in plaats van vanuit eigenwaarde.</li>
+          <li value="516"><a href="516.html">The Antidote</a>. <i>The Antidote</i> van Burkeman levert het tegengeluid bij het genre waarin Kickens gasten thuishoren en laat zien waar het najagen van een goed gevoel op stukloopt.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. Eckhart Tolle is een van Kickens gesprekspartners; <i>The Power of Now</i> geeft de leer waarnaar hij verwijst in de oorspronkelijke vorm.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

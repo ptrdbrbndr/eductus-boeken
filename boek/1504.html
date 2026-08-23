@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Book on the Taboo Against Knowing Who You Are &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Watts stelt dat het gevoel een afgezonderd ik te zijn, gevat in een huid en geplaatst tegenover een wereld die het niet is, geen waarneming is maar een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1504">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1504 &middot; Filosofie en mystiek</p>
+    <h1>The Book on the Taboo Against Knowing Who You Are</h1>
+    <p class="lede">Alan Watts, 1966</p>
+    <p class="stats">
+      <span><b>1846</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1504"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Watts stelt dat het gevoel een afgezonderd ik te zijn, gevat in een huid en geplaatst tegenover een wereld die het niet is, geen waarneming is maar een aangeleerde vergissing. Wat er werkelijk gebeurt is een enkel proces waarin organisme en omgeving elkaar veronderstellen, zoals een golf de zee veronderstelt en een figuur zijn achtergrond. Dat de westerse cultuur dit niet doorgeeft noemt hij een taboe: er rust een verbod op het weten wie men is, omdat de hele ordening van schuld, verdienste en bezit op de veronderstelde afzondering rust. Het boek wil die mededeling alsnog doen, in de vorm waarin hij haar aan zijn eigen kinderen zou willen doen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Voorkennis</h3>
+      <p>Het eerste hoofdstuk begint met de vraag wat een jongmens zou moeten weten om ingewijd te zijn: bestaat er voorkennis over het bestaan die ouders en leraren niet hebben of niet willen geven. Watts stelt dat elke cultuur haar leden een verhaal over de mens meegeeft en dat het Westen er twee kent die elkaar hebben opgevolgd. In het eerste is de wereld een gemaakt voorwerp met een maker, en is de mens een pop die van buitenaf leven kreeg ingeblazen. In het tweede, dat van de negentiende eeuw, is de wereld een machine zonder maker en is het bewustzijn een toevallig bijproduct van dood materiaal.</p>
+      <p>Beide verhalen laten de mens achter als vreemdeling. Watts zet er een derde tegenover, ontleend aan de Vedanta: de werkelijkheid is een spel waarin het ene zich in ontelbare rollen verkleedt en zichzelf daarbij vergeet, omdat verstoppertje zonder vergeten niet werkt. De rest van het boek werkt uit wat dat betekent en waarom het niet als geloofsartikel bedoeld is.</p>
+      <h3>Het spel van zwart-en-wit</h3>
+      <p>Watts betoogt dat tegenstellingen elkaar dragen. Een figuur bestaat niet zonder achtergrond, geluid niet zonder stilte, leven niet zonder dood, ik niet zonder ander. Wat als twee vijandige partijen wordt beleefd, is in werkelijkheid het uitdijen en samentrekken van een en hetzelfde. Hij noemt dat het spel van zwart-en-wit, gespeeld onder de regel dat wit moet winnen.</p>
+      <p>Die regel is volgens hem de bron van de vermoeidheid van de moderne mens. Wie meent dat het goede het kwade kan uitroeien, of het leven de dood, speelt een spel waarvan de winst het einde van het spel zou zijn. Watts leidt er geen berusting uit af maar een andere houding tegenover het aandeel dat men in de strijd neemt.</p>
+      <h3>Hoe men echte namaak wordt</h3>
+      <p>Het ego is volgens Watts geen orgaan en geen waarneming, maar een sociale afspraak: een beeld dat een kind van anderen krijgt aangereikt en gaandeweg voor zichzelf houdt. Het bestaat uit een naam, een geschiedenis, een rol en een aantal verwachtingen, en het valt niet samen met het organisme dat ademt, verteert en waarneemt.</p>
+      <p>De opvoeding legt het kind een opdracht op die zichzelf tegenspreekt. Het moet uit vrije wil doen wat het hoort te doen, spontaan zijn op bevel, en zich verantwoordelijk voelen voor een ik dat het als rol heeft gekregen. Wie die opdracht aanvaardt wordt wat Watts een echte namaak noemt: iemand die zijn eigen vermomming voor zijn wezen houdt en zich daar dagelijks aan uitput.</p>
+      <h3>De wereld is je lichaam</h3>
+      <p>Hier voert Watts zijn taalkundige hoofdargument aan. De taal splitst gebeurtenissen in dingen die iets doen, terwijl waarneming alleen samenhangende processen aantreft. Hij gebruikt het woord goeswith: bepaalde verschijnselen komen nooit los voor, zoals voor- en achterkant, koper en verkoper, organisme en omgeving. Wie de een noemt heeft de ander al genoemd, ook als de grammatica anders suggereert.</p>
+      <p>De huid is in dat licht geen wand maar een doorlaatbaar vlak waar lucht, licht en voedsel doorheen gaan. Het lichaam houdt op te bestaan zonder atmosfeer en zonlicht, dus horen die er even goed bij als hart en longen. Daaruit trekt Watts een gevolgtrekking over techniek: een beschaving die de omgeving als tegenstander behandelt en haar wil onderwerpen, richt de schade op haar eigen lichaam. Hij schreef dat in 1966 en het is het gedeelte dat het best is blijven staan.</p>
+      <h3>En wat dan nog</h3>
+      <p>Het vijfde hoofdstuk gaat over wat het inzicht praktisch betekent, en vooral over wat het niet betekent. Watts wijst voorschriften af. Er volgt geen gedragsleer uit, geen politiek programma en geen verplichting tot vriendelijkheid, want een verplichting zou het ego opnieuw in stelling brengen dat hier juist wegvalt.</p>
+      <p>Wat er volgens hem wel verandert is de dwang. Wie niet meer meent dat een afzonderlijk ik zich tegen de rest moet verdedigen, houdt energie over die eerder in die verdediging ging zitten. Watts waarschuwt tegelijk tegen het maken van een nieuwe overtuiging uit dit boek. Een leerstelling over eenheid is nog steeds een leerstelling, en het gevoel van afzondering laat zich niet wegdenken door er iets over te geloven.</p>
+      <h3>IT</h3>
+      <p>Het slothoofdstuk beschrijft de wereld zoals die volgens Watts verschijnt als het onderscheid tussen waarnemer en waargenomene wegvalt. Hij gebruikt daarvoor het onzijdige woord IT, om te vermijden dat de lezer aan een persoon of een god gaat denken. Alles wat er gebeurt is dan een gebaar van hetzelfde, inclusief het lezen van deze bladzijde.</p>
+      <p>Watts sluit af bij de samenleving. Het taboe blijft volgens hem bestaan omdat instellingen mensen nodig hebben die zich als los onderdeel beleven en zich daarop laten aanspreken. Hij verwacht geen opheffing van dat taboe, wel dat het bij genoeg mensen doorbreekt om het gedrag tegenover de aarde te veranderen. Het boek eindigt zonder programma en met een literatuurlijst van twee bladzijden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het taboe</td><td>Het stilzwijgende verbod om te weten wie men werkelijk is, volgens Watts in stand gehouden omdat de samenleving mensen nodig heeft die zich als afzonderlijk onderdeel beleven.</td></tr>
+          <tr><td class="term">Het huidbegrensde ego</td><td>Watts' aanduiding voor het beeld van het zelf als een centrum dat binnen de huid huist en tegenover de buitenwereld staat.</td></tr>
+          <tr><td class="term">Goeswith</td><td>Het door Watts gemunte woord voor verschijnselen die nooit los voorkomen, zoals voor- en achterkant of organisme en omgeving, en die de taal ten onrechte uit elkaar trekt.</td></tr>
+          <tr><td class="term">Het spel van zwart-en-wit</td><td>De verhouding tussen tegenpolen die elkaar dragen, gespeeld onder de regel dat een van beide moet winnen, wat volgens Watts de moderne rusteloosheid verklaart.</td></tr>
+          <tr><td class="term">Echte namaak</td><td>Iemand die zijn sociale rol voor zijn wezen aanziet en zich daaraan uitput, in de overtuiging dat hij die rol uit vrije wil speelt.</td></tr>
+          <tr><td class="term">Tat tvam asi</td><td>De zin uit de Upanishaden die Watts als kern van zijn betoog neemt en gewoonlijk wordt weergegeven als: dat zijt gij.</td></tr>
+          <tr><td class="term">Verstoppertje</td><td>Het beeld waarmee Watts de Vedanta weergeeft: het ene speelt met zichzelf een spel dat alleen werkt zolang het vergeet wie het is.</td></tr>
+          <tr><td class="term">Organisme en omgeving</td><td>Het paar dat Watts als een enkel veld behandelt, waarin de huid een doorlaatbaar vlak is en niet de rand van een persoon.</td></tr>
+          <tr><td class="term">IT</td><td>Het onzijdige woord waarmee Watts in het slothoofdstuk naar de werkelijkheid verwijst, gekozen om de gedachte aan een god of een persoon te vermijden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan en pretendeert dat ook niet. Wat het aanvoert zijn drie soorten steun. Ten eerste taalkritiek: Watts laat zien dat de grammatica ons dwingt processen als dingen met werkwoorden te beschrijven, en dat veel filosofische puzzels aan die vorm hangen en niet aan de wereld. Ten tweede biologie: een organisme laat zich niet bepalen zonder zijn omgeving, en dat gegeven uit de ecologie van zijn tijd gebruikt hij als ruggengraat van het vierde hoofdstuk. Ten derde de Vedanta, waarvan hij de kern zonder sanskritische omhaal weergeeft.</p>
+      <p>De biologische stap is de sterkste. Dat het lichaam niet bestaat los van lucht, licht en voedsel is niet omstreden, en de gevolgtrekking dat de scheidslijn tussen binnen en buiten praktisch is en niet natuurkundig, is verdedigbaar. De stap daarna, van doorlaatbare grens naar identiteit met het geheel, is van een andere orde. Watts erkent dat hij daarvoor bij een traditie te rade gaat en niet bij een meetresultaat.</p>
+      <p>Het boek heeft geen notenapparaat, wel een literatuurlijst van twee bladzijden. Wie de bronnen wil nalezen komt uit bij de Upanishaden, bij de Chinese natuurfilosofie en bij een handvol tijdgenoten uit de systeem- en communicatieleer. Watts was zelf een beroepsverteller: hij hield radiovoordrachten en had een opleiding tot anglicaans geestelijke, geen wetenschappelijke aanstelling. Het boek is dan ook geschreven om te overtuigen door de zaak anders te laten zien, niet door haar aan te tonen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de sprong in het midden van het betoog. Uit de vaststelling dat grenzen tussen dingen door mensen worden getrokken volgt niet dat er geen verschillen zijn. Dat een golf de zee veronderstelt maakt de ene golf nog niet de andere. Watts glijdt van het inzicht dat het ik geen zelfstandig ding is naar de mededeling dat de lezer het heelal is, en die tweede zin heeft een andere status dan de eerste. Wie op dat punt niet meegaat, houdt een aantrekkelijk beeld over en geen argument.</p>
+      <p>De weergave van de Vedanta is Watts' eigen bewerking. Hij las geen sanskriet en presenteert een gladgestreken versie waarin de leerstellige verschillen tussen scholen, de rituele omgeving en de eeuwenlange interne twist zijn weggelaten. Indologen hebben er herhaaldelijk op gewezen dat de Aziatische bronnen bij hem passen bij een Amerikaans betoog over vrijheid, en dat de bewerking die richting op gestuurd is.</p>
+      <p>De ethiek blijft dun. Als goed en kwaad polen van hetzelfde spel zijn, wordt lastig te zeggen waarom wreedheid bezwaarlijk is. Watts antwoordt dat wie zich niet afgescheiden voelt vanzelf niet wreed is, maar dat is een verwachting en geen redenering, en zij wordt in het boek niet getoetst aan gevallen waarin zij niet uitkomt. Zijn eigen leven werd hem op dit punt vaak tegengeworpen: hij dronk zwaar en liet twee gezinnen achter.</p>
+      <p>Het boek is ook een tijdsdocument. Het richtte zich op lezers die in 1966 uit kerk en gezin wegliepen, en de toon veronderstelt dat instellingen vooral last zijn. Zestig jaar later is de vraag eerder hoe men zich aan iets bindt dan hoe men zich losmaakt, en op die vraag heeft Watts weinig te zeggen. Wat wel is blijven staan is het hoofdstuk over techniek en natuur.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als een oefening in kijken en niet als een leer waarmee in te stemmen valt; Watts verzet zich zelf tegen die tweede lezing.</li>
+        <li>Let bij eigen formuleringen op de plaatsen waar de taal een proces in een ding en een handeling splitst, en kijk of het onderscheid daar nog iets doet.</li>
+        <li>Neem het hoofdstuk over de wereld als lichaam apart als het gaat om vraagstukken over natuur en techniek; dat gedeelte staat los van de metafysica.</li>
+        <li>Zoek naast Watts een bron die de Vedanta filologisch behandelt, als het om de traditie zelf gaat en niet om zijn gebruik ervan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Book: On the Taboo Against Knowing Who You Are</i> (Pantheon Books, New York, 1966, x + 146 blz.); de courante heruitgave is die van Vintage Books, ISBN 9780679723004. Het boek verscheen in 1982 voor het eerst in het Nederlands als <i>Het boek: over het taboe op het weten wie je bent</i>; een latere druk kwam in 1993 uit bij Altamira in Heemstede. De huidige uitgave heet <i>Het taboe op weten wie je bent</i>, vertaald door Jeff van Exel, Panta Rhei, Katwijk aan Zee, 2021 (156 blz., ISBN 9789088402364). Van Watts zijn daarnaast onder meer <i>The Wisdom of Insecurity</i> en <i>The Way of Zen</i> in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Watts schreef dit boek als de mededeling die volwassenen aan opgroeiende kinderen zouden moeten doen en zelden doen: dat het gevoel een afzonderlijk ik te zijn, opgesloten in een huid en tegenover een vreemde buitenwereld geplaatst, niet klopt. Hij noemt dat gevoel een hallucinatie, aangeleerd en in stand gehouden door taal, opvoeding en godsdienst.</p><p>In zes korte hoofdstukken zet hij daar een ander beeld tegenover, ontleend aan de Vedanta: wat er is, is een enkel proces dat zich in ontelbare gedaanten voordoet en met zichzelf verstoppertje speelt. Organisme en omgeving zijn twee namen voor een gebeurtenis, zoals een golf en de zee. De huid is een membraan en geen grens.</p><p>De titel wijst op wat volgens Watts de kern is: er rust een verbod op dit weten. De ordening van schuld, beloning, prestatie en bezit veronderstelt afzonderlijke personen, dus wordt het inzicht wel in bewaring gegeven aan mystici en kunstenaars, maar niet doorgegeven aan wie de samenleving moet draaiende houden. Het boek is uit 1966 en richtte zich op een Amerikaans publiek dat aan het losraken was van kerk en gezin.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Vedanta</li><li>ego</li><li>identiteit</li><li>bewustzijn</li><li>zen</li><li>tegencultuur</li><li>non-dualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Watts zette vijftien jaar eerder dezelfde gedachte op de vraag naar zekerheid; dat boek is korter en beter geordend.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Huxley verzamelde de mystieke bronnen waaruit Watts put, en doet dat met bronvermelding en meer terughoudendheid.</li>
+          <li value="1502"><a href="1502.html">I Am That</a>. Nisargadatta geeft dezelfde leer vanuit de Indiase traditie zelf, zonder de vertaalslag naar een westers publiek die Watts maakt.</li>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. Suzuki leverde de zenuitleg waarmee Watts begon; het verschil in toon laat zien hoeveel Watts aan zijn Amerikaanse lezers heeft aangepast.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

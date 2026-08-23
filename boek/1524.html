@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eindeloos bewustzijn &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Lommel stelt dat de bijna-dood ervaring niet is te rijmen met de opvatting dat bewustzijn een product van hersenwerking is. Mensen melden een heldere,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1524">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1524 &middot; Brein en lichaam</p>
+    <h1>Eindeloos bewustzijn</h1>
+    <p class="lede">Pim van Lommel, 2007</p>
+    <p class="stats">
+      <span><b>1913</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1524"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Lommel stelt dat de bijna-dood ervaring niet is te rijmen met de opvatting dat bewustzijn een product van hersenwerking is. Mensen melden een heldere, geordende ervaring met tijdsbesef, waarneming en herinnering op een moment dat hun hart stilstaat en de meetbare hersenactiviteit binnen tientallen seconden is weggevallen. Zijn conclusie is dat het bewustzijn niet in de hersenen wordt gemaakt maar er doorheen komt: het is non-lokaal, dat wil zeggen niet aan plaats en tijd gebonden, en het houdt bij de dood van het lichaam niet op. De hersenen zijn in die opvatting een doorgeefluik dat het bewustzijn tegelijk beperkt. Wie die stelling wil weerleggen, moet laten zien dat er tijdens een hartstilstand toch hersenactiviteit is die de ervaring kan dragen, of dat de ervaring buiten die periode ontstaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe de vraag ontstond</h3>
+      <p>Van Lommel opent met een reanimatie op de hartbewaking in 1969, het jaar waarin hij aan zijn opleiding cardiologie begon. De patient overleefde en was als enige aanwezige teleurgesteld: hij vertelde over een tunnel, kleuren, licht en muziek. De term bijna-dood ervaring bestond nog niet en Van Lommel had geleerd dat bewustzijn tijdens bewusteloosheid onmogelijk was.</p>
+      <p>Pas in 1986 kwam hij erop terug, na lezing van <i>Terugkeer uit de dood</i> van George Ritchie, die in 1943 als medisch student na een dubbelzijdige longontsteking negen minuten voor dood was gehouden. Een van Ritchies latere studenten was Raymond Moody, die in 1975 <i>Leven na dit leven</i> schreef en de term near-death experience muntte. Van Lommel gaat er nadrukkelijk bij staan dat hij academisch was opgevoed met de gedachte dat voor alles een materialistische verklaring bestaat, en dat hij die tot dan toe zonder discussie had aanvaard.</p>
+      <h3>Wat de ervaring inhoudt</h3>
+      <p>Het derde hoofdstuk zet de indelingen naast elkaar: Moody met zijn elementen, Ring met vijf fasen, Sabom met drie hoofdtypen, Greyson met vier componenten. Van Lommel werkt zelf met twaalf elementen, van onuitsprekelijkheid en het besef dood te zijn tot de buitenlichamelijke ervaring, de tunnel, de ontmoeting met overledenen en met een licht, de levensschouw en de terugkeer in het lichaam. Hij noemt ook de angstwekkende variant en de empathische, waarbij een omstander de ervaring meebeleeft.</p>
+      <p>Elke gemelde herinnering krijgt een score op een index die het aantal en het gewicht van de gemelde elementen optelt. Hoe hoger de score, hoe dieper de ervaring wordt genoemd. Vanaf zes heet het een kernervaring; dat is de grens die in eerder retrospectief onderzoek werd gehanteerd.</p>
+      <p>Een apart hoofdstuk gaat over wat er na afloop verandert: zelfaanvaarding, medeleven, waardering van het leven, verdwenen doodsangst bij toegenomen geloof in voortbestaan, minder kerkelijkheid bij meer religieus gevoel, en ook de last van onbegrip, echtscheiding en jarenlang zwijgen. Kinderen krijgen een eigen hoofdstuk, omdat zij nog geen aangeleerde voorstelling van de dood hebben.</p>
+      <h3>De Nederlandse studie</h3>
+      <p>Tussen 1988 en 1992 werden in tien ziekenhuizen 344 opeenvolgende patienten opgenomen die een hartstilstand overleefden, samen goed voor 509 geslaagde reanimaties. Alle overlevenden werden binnen enkele dagen op dezelfde manier geinterviewd. 282 patienten (82 procent) hadden geen enkele herinnering aan de periode van bewusteloosheid; 62 patienten (18 procent) wel. Van die 62 hadden er 21 een lage score, 18 een matig diepe, 17 een diepe en 6 een zeer diepe ervaring. Twaalf procent van het totaal haalde de drempel van een kernervaring. Gerekend over het aantal reanimaties in plaats van het aantal patienten blijft vijf procent over.</p>
+      <p>Het opvallende resultaat is negatief van aard: duur van de bewusteloosheid, duur van de reanimatie, intubatie, medicatie en eerdere hartinfarcten verklaarden de ervaring niet. Wat wel samenhing was leeftijd, geslacht en een reanimatie buiten het ziekenhuis. Ook overleden mensen met een diepe ervaring binnen dertig dagen significant vaker, iets waarvoor Van Lommel schrijft geen verklaring te hebben.</p>
+      <p>Dezelfde mensen werden na twee en na acht jaar opnieuw ondervraagd, met een gestandaardiseerde lijst van 34 vragen over levensverandering. De verhalen bleken bij herhaling vrijwel woordelijk gelijk. Van de 62 waren er na twee jaar negentien overleden; uiteindelijk konden 23 mensen met en 15 zonder ervaring driemaal worden gesproken. Van Lommel meldt dat zes mensen bij nader inzien toch geen ervaring bleken te hebben gehad, en vier uit de controlegroep juist wel.</p>
+      <h3>De verklaringen die hij afwijst</h3>
+      <p>Twee hoofdstukken behandelen wat er in de hersenen gebeurt als het hart stopt en wat er over hersenfunctie bekend is. Van Lommel voert aan dat het elektro-encefalogram binnen tientallen seconden vlak wordt en de hersenstamreflexen uitvallen, terwijl juist in die periode de helderste ervaringen worden gemeld. Daarnaast bespreekt hij neuroplasticiteit, het placebo-effect en geheugenopslag, om te betogen dat de hersenen ook elders minder eenduidig een producent van geest zijn dan wordt aangenomen.</p>
+      <p>Als losse casus behandelt hij de operatie van Pamela Reynolds, die in 1991 onder diepe hypothermie en met een leeggemaakte bloedsomloop een aneurysma liet verwijderen en achteraf de operatiekamer beschreef. Uit de eigen studie haalt hij het verhaal van een man wiens kunstgebit tijdens de reanimatie werd verwijderd en die de verpleegkundige daar later op aansprak.</p>
+      <h3>Non-lokaal bewustzijn</h3>
+      <p>Vanaf hoofdstuk elf verandert het boek van karakter. Van Lommel legt complementariteit, verstrengeling en non-lokaliteit uit, en stelt voor het bewustzijn te denken als waarschijnlijkheidsgolven in een non-lokale ruimte, waaruit de hersenen een deel ontvangen. Voor de koppeling tussen die ruimte en het brein oppert hij virtuele fotonen, het kwantum Zeno-effect en spincorrelatie in neuronen. Hij schrijft zelf dat deze hoofdstukken overgeslagen kunnen worden.</p>
+      <p>Een volgend hoofdstuk zoekt hetzelfde principe in het lichaam: DNA als ontvanger van informatie in plaats van als bouwtekening, epigenetica, een mogelijke functie voor niet-coderend DNA, biofotonen en getransplanteerd geheugen. Daarna verbreedt hij naar sterfbedvisioenen, ervaringen van contact met overledenen, waarnemen op afstand en de invloed van bewustzijn op materie. De bijna-dood ervaring is in die opzet een van de vensters op iets algemeners.</p>
+      <h3>Traditie en praktijk</h3>
+      <p>Het vijftiende hoofdstuk plaatst het idee in een lange lijn: hindoeisme, Tibetaans boeddhisme, het visioen van Er uit Plato's <i>Staat</i>, joodse mystiek, christendom en islam, plus verslagen uit de achtste en de negentiende eeuw. De strekking is dat er niets nieuws onder de zon is en dat de moderne geneeskunde alleen meer mensen terughaalt.</p>
+      <p>De laatste hoofdstukken zijn praktisch. Van Lommel behandelt de weerstand in de wetenschap, reincarnatie, en uitvoerig de orgaandonatie: of hersendood hetzelfde is als dood, en of donoren en nabestaanden daarover volledig worden voorgelicht. Hij pleit voor opvang na een reanimatie en voor aandacht in de palliatieve zorg.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">bijna-dood ervaring</td><td>Een gemelde bewustzijnstoestand met herkenbare elementen, opgetreden tijdens een periode van dreigende of feitelijke lichamelijke dood.</td></tr>
+          <tr><td class="term">prospectieve studie</td><td>Onderzoek waarin vooraf wordt vastgelegd wie er wordt gevolgd en wat er gemeten wordt, zodat alle overlevenden worden bevraagd en niet alleen de mensen die zich uit zichzelf melden.</td></tr>
+          <tr><td class="term">kernervaring</td><td>Een ervaring die op de gebruikte diepte-index zes punten of hoger haalt, de drempel waarboven eerdere onderzoekers van een echte bijna-dood ervaring spraken.</td></tr>
+          <tr><td class="term">buitenlichamelijke ervaring</td><td>Het element waarbij iemand het eigen lichaam en de omgeving van buitenaf meent waar te nemen, doorgaans van bovenaf.</td></tr>
+          <tr><td class="term">levensschouw</td><td>Het element waarbij het eigen leven in flarden of in een keer wordt overzien, vaak met de beleving van hoe het eigen handelen voor anderen voelde.</td></tr>
+          <tr><td class="term">verborgen teken</td><td>Een teken dat in een Arnhemse reanimatiekamer op de operatielamp was gelegd, alleen van bovenaf zichtbaar, als objectieve toets voor een buitenlichamelijke waarneming.</td></tr>
+          <tr><td class="term">non-lokaal bewustzijn</td><td>Het voorstel dat bewustzijn niet in de hersenen zit en niet aan plaats en tijd gebonden is, maar overal aanwezig is en door de hersenen wordt ontvangen.</td></tr>
+          <tr><td class="term">continuiteit van bewustzijn</td><td>De gevolgtrekking dat het bewustzijn de dood van het lichaam overleeft, omdat het er nooit door werd voortgebracht.</td></tr>
+          <tr><td class="term">interface</td><td>Van Lommels term voor de veronderstelde overgang tussen de non-lokale ruimte en de hersenen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De empirische kern van het boek is smal en solide. De studie uit <i>The Lancet</i> is prospectief, includeert opeenvolgende patienten in tien ziekenhuizen, gebruikt bij iedereen hetzelfde interview en volgt dezelfde mensen na twee en acht jaar. Dat opzetje is beter dan het meeste eerdere onderzoek, dat werkte met mensen die zichzelf meldden. De vondst dat medische omstandigheden de ervaring niet voorspellen is een echt resultaat en is in latere prospectieve studies in Amerika en Engeland teruggevonden.</p>
+      <p>Van dat resultaat naar de stelling van het boek is een grote stap, en die stap rust niet op meting. Het uitgangspunt dat de hersenen tijdens de ervaring stillagen komt uit algemene kennis over hersenstroom bij hartstilstand, niet uit registraties bij deze 344 patienten. Op welk moment binnen de bewusteloosheid de ervaring plaatsvond is bij niemand vastgesteld; dat het tijdens en niet vlak voor of vlak na de stilstand gebeurde is een aanname.</p>
+      <p>Het enige onderdeel van het onderzoek dat een objectieve bevestiging had kunnen opleveren, het verborgen teken op de operatielamp, leverde niets op omdat er in die ene kamer nooit iemand met een buitenlichamelijke waarneming werd gereanimeerd. Wat overblijft is het verhaal van het kunstgebit, opgetekend uit de herinnering van een verpleegkundige. Voor de tweede helft geldt iets anders: de kwantumfysica die Van Lommel aanhaalt bestaat, maar er is geen experiment dat non-lokaliteit in de fysica met bewustzijn verbindt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de vorm van de redenering. Van Lommel loopt de bekende fysiologische en psychologische verklaringen langs, vindt ze tekortschieten, en concludeert dat het bewustzijn dan wel buiten de hersenen moet liggen. Dat er nog geen goede verklaring is, is geen bewijs voor een bepaalde andere. Bovendien is zijn eigen voorstel in de vorm waarin hij het geeft nauwelijks te weerleggen: elke hersenbevinding kan worden opgevat als iets over de ontvanger in plaats van over de zender.</p>
+      <p>Zijn eigen cijfers laten zich ook anders lezen. Vierentachtig van de honderd overlevenden meldden niets. Als het bewustzijn los van de hersenen doorloopt, is die verhouding lastig te verklaren; bij een hersenverklaring past zij goed, omdat geheugenvorming onder die omstandigheden zeldzaam is. De anesthesioloog Gerald Woerlee heeft daar tegenover Van Lommel aan toegevoegd dat de aanname van een vlakke hersenstroom bij deze patienten niet gemeten is en dat het kunstgebitverhaal ook past bij kortstondig bewustzijn tijdens de reanimatie. Van Lommel bestrijdt dat, maar het geschil is met de beschikbare gegevens niet te beslechten.</p>
+      <p>De hoofdstukken over kwantumfysica, DNA, biofotonen en getransplanteerd geheugen liggen buiten Van Lommels vakgebied en steunen op auteurs die in hun eigen vakgebieden een randpositie innemen. Wie de eerste helft leest als een zorgvuldige cardioloog die een raadsel netjes beschrijft, en de tweede als een wereldbeeld dat daar overheen wordt gelegd, doet het boek waarschijnlijk het meeste recht. Dat het zichzelf in de ondertitel een wetenschappelijke visie noemt, maakt dat onderscheid voor de argeloze lezer moeilijker dan nodig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees hoofdstuk 7 over de Nederlandse studie apart van de rest; daar staan de cijfers waar alles op steunt.</li>
+        <li>Houd bij de latere hoofdstukken het onderscheid vast tussen wat gemeten is en wat wordt voorgesteld als verklaring.</li>
+        <li>De hoofdstukken over opvang na een reanimatie en over hersendood en orgaandonatie staan los van de metafysica en zijn ook zo te lezen.</li>
+        <li>Leg er een boek naast dat dezelfde verschijnselen vanuit de hersenen verklaart.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Eindeloos bewustzijn. Een wetenschappelijke visie op de bijna-dood ervaring</i>, Uitgeverij Ten Have, Kampen, 2007 (ISBN 9789025970000). De eerste zes drukken verschenen alle in november en december 2007, de zevende in 2008; het boek telt ruim 400 bladzijden, waarvan een kleine vijftig noten, bronnen en registers. Bij Ten Have verschenen later herdrukken en in 2017 een jubileumeditie met nieuw voorwoord (464 blz., ISBN 9789025906177). De Engelse vertaling van Laura Vroomen verscheen in 2010 bij HarperOne als <i>Consciousness Beyond Life. The Science of the Near-Death Experience</i>. Van Lommel publiceerde eerder, met Ruud van Wees, Vincent Meyers en Ingrid Elfferich, het onderzoek waar het boek op steunt in <i>The Lancet</i> van 15 december 2001.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pim van Lommel was cardioloog in het Rijnstate Ziekenhuis in Arnhem toen hij in 1986 systematisch aan gereanimeerde patienten begon te vragen wat zij zich van hun hartstilstand herinnerden. In twee jaar tijd hoorde hij twaalf verhalen van ruim vijftig aangesproken mensen. Daaruit groeide een prospectieve studie in tien Nederlandse ziekenhuizen, in 2001 gepubliceerd in <i>The Lancet</i>, en zes jaar later dit boek.</p><p>De eerste helft beschrijft wat een bijna-dood ervaring is, welke elementen erin voorkomen, hoe mensen erdoor veranderen en wat het Nederlandse onderzoek opleverde. Daarna loopt Van Lommel de gangbare verklaringen langs: zuurstoftekort, te veel kooldioxide, chemische reacties in de hersenen, elektrische activiteit, angst voor de dood, persoonlijkheidskenmerken, geboorteherinneringen, hallucinaties, dromen en medicijngebruik. Geen daarvan verklaart naar zijn oordeel waarom mensen een geordende, heldere ervaring melden op het moment dat hun hart stilstaat.</p><p>De tweede helft is een voorstel. Bewustzijn zit volgens Van Lommel niet in de hersenen maar is non-lokaal aanwezig; de hersenen ontvangen en beperken het, zoals een toestel een uitzending doorgeeft die ook zonder toestel bestaat. Hij zoekt de onderbouwing in de kwantumfysica en in de rol van DNA. Dat deel is van een andere orde dan het eerste en leverde hem zowel een groot lezerspubliek als scherpe tegenspraak uit de neurowetenschap op.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bijna-dood ervaring</li><li>bewustzijn</li><li>hartstilstand</li><li>cardiologie</li><li>non-lokaliteit</li><li>kwantumfysica</li><li>sterven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="585"><a href="585.html">Dying to Live</a>. Susan Blackmore behandelt in <i>Dying to Live</i> hetzelfde materiaal en komt tot de tegengestelde conclusie; wie Van Lommel serieus wil toetsen, leest dit ernaast.</li>
+          <li value="763"><a href="763.html">Consciousness and the Brain: Deciphering How the Brain Codes Our Thoughts</a>. Dehaene laat in <i>Consciousness and the Brain</i> zien hoeveel er inmiddels wel over de hersensignatuur van bewuste waarneming te meten valt, precies het terrein waarvan Van Lommel zegt dat het leeg blijft.</li>
+          <li value="1317"><a href="1317.html">Consciousness Explained</a>. Dennett verdedigt in <i>Consciousness Explained</i> de materialistische positie die Van Lommel als achterhaald presenteert.</li>
+          <li value="1167"><a href="1167.html">The Idea of the World: A Multi-Disciplinary Argument for the Mental Nature of Reality</a>. Kastrup bepleit in <i>The Idea of the World</i> een verwante omkering van geest en materie, maar dan filosofisch geargumenteerd in plaats van via kwantumfysica en DNA.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

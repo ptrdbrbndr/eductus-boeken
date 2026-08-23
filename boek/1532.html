@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Biggest Secret &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Icke stelt dat de wereldgeschiedenis niet het resultaat is van botsende belangen maar de uitvoering van een plan, en dat de planners een handvol onderling…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1532">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1532 &middot; Vrij denken en manipulatie</p>
+    <h1>The Biggest Secret</h1>
+    <p class="lede">David Icke, 1999</p>
+    <p class="stats">
+      <span><b>1829</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1532"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Icke stelt dat de wereldgeschiedenis niet het resultaat is van botsende belangen maar de uitvoering van een plan, en dat de planners een handvol onderling verwante bloedlijnen zijn die afstammen van een reptielachtig ras uit het sterrenbeeld Draco. Alles wat mensen als afzonderlijke instituties kennen, kerk, koningshuis, centrale bank, geheime dienst, pers en geheim genootschap, is volgens hem één apparaat met één eigenaar. De these is zo ruim dat zij elk feit kan opnemen: past een gebeurtenis in het plan, dan is zij bewijs; past zij niet, dan is zij afleiding. Daarmee komt het boek in een positie waarin er geen waarneming denkbaar is die het ongelijk zou geven, en dat is precies wat er tegenover te zetten valt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt</h3>
+      <p>Icke opent met de stelling dat de mensheid haar eigen geschiedenis niet kent. Zijn vertrekpunt is het werk van Zecharia Sitchin, die de Soemerische kleitabletten las als verslag van een buitenaards ras, de Anunnaki, dat de mens zou hebben gemaakt als arbeidskracht. Het eerste hoofdstuk zet die lezing neer als vaststaand en bouwt daarop verder.</p>
+      <p>Vanaf dat punt loopt het boek chronologisch. Icke gaat ervan uit dat het lezerspubliek zijn eerdere boeken kent en dat de vraag niet meer is of er een netwerk bestaat, maar wie het bestuurt. Het antwoord dat hij in 1999 toevoegde aan zijn eerdere werk is de reptielachtige afkomst van dat netwerk.</p>
+      <h3>De reptielen en hun herkomst</h3>
+      <p>In het tweede en derde hoofdstuk voert Icke de reptielachtigen op als een interdimensionaal ras uit Draco dat zich met mensen heeft vermengd en dat in grotten en gangenstelsels onder de aarde zou leven. Hij verzamelt slangen- en drakenmotieven uit uiteenlopende mythologieën en leest die als herinnering aan werkelijke wezens in plaats van als beeldspraak.</p>
+      <p>Een belangrijke bron is de Zuid-Afrikaanse sanusi Credo Mutwa, die Icke in die periode ontmoette en die de reptielachtigen aanduidde met het Zoeloewoord Chitauri. Icke gebruikt die overeenkomst tussen ver uiteenliggende overleveringen als aanwijzing dat het om een historisch feit gaat en niet om een terugkerend menselijk motief.</p>
+      <h3>De bloedlijnen door de geschiedenis</h3>
+      <p>Het middendeel is de eigenlijke kern. Icke volgt wat hij de Babylonische Broederschap noemt van Sumer en Babylon naar de Fenicische zeehandel, de Venetiaanse Zwarte Adel, de Europese vorstenhuizen en vandaar naar de Windsors, de Rothschilds, de Rockefellers en de Bushes. Genealogie is zijn voornaamste instrument: wie met wie verwant is, telt in dit boek als verklaring.</p>
+      <p>In de hoofdstukken over godsdienst betoogt hij dat christendom, jodendom en islam alle teruggaan op eenzelfde zonnecultus en door de Broederschap zijn opgezet om mensen aan een gezag buiten zichzelf te binden. Het hoofdstuk over Groot-Brittannië en dat over de Verenigde Staten passen dezelfde redenering toe op het ontstaan van beide staten.</p>
+      <h3>Geld, netwerk en macht</h3>
+      <p>Icke wijdt een hoofdstuk aan geldschepping uit het niets en aan de rol van particuliere banken bij staatsschuld. Dat deel leunt op een oudere Amerikaanse complotliteratuur over de Federal Reserve en verbindt die met zijn bloedlijnen: de bankiersfamilies zijn in zijn lezing dezelfde families.</p>
+      <p>Daarna beschrijft hij het netwerk zoals het volgens hem in de late jaren negentig werkte: de Bilderbergconferentie, de Trilaterale Commissie, de Council on Foreign Relations, vrijmetselarij en inlichtingendiensten. Bestaande organisaties met een reële geschiedenis worden hier als schakels in één keten gepresenteerd.</p>
+      <h3>Ritueel, misbruik en de twee getuigen</h3>
+      <p>In de hoofdstukken over satanisme en verdwenen kinderen sluit Icke aan bij de golf van beschuldigingen over rituele kindermishandeling die in de jaren tachtig en negentig door Noord-Amerika en Europa trok. Hij behandelt die beschuldigingen als bevestigd en verbindt ze met de bloedlijnen: het bloed zou de reptielachtige vorm in stand houden.</p>
+      <p>Twee met naam genoemde vrouwen dragen dit deel. Christine Fitzgerald wordt opgevoerd als vertrouwelinge en genezeres van prinses Diana en zou van haar hebben gehoord dat de Windsors geen mensen zijn. Arizona Wilder verklaart dat zij als geprogrammeerde priesteres rituelen leidde waarbij zij hooggeplaatsten van gedaante zag veranderen. Wilder heeft haar verklaringen later grotendeels ingetrokken en gezegd dat zij tot dat verhaal was gebracht.</p>
+      <p>Het hoofdstuk over Diana leest haar dood in de Pont de l'Alma-tunnel als rituele moord, mede omdat de plaatsnaam naar de godin Diana zou verwijzen. Naamsovereenkomst en symboolduiding nemen hier de plaats in van bewijsvoering.</p>
+      <h3>De betovering en het verbreken ervan</h3>
+      <p>De laatste twee hoofdstukken keren zich naar binnen. Icke stelt dat de greep van de Broederschap niet in de eerste plaats militair of financieel is maar berust op angst, en dat mensen door hun eigen angst in een beperkte waarneming vastzitten. Symboliek, ritueel en massamedia houden die toestand volgens hem in stand.</p>
+      <p>De uitweg die hij aanbiedt is niet politiek. Zij bestaat uit het loslaten van angst, het weigeren van gehoorzaamheid en het herkennen van de eigen oneindige aard. Daarmee eindigt een boek dat bijna vijfhonderd bladzijden lang over macht ging, in de taal van de New Age-beweging.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Babylonische Broederschap</td><td>Icke's naam voor het netwerk van onderling verwante families dat volgens hem sinds Sumer en Babylon de macht in handen heeft.</td></tr>
+          <tr><td class="term">Anunnaki</td><td>In navolging van Zecharia Sitchin de buitenaardse wezens uit de Soemerische teksten, die volgens Icke de mens hebben gemaakt en gekruist.</td></tr>
+          <tr><td class="term">Draco</td><td>Het sterrenbeeld waaruit het reptielachtige ras volgens Icke afkomstig is.</td></tr>
+          <tr><td class="term">Chitauri</td><td>Het woord dat Credo Mutwa gebruikte voor de reptielachtigen; Icke voert die term op als onafhankelijke bevestiging uit een andere overlevering.</td></tr>
+          <tr><td class="term">Gedaanteverandering</td><td>Het vermogen van de bloedlijnen om tussen menselijke en reptielachtige vorm te wisselen, in het boek gestaafd met ooggetuigenverklaringen.</td></tr>
+          <tr><td class="term">Zwarte Adel</td><td>De Venetiaanse handelsfamilies die in Icke's lezing de schakel vormen tussen de oude elites van het Nabije Oosten en de Europese vorstenhuizen.</td></tr>
+          <tr><td class="term">Zonnecultus</td><td>De gemeenschappelijke oorsprong die Icke aan jodendom, christendom en islam toeschrijft, waarmee hij alle drie tot bedenksels van de Broederschap verklaart.</td></tr>
+          <tr><td class="term">De geheime taal</td><td>Icke's stelling dat symbolen, getallen en plaatsnamen een code vormen waarin ingewijden elkaar boodschappen doorgeven.</td></tr>
+          <tr><td class="term">Bloedlijn</td><td>De genealogische afstamming die in dit boek de rol van verklaring speelt: verwantschap geldt als bewijs van samenspanning.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek heeft een literatuurlijst van vier bladzijden en een register, en Icke verwijst voortdurend naar bronnen. Bij nalezen blijkt die verwijzing meestal naar andere complot- en alternatieve-geschiedenisliteratuur te leiden, niet naar archiefmateriaal of vakliteratuur. De keten loopt van boek naar boek en niet naar een controleerbaar document.</p>
+      <p>De fundering onder het geheel is het werk van Zecharia Sitchin. Diens vertalingen van Soemerische teksten worden door assyriologen niet aanvaard: de woorden waarop zijn buitenaardse lezing steunt betekenen in het vak iets anders. Wie dat fundament wegneemt, houdt van het eerste hoofdstuk niets over.</p>
+      <p>Waar het om de kernbewering gaat, gedaanteverandering, rust het boek op twee met naam genoemde getuigen zonder bevestiging van derden. Arizona Wilder heeft haar verklaringen later grotendeels ingetrokken. De mededelingen die aan Christine Fitzgerald worden toegeschreven zijn niet te toetsen, omdat de persoon van wie zij ze zou hebben gehoord was overleden.</p>
+      <p>De genealogische passages bevatten wel juiste gegevens: Europese vorstenhuizen zijn inderdaad sterk verweven en de families die Icke noemt hebben werkelijk grote invloed gehad. De sprong zit in de gevolgtrekking. Verwantschap en gedeeld belang tonen aan dat elites elkaar kennen; zij tonen geen gecoördineerd plan van duizenden jaren aan, en het boek levert geen enkel stuk dat zo'n plan zichtbaar maakt.</p>
+      <p>Er staat geen bewering in die weerlegd zou kunnen worden. Een gebeurtenis die het plan bevestigt is bewijs; een gebeurtenis die het tegenspreekt is misleiding door dezelfde macht. Een verhaal dat zo is ingericht kan geen ongelijk krijgen, en daarmee vertelt het ook niets over de wereld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is de antisemitische lezing die aan dit werk is toegeschreven. Icke onderschreef in <i>The Robots' Rebellion</i> (1994) en <i>And the Truth Shall Set You Free</i> (1995) de Protocollen van de wijzen van Sion, een vervalsing uit het begin van de twintigste eeuw. Zijn uitgever Gateway weigerde daarna verder werk, waarna hij in eigen beheer ging uitgeven; ook <i>The Biggest Secret</i> verscheen zo.</p>
+      <p>De godsdiensthistoricus Michael Barkun noemt in <i>A Culture of Conspiracy</i> (2003) Icke's gebruik van de Protocollen het eerste van een reeks momenten waarop hij antisemitisch terrein betreedt. De Anti-Defamation League en onderzoeksgroepen als Political Research Associates wijzen op de vaste plaats die de Rothschilds in zijn werk innemen en op de formule Rothschild-zionisten die hij later ging hanteren.</p>
+      <p>Icke ontkent antisemitisme en stelt dat zijn reptielachtigen geen versluierde aanduiding van joden zijn maar een letterlijke bewering over buitenaardse wezens. Wat de ontkenning moeilijk toetsbaar maakt is de bouw van het verhaal: op de plaats waar de Protocollen joden aanwijzen staan bij Icke de Illuminati of de reptielachtigen, terwijl de rest van het schema, de eeuwenoude samenzwering, de greep op het bankwezen en op de pers, hetzelfde blijft. Daarbij komt dat hij de Rothschilds bij naam noemt en het jodendom behandelt als een door de Broederschap opgezette zonnecultus.</p>
+      <p>De Nederlandse staatssecretaris van Justitie en Veiligheid ontzegde Icke in november 2022 de toegang tot Nederland en de overige Schengenlanden voor twee jaar, kort voor een bijeenkomst in Amsterdam waar hij zou spreken. De minister verlengde dat verbod in oktober 2024 met opnieuw twee jaar, onder meer omdat hij naar het oordeel van de bewindspersoon antisemitische uitspraken bleef doen.</p>
+      <p>Los daarvan staat het bezwaar tegen de hoofdstukken over rituele kindermishandeling. Die volgen de beschuldigingsgolf van de jaren tachtig en negentig, waarvan het merendeel bij politieonderzoek en in rechtszaken geen stand hield en waarvan de verklaringen vaak onder suggestieve ondervraging tot stand kwamen. Icke behandelt dat materiaal als vaststaand.</p>
+      <p>Wat het boek in stand houdt is niet zijn bewijsvoering maar zijn verklaringskracht in psychologische zin: het geeft aan diffuse machteloosheid een gezicht en een naam. Dat verklaart de oplage, en ook waarom weerlegging van losse onderdelen aan de aantrekkelijkheid van het geheel weinig verandert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Neem een willekeurige bewering uit het boek en volg de verwijzing naar haar bron; noteer hoeveel stappen het kost voordat de keten in een ander complotboek eindigt of doodloopt.</li>
+        <li>Leg Sitchins vertaling van de Soemerische termen naast een standaardwoordenboek van het Akkadisch of Soemerisch en kijk wat er van het eerste hoofdstuk overblijft.</li>
+        <li>Let op waar een heel hoofdstuk op één getuige rust en zoek uit of die getuige later iets heeft herroepen.</li>
+        <li>Vergelijk het schema van het boek met de opbouw van de Protocollen van de wijzen van Sion en noteer waar de namen zijn vervangen en waar het schema gelijk is gebleven.</li>
+        <li>Lees er een studie naast die complotdenken als verschijnsel behandelt, bijvoorbeeld die van Barkun, zodat de vraag verschuift van of het waar is naar waarom dit soort verhalen werkt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Biggest Secret: The Book That Will Change the World</i>, in eigen beheer uitgegeven bij Bridge of Love Publications (Scottsdale, Arizona, 1999), xvii + 517 blz., met literatuurlijst en register, ISBN 9780952614760. Het boek werd tussen 1999 en 2006 zes keer herdrukt; enkele maanden na verschijnen waren er dertigduizend exemplaren gedrukt. Een Nederlandse vertaling bestaat niet. Van Icke verscheen wel <i>Het fantoomzelf</i>, de vertaling van <i>Phantom Self</i> (2016), als eerste Nederlandstalige uitgave van zijn werk.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Icke betoogt dat de aarde al duizenden jaren wordt bestuurd door een klein aantal onderling verwante families die afstammen van een reptielachtig ras. Hij noemt dat netwerk de Babylonische Broederschap en volgt het van Sumer en Babylon via de Fenicische zeehandel en de Venetiaanse Zwarte Adel naar de Windsors, de Rothschilds en de Rockefellers.</p><p>Het boek stelt dat godsdienst, geldschepping, media en geheime genootschappen alle door datzelfde netwerk zijn opgezet om de mensheid onwetend te houden. Oorlogen, revoluties en instituties als de Verenigde Naties zijn in deze lezing geen uitkomst van botsende belangen maar uitvoering van een plan.</p><p>In de laatste hoofdstukken voert Icke twee met naam genoemde getuigen op, Christine Fitzgerald en Arizona Wilder, die bloedrituelen en gedaanteverandering bij hooggeplaatste personen zouden hebben gezien. Hij sluit af met de stelling dat de greep berust op angst en verdwijnt zodra mensen die angst loslaten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>complottheorie</li><li>reptielen</li><li>Illuminati</li><li>bloedlijnen</li><li>antisemitisme</li><li>New Age</li><li>David Icke</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan behandelt in <i>The Demon-Haunted World</i> precies de vraag hoe een bewering te toetsen valt, en levert daarmee het gereedschap waarmee Icke's redeneringen uit elkaar vallen.</li>
+          <li value="680"><a href="680.html">None Dare Call It Conspiracy</a>. Gary Allen schreef in 1971 het Amerikaanse complotboek over bankiers en wereldregering waarop Icke's hoofdstukken over geld en netwerk rechtstreeks voortbouwen.</li>
+          <li value="925"><a href="925.html">Cosmic Trigger I: Final Secret of the Illuminati</a>. Robert Anton Wilson bespeelt hetzelfde materiaal aan Illuminati-verhalen, maar met de uitdrukkelijke bedoeling dat de lezer er niet in gelooft; het verschil in houding is leerzaam.</li>
+          <li value="676"><a href="676.html">Saucers of the Illuminati</a>. Jim Keith bracht in hetzelfde jaar 1999 ufo-lore en Illuminati-lore bijeen; naast Icke laat dat zien hoe deze motieven in dezelfde periode circuleerden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

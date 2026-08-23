@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Light Bringer &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De tekst stelt dat de mensheid een tijdperk binnengaat waarin de geestelijke leiding niet meer bij één leraar of één instelling ligt maar bij het vermogen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1537">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1537 &middot; Filosofie en mystiek</p>
+    <h1>The Light Bringer</h1>
+    <p class="lede">White Eagle, via het medium Grace Cooke, 2001; vert. Abbie Doeven</p>
+    <p class="stats">
+      <span><b>1396</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1537"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De tekst stelt dat de mensheid een tijdperk binnengaat waarin de geestelijke leiding niet meer bij één leraar of één instelling ligt maar bij het vermogen van ieder mens om met het hart te denken. Die straal, aangeduid met de naam van de evangelist Johannes, staat voor liefde en wijsheid samen, en het aardse tegendeel ervan is het verstandelijke denken dat volgens White Eagle de vorige eeuwen heeft beheerst. De redenering loopt van daaruit naar een gerustheid: de omwentelingen in de wereld zijn onderdeel van een plan, en wie de intuïtie ontwikkelt kan ze zonder angst gadeslaan. Daarmee is de vraag gesteld die het boek zelf niet stelt, namelijk hoe iemand het verschil bepaalt tussen intuïtie en wat hij graag wil geloven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst van de tekst</h3>
+      <p>Het boek is geen betoog maar een verzameling toespraken en doorgekregen teksten, toegeschreven aan White Eagle. Grace Cooke gold in de Engelse spiritualistische wereld van het interbellum als medium; haar werk kreeg bekendheid door de belangstelling van Arthur Conan Doyle en zijn kring voor het spiritualisme.</p>
+      <p>De toon is die van een spreker tot een zaal: aansprekend, herhalend, zonder verwijzingen en zonder tegenspraak. Wie de vorm van het genre niet kent, moet weten dat er geen argumentatie in de gebruikelijke zin wordt aangeboden. De tekst stelt vast en geeft beelden.</p>
+      <h3>De straal van Johannes</h3>
+      <p>De kerngedachte is dat de geestelijke ontwikkeling van de mensheid verloopt langs opeenvolgende stralen, en dat de komende straal die van Johannes is. Johannes staat in dit stelsel niet voor leerstelligheid maar voor de leerling die het dichtst bij het hart van de leraar zat, en daarmee voor kennis die door liefde wordt verkregen in plaats van door redenering.</p>
+      <p>Het boek wordt door de uitgever gepresenteerd als aanvulling op <i>The Living Word of St John</i>, waarin dezelfde bron het vierde evangelie behandelt. De Openbaring wordt hier niet als voorspelling van een rampzalig einde gelezen maar als beschrijving van een innerlijke gang.</p>
+      <h3>Het Watermantijdperk</h3>
+      <p>De tijdrekening in het boek is astrologisch: de mensheid verlaat het tijdperk van de Vissen en gaat het tijdperk van de Waterman binnen. Aan dat tijdperk worden eigenschappen toegekend, waaronder broederschap, gelijkheid en het wegvallen van tussenpersonen tussen mens en God.</p>
+      <p>De vraag naar een nieuwe wereldleraar wordt uitdrukkelijk behandeld. Het antwoord luidt dat het licht door elk menselijk voertuig kan schijnen, wat neerkomt op een afwijzing van de verwachting van één komende figuur. Dat is opmerkelijk binnen de theosofische traditie waar de Lodge uit voortkomt, want die verwachting speelde daar decennialang een hoofdrol.</p>
+      <h3>Denken met het hart</h3>
+      <p>De praktische kern van het boek is de oefening die het denken met het hart noemt. Intuïtie wordt niet voorgesteld als ingeving die overkomt maar als vermogen dat zich laat scholen, door meditatie, door stilte en door het richten van de aandacht op het beeld van de zespuntige ster dat de Lodge als teken gebruikt.</p>
+      <p>Daarbij hoort een leefwijze. De Lodge onderwijst genezing op afstand, meditatie en vegetarisme, en spreekt van God als Vader en Moeder. Het vrouwelijke beginsel, het Moederprincipe, staat in dit boek voor liefde en wijsheid in de ziel.</p>
+      <h3>Kalmte bij wereldgebeurtenissen</h3>
+      <p>Het slot van het boek keert terug naar de gemoedstoestand die de lezer wordt aangereikt. Wie het plan vertrouwt, kan de veranderingen in de wereld zonder ontsteltenis volgen, omdat ze in deze lezing bij de overgang horen. De nieuwe hemel en de nieuwe aarde vormen zich zowel stoffelijk als geestelijk.</p>
+      <p>Karma en wedergeboorte worden daarbij verondersteld. Zij verklaren waarom lijden geen willekeur is en waarom er geen haast geboden is: wat in dit leven niet af komt, gaat mee naar het volgende.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">White Eagle</td><td>De naam van de geest die Grace Cooke naar eigen zeggen doorkreeg en aan wie de Lodge al haar boeken toeschrijft.</td></tr>
+          <tr><td class="term">De straal van Johannes</td><td>De geestelijke stroming die volgens de tekst het komende tijdperk kleurt en die staat voor kennis verkregen langs de weg van liefde.</td></tr>
+          <tr><td class="term">Het Watermantijdperk</td><td>De astrologische periode die volgens het boek die van de Vissen opvolgt en waarin tussenpersonen tussen mens en God overbodig worden.</td></tr>
+          <tr><td class="term">Denken met het hart</td><td>De aanduiding voor het scholen van de intuïtie, waarbij het gevoel en niet de redenering het uitgangspunt van kennis is.</td></tr>
+          <tr><td class="term">Het Moederprincipe</td><td>Het vrouwelijke beginsel in de ziel, in het boek gelijkgesteld aan liefde en wijsheid, en gesteld naast God als Vader.</td></tr>
+          <tr><td class="term">De zespuntige ster</td><td>Het teken van de White Eagle Lodge, gebruikt als voorstelling bij meditatie en bij genezing op afstand.</td></tr>
+          <tr><td class="term">De nieuwe hemel en de nieuwe aarde</td><td>De beelden uit de Openbaring van Johannes, in dit boek gelezen als beschrijving van een verandering die zich nu voltrekt, binnen de mens en daarbuiten.</td></tr>
+          <tr><td class="term">Genezing op afstand</td><td>De praktijk waarbij leden van de Lodge op vaste tijden gericht denken aan zieken die zij niet ontmoeten, een van de vaste bezigheden van de organisatie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Voor de inhoud van dit boek bestaat geen bewijs in de gebruikelijke zin, en de tekst doet ook geen poging het te leveren. De herkomst is een mediumschap: Grace Cooke sprak in trance en de Lodge legde de teksten vast. Wie de bron aanvaardt, aanvaardt daarmee het gezag; wie dat niet doet, houdt een verzameling uitspraken over waarvoor geen andere grond wordt aangedragen dan dat zij zo zijn doorgekomen.</p>
+      <p>Wat wel na te gaan valt, is de organisatie. De White Eagle Lodge werd in 1936 opgericht, heeft haar hoofdzetel in Liss in Hampshire, opende in de jaren vijftig vestigingen in de Verenigde Staten en bouwde in 1987 een centrum in Texas. De uitgeverij bestaat en de boeken zijn in meerdere talen verspreid. Dat maakt de beweging tot een historisch verschijnsel dat te beschrijven is, los van de vraag of White Eagle bestaat.</p>
+      <p>Het astrologische raamwerk waar het boek op leunt is toetsbaar en wordt door de sterrenkunde niet gedragen. De overgang van het tijdperk van de Vissen naar dat van de Waterman berust op de precessie van de aardas, een verschijnsel dat bestaat, maar de toekenning van eigenschappen aan tijdvakken op grond daarvan is een uitleg zonder waarneembare grond. Voor genezing op afstand geldt hetzelfde: het herhaalde onderzoek naar voorbedegenezing heeft geen effect laten zien dat van toeval te onderscheiden is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de bron. Een tekst die zijn gezag ontleent aan een geest die alleen via één medium spreekt, kan door niemand worden tegengesproken, ook niet door aanhangers. Er is geen manier om vast te stellen of White Eagle iets anders is dan het schrijverschap van Grace Cooke, en de Lodge draagt daarvoor ook geen toets aan.</p>
+      <p>De inhoud is bovendien geruststellend op een manier die vragen oproept. Alles wat in de wereld misgaat, hoort bij de overgang en heeft een plaats in het plan. Wie dat aanneemt, heeft weinig aanleiding om ergens tegen op te treden. Het boek zegt zelf dat de lezer de veranderingen met rust kan aanzien, en dat is een houding die bij onrecht ongemakkelijk uitpakt.</p>
+      <p>Het beroep op de intuïtie mist een tegenwicht. De tekst reikt geen manier aan om onderscheid te maken tussen een ingeving die klopt en een gedachte die iemand graag gelooft. In een stelsel waarin het hart boven het verstand wordt gesteld, is dat onderscheid juist de zwakke plek, en het blijft onbesproken.</p>
+      <p>Ten slotte is er de verhouding tot de theosofie. De Lodge staat in die traditie en deelt haar leer over karma, wedergeboorte en geestelijke hiërarchieën, maar het boek plaatst zichzelf nergens in dat verband en noemt geen voorgangers. Wie de geschiedenis van de beweging niet kent, mist daardoor dat vrijwel elk begrip in dit boek al bij Blavatsky en haar opvolgers in omloop was.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als document van een religieuze beweging uit het interbellum; als beschrijving van de wereld houdt het geen stand.</li>
+        <li>Scheid de meditatieoefeningen van de leerstellingen; de eerste zijn te beproeven, de tweede niet.</li>
+        <li>Ga bij elke uitspraak over het Watermantijdperk na wat er precies wordt beweerd; meestal blijkt er niets te voorspellen.</li>
+        <li>Wie het onderwerp verder wil volgen, begint bij de geschiedenis van het Engelse spiritualisme en de Theosofische Vereniging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Light Bringer: The Ray of John and the Age of Intuition</i> (The White Eagle Publishing Trust, Liss, Hampshire, 2001, 176 blz., ISBN 9780854871162; latere druk ISBN 9780854872381). Nederlands als <i>De lichtbrenger: de straal van Johannes en het tijdperk van de intuïtie</i>, vertaald door Abbie Doeven, Ankh-Hermes, Deventer, 2002 (234 blz., ISBN 9020213849); een nieuwe Nederlandse uitgave verscheen in 2021 (184 blz., ISBN 9789493226357). De uitgever noemt geen samensteller en schrijft de tekst geheel toe aan White Eagle; het boek wordt aangeboden als tegenhanger van <i>The Living Word of St John</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>White Eagle is de naam van de geest die Grace Cooke naar eigen zeggen vanaf de jaren twintig doorkreeg. Zij richtte in 1936 met haar man Ivan de White Eagle Lodge op, een organisatie die door godsdienstwetenschappers wordt gerekend tot de nieuwe religieuze bewegingen en die haar teksten sindsdien in eigen beheer uitgeeft.</p><p>Dit boek gaat over wat de Lodge de straal van Johannes noemt: een geestelijke stroming die volgens de tekst hoort bij het Watermantijdperk en die staat voor liefde, wijsheid en intuïtie. De visioenen uit de Openbaring van Johannes worden gelezen als beschrijving van een nieuwe hemel en een nieuwe aarde die zich in deze tijd aan het vormen zouden zijn.</p><p>De vraag of er een nieuwe wereldleraar komt, wordt in het boek ontkennend beantwoord in de gebruikelijke zin. Het licht kan volgens White Eagle door elk mens heen schijnen; de opdracht die de tekst formuleert is denken met het hart, zodat de intuïtie zich ontwikkelt en de lezer de omwentelingen in de wereld met rust kan aanzien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>channeling</li><li>spiritualisme</li><li>Watermantijdperk</li><li>intuïtie</li><li>White Eagle Lodge</li><li>Johannes</li><li>esoterie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="606"><a href="606.html">Esoteric Christianity</a>. Besant levert de theosofische leer waar de begrippen van dit boek uit voortkomen, inclusief de verwachting van een komende wereldleraar die White Eagle hier juist afwijst.</li>
+          <li value="679"><a href="679.html">Earth: Pleiadian Keys to the Living Library</a>. Marciniak schrijft in dezelfde vorm, met een boodschap uit een niet-menselijke bron over een aanstaande verandering van de aarde.</li>
+          <li value="754"><a href="754.html">Mystiek</a>. Underhill onderzoekt mystiek als verschijnsel dat te beschrijven en te vergelijken valt, en biedt daarmee de maatstaf die dit boek zelf niet aanlegt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

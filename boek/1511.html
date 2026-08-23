@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I'm OK, You're OK &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Harris stelt dat het gedrag van volwassenen wordt bepaald door beslissingen die zij als klein kind hebben genomen en nooit hebben herzien. Zijn redenering…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1511">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1511 &middot; Gewoontes en denken</p>
+    <h1>I'm OK, You're OK</h1>
+    <p class="lede">Thomas A. Harris, 1967</p>
+    <p class="stats">
+      <span><b>1670</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1511"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Harris stelt dat het gedrag van volwassenen wordt bepaald door beslissingen die zij als klein kind hebben genomen en nooit hebben herzien. Zijn redenering rust op twee dingen. Het eerste is Berne's model van drie ego-toestanden: de Ouder met de overgenomen regels, het Kind met de opgeslagen gevoelens, en de Volwassene die in het heden gegevens verwerkt. Het tweede is zijn eigen toevoeging, dat elk kind door zijn afhankelijkheid en kleinheid tot de slotsom komt dat het niet oké is terwijl de anderen dat wel zijn. Die positie stuurt de rest van een leven, en er groeit niemand vanzelf uit. Alleen een bewuste, in woorden genomen beslissing voor de vierde positie, ik ben oké en jij bent oké, geeft de Volwassene de leiding. Daarmee legt Harris de sleutelbeslissing van een mensenleven in een handeling die niet meetbaar is en die hij vooral vanuit zijn spreekkamer beschrijft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De hersenen als bandrecorder</h3>
+      <p>Het boek begint met het werk van de neurochirurg Wilder Penfield, die bij patienten met slaapkwabepilepsie tijdens operaties de hersenschors elektrisch prikkelde. Sommige patienten meldden daarbij dat zij een gebeurtenis uit hun verleden opnieuw beleefden, met het gevoel dat er destijds bij hoorde.</p>
+      <p>Harris leest dat als bewijs dat ervaringen volledig worden vastgelegd, inclusief de emotie, en dat die opnamen levenslang afspeelbaar blijven. Op die aanname staat de rest van het boek: de Ouder en het Kind zijn in zijn beschrijving letterlijk opnamen uit de eerste levensjaren.</p>
+      <h3>Ouder, Volwassene, Kind</h3>
+      <p>De Ouder bevat wat het kind aan regels, waarschuwingen en oordelen van zijn verzorgers heeft opgenomen, ongetoetst en in hun bewoordingen. Het Kind bevat de gevoelens die het bij die gebeurtenissen had, vooral de gevoelens van kleinheid en afhankelijkheid. De Volwassene ontstaat vanaf ongeveer het tiende levensmaand en verwerkt gegevens uit het heden.</p>
+      <p>De taak van de Volwassene is volgens Harris niet het uitschakelen van de andere twee, maar het toetsen ervan: klopt wat de Ouder zegt nog, en past wat het Kind voelt bij wat er nu gebeurt. Onder spanning raakt de Volwassene vertroebeld en nemen de opnamen het over, en dat is wat mensen doen wanneer zij zich naderhand afvragen waarom zij zo reageerden.</p>
+      <h3>De vier levensposities</h3>
+      <p>Harris beschrijft vier grondhoudingen. Ik ben niet oké, jij bent oké is de positie van vrijwel ieder kind, en zij zet mensen aan tot het zoeken van bevestiging bij anderen. Ik ben niet oké, jij bent niet oké ontstaat volgens hem bij kinderen die ook de aandacht van de verzorgers verliezen en leidt tot opgeven. Ik ben oké, jij bent niet oké ziet hij bij kinderen die zijn mishandeld en die zichzelf leren troosten; hij verbindt die positie met mensen die geen schuld kunnen erkennen.</p>
+      <p>De vierde, ik ben oké en jij bent oké, is bij hem van een andere soort. De eerste drie worden zonder woorden en voor het derde levensjaar vastgelegd; de vierde is een beslissing die met woorden en met kennis genomen wordt. Dat verschil is het scharnier van het boek en tegelijk het punt waarop Berne het met hem oneens was.</p>
+      <h3>Transacties, strelingen en spelen</h3>
+      <p>Van Berne neemt Harris de analyse van transacties over: elke uitwisseling tussen twee mensen gaat uit van een ego-toestand en richt zich op een ego-toestand. Loopt dat parallel, dan kan het gesprek doorgaan; kruist het, dan valt het stil of ontspoort het. Het schoolvoorbeeld is een vraag van Volwassene aan Volwassene die met een verwijt van Ouder aan Kind wordt beantwoord.</p>
+      <p>Daarbij hoort het begrip streling, de aandacht die mensen bij elkaar zoeken en die zij desnoods in negatieve vorm nemen. Spelen zijn vaste reeksen transacties die eindigen in een bekend en onaangenaam gevoel, en die volgens Harris in stand blijven omdat zij de oude positie bevestigen.</p>
+      <h3>Toepassing op het gewone leven</h3>
+      <p>De tweede helft van het boek zet het model in bij huwelijk, opvoeding en adolescentie. Harris behandelt echtelijke ruzies als kruisende transacties, en het opvoeden van een puber als de vraag welke ego-toestand een ouder aanspreekt. Zijn advies is telkens hetzelfde: haal de Volwassene erbij, benoem wat er gebeurt en beslis.</p>
+      <p>De praktische waarde daarvan is dat het gedrag benoembaar wordt zonder dat iemand zich hoeft te verdedigen. Dat is ook de reden waarom de transactionele analyse in bedrijven en opleidingen zo veel is gebruikt.</p>
+      <h3>Moraal, godsdienst en de wereld</h3>
+      <p>In de laatste hoofdstukken breidt Harris zijn model uit naar moraal, godsdienst en de politiek van zijn tijd, met de koude oorlog en Vietnam als voorbeelden. Landen en groepen gedragen zich in zijn beschrijving als mensen met een levenspositie, en wapenwedlopen worden spelen op grote schaal.</p>
+      <p>Deze hoofdstukken zijn het meest gedateerd en het minst onderbouwd. Ze verklaren wel waarom het boek in 1972 zo aansloeg: het bood een vocabulaire waarmee huiselijke ruzies en wereldpolitiek in dezelfde termen te bespreken waren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ego-toestand</td><td>Een samenhangend geheel van gedrag, denken en voelen dat op een gegeven moment de leiding heeft; Harris onderscheidt er drie.</td></tr>
+          <tr><td class="term">Ouder</td><td>De opgeslagen regels en oordelen van de verzorgers, overgenomen zonder toetsing en in hun eigen bewoordingen.</td></tr>
+          <tr><td class="term">Volwassene</td><td>Het deel dat gegevens uit het heden verwerkt, de Ouder toetst en het Kind plaatst; volgens Harris al vanaf het eerste levensjaar in ontwikkeling.</td></tr>
+          <tr><td class="term">Kind</td><td>De opgeslagen gevoelens uit de eerste jaren, vooral die van kleinheid en afhankelijkheid tegenover grote mensen.</td></tr>
+          <tr><td class="term">Ik ben niet oké, jij bent oké</td><td>De eerste levenspositie, die volgens Harris vrijwel ieder kind inneemt en die zonder woorden wordt vastgelegd.</td></tr>
+          <tr><td class="term">Ik ben oké, jij bent oké</td><td>De vierde positie, bij Harris geen gevoel maar een bewuste beslissing die met kennis en woorden genomen wordt.</td></tr>
+          <tr><td class="term">Transactie</td><td>Een uitwisseling tussen twee mensen, beschreven naar de ego-toestand waarvandaan zij vertrekt en die zij aanspreekt.</td></tr>
+          <tr><td class="term">Kruisende transactie</td><td>Een uitwisseling waarbij het antwoord uit een andere ego-toestand komt dan werd aangesproken, waarop het gesprek stilvalt.</td></tr>
+          <tr><td class="term">Streling</td><td>De aandacht die mensen bij elkaar zoeken; blijft die uit, dan nemen zij haar volgens Harris ook in negatieve vorm.</td></tr>
+          <tr><td class="term">Spel</td><td>Een vaste reeks transacties die op een bekend onaangenaam gevoel uitloopt en die de oude levenspositie bevestigt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op drie dingen: het werk van Penfield, de theorie van Berne, en de eigen praktijk van Harris als psychiater. Van de drie is alleen de eerste een verwijzing naar onderzoek, en juist die verwijzing draagt de zwaarste last. Penfields waarnemingen zijn echt gedaan, maar de zogeheten ervaringsreacties traden op bij een minderheid van de geprikkelde patienten, allen met slaapkwabepilepsie, en het resultaat is niet zonder meer herhaalbaar gebleken.</p>
+      <p>De sprong van die waarnemingen naar het beeld van de hersenen als bandrecorder maakt Harris zelf, en die sprong houdt geen stand. Wat er in het geheugenonderzoek sinds de jaren zestig is gevonden, wijst op herinneren als reconstructie en niet als het afspelen van een opname. Daarmee valt de fysiologische onderbouwing van de Ouder en het Kind als letterlijke opnamen weg, terwijl het model als beschrijving overeind kan blijven.</p>
+      <p>Er staan in het boek geen effectmetingen, geen controlegroepen en geen verwijzingen naar uitkomstonderzoek. Wat Harris aanvoert zijn gesprekken uit zijn spreekkamer en uit de groepen die hij begeleidde. De kracht van het materiaal zit in de herkenbaarheid van de dialogen; de zwakte is dat er geen enkele manier is om na te gaan hoe vaak het werkte en bij wie niet.</p>
+      <p>De vier levensposities zijn evenmin gemeten. Er is geen instrument om vast te stellen in welke positie iemand zit, en er is geen criterium waaraan een indeling getoetst kan worden. Zij zijn een typologie die zichzelf onderbouwt: wie zich niet in de vierde positie herkent, zit blijkbaar in een van de andere drie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de fundering. Harris bouwt zijn hele beeld van de opgeslagen Ouder en het opgeslagen Kind op een lezing van Penfield die de neurowetenschap niet is gevolgd. Wie dat weet, leest het boek als een handzame metafoor. Wie dat niet weet, leest het als een verklaring uit de hersenen, en dat is precies hoe het boek in 1967 werd gepresenteerd.</p>
+      <p>Berne zelf was het oneens met Harris over de aard van de eerste levenspositie. Harris' stelling dat vrijwel elk kind tot ik ben niet oké komt, en dat de vierde positie een bewuste beslissing vergt die in de praktijk meestal via behandeling tot stand komt, is bekritiseerd als bijna religieus van vorm: er is een staat van gebrek, een bekering en een verlossing. Dat is een structuur, geen bevinding.</p>
+      <p>De uitbreiding naar moraal, godsdienst en wereldpolitiek rekt het model verder dan het draagt. Dat twee grootmachten een spel spelen zoals twee echtelieden dat doen, is een aardige vergelijking en geen verklaring, en Harris voert er geen aanvullend argument voor aan.</p>
+      <p>Ten slotte heeft de titel het boek overleefd en beschadigd. Ik ben oké, jij bent oké werd een uitdrukking voor onverschillige goedkeuring, terwijl Harris er een beslissing mee bedoelde die niets zegt over gedrag: iemand kan oké zijn en zich slecht gedragen. Wie het boek leest nadat hij de uitdrukking kent, moet die betekenis eerst weer afpellen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een gesprek dat plotseling stilvalt na welke ego-toestand er sprak en welke werd aangesproken.</li>
+        <li>Noteer bij een sterke reactie of de zin die opkwam van een ouder afkomstig is, en of hij nu nog klopt.</li>
+        <li>Onderscheid bij een terugkerende ruzie de aanleiding van het bekende gevoel waarop zij uitloopt; dat gevoel is bij Harris het doel van het spel.</li>
+        <li>Lees de hoofdstukken over Penfield als tijdsbeeld en niet als onderbouwing.</li>
+        <li>Gebruik het onderscheid tussen iemand oké vinden en zijn gedrag goedkeuren, waar de uitdrukking die twee door elkaar haalt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>I'm OK, You're OK</i> (Harper &amp; Row, New York, 1967). Het boek kwam in 1972 op de bestsellerlijst van <i>The New York Times</i> en bleef daar bijna twee jaar; de uitgever houdt het op meer dan vijftien miljoen verkochte exemplaren en vertalingen in meer dan tien talen. De Nederlandse uitgave verschijnt al decennia bij Ambo|Anthos, eerst als <i>Ik ben o.k., jij bent o.k.</i>, sinds 14 augustus 2024 als <i>Ik ben oké Jij bent oké</i> met de ondertitel <i>Hoe je op een volwassen manier kunt omgaan met je medemens</i> en een voorwoord van Els van Steijn (336 blz., ISBN 9789026367816, zesenveertigste druk). Er is ook een luisterboek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thomas A. Harris was psychiater en werkte met de transactionele analyse die Eric Berne in de jaren vijftig en zestig had ontwikkeld. Dit boek maakt die theorie toegankelijk voor een publiek zonder opleiding: iedereen draagt drie ego-toestanden bij zich, de Ouder, de Volwassene en het Kind, en welke van de drie er spreekt bepaalt wat er tussen twee mensen gebeurt.</p><p>Op die drie zet Harris zijn eigen bijdrage: vier levensposities. Ieder kind komt volgens hem uit tot de conclusie dat het zelf niet oké is en de grote mensen wel. Die positie, ik ben niet oké en jij bent oké, wordt zonder woorden vastgelegd en blijft levenslang meedoen tenzij iemand haar bewust vervangt door de vierde: ik ben oké, jij bent oké.</p><p>De tweede helft van het boek past het model toe op huwelijk, kinderen, adolescenten, moraal en religie, en op de politieke spanningen van de jaren zestig. Het boek verkocht miljoenen exemplaren en de titel werd een uitdrukking die losraakte van de theorie erachter.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>transactionele analyse</li><li>Eric Berne</li><li>populaire psychologie</li><li>ego-toestanden</li><li>levensposities</li><li>jaren zeventig</li><li>psychiatrie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="213"><a href="213.html">Games People Play</a>. Berne legde het model waarop Harris voortbouwt drie jaar eerder neer; wie de spelen zelf wil zien beschreven, moet daar zijn.</li>
+          <li value="1510"><a href="1510.html">De fontein, vind je plek</a>. Els van Steijn schreef het voorwoord bij de Nederlandse uitgave van 2024 en werkt met een vergelijkbare gedachte, dat volwassenheid het innemen van de juiste positie is.</li>
+          <li value="411"><a href="411.html">Psycho-Cybernetics</a>. Maltz bouwde zeven jaar eerder een bestseller op hetzelfde idee, dat een zelfbeeld uit de jeugd als een opname blijft draaien tot het bewust wordt vervangen.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk behandelt de doorwerking van vroege ervaringen met het onderzoek dat bij Harris nog ontbrak, en met een ander beeld van hoe het geheugen werkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

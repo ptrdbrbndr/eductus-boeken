@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You Are the Placebo &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dispenza stelt dat het placebo-effect geen storende bijkomstigheid van medisch onderzoek is maar het bewijs van wat de mens zelf vermag: als een middel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1513">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1513 &middot; Brein en lichaam</p>
+    <h1>You Are the Placebo</h1>
+    <p class="lede">Joe Dispenza, 2014</p>
+    <p class="stats">
+      <span><b>1801</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1513"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dispenza stelt dat het placebo-effect geen storende bijkomstigheid van medisch onderzoek is maar het bewijs van wat de mens zelf vermag: als een middel zonder werkzame stof meetbare veranderingen in hersenen en lichaam veroorzaakt, dan is niet de stof maar de verwachting de werkzame factor, en dan valt die verwachting ook zonder pil op te roepen. Daaruit volgt zijn belofte dat iemand die zijn overtuigingen, gevoelens en aandacht doelgericht verandert, zijn eigen genexpressie kan beïnvloeden en aandoeningen kan laten verdwijnen die de geneeskunde als blijvend beschouwt. De eerste helft van die redenering rust op bestaand onderzoek, de tweede helft niet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag</h3>
+      <p>Het boek opent met de vraag of het mogelijk is de werkzame beginselen van het placebo te onderwijzen, zodat iemand zonder middel dezelfde verandering in zijn gezondheid tot stand brengt. Dispenza kondigt aan dat hij die vraag met ja gaat beantwoorden en zet daarvoor zijn eigen geschiedenis in.</p>
+      <p>Die geschiedenis speelt in april 1986. Dispenza, dan drieëntwintig, wordt tijdens een triatlon in Californië door een auto geraakt en breekt zes wervels. Vier chirurgen adviseren een operatie met staven langs de wervelkolom. Hij weigert, laat zich naar huis brengen en werkt naar eigen zeggen negeneneenhalve week aan het beeld van een gezonde wervelkolom, waarna hij weer loopt. Het boek voert dat op als het beginpunt van alles wat erna komt.</p>
+      <h3>Een geschiedenis van het placebo</h3>
+      <p>Het historische deel loopt van de negentiende eeuw tot het hedendaagse geneesmiddelenonderzoek en verzamelt de gevallen die in de vakliteratuur bekend zijn. Het eerste is Sam Londe, een schoenverkoper met slokdarmkanker die in de jaren zeventig binnen enkele maanden overlijdt nadat hem is verteld dat hij nog kort te leven heeft; bij de sectie wordt veel minder tumorweefsel aangetroffen dan het beeld deed vermoeden. Dispenza concludeert dat hij aan de verwachting stierf.</p>
+      <p>Het tweede is het geval dat de psycholoog Bruno Klopfer in 1957 beschreef: een patiënt met lymfeklierkanker wiens tumoren binnen dagen slonken na toediening van het middel krebiozen, weer terugkwamen toen de pers het middel afserveerde, opnieuw slonken na een injectie zonder werkzame stof die als verbeterde versie werd aangeprezen, en die stierf kort nadat het middel definitief waardeloos werd verklaard.</p>
+      <p>Daarnaast noemt Dispenza onderzoek waarin patiënten met de ziekte van Parkinson na een injectie zonder werkzame stof aantoonbaar dopamine aanmaakten, en de studie waarin een kijkoperatie aan de knie geen beter resultaat gaf dan een schijnoperatie waarbij alleen de sneden werden gezet.</p>
+      <h3>Hoe het volgens hem werkt</h3>
+      <p>Vervolgens legt hij de werking uit in twee lagen. In de hersenen zorgt verwachting ervoor dat gebieden actief worden die bij beloning en pijndemping horen, en de eigen apotheek van het lichaam maakt de stoffen aan die anders van buiten hadden moeten komen. In het lichaam verloopt de vertaling via de stresshormonen en, in zijn versie, via de genexpressie.</p>
+      <p>Hier introduceert hij epigenetica als sluitstuk: genen liggen vast, hun aan- en uitzetten niet, en gedachten en gevoelens horen tot de omgevingsfactoren die daarop ingrijpen. De redenering is dat een gedachte een gevoel oproept, dat een gevoel een chemische toestand is en dat een aanhoudende chemische toestand het aflezen van genen verandert.</p>
+      <h3>Vatbaarheid en overtuiging</h3>
+      <p>Twee hoofdstukken gaan over de voorwaarden. Vatbaarheid voor suggestie is volgens Dispenza geen zwakte maar een vermogen dat te trainen valt, en de weg ernaartoe loopt via hersengolven in het alfa- en thetagebied, waarin de scheidslijn tussen het bewuste en het onderbewuste dunner wordt.</p>
+      <p>Overtuigingen behandelt hij als conclusies die iemand ooit trok en daarna nooit meer toetste, met een gevoelslading eronder die ze in stand houdt. Een overtuiging wijzigen vraagt in zijn model dus twee dingen tegelijk: de gedachte en het gevoel dat eraan vastzit.</p>
+      <h3>De kwantumgeest</h3>
+      <p>Het hoofdstuk over de kwantumgeest is het meest omstreden deel van het boek. Dispenza gebruikt het begrip veld en het gegeven dat waarneming in de kwantummechanica een rol speelt om te betogen dat aandacht en intentie invloed hebben op welke mogelijkheid werkelijkheid wordt.</p>
+      <p>Voor de lezer die de natuurkunde niet kent, klinkt dat als een verklaring. Het is er geen. De waarnemer in de kwantummechanica is elke wisselwerking die informatie vastlegt, niet een menselijk bewustzijn met een wens, en er bestaat geen aangetoonde weg van intentie naar de toestand van een systeem op de schaal van een lichaam.</p>
+      <h3>Het programma</h3>
+      <p>Het tweede deel van het boek is praktisch. Het bevat drie verslagen van mensen die naar eigen zeggen op zijn bijeenkomsten van ernstige aandoeningen herstelden, een hoofdstuk over de metingen die hij tijdens zijn vierdaagse bijeenkomsten laat doen aan hersenactiviteit en hartritme, en daarna een voorbereiding op de meditatie.</p>
+      <p>De meditatie zelf heet Het veranderen van overtuigingen en waarnemingen. De oefening bestaat uit lichaamsgerichte ontspanning, het benoemen van een overtuiging en het bijbehorende gevoel, het loslaten daarvan, en het herhaald opwekken van de gevoelstoestand die bij het gewenste resultaat hoort, met de instructie dankbaarheid te voelen alsof het al gebeurd is. Bij het boek zijn afzonderlijke opnamen te koop waarin hij die meditatie voorleest.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Placebo-effect</td><td>De verandering die optreedt na een behandeling zonder werkzame stof, volgens Dispenza veroorzaakt door verwachting, betekenisgeving en conditionering samen.</td></tr>
+          <tr><td class="term">Nocebo</td><td>De tegenhanger: een negatieve verwachting die klachten of verslechtering oproept, waarmee Dispenza het overlijden van Sam Londe verklaart.</td></tr>
+          <tr><td class="term">Conditionering</td><td>Het aanleren van een lichamelijke reactie door herhaalde koppeling, in zijn model de reden dat een pil ook zonder inhoud blijft werken.</td></tr>
+          <tr><td class="term">Vatbaarheid voor suggestie</td><td>De mate waarin iemand een aanwijzing zonder tussenkomst van het kritische verstand aanvaardt; volgens Dispenza te vergroten door oefening.</td></tr>
+          <tr><td class="term">Alfa- en thetatoestand</td><td>De hersengolfgebieden waarin volgens het boek de toegang tot het onderbewuste openstaat en waarin de meditatie moet plaatsvinden.</td></tr>
+          <tr><td class="term">Epigenetica</td><td>Het vakgebied dat bestudeert hoe genen worden aan- en uitgezet; Dispenza rekent gedachten en gevoelens tot de factoren die dat sturen.</td></tr>
+          <tr><td class="term">Overlevingsemoties</td><td>Zijn verzamelnaam voor angst, boosheid en schuld, gevoelens die het lichaam in een stresstoestand houden en volgens hem herstel blokkeren.</td></tr>
+          <tr><td class="term">De kwantumgeest</td><td>Zijn aanduiding voor het idee dat aandacht en intentie meebepalen welke mogelijkheid uit een veld van mogelijkheden werkelijkheid wordt.</td></tr>
+          <tr><td class="term">Het onbekende</td><td>De toestand waarin de uitkomst nog niet vaststaat; volgens Dispenza de plaats waar verandering vandaan komt en waar de meeste mensen voor terugdeinzen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderzoeksgevallen in het eerste deel bestaan. Klopfer publiceerde het geval van de krebiozenpatiënt in 1957 in een vakblad, het dopamine-onderzoek bij Parkinson is in de jaren rond 2001 in Vancouver uitgevoerd en herhaald, en de studie waarin een kijkoperatie aan de knie niet beter uitpakte dan een schijnoperatie verscheen in 2002 in het New England Journal of Medicine. Wie het boek leest als inleiding op wat er over verwachting en behandeling bekend is, krijgt echte literatuur voorgeschoteld.</p>
+      <p>De sprong zit in wat die literatuur laat zien. Placebo-effecten zijn het duidelijkst bij uitkomsten die de patiënt zelf ervaart en rapporteert: pijn, misselijkheid, stemming, bewegingsonrust. De grote overzichtsstudie van Hrobjartsson en Gotzsche uit 2001, eveneens in het New England Journal of Medicine, vond over tientallen aandoeningen nauwelijks effect van placebo op objectief gemeten uitkomsten. Dispenza bespreekt die bevinding niet, terwijl zijn hele betoog juist over objectieve uitkomsten gaat.</p>
+      <p>De gevallen die het meeste indruk maken zijn losse ziektegeschiedenissen zonder controlegroep. Bij Sam Londe berust de conclusie op een sectieverslag uit de jaren zeventig zoals doorverteld door een arts, bij de krebiozenpatiënt op de waarneming van een behandelaar die zelf het bedrog opzette. Zulke gevallen zijn interessant als aanleiding voor onderzoek en zij dragen geen algemene uitspraak.</p>
+      <p>De metingen op zijn eigen bijeenkomsten zijn niet in een gecontroleerde opzet gedaan. De deelnemers hebben zichzelf aangemeld, betaald en verwachten resultaat, er is geen vergelijkingsgroep en de resultaten zijn niet in de gebruikelijke vakbladen verschenen met de gegevens erbij. Wat er wel is, zijn hersenfilmpjes en hartritmemetingen die tonen dat mensen tijdens langdurige meditatie in een andere toestand komen, wat op zichzelf niet omstreden is en niets over genezing zegt.</p>
+      <p>Ten slotte de auteur. Dispenza is doctor of chiropractic, geen arts en geen hersenonderzoeker. Zijn eigen herstel na het ongeluk uit 1986 is niet onafhankelijk gedocumenteerd; herstel na wervelbreuken zonder beschadigd ruggenmerg komt voor zonder operatie, en de vier chirurgen die hij aanhaalt zijn niet te horen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de omkering die het boek maakt. Uit het gegeven dat verwachting invloed heeft op klachten volgt niet dat verwachting de oorzaak van ziekte is. Dispenza schuift die twee in elkaar, en daarmee komt de verantwoordelijkheid voor het beloop van een aandoening bij de zieke te liggen. Wie beter wordt heeft goed gemediteerd, wie niet beter wordt heeft kennelijk aan zijn overtuigingen te weinig gedaan. Het boek waarschuwt daar nergens voor.</p>
+      <p>Het gebruik van de kwantummechanica is onhoudbaar. De vaktermen dienen als gezag, niet als redenering, en er is geen enkele stap in het boek waarin de natuurkunde daadwerkelijk iets afleidt. Hetzelfde geldt in mindere mate voor de epigenetica: dat gedrag en stress invloed hebben op genexpressie is bekend, dat een geleide meditatie een tumor uitschakelt volgt daar niet uit.</p>
+      <p>De opzet van het boek is bovendien een verkoopkanaal. De meditaties worden apart verkocht, het boek verwijst naar meerdaagse bijeenkomsten met een aanzienlijk tarief, en de verhalen van deelnemers dienen zowel als bewijs als als aanbeveling. Dat maakt de beweringen niet vanzelf onwaar en het maakt de selectie van gevallen wel verdacht: wie op zulke bijeenkomsten niets meemaakte, komt in het boek niet voor.</p>
+      <p>Er staat tegenover dat Dispenza een reëel probleem aanwijst. De geneeskunde behandelt het placebo-effect meestal als ruis die uit een onderzoeksopzet moet worden weggerekend, terwijl het in de spreekkamer een deel van de werking van elke behandeling is. Onderzoek naar open toediening, waarbij patiënten weten dat zij een placebo krijgen en toch verbetering melden bij prikkelbaredarmklachten en chronische pijn, laat zien dat daar iets te halen valt. Dispenza legt daar de vinger op en gaat er vervolgens ver voorbij.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel een als geschiedenis van het placebo-onderzoek en zoek de genoemde studies zelf op; de meeste zijn met naam en jaartal terug te vinden.</li>
+        <li>Let bij elk verhaal in het boek op de vraag of er een controlegroep was. Bij de losse ziektegeschiedenissen is die er niet.</li>
+        <li>Gebruik de meditaties desgewenst als ontspanningsoefening, en beoordeel ze op wat ze feitelijk doen: ademhaling, aandacht en rust.</li>
+        <li>Staak nooit een voorgeschreven behandeling en stel geen diagnose uit op grond van dit boek.</li>
+        <li>Scheid bij het lezen de twee beweringen die door elkaar lopen: dat verwachting klachten beïnvloedt, en dat gedachten ziekten veroorzaken en opheffen. Alleen de eerste heeft onderzoek achter zich.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>You Are the Placebo: Making Your Mind Matter</i> (Hay House, Carlsbad, 2014, ISBN 9781401944599). Nederlands als <i>Jij bent de placebo. Maak je gedachten tot realiteit</i>, vertaald door Vera Groen, uitgegeven door Succesboeken, 2017, 456 blz., ISBN 9789492665034. Bij het boek horen twee afzonderlijk verkochte meditatie-opnamen. Van Dispenza verschenen in het Nederlands ook <i>Breaking the Habit of Being Yourself</i> en <i>Becoming Supernatural</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dispenza, chiropractor van beroep, betoogt dat het placebo-effect laat zien wat een mens met zijn eigen verwachting kan doen aan zijn eigen lichaam. Als een suikerpil werkt omdat de patiënt gelooft dat hij werkt, dan is de pil overbodig zodra iemand dat geloof rechtstreeks kan opwekken.</p><p>Het eerste deel van het boek is een geschiedenis van het placebo-onderzoek, met bekende gevallen: de man die zijn tumoren zag slinken door een middel dat later waardeloos bleek, patiënten met de ziekte van Parkinson die dopamine aanmaken op een zoutinjectie, en een knieoperatie die net zo goed werkte wanneer alleen de sneden werden gezet.</p><p>Het tweede deel is een oefenprogramma. Dispenza beschrijft een meditatie waarin de lezer zijn eigen overtuigingen en gevoelens opspoort en vervangt, met de bewering dat dit tot in de genexpressie doorwerkt. Dat laatste deel is de sprong die het boek maakt en waar het meeste bezwaar tegen bestaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>placebo</li><li>suggestie</li><li>meditatie</li><li>epigenetica</li><li>zelfhulp</li><li>kwantumfysica</li><li>Hay House</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="208"><a href="208.html">Breaking the Habit of Being Yourself</a>. Het eerdere boek van Dispenza legt het denkkader neer waarop dit voortbouwt; de bezwaren tegen de onderbouwing gelden daar in dezelfde mate.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft de wisselwerking tussen geest en lichaam met klinisch materiaal en met verwijzing naar gecontroleerd onderzoek, en laat zo zien hoe ver een onderbouwde versie van hetzelfde onderwerp reikt.</li>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. Peale deed in 1952 een vergelijkbare belofte met een religieus in plaats van een natuurkundig vocabulaire; de overeenkomst in redeneervorm is leerzaam.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

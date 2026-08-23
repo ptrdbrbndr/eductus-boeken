@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De kleur paars &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Walker laat zien wat er gebeurt met een mens die van alle kanten wordt gerangschikt als het laagste: zwart, vrouw, arm, ongeschoold en lelijk genoemd door…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1518">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1518 &middot; Roman en memoir</p>
+    <h1>De kleur paars</h1>
+    <p class="lede">Alice Walker, 1982; vert. Robert Dorsman</p>
+    <p class="stats">
+      <span><b>1520</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1518"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Walker laat zien wat er gebeurt met een mens die van alle kanten wordt gerangschikt als het laagste: zwart, vrouw, arm, ongeschoold en lelijk genoemd door de mensen om haar heen. Haar stelling is dat de macht die dat in stand houdt niet alleen van de blanke wereld komt maar binnen de eigen gemeenschap wordt doorgegeven, van vader op dochter en van man op vrouw, en dat het geweld daar zo gewoon is dat het geen naam heeft. Daartegenover stelt zij geen politieke actie maar de vriendschap tussen vrouwen: Celie komt niet los door recht te halen of te vluchten, maar doordat drie vrouwen haar laten zien dat het ook anders kan. De roman voert dat uit in de vorm zelf. Doordat Celie zelf schrijft, in haar eigen taal en met haar eigen spelling, staat er geen verslag over haar maar een stem die zich in veertig jaar hoorbaar ontwikkelt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Brieven aan God</h3>
+      <p>De eerste brieven zijn kort en vlak van toon. Celie beschrijft wat Alphonso, de man die zij voor haar vader houdt, met haar doet, en de twee kinderen die hem geboren worden en die hij wegbrengt. Haar moeder sterft. De waarschuwing waarmee het boek opent, dat zij dit aan niemand mag vertellen behalve aan God, verklaart de vorm van het hele boek.</p>
+      <p>Als Alphonso Celie uithuwelijkt aan een weduwnaar met vier kinderen, gaat zij van het ene huis naar het andere zonder dat er iets verandert. Zij noemt haar man in haar brieven consequent Mister, met een blanco waar zijn naam zou staan. Haar houding is die van iemand die heeft besloten dat overleven het hoogst haalbare is.</p>
+      <h3>Nettie</h3>
+      <p>Nettie, de jongere zuster, is degene op wie Celie haar hoop richt. Zij vlucht voor Alphonso naar het huis van Mister, wijst Mister af en moet vertrekken. Zij belandt bij het zendelingenechtpaar Samuel en Corrine, dat zonder het te weten Celie's beide kinderen heeft geadopteerd, en gaat met hen mee naar West-Afrika.</p>
+      <p>Nettie schrijft jarenlang. Mister onderschept de brieven en verstopt ze. Celie leeft in de veronderstelling dat haar zuster dood is. Als Shug de stapel vindt, verandert de roman van vorm: vanaf dat punt wisselen Celie's brieven af met die van Nettie, en krijgt het boek er een tweede plaats en een tweede toon bij.</p>
+      <h3>Shug Avery</h3>
+      <p>Shug Avery is zangeres, ongebonden, en de vrouw van wie Mister altijd heeft gehouden. Zij komt ziek in huis en wordt door Celie verzorgd. Uit die verzorging komt eerst bewondering voort en daarna een verhouding waarin Celie voor het eerst wordt aangeraakt zonder dat het haar wordt aangedaan.</p>
+      <p>Shug brengt ook de theologische wending. Zij zegt Celie dat de God tot wie zij schrijft een oude blanke man is die zij van anderen heeft overgenomen, en dat God in alles zit wat er is, ook in haarzelf. De titel komt uit dat gesprek: het zou God kwaad maken als iemand langs een veld met paarse bloemen loopt en ze niet opmerkt.</p>
+      <h3>Sofia en Harpo</h3>
+      <p>Naast Celie staat Sofia, de vrouw van Mister's zoon Harpo. Zij is groot, sterk en weigert zich te laten slaan; als Harpo het toch probeert, slaat zij terug. Celie geeft hem in een zwak moment het advies haar te slaan en krijgt dat door Sofia recht in haar gezicht teruggezegd, wat het eerste barstje in Celie's berusting oplevert.</p>
+      <p>Sofia laat ook zien waar die weerbaarheid op stukloopt. Als de vrouw van de burgemeester haar vraagt om dienstbode te worden en Sofia weigert, slaat zij de burgemeester die haar een klap geeft. Zij wordt in elkaar geslagen, jarenlang opgesloten en daarna alsnog als dienstbode in datzelfde huis gezet. Wie zich niet schikt, wordt gebroken.</p>
+      <h3>Memphis</h3>
+      <p>Bij een familiediner kondigt Celie aan dat zij met Shug meegaat naar Memphis, en zij vervloekt Mister waar iedereen bij zit. In Memphis begint zij broeken te naaien, eerst voor Shug, dan voor anderen, en bouwt daar een bedrijfje mee op onder de naam Folkspants, Unlimited.</p>
+      <p>Ondertussen komt er bericht dat Alphonso niet haar vader is maar haar stiefvader, en dat het huis en de winkel waarin hij zit van haar moeder waren. Na zijn dood erft Celie dat bezit. Haar zelfstandigheid rust dus op twee dingen tegelijk: op werk dat zij zelf heeft opgezet en op een erfenis die haar toevallig toevalt.</p>
+      <h3>De terugkeer</h3>
+      <p>Mister raakt na Celie's vertrek aan de grond, ruimt zijn huis op, geeft de achtergehouden brieven terug en wordt in de late hoofdstukken iemand met wie Celie kan zitten naaien en praten. Hij krijgt daarmee laat in het boek zijn voornaam Albert terug.</p>
+      <p>Nettie keert terug met Samuel, met Olivia en Adam en met Tashi, het Olinka-meisje dat Adam trouwt. Het slot valt op de vierde juli, de Amerikaanse onafhankelijkheidsdag, waarop de familie bij elkaar zit terwijl de blanke buren de vlag uithangen. Celie schrijft dat zij zich nog nooit zo jong heeft gevoeld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Brievenroman</td><td>De vorm van het boek: alles staat in brieven, eerst van Celie aan God, later ook van Nettie aan Celie en van Celie aan Nettie.</td></tr>
+          <tr><td class="term">Mister</td><td>De aanduiding waarmee Celie haar man aanspreekt en beschrijft, met een leeg vak waar zijn naam zou horen; pas aan het eind noemt zij hem Albert.</td></tr>
+          <tr><td class="term">Shug Avery</td><td>De zangeres die zich niet aan de regels voor vrouwen houdt en die Celie achtereenvolgens haar lichaam, haar oordeel en haar vertrek teruggeeft.</td></tr>
+          <tr><td class="term">Folkspants, Unlimited</td><td>Het naaibedrijfje dat Celie in Memphis begint, waar zij broeken maakt die zowel mannen als vrouwen kunnen dragen.</td></tr>
+          <tr><td class="term">De Olinka</td><td>Het verzonnen West-Afrikaanse volk waar Nettie werkt en waarvan het dorp wordt opgeofferd aan een rubberplantage en een weg.</td></tr>
+          <tr><td class="term">De paarse kleur</td><td>Het beeld uit Shug's uitleg over God: wie langs een veld met paarse bloemen loopt zonder te kijken, doet God tekort.</td></tr>
+          <tr><td class="term">Celie's spreektaal</td><td>Het zwarte Engels van het platteland waarin Celie schrijft, met eigen spelling en grammatica, waarvan de ontwikkeling in de roman haar groei hoorbaar maakt.</td></tr>
+          <tr><td class="term">Womanism</td><td>De term die Walker in 1983 muntte voor het feminisme van zwarte vrouwen, waarmee haar lezers deze roman sindsdien plegen te duiden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De omgeving van het boek is die waarin Walker zelf opgroeide. Zij werd in 1944 geboren in Eatonton, Georgia, in een gezin van deelpachters, in dezelfde landbouw en dezelfde rassenscheiding die Celie beschrijft. De materiële kant van het verhaal, het werk op het land, het winkeltje, de kerk, de afhankelijkheid van blanke grondbezitters, komt daar rechtstreeks vandaan.</p>
+      <p>Wat de roman in de eerste plaats staande houdt is de taal. Celie schrijft zoals zij spreekt, en de enige aanwijzing die de lezer over haar ontwikkeling krijgt zit in hoe die zinnen veranderen: van korte mededelingen zonder oordeel naar zinnen waarin zij redeneert en tegenspreekt. Dat is een bewijsvoering die zich in de vorm afspeelt en niet in wat er beweerd wordt.</p>
+      <p>De Afrikaanse hoofdstukken rusten op een ander soort materiaal. Nettie's brieven beschrijven zending, koloniale wegenaanleg en de gedwongen ontruiming van een dorp voor een plantage, en raken aan besnijdenis van meisjes bij de Olinka. Walker werkte dat laatste tien jaar later uit in een aparte roman. In dit boek blijven die passages uitleggend van toon: Nettie legt uit wat zij ziet, terwijl Celie laat zien wat zij meemaakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar tegen het boek is dat de zwarte mannen erin vrijwel zonder uitzondering gewelddadig, lui of beide zijn, en dat een blank lezerspubliek daarin zijn eigen beeld bevestigd kreeg. Die aanval kwam vooral van zwarte schrijvers en critici, onder wie Ishmael Reed, en zwol aan na de verfilming van Spielberg in 1985, die het verhaal verzachtte en tegelijk het bereik enorm vergrootte. Walker heeft er in 1996 een heel boek over geschreven.</p>
+      <p>Een tweede bezwaar geldt het slot. Mister wordt een aardige man, Nettie komt terug met beide kinderen, het huis en de winkel vallen Celie in de schoot en iedereen zit op de laatste bladzijden bij elkaar. Na driehonderd bladzijden waarin niets vanzelf goed komt, wordt in het laatste deel bijna alles opgelost, deels door toeval. Lezers die de eerste helft geloofwaardig vinden, vinden de tweede vaak te welwillend.</p>
+      <p>De Afrikaanse brieven worden ook door welwillende lezers als het zwakste deel gezien. Zij staan in een andere, veel formelere taal, ze dragen de historische uitleg die de rest van het boek niet nodig heeft, en het contrast tussen de twee zusters gaat daardoor gelijken op een tegenstelling die de auteur wil laten zien.</p>
+      <p>In de Verenigde Staten staat het boek al veertig jaar in de bovenste regionen van de lijsten van meest aangevochten titels op scholen en in bibliotheken, wegens seksuele inhoud, geweld en godsdienstige aanstootgevendheid. Dat zegt weinig over de kwaliteit, maar het bepaalt wel voor een groot deel hoe de roman in de Verenigde Staten wordt gelezen en besproken.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Color Purple</i> (Harcourt Brace Jovanovich, New York, 1982), bekroond met de Pulitzer Prize voor fictie en de American Book Award van 1983; Walker was de eerste zwarte vrouw die de Pulitzer voor fictie kreeg. De eerste Nederlandse vertaling was van Irma van Dam en verscheen in oktober 1983 bij In de Knipscheer, Haarlem (ISBN 9062651224), met een paperbackuitgave in 1985. De Geus, Amsterdam, bracht in september 2020 een nieuwe vertaling van Robert Dorsman uit (320 blz., ISBN 9789044541519), ook als e-boek en luisterboek. Steven Spielberg verfilmde het boek in 1985; in 2005 volgde een musicalbewerking op Broadway en in 2023 een verfilming daarvan.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Celie is veertien en schrijft brieven aan God, omdat zij verder niemand heeft aan wie zij het kan vertellen. Zij wordt misbruikt door de man die zij voor haar vader houdt, raakt twee keer zwanger en ziet beide kinderen verdwijnen. Daarna wordt zij uitgehuwelijkt aan een weduwnaar die zij in haar brieven alleen Mister noemt.</p><p>Het boek speelt op het platteland van Georgia in de eerste helft van de twintigste eeuw en beslaat ongeveer veertig jaar. Het bestaat volledig uit brieven: eerst die van Celie aan God, later die van haar zuster Nettie, die als zendelinge in West-Afrika terechtkomt en jarenlang schrijft zonder te weten of er iets aankomt.</p><p>De wending komt met Shug Avery, de bluezangeres van wie Mister houdt en die door Celie wordt verpleegd. Uit die verhouding komt bij Celie het besef voort dat zij een lichaam heeft dat van haar is, een eigen oordeel over God, en uiteindelijk de mogelijkheid om weg te gaan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>brievenroman</li><li>Georgia</li><li>zusters</li><li>racisme</li><li>geweld</li><li>Afrika</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1519"><a href="1519.html">Spaar de spotvogel</a>. Lee schrijft over hetzelfde Zuiden in dezelfde jaren, maar vanuit een blank gezin; naast elkaar gelezen laten de twee boeken zien wat elk van beide buiten beeld houdt.</li>
+          <li value="3"><a href="03.html">The Will to Change</a>. hooks onderzoekt hoe mannen wordt geleerd hun gevoel af te sluiten en geweld als vorm van gezag te gebruiken, wat de figuren Mister en Harpo van binnenuit verklaart.</li>
+          <li value="1522"><a href="1522.html">Vlieg, wilde zwanen</a>. Chang volgt drie generaties vrouwen door een politiek stelsel dat hen probeert te breken, met dezelfde nadruk op wat vrouwen aan elkaar doorgeven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wat ik eerder had willen weten over de liefde &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mudder stelt dat partnerkeuze zelden een keuze is. Wie in de jeugd heeft geleerd dat liefde onzeker, voorwaardelijk of onvoorspelbaar is, herkent later…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1517">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1517 &middot; Levenskunst</p>
+    <h1>Wat ik eerder had willen weten over de liefde</h1>
+    <p class="lede">Marian Mudder, 2026</p>
+    <p class="stats">
+      <span><b>1487</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1517"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mudder stelt dat partnerkeuze zelden een keuze is. Wie in de jeugd heeft geleerd dat liefde onzeker, voorwaardelijk of onvoorspelbaar is, herkent later precies die onzekerheid als aantrekkingskracht, omdat het zenuwstelsel het vertrouwde aanziet voor het juiste. De hevigheid die daarbij hoort, het wachten op een bericht, het opluchten bij toenadering, het wegzakken bij afstand, wordt in het gewone spraakgebruik verliefdheid genoemd, terwijl het volgens haar een stressreactie is die zichzelf in stand houdt. Daaruit volgt haar praktische these: het patroon verandert niet door een andere partner te zoeken, maar door het eigen alarmsysteem te leren herkennen en te leren verdragen dat rust in de omgang met een ander eerst saai aanvoelt. Wie dat niet doet, verwisselt volgens haar de personen en houdt de dynamiek.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Verliefdheid en liefde uit elkaar houden</h3>
+      <p>Het boek begint bij het onderscheid dat de rest ervan draagt. Verliefdheid beschrijft Mudder als een toestand van het lichaam: gejaagdheid, weinig slaap, een aandacht die volledig op een ander gericht staat. Liefde beschrijft zij als iets wat pas zichtbaar wordt als die toestand voorbij is, en wat zich laat afmeten aan of iemand in het gezelschap van de ander zichzelf kan blijven.</p>
+      <p>De praktische winst van dat onderscheid is dat het de hevigheid van een beginnende verhouding onbruikbaar maakt als bewijs. Wie zich in het begin het meest levend voelt bij de partner die het minst beschikbaar is, heeft volgens haar geen bijzondere klik gevonden maar een oude ervaring herhaald.</p>
+      <h3>Hechting en de jeugd</h3>
+      <p>Vervolgens legt Mudder de hechtingsstijlen uit: veilig, angstig, vermijdend en de gemengde vorm. Zij doet dat niet als leerstof maar aan de hand van situaties die de lezer waarschijnlijk herkent, zoals de behoefte om bevestiging te vragen tot de ander geïrriteerd raakt, of de neiging om afstand te nemen zodra iemand dichtbij komt.</p>
+      <p>De verbinding met de jeugd is bij haar niet dat er iets ergs gebeurd hoeft te zijn. Ook een gezin waar niets misging kan een kind hebben geleerd dat het beter is geen last te zijn. Dat is bij haar de kern van wat later in relaties terugkomt: niet een gebeurtenis maar een aangeleerde regel over wat er van iemand mag worden gevraagd.</p>
+      <h3>Liefdesverslaving, trauma bond en bevriezing</h3>
+      <p>Het middendeel gaat over verhoudingen die schadelijk zijn en toch niet te verlaten. Mudder gebruikt daarvoor de begrippen liefdesverslaving en trauma bond: de afwisseling van afwijzing en toenadering maakt de goede momenten zeldzamer en daardoor sterker beloond, waardoor iemand aan de relatie gehecht raakt juist omdat zij onvoorspelbaar is.</p>
+      <p>Daarnaast beschrijft zij de functionele bevriezing, de toestand waarin iemand nog werkt, kookt en praat maar innerlijk is afgesloten en nauwelijks meer voelt wat er gebeurt. Dat verklaart bij haar waarom mensen jarenlang in een situatie blijven zonder die te kunnen benoemen: het voelen zelf is uitgeschakeld, en dus ook het signaal om weg te gaan.</p>
+      <h3>Seks, schaamte en veiligheid</h3>
+      <p>Over seksualiteit schrijft Mudder opvallend openhartig, ook over haar eigen geschiedenis. Haar punt is dat seks bij een onveilige hechting vaak wordt ingezet om nabijheid af te dwingen of om een dreigend vertrek te voorkomen, en dat het lichaam daarbij meedoet aan iets waarvoor het geen ruimte heeft gekregen.</p>
+      <p>Schaamte behandelt zij als de reden dat dit alles zelden ter sprake komt. Zolang iemand het eigen gedrag als een gebrek ziet in plaats van als een aangeleerde beschermingsvorm, blijft het buiten het gesprek, ook in therapie.</p>
+      <h3>Geven, nemen en alleen zijn</h3>
+      <p>Het laatste deel gaat over evenwicht. Mudder beschrijft het patroon waarin de een blijft geven in de hoop ooit gezien te worden en de ander dat aanbod accepteert zonder er iets tegenover te stellen. Zij noemt dat geen offer maar een ruilhandel: er wordt gegeven met een verwachting die niet wordt uitgesproken.</p>
+      <p>Het boek eindigt niet bij het vinden van een betere partner. Het eindigt bij de vaststelling dat alleen zijn draaglijk moet worden voordat een relatie iets kan toevoegen, omdat iemand anders elke verhouding blijft aangaan vanuit de angst dat er niets anders is. Lezers noemen dat in besprekingen de kern van het boek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hechtingsstijl</td><td>De aangeleerde manier waarop iemand nabijheid en afstand regelt in een relatie, bij Mudder onderverdeeld in veilig, angstig, vermijdend en de gemengde vorm.</td></tr>
+          <tr><td class="term">Verlatingsangst</td><td>De verwachting dat de ander weggaat, die zich uit in controleren, geruststelling zoeken en het vergroten van elke aanwijzing dat er afstand ontstaat.</td></tr>
+          <tr><td class="term">Bindingsangst</td><td>De tegenhanger daarvan: het terugtrekken zodra een verhouding dichtbij komt, door Mudder beschreven als bescherming en niet als gebrek aan gevoel.</td></tr>
+          <tr><td class="term">Liefdesverslaving</td><td>Het patroon waarin de hevigheid van de verhouding zelf het doel wordt, en de afwezigheid van de ander sterker wordt gevoeld dan zijn aanwezigheid.</td></tr>
+          <tr><td class="term">Trauma bond</td><td>De binding die ontstaat door afwisselende afwijzing en toenadering, waarbij de zeldzame goede momenten de hele verhouding blijven dragen.</td></tr>
+          <tr><td class="term">Functionele bevriezing</td><td>De toestand waarin iemand naar buiten toe blijft functioneren maar innerlijk is afgesloten en het contact met de eigen gevoelens grotendeels kwijt is.</td></tr>
+          <tr><td class="term">Emotioneel onbeschikbare partner</td><td>Iemand die wel aanwezig is maar geen toegang geeft tot wat er in hem omgaat, waardoor de ander blijft proberen die toegang te verdienen.</td></tr>
+          <tr><td class="term">Toxische relatie</td><td>Een verhouding waarin de schade structureel is en niet incidenteel, bij Mudder herkenbaar aan het verlies van eigen oordeel en eigen contacten.</td></tr>
+          <tr><td class="term">EFT</td><td>De kloptechniek waarmee Mudder als therapeut werkt, waarbij iemand op vaste punten op het lichaam tikt terwijl hij de spanning benoemt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De ruggengraat van het boek is de hechtingstheorie, die als kader breed is onderbouwd. Dat mensen in hun vroege jaren een patroon aanleren voor nabijheid en dat dit patroon meetbaar doorwerkt in latere relaties, is in de ontwikkelingspsychologie goed vastgesteld. Mudder geeft dat kader getrouw weer in gewone taal.</p>
+      <p>Wat het boek daarnaast aandraagt is geen onderzoek maar praktijk. De gevallen komen uit haar spreekkamer en uit haar eigen leven, en zij presenteert ze ook zo. Er staat geen notenapparaat in en er wordt niet naar studies verwezen; wie de onderbouwing wil nagaan, moet dat buiten het boek doen.</p>
+      <p>Van de sleutelbegrippen uit het middendeel is de status ongelijk. Hechtingsstijlen zijn onderzocht en gemeten. Trauma bond en functionele bevriezing zijn termen uit de traumapraktijk en de populaire psychologie die geen plaats hebben in de gangbare diagnostische handboeken; zij beschrijven iets herkenbaars, maar zijn niet vastgelegd in criteria die zich laten toetsen.</p>
+      <p>Over EFT als behandeling is onderzoek gedaan, maar het gaat om kleine studies met zwakke opzet, vaak zonder geloofwaardige controlegroep. Dat mensen zich er rustiger door voelen is aannemelijk; dat het kloppen zelf het werkzame deel is, is niet aangetoond.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de verklaringsvorm. Zodra elk terugkerend patroon in de liefde wordt teruggevoerd op de jeugd, is er geen geval meer denkbaar dat de verklaring tegenspreekt. Dat maakt het boek geruststellend en tegelijk moeilijk te weerleggen. Partnerkeuze hangt ook af van omstandigheden, leeftijd, geld, gelegenheid en toeval, en die factoren blijven vrijwel buiten beeld.</p>
+      <p>Hechtingsstijlen worden in het boek gebruikt als typen waartoe iemand behoort. In onderzoek gedragen zij zich eerder als een schaal die per relatie en over de jaren verschuift. Wie zich na lezing als vermijdend of angstig bestempelt, heeft daarmee een etiket dat meer vastheid suggereert dan de theorie rechtvaardigt.</p>
+      <p>Een deel van de recensenten waardeert juist de openhartigheid over het eigen leven. Die openhartigheid heeft ook een prijs: de gevallen zijn geselecteerd op herkenbaarheid en op een goede afloop. Wat er gebeurt met mensen bij wie het patroon niet doorbreekt, en hoe vaak dat voorkomt, blijft ongenoemd.</p>
+      <p>Het boek is in twee jaar tijd het derde in dezelfde vorm, met dezelfde titelformule en dezelfde afwisseling van uitleg en persoonlijk verhaal. Voor wie het eerdere werk heeft gelezen is de opbrengst van dit deel beperkt tot het onderwerp; het denkkader is hetzelfde.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf van de laatste drie verliefdheden op wat er in de eerste weken gebeurde met slaap, eetlust en aandacht, en kijk of de hevigheid samenviel met onbeschikbaarheid.</li>
+        <li>Noteer bij een terugkerend conflict welke zin erachter zit die uit de jeugd komt, bijvoorbeeld dat vragen om iets lastig maakt.</li>
+        <li>Toets het evenwicht in geven en nemen aan wat er is uitgesproken: welke verwachting is werkelijk benoemd en welke wordt stilzwijgend verondersteld.</li>
+        <li>Merk op wanneer rust in het contact als saai wordt gelezen, en behandel dat als een gegeven over het eigen alarmsysteem in plaats van als een oordeel over de ander.</li>
+        <li>Reken bij twijfel over een verhouding niet met gevoelens maar met gedrag over een langere periode: wat is er in een halfjaar feitelijk gedaan en nagelaten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig oorspronkelijk werk, verschenen bij Ambo|Anthos, Amsterdam, in mei 2026 (200 blz., ISBN 9789026363634), ook als e-boek (ISBN 9789026363641) en als luisterboek. Het sluit aan bij <i>Wat ik eerder had willen weten</i> over angst, zelfliefde en acceptatie, waarmee Mudder in januari 2022 bij dezelfde uitgever doorbrak (ISBN 9789026357831). De uitgever meldt dat er van haar boeken meer dan vijftigduizend exemplaren zijn verkocht. Een vertaling in een andere taal bestaat niet; het boek is geschreven voor de Nederlandse markt en verwijst naar het Nederlandse therapielandschap.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Marian Mudder is actrice en werkt ruim vijftien jaar als EFT-therapeut met mensen die vastlopen op angstklachten. In dit boek verplaatst zij die praktijk naar de liefde: waarom iemand telkens weer bij hetzelfde soort partner uitkomt, en waarom dat patroon zich zo moeilijk laat doorbreken.</p><p>De onderwerpen die zij langsloopt zijn bindingsangst en verlatingsangst, hechtingsstijlen, liefdesverslaving, emotioneel onbeschikbare partners, seksualiteit en schaamte, en de vraag hoe geven en nemen in een relatie in evenwicht komen. Steeds zet zij een stuk uitleg naast een geval uit haar praktijk of uit haar eigen leven.</p><p>De uitkomst waar het boek naartoe werkt is niet een betere partnerkeuze maar een andere verhouding tot zichzelf. Wie geen veiligheid in zichzelf heeft, herkent die veiligheid ook bij een ander niet, en verwart onrust met verliefdheid. Alleen zijn is in dat licht geen tussenfase maar een houdbare uitkomst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>liefde</li><li>hechting</li><li>relaties</li><li>verlatingsangst</li><li>bindingsangst</li><li>zelfliefde</li><li>EFT</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller behandelen dezelfde hechtingsstijlen, maar met verwijzing naar het onderzoek waarop zij rusten; dat is de onderbouwing die Mudder weglaat.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Perel keert de vraag om en onderzoekt waarom veiligheid en verlangen in dezelfde relatie zo slecht samengaan, precies waar Mudder veiligheid als oplossing aanwijst.</li>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk levert de lichamelijke kant van wat Mudder bevriezing noemt, met de klinische geschiedenis en het onderzoek erbij.</li>
+          <li value="1521"><a href="1521.html">Scattered Minds</a>. Mate voert eveneens volwassen klachten terug op vroege omstandigheden en loopt tegen hetzelfde bezwaar aan dat de verklaring alles kan verklaren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

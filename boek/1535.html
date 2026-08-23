@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hemeltaal &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bessem stelt dat de dood geen einde is maar een overgang, en dat de verbinding met een gestorvene blijft bestaan en zelfs merkbaar blijft voor wie leert…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1535">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1535 &middot; Filosofie en mystiek</p>
+    <h1>Hemeltaal</h1>
+    <p class="lede">Bonnie Bessem, 2017</p>
+    <p class="stats">
+      <span><b>1561</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1535"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bessem stelt dat de dood geen einde is maar een overgang, en dat de verbinding met een gestorvene blijft bestaan en zelfs merkbaar blijft voor wie leert waarnemen. Wat mensen aan de dood vrezen is volgens het boek niet de dood zelf maar een voorstelling ervan die de cultuur heeft opgebouwd: oordeel, straf, verdwijnen. Haar vader beschrijft daartegenover een toestand die hij Thuis noemt en waar geen oordeel bestaat. De aanspraak is niet bedoeld als mooie gedachte: het boek beweert dat het zo is. Precies daar ligt het punt waarop het te beoordelen valt, want die bewering rust uitsluitend op wat één medium doorgeeft over haar eigen vader.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek uit voortkomt</h3>
+      <p>Het uitgangspunt is een sterfgeval in de eigen familie. Op 28 juli 2015 overleed Bessems vader onverwacht. Twee dagen later kregen zijn vier kinderen volgens het boek, ieder afzonderlijk en zonder overleg, dezelfde boodschappen van hem door, en ook mensen buiten de familie meldden iets vergelijkbaars.</p>
+      <p>Bessem beschrijft dat voorval als aanleiding en niet als bewijs. Zij vertelt wat er gebeurde en gaat vervolgens over tot de gesprekken die zij daarna met hem zegt te hebben gevoerd. Het persoonlijke karakter blijft door het hele boek voelbaar: het gaat over haar eigen vader, met de details van een familie.</p>
+      <h3>De vorm van de gesprekken</h3>
+      <p>Het boek is opgebouwd uit korte stukken. Bessem stelt een vraag, haar vader antwoordt, soms in enkele regels, soms in een langer betoog. Die opzet maakt de tekst luchtig ondanks de omvang, en geschikt om stuk voor stuk te lezen in plaats van achter elkaar.</p>
+      <p>Wat de vader zegt is in toon en woordkeus herkenbaar Nederlands en alledaags. Hij spreekt niet plechtig en gebruikt geen leerstellige taal. Het woord hemeltaal duidt op iets anders dan spraak: op een manier van doorgeven die volgens Bessem eerder in beelden en gevoel werkt dan in zinnen, en die zij als medium in woorden omzet.</p>
+      <h3>Wat er over de andere kant wordt gezegd</h3>
+      <p>De kern van wat de vader doorgeeft is dat iedereen teruggaat naar Huis, en dat er daar geen oordeel bestaat maar alleen liefde. Er is in dit boek geen hel, geen straf en geen weging van een leven door een instantie buiten de persoon zelf.</p>
+      <p>Wel is er terugblik: het overzien van het eigen leven, met de gevolgen van eigen keuzes voor anderen. Dat overzien is in de beschrijving geen veroordeling maar begrijpen. Wie het boek naast oudere spiritistische literatuur legt, ziet dat dit beeld sinds de negentiende eeuw in grote lijnen hetzelfde is gebleven.</p>
+      <h3>De taal van het hart</h3>
+      <p>Een deel van het boek gaat over hoe nabestaanden zelf contact kunnen ervaren. De aanwijzingen zijn eenvoudig en niet ritueel: rust nemen, aandacht richten, letten op wat er opkomt in dromen, invallen en het gevoel van aanwezigheid, en dat niet meteen wegredeneren.</p>
+      <p>Bessem waarschuwt tegen het verwachten van spectaculaire tekenen en stelt dat het meestal om gewone waarnemingen gaat die achteraf betekenis krijgen. Dat is een terughoudender opstelling dan in dit genre gebruikelijk is, maar het maakt de waarnemingen ook onmogelijk van toeval te onderscheiden.</p>
+      <h3>De sluier en de angst voor de dood</h3>
+      <p>Een terugkerend onderwerp is de vraag waarom de mens de dood tot iets angstaanjagends heeft gemaakt. Het boek wijst daarvoor naar overgeleverde voorstellingen van oordeel en straf, en naar de gewoonte sterven aan het zicht te onttrekken.</p>
+      <p>Daartegenover zet Bessem dat de scheiding tussen de twee werelden dunner is dan mensen aannemen. De term sluier staat bij haar niet voor een muur maar voor een aandachtsdrempel: wat er is, wordt niet opgemerkt zolang de aandacht ergens anders is.</p>
+      <h3>De verbinding is eeuwig</h3>
+      <p>Het slot van het boek werkt de gedachte uit dat de band met een gestorvene niet verbroken hoeft te worden om verder te kunnen. Rouw is in deze opvatting geen loskomen maar een verandering van de vorm waarin de verbinding bestaat.</p>
+      <p>Die gedachte staat niet ver van wat in de rouwpsychologie continuing bonds heet, een benadering die sinds de jaren negentig het oudere model van rouwarbeid en loslaten heeft verdrongen. Bessem verbindt haar echter aan de bewering dat de gestorvene werkelijk aanwezig is en antwoordt, en dat is een stap verder dan die psychologie zet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hemeltaal</td><td>De manier waarop volgens Bessem uit de ongeziene wereld wordt doorgegeven, eerder in beeld, gevoel en weten dan in zinnen, door het medium omgezet in woorden.</td></tr>
+          <tr><td class="term">De ongeziene wereld</td><td>De werkelijkheid waarin gestorvenen zich volgens het boek bevinden, niet ver weg maar buiten het bereik van de gewone aandacht.</td></tr>
+          <tr><td class="term">Thuis</td><td>De toestand waarnaar iedereen na de dood terugkeert, in het boek gekenmerkt door de afwezigheid van oordeel.</td></tr>
+          <tr><td class="term">De sluier</td><td>De scheiding tussen beide werelden, door Bessem beschreven als drempel van aandacht en niet als ondoordringbare grens.</td></tr>
+          <tr><td class="term">De taal van het hart</td><td>De waarnemingswijze waarmee nabestaanden volgens het boek zelf contact kunnen ervaren, gebaseerd op gevoel in plaats van op redenering.</td></tr>
+          <tr><td class="term">Mediumschap</td><td>Het vermogen dat Bessem zegt te hebben en dat zij als beroep uitoefent: waarnemen wat uit de ongeziene wereld wordt doorgegeven.</td></tr>
+          <tr><td class="term">De verbinding</td><td>De band tussen levende en gestorvene, die volgens het boek niet eindigt en alleen van vorm verandert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek levert geen bewijs en houdt dat ook niet voor. Alles wat erin staat berust op wat Bessem zegt te hebben ontvangen. Het enige voorval dat in beginsel controleerbaar had kunnen zijn, de vier kinderen die twee dagen na het sterfgeval afzonderlijk dezelfde boodschappen kregen, is achteraf opgetekend door een van de vier en niet onafhankelijk vastgelegd op het moment zelf.</p>
+      <p>De psychologische opleiding van de auteur wordt in de presentatie van het boek als gezag gebruikt, maar de beweringen zijn geen psychologische beweringen. Dat een psycholoog iets meldt over voortbestaan na de dood zegt over de houdbaarheid van die melding evenveel als wanneer iemand anders het meldt.</p>
+      <p>Mediumschap is buiten deze literatuur onderzocht. Onder omstandigheden waarin het medium geen aanwijzingen over de overledene kan opvangen, is de nauwkeurigheid van de doorgegeven informatie nooit aangetoond op een manier die door de bredere wetenschap is aanvaard; de studies die dat wel claimen komen uit een kleine kring en zijn methodisch aangevochten. De herkenning die lezers ervaren wordt gangbaar verklaard uit uitspraken die op vrijwel iedereen passen, het zogenoemde Barnum-effect, en uit het onthouden van rake opmerkingen en vergeten van missers.</p>
+      <p>Wat wel vaststaat is dat ervaringen van aanwezigheid van een gestorvene veel voorkomen. In rouwonderzoek meldt een aanzienlijk deel van de weduwen en weduwnaars zulke ervaringen, en die gelden daar niet als stoornis. Het verschil met dit boek zit in de uitleg: waar de rouwpsychologie een veelvoorkomende ervaring beschrijft, leidt Bessem daaruit af dat de gestorvene er werkelijk is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de tekst niet weersproken kan worden. Blijft het uit dat iemand contact ervaart, dan lag het aan de aandacht of aan het verdriet; komt er wel iets, dan is het bevestiging. Een verhaal dat elke uitkomst opneemt kan geen inlichting over de werkelijkheid bevatten, hoe waar het ook aanvoelt.</p>
+      <p>De vader spreekt in het register van de dochter. Zijn woordkeus, zijn zinsbouw en zijn opvattingen sluiten aan bij het gedachtegoed waarin Bessem zelf werkt, en er komt niets naar voren dat haar zou tegenspreken of verrassen. Dat is precies wat te verwachten is wanneer een tekst uit één hoofd komt, en het boek geeft geen enkele manier om die verklaring uit te sluiten.</p>
+      <p>Er zit een risico in de troost. Voor sommige rouwenden werkt het idee van een blijvende band verlichtend; voor anderen kan het vasthouden aan contact het aanvaarden van het verlies uitstellen. De rouwliteratuur wijst dat verschil aan als afhankelijk van de persoon, en dit boek maakt dat onderscheid niet.</p>
+      <p>Het boek staat bovendien in een verkoopomgeving. Rond de uitgave worden cursussen, meditaties en begeleiding aangeboden door dezelfde organisatie. Dat maakt de inhoud niet onwaar, maar het plaatst een tekst die het meest wordt gelezen door mensen in de eerste maanden na een sterfgeval in een context waarin die kwetsbaarheid ook een markt is.</p>
+      <p>Daar staat tegenover dat Bessem zich terughoudender opstelt dan veel auteurs in dit genre. Zij belooft geen tekenen, wijst spectaculaire verschijnselen af, en de teneur van het boek is dat rouwenden hun verdriet niet hoeven weg te redeneren. Wie het leest als de neerslag van hoe één familie met een sterfgeval omging, houdt daar iets aan over dat niet van de waarheidsvraag afhangt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als getuigenis en niet als uiteenzetting; scheid bij het lezen wat er wordt verteld van wat er wordt beweerd.</li>
+        <li>Wie de aanwijzingen over contact wil volgen, schrijf de waarnemingen op het moment zelf op en niet achteraf, zodat later te zien is wat er werkelijk stond.</li>
+        <li>Let bij aanhoudende rouwklachten op wat het vasthouden aan contact doet; helpt het niet of nemen de klachten toe, zoek dan begeleiding die op rouw is toegesneden.</li>
+        <li>Bekijk het aanbod aan cursussen en consulten dat aan het boek vastzit apart van het boek zelf, en beoordeel prijs en belofte op eigen merites.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Hemeltaal: boodschappen uit de ongeziene wereld</i>, Uitgeverij Bewust Zijn, Den Haag, 2017, ISBN 9789492066268; als e-boek ISBN 9789492066312. Over de omvang lopen de opgaven uiteen: de bibliotheekcatalogus vermeldt 313 blz., boekhandels geven 400 blz. voor de paperback. Het boek is in het Nederlands geschreven en niet vertaald. Bessem publiceerde daarnaast <i>En ze leerden nog lang en gelukkig</i> en geeft met Irina Veelders les binnen Your Modern Mystics.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Op 28 juli 2015 overleed de vader van Bonnie Bessem plotseling. Twee dagen later ontvingen zijn vier kinderen, naar eigen zeggen los van elkaar, dezelfde boodschappen van hem. <i>Hemeltaal</i> bestaat uit de gesprekken die daarna volgden tussen Bessem en haar overleden vader.</p><p>De vorm is die van korte gespreksverslagen: zij stelt een vraag, hij antwoordt. De onderwerpen zijn hoe het bestaan volgens hem doorgaat na de dood, wat er van iemand overblijft, en hoe nabestaanden contact kunnen ervaren met wie zij verloren.</p><p>Bessem is opgeleid als psycholoog en werkt sinds de jaren negentig als medium. Zij gebruikt beide achtergronden in het boek, dat rouw en angst voor de dood als aangeleerd behandelt en de dood als thuiskomst voorstelt. Wat er staat is getuigenis; toetsbare beweringen bevat het niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mediumschap</li><li>rouw</li><li>leven na de dood</li><li>spiritisme</li><li>troost</li><li>channeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1524"><a href="1524.html">Eindeloos bewustzijn</a>. Van Lommel bespreekt bijna-doodervaringen met verwijzing naar onderzoek in ziekenhuizen; naast Bessem laat dat het verschil zien tussen een getoetste en een niet-getoetste aanspraak op hetzelfde terrein.</li>
+          <li value="1537"><a href="1537.html">The Light Bringer</a>. Ook <i>De lichtbrenger</i> is doorgegeven materiaal uit de ongeziene wereld; de overeenkomst in beeld van het hiernamaals over een eeuw heen is op zichzelf een gegeven om over na te denken.</li>
+          <li value="1534"><a href="1534.html">Een wereld achter de wereld</a>. Irina Veelders werkt met Bessem samen binnen Your Modern Mystics; haar roman brengt hetzelfde mensbeeld als verhaal in plaats van als bewering.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
