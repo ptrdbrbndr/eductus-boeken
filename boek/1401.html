@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Middernachtskinderen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rushdie schrijft de geschiedenis van onafhankelijk India als de levensgeschiedenis van een man die beweert dat hij eraan vastgeketend zit. Achter dat spel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1401">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1401 &middot; Roman en memoir</p>
+    <h1>Middernachtskinderen</h1>
+    <p class="lede">Salman Rushdie, 1981; vert. Max Schuchart</p>
+    <p class="stats">
+      <span><b>1450</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1401"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rushdie schrijft de geschiedenis van onafhankelijk India als de levensgeschiedenis van een man die beweert dat hij eraan vastgeketend zit. Achter dat spel ligt een stelling over geschiedschrijving zelf: een land is wat zijn inwoners zich erover herinneren, en die herinnering is even gekleurd, zelfzuchtig en onnauwkeurig als die van een verteller die zijn eigen aandeel opblaast. Rushdie voert dat niet aan als excuus maar als methode. Saleems verhaal bevat aantoonbare fouten in jaartallen en gebeurtenissen die de auteur er bewust in heeft gezet, en het boek stelt daarmee de vraag of een gekleurd verslag van binnenuit meer over een land zegt dan de officiele tijdlijn. Tegelijk is de roman een aanval op wie de herinnering wil vaststellen, en die aanval eindigt bij de regering die tijdens het schrijven aan de macht was.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het geperforeerde laken</h3>
+      <p>Het boek opent in 1915 in Kasjmir, waar de in Duitsland opgeleide arts Aadam Aziz zijn toekomstige vrouw onderzoekt door een gat in een laken, telkens een ander lichaamsdeel. Zo leert hij haar kennen in stukken, een beeld dat de roman blijft gebruiken voor het kennen van een land.</p>
+      <p>Uit dat huwelijk komt de familie voort die naar Agra en later naar Bombay verhuist. Rushdie besteedt bijna een derde van het boek aan die voorgeschiedenis voordat de verteller wordt geboren, en verantwoordt dat met de opmerking dat niemand zichzelf kan begrijpen zonder eerst de generaties voor hem uit te leggen.</p>
+      <h3>Middernacht</h3>
+      <p>Op het uur van de onafhankelijkheid worden in het ziekenhuis van dokter Narlikar twee jongens geboren. De verpleegster Mary Pereira verwisselt de kaartjes uit liefde voor een opstandeling, waardoor het kind van een straatzanger opgroeit in het rijke huis van de Sinais en het kind van de Sinais opgroeit in de goot.</p>
+      <p>Saleem krijgt bij zijn geboorte een brief van premier Nehru waarin staat dat zijn leven in zekere zin de spiegel van het land zal zijn. Die zin neemt hij letterlijk, en het hele boek lang blijft hij zichzelf verantwoordelijk houden voor talenwetten, oorlogen en verkiezingen.</p>
+      <h3>De conferentie van de middernachtskinderen</h3>
+      <p>Na een ongeluk in een wasmand ontdekt Saleem dat hij de gedachten van anderen kan horen. Hij vindt de andere kinderen van het eerste uur en roept hen 's nachts in zijn hoofd bijeen als de Middernachtskinderenconferentie. De vraag wat zij samen zouden moeten doen, wordt nooit beantwoord.</p>
+      <p>De conferentie valt uiteen langs precies dezelfde lijnen als het land: taal, godsdienst, kaste en bezit. Shiva, het verwisselde kind dat met dodelijke knieen is geboren, wil dat de sterksten de dienst uitmaken. Saleem wil een derde weg en houdt die niet vol. Wie in de kinderen een beeld voor de beloften van 1947 leest, ziet meteen wat Rushdie ervan vindt.</p>
+      <h3>Pakistan en de oorlogen</h3>
+      <p>De familie verhuist naar Karachi. In de oorlog van 1965 wordt het huis getroffen en komen vrijwel al Saleems verwanten om; hij loopt een hoofdwond op en verliest zijn geheugen. Als naamloze spoorzoeker met een buitengewone reuk wordt hij in 1971 door het Pakistaanse leger ingezet in wat Bangladesh zal worden.</p>
+      <p>In de Sundarbans verdwaalt zijn eenheid in het mangrovewoud, en daar komt zijn herinnering langzaam terug. Deze hoofdstukken zijn het somberste deel van het boek: de verteller heeft geen naam, geen taak en geen mening, en de wandaden die hij ziet worden zonder komisch tegenwicht opgeschreven.</p>
+      <h3>De noodtoestand</h3>
+      <p>Terug in India belandt Saleem in de tovenaarswijk van Delhi en trouwt met Parvati, die van Shiva zwanger is. Tijdens de noodtoestand van 1975 tot 1977 laat de vrouw die het boek de Weduwe noemt de sloppen ontruimen en de middernachtskinderen opsporen.</p>
+      <p>Zij worden onvruchtbaar gemaakt, en in Saleems verslag gaat het om meer dan voortplanting: met de sterilisatie wordt hun ook de hoop weggenomen. Rushdie schreef die passages vlak na de gebeurtenissen zelf. Indira Gandhi spande in 1984 een zaak aan om een zin waarin haar zoon Sanjay haar de dood van zijn vader verwijt; die zin werd uit latere drukken gehaald.</p>
+      <h3>De augurkenfabriek</h3>
+      <p>Het raamverhaal speelt in de fabriek van Mary Pereira, waar Saleem overdag augurken maakt en 's nachts schrijft. Elk hoofdstuk is een pot: hij noemt het zijn inmaak van de geschiedenis, waarbij smaak boven nauwkeurigheid gaat en er aan het eind een pot leeg blijft voor wat er nog komt.</p>
+      <p>Padma, de arbeidster die naar hem luistert, eist voortgang en gelooft niet in uitweidingen. Zij is de enige rem op de verteller en spreekt hem tegen waar de lezer dat zou willen. Het boek eindigt met Saleems voorspelling dat hij op zijn eenendertigste verjaardag in evenveel deeltjes uiteen zal vallen als India inwoners heeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Middernachtskinderen</td><td>De duizend en een kinderen die in het eerste uur van de onafhankelijkheid zijn geboren, elk met een gave die sterker is naarmate zij dichter bij middernacht ter wereld kwamen.</td></tr>
+          <tr><td class="term">Middernachtskinderenconferentie</td><td>De vergadering die Saleem telepathisch bijeenroept en die uiteenvalt op dezelfde tegenstellingen die het land verdelen.</td></tr>
+          <tr><td class="term">Inmaak van de geschiedenis</td><td>Saleems eigen beeld voor zijn manier van vertellen: hoofdstukken als potten augurken, waarin de smaak zwaarder weegt dan de juiste verhouding.</td></tr>
+          <tr><td class="term">Het geperforeerde laken</td><td>Het laken met het gat waardoor de grootvader zijn patiente in delen leert kennen, in de roman het beeld voor kennis die altijd stuksgewijs blijft.</td></tr>
+          <tr><td class="term">De Weduwe</td><td>De naam waaronder Indira Gandhi in het boek voorkomt, met groen en zwart haar, als degene die de middernachtskinderen laat opsporen.</td></tr>
+          <tr><td class="term">Handcuffed to history</td><td>De uitdrukking uit de openingsbladzijden waarmee Saleem zijn geboorte-uur beschrijft: geboeid aan de geschiedenis, zonder mogelijkheid tot ontsnapping.</td></tr>
+          <tr><td class="term">Methwolds landgoed</td><td>De vier villa's in Bombay die een vertrekkende Engelsman verkoopt op voorwaarde dat de nieuwe eigenaars niets veranderen tot de macht is overgedragen.</td></tr>
+          <tr><td class="term">Shiva van de knieen</td><td>De bij de geboorte verwisselde tegenspeler, opgegroeid in armoede, oorlogsheld en misdadiger, die kracht als enige maatstaf aanhoudt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De historische lijn van het boek is te volgen: de deling van 1947, de taalstrijd om de deelstaatgrenzen in Bombay, de Chinese oorlog van 1962, de Indiaas-Pakistaanse oorlog van 1965, de afscheiding van Bangladesh in 1971 en de noodtoestand van 1975 tot 1977 staan allemaal op hun plaats. Rushdie schreef in Londen en gebruikte de openbare tijdlijn als raamwerk.</p>
+      <p>De fouten daarin zijn geen slordigheid. Saleem geeft bijvoorbeeld een verkeerde datum voor de moord op Gandhi en merkt daarna zelf op dat hij die niet verbetert. Rushdie heeft in het essay <i>Errata: or, Unreliable Narration in Midnight's Children</i> uitgelegd dat de fouten in het verhaal horen: de verteller is een man die zich dingen herinnert, niet een archief.</p>
+      <p>Dat de roman raakte aan levende politiek bleek uit de rechtszaak van Indira Gandhi in 1984, die tot een schikking en het schrappen van een zin leidde. Rushdie heeft daar later bij aangetekend dat zij geen enkel ander deel van de weergave van de noodtoestand bestreed.</p>
+      <p>De taal is het eigenlijke argument. Rushdie mengt Engels met Hindi en Urdu, laat uitroepen, herhalingen en directe aanspraken staan, en schrijft in een tempo dat aan mondeling vertellen ontleend is. Die stijl werd het model voor een generatie Indiase schrijvers in het Engels, ook voor wie zich er later tegen afzette.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is lang, druk en overvol. Personages worden bij tientallen ingevoerd, grappen worden herhaald, en de verteller kondigt om de paar bladzijden aan wat er nog komen gaat. Lezers die afhaken doen dat zelden om de inhoud en vrijwel altijd om het tempo van de opsomming.</p>
+      <p>De vrouwen in de roman zijn karig bedeeld. Zij zijn moeder, echtgenote, verpleegster, luisteraar of dreiging, en de enige vrouw met werkelijke macht is de Weduwe, die als kwaadaardig wordt neergezet. Padma bestaat vrijwel geheel bij de gratie van haar functie als publiek voor de verteller.</p>
+      <p>Politiek is Rushdie verweten dat hij India uitlegt aan een westers publiek. Timothy Brennan noemde hem het voorbeeld van de wereldburger uit de derde wereld die vooral in Londen en New York wordt gelezen; critici in India wezen erop dat de vertelling van Pakistan en van Bangladesh vanuit Bombay wordt gedaan en dat zich dat laat merken.</p>
+      <p>Er zit een spanning in de opzet die het boek niet oplost. Saleem beweert dat hij de geschiedenis veroorzaakt en tegelijk dat hij eraan geketend zit. Die twee beweringen zijn niet met elkaar te rijmen, en waar de roman dat als grap kan opvoeren, wordt het bij de zwaarste gebeurtenissen, de oorlogen en de noodtoestand, tot een houding die de vraag naar verantwoordelijkheid ontwijkt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Midnight's Children</i> (Jonathan Cape, Londen, 1981), bekroond met de Booker Prize van dat jaar en in 1993 en 2008 door juryrondes uitgeroepen tot het beste boek uit de hele Bookergeschiedenis. De Nederlandse vertaling van Max Schuchart verscheen in 1985 bij Veen; de vijftiende druk kwam in 2022 uit bij Uitgeverij Pluim, Amsterdam (531 blz., ISBN 9789493304185). Van Rushdie zijn vrijwel alle romans in het Nederlands verschenen, waaronder <i>Duivelsverzen</i> in de vertaling van Marijke Emeis.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Saleem Sinai wordt geboren op de slag van middernacht op 15 augustus 1947, het uur waarin India onafhankelijk wordt. Duizend en een kinderen komen in dat eerste uur ter wereld, allemaal met een gave, en hoe dichter bij middernacht hoe sterker die gave is. Saleem kan met hen allen tegelijk in gedachten spreken.</p><p>Hij vertelt zijn verhaal op eenendertigjarige leeftijd, 's nachts in een augurkenfabriek, aan Padma die naast hem zit en hem onderbreekt. Hij begint drie generaties eerder, bij zijn grootvader in Kasjmir, en werkt naar zichzelf toe. Zijn lichaam valt intussen uiteen; hij schrijft tegen de klok in.</p><p>De roman koppelt het leven van een familie aan dat van een land: elke wending in Saleems bestaan valt samen met een gebeurtenis in de Indiase geschiedenis, van de deling in 1947 tot de noodtoestand van Indira Gandhi. Saleem houdt vol dat hij die gebeurtenissen veroorzaakt heeft, en de lezer moet zelf uitmaken wat daarvan te geloven valt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>India</li><li>onafhankelijkheid</li><li>magisch realisme</li><li>geschiedenis</li><li>Bombay</li><li>onbetrouwbare verteller</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1402"><a href="1402.html">Honderd jaar eenzaamheid</a>. Rushdie heeft altijd erkend hoeveel hij aan Garcia Marquez ontleende; de familiekroniek waarin het land meeverandert is hier hetzelfde bouwsel.</li>
+          <li value="1400"><a href="1400.html">De God van Kleine Dingen</a>. De andere Indiase Bookerwinnaar, zestien jaar later, kiest voor een klein dorp en een handvol dagen waar Rushdie een heel land en dertig jaar neemt.</li>
+          <li value="720"><a href="720.html">Oriëntalisme</a>. Said beschrijft hoe het Oosten in westerse teksten werd neergezet; de kritiek dat Rushdie India aan Londen uitlegt, is in dat kader geformuleerd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

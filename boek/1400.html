@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De God van Kleine Dingen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Roy schrijft een familiegeschiedenis waarin de grote machten van India, kaste, kerk, communistische partij en politie, zichtbaar worden in wat er aan een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1400">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1400 &middot; Roman en memoir</p>
+    <h1>De God van Kleine Dingen</h1>
+    <p class="lede">Arundhati Roy, 1997; vert. Christien Jonkheer</p>
+    <p class="stats">
+      <span><b>1548</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1400"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Roy schrijft een familiegeschiedenis waarin de grote machten van India, kaste, kerk, communistische partij en politie, zichtbaar worden in wat er aan een keukentafel en op een rivieroever gebeurt. Haar stelling is dat de scheidslijnen die de samenleving trekt niet van buitenaf worden opgelegd aan de familie, maar door de familie zelf worden bewaakt, en dat de gewelddadigste bewakers degenen zijn die er zelf het meest onder lijden. Wie de liefdeswetten overtreedt, wordt niet gestraft omdat de overtreding schade aanricht, maar omdat zij laat zien dat de wet een afspraak is. Het boek voert die stelling niet aan als betoog. Het legt een handvol dagen uit 1969 zo lang onder de loep dat de lezer de mechaniek zelf ziet werken.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Ayemenem, 1993</h3>
+      <p>Rahel keert terug naar het huis in Ayemenem, na een studie architectuur die zij niet afmaakte, een huwelijk in Amerika dat strandde en jaren waarin zij niets van zichzelf maakte. Estha is teruggestuurd naar hetzelfde huis en spreekt niet meer; hij zwijgt sinds zijn jeugd en loopt lange wandelingen door het dorp.</p>
+      <p>Het huis wordt bewoond door Baby Kochamma, hun oudtante, die haar dagen aan de televisie doorbrengt en de tuin heeft laten verwilderen. De rivier waarin Sophie Mol verdronk is smal en vuil geworden, aan de overkant staat een hotelketen met opgekochte oude huizen. Roy zet die staat van verval neer voordat zij vertelt waar hij vandaan komt.</p>
+      <h3>De familie en haar voorgeschiedenis</h3>
+      <p>Pappachi, de grootvader, was entomoloog in dienst van de koloniale overheid en ontdekte een mot die nooit naar hem is vernoemd; de teleurstelling daarover kleurt de rest van zijn leven en het lichaam van zijn vrouw, die hij met een messing vaas slaat. Mammachi, zijn vrouw, bijna blind, begint de fabriek Paradise Pickles &amp; Preserves en houdt die draaiende.</p>
+      <p>Chacko, hun zoon, studeerde in Oxford, trouwde daar met Margaret en scheidde; hij noemt de familie een gezin van anglofielen dat gevangenzit in een geschiedenis die het niet zelf heeft geschreven. Ammu, hun dochter, mocht niet studeren, trouwde om weg te komen met een man die dronk en haar aan zijn Engelse chef wilde uitlenen, en kwam met de tweelingen terug naar het ouderlijk huis, waar een gescheiden dochter geen aanspraak heeft op iets.</p>
+      <h3>Het bezoek uit Engeland</h3>
+      <p>Sophie Mol, het kind van Chacko en Margaret, komt met Kerstmis over. Het hele huis richt zich op haar: zij is licht, Engels en welkom, en de tweelingen merken precies hoeveel minder zij zijn. De rit naar het vliegveld in Cochin loopt vast in een demonstratie van de communistische partij, waarin de tweelingen Velutha menen te herkennen tussen de vlaggen.</p>
+      <p>In de bioscoop, tijdens een vertoning van <i>The Sound of Music</i>, wordt Estha in de foyer misbruikt door de man achter de drankjeskraam. Hij vertelt het aan niemand behalve aan Rahel, en houdt daarna vast aan een gedachte die het boek herhaalt: alles kan iedereen overkomen, en het is verstandig daarop voorbereid te zijn.</p>
+      <h3>Ammu en Velutha</h3>
+      <p>Velutha werkt als timmerman in de fabriek en repareert de machines. Hij is een Paravan, uit een kaste waarvan Mammachi zich nog herinnert dat haar generatie eiste dat zij achteruitliepen en hun eigen voetafdrukken wegveegden. Hij is de enige volwassene die met de tweelingen omgaat alsof zij mensen zijn.</p>
+      <p>Ammu en Velutha zoeken elkaar dertien nachten lang op aan de overkant van de rivier, bij het vervallen huis van een Engelsman dat de kinderen het Geschiedenishuis noemen. Hun verhouding wordt verraden door de moeder van Velutha's rivaal en door Mammachi zelf opgeblazen tot een schande; Baby Kochamma, die haar hele leven een liefde voor een Ierse priester heeft weggeslikt, doet aangifte van verkrachting en aanranding.</p>
+      <h3>Wat er in twee dagen gebeurt</h3>
+      <p>Ammu wordt in een slaapkamer opgesloten en schreeuwt door de deur naar haar kinderen dat zij haar molenstenen zijn. De tweelingen lopen weg naar het Geschiedenishuis; Sophie Mol gaat mee en verdrinkt als hun boot omslaat. De politie vindt Velutha slapend aan de overkant en slaat hem in het bijzijn van de twee kinderen tot hij sterft aan zijn verwondingen in de cel.</p>
+      <p>Inspecteur Thomas Mathew doorziet de aangifte zodra Ammu bij hem op het bureau staat en begrijpt dat er geen misdrijf is waarvoor hij nu nog gedekt is. Baby Kochamma redt de zaak door Estha te laten zeggen dat Velutha hen heeft ontvoerd. Comrade Pillai, de plaatselijke partijman bij wie Velutha lid was, houdt zich buiten schot; het lidmaatschap van de partij beschermt hem nergens tegen.</p>
+      <h3>De twee laatste hoofdstukken</h3>
+      <p>Estha wordt naar zijn vader gestuurd en Ammu het huis uit; zij sterft alleen in een pension, eenendertig jaar oud, en de kerk weigert haar een graf. Het boek eindigt niet daar. Het laatste hoofdstuk keert terug naar de eerste nacht van Ammu en Velutha en sluit af met het woord waarmee zij afscheid nemen, morgen.</p>
+      <p>Daarvoor staat het hoofdstuk waarin Estha en Rahel elkaar in 1993 terugvinden en met elkaar slapen. Roy schrijft die scene kort en zonder toelichting; het is de tweede overtreding van dezelfde wet, gepleegd door de kinderen van de eerste. Over die bladzijden voerde een advocaat in Kerala jarenlang een aanklacht wegens aanstootgevendheid tegen haar.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Liefdeswetten</td><td>De regels die vastleggen wie er bemind mag worden, en hoe, en hoeveel; volgens de verteller vastgesteld lang voordat het christendom of het marxisme in Kerala aankwam.</td></tr>
+          <tr><td class="term">Paravan</td><td>De kaste waartoe Velutha behoort, gerekend tot de onaanraakbaren, met een reeks voorschriften over afstand, aanraking en waar iemand mag lopen.</td></tr>
+          <tr><td class="term">Tweeeiige tweeling</td><td>Estha en Rahel, geboren uit twee eicellen en dus niet identiek, maar in het boek beschreven als twee mensen met een gedeeld bewustzijn en gedeelde herinneringen.</td></tr>
+          <tr><td class="term">Het Geschiedenishuis</td><td>Het vervallen huis aan de overkant van de rivier, ooit van een Engelsman, dat de kinderen bezoeken en waar Velutha wordt doodgeslagen; in 1993 een luxehotel.</td></tr>
+          <tr><td class="term">Pappachi's mot</td><td>De vlinder die de grootvader ontdekte en die aan een andere onderzoeker werd toegeschreven; in het boek het beeld voor een gekrenktheid die op de familie wordt afgereageerd.</td></tr>
+          <tr><td class="term">Paradise Pickles &amp; Preserves</td><td>De familiefabriek in Ayemenem, waarvan de bananenjam noch jam noch gelei blijkt te zijn volgens de voedselwetgeving, een detail dat de roman als grap en als beeld gebruikt.</td></tr>
+          <tr><td class="term">Anglofilie</td><td>De term waarmee Chacko de gerichtheid van zijn familie op Engeland benoemt: bewondering voor wat hen heeft overheerst, en minachting voor wat zij zelf zijn.</td></tr>
+          <tr><td class="term">De Grote Dingen en de Kleine Dingen</td><td>De tegenstelling waar de titel op rust: de grote machten laten zich niet keren, dus richt de aandacht in het boek zich op wat klein en verzorgbaar is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Roy schreef geen historische roman, maar het decor is nagenoeg haar eigen jeugd. Zij groeide op in Ayemenem, haar moeder Mary Roy was een gescheiden Syrisch-christelijke vrouw die een school begon en in 1986 bij het Indiase Hooggerechtshof een zaak won die christelijke dochters gelijk erfrecht gaf. De positie van Ammu in het huis komt daar rechtstreeks vandaan.</p>
+      <p>De politieke achtergrond is controleerbaar. Kerala had als eerste deelstaat een langs de stembus gekozen communistische regering (1957) en kende in 1969 een coalitie waarin de partij van Comrade Pillai zat. Dat een partijafdeling een kastelid liet vallen zodra het lidmaatschap ongemakkelijk werd, is precies het punt waarop de roman de partij aanvalt, en het is een aanval op een bestaande organisatie, niet op een verzinsel.</p>
+      <p>Wat het boek als roman staande houdt, is de vertelvorm. Doordat de afloop vanaf hoofdstuk een bekend is, kan Roy elke scene tweemaal laten werken: als gebeurtenis en als voorteken. De taal is daarbij zichtbaar gemaakt, met hoofdletters op ongewone plaatsen, omgekeerde woorden en kinderlijke samentrekkingen, omdat de tweelingen de vertelinstantie kleuren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de stijl. De vondsten die op honderd bladzijden werken, gaan over vierhonderd bladzijden manier heten: de herhaalde formules, de hoofdletters en de aan kinderen ontleende woordspelingen keren zo vaak terug dat lezers ze als opsmuk zijn gaan lezen. Wie het boek niet mooi vindt, vindt het meestal om deze reden niet mooi.</p>
+      <p>Politiek is het boek van twee kanten aangevallen. De communistische partij in Kerala verweet Roy een karikatuur van haar geschiedenis; anderen vonden juist dat het geweld tegen Velutha zo beeldend wordt beschreven dat de kastenkwestie tot een tragedie verandert waaraan niets valt te doen. De roman biedt inderdaad geen uitweg: er verandert in vierentwintig jaar niets, behalve dat de rivier vuiler is geworden.</p>
+      <p>De aanklacht wegens aanstootgevendheid die een advocaat in Kerala aanspande om het slothoofdstuk hield Roy jarenlang bezig en zegt iets over de ontvangst ter plaatse. Inhoudelijk blijft de vraag staan of het incestslot noodzakelijk is of vooral rijmt: het herhaalt de overtreding uit 1969 zo netjes dat het meer bouwsel dan gebeurtenis lijkt.</p>
+      <p>Roy heeft na dit boek twintig jaar geen roman geschreven en zich op politieke essays gestort over dammen, kernwapens en de opstand in centraal India. Wie haar latere werk kent, leest deze roman soms terug als het beginpunt van een standpunt; wie dat werk niet kent, mist die lijn volledig.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The God of Small Things</i> (IndiaInk, New Delhi, en Flamingo/Random House, 1997), bekroond met de Booker Prize van dat jaar. De Nederlandse vertaling van Christien Jonkheer verscheen bij Prometheus en wordt sinds enkele jaren uitgegeven door Wereldbibliotheek, Amsterdam; de zestiende druk dateert van 2025 (382 blz., ISBN 9789028454163). Roy schreef pas twintig jaar later een tweede roman, <i>The Ministry of Utmost Happiness</i> (2017, Nederlands als <i>Het ministerie van het Opperste Geluk</i>); tussendoor verschenen vooral politieke essaybundels van haar hand in vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Twee tweeeiige tweelingen, Estha en Rahel, groeien op in Ayemenem in Kerala, in een Syrisch-christelijke familie die een fabriek van augurken en jam drijft. In december 1969 komt hun Engelse nichtje Sophie Mol op bezoek. Binnen twee weken is zij verdronken, is Velutha dood en zijn de tweelingen uit elkaar gehaald.</p><p>Roy vertelt die twee weken niet aan een stuk. Het boek springt heen en weer tussen 1969 en 1993, het jaar waarin de tweelingen elkaar op eenendertigjarige leeftijd terugzien in hetzelfde huis. De afloop staat vanaf de eerste bladzijden vast; wat langzaam duidelijk wordt is hoe het zo kwam, en wie er wat aan deed.</p><p>Onder het verhaal ligt wat Roy de liefdeswetten noemt: de regels die bepalen wie er bemind mag worden, en hoe, en hoeveel. Ammu, de gescheiden moeder van de tweelingen, en Velutha, een timmerman uit de kaste der onaanraakbaren, overtreden die regels. De straf komt van de politie, maar wordt in gang gezet binnen de familie zelf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>India</li><li>kaste</li><li>familie</li><li>tweelingen</li><li>Kerala</li><li>verlies</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="720"><a href="720.html">Oriëntalisme</a>. Said levert het begrippenkader waarmee de anglofilie van Chacko en Pappachi te lezen valt: bewondering voor de overheerser als blijvende erfenis.</li>
+          <li value="1401"><a href="1401.html">Middernachtskinderen</a>. Rushdie schreef zestien jaar eerder de andere grote Indiase roman in het Engels; Roy werd bij verschijnen voortdurend met hem vergeleken, tot haar eigen ergernis.</li>
+          <li value="1113"><a href="1113.html">Decolonising the Mind</a>. Ngugi bepleit het tegenovergestelde van wat Roy doet, namelijk schrijven in de eigen taal in plaats van in die van de kolonisator.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

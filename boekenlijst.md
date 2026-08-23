@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 23
-augustus 2026: 1027 titels in 21 rubrieken.
+augustus 2026: 1030 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -15,7 +15,7 @@ bij de volgende build verloren.
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800, 1301 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586, 1168, 1206, 1208 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 819, 830, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942, 1114, 1200, 1202, 1204, 1205, 1209, 1211, 1212, 1213, 1312, 1327 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 819, 830, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942, 1114, 1200, 1202, 1204, 1205, 1209, 1211, 1212, 1213, 1312, 1327, 1400, 1401, 1402 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550, 824, 828, 832, 952, 1299, 1321, 1322, 1323 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19, 1210, 1330 |
@@ -213476,6 +213476,604 @@ Koude Oorlog-periode, als tegenhanger van de Sovjetoperaties uit dit boek.
 NSA en biedt zo een vergelijkbare blik op een geheime dienst die decennialang
 buiten zicht van het publiek opereerde.
 
+## 1400. De God van Kleine Dingen
+
+Arundhati Roy, 1997; vert. Christien Jonkheer. Oorspronkelijk *The God of
+Small Things* (IndiaInk, New Delhi, en Flamingo/Random House, 1997), bekroond
+met de Booker Prize van dat jaar. De Nederlandse vertaling van Christien
+Jonkheer verscheen bij Prometheus en wordt sinds enkele jaren uitgegeven door
+Wereldbibliotheek, Amsterdam; de zestiende druk dateert van 2025 (382 blz.,
+ISBN 9789028454163). Roy schreef pas twintig jaar later een tweede roman, *The
+Ministry of Utmost Happiness* (2017, Nederlands als *Het ministerie van het
+Opperste Geluk*); tussendoor verschenen vooral politieke essaybundels van haar
+hand in vertaling. Rubriek: roman en memoir.
+Tags: `roman`, `India`, `kaste`, `familie`, `tweelingen`, `Kerala`, `verlies`
+
+Twee tweeeiige tweelingen, Estha en Rahel, groeien op in Ayemenem in Kerala,
+in een Syrisch-christelijke familie die een fabriek van augurken en jam
+drijft. In december 1969 komt hun Engelse nichtje Sophie Mol op bezoek. Binnen
+twee weken is zij verdronken, is Velutha dood en zijn de tweelingen uit elkaar
+gehaald.
+
+Roy vertelt die twee weken niet aan een stuk. Het boek springt heen en weer
+tussen 1969 en 1993, het jaar waarin de tweelingen elkaar op eenendertigjarige
+leeftijd terugzien in hetzelfde huis. De afloop staat vanaf de eerste
+bladzijden vast; wat langzaam duidelijk wordt is hoe het zo kwam, en wie er
+wat aan deed.
+
+Onder het verhaal ligt wat Roy de liefdeswetten noemt: de regels die bepalen
+wie er bemind mag worden, en hoe, en hoeveel. Ammu, de gescheiden moeder van
+de tweelingen, en Velutha, een timmerman uit de kaste der onaanraakbaren,
+overtreden die regels. De straf komt van de politie, maar wordt in gang gezet
+binnen de familie zelf.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Roy schrijft een familiegeschiedenis waarin de grote machten
+van India, kaste, kerk, communistische partij en politie, zichtbaar worden in
+wat er aan een keukentafel en op een rivieroever gebeurt. Haar stelling is dat
+de scheidslijnen die de samenleving trekt niet van buitenaf worden opgelegd
+aan de familie, maar door de familie zelf worden bewaakt, en dat de
+gewelddadigste bewakers degenen zijn die er zelf het meest onder lijden. Wie
+de liefdeswetten overtreedt, wordt niet gestraft omdat de overtreding schade
+aanricht, maar omdat zij laat zien dat de wet een afspraak is. Het boek voert
+die stelling niet aan als betoog. Het legt een handvol dagen uit 1969 zo lang
+onder de loep dat de lezer de mechaniek zelf ziet werken.
+
+#### De gang van het verhaal
+
+**Ayemenem, 1993**
+
+Rahel keert terug naar het huis in Ayemenem, na een studie architectuur die
+zij niet afmaakte, een huwelijk in Amerika dat strandde en jaren waarin zij
+niets van zichzelf maakte. Estha is teruggestuurd naar hetzelfde huis en
+spreekt niet meer; hij zwijgt sinds zijn jeugd en loopt lange wandelingen door
+het dorp.
+
+Het huis wordt bewoond door Baby Kochamma, hun oudtante, die haar dagen aan de
+televisie doorbrengt en de tuin heeft laten verwilderen. De rivier waarin
+Sophie Mol verdronk is smal en vuil geworden, aan de overkant staat een
+hotelketen met opgekochte oude huizen. Roy zet die staat van verval neer
+voordat zij vertelt waar hij vandaan komt.
+
+**De familie en haar voorgeschiedenis**
+
+Pappachi, de grootvader, was entomoloog in dienst van de koloniale overheid en
+ontdekte een mot die nooit naar hem is vernoemd; de teleurstelling daarover
+kleurt de rest van zijn leven en het lichaam van zijn vrouw, die hij met een
+messing vaas slaat. Mammachi, zijn vrouw, bijna blind, begint de fabriek
+Paradise Pickles & Preserves en houdt die draaiende.
+
+Chacko, hun zoon, studeerde in Oxford, trouwde daar met Margaret en scheidde;
+hij noemt de familie een gezin van anglofielen dat gevangenzit in een
+geschiedenis die het niet zelf heeft geschreven. Ammu, hun dochter, mocht niet
+studeren, trouwde om weg te komen met een man die dronk en haar aan zijn
+Engelse chef wilde uitlenen, en kwam met de tweelingen terug naar het
+ouderlijk huis, waar een gescheiden dochter geen aanspraak heeft op iets.
+
+**Het bezoek uit Engeland**
+
+Sophie Mol, het kind van Chacko en Margaret, komt met Kerstmis over. Het hele
+huis richt zich op haar: zij is licht, Engels en welkom, en de tweelingen
+merken precies hoeveel minder zij zijn. De rit naar het vliegveld in Cochin
+loopt vast in een demonstratie van de communistische partij, waarin de
+tweelingen Velutha menen te herkennen tussen de vlaggen.
+
+In de bioscoop, tijdens een vertoning van *The Sound of Music*, wordt Estha in
+de foyer misbruikt door de man achter de drankjeskraam. Hij vertelt het aan
+niemand behalve aan Rahel, en houdt daarna vast aan een gedachte die het boek
+herhaalt: alles kan iedereen overkomen, en het is verstandig daarop voorbereid
+te zijn.
+
+**Ammu en Velutha**
+
+Velutha werkt als timmerman in de fabriek en repareert de machines. Hij is een
+Paravan, uit een kaste waarvan Mammachi zich nog herinnert dat haar generatie
+eiste dat zij achteruitliepen en hun eigen voetafdrukken wegveegden. Hij is de
+enige volwassene die met de tweelingen omgaat alsof zij mensen zijn.
+
+Ammu en Velutha zoeken elkaar dertien nachten lang op aan de overkant van de
+rivier, bij het vervallen huis van een Engelsman dat de kinderen het
+Geschiedenishuis noemen. Hun verhouding wordt verraden door de moeder van
+Velutha's rivaal en door Mammachi zelf opgeblazen tot een schande; Baby
+Kochamma, die haar hele leven een liefde voor een Ierse priester heeft
+weggeslikt, doet aangifte van verkrachting en aanranding.
+
+**Wat er in twee dagen gebeurt**
+
+Ammu wordt in een slaapkamer opgesloten en schreeuwt door de deur naar haar
+kinderen dat zij haar molenstenen zijn. De tweelingen lopen weg naar het
+Geschiedenishuis; Sophie Mol gaat mee en verdrinkt als hun boot omslaat. De
+politie vindt Velutha slapend aan de overkant en slaat hem in het bijzijn van
+de twee kinderen tot hij sterft aan zijn verwondingen in de cel.
+
+Inspecteur Thomas Mathew doorziet de aangifte zodra Ammu bij hem op het bureau
+staat en begrijpt dat er geen misdrijf is waarvoor hij nu nog gedekt is. Baby
+Kochamma redt de zaak door Estha te laten zeggen dat Velutha hen heeft
+ontvoerd. Comrade Pillai, de plaatselijke partijman bij wie Velutha lid was,
+houdt zich buiten schot; het lidmaatschap van de partij beschermt hem nergens
+tegen.
+
+**De twee laatste hoofdstukken**
+
+Estha wordt naar zijn vader gestuurd en Ammu het huis uit; zij sterft alleen
+in een pension, eenendertig jaar oud, en de kerk weigert haar een graf. Het
+boek eindigt niet daar. Het laatste hoofdstuk keert terug naar de eerste nacht
+van Ammu en Velutha en sluit af met het woord waarmee zij afscheid nemen,
+morgen.
+
+Daarvoor staat het hoofdstuk waarin Estha en Rahel elkaar in 1993 terugvinden
+en met elkaar slapen. Roy schrijft die scene kort en zonder toelichting; het
+is de tweede overtreding van dezelfde wet, gepleegd door de kinderen van de
+eerste. Over die bladzijden voerde een advocaat in Kerala jarenlang een
+aanklacht wegens aanstootgevendheid tegen haar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Liefdeswetten | De regels die vastleggen wie er bemind mag worden, en hoe, en hoeveel; volgens de verteller vastgesteld lang voordat het christendom of het marxisme in Kerala aankwam. |
+| Paravan | De kaste waartoe Velutha behoort, gerekend tot de onaanraakbaren, met een reeks voorschriften over afstand, aanraking en waar iemand mag lopen. |
+| Tweeeiige tweeling | Estha en Rahel, geboren uit twee eicellen en dus niet identiek, maar in het boek beschreven als twee mensen met een gedeeld bewustzijn en gedeelde herinneringen. |
+| Het Geschiedenishuis | Het vervallen huis aan de overkant van de rivier, ooit van een Engelsman, dat de kinderen bezoeken en waar Velutha wordt doodgeslagen; in 1993 een luxehotel. |
+| Pappachi's mot | De vlinder die de grootvader ontdekte en die aan een andere onderzoeker werd toegeschreven; in het boek het beeld voor een gekrenktheid die op de familie wordt afgereageerd. |
+| Paradise Pickles & Preserves | De familiefabriek in Ayemenem, waarvan de bananenjam noch jam noch gelei blijkt te zijn volgens de voedselwetgeving, een detail dat de roman als grap en als beeld gebruikt. |
+| Anglofilie | De term waarmee Chacko de gerichtheid van zijn familie op Engeland benoemt: bewondering voor wat hen heeft overheerst, en minachting voor wat zij zelf zijn. |
+| De Grote Dingen en de Kleine Dingen | De tegenstelling waar de titel op rust: de grote machten laten zich niet keren, dus richt de aandacht in het boek zich op wat klein en verzorgbaar is. |
+
+#### Waar het argument op rust
+
+Roy schreef geen historische roman, maar het decor is nagenoeg haar eigen
+jeugd. Zij groeide op in Ayemenem, haar moeder Mary Roy was een gescheiden
+Syrisch-christelijke vrouw die een school begon en in 1986 bij het Indiase
+Hooggerechtshof een zaak won die christelijke dochters gelijk erfrecht gaf. De
+positie van Ammu in het huis komt daar rechtstreeks vandaan.
+
+De politieke achtergrond is controleerbaar. Kerala had als eerste deelstaat
+een langs de stembus gekozen communistische regering (1957) en kende in 1969
+een coalitie waarin de partij van Comrade Pillai zat. Dat een partijafdeling
+een kastelid liet vallen zodra het lidmaatschap ongemakkelijk werd, is precies
+het punt waarop de roman de partij aanvalt, en het is een aanval op een
+bestaande organisatie, niet op een verzinsel.
+
+Wat het boek als roman staande houdt, is de vertelvorm. Doordat de afloop
+vanaf hoofdstuk een bekend is, kan Roy elke scene tweemaal laten werken: als
+gebeurtenis en als voorteken. De taal is daarbij zichtbaar gemaakt, met
+hoofdletters op ongewone plaatsen, omgekeerde woorden en kinderlijke
+samentrekkingen, omdat de tweelingen de vertelinstantie kleuren.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar geldt de stijl. De vondsten die op honderd bladzijden
+werken, gaan over vierhonderd bladzijden manier heten: de herhaalde formules,
+de hoofdletters en de aan kinderen ontleende woordspelingen keren zo vaak
+terug dat lezers ze als opsmuk zijn gaan lezen. Wie het boek niet mooi vindt,
+vindt het meestal om deze reden niet mooi.
+
+Politiek is het boek van twee kanten aangevallen. De communistische partij in
+Kerala verweet Roy een karikatuur van haar geschiedenis; anderen vonden juist
+dat het geweld tegen Velutha zo beeldend wordt beschreven dat de kastenkwestie
+tot een tragedie verandert waaraan niets valt te doen. De roman biedt
+inderdaad geen uitweg: er verandert in vierentwintig jaar niets, behalve dat
+de rivier vuiler is geworden.
+
+De aanklacht wegens aanstootgevendheid die een advocaat in Kerala aanspande om
+het slothoofdstuk hield Roy jarenlang bezig en zegt iets over de ontvangst ter
+plaatse. Inhoudelijk blijft de vraag staan of het incestslot noodzakelijk is
+of vooral rijmt: het herhaalt de overtreding uit 1969 zo netjes dat het meer
+bouwsel dan gebeurtenis lijkt.
+
+Roy heeft na dit boek twintig jaar geen roman geschreven en zich op politieke
+essays gestort over dammen, kernwapens en de opstand in centraal India. Wie
+haar latere werk kent, leest deze roman soms terug als het beginpunt van een
+standpunt; wie dat werk niet kent, mist die lijn volledig.
+
+#### Wat je hierna leest
+
+- 720. Oriëntalisme. Said levert het begrippenkader waarmee de anglofilie van
+Chacko en Pappachi te lezen valt: bewondering voor de overheerser als
+blijvende erfenis.
+- 1401. Middernachtskinderen. Rushdie schreef zestien jaar eerder de andere
+grote Indiase roman in het Engels; Roy werd bij verschijnen voortdurend met
+hem vergeleken, tot haar eigen ergernis.
+- 1113. Decolonising the Mind. Ngugi bepleit het tegenovergestelde van wat Roy
+doet, namelijk schrijven in de eigen taal in plaats van in die van de
+kolonisator.
+
+## 1401. Middernachtskinderen
+
+Salman Rushdie, 1981; vert. Max Schuchart. Oorspronkelijk *Midnight's
+Children* (Jonathan Cape, Londen, 1981), bekroond met de Booker Prize van dat
+jaar en in 1993 en 2008 door juryrondes uitgeroepen tot het beste boek uit de
+hele Bookergeschiedenis. De Nederlandse vertaling van Max Schuchart verscheen
+in 1985 bij Veen; de vijftiende druk kwam in 2022 uit bij Uitgeverij Pluim,
+Amsterdam (531 blz., ISBN 9789493304185). Van Rushdie zijn vrijwel alle romans
+in het Nederlands verschenen, waaronder *Duivelsverzen* in de vertaling van
+Marijke Emeis. Rubriek: roman en memoir.
+Tags: `roman`, `India`, `onafhankelijkheid`, `magisch realisme`,
+`geschiedenis`, `Bombay`, `onbetrouwbare verteller`
+
+Saleem Sinai wordt geboren op de slag van middernacht op 15 augustus 1947, het
+uur waarin India onafhankelijk wordt. Duizend en een kinderen komen in dat
+eerste uur ter wereld, allemaal met een gave, en hoe dichter bij middernacht
+hoe sterker die gave is. Saleem kan met hen allen tegelijk in gedachten
+spreken.
+
+Hij vertelt zijn verhaal op eenendertigjarige leeftijd, 's nachts in een
+augurkenfabriek, aan Padma die naast hem zit en hem onderbreekt. Hij begint
+drie generaties eerder, bij zijn grootvader in Kasjmir, en werkt naar zichzelf
+toe. Zijn lichaam valt intussen uiteen; hij schrijft tegen de klok in.
+
+De roman koppelt het leven van een familie aan dat van een land: elke wending
+in Saleems bestaan valt samen met een gebeurtenis in de Indiase geschiedenis,
+van de deling in 1947 tot de noodtoestand van Indira Gandhi. Saleem houdt vol
+dat hij die gebeurtenissen veroorzaakt heeft, en de lezer moet zelf uitmaken
+wat daarvan te geloven valt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Rushdie schrijft de geschiedenis van onafhankelijk India als
+de levensgeschiedenis van een man die beweert dat hij eraan vastgeketend zit.
+Achter dat spel ligt een stelling over geschiedschrijving zelf: een land is
+wat zijn inwoners zich erover herinneren, en die herinnering is even gekleurd,
+zelfzuchtig en onnauwkeurig als die van een verteller die zijn eigen aandeel
+opblaast. Rushdie voert dat niet aan als excuus maar als methode. Saleems
+verhaal bevat aantoonbare fouten in jaartallen en gebeurtenissen die de auteur
+er bewust in heeft gezet, en het boek stelt daarmee de vraag of een gekleurd
+verslag van binnenuit meer over een land zegt dan de officiele tijdlijn.
+Tegelijk is de roman een aanval op wie de herinnering wil vaststellen, en die
+aanval eindigt bij de regering die tijdens het schrijven aan de macht was.
+
+#### De gang van het verhaal
+
+**Het geperforeerde laken**
+
+Het boek opent in 1915 in Kasjmir, waar de in Duitsland opgeleide arts Aadam
+Aziz zijn toekomstige vrouw onderzoekt door een gat in een laken, telkens een
+ander lichaamsdeel. Zo leert hij haar kennen in stukken, een beeld dat de
+roman blijft gebruiken voor het kennen van een land.
+
+Uit dat huwelijk komt de familie voort die naar Agra en later naar Bombay
+verhuist. Rushdie besteedt bijna een derde van het boek aan die
+voorgeschiedenis voordat de verteller wordt geboren, en verantwoordt dat met
+de opmerking dat niemand zichzelf kan begrijpen zonder eerst de generaties
+voor hem uit te leggen.
+
+**Middernacht**
+
+Op het uur van de onafhankelijkheid worden in het ziekenhuis van dokter
+Narlikar twee jongens geboren. De verpleegster Mary Pereira verwisselt de
+kaartjes uit liefde voor een opstandeling, waardoor het kind van een
+straatzanger opgroeit in het rijke huis van de Sinais en het kind van de
+Sinais opgroeit in de goot.
+
+Saleem krijgt bij zijn geboorte een brief van premier Nehru waarin staat dat
+zijn leven in zekere zin de spiegel van het land zal zijn. Die zin neemt hij
+letterlijk, en het hele boek lang blijft hij zichzelf verantwoordelijk houden
+voor talenwetten, oorlogen en verkiezingen.
+
+**De conferentie van de middernachtskinderen**
+
+Na een ongeluk in een wasmand ontdekt Saleem dat hij de gedachten van anderen
+kan horen. Hij vindt de andere kinderen van het eerste uur en roept hen 's
+nachts in zijn hoofd bijeen als de Middernachtskinderenconferentie. De vraag
+wat zij samen zouden moeten doen, wordt nooit beantwoord.
+
+De conferentie valt uiteen langs precies dezelfde lijnen als het land: taal,
+godsdienst, kaste en bezit. Shiva, het verwisselde kind dat met dodelijke
+knieen is geboren, wil dat de sterksten de dienst uitmaken. Saleem wil een
+derde weg en houdt die niet vol. Wie in de kinderen een beeld voor de beloften
+van 1947 leest, ziet meteen wat Rushdie ervan vindt.
+
+**Pakistan en de oorlogen**
+
+De familie verhuist naar Karachi. In de oorlog van 1965 wordt het huis
+getroffen en komen vrijwel al Saleems verwanten om; hij loopt een hoofdwond op
+en verliest zijn geheugen. Als naamloze spoorzoeker met een buitengewone reuk
+wordt hij in 1971 door het Pakistaanse leger ingezet in wat Bangladesh zal
+worden.
+
+In de Sundarbans verdwaalt zijn eenheid in het mangrovewoud, en daar komt zijn
+herinnering langzaam terug. Deze hoofdstukken zijn het somberste deel van het
+boek: de verteller heeft geen naam, geen taak en geen mening, en de wandaden
+die hij ziet worden zonder komisch tegenwicht opgeschreven.
+
+**De noodtoestand**
+
+Terug in India belandt Saleem in de tovenaarswijk van Delhi en trouwt met
+Parvati, die van Shiva zwanger is. Tijdens de noodtoestand van 1975 tot 1977
+laat de vrouw die het boek de Weduwe noemt de sloppen ontruimen en de
+middernachtskinderen opsporen.
+
+Zij worden onvruchtbaar gemaakt, en in Saleems verslag gaat het om meer dan
+voortplanting: met de sterilisatie wordt hun ook de hoop weggenomen. Rushdie
+schreef die passages vlak na de gebeurtenissen zelf. Indira Gandhi spande in
+1984 een zaak aan om een zin waarin haar zoon Sanjay haar de dood van zijn
+vader verwijt; die zin werd uit latere drukken gehaald.
+
+**De augurkenfabriek**
+
+Het raamverhaal speelt in de fabriek van Mary Pereira, waar Saleem overdag
+augurken maakt en 's nachts schrijft. Elk hoofdstuk is een pot: hij noemt het
+zijn inmaak van de geschiedenis, waarbij smaak boven nauwkeurigheid gaat en er
+aan het eind een pot leeg blijft voor wat er nog komt.
+
+Padma, de arbeidster die naar hem luistert, eist voortgang en gelooft niet in
+uitweidingen. Zij is de enige rem op de verteller en spreekt hem tegen waar de
+lezer dat zou willen. Het boek eindigt met Saleems voorspelling dat hij op
+zijn eenendertigste verjaardag in evenveel deeltjes uiteen zal vallen als
+India inwoners heeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Middernachtskinderen | De duizend en een kinderen die in het eerste uur van de onafhankelijkheid zijn geboren, elk met een gave die sterker is naarmate zij dichter bij middernacht ter wereld kwamen. |
+| Middernachtskinderenconferentie | De vergadering die Saleem telepathisch bijeenroept en die uiteenvalt op dezelfde tegenstellingen die het land verdelen. |
+| Inmaak van de geschiedenis | Saleems eigen beeld voor zijn manier van vertellen: hoofdstukken als potten augurken, waarin de smaak zwaarder weegt dan de juiste verhouding. |
+| Het geperforeerde laken | Het laken met het gat waardoor de grootvader zijn patiente in delen leert kennen, in de roman het beeld voor kennis die altijd stuksgewijs blijft. |
+| De Weduwe | De naam waaronder Indira Gandhi in het boek voorkomt, met groen en zwart haar, als degene die de middernachtskinderen laat opsporen. |
+| Handcuffed to history | De uitdrukking uit de openingsbladzijden waarmee Saleem zijn geboorte-uur beschrijft: geboeid aan de geschiedenis, zonder mogelijkheid tot ontsnapping. |
+| Methwolds landgoed | De vier villa's in Bombay die een vertrekkende Engelsman verkoopt op voorwaarde dat de nieuwe eigenaars niets veranderen tot de macht is overgedragen. |
+| Shiva van de knieen | De bij de geboorte verwisselde tegenspeler, opgegroeid in armoede, oorlogsheld en misdadiger, die kracht als enige maatstaf aanhoudt. |
+
+#### Waar het argument op rust
+
+De historische lijn van het boek is te volgen: de deling van 1947, de
+taalstrijd om de deelstaatgrenzen in Bombay, de Chinese oorlog van 1962, de
+Indiaas-Pakistaanse oorlog van 1965, de afscheiding van Bangladesh in 1971 en
+de noodtoestand van 1975 tot 1977 staan allemaal op hun plaats. Rushdie
+schreef in Londen en gebruikte de openbare tijdlijn als raamwerk.
+
+De fouten daarin zijn geen slordigheid. Saleem geeft bijvoorbeeld een
+verkeerde datum voor de moord op Gandhi en merkt daarna zelf op dat hij die
+niet verbetert. Rushdie heeft in het essay *Errata: or, Unreliable Narration
+in Midnight's Children* uitgelegd dat de fouten in het verhaal horen: de
+verteller is een man die zich dingen herinnert, niet een archief.
+
+Dat de roman raakte aan levende politiek bleek uit de rechtszaak van Indira
+Gandhi in 1984, die tot een schikking en het schrappen van een zin leidde.
+Rushdie heeft daar later bij aangetekend dat zij geen enkel ander deel van de
+weergave van de noodtoestand bestreed.
+
+De taal is het eigenlijke argument. Rushdie mengt Engels met Hindi en Urdu,
+laat uitroepen, herhalingen en directe aanspraken staan, en schrijft in een
+tempo dat aan mondeling vertellen ontleend is. Die stijl werd het model voor
+een generatie Indiase schrijvers in het Engels, ook voor wie zich er later
+tegen afzette.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is lang, druk en overvol. Personages worden bij tientallen ingevoerd,
+grappen worden herhaald, en de verteller kondigt om de paar bladzijden aan wat
+er nog komen gaat. Lezers die afhaken doen dat zelden om de inhoud en vrijwel
+altijd om het tempo van de opsomming.
+
+De vrouwen in de roman zijn karig bedeeld. Zij zijn moeder, echtgenote,
+verpleegster, luisteraar of dreiging, en de enige vrouw met werkelijke macht
+is de Weduwe, die als kwaadaardig wordt neergezet. Padma bestaat vrijwel
+geheel bij de gratie van haar functie als publiek voor de verteller.
+
+Politiek is Rushdie verweten dat hij India uitlegt aan een westers publiek.
+Timothy Brennan noemde hem het voorbeeld van de wereldburger uit de derde
+wereld die vooral in Londen en New York wordt gelezen; critici in India wezen
+erop dat de vertelling van Pakistan en van Bangladesh vanuit Bombay wordt
+gedaan en dat zich dat laat merken.
+
+Er zit een spanning in de opzet die het boek niet oplost. Saleem beweert dat
+hij de geschiedenis veroorzaakt en tegelijk dat hij eraan geketend zit. Die
+twee beweringen zijn niet met elkaar te rijmen, en waar de roman dat als grap
+kan opvoeren, wordt het bij de zwaarste gebeurtenissen, de oorlogen en de
+noodtoestand, tot een houding die de vraag naar verantwoordelijkheid ontwijkt.
+
+#### Wat je hierna leest
+
+- 1402. Honderd jaar eenzaamheid. Rushdie heeft altijd erkend hoeveel hij aan
+Garcia Marquez ontleende; de familiekroniek waarin het land meeverandert is
+hier hetzelfde bouwsel.
+- 1400. De God van Kleine Dingen. De andere Indiase Bookerwinnaar, zestien
+jaar later, kiest voor een klein dorp en een handvol dagen waar Rushdie een
+heel land en dertig jaar neemt.
+- 720. Oriëntalisme. Said beschrijft hoe het Oosten in westerse teksten werd
+neergezet; de kritiek dat Rushdie India aan Londen uitlegt, is in dat kader
+geformuleerd.
+
+## 1402. Honderd jaar eenzaamheid
+
+Gabriel Garcia Marquez, 1967; vert. Mariolein Sabarte Belacortu.
+Oorspronkelijk *Cien anos de soledad* (Editorial Sudamericana, Buenos Aires,
+1967). De eerste Nederlandse vertaling van C.A.G. van den Broek verscheen in
+1972 bij Meulenhoff en leverde hem de Nijhoffprijs op. Ter gelegenheid van het
+vijftigjarig bestaan bracht Meulenhoff in 2017 een nieuwe vertaling van
+Mariolein Sabarte Belacortu uit (460 blz.). Garcia Marquez kreeg in 1982 de
+Nobelprijs voor literatuur; in het Nederlands verschenen verder onder meer
+*Liefde in tijden van cholera*, *Kroniek van een aangekondigde dood* en de
+memoires *Leven om het te vertellen*. Rubriek: roman en memoir.
+Tags: `roman`, `Colombia`, `magisch realisme`, `familie`, `eenzaamheid`,
+`Latijns-Amerika`, `geheugen`
+
+Jose Arcadio Buendia en zijn vrouw Ursula Iguaran, neef en nicht, trekken weg
+uit hun dorp en stichten Macondo tussen de moerassen. Zeven generaties lang
+volgt de roman hun nakomelingen, die telkens dezelfde twee voornamen dragen en
+telkens in dezelfde soorten karakters uiteenvallen.
+
+Macondo maakt in honderd jaar alles mee wat Colombia meemaakte: de komst van
+de kerk en de overheid, de burgeroorlogen tussen liberalen en conservatieven,
+een Amerikaanse bananenmaatschappij, een staking die met machinegeweren wordt
+beeindigd en daarna wordt ontkend, en een regen die vier jaar duurt.
+
+Het wonderlijke wordt in dezelfde toon verteld als het gewone: een vrouw
+stijgt ten hemel terwijl zij lakens ophangt, een dode volgt de familie
+jarenlang door het huis, en een zigeuner laat zijn perkamenten na waarin de
+hele geschiedenis van het geslacht al opgeschreven staat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Garcia Marquez vertelt honderd jaar Latijns-Amerikaanse
+geschiedenis als het verhaal van een familie die haar eigen verleden telkens
+vergeet en daardoor telkens hetzelfde doet. De eenzaamheid uit de titel is
+geen stemming maar een eigenschap die van generatie op generatie wordt
+doorgegeven: elke Buendia sluit zich af in een bezigheid, een oorlog, een
+werkplaats of een kamer, en niemand krijgt liefde en verbondenheid tegelijk
+voor elkaar. Daaraan hangt een stelling over herinnering. Wat de gemeenschap
+vergeet, is niet weg maar staat geschreven, en wie het te laat leest kan er
+niets meer mee. Het boek voert dat uit in een verteltrant waarin het
+onmogelijke en het alledaagse dezelfde stem krijgen, zodat de lezer geen enkel
+houvast heeft om het ene wel en het andere niet te geloven.
+
+#### De gang van het verhaal
+
+**De stichting van Macondo**
+
+Jose Arcadio Buendia doodt in een erekwestie zijn dorpsgenoot Prudencio
+Aguilar; als diens geest hem blijft opzoeken, vertrekt hij met Ursula en een
+groep volgelingen over de bergen. Zij stichten Macondo, een dorp van twintig
+lemen huizen aan een rivier met stenen als voorwereldlijke eieren.
+
+Het huwelijk van neef en nicht drukt vanaf de eerste bladzijde op het boek. In
+de familie is een kind met een varkensstaart geboren, en Ursula weigert
+jarenlang de echtelijke omgang uit angst dat het opnieuw gebeurt. Die angst
+blijkt honderd jaar later terecht.
+
+**Melquiades en de wetenschap**
+
+Rondtrekkende zigeuners brengen magneten, een vergrootglas, een sextant en ijs
+naar het dorp. Jose Arcadio Buendia raakt bezeten van elke vondst achtereen:
+hij wil goud opgraven met magneten, met een lens een wapen bouwen en met een
+sextant bewijzen dat de aarde rond is. Ursula houdt intussen het huishouden en
+de handel draaiende.
+
+De zigeuner Melquiades keert terug van de dood, vestigt zich in het huis en
+schrijft in een kamer die niemand betreedt aan perkamenten in een
+onbegrijpelijk schrift. Uiteindelijk verliest de stichter zijn verstand en
+wordt hij aan een kastanjeboom in de tuin gebonden, waar hij nog jaren in het
+Latijn spreekt.
+
+**De oorlogen van kolonel Aureliano Buendia**
+
+Zijn zoon Aureliano begint tweeendertig gewapende opstanden tegen de
+conservatieve regering en verliest ze allemaal. Hij overleeft veertien
+aanslagen, drieenzeventig hinderlagen en een vuurpeloton, verwekt zeventien
+zonen bij zeventien vrouwen, en laat zich op den duur alleen nog door zijn
+eigen krijgsraad leiden.
+
+Als de vrede wordt getekend, keert hij terug naar de werkplaats en maakt
+gouden visjes die hij weer omsmelt zodra hij er twintig heeft. De zeventien
+zonen worden jaren later op een dag alle zeventien vermoord, herkenbaar aan
+het askruisje op hun voorhoofd dat niet meer weg wilde.
+
+**De slapeloosheidsplaag**
+
+Het dorp wordt getroffen door een ziekte waarbij niemand meer slaapt en
+iedereen langzaam zijn geheugen verliest. Aureliano bedenkt de tegenmaatregel:
+alles krijgt een briefje met de naam erop, en waar dat niet voldoende is een
+tweede briefje met wat het doet.
+
+Bij de ingang van het dorp komt een bord te staan waarop staat dat God
+bestaat. De plaag wordt uiteindelijk genezen door Melquiades, maar het beeld
+blijft de rest van het boek gelden: een gemeenschap die haar geschiedenis
+vergeet en die met opschriften probeert vast te houden.
+
+**De bananenmaatschappij en de moord op de stakers**
+
+Een Amerikaanse maatschappij vestigt zich, legt een spoorlijn aan, verandert
+de loop van de rivier en bouwt een omheinde wijk voor haar eigen mensen. Als
+de arbeiders staken, worden zij op het stationsplein bijeengedreven en
+beschoten; Jose Arcadio Segundo komt bij tussen de lijken op een trein van
+tweehonderd wagons op weg naar zee.
+
+Terug in Macondo hoort hij van iedereen dat er niets is gebeurd, dat de
+arbeiders naar huis zijn gegaan en dat het dorp gelukkig is. Deze passage
+staat het dichtst bij de geschiedenis: in december 1928 liet het Colombiaanse
+leger in Cienaga stakers van de United Fruit Company neerschieten, waarna over
+het aantal doden nooit overeenstemming is bereikt.
+
+**De regen en de laatste Buendia**
+
+Na de moordpartij regent het vier jaar, elf maanden en twee dagen. Macondo
+verarmt, de huizen verzakken, de familie krimpt in tot enkelingen die in het
+vervallen huis blijven wonen. Amaranta Ursula keert met een echtgenoot uit
+Europa terug en begint een verhouding met Aureliano, van wie zij niet weet dat
+hij haar neef is.
+
+Hun kind wordt geboren met een varkensstaart en wordt door mieren weggedragen.
+Op dat moment ontcijfert Aureliano de perkamenten van Melquiades: daarin staat
+de hele geschiedenis van het geslacht, honderd jaar vooruit opgeschreven.
+Terwijl hij leest, veegt een wind Macondo van de aardbodem.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Macondo | Het door de Buendia's gestichte dorp, model voor het Latijns-Amerikaanse binnenland en inmiddels een begrip in de literatuurgeschiedenis. |
+| Soledad | De eenzaamheid uit de titel, in het boek een familietrek: elke Buendia trekt zich terug in een bezigheid en kan liefde en gezelschap niet verenigen. |
+| De perkamenten van Melquiades | De in het Sanskriet opgestelde geschriften waarin de geschiedenis van de familie vooraf is vastgelegd en die pas op de laatste bladzijde worden ontcijferd. |
+| De slapeloosheidsplaag | De ziekte die het dorp zijn geheugen ontneemt en die met opschriften op alle voorwerpen wordt bestreden. |
+| De varkensstaart | Het kenmerk waarmee een kind uit bloedverwantschap geboren wordt; de angst ervoor opent het boek en de verschijning ervan sluit het af. |
+| De bananenmaatschappij | Het Amerikaanse bedrijf dat het dorp voor een tijd rijk maakt en na de staking en de moordpartij verdwijnt, geschreven naar de United Fruit Company. |
+| Terugkerende voornamen | De namen Jose Arcadio en Aureliano die generaties lang worden hergebruikt, waarbij de dragers volgens Ursula ook steeds hetzelfde karakter blijken te hebben. |
+| Magisch realisme | De verteltrant waarin het bovennatuurlijke zonder verbazing of uitleg wordt gemeld, in dezelfde toon als het weer of een verhuizing. |
+
+#### Waar het argument op rust
+
+De achtergrond van het boek is de geschiedenis van Colombia. De burgeroorlogen
+tussen liberalen en conservatieven, waaronder de Duizenddagenoorlog van 1899
+tot 1902, de aanleg van spoorwegen en de macht van de Amerikaanse
+bananenbedrijven zijn nagetrokken feiten. Voor de moord op de stakers geldt
+dat de aantallen tot vandaag worden betwist, en juist die onenigheid maakt de
+roman tot onderwerp.
+
+Garcia Marquez heeft altijd volgehouden dat de vertelwijze uit zijn eigen huis
+komt. Hij groeide op bij zijn grootouders in Aracataca; zijn grootmoeder
+vertelde het buitengewone met een onbewogen gezicht, zijn grootvader was
+kolonel in de burgeroorlog. Wat in het boek als uitvinding wordt gelezen, is
+voor een deel toon die hij overnam.
+
+Het boek is geen op zichzelf staand geval maar het middelpunt van de boom, de
+doorbraak van Latijns-Amerikaanse schrijvers in de jaren zestig, met Cortazar,
+Fuentes en Vargas Llosa. De Engelse vertaling van Gregory Rabassa uit 1970
+droeg zwaar bij aan het bereik; Garcia Marquez noemde die vertaling later
+beter dan zijn eigen tekst.
+
+#### Wat er tegen in te brengen valt
+
+De vorm heeft een prijs. Zeven generaties met terugkerende namen leveren een
+stoet personages op die eerder als type dan als mens worden neergezet, en de
+gebeurtenissen volgen elkaar zo snel op dat er zelden ruimte is om bij iemand
+te blijven. Wie psychologische diepgang zoekt, vindt die vooral bij Ursula en
+bij kolonel Aureliano.
+
+De vrouwen zijn verdeeld over een klein aantal rollen: de onvermoeibare
+stammoeder, de vrome, de verleidster en de heilige die ten hemel vaart.
+Latijns-Amerikaanse critici hebben er bovendien op gewezen dat de seksuele
+scenes met zeer jonge meisjes in dit en in later werk van Garcia Marquez met
+opvallend weinig weerstand zijn gelezen.
+
+Het onafwendbare karakter van de geschiedenis in het boek is bestreden als een
+politiek standpunt. Als alles al in de perkamenten staat, is verzet zinloos,
+en de oorlogen van kolonel Aureliano lopen op niets uit. Daartegenover staat
+de passage over de vergeten moordpartij, die juist een aanklacht is; het boek
+houdt beide houdingen naast elkaar zonder te kiezen.
+
+Het grootste bezwaar geldt niet de roman maar het etiket. Magisch realisme
+werd na dit boek de verwachting waaraan Latijns-Amerikaanse schrijvers moesten
+voldoen om in Europa en Noord-Amerika gelezen te worden. Een generatie later
+verzette de groep rond de McOndo-bloemlezing zich daar openlijk tegen, met het
+argument dat hun werkelijkheid uit steden, snelwegen en televisie bestond en
+niet uit vlinderzwermen.
+
+#### Wat je hierna leest
+
+- 1116. Het labyrint der eenzaamheid. Paz onderzoekt de eenzaamheid als
+kenmerk van een heel werelddeel in de vorm van een essay; Garcia Marquez doet
+het in de vorm van een familie.
+- 1401. Middernachtskinderen. Rushdie noemde dit boek herhaaldelijk als
+voorbeeld en bouwde zijn eigen familiekroniek op dezelfde koppeling van huis
+en land.
+- 1209. Morels uitvinding. Bioy Casares schrijft de andere kant van de
+Latijns-Amerikaanse traditie: geen overvloed maar een gesloten bedenksel op
+een leeg eiland.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -213556,33 +214154,33 @@ cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 12
 `biotechnologie` 236, 413 · `bipolaire stoornis` 1315 · `blackjack` 505 ·
 `bloedvaten` 86 · `bloedwaarden` 313 · `bloemlezing` 758 · `blokkade` 14 ·
 `boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125,
-1168 · `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414
-· `brieven` 292, 517, 1210 · `broers` 10 · `bronnenkritiek` 691, 1143, 1146 ·
-`bronnenuitgave` 641, 1223 · `budgetteren` 159, 233, 464 · `buitenlandse hulp`
-221 · `bureaucratie` 1339 · `burgerlijk verzet` 617 · `burgerschap` 243 ·
-`burn-out` 135, 207, 400, 551, 552 · `bushido` 535 · `cafeïne` 52 ·
-`Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388, 1278 · `cases`
-40 · `cashflow` 37 · `celbiologie` 419, 1273 · `censuur` 685 · `chakra's` 432
-· `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679,
-768, 1122, 1221, 1222 · `chaos` 74, 347 · `chapbook` 100 · `charismatisch
-christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394, 1104, 1105 ·
-`Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391,
-603, 606, 612, 754, 1207, 1237, 1268, 1300 · `chronobiologie` 326, 329 · `cia`
-693, 750 · `cijfers` 39, 65 · `civilisatiekritiek` 298 · `classificatie` 719 ·
-`coaching` 161, 291, 441, 1297 · `cognitie` 656 · `cognitieve gedragstherapie`
-147, 153, 373 · `cognitieve herstructurering` 177 · `cognitieve
-neurowetenschap` 763 · `cognitieve psychologie` 759 · `cognitieve vertekening`
-234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
-`cognitiewetenschap` 755, 767, 1172 · `collectief bewustzijn` 435 ·
-`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 763 ·
-`comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156,
-162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539,
-555, 1272, 1277, 1294, 1304, 1306 · `communisme` 625 · `complexiteit` 170,
-268, 300, 347, 423, 1258, 1274, 1279 · `complimenten geven` 356 ·
-`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917,
-920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152 ·
-`complottheorie` 680 · `concentratie` 70, 441, 802 · `concurrentie` 293, 902 ·
-`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
+1168 · `Bombay` 1401 · `bootstrapping` 369 · `brainstormen` 33 · `branding`
+443 · `brein` 414 · `brieven` 292, 517, 1210 · `broers` 10 · `bronnenkritiek`
+691, 1143, 1146 · `bronnenuitgave` 641, 1223 · `budgetteren` 159, 233, 464 ·
+`buitenlandse hulp` 221 · `bureaucratie` 1339 · `burgerlijk verzet` 617 ·
+`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
+`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388,
+1278 · `cases` 40 · `cashflow` 37 · `celbiologie` 419, 1273 · `censuur` 685 ·
+`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670,
+677, 678, 679, 768, 1122, 1221, 1222 · `chaos` 74, 347 · `chapbook` 100 ·
+`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394,
+1104, 1105 · `Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom`
+162, 201, 391, 603, 606, 612, 754, 1207, 1237, 1268, 1300 · `chronobiologie`
+326, 329 · `cia` 693, 750 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
+`classificatie` 719 · `coaching` 161, 291, 441, 1297 · `cognitie` 656 ·
+`cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
+· `cognitieve neurowetenschap` 763 · `cognitieve psychologie` 759 ·
+`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
+59 · `cognitiewetenschap` 755, 767, 1172 · `collectief bewustzijn` 435 ·
+`collectief onbewuste` 357, 360, 362 · `Colombia` 1402 · `columns` 89, 90 ·
+`coma` 763 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122,
+145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444,
+466, 475, 539, 555, 1272, 1277, 1294, 1304, 1306 · `communisme` 625 ·
+`complexiteit` 170, 268, 300, 347, 423, 1258, 1274, 1279 · `complimenten
+geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915,
+916, 917, 920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150,
+1152 · `complottheorie` 680 · `concentratie` 70, 441, 802 · `concurrentie`
+293, 902 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
 `conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211, 1295
 · `consistentie` 553 · `consument` 703, 704 · `consumptie` 463 ·
 `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 · `content` 308 ·
@@ -213627,12 +214225,12 @@ practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753,
 1341, 1342, 1343 · `economische geschiedenis` 155, 804, 806, 807, 808, 809,
 814, 821, 933, 1287 · `educatief` 327 · `eenvoud` 170, 205, 379 ·
 `eenzaamheid` 7, 96, 98, 111, 288, 302, 1200, 1203, 1204, 1205, 1206, 1207,
-1209, 1210, 1293, 1295, 1305 · `eer` 530, 534 · `eerlijk` 47 · `eerlijkheid`
-62 · `eerste-versie` 19 · `Eerste-Wereldoorlog` 1333 · `ego` 75, 102, 149, 435
-· `ego en zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597,
-599, 602, 1120, 1122, 1126, 1139, 1149, 1219, 1223, 1232, 1265 · `eigen
-bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
-`eigenaarschap` 97 · `eigendom` 1335 · `eindigheid` 442 · `einstein` 94 ·
+1209, 1210, 1293, 1295, 1305, 1402 · `eer` 530, 534 · `eerlijk` 47 ·
+`eerlijkheid` 62 · `eerste-versie` 19 · `Eerste-Wereldoorlog` 1333 · `ego` 75,
+102, 149, 435 · `ego en zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594,
+595, 596, 597, 599, 602, 1120, 1122, 1126, 1139, 1149, 1219, 1223, 1232, 1265
+· `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546
+· `eigenaarschap` 97 · `eigendom` 1335 · `eindigheid` 442 · `einstein` 94 ·
 `elektriciteit` 267 · `elektrische auto's` 266 · `eleusis` 765 · `elites` 682,
 1145, 1146 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten`
 557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488,
@@ -213657,104 +214255,105 @@ bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
 `experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
 `expertise` 283, 320, 376 · `extra dimensies` 648 · `extraversie` 361 ·
 `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312,
-422 · `familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis`
-114, 235 · `familieroman` 10 · `fantasy` 192, 203 · `farmaceutische industrie`
-752 · `fascisme` 753 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme`
-619 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624,
-1117, 1121, 1124, 1125, 1155, 1169, 1170, 1224, 1225, 1226, 1229, 1231, 1235,
-1236, 1238, 1240, 1241 · `fenomenologie` 574, 577, 582, 721, 755, 757, 759 ·
-`fictie` 100, 115 · `film` 41, 832 · `filologie` 641 · `filosofie` 1, 6, 71,
-93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
-436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111,
-1112, 1115, 1163, 1167, 1260, 1266, 1268, 1296, 1300, 1317 · `filosofie van de
-biologie` 760 · `filosofiegeschiedenis` 269, 639, 1251 · `filosofische
-antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
-351, 480, 481, 483, 499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903,
-1279, 1281, 1283, 1288 · `financiële onafhankelijkheid` 264 · `financiele
-vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline`
-464 · `financiën` 334, 395, 425 · `financiering` 172 · `fitnessbranche` 307,
-544 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus` 175, 197, 448, 513 ·
-`folklore` 615, 669, 1216, 1245 · `fotoboek` 189 · `fotografie` 1313 ·
-`foutcultuur` 422 · `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 ·
-`franchise` 544 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 ·
-`Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458, 1128,
-1130 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
-`gastvrijheid` 531 · `gebed` 83, 259, 573, 1207 · `gebruikersgedrag` 294 ·
-`gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138,
-154, 280, 330, 383, 425, 802 · `gedragsbiologie` 322, 339 · `gedragseconomie`
-424, 426, 514, 1288 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
-`gedragspsychologie` 294, 817 · `gedragstypen` 156 · `gedragsverandering` 238,
-290, 457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld`
-21, 351, 800 · `geest` 584, 652, 1167 · `geestelijke gezondheid` 193 ·
-`geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166 ·
-`geheim genootschap` 202 · `geheime diensten` 665, 668, 684, 685, 750, 1141,
-1147 · `geheime genootschappen` 751 · `geheugen` 66, 85, 175, 414, 766, 801,
-1143, 1144, 1171, 1202 · `gehoorzaamheid` 215, 617, 1295 · `geïllustreerd
-boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464
-· `geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
-`geldstelsel` 680 · `geldtheorie` 1332 · `geloof` 45, 83, 201, 554 · `geluk`
-79, 93, 160, 228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461, 1291,
-1293 · `genealogie` 601 · `geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136,
-1259, 1263, 1307 · `geneesmiddelen` 752, 1133 · `generaties` 114 ·
-`generatieve drift` 315 · `genetica` 413, 419, 818, 941, 1157, 1275, 1344 ·
-`genezing` 340 · `genot en pijn` 314 · `gentechnologie` 413 · `geografie` 825
-· `geologie` 239 · `geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36, 56,
-57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591,
-593, 595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687,
-689, 690, 693, 806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150, 1226,
-1229, 1270, 1291, 1294, 1338, 1345 · `geschiedenis van de geneeskunde` 412,
-1132 · `geschiedfilosofie` 235, 1342 · `geschiedschrijving` 601, 602, 1155,
-1233, 1254 · `gesprek` 43, 95, 302, 444, 1294 · `gesprekstechniek` 182, 186,
-438 · `getallen` 657, 835, 1282, 1312 · `gevangenendilemma` 453 · `gevolgen`
-67 · `gewaarzijn` 519 · `geweld` 45, 90, 214, 1289 · `geweldloosheid` 612 ·
-`gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11,
-13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
-158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
-`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
-`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
-318, 323, 329, 332, 412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138 ·
-`gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422, 1132 · `ggz`
-104 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `globale
-werkruimte` 763 · `gnostiek` 614, 666, 940, 1151, 1223, 1232, 1237 · `godin`
-611, 1117, 1119, 1224, 1225, 1226, 1227, 1231, 1235, 1236, 1237, 1238 ·
-`godsdienstkritiek` 341 · `godsdienstpsychologie` 754 · `godsdienstwetenschap`
-578, 608, 640, 641, 835, 940, 1125, 1151, 1223, 1254, 1290 · `goeroe` 242 ·
-`Golden Dawn` 1220 · `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 ·
-`gratie` 374 · `grenswetenschap` 615, 1149, 1156 · `grenzen` 72, 105, 109,
-120, 122, 187, 466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537
-· `Griekse literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530,
-531, 1238 · `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 ·
-`groepsdenken` 339, 1295 · `groepsgedrag` 303, 1295, 1296 · `grondstoffen` 92
-· `grondwet` 616, 619 · `groot-verhaal` 56 · `grootouders` 91 · `habitus` 723
-· `handboek` 493, 495, 1243 · `handel` 80, 251, 1269, 1282 · `handelen` 30,
-476, 477, 478, 479, 501 · `handelspsychologie` 488, 489, 1284, 1285 ·
-`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
-`handleiding` 112, 699 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
-`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505,
-810 · `heelal` 99, 262 · `heksenvervolging` 1233 · `hekserij` 1224, 1227,
-1228, 1231, 1233, 1244, 1245 · `heldendom` 532 · `heldenreis` 410 ·
-`helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 · `hermetische
-filosofie` 378, 1246 · `hermetisme` 613, 631, 632, 633, 638, 639, 642, 647,
-766, 1218, 1232, 1249, 1250, 1253, 1254 · `heroverwegen` 28 · `hersenen` 51,
-84, 85, 86, 327, 801, 829, 1160, 1307 · `hersenonderzoek` 330, 333, 763 ·
-`hersenspoeling` 384, 668 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
-`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569, 1102 · `Hindoeïstische
-mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
-`historische portretten` 248 · `historische roman` 529, 922, 923, 924 ·
-`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48, 1213 ·
-`holografie` 340 · `homoseksualiteit` 325 · `hoogbegaafdheid` 1314 · `hoop`
-255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting`
-65 · `humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561, 1296, 1322 ·
-`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
-`hypermoderne school` 831 · `hyperrealiteit` 565 · `hypnose` 123, 124, 125,
-668, 1144, 1159 · `Idaho` 45 · `ideeen` 702 · `ideeën` 206 ·
-`ideeëngeschiedenis` 269, 751, 766, 932, 1246, 1247, 1248, 1249, 1250, 1251,
-1252, 1253, 1255 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559, 1116,
-1201, 1206, 1302, 1303, 1319 · `identiteitskapitaal` 51 · `ideologie` 628 ·
-`ideologiekritiek` 1341 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 ·
-`illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20
-· `india` 649 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242,
-365, 370, 518, 520, 527, 1101, 1304 · `individualisme` 9, 96, 624, 1206 ·
+422 · `familie` 45, 325, 466, 1400, 1402 · `familieconflict` 178 ·
+`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
+`farmaceutische industrie` 752 · `fascisme` 753 · `FBI` 154, 271 ·
+`FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541, 542 ·
+`feiten` 43 · `feminisme` 3, 620, 624, 1117, 1121, 1124, 1125, 1155, 1169,
+1170, 1224, 1225, 1226, 1229, 1231, 1235, 1236, 1238, 1240, 1241 ·
+`fenomenologie` 574, 577, 582, 721, 755, 757, 759 · `fictie` 100, 115 · `film`
+41, 832 · `filologie` 641 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247,
+255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 592,
+594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111, 1112, 1115, 1163, 1167,
+1260, 1266, 1268, 1296, 1300, 1317 · `filosofie van de biologie` 760 ·
+`filosofiegeschiedenis` 269, 639, 1251 · `filosofische antropologie` 584 ·
+`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
+499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903, 1279, 1281, 1283, 1288
+· `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
+wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395,
+425 · `financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 ·
+`flow` 78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669, 1216,
+1245 · `fotoboek` 189 · `fotografie` 1313 · `foutcultuur` 422 · `fouten maken`
+509 · `fractals` 811 · `fragmenten` 1200 · `franchise` 544 · `frankrijk` 115 ·
+`Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging`
+323 · `fysiologie` 318, 412, 458, 1128, 1130 · `Galenus` 328 · `gaslighting`
+123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573, 1207 ·
+`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
+`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425, 802 · `gedragsbiologie`
+322, 339 · `gedragseconomie` 424, 426, 514, 1288 · `gedragsonderzoek` 302, 382
+· `gedragspatronen` 161 · `gedragspsychologie` 294, 817 · `gedragstypen` 156 ·
+`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
+468, 469, 510 · `geduld` 21, 351, 800 · `geest` 584, 652, 1167 · `geestelijke
+gezondheid` 193 · `geestelijke oefeningen` 586 · `gegevensanalyse` 486 ·
+`gehechtheid` 166 · `geheim genootschap` 202 · `geheime diensten` 665, 668,
+684, 685, 750, 1141, 1147 · `geheime genootschappen` 751 · `geheugen` 66, 85,
+175, 414, 766, 801, 1143, 1144, 1171, 1202, 1402 · `gehoorzaamheid` 215, 617,
+1295 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133,
+158, 159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
+`geldpsychologie` 233, 264 · `geldstelsel` 680 · `geldtheorie` 1332 · `geloof`
+45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
+`gemeenschap` 9, 96, 304, 461, 1291, 1293 · `genealogie` 601 · `geneeskunde`
+49, 328, 823, 1127, 1129, 1135, 1136, 1259, 1263, 1307 · `geneesmiddelen` 752,
+1133 · `generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419, 818,
+941, 1157, 1275, 1344 · `genezing` 340 · `genot en pijn` 314 ·
+`gentechnologie` 413 · `geografie` 825 · `geologie` 239 · `geopolitiek` 220,
+692, 694 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298,
+328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634, 665,
+667, 681, 682, 683, 684, 685, 687, 689, 690, 693, 806, 807, 821, 833, 931,
+935, 939, 944, 1141, 1145, 1150, 1226, 1229, 1270, 1291, 1294, 1338, 1345,
+1401 · `geschiedenis van de geneeskunde` 412, 1132 · `geschiedfilosofie` 235,
+1342 · `geschiedschrijving` 601, 602, 1155, 1233, 1254 · `gesprek` 43, 95,
+302, 444, 1294 · `gesprekstechniek` 182, 186, 438 · `getallen` 657, 835, 1282,
+1312 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld`
+45, 90, 214, 1289 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus` 238 ·
+`gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88,
+97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334,
+382, 439, 442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291,
+294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 ·
+`gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415, 823, 1128,
+1129, 1131, 1133, 1134, 1138 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422, 1132 · `ggz` 104 · `giftige relaties` 429 ·
+`gijzelingsonderhandelaar` 271 · `globale werkruimte` 763 · `gnostiek` 614,
+666, 940, 1151, 1223, 1232, 1237 · `godin` 611, 1117, 1119, 1224, 1225, 1226,
+1227, 1231, 1235, 1236, 1237, 1238 · `godsdienstkritiek` 341 ·
+`godsdienstpsychologie` 754 · `godsdienstwetenschap` 578, 608, 640, 641, 835,
+940, 1125, 1151, 1223, 1254, 1290 · `goeroe` 242 · `Golden Dawn` 1220 ·
+`Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
+`grenswetenschap` 615, 1149, 1156 · `grenzen` 72, 105, 109, 120, 122, 187, 466
+· `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
+literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531, 1238
+· `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
+339, 1295 · `groepsgedrag` 303, 1295, 1296 · `grondstoffen` 92 · `grondwet`
+616, 619 · `groot-verhaal` 56 · `grootouders` 91 · `habitus` 723 · `handboek`
+493, 495, 1243 · `handel` 80, 251, 1269, 1282 · `handelen` 30, 476, 477, 478,
+479, 501 · `handelspsychologie` 488, 489, 1284, 1285 · `handelssysteem` 489,
+491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 · `hart`
+86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
+`hedendaags India` 202 · `hedgefondsen` 505, 810 · `heelal` 99, 262 ·
+`heksenvervolging` 1233 · `hekserij` 1224, 1227, 1228, 1231, 1233, 1244, 1245
+· `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125,
+134 · `herkomst` 127 · `hermetische filosofie` 378, 1246 · `hermetisme` 613,
+631, 632, 633, 638, 639, 642, 647, 766, 1218, 1232, 1249, 1250, 1253, 1254 ·
+`heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327, 801, 829, 1160, 1307 ·
+`hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 · `herstel` 87,
+552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527,
+569, 1102 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 ·
+`Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
+roman` 529, 922, 923, 924 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood`
+178 · `Holocaust` 48, 1213 · `holografie` 340 · `homoseksualiteit` 325 ·
+`hoogbegaafdheid` 1314 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416
+· `houding` 117 · `huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19,
+26, 105, 227, 561, 1296, 1322 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
+`Huxley` 54 · `hybride werken` 512 · `hypermoderne school` 831 ·
+`hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668, 1144, 1159 · `Idaho` 45 ·
+`ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751, 766, 932, 1246,
+1247, 1248, 1249, 1250, 1251, 1252, 1253, 1255 · `identiteit` 22, 115, 192,
+261, 374, 375, 467, 559, 1116, 1201, 1206, 1302, 1303, 1319 ·
+`identiteitskapitaal` 51 · `ideologie` 628 · `ideologiekritiek` 1341 ·
+`ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 ·
+`imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `india` 649 · `India`
+163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520,
+527, 1101, 1304, 1400, 1401 · `individualisme` 9, 96, 624, 1206 ·
 `individualiteit` 263 · `individuatie` 359, 360, 408, 409, 646 ·
 `individuele-verantwoordelijkheid` 299 · `indonesië` 692 · `industrie` 348,
 905 · `inflatie` 1332 · `informatietheorie` 1272, 1277, 1278, 1316 · `inheems
@@ -213788,21 +214387,22 @@ psychologie` 404, 407, 408, 409, 410, 1121, 1230, 1234, 1235, 1236 ·
 `kansrekening` 282, 456, 484, 490, 496, 504, 505, 812, 946, 1280, 1287 ·
 `kapitalisme` 298, 682, 821, 910, 933, 1341 · `karakter` 97, 537 · `Karel de
 Grote` 534 · `karma` 184 · `karmel` 573 · `kashmir-shaivisme` 1100, 1103 ·
-`Kasjmir` 180 · `katholicisme` 672 · `keegan` 110 · `Kelly-criterium` 504, 812
-· `keltische traditie` 611 · `kennedy` 690 · `kennedy-moord` 691 · `kennis`
-81, 508 · `kennis en macht` 720 · `kennisleer` 525, 587, 929, 1107, 1111,
-1112, 1260, 1266, 1267 · `kennissociologie` 721 · `kennistheorie` 654, 820 ·
-`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454, 944 ·
-`keuzes` 51, 71, 72, 510 · `KGB` 1345 · `Kierkegaard` 405 · `kinderboek` 167 ·
-`kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
-`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
-`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286, 1105 ·
-`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
-144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626, 695,
-696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936, 938, 948, 1208,
-1211, 1212, 1213, 1256, 1257, 1258, 1259, 1262, 1271, 1275, 1280, 1282, 1284,
-1289, 1290, 1321 · `kleding` 833 · `klein-beginnen` 40 · `kleine-bedrijven`
-172 · `kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
+`Kasjmir` 180 · `kaste` 1400 · `katholicisme` 672 · `keegan` 110 ·
+`Kelly-criterium` 504, 812 · `keltische traditie` 611 · `kennedy` 690 ·
+`kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 · `kennisleer`
+525, 587, 929, 1107, 1111, 1112, 1260, 1266, 1267 · `kennissociologie` 721 ·
+`kennistheorie` 654, 820 · `kenniswerk` 6, 50, 400, 472 · `Kerala` 1400 ·
+`kernwaarden` 245 · `kernwapens` 454, 944 · `keuzes` 51, 71, 72, 510 · `KGB`
+1345 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
+`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
+`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
+`klassenverschil` 284 · `klassieke bronnen` 286, 1105 · `klassieke tekst` 219,
+394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351,
+420, 520, 537, 616, 617, 618, 619, 620, 626, 695, 696, 701, 702, 715, 716,
+717, 718, 719, 754, 757, 910, 936, 938, 948, 1208, 1211, 1212, 1213, 1256,
+1257, 1258, 1259, 1262, 1271, 1275, 1280, 1282, 1284, 1289, 1290, 1321 ·
+`kleding` 833 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
+`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
 `klimaatverandering` 299 · `klinische psychologie` 460 · `klokkenluider` 752 ·
 `klokkenmakerij` 321 · `kolonialisme` 298, 592, 1111, 1112, 1113, 1116 ·
 `kookboek` 1137 · `koopgedrag` 705 · `koppen` 697, 699 · `korea` 111 · `kort`
@@ -213822,14 +214422,14 @@ intelligentie` 236, 237, 297, 652, 1256, 1258, 1317, 1318 · `kwaad` 404 ·
 1165, 1166, 1261 · `kwantummechanica` 362, 655, 761, 818, 1318 ·
 `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
 `landbouw` 56, 98 · `landmark forum` 344 · `landschap` 825, 1202 ·
-`leadgeneratie` 308 · `lean manufacturing` 265, 912 · `leefstijl` 86, 103,
-138, 171 · `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41, 44,
-46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353, 364, 370, 389,
-434, 465, 468, 475, 536, 544, 551, 900, 907, 911, 1297, 1331 · `leidinggeven`
-156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538, 801, 803, 1278 ·
-`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
-`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586 ·
-`levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
+`Latijns-Amerika` 1402 · `leadgeneratie` 308 · `lean manufacturing` 265, 912 ·
+`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
+`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
+344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551, 900, 907, 911,
+1297, 1331 · `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509,
+538, 801, 803, 1278 · `lesmateriaal` 116 · `leugendetectie` 154, 338 ·
+`levensinrichting` 334 · `levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216,
+227, 586 · `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
 `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
 `liberalisme` 1335 · `libertarisme` 546, 623, 627, 629, 926, 927 · `lichaam`
 80, 757, 1130, 1211 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126,
@@ -213844,8 +214444,8 @@ leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440, 617, 622,
 683, 684, 685, 753, 935, 1145, 1146, 1289 · `machtspolitiek` 220 ·
 `machtstheorie` 221 · `machtsverhoudingen` 155 · `magie` 613, 632, 634, 637,
 638, 639, 641, 1126, 1216, 1218, 1220, 1232, 1242, 1244, 1246, 1247, 1248,
-1249, 1253, 1255 · `magisch realisme` 261 · `management` 42, 47, 170, 183,
-256, 350, 353, 364, 472, 900, 901, 902, 904, 907, 908, 909, 912 ·
+1249, 1253, 1255 · `magisch realisme` 261, 1401, 1402 · `management` 42, 47,
+170, 183, 256, 350, 353, 364, 472, 900, 901, 902, 904, 907, 908, 909, 912 ·
 `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129, 130, 131,
 132, 190, 196, 433, 543, 560, 768 · `manipulatie` 123, 124, 125, 126, 212,
 213, 381, 384, 429, 672, 673, 675, 686, 704, 1255 · `mannelijkheid` 3, 406,
@@ -213920,11 +214520,11 @@ emoties` 176 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131, 1132, 1133,
 `oefenen` 29, 397, 800 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103,
 109, 118, 120, 122, 130, 549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 ·
 `omgangsvormen` 24, 398, 939 · `omkering` 105 · `omstreden` 37, 73, 76, 83,
-1329 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
-`onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139,
-1239 · `onbewuste` 16, 283, 358, 359, 1316 · `onderbewuste` 124 ·
-`onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
-`onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455 ·
+1329 · `onafhankelijkheid` 1401 · `onbegrepen-klachten` 104 · `onbetrouwbaar`
+123, 124, 125, 126 · `onbetrouwbare verteller` 284, 1401 · `onbewezen` 127,
+128, 129, 130, 131, 132, 139, 1239 · `onbewuste` 16, 283, 358, 359, 1316 ·
+`onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134,
+135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455 ·
 `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
 `ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
 278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
@@ -214030,33 +214630,33 @@ flexibiliteit` 460 · `psychologische functies` 361 · `psychopathie` 429 ·
 1231, 1239, 1241, 1244, 1290, 1291, 1298 · `rituelen` 304 · `rivier als
 symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 ·
 `rolgedrag` 1201 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916, 917,
-918, 919, 920, 921, 1209, 1212, 1213, 1327 · `Rome` 537 · `romeinse oudheid`
-232 · `rouw` 95, 467 · `rouwverwerking` 204 · `rozenkruisers` 631, 645 ·
-`ruil` 717, 718 · `ruimte en tijd` 281 · `ruimtevaart` 266, 819 · `runen` 1217
-· `russische literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga`
-533 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
-`samenwerking` 453, 1297 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520,
-1100, 1102 · `Santa Fe Institute` 347, 1279 · `satire` 155, 914, 915, 916,
-918, 919, 920, 923 · `satori` 528, 769 · `scepsis` 63, 585, 675, 927, 929,
-1108, 1208 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44,
-317, 470, 1309 · `schaarste` 92, 249 · `schaduw` 404 · `schaken` 831 ·
-`scheiding` 556 · `scheikunde` 92, 942 · `schizofrenie` 671 · `school` 53, 84
-· `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325,
-934, 1204, 1210 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 ·
-`seksualiteit` 100, 145, 164, 165, 316, 672, 1125, 1134 · `sekten` 675, 1148 ·
-`selectoraattheorie` 221 · `semantiek` 664, 930 · `seminar` 139, 543 ·
-`semiotiek` 834, 1266, 1299 · `Shaolin` 389 · `Silicon Valley` 306 ·
-`simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564 · `sjamanisme` 758,
-1166, 1169, 1241 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414, 1174, 1325,
-1326, 1328, 1329 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 ·
-`sociale besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 ·
-`sociale psychologie` 215, 280, 302, 319, 1289, 1295 · `sociale-vaardigheden`
-398 · `socialisme` 618, 1334 · `sociobiologie` 722, 1267 · `sociologie` 300,
-622, 715, 721, 723, 805, 826, 834, 939, 1201, 1290, 1301, 1302 · `soedan` 716
-· `soefisme` 524, 526, 1108 · `software` 276, 484 · `somberheid` 119 ·
-`spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 ·
-`specialisatie` 349, 803 · `speculatie` 808, 809, 1281, 1283, 1284, 1285 ·
-`speedreading` 175 · `spel` 550, 1298 · `spelen` 32 · `spellen` 392 ·
+918, 919, 920, 921, 1209, 1212, 1213, 1327, 1400, 1401, 1402 · `Rome` 537 ·
+`romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 ·
+`rozenkruisers` 631, 645 · `ruil` 717, 718 · `ruimte en tijd` 281 ·
+`ruimtevaart` 266, 819 · `runen` 1217 · `russische literatuur` 235 · `rust` 32
+· `SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90,
+98, 319 · `samenwerken` 25 · `samenwerking` 453, 1297 · `samoerai` 346, 462,
+517, 535 · `Sanskriet` 520, 1100, 1102 · `Santa Fe Institute` 347, 1279 ·
+`satire` 155, 914, 915, 916, 918, 919, 920, 923 · `satori` 528, 769 ·
+`scepsis` 63, 585, 675, 927, 929, 1108, 1208 · `schaalgroei` 434 ·
+`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470, 1309 · `schaarste` 92,
+249 · `schaduw` 404 · `schaken` 831 · `scheiding` 556 · `scheikunde` 92, 942 ·
+`schizofrenie` 671 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81,
+436, 511 · `schrijverschap` 191, 325, 934, 1204, 1210 · `schuld` 254 ·
+`schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316,
+672, 1125, 1134 · `sekten` 675, 1148 · `selectoraattheorie` 221 · `semantiek`
+664, 930 · `seminar` 139, 543 · `semiotiek` 834, 1266, 1299 · `Shaolin` 389 ·
+`Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564
+· `sjamanisme` 758, 1166, 1169, 1241 · `slaap` 52, 87, 88, 171, 181, 316, 329,
+414, 1174, 1325, 1326, 1328, 1329 · `slaapapneu` 332 · `slavernij` 68 ·
+`smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70, 194,
+198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319, 1289, 1295 ·
+`sociale-vaardigheden` 398 · `socialisme` 618, 1334 · `sociobiologie` 722,
+1267 · `sociologie` 300, 622, 715, 721, 723, 805, 826, 834, 939, 1201, 1290,
+1301, 1302 · `soedan` 716 · `soefisme` 524, 526, 1108 · `software` 276, 484 ·
+`somberheid` 119 · `spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta`
+529 · `specialisatie` 349, 803 · `speculatie` 808, 809, 1281, 1283, 1284, 1285
+· `speedreading` 175 · `spel` 550, 1298 · `spelen` 32 · `spellen` 392 ·
 `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456, 656 ·
 `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
 `spieropbouw` 316 · `spijt` 447 · `spionage` 1345 · `spiritisme` 677, 1161 ·
@@ -214114,46 +214714,47 @@ handelen` 482, 502 · `taal` 26, 27, 436, 594, 664, 824, 829, 930, 1113, 1213,
 119, 195, 229, 317, 386, 1293, 1303 · `trendvolgen` 480, 501, 1285 ·
 `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 ·
 `tuinontwerp` 205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde
-eeuw` 525 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingonderzoek` 417 ·
-`twintigers` 51 · `twintigste eeuw` 682, 769 · `typologie` 361 · `ufo` 669,
-678, 1150, 1157 · `ufo's` 615, 675, 676, 1141, 1142, 1143, 1144 ·
-`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
-82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
-`uitvinding` 267, 1152 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt`
-322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 · `vaardigheden` 40,
-50, 349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 ·
-`vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297
-· `vakmanschap` 1, 206, 320, 346, 376, 553, 1260, 1301 · `variantie` 137 ·
-`vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 · `vedische
-filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177, 189, 317,
-375, 459, 460, 461, 467, 470 · `vegetarisme` 1135, 1137 · `veiligheid` 43, 214
-· `veiligheidsmarge` 144 · `veldonderzoek` 759 · `veldwerk` 521, 716, 717 ·
-`verandering` 170, 252, 375, 467 · `verantwoordelijkheid` 42, 72, 73, 74, 93,
-184, 282, 335, 364 · `verbinding` 302, 550 · `verdriet` 111, 227 · `verenigde
-staten` 598, 667, 687, 688, 689, 690, 753, 1245 · `Verenigde-Staten` 464 ·
-`vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
-`vergelijkende mythologie` 410, 635 · `vergelijkende religie` 604 ·
-`vergeving` 31, 102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur` 410 ·
-`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470, 903, 942 ·
-`verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 ·
-`verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308,
-350, 367, 427, 913 · `verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76,
-100, 113, 130, 164, 418, 698, 703, 1209 · `verleiding` 381 · `verlichting`
-243, 287, 922 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463 ·
-`vermogen opbouwen` 395 · `vermogensbeheer` 498, 813, 815 · `vermogensopbouw`
-163, 264, 277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 ·
-`verpleegkunde` 225, 1132 · `verplichting` 9 · `verraad` 534 · `verslaving`
-18, 238, 275, 294, 314, 324, 325, 418, 554, 568, 583, 1162 · `vertrouwen` 42,
-273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 · `vervreemding` 173
-· `verwachting` 387 · `verwachtingen` 425 · `verwachtingswaarde` 492 ·
-`verwantschap` 722 · `verwondering` 227 · `verzekeren` 496 · `verzet` 523 ·
-`veteranen` 1293 · `vier deugden` 194 · `visioenen` 359, 758 · `visualisatie`
-259, 411, 540 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86,
-88, 171, 313, 316, 329, 332, 417, 1129, 1134, 1135, 1136, 1137, 1138 ·
-`voedingswetenschap` 417 · `volatiliteit` 494, 495, 506 · `volharding` 29 ·
-`volledigheid` 167 · `voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 ·
-`voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen`
-455 · `voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
+eeuw` 525 · `tweede-wereldoorlog` 115, 819, 1140 · `tweelingen` 1400 ·
+`tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682, 769 ·
+`typologie` 361 · `ufo` 669, 678, 1150, 1157 · `ufo's` 615, 675, 676, 1141,
+1142, 1143, 1144 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99,
+102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
+`uitstellen` 16 · `uitvinding` 267, 1152 · `ultra-triatlon` 324 · `ultralopen`
+229 · `umwelt` 322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 ·
+`vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter`
+178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 ·
+`vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553, 1260, 1301 ·
+`variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 ·
+`vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177,
+189, 317, 375, 459, 460, 461, 467, 470 · `vegetarisme` 1135, 1137 ·
+`veiligheid` 43, 214 · `veiligheidsmarge` 144 · `veldonderzoek` 759 ·
+`veldwerk` 521, 716, 717 · `verandering` 170, 252, 375, 467 ·
+`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
+302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667, 687, 688, 689,
+690, 753, 1245 · `Verenigde-Staten` 464 · `vergaderen` 42 · `vergaderingen`
+276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie` 410, 635 ·
+`vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 · `verhaal`
+74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110,
+136, 196, 470, 903, 942 · `verhalenbundel` 206 · `verhouding` 113 ·
+`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
+185, 186, 188, 246, 280, 307, 308, 350, 367, 427, 913 · `verkooptrechters` 309
+· `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418, 698, 703, 1209 ·
+`verleiding` 381 · `verlichting` 243, 287, 922 · `verlies` 95, 373, 1400 ·
+`vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
+`vermogensbeheer` 498, 813, 815 · `vermogensopbouw` 163, 264, 277 ·
+`veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225, 1132 ·
+`verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314, 324,
+325, 418, 554, 568, 583, 1162 · `vertrouwen` 42, 273, 279, 319 · `vervloekt
+goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
+`verwachtingen` 425 · `verwachtingswaarde` 492 · `verwantschap` 722 ·
+`verwondering` 227 · `verzekeren` 496 · `verzet` 523 · `veteranen` 1293 ·
+`vier deugden` 194 · `visioenen` 359, 758 · `visualisatie` 259, 411, 540 ·
+`visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313,
+316, 329, 332, 417, 1129, 1134, 1135, 1136, 1137, 1138 · `voedingswetenschap`
+417 · `volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
+`voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 ·
+`voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
+`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
 `voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
 stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
 `vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije

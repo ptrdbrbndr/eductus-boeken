@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Honderd jaar eenzaamheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Garcia Marquez vertelt honderd jaar Latijns-Amerikaanse geschiedenis als het verhaal van een familie die haar eigen verleden telkens vergeet en daardoor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1402">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1402 &middot; Roman en memoir</p>
+    <h1>Honderd jaar eenzaamheid</h1>
+    <p class="lede">Gabriel Garcia Marquez, 1967; vert. Mariolein Sabarte Belacortu</p>
+    <p class="stats">
+      <span><b>1388</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>23 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1402"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Garcia Marquez vertelt honderd jaar Latijns-Amerikaanse geschiedenis als het verhaal van een familie die haar eigen verleden telkens vergeet en daardoor telkens hetzelfde doet. De eenzaamheid uit de titel is geen stemming maar een eigenschap die van generatie op generatie wordt doorgegeven: elke Buendia sluit zich af in een bezigheid, een oorlog, een werkplaats of een kamer, en niemand krijgt liefde en verbondenheid tegelijk voor elkaar. Daaraan hangt een stelling over herinnering. Wat de gemeenschap vergeet, is niet weg maar staat geschreven, en wie het te laat leest kan er niets meer mee. Het boek voert dat uit in een verteltrant waarin het onmogelijke en het alledaagse dezelfde stem krijgen, zodat de lezer geen enkel houvast heeft om het ene wel en het andere niet te geloven.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De stichting van Macondo</h3>
+      <p>Jose Arcadio Buendia doodt in een erekwestie zijn dorpsgenoot Prudencio Aguilar; als diens geest hem blijft opzoeken, vertrekt hij met Ursula en een groep volgelingen over de bergen. Zij stichten Macondo, een dorp van twintig lemen huizen aan een rivier met stenen als voorwereldlijke eieren.</p>
+      <p>Het huwelijk van neef en nicht drukt vanaf de eerste bladzijde op het boek. In de familie is een kind met een varkensstaart geboren, en Ursula weigert jarenlang de echtelijke omgang uit angst dat het opnieuw gebeurt. Die angst blijkt honderd jaar later terecht.</p>
+      <h3>Melquiades en de wetenschap</h3>
+      <p>Rondtrekkende zigeuners brengen magneten, een vergrootglas, een sextant en ijs naar het dorp. Jose Arcadio Buendia raakt bezeten van elke vondst achtereen: hij wil goud opgraven met magneten, met een lens een wapen bouwen en met een sextant bewijzen dat de aarde rond is. Ursula houdt intussen het huishouden en de handel draaiende.</p>
+      <p>De zigeuner Melquiades keert terug van de dood, vestigt zich in het huis en schrijft in een kamer die niemand betreedt aan perkamenten in een onbegrijpelijk schrift. Uiteindelijk verliest de stichter zijn verstand en wordt hij aan een kastanjeboom in de tuin gebonden, waar hij nog jaren in het Latijn spreekt.</p>
+      <h3>De oorlogen van kolonel Aureliano Buendia</h3>
+      <p>Zijn zoon Aureliano begint tweeendertig gewapende opstanden tegen de conservatieve regering en verliest ze allemaal. Hij overleeft veertien aanslagen, drieenzeventig hinderlagen en een vuurpeloton, verwekt zeventien zonen bij zeventien vrouwen, en laat zich op den duur alleen nog door zijn eigen krijgsraad leiden.</p>
+      <p>Als de vrede wordt getekend, keert hij terug naar de werkplaats en maakt gouden visjes die hij weer omsmelt zodra hij er twintig heeft. De zeventien zonen worden jaren later op een dag alle zeventien vermoord, herkenbaar aan het askruisje op hun voorhoofd dat niet meer weg wilde.</p>
+      <h3>De slapeloosheidsplaag</h3>
+      <p>Het dorp wordt getroffen door een ziekte waarbij niemand meer slaapt en iedereen langzaam zijn geheugen verliest. Aureliano bedenkt de tegenmaatregel: alles krijgt een briefje met de naam erop, en waar dat niet voldoende is een tweede briefje met wat het doet.</p>
+      <p>Bij de ingang van het dorp komt een bord te staan waarop staat dat God bestaat. De plaag wordt uiteindelijk genezen door Melquiades, maar het beeld blijft de rest van het boek gelden: een gemeenschap die haar geschiedenis vergeet en die met opschriften probeert vast te houden.</p>
+      <h3>De bananenmaatschappij en de moord op de stakers</h3>
+      <p>Een Amerikaanse maatschappij vestigt zich, legt een spoorlijn aan, verandert de loop van de rivier en bouwt een omheinde wijk voor haar eigen mensen. Als de arbeiders staken, worden zij op het stationsplein bijeengedreven en beschoten; Jose Arcadio Segundo komt bij tussen de lijken op een trein van tweehonderd wagons op weg naar zee.</p>
+      <p>Terug in Macondo hoort hij van iedereen dat er niets is gebeurd, dat de arbeiders naar huis zijn gegaan en dat het dorp gelukkig is. Deze passage staat het dichtst bij de geschiedenis: in december 1928 liet het Colombiaanse leger in Cienaga stakers van de United Fruit Company neerschieten, waarna over het aantal doden nooit overeenstemming is bereikt.</p>
+      <h3>De regen en de laatste Buendia</h3>
+      <p>Na de moordpartij regent het vier jaar, elf maanden en twee dagen. Macondo verarmt, de huizen verzakken, de familie krimpt in tot enkelingen die in het vervallen huis blijven wonen. Amaranta Ursula keert met een echtgenoot uit Europa terug en begint een verhouding met Aureliano, van wie zij niet weet dat hij haar neef is.</p>
+      <p>Hun kind wordt geboren met een varkensstaart en wordt door mieren weggedragen. Op dat moment ontcijfert Aureliano de perkamenten van Melquiades: daarin staat de hele geschiedenis van het geslacht, honderd jaar vooruit opgeschreven. Terwijl hij leest, veegt een wind Macondo van de aardbodem.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Macondo</td><td>Het door de Buendia's gestichte dorp, model voor het Latijns-Amerikaanse binnenland en inmiddels een begrip in de literatuurgeschiedenis.</td></tr>
+          <tr><td class="term">Soledad</td><td>De eenzaamheid uit de titel, in het boek een familietrek: elke Buendia trekt zich terug in een bezigheid en kan liefde en gezelschap niet verenigen.</td></tr>
+          <tr><td class="term">De perkamenten van Melquiades</td><td>De in het Sanskriet opgestelde geschriften waarin de geschiedenis van de familie vooraf is vastgelegd en die pas op de laatste bladzijde worden ontcijferd.</td></tr>
+          <tr><td class="term">De slapeloosheidsplaag</td><td>De ziekte die het dorp zijn geheugen ontneemt en die met opschriften op alle voorwerpen wordt bestreden.</td></tr>
+          <tr><td class="term">De varkensstaart</td><td>Het kenmerk waarmee een kind uit bloedverwantschap geboren wordt; de angst ervoor opent het boek en de verschijning ervan sluit het af.</td></tr>
+          <tr><td class="term">De bananenmaatschappij</td><td>Het Amerikaanse bedrijf dat het dorp voor een tijd rijk maakt en na de staking en de moordpartij verdwijnt, geschreven naar de United Fruit Company.</td></tr>
+          <tr><td class="term">Terugkerende voornamen</td><td>De namen Jose Arcadio en Aureliano die generaties lang worden hergebruikt, waarbij de dragers volgens Ursula ook steeds hetzelfde karakter blijken te hebben.</td></tr>
+          <tr><td class="term">Magisch realisme</td><td>De verteltrant waarin het bovennatuurlijke zonder verbazing of uitleg wordt gemeld, in dezelfde toon als het weer of een verhuizing.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De achtergrond van het boek is de geschiedenis van Colombia. De burgeroorlogen tussen liberalen en conservatieven, waaronder de Duizenddagenoorlog van 1899 tot 1902, de aanleg van spoorwegen en de macht van de Amerikaanse bananenbedrijven zijn nagetrokken feiten. Voor de moord op de stakers geldt dat de aantallen tot vandaag worden betwist, en juist die onenigheid maakt de roman tot onderwerp.</p>
+      <p>Garcia Marquez heeft altijd volgehouden dat de vertelwijze uit zijn eigen huis komt. Hij groeide op bij zijn grootouders in Aracataca; zijn grootmoeder vertelde het buitengewone met een onbewogen gezicht, zijn grootvader was kolonel in de burgeroorlog. Wat in het boek als uitvinding wordt gelezen, is voor een deel toon die hij overnam.</p>
+      <p>Het boek is geen op zichzelf staand geval maar het middelpunt van de boom, de doorbraak van Latijns-Amerikaanse schrijvers in de jaren zestig, met Cortazar, Fuentes en Vargas Llosa. De Engelse vertaling van Gregory Rabassa uit 1970 droeg zwaar bij aan het bereik; Garcia Marquez noemde die vertaling later beter dan zijn eigen tekst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vorm heeft een prijs. Zeven generaties met terugkerende namen leveren een stoet personages op die eerder als type dan als mens worden neergezet, en de gebeurtenissen volgen elkaar zo snel op dat er zelden ruimte is om bij iemand te blijven. Wie psychologische diepgang zoekt, vindt die vooral bij Ursula en bij kolonel Aureliano.</p>
+      <p>De vrouwen zijn verdeeld over een klein aantal rollen: de onvermoeibare stammoeder, de vrome, de verleidster en de heilige die ten hemel vaart. Latijns-Amerikaanse critici hebben er bovendien op gewezen dat de seksuele scenes met zeer jonge meisjes in dit en in later werk van Garcia Marquez met opvallend weinig weerstand zijn gelezen.</p>
+      <p>Het onafwendbare karakter van de geschiedenis in het boek is bestreden als een politiek standpunt. Als alles al in de perkamenten staat, is verzet zinloos, en de oorlogen van kolonel Aureliano lopen op niets uit. Daartegenover staat de passage over de vergeten moordpartij, die juist een aanklacht is; het boek houdt beide houdingen naast elkaar zonder te kiezen.</p>
+      <p>Het grootste bezwaar geldt niet de roman maar het etiket. Magisch realisme werd na dit boek de verwachting waaraan Latijns-Amerikaanse schrijvers moesten voldoen om in Europa en Noord-Amerika gelezen te worden. Een generatie later verzette de groep rond de McOndo-bloemlezing zich daar openlijk tegen, met het argument dat hun werkelijkheid uit steden, snelwegen en televisie bestond en niet uit vlinderzwermen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Cien anos de soledad</i> (Editorial Sudamericana, Buenos Aires, 1967). De eerste Nederlandse vertaling van C.A.G. van den Broek verscheen in 1972 bij Meulenhoff en leverde hem de Nijhoffprijs op. Ter gelegenheid van het vijftigjarig bestaan bracht Meulenhoff in 2017 een nieuwe vertaling van Mariolein Sabarte Belacortu uit (460 blz.). Garcia Marquez kreeg in 1982 de Nobelprijs voor literatuur; in het Nederlands verschenen verder onder meer <i>Liefde in tijden van cholera</i>, <i>Kroniek van een aangekondigde dood</i> en de memoires <i>Leven om het te vertellen</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jose Arcadio Buendia en zijn vrouw Ursula Iguaran, neef en nicht, trekken weg uit hun dorp en stichten Macondo tussen de moerassen. Zeven generaties lang volgt de roman hun nakomelingen, die telkens dezelfde twee voornamen dragen en telkens in dezelfde soorten karakters uiteenvallen.</p><p>Macondo maakt in honderd jaar alles mee wat Colombia meemaakte: de komst van de kerk en de overheid, de burgeroorlogen tussen liberalen en conservatieven, een Amerikaanse bananenmaatschappij, een staking die met machinegeweren wordt beeindigd en daarna wordt ontkend, en een regen die vier jaar duurt.</p><p>Het wonderlijke wordt in dezelfde toon verteld als het gewone: een vrouw stijgt ten hemel terwijl zij lakens ophangt, een dode volgt de familie jarenlang door het huis, en een zigeuner laat zijn perkamenten na waarin de hele geschiedenis van het geslacht al opgeschreven staat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Colombia</li><li>magisch realisme</li><li>familie</li><li>eenzaamheid</li><li>Latijns-Amerika</li><li>geheugen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1116"><a href="1116.html">Het labyrint der eenzaamheid</a>. Paz onderzoekt de eenzaamheid als kenmerk van een heel werelddeel in de vorm van een essay; Garcia Marquez doet het in de vorm van een familie.</li>
+          <li value="1401"><a href="1401.html">Middernachtskinderen</a>. Rushdie noemde dit boek herhaaldelijk als voorbeeld en bouwde zijn eigen familiekroniek op dezelfde koppeling van huis en land.</li>
+          <li value="1209"><a href="1209.html">Morels uitvinding</a>. Bioy Casares schrijft de andere kant van de Latijns-Amerikaanse traditie: geen overvloed maar een gesloten bedenksel op een leeg eiland.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
