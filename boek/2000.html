@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einde en begin &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Szymborska's werk berust op de gedachte dat de grote geschiedenis, oorlogen, dictators, revoluties, alleen te vatten is via het kleine en concrete: een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2000">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2000 &middot; Filosofie en mystiek</p>
+    <h1>Einde en begin</h1>
+    <p class="lede">Wisława Szymborska, 1999 (Nederlandse bundeling); vert. Gerard Rasch</p>
+    <p class="stats">
+      <span><b>1416</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2000"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Szymborska's werk berust op de gedachte dat de grote geschiedenis, oorlogen, dictators, revoluties, alleen te vatten is via het kleine en concrete: een kat die niet begrijpt waarom haar baasje niet meer thuiskomt, een foto van een dikke baby die later Hitler wordt genoemd, de spijkers en kruiwagens die nodig zijn om een verwoeste stad weer op te bouwen. Haar stelling is dat abstracties als geschiedenis, lot of toeval zelf niets verklaren, en dat een gedicht pas iets laat zien als het afdaalt naar het detail waar niemand naar kijkt. Daarbij hoort een voortdurende zelfcorrectie: Szymborska formuleert een uitspraak en ondermijnt die in de volgende regel, alsof zekerheid zelf het onderwerp van wantrouwen is. Dat maakt haar gedichten tot een pleidooi voor twijfel als vorm van eerlijkheid, tegenover de grote, geruststellende verhalen die de twintigste eeuw over zichzelf heeft verteld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ironie en het alledaagse</h3>
+      <p>De vroegste gedichten in de bundel dateren van na 1956, het jaar waarin Szymborska zich definitief afkeerde van het socialistisch realisme waarin ze als jonge dichteres nog had gepubliceerd. Die eerdere, partijgetrouwe bundels uit het begin van de jaren vijftig zijn in deze selectie niet opgenomen; Szymborska zelf beschouwde ze later als een vergissing.</p>
+      <p>Vanaf hier ontwikkelt ze de toon die haar werk zou kenmerken: korte, heldere zinnen, een spreektaal zonder pathos, en een blik die het gewone even laat kantelen. Een keuken, een spin, een steen krijgen evenveel aandacht als grote gebeurtenissen.</p>
+      <h3>Niets herhaalt zich</h3>
+      <p>Het gedicht Niets tweemaal, een van haar bekendste, stelt dat geen moment, geen dag en geen kus zich ooit precies herhaalt: alles gebeurt maar één keer, en juist daarom is oefenen voor het leven onmogelijk. Dat uitgangspunt, de onherhaalbaarheid van elk ogenblik, keert in veel latere gedichten terug als reden om nauwkeurig te kijken in plaats van te generaliseren.</p>
+      <p>De Nobelprijscommissie noemde in 1996 precies deze eigenschap: gedichten die met ironische precisie de historische en biologische context laten oplichten in fragmenten van de menselijke werkelijkheid. Dat is geen sierlijke formulering maar een beschrijving van haar methode: nooit het geheel beweren, altijd het fragment tonen.</p>
+      <h3>Na de oorlog</h3>
+      <p>Het titelgedicht Einde en begin, geschreven kort na de val van het communisme in 1989 en gepubliceerd in de gelijknamige bundel uit 1993, somt op wat er na elke oorlog gedaan moet worden: puin ruimen, bruggen herbouwen, lijken bijzetten, en uiteindelijk gras laten groeien over de plek waar het gebeurde. Het gedicht bevat geen helden en geen overwinning, alleen werk.</p>
+      <p>Szymborska groeide zelf op in Krakau, enkele tientallen kilometers van Auschwitz, en maakte de wederopbouw na de Tweede Wereldoorlog van dichtbij mee. De striktheid waarmee ze in dit gedicht weigert het herstel te verheerlijken, komt uit die ervaring voort.</p>
+      <h3>Portretten van het kwaad</h3>
+      <p>In Hitlers eerste foto, uit de bundel Ludzie na moście (1986), beschrijft ze een babyfoto van Adolf Hitler in de taal die bij zo'n foto hoort: schattig jasje, tevreden ouders, een leven dat nog alle kanten op kan. Geen woord in het gedicht wijst vooruit naar wat er komen gaat; de lezer moet dat zelf invullen, en juist die stilte maakt het gedicht onaangenaam.</p>
+      <p>Dezelfde methode, een neutrale beschrijving die de lezer dwingt zelf een oordeel te vellen, gebruikt ze in gedichten over massaslachtoffers en statistieken, waarin ze mensen terugbrengt tot percentages om te laten zien hoe onwerkelijk dat aanvoelt zodra het om concrete levens gaat.</p>
+      <h3>Verlies en de kat</h3>
+      <p>Kat in een lege woning, geschreven na de dood van haar levenspartner, de schrijver Kornel Filipowicz, beschrijft de dood niet rechtstreeks maar via het perspectief van een kat die niet begrijpt waarom haar baasje niet meer thuiskomt en waarom alles op zijn plaats staat behalve degene die het daar zette.</p>
+      <p>Szymborska zou later tegen haar vertaler hebben gezegd dat ze dit gedicht liever nooit had geschreven. Het is een van de weinige gedichten in de bundel waarin het persoonlijke verlies niet wordt afgedekt met ironie.</p>
+      <h3>Tijd en verontschuldiging</h3>
+      <p>In Onder een klein sterretje verontschuldigt de spreker zich bij het toeval, het geluk, de doden en de tijd zelf, voor alles wat ze over het hoofd ziet omdat ze maar één leven en één aandacht heeft. Het gedicht werkt als een soort tegenhanger van de grootspraak die poëzie vaak claimt: in plaats van te beweren alles te zien, geeft de spreker toe dat ze per seconde een wereld mist.</p>
+      <p>Deze houding, erkennen wat je niet weet in plaats van het verhullen, loopt door de hele bundel en verklaart waarom Szymborska, ondanks vijftig jaar schrijven, zelden een gedicht schreef dat als definitief bedoeld is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ironische precisie</td><td>De formulering uit het Nobelprijscitaat van 1996 voor de manier waarop Szymborska historische en biologische feiten laat oplichten via kleine, exacte details in plaats van grote uitspraken.</td></tr>
+          <tr><td class="term">Niets tweemaal</td><td>Titel en uitgangspunt van een van haar bekendste gedichten: geen moment herhaalt zich ooit precies, wat oefenen voor het leven onmogelijk maakt.</td></tr>
+          <tr><td class="term">Kat in een lege woning</td><td>Gedicht over de dood van haar partner Kornel Filipowicz, verteld vanuit het perspectief van de achtergebleven kat.</td></tr>
+          <tr><td class="term">Hitlers eerste foto</td><td>Gedicht dat een babyfoto van Hitler beschrijft in de taal van een gewoon familiekiekje, zonder de latere geschiedenis te noemen.</td></tr>
+          <tr><td class="term">Einde en begin</td><td>Titelgedicht over het opruimwerk na een oorlog: puin ruimen, bruggen herbouwen, gras laten groeien over wat er gebeurd is.</td></tr>
+          <tr><td class="term">Statistiek als vorm</td><td>Terugkerende techniek waarbij Szymborska mensen tijdelijk terugbrengt tot percentages of aantallen om te laten zien hoe onwerkelijk dat is zodra het om concrete levens gaat.</td></tr>
+          <tr><td class="term">Onder een klein sterretje</td><td>Gedicht in de vorm van een reeks verontschuldigingen aan toeval, geluk, de doden en de tijd, voor alles wat één mensenleven noodzakelijk mist.</td></tr>
+          <tr><td class="term">Zelfcorrectie</td><td>De manier waarop Szymborska een uitspraak formuleert en in de volgende regel alweer nuanceert of tegenspreekt, als vaste beweging in haar gedichten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Szymborska kreeg in 1996 de Nobelprijs voor literatuur, met een citaat dat rechtstreeks naar haar werkwijze verwijst: gedichten die met ironische precisie de historische en biologische context laten oplichten in fragmenten van de menselijke werkelijkheid. Dat is geen losse loftuiting maar een beschrijving die aansluit op wat in vrijwel elk gedicht in deze bundel te zien is.</p>
+      <p>De biografische achtergrond van de centrale gedichten is te verifiëren: Kat in een lege woning volgt op de dood van haar partner Kornel Filipowicz, Einde en begin verscheen in 1993 na de val van het communisme in Polen in 1989, en Hitlers eerste foto stond in de bundel Ludzie na moście uit 1986.</p>
+      <p>Gerard Rasch kreeg in 1997 de Martinus Nijhoffprijs voor vertalingen, mede voor zijn werk aan Szymborska; dat is een onafhankelijke erkenning van de kwaliteit van de Nederlandse vertaling waarop deze bundel steunt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Een bloemlezing van vijftig jaar werk in één band leest ongelijk. De vroege gedichten, geschreven kort na haar afscheid van het socialistisch realisme, zijn voorzichtiger en minder eigen dan het werk vanaf de jaren zeventig; wie de bundel van voor naar achter leest, moet door een aanloopfase heen voor de bekende toon zich zet.</p>
+      <p>De sterkste eigenschap van Szymborska's gedichten, de neutrale, bijna verslagachtige beschrijving die de lezer zelf tot een oordeel dwingt, is ook haar grootste beperking. Waar ze die methode herhaalt op onderwerpen die minder zwaar zijn dan oorlog of Hitler, kan het effect verschraald raken tot een trucje: eerst iets gewoon beschrijven, dan een ironische draai geven.</p>
+      <p>Vertaalde poëzie verliest per definitie een deel van het klankspel en de dubbelzinnigheden van het origineel; Rasch koos voor helderheid en spreektaal boven het najagen van rijm of ritme, een keuze die het Poolse origineel dichter benadert dan een strak berijmde vertaling zou doen, maar die ook betekent dat wie geen Pools leest nooit de volledige klankvorm van deze gedichten te horen krijgt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees een paar gedichten per keer in plaats van de hele bundel achter elkaar; de dichtheid van elk gedicht vraagt om pauzes.</li>
+        <li>Zoek bij een gedicht dat je raakt de oorspronkelijke bundel op waarin het verscheen, dat plaatst het in de tijd waarin het geschreven werd.</li>
+        <li>Lees Kat in een lege woning en Einde en begin hardop, de spreektaal van Rasch' vertaling is gemaakt om gehoord te worden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Bloemlezing uit vrijwel het hele dichtwerk dat Szymborska vanaf 1957 publiceerde, samengesteld voor de Nederlandse markt en genoemd naar haar bundel <i>Koniec i początek</i> (1993), waarvan het titelgedicht over het opruimen na een oorlog gaat. Voor het eerst verschenen als <i>Einde en begin. Verzamelde gedichten</i> bij J.M. Meulenhoff, Amsterdam, 1999 (299 blz., ISBN 9789029058179), in de vertaling van Gerard Rasch, die in 1997 de Martinus Nijhoffprijs voor vertalingen kreeg. Latere drukken zijn uitgebreid met gedichten uit bundels die na Rasch' dood in 2004 verschenen; een jubileumeditie kwam in 2023 uit bij Meulenhoff (432 blz., ISBN 9789029098380). Losse gedichten van Szymborska, vertaald door Rasch, verschenen ook in de tijdschriften De Gids en De Revisor. Szymborska kreeg in 1996 de Nobelprijs voor literatuur.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Deze bundel verzamelt vijftig jaar gedichten van de Poolse dichteres Wisława Szymborska, van haar debuut na 1956 tot haar late werk. Ze schrijft over de dingen die iedereen kent, een kat in een leeggekomen huis, een foto van een kind dat later een dictator wordt, het opruimen na een oorlog, en zet daar telkens een onverwachte, precieze zin tegenover.</p><p>Haar toon is nuchter en ironisch, zonder grote woorden. Waar andere dichters aankondigen dat de geschiedenis begint of eindigt, telt Szymborska liever de spijkers en de puinhopen die na afloop overblijven, en de mensen die ze moeten opruimen.</p><p>De bundel bevat zowel haar bekendste gedichten, zoals Niets tweemaal en Kat in een lege woning, als minder vertaald werk. Samen geven ze het beeld van een dichteres die zichzelf voortdurend tegenspreekt en corrigeert, en juist daardoor betrouwbaar wordt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>poëzie</li><li>Polen</li><li>Nobelprijs</li><li>ironie</li><li>oorlog</li><li>vertaling</li><li>sterfelijkheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl schrijft proza over overleven en betekenis onder een totalitair regime; Szymborska doet in gedichten wat Frankl in een verslag doet, het kleine en concrete tegenover het onbevattelijke zetten.</li>
+          <li value="232"><a href="232.html">On the Shortness of Life</a>. Seneca overweegt de kortheid van het leven vanuit de filosofie; Szymborska doet iets vergelijkbaars vanuit de poëzie, met dezelfde nadruk op wat je met je beperkte aandacht mist.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Becker onderzoekt hoe mensen de dood ontkennen; Szymborska's gedichten over verlies en vergankelijkheid doen het tegenovergestelde, ze kijken de dood juist recht aan, zonder troostende constructie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

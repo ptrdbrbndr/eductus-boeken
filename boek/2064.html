@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missie mindset &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Aarts stelt dat mentale weerbaarheid geen aangeboren eigenschap is maar een vaardigheid die volgens een vaste procedure te trainen valt, dezelfde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2064">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2064 &middot; Levenskunst</p>
+    <h1>Missie mindset</h1>
+    <p class="lede">Sander Aarts, 2021</p>
+    <p class="stats">
+      <span><b>1418</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2064"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Aarts stelt dat mentale weerbaarheid geen aangeboren eigenschap is maar een vaardigheid die volgens een vaste procedure te trainen valt, dezelfde procedure die het Korps Commandotroepen gebruikt om een missie voor te bereiden en uit te voeren. Wie een tegenslag behandelt als een operatie die eerst gepland, dan geoefend, dan uitgevoerd en ten slotte geëvalueerd wordt, voorkomt volgens hem dat een crisis als toeval wordt beleefd, als iets waar niets tegen te beginnen valt. De afstand tussen een burgerleven en een gevechtssituatie is volgens Aarts kleiner dan mensen denken: angst, chaos en het kwijtraken van overzicht werken bij een verbroken relatie of een burn-out volgens hetzelfde patroon als bij een hinderlaag, en dus is volgens hem dezelfde discipline bruikbaar.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Planning</h3>
+      <p>Aarts opent met het idee dat een missie nooit begint met actie maar met een plan op papier: wat is het doel, wat zijn de risico's, en welke informatie ontbreekt nog. Hij vertaalt dat naar een oefening waarbij de lezer een naderende beproeving, een gesprek, een operatie, een ontslag, op dezelfde manier uitschrijft.</p>
+      <p>Hij illustreert dat met een missie waarbij een gebrekkige voorbereiding bijna fataal afliep, en trekt daaruit de les dat onzekerheid zelf geen probleem is zolang die onzekerheid benoemd en meegenomen wordt in het plan.</p>
+      <p>Aarts benadrukt dat plannen bij de commandotroepen nooit stopt bij het hoofdscenario: er wordt standaard een tweede en soms een derde route bedacht voor het geval de eerste faalt. Voor de lezer vertaalt hij dat naar de vraag wat hij doet als plan A niet werkt, een vraag die volgens hem de meeste mensen bij een persoonlijke beproeving overslaan.</p>
+      <h3>Briefing</h3>
+      <p>In de tweede fase deelt een team het plan met elkaar, zodat iedereen weet wat er van hem verwacht wordt en wat er gebeurt als het misgaat. Aarts vertaalt dit naar het hardop uitspreken van een voornemen tegen een partner, een vriend of een coach, in plaats van het in stilte te dragen.</p>
+      <p>Hij beschrijft hoe een briefing bij de commandotroepen nooit alleen het ideale scenario behandelt, maar altijd ook het noodplan; die gewoonte, stelt hij, ontbreekt bij de meeste mensen die zich op een moeilijk gesprek voorbereiden.</p>
+      <p>Een briefing dient volgens Aarts ook om verantwoordelijkheid te verdelen: ieder teamlid weet precies welk deel van de opdracht van hem afhangt. Vertaald naar een burgersituatie betekent dit dat een voornemen pas echt begint te tellen zodra iemand anders weet dat je het gaat doen, en kan navragen hoe het ging.</p>
+      <h3>Rehearsal</h3>
+      <p>Voor een inzet wordt een scenario fysiek doorlopen voordat het echt gebeurt. Aarts vertaalt dat naar het van tevoren oefenen van een lastig gesprek of een presentatie, hardop en met een tegenspeler, zodat het lichaam de situatie al kent wanneer die zich voordoet.</p>
+      <p>Hij benoemt hier expliciet dat oefenen niet hetzelfde is als piekeren: piekeren herhaalt angst zonder handelen, terwijl rehearsal een handeling herhaalt tot die geen nieuwe informatie meer oplevert.</p>
+      <p>Aarts beschrijft ook een fysieke vorm van rehearsal: onder gecontroleerde stress, bijvoorbeeld tijdens vermoeidheid of kou, een taak herhaaldelijk uitvoeren, zodat het lichaam later niet voor het eerst hoeft te presteren onder druk. Hij noemt dat de reden waarom commando's tijdens de opleiding bewust in slaaptekort worden geoefend.</p>
+      <h3>Execution</h3>
+      <p>Tijdens de uitvoering zelf, betoogt Aarts, is nadenken al te laat; wat een team dan draagt is de training van de voorgaande fasen. Hij beschrijft een operatie waarin het plan binnen enkele minuten veranderde en het team toch bleef functioneren, omdat de briefing en de oefening al hadden vastgelegd wie welke beslissing mocht nemen.</p>
+      <p>Voor de lezer vertaalt hij dit naar het advies om tijdens de crisis zelf niet te evalueren, en de twijfel te bewaren voor de laatste fase.</p>
+      <p>Hij waarschuwt hier ook tegen wat hij overdenken tijdens actie noemt: het moment waarop iemand middenin een lastig gesprek of een crisis toch begint te twijfelen aan de gemaakte afspraken. Volgens Aarts is dat het moment waarop de meeste plannen alsnog mislukken, niet door een gebrek aan voorbereiding maar door een gebrek aan vertrouwen in die voorbereiding.</p>
+      <h3>Debrief</h3>
+      <p>Elke missie wordt afgesloten met een debriefing waarin niet gezocht wordt naar een schuldige, maar naar wat er de volgende keer beter kan. Aarts stelt die vorm van evalueren tegenover het reflexmatige zelfverwijt waarmee de meeste mensen een mislukking afsluiten.</p>
+      <p>Het slothoofdstuk voegt de vijf fasen samen tot wat hij de missie mindset noemt: een terugkerende cyclus in plaats van een eenmalige krachttoer.</p>
+      <p>Aarts sluit af met het advies om ook kleine, alledaagse tegenslagen aan de cyclus te onderwerpen, niet alleen de grote crises. Zo blijft de procedure volgens hem geoefend voor het moment dat er wel iets groots gebeurt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Missie mindset</td><td>De vijfledige cyclus, planning, briefing, rehearsal, execution en debrief, die Aarts van militaire operaties naar het burgerleven vertaalt.</td></tr>
+          <tr><td class="term">Planning</td><td>De eerste fase, waarin doel, risico's en ontbrekende informatie op papier worden gezet voordat er gehandeld wordt.</td></tr>
+          <tr><td class="term">Briefing</td><td>Het hardop delen van het plan met anderen, inclusief het noodscenario voor als het misgaat.</td></tr>
+          <tr><td class="term">Rehearsal</td><td>Het van tevoren fysiek of hardop doorlopen van een lastige situatie, zodat het lichaam die al kent.</td></tr>
+          <tr><td class="term">Execution</td><td>De fase van uitvoering zelf, waarin niet meer getwijfeld wordt maar op de training van de eerdere fasen wordt vertrouwd.</td></tr>
+          <tr><td class="term">Debrief</td><td>De afsluitende evaluatie, gericht op lessen in plaats van op schuld.</td></tr>
+          <tr><td class="term">Actiegerichtheid</td><td>Aarts' term voor het uitgangspunt dat handelen aan gevoel voorafgaat in plaats van andersom.</td></tr>
+          <tr><td class="term">Unbreakable Academy</td><td>Het trainingsbureau dat Aarts na zijn diensttijd oprichtte en van waaruit hij de in het boek beschreven methode onderwijst.</td></tr>
+          <tr><td class="term">Overdenken tijdens actie</td><td>Aarts' term voor het moment waarop iemand midden in een crisis alsnog gaat twijfelen aan het gemaakte plan, wat volgens hem de belangrijkste oorzaak van mislukking is.</td></tr>
+          <tr><td class="term">Noodscenario</td><td>Het tweede plan dat bij elke briefing standaard wordt meegenomen voor het geval het eerste plan faalt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Aarts' gezag komt uit zijn eigen loopbaan: zestien jaar operationele diensttijd bij het Korps Commandotroepen, geridderd voor zijn optreden, en een eervol ontslag in 2017. De voorbeelden in het boek zijn eigen ervaringen, aangevuld met verhalen van klanten van zijn academie die de methode hebben toegepast op burn-out, verlies of een loopbaancrisis.</p>
+      <p>Het boek citeert geen onderzoek naar mentale weerbaarheid, veerkracht of stressregulatie, en verwijst niet naar literatuur uit de psychologie. De onderbouwing is anekdotisch: het model overtuigt via de herkenbaarheid van de militaire voorbeelden en de directe, praktische vertaling naar burgersituaties, niet via getoetste data.</p>
+      <p>Aarts noemt ook terugkoppeling van deelnemers aan trainingen van zijn academie: mensen die na een burn-out of ontslag de vijf fasen hebben toegepast en volgens hun eigen verslag sneller weer grip kregen. Die terugkoppeling is niet systematisch verzameld en niet vergeleken met een groep die de methode niet gebruikte, waardoor zij als illustratie dient en niet als bewijs.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat het boek een raamwerk dat voor operaties met een duidelijk doel en een afgebakende tijdspanne is ontworpen, toepast op verdriet, ziekte en langdurige relatieproblemen die zich niet in vijf fasen laten plannen. Een rouwproces heeft geen debrief die het afsluit; het boek erkent dat verschil niet expliciet.</p>
+      <p>Er is geen enkele externe toetsing van de methode: geen vervolgonderzoek naar klanten van de academie, geen vergelijking met bestaande modellen voor veerkracht uit de psychologie. Het boek steunt volledig op het gezag van de auteur als oud-commando.</p>
+      <p>Het boek is ook een visitekaartje voor Aarts' eigen trainingsbureau, waar de in het boek beschreven methode tegen betaling verder wordt aangeleerd. Die commerciële relatie maakt het aannemelijk dat de methode positiever wordt voorgesteld dan een onafhankelijke evaluatie zou doen.</p>
+      <p>Het militaire vocabulaire, missie, briefing, debrief, kan bovendien afstand scheppen bij lezers voor wie oorlogstaal niet aansluit op een burn-out of een moeizame relatie; het boek besteedt geen aandacht aan die mogelijke weerstand en veronderstelt dat de vergelijking voor iedereen even overtuigend werkt als voor de auteur zelf.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf voor een naderende beproeving een kort plan: doel, risico's, en wat je nog niet weet.</li>
+        <li>Spreek dat plan hardop uit tegen iemand anders, inclusief wat er gebeurt als het misgaat.</li>
+        <li>Oefen een lastig gesprek vooraf hardop, met een tegenspeler, in plaats van het alleen te doordenken.</li>
+        <li>Sluit een tegenslag af met een debrief die vraagt wat er de volgende keer beter kan, niet met de vraag wie er schuld heeft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig boek, <i>Missie mindset: verbeter je mentale weerbaarheid door nog meer ervaringen en lessen van de Special Forces</i> (Boekerij, Amsterdam, 2021, ISBN 9789022592977). Het is het tweede boek van Aarts, na <i>Niet te breken</i> (2019), waarin hij zijn zestien operationele jaren bij het Korps Commandotroepen beschrijft. Een Engelse of andere buitenlandse editie is niet gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sander Aarts diende zestien jaar bij het Korps Commandotroepen en werkt sinds zijn eervolle ontslag als spreker en trainer bij zijn eigen Unbreakable Academy. In dit boek zet hij de vaste procedure waarmee een special-forces-team een missie voorbereidt om tot een stappenplan voor het gewone leven: plannen, briefen, oefenen, uitvoeren en achteraf evalueren.</p><p>Aan de hand van waargebeurde episodes uit zijn eigen inzetten, van beklemming in een hinderlaag tot de nasleep van verlies, laat hij zien hoe die vijf stappen ook werken bij een burn-out, een scheiding of een tegenvallende loopbaan. Het boek is opgebouwd uit korte hoofdstukken die telkens een anekdote koppelen aan een les.</p><p>De toon is die van een instructeur, niet van een therapeut: er wordt weinig uitgeweid over gevoel, en veel nadruk gelegd op wat iemand die dag concreet kan doen. Aarts noemt dat zelf actiegerichtheid, en stelt dat wachten tot je je sterk genoeg voelt de grootste vertraging is die er bestaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mindset</li><li>weerbaarheid</li><li>special forces</li><li>zelfhulp</li><li>discipline</li><li>nederlands</li><li>militair</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1916"><a href="1916.html">DRIVE: Train je stoïcijnse mindset</a>. Tuitert bouwt een vergelijkbare brug tussen topsport en stoïcijnse discipline; beide boeken vertalen een strenge trainingspraktijk naar burgerlevens.</li>
+          <li value="364"><a href="364.html">Extreme Ownership</a>. Willink en Babin beschrijven vanuit de Navy SEALs een even directe, actiegerichte leiderschapsstijl die Aarts' toon dicht benadert.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius formuleerde eeuwen eerder al de gedachte dat de reactie op een gebeurtenis meer bepaalt dan de gebeurtenis zelf, het uitgangspunt onder Aarts' methode.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

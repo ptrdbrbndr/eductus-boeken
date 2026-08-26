@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paultje en het paarse krijtje &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Johnson laat een kind de enige maker zijn van alles wat er in het boek gebeurt: er is geen ouder, geen verteller die ingrijpt en geen wereld die al…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2041">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2041 &middot; Roman en memoir</p>
+    <h1>Paultje en het paarse krijtje</h1>
+    <p class="lede">Crockett Johnson, 1955; vert. Annie M.G. Schmidt, 1958</p>
+    <p class="stats">
+      <span><b>1011</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2041"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Johnson laat een kind de enige maker zijn van alles wat er in het boek gebeurt: er is geen ouder, geen verteller die ingrijpt en geen wereld die al klaarstond voordat Paultje hem tekende. Zijn stelling, voor zover een prentenboek er een heeft, is dat verbeelding niet dient om aan de werkelijkheid te ontsnappen maar om die werkelijkheid te maken, stap voor stap, met de gevolgen van elke keuze zichtbaar op de volgende bladzijde. Elk gevaar dat Paultje tekent, heeft hij zelf getekend, en elke oplossing ook; het boek stelt zo, in de eenvoudigste vorm die er is, de vraag hoeveel van iemands wereld door diegene zelf wordt bepaald.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Het krijtje en de wandeling</h3>
+      <p>Paultje besluit 's avonds een wandeling te maken, maar er is nog geen maan en geen pad. Met zijn paarse krijtje tekent hij eerst een rechte lijn om op te lopen; die eenvoudige handeling is het enige uitgangspunt van het hele boek.</p>
+      <h3>Bos, zee en berg</h3>
+      <p>Onderweg tekent Paultje een bos omdat hij niet wil verdwalen, een zee waar hij in valt en waar hij zichzelf uit redt met een getekende boot, en een strand waar hij een picknick tekent. Elke omgeving ontstaat op het moment dat hij hem nodig heeft, niet eerder.</p>
+      <h3>De val en de ballon</h3>
+      <p>Als Paultje een berg tekent om overheen te kunnen kijken, tekent hij de andere kant niet op tijd bij en valt hij. Middenin de val tekent hij een luchtballon om in te landen; het is het duidelijkste voorbeeld in het boek van een probleem dat alleen door tekenen wordt opgelost, niet door geluk of hulp van buitenaf.</p>
+      <h3>Naar huis</h3>
+      <p>Paultje mist zijn eigen raam en probeert steden en heuvels te tekenen om het te vinden, tot hij zich herinnert dat de maan altijd door zijn slaapkamerraam scheen. Hij tekent het raam om de maan heen, en daarna zijn bed; met het krijtje nog in zijn hand valt hij in slaap.</p>
+      <h3>Van Harold naar Paultje</h3>
+      <p>Annie M.G. Schmidt vertaalde het boek in 1958 en koos ervoor de hoofdpersoon een Nederlandse naam te geven en de tekst in het Nederlandse ritme van haar eigen kinderproza te zetten, in plaats van Harold letterlijk te laten heten. Die keuze maakte het boek in Nederland vertrouwd, terwijl de tekeningen, ononderbroken lijnen op een lege bladzijde, ongewijzigd bleven.</p>
+      <p>Lemniscaat nam de vertaling in 2000 opnieuw op in de fondslijst, waarmee een boek dat in Nederland tijdelijk minder verkrijgbaar was geweest opnieuw een vaste plaats kreeg naast andere prentenboekklassiekers van de uitgeverij.</p>
+      <h3>Wie Crockett Johnson was</h3>
+      <p>Achter het pseudoniem Crockett Johnson schuilt David Johnson Leisk, die eerder bekend was van de dagelijkse stripstrook <i>Barnaby</i> (1942-1952). Zijn vrouw, Ruth Krauss, was zelf ook een gevierd kinderboekenschrijver; <i>Harold and the Purple Crayon</i> bleef zijn bekendste werk en kreeg zes vervolgdelen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Paars krijtje</td><td>Het enige gereedschap dat Paultje bij zich heeft en waarmee hij letterlijk alles tekent wat in het verhaal gebeurt, inclusief de oplossingen voor zijn eigen problemen.</td></tr>
+          <tr><td class="term">Harold</td><td>De oorspronkelijke Engelse naam van de hoofdpersoon, door Annie M.G. Schmidt in de Nederlandse vertaling veranderd in Paultje.</td></tr>
+          <tr><td class="term">Onbewogen verteltoon</td><td>De manier waarop de tekst wonderlijke gebeurtenissen, een vallende jongen, een zelfgetekende ballon, in dezelfde korte, feitelijke zinnen meldt als gewone handelingen.</td></tr>
+          <tr><td class="term">Barnaby</td><td>De dagelijkse stripstrook die Crockett Johnson tussen 1942 en 1952 tekende en die zijn bekendheid vestigde voordat hij aan kinderboeken begon.</td></tr>
+          <tr><td class="term">Wereldschepping door tekenen</td><td>Het principe dat de omgeving in het boek pas bestaat op het moment dat Paultje hem tekent, niet daarvoor.</td></tr>
+          <tr><td class="term">Vervolgdelen</td><td>De reeks boeken die Crockett Johnson na dit eerste deel over dezelfde jongen met hetzelfde krijtje schreef, in Nederland niet vertaald.</td></tr>
+          <tr><td class="term">Prentenboek</td><td>Het genre waarin tekst en illustratie in elke opening samen het verhaal dragen; in dit boek is de tekening vaak de enige drager van de handeling.</td></tr>
+          <tr><td class="term">Lege bladzijde</td><td>Het witte vlak waarop Paultje zijn lijnen zet; de illustraties tonen bewust geen decor buiten wat hij zelf getekend heeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dat het boek sinds 1955 ononderbroken in druk is gebleven, in de Verenigde Staten en, via Lemniscaat, ook in Nederland sinds 2000, is een controleerbaar feit over de uitgavegeschiedenis en zegt iets over de blijvende aantrekkingskracht van het concept, los van de vraag of het boek literair diepzinnig is.</p>
+      <p>Dat Crockett Johnson eerst faam had als striptekenaar van <i>Barnaby</i>, verklaart de stijl van het boek: heldere lijnen, weinig decor, een verteltrant die dicht bij een stripverhaal met een frame per pagina blijft staan.</p>
+      <p>Dat Annie M.G. Schmidt de vertaler was, is te verifiëren aan de titelpagina van de Nederlandse editie; zij was op het moment van vertalen al een gevestigd schrijfster van eigen kinderboeken, wat verklaart waarom haar vertaling meer een hertaling in eigen toon werd dan een letterlijke omzetting.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar dat tegen het boek is ingebracht, geldt niet de vorm maar het ontbreken van echt risico: Paultje tekent zelf elk gevaar en elke oplossing, zodat er nooit iets kan misgaan dat hij niet zelf beheerst. Voor sommige lezers maakt dat het verhaal geruststellend zonder spanning; voor anderen is juist dat de kern, omdat het een jong kind laat zien dat het zelf richting kan geven aan wat er gebeurt.</p>
+      <p>De vervolgdelen die Crockett Johnson na dit eerste boek schreef, worden doorgaans minder sterk gevonden dan het origineel; de formule, een jongen die zijn wereld tekent, werkte volgens latere besprekingen het best in de eerste, kortste versie en verwaterde in de herhaling.</p>
+      <p>Dat Annie M.G. Schmidt de hoofdpersoon een andere naam gaf, is een vertaalkeuze die niet elke latere vertaler van het boek in andere talen heeft gemaakt; het is een voorbeeld van domesticerend vertalen dat het boek in Nederland een eigen identiteit gaf, los van het Amerikaanse origineel.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Harold and the Purple Crayon</i> (Harper &amp; Row, New York, 1955). Annie M.G. Schmidt vertaalde het boek in 1958; sinds 2000 brengt Lemniscaat, Rotterdam, de Nederlandse editie uit onder de titel <i>Paultje en het paarse krijtje</i> (gebonden, 19,6 x 15,7 cm, ISBN 9789056372897). Crockett Johnson, echte naam David Johnson Leisk, schreef nog een reeks vervolgboeken over de jongen met het paarse krijtje; die zijn niet in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Paultje gaat 's avonds wandelen met alleen een paars krijtje in de hand. Hij tekent een pad om op te lopen, en al tekenend ontstaat de wereld om hem heen: een bos, een zee, een berg.</p><p>Elke moeilijkheid die hij tegenkomt, lost hij op door verder te tekenen. Dreigt hij te verdrinken, dan tekent hij een boot; valt hij van een berg, dan tekent hij een luchtballon. Aan het eind tekent hij zijn eigen slaapkamerraam en zijn bed, en valt hij in slaap.</p><p>Het boek, in 1955 geschreven en getekend door Crockett Johnson, bestaat vrijwel geheel uit korte, feitelijke zinnen over een jongetje dat zijn wereld schept met wat hij bij zich heeft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>prentenboek</li><li>verbeelding</li><li>tekenen</li><li>klassieker</li><li>kind</li><li>Amerikaans</li><li>avontuur</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="17"><a href="17.html">The Creative Act</a>. Rick Rubin beschrijft scheppen als iets wat ontstaat in het moment zelf, precies wat Paultje op elke bladzijde doet met zijn krijtje.</li>
+          <li value="11"><a href="11.html">Steal Like an Artist</a>. Kleon pleit voor beperkte middelen als aanjager van creativiteit; Paultje heeft niets dan een krijtje en maakt daarmee een hele wereld.</li>
+          <li value="2048"><a href="2048.html">Kees de jongen</a>. Kees de jongen is een andere Nederlandse jeugdklassieker waarin de verbeelding van een kind de werkelijkheid binnendringt, al loopt dat bij Thijssen minder goed af dan bij Paultje.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

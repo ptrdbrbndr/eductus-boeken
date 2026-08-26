@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van slaapwandeling naar droomleven &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Schadenbergs stelling is dat slaap niet een technisch probleem is dat met een lijst trucjes te repareren valt, maar een lichamelijk signaal van wat er…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2076">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2076 &middot; Levenskunst</p>
+    <h1>Van slaapwandeling naar droomleven</h1>
+    <p class="lede">Mark Schadenberg, 2022</p>
+    <p class="stats">
+      <span><b>1287</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2076"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Schadenbergs stelling is dat slaap niet een technisch probleem is dat met een lijst trucjes te repareren valt, maar een lichamelijk signaal van wat er overdag, en soms jaren eerder, niet verwerkt is. Bij hemzelf kwam de slapeloosheid pas goed aan het licht toen hij al twaalf jaar meemaakte wat een militair in oorlogsgebied meemaakt; het lichaam hield vol tot het niet meer kon. Zijn boek voert aan dat slaaphygiëne, voeding en ademhaling wel helpen, maar dat ze zonder de vraag wat iemand wakker houdt niet verder komen dan symptoombestrijding. Pas als iemand onder ogen ziet welke gebeurtenis of welk patroon aan de onrust ten grondslag ligt, werkt de rest van de aanpak.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Uruzgan en de jaren daarna</h3>
+      <p>Schadenberg gaat op zijn achttiende voor het eerst op uitzending. Wat hij daar en op de missies erna ziet, beschrijft hij zonder details te verzinnen die hij niet zelf kan verantwoorden: het gaat om de opeenstapeling van spanning, de korte periodes thuis waarin niets meer gewoon aanvoelt, en de manier waarop het lichaam aan blijft staan lang nadat de missie voorbij is.</p>
+      <h3>Twaalf jaar Defensie</h3>
+      <p>Als verpleegkundige bij de Luchtmobiele Brigade en later als vliegend verpleegkundige bij de luchtmacht ziet hij lichamelijk en geestelijk leed van dichtbij, bij anderen en bij zichzelf. De opeenstapeling van vijf uitzendingen in twaalf jaar tijd wordt in het boek neergezet als een sluipend proces: niet één gebeurtenis breekt hem, maar de jaren waarin hij te weinig herstelt tussen de missies door.</p>
+      <h3>Het lichaam stopt</h3>
+      <p>In december 2017 verlaat hij Defensie. Hij beschrijft slapeloosheid die niet meer met wilskracht te overwinnen is en een diagnose posttraumatische stressstoornis. Dat is het omslagpunt van het boek: van iemand die dacht dat doorzetten de oplossing was naar iemand die erkent dat het lichaam iets anders nodig heeft dan doorgaan.</p>
+      <h3>Wat slaap doet en waarom het misgaat</h3>
+      <p>Schadenberg legt uit wat een slecht functionerend zenuwstelsel met de nacht doet: het brein dat overdag geen moment op nul komt, gaat 's avonds niet vanzelf naar een lagere versnelling. Hij noemt dat zelf 'standje maximaal' en stelt dat wie de hele dag actief blijft zonder rustmomenten, 's avonds een lichaam achterlaat dat niet meer weet hoe het moet afschakelen.</p>
+      <p>Daarbij hoort zijn observatie dat een groot deel van de gedachten die door het hoofd gaan negatief van aard is; bij mensen die geen rust nemen, blijft die stroom 's nachts doorgaan in plaats van te verstommen.</p>
+      <h3>Voeding en de bouwstenen van slaap</h3>
+      <p>Een deel van het boek gaat over de wisselwerking tussen voeding en slaap: slechte voeding werkt slechte slaap in de hand, en slechte slaap maakt het moeilijker om overdag goed te eten. Schadenberg noemt specifiek magnesiumbisglycinaat en de vitamines C, D en B12 als stoffen die hij in zijn eigen herstel en in zijn coaching belangrijk vindt.</p>
+      <p>Hij besteedt ook aandacht aan ademhaling als ingang naar het zenuwstelsel: een langzame, diepe ademhaling voor het slapengaan is volgens hem een van de weinige dingen die iemand op elk moment van de dag zelf kan inzetten om het lichaam uit de staat van paraatheid te halen. Dat sluit aan bij wat hij uit zijn militaire training kende, waar ademhaling werd gebruikt om onder druk helder te blijven.</p>
+      <h3>Van patiënt naar coach</h3>
+      <p>Een terugkerend motief is zijn constatering dat kinderen van mensen met een posttraumatische stressstoornis driemaal gevoeliger zijn voor depressie en angst. Die constatering is voor hem de aanleiding om niet alleen aan zijn eigen herstel te werken, maar zich om te scholen tot slaapcoach en het probleem breder aan te pakken dan bij zichzelf alleen.</p>
+      <h3>De route naar rust</h3>
+      <p>De laatste hoofdstukken geven de vragen en oefeningen die Schadenberg nu bij cliënten gebruikt, te beginnen met de vraag wat iemand precies wakker houdt en wat daarvan de kern is. Bij langdurige, hardnekkige klachten verwijst hij expliciet naar professionele begeleiding in plaats van te suggereren dat het boek op zichzelf genoeg is.</p>
+      <h3>Van coaching naar spreken</h3>
+      <p>Inmiddels treedt Schadenberg ook op als spreker over slaap en veerkracht, onder meer in podcasts en op bijeenkomsten voor bedrijven en zorgorganisaties. Het boek vormt daarvan de basis: dezelfde combinatie van persoonlijk relaas en praktisch advies die hij in zijn coachpraktijk gebruikt, is de vorm waarin hij zijn verhaal nu ook mondeling brengt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Posttraumatische stressstoornis</td><td>De diagnose die Schadenberg na zijn uitzendingen kreeg en die hij als kern van zijn slaapproblemen beschrijft.</td></tr>
+          <tr><td class="term">Standje maximaal</td><td>Schadenbergs eigen term voor een zenuwstelsel dat overdag niet tot rust komt en daardoor 's avonds niet kan afschakelen.</td></tr>
+          <tr><td class="term">Slaaphygiëne</td><td>De verzameling gewoonten rond bedtijd, licht en ritme die de kans op goede slaap vergroot, maar volgens Schadenberg alleen werkt als de onderliggende onrust ook wordt aangepakt.</td></tr>
+          <tr><td class="term">Magnesiumbisglycinaat</td><td>De vorm van magnesium die Schadenberg in zijn eigen herstel en in zijn advies aan cliënten noemt.</td></tr>
+          <tr><td class="term">Erfelijke kwetsbaarheid</td><td>Zijn constatering dat kinderen van ouders met posttraumatische stressstoornis driemaal gevoeliger zijn voor depressie en angst.</td></tr>
+          <tr><td class="term">De kernvraag</td><td>De vraag die Schadenberg als uitgangspunt van zijn coaching neemt: wat houdt iemand precies wakker, en wat is daarvan de kern.</td></tr>
+          <tr><td class="term">Uitzending</td><td>De militaire term voor een missie in een oorlogs- of crisisgebied; Schadenberg maakte er vijf mee.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste deel van het boek is Schadenbergs eigen, controleerbare loopbaan: twaalf jaar bij Defensie, vijf uitzendingen te beginnen in Uruzgan, functies als verpleegkundige bij de Luchtmobiele Brigade en als vliegend verpleegkundige, en een vertrek in december 2017 met slapeloosheid en een posttraumatische stressstoornis als directe aanleiding. Dat verhaal is wat het boek dragen moet, en het is navertelbaar zonder dat de lezer op medische claims hoeft te vertrouwen.</p>
+      <p>Voor de fysiologische adviezen, over magnesium, vitamines en het zenuwstelsel, geeft het boek geen verwijzingen naar onderzoek; het zijn ervaringen uit zijn eigen praktijk als slaapcoach, niet uitkomsten van een studie die hij aanhaalt. Hetzelfde geldt voor de genoemde driemaal grotere kwetsbaarheid van kinderen van PTSS-patiënten: die klinkt als een cijfer uit onderzoek, maar het boek onderbouwt het niet met een bron.</p>
+      <p>Wat wel te verifiëren is, is dat Schadenberg zich na zijn vertrek bij Defensie daadwerkelijk om- en bijschoolde tot slaapcoach en sindsdien als zodanig werkt, met optredens in media als Kukuru, Libelle en Koffietijd. Dat zijn aanpak in de praktijk mensen bereikt, staat daarmee vast; of die aanpak bij een breed publiek even goed werkt als bij hemzelf, laat zich uit het boek alleen niet vaststellen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek vermengt memoire en methode zonder dat de grens altijd duidelijk is: waar eindigt het relaas van wat Schadenberg zelf meemaakte en begint het advies dat voor iedereen zou moeten gelden? Voor een lezer met een heel andere voorgeschiedenis is niet vanzelfsprekend dat dezelfde route naar rust werkt.</p>
+      <p>De praktische tips, over voeding, supplementen en ademhaling, staan los van gepubliceerd onderzoek. Dat is bij een boek van een ervaren coach niet ongewoon, maar het betekent dat een lezer de claims op waarde moet schatten als praktijkervaring, niet als bewezen effect.</p>
+      <p>Doordat het boek uit eigen ervaring is opgebouwd, ontbreekt een stem die tegenspraak biedt: er is geen hoofdstuk waarin Schadenberg zijn eigen aanpak laat toetsen door een buitenstaander of confronteert met gevallen waarin het niet werkte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel jezelf de vraag wat je precies wakker houdt, en ga na wat daarvan de kern is in plaats van bij het symptoom te blijven.</li>
+        <li>Bouw overdag rustmomenten in voordat het zenuwstelsel de hele dag op scherp heeft gestaan.</li>
+        <li>Zoek bij aanhoudende, ernstige klachten professionele begeleiding in plaats van er alleen mee door te gaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Uitgeverij Kompas, Harderwijk, 2022, 200 blz., ISBN 9789492107244. Schadenberg schreef het boek rechtstreeks in het Nederlands; er is geen anderstalige editie bekend en, voor zover na te gaan, geen tweede boek van zijn hand.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mark Schadenberg was twaalf jaar beroepsmilitair, waarvan tien jaar als verpleegkundige bij de Luchtmobiele Brigade en enige tijd als vliegend verpleegkundige bij de luchtmacht. Op zijn achttiende ging hij voor het eerst op uitzending naar Uruzgan in Afghanistan; daarna volgden nog vier missies. In december 2017 verliet hij Defensie, met slaapproblemen en een posttraumatische stressstoornis.</p><p>In het boek beschrijft hij hoe die twee elkaar voedden: wie 's nachts niet tot rust komt, verwerkt overdag minder, en wie overdag niet verwerkt, ligt 's nachts wakker. Vanuit die eigen ervaring werkte hij zich naar slaapcoach; de eerste hoofdstukken vertellen zijn geschiedenis, de latere geven de aanpak die hij nu bij anderen gebruikt.</p><p>Het boek is geen puur zelfhulpboek en geen pure memoire, maar een combinatie: eerst het verhaal van iemand die zelf vastliep, dan de route die hij daaruit terugvond, met concrete adviezen voor wie hetzelfde overkomt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>slaap</li><li>veteranen</li><li>posttraumatische stress</li><li>zelfhulp</li><li>slaapcoaching</li><li>gewoontes</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1628"><a href="1628.html">TRE, herstellen van stress en trauma kan je lichaam zelf</a>. Doomernik beschrijft een lichaamsgerichte methode om trauma te verwerken die aansluit bij Schadenbergs stelling dat het lichaam eerst erkenning nodig heeft voordat rust terugkeert.</li>
+          <li value="1866"><a href="1866.html">Van stress naar geluk (met stressologie)</a>. Spelbos werkt de weg van stress naar geluk methodisch uit, waar Schadenberg vooral uit eigen ervaring put.</li>
+          <li value="1696"><a href="1696.html">Verbonden ademen</a>. Koning behandelt ademhaling als toegang tot het zenuwstelsel, hetzelfde terrein waarop Schadenberg met zijn 'standje maximaal' wijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oneindige liefde &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Deyanova en De Kock stellen dat de meeste ruzies tussen partners een oppervlaktelaag zijn boven een dieper liggende angst: de angst om er niet toe te doen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2056">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2056 &middot; Samenwerken en gesprek</p>
+    <h1>Oneindige liefde</h1>
+    <p class="lede">Emanuela Deyanova en David de Kock, 2020</p>
+    <p class="stats">
+      <span><b>1420</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2056"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Deyanova en De Kock stellen dat de meeste ruzies tussen partners een oppervlaktelaag zijn boven een dieper liggende angst: de angst om er niet toe te doen voor de ander. Wie alleen de ruzie zelf probeert op te lossen, blijft in dezelfde cirkel hangen, omdat het eigenlijke gesprek nooit gevoerd wordt. De auteurs stellen dat een stel pas verandert als beide partners de kwetsbaarheid onder hun eigen boosheid of afstand durven laten zien, en dat dit een vaardigheid is die te leren valt in een vaste volgorde van stappen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De negatieve cirkel</h3>
+      <p>Het boek opent met het beschrijven van het patroon waarin veel stellen vastraken: de een trekt zich terug, de ander dringt aan, en beide reacties voeden elkaar. Deyanova en De Kock laten zien hoe dit patroon zich in de loop van een relatie herhaalt rond steeds dezelfde thema's, ook als de aanleiding elke keer anders lijkt.</p>
+      <p>De auteurs vragen de lezer de eigen cirkel te herkennen voordat er aan verandering wordt gewerkt. Zonder dat herkenningsmoment, schrijven zij, blijft elk gesprek over de relatie een herhaling van de ruzie die het probeert op te lossen.</p>
+      <h3>Liefdestalen ontdekken</h3>
+      <p>De volgende stap gaat over de manier waarop partners liefde geven en herkennen: met woorden, aanraking, aandacht, hulp of cadeaus. Deyanova en De Kock beschrijven hoe partners elkaar liefde kunnen geven op een manier die zijzelf prettig vinden, terwijl de ander die vorm nauwelijks als liefde herkent.</p>
+      <p>Het boek geeft oefeningen om de eigen liefdestaal en die van de partner in kaart te brengen, met als doel dat beide partners bewuster kiezen voor de vorm die bij de ander aankomt.</p>
+      <p>De auteurs geven het voorbeeld van een partner die dagelijks klusjes doet als bewijs van liefde, terwijl de ander vooral behoefte heeft aan een gesprek aan het eind van de dag; zolang beiden bij hun eigen taal blijven, voelt de een zich onopgemerkt en de ander onterecht miskend.</p>
+      <h3>Frustraties overstijgen</h3>
+      <p>Hier behandelen de auteurs terugkerende ergernissen die niet vanzelf overgaan: verschillen in huishouden, opvoeding of tijdsbesteding. Zij onderscheiden ergernissen die om een praktische afspraak vragen van ergernissen die eigenlijk over erkenning gaan.</p>
+      <p>De stap eindigt met een werkwijze om een terugkerend conflict te bespreken zonder terug te vallen in de negatieve cirkel uit het eerste deel. Deyanova en De Kock onderscheiden daarbij wat zij de primaire emotie noemen, meestal verdriet of angst, van de secundaire emotie die daaroverheen ligt, meestal boosheid of ergernis, en stellen dat een gesprek pas verandert zodra beide partners bij de primaire laag uitkomen.</p>
+      <h3>Werkelijk luisteren</h3>
+      <p>Dit deel beschrijft luisteren als iets anders dan wachten op je beurt om te reageren. De auteurs geven een vaste structuur waarin de een spreekt en de ander uitsluitend samenvat en navraagt, zonder meteen een tegenargument te geven.</p>
+      <p>Deyanova en De Kock noemen dit de belangrijkste vaardigheid van het boek, omdat de andere stappen er volgens hen op steunen.</p>
+      <h3>Aantrekkingskracht en intimiteit</h3>
+      <p>De auteurs bespreken hoe aantrekkingskracht in een langdurige relatie vaak plaatsmaakt voor gewoonte, en welke gewoontes dat proces versterken. Zij pleiten voor bewust geplande aandacht voor elkaar in plaats van te wachten tot het vanzelf weer ontstaat.</p>
+      <p>Seksualiteit komt aan bod als onderdeel van de bredere verbinding tussen partners, niet als apart probleem dat los van de rest van de relatie kan worden opgelost. De auteurs koppelen verminderde aantrekkingskracht terug aan de negatieve cirkel uit het eerste deel: wie zich emotioneel onveilig voelt bij een partner, voelt zich volgens hen zelden lichamelijk aangetrokken tot diezelfde partner, ongeacht wat er verder aan de relatie schort.</p>
+      <h3>Crisis als aanknopingspunt</h3>
+      <p>In dit deel beschrijven Deyanova en De Kock een relatiecrisis, zoals een affaire of een langdurig conflict, als een moment waarop de onderliggende patronen het duidelijkst zichtbaar worden. Zij stellen dat zo'n moment een stel kan dwingen tot het gesprek dat jarenlang is uitgesteld.</p>
+      <p>Het hoofdstuk waarschuwt tegelijk dat dit niet voor elke crisis geldt en dat sommige situaties professionele begeleiding vragen.</p>
+      <h3>Een veilige omgeving voor kinderen</h3>
+      <p>Het laatste deel richt zich op de invloed van de relatie tussen ouders op kinderen. De auteurs beschrijven hoe kinderen de spanning tussen ouders aanvoelen, ook als er niet ruzie gemaakt wordt waar zij bij zijn, en hoe de stappen uit het boek ook aan die spanning iets kunnen veranderen.</p>
+      <p>Deyanova en De Kock sluiten af met de stelling dat een stabiele relatie tussen ouders niet betekent dat er nooit conflict is, maar dat kinderen zien hoe ouders een conflict weer herstellen. Dat herstel, niet de afwezigheid van ruzie, is volgens hen wat een kind een gevoel van veiligheid geeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Negatieve cirkel</td><td>Het herhalende patroon waarin de reactie van de ene partner de reactie van de andere uitlokt, zoals terugtrekken tegenover aandringen.</td></tr>
+          <tr><td class="term">Liefdestaal</td><td>De vorm waarin iemand liefde het duidelijkst geeft en herkent, bijvoorbeeld woorden, aanraking, aandacht, hulp of cadeaus.</td></tr>
+          <tr><td class="term">Emotionally Focused Therapy</td><td>De gehechtheidsgerichte koppeltherapie waarop de methode van Deyanova en De Kock is gebaseerd, ontwikkeld door Sue Johnson.</td></tr>
+          <tr><td class="term">Onderliggende angst</td><td>De angst om er niet toe te doen of afgewezen te worden, die volgens de auteurs achter de meeste oppervlakkige ruzies schuilgaat.</td></tr>
+          <tr><td class="term">Kwetsbaarheid tonen</td><td>Het uitspreken van de angst of het verdriet onder boosheid of afstand, in plaats van alleen de boosheid of afstand zelf te laten zien.</td></tr>
+          <tr><td class="term">Werkelijk luisteren</td><td>Een gespreksvorm waarin de luisteraar samenvat en navraagt voordat er gereageerd wordt, zonder meteen een tegenargument te geven.</td></tr>
+          <tr><td class="term">School of Love</td><td>De relatiepraktijk van Emanuela Deyanova van waaruit de voorbeelden en oefeningen in het boek voortkomen.</td></tr>
+          <tr><td class="term">Primaire en secundaire emotie</td><td>Het onderscheid tussen de diepere emotie, meestal angst of verdriet, en de emotie daaroverheen, meestal boosheid, die in een ruzie het eerst zichtbaar wordt.</td></tr>
+          <tr><td class="term">Gehechtheidsveiligheid</td><td>De mate waarin een partner zich emotioneel veilig voelt bij de ander, die volgens de auteurs bepalend is voor zowel ruzies als aantrekkingskracht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De methode bouwt op Emotionally Focused Therapy, een koppeltherapie die sinds de jaren tachtig is onderzocht door Sue Johnson en collega's en die in de vakliteratuur over relatietherapie wordt gerekend tot de vormen met de meeste onderzoeksbasis, met gepubliceerde uitkomststudies onder stellen die de methode volgden. Deyanova en De Kock verwijzen naar dat kader, maar het boek zelf presenteert geen eigen onderzoek naar de effecten van hun zeven stappen.</p>
+      <p>De voorbeelden in het boek komen uit de eigen praktijk van de auteurs en uit hun eigen relatie. Dat maakt de tekst herkenbaar en concreet, maar het betekent ook dat de lezer moet afgaan op de weergave van de auteurs zelf, zonder onafhankelijke toetsing van die casussen. Het onderscheid tussen primaire en secundaire emotie, dat in het boek een sleutelrol speelt, komt rechtstreeks uit de gehechtheidstheorie waarop Emotionally Focused Therapy voortbouwt, en is als zodanig extern onderbouwd, ook al toetst het boek zelf niet of de eigen zeven stappen die theorie correct toepassen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek vertaalt een klinisch model naar een format voor een breed publiek, en bij die vertaling gaat een deel van de precisie van het oorspronkelijke therapiemodel verloren. Waar Emotionally Focused Therapy in de praktijk wordt begeleid door een getrainde therapeut die het tempo en de veiligheid van het gesprek bewaakt, moet de lezer van dit boek dat zelf inschatten.</p>
+      <p>Voor stellen met een langdurig conflict, een affaire of een geschiedenis van geweld is een boek met oefeningen geen vervanging voor begeleiding door een therapeut, en het boek erkent dat zelf slechts terloops. De zeven stappen veronderstellen bovendien dat beide partners bereid zijn mee te doen; over wat te doen als dat niet zo is, zegt het boek weinig.</p>
+      <p>Het boek functioneert daarnaast als kennismaking met de betaalde coachprogramma's van Deyanova's praktijk. Dat maakt het niet minder bruikbaar als introductie in de zeven stappen, maar het verklaart waarom sommige onderdelen, zoals de oefeningen rond liefdestalen, summier blijven en verwijzen naar verdere begeleiding buiten het boek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf de negatieve cirkel in je eigen relatie: wie trekt zich terug, wie dringt aan, en waar begint het meestal.</li>
+        <li>Vraag je partner naar diens liefdestaal voordat je ervan uitgaat dat die dezelfde is als de jouwe.</li>
+        <li>Oefen een gesprek waarin je alleen samenvat wat de ander zegt, voordat je zelf reageert.</li>
+        <li>Plan bewust tijd voor aandacht voor elkaar in plaats van te wachten tot die vanzelf ontstaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Oneindige liefde: in 7 stappen naar een nieuwe balans tussen liefde, relatie en gezin</i> (Volt, Amsterdam, 22 oktober 2020, 256 blz., ISBN 9789021424156). Nederlandstalig origineel; er bestaat geen anderstalige uitgave. Deyanova werkt als relatietherapeut in Amsterdam en is oprichter van de praktijk School of Love; De Kock schreef daarnaast op eigen naam het boek 365 dagen succesvol.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Emanuela Deyanova en David de Kock, beiden werkzaam als relatietherapeut, schrijven een gids voor stellen die vastlopen in vaste patronen van verwijt en afstand. Het boek volgt zeven stappen: van het herkennen van de negatieve cirkel waarin een stel verstrikt raakt tot het opnieuw opbouwen van aantrekkingskracht, echt luisteren en een veilige omgeving voor kinderen.</p><p>De methode leunt op Emotionally Focused Therapy, de gehechtheidsgerichte koppeltherapie die teruggaat op het werk van Sue Johnson. Centraal staat het idee dat ruzies zelden over het onderwerp zelf gaan, maar over een onderliggende angst om er niet toe te doen of afgewezen te worden.</p><p>Deyanova en De Kock schrijven vanuit hun eigen praktijk en relatie en werken met herkenbare gesprekssituaties in plaats van casussen uit onderzoek. Het boek richt zich op koppels die met elkaar aan de slag willen, niet op acute crisissituaties die professionele begeleiding vragen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>relaties</li><li>EFT</li><li>liefdestaal</li><li>gehechtheid</li><li>communicatie</li><li>gezin</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2111"><a href="2111.html">Innerlijke rust met EFT</a>. Toeset beschrijft een andere, op EFT-tapping gebaseerde methode voor innerlijke rust, die verwarrend dezelfde afkorting deelt met de koppeltherapie in dit boek.</li>
+          <li value="2037"><a href="2037.html">Deeper Dating</a>. Page behandelt vanuit een gehechtheidskader hoe mensen bij het daten al patronen herhalen die Deyanova en De Kock pas binnen een bestaande relatie bespreken.</li>
+          <li value="1641"><a href="1641.html">Mediation met geweldloze communicatie</a>. Larsson biedt een concrete gesprekstechniek voor het soort werkelijk luisteren dat dit boek als vaardigheid beschrijft, maar dan losgemaakt van de context van romantische relaties.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

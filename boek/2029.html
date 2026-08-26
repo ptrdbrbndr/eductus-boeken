@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do It Tomorrow and Other Secrets of Time Management &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Forster stelt dat de meeste timemanagementsystemen falen omdat ze taken blijven verzamelen zonder een moment waarop de lijst daadwerkelijk leeg is. Een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2029">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2029 &middot; Werk en aandacht</p>
+    <h1>Do It Tomorrow and Other Secrets of Time Management</h1>
+    <p class="lede">Mark Forster, 2006</p>
+    <p class="stats">
+      <span><b>1419</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2029"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Forster stelt dat de meeste timemanagementsystemen falen omdat ze taken blijven verzamelen zonder een moment waarop de lijst daadwerkelijk leeg is. Een open lijst groeit sneller dan hij wordt afgewerkt, en die groei zelf veroorzaakt de spanning die timemanagement zou moeten wegnemen. Zijn oplossing is niet harder werken, maar de lijst zelf begrenzen: een gesloten lijst voor vandaag, en al het nieuwe naar morgen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het probleem van de groeiende lijst</h3>
+      <p>Forster begint met een diagnose: de klassieke to-do-lijst wordt nooit leeg, omdat er sneller taken bijkomen dan er worden afgerond. Dat levert geen overzicht op maar een blijvend gevoel van achterstand, ook als iemand die dag hard heeft gewerkt.</p>
+      <p>Hij onderscheidt drie mogelijke oorzaken als het werk niet af komt: onvoldoende efficiëntie, te veel toezeggingen, of te weinig beschikbare tijd. Volgens Forster verwart bijna iedereen deze drie met elkaar en probeert daardoor het verkeerde probleem op te lossen.</p>
+      <p>Forster illustreert dit met de gewoonte om bij achterstand automatisch te grijpen naar een efficiëntere methode, terwijl de eigenlijke oorzaak vaak is dat er domweg te veel is toegezegd voor de beschikbare tijd. Efficiënter werken lost dat probleem niet op, het verschuift alleen het moment waarop de achterstand zichtbaar wordt.</p>
+      <h3>De gesloten lijst</h3>
+      <p>De kern van de methode is een lijst die voor een vaste periode, meestal een dag, wordt afgesloten: er komt niets meer bij zodra die begint. Dat verandert de ervaring van werken volgens Forster wezenlijk, want een gesloten lijst kan daadwerkelijk leeg raken, en dat geeft een afsluiting die een open lijst nooit biedt.</p>
+      <p>Taken die halverwege de dag binnenkomen, gaan niet op de lijst van vandaag maar op die van morgen. Dat is de regel die de titel van het boek verklaart: geen uitstel als vermijding, maar bewuste reservering voor de volgende gesloten lijst.</p>
+      <p>Forster beschrijft ook een uitzondering: taken die werkelijk dezelfde dag moeten gebeuren, mogen wel worden toegevoegd, maar dan bewust en met erkenning dat dit de lijst opnieuw opent. Hij waarschuwt dat deze uitzondering snel wordt misbruikt als die niet strikt wordt gehanteerd.</p>
+      <h3>Toezeggingen in plaats van taken</h3>
+      <p>Forster stelt voor om niet losse taken te prioriteren, maar de toezeggingen waaruit ze voortkomen. Wie een toezegging serieus neemt, moet die volgens hem volledig nakomen, in plaats van er willekeurig onderdelen van af te werken.</p>
+      <p>Dat betekent ook dat het aantal actieve toezeggingen bewust beperkt moet blijven: te veel tegelijk aangaan is volgens Forster de gewoonste oorzaak van een systeem dat op papier klopt maar in de praktijk niet wordt gevolgd.</p>
+      <p>Hij adviseert om bij elke nieuwe toezegging expliciet te overwegen welke bestaande toezegging daarvoor plaats moet maken, in plaats van toezeggingen zonder meer te stapelen boven op wat er al loopt.</p>
+      <h3>Het huidige initiatief</h3>
+      <p>Voor grotere projecten werkt Forster met een vast blok aan het begin van de dag, van minstens vijf minuten, gewijd aan één lopend initiatief. Er wordt aan doorgewerkt tot een van tevoren vastgesteld punt, waarna pas ruimte is voor reactief werk zoals mail en verzoeken van anderen.</p>
+      <p>Dat keert de gebruikelijke volgorde om: niet eerst de binnenkomende drukte wegwerken en pas daarna, als er tijd over is, aan het grote project beginnen, maar andersom.</p>
+      <p>Forster stelt dat het vooraf bepaalde tussenpunt net zo belangrijk is als het startmoment: zonder een duidelijk eindpunt voor de sessie loopt het blok voor het huidige initiatief volgens hem net zo makkelijk uit of wordt het juist te snel afgebroken zodra de eerste onderbreking zich aandient.</p>
+      <h3>Wat te doen als het niet lukt</h3>
+      <p>Forster besteedt een deel van het boek aan het moment waarop de methode niet werkt: de lijst raakt toch niet leeg, of het initiatief van de dag schiet er telkens bij in. Hij koppelt dat terug naar de drie oorzaken uit het begin: efficiëntie, te veel toezeggingen, of te weinig tijd.</p>
+      <p>De remedie verschilt per oorzaak. Bij te veel toezeggingen is het antwoord ze afbouwen, niet harder werken; bij te weinig tijd is het antwoord de beschikbare tijd eerlijk vaststellen in plaats van te blijven plannen alsof er meer is.</p>
+      <p>Forster benadrukt dat deze diagnose regelmatig herhaald moet worden, omdat de oorzaak per periode kan verschillen: wat deze maand een tijdgebrek is, kan volgende maand een teveel aan toezeggingen zijn. Een vaste oplossing voor een wisselend probleem werkt volgens hem daarom niet blijvend.</p>
+      <h3>Achterstallig werk wegwerken</h3>
+      <p>Voor wie al met een opgestapelde achterstand begint, beschrijft Forster een aparte procedure om die geleidelijk in te lopen zonder de dagelijkse gesloten lijst te verstoren: een vaste, beperkte hoeveelheid tijd per dag aan de oude stapel, tot die is weggewerkt.</p>
+      <p>Die scheiding tussen nieuw werk en achterstallig werk voorkomt dat de oude stapel de nieuwe, gesloten lijst alsnog besmet met een gevoel van eindeloosheid.</p>
+      <p>Forster raadt aan om bij het inlopen van de achterstand van oud naar nieuw te werken in plaats van andersom, omdat de oudste taken volgens hem het vaakst blijken te zijn achterhaald of niet langer nodig, en dus meteen kunnen worden geschrapt in plaats van afgehandeld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Gesloten lijst</td><td>Een takenlijst die voor een vaste periode wordt afgesloten en waaraan tijdens die periode niets meer wordt toegevoegd.</td></tr>
+          <tr><td class="term">Do it tomorrow</td><td>De regel dat nieuwe taken die tussendoor binnenkomen naar de lijst van de volgende dag gaan, in plaats van de lopende lijst te verstoren.</td></tr>
+          <tr><td class="term">Huidig initiatief</td><td>Het ene grotere project waaraan dagelijks een vast blok tijd wordt besteed, tot een vooraf bepaald tussenpunt.</td></tr>
+          <tr><td class="term">Will do list</td><td>Forsters aanduiding voor een lijst van toezeggingen die daadwerkelijk worden nagekomen, tegenover een lijst van losse, vrijblijvende taken.</td></tr>
+          <tr><td class="term">Drieledige diagnose</td><td>Forsters onderscheid tussen te weinig efficiëntie, te veel toezeggingen en te weinig tijd als verklaring wanneer werk niet af komt.</td></tr>
+          <tr><td class="term">Achterstallige lijst</td><td>De apart aangepakte stapel oud werk die niet wordt vermengd met de dagelijkse gesloten lijst.</td></tr>
+          <tr><td class="term">Toezeggingen prioriteren</td><td>Het advies om niet losse taken te selecteren, maar te bepalen welke toezeggingen volledig worden nagekomen.</td></tr>
+          <tr><td class="term">Reactief werk</td><td>Werk dat ontstaat doordat iemand anders iets vraagt, zoals mail en verzoeken, tegenover het geplande werk aan het huidige initiatief.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Forster bouwt de methode op eigen coachingservaring, niet op onderzoek naar productiviteit of cognitieve belasting. Het boek citeert geen studies en onderbouwt de werking van de gesloten lijst vooral met de logica van het eigen argument: een lijst die niet groeit, kan wel leeg raken.</p>
+      <p>Onafhankelijke gebruikers en bloggers die de methode jarenlang hebben toegepast, melden vooral dat het onderscheid tussen vandaag en morgen henzelf discipline oplegt die andere systemen niet afdwingen. Dat is een praktijkervaring, geen gecontroleerde meting.</p>
+      <p>Forster werkte al voor het verschijnen van dit boek als life coach en workshopleider op het gebied van timemanagement, wat verklaart waarom het boek dicht bij concrete, dagelijkse situaties blijft in plaats van bij een abstract model.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De methode veronderstelt dat iemand voldoende zeggenschap heeft over zijn agenda om nieuwe taken daadwerkelijk naar morgen te verplaatsen. In banen met veel externe druk, waarin een verzoek dezelfde dag moet worden afgehandeld, is die vrijheid er niet altijd.</p>
+      <p>Forster werkte de gesloten lijst later verder uit in vervolgboeken met nieuwe, deels afwijkende varianten, wat erop wijst dat hijzelf de methode uit dit boek niet als definitief beschouwde.</p>
+      <p>Het boek besteedt weinig aandacht aan werk dat door meerdere mensen tegelijk wordt gepland, zoals gedeelde projecten met vaste deadlines van derden. De regel om nieuwe taken naar morgen te verplaatsen veronderstelt een individuele planning, en is minder eenvoudig toe te passen zodra een team dezelfde lijst deelt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Maak elke ochtend een lijst van wat je die dag daadwerkelijk gaat afwerken, en schrijf er niets meer bij zodra je begint.</li>
+        <li>Zet nieuwe taken die binnenkomen op de lijst van morgen, ook als ze dringend aanvoelen, en beoordeel aan het eind van de dag of dat gevoel klopte.</li>
+        <li>Reserveer de eerste vijf tot dertig minuten van je werkdag voor één lopend project, voordat je mail of berichten opent.</li>
+        <li>Kies bij elke nieuwe toezegging die je overweegt een bestaande toezegging die je daarvoor loslaat of uitstelt, en spreek dat ook uit tegen wie erbij betrokken is.</li>
+        <li>Loop aan het eind van de week de drieledige diagnose langs: was het deze week een kwestie van efficiëntie, van te veel toezeggingen of van te weinig tijd, en pas voor volgende week alleen die ene oorzaak aan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Do It Tomorrow and Other Secrets of Time Management</i> (Hodder &amp; Stoughton, Londen, 2006, 224 blz., ISBN 9780340909126). Er bestaat geen Nederlandse uitgave; Forsters eerdere boek <i>Get Everything Done and Still Have Time to Play</i> (2000) is evenmin in het Nederlands vertaald en wordt in Nederlandse boekwinkels alleen in het Engels aangeboden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mark Forster was jarenlang life coach en trainer op het gebied van timemanagement voordat hij dit boek schreef. Zijn uitgangspunt is dat de meeste systemen voor taakbeheer een probleem verergeren in plaats van oplossen: ze houden een open lijst bij die sneller groeit dan hij leegraakt, waardoor de gebruiker voortdurend achter de feiten aan blijft lopen.</p><p>Forsters oplossing is een gesloten lijst: een lijst voor één dag, waarop niets wordt bijgeschreven zodra die dag begint. Nieuwe taken die tussendoor binnenkomen, gaan naar de lijst van morgen, de regel die het boek zijn titel geeft. Daarnaast werkt hij met een vast blok tijd aan het begin van de dag voor één lopend project, tot een vooraf bepaald punt.</p><p>Het boek is geschreven vanuit Forsters eigen coachingspraktijk en bevat weinig verwijzingen naar onderzoek; de waarde zit in de directe, uitprobeerbare regels.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>timemanagement</li><li>productiviteit</li><li>planning</li><li>gewoontes</li><li>werk</li><li>takenlijsten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2030"><a href="2030.html">Tijdwinst - Elke dag om 15.00 uur klaar</a>. Deusings bouwt een vergelijkbaar systeem van gesloten dagplanning uit voor de Nederlandse kantooromgeving, met meer nadruk op vergaderingen en e-mail.</li>
+          <li value="2053"><a href="2053.html">Getting Things Done</a>. Allen lost hetzelfde probleem van een groeiende lijst op met uitgebreidere categorisering, in plaats van Forsters harde knip tussen vandaag en morgen.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport beschrijft de aandacht die nodig is voor het soort ononderbroken werk waarvoor Forster het blok voor het huidige initiatief reserveert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

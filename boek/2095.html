@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rules of Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Templars stelling is dat succesvolle en gelukkige mensen zich, bewust of onbewust, aan een min of meer vaste set regels houden die zij zelf voor zichzelf…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2095">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2095 &middot; Levenskunst</p>
+    <h1>The Rules of Life</h1>
+    <p class="lede">Richard Templar, 2005</p>
+    <p class="stats">
+      <span><b>1402</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2095"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Templars stelling is dat succesvolle en gelukkige mensen zich, bewust of onbewust, aan een min of meer vaste set regels houden die zij zelf voor zichzelf hebben vastgesteld, en dat wie observeert wat die mensen anders doen dan anderen, die regels kan afleiden en overnemen. Het boek presenteert 106 van zulke regels, verdeeld over regels voor jezelf, voor de partner, voor familie en vrienden, voor de sociale omgeving en voor de bredere wereld, telkens in enkele bladzijden zonder onderbouwend onderzoek of bronvermelding. De regels zijn nadrukkelijk geen universele wet maar een persoonlijke code: Templar moedigt de lezer aan om zelf te bepalen welke regels passen en de rest te laten liggen, wat de opzet dichter bij een verzameling aforismen brengt dan bij een methode met een onderliggend model.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Regels voor jezelf</h3>
+      <p>Het grootste deel van het boek, 57 regels, gaat over de omgang met jezelf: accepteer wat gedaan is, ken je eigen grenzen, wees flexibel in je denken, wees je eigen adviseur. Templar herhaalt in deze regels een aantal keren dezelfde kernboodschap in andere bewoordingen, aanvaarding van wat niet meer te veranderen is, gecombineerd met eigen verantwoordelijkheid voor wat nog wel te veranderen is.</p>
+      <p>Een aantal regels is huishoudelijk van aard, zoals kleed je alsof vandaag ertoe doet of ruim je spullen regelmatig op, terwijl andere regels dieper gaan, zoals wijd je leven aan iets of ken het verschil tussen wat telt en wat niet telt. Templar wisselt beide soorten regels voortdurend af, zonder ze van elkaar te onderscheiden in gewicht of belang.</p>
+      <h3>Regels voor de partnerrelatie</h3>
+      <p>Vijftien regels gaan over de relatie met een partner: accepteer de verschillen, wees de eerste die sorry zegt, zorg dat vrijen ook liefde bedrijven is. Templar benadrukt hier vooral wederkerigheid en herhaalt dat een relatie geen wedstrijd is die gewonnen moet worden.</p>
+      <p>Andere regels in dit hoofdstuk gaan over praktische omgang: bewaar privacy, controleer of beide partners dezelfde doelen delen, en behandel de partner beter dan de beste vriend. De laatste regel van dit hoofdstuk, jullie hoeven niet dezelfde regels te hebben, relativeert de rest: Templar erkent dat twee mensen een relatie op eigen voorwaarden kunnen inrichten.</p>
+      <h3>Regels voor familie en vrienden</h3>
+      <p>Veertien regels behandelen ouders, kinderen en vrienden: laat je kinderen voor zichzelf fouten maken, leen nooit geld dat je niet kunt missen, wees een goede vriend als je een vriend wilt zijn. Templar schrijft deze regels grotendeels vanuit het perspectief van de ouder, met kortere regels over de eigen rol als kind of vriend.</p>
+      <p>Een paar regels in dit deel gaan tegen een intuïtieve opvatting van goed ouderschap in, zoals er bestaan geen slechte kinderen en geef je kinderen verantwoordelijkheden, en veronderstellen dat kinderen ruimte nodig hebben om fouten te maken en met de ouders in botsing te komen voordat zij het huis kunnen verlaten.</p>
+      <h3>Sociale regels en regels voor de wereld</h3>
+      <p>De laatste twintig regels verbreden de blik naar de bredere sociale omgeving en de wereld: help zonder daar meteen iets voor terug te verwachten, wees je bewust van de schade die je aanricht, kies voor de eer boven de vernedering. Deze regels zijn algemener geformuleerd dan de eerdere hoofdstukken en leunen dichter aan tegen een persoonlijke ethiek dan tegen praktisch advies.</p>
+      <h3>De regels van geluk als toevoeging</h3>
+      <p>De uitgebreide editie sluit af met een apart hoofdstuk van tien 'regels van geluk': neem het lange perspectief, doe iets waar je goed in bent, mag jezelf. Dit hoofdstuk herhaalt in compactere vorm een deel van wat in de regels voor jezelf al aan bod kwam, en functioneert als een korte samenvatting voor wie het boek niet van voor naar achter leest.</p>
+      <h3>Terugkerende regel: blijf zelf nieuwe regels zoeken</h3>
+      <p>De laatste regel van het hoofdgedeelte, regel 106, spoort de lezer aan om zelf, af en toe, een nieuwe regel te ontdekken. Templar sluit het boek daarmee niet af als een afgeronde lijst maar als een startpunt: de 106 regels zijn zijn eigen selectie, en hij nodigt de lezer uit om de methode, observeren wat werkt en dat vastleggen in een korte formule, op het eigen leven toe te passen.</p>
+      <p>Die opzet verklaart ook waarom de reeks boeken van Templar is uitgedijd naar werk, management, liefde, rijkdom, opvoeding en denken: eenzelfde format, een korte titel en een paar bladzijden per regel, laat zich op vrijwel elk onderwerp toepassen zonder dat de onderliggende aanpak hoeft te veranderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Persoonlijke code</td><td>Templars eigen omschrijving van de regels: geen universele wet, maar een set die iedere lezer voor zichzelf overneemt, aanpast of laat liggen.</td></tr>
+          <tr><td class="term">Rules for you</td><td>De eerste en grootste categorie, 57 regels over de omgang met jezelf, van acceptatie tot zelfdiscipline.</td></tr>
+          <tr><td class="term">Partnership Rules</td><td>De categorie met vijftien regels over de partnerrelatie, van conflicthantering tot gedeelde doelen.</td></tr>
+          <tr><td class="term">Family and friends Rules</td><td>De categorie met veertien regels over ouders, kinderen en vriendschap.</td></tr>
+          <tr><td class="term">Social Rules</td><td>De laatste twintig regels, die de blik verbreden van het persoonlijke naar de sociale omgeving en de bredere samenleving.</td></tr>
+          <tr><td class="term">The Rules of Happiness</td><td>Het aparte hoofdstuk met tien extra regels dat in latere, uitgebreide edities is toegevoegd.</td></tr>
+          <tr><td class="term">Regel 106</td><td>De laatste regel van het hoofdgedeelte, die de lezer aanspoort zelf voortdurend nieuwe regels te blijven vinden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Templar onderbouwt zijn regels niet met onderzoek, cijfers of bronvermeldingen; het boek citeert geen studies en geen namen van de succesvolle mensen die hij zegt geobserveerd te hebben. De autoriteit van het boek steunt op de herkenbaarheid van de regels voor de lezer, niet op verifieerbaar bewijs.</p>
+      <p>Wat wel te controleren is, is de herhaling van dezelfde regels, in vrijwel ongewijzigde vorm, over Templars hele reeks boeken heen, over werk, management, liefde en rijkdom. Regels als wees consistent en denk voor jezelf keren in verschillende boeken met andere voorbeelden terug, wat suggereert dat de regels eerder een vast format zijn dan het resultaat van gericht onderzoek naar één levensdomein.</p>
+      <p>Dat het boek al sinds 2005 in steeds herziene edities verschijnt, tot een vijfde editie in 2022, en in tientallen talen is vertaald, zegt iets over het bereik van het format, niet over de juistheid van de regels zelf. Templar en zijn uitgever hebben van de losse, kort te lezen regel een verkoopbare vorm gemaakt die zich makkelijk laat uitbreiden naar nieuwe levensdomeinen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek biedt geen enkel mechanisme om tegenstrijdige regels tegen elkaar af te wegen. Regel 15, het is oké om op te geven, en regel 6, wijd je leven aan iets, kunnen in dezelfde situatie tegenovergestelde adviezen geven, en Templar laat de lezer zonder verdere aanwijzing achter over wanneer welke regel geldt.</p>
+      <p>De regels zijn algemeen geformuleerd genoeg om op vrijwel elke situatie toepasbaar te lijken, wat ze moeilijk te weerleggen maakt maar ook weinig specifiek. Wie ken het verschil tussen wat telt en wat niet telt leest, krijgt geen criterium om dat verschil te bepalen, alleen de aansporing om het te doen.</p>
+      <p>Templar schrijft vanuit een zelfverzekerde toon, alsof de regels vaststaande wijsheden zijn in plaats van persoonlijke observaties van één schrijver, terwijl de auteursnaam zelf een verzonnen identiteit is. Dat de regels desondanks bij veel lezers aanslaan, zegt meer over de herkenbaarheid van alledaagse ergernissen dan over een onderliggende deskundigheid.</p>
+      <p>Doordat het boek is opgebouwd uit losse, korte stukken zonder overkoepelend argument, valt moeilijk vast te stellen wat de lezer aan het einde meer weet dan bij de eerste bladzijde: de regels benoemen vooral gemeengoed, geformuleerd in een korte, gemakkelijk aan te halen vorm.</p>
+      <p>De regels zijn geschreven vanuit een onmiskenbaar westers, welvarend perspectief: shop voor kwaliteit, niet voor prijs of gooi geld niet zomaar naar een probleem veronderstellen een lezer met financiële armslag, en regels over kleding, vakantie en carrièreplanning gaan zonder uitleg uit van een bepaalde levensstijl. Voor lezers zonder die uitgangspositie is een deel van het advies moeilijk toe te passen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de regels als suggesties, niet als een vaste volgorde die stuk voor stuk moet worden nageleefd.</li>
+        <li>Kies bij tegenstrijdige regels zelf welke in de situatie past, het boek doet dat niet voor je.</li>
+        <li>Gebruik een enkele regel als aanleiding voor een gesprek of een eigen aantekening in plaats van als afgerond advies.</li>
+        <li>Toets een regel aan een concrete situatie uit de eigen week voordat je hem overneemt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Rules of Life: A Personal Code for Living a Better, Happier, More Successful Life</i> verscheen in 2005 bij Pearson (Prentice Hall) en werd sindsdien meermaals herzien en uitgebreid; de expanded edition telt 106 in plaats van de oorspronkelijke 100 regels, aangevuld met een los hoofdstuk 'The Rules of Happiness' met tien extra regels, en verscheen bij Pearson tot een vijfde editie in 2022. Richard Templar is een pseudoniem, gebruikt door de Britse auteur Richard Craze samen met een schrijfpartner die tot diens overlijden in 2006 onder dezelfde naam publiceerde. De Nederlandse vertaling verscheen als <i>De regels voor het leven</i>, meest recent bij Centrale Uitgeverij Deltas (2018, 240 blz., ISBN 9789044753226).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Templar verzamelt 106 regels voor het dagelijks leven, van de omgang met jezelf tot de omgang met de wereld, elk in een paar bladzijden zonder onderbouwend onderzoek. De regels zijn volgens hem afgeleid van wat gelukkige en succesvolle mensen anders doen dan anderen.</p><p>De regels zijn verdeeld in vijf categorieën: voor jezelf, voor de partnerrelatie, voor familie en vrienden, voor de sociale omgeving en voor de bredere wereld. Templar benadrukt dat het geen vaste wet is: de lezer neemt over wat past en laat de rest liggen.</p><p>Latere, uitgebreide edities voegen een apart hoofdstuk met tien 'regels van geluk' toe. Richard Templar is een pseudoniem van de Britse auteur Richard Craze, oorspronkelijk gebruikt samen met een schrijfpartner die tot zijn overlijden in 2006 onder dezelfde naam publiceerde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>regels</li><li>levenskunst</li><li>zelfdiscipline</li><li>gedragscode</li><li>aforismen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1870"><a href="1870.html">The Rules of Love</a>. The Rules of Love is het andere deel uit dezelfde reeks, met dezelfde regelformule toegepast op de liefdesrelatie.</li>
+          <li value="473"><a href="473.html">Excellent Advice for Living</a>. Kelly's verzameling korte levenslessen volgt hetzelfde format van losse, aforistische regels zonder overkoepelend betoog.</li>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schreef zijn Overpeinzingen als persoonlijke aantekeningen voor zichzelf, de klassieke voorloper van het genre persoonlijke regels dat Templar voortzet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Simple Thing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sterns stelling is dat yoga geen verzameling losse houdingen is maar een samenhangend systeem dat het autonome zenuwstelsel traint, en dat moderne…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2067">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2067 &middot; Filosofie en mystiek</p>
+    <h1>One Simple Thing</h1>
+    <p class="lede">Eddie Stern, 2019</p>
+    <p class="stats">
+      <span><b>1418</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2067"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sterns stelling is dat yoga geen verzameling losse houdingen is maar een samenhangend systeem dat het autonome zenuwstelsel traint, en dat moderne neurowetenschap, met name de polyvagale theorie van Stephen Porges, verklaart waarom dat systeem werkt zoals het al eeuwenlang beschreven staat in de klassieke teksten. Zijn stelling is daarmee tweeledig: dat de oude yogafilosofie meer bevat dan bijgeloof, en dat de wetenschap van vandaag pas recent het instrumentarium heeft gekregen om te meten wat beoefenaars al lang beweren te ervaren. Uit die stelling volgt zijn advies om niet met een groot programma te beginnen, maar met één klein, dagelijks te herhalen element, omdat het zenuwstelsel volgens hem eerder reageert op herhaling dan op intensiteit. Stern presenteert zichzelf daarbij niet als wetenschapper maar als leraar die de taal van de wetenschap gebruikt om een eeuwenoude praktijk voor een sceptisch publiek toegankelijk te maken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De acht ledematen als kader</h3>
+      <p>Stern opent met de acht ledematen van Patanjali's Yoga Sutra's, van ethische richtlijnen tot concentratie en verzonkenheid, en stelt dat houdingen (asana) daarin maar één onderdeel zijn, bedoeld om het lichaam voor te bereiden op stilzitten, niet als doel op zich.</p>
+      <p>Hij vertelt ook over zijn eigen leerling-jaren bij K. Pattabhi Jois in Mysore, waar de fysieke praktijk altijd was ingebed in een grotere ethische en filosofische leer; die persoonlijke lijn gebruikt hij om te laten zien dat de scheiding tussen westerse fitnessyoga en klassieke yoga relatief nieuw is. Die scheiding, stelt hij, is vooral ontstaan doordat asana zich in het Westen makkelijker liet vermarkten dan de overige zeven ledematen.</p>
+      <h3>Het autonome zenuwstelsel</h3>
+      <p>Vervolgens legt hij de basiswerking van het autonome zenuwstelsel uit: de balans tussen activatie en rust, en hoe chronische stress die balans naar voortdurende paraatheid kan duwen. Hij bouwt dit hoofdstuk op als voorbereiding op de polyvagale theorie.</p>
+      <p>Stern illustreert dit met alledaagse voorbeelden, een verkeerssituatie die schrikreacties oproept, een moeilijk gesprek dat het lichaam laat verstrakken, om te laten zien dat de meeste mensen dagelijks tussen die twee standen wisselen zonder het te merken.</p>
+      <h3>De polyvagale theorie</h3>
+      <p>Stern bespreekt het werk van Stephen Porges, die onderscheid maakt tussen een staat van sociale betrokkenheid, een staat van actieve dreiging, en een staat van bevriezing, elk gestuurd door een ander deel van de nervus vagus. Hij legt uit hoe ademhaling en stemgebruik die schakeling volgens Porges kunnen beïnvloeden.</p>
+      <p>Hij besteedt aandacht aan hoe de theorie klinisch wordt gebruikt bij de behandeling van trauma, waarbij therapeuten proberen het lichaam eerst weer een gevoel van veiligheid te geven voordat er over een ingrijpende gebeurtenis gesproken wordt, en trekt daaruit de conclusie dat lichamelijke oefening vaak eerder werkt dan praten alleen.</p>
+      <h3>Ademhaling en houding als hendel</h3>
+      <p>Hierna behandelt hij concrete technieken, waaronder vertraagde ademhaling en een oefening die hij resonantieademhaling noemt, en legt hij uit hoe houdingen als omgekeerde posities en langzame bewegingen de vagale tonus zouden kunnen verhogen.</p>
+      <p>Stern geeft hierbij ook aan hoe lang en hoe vaak een oefening volgens hem effect kan hebben, en waarschuwt dat een enkele sessie zelden meetbaar verschil maakt; pas bij herhaling over weken ontstaan volgens hem de veranderingen die onderzoek naar hartslagvariabiliteit laat zien.</p>
+      <h3>Chanten, aandacht en gemeenschap</h3>
+      <p>Stern behandelt ook onderdelen die minder makkelijk fysiologisch te meten zijn, chanten, een meditatie gericht op welwillendheid, en het beoefenen in groepsverband, en verbindt die met onderzoek naar het effect van stemgeluid en sociale nabijheid op het zenuwstelsel.</p>
+      <p>Hij beschrijft chanten als een vorm van verlengde uitademing die vergelijkbaar is met vertraagde ademhaling, en stelt dat het gezamenlijk beoefenen in een groep, los van de inhoud van wat er gezongen wordt, bijdraagt aan het gevoel van sociale veiligheid dat Porges centraal stelt.</p>
+      <h3>Eén klein, dagelijks begin</h3>
+      <p>In het slot komt hij terug op de titel: in plaats van een volledig programma stelt hij voor met één eenvoudige, dagelijks vol te houden oefening te beginnen, omdat herhaling volgens hem meer effect heeft dan een eenmalige, intensieve sessie.</p>
+      <p>Hij sluit af met de opmerking dat de acht ledematen zelf ooit ook als een geleidelijke, levenslange oefening bedoeld waren, en dat het boek geen vervanging is voor die langere weg, maar een toegang ertoe via één klein, haalbaar begin, waarbij hij de lezer expliciet uitnodigt om na dat begin verder te lezen in de klassieke bronnen zelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Acht ledematen (ashtanga)</td><td>Het kader uit Patanjali's Yoga Sutra's waarin houding, ademhaling en meditatie onderdelen zijn van een breder ethisch en spiritueel systeem.</td></tr>
+          <tr><td class="term">Polyvagale theorie</td><td>Het model van Stephen Porges dat de nervus vagus verdeelt in takken die sociale betrokkenheid, actieve dreiging of bevriezing aansturen.</td></tr>
+          <tr><td class="term">Vagale tonus</td><td>De mate van activiteit van de nervus vagus, gebruikt als maat voor het vermogen van het lichaam om na stress weer tot rust te komen.</td></tr>
+          <tr><td class="term">Resonantieademhaling</td><td>Een langzame, ritmische ademtechniek die Stern aanhaalt als middel om het zenuwstelsel richting rust te sturen.</td></tr>
+          <tr><td class="term">Sociale betrokkenheid</td><td>In Porges' model de staat waarin het lichaam de omgeving als veilig ervaart en openstaat voor contact.</td></tr>
+          <tr><td class="term">Chanten (japa)</td><td>Het herhaald uitspreken of zingen van klanken of teksten, door Stern besproken als een oefening die stemgebruik en ademhaling combineert.</td></tr>
+          <tr><td class="term">Eén simpel ding</td><td>Sterns advies om verandering te beginnen met één klein, vol te houden onderdeel in plaats van een compleet programma ineens.</td></tr>
+          <tr><td class="term">Hartslagvariabiliteit</td><td>De mate waarin de tijd tussen hartslagen wisselt, door Stern aangehaald als meetbare indicator voor de toestand van het autonome zenuwstelsel.</td></tr>
+          <tr><td class="term">Bevriezing</td><td>In Porges' model de meest primitieve overlevingsreactie, waarbij het lichaam bij overweldigend gevaar in plaats van vechten of vluchten juist afsluit.</td></tr>
+          <tr><td class="term">Asana</td><td>De houdingenpraktijk binnen de acht ledematen, bij Stern nadrukkelijk voorbereiding op stilzitten en niet het einddoel van yoga.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Sterns belangrijkste wetenschappelijke steun is het werk van Stephen Porges, met wie hij samenwerkte en die de polyvagale theorie ontwikkelde op basis van decennia onderzoek naar hartslagvariabiliteit en het autonome zenuwstelsel. Stern citeert daarnaast onderzoek naar ademhaling en stressregulatie, en betrekt zijn eigen decennia ervaring als yogaleraar als aanvullende, niet-wetenschappelijke bron.</p>
+      <p>De polyvagale theorie zelf is binnen de neurowetenschap niet onomstreden: zij wordt breed toegepast in klinische en therapeutische kringen, maar sommige onderdelen, met name de precieze anatomische indeling van vagale takken, worden door andere onderzoekers bekritiseerd als onvoldoende onderbouwd. Stern behandelt de theorie in het boek als vaststaand kader, niet als één van meerdere concurrerende modellen.</p>
+      <p>Voor de klassieke kant van zijn betoog steunt Stern op zijn decennialange training bij K. Pattabhi Jois en op vertalingen van de Yoga Sutra's; die bron is filologisch en traditioneel gezaghebbend binnen de Ashtanga-lijn, maar niet onafhankelijk te toetsen op de manier waarop de neurowetenschappelijke claims dat wel zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek presenteert de polyvagale theorie als de verklaring voor yoga's werking, terwijl de theorie binnen de neurowetenschap zelf onderwerp van discussie is. Lezers die alleen dit boek kennen, krijgen geen zicht op die discussie of op alternatieve verklaringen voor dezelfde effecten.</p>
+      <p>Stern combineert klassieke teksten en moderne wetenschap losjes: waar de Yoga Sutra's spreken over concentratie en verzonkenheid als geestelijke staten, vertaalt hij dat vaak direct naar fysiologische termen, zonder steeds te onderbouwen dat het om hetzelfde verschijnsel gaat.</p>
+      <p>Als leraar met een eigen studio en trainingsaanbod heeft Stern belang bij een gunstige voorstelling van yoga als effectieve praktijk; het boek bevat geen hoofdstuk dat de grenzen of averechtse effecten van intensieve yogabeoefening bespreekt.</p>
+      <p>Het boek richt zich sterk op wat de vagale tonus kan verbeteren, maar besteedt weinig aandacht aan de vraag voor wie de beschreven ademhalings- en houdingsoefeningen juist ongeschikt of zelfs riskant kunnen zijn, bijvoorbeeld bij bestaande hart- of longaandoeningen.</p>
+      <p>Doordat het boek relatief kort is voor het brede terrein dat het bestrijkt, van neurowetenschap tot filosofie tot concrete oefeningen, blijft de uitleg op onderdelen aan de oppervlakte; wie de polyvagale theorie of de Yoga Sutra's in diepte wil begrijpen, moet naar de bronnen zelf, die Stern wel noemt maar niet uitvoerig samenvat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies één kleine, haalbare oefening, bijvoorbeeld vijf minuten vertraagde ademhaling, en herhaal die dagelijks voordat je iets groters opbouwt.</li>
+        <li>Oefen ademhalingstechnieken zittend en rustig, niet gehaast tussen andere taken door.</li>
+        <li>Zoek voor houdingen die het lichaam ondersteboven brengen begeleiding bij een ervaren leraar.</li>
+        <li>Houd een oefening minimaal enkele weken vol voordat je concludeert of zij iets voor je doet; verwacht geen effect na een enkele sessie.</li>
+        <li>Overleg bij bestaande hart- of longklachten met een arts voordat je intensieve ademhalingsoefeningen begint.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>One Simple Thing: A New Look at the Science of Yoga and How It Can Transform Your Life</i> (North Point Press, New York, 2019, ISBN 9780865477803), met een voorwoord van Deepak Chopra; UK-editie bij Pan Macmillan. Dit is Sterns eerste boek onder eigen naam voor een algemeen publiek; eerder werkte hij vooral als vertaler en redacteur aan het werk van zijn leraar K. Pattabhi Jois (<i>Yoga Mala</i>) en als co-auteur van <i>Guruji</i>, een portret van Jois. Een Nederlandse vertaling is niet gevonden; het boek is voor zover bekend niet in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eddie Stern is een Ashtanga-yogaleraar uit New York die het klassieke gedachtegoed van de yoga, met name de acht ledematen uit de Yoga Sutra's, naast hedendaags neurowetenschappelijk onderzoek naar het zenuwstelsel legt. Zijn uitgangspunt is niet wát yoga is, maar hoe en waarom het werkt.</p><p>Centraal staat de nervus vagus en de polyvagale theorie van Stephen Porges: het idee dat het lichaam via die zenuw schakelt tussen een staat van sociale verbondenheid en een staat van dreiging of bevriezing, afhankelijk van of de omgeving als veilig wordt ervaren. Stern legt uit hoe ademhaling, houding, chanten en aandacht die schakeling kunnen beïnvloeden.</p><p>Het boek bevat naast uitleg ook oefeningen, waaronder een specifieke ademhalingstechniek en een vorm van meditatie gericht op welwillendheid, en pleit voor een klein, dagelijks vol te houden begin in plaats van een grote verandering ineens, vandaar de titel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>yoga</li><li>ademhaling</li><li>zenuwstelsel</li><li>filosofie</li><li>wetenschap</li><li>bewustzijn</li><li>vagus</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="87"><a href="87.html">Activeer je nervus vagus</a>. Swinnen beschrijft de nervus vagus vanuit een klinische invalshoek, met minder yogafilosofie en meer directe oefeningen dan Stern.</li>
+          <li value="1696"><a href="1696.html">Verbonden ademen</a>. Koning werkt de ademhalingscomponent die bij Stern een van de hendels is, uit tot een zelfstandige methode.</li>
+          <li value="1806"><a href="1806.html">The Science of Yoga</a>. Taimni's oudere, filosofisch strenge lezing van de Yoga Sutra's biedt een tegenwicht tegen Sterns nadruk op fysiologie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

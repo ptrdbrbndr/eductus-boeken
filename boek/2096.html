@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nog 9 minuten &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hanssen, Borms en De Baerdemaeker stellen dat de drempel tot mediteren vooral een tijdsdrempel is, en dat wie die drempel verlaagt tot de lengte van een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2096">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2096 &middot; Brein en lichaam</p>
+    <h1>Nog 9 minuten</h1>
+    <p class="lede">Evi Hanssen, Jutta Borms en Hilde De Baerdemaeker, 2021</p>
+    <p class="stats">
+      <span><b>1406</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2096"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hanssen, Borms en De Baerdemaeker stellen dat de drempel tot mediteren vooral een tijdsdrempel is, en dat wie die drempel verlaagt tot de lengte van een koffiepauze vaker terugkeert dan wie zich voorneemt iedere ochtend een half uur vrij te maken. Negen minuten is in hun redenering kort genoeg om vol te houden en lang genoeg om iets te voelen veranderen. Het boek voert dat niet aan als theorie maar als methode: eenentwintig thema's, elk met een oefening voor een vast moment van de dag, zonder dat daarvoor een aparte ruimte, ervaring of stilte nodig is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van podcast naar boek</h3>
+      <p>De drie auteurs begonnen hun podcast in 2020, in een periode waarin meditatie en mindfulness breed in de belangstelling stonden. Luisteraars gaven terug welke vormen wel en niet aansloegen, en dat materiaal vormt de basis van dit boek: geen nieuw geschreven cursus, maar een uitwerking van wat in de podcast al werkte.</p>
+      <p>De drie brengen elk hun eigen vakgebied mee. Hanssen is er de presentatrice die het geheel toegankelijk houdt, Borms de huisarts die vanuit de spreekkamer meekijkt naar wat mensen aan klachten binnenbrengen, De Baerdemaeker de yogadocent die de lichamelijke kant van rust en spanning inbrengt. Die drieledige achtergrond is de reden dat het boek niet bij één vorm van mediteren blijft.</p>
+      <h3>De ochtend: snoozemeditaties</h3>
+      <p>De ochtendhoofdstukken bieden een alternatief voor de wekker nogmaals indrukken of meteen naar het scherm grijpen: een korte ademoefening bij het wakker worden, bedoeld om de overgang van slapen naar wakker zijn minder abrupt te maken.</p>
+      <p>Het idee achter deze vorm is dat de eerste minuten van de dag de toon zetten voor de rest ervan. In plaats van meteen berichten te lezen, stelt het boek voor die minuten te gebruiken om merkbaar wakker te worden voordat de dag binnenkomt.</p>
+      <h3>Overdag: sluipmeditaties</h3>
+      <p>De sluipmeditatie is de kernvondst van het boek: een oefening die past tussen bezigheden door, in de auto, in de wachtrij, tussen twee vergaderingen, zonder dat daar een aparte ruimte of stilte voor nodig is. Het boek benadrukt dat de vorm zich aanpast aan de plek, niet omgekeerd.</p>
+      <p>Deze vorm is bedoeld voor wie overtuigd is nooit tijd te hebben voor meditatie. Door de oefening te verstoppen in een moment dat er al is, een wachtrij, een fietsrit, hoeft er geen nieuwe plek in de agenda voor gemaakt te worden.</p>
+      <h3>De avond: slaapmeditaties</h3>
+      <p>De avondhoofdstukken richten zich op het lichaam ontspannen voor het slapengaan, als tegenhanger van de ochtendoefeningen: waar de ochtend activeert, brengt de avond tot rust.</p>
+      <p>De opzet volgt hetzelfde negenminutenprincipe als de rest van het boek, met een vaste plek in het slaapritueel in plaats van een losse ontspanningsoefening die de lezer zelf ergens moet inpassen.</p>
+      <h3>Beweging: wandelen en yoga</h3>
+      <p>Niet elke oefening vraagt stilzitten. De wandelmeditatie legt de aandacht op stappen en ademhaling tijdens het lopen, en De Baerdemaeker voegt vanuit haar yoga-achtergrond oefeningen toe die beweging en aandacht combineren.</p>
+      <p>Deze hoofdstukken zijn bedoeld voor lezers die stilzitten juist onrustig maakt. Door de aandacht aan een fysieke handeling te koppelen, wandelen of een korte yogareeks, blijft de vorm dichter bij wat het boek als negen minuten belooft dan een klassieke zitmeditatie zou doen voor diezelfde lezer.</p>
+      <h3>Een andere vorm: hypnosemeditatie</h3>
+      <p>Voor wie klassieke meditatie niet aanspreekt, biedt het boek een hypnosevariant, die suggestie en ontspanning combineert. Deze vorm wijkt het meest af van de andere twintig thema's en krijgt daardoor weinig ruimte om zich te bewijzen binnen het boek.</p>
+      <h3>Het negenminutenprincipe</h3>
+      <p>Het sluithoofdstuk keert terug naar de titel: negen minuten is geen wetenschappelijk bepaalde optimale duur, maar de lengte die de auteurs in de praktijk als haalbaar ervoeren en die de naam van hun podcast werd. Het boek presenteert dat als een praktische keuze, niet als een onderbouwde uitkomst.</p>
+      <p>De auteurs stellen dat de vorm van het boek, korte, losse thema's zonder verplichte volgorde, zelf al een toepassing is van hetzelfde principe: net als de oefeningen is ook het boek bedoeld om in stukjes gebruikt te worden, niet in een keer doorgelezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Snoozemeditatie</td><td>Ochtendvorm die de neiging om de wekker te snoozen ombuigt naar een korte ademoefening bij het wakker worden.</td></tr>
+          <tr><td class="term">Sluipmeditatie</td><td>Meditatie die overdag tussen bezigheden door past, zonder aparte ruimte of tijd nodig te hebben.</td></tr>
+          <tr><td class="term">Slaapmeditatie</td><td>Avondvorm gericht op het lichaam ontspannen voor het slapengaan.</td></tr>
+          <tr><td class="term">Wandelmeditatie</td><td>Meditatie tijdens het lopen, met de aandacht op stappen en ademhaling in plaats van stilzitten.</td></tr>
+          <tr><td class="term">Hypnosemeditatie</td><td>Vorm die suggestie en ontspanning combineert, aangedragen als alternatief voor wie klassieke meditatie niet aanspreekt.</td></tr>
+          <tr><td class="term">Het negenminutenprincipe</td><td>De kernregel van het boek: een sessie van negen minuten is kort genoeg om vol te houden en lang genoeg om effect te voelen.</td></tr>
+          <tr><td class="term">Eenentwintig thema's</td><td>De vaste indeling van het boek, elk thema gekoppeld aan een moment van de dag of een levensfase.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek citeert zelf geen wetenschappelijke literatuur. De onderbouwing steunt op de praktijkervaring die de drie auteurs opbouwden, naar eigen zeggen ruim tien jaar aan verschillende vormen van meditatie en mindfulness beproeven, en op de podcastafleveringen waarin luisteraars terugkoppelden wat wel en niet werkte.</p>
+      <p>Dat kortdurende mindfulnessoefeningen effect kunnen hebben op stress en slaap is in de bredere onderzoeksliteratuur over mindfulness-based stress reduction onderzocht, maar dat onderzoek gaat over programma's van weken met begeleiding, niet over losse sessies van negen minuten. Dit boek legt die koppeling zelf niet en presenteert zich nadrukkelijk als praktijkgids, niet als wetenschappelijke onderbouwing.</p>
+      <p>Dat het boek uit een podcast met een langlopend en groeiend luisterpubliek voortkomt, is op zichzelf een vorm van getoetste populariteit: de vorm overleefde meerdere seizoenen aan reacties voordat hij in boekvorm verscheen. Dat toont aan dat de aanpak bij een deel van het publiek aansloeg, niet dat de aanpak werkt in de zin van meetbaar effect.</p>
+      <p>De drie auteurs vullen elkaar in achtergrond aan, wat het boek meer richtingen geeft om een lezer aan te spreken dan een enkelvoudig geschreven meditatiegids zou hebben: wie niet warmloopt voor een yogagerichte oefening van De Baerdemaeker, vindt in hetzelfde boek een medisch gekaderd hoofdstuk van Borms of een persoonlijk hoofdstuk van Hanssen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Doordat het boek uit eenentwintig losse thema's bestaat zonder opbouw van eenvoudig naar moeilijk, ontbreekt een leerlijn. Wie het van voor naar achter leest, krijgt geen toenemende vaardigheid, alleen een andere invalshoek per hoofdstuk.</p>
+      <p>Dat drie auteurs om beurten aan het woord zijn geeft afwisseling, maar ook een wisselende stem: wat bij Borms als arts een medische inkleuring krijgt, krijgt bij De Baerdemaeker als yogadocent een lichamelijke en bij Hanssen een persoonlijke. Voor een lezer die één doorlopende aanpak zoekt kan dat verwarrend zijn.</p>
+      <p>De belofte dat negen minuten volstaat, wordt nergens onderbouwd met een reden waarom negen specifiek de goede lengte is. Het getal komt uit de naam van de podcast, niet uit een afgewogen keuze, en het boek erkent dat zelf niet.</p>
+      <p>De hypnosemeditatie krijgt in verhouding tot de andere vormen weinig toelichting over wat haar precies onderscheidt van een gewone ontspanningsoefening met suggestie, waardoor die ene vorm minder overtuigend overkomt dan de drie hoofdvormen die het boek grotendeels dragen.</p>
+      <p>Het boek richt zich sterk op mensen die al openstaan voor het onderwerp; wie meditatie principieel wantrouwt, zal aan een negen minuten durende oefening evenmin worden overtuigd als aan een uur durende, en het boek gaat op die weerstand zelf niet in.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies één vast moment van de dag om te beginnen, ochtend, pauze of avond, in plaats van meteen alle drie te proberen.</li>
+        <li>Koppel de oefening aan iets dat al vaststaat, zoals het zetten van koffie of het instappen in de trein, in plaats van er een los alarm voor te zetten.</li>
+        <li>Lees een thema pas als het aansluit bij wat er die week speelt, niet in de volgorde van het boek.</li>
+        <li>Houd bij een sluipmeditatie de ogen open als de situatie daarom vraagt: de vorm past zich aan de plek aan, niet omgekeerd.</li>
+        <li>Probeer bij een vaste vorm minstens een week vol te houden voordat je overstapt naar een andere, zodat een gewoonte de kans krijgt te wennen in plaats van steeds opnieuw te beginnen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Horizon (Overamstel Uitgevers), Antwerpen, 2021, 240 blz., ISBN 9789464101683 (paperback) en 9789464101690 (e-boek). Het boek is de schriftelijke uitwerking van de gelijknamige podcast die de drie auteurs sinds 2020 maken. In 2022 verscheen bij dezelfde uitgeverij een aparte kinderversie, <i>Nog 9 minuten: meditatie voor kinderen</i> (ISBN 9789464102635), niet in dit boek meegenomen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Evi Hanssen, huisarts Jutta Borms en yogadocent Hilde De Baerdemaeker bundelen in dit boek de podcast die zij sinds 2020 maken. Het uitgangspunt is dat een meditatieve gewoonte niet begint bij een uur op een kussen, maar bij negen minuten die in elk dagschema passen. Het boek telt eenentwintig thema's, elk gekoppeld aan een moment van de dag: een snoozemeditatie voor de ochtend, een sluipmeditatie voor tussendoor, een slaapmeditatie voor de avond.</p><p>Naast die drie hoofdvormen komen wandelmeditatie, yoga en hypnosemeditatie aan bod. De drie auteurs schrijven om beurten vanuit hun eigen achtergrond: Borms vanuit de spreekkamer, De Baerdemaeker vanuit het lichaam, Hanssen vanuit haar eigen ervaring als iemand die tien jaar met verschillende vormen van mediteren experimenteerde.</p><p>Het boek is nadrukkelijk een gebruiksboek: geen doorlopend betoog, maar eenentwintig losse ingangen waaruit een lezer kan putten al naar gelang het moment van de dag of de levensfase.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>meditatie</li><li>mindfulness</li><li>ademhaling</li><li>zelfzorg</li><li>podcast</li><li>slaap</li><li>dagritme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="401"><a href="401.html">10% Happier</a>. Harris beschrijft vanuit scepsis wat mediteren wel en niet oplevert, een tegenwicht voor wie de laagdrempeligheid van dit boek met een korrel zout wil nemen.</li>
+          <li value="1696"><a href="1696.html">Verbonden ademen</a>. Koning werkt ademhaling uit tot een zelfstandige methode, waar dit boek ademhaling als een van de vele hulpmiddelen naast meditatie inzet.</li>
+          <li value="1816"><a href="1816.html">Ontdek de kracht van ademen</a>. Hetzelfde ademhalingsspoor, hier specifiek gericht op kracht opbouwen in plaats van tot rust komen.</li>
+          <li value="1525"><a href="1525.html">Compassievol leven</a>. Van den Brink en Koster werken compassie als aparte discipline uit, waar dit boek het als een van de eenentwintig thema's meeneemt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

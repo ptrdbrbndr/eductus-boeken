@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omdenken op het werk &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gunsters boek zet zich af tegen de wijdverbreide aanname dat werk vervulling en geluk moet opleveren, een verwachting die volgens hem juist ontevredenheid…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2094">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2094 &middot; Gewoontes en denken</p>
+    <h1>Omdenken op het werk</h1>
+    <p class="lede">Berthold Gunster, 2021</p>
+    <p class="stats">
+      <span><b>1037</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2094"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gunsters boek zet zich af tegen de wijdverbreide aanname dat werk vervulling en geluk moet opleveren, een verwachting die volgens hem juist ontevredenheid voedt zodra de praktijk tegenvalt. Zijn stelling is dat de meeste problemen op het werk niet ontstaan door de situatie zelf maar door wat hij de oplossingsreflex noemt: de neiging om een ongewenste situatie meteen als probleem te bestempelen en te bestrijden, waardoor er energie verloren gaat die ook gebruikt kan worden om de situatie te aanvaarden en er iets nieuws uit te laten ontstaan. Omdenken vervangt de 'ja-maar'-reactie door een 'ja-en'-reactie, zonder de situatie zelf te ontkennen of goed te praten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De belofte van werk en de tegenvaller</h3>
+      <p>Gunster begint bij de aanname dat werk zin en geluk moet geven, een verwachting die volgens hem de afgelopen decennia is gegroeid en des te harder aankomt wanneer een baan vooral routine, targets en vergaderingen blijkt te zijn. Hij noemt die kloof tussen verwachting en praktijk de bron van veel ontevredenheid op de werkvloer, los van de vraag of de baan op zich slecht is.</p>
+      <h3>De oplossingsreflex</h3>
+      <p>Centraal staat wat Gunster de oplossingsreflex noemt: zodra iets niet gaat zoals gepland, wordt het meteen een probleem dat bestreden moet worden. Die reflex werkt averechts zodra het probleem niet oplosbaar is op de manier die geprobeerd wordt, want de energie die in verzet gaat zit, is niet meer beschikbaar voor iets anders.</p>
+      <p>Hij illustreert dat met voorbeelden uit kantoren en teams: een medewerker die zich verzet tegen een reorganisatie, een leidinggevende die een conflict wegdrukt in plaats van erkent. In beide gevallen groeit het probleem juist door de weerstand ertegen.</p>
+      <h3>Van ja-maar naar ja-en</h3>
+      <p>De kern van de methode is de omslag van 'ja-maar' naar 'ja-en'. 'Ja-maar' erkent de situatie maar verzet zich er meteen tegen; 'ja-en' erkent dezelfde situatie en vraagt vervolgens wat ermee te beginnen is. Gunster benadrukt dat dit geen positief denken is: de situatie wordt niet mooier gemaakt dan hij is, alleen anders benaderd.</p>
+      <h3>Stress, burn-out en wantrouwen</h3>
+      <p>Gunster past de methode toe op drie terugkerende werkproblemen: stress die ontstaat uit de wens alles onder controle te houden, burn-out die volgens hem vaak samenhangt met een opgelegd ideaalbeeld van de eigen inzet, en wantrouwen tussen werkgevers en werknemers dat regels en controle aantrekt die het wantrouwen zelf in stand houden.</p>
+      <p>Bij elk van de drie herhaalt hij hetzelfde patroon: eerst benoemen wat er feitelijk aan de hand is, zonder dat meteen te problematiseren, en dan zoeken naar wat die situatie mogelijk maakt in plaats van wat zij verhindert.</p>
+      <h3>Vorm: een doorbladerboekje</h3>
+      <p>Het boek is opgezet als een compact, rijk geïllustreerd doorblaadboekje van 64 bladzijden, met korte hoofdstukken die elk op een eigen voorbeeld draaien in plaats van een doorlopend betoog. Die vorm sluit aan bij eerdere Omdenken-boeken, die zich richten op een breed publiek en niet op vakliteratuur over organisatiepsychologie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Omdenken</td><td>Gunsters overkoepelende methode om een gegeven situatie eerst te aanvaarden en van daaruit naar nieuwe mogelijkheden te zoeken, in plaats van de situatie eerst te bestrijden.</td></tr>
+          <tr><td class="term">Oplossingsreflex</td><td>De neiging om een ongewenste situatie meteen als op te lossen probleem te behandelen, waardoor energie in verzet gaat zitten in plaats van in een nieuwe aanpak.</td></tr>
+          <tr><td class="term">Ja-maar</td><td>De reactie die een situatie erkent maar er meteen bezwaar tegen maakt, kenmerkend voor probleemdenken.</td></tr>
+          <tr><td class="term">Ja-en</td><td>De reactie die een situatie erkent en vervolgens vraagt wat ermee te beginnen is, de kern van de omdenkmethode.</td></tr>
+          <tr><td class="term">Probleemdenken</td><td>Het benaderen van een tegenvaller als iets dat weg moet, wat volgens Gunster vaak meer energie kost dan het oplevert.</td></tr>
+          <tr><td class="term">Werkdruk</td><td>De ervaren belasting van het werk, die Gunster niet als een vast gegeven behandelt maar als iets dat mede door de reactie erop wordt vergroot of verkleind.</td></tr>
+          <tr><td class="term">Wantrouwen tussen werkgever en werknemer</td><td>Een terugkerend thema in het boek: regels en controlesystemen die uit wantrouwen ontstaan, houden dat wantrouwen volgens Gunster zelf in stand.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gunster onderbouwt zijn methode vooral met voorbeelden en anekdotes, niet met eigen onderzoek of cijfers; het boek citeert geen studies naar de effectiviteit van omdenken op werkstress of burn-out. De kracht van het boek zit in de herkenbaarheid van de voorbeelden, niet in een empirische toets van de methode.</p>
+      <p>Het onderscheid tussen 'ja-maar' en 'ja-en' sluit aan bij bestaande inzichten uit gedragstherapie en bij improvisatietheater, waar 'yes, and' als basisregel geldt om een scene te laten groeien in plaats van te blokkeren; Gunster benoemt die parallellen zelf niet, maar de verwantschap is voor wie beide kent goed zichtbaar.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is met 64 bladzijden dun, en dat is ook wat een recensent er expliciet op aanmerkte: de ideeën blijven op het niveau van de suggestie, en wie een uitgewerkte aanpak zoekt voor een concreet team of een concrete reorganisatie, krijgt die hier niet. Het boek is een ideeënboekje, geen handleiding.</p>
+      <p>Gunster behandelt stress, burn-out en wantrouwen na elkaar met dezelfde methode, zonder verschil te maken tussen problemen die vooral in het hoofd van de werknemer zitten en problemen die in de structuur van een organisatie zitten. Een omslag van 'ja-maar' naar 'ja-en' verandert niets aan een te hoge werklast of een disfunctionerende leidinggevende; het boek besteedt weinig aandacht aan de grens van wat een individuele denkomslag kan oplossen.</p>
+      <p>Omdat het boek het dertiende in een reeks is die grotendeels dezelfde kernmethode herhaalt, toegepast op steeds een ander domein, na persoonlijke situaties, communicatie en opvoeding nu het werk, is de methode zelf niet nieuw. Wie de eerdere boeken kent, krijgt vooral nieuwe voorbeelden, geen nieuw instrument.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Benoem eerst feitelijk wat er aan de hand is, zonder het meteen een probleem te noemen.</li>
+        <li>Vervang de eerste 'ja-maar'-reactie bewust door een 'ja-en'-vraag: wat maakt deze situatie mogelijk?</li>
+        <li>Onderscheid wat door een andere blik verandert van wat alleen door een andere structuur verandert.</li>
+        <li>Gebruik de voorbeelden uit het boek als aanleiding voor een gesprek in het team, niet als kant-en-klare oplossing.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Omdenken op het werk, het dertiende boek van Omdenken-oprichter Berthold Gunster, verscheen op 23 november 2021 bij Omdenken B.V. (64 blz., ISBN 9789083168906), ook als e-book en luisterboek. Het bouwt voort op de eerdere titels <i>Omdenken</i>, <i>Omdenken in communicatie</i> en <i>Omdenken in opvoeding</i>, waarin Gunster zijn methode eerder op persoonlijke situaties, gesprekken en opvoeding toepaste.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gunster, oprichter van de omdenkmethode, past in dit boek zijn eerdere aanpak toe op de werkvloer. De kern is een omslag van 'ja-maar', dit hoort niet zo te zijn, naar 'ja-en', dit is wat er is, en wat kan ik ermee.</p><p>Aan de hand van korte, concrete voorbeelden behandelt hij stress, burn-out en het wantrouwen tussen werkgevers en werknemers, en laat hij zien hoe een andere blik op eenzelfde situatie ruimte kan maken die de eerste, weerbarstige reactie dichttimmert.</p><p>Het boek is zijn dertiende en verscheen in 2021 als compact, geïllustreerd doorblaadboekje van 64 bladzijden, bedoeld voor een breed publiek en niet als vakliteratuur over organisatiepsychologie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>omdenken</li><li>werk</li><li>stress</li><li>burn-out</li><li>probleemdenken</li><li>werkdruk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1901"><a href="1901.html">Bullshit Jobs</a>. Graeber onderzoekt vanuit een andere hoek dezelfde spanning tussen de belofte van zinvol werk en de praktijk van veel banen die Gunster als aanleiding voor zijn boek neemt.</li>
+          <li value="1833"><a href="1833.html">Fokking druk</a>. Launspach beschrijft dezelfde werkdruk en burn-outproblematiek, maar dan vanuit de psychologie van stress in plaats van vanuit een denkmethode.</li>
+          <li value="1907"><a href="1907.html">Veranderen voor luie mensen</a>. Smit en Szapora behandelen net als Gunster gedragsverandering, maar richten zich op gewoontes in plaats van op de omslag van 'ja-maar' naar 'ja-en'.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

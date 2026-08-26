@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staring at the Sun &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Yaloms stelling is dat de angst voor de dood, ook al wordt zij zelden als zodanig herkend, een van de diepste bronnen van menselijk lijden is, en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2118">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2118 &middot; Levenskunst</p>
+    <h1>Staring at the Sun</h1>
+    <p class="lede">Irvin D. Yalom, 2008</p>
+    <p class="stats">
+      <span><b>1432</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2118"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Yaloms stelling is dat de angst voor de dood, ook al wordt zij zelden als zodanig herkend, een van de diepste bronnen van menselijk lijden is, en dat therapie en filosofie tekortschieten zolang zij die angst omzeilen in plaats van haar rechtstreeks te behandelen. Hij stelt daar tegenover dat directe confrontatie met de eigen sterfelijkheid, via wat hij een ontwakingservaring noemt, een leven juist kan verdiepen: wie de dood ziet, gaat volgens Yalom vaak bewuster leven. Het boek combineert klinische psychotherapie met filosofische argumenten van onder anderen Epicurus en met Yaloms eigen begrip rippling, en voert die combinatie aan als praktische, niet louter theoretische, manier om met doodsangst om te gaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De diepe wond</h3>
+      <p>Yalom opent met de stelling dat de wetenschap van sterfelijkheid als een diepe wond in het bewustzijn zit, meestal onbewust maar altijd aanwezig. Hij beschrijft hoe deze wond zich vermomt als andere klachten, van slapeloosheid tot obsessief werkgedrag, waardoor cliënten en therapeuten de eigenlijke bron vaak missen.</p>
+      <h3>Doodsangst herkennen</h3>
+      <p>Aan de hand van patiëntcasussen laat Yalom zien hoe doodsangst zich manifesteert: als paniekaanvallen na het overlijden van een ouder, als jaloezie die niets met de partner te maken heeft, als een dwangmatige jacht op geld of status die de eigen eindigheid moet compenseren.</p>
+      <p>Een terugkerend voorbeeld is een cliënte die na een succesvolle operatie plotseling in paniek raakt bij het zien van herfstbladeren, een moment dat haar confronteert met vergankelijkheid zonder dat zij dat verband zelf meteen legt. Yalom gebruikt zulke voorbeelden om te laten zien hoe ver de aanleiding en de onderliggende angst uit elkaar kunnen liggen.</p>
+      <h3>De ontwakingservaring</h3>
+      <p>Yalom beschrijft momenten die iemand plotseling met de dood confronteren, een diagnose, een bijna-ongeluk, het overlijden van een leeftijdgenoot, en die hij ontwakingservaringen noemt. Die momenten kunnen verlammen, maar bieden volgens hem ook een uitzonderlijke kans om het leven anders in te richten.</p>
+      <h3>Filosofische hulp: Epicurus</h3>
+      <p>Yalom grijpt terug op de Griekse filosoof Epicurus, die betoogde dat de dood ons nooit werkelijk raakt: waar de dood is, zijn wij niet, en waar wij zijn, is de dood niet. Yalom erkent dat dit argument weinigen echt geruststelt, maar gebruikt het als denkoefening om de angst haar vanzelfsprekendheid te ontnemen.</p>
+      <h3>Rippling en verbondenheid</h3>
+      <p>Als tegenwicht tegen de gedachte dat een sterfelijk leven zinloos is, introduceert Yalom het begrip rippling: de gedachte dat ieders invloed op anderen, vaak ongemerkt, doorwerkt lang na de eigen dood. Hij illustreert dit met voorbeelden van cliënten die, eenmaal bewust van hun eigen rippling-effect, minder angstig tegen het einde aankeken.</p>
+      <p>Naast rippling bespreekt Yalom in dit deel ook existentiële isolatie, het besef dat niemand het sterven van een ander werkelijk kan overnemen. Hij stelt dat erkenning van die eenzaamheid, in plaats van de ontkenning ervan, cliënten paradoxaal genoeg dichter bij anderen kan brengen, omdat het gedeeld menselijk lot wordt in plaats van een individueel falen.</p>
+      <h3>Een memoir over de dood</h3>
+      <p>In een persoonlijk hoofdstuk beschrijft Yalom eigen ontmoetingen met sterfelijkheid, waaronder de dood van zijn ouders en collega's, en hoe deze zijn kijk op zijn vak veranderden.</p>
+      <p>Yalom vertelt hoe zijn eigen vrees voor de dood hem als jonge arts naar de existentiële psychiatrie leidde, en hoe latere verliezen in zijn persoonlijke leven zijn theoretisch werk telkens bijstelden. Hij presenteert zichzelf hier nadrukkelijk niet als iemand die de angst heeft overwonnen, maar als iemand die er, net als zijn cliënten, mee blijft omgaan.</p>
+      <h3>Advies voor therapeuten</h3>
+      <p>Het slothoofdstuk richt zich rechtstreeks tot therapeuten en geeft concrete aanwijzingen voor het bespreekbaar maken van doodsangst in de spreekkamer, inclusief waarschuwingen voor de eigen weerstand die therapeuten daarbij kunnen voelen.</p>
+      <p>Yalom adviseert therapeuten om doodsangst niet te vermijden zodra een cliënt er zelf over begint, ook al voelt dat ongemakkelijk, en om de eigen sterfelijkheid als collega-mens in te brengen in plaats van er een strikt professionele afstand toe te bewaren. Hij waarschuwt tegelijk dat therapeuten die hun eigen doodsangst niet hebben onderzocht, het onderwerp bij cliënten sneller zullen ontwijken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ontwakingservaring</td><td>Een gebeurtenis die iemand onverwacht met de eigen sterfelijkheid confronteert en daarmee de gewone verdringing van doodsangst doorbreekt.</td></tr>
+          <tr><td class="term">Rippling</td><td>Yaloms begrip voor de blijvende, vaak onopgemerkte invloed die iemands leven op anderen heeft en die doorwerkt na de dood.</td></tr>
+          <tr><td class="term">Doodsangst</td><td>De vaak onherkende angst voor de eigen eindigheid die zich volgens Yalom achter andere psychische klachten kan verschuilen.</td></tr>
+          <tr><td class="term">Existentiële isolatie</td><td>Het besef dat ieder mens uiteindelijk alleen tegenover de eigen eindigheid staat, ongeacht hoeveel verbondenheid er met anderen bestaat.</td></tr>
+          <tr><td class="term">Epicurus' argument</td><td>De filosofische redenering dat de dood en het leven elkaar nooit ontmoeten, en dat de dood daarom geen werkelijke ervaring kan zijn.</td></tr>
+          <tr><td class="term">Grenssituatie</td><td>Een term uit de existentiële traditie voor een gebeurtenis die iemand dwingt de gewone leefroutine te doorbreken en fundamentele vragen onder ogen te zien.</td></tr>
+          <tr><td class="term">Verdringing van de dood</td><td>Het gangbare mechanisme waarmee mensen doodsangst uit het dagelijks bewustzijn weren, volgens Yalom vaak ten koste van een voller leven.</td></tr>
+          <tr><td class="term">Het onbeleefde leven</td><td>Yaloms aanduiding voor spijt over ongeleefde mogelijkheden, die volgens hem bij het sterven zwaarder weegt dan spijt over gemaakte fouten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Yaloms belangrijkste bron is zijn eigen klinische praktijk als psychiater: decennia aan patiëntgesprekken, waarvan hij in dit boek een selectie, geanonimiseerd, naverteld. Dat geeft het boek overtuigingskracht op het niveau van individuele gevallen, maar het is geen systematisch onderzoek met controlegroepen of gestandaardigde metingen van doodsangst voor en na therapie.</p>
+      <p>Voor het theoretische kader leunt Yalom op de existentiële traditie, met name op werk van Ernest Becker over doodsontkenning, en op filosofen als Epicurus, Nietzsche en Schopenhauer. Die bronnen zijn zelf filosofisch van aard en niet empirisch getoetst; Yalom past ze klinisch toe zonder ze te herformuleren als toetsbare hypothesen.</p>
+      <p>Het begrip rippling is Yaloms eigen vondst en wordt in het boek onderbouwd met verhalen, niet met onderzoek naar het effect van dat besef op de gemoedstoestand van cliënten. Los daarvan bestaat er wel bredere psychologische literatuur, buiten dit boek, over terrormanagementtheorie, die empirisch onderzoekt hoe doodsbewustzijn gedrag beïnvloedt; Yalom verwijst daar zelf niet uitgebreid naar.</p>
+      <p>Yalom bouwt ook voort op zijn eigen langere klinische studies uit eerdere boeken, waarin hij groepstherapie bij patiënten met een terminale diagnose onderzocht. Die eerdere, uitvoeriger gedocumenteerde ervaring geeft dit latere, toegankelijker geschreven boek een stevigere klinische basis dan wanneer het op zichzelf had gestaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is gebaseerd op klinische anekdotes uit een lange loopbaan, niet op systematisch onderzoek. Dat de beschreven interventies bij Yaloms eigen cliënten hielpen, zegt niet zonder meer iets over de werkzaamheid ervan bij een bredere of andere populatie.</p>
+      <p>De cliënten die in het boek voorkomen, zijn overwegend welvarende, hoogopgeleide Amerikanen die zich langdurige individuele therapie kunnen veroorloven. Hoe doodsangst zich voordoet en te verlichten is bij mensen zonder die middelen, komt in het boek nauwelijks aan bod.</p>
+      <p>Yaloms troost, het argument van Epicurus en het begrip rippling, is voor lezers met een religieuze levensbeschouwing mogelijk minder overtuigend dan voor Yalom zelf, die zich uitdrukkelijk als seculier atheïst presenteert. Het boek erkent dat verschil, maar biedt voor die lezers geen uitgewerkt alternatief.</p>
+      <p>Het onderscheid tussen normale rouw en verhulde doodsangst, waarop een groot deel van de klinische voorbeelden steunt, is een interpretatie van Yalom als behandelaar; andere clinici zouden dezelfde symptomen deels anders kunnen duiden.</p>
+      <p>Het boek gaat er grotendeels van uit dat directe confrontatie met de dood heilzaam is, maar bespreekt nauwelijks de gevallen waarin die confrontatie mensen juist verlamt in plaats van verdiept. Voor cliënten met een ernstige angststoornis is blootstelling aan doodsgedachten zonder begeleiding niet zonder risico, iets wat het boek terzijde laat aan het feit dat Yalom zelf altijd binnen een therapeutisch kader werkte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op wanneer je voor het laatst een ontwakingservaring had en wat die op dat moment met je deed.</li>
+        <li>Beschrijf drie mensen op wie je, zonder het zelf altijd te merken, invloed hebt gehad, als oefening in het zichtbaar maken van je eigen rippling.</li>
+        <li>Ga bij een terugkerende zorg, over geld, over status, over controle, na of er een onderliggende angst voor eindigheid onder kan zitten voordat je de zorg zelf probeert op te lossen.</li>
+        <li>Bespreek met een naaste, in plaats van alleen bij jezelf, hoe jullie beiden tegen het eigen sterven aankijken, als manier om de existentiële isolatie die Yalom beschrijft iets te doorbreken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Staring at the Sun: Overcoming the Terror of Death</i> (Jossey-Bass, San Francisco, 2008). De Nederlandse vertaling van Miebeth van Horn verscheen in 2008 als <i>Tegen de zon in kijken</i> bij Uitgeverij Balans, Amsterdam (208 blz., ISBN 9789460033889). Van Yalom zijn vrijwel al zijn boeken in het Nederlands verschenen, waaronder <i>Als Nietzsche had gehuild</i> en, laat in zijn leven geschreven, <i>Het uur van het hart</i> met zijn zoon Benjamin Yalom.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Psychiater Irvin Yalom beschrijft in dit boek hoe doodsangst, vaak onherkend, aan veel klachten ten grondslag ligt waarmee mensen in therapie komen. Hij onderscheidt die angst van het verdriet om een naaste en laat aan de hand van patiëntgeschiedenissen zien hoe zij zich verbergt achter symptomen als besluiteloosheid, jaloezie of een obsessieve behoefte aan controle.</p><p>Centraal staat wat Yalom een ontwakingservaring noemt: een gebeurtenis, een droom, een ziekte, een verlies, die iemand plotseling confronteert met de eigen sterfelijkheid. Zo'n schok kan verlammend werken, maar volgens Yalom ook een aanzet zijn tot een voller leven, mits iemand de angst onder ogen ziet in plaats van hem weg te drukken.</p><p>Yalom introduceert daarbij het begrip rippling, het idee dat ieders leven een spoor van invloed op anderen achterlaat dat doorloopt na de dood, als tegenwicht tegen het gevoel dat een individueel leven zinloos is omdat het eindigt. Het laatste hoofdstuk is expliciet bedoeld voor therapeuten die met doodsangst bij cliënten te maken krijgen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>doodsangst</li><li>existentiële psychotherapie</li><li>sterfelijkheid</li><li>zingeving</li><li>rippling</li><li>Epicurus</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl beschrijft vanuit eigen kampervaring hoe het onder ogen zien van uiterste grenzen tot zingeving kan leiden, een thema dat Yalom klinisch uitwerkt.</li>
+          <li value="404"><a href="404.html">Facing the Dragon</a>. Gawande onderzoekt vanuit de geneeskunde dezelfde weerstand tegen het onder ogen zien van sterfelijkheid, toegepast op de laatste levensfase.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Becker levert het theoretische fundament, doodsontkenning als motor van veel gedrag, waarop Yalom expliciet voortbouwt.</li>
+          <li value="95"><a href="95.html">Het uur van het hart</a>. In dit latere boek, geschreven met zijn zoon vlak voor zijn eigen dood, past Yalom dezelfde thematiek toe op zijn eigen sterven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ergens onderweg &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hanssen gebruikt de zeiltocht als beeld voor een levenshouding: wie tegen de wind in blijft sturen, verliest, en wie leert bijstellen met de wind mee,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2097">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2097 &middot; Levenskunst</p>
+    <h1>Ergens onderweg</h1>
+    <p class="lede">Evi Hanssen, 2020</p>
+    <p class="stats">
+      <span><b>1024</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2097"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hanssen gebruikt de zeiltocht als beeld voor een levenshouding: wie tegen de wind in blijft sturen, verliest, en wie leert bijstellen met de wind mee, komt verder met minder kramp. Op de boot kon zij niets van haar dagelijkse omgeving controleren, geen agenda, geen privacy, geen zekerheid over de route, en juist dat dwong haar de kleine, herhaalbare dingen vast te houden, zoals het bed opmaken. Haar stelling is dat diezelfde discipline in kleine gewoontes op het vaste land evengoed houvast geeft wanneer de grote dingen, liefde, werk, gezondheid, zich niet laten sturen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vertrek uit Lanzarote</h3>
+      <p>Het boek opent met de aanmelding voor het televisieprogramma en de overtocht van Lanzarote naar Guadeloupe. Hanssen beschrijft zichzelf als iemand zonder enige zeilervaring die zich, samen met andere bekende Belgen, voor weken aan een schip en aan elkaar overlevert.</p>
+      <p>De onzekerheid van dat vertrek, geen ervaring, geen vaste planning, een reis die van weer en wind afhangt, wordt de toon voor de rest van het boek: Hanssen keert telkens terug naar wat het is om ergens aan te beginnen zonder te weten hoe het uitpakt.</p>
+      <h3>Ruimte en taken aan boord</h3>
+      <p>Aan boord is nauwelijks plaats voor jezelf. Taken worden verdeeld en ieders gewoontes worden op korte afstand zichtbaar, inclusief de irritaties die daaruit ontstaan. Hanssen gebruikt die close ervaring als vertrekpunt voor stukken over wat mensen in een relatie of vriendschap van elkaar verdragen.</p>
+      <p>Ze beschrijft hoe snel kleine gewoontes van medeopvarenden gaan opvallen wanneer er geen eigen kamer of moment is om aan te ontsnappen, en trekt daaruit lessen over verdraagzaamheid die volgens haar evengoed voor een huishouden aan de wal gelden.</p>
+      <h3>Liefde en teleurstelling</h3>
+      <p>Vanuit momenten op het water schrijft Hanssen over liefde die niet verloopt zoals gehoopt, en over hoe teleurstelling vaker om bijgestelde verwachtingen gaat dan om een gebeurtenis op zich.</p>
+      <h3>Passie, ambitie en gezondheid</h3>
+      <p>Andere stukken verbinden de fysieke inspanning en onzekerheid van de tocht met vragen over werk, ambitie en het eigen lichaam, inclusief haar rol als moeder.</p>
+      <p>Ze beschrijft hoe de fysieke vermoeidheid aan boord haar dwong prioriteiten te stellen die ze aan de wal telkens voor zich uitschoof, en gebruikt dat als aanleiding om te schrijven over hoe ambitie en zorg voor het eigen lichaam elkaar in het gewone leven vaak in de weg zitten.</p>
+      <h3>Het bed opmaken</h3>
+      <p>Een terugkerend beeld is het dagelijks opmaken van haar kooi aan boord, een kleine, volhoudbare handeling te midden van een onzekere reis. Hanssen keert er meerdere keren naar terug als voorbeeld van houvast dat niet van de omstandigheden afhangt.</p>
+      <p>Het boek sluit met de aankomst in Guadeloupe, en met de constatering dat de tocht voorbij is maar de gewoontes die zij eronder ontdekte, blijven. Ze koppelt die slotgedachte terug aan de titel: navigeren is voor haar niet het bereiken van een vaste bestemming, maar het blijven bijstellen onderweg.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Navigatie voor een vloeiend leven</td><td>De ondertitel van het boek en de kern van het beeld: bijsturen met de omstandigheden mee in plaats van er recht tegenin te varen.</td></tr>
+          <tr><td class="term">Korte stukken</td><td>De vorm waarin het boek is opgebouwd, hoofdstukken van twee tot vier bladzijden die telkens een moment op zee aan een levensles koppelen.</td></tr>
+          <tr><td class="term">Ruimte- en privacygebrek</td><td>De fysieke voorwaarde aan boord die Hanssen herhaaldelijk aanhaalt als aanleiding voor haar reflecties over relaties en verdraagzaamheid.</td></tr>
+          <tr><td class="term">Het bed opmaken</td><td>Terugkerend beeld voor een kleine, dagelijkse discipline die houvast geeft wanneer de grotere omstandigheden niet te sturen zijn.</td></tr>
+          <tr><td class="term">Zelfspot</td><td>De toon waarmee Hanssen over haar eigen onervarenheid en missers aan boord schrijft, aangehaald in besprekingen als kenmerkend voor het boek.</td></tr>
+          <tr><td class="term">Bijsturen in plaats van vasthouden aan een route</td><td>Het navigatiebeeld dat Hanssen gebruikt voor hoe zij tegenslag benadert: niet vasthouden aan het oorspronkelijke plan, maar de koers aanpassen aan wat het weer, of het leven, toelaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De overtocht zelf is een gedocumenteerd feit: de reis van Lanzarote naar Guadeloupe voor het televisieprogramma wordt door meerdere onafhankelijke bronnen bevestigd, inclusief de afstand van ruim vijfduizend kilometer en het ontbreken van zeilervaring bij de opvarenden.</p>
+      <p>De levenslessen zelf zijn persoonlijke reflectie, geen onderzochte claims, en het boek presenteert ze ook niet als zodanig: het is een lifestyleboek, geen adviesboek met een onderbouwingsaanspraak.</p>
+      <p>Dat het boek als debuut van een bekende presentatrice verscheen bij een gevestigde uitgeverij, met een aparte e-boek- en luisterboekeditie, wijst op een uitgever die vertrouwen had in het bereik van Hanssens naam; dat zegt iets over de verwachte afzet, niet over de kwaliteit van de reflecties zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Onafhankelijke recensies van dit boek zijn schaars en kort; een van de weinige gevonden besprekingen noemt het boek toegankelijk en humoristisch maar zonder een boek dat de recensent uit zichzelf had opgepikt, wat wijst op een smal bereik buiten de bestaande fankring van Hanssen.</p>
+      <p>Door de korte vorm van twee tot vier bladzijden per stuk krijgt geen van de thema's, liefde, ambitie, gezondheid, de ruimte om verder te komen dan een anekdote met een korte les erachteraan; wie diepgang zoekt in een van die onderwerpen, vindt die hier niet.</p>
+      <p>Het navigatiebeeld dat de ondertitel belooft, wordt in de losse stukken eerder herhaald dan uitgediept: de vergelijking tussen zeilen en leven keert veelvuldig terug zonder dat elk hoofdstuk er iets nieuws aan toevoegt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies een klein, dagelijks terugkerend gebaar, zoals het bed opmaken, als vast anker wanneer de rest van de dag onzeker is.</li>
+        <li>Stel bij een tegenslag eerst de vraag of de teleurstelling in de gebeurtenis zit of in een verwachting die bijstelling verdient.</li>
+        <li>Lees het boek in de korte stukken waarvoor het geschreven is, in plaats van in een keer door, en laat elk stuk eerst even bezinken.</li>
+        <li>Merk op wanneer je vasthoudt aan een oorspronkelijk plan terwijl de omstandigheden al zijn veranderd, en stel jezelf de vraag wat bijsturen in die situatie zou betekenen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Horizon (Overamstel Uitgevers), Antwerpen, 15 september 2020, 192 blz., ISBN 9789492958006 (paperback), ondertitel <i>Navigatie voor een vloeiend leven</i>. Ook verschenen als e-boek (ISBN 9789492958501) en als luisterboek. Het is het debuut van Hanssen; haar latere boek <i>Sinds ik niet meer drink</i> (2021) bouwt op dezelfde persoonlijke, dagboekachtige stijl voort.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Voor een televisieprogramma stak Evi Hanssen samen met een groep andere bekende Belgen de Atlantische Oceaan over in een zeilboot, van Lanzarote naar Guadeloupe, ruim vijfduizend kilometer. Geen van de opvarenden had zeilervaring. Wekenlang leefden zij op een kleine oppervlakte, met verdeelde taken en nauwelijks privacy of ruimte voor zichzelf.</p><p>Dat avontuur werd de aanleiding voor haar eerste boek. In korte stukken van twee tot vier bladzijden beschrijft Hanssen wat er aan boord gebeurde en verbindt dat aan wat zij daarover in haar eigen leven aan de wal te zeggen heeft: liefde en teleurstelling, passie en ambitie, gezondheid en kinderen, en de eenvoudige gewoonte om elke dag je bed op te maken.</p><p>De toon is persoonlijk en luchtig, met de nodige zelfspot, en het boek leent zich door de korte stukken voor lezen in kleine porties.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>zeilen</li><li>levenslessen</li><li>zelfreflectie</li><li>humor</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="109"><a href="109.html">Elke dag zelfzorg</a>. Mouton werkt zelfzorg uit tot een dagelijkse gewoonte in korte stukken, dicht bij de vorm die Hanssen hier gebruikt.</li>
+          <li value="1582"><a href="1582.html">Handboek voor mindere dagen</a>. Helmink schrijft eveneens persoonlijke, kortere reflecties over tegenslag, vanuit een andere aanleiding maar met dezelfde luchtige toon.</li>
+          <li value="1517"><a href="1517.html">Wat ik eerder had willen weten over de liefde</a>. Mudder deelt als bekende Nederlandse de eigen levenservaring in korte, persoonlijke stukken, vergelijkbaar met Hanssens aanpak.</li>
+          <li value="1670"><a href="1670.html">Iets met grenzen stellen</a>. Posthouwer werkt een van de thema's die Hanssen kort aansnijdt, grenzen in relaties, verder uit tot een heel boek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

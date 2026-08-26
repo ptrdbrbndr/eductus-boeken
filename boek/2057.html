@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nicht du suchst das Pferd, das Pferd sucht dich &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hempfling stelt dat een paard niet leert gehoorzamen door herhaling van oefeningen, maar door de aanwezigheid van een mens die zelf innerlijk rustig,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2057">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2057 &middot; Vakmanschap en aandacht</p>
+    <h1>Nicht du suchst das Pferd, das Pferd sucht dich</h1>
+    <p class="lede">Klaus Ferdinand Hempfling, editie 2016; vert. Ingrid Buthod-Girard</p>
+    <p class="stats">
+      <span><b>1407</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2057"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hempfling stelt dat een paard niet leert gehoorzamen door herhaling van oefeningen, maar door de aanwezigheid van een mens die zelf innerlijk rustig, consequent en zonder dreiging is. Zijn stelling is dat dominantie en dwang twee verschillende zaken zijn: een paard accepteert een hoger geplaatst dier in de kudde niet omdat het daartoe gedwongen wordt, maar omdat dat dier zich op een herkenbare manier gedraagt. Vertaald naar de mens betekent dit dat techniek pas werkt als de innerlijke staat van de trainer al klopt, en dat een paard die staat feilloos aanvoelt, ongeacht wat de mens probeert te verbergen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van kunstdocent tot paardenman</h3>
+      <p>Hempfling beschrijft kort zijn eigen weg: opgeleid in telecommunicatietechniek, later kunstdocent en theaterregisseur, tot hij op zijn negenentwintigste voor het eerst intensief met paarden ging werken. Die achtergrond in lichaamstaal en beweging vanuit theater en kunst vormt volgens hem de basis van zijn latere methode.</p>
+      <p>Hij beschrijft hoe zijn ervaring als regisseur, waarin hij acteurs leerde lezen aan houding en timing, hem leerde letten op signalen die de meeste mensen bij een paard over het hoofd zien: een kleine verschuiving van het gewicht, een oor dat draait, een adem die hapert.</p>
+      <h3>Dominantie zonder dwang</h3>
+      <p>Het boek zet uiteen wat Hempfling onder dominantie verstaat: niet macht die met kracht wordt afgedwongen, maar een positie die het paard uit zichzelf toekent aan wie zich rustig, voorspelbaar en zonder aarzeling gedraagt. Hij onderscheidt dat expliciet van methoden die met tuig, druk of straf werken.</p>
+      <p>Vertrouwen ontstaat volgens hem pas nadat die positie is vastgesteld, niet ervoor. Een mens die probeert eerst vriendschappelijk te zijn zonder duidelijkheid over de rangorde, krijgt volgens Hempfling een onrustig paard terug.</p>
+      <h3>Zones en afstand</h3>
+      <p>Hempfling werkt met een indeling van de ruimte rond het paard in zones, waarbinnen bepaald gedrag van de mens een bepaalde reactie van het paard uitlokt. De afstand die de mens houdt en de manier waarop die afstand verandert, functioneert als een deel van de communicatie zelf.</p>
+      <p>Naderen, stilstaan en terugwijken worden in dit deel elk apart behandeld: welk moment van naderen een paard uitnodigt, en welk moment van naderen het juist wegjaagt. Hempfling stelt dat de meeste mensen te snel en te gelijkmatig naderen, waardoor een paard geen ruimte krijgt om zelf een stap te zetten.</p>
+      <h3>Marouk, de Arabische hengst</h3>
+      <p>Aan de hand van Marouk beschrijft Hempfling het proces met een paard dat van nature waakzaam en snel reageert. Hij laat zien hoe kleine correcties in houding en tempo van de mens leiden tot een merkbare verandering in de manier waarop het paard hem benadert.</p>
+      <p>De casus dient als voorbeeld van hoe de methode werkt bij een temperamentvol paard, zonder dat er dwangmiddelen aan te pas komen.</p>
+      <p>Hempfling beschrijft meerdere sessies achter elkaar, waarin Marouk eerst afstand houdt en pas na herhaalde, geduldige toenadering zelf de stap zet om dichterbij te komen. Dat moment, waarop het paard uit zichzelf nadert, noemt hij het omslagpunt van de hele sessie.</p>
+      <h3>Queijo, de Lusitano hengst</h3>
+      <p>De tweede casus, met de zwaardere en rustigere Queijo, laat zien dat dezelfde principes bij een ander temperament tot een andere uitwerking leiden. Hempfling gebruikt het contrast tussen beide hengsten om te benadrukken dat zijn methode geen vaste procedure is, maar een manier van waarnemen die per paard wordt toegepast.</p>
+      <h3>Zelfkennis als voorwaarde</h3>
+      <p>In het laatste deel keert Hempfling terug naar de mens: hij stelt dat toegang tot een paard afhangt van hoe goed iemand de eigen innerlijke staat kent en kan sturen, omdat het paard die staat afleest voordat er een opdracht wordt gegeven.</p>
+      <p>Hij besluit dat de methode daarom niet in een vaste reeks stappen is samen te vatten, maar wel te leren is via herhaalde, aandachtige oefening met verschillende paarden. Wie ongeduld, twijfel of frustratie bij zichzelf niet herkent, zal die volgens Hempfling onbedoeld aan het paard doorgeven, ongeacht welke techniek er verder wordt toegepast.</p>
+      <h3>Toepassing op ras en type</h3>
+      <p>In een afsluitend deel bespreekt Hempfling hoe zijn methode zich verhoudt tot verschillen tussen rassen en individuele paarden, van gevoelige Arabieren tot zwaardere gebruikspaarden. Hij benadrukt dat de onderliggende principes voor elk paard hetzelfde blijven, terwijl het tempo waarin ze werken sterk verschilt.</p>
+      <p>Hempfling besluit dat de methode evengoed geldt voor een paard dat al jaren getraind is met tuig en druk als voor een jong, ongetraind paard, al kost het omschakelen bij een reeds getraind paard volgens hem meer tijd, omdat dat dier eerst moet afleren wat het eerder aangeleerd kreeg.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dominantie zonder dwang</td><td>De kern van Hempflings methode: een paard erkent de mens als hoger in rang zonder dat daar kracht of dwangmiddelen voor nodig zijn.</td></tr>
+          <tr><td class="term">Zones</td><td>De indeling van de ruimte rond het paard waarbinnen de afstand die de mens houdt, functioneert als onderdeel van de communicatie.</td></tr>
+          <tr><td class="term">Innerlijke aanwezigheid</td><td>De rustige, consequente staat van de mens die het paard volgens Hempfling eerder aanvoelt dan enige oefening of techniek.</td></tr>
+          <tr><td class="term">Wild kuddegedrag</td><td>Het gedrag van in het wild levende paarden dat Hempfling als referentiepunt gebruikt voor rangorde en communicatie binnen zijn methode.</td></tr>
+          <tr><td class="term">Akedah International</td><td>De school die Hempfling vanuit Denemarken runt en waar hij zijn methode onderwijst.</td></tr>
+          <tr><td class="term">Vertrouwen na rangorde</td><td>Het idee dat een paard pas vertrouwen opbouwt nadat de verhouding tussen mens en paard duidelijk is, niet ervoor.</td></tr>
+          <tr><td class="term">Lichaamstaal</td><td>Het geheel van houding, tempo, ademhaling en afstand waarmee de mens volgens Hempfling met het paard communiceert, zonder woorden of tuig.</td></tr>
+          <tr><td class="term">Zelfkennis</td><td>Het vermogen om de eigen innerlijke staat, zoals ongeduld of twijfel, te herkennen voordat die onbedoeld aan het paard wordt doorgegeven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Hempfling bouwt zijn methode op decennia praktijkervaring met paarden van uiteenlopende rassen en temperamenten, zichtbaar gemaakt in het boek aan de hand van twee uitvoerig gevolgde hengsten. Zijn aanpak wordt internationaal onderwezen via zijn school Akedah International en is in meerdere talen vertaald, wat wijst op verspreiding binnen de wereld van natuurlijke horsemanship.</p>
+      <p>De methode steunt op observatie van kuddegedrag bij wild levende paarden als referentiekader voor wat Hempfling rangorde noemt. Het boek beschrijft dat kader niet als resultaat van gecontroleerd gedragsonderzoek, maar als jarenlange persoonlijke observatie, aangevuld met fotomateriaal en verwijzingen naar video.</p>
+      <p>Dat de aanpak zonder tuig of hulpmiddelen werkt, is voor de lezer aan de foto's en de beschreven sessies met Marouk en Queijo af te leiden, niet aan meetbare gegevens over stresshormonen of gedrag die door een onafhankelijke partij zijn vastgelegd. Het boek presenteert de verandering in beide hengsten als zichtbaar en overtuigend voor wie de sessies bijwoonde, wat iets anders is dan een reproduceerbare meting.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Ervaren paardenmensen en critici binnen de gedragswetenschap hebben gewezen op tegenstrijdigheden in het zone-model: als de mens zich in de ene zone van het paard bevindt, plaatst dat het paard tegelijk in een andere zone ten opzichte van de mens, en het is niet altijd consistent hoe Hempfling die wisselwerking uitlegt. Ook is er twijfel of paarden menselijke lichaamstaal werkelijk lezen zoals zij dat bij soortgenoten doen, of dat getrainde paarden vooral reageren op herhaalde, voorspelbare signalen.</p>
+      <p>De methode is sterk verbonden aan de persoon van Hempfling zelf; in Duitse commentaren is hij weleens aangeduid als een soort paardensjamaan vanwege de mystieke toon waarin hij over zijn werk schrijft. Dat maakt de methode moeilijk te toetsen los van zijn eigen optreden, en lastig over te dragen aan wie zijn intuïtieve gevoel voor timing niet zelf heeft ontwikkeld.</p>
+      <p>Het boek beschrijft het proces met Marouk en Queijo als geslaagd, maar geeft weinig ruimte aan gevallen waarin de aanpak niet aanslaat of aan paarden die op een andere manier reageren dan de twee gekozen hengsten. Voor een lezer die zelf met een lastiger of banger paard werkt, biedt het boek daardoor minder houvast dan de twee uitgewerkte casussen doen vermoeden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Observeer eerst je eigen ademhaling en tempo voordat je een paard benadert.</li>
+        <li>Verander de afstand tot het paard bewust in plaats van toevallig, en let op wat die verandering oproept.</li>
+        <li>Werk niet met een vaste procedure, maar pas je waarneming aan op het temperament van het specifieke paard.</li>
+        <li>Bouw de rangorde eerst op voordat je vriendschappelijk contact zoekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Nicht du suchst das Pferd, das Pferd sucht dich</i> (Cadmos Verlag, Stuttgart, 25 augustus 2016, 344 blz., ISBN 978-3-8404-1075-8). Een Engelse editie verscheen als <i>It's Not I Who Seek the Horse: The Horse Seeks Me</i> (2010). De Nederlandse vertaling van Ingrid Buthod-Girard verscheen als <i>Niet ik zoek het paard, het paard zoekt mij</i> bij Bloemendal Uitgevers, Amsterdam (19 februari 2021, 384 blz., ISBN 9789492284181). Van Hempfling zijn eerder onder meer <i>Dancing with Horses</i> (2001) en <i>What Horses Reveal</i> (2004) in het Engels verschenen; niet al zijn werk is in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Klaus Ferdinand Hempfling, internationaal bekend als expert in de lichaamstaal van paarden, beschrijft in dit boek zijn methode om zonder dwang of hulpmiddelen een vertrouwensrelatie met een paard op te bouwen. Aan de hand van twee hengsten, de Arabier Marouk en de Lusitano Queijo, laat hij zien hoe houding, afstand en innerlijke rust van de mens het gedrag van het paard bepalen.</p><p>Centraal staat wat Hempfling dominantie zonder dwang noemt: het paard erkent de mens als hoger in rang, niet doordat het daartoe gedwongen wordt, maar doordat de mens zich gedraagt zoals een leidend dier in een kudde zich gedraagt. Hij baseert die aanpak op waarneming van wild levende paarden, niet op een vaste reeks oefeningen.</p><p>Het boek is rijk geïllustreerd met foto's van beide hengsten in verschillende fasen van het proces, en verwijst naar aanvullend videomateriaal. Hempfling schrijft voor mensen die al met paarden werken en op zoek zijn naar een andere verhouding tot het dier dan de gangbare trainingsmethoden bieden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>paarden</li><li>lichaamstaal</li><li>vakmanschap</li><li>dominantie</li><li>aandacht</li><li>natuurlijke horsemanship</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1"><a href="01.html">Zen en de kunst van het motoronderhoud</a>. Pirsig beschrijft aandacht als voorwaarde voor vakmanschap bij het onderhoud van een motor; Hempfling stelt dezelfde eis aan de omgang met een paard.</li>
+          <li value="800"><a href="800.html">The Practicing Mind</a>. Sterner beschrijft herhaalde, aandachtige oefening als weg naar beheersing, zonder haast naar een eindresultaat en zonder afleiding door ongeduld; Hempflings methode met paarden werkt volgens hetzelfde principe.</li>
+          <li value="1886"><a href="1886.html">Het jaar dat de paarden kwamen</a>. Mackey's roman verbeeldt de relatie tussen mens en paard als verhaal, met een vrouw en een kudde als hoofdpersonen; Hempfling beschrijft diezelfde relatie als een te leren vaardigheid met vaste, herhaalbare principes.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

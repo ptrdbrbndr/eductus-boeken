@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het slimme onbewuste &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dijksterhuis stelt dat bewustzijn in de westerse cultuur stelselmatig wordt overschat en het onbewuste stelselmatig wordt onderschat, een vergissing die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2090">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2090 &middot; Brein en lichaam</p>
+    <h1>Het slimme onbewuste</h1>
+    <p class="lede">Ap Dijksterhuis, 2007</p>
+    <p class="stats">
+      <span><b>1414</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2090"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dijksterhuis stelt dat bewustzijn in de westerse cultuur stelselmatig wordt overschat en het onbewuste stelselmatig wordt onderschat, een vergissing die hij de cartesiaanse catastrofe noemt. Zijn stelling is dat waarneming, oordeel, besluitvorming en creativiteit voor het grootste deel onbewust tot stand komen, en dat bewuste overweging bij complexe keuzes eerder een hinderpaal dan een hulpmiddel kan zijn. Het boek voert dat niet aan als filosofische stelling alleen, maar bouwt de redenering op uit experimenteel onderzoek, met als kern de bevinding dat proefpersonen die worden afgeleid van een complexe keuze, in een reeks experimenten toch tot een goede of zelfs betere uitkomst komen dan wie er bewust over blijft nadenken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De cartesiaanse catastrofe</h3>
+      <p>Dijksterhuis opent met de gedachte dat het westerse denken sinds Descartes bewustzijn als kern van de persoon beschouwt, en het onbewuste hooguit als een reservoir van instincten of verdrongen wensen. Hij noemt dat een vergissing die hij de cartesiaanse catastrofe noemt: het onbewuste is volgens hem geen rest, maar het grootste en snelste deel van het denkproces.</p>
+      <p>Als eerste aanwijzing bespreekt hij hoeveel informatie het brein per seconde verwerkt tegenover hoeveel daarvan bewust wordt waargenomen, een verschil dat hij gebruikt om te onderbouwen dat het bewuste denken maar een fractie van het werk voor zijn rekening neemt.</p>
+      <h3>Waarneming en mening</h3>
+      <p>In het hoofdstuk over waarneming laat Dijksterhuis zien dat het onbewuste meer registreert dan waarvan iemand zich bewust is, en dat meningen vaak al gevormd zijn voordat iemand er bewust over nadenkt. Bewuste redenering komt er in zijn lezing vaak pas achteraf bij, om een onbewust ontstane mening te rechtvaardigen.</p>
+      <p>Hij bespreekt experimenten met priming, waarin subtiele, niet-bewust waargenomen prikkels het gedrag van proefpersonen meetbaar beïnvloeden, als bewijs dat het onbewuste voortdurend meeweegt zonder dat de betrokkene daar weet van heeft.</p>
+      <h3>Besluitvorming zonder aandacht</h3>
+      <p>Het kernhoofdstuk beschrijft experimenten waarin proefpersonen tussen producten moesten kiezen, zoals auto's met een aantal kenmerken. Een groep dacht er bewust over na, een andere groep werd enkele minuten afgeleid met een andere taak voordat zij hun keuze maakten. Bij complexe keuzes met veel kenmerken bleek de afgeleide groep in de oorspronkelijke experimenten vaker de objectief betere keuze te maken.</p>
+      <p>Dijksterhuis verklaart dit doordat bewust denken maar een beperkt aantal factoren tegelijk kan wegen, terwijl het onbewuste volgens hem meer factoren tegelijk kan verwerken. Hij adviseert daarom om bij een moeilijke keuze een periode niet bewust aan het probleem te denken voordat er een besluit valt.</p>
+      <h3>Creativiteit en incubatie</h3>
+      <p>Bij creativiteit bespreekt Dijksterhuis het verschijnsel incubatie: een probleem een tijd laten rusten en er niet bewust mee bezig zijn, waarna een oplossing zich soms als vanzelf aandient. Hij verbindt dit aan hetzelfde mechanisme als bij besluitvorming: het onbewuste blijft doorwerken aan een probleem terwijl de aandacht ergens anders is.</p>
+      <p>Hij bespreekt bekende voorbeelden van wetenschappers en kunstenaars die een doorbraak kregen na een periode van afleiding, en plaatst die anekdotes naast experimenteel onderzoek naar probleemoplossing na een pauze.</p>
+      <h3>Sociaal gedrag en lichaamstaal</h3>
+      <p>In het hoofdstuk over sociaal gedrag bespreekt Dijksterhuis hoe mensen onbewust houding, spreektempo en gebaren van gesprekspartners overnemen, en hoe die aanpassing samenhangt met sympathie en verstandhouding. Ook hier is de kern dat het gedrag aan gebeurt zonder dat de betrokkenen zich er bewust van zijn.</p>
+      <p>Hij trekt de lijn door naar stereotypering en vooroordeel, die volgens hem eveneens grotendeels onbewust ontstaan en bewuste correctie vaak nodig hebben om niet in gedrag door te werken.</p>
+      <h3>Vrije wil</h3>
+      <p>Het slothoofdstuk gaat over vrije wil, met verwijzing naar de experimenten van Benjamin Libet, waarin hersenactiviteit voor een beweging al meetbaar is voordat iemand zich bewust van zijn keuze zegt te zijn. Dijksterhuis bespreekt de gevolgtrekking dat het gevoel van vrije wil eerder een ervaring achteraf is dan de aansturende oorzaak van een handeling.</p>
+      <p>Hij sluit voorzichtiger af dan in eerdere hoofdstukken en erkent dat de filosofische gevolgen van dit onderzoek nog volop bediscussieerd worden, terwijl hij zelf vasthoudt aan de praktische les dat het onbewuste meer vertrouwen verdient dan het gewoonlijk krijgt. Hij besluit met de opmerking dat het boek geen pleidooi is om helemaal niet meer na te denken, maar om beter te onderscheiden voor welk type keuze bewust nadenken helpt en voor welk type het eerder in de weg zit.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cartesiaanse catastrofe</td><td>Dijksterhuis' term voor de westerse gewoonte om bewustzijn als kern van de persoon te zien en het onbewuste te onderschatten.</td></tr>
+          <tr><td class="term">Deliberation-without-attention-effect</td><td>Het verschijnsel waarbij afleiding van een complexe keuze in sommige experimenten tot betere beslissingen leidt dan bewuste overweging.</td></tr>
+          <tr><td class="term">Priming</td><td>Het onbewust beïnvloeden van gedrag of oordeel door een prikkel die iemand niet bewust waarneemt.</td></tr>
+          <tr><td class="term">Incubatie</td><td>Het laten rusten van een probleem, waarbij het onbewuste er volgens de auteur ondertussen aan blijft doorwerken.</td></tr>
+          <tr><td class="term">Onbewuste aanpassing</td><td>Het onbewust overnemen van houding, spreektempo of gebaren van een gesprekspartner.</td></tr>
+          <tr><td class="term">De Libet-experimenten</td><td>Onderzoek waarin hersenactiviteit voor een beweging meetbaar is voordat iemand zich van de keuze bewust zegt te zijn.</td></tr>
+          <tr><td class="term">Verwerkingscapaciteit</td><td>De hoeveelheid informatie die bewust of onbewust tegelijk verwerkt kan worden, door Dijksterhuis gebruikt om het onbewuste als de grotere, snellere schakel voor te stellen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dijksterhuis bouwt het boek op experimenteel onderzoek uit de sociale psychologie, waaronder eigen studies naar keuzegedrag die hij in 2006 publiceerde in het tijdschrift Science, een van de meest aangehaalde vaktijdschriften. Dat onderzoek trok destijds veel aandacht, ook buiten de wetenschap.</p>
+      <p>Voor priming en onbewuste aanpassing van gedrag bestaat een bredere onderzoekstraditie binnen de sociale psychologie, waarnaar het boek regelmatig verwijst. De Libet-experimenten over vrije wil zijn sinds de jaren tachtig herhaald en becommentarieerd, en worden breed erkend als bevinding, ook al verschillen onderzoekers van mening over de interpretatie.</p>
+      <p>Het specifieke effect waarop het hoofdstuk over besluitvorming leunt, de deliberation-without-attention-effect, bleek in latere, grootschalige replicatiepogingen niet consistent terug te vinden. Meerdere onderzoeksgroepen, onder meer rond Ben Newell en David Shanks, publiceerden vanaf omstreeks 2009 herhaalde experimenten waarin het voordeel van afleiding boven bewuste overweging uitbleef of omkeerde.</p>
+      <p>Dijksterhuis zelf heeft op die replicatiepogingen gereageerd door te wijzen op methodologische verschillen tussen zijn oorspronkelijke opzet en de latere, mislukte pogingen, en heeft samen met andere onderzoekers gepleit voor een genuanceerdere lezing van wanneer onbewust denken wel en niet voordeel oplevert, in plaats van het effect als geheel te verwerpen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft juist het experiment dat het boek het meest aanhaalt. De oorspronkelijke studies naar keuzes zonder aandacht zijn in de jaren na publicatie van het boek herhaaldelijk niet gerepliceerd, en een meta-analyse van meerdere onderzoeksgroepen vond geen betrouwbaar voordeel van onbewust nadenken boven bewuste overweging bij complexe keuzes. Dijksterhuis en collega's hebben op die kritiek gereageerd en delen van de methodologische bezwaren bestreden, maar het oorspronkelijke, sterke resultaat staat er sindsdien minder onwrikbaar bij dan het boek suggereert.</p>
+      <p>Het boek trekt uit losse experimenten soms een bredere, praktische les, zoals het advies om bij belangrijke keuzes bewust niet na te denken, terwijl de onderliggende data specifieker en wisselvalliger zijn dan die algemene raad doet vermoeden.</p>
+      <p>Critici hebben ook gevraagd hoe de evolutie bewustzijn in stand zou houden als het, zoals het boek suggereert, grotendeels overbodig sieraad is, en hoe scherp psychologische processen en onderliggende hersenactiviteit in dit boek uit elkaar gehouden worden. Het boek beantwoordt die vragen niet uitputtend.</p>
+      <p>Het hoofdstuk over sociaal gedrag en vooroordeel wijst zelf op het gevaar dat onbewuste processen tot discriminerend gedrag leiden, maar werkt niet uit hoe iemand daar in de praktijk verandering in brengt als bewuste correctie, zoals het boek elders juist beweert, van nature zwak staat tegenover onbewuste sturing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Laat een moeilijke keuze met veel factoren een nacht rusten voordat je beslist, in plaats van er onder tijdsdruk over te blijven piekeren.</li>
+        <li>Herken dat een sterke, snelle mening soms al onbewust gevormd is voordat de bewuste argumenten erbij komen, en toets die mening dus extra kritisch.</li>
+        <li>Gun een vastgelopen probleem een pauze met een heel andere bezigheid voordat je er weer bewust mee verdergaat.</li>
+        <li>Wees terughoudend met het toepassen van dit boek als vaste regel voor elke beslissing; de wetenschappelijke basis van het kernexperiment is sindsdien omstreden gebleken.</li>
+        <li>Toets een sterk onbewust aanvoelen bij een belangrijke keuze aan minstens één concreet, navertelbaar argument voordat je erop vertrouwt, in plaats van het gevoel zonder meer als uitkomst te nemen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig verschenen als <i>Het slimme onbewuste: denken met gevoel</i> (Uitgeverij Bert Bakker, Amsterdam, 2007, 239 blz., ISBN 9789035129689). Het boek is niet in het Engels vertaald als losse publicatie; Dijksterhuis publiceerde de onderliggende onderzoekslijn wel in internationale vaktijdschriften, onder meer het veelbesproken artikel <i>On Making the Right Choice: The Deliberation-Without-Attention Effect</i> (Science, 2006). Latere Nederlandse drukken verschenen bij Prometheus, onder meer als ebook.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ap Dijksterhuis, hoogleraar psychologie, stelt dat het menselijk bewustzijn een kleine, trage schakel is in een brein dat het grootste deel van zijn werk onbewust doet. Hij bespreekt onderzoek naar waarneming, oordeelsvorming, besluitvorming en creativiteit om te laten zien dat het onbewuste daarin vaker de doorslag geeft dan mensen zelf beseffen.</p><p>Het bekendste onderdeel is zijn onderzoek naar het nemen van complexe beslissingen, waarin proefpersonen die eerst werden afgeleid en niet bewust over hun keuze nadachten, in sommige experimenten tot betere beslissingen kwamen dan wie er bewust over piekerde. Dijksterhuis noemt dit de deliberation-without-attention-effect en bouwt er een breder pleidooi omheen om bij belangrijke keuzes op gevoel te vertrouwen.</p><p>Het boek is geschreven voor een algemeen publiek, met veel voorbeelden en weinig technisch jargon, en werd bij verschijnen breed gelezen en besproken. Latere jaren brachten wel kritiek op de herhaalbaarheid van een deel van het onderliggende onderzoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>onbewuste</li><li>psychologie</li><li>besluitvorming</li><li>intuïtie</li><li>creativiteit</li><li>bewustzijn</li><li>vrije wil</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft hetzelfde onderscheid tussen snel en langzaam denken met een voorzichtiger, breder onderbouwd beeld van wanneer intuïtie wel en niet te vertrouwen is.</li>
+          <li value="283"><a href="283.html">Blink</a>. Gladwell behandelt onbewuste, snelle oordeelsvorming vanuit journalistieke voorbeelden, waar Dijksterhuis vanuit experimenteel onderzoek redeneert.</li>
+          <li value="424"><a href="424.html">Predictably Irrational</a>. Ariely laat vanuit ander onderzoek zien dat onbewuste processen net zo goed tot voorspelbare fouten leiden, een tegenwicht tegen het vertrouwen dat Dijksterhuis in het onbewuste stelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

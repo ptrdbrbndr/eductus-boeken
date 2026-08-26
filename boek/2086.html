@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crossroads &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Franzen zet een gezin neer waarin geloof niet wordt beleden maar gevoeld, en waarin die gevoelde moraal net zo min bescherming biedt tegen zelfbedrog als…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2086">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2086 &middot; Roman en memoir</p>
+    <h1>Crossroads</h1>
+    <p class="lede">Jonathan Franzen, 2021</p>
+    <p class="stats">
+      <span><b>1136</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2086"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Franzen zet een gezin neer waarin geloof niet wordt beleden maar gevoeld, en waarin die gevoelde moraal net zo min bescherming biedt tegen zelfbedrog als geen geloof zou doen. Zijn stelling is dat de jaren zeventig, met hun losser wordende kerk en losser wordende seksuele moraal, geen bevrijding brachten maar een nieuwe manier om dezelfde oude fouten te maken: overspel, jaloezie, verslaving en het najagen van erkenning, nu verpakt in de taal van authenticiteit en spirituele groei. Elk lid van de familie Hildebrandt gelooft oprecht dat hij het goede doet, en het boek toont stap voor stap hoe die overtuiging henzelf en elkaar schaadt. Franzen kiest daarbij niet voor een enkele hoofdpersoon maar voor een romanvorm die van personage wisselt, zodat de lezer telkens het gelijk van de vorige verteller weer moet loslaten.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Advent, New Prospect</h3>
+      <p>Het eerste deel speelt zich af in de dagen rond Kerst 1971. Russ, geassocieerd predikant van de First Reformed Church, is verbannen uit de jeugdgroep Crossroads nadat zijn jongere collega Rick Ambrose hem publiekelijk had vernederd. Hij troost zich met de aandacht van Frances Cottrell, een weduwe uit zijn gemeente, en fantaseert over een leven zonder Marion.</p>
+      <p>Marion houdt intussen een geheim leven met haar therapeut Sophie Serafimides, bij wie langzaam een verzwegen periode uit haar jeugd naar boven komt: een verhouding met een getrouwde man, Bradley Grant, en de psychische crisis die daarop volgde.</p>
+      <h3>De kinderen: Clem, Becky, Perry</h3>
+      <p>Clem, de oudste, verliest zijn vrijstelling van militaire dienst uit principe en overweegt zich vrijwillig te melden voor Vietnam, deels uit afkeer van zijn vader. Becky, de populairste van de vier, erft onverwacht een aanzienlijk bedrag van een overleden tante en maakt na een reis naar Europa een intense religieuze bekering door binnen Crossroads.</p>
+      <p>Perry, de jongste zoon met het hoogste IQ van het gezin, verkoopt en gebruikt drugs terwijl hij zich voordoet als de meest verantwoordelijke van de kinderen. Zijn hoofdstukken volgen een steeds grimmiger geworden avond waarop hij op een kerstfeest volledig ontspoort.</p>
+      <h3>Crossroads en Rick Ambrose</h3>
+      <p>De jeugdgroep Crossroads, met zijn nadruk op openhartigheid, groepstherapie-achtige bijeenkomsten en persoonlijke groei, vormt de plek waar de jongere generatie zoekt wat de kerk van hun ouders hun niet meer geeft. Rick Ambrose, die de groep leidt, wordt door de kinderen aanbeden en door Russ gewantrouwd.</p>
+      <p>Franzen laat zien hoe die nieuwe, informele vorm van geloofsbeleving evengoed groepsdruk, favoritisme en verliefdheden oplevert als de formelere kerk die zij vervangt. De jeugdgroep belooft eerlijkheid zonder maskers, maar wie in de groep het hoogste aanzien geniet, blijkt net zo goed te bepalen wie erbij hoort en wie niet.</p>
+      <h3>Easter</h3>
+      <p>Het tweede deel springt naar het voorjaar en de zomer erna. Russ onderneemt met een groep van Crossroads een hulpreis naar een Navajo-reservaat in Arizona, waar zijn verhouding met Frances tot een fysiek hoogtepunt komt en meteen daarna instort onder het gewicht van zijn eigen twijfel en schuldgevoel.</p>
+      <p>Becky raakt zwanger van haar vriend Tanner en moet haar net gevonden geloof rijmen met een beslissing die daar niet zomaar in past. Perry's val zet door tot voorbij het punt waarop het gezin het nog kan verbergen.</p>
+      <h3>Marions verleden</h3>
+      <p>Parallel aan de crises van haar kinderen keert Marion terug naar de stad waar zij jaren eerder instortte, om zelf uit te zoeken wat er destijds met Bradley Grant is gebeurd en wat dat haar huwelijk met Russ heeft gekost. Deze hoofdstukken vormen het zwaartepunt van het boek voor veel lezers en critici, die Marion als het sterkst uitgewerkte personage van de roman noemen.</p>
+      <p>Wat zij ontdekt, verandert niet haar huwelijk maar wel haar eigen begrip van de keuzes die zij daarin heeft gemaakt. Waar Russ zijn crisis grotendeels alleen doorworstelt, zoekt Marion die van haar juist op in gesprek, eerst met haar therapeut en daarna met de mensen uit haar verleden zelf.</p>
+      <h3>Het voorjaar van 1974</h3>
+      <p>Het boek eindigt niet met een verzoening maar met een nieuwe, voorlopige verhouding tussen de gezinsleden. Clem keert terug naar New Prospect. Franzen laat de losse einden van Russ, Marion en de kinderen grotendeels open, in lijn met zijn aankondiging dat <i>Crossroads</i> het eerste deel is van een geplande trilogie die het gezin over decennia volgt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Crossroads</td><td>De informele, op openhartigheid en groepsgevoel gerichte jeugdgroep van de kerk, die de titel van de roman levert en tegenover de formelere kerkdienst van Russ staat.</td></tr>
+          <tr><td class="term">New Prospect</td><td>De fictieve buitenwijk van Chicago waar de familie Hildebrandt woont en waar het grootste deel van het verhaal zich afspeelt.</td></tr>
+          <tr><td class="term">A Key to All Mythologies</td><td>De titel van de geplande trilogie waarvan <i>Crossroads</i> het eerste deel is, ontleend aan een mislukt levenswerk uit George Eliots <i>Middlemarch</i>.</td></tr>
+          <tr><td class="term">De vrijstelling</td><td>Clems studentenvrijstelling van de dienstplicht tijdens de oorlog in Vietnam, die hij principieel opgeeft en die zijn breuk met Russ inluidt.</td></tr>
+          <tr><td class="term">Ambrose versus Hildebrandt</td><td>De rivaliteit tussen de jonge, populaire jeugdwerker Rick Ambrose en de oudere predikant Russ, die de generatiekloof binnen dezelfde kerk belichaamt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Franzen bouwt de roman op door telkens een ander gezinslid het perspectief te geven, een vorm die critici als Dwight Garner prezen als warmer en breder van menselijke sympathie dan zijn eerdere romans. Vooral het personage Marion werd geroemd; Garner noemde haar een van de grootse personages uit de recente Amerikaanse fictie.</p>
+      <p>De historische inbedding, dienstplicht en Vietnam, de jaren-zeventig jeugdcultuur rond kerk en groepstherapie, is nauwkeurig gedateerd binnen 1971 tot 1974 en sluit aan bij Franzens eigen jeugd in een voorstad van Chicago in diezelfde jaren, al presenteert hij het boek niet als autobiografie.</p>
+      <p>De roman werd genomineerd voor de National Book Award for Fiction en kwam op de lijst van tien beste boeken van 2021 van de <i>Washington Post</i>.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Verschillende recensenten wezen erop dat de kinderen buiten Marion en Perry minder scherp worden neergezet. <i>Vulture</i> noemde de overige Hildebrandts op precies dezelfde manier saai: koppig, bekrompen, besluiteloos en risicomijdend.</p>
+      <p>Kathryn Schulz constateerde dat Franzens proza losser en slapper is geworden, en dat hele hoofdstukken zonder een werkelijk gedenkwaardige zin blijven. De omvang van 592 bladzijden voor het eerste deel van een trilogie riep bij sommige lezers de vraag op of de opzet de lengte rechtvaardigt.</p>
+      <p>Doordat het boek als eerste deel van een trilogie is opgezet, blijven de belangrijkste conflicten, Russ en Marions huwelijk, Perry's verslaving, onopgelost aan het einde; wie op een afgeronde roman rekent, krijgt in plaats daarvan een begin.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Crossroads</i> (Farrar, Straus and Giroux, New York, 5 oktober 2021, 592 blz., ISBN 978-0-374-18117-8), het eerste deel van de beoogde trilogie <i>A Key to All Mythologies</i>. De Nederlandse vertaling van Gerda Baardman en Jan de Nijs verscheen als <i>Kruispunt</i> bij Prometheus, Amsterdam, september 2021 (576 blz., ISBN 9789044639186). Van Franzen zijn ook zijn eerdere romans <i>De correcties</i>, <i>Vrijheid</i> en <i>Zuiverheid</i> in het Nederlands verschenen, telkens in vertaling van hetzelfde vertalersduo.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kerst 1971, New Prospect, Illinois. Predikant Russ Hildebrandt is uit de gunst geraakt bij de jeugdgroep Crossroads van zijn eigen kerk, waar de jongere en populairdere Rick Ambrose het voor het zeggen heeft. Terwijl zijn huwelijk met Marion verstart, zoekt Russ toenadering tot een weduwe uit zijn gemeente.</p><p>Elk van hun vier kinderen heeft een eigen crisis. Clem overweegt zijn vrijstelling van de dienstplicht op te geven en naar Vietnam te gaan, Becky maakt een religieuze bekering door na een reis naar Europa, Perry, begaafd en onrustig, glijdt af naar cocaine, en de jongste, Judson, blijft grotendeels buiten beeld van de eigen crises van zijn ouders en oudere broers en zus.</p><p>Marion, wier rustige rol als domineesvrouw een verzwegen verleden verbergt, gaat in het geheim in therapie. Franzen vertelt om de beurt vanuit elk gezinslid en laat zien hoe geloof, verlangen en schuld door één huishouden heen lopen zonder dat de kerk daar een uitweg voor biedt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Verenigde Staten</li><li>familie</li><li>geloof</li><li>jaren zeventig</li><li>moraal</li><li>generatieconflict</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="10"><a href="10.html">Ten oosten van Eden</a>. Steinbeck volgt eveneens een familie waarin morele keuzes van de ouders doorwerken in de kinderen, over een langere tijdsspanne dan Franzens ene gezinsjaar.</li>
+          <li value="1402"><a href="1402.html">Honderd jaar eenzaamheid</a>. Garcia Marquez toont een familie die generaties lang dezelfde patronen herhaalt; Franzen beperkt zich tot een gezin en enkele jaren, maar deelt de vraag hoeveel een kind aan zijn ouders ontkomt.</li>
+          <li value="2087"><a href="2087.html">In ongenade</a>. Coetzee onderzoekt, in een heel andere setting, dezelfde vraag die bij Russ en Marion speelt: wat een op het oog moreel mens zichzelf toestaat te doen en hoe hij dat voor zichzelf verantwoordt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

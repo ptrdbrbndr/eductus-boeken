@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Book of Runes &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Blum stelt dat een instrument voor divinatie zijn waarde niet ontleent aan historische authenticiteit, maar aan het vermogen om de gebruiker een moment…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2080">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2080 &middot; Filosofie en mystiek</p>
+    <h1>The Book of Runes</h1>
+    <p class="lede">Ralph H. Blum, 1982</p>
+    <p class="stats">
+      <span><b>1472</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2080"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Blum stelt dat een instrument voor divinatie zijn waarde niet ontleent aan historische authenticiteit, maar aan het vermogen om de gebruiker een moment buiten het eigen redeneren te plaatsen. Hij biedt de runen niet aan als gereconstrueerd Germaans systeem, maar als een actueel hulpmiddel dat de vorm van een oud alfabet leent om een intuïtief proces op gang te brengen. Zijn stelling is dat de vraag die iemand stelt en de aandacht waarmee het antwoord gelezen wordt meer werk verrichten dan de herkomst van de tekens. Elke rune krijgt daarom een kort, persoonlijk geschreven commentaar dat eerder als spiegel dan als voorspelling is bedoeld, en dat de lezer telkens terugwijst naar de eigen situatie in plaats van naar een lot dat van buitenaf wordt vastgesteld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Blums weg naar de runen</h3>
+      <p>Blum werkte volgens eigen opgave sinds 1977 met runen als hulpmiddel bij zelfcounseling, na eerder boeken te hebben geschreven over uiteenlopende onderwerpen, van UFO's tot de Tao Te Ching. Hij vertelt in de inleiding hoe hij, zonder opleiding in Germaanse taalkunde of runologie, de tekens ging gebruiken als aanleiding voor gesprekken met zichzelf en met cliënten.</p>
+      <p>R. Buckminster Fuller schreef bij verschijning dat Blum 'de wedergeboorte van een oud orakel' had begeleid, een aanbeveling die op latere drukken is blijven staan en die de toon zet: het boek presenteert zich niet als filologisch werk maar als praktisch instrument.</p>
+      <h3>Vijfentwintig tekens</h3>
+      <p>De kern van het systeem is het Elder Futhark, het vierentwintig-tekens tellende alfabet dat van de tweede tot de achtste eeuw in Germaanse gebieden werd gebruikt om te schrijven. Blum voegt daar een vijfentwintigste teken aan toe, een leeg schijfje dat hij Odins rune of de blanco rune noemt.</p>
+      <p>Voor die blanco rune bestaat geen enkel precedent in de overgeleverde runentraditie; de eerste tekst waarin hij voorkomt is dit boek uit 1982. Blum omschrijft hem als 'het onkenbare', het teken van het goddelijke in menselijke aangelegenheden.</p>
+      <h3>Duiding zonder historische bron</h3>
+      <p>Voor de betekenis van de vierentwintig overgeleverde runen kon Blum niet terugvallen op een vaste, algemeen aanvaarde divinatorische traditie: het historische bewijs voor runenwerpen bij de oude Germanen bestaat vrijwel uitsluitend uit één korte passage bij de Romeinse geschiedschrijver Tacitus, die spreekt over het werpen van gemerkte houtstrips, niet specifiek over de runen van het Futhark.</p>
+      <p>Blum schreef zijn duidingen daarom zelf, en gaf later toe dat hij zich voor de vorm liet lenen door de manier waarop toenmalige Engelse edities van de Chinese I Ching haar hexagrammen toelichten: een korte, orakelachtige tekst per teken, gevolgd door een praktische uitleg.</p>
+      <h3>Het orakel raadplegen</h3>
+      <p>Het boek beschrijft verschillende manieren om de stenen te gebruiken: een enkele trekking voor een dagvraag, en een driewerp waarbij de eerste steen de situatie zoals die is aangeeft, de middelste de aangewezen koers en de derde de nieuwe situatie die daaruit voortkomt.</p>
+      <p>Van de vierentwintig overgeleverde tekens krijgen er zestien een aparte betekenis wanneer ze omgekeerd worden getrokken; de overige negen lezen bij Blum in beide standen hetzelfde, wat in latere kritiek is aangewezen als een inconsistentie in het systeem.</p>
+      <h3>Ontvangst en verkoop</h3>
+      <p>Het boek bleef na 1982 ononderbroken in druk en wordt door de uitgever aangegeven als goed voor meer dan 900.000 verkochte exemplaren. Blum bracht in 1987 een herziene versie uit onder de titel <i>The New Book of Runes</i>, en een vijfentwintigjarige jubileumeditie volgde jaren later bij dezelfde uitgeverij.</p>
+      <p>Het commerciële succes viel samen met een bredere belangstelling voor divinatie-instrumenten in de Amerikaanse New Age-beweging van de jaren tachtig, waarin ook tarotkaarten en astrologische software een groter publiek bereikten dan voorheen. De bijgeleverde stenen, verpakt in een linnen buideltje, maakten het boek tevens tot een cadeauartikel, wat de verkoop verder heeft gesteund.</p>
+      <h3>Weerwoord uit de runenwereld</h3>
+      <p>Beoefenaars van het moderne heidendom en auteurs die zich wel op filologische bronnen baseren, zoals Thomas Karlsson, wijzen Blums systeem doorgaans af als een Amerikaanse uitvinding zonder wortels in de Germaanse overlevering, soms aangeduid als het 'Blumic Futhark'. Blum zelf heeft dat verwijt nooit weersproken; hij noemde zijn aanpak steeds 'geïnspireerd', niet gereconstrueerd.</p>
+      <p>Die tegenstelling is in de decennia na 1982 niet verdwenen: wie de runen als schriftsysteem met een aantoonbare geschiedenis bestudeert en wie ze als hedendaags orakel gebruikt, blijken doorgaans twee gescheiden lezerspubliek te vormen, met weinig overlap in de bronnen waarop zij zich beroepen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Elder Futhark</td><td>Het oudste Germaanse runenalfabet van vierentwintig tekens, in gebruik van ongeveer de tweede tot de achtste eeuw, waarop Blum zijn systeem baseert.</td></tr>
+          <tr><td class="term">Blanco rune</td><td>Het vijfentwintigste, ongemerkte teken dat Blum zelf aan het systeem toevoegde en dat geen precedent heeft in de overgeleverde runentraditie.</td></tr>
+          <tr><td class="term">Odins rune</td><td>Blums andere naam voor de blanco rune, door hem omschreven als het teken van het onkenbare en van het goddelijke in menselijke aangelegenheden.</td></tr>
+          <tr><td class="term">Omgekeerde duiding</td><td>De gewoonte om een rune anders te lezen wanneer hij ondersteboven wordt getrokken; bij Blum geldt dit voor zestien van de vierentwintig overgeleverde tekens.</td></tr>
+          <tr><td class="term">Driewerp</td><td>De spreiding van drie stenen waarbij de eerste de situatie, de middelste de aangewezen koers en de derde de nieuwe situatie toont.</td></tr>
+          <tr><td class="term">Geïnspireerde duiding</td><td>Blums eigen aanduiding voor zijn werkwijze: teksten die hij zelf schreef en niet uit historische bronnen reconstrueerde.</td></tr>
+          <tr><td class="term">Casting</td><td>Het trekken of werpen van de runenstenen uit het bijgeleverde buideltje als aanleiding voor een duiding.</td></tr>
+          <tr><td class="term">Blumic Futhark</td><td>De term waarmee latere runenkenners Blums systeem aanduiden om het te onderscheiden van filologisch onderbouwde runentradities.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dat Blum zijn duidingen modelleerde naar de I Ching is door hem zelf beschreven en is in de vorm van het boek te herkennen: elke rune krijgt, net als een hexagram, een korte orakeltekst gevolgd door een praktische toelichting, in plaats van een filologische omschrijving van de historische betekenis van het teken als letter.</p>
+      <p>De historische basis voor runenwerpen bij de Germanen is dun. Het enige antieke getuigenis is een passage in de <i>Germania</i> van Tacitus over het werpen van gemerkte houtstrips voor een voorspelling; die passage noemt geen runen van het Futhark en dateert van vóór het ontstaan van dat alfabet zoals we het kennen.</p>
+      <p>Dat de blanco rune Blums eigen vinding is en geen oudere bron heeft, is nagegaan door runenkenners die de vroegste schriftelijke vermelding van een 'leeg' teken in deze uitgave uit 1982 plaatsen; geen eerder gedrukt of gegraveerd runenstelsel bevat een vijfentwintigste, ongemerkt teken.</p>
+      <p>De commerciële ontvangst is objectief te volgen: het boek bleef ruim veertig jaar in druk, kreeg een herziene editie en een jubileumuitgave, en de bijgeleverde stenen worden nog altijd als los product verkocht naast het boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de claim van oudheid in de ondertitel zelf. Wie het boek als handboek voor een 'ancient oracle' koopt, krijgt in de praktijk een twintigste-eeuws zelfhulpsysteem waarvan de duidingsteksten en het idee van een blanco rune geen aantoonbare band hebben met wat er werkelijk over Germaanse runenmagie bekend is.</p>
+      <p>De omgekeerde duidingen zijn intern niet consistent: sommige runen zijn symmetrisch en kunnen niet anders getrokken worden, andere krijgen bij Blum wel een aparte betekenis in omgekeerde stand zonder dat daar een taalkundig of historisch argument voor bestaat, wat de indruk versterkt dat het onderscheid naar smaak is toegevoegd.</p>
+      <p>Vanuit de moderne heidense beweging is bezwaar gemaakt tegen het losmaken van een alfabet met een concrete geschiedenis als schriftsysteem van die geschiedenis, om het vervolgens als anoniem 'oud orakel' aan een massamarkt te verkopen; dat verwijt van decontextualisering keert in besprekingen van het boek voortdurend terug.</p>
+      <p>Zoals bij vrijwel elk divinatie-instrument geldt dat een duiding niet te weerleggen is: elke uitkomst kan achteraf op de vraagsteller worden toegepast. Het boek biedt geen manier om na te gaan of een lezing meer dan toevallig treffend was, en de waarde ervan blijft daarmee beperkt tot wat de gebruiker er zelf therapeutisch aan ontleent.</p>
+      <p>Ten slotte biedt het boek geen apparaat om de eigen bronnen te controleren: er staat geen literatuurlijst of verantwoording in over welke Germaanse of andere teksten Blum heeft geraadpleegd, wat het voor een lezer onmogelijk maakt om zijn claims over de oorsprong van de duidingen zelf na te trekken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer voor het trekken een concrete vraag en schrijf op wat de tekst oproept voordat de bijgeleverde duiding gelezen wordt.</li>
+        <li>Gebruik het driewerp om een situatie, een mogelijke koers en een denkbare uitkomst apart van elkaar te bekijken in plaats van één antwoord te zoeken.</li>
+        <li>Lees de blanco rune niet als voorspelling maar als aanleiding om de gestelde vraag zelf te herzien.</li>
+        <li>Bewaar het onderscheid tussen wat het boek als historisch feit presenteert en wat Blum zelf als geïnspireerd, niet gereconstrueerd, heeft aangeduid.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Book of Runes: A Handbook for the Use of an Ancient Oracle</i> (St. Martin's Press, New York, 1982), verschenen met een linnen buideltje van vijfentwintig ronde runenstenen. Blum bracht in 1987 een herziene versie uit als <i>The New Book of Runes</i>, en het boek is sindsdien ononderbroken herdrukt; de vijfentwintigjarige jubileumeditie verscheen bij St. Martin's Griffin (New York, 9780312536763). De Nederlandse vertaling, <i>Orakel der runen</i> van Sonja Muller, verscheen bij Uitgeverij De Ring met illustraties van J. Salerno (119 blz., ISBN 9789080050914); handelscatalogi noemen voor deze druk zowel 1990 als 1995, en welk jaartal juist is, is niet met zekerheid vast te stellen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ralph Blum, cultureel antropoloog, bouwt een orakelsysteem rond het Elder Futhark, het oudste Germaanse runenalfabet van vierentwintig tekens, en voegt daar een vijfentwintigste, ongemerkt teken aan toe dat hij de blanco rune noemt. Wie het boek gebruikt trekt een steen uit het buideltje, of legt een spreiding van drie, en leest bij elk teken een kort geschreven duiding.</p><p>Blum verbergt niet dat zijn duidingen geen overlevering uit de Germaanse oudheid zijn. Hij schreef ze zelf, naar eigen zeggen geïnspireerd door de manier waarop de I Ching haar hexagrammen uitlegt, en presenteert het geheel als een hedendaags instrument voor zelfreflectie dat toevallig de vorm van een oud schrift draagt.</p><p>Het boek werd na verschijnen in 1982 een blijvende bestseller in de Amerikaanse New Age-markt en bracht het gebruik van runenstenen als raadpleegbaar orakel bij een breed publiek, los van de kleine kring van historisch geschoolde runenkenners die het systeem sindsdien bestrijden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>runen</li><li>orakel</li><li>divinatie</li><li>Odin</li><li>I Ching</li><li>zelfhulp</li><li>intuïtie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1217"><a href="1217.html">Nightside of the Runes</a>. Karlsson vertegenwoordigt de tegenpool: een uitleg van de runen die zich wel op filologische en occulte bronnen baseert en Blums systeem als oppervlakkig verwerpt.</li>
+          <li value="2039"><a href="2039.html">De I Tjing voor de 21ste eeuw</a>. De I Ching is het systeem waarnaar Blum zijn duidingsvorm modelleerde, met een orakeltekst per teken gevolgd door een praktische toelichting.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Jung en zijn mede-auteurs behandelen hoe symbolen betekenis krijgen los van hun oorspronkelijke context, een mechanisme dat ook Blums hergebruik van de runen verklaart.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

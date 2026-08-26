@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bliss Brain &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Church stelt dat piektoestanden zoals die optreden bij ervaren mediteerders geen tijdelijke stemming zijn maar het brein op de langere termijn ombouwen:…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2109">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2109 &middot; Brein en lichaam</p>
+    <h1>Bliss Brain</h1>
+    <p class="lede">Dawson Church, 2020</p>
+    <p class="stats">
+      <span><b>1436</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2109"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Church stelt dat piektoestanden zoals die optreden bij ervaren mediteerders geen tijdelijke stemming zijn maar het brein op de langere termijn ombouwen: stresscircuits die voortdurend worden aangesproken slinken, terwijl een netwerk dat hij het verlichtingscircuit noemt, verbonden met rust, compassie en creativiteit, juist groeit. Zijn stelling is dat dit geen bijzondere gave van monniken is maar een kwestie van herhaling, en dat een kortere, samengestelde oefening als EcoMeditation daarom al binnen enkele weken meetbare veranderingen kan opleveren in hersengolven en in de balans tussen stress- en herstelhormonen. Het boek voert die stelling aan met verwijzingen naar hersenscans en hormoonmetingen uit gepubliceerd onderzoek, niet alleen naar ervaringen van beoefenaars zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het brein van de monnik</h3>
+      <p>Church opent met onderzoek van Richard Davidson en collega's aan de universiteit van Wisconsin, die de hersenactiviteit maten van ervaren Tibetaanse mediteerders tijdens een compassie-oefening. Bij hen registreerden de onderzoekers een gamma-golfactiviteit die veel hoger lag dan bij onervaren proefpersonen, een verschil dat volgens Church niet aangeboren is maar het gevolg van duizenden uren oefening.</p>
+      <p>Hij gebruikt die bevinding om zijn centrale vraag te stellen: als het brein van een monnik met tienduizenden meditatie-uren aantoonbaar anders werkt, welk deel van dat verschil is dan met een veel kortere, gerichte oefening te bereiken voor wie geen kloosterleven kan of wil leiden.</p>
+      <h3>Het verlichtingscircuit tegenover het stresscircuit</h3>
+      <p>Het boek beschrijft twee netwerken die volgens Church tegengesteld werken. Het stresscircuit, aangestuurd vanuit de amygdala, houdt iemand alert op gevaar en raakt volgens Church door chronische stress overactief. Het verlichtingscircuit, dat hij koppelt aan gebieden als de prefrontale cortex, hangt samen met rust, verbondenheid en creativiteit.</p>
+      <p>Church stelt dat beide netwerken zich voeden met herhaling: wie voortdurend stress ervaart, traint het stresscircuit, wie geregeld in een piektoestand komt, traint het andere. Meditatie is in die lezing geen ontspanningsoefening naast het gewone leven maar een vorm van training die het evenwicht tussen de twee netwerken verschuift.</p>
+      <h3>Flow als tussenstap</h3>
+      <p>Voor lezers zonder meditatie-ervaring beschrijft Church flow, de toestand van volledige concentratie die sporters en kunstenaars kennen, als toegankelijker ingang. Flow en de piektoestanden die ervaren mediteerders bereiken delen volgens hem dezelfde onderliggende hersenpatronen, waaronder een verminderde activiteit van het default mode network, het netwerk dat actief is tijdens piekeren en zelfreflectie.</p>
+      <p>Church bespreekt onderzoek van onder meer Judson Brewer waarin bij ervaren mediteerders juist dat netwerk minder actief bleek, wat volgens hem verklaart waarom mediteerders minder last hebben van malende gedachten.</p>
+      <h3>EcoMeditation</h3>
+      <p>Het middendeel van het boek beschrijft EcoMeditation, de methode die Church zelf ontwikkelde door zeven uiteenlopende technieken, waaronder ademhalingsoefeningen, het aantikken van acupressuurpunten en visualisatie, samen te voegen tot een routine van enkele minuten. Hij baseert de keuze voor die zeven onderdelen op metingen bij deelnemers aan zijn eigen workshops, waarbij hersenactiviteit voor en na de oefening werd vergeleken.</p>
+      <p>Church stelt dat acht weken oefenen, twaalf minuten per dag, al meetbare verschuivingen oplevert in gammagolven en in de verhouding tussen cortisol en DHEA, twee hormonen die hij als graadmeter voor stress en herstel gebruikt.</p>
+      <h3>De zeven neurochemicaliën van extase</h3>
+      <p>Church beschrijft zeven hormonen en neurotransmitters die tijdens piektoestanden vrijkomen, waaronder anandamide, dat hij het bliss-molecuul noemt omdat het aangrijpt op dezelfde receptoren als de werkzame stof in cannabis. Hij bespreekt per stof welk lichamelijk of geestelijk effect ermee samenhangt, van een verminderd pijngevoel tot een gevoel van verbondenheid.</p>
+      <h3>De één procent</h3>
+      <p>Church wijdt een hoofdstuk aan wat hij de één procent noemt: een kleine groep beoefenaars, van monniken tot ervaren yogi's, bij wie hersenmetingen structureel afwijken van het gemiddelde. Hij gebruikt hun resultaten niet om te suggereren dat gewone lezers hetzelfde niveau kunnen bereiken, maar om te laten zien in welke richting herhaalde training het brein verplaatst, ook als het eindpunt voor de meeste lezers ver weg blijft.</p>
+      <p>Daarbij plaatst hij een kanttekening: bij sommige van deze beoefenaars is het onduidelijk in hoeverre de gemeten verschillen het gevolg zijn van jarenlange training dan wel van een aanleg die hen er al toe bracht om te gaan mediteren, een vraag die het boek volgens hemzelf niet met de beschikbare data kan beantwoorden.</p>
+      <h3>Van labresultaat naar dagelijkse gewoonte</h3>
+      <p>In het laatste deel vertaalt Church de bevindingen naar een oefenschema en bespreekt hij casussen van deelnemers aan zijn onderzoek, onder wie veteranen met posttraumatische stressklachten. Hij besluit met de stelling dat de vaardigheid om een piektoestand op te roepen, net als een spier, met herhaling sterker wordt en dat het bereik ervan niet is voorbehouden aan wie decennia in een klooster doorbrengt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">EcoMeditation</td><td>De door Church samengestelde meditatiemethode die zeven technieken combineert tot een routine van enkele minuten.</td></tr>
+          <tr><td class="term">Verlichtingscircuit</td><td>Het netwerk dat Church verbindt met rust, compassie en creativiteit, en dat volgens hem groeit door herhaalde piektoestanden.</td></tr>
+          <tr><td class="term">Default mode network</td><td>Het hersennetwerk dat actief is tijdens piekeren en zelfreflectie en dat bij ervaren mediteerders minder actief blijkt.</td></tr>
+          <tr><td class="term">Gamma-golven</td><td>Hersengolven met een hoge frequentie die Church koppelt aan aandacht en aan de piektoestanden van ervaren mediteerders.</td></tr>
+          <tr><td class="term">Bliss-molecuul</td><td>De term waarmee Church anandamide aanduidt, een stof die op dezelfde receptoren aangrijpt als de werkzame stof in cannabis.</td></tr>
+          <tr><td class="term">Cortisol-DHEA-ratio</td><td>De verhouding tussen het stresshormoon cortisol en het herstelhormoon DHEA, die Church als maat voor de balans tussen stress en herstel gebruikt.</td></tr>
+          <tr><td class="term">Piektoestand</td><td>Een kortdurende ervaring van intense concentratie, rust of verbondenheid, die Church onderscheidt van de blijvende hersenverandering die pas na herhaling optreedt.</td></tr>
+          <tr><td class="term">Flow</td><td>De toestand van volledige concentratie die Church als toegankelijke ingang tot dezelfde hersenpatronen als diepe meditatie beschrijft.</td></tr>
+          <tr><td class="term">De één procent</td><td>Church benaming voor de kleine groep zeer ervaren beoefenaars bij wie hersenmetingen structureel afwijken van het gemiddelde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Church bouwt het boek op gepubliceerd onderzoek naar hersenactiviteit bij mediteerders, waaronder de veelgeciteerde studies van Richard Davidson naar gammagolven bij Tibetaanse monniken en onderzoek van Judson Brewer naar het default mode network. Hij is zelf al twintig jaar betrokken bij klinisch onderzoek, onder meer naar de effecten van Emotional Freedom Techniques op cortisolniveaus bij veteranen met posttraumatische stress, en gebruikt vergelijkbare metingen om de effecten van EcoMeditation te onderbouwen.</p>
+      <p>De claim dat acht weken oefenen meetbare hersenverschuivingen oplevert, steunt op metingen bij deelnemers aan Churches eigen workshops en onderzoeksprojecten, niet op een daarvan losstaande, onafhankelijk gepubliceerde klinische studie met een controlegroep en dezelfde meetmethode als bij de Tibetaanse monniken.</p>
+      <p>De studies naar gammagolven bij ervaren mediteerders, uitgevoerd door onderzoekers als Davidson aan de universiteit van Wisconsin, zijn onafhankelijk van Church gepubliceerd in vakbladen en meermaals herhaald met andere groepen ervaren beoefenaars; het is vooral de vertaalslag naar een kortere, eigen methode die uit Churches eigen onderzoekslijn komt.</p>
+      <p>Church verwijst voor de effecten van chronische stress op het lichaam naar bredere literatuur over de amygdala en de hypothalamus-hypofyse-bijnieras, het systeem dat cortisol aanmaakt bij aanhoudende dreiging; die achtergrondkennis is buiten dit boek breed onderzocht en helpt zijn claim over slinkende stresscircuits te plaatsen in een groter kader dan alleen zijn eigen metingen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar betreft de generalisatie: de gammagolfstudies bij Tibetaanse monniken zijn uitgevoerd bij mensen met tienduizenden uren meditatie-ervaring, terwijl Church de bevindingen gebruikt om een oefening van twaalf minuten per dag te onderbouwen. Het boek maakt niet altijd scherp onderscheid tussen wat bij extreem ervaren mediteerders is gemeten en wat bij beginners met een kortere, samengestelde methode aannemelijk wordt gemaakt.</p>
+      <p>Church is zelf ontwikkelaar van EcoMeditation en heeft een commercieel belang bij de verspreiding ervan via workshops, opleidingen en aanverwante producten; de metingen waarop de effectiviteitsclaims steunen komen voor een deel uit zijn eigen onderzoeksprogramma en zijn niet stuk voor stuk onafhankelijk gerepliceerd.</p>
+      <p>De term bliss-molecuul voor anandamide is een populariserende vereenvoudiging; de stof speelt een rol in meerdere lichaamsprocessen en het boek besteedt weinig aandacht aan de vraag hoe specifiek de link met meditatie precies is.</p>
+      <p>Het boek behandelt correlatie en oorzaak niet altijd even scherp gescheiden: dat ervaren mediteerders andere hersenpatronen vertonen, bewijst niet zonder meer dat meditatie die patronen veroorzaakt in plaats van dat mensen met die patronen eerder geneigd zijn om te blijven mediteren.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies een vaste tijd van twaalf minuten per dag voor een ademhalings- of meditatieoefening.</li>
+        <li>Leg voor jezelf vast hoe je je voor en na de oefening voelt, als eigen, informele meting.</li>
+        <li>Bouw de oefening minstens acht weken vol voordat je een oordeel velt over het effect.</li>
+        <li>Verwacht geen resultaten die vergelijkbaar zijn met die van monniken met duizenden oefenuren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Bliss Brain: The Neuroscience of Remodeling Your Brain for Resilience, Creativity, and Joy</i> (Hay House, Carlsbad, 2020, 368 blz., ISBN 9781401957759). Er bestaat geen Nederlandse vertaling van dit boek; van Church is wel <i>The Genie in Your Genes</i> vertaald, als <i>Je geniale genen</i> door Gerard Grasman, uitgegeven bij Ankh-Hermes (2010, ISBN 9789020203455).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Church, onderzoeker en auteur die twintig jaar besteedde aan studies naar posttraumatische stress, stelt dat langdurige meditatie het brein meetbaar verandert. Hij citeert onder meer het werk van neurowetenschapper Richard Davidson, die bij ervaren Tibetaanse monniken tijdens meditatie een sterk verhoogde gamma-golfactiviteit registreerde, een signaal dat in verband wordt gebracht met aandacht en bewustzijn.</p><p>Uit die en andere studies destilleert Church EcoMeditation, een methode die zeven bestaande technieken combineert tot een kortere routine. Hij stelt dat een paar weken oefenen al meetbare verschillen oplevert in hersenactiviteit en in hormonen als cortisol en DHEA, en bespreekt daarnaast wat hij het bliss-molecuul noemt: anandamide, een stof die in het lichaam vergelijkbare effecten heeft als de werkzame stof in cannabis.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>meditatie</li><li>brein</li><li>neurowetenschap</li><li>gamma-golven</li><li>stress</li><li>flow</li><li>ecomeditatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1513"><a href="1513.html">You Are the Placebo</a>. Dispenza beschrijft vanuit een vergelijkbaar kader hoe gedachten en meditatie het lichaam beïnvloeden, met minder nadruk op hersenscans.</li>
+          <li value="1545"><a href="1545.html">Becoming Supernatural</a>. Becoming Supernatural van Dispenza werkt hetzelfde thema uit met een sterkere nadruk op groepsmetingen tijdens workshops.</li>
+          <li value="1524"><a href="1524.html">Eindeloos bewustzijn</a>. Van Lommel onderzoekt bewustzijn en brein vanuit de andere kant, via bijna-doodervaringen in plaats van meditatie.</li>
+          <li value="2111"><a href="2111.html">Innerlijke rust met EFT</a>. Church is behalve meditatie-onderzoeker ook een belangrijke onderzoeker van EFT, de techniek die in dit boek van Toeset centraal staat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

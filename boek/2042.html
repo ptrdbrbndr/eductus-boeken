@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tien geboden voor innerlijke rust &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thooft stelt dat de meeste onrust niet ontstaat door te weinig tijd, maar door de eis die mensen zichzelf opleggen om voortdurend te kiezen, te groeien en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2042">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2042 &middot; Levenskunst</p>
+    <h1>Tien geboden voor innerlijke rust</h1>
+    <p class="lede">Lisette Thooft, 2003</p>
+    <p class="stats">
+      <span><b>983</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2042"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thooft stelt dat de meeste onrust niet ontstaat door te weinig tijd, maar door de eis die mensen zichzelf opleggen om voortdurend te kiezen, te groeien en te presteren. Haar tien geboden keren de gangbare zelfhulpformule om: in plaats van meer te doen om rust te vinden, moet de lezer ophouden met een aantal dingen die als vanzelfsprekend gelden, zoals de plicht om altijd de beste keuze te maken of zichzelf te blijven ontwikkelen. De onderbouwing is niet empirisch. Thooft werkt vanuit eigen ervaring en observatie als journalist en columnist, en presenteert haar geboden als levenswijsheid, niet als geteste methode.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Niet kiezen, niet groeien</h3>
+      <p>De eerste twee geboden keren zich tegen twee aannames van de zelfontplooiingscultuur: dat je voortdurend de juiste keuze moet maken, en dat groei altijd goed is. Thooft stelt dat 'niet kiezen' vaak betekent doen wat bij iemand past zonder dat aan een besluit op te hangen, en dat 'niet streven naar groei' ruimte laat voor perioden van rust of stilstand die net zo nuttig kunnen zijn als vooruitgang.</p>
+      <p>Ze illustreert dat met voorbeelden uit haar eigen werk als journalist: momenten waarop ze zich verplicht voelde een volgende stap te zetten in haar loopbaan, terwijl ze achteraf constateert dat stilstaan op dat moment meer opleverde dan de gejaagde volgende stap.</p>
+      <h3>Geen verboden, haalbare doelen</h3>
+      <p>Het derde gebod waarschuwt tegen zelfopgelegde verboden, regels die iemand zichzelf stelt en die vooral schuldgevoel opleveren als ze niet lukken. Het vierde gebod pleit voor doelen die op de dag zelf haalbaar zijn, in plaats van vage voornemens die zich steeds naar de toekomst verschuiven.</p>
+      <p>Thooft noemt als voorbeeld het voornemen om 'gezonder te gaan leven', een doel dat volgens haar juist onrust oplevert omdat het nooit als afgerond kan gelden; ze stelt daar doelen tegenover die aan het eind van de dag simpelweg wel of niet gehaald zijn.</p>
+      <h3>Dubbele tijd nemen, genieten van bezit</h3>
+      <p>Thooft raadt aan structureel twee keer zoveel tijd voor iets in te plannen als op het eerste gezicht nodig lijkt, als tegenwicht tegen de gewoonte om taken te krap te plannen. Het gebod daarna gaat over wat iemand al heeft: pas als je geniet van wat er is, ontstaat er volgens haar rust, in plaats van rust op te schorten tot na de volgende aanschaf of prestatie.</p>
+      <h3>Gewone dingen doen, alles omdraaien</h3>
+      <p>Een volgend gebod pleit voor het uitvoeren van eenvoudige, alledaagse taken als tegenwicht tegen een hoofd vol plannen. Het gebod om 'alles om te draaien' vraagt de lezer een probleem eens vanuit de tegenovergestelde aanname te bekijken, bijvoorbeeld door te veronderstellen dat een ergernis juist nuttig is, om te zien wat dat oplevert.</p>
+      <h3>Echte problemen oplossen, loslaten</h3>
+      <p>De laatste geboden onderscheiden ingebeelde problemen van werkelijke problemen en vragen om alleen de laatste serieus aan te pakken. Het slotgebod is loslaten: erkennen dat niet alles op te lossen of te plannen is, en dat een deel van de onrust verdwijnt zodra iemand ophoudt dat te proberen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De tien geboden</td><td>De structuur van het boek: tien korte, elk een hoofdstuk lange richtlijnen voor innerlijke rust, losjes ontleend aan de vorm van de bijbelse tien geboden.</td></tr>
+          <tr><td class="term">Niet kiezen</td><td>Het eerste gebod: doen wat bij iemand past vanuit wie hij is, in plaats van elke handeling als een af te wegen keuze te ervaren.</td></tr>
+          <tr><td class="term">Niet streven naar groei</td><td>Het tweede gebod: groei niet als permanente opdracht zien, maar toestaan dat een periode van rust of stilstand evenveel waard is.</td></tr>
+          <tr><td class="term">Haalbare doelen voor vandaag</td><td>Het advies om doelen zo te formuleren dat ze op de dag zelf te behalen zijn, in plaats van vage voornemens voor de toekomst.</td></tr>
+          <tr><td class="term">Dubbele tijd nemen</td><td>De vuistregel om voor een taak structureel twee keer zoveel tijd te reserveren als de eerste inschatting, om chronische haast te doorbreken.</td></tr>
+          <tr><td class="term">Alles omdraaien</td><td>De oefening om een probleem vanuit de tegenovergestelde veronderstelling te bekijken, om te zien welke nieuwe blik dat oplevert.</td></tr>
+          <tr><td class="term">Loslaten</td><td>Het tiende en laatste gebod: erkennen dat niet elk probleem oplosbaar of beheersbaar is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Thooft schrijft vanuit haar rol als journalist en huisfilosoof van Happinez, een positie waarin ze al decennia persoonlijke columns en beschouwingen over spiritualiteit en levenskunst publiceert; het boek bouwt op die ervaring, niet op onderzoek naar stress of tijdsbeleving.</p>
+      <p>Dat het boek in 2011 opnieuw werd uitgegeven en in 2006 een Duitse vertaling kreeg, wijst op aanhoudende belangstelling voor het onderwerp onthaasten in die jaren, maar zegt niets over de effectiviteit van de geboden zelf.</p>
+      <p>De vorm van tien geboden is bewust ontleend aan het bijbelse model, wat past bij Thoofts bredere werk over spiritualiteit en levensbeschouwing; het boek presenteert zichzelf daarmee eerder als levenswijsheid in een herkenbare traditie dan als een nieuwe, op zichzelf staande theorie over tijd en rust.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek citeert geen onderzoek naar stress, tijdsbeleving of de werking van de aanbevolen gewoonten; elk gebod steunt op Thoofts eigen observatie en overtuiging. Voor lezers die op zoek zijn naar onderbouwde adviezen levert dat weinig meer op dan een persoonlijke mening, hoe consistent die ook is uitgewerkt.</p>
+      <p>Er zit een spanning in de opzet: het boek vraagt de lezer om niet voortdurend te kiezen en niet voortdurend aan zichzelf te werken, terwijl het zelf een keuze voorlegt, namelijk om deze tien geboden te volgen, en daarmee opnieuw een opgave aan zelfverbetering toevoegt aan het leven van de lezer.</p>
+      <p>Losse geboden, zoals minder haasten en genieten van wat je al hebt, komen in vrijwel elk boek over onthaasten terug; wat dit boek onderscheidt, is vooral de persoonlijke, columnistische toon van Thooft, niet een oorspronkelijke analyse van waar haast vandaan komt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Eerste uitgave in 2003; deze bespreking volgt de druk van Meulenhoff Boekerij, Amsterdam, 2011 (135 blz., ISBN 9789022537213). Volledige titel: <i>Tien geboden voor innerlijke rust: onthaasten en ontspannen in een samenleving met te weinig tijd</i>. Een Duitse vertaling verscheen in 2006 bij Urachhaus, Stuttgart, als <i>Zehn Gebote der inneren Ruhe</i>. Van Thooft, huisfilosoof van het tijdschrift Happinez, verscheen in het Nederlands verder onder meer <i>De hemel in je handen</i> (2022).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thooft, huisfilosoof van Happinez, schreef tien korte hoofdstukken die elk een gebod voor innerlijke rust behandelen, van niet kiezen en niet groeien tot alleen doelen stellen die vandaag haalbaar zijn.</p><p>Elk gebod krijgt een korte uitleg en persoonlijke voorbeelden uit haar eigen leven; het boek werkt met overtuiging en ervaring, niet met onderzoek of cijfers.</p><p>Het boek zet zich af tegen de haastcultuur en biedt tien vuistregels om, in plaats van meer te doen, juist met een aantal gewoonten te stoppen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>onthaasten</li><li>innerlijke rust</li><li>zelfhulp</li><li>tijd</li><li>stress</li><li>Nederlands</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman onderbouwt met filosofische argumenten waarom eindeloos plannen en optimaliseren juist onrust oplevert, iets wat Thooft vooral als persoonlijke observatie beschrijft.</li>
+          <li value="442"><a href="442.html">Meditations for Mortals</a>. Ook Burkemans latere boek biedt korte, dagelijkse overwegingen tegen de dwang om alles te bereiken, in een opzet die dicht bij Thoofts tien geboden ligt.</li>
+          <li value="109"><a href="109.html">Elke dag zelfzorg</a>. Mouton werkt vanuit dezelfde Nederlandse zelfzorgtraditie als Thooft, met dagelijkse gewoonten in plaats van geboden als vorm.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

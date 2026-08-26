@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De vorst &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Machiavelli's stelling is dat een vorst die zijn staat wil behouden zich niet mag laten leiden door hoe mensen zouden moeten handelen, maar door hoe zij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2114">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2114 &middot; Staat en vrijheid</p>
+    <h1>De vorst</h1>
+    <p class="lede">Niccolò Machiavelli, geschreven 1513</p>
+    <p class="stats">
+      <span><b>1361</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2114"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Machiavelli's stelling is dat een vorst die zijn staat wil behouden zich niet mag laten leiden door hoe mensen zouden moeten handelen, maar door hoe zij werkelijk handelen, en dat wie alleen volgens de traditionele deugden regeert eerder ten onder gaat dan wie bereid is daarvan af te wijken zodra de omstandigheden dat vragen. Politiek succes hangt voor hem af van het juiste evenwicht tussen virtù, de bekwaamheid en het optreden van de heerser zelf, en fortuna, het toeval dat de helft van menselijke zaken bepaalt. Het boek voert die stelling niet als abstracte ethiek aan maar als praktische handleiding, opgebouwd uit voorbeelden van vorsten die wonnen en verloren, met Cesare Borgia als het voorbeeld waarop Machiavelli het langst blijft hangen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Opdracht en aanleiding</h3>
+      <p>Machiavelli draagt het boek op aan Lorenzo de' Medici en presenteert het als het enige geschenk dat hij, ontslagen en van elk inkomen beroofd, nog te bieden heeft: zijn kennis van de daden van grote mannen, opgedaan in vijftien jaar dienst als ambtenaar van de Florentijnse republiek en in gesprekken met de vorsten die hij als gezant ontmoette.</p>
+      <p>De opdracht is tegelijk een sollicitatie. Machiavelli hoopt met het boek weer een functie bij de Medici te krijgen, iets wat tijdens zijn leven niet is gelukt.</p>
+      <h3>Soorten vorstendommen</h3>
+      <p>De eerste hoofdstukken zetten een indeling neer: erfelijke vorstendommen, die het makkelijkst te behouden zijn omdat de bevolking aan de heersende familie gewend is; nieuwe vorstendommen, die veel meer bekwaamheid vragen omdat er geen gewoonte van gehoorzaamheid bestaat; gemengde vorstendommen, waarin een nieuw gebied aan een bestaand rijk wordt toegevoegd; en kerkelijke vorstendommen, die Machiavelli als aparte categorie behandelt omdat religieus gezag ze op een andere manier in stand houdt.</p>
+      <p>Bij elke soort geeft hij voorbeelden uit zijn eigen tijd en uit de oudheid, van Lodewijk XII in Milaan tot Alexander de Grote in Perzië, om te laten zien welke fouten telkens tot verlies van het gebied leidden.</p>
+      <h3>Cesare Borgia als voorbeeld</h3>
+      <p>Een apart hoofdstuk is gewijd aan Cesare Borgia, hertog van Valentinois, die met de middelen van zijn vader paus Alexander VI een nieuw vorstendom in Romagna opbouwde. Machiavelli, die Borgia als Florentijns gezant persoonlijk observeerde, beschrijft hoe deze eerst een wrede gouverneur inzette om orde te scheppen, hem vervolgens liet terechtstellen om zich van de wreedheid te distantiëren, en zo tegelijk orde en populariteit won.</p>
+      <p>Borgia's val, na de onverwachte dood van zijn vader op het moment dat hijzelf ernstig ziek was, gebruikt Machiavelli als voorbeeld van hoe fortuna zelfs de bekwaamste vorst kan treffen.</p>
+      <h3>Militaire macht</h3>
+      <p>Drie hoofdstukken behandelen legers. Machiavelli waarschuwt met klem tegen huurlingen en hulptroepen: huurlingen vechten voor geld en lopen weg zodra het gevaarlijk wordt, hulptroepen van een bevriende mogendheid kunnen na de overwinning zelf een bedreiging worden.</p>
+      <p>Een vorst moet volgens hem over een eigen leger beschikken, samengesteld uit zijn eigen onderdanen, en zich persoonlijk in krijgskunde bekwamen, ook in vredestijd, omdat het verlies van een staat vrijwel altijd samenhangt met een tekortschietend leger.</p>
+      <h3>Het gedrag van de vorst</h3>
+      <p>In de bekendste hoofdstukken keert Machiavelli zich tegen de traditionele vorstenspiegels die een heerser aanraden altijd de deugden van vrijgevigheid, goedheid en trouw te tonen. Hij stelt dat een vorst er goed aan doet edel te schijnen zonder het in elke omstandigheid werkelijk te zijn, omdat wie zich strikt aan traditionele deugd houdt in een wereld vol minder scrupuleuze tegenstanders ten onder gaat.</p>
+      <p>Daaruit volgt zijn beroemdste formule: een vorst moet de sluwheid van de vos combineren met de kracht van de leeuw, want de leeuw kan zich niet tegen valstrikken beschermen en de vos niet tegen wolven. Even bekend is zijn afweging dat het veiliger is gevreesd dan bemind te worden, mits die vrees niet in haat omslaat, omdat liefde van onderdanen afhankelijk is van hun eigen wil terwijl vrees afhangt van de wil van de vorst zelf.</p>
+      <h3>Fortuna en de slotoproep</h3>
+      <p>Het voorlaatste hoofdstuk vergelijkt fortuna met een rivier die bij hoog water alles wegvaagt, maar waartegen dijken en dammen te bouwen zijn zolang het water laag staat. Machiavelli schat dat fortuna de helft van menselijke zaken bepaalt en laat de andere helft over aan virtù, zodat voorbereiding het toeval kan temperen zonder het te kunnen uitschakelen.</p>
+      <p>Het boek sluit af met een directe oproep aan de Medici om Italië, dat volgens Machiavelli sinds de Franse en Spaanse invasies zonder eigen leiding is, te bevrijden van buitenlandse overheersing. Deze toon wijkt sterk af van de analytische stijl van de eerdere hoofdstukken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Virtù</td><td>De bekwaamheid, vastberadenheid en het vermogen tot handelen van de vorst zelf, tegenover fortuna als externe factor.</td></tr>
+          <tr><td class="term">Fortuna</td><td>Het toeval en de omstandigheden buiten de wil van de vorst om, die volgens Machiavelli ongeveer de helft van de uitkomst bepalen.</td></tr>
+          <tr><td class="term">Nieuw vorstendom</td><td>Een gebied dat pas onder een nieuwe heerser komt en waar geen gewoonte van gehoorzaamheid bestaat, wat het moeilijker te behouden maakt dan een erfelijk vorstendom.</td></tr>
+          <tr><td class="term">Gemengd vorstendom</td><td>Een bestaand rijk waaraan een nieuw gebied is toegevoegd, met eigen problemen van taal, gewoonten en wetten.</td></tr>
+          <tr><td class="term">Vos en leeuw</td><td>Het beeld voor de combinatie van sluwheid, om valstrikken te herkennen, en kracht, om wolven af te schrikken, die een vorst nodig heeft.</td></tr>
+          <tr><td class="term">Eigen wapens tegenover huurtroepen</td><td>Machiavelli's onderscheid tussen een leger van eigen onderdanen en ingehuurde of geleende troepen, die hij als onbetrouwbaar beschouwt.</td></tr>
+          <tr><td class="term">Gevreesd of bemind</td><td>De afweging of een vorst beter geliefd of gevreesd kan zijn; Machiavelli kiest voor gevreesd zonder gehaat te worden.</td></tr>
+          <tr><td class="term">Ottimati en popolo</td><td>De twee groepen waarop een vorstendom altijd steunt, de kleine groep aanzienlijken en het bredere volk, met tegengestelde verlangens naar overheersen en niet-overheerst worden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Machiavelli schreef niet als buitenstaander over de politiek. Van 1498 tot 1512 was hij secretaris van de Tweede Kanselarij van de Florentijnse republiek, verantwoordelijk voor diplomatie en militaire zaken, en reisde hij als gezant naar het hof van Cesare Borgia, naar Lodewijk XII van Frankrijk en naar paus Julius II. De voorbeelden in het boek zijn grotendeels gebeurtenissen die hij zelf van nabij meemaakte.</p>
+      <p>Zijn analyse van Borgia's optreden in Romagna is te toetsen aan andere bronnen uit dezelfde periode; de terechtstelling van de gouverneur Remirro de Orco in 1502 wordt ook door andere kroniekschrijvers uit die jaren bevestigd, al verschillen de interpretaties van Borgia's motieven.</p>
+      <p>Het is een van de weinige politieke traktaten uit zijn tijd dat expliciet breekt met de vorstenspiegeltraditie die aan een heerser altijd christelijke deugd voorschrijft; die breuk zelf is historisch goed gedocumenteerd doordat het boek al in 1559 door de Katholieke Kerk op de Index van verboden boeken werd geplaatst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Al sinds de zeventiende eeuw wordt betwist of Machiavelli het boek werkelijk als advies voor tirannie bedoelde. Zijn andere hoofdwerk, de Discorsi, verdedigt juist de republiek als beste staatsvorm; filosofen als Spinoza en Rousseau opperden dat De vorst eerder een verhulde waarschuwing aan volkeren is over hoe heersers werkelijk te werk gaan dan een aanbeveling. Het boek zelf biedt geen uitsluitsel over die vraag.</p>
+      <p>De uitdrukking dat het doel de middelen heiligt komt niet letterlijk in de tekst voor; het is een latere samenvatting die aan Machiavelli is toegeschreven en zijn positie scherper en cynischer maakt dan wat hij zelf schrijft, waar de nadruk telkens ligt op wat werkt om de staat te behouden, niet op een algemene rechtvaardiging van elk middel.</p>
+      <p>Het woord machiavellisme is in de eeuwen na publicatie een scheldwoord voor gewetenloze berekening geworden, los van de tekst zelf; die reputatie maakt het boek populair maar ook makkelijk verkeerd te lezen als een verzameling losse citaten in plaats van als een samenhangend betoog over de precaire positie van een nieuwe heerser.</p>
+      <p>Machiavelli generaliseert vanuit een beperkte reeks voorbeelden, vrijwel allemaal Italiaanse en enkele Franse en klassieke vorsten uit zijn eigen tijdvak. Of zijn conclusies opgaan voor andere staatsvormen en andere eeuwen, laat het boek onbeantwoord.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Il Principe</i>, in 1513 geschreven als traktaat voor Lorenzo de' Medici en pas na Machiavelli's dood, in 1532, gedrukt door Antonio Blado in Rome. De Nederlandse vertaling van J.F. Otten verscheen als <i>De Vorst</i> bij uitgeverij De Bussy, Amsterdam (o.a. druk 1983, 206 blz., ISBN 9789060547168), en is later herdrukt. Daarnaast zijn de vertalingen van Frans van Dooren (Wereldbibliotheek, vanaf 1976, zevende herziene druk 1990) en van Paul van Heck, samen met Machiavelli's overige politieke geschriften (2006), in omloop. Van Machiavelli zijn verder onder meer de <i>Discorsi</i>, over de eerste tien boeken van Titus Livius, en het toneelstuk <i>Mandragola</i> in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Machiavelli schreef De vorst in 1513, kort nadat de Medici's terugkeerden aan de macht in Florence en hem, als voormalig ambtenaar van de verdreven republiek, van zijn post ontsloegen, gevangenzetten en martelden op verdenking van samenzwering. Op zijn buitenverblijf bij San Casciano stelde hij het boek samen als een sollicitatie in geschrift, opgedragen aan Lorenzo de' Medici.</p><p>Het boek behandelt hoe vorstendommen ontstaan, welke soorten er zijn, welk leger een vorst nodig heeft en hoe hij zich moet gedragen om de macht te behouden. Machiavelli redeneert vanuit wat hij bij tijdgenoten als Cesare Borgia werkelijk zag gebeuren, niet vanuit hoe een vorst zou moeten zijn.</p><p>De bekendste stellingen, dat een vorst beter gevreesd dan bemind kan zijn en dat hij de sluwheid van de vos met de kracht van de leeuw moet combineren, komen uit een korte reeks hoofdstukken over het gedrag van de heerser. Het boek sluit af met een oproep om Italië van buitenlandse overheersing te bevrijden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>machtspolitiek</li><li>renaissance</li><li>Florence</li><li>staatskunst</li><li>politieke filosofie</li><li>Italië</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="250"><a href="250.html">The 48 Laws of Power</a>. Greene bouwt zijn machtsregels grotendeels op Machiavelli's voorbeelden voort, maar laat de historische context achterwege waarin Machiavelli ze plaatste.</li>
+          <li value="272"><a href="272.html">The Art of War</a>. Sun Tzu behandelt een andere, oudere vorm van praktische machtsdenken, gericht op de veldslag in plaats van op het behoud van een troon.</li>
+          <li value="935"><a href="935.html">The Origins of Totalitarianism</a>. Arendt onderzoekt eeuwen later hoe staatsmacht kan ontsporen tot totalitarisme, een vraag die bij Machiavelli nog niet aan de orde is maar die zijn amorele machtsanalyse retrospectief lading geeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Business Model Generation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Osterwalder en Pigneur stellen dat een bedrijfsmodel geen financieel plan en geen missieverklaring is, maar de manier waarop een organisatie waarde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2112">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2112 &middot; Geld en ondernemen</p>
+    <h1>Business Model Generation</h1>
+    <p class="lede">Alexander Osterwalder en Yves Pigneur, 2010</p>
+    <p class="stats">
+      <span><b>1401</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2112"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Osterwalder en Pigneur stellen dat een bedrijfsmodel geen financieel plan en geen missieverklaring is, maar de manier waarop een organisatie waarde schept, levert en binnenhaalt aan een specifiek klantsegment, en dat die manier in negen onderling afhankelijke bouwstenen te vangen is. Hun stelling is dat vrijwel elk bestaand model, van een supermarkt tot een softwarebedrijf, terug te voeren is op een klein aantal herkenbare patronen, en dat het ontwerpen van een nieuw model dezelfde technieken vraagt als het ontwerpen van een product: schetsen, testen, verwerpen en opnieuw beginnen. Het boek voert die stelling niet aan als managementtheorie maar als praktisch gereedschap, opgebouwd rond één blad papier dat een team in enkele uren kan invullen en in de maanden daarna voortdurend kan herzien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het Business Model Canvas</h3>
+      <p>De negen bouwstenen worden een voor een ingevoerd, van klantsegmenten en de waardepropositie die daarbij hoort tot de kostenstructuur die uit de andere acht volgt. Elke bouwsteen krijgt een korte reeks vragen mee, zodat het canvas ook als checklist werkt en niet alleen als plaatje.</p>
+      <p>De auteurs benadrukken dat de negen vakken elkaar beïnvloeden: een verandering in klantsegment werkt door in kanalen en klantrelaties, en een goedkopere kostenstructuur beperkt vaak de keuze aan waardeproposities. Het canvas is daarom bedoeld om in één oogopslag te zien waar spanning zit.</p>
+      <h3>Patronen</h3>
+      <p>Vijf terugkerende patronen krijgen een eigen hoofdstuk: het ontbundelen van een bedrijf in aparte klantrelatie-, product- en infrastructuurbedrijven, het long-tailmodel waarin veel nichemarkten samen een grote markt vormen, platforms met meerdere klantgroepen die elkaar nodig hebben, modellen waarin een gratis aanbod een betalend aanbod financiert, en open modellen die met partners of gebruikers samen waarde creëren.</p>
+      <p>Elk patroon wordt aan een of meer bedrijven opgehangen: Skype en de freemium-verhouding tussen gratis en betaalde gesprekken, Google en de tweezijdige markt tussen adverteerders en zoekers, LEGO Factory en gebruikers die zelf ontwerpen aanleveren. De patronen zijn bedoeld als denkkader, niet als bewezen recept.</p>
+      <h3>Ontwerp</h3>
+      <p>Zes technieken worden aangereikt om tot een nieuw model te komen: klantinzicht verzamelen, ideeën genereren, visueel denken met plakbriefjes en schetsen, prototypes van modellen bouwen, het model als verhaal vertellen, en scenario's uitwerken voor verschillende toekomsten.</p>
+      <p>De nadruk ligt op iteratie: een eerste canvas is een hypothese, geen eindresultaat. De auteurs raden aan meerdere varianten naast elkaar te tekenen voordat een team zich op een model vastlegt.</p>
+      <h3>Strategie</h3>
+      <p>Vier hoofdstukken plaatsen het canvas in een breder krachtenveld: de omgeving van marktkrachten, sectorkrachten, macro-economische krachten en trends; een methode om een bestaand model op sterktes en zwaktes te beoordelen aan de hand van de negen bouwstenen; de vraag hoe een model zich verhoudt tot concurrentie, met een verwijzing naar het denken over onbetwiste marktruimte; en de vraag hoe een organisatie meerdere bedrijfsmodellen naast elkaar kan laten bestaan zonder dat ze elkaar in de weg zitten.</p>
+      <p>Dit deel is het minst uitgewerkt van het boek: de hoofdstukken bieden vragenlijsten en checklists, geen doorgerekende methode.</p>
+      <h3>Proces</h3>
+      <p>Het laatste inhoudelijke hoofdstuk beschrijft vijf fasen om een organisatie daadwerkelijk een nieuw bedrijfsmodel te laten invoeren: mobiliseren, begrijpen, ontwerpen, implementeren en beheren. Elke fase krijgt aandacht voor wie erbij betrokken moet zijn en welke valkuilen typisch optreden, zoals een ontwerpteam dat te vroeg op één idee vastloopt of een implementatie die vastloopt op bestaande organisatiestructuren.</p>
+      <p>De auteurs erkennen dat dit hoofdstuk het minst is uitgetest van het hele boek en presenteren het uitdrukkelijk als een eerste opzet.</p>
+      <h3>Uitzicht</h3>
+      <p>Het slothoofdstuk kijkt terug op de manier waarop het boek zelf tot stand kwam, met de gemeenschap van meewerkende lezers, en wijst vooruit naar wat de auteurs zelf als onaf beschouwen: hoe bedrijfsmodel en waardepropositie precies op elkaar aansluiten, een vraag die zij vier jaar later in <i>Value Proposition Design</i> verder uitwerkten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Business Model Canvas</td><td>Het schema van negen bouwstenen op een enkel vel waarmee een bedrijfsmodel in samenhang te overzien is.</td></tr>
+          <tr><td class="term">Waardepropositie</td><td>De bundel producten en diensten die waarde schept voor een specifiek klantsegment, de kernvraag van het canvas.</td></tr>
+          <tr><td class="term">Ontbundelen</td><td>Het uit elkaar trekken van een bedrijf in gescheiden onderdelen voor klantrelatie, productinnovatie en infrastructuur, omdat die drie andere economische logica volgen.</td></tr>
+          <tr><td class="term">Long tail</td><td>Een model dat winst maakt door veel kleine nichemarkten te bedienen in plaats van een paar grote markten.</td></tr>
+          <tr><td class="term">Meerzijdig platform</td><td>Een model dat twee of meer klantgroepen samenbrengt die elkaar nodig hebben, zoals adverteerders en zoekers.</td></tr>
+          <tr><td class="term">Freemium</td><td>Een model waarin een gratis basisaanbod een klein aandeel betalende klanten financiert.</td></tr>
+          <tr><td class="term">Bedrijfsmodelomgeving</td><td>Het krachtenveld van markt, sector, macro-economie en trends waartegen een bedrijfsmodel getoetst wordt.</td></tr>
+          <tr><td class="term">Prototyping van bedrijfsmodellen</td><td>Het snel schetsen van meerdere ruwe canvasvarianten om ze te kunnen vergelijken voordat er één wordt uitgewerkt.</td></tr>
+          <tr><td class="term">Mobiliseren, begrijpen, ontwerpen, implementeren, beheren</td><td>De vijf fasen van het procesmodel waarmee een organisatie een nieuw bedrijfsmodel daadwerkelijk invoert, van de eerste voorbereiding tot het lopende beheer.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is opgebouwd rond een open werkwijze: Osterwalder plaatste een vroege versie online en liet 470 lezers uit 45 landen meedenken over voorbeelden, illustraties en scherpstelling van de negen bouwstenen. Die gemeenschap wordt in het colofon met naam genoemd, wat het boek onderscheidt van een boek met alleen de auteurs als bron.</p>
+      <p>De voorbeelden zijn ontleend aan bestaande, op het moment van schrijven succesvolle bedrijven: Skype, Google, LEGO Factory, Nespresso, Zipcar en P&amp;G's Connect &amp; Develop-programma keren in meerdere hoofdstukken terug. Dat zijn illustraties van patronen, geen gecontroleerde vergelijkingen met bedrijven die dezelfde aanpak volgden en toch faalden.</p>
+      <p>De methode zelf komt niet uit een enkel vakgebied maar bundelt bestaand werk uit strategie, ontwerp en systeemdenken; Osterwalders proefschrift uit 2004 vormt de academische basis onder het canvas, wat het onderscheidt van veel populaire managementboeken die zonder onderliggende studie zijn geschreven.</p>
+      <p>Het patronenhoofdstuk is het best gedocumenteerde deel van het boek: elk van de vijf patronen wordt aan minstens twee onafhankelijke bedrijven opgehangen, zodat de lezer kan nagaan of het patroon werkelijk terugkeert en niet aan één toevallig succesvol voorbeeld hangt. Voor het strategie- en procesgedeelte geldt dat veel minder; daar staan vooral vragenlijsten zonder vergelijkbare onderbouwing.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het canvas beschrijft een bedrijfsmodel, het verklaart niet waarom het ene model beter werkt dan het andere. Bedrijfskundigen hebben erop gewezen dat de negen bouwstenen een ordeningsinstrument zijn, geen voorspellend model; twee ondernemingen kunnen een identiek ingevuld canvas hebben en toch zeer verschillend presteren, afhankelijk van uitvoering, timing en concurrentie.</p>
+      <p>De voorbeelden zijn overwegend succesverhalen op het moment van publicatie. Zipcar werd later overgenomen en ingekrompen, Nespresso kreeg concurrentie van goedkopere cupsystemen; het boek zelf biedt geen kader om te beoordelen wanneer een model in het canvas kwetsbaar is voor verandering in de markt.</p>
+      <p>Het strategiehoofdstuk, waarin het canvas tegen concurrentie en omgeving wordt afgezet, is aantoonbaar dunner uitgewerkt dan de hoofdstukken over ontwerp en patronen: de auteurs geven dat zelf ook aan door het procesmodel uitdrukkelijk als eerste opzet te presenteren in plaats van als beproefde methode.</p>
+      <p>Omdat het canvas zo makkelijk in te vullen is, wordt het in de praktijk vaak als eenmalige oefening gebruikt in plaats van als het herhaaldelijk te herzien werkdocument dat de auteurs voor ogen hadden; die kloof tussen bedoeling en gebruik is in vervolgpublicaties van Osterwalder zelf onderwerp geworden.</p>
+      <p>De negen bouwstenen richten zich op hoe een organisatie waarde schept en binnenhaalt, maar besteden weinig aandacht aan de mensen die het model moeten uitvoeren: cultuur, macht binnen een organisatie en weerstand tegen verandering komen alleen zijdelings terug in het procesgedeelte. Wie een bestaand bedrijfsmodel wil veranderen, ontdekt vaak dat de weerstand daartegen niet in een van de negen vakken past.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vul het canvas eerst alleen in voor het bestaande model van de eigen organisatie, voordat er aan een nieuw model wordt gedacht.</li>
+        <li>Teken bij een nieuw idee minstens twee alternatieve canvassen naast elkaar in plaats van er meteen één uit te werken.</li>
+        <li>Toets elk ingevuld canvas tegen de vier krachten uit het omgevingshoofdstuk: markt, sector, macro-economie en trends.</li>
+        <li>Herzie het canvas na elk klantgesprek in plaats van het als afgerond document te behandelen.</li>
+        <li>Betrek bij het implementatiehoofdstuk uitdrukkelijk de mensen die het huidige model uitvoeren, niet alleen het team dat het nieuwe model ontwierp.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Business Model Generation: A Handbook for Visionaries, Game Changers, and Challengers</i>, samengesteld met een gemeenschap van 470 praktijkbeoefenaars uit 45 landen en gedistribueerd door John Wiley &amp; Sons, Hoboken, 2010 (288 blz., ISBN 9780470876411). De Nederlandse vertaling van Heiny van den Ham verscheen als <i>Business model generatie</i> bij Vakmedianet, in samenwerking met Boom, Amsterdam, 2010 (281 blz., ISBN 9789013074086). Osterwalder en Pigneur werkten dezelfde werkwijze verder uit in <i>Value Proposition Design</i> (2014); Osterwalder schreef later met David J. Bland ook <i>Testing Business Ideas</i> (2019). Geen van beide vervolgboeken is in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Osterwalder en Pigneur bieden een vast schema van negen bouwstenen waarmee elk bedrijfsmodel op een enkel vel te tekenen is: klantsegmenten, waardeproposities, kanalen, klantrelaties, inkomstenstromen, kernmiddelen, kernactiviteiten, partnerschappen en kostenstructuur. Dat schema, het Business Model Canvas, is het hart van het boek en werd na 2010 een standaardgereedschap in ondernemersonderwijs en adviespraktijk.</p><p>Rond het canvas bouwen de auteurs vier hoofdstukken op: patronen die in bestaande bedrijfsmodellen terugkeren, technieken om een nieuw model te ontwerpen, manieren om een model tegen de omgeving en tegen alternatieven af te zetten, en een proces om een organisatie daadwerkelijk van het ene naar het andere model te bewegen.</p><p>Het boek is zelf ontworpen als voorbeeld van wat het bepleit: groot formaat, veel witruimte, tekeningen in plaats van lopende tekst, en een werkwijze waarbij honderden lezers via een open oproep meewerkten aan voorbeelden en illustraties.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bedrijfsmodel</li><li>ondernemen</li><li>business model canvas</li><li>strategie</li><li>innovatie</li><li>visueel denken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="306"><a href="306.html">Zero to One</a>. Thiel bepleit een ander uitgangspunt, een model bouwen rond een tijdelijk monopolie in plaats van rond negen los te toetsen bouwstenen.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries werkt de ontwerpstap uit het canvas verder uit tot een methode van testen en meten die Osterwalder en Pigneur zelf slechts in enkele bladzijden aanstippen.</li>
+          <li value="908"><a href="908.html">Good Strategy Bad Strategy</a>. Rumelt levert het strategische tegenwicht dat het canvas mist: waarom de ene keuze tussen alternatieve modellen sterker is dan de andere, iets waar Osterwalder en Pigneur zelf slechts een vragenlijst voor aanreiken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

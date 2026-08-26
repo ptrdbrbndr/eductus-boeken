@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hold Your Own &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tempest gebruikt de mythe van Tiresias, die achtereenvolgens man, vrouw en blinde ziener is, om te laten zien dat identiteit, gender vooral, minder vast…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2119">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2119 &middot; Roman en memoir</p>
+    <h1>Hold Your Own</h1>
+    <p class="lede">Kae Tempest, 2014</p>
+    <p class="stats">
+      <span><b>1003</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2119"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tempest gebruikt de mythe van Tiresias, die achtereenvolgens man, vrouw en blinde ziener is, om te laten zien dat identiteit, gender vooral, minder vast staat dan de sociale wereld eromheen suggereert, en dat wie beide kanten van een scheidslijn heeft ervaren daarmee nog geen gehoor krijgt, eerder averij oploopt. De bundel voert dat niet aan als stelling in proza maar bouwt het op in vier opeenvolgende delen die Tiresias' leven volgen, waarbij elk deel de vorige aanvult in plaats van tegenspreekt. Onderliggend daaraan ligt een tweede these over hedendaags Londen: dat klasse en armoede net zo hardnekkig aan iemands mogelijkheden kleven als de mythische vloek aan Tiresias, en dat beide zelden hardop worden benoemd.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Kindertijd</h3>
+      <p>De bundel opent met Tiresias als vijftienjarige die in het bos twee copulerende slangen tegenkomt en ze met een stok raakt. De straf volgt onmiddellijk: hij verandert in een vrouw. Tempest schrijft deze transformatie fysiek en gewelddadig, zonder de schok ervan te verzachten.</p>
+      <h3>Mannelijkheid</h3>
+      <p>In dit deel verkent Tempest wat het betekent als man door de wereld te gaan, gekoppeld aan beelden van hedendaagse mannelijkheid, werk, agressie, seksuele status, in Londense contexten die met de oude mythe worden verweven.</p>
+      <h3>Vrouwelijkheid</h3>
+      <p>Als vrouw ervaart Tiresias een ander soort aandacht en een ander soort onzichtbaarheid. Tempest gebruikt dit deel om de asymmetrie tussen hoe mannen en vrouwen worden gezien en behandeld dichtbij te brengen, vanuit het perspectief van iemand die letterlijk beide kanten heeft meegemaakt.</p>
+      <h3>Terug naar man, en het oordeel van Zeus en Hera</h3>
+      <p>Bij de slangen teruggekeerd, verandert Tiresias opnieuw in een man. Wanneer Zeus en Hera hem vragen wie er meer van seks geniet, mannen of vrouwen, antwoordt Tiresias eerlijk. Hera, ontstemd, ontneemt hem zijn gezichtsvermogen; Zeus geeft hem als tegenwicht het vermogen de toekomst te zien.</p>
+      <h3>De blinde ziener</h3>
+      <p>Het laatste deel volgt Tiresias als blinde profeet, wiens waarheden door anderen zelden welkom zijn. Tempest trekt hier de lijn door naar het heden: wie de waarheid ziet over ongelijkheid en klasse, wordt evenmin altijd graag gehoord.</p>
+      <p>De titel van dit slotdeel speelt met het woord voor profeet en het woord voor winst; Tempest verbindt daarmee het lot van de mythische ziener aan een hedendaagse kritiek op een economie die vooral naar geldelijk gewin luistert en minder naar ongemakkelijke waarheden. De bundel sluit niet af met een oplossing, maar met het beeld van Tiresias die verder ziet dan wie hem raadpleegt lief is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tiresias</td><td>De mythische Griekse ziener die achtereenvolgens man, vrouw en blinde profeet is, en om wie de hele bundel is opgebouwd.</td></tr>
+          <tr><td class="term">De twee slangen</td><td>Het copulerende slangenpaar dat Tiresias bij twee gelegenheden tegenkomt en wiens verstoring zijn geslachtsverandering telkens veroorzaakt.</td></tr>
+          <tr><td class="term">Kindertijd, mannelijkheid, vrouwelijkheid, de blinde ziener</td><td>De vier delen waarin de bundel is opgebouwd, elk gewijd aan een fase in Tiresias' transformatie.</td></tr>
+          <tr><td class="term">Het oordeel van Zeus en Hera</td><td>De episode waarin de goden Tiresias vragen wie meer genot aan seks beleeft, mannen of vrouwen, met zijn verblinding als gevolg van zijn antwoord.</td></tr>
+          <tr><td class="term">Spoken word</td><td>De op voordracht gerichte dichtvorm waarin Tempest oorspronkelijk werkt en die het ritme en de directheid van de bundel bepaalt.</td></tr>
+          <tr><td class="term">Hold your own</td><td>De titelzin, letterlijk jezelf staande houden, die als refrein door de bundel klinkt als opdracht aan wie tussen de scheidslijnen van gender en klasse moet zien te overleven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Tempest kende voor deze bundel al aanzien in de spoken word-scene en won in 2013 de Ted Hughes Award voor haar vorige, langere gedicht Brand New Ancients; Hold Your Own bouwde dat aanzien uit tot een nominatie voor de Costa Poetry Award, een van de belangrijkere Britse literaire prijzen.</p>
+      <p>De mythe van Tiresias die Tempest gebruikt, is grotendeels getrouw aan de klassieke bronnen, onder meer Ovidius' Metamorphosen, waarin dezelfde elementen voorkomen: de slangen, de sekseverandering, het oordeel van Zeus en Hera en de blinding gevolgd door het profetisch gezicht. Tempest verplaatst die mythe niet naar een andere plot, maar naar een ander register, hedendaags Londen, zonder de kernfeiten van het verhaal te veranderen.</p>
+      <p>Dat de bundel in 2020 in het Nederlands werd vertaald door twee ervaren literaire vertalers en werd uitgegeven in samenwerking met een gevestigd theaterhuis en poëziecentrum, wijst op erkenning binnen het literaire veld die verder gaat dan de podiumpopulariteit van Tempest zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Een Nederlandse recensie van de vertaling, verschenen bij Tzum, wees erop dat de bundel op papier iets mist dat de gedichten live wel hebben: Tempests podiumstem, die het ritme en de nadruk stuurt. Wie de bundel alleen leest, zonder de voordracht te kennen, ervaart een deel van de tekst daardoor als vlakker dan bedoeld.</p>
+      <p>De vierdelige mythische structuur is ambitieus voor een dichtbundel van dit formaat, en niet elke recensent vond dat de vier delen even sterk zijn; het middendeel, waarin de mythe zich het minst rechtstreeks aan actuele thema's laat koppelen, wordt vaker als zwakker genoemd dan het openings- en slotdeel.</p>
+      <p>Doordat de bundel gender via een mythische geslachtsverandering benadert in plaats van via hedendaagse transgender-ervaringen, is de vergelijking tussen Tiresias en actuele genderidentiteit maar ten dele op te vatten als een uitspraak daarover; sommige lezers hebben dat onderscheid gemist of juist te nadrukkelijk gemaakt gevonden.</p>
+      <p>De politieke lading rond klasse en kapitalisme, zichtbaar al in de titel van het laatste deel, wordt in enkele gedichten rechtstreeks uitgesproken in plaats van gedragen door het beeld, waardoor die passages dichter bij een stellingname staan dan bij de rest van de bundel, die meer op suggestie leunt.</p>
+      <p>Doordat de bundel als doorlopend verhaal is opgezet in plaats van als losse gedichten, is zij minder geschikt om op willekeurige bladzijden in te lezen dan veel andere poëzie; wie enkel losse fragmenten leest, mist de opbouw waarop de mythische structuur juist leunt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Hold Your Own</i> (Picador, Londen, 2014, 128 blz., ISBN 9781447241218), Tempests eerste volledige dichtbundel voor Picador, genomineerd voor de Costa Poetry Award. De eerste Nederlandse vertaling, door Gaea Schoeters en Johanna Pas, verscheen in 2020 onder de titel <i>Tiresias</i> bij Poëziecentrum Gent, in samenwerking met Toneelhuis. Van Tempest verscheen verder onder meer de dichtbundel <i>Brand New Ancients</i>, bekroond met de Ted Hughes Award, en de roman <i>The Bricks That Built the Houses</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kae Tempest bouwt deze dichtbundel rond de Griekse mythe van Tiresias, die als tiener twee copulerende slangen verstoort in het bos en daarop door de godin Hera in een vrouw wordt veranderd. Jaren later, opnieuw bij de slangen, verandert Tiresias terug in een man. Als Zeus en Hera ruziën over wie meer genot beleeft aan seks, mannen of vrouwen, wordt Tiresias geraadpleegd; het antwoord kost hem het gezichtsvermogen, maar Zeus schenkt hem als compensatie de gave van het voorspellen.</p><p>De bundel is verdeeld in vier delen, kindertijd, mannelijkheid, vrouwelijkheid en de blinde ziener, die de transformaties van Tiresias volgen. Tempest gebruikt die mythische structuur om over hedendaags Londen te schrijven: klasse, armoede, seksualiteit en het gevoel er niet bij te horen.</p><p>Tempest, bekend als spoken word- en rapartiest, schreef de gedichten met haar podiumstem in het oor; de bundel leest daardoor als een doorlopend, ritmisch gesproken verhaal eerder dan als een reeks losse gedichten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>poëzie</li><li>mythologie</li><li>Tiresias</li><li>genderverandering</li><li>Londen</li><li>sociale klasse</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. Campbell beschrijft het mythische transformatiepatroon waarop Tempest voor Tiresias' reis leunt, van gewone wereld naar beproeving naar terugkeer met inzicht.</li>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette werken mannelijke archetypen uit die aansluiten bij het deel over mannelijkheid in Tempests bundel, vanuit psychologie in plaats van poëzie.</li>
+          <li value="173"><a href="173.html">The Metamorphosis</a>. Kafka bouwt net als Tempest een heel werk op rond één lichamelijke transformatie die de hoofdpersoon buiten de gewone sociale orde plaatst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

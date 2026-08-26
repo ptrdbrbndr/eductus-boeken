@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Journey &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bays voert een stelling die niets minder beweert dan dat lichamelijke ziekte in haar eigen geval het gevolg was van jarenlang onverwerkt verdriet,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2008">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2008 &middot; Levenskunst</p>
+    <h1>The Journey</h1>
+    <p class="lede">Brandon Bays, 1999; vert. Connie Franssen</p>
+    <p class="stats">
+      <span><b>1413</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2008"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bays voert een stelling die niets minder beweert dan dat lichamelijke ziekte in haar eigen geval het gevolg was van jarenlang onverwerkt verdriet, opgeslagen in het weefsel van het lichaam zelf, en dat het ontladen van die herinnering de ziekte kon doen verdwijnen zonder ingreep van een arts. Wat Bays 'de reis' noemt is geen metafoor voor introspectie in het algemeen, maar een vaste volgorde van stappen waarin iemand teruggaat naar de vroegste herinnering achter een klacht, de bijbehorende emotie voelt in plaats van vermijdt, en van daaruit een overtuiging over zichzelf herschrijft. De stelling staat of valt met een aanname die het boek zelf niet bewijst: dat gevoelens die niet worden geuit ergens in het lichaam blijven zitten totdat iemand ze alsnog doorleeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De diagnose en de zeven weken</h3>
+      <p>Bays werkte begin jaren negentig als trainer voor het Amerikaanse programma van Tony Robbins toen bij haar een tumor in de baarmoeder werd vastgesteld. Ze weigerde een operatie en chemotherapie en besloot in plaats daarvan een emotioneel proces te doorlopen dat ze samen met een masseur en enkele begeleiders had samengesteld, gebaseerd op wat ze bij Deepak Chopra had gelezen over celgeheugen.</p>
+      <p>Na ruim zes weken, ze noemt zelf zes en een halve week, bleek bij een nieuw onderzoek geen tumor meer aanwezig. Het boek beschrijft die weken in detail: de reeks herinneringen die naar boven kwam, van een jeugdervaring van verwaarlozing tot een affaire die ze verzweeg, en de lichamelijke gewaarwordingen die ze daarbij voelde. Dit hoofdstuk vormt het bewijsmateriaal waarop de rest van het boek zijn methode baseert.</p>
+      <h3>Het celgeheugen als verklaring</h3>
+      <p>Bays neemt van Chopra over dat emoties die niet worden verwerkt, zich vastzetten in cellen en van daaruit het functioneren van organen beinvloeden. Zij werkt dat idee niet verder theoretisch uit, maar gebruikt het als praktisch uitgangspunt: als een klacht wordt opgezocht op de plek in het lichaam waar hij zit, wordt de herinnering die eraan vastzit toegankelijk, en het loslaten van die herinnering zou het lichamelijke symptoom kunnen verminderen.</p>
+      <h3>De Emotionele Reis</h3>
+      <p>De kern van de methode is een gesprek waarin een begeleider iemand vraagt terug te gaan naar het gevoel achter een klacht, dat gevoel te vergroten in plaats van te ontwijken, en vervolgens de eerste keer op te zoeken dat het gevoel zich voordeed. Van daaruit legt Bays de link naar een overtuiging over zichzelf die op dat moment is ontstaan, bijvoorbeeld dat iemand niet goed genoeg is of nooit gezien wordt, en die overtuiging staat aan het begin van het herschrijven.</p>
+      <p>In het boek staat de vragenreeks die een begeleider volgt bijna letterlijk uitgeschreven, zodat een lezer die zonder practitioner werkt de sessie op zichzelf kan toepassen. Bays waarschuwt daarbij dat de eerste paar keer emotioneel zwaar kunnen zijn, en raadt aan de eerste sessie samen met iemand anders te doen, al blijft in het boek zelf onduidelijk wanneer die andere persoon over voldoende training moet beschikken.</p>
+      <h3>De Fysieke Reis en het lichaam als gids</h3>
+      <p>Naast de emotionele variant beschrijft Bays een fysieke reis waarbij iemand met de aandacht een lichaamsdeel binnengaat; het lichaam zelf wordt verondersteld herinneringen prijs te geven zonder tussenkomst van het verstand. Ze onderbouwt deze stap niet met metingen of scans, maar met de ervaring van deelnemers aan haar workshops die na de oefening minder pijn of spanning meldden.</p>
+      <h3>Het vergevingsproces</h3>
+      <p>Het boek sluit de reis af met wat Bays de Vrijheidsprocedure noemt: een vergevingsritueel waarin iemand denkbeeldig tegenover de persoon gaat staan die de oorspronkelijke pijn veroorzaakte, eerst de eigen woede uitspreekt en vervolgens, in de rol van de ander, excuses formuleert. Bays presenteert vergeving hier niet als morele deugd maar als functionele stap: zonder die stap zou de klacht volgens haar terugkeren.</p>
+      <h3>Van eigen ervaring naar een wereldwijde praktijk</h3>
+      <p>Na de publicatie in 1999 groeide rond het boek een organisatie van opgeleide Journey Practitioners en meerdaagse seminars, ook in Nederland en Zuid-Afrika. Latere boeken zoals <i>Freedom Is</i> bouwen op dezelfde stappen voort en voegen weinig nieuwe onderbouwing toe; de nadruk verschuift van het eigen ziekteverhaal naar het opleiden van begeleiders.</p>
+      <p>Bays komt uit de wereld van de Amerikaanse trainingsindustrie, waar ze jarenlang als Master Trainer voor Tony Robbins werkte. Die achtergrond is terug te zien in de vorm van het boek: korte hoofdstukken, herhaalde motiverende zinnen en een opbouw richting een groepsseminar, eerder dan een medisch of therapeutisch handboek met literatuurverwijzingen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Celgeheugen</td><td>De aanname dat onverwerkte emoties zich vastzetten in lichaamscellen en van daaruit het functioneren van organen beinvloeden.</td></tr>
+          <tr><td class="term">De Emotionele Reis</td><td>Het gestructureerde gesprek waarin iemand terugkeert naar de herinnering achter een gevoel en die emotie voluit voelt.</td></tr>
+          <tr><td class="term">De Fysieke Reis</td><td>De variant waarbij de aandacht een lichaamsdeel binnengaat om daar vastgehouden herinneringen te vinden.</td></tr>
+          <tr><td class="term">Kernovertuiging</td><td>De overtuiging over zichzelf die volgens Bays ontstaat op het moment van de oorspronkelijke pijn en die de reis probeert te herschrijven.</td></tr>
+          <tr><td class="term">Vrijheidsprocedure</td><td>Het afsluitende vergevingsritueel waarin iemand zowel de eigen woede als de veronderstelde kant van de ander uitspreekt.</td></tr>
+          <tr><td class="term">Bron</td><td>De staat van innerlijke rust waarnaar de reis volgens Bays uiteindelijk leidt.</td></tr>
+          <tr><td class="term">Journey Practitioner</td><td>De door Bays' organisatie opgeleide begeleider die het proces bij anderen afneemt.</td></tr>
+          <tr><td class="term">Journey-intensive</td><td>Het meerdaagse seminar waarin deelnemers de stappen onder begeleiding doorlopen.</td></tr>
+          <tr><td class="term">Neurolinguistisch programmeren</td><td>De verzameling gesprekstechnieken uit de trainingswereld van Tony Robbins waarop Bays de vraagstructuur van haar sessies baseerde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het enige harde gegeven in het boek is Bays' eigen verslag: er worden geen scans, geen doktersverklaring en geen tweede diagnose aangehaald, alleen haar eigen beschrijving van de aanvankelijke tumor en het latere onderzoek waarbij niets meer werd gevonden.</p>
+      <p>Chopra's celgeheugen-idee, waarop Bays voortbouwt, is zelf geen erkend medisch concept maar een populariserende metafoor uit zijn boeken over geneeskunde; Bays citeert Chopra niet met verwijzing naar onderzoek maar als inspiratiebron.</p>
+      <p>Wat het boek wel aannemelijk maakt, is de omvang van de praktijk die eromheen ontstond: sinds 1999 zijn duizenden mensen opgeleid tot Journey Practitioner en de methode wordt in workshopvorm nog steeds aangeboden, wat wijst op een grote groep gebruikers die er baat bij zegt te hebben, ook al is dat geen bewijs voor het onderliggende mechanisme.</p>
+      <p>Recensenten die zelf een sessie ondergingen, melden vaak een concreet effect: minder spanning, een gevoel van opluchting na het vergevingsritueel, soms tranen tijdens de sessie. Dat sluit aan bij wat bekend is over gesprekstechnieken die emotie oproepen en vervolgens laten afvloeien, zonder dat daarmee de verdergaande claim over tumorgenezing wordt onderbouwd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Recensenten wezen er destijds op dat Bays geen enkel controleerbaar medisch document publiceerde: geen foto's van de gezwollen buik, geen scanuitslagen, geen verklaring van een arts die de tumor voor en na heeft gezien. Voor een claim die neerkomt op genezing van een groot gezwel zonder ingreep, is dat een zwaar tekort.</p>
+      <p>De belofte dat verdriet in vijf tot zeven dagen te verwerken is, kreeg kritiek van lezers met een therapeutische achtergrond, die erop wezen dat rouw of trauma zelden aan een tijdschema gebonden is en dat een dergelijke belofte valse verwachtingen wekt.</p>
+      <p>Het boek werkt met een emotioneel intensief proces dat mensen zonder begeleiding thuis kunnen proberen; besprekingen waarschuwen dat het oproepen van oude pijn zonder toezicht kan ontsporen, terwijl het boek zelf weinig grenzen aangeeft voor wie dat wel of niet veilig kan doen.</p>
+      <p>Het grootste risico ligt bij lezers met kanker: waar Bays' verhaal hoop biedt, ligt het gevaar dat mensen conventionele behandeling uitstellen of afwijzen in de veronderstelling dat een emotioneel proces hetzelfde resultaat kan geven, terwijl daarvoor geen ander bewijs bestaat dan haar eigen relaas.</p>
+      <p>Dat het boek ontstond binnen de Amerikaanse trainingsindustrie, en niet binnen de gezondheidszorg, verklaart een deel van de vorm: het is geschreven om te overtuigen en aan te zetten tot deelname aan een seminar, niet om een claim methodisch te onderzoeken. Die herkomst maakt de stelligheid van de genezingsclaim moeilijker te scheiden van de wervende functie van de tekst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een terugkerende lichamelijke klacht na welke herinnering het eerst opkomt, zonder die meteen te verklaren of weg te redeneren.</li>
+        <li>Voel het gevoel dat bij die herinnering hoort voluit, in plaats van het te vermijden of te analyseren.</li>
+        <li>Zoek professionele begeleiding bij zwaar trauma of een ernstige diagnose; gebruik het boek niet als vervanging van medische zorg.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Journey: An Extraordinary Guide for Healing Your Life and Setting Yourself Free</i> (Thorsons/HarperCollins, Londen, 1999, ISBN 9780722538395), later herzien als <i>The Journey: A Practical Guide to Healing Your Life and Setting Yourself Free</i> (Atria/Simon &amp; Schuster, New York, 2012, ISBN 9781451665611). De Nederlandse vertaling van Connie Franssen verscheen als <i>De helende reis</i> bij Meulenhoff Boekerij, Amsterdam; een druk van 7 januari 2015 telt 240 blz. (ISBN 9789022571835). Van Bays zijn verder onder meer <i>Freedom Is</i> en <i>The Journey for Kids</i> verschenen, niet allemaal in Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In 1992 kreeg Brandon Bays de diagnose van een tumor in haar baarmoeder, naar eigen zeggen zo groot als een basketbal. Ze weigerde chemotherapie en operatie en ging in plaats daarvan een emotioneel proces aan dat ze zelf ontwierp op basis van wat ze bij Deepak Chopra had gelezen over celgeheugen: het idee dat onverwerkte emoties zich in lichaamscellen vastzetten.</p><p>Na ruim zes weken bleek bij nieuw onderzoek geen tumor meer aanwezig. Bays werkte de stappen die ze toen doorliep uit tot een vaste methode, de Emotionele en de Fysieke Reis, die eindigt in een vergevingsritueel. Sindsdien leidt een organisatie mensen op tot begeleider van dat proces.</p><p>Het boek is zowel het verslag van haar eigen genezing als een handleiding om de stappen zelf te zetten of bij iemand anders te begeleiden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>celgeheugen</li><li>vergeving</li><li>trauma</li><li>alternatieve geneeskunde</li><li>mind-body</li><li>kanker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2103"><a href="2103.html">The Seven Spiritual Laws of Success</a>. Chopra leverde het celgeheugen-idee waarop Bays haar methode bouwt, in een boek dat zelf net zo weinig klinisch bewijs aandraagt.</li>
+          <li value="1586"><a href="1586.html">You Can Heal Your Life</a>. Hay stelde eerder al dat gedachten ziekte veroorzaken en genezing mogelijk maken; Bays voegt er een concreet stappenplan aan toe.</li>
+          <li value="1656"><a href="1656.html">Waking the Tiger</a>. Levine beschrijft hoe trauma in het lichaam vastzit vanuit klinisch onderzoek naar het zenuwstelsel, een andere onderbouwing dan Bays' celgeheugen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

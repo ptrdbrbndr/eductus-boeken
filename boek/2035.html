@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scary Smart &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gawdats stelling is dat kunstmatige intelligentie niet in de eerste plaats een technisch risico is, maar een spiegel: een systeem dat leert van menselijk…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2035">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2035 &middot; Geschiedenis en samenleving</p>
+    <h1>Scary Smart</h1>
+    <p class="lede">Mo Gawdat, 2021</p>
+    <p class="stats">
+      <span><b>1432</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2035"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gawdats stelling is dat kunstmatige intelligentie niet in de eerste plaats een technisch risico is, maar een spiegel: een systeem dat leert van menselijk gedrag zal de eigenschappen overnemen die het bij mensen waarneemt, inclusief hebzucht, angst en onverschilligheid, tenzij mensen bewust andere gegevens en ander gedrag aanbieden. Omdat hij het stoppen van de technologische ontwikkeling zelf als onhaalbaar beschouwt, verschuift hij de verantwoordelijkheid naar het individu: niet naar regelgevers of techbedrijven alleen, maar naar iedereen wiens gedrag en data de trainingsomgeving van toekomstige systemen vormen. Het boek voert die stelling uit als een oproep tot gedragsverandering op individueel niveau, gecombineerd met een technische schets van hoe machine learning werkt en waarom die ontwikkeling volgens hem niet meer is terug te draaien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat Gawdat bij Google X zag</h3>
+      <p>Gawdat beschrijft zijn functie als chief business officer van Google X, de onderzoeksafdeling achter onder meer zelfrijdende auto's, en de momenten waarop hij zag hoe snel systemen zichzelf verbeterden zonder dat programmeurs elke stap nog voorschreven. Die ervaring vormt zijn aanleiding om het boek te schrijven, na de dood van zijn zoon in 2014, een gebeurtenis die hij eerder al beschreef in <i>Solve for Happy</i>.</p>
+      <p>Hij vertelt hoe een gesprek met een ontwikkelaar over een zelflerend robotarmpje, dat sneller leerde grijpen dan de onderzoekers hadden verwacht, hem deed beseffen dat de gangbare aanname dat mensen AI volledig zouden blijven aansturen, achterhaald was. Dat moment beschrijft hij als het keerpunt waarop hij zijn baan opzegde om zich op het onderwerp te richten.</p>
+      <h3>De drie onvermijdelijkheden</h3>
+      <p>Het boek stelt dat drie dingen vaststaan: de mensheid heeft besloten AI te bouwen en zal daarmee doorgaan, AI zal door concurrentie tussen bedrijven en landen sneller leren dan de mens kan bijhouden, en onderweg zullen fouten worden gemaakt die niet allemaal vooraf te voorzien zijn.</p>
+      <p>Gawdat onderbouwt dit met de observatie dat geen enkel bedrijf of land zich kan veroorloven om als enige te stoppen, omdat concurrenten dan een voorsprong nemen; dat maakt volgens hem een gecoördineerde rem vrijwel onmogelijk.</p>
+      <h3>Hoe machines leren wat mensen hun voordoen</h3>
+      <p>Een technisch deel legt uit hoe machine learning en neurale netwerken werken: systemen die patronen halen uit grote hoeveelheden menselijke data, van sociale media tot camerabeelden, en daaruit gedrag afleiden zonder dat een programmeur een moreel oordeel heeft ingebouwd.</p>
+      <p>Gawdat gebruikt hier voorbeelden van algoritmes die mensen langer aan een scherm houden, en stelt dat zulke systemen niet kwaadaardig zijn geprogrammeerd, maar simpelweg optimaliseren op het gedrag dat mensen zelf vertonen.</p>
+      <h3>AI en de arbeidsmarkt</h3>
+      <p>Gawdat bespreekt de verwachte impact van automatisering op werkgelegenheid, met de aanname dat routinematige taken het eerst verdwijnen, en waarschuwt dat de overgang sneller kan gaan dan overheden en onderwijssystemen kunnen bijbenen.</p>
+      <p>Hij noemt hierbij beroepen in administratie, klantenservice en delen van de juridische en medische ondersteuning als voorbeelden van werk dat volgens hem al binnen een generatie grotendeels door systemen wordt overgenomen, zonder dat hij daarbij een exacte tijdlijn of bronvermelding voor die inschatting geeft.</p>
+      <h3>Ethiek, toezicht en waarom regelgeving niet volstaat</h3>
+      <p>Het boek bespreekt autonome wapens, surveillance en manipulatie via sociale media als voorbeelden van ethische risico's, en betoogt dat wetgeving altijd achter de technologie aan loopt, waardoor toezicht alleen niet voldoende is om de risico's te beperken.</p>
+      <p>Gawdat bespreekt hierbij ook zelfsturende auto's als voorbeeld van een ethisch dilemma dat programmeurs vooraf moeten oplossen, namelijk hoe een systeem moet kiezen wanneer een ongeval onvermijdelijk is, en gebruikt dat als illustratie van hoe menselijke waarden expliciet in code moeten worden vastgelegd in plaats van vanzelfsprekend te worden verondersteld.</p>
+      <p>Hij bespreekt daarnaast de mogelijkheid van een internationaal verdrag over autonome wapens, vergelijkbaar met bestaande verdragen over chemische wapens, maar stelt vast dat de snelheid waarmee AI-toepassingen worden ontwikkeld een dergelijk verdrag telkens dreigt in te halen voordat het is ondertekend.</p>
+      <h3>Wat individuen kunnen doen</h3>
+      <p>In het laatste deel werkt Gawdat drie acties uit: nadenken over wat mensen AI laten doen, machines bewust andere waarden voordoen dan winst en snelheid alleen, en zelf vriendelijkheid en zorgvuldigheid tonen in het gedrag dat systemen als trainingsdata gebruiken.</p>
+      <p>Hij besluit met de vergelijking van AI als een kind dat opgroeit met de wereld als leraar, en stelt dat de verantwoordelijkheid van die opvoeding niet bij een enkele partij ligt maar bij iedereen die data genereert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Drie onvermijdelijkheden</td><td>Gawdats aanname dat AI er komt, slimmer wordt dan de mens, en onderweg fouten zal veroorzaken; volgens hem niet meer te voorkomen.</td></tr>
+          <tr><td class="term">Machine learning</td><td>De techniek waarbij systemen patronen halen uit grote hoeveelheden data in plaats van expliciet geprogrammeerde regels te volgen.</td></tr>
+          <tr><td class="term">Google X</td><td>De onderzoeksafdeling van Google waar Gawdat chief business officer was en waar hij volgens het boek de snelheid van zelflerende systemen van dichtbij zag.</td></tr>
+          <tr><td class="term">AI als spiegel</td><td>Gawdats centrale beeld: een lerend systeem neemt de eigenschappen over van de mensen en data waarmee het getraind wordt.</td></tr>
+          <tr><td class="term">Singulariteit</td><td>Het punt waarop AI de mens in algemene intelligentie overtreft; Gawdat noemt hierbij een verwachte datum rond het midden van deze eeuw.</td></tr>
+          <tr><td class="term">Individuele verantwoordelijkheid</td><td>Gawdats stelling dat niet alleen bedrijven en overheden, maar elk individu via zijn gedrag en data bijdraagt aan wat AI leert.</td></tr>
+          <tr><td class="term">Trainingsdata</td><td>De verzameling menselijk gedrag, tekst en beelden waaruit een AI-systeem patronen leert; volgens Gawdat de plek waar menselijke waarden, goed en slecht, terechtkomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gawdats sterkste bewijsmateriaal is zijn eigen ervaring binnen Google X, waar hij van dichtbij zag hoe zelflerende systemen zich sneller ontwikkelden dan de teams eromheen konden bijhouden; die observatie is echter uit de eerste hand en niet onafhankelijk gecontroleerd.</p>
+      <p>De technische uitleg over machine learning en neurale netwerken in het boek komt overeen met de gangbare beschrijving in de sector en is op dat punt controleerbaar; het boek citeert hierbij geen wetenschappelijke literatuur maar leunt op Gawdats eigen ervaring als techbestuurder.</p>
+      <p>Voor de gevolgen op de arbeidsmarkt en de tijdlijn waarop AI de mens zou overtreffen, geeft het boek schattingen die Gawdat zelf presenteert als zijn beste inschatting, niet als een uitkomst van eigen onderzoek of een citaat uit gepubliceerde voorspellingen van derden.</p>
+      <p>Het voorbeeld van aanbevelingsalgoritmes die mensen langer aan een scherm houden, is breed gedocumenteerd in onderzoek naar sociale media en niet specifiek aan Gawdat te danken; hij gebruikt het als illustratie van zijn bredere punt dat systemen optimaliseren op het gedrag dat zij waarnemen, ongeacht of dat gedrag wenselijk is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het beeld van AI als kind dat de eigenschappen van zijn opvoeders overneemt, is een metafoor en geen technische beschrijving; het suggereert een moreel leerproces dat vergelijkbaar is met menselijke opvoeding, terwijl de manier waarop een neuraal netwerk patronen uit data haalt fundamenteel anders werkt dan hoe een kind waarden leert.</p>
+      <p>Gawdats nadruk op individuele verantwoordelijkheid, vriendelijker gedrag tonen, bewuster data achterlaten, verlegt de aandacht van de partijen die de grootste modellen daadwerkelijk trainen en beheren, een klein aantal grote techbedrijven, naar het gedrag van individuele gebruikers, wat de facto weinig directe invloed heeft op de trainingskeuzes van die bedrijven.</p>
+      <p>Het boek werd geschreven vóór de brede introductie van grote taalmodellen zoals ChatGPT eind 2022; sommige technische aannames en tijdlijnen die Gawdat in 2021 presenteerde, zijn door de daaropvolgende versnelling van het veld al ingehaald of bijgesteld.</p>
+      <p>Dat regelgeving structureel achterloopt bij technologie is een aanname die het boek als vaststaand feit presenteert, zonder in te gaan op voorbeelden van sectoren waarin toezicht wel bijtijds is aangepast; de conclusie dat individueel gedrag daarom het enige overgebleven aangrijpingspunt is, volgt niet vanzelfsprekend uit die aanname.</p>
+      <p>Gawdat schrijft vanuit een positie van financiële onafhankelijkheid, verworven tijdens zijn jaren bij Google, wat zijn advies om te kiezen voor zorgvuldigheid boven snelheid en winst gemakkelijker uitvoerbaar maakt voor hemzelf dan voor werknemers of bedrijven die in directe concurrentie om marktaandeel staan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij het gebruik van een AI-systeem na welke data het van je gedrag verzamelt, en pas dat gedrag aan als het systeem daarmee een verkeerd beeld van je voorkeuren opbouwt.</li>
+        <li>Bespreek in een team dat AI-toepassingen bouwt of inkoopt, expliciet welke waarden in de trainingsdata of de configuratie terechtkomen, in plaats van dat aan de leverancier over te laten.</li>
+        <li>Vraag bij twijfel over een AI-advies om de onderliggende data en aannames voordat het advies wordt overgenomen.</li>
+        <li>Beoordeel een nieuw AI-project niet alleen op snelheid en kosten, maar ook op welk gedrag het bij gebruikers beloont of juist ontmoedigt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Scary Smart: The Future of Artificial Intelligence and How You Can Save Our World</i> (Pan Macmillan, Londen, 2021, 320 blz.). De Nederlandse vertaling van Nico Groen verscheen als <i>Griezelig slim: De impact van kunstmatige intelligentie op ons leven</i> bij Uitgeverij Brandt, 2021 (343 blz., ISBN 9789493095717). Van Gawdat verscheen eerder <i>Solve for Happy</i>, in het Nederlands als <i>De vergelijking van geluk</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mo Gawdat, voormalig chief business officer van Google X, schrijft over de snelle ontwikkeling van kunstmatige intelligentie vanuit zijn eigen jaren binnen de sector. Zijn uitgangspunt is dat AI onvermijdelijk slimmer wordt dan de mens, en dat de vraag niet is of dat gebeurt, maar hoe die intelligentie zich gaat gedragen.</p><p>Het boek werkt met wat Gawdat drie onvermijdelijkheden noemt: AI komt er, AI wordt slimmer dan wij, en er zullen fouten worden gemaakt tijdens die ontwikkeling. Daaruit leidt hij af dat mensen de technologie zelf niet kunnen tegenhouden, maar wel invloed hebben op wat AI leert over wat het betekent om mens te zijn.</p><p>Gawdat vergelijkt de omgang met AI met opvoeding: een systeem dat leert van menselijk gedrag en menselijke data, weerspiegelt volgens hem de kwaliteiten en gebreken van wie het traint. Het grootste deel van het boek gaat over wat individuele mensen daaraan kunnen doen, in hun eigen gedrag en in de data die zij achterlaten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kunstmatige intelligentie</li><li>technologie</li><li>ethiek</li><li>toekomst</li><li>google x</li><li>machine learning</li><li>verantwoordelijkheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="236"><a href="236.html">Homo Deus</a>. Harari beschrijft dezelfde technologische omslag vanuit een langer historisch perspectief; Gawdat redeneert vanuit zijn eigen ervaring in de sector zelf.</li>
+          <li value="297"><a href="297.html">The Reverse Centaur's Guide to Life After AI</a>. Doctorow onderzoekt specifiek de gevolgen van AI voor werk en macht, waar Gawdat zich vooral richt op individueel gedrag als tegenwicht.</li>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt onderzoekt hoe technologie, in zijn geval sociale media, het gedrag van een hele generatie vormt, een dynamiek die Gawdat op AI-schaal beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

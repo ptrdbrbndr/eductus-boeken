@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cupid's Poisoned Arrow &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Robinson stelt dat het orgasme, zoals de meeste westerse relaties het praktiseren, op termijn tegen de verliefdheid werkt in plaats van ervoor. Haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2093">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2093 &middot; Brein en lichaam</p>
+    <h1>Cupid's Poisoned Arrow</h1>
+    <p class="lede">Marnia Robinson, 2009</p>
+    <p class="stats">
+      <span><b>1410</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2093"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Robinson stelt dat het orgasme, zoals de meeste westerse relaties het praktiseren, op termijn tegen de verliefdheid werkt in plaats van ervoor. Haar redenering steunt op onderzoek naar dopamine en het zogeheten Coolidge-effect, de neiging van veel diersoorten om sterker te reageren op een nieuwe partner dan op een bekende, en op onderzoek naar hechtingshormonen als oxytocine en vasopressine die vooral vrijkomen bij langzame, herhaalde aanraking zonder climax. Haar stelling is dat koppels die op orgasme gerichte seks als norm nemen, zichzelf onbedoeld in een cyclus van opwinding en verzadiging manoeuvreren die dezelfde neurochemische route volgt als verslaving, en dat oudere tradities als karezza en de taoïstische liefdeskunst, die het orgasme uitstellen of vermijden, in feite een uitweg uit die cyclus beschrijven zonder de neurowetenschap ervan te kennen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De twee systemen: paren en binden</h3>
+      <p>Robinson opent met het onderscheid tussen wat zij het paarsysteem en het bindsysteem noemt: het eerste drijft op nieuwheid en jaagt op een volgende partner, het tweede bouwt gehechtheid op aan één partner over tijd. Beide systemen gebruiken dopamine, maar op tegengestelde manieren, wat volgens haar verklaart waarom verliefdheid en langdurige gehechtheid zich zelden gelijktijdig op hun sterkst voordoen.</p>
+      <p>Als bewijs voor het paarsysteem beschrijft zij het Coolidge-effect, oorspronkelijk waargenomen bij ratten: een mannetje dat uitgeput raakt van seks met hetzelfde vrouwtje, herneemt zijn activiteit zodra er een nieuw vrouwtje wordt binnengebracht. Robinson gebruikt dat dierexperiment als verklaringsmodel voor menselijke gewenning aan een vaste partner.</p>
+      <h3>De passiecyclus en de kater na het orgasme</h3>
+      <p>Centraal staat wat zij de passiecyclus noemt: dopamine loopt op in de aanloop naar seks, piekt rond het orgasme en valt daarna sterk terug, met een herstelperiode waarin verlangen en soms ook prikkelbaarheid tijdelijk afnemen. Bij mannen is die terugval volgens haar vrijwel direct merkbaar, bij vrouwen kan het langer duren voordat het systeem weer in evenwicht is.</p>
+      <p>Robinson noemt dat een biochemische kater en stelt dat koppels die stelselmatig op orgasme gerichte seks hebben, elkaar door herhaling van die cyclus geleidelijk minder aantrekkelijk gaan vinden, terwijl nieuwheid buiten de relatie, inclusief pornografie, het paarsysteem blijft prikkelen.</p>
+      <h3>Tradities die het orgasme wantrouwden</h3>
+      <p>Tussen de hoofdstukken plaatst zij essays over tradities die seksuele terughoudendheid al eeuwenlang aanbevelen: de taoïstische liefdeskunst, die mannen leert het zaadverlies te beperken, de middeleeuwse cortezia van de troubadours, waarin verlangen zonder consummatie werd verheerlijkt, en christelijke ascetische tradities die onthouding als geestelijke discipline zagen.</p>
+      <p>Zij leest deze tradities niet als bijgeloof maar als vroege observaties van hetzelfde patroon dat zij met moderne neurowetenschap beschrijft: gemeenschappen die op eigen ervaring vaststelden dat veelvuldige climax de band tussen partners kan verzwakken, lang voordat er een woord als dopamine bestond.</p>
+      <h3>Karezza als praktijk</h3>
+      <p>Robinson introduceert karezza, een term die de negentiende-eeuwse Amerikaanse feministe en arts Alice Bunker Stockham gaf aan langzame, aandachtige vrijage waarbij het orgasme wordt uitgesteld of vermeden. Het woord komt van het Italiaanse carezza, aanhalen of strelen.</p>
+      <p>Zij beschrijft karezza niet als een truc voor betere seks maar als een andere omgang met intimiteit: meer aanraking, meer oogcontact, minder gerichtheid op een climax als doel. Concrete oefeningen, over ademhaling, houding en tempo, komen terug in de latere hoofdstukken en op de website die zij met Wilson beheert.</p>
+      <h3>Pornografie en het brein</h3>
+      <p>In de latere hoofdstukken breidt Robinson haar redenering uit naar pornografie, die zij als een versterkte vorm van het paarsysteem beschrijft: een vrijwel onbeperkte stroom nieuwe prikkels die het brein overprikkelt en de gevoeligheid voor een vaste partner verder verlaagt. Haar partner Gary Wilson bouwde dit spoor later uit tot de website YourBrainOnPorn.com.</p>
+      <p>Het boek eindigt met een pleidooi om bewust met beide systemen om te gaan: nieuwheid en spanning hebben hun plaats, maar een relatie die wil standhouden heeft volgens Robinson vooral onderhoud van het bindsysteem nodig, en dat onderhoud loopt via aanraking, niet via herhaalde climax.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Karezza</td><td>De praktijk van langzame, aandachtige vrijage met uitgesteld of vermeden orgasme, genoemd naar het Italiaanse woord voor strelen.</td></tr>
+          <tr><td class="term">Coolidge-effect</td><td>De waargenomen neiging van veel diersoorten om hernieuwde seksuele belangstelling te tonen bij een nieuwe partner nadat de belangstelling voor een vertrouwde partner is afgenomen.</td></tr>
+          <tr><td class="term">Passiecyclus</td><td>Robinsons naam voor de opeenvolging van oplopende dopamine, een piek rond het orgasme en een terugval erna, die zij als verklaring gebruikt voor tanende passie in relaties.</td></tr>
+          <tr><td class="term">Paarsysteem en bindsysteem</td><td>De twee door Robinson onderscheiden systemen: het ene gericht op nieuwe partners, het andere op gehechtheid aan één partner.</td></tr>
+          <tr><td class="term">Cortezia</td><td>De middeleeuwse hoofse liefdestraditie van de troubadours, waarin verlangen zonder consummatie als verfijning gold.</td></tr>
+          <tr><td class="term">Oxytocine en vasopressine</td><td>Hormonen die volgens het boek vooral vrijkomen bij langzame, herhaalde aanraking en die aan gehechtheid tussen partners bijdragen.</td></tr>
+          <tr><td class="term">Taoïstische liefdeskunst</td><td>Een Chinese traditie van seksuele technieken gericht op het beperken van zaadverlies bij mannen, door Robinson aangehaald als vroege parallel van karezza.</td></tr>
+          <tr><td class="term">Biochemische kater</td><td>Robinsons term voor de fase van verminderd verlangen en soms prikkelbaarheid direct na het orgasme.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Robinson bouwt voort op dierstudies naar aantrekking en gehechtheid, onder meer onderzoek naar prairiewoelmuizen, waarbij de knaagdiersoort na paring een blijvende voorkeur voor die ene partner ontwikkelt via oxytocine en vasopressine, in tegenstelling tot verwante soorten die dat gedrag niet vertonen. Dat onderzoek is onafhankelijk gepubliceerd en wordt in de gedragswetenschap breed aangehaald.</p>
+      <p>Voor het Coolidge-effect verwijst zij naar experimenten met ratten en ander vee waarin herhaalde blootstelling aan dezelfde partner tot afnemende seksuele activiteit leidt, hersteld door introductie van een nieuwe partner. Dat effect is bij verscheidene diersoorten aangetoond, maar de overdracht naar menselijk gedrag in het boek blijft grotendeels analogie, niet direct onderzoek bij mensen.</p>
+      <p>De historische tradities, taoïstische geschriften, troubadourpoëzie, christelijke ascese, zijn tekstueel goed gedocumenteerd en Robinson citeert er primaire bronnen van; wat zij niet levert, is onafhankelijk bewijs dat de aanbevolen onthouding destijds ook het effect had dat zij eraan toeschrijft. De teksten beschrijven een ideaal, geen gemeten uitkomst.</p>
+      <p>Douglas Wile, die het voorwoord schreef, is hoogleraar en vertaler van Chinese teksten over seksualiteit en gezondheid en kan de taoïstische bronnen die Robinson aanhaalt onafhankelijk beoordelen; zijn betrokkenheid geeft dat specifieke onderdeel van het boek meer gewicht dan de hoofdstukken die uitsluitend op Robinsons eigen lezing van de neurowetenschap steunen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste gebrek is dat er geen gecontroleerd onderzoek bestaat naar karezza zelf: geen enkele studie heeft gemeten of stellen die karezza toepassen op termijn een sterkere band overhouden dan stellen die dat niet doen. De onderbouwing bestaat uit dierstudies naar aanverwante mechanismen, historische tradities en ervaringen van lezers op de website van de auteur, niet uit onderzoek naar de praktijk die het boek aanbeveelt.</p>
+      <p>Robinson en Wilson zijn geen onafhankelijke onderzoekers maar voorvechters van een levensstijl waar zij zelf een website en een inkomen aan ontlenen. Dat maakt hen niet automatisch ongelijk, maar het betekent dat de selectie van onderzoek in het boek, die vrijwel uitsluitend steun biedt voor hun stelling, met een kritische blik gelezen moet worden.</p>
+      <p>De latere uitbreiding naar pornografie en verslaving trekt het boek in een debat waar de wetenschappelijke consensus verdeeld is: onderzoekers zijn het oneens over de vraag of pornogebruik als een verslaving in klinische zin te classificeren is. Het boek presenteert Wilsons standpunt daarin als vaststaand, terwijl het onderwerp op het moment van schrijven nog volop in discussie was.</p>
+      <p>Het boek richt zich vrijwel volledig op heteroseksuele, monogame paren; wat het model betekent voor andere relatievormen komt niet aan bod, en de auteur generaliseert bevindingen bij ratten en woelmuizen soms sneller naar mensen dan de dierstudies zelf toestaan.</p>
+      <p>De toon van het boek wisselt tussen neutrale uitleg van onderzoek en persoonlijke overtuiging, zonder dat voor de lezer altijd duidelijk is waar het een overgaat in het ander. Robinson beschrijft haar eigen ervaring met karezza als aanleiding voor het boek, en die persoonlijke geschiedenis blijft door de latere, meer wetenschappelijk ogende hoofdstukken heen zichtbaar aanwezig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid nieuwheid van gehechtheid: verwacht niet dat een langdurige relatie dezelfde opwinding geeft als een nieuwe.</li>
+        <li>Bouw meer langzame aanraking in, zonder dat elke aanraking naar een climax hoeft te leiden.</li>
+        <li>Wees terughoudend met het idee dat vaker klaarkomen automatisch een hechtere relatie oplevert.</li>
+        <li>Lees de aangehaalde tradities als aanwijzing, niet als bewijs, en toets ze aan wat in de eigen relatie werkt.</li>
+        <li>Bespreek een verandering in het seksleven eerst met de partner voordat je een oefening uit het boek uitprobeert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Cupid's Poisoned Arrow: From Habit to Harmony in Sexual Relationships</i> (North Atlantic Books, Berkeley, 2009, 416 blz., ISBN 9781556438097), met een voorwoord van Douglas Wile. Van het boek is geen Nederlandse vertaling verschenen; ook van Robinsons latere werk, geschreven samen met haar partner Gary Wilson die de website YourBrainOnPorn.com oprichtte, is niets in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Robinson stelt dat de biologie van aantrekking en hechting twee verschillende systemen aanstuurt: het ene jaagt op nieuwe partners, het andere bindt aan één partner. Beide systemen delen dezelfde chemische stof, dopamine, en concurreren voortdurend met elkaar. Een orgasme, schrijft zij, activeert vooral het eerste systeem en drukt tijdelijk het tweede.</p><p>Uit die spanning leidt zij een verklaring af voor een patroon dat veel koppels herkennen: de eerste maanden van een relatie voelen intens, en daarna zakt de passie weg, ongeveer op het moment dat seks een gewoonte is geworden. Tussen de hoofdstukken staan korte essays over tradities die dat probleem al langer signaleerden, van het Chinese taoïsme tot middeleeuwse cortezia en christelijke onthoudingspraktijken.</p><p>Als alternatief beschrijft zij karezza, een vorm van aanraking en langzame vrijage zonder, of met uitgesteld, orgasme, ontleend aan negentiende-eeuwse Amerikaanse hervormers. Robinson schreef het boek met haar partner Gary Wilson, die later de website YourBrainOnPorn.com oprichtte over de gevolgen van pornogebruik op het brein.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>seksualiteit</li><li>relaties</li><li>karezza</li><li>dopamine</li><li>hechting</li><li>taoïsme</li><li>pornografie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2006"><a href="2006.html">Taoist Secrets of Love: Cultivating Male Sexual Energy</a>. Mantak Chia beschrijft de taoïstische liefdeskunst waarnaar Robinson zelf verwijst als vroege, niet-westerse parallel van karezza.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Perel onderzoekt vanuit een andere invalshoek dezelfde spanning tussen begeerte en vertrouwdheid binnen een langdurige relatie.</li>
+          <li value="1745"><a href="1745.html">Hold Me Tight</a>. Johnsons hechtingstheorie biedt een ander, wetenschappelijk steviger verankerd kader voor dezelfde vraag naar wat partners aan elkaar bindt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

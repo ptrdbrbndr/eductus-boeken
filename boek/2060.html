@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walking with the Bhagavad Gita &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Patel leest de Bhagavad Gita als een antwoord op verlamming, niet als een rechtvaardiging van oorlog. Zijn stelling is dat Arjuna's weigering om te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2060">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2060 &middot; Filosofie en mystiek</p>
+    <h1>Walking with the Bhagavad Gita</h1>
+    <p class="lede">Mansukh Patel, 1996</p>
+    <p class="stats">
+      <span><b>1410</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2060"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Patel leest de Bhagavad Gita als een antwoord op verlamming, niet als een rechtvaardiging van oorlog. Zijn stelling is dat Arjuna's weigering om te vechten geen lafheid is maar het moment waarop iemand ontdekt dat hij niet weet wie hij is: een lichaam dat op het punt staat verwanten te doden, of iets dat aan dat lichaam voorafgaat en het overleeft. Krishna's onderricht lost die vraag niet op met een gebod maar met een verschuiving van identiteit. Wie zich kent als het onvergankelijke zelf kan handelen zonder verlamd te raken door angst voor verlies, en kan zijn taak vervullen zonder zich te hechten aan de uitkomst ervan. Patel vertaalt die leer naar een praktische claim: verdriet en wanhoop verdwijnen niet doordat de omstandigheden veranderen, maar doordat de vraag verandert die iemand zichzelf stelt over wat er werkelijk verloren kan gaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Arjuna op het slagveld</h3>
+      <p>Het boek opent met het tafereel waarmee de Gita begint: twee legers staan tegenover elkaar tussen Kuru en Pandava, families die door huwelijk en bloed met elkaar verbonden zijn. Arjuna vraagt Krishna zijn strijdwagen tussen de linies te rijden, ziet ooms, neven en leermeesters aan de overkant staan, en laat zijn wapens zakken.</p>
+      <p>Patel behandelt deze scène niet als aanloop maar als de eigenlijke vraag van het boek: wat doe je wanneer plicht en persoonlijke gehechtheid recht tegenover elkaar staan en er geen uitweg is die geen pijn doet.</p>
+      <h3>Het onvergankelijke zelf</h3>
+      <p>Krishna's eerste antwoord is geen strategie maar een herdefiniëring: het lichaam wordt geboren en sterft, het zelf erin niet. Patel vertaalt dit naar het beeld van kleren die versleten raken en vervangen worden, terwijl degene die ze draagt blijft bestaan.</p>
+      <p>Vanuit dat onderscheid herleest hij Arjuna's verdriet als verdriet om het verkeerde: hij treurt om lichamen, terwijl wat blijvend is buiten het bereik van het slagveld valt.</p>
+      <h3>Handelen zonder gehechtheid: karma yoga</h3>
+      <p>Het middendeel behandelt nishkama karma, handelen zonder gehechtheid aan de vrucht van het handelen. Krishna zegt Arjuna dat hij recht heeft op de handeling, niet op de uitkomst ervan, en dat werkeloosheid zelf ook een keuze met gevolgen is.</p>
+      <p>Patel werkt dit uit als een dagelijkse oefening: iemand blijft handelen vanuit zijn taak, maar laat de uitkomst los als iets waarover hij geen volledige zeggenschap heeft.</p>
+      <h3>De wegen van kennis en devotie</h3>
+      <p>Naast de weg van het handelen bespreekt het boek jnana yoga, de weg van onderscheidend inzicht, en bhakti yoga, de weg van devotie en overgave aan Krishna als goddelijke aanwezigheid. Patel presenteert deze niet als concurrerende leren maar als wegen die op dezelfde plaats uitkomen, afhankelijk van iemands aanleg.</p>
+      <p>Hij voegt er dhyana yoga aan toe, de weg van meditatie, en verbindt die expliciet met de ademhalings- en bewegingsoefeningen van de Dru-traditie waarin hij zelf onderricht geeft.</p>
+      <h3>Dharma en de eigen aard</h3>
+      <p>Een apart deel gaat over dharma, vertaald als de taak die bij iemands eigen aard hoort. Krishna houdt Arjuna voor dat het beter is de eigen dharma onvolmaakt te vervullen dan die van een ander volmaakt over te nemen.</p>
+      <p>Patel plaatst dit tegenover de neiging om een leven te kopiëren dat niet bij iemand past, en leest de tekst als een pleidooi om eerst de eigen aard te onderzoeken voordat er een taak wordt gekozen.</p>
+      <h3>De universele gedaante</h3>
+      <p>In hoofdstuk elf van de Gita toont Krishna zijn kosmische gedaante, waarin verleden, heden en toekomst tegelijk zichtbaar zijn en Arjuna overweldigd raakt van angst en ontzag. Patel behandelt deze passage als het emotionele hoogtepunt van het boek: het moment waarop woorden plaatsmaken voor directe ervaring.</p>
+      <p>Hij waarschuwt dat deze visie niet herhaalbaar of oproepbaar is op commando, en leest haar vooral als bevestiging dat wat Krishna eerder uitlegde geen bespiegeling was maar wees op iets werkelijks.</p>
+      <h3>De reisgenoot: vers voor vers</h3>
+      <p>Het tweede deel herhaalt de achttien hoofdstukken in de volgorde van het origineel, met bij elk vers een korte uitleg en een suggestie voor toepassing in het dagelijks leven, van rouw tot besluiteloosheid tot boosheid.</p>
+      <p>Patel bedoelt dit deel als naslagwerk naast het eerste, zodat een lezer die met een concrete moeilijkheid zit een vers kan opzoeken in plaats van het boek van voor naar achter te lezen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dharma</td><td>De taak of plicht die bij iemands eigen aard en positie hoort; in het boek de reden waarom Arjuna moet vechten, ook al doet het pijn.</td></tr>
+          <tr><td class="term">Nishkama karma</td><td>Handelen zonder gehechtheid aan de vrucht van de handeling, de kern van wat Patel karma yoga noemt.</td></tr>
+          <tr><td class="term">Atman</td><td>Het onvergankelijke zelf dat volgens de Gita niet geboren wordt en niet sterft, in tegenstelling tot het lichaam.</td></tr>
+          <tr><td class="term">Jnana yoga</td><td>De weg van onderscheidend inzicht, waarbij het zelf van het niet-zelf wordt onderscheiden door nadenken en zelfonderzoek.</td></tr>
+          <tr><td class="term">Bhakti yoga</td><td>De weg van devotie en overgave aan Krishna, in het boek voorgesteld als toegankelijker voor wie meer op het gevoel is aangewezen dan op filosofie.</td></tr>
+          <tr><td class="term">Dhyana yoga</td><td>De weg van meditatie, door Patel verbonden met de ademhalings- en bewegingsoefeningen van de Dru-traditie.</td></tr>
+          <tr><td class="term">Kurukshetra</td><td>Het slagveld waar het gesprek tussen Krishna en Arjuna plaatsvindt, letterlijk het veld van de Kuru's.</td></tr>
+          <tr><td class="term">Vishvarupa</td><td>De universele gedaante die Krishna in hoofdstuk elf toont, waarin alle tijd en alle wezens tegelijk zichtbaar worden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De Bhagavad Gita zelf is een achttien hoofdstukken tellend gedeelte van het epos Mahabharata, waarvan de kern vermoedelijk tussen de tweede eeuw voor en de tweede eeuw na het begin van de jaartelling is vastgelegd; over de precieze datering bestaat geen overeenstemming. Patel citeert en herschrijft die tekst, maar levert zelf geen Sanskrietkritische editie of vertaling met bronnenapparaat.</p>
+      <p>Zijn autoriteit komt niet uit academische Indologie maar uit veertig jaar lesgeven binnen de Dru-traditie, die teruggaat op onderricht dat hij en zijn medeoprichters in de jaren zeventig kregen van twee op Gandhi geïnspireerde leraren, Chagganbhai en Ecchaben Patel. Het boek presenteert zich dan ook als toegepaste overlevering, niet als filologisch onderzoek.</p>
+      <p>Dat de tekst zelf al eeuwenlang tot uiteenlopende commentaren heeft geleid, is op zichzelf controleerbaar: Shankara las de Gita rond de achtste eeuw als een pleidooi voor niet-dualistisch inzicht, terwijl latere commentatoren als Ramanuja er juist devotie in benadrukten. Patel plaatst zich impliciet in de devotionele en op praktijk gerichte lijn, zonder dat verschil met andere lezingen uit te leggen aan een lezer die de Gita voor het eerst tegenkomt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wie een kritisch-historische inleiding op de Gita zoekt, vindt die hier niet. Patel gaat niet in op de vraag hoe de tekst tot stand kwam, welke lagen erin te onderscheiden zijn, of hoe latere commentatoren als Shankara, Ramanuja en Tilak elkaar tegenspreken over wat de tekst precies leert. Het boek kiest één lezing en presenteert die als de betekenis van de Gita.</p>
+      <p>De ondertitel, vrijheid van verdriet en wanhoop, stuurt de selectie: passages die troosten en een praktische weg bieden krijgen ruimte, terwijl de moeilijker te verdedigen kanten van de tekst, zoals de kastegebonden opvatting van dharma in hoofdstuk achttien en het gegeven dat de raad die Arjuna krijgt eindigt in een oorlog met duizenden doden, nauwelijks worden uitgediept.</p>
+      <p>Het boek werkt vanuit de aanname dat de leer van de Gita rechtstreeks op het leven van de twintigste- en eenentwintigste-eeuwse lezer is toe te passen. Die aanname wordt nergens beargumenteerd, alleen gedemonstreerd door de gekozen voorbeelden en oefeningen.</p>
+      <p>Doordat het boek uit de eigen Dru-traditie van de auteurs voortkomt, valt niet goed te scheiden wat uit de Gita zelf komt en wat uit de latere yogapraktijk van Patel en zijn medeauteurs is toegevoegd. Voor een lezer die alleen de tekst van de Gita wil leren kennen, is dat een reden om het boek naast een onafhankelijke vertaling te leggen in plaats van ervoor in de plaats.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees bij een concreet dilemma niet het hele boek, maar zoek in deel twee het vers op dat bij de situatie past.</li>
+        <li>Onderscheid bij een verlies wat feitelijk is verdwenen en wat, in de termen van het boek, tot het onvergankelijke deel behoort.</li>
+        <li>Stel bij een taak die zwaar valt de vraag of de weerstand zit in de taak zelf of in gehechtheid aan een bepaalde uitkomst ervan.</li>
+        <li>Zoek bij twijfel over een levenskeuze eerst uit welke aanleg en aard eraan ten grondslag liggen, voordat een taak van iemand anders wordt overgenomen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Walking with the Bhagavad Gita: Freedom from Grief and Despair</i> (Life Foundation Publications, medio jaren negentig, ISBN 9781873606131), samengesteld met bijdragen van Chris Barrington, Savitri Maccuish en John Jones. De vier schreven het boek vanuit de yoga- en meditatiestichting Dru, die zij in 1978 met Patel oprichtten in Bangor. De Nederlandse vertaling <i>Op weg met de Bhagavad Gita</i> verscheen in 2001 bij Stichting Life Foundation International (256 blz., ISBN 9789080599932); een herziene tweedelige editie, <i>1. De essentie van de reis</i> en <i>2. De reisgenoot</i>, kwam in 2014 en 2017 uit bij Stichting Dru Nederland (ISBN 9789081412490). Van Patel verscheen verder de autobiografie <i>Face to Face with Life</i>, niet in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Patel herschrijft de Bhagavad Gita niet als leerboek maar als een gesprek tussen de krijger Arjuna en zijn wagenmenner Krishna, op het slagveld van Kurukshetra, vlak voordat een oorlog tussen twee takken van dezelfde familie losbarst. Arjuna laat zijn boog zakken omdat hij weigert bloedverwanten en leermeesters te doden; Krishna antwoordt niet met een verontschuldiging voor de oorlog maar met een leer over wie er eigenlijk sterft en wie niet.</p><p>Deel 1, De essentie van de reis, herschept die achttien hoofdstukken als lopend verhaal en licht de kernbegrippen toe: het onderscheid tussen het onvergankelijke zelf en het vergankelijke lichaam, handelen zonder gehechtheid aan de vrucht ervan, en de plicht die bij iemands eigen aard hoort. Deel 2, De reisgenoot, werkt de tekst per hoofdstuk en vers verder uit als naslagwerk voor wie er zelf mee wil oefenen.</p><p>Patel schreef vanuit zijn eigen geschiedenis: hij zag als kind de Mau Mau-opstand in Kenia van dichtbij, promoveerde later in de kankertoxicologie aan de universiteit van Wales en richtte in 1978 met vier medestudenten Dru op. De ondertitel, vrijheid van verdriet en wanhoop, verwijst naar wat hij als de kern van de Gita beschouwt: geen handleiding voor oorlog, maar een leer over hoe te handelen wanneer verlies onontkoombaar is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bhagavad gita</li><li>yoga</li><li>meditatie</li><li>hindoeïsme</li><li>zelfrealisatie</li><li>dharma</li><li>Krishna en Arjuna</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1551"><a href="1551.html">Bhagavad Gita</a>. De Bhagavad Gita zelf, in de vertaling van Guus en Kuuk Nooteboom, is de brontekst waarop Patels boek een toegepast commentaar vormt.</li>
+          <li value="520"><a href="520.html">Vivekachudamani</a>. Shankara's Vivekachudamani werkt het onderscheid tussen het onvergankelijke zelf en het vergankelijke lichaam filosofisch verder uit dan Patel doet.</li>
+          <li value="527"><a href="527.html">Who Am I?</a>. Ramana Maharshi's Who Am I? stelt dezelfde zelfonderzoeksvraag vanuit een andere, sterk verdichte traditie binnen het hindoeïsme.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

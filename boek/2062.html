@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On Combat &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De stelling van Grossman en Christensen is dat overleven en adequaat handelen in een dodelijke confrontatie geen kwestie is van moed in de gangbare zin,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2062">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2062 &middot; Moed en karakter</p>
+    <h1>On Combat</h1>
+    <p class="lede">Dave Grossman en Loren W. Christensen, 2004</p>
+    <p class="stats">
+      <span><b>1408</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2062"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De stelling van Grossman en Christensen is dat overleven en adequaat handelen in een dodelijke confrontatie geen kwestie is van moed in de gangbare zin, maar van fysiologie die te trainen valt. Boven een bepaalde hartslag neemt het lichaam functies van de hersenen over die fijne motoriek en helder redeneren onmogelijk maken, en wie dat niet weet, wordt erdoor overvallen op het moment dat het er het meest toe doet. Wie het wel weet, kan door herhaalde, realistische training de eigen reactie verleggen naar het gebied waarin motoriek en beoordelingsvermogen op hun scherpst blijven. Het boek voert daarnaast aan dat de nasleep van geweld, inclusief posttraumatische stress, geen teken van zwakte is maar een voorspelbaar en te begeleiden proces, mits organisaties en gezinnen weten wat ze kunnen verwachten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De kleurcodes van paraatheid</h3>
+      <p>Het boek opent met een raamwerk van vijf toestanden, van wit via geel, rood en grijs naar zwart, gekoppeld aan geschatte hartslagwaarden. In wit is iemand volledig onoplettend, in geel alert maar ontspannen, in rood, rond de 115 tot 145 slagen per minuut, bereiken grove motoriek en reactietijd hun beste punt.</p>
+      <p>Boven ongeveer 175 slagen per minuut, conditie zwart, treedt volgens de auteurs vaatvernauwing op waardoor het beoordelingsvermogen instort; zelfs goed getrainde mensen ervaren dan een scherpe terugval in denken en handelen.</p>
+      <h3>Waarnemingsvervormingen tijdens geweld</h3>
+      <p>Grossman en Christensen bespreken verschijnselen die getuigen van geweldsincidenten vaak melden: tunnelvisie, gehoorverlies, het gevoel dat de tijd vertraagt of versnelt, en achteraf hiaten in de herinnering.</p>
+      <p>Ze presenteren dit niet als bewijs van onbetrouwbare getuigen maar als voorspelbare gevolgen van extreme stress, met gevolgen voor hoe verklaringen na een incident beoordeeld zouden moeten worden.</p>
+      <p>De auteurs pleiten er daarom voor dat een agent of soldaat na een schietincident niet meteen een volledige, uitputtende verklaring hoeft af te leggen, maar eerst tijd en rust krijgt, omdat een verklaring vlak na het incident volgens hen vaker hiaten en vervormingen bevat dan een verklaring een dag later.</p>
+      <h3>De psychologie van doden</h3>
+      <p>Voortbouwend op Grossmans eerdere werk bespreekt dit deel de innerlijke weerstand tegen het doden van een ander mens, en de factoren die deze weerstand verlagen, zoals afstand tot het doel en groepsdruk.</p>
+      <p>Het boek bespreekt ook de rationalisaties die mensen achteraf gebruiken om een gewelddadige daad te verwerken, en waarschuwt dat het ontbreken daarvan tot langdurige psychologische schade kan leiden.</p>
+      <h3>Schapen, wolven en waakhonden</h3>
+      <p>In een van de bekendste passages verdelen de auteurs mensen in drie typen: de meerderheid die geweld liever niet onder ogen ziet, een kleine groep die geweld pleegt, en een kleine groep die zich traint om de eerste groep tegen de tweede te beschermen.</p>
+      <p>Deze indeling is later door militaire en politie-instructeurs veelvuldig overgenomen, en dook onder meer op in populaire cultuur, wat de bekendheid van het boek buiten vakkringen vergrootte.</p>
+      <h3>Trainen voor de werkelijkheid</h3>
+      <p>Het boek pleit voor training die de fysiologische stressreactie zelf oproept, in plaats van alleen technische vaardigheden droog te oefenen, met scenario-training en gesimuleerde druk als voorbeelden.</p>
+      <p>De auteurs stellen dat wie nooit onder verhoogde hartslag heeft geoefend, op het moment zelf voor het eerst moet ontdekken hoe zijn lichaam reageert, met het risico dat die ontdekking te laat komt.</p>
+      <h3>Ademhaling en herstel</h3>
+      <p>Een praktisch deel introduceert autogene ademhaling: vier tellen inademen, vier tellen vasthouden, vier tellen uitademen, als methode om de hartslag tijdens en na een stressvolle situatie terug te brengen naar een werkbaar niveau.</p>
+      <p>De auteurs koppelen dit aan het belang van voldoende slaap voor psychische veerkracht, en waarschuwen dat chronisch slaaptekort dezelfde soort cognitieve achteruitgang veroorzaakt als extreme stress.</p>
+      <p>Ze benadrukken dat deze techniek geoefend moet worden op rustige momenten, zodat ze onder echte spanning automatisch beschikbaar is; wie de ademhaling voor het eerst probeert toe te passen tijdens een incident zelf, heeft er volgens hen weinig aan.</p>
+      <h3>Na het incident</h3>
+      <p>Het laatste deel behandelt de nasleep van een gewelddadig incident: het belang van gestructureerde nabesprekingen kort na de gebeurtenis, en de boodschap dat posttraumatische stress een normale reactie is op een abnormale gebeurtenis, vergelijkbaar met een rouwproces.</p>
+      <p>De auteurs richten zich hier expliciet ook tot leidinggevenden en gezinsleden, met concrete aanwijzingen over wat wel en niet helpt in de dagen en weken na een incident, zoals luisteren zonder meteen te oordelen en iemand niet dwingen sneller te praten dan hij zelf kan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Conditie wit tot zwart</td><td>Het vijfdelige kleurenmodel van paraatheid, van volledige onoplettendheid tot volledige overweldiging, gekoppeld aan geschatte hartslagwaarden.</td></tr>
+          <tr><td class="term">Waakhond</td><td>De term voor wie zich bewust traint om anderen te beschermen tegen geweld, tegenover schapen die geweld liever niet zien en wolven die het plegen.</td></tr>
+          <tr><td class="term">Autogene ademhaling</td><td>De ademtechniek van vier tellen in, vier tellen vasthouden, vier tellen uit, om de hartslag onder stress te reguleren.</td></tr>
+          <tr><td class="term">Killology</td><td>De term die Grossman gebruikt voor de studie van de psychologische en fysiologische kanten van doden in oorlog en geweldsincidenten.</td></tr>
+          <tr><td class="term">Vaatvernauwing onder stress</td><td>Het fysiologische mechanisme dat bij zeer hoge hartslag de doorbloeding naar hersengebieden vermindert, met verlies van beoordelingsvermogen tot gevolg.</td></tr>
+          <tr><td class="term">Tunnelvisie en gehoorverlies</td><td>Twee van de waarnemingsvervormingen die de auteurs beschrijven als voorspelbare gevolgen van extreme stress tijdens een geweldsincident.</td></tr>
+          <tr><td class="term">Kritieke-incidentnabespreking</td><td>Het gestructureerde gesprek kort na een gewelddadig incident dat volgens de auteurs bijdraagt aan verwerking en het voorkomen van langdurige schade.</td></tr>
+          <tr><td class="term">Rationalisatie na geweld</td><td>De verklaringen die iemand zichzelf achteraf geeft voor een gewelddadige daad, volgens de auteurs een noodzakelijke stap om de daad te kunnen verwerken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Grossman baseert een deel van zijn argument op het werk van de Amerikaanse historicus S.L.A. Marshall, die na de Tweede Wereldoorlog claimde dat slechts vijftien tot vijfentwintig procent van de infanteristen daadwerkelijk op de vijand vuurde. Dat cijfer wordt in On Combat en in Grossmans eerdere On Killing als centraal bewijs voor de menselijke weerstand tegen doden gebruikt.</p>
+      <p>Voor de fysiologische kleurcodes en de hartslagdrempels verwijzen de auteurs naar politietrainingsonderzoek en naar bestaande literatuur over stressfysiologie, zonder dat het boek zelf nieuw experimenteel onderzoek presenteert; het is in de eerste plaats een synthese, geschreven voor een praktijkpubliek van militairen en agenten.</p>
+      <p>Grossmans stelling dat posttraumatische stress een normale reactie is en geen persoonlijk tekort, sluit aan bij de richting waarin de klinische opvatting van PTSS zich sinds de opname ervan in de psychiatrische classificatie in 1980 heeft ontwikkeld. Op dat punt loopt het boek in de pas met breder aanvaarde inzichten, ook al onderbouwt het die niet met eigen klinisch onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Marshalls oorspronkelijke cijfers zijn na zijn dood zwaar bekritiseerd. Latere onderzoekers vonden geen onderbouwing voor zijn methode van dataverzameling in zijn eigen archieven, en cijfers over munitieverbruik en wapenschade uit de Tweede Wereldoorlog wijzen eerder op een hoger vuurpercentage dan Marshall claimde. Grossman heeft dit cijfer desondanks als vaststaand feit overgenomen en er een universele menselijke eigenschap van gemaakt, wat door critici als een te grote stap wordt gezien.</p>
+      <p>De schaapherdershond-metafoor is buiten het boek om een politiek geladen beeld geworden, gebruikt in debatten over wapenbezit en de rol van gewapende burgers, een toepassing die de auteurs zelf niet expliciet bepleiten maar die door de scherpe driedeling van mensen in typen wel wordt uitgelokt.</p>
+      <p>Het boek is geschreven voor en met een sterke identificatie met militairen en agenten, en besteedt beperkt aandacht aan de vraag hoe vaak getraind geweld zelf tot escalatie of fouten leidt; de nadruk ligt op het beschermen van de eigen mensen tegen de gevolgen van geweld, minder op een kritische blik op het gebruik van geweld zelf.</p>
+      <p>De drieledige indeling in schapen, wolven en waakhonden laat weinig ruimte voor de constatering dat de meeste mensen in de loop van een leven meerdere van die rollen vervullen, of dat de indeling zelf een vereenvoudiging is van iets dat de auteurs op andere plekken in het boek juist als complex en situatieafhankelijk beschrijven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Oefen een taak die onder druk moet lukken minstens één keer onder kunstmatig opgevoerde spanning, niet alleen in een rustige omgeving.</li>
+        <li>Gebruik de ademtechniek van vier tellen in, vier tellen vasthouden, vier tellen uit op het moment dat de hartslag voelbaar oploopt vlak voor een belangrijk moment.</li>
+        <li>Bespreek een ingrijpende gebeurtenis kort erna gestructureerd met betrokkenen, in plaats van te wachten tot de emoties vanzelf wegzakken.</li>
+        <li>Neem slaaptekort serieus als risicofactor voor beoordelingsfouten, niet als een kwestie van doorzettingsvermogen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>On Combat: The Psychology and Physiology of Deadly Conflict in War and in Peace</i> (PPCT Research Publications, 2004, ISBN 9780964920545). Geen Nederlandse vertaling verschenen. Grossman, gepensioneerd luitenant-kolonel en voormalig psychologiedocent aan West Point, publiceerde eerder <i>On Killing</i> (1995), evenmin in het Nederlands vertaald, en richtte de Killology Research Group op; van Christensen, voormalig politieagent en auteur, verschenen losse titels over zelfverdediging die niet zijn vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Grossman en Christensen onderzoeken wat er met lichaam en geest gebeurt op het moment dat iemand geconfronteerd wordt met dodelijk geweld, of dat nu een soldaat op een slagveld is, een agent die met getrokken wapen een verdachte benadert, of een burger die wordt overvallen. Ze beschrijven een reeks fysiologische toestanden, van volledige onoplettendheid tot volledige overweldiging, gekoppeld aan hartslagwaarden, en laten zien hoe training die reeks kan bijsturen.</p><p>Een centraal deel van het boek gaat over wat de auteurs de schaapherdershond noemen: de kleine groep mensen die zich bewust traint om anderen te beschermen tegen geweld, tegenover de meerderheid die geweld liever niet onder ogen ziet en de kleine groep die het zelf pleegt. Andere delen behandelen hoe getraind wordt om onder extreme stress toch adequaat te handelen, en wat er na een gewelddadig incident nodig is om het te verwerken.</p><p>Het boek bouwt voort op Grossmans eerdere On Killing, waarin hij betoogde dat mensen van nature terughoudend zijn om een ander te doden, en verlegt de aandacht naar wat daarna gebeurt: de fysieke reacties tijdens het incident zelf en de psychologische nasleep ervan, met concrete adviezen voor trainers, leidinggevenden en gezinnen van militairen en agenten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stressfysiologie</li><li>krijgsmacht</li><li>politiewerk</li><li>geweld</li><li>posttraumatische stress</li><li>training</li><li>besluitvorming onder druk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2063"><a href="2063.html">Niet te breken</a>. Aarts beschrijft van binnenuit dezelfde stressfysiologie die Grossman en Christensen theoretisch uitwerken, toegepast op zijn eigen missies bij de Special Forces.</li>
+          <li value="229"><a href="229.html">Can't Hurt Me</a>. Goggins behandelt vanuit een andere invalshoek hoe training het lichaam kan voorbereiden op omstandigheden die de geest wil vermijden.</li>
+          <li value="372"><a href="372.html">Do Hard Things</a>. Magness bekritiseert juist het soort ongenuanceerde mentale-hardheidsverhalen waar Grossman met zijn schaapherdershond-beeld dicht tegenaan schuurt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

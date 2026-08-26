@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Innerlijke rust met EFT &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Toeset stelt dat een groot deel van aanhoudende spanning, angst en lichamelijk ongemak niet alleen in het hoofd zit maar ook in het energiesysteem van het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2111">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2111 &middot; Naslag en praktijk</p>
+    <h1>Innerlijke rust met EFT</h1>
+    <p class="lede">Yvonne Toeset, 2011</p>
+    <p class="stats">
+      <span><b>1425</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2111"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Toeset stelt dat een groot deel van aanhoudende spanning, angst en lichamelijk ongemak niet alleen in het hoofd zit maar ook in het energiesysteem van het lichaam, en dat het aantikken van vaste acupressuurpunten terwijl de aandacht bij de klacht blijft, die verstoring rechtstreeks kan opheffen. Haar stelling is dat dit geen ontspanningsoefening is maar een gerichte techniek die op eenzelfde klacht herhaaldelijk wordt toegepast tot de zelf ingeschatte hevigheid ervan naar nul zakt, en dat de methode daardoor door leken zelf te gebruiken is zonder therapeut. Het boek voert dat niet aan als losse belofte maar werkt het protocol stap voor stap uit, zodat de lezer het direct kan volgen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst van EFT</h3>
+      <p>Toeset opent met de geschiedenis van de methode: Roger Callahan ontwikkelde in de jaren tachtig Thought Field Therapy, waarbij op basis van kinesiologie voor elke klacht een andere volgorde van kloppunten werd bepaald. Gary Craig, een leerling van Callahan, vereenvoudigde dat in de jaren negentig tot een vaste volgorde die voor vrijwel elke klacht hetzelfde blijft, en noemde het resultaat Emotional Freedom Techniques.</p>
+      <p>Toeset presenteert zichzelf als opgeleid in die traditie en positioneert het boek als een praktische inleiding voor wie zelf wil beginnen, zonder eerst een opleiding te volgen.</p>
+      <h3>Het basisprotocol</h3>
+      <p>Het protocol begint met een opstartzin waarin de klacht wordt benoemd, gevolgd door een zelfacceptatiezin die tijdens het tikken op een punt aan de zijkant van de hand wordt herhaald. Daarna volgt een vaste reeks kloppunten, van het begin van de wenkbrauw tot onder het sleutelbeen, elk gecombineerd met een korte herinnering aan de klacht.</p>
+      <p>Voor en na iedere ronde vraagt Toeset de lezer de hevigheid van de klacht te scoren op een schaal van nul tot tien, de zogeheten SUD-score. Een ronde wordt herhaald tot die score daalt; blijft ze gelijk, dan werkt het boek met een reeks alternatieve formuleringen om vast te stellen welk aspect van de klacht nog niet is aangeraakt.</p>
+      <h3>De 9-gamut-procedure</h3>
+      <p>Voor hardnekkigere klachten beschrijft Toeset een uitbreiding op het basisprotocol waarbij tijdens het aantikken van een punt op de handrug negen korte handelingen worden uitgevoerd, waaronder het openen en sluiten van de ogen en het neuriën van een deuntje. Deze procedure is bedoeld om, in de taal van het boek, beide hersenhelften bij de behandeling te betrekken.</p>
+      <h3>Emoties en herinneringen</h3>
+      <p>Een groot deel van het boek behandelt hoe EFT wordt ingezet bij concrete emoties: angst voor een specifieke situatie, piekeren, schaamte en boosheid. Toeset laat zien hoe een algemene klacht als 'ik ben gestrest' eerst wordt opgesplitst in kleinere, specifieke herinneringen of situaties, omdat het protocol volgens haar beter werkt op een concreet aspect dan op een vage klacht.</p>
+      <p>Ze besteedt ook aandacht aan het terugkeren naar herinneringen uit het verleden waarvan de emotionele lading nog voelbaar is, met de waarschuwing dat wie daarbij op weerstand of heftige reacties stuit, beter een opgeleid therapeut kan raadplegen.</p>
+      <h3>Lichamelijke klachten en overtuigingen</h3>
+      <p>Toeset beschrijft toepassingen bij lichamelijke klachten zoals rug- en schouderpijn, waarbij de aandacht tijdens het tikken niet bij een emotie maar bij de fysieke sensatie zelf ligt. Een ander hoofdstuk behandelt beperkende overtuigingen, bijvoorbeeld rond geld of eigenwaarde, die met dezelfde structuur van opstartzin en kloprondes worden aangepakt.</p>
+      <h3>Als het niet meteen werkt</h3>
+      <p>Het laatste deel gaat in op situaties waarin de score niet daalt. Toeset noemt mogelijke oorzaken zoals een verkeerd geformuleerde opstartzin, een klacht die eigenlijk uit meerdere deelklachten bestaat, of psychologische omkering, een term uit de Thought Field Therapy voor onbewuste weerstand tegen verandering. Ze sluit af met een overzicht van wanneer zelfhulp met EFT grenzen kent en professionele begeleiding aan te raden is.</p>
+      <h3>EFT in de praktijk van alledag</h3>
+      <p>Toeset besluit met een reeks kortere voorbeelden waarin ze laat zien hoe iemand EFT toepast op momenten die zich niet lenen voor een uitgebreide sessie, zoals vlak voor een spreekbeurt of tijdens een moment van paniek. In die voorbeelden verkort ze het protocol tot een enkele ronde op de meest toegankelijke punten, met de kanttekening dat een verkorte versie minder grondig is dan de volledige reeks.</p>
+      <p>Ze besteedt ook aandacht aan het combineren van EFT met andere vormen van zelfzorg, zoals ademhaling en beweging, en waarschuwt dat EFT geen vervanging is voor medische behandeling bij ernstige klachten maar een aanvulling daarop.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">EFT</td><td>Afkorting van Emotional Freedom Techniques, de door Gary Craig ontwikkelde methode van aantikken van acupressuurpunten gecombineerd met gerichte aandacht.</td></tr>
+          <tr><td class="term">Opstartzin</td><td>De zin waarin de klacht wordt benoemd en waarmee elke kloppronde begint.</td></tr>
+          <tr><td class="term">SUD-score</td><td>De score van nul tot tien waarmee de hevigheid van een klacht voor en na een kloppronde wordt ingeschat.</td></tr>
+          <tr><td class="term">Thought Field Therapy</td><td>De methode van Roger Callahan waaruit EFT is voortgekomen, met voor elke klacht een andere kloppuntvolgorde.</td></tr>
+          <tr><td class="term">9-gamut-procedure</td><td>De uitbreiding op het basisprotocol met negen korte handelingen, bedoeld om beide hersenhelften te betrekken.</td></tr>
+          <tr><td class="term">Zelfacceptatiezin</td><td>De zin die tijdens het tikken op het zijkantpunt van de hand wordt herhaald en waarin de klacht wordt aanvaard zoals ze is.</td></tr>
+          <tr><td class="term">Psychologische omkering</td><td>Onbewuste weerstand tegen verandering die volgens het boek een reden kan zijn waarom de score niet daalt.</td></tr>
+          <tr><td class="term">Kloppunten</td><td>De vaste reeks acupressuurpunten die bij elke ronde in dezelfde volgorde worden aangetikt.</td></tr>
+          <tr><td class="term">Kinesiologie</td><td>De spiertesttechniek waarop Callahan zich baseerde bij het samenstellen van de eerste kloppuntvolgordes van Thought Field Therapy.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Toeset citeert onderzoek waarin EFT samenhangt met een daling van cortisol, het stresshormoon, en met een afname van angst- en depressieklachten, onder meer werk van onderzoekers als Dawson Church, die klinische studies naar de methode heeft gepubliceerd. Zij noemt in het boek geen volledig overzicht van de onderliggende studies en verwijst vooral naar de ervaring van cliënten uit haar eigen praktijk.</p>
+      <p>Het idee van een energiesysteem waarin acupressuurpunten een storing kunnen opheffen, is niet afkomstig uit de reguliere geneeskunde maar uit de traditionele Chinese geneeskunde en de kinesiologie van Callahan; het boek presenteert dat uitgangspunt als werkmodel, niet als aangetoond mechanisme.</p>
+      <p>Los van de vraag hoe EFT werkt, laten meerdere onafhankelijk gepubliceerde studies een afname zien van zelfgerapporteerde angst- en stressklachten na een reeks EFT-sessies, vergelijkbaar met wat bij andere kortdurende gesprekstechnieken wordt gevonden; het aantal en de omvang van die studies is kleiner dan bij gevestigde therapievormen zoals cognitieve gedragstherapie.</p>
+      <p>Toeset bouwt haar uitleg van de geschiedenis van EFT op het werk van Callahan en Craig zelf en op de vakliteratuur die daaruit is voortgekomen; voor de precieze protocolstappen, zoals de volgorde van de kloppunten en de formulering van de opstartzin, sluit ze aan bij het door Craig gepubliceerde basisrecept, zonder daar zelf wijzigingen in aan te brengen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt het werkingsmechanisme: onderzoek naar EFT laat wel effecten zien op zelf gerapporteerde klachten en op cortisol, maar er bestaat geen aangetoond bewijs dat specifiek de acupressuurpunten het verschil maken. Studies waarin het tikken op willekeurige plekken op het lichaam wordt vergeleken met tikken op de voorgeschreven punten, laten vaak vergelijkbare resultaten zien, wat erop wijst dat aandacht en herhaling minstens zo veel verklaren als de punten zelf.</p>
+      <p>De SUD-score is een subjectieve, zelf ingeschatte maat, en het boek biedt geen manier om te onderscheiden of een dalende score een werkelijke verandering meet of vooral gewenning aan het herhaaldelijk uitspreken van de klacht.</p>
+      <p>Toeset raadt bij weerstand of heftige reacties aan een therapeut te raadplegen, maar het boek presenteert het protocol verder als geschikt voor zelfstandig gebruik bij een breed scala aan klachten, inclusief herinneringen met emotionele lading, zonder scherp af te bakenen wanneer zelfhulp niet meer verantwoord is.</p>
+      <p>De 9-gamut-procedure, met het neuriën van een deuntje en het bewegen van de ogen om beide hersenhelften te betrekken, mist een onderbouwing die verder gaat dan de kinesiologie waarop Callahan zich baseerde; het boek presenteert dat onderdeel zonder de vraag te stellen of het los van de rest van het protocol iets toevoegt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer de klacht zo specifiek mogelijk voordat je een kloppronde begint.</li>
+        <li>Noteer de score voor en na elke ronde om het verloop te kunnen volgen.</li>
+        <li>Zoek bij herinneringen met een sterke emotionele lading eerst begeleiding van een opgeleid therapeut.</li>
+        <li>Gebruik een verkorte ronde alleen voor de korte termijn en kom er later op terug met het volledige protocol.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel, eerste uitgave 2011 als e-boek bij Unieboek | Het Spectrum. De gedrukte editie verscheen bij dezelfde uitgeverij en beleefde in 2018 een achtste druk (280 blz., ISBN 9789000359042; e-boek ISBN 9789000302376). Van Toeset is geen ander boek in de reeks bekend; zij verzorgt daarnaast EFT-opleidingen en workshops.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Toeset, gecertificeerd EFT-therapeut en -trainer, legt de Emotional Freedom Techniques uit, een methode die Gary Craig in de jaren negentig ontwikkelde vanuit de Thought Field Therapy van Roger Callahan. De kern is dat iemand met de vingertoppen op een vaste reeks acupressuurpunten tikt terwijl de aandacht bij een emotie, herinnering of klacht blijft, in de veronderstelling dat dit een verstoring in het energiesysteem van het lichaam opheft.</p><p>Het boek werkt met het basisprotocol: een opstartzin, een score voor de hevigheid van de klacht op een schaal van tien, en herhaalde kloprondes tot die score naar nul zakt. Toeset behandelt uiteenlopende toepassingen, van angst en piekeren tot lichamelijke klachten en beperkende overtuigingen, en besteedt een apart hoofdstuk aan wat te doen als het protocol niet meteen werkt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eft</li><li>tapping</li><li>acupressuur</li><li>emoties</li><li>stress</li><li>zelfhulp</li><li>energiepsychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft vanuit de traumaliteratuur waarom lichaamsgerichte technieken als EFT bij spanning kunnen aangrijpen waar praten alleen niet voldoende blijkt.</li>
+          <li value="1628"><a href="1628.html">TRE, herstellen van stress en trauma kan je lichaam zelf</a>. Doomernik beschrijft met TRE een andere lichaamsgerichte methode om stress en trauma te verwerken, zonder de acupressuurpunten van EFT.</li>
+          <li value="1622"><a href="1622.html">An Autobiography of Trauma</a>. Levine werkt vanuit dezelfde aanname dat trauma in het lichaam vastzit, maar bouwt een uitgebreider therapeutisch kader dan het protocol hier.</li>
+          <li value="2109"><a href="2109.html">Bliss Brain</a>. Church, wiens onderzoek Toeset aanhaalt voor de cortisol-effecten van EFT, beschrijft in Bliss Brain een vergelijkbare combinatie van lichaamsgerichte technieken en hersenmetingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

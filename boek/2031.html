@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Diamond in Your Pocket &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gangaji's these is dat de mens niet zoekt naar iets dat ontbreekt, maar naar iets dat er al is en dat door voortdurende activiteit van het denken wordt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2031">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2031 &middot; Filosofie en mystiek</p>
+    <h1>The Diamond in Your Pocket</h1>
+    <p class="lede">Gangaji, 2005; vert. Karin van Grieken</p>
+    <p class="stats">
+      <span><b>949</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2031"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gangaji's these is dat de mens niet zoekt naar iets dat ontbreekt, maar naar iets dat er al is en dat door voortdurende activiteit van het denken wordt gemist. Het boek voert die stelling niet aan als betoog, maar als een reeks korte aanwijzingen om de aandacht daadwerkelijk stil te zetten, in het besef dat woorden over die stilte de ervaring zelf niet kunnen vervangen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het zoeken zelf als obstakel</h3>
+      <p>Gangaji begint bij een herkenbare ervaring: het gevoel dat er iets ontbreekt, en de neiging om dat gevoel op te lossen door meer te doen, te bereiken of te begrijpen. Ze stelt dat dat zoeken zelf de aandacht wegleidt van wat er al aanwezig is.</p>
+      <p>Ze onderbouwt dat niet met argumenten maar met een uitnodiging: even stoppen met de volgende stap zoeken, en merken wat er blijft als het zoeken zelf een moment ophoudt.</p>
+      <h3>Loslaten van controle</h3>
+      <p>Een terugkerend thema is de behoefte om ervaringen, mensen en uitkomsten te sturen. Gangaji beschrijft controle als een poging om onzekerheid te vermijden, en stelt dat die poging zelf een bron van spanning is, los van of de controle lukt.</p>
+      <p>Ze vraagt de lezer niet om passief te worden, maar om bewust te kiezen waar de aandacht naartoe gaat, in plaats van die aandacht automatisch te laten meelopen met elke angst of wens die opkomt.</p>
+      <h3>De moed om kwetsbaar te zijn</h3>
+      <p>In dit deel behandelt Gangaji het vermijden van onzekerheid als een gewoonte die mensen bij zichzelf weghoudt. Ze beschrijft kwetsbaarheid niet als zwakte maar als de bereidheid om iets onbekends onder ogen te zien zonder er meteen een verklaring voor te zoeken.</p>
+      <p>Ze koppelt dat aan haar eigen leerproces bij Poonjaji, die haar volgens het boek aanspoorde om niet langer weg te lopen voor wat ze niet begreep, maar er stil bij te blijven.</p>
+      <h3>De wortels van lijden</h3>
+      <p>Gangaji onderscheidt pijn, die ze als onvermijdelijk deel van het leven beschouwt, van lijden, dat volgens haar ontstaat doordat een gebeurtenis wordt herhaald in het denken lang nadat de gebeurtenis zelf voorbij is.</p>
+      <p>Ze illustreert dat met het patroon van het steeds opnieuw vertellen van dezelfde levensverhalen, waarbij de herhaling zelf het lijden in stand houdt, los van wat er oorspronkelijk is gebeurd.</p>
+      <h3>Wat er altijd is</h3>
+      <p>Het laatste deel keert terug naar de ondertitel van het boek: het ontdekken van een eigen helderheid die niet is opgebouwd of verdiend, maar er al die tijd al was. Gangaji vergelijkt dat met een diamant in een zak die iemand niet opmerkt omdat hij naar andere dingen zoekt.</p>
+      <p>Ze sluit niet af met een instructie voor de volgende stap, in lijn met het uitgangspunt van het boek dat er geen volgende stap nodig is om te merken wat er al aanwezig is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zelfonderzoek</td><td>De methode van Ramana Maharshi en Poonjaji waarin de aandacht rechtstreeks wordt gericht op de vraag wie of wat er ervaart, in plaats van op de inhoud van de ervaring.</td></tr>
+          <tr><td class="term">De diamant</td><td>Gangaji's beeld voor een eigen helderheid die altijd aanwezig is, ook als iemand die niet opmerkt door voortdurend elders te zoeken.</td></tr>
+          <tr><td class="term">Poonjaji</td><td>Sri H.W.L. Poonjaji, de leraar bij wie Gangaji in 1990 in India zelfonderzoek leerde, zelf leerling van Ramana Maharshi.</td></tr>
+          <tr><td class="term">Lijden versus pijn</td><td>Het onderscheid tussen onvermijdelijke pijn en het herhalen van een gebeurtenis in het denken, wat volgens Gangaji het eigenlijke lijden vormt.</td></tr>
+          <tr><td class="term">Loslaten van controle</td><td>Het bewust stoppen met de poging om ervaringen en uitkomsten te sturen, als weg om spanning te verminderen.</td></tr>
+          <tr><td class="term">Het bekende verhaal</td><td>Gangaji's term voor de steeds herhaalde versie van iemands levensgeschiedenis, waarvan de herhaling zelf lijden in stand houdt.</td></tr>
+          <tr><td class="term">Stilte</td><td>De toestand die volgens Gangaji aan elke gedachte voorafgaat en die niet hoeft te worden bereikt, omdat ze er al is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is geen empirisch werk en presenteert zichzelf ook niet als zodanig: het bevat geen onderzoek, cijfers of externe bronnen, maar directe aanwijzingen die de lezer op zichzelf moet toetsen.</p>
+      <p>Wat wel te verifiëren is, is de herkomst van de leer: Gangaji's afkomst uit de lijn van Ramana Maharshi via Poonjaji is gedocumenteerd, en het voorwoord van Eckhart Tolle bevestigt de plaats van het boek binnen die bredere non-dualistische traditie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De grootste beperking van het boek is dat het bewust geen argumentatie biedt: wie niet aanvoelt wat er met stilte of wat er altijd is wordt bedoeld, heeft aan de tekst zelf weinig houvast, omdat elke uitleg volgens de leer zelf al een omweg is.</p>
+      <p>De taal is voor herhaald gebruik geschreven, met dezelfde beelden door het hele boek heen. Voor lezers die concrete oefeningen of stappen zoeken, biedt dit boek die niet; het wijst uitdrukkelijk af dat er stappen nodig zijn.</p>
+      <p>Als spirituele tekst ontsnapt het boek niet aan de vraag die non-dualistische leer in het algemeen oproept: als er niets te bereiken valt, is onduidelijk waarom vijfenvijftig teksten nodig zijn om dat te laten zien in plaats van één.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees een van de korte teksten en stop daarna met lezen. Merk op wat er gebeurt in de stilte die volgt, voordat je verdergaat naar de volgende tekst.</li>
+        <li>Neem een terugkerende zorg of klacht en vraag jezelf af hoe vaak je die dezelfde week al hebt herhaald, aan jezelf of aan anderen, zonder dat de herhaling iets veranderde.</li>
+        <li>Merk een moment op waarop je een uitkomst probeert te sturen, en laat die poging voor tien seconden los zonder haar te vervangen door een nieuwe poging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Diamond in Your Pocket: Discovering Your True Radiance</i> (Sounds True, Boulder, 2005, met een voorwoord van Eckhart Tolle, ISBN 9781591792727). De Nederlandse vertaling van Karin van Grieken, <i>De diamant in jezelf: zien wat er altijd is</i>, verscheen bij Ankh-Hermes, Deventer (209 blz., ISBN 9789020215526; een eerdere druk droeg ISBN 9789020284423).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gangaji, geboren als Antoinette Roberson Varner, werkte als verpleegkundige voordat ze in 1990 haar leraar Sri H.W.L. Poonjaji ontmoette in India, een leerling van de non-dualistische wijsgeer Ramana Maharshi. Die ontmoeting vormt de achtergrond van dit boek, dat bestaat uit vijfenvijftig korte teksten voor zelfonderzoek.</p><p>Het boek gaat niet uit van een systematische leer met stappen, maar van directe aanwijzingen om de aandacht te verplaatsen van het voortdurende zoeken naar geluk of oplossingen, naar wat Gangaji noemt de stilte die er al is voordat er een gedachte over ontstaat. Eckhart Tolle schreef het voorwoord.</p><p>De teksten zijn kort genoeg om los van elkaar te lezen en bevatten weinig autobiografisch materiaal; het is vooral een verzameling directe aansporingen tot zelfonderzoek, niet een verslag van Gangaji's eigen weg daarnaartoe.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>non-dualiteit</li><li>spiritualiteit</li><li>zelfonderzoek</li><li>meditatie</li><li>Ramana Maharshi</li><li>overgave</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle schreef het voorwoord bij dit boek en behandelt dezelfde stilte voorbij het denken, uitgewerkt tot een vollediger systeem.</li>
+          <li value="527"><a href="527.html">Who Am I?</a>. Ramana Maharshi is de bron van de zelfonderzoeksmethode die Gangaji via Poonjaji heeft geleerd en in dit boek toepast.</li>
+          <li value="519"><a href="519.html">The First and Last Freedom</a>. Krishnamurti komt vanuit een andere lijn tot een vergelijkbare afwijzing van stapsgewijze methodes voor innerlijke vrijheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heel &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Bettens stelling is dat mentale en lichamelijke klachten hun oorsprong hebben in vastgeroeste denkpatronen en onverwerkte emoties die op celniveau…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2009">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2009 &middot; Levenskunst</p>
+    <h1>Heel</h1>
+    <p class="lede">Vilna van Betten, 2020</p>
+    <p class="stats">
+      <span><b>1406</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2009"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Bettens stelling is dat mentale en lichamelijke klachten hun oorsprong hebben in vastgeroeste denkpatronen en onverwerkte emoties die op celniveau zijn opgeslagen, en dat het resetten van die opslag mogelijk is in vijf minuten per dag, zonder dat de oorzaak eerst uitgebreid moet worden doorgesproken. Ze onderscheidt dat nadrukkelijk van praten over een probleem: waar therapie volgens haar vaak bij het verhaal blijft hangen, grijpt haar methode in op het niveau van het lichaam zelf. Ze onderbouwt die stelling met het herstel van haar man na een zwaar motorongeluk in 2018 en met de ervaringen van cliënten die via haar methode klachtenvrij zijn geworden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het ongeluk van haar man</h3>
+      <p>Het boek opent met de gebeurtenis die Van Betten aanvoert als aanleiding voor haar methode: in 2018 raakte haar man ernstig gewond bij een motorongeluk, met hersenletsel en meerdere breuken. Volgens haar relaas verliep zijn herstel sneller en verder dan de artsen hadden verwacht nadat zij haar methode op hem toepaste, al noemt het boek geen medische documentatie die dat verloop bevestigt.</p>
+      <h3>Celgeheugen en de claim over kwantumfysica</h3>
+      <p>Van Betten legt uit dat lichaamscellen volgens haar zijn opgebouwd uit energie die een eigen trilling heeft, en dat emotionele belasting die trilling verstoort. Ze noemt dit uitgangspunt afkomstig uit de kwantumfysica, zonder een bron of onderzoek te noemen; het begrip nulpuntenergie, dat in de natuurkunde een preciezere en beperktere betekenis heeft, gebruikt ze als verklaring voor waarom emoties zich in het lichaam zouden vastzetten.</p>
+      <p>Deze stap in het boek is theoretisch, niet praktisch: er volgt geen meting of test waarmee een lezer zelf kan nagaan of de trilling van een cel inderdaad verandert. De verklaring dient vooral om de latere oefening aannemelijk te maken, door haar te koppelen aan een natuurwetenschappelijk klinkend begrip in plaats van aan een spirituele traditie alleen.</p>
+      <h3>De Vilna Methode: de stappen</h3>
+      <p>De methode zelf bestaat uit een kort dagelijks ritueel: de lezer scant het lichaam op spanning, richt de aandacht op de plek waar die het sterkst is, en spreekt inwendig een zin uit die het vastgehouden patroon moet resetten. Van Betten stelt dat vijf minuten per dag voldoende is en dat resultaat zich binnen enkele weken laat merken, zonder dat de gebruiker het onderliggende voorval opnieuw hoeft te doorleven zoals bij Bays' Journey-proces.</p>
+      <p>Ze noemt dat verschil zelf een van de redenen om geen therapie te noemen: waar een gesprekstherapeut een cliënt vraagt om een gebeurtenis te vertellen en te doorvoelen, werkt de reset volgens haar op een niveau onder het bewustzijn, zodat de gebruiker niet per se hoeft te weten welke herinnering aan een klacht ten grondslag ligt. Die claim maakt de methode in haar eigen omschrijving sneller toepasbaar dan een gesprek, maar ook lastiger te volgen voor een buitenstaander: er is geen vast te leggen tussenstap die aantoont dat er iets is gebeurd.</p>
+      <h3>Getuigenissen van cliënten</h3>
+      <p>Een groot deel van het boek bestaat uit korte verslagen van mensen die de methode volgden, van chronische vermoeidheid tot huidklachten en relatieproblemen. De verslagen zijn eerstepersoonsgetuigenissen zonder vervolgmeting op langere termijn en zonder vergelijking met mensen die de methode niet volgden.</p>
+      <p>De verslagen zijn thematisch geordend, per klachtsoort, en volgen steeds hetzelfde patroon: eerst de klacht en de duur ervan, dan de kennismaking met de methode, en ten slotte de verbetering. Het boek geeft van geen van deze gevallen de medische voorgeschiedenis of een oordeel van een behandelend arts; het resultaat steunt op wat de betrokkene zelf rapporteert.</p>
+      <h3>Van boek naar opleiding</h3>
+      <p>Na de publicatie in 2020 bouwde Van Betten een praktijk op van betaalde workshops, een online cursus en een opleiding tot practitioner rond dezelfde methode. Het boek functioneert daarmee ook als visitekaartje voor dat aanbod: verschillende hoofdstukken verwijzen naar vervolgtrajecten die niet in het boek zelf zitten.</p>
+      <p>Van Betten trad in de jaren na de publicatie meermaals aan in de podcast KUKURU, waar ze haar methode toelichtte naast het eigen verhaal over het herstel van haar man. Die zichtbaarheid droeg bij aan de verkoop van het boek en aan de aanmeldingen voor haar opleiding, zonder dat er in die gesprekken aanvullend bewijs voor de werking van de methode naar voren kwam.</p>
+      <p>In de latere afleveringen van dezelfde podcast verschoof het gesprek van de methode zelf naar breder toepasbare thema's als mannelijke en vrouwelijke energie en codependentie in relaties, wat laat zien dat het merk rond het boek in de jaren erna is uitgegroeid tot een breder aanbod dan de oorspronkelijke reset-oefening.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vilna Methode</td><td>Het door de auteur ontwikkelde dagelijkse ritueel om vastgehouden spanning op lichaamsniveau te resetten.</td></tr>
+          <tr><td class="term">Celgeheugen</td><td>De aanname dat onverwerkte emoties zich vastzetten in het geheugen van lichaamscellen.</td></tr>
+          <tr><td class="term">Nulpuntenergie</td><td>Een natuurkundig begrip dat Van Betten gebruikt om te verklaren waarom emoties de cel zouden beinvloeden, los van de oorspronkelijke natuurkundige betekenis.</td></tr>
+          <tr><td class="term">Body Mind Reset</td><td>De aanduiding voor de combinatie van lichaamsscan en herprogrammering die de kern van de methode vormt.</td></tr>
+          <tr><td class="term">Symptoombestrijding</td><td>De manier van behandelen die Van Betten afwijst omdat die volgens haar niet bij de oorzaak komt.</td></tr>
+          <tr><td class="term">Trilling</td><td>Het niveau waarop emotionele belasting volgens Van Betten inwerkt op de energie van een cel.</td></tr>
+          <tr><td class="term">Zelfhelend vermogen</td><td>Het vermogen dat volgens Van Betten in ieder lichaam aanwezig is en dat de methode aanspreekt.</td></tr>
+          <tr><td class="term">Practitioner-opleiding</td><td>Het betaalde vervolgtraject waarin cursisten leren de methode bij anderen toe te passen, aangeboden naast het boek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het enige concrete geval dat het boek uitwerkt, is het herstel van Van Bettens eigen man; er wordt geen medisch dossier, scan of artsenverklaring aangehaald die het ongeval, de diagnose of het herstel bevestigt.</p>
+      <p>Het boek noemt energetische geneeskunde, neurowetenschap en positieve psychologie als theoretische achtergrond, maar geeft geen literatuurverwijzingen naar specifiek onderzoek; de claim over celtrillingen en kwantumfysica is niet terug te voeren op een gepubliceerde bron.</p>
+      <p>Wat wel te controleren is, is het bereik van de methode: sinds 2020 heeft Van Betten volgens haar eigen aanbod duizenden mensen door haar workshops en opleiding geleid, en de vraag naar die trajecten wijst op een grote groep gebruikers die zich erdoor geholpen voelt.</p>
+      <p>Lezersbeoordelingen op boekensites geven het boek gemiddeld boven de vier sterren, met als terugkerend compliment dat de uitleg toegankelijk is voor wie niet bekend is met energetische geneeskunde. Diezelfde beoordelingen bevatten zelden een oordeel over de effectiviteit op langere termijn, omdat de meeste reviews kort na aanschaf worden geschreven.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Recensenten met een achtergrond in psychologie noemen de onderbouwing pseudowetenschappelijk: natuurkundige termen als nulpuntenergie worden gebruikt op een manier die niet overeenkomt met de wetenschappelijke betekenis ervan, en de link tussen emotie en celtrilling wordt nergens verder uitgewerkt dan als aanname.</p>
+      <p>De getuigenissen die het boek draagt, zijn niet onafhankelijk verzameld en niet gevolgd over langere tijd; een recensent noemt ze daarom weinig overtuigend als bewijs voor de werking van de methode.</p>
+      <p>Doordat het boek tegelijk de basis vormt voor een betaald opleidingsaanbod, is de vraag gerechtvaardigd hoeveel ruimte er is voor een kritische blik op de eigen methode; verschillende lezers omschrijven het boek als reclame voor het vervolgtraject.</p>
+      <p>Het boek legt weinig grenzen vast voor wie de methode wel of niet zou moeten proberen; bij een ernstige aandoening ontbreekt een duidelijke waarschuwing om eerst of ook een arts te raadplegen.</p>
+      <p>Het verschil met een methode als EFT of met de reis van Bays is dat Van Betten geen stappen beschrijft die de gebruiker kan volgen zonder de precieze formulering die zij aanreikt te herhalen; wie het boek naast een vergelijkbare titel legt, ziet dat de oefening minder is uitgewerkt dan de theorie eromheen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scan bij een terugkerende klacht eerst waar in het lichaam de spanning het sterkst voelt, voordat je naar een verklaring zoekt.</li>
+        <li>Reserveer dagelijks vijf minuten voor de oefening, op een vast moment, in plaats van alleen wanneer de klacht opspeelt.</li>
+        <li>Raadpleeg bij een medische diagnose een arts naast, niet in plaats van, de oefeningen uit het boek.</li>
+        <li>Houd bij of een klacht na enkele weken oefenen daadwerkelijk verandert, en stop of zoek aanvullende hulp als dat niet het geval is, in plaats van de oefening te blijven herhalen zonder waarneembaar resultaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Eigen uitgave <i>Heel</i> (Vilna.nl, 2020, paperback, 280 blz., ISBN 9789492597526; ook als e-book, ISBN 9789493289031). Van Van Betten is geen ander boek in de handel; haar overige materiaal bestaat uit online cursussen en de opleiding tot Vilna Methode-practitioner.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vilna van Betten ontwikkelde de Vilna Methode nadat haar man in 2018 ernstig gewond raakte bij een motorongeluk, met hersenletsel en meerdere breuken. Zijn herstel, dat volgens haar sneller ging dan verwacht, vormt in het boek het startpunt voor een methode die klachten wil laten verdwijnen door het resetten van wat ze celgeheugen noemt.</p><p>De methode bestaat uit een kort dagelijks ritueel waarbij iemand het lichaam scant op spanning en die spanning met een korte oefening loslaat, zonder de oorspronkelijke gebeurtenis opnieuw te hoeven doorleven. Van Betten onderbouwt dit met verwijzingen naar energetische geneeskunde en een claim over kwantumfysica, en met tientallen getuigenissen van mensen die de methode volgden.</p><p>Het boek vormt tegelijk de basis van een betaald aanbod aan workshops en een opleiding tot practitioner.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>celgeheugen</li><li>energetische geneeskunde</li><li>zelfheling</li><li>kwantumfysica</li><li>methode</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2007"><a href="2007.html">Energy Medicine</a>. Eden werkt vanuit dezelfde traditie van energetische geneeskunde waarop Van Betten haar methode baseert, met een uitgebreider systeem van oefeningen.</li>
+          <li value="2111"><a href="2111.html">Innerlijke rust met EFT</a>. Toeset beschrijft met EFT een vergelijkbare combinatie van lichaamsgerichte technieken en emotieregulatie, eveneens zonder klinisch onderzoek.</li>
+          <li value="2008"><a href="2008.html">The Journey</a>. Bays werkte twintig jaar eerder met hetzelfde celgeheugen-idee, maar liet mensen de herinnering wel opnieuw doorleven in plaats van die te resetten.</li>
+          <li value="1586"><a href="1586.html">You Can Heal Your Life</a>. Hay legde als eerste van deze auteurs de link tussen gedachten en lichamelijke klachten die zowel Bays als Van Betten als vertrekpunt nemen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

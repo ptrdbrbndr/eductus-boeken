@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Freedom Writers Diary &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek stelt dat schrijven over de eigen ervaring, gelezen en serieus genomen door een ander, een uitweg kan bieden aan jongeren die door school, gezin…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2083">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2083 &middot; Overleven en getuigen</p>
+    <h1>The Freedom Writers Diary</h1>
+    <p class="lede">Erin Gruwell en de Freedom Writers, 1999</p>
+    <p class="stats">
+      <span><b>1141</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2083"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek stelt dat schrijven over de eigen ervaring, gelezen en serieus genomen door een ander, een uitweg kan bieden aan jongeren die door school, gezin en wijk al zijn opgegeven. Gruwell voert dat niet aan als abstract pedagogisch principe maar laat het zien in de eigen woorden van honderdvijftig leerlingen die in vier jaar tijd van vijandige, langs etnische lijnen verdeelde klasgenoten tot een groep worden die zich naar de Freedom Riders vernoemt. De stelling wordt daarbij verbonden aan een concrete methode: leerlingen die zichzelf herkennen in het lot van Anne Frank of Zlata Filipovic gaan de eigen geschiedenis anders lezen, niet als schande om te verbergen maar als getuigenis die het navertellen waard is.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Eerstejaars: een verdeelde klas</h3>
+      <p>Gruwell begint kort na de rellen die volgden op het vonnis in de zaak-Rodney King. Haar brugklas zit strak gescheiden naar etniciteit, een weerspiegeling van de bendeconflicten in de wijk. Een racistische karikatuur van een leerling met dikke lippen, die in de klas circuleert, brengt Gruwell ertoe de Holocaust als lesstof te introduceren.</p>
+      <p>Ze vraagt wie ooit racisme heeft meegemaakt en wie een dierbare aan geweld heeft verloren; vrijwel de hele klas steekt een hand op. Vanaf dat moment krijgen de leerlingen een dagboek en de opdracht daarin te schrijven wat ze niet hardop zeggen.</p>
+      <h3>Tweedejaars: Anne Frank en Zlata</h3>
+      <p>De klas leest <i>Het Achterhuis</i> en het oorlogsdagboek van Zlata Filipovic, geschreven tijdens het beleg van Sarajevo. Leerlingen herkennen in beide dagboeken hun eigen ervaring met geweld dat een gewoon leven binnendringt.</p>
+      <p>Gruwell organiseert een 'Toast for Change', waarbij leerlingen in het openbaar een gewoonte benoemen die ze willen doorbreken. Zlata Filipovic en later Miep Gies, de vrouw die het gezin Frank onderdak gaf, bezoeken de klas; de ontmoetingen worden in de dagboeken beschreven als het moment waarop de leerlingen zichzelf als handelend persoon gaan zien.</p>
+      <h3>Derdejaars: de naam Freedom Writers</h3>
+      <p>De klas leert over de Freedom Riders, de gemengde groep burgerrechtenactivisten die in 1961 met bussen door het zuiden van de Verenigde Staten reisde om gescheiden voorzieningen te trotseren. Geïnspireerd daardoor noemen de leerlingen zichzelf de Freedom Writers.</p>
+      <p>De groep groeit tot honderdvijftig leerlingen die hun aantekeningen willen bundelen tot een boek. De zakenman John Tu schenkt vijfendertig computers om het typewerk mogelijk te maken.</p>
+      <h3>Laatste jaar: naar het diploma</h3>
+      <p>Gruwell richt het laatste jaar op voorbereiding op de universiteit: rondleidingen, voorbereiding op de landelijke toelatingstoets en voorlichting over studiefinanciering. Het verhaal van de klas wordt intussen opgepikt door de Los Angeles Times en levert de groep de Spirit of Anne Frank Award op, met een reis naar New York.</p>
+      <p>Alle honderdvijftig leerlingen die met Gruwell begonnen, halen hun diploma, iets wat volgens de school bij aanvang van niemand werd verwacht.</p>
+      <h3>Epiloog</h3>
+      <p>Een jaar na hun afstuderen reist de groep naar Europa om plekken te bezoeken die ze in de klas hadden bestudeerd. Gruwell gaat lesgeven aan een universiteit en richt de Freedom Writers Foundation op om haar lesmethode aan andere docenten door te geven; verschillende oud-leerlingen worden zelf leraar.</p>
+      <p>Het boek zelf verschijnt in 1999, vijf jaar na de eerste dagboekaantekening, en wordt in 2007 verfilmd onder de titel <i>Freedom Writers</i>, met Hilary Swank in de rol van Gruwell. De film brengt het verhaal bij een groter publiek dan het boek alleen had bereikt, en verschuift daarbij het perspectief sterker naar de lerares dan de oorspronkelijke, uit honderdvijftig stemmen opgebouwde tekst doet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Freedom Writers</td><td>De naam die de klas zichzelf geeft, ontleend aan de Freedom Riders, de burgerrechtenactivisten die in 1961 door het gesegregeerde zuiden van de Verenigde Staten reisden.</td></tr>
+          <tr><td class="term">Room 203</td><td>Het lokaal van Gruwell op Wilson High School waar de klas vier jaar lang bijeenkomt.</td></tr>
+          <tr><td class="term">Toast for Change</td><td>Het ritueel waarbij leerlingen in de klas hardop een gewoonte of houding benoemen die ze bij zichzelf willen doorbreken.</td></tr>
+          <tr><td class="term">Spirit of Anne Frank Award</td><td>De onderscheiding die de klas ontvangt nadat hun verhaal landelijke aandacht krijgt, met een reis naar New York als gevolg.</td></tr>
+          <tr><td class="term">Freedom Writers Foundation</td><td>De stichting die Gruwell na het afstuderen van de klas opricht om haar lesmethode aan andere docenten te onderwijzen.</td></tr>
+          <tr><td class="term">Genummerde dagboekaantekeningen</td><td>De vorm waarin de leerlingenteksten in het boek staan: anoniem en per hoofdstuk doorlopend genummerd, zonder naam van de schrijver.</td></tr>
+          <tr><td class="term">'At-risk' klas</td><td>De etikettering waarmee de klas bij aanvang van het project door de school werd aangeduid, gebaseerd op ingeschat risico op schooluitval.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De historische achtergrond is controleerbaar: de rellen na het vonnis in de zaak tegen de agenten die Rodney King mishandelden vonden plaats in 1992 in Los Angeles, twee jaar voordat Gruwell aan Wilson High School begon, en de etnische spanningen die het boek beschrijft sluiten aan bij wat over die periode in Long Beach is gedocumenteerd.</p>
+      <p>Dat alle honderdvijftig leerlingen slaagden, is het cijfer waarmee school en pers het project destijds vierden; het boek en latere berichtgeving over de Freedom Writers Foundation bevestigen dat de groep na school actief bleef, met verschillende leden die zelf in het onderwijs zijn gaan werken.</p>
+      <p>Het boek bestaat uit door de leerlingen zelf geschreven, anoniem genummerde teksten, aangevuld met Gruwells inleidingen; die opzet maakt het moeilijk om een individuele aantekening onafhankelijk te verifiëren, maar de collectieve vorm is door de uitgever nooit anders voorgesteld dan als samengestelde bundel.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De verfilming uit 2007, met Hilary Swank als Gruwell, is door onderwijscritici bekritiseerd als een 'white saviour'-verhaal waarin een witte lerares in haar eentje leerlingen van kleur redt; die kritiek richt zich op de film, maar raakt ook de manier waarop het boek is opgebouwd, met Gruwells inleidingen als kader om de leerlingenteksten heen.</p>
+      <p>Doordat de dagboekaantekeningen anoniem en genummerd zijn, is niet na te gaan welke leerling welke tekst schreef of hoeveel redactie er op de oorspronkelijke aantekeningen is toegepast voordat ze in het boek belandden; het boek zelf is daar niet expliciet over.</p>
+      <p>Onderwijscritici hebben erop gewezen dat het verhaal, hoe overtuigend ook op klasniveau, weinig zegt over de structurele oorzaken van de armoede en het bendegeweld die de leerlingen beschrijven, en dat het succes van één klas met één toegewijde lerares geen antwoord biedt op de vraag waarom zulke omstandigheden op zoveel andere scholen blijven bestaan.</p>
+      <p>Het boek is meermaals aangevochten in Amerikaanse schoolbibliotheken vanwege de expliciete passages over geweld en seksualiteit in sommige leerlingenteksten, onder meer in Indianapolis in 2008, waar een docent werd geschorst voor het gebruiken van het boek in de les, en in Martin County, Florida, waar het in 2023 uit de bibliotheek werd verwijderd.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Freedom Writers Diary: How a Teacher and 150 Teens Used Writing to Change Themselves and the World Around Them</i> (Doubleday, New York, 1999, 277 blz.). Ter gelegenheid van het twintigjarig bestaan verscheen in 2019 een herziene editie bij Broadway Books/Random House, met een nieuw nawoord (ISBN 9780385494229). Van dit boek is geen Nederlandse vertaling verschenen; ook van Gruwells vervolgboeken, waaronder <i>Teach with Your Heart</i> en de latere bundel <i>Dear Freedom Writer</i>, is geen Nederlandse uitgave bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In 1994 krijgt de drieentwintigjarige, onervaren lerares Erin Gruwell op Wilson High School in Long Beach een klas 'kansarme' brugklassers, verdeeld langs de etnische lijnen van de bendes in hun wijk. Na een racistische tekening in de klas laat zij de leerlingen dagboek bijhouden en <i>Het Achterhuis</i> van Anne Frank lezen.</p><p>Vier jaar lang, van hun eerste tot hun laatste schooljaar, schrijven honderdvijftig leerlingen anoniem genummerde dagboekaantekeningen over bendegeweld, armoede, mishandeling en vooroordeel, afgewisseld met Gruwells eigen inleidingen per periode. Ze noemen zich naar de Freedom Riders uit de jaren zestig de Freedom Writers en zamelen de aantekeningen tot een boek.</p><p>Het boek eindigt met de gebeurtenis dat alle honderdvijftig leerlingen slagen voor hun eindexamen, een ontmoeting met Zlata Filipovic en Miep Gies, en de oprichting van de Freedom Writers Foundation waarmee Gruwell haar lesmethode verspreidt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dagboek</li><li>onderwijs</li><li>tolerantie</li><li>Long Beach</li><li>Anne Frank</li><li>jongeren</li><li>getuigenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl beschrijft vanuit het kamp hoe het vasthouden aan betekenis overleving mogelijk maakt; Gruwells leerlingen passen eenzelfde beweging toe op hun eigen, andersoortige geweld.</li>
+          <li value="1539"><a href="1539.html">The Choice</a>. Eger, zelf overlevende van Auschwitz, werd net als de figuren die de klas bestudeert een bron van getuigenis die de leerlingen direct ontmoeten via Miep Gies en Zlata Filipovic.</li>
+          <li value="1519"><a href="1519.html">Spaar de spotvogel</a>. Lees biedt de eerdere, fictieve versie van een klassenkamer waarin raciale onrechtvaardigheid via de blik van jongeren wordt verteld.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shut Up, Stop Whining, and Get a Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Winget stelt dat een leven niet verbetert door uitleg, sympathie of een gunstiger buitenwereld, maar alleen door wat iemand zelf doet, denkt en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2028">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2028 &middot; Levenskunst</p>
+    <h1>Shut Up, Stop Whining, and Get a Life</h1>
+    <p class="lede">Larry Winget, 2004</p>
+    <p class="stats">
+      <span><b>1512</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2028"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Winget stelt dat een leven niet verbetert door uitleg, sympathie of een gunstiger buitenwereld, maar alleen door wat iemand zelf doet, denkt en accepteert. Klagen is in zijn ogen een vorm van verantwoordelijkheid ontlopen: het wekt de indruk van actie zonder dat er iets verandert. Winget voert die stelling aan als opdracht, niet als bemoediging, en herhaalt in vrijwel elk hoofdstuk dezelfde kern: niemand gaat je redden, dus doe het zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hou je mond</h3>
+      <p>Het eerste deel gaat over de gewoonte om te praten in plaats van te doen: excuses, rechtvaardigingen en de zin die begint met ja, maar. Winget vraagt de lezer zich bewust te worden van hoeveel van die zinnen er per dag vallen en wat ze feitelijk opleveren: niets, behalve het uitstellen van een beslissing.</p>
+      <p>Hij koppelt dat aan een eenvoudige toets: leidt een uitspraak niet binnen een dag tot een handeling, dan is het geen plan maar een excuus. Dat onderscheid keert het hele boek terug.</p>
+      <p>Winget behandelt ook de rol van anderen daarin: mensen om zich heen die excuses bevestigen in plaats van tegenspreken, houden volgens hem het patroon net zo goed in stand als de excusenmaker zelf. Hij adviseert bewust op zoek te gaan naar mensen die een excuus benoemen als excuus, in plaats van het mee te voelen.</p>
+      <h3>Stop met klagen</h3>
+      <p>Winget maakt onderscheid tussen een probleem melden om het op te lossen, en een probleem herhalen om medeleven te krijgen. Het tweede noemt hij whining, en volgens hem slokt dat de energie op die nodig is voor het eerste.</p>
+      <p>Hij bespreekt klagen over werk, geld en relaties als drie terugkerende categorieën, en laat in alle drie hetzelfde patroon zien: de klacht wordt herhaald aan mensen die er niets aan kunnen veranderen, terwijl degene die dat wel kan nooit wordt aangesproken.</p>
+      <p>Winget stelt voor om bij elke klacht meteen een vraag te beantwoorden: is dit aan de juiste persoon verteld, en heb ik voorgesteld wat ik zelf zou willen dat er verandert? Blijft het antwoord op beide vragen nee, dan is de klacht volgens hem alleen bedoeld om gehoord te worden, niet om iets op te lossen.</p>
+      <h3>Verander je leven</h3>
+      <p>Pas in het derde deel komt de actie: een inventaris van het leven dat iemand nu heeft, tegenover het leven dat hij zegt te willen. Winget laat de lezer die twee kolommen naast elkaar zetten en vraagt waar het verschil vandaan komt.</p>
+      <p>Zijn antwoord is steevast dat het verschil bij keuzes zit, niet bij omstandigheden. Wie zegt geen tijd, geld of kansen te hebben, wordt door Winget teruggewezen naar de keuzes die tot dat gebrek leidden.</p>
+      <p>Hij erkent dat sommige omstandigheden buiten iemands invloed liggen, maar besteedt daar weinig ruimte aan; de nadruk ligt op wat na een tegenslag wél nog een keuze is, ook als de tegenslag zelf dat niet was.</p>
+      <h3>Leven volgens ontwerp, niet bij toeval</h3>
+      <p>Winget stelt dat de meeste mensen hun leven laten bepalen door wat er op hen afkomt, in plaats van vooraf te bepalen wat ze willen. Dat noemt hij leven bij toeval, tegenover leven volgens een eigen ontwerp.</p>
+      <p>Concreet betekent dat: financiële doelen opschrijven voordat het geld er is, en afspraken over een relatie maken voordat er ruzie ontstaat. Wie niet vooraf kiest, kiest volgens Winget alsnog, maar dan onbewust en meestal slecht.</p>
+      <h3>Het slachten van de heilige koeien van zelfhulp</h3>
+      <p>In dit deel keert Winget zich tegen wat hij de heilige koeien van de zelfhulpindustrie noemt: de gedachte dat positief denken op zich al iets verandert, of dat het universum een verlangen beantwoordt zonder dat er iets voor gedaan wordt.</p>
+      <p>Hij is uitgesproken kritisch op wetten van aantrekking die zonder handeling zouden werken, en stelt dat elke gedachte die niet in gedrag eindigt waardeloos is voor het resultaat. Dat maakt dit hoofdstuk het scherpst geformuleerde verschil met de bredere zelfhulpliteratuur uit dezelfde periode.</p>
+      <p>Hij noemt daarbij ook affirmaties die zonder verandering in gedrag worden herhaald, en visualisatieoefeningen die niet gevolgd worden door een concrete stap. Winget beoordeelt beide niet op de gedachte erachter, maar op wat de lezer er de dag erna daadwerkelijk anders van doet.</p>
+      <h3>Wat je gelooft bepaalt wat je krijgt</h3>
+      <p>Winget behandelt overtuigingen over geld, gezondheid en eigen kunnen als zelfvervullende voorspellingen: wie gelooft arm te blijven, neemt beslissingen die daarheen leiden. Hij vraagt de lezer op te schrijven welke overtuigingen hij van ouders of omgeving heeft overgenomen, en die één voor één te toetsen aan wat ze feitelijk hebben opgeleverd.</p>
+      <p>Hij besteedt in dit deel ook aandacht aan de bronnen waar mensen advies vandaan halen: Winget waarschuwt tegen het aannemen van financiële, gezondheids- of relatieadvies van mensen die zelf zichtbaar niet bereikt hebben wat de lezer wil bereiken, en stelt voor de bron van elk advies eerst te toetsen voordat het wordt opgevolgd.</p>
+      <h3>Lichaam, geld en de mensen om je heen</h3>
+      <p>Het laatste deel breidt de redenering uit naar gezondheid, relaties en werk. Winget behandelt overgewicht en conditie als zichtbaar bewijs van discipline, of het gebrek daaraan, en past dezelfde toon toe op huwelijk en ouderschap: luisteren, compromissen sluiten en werkelijk geïnteresseerd zijn in wat de ander zegt.</p>
+      <p>Hij sluit af met de constatering dat mensen die klagen over collega's of klanten zelden eerst hebben geprobeerd zelf beter te luisteren, en dat spanning in een relatie meestal ontstaat doordat iemand weet wat goed zou zijn en het toch niet doet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Shut Up</td><td>De eerste opdracht van het boek: stoppen met excuses en rechtvaardigingen die geen handeling opleveren.</td></tr>
+          <tr><td class="term">Stop Whining</td><td>Het herhalen van een klacht aan mensen die er niets aan kunnen doen, in plaats van het probleem aan te pakken bij wie dat wel kan.</td></tr>
+          <tr><td class="term">Get a Life</td><td>De stap waarin de lezer een inventaris maakt van het leven dat hij heeft tegenover het leven dat hij zegt te willen.</td></tr>
+          <tr><td class="term">Live by Design, Not by Default</td><td>Wingets onderscheid tussen vooraf gekozen doelen en een leven dat wordt bepaald door wat er toevallig gebeurt.</td></tr>
+          <tr><td class="term">Heilige koeien van zelfhulp</td><td>Wingets naam voor aannames uit de zelfhulpindustrie, zoals positief denken zonder actie, die hij zonder omhaal afwijst.</td></tr>
+          <tr><td class="term">The Enjoyment Factor</td><td>Het hoofdstuk waarin Winget onderzoekt of iemand zijn werk en leven daadwerkelijk waardeert, los van wat hij erover beweert.</td></tr>
+          <tr><td class="term">Your Beliefs Determine Your Results</td><td>De stelling dat overgenomen overtuigingen over geld en eigen kunnen rechtstreeks doorwerken in de uitkomst.</td></tr>
+          <tr><td class="term">The Pitbull of Personal Development</td><td>De bijnaam waarmee Winget zichzelf aanduidt, en die zijn confronterende, ongeduldige schrijfstijl typeert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Winget onderbouwt zijn stellingen vrijwel volledig met eigen ervaring als spreker, ondernemer en televisiepersoonlijkheid, niet met onderzoek. Het boek citeert geen studies en verwijst niet naar bronnen buiten Wingets eigen loopbaan.</p>
+      <p>Wat wel is na te gaan, is het commerciële succes: het boek stond op de bestsellerlijsten van The Wall Street Journal en BusinessWeek en verscheen in 2011 in een herziene tweede editie. Dat zegt iets over het bereik van de boodschap, niet over de juistheid ervan.</p>
+      <p>De voorbeelden in het boek zijn overwegend anekdotisch: ervaringen uit Wingets eigen omgeving, gesprekken na lezingen en zaken uit zijn tijd als ondernemer in de meubelbranche. Ze illustreren zijn stellingen, maar vormen geen systematische toets ervan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Recensenten wijzen op herhaling: de kernboodschap, dat niemand anders verantwoordelijk is dan jijzelf, wordt in vrijwel elk hoofdstuk herhaald zonder dat er telkens nieuwe onderbouwing bijkomt.</p>
+      <p>Er is kritiek op de toon: de confronterende stijl die Winget cultiveert, wordt door een deel van de lezers als kleinerend ervaren in plaats van motiverend, vooral waar hij oordeelt over lezers die hij nooit heeft gesproken.</p>
+      <p>Een aantal feitelijke beweringen in het boek, onder meer over samenwonen en huwelijk, is door recensenten als onjuist of verouderd bestempeld. Het boek onderscheidt bovendien zelden tussen omstandigheden die iemand kan veranderen en omstandigheden die dat niet toelaten, zoals armoede bij geboorte of chronische ziekte.</p>
+      <p>Ook de zelfpromotie in het boek wordt genoemd als storend: Winget verwijst regelmatig naar eigen lezingen, producten en televisieoptredens als bewijs van zijn gelijk, wat volgens sommige lezers de geloofwaardigheid van de kernboodschap ondermijnt in plaats van versterkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf een week lang elke uitspraak op die begint met een excuus, en vervang die aan het eind van de dag door één handeling die je wel had kunnen ondernemen.</li>
+        <li>Zet de klachten die je deze maand hebt geuit naast de naam van degene die ze had kunnen oplossen, en ga voor drie van die klachten rechtstreeks naar die persoon toe.</li>
+        <li>Maak de twee kolommen die Winget voorstelt: het leven dat je nu hebt en het leven dat je zegt te willen, en noem bij elk verschil de keuze die eraan voorafging.</li>
+        <li>Schrijf drie overtuigingen op die je van huis uit hebt meegekregen over geld of eigen kunnen, en noteer per overtuiging wat ze je de afgelopen jaren daadwerkelijk hebben opgeleverd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Shut Up, Stop Whining, and Get a Life: A Kick-Butt Approach to a Better Life</i> (John Wiley &amp; Sons, Hoboken, 2004, 256 blz., ISBN 9780471654650); een herziene tweede editie verscheen in 2011 bij dezelfde uitgever (272 blz., ISBN 9781118024515). Er bestaat geen Nederlandse uitgave van dit boek en, voor zover na te gaan, van geen enkel boek van Winget. Van zijn latere titel <i>It's Called Work for a Reason!</i> verscheen wel een Duitse vertaling, onder de titel <i>Halt den Mund, hör auf zu heulen und mach Deinen Job!</i></p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Larry Winget schreef dit boek als tegenwicht tegen de zachte, troostende toon van veel zelfhulpliteratuur. Zijn boodschap is kort: niemand anders is verantwoordelijk voor je leven dan jijzelf, en klagen daarover lost niets op. Winget noemt zichzelf The Pitbull of Personal Development en schrijft in die toon: direct, ongeduldig en zonder excuses.</p><p>Het boek behandelt achtereenvolgens drie stappen: stoppen met de innerlijke en uiterlijke excuses, stoppen met klagen over wat er mis is, en actief bouwen aan het leven dat je zegt te willen. Daarna werkt hij dat uit voor geld, gezondheid, relaties en overtuigingen, steeds met dezelfde vraag: wat doe jij zelf om dit te veranderen?</p><p>Het is geen boek met onderzoek of nieuwe inzichten, maar een bundeling van Wingets eigen ervaring als spreker en ondernemer, aangescherpt tot korte, uitdagende stellingen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>persoonlijke verantwoordelijkheid</li><li>discipline</li><li>mindset</li><li>motivatie</li><li>geld</li><li>gezondheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="72"><a href="72.html">The Subtle Art of Not Giving a F*ck</a>. Manson bereikt met dezelfde botte toon een andere conclusie: niet alles verdient je aandacht en energie, en dat is volgens hem een opluchting in plaats van een opdracht.</li>
+          <li value="161"><a href="161.html">Stop Doing That Sh*t</a>. Bishop werkt eenzelfde confronterende benadering uit in kortere hoofdstukken, met meer nadruk op het stoppen van specifiek zelfsaboterend gedrag.</li>
+          <li value="27"><a href="27.html">The Four Agreements</a>. Ruiz biedt vanuit een heel andere traditie eveneens vier concrete regels voor gedrag, maar zonder de confronterende toon die Wingets boek kenmerkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

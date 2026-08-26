@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alfabet &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dematons bouwt het boek op de aanname dat kijken en zoeken evenveel bijdragen aan de woordenschat van een kind als voorlezen, zolang het beeld maar dicht…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2002">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2002 &middot; Naslag en praktijk</p>
+    <h1>Alfabet</h1>
+    <p class="lede">Charlotte Dematons, 2020</p>
+    <p class="stats">
+      <span><b>1056</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2002"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dematons bouwt het boek op de aanname dat kijken en zoeken evenveel bijdragen aan de woordenschat van een kind als voorlezen, zolang het beeld maar dicht genoeg bevolkt is en er niets wordt uitgelegd. Voor elke letter tekent ze een bladzijde vol dieren, voorwerpen, beroepen en gebeurtenissen die met die letter beginnen, zonder onderschrift en zonder volgorde die de blik stuurt. De stelling van het boek is dat een kind dat zelf een naam zoekt voor iets dat het herkent, en die naam vervolgens van een volwassene of ouder kind krijgt aangereikt, actiever met taal bezig is dan een kind dat een zin voorgelezen krijgt. Het boek claimt daarmee dat een prentenboek zonder tekst een eigen, gelijkwaardige manier is om taal te leren, los van een boek met verhaal.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Zesentwintig platen</h3>
+      <p>Het boek bestaat uit zesentwintig dubbele bladzijden, één per letter van het alfabet, elk gevuld met tientallen tot honderden afzonderlijke tekeningen. Er is geen inleidende of afsluitende tekst; het boek begint direct bij de letter A en eindigt bij de Z.</p>
+      <p>Het formaat, 33 bij 25 centimeter, is bewust groot gekozen om ruimte te maken voor die dichtheid: op een kleiner formaat zou de tekentaal die Dematons gebruikt onleesbaar worden.</p>
+      <h3>Van letter naar wereld</h3>
+      <p>Voor elke letter bouwt Dematons een samenhangende scène of thema waarin de woorden voor die letter passen, een boerderij voor de B, een markt of een dierentuin, waarin dieren, voorwerpen en activiteiten die met dezelfde letter beginnen samen een plaatje vormen dat ook zonder de alfabetische opzet overeind zou blijven.</p>
+      <p>Voor lastigere letters als Q, X en Y moet ze verder zoeken naar bruikbare Nederlandse woorden, wat op die bladzijden leidt tot minder voor de hand liggende, soms specialistische voorbeelden.</p>
+      <h3>De traditie van het wimmelboek</h3>
+      <p>Alfabet staat in de traditie van het zogeheten wimmelboek, het genre van dichtbevolkte zoekplaten dat teruggaat op prentenboeken als die van Ali Mitgutsch. Dematons bouwde in Nederland eerder een reputatie op met tekstloze prentenboeken vol details, waarin de lezer zelf verbanden tussen figuren op de bladzijde moet leggen.</p>
+      <p>In tegenstelling tot veel andere alfabetboeken, die per letter één woord met een bijschrift tonen, kiest Dematons voor honderden woorden per letter zonder enig bijschrift. Dat plaatst het boek dichter bij een zoekplaat dan bij een klassiek schoolabc.</p>
+      <h3>Zonder tekst, vol taal</h3>
+      <p>Door geen bijschriften te gebruiken, dwingt het boek een volwassene of ouder kind om zelf te benoemen wat er te zien is; het boek werkt zo vooral als aanleiding voor een gesprek, eerder dan als zelfstandig leesboek. Wie alleen naar de plaatjes kijkt zonder iemand die meebenoemt, mist een groot deel van de talige functie die het boek claimt te hebben.</p>
+      <p>Deze keuze onderscheidt Alfabet van gestandaardiseerde leermiddelen voor letterherkenning: er is geen vaste volgorde waarin de bladzijde bekeken moet worden, en geen toets of het kind de juiste woorden heeft opgemerkt.</p>
+      <h3>Ontvangst</h3>
+      <p>Het boek werd na verschijnen in 2020 goed ontvangen door recensenten die het prezen om de zorgvuldigheid van de tekeningen, en werd in 2021 door Nederlandse kinderboekwinkels bekroond met een prijs voor beste prentenboek van dat jaar.</p>
+      <p>Er kwam ook een grote editie op de markt, wat aangeeft dat de uitgever de dichtheid van de tekeningen als het belangrijkste verkoopargument beschouwde: hoe groter de bladzijde, hoe meer er te ontdekken valt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wimmelboek</td><td>Genreterm voor prentenboeken met dichtbevolkte platen vol details, bedoeld om te doorzoeken in plaats van van begin tot eind te lezen.</td></tr>
+          <tr><td class="term">Tekstloos prentenboek</td><td>Prentenboek zonder geschreven verhaal of bijschriften, waarin de illustraties alle betekenis moeten dragen.</td></tr>
+          <tr><td class="term">Beeldwoordenschat</td><td>Woorden die een kind leert door ze te herkennen in een tekening en benoemd te krijgen, in plaats van via een voorgelezen zin.</td></tr>
+          <tr><td class="term">Themaspreiding per letter</td><td>De manier waarop Dematons de woorden voor elke letter samenbrengt in één herkenbare scène of setting, in plaats van ze willekeurig te kiezen.</td></tr>
+          <tr><td class="term">Groot formaat</td><td>Het bewust gekozen grote boekformaat, nodig om de hoeveelheid details per bladzijde leesbaar te houden.</td></tr>
+          <tr><td class="term">Herhaald kijken</td><td>De ontwerpprincipe dat elke bladzijde bij een volgende keer bekijken nieuwe details oplevert die eerder gemist zijn.</td></tr>
+          <tr><td class="term">Naslagfunctie</td><td>De manier waarop het boek per letter of onderwerp opgezocht en teruggepakt wordt, in plaats van van voor naar achter gelezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat volgens de uitgever meer dan drieduizend afgebeelde woorden verspreid over zesentwintig bladzijden, een concreet, natelbaar gegeven dat de dichtheid onderbouwt waarop de claim van het boek steunt.</p>
+      <p>Dematons bouwde haar reputatie op eerdere tekstloze prentenboeken die in Nederland bekroond en veelvuldig herdrukt zijn; Alfabet bouwt daar rechtstreeks op voort en gebruikt dezelfde tekentechniek en dichtheid.</p>
+      <p>De bekroning door Nederlandse kinderboekwinkels in 2021 is een onafhankelijke waardering van vakgenoten uit de boekhandel, niet alleen van de uitgever zelf.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De claim dat kijken en zoeken evenveel taal opleveren als voorlezen, is een ontwerpfilosofie, geen onderzoeksresultaat. Het boek citeert geen taalontwikkelingsonderzoek en vergelijkt zichzelf niet met een gecontroleerde alternatieve leermethode; de aanname blijft aannemelijk maar onbewezen.</p>
+      <p>Zonder een volwassene die actief meebenoemt, functioneert het boek voor het jongste deel van de doelgroep, vanaf ongeveer vier jaar, minder goed dan de uitgever suggereert: een dichtbevolkte bladzijde zonder enige sturing kan voor een kind dat nog niet zelfstandig kan zoeken eerder overweldigend dan leerzaam zijn.</p>
+      <p>Niet elke letter leent zich even goed voor deze aanpak. Bij letters als Q, X en Y moet Dematons uitwijken naar minder gangbare woorden, waardoor precies die bladzijden, waar een kind extra hulp bij ongewone letters kan gebruiken, het minst aansluiten bij de dagelijkse woordenschat van een jong kind.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Blader er samen met een kind doorheen in plaats van het boek alleen te laten kijken.</li>
+        <li>Benoem hardop wat je zelf herkent en laat het kind daarna zelf iets aanwijzen.</li>
+        <li>Neem één letter per keer in plaats van het hele alfabet in één zitting.</li>
+        <li>Leg het boek na een paar weken opnieuw open: op een dichtbevolkte plaat valt bij een tweede keer altijd iets op dat eerder gemist werd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Hoogland & Van Klaveren, Amsterdam, 5 juni 2020, gebonden prentenboek, groot formaat (33 x 25 cm), 64 blz., ISBN 9789089673275; er verscheen ook een grote editie, ISBN 9789089673350. Het boek werd in 2021 door Nederlandse kinderboekwinkels bekroond met een prijs voor beste prentenboek. Er bestaat geen doorlopende tekst in dit boek om te vertalen; het is oorspronkelijk Nederlandstalig.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Voor elke letter van het alfabet tekent Charlotte Dematons een dichtbevolkte bladzijde vol dieren, voorwerpen, beroepen en scènes die met die letter beginnen. Er staat geen lopende tekst in het boek, geen zinnen en geen bijschriften, alleen beeld.</p><p>Met meer dan drieduizend afgebeelde woorden is het boek zowel voor jonge kinderen die net leren praten als voor oudere kinderen die zelf kunnen lezen en zoeken, bedoeld om steeds opnieuw open te slaan. Elke bladzijde is een eigen wereld om te ontdekken.</p><p>Het boek bouwt voort op Dematons' eerdere, tekstloze prentenboeken, waarin ze bekendstond om de hoge dichtheid van details per bladzijde en de manier waarop losse voorwerpen samen kleine verhalen suggereren zonder dat er iets wordt uitgelegd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>prentenboek</li><li>alfabet</li><li>kinderboek</li><li>zoekplaat</li><li>woordenschat</li><li>illustratie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="327"><a href="327.html">The Brain Colouring and Learning Book: Volume 1</a>. Zamfir en Van Horn maken eveneens een visueel, naslagachtig leermiddel; beide boeken zetten op dichte, doorzoekbare platen in plaats van op doorlopende uitleg.</li>
+          <li value="112"><a href="112.html">Wijn voor Dummies</a>. Wijn voor Dummies is net als Alfabet een boek dat telkens teruggepakt en opgezocht wordt in plaats van van voor naar achter gelezen, alleen voor een volwassen naslagbehoefte in plaats van een kinderlijke.</li>
+          <li value="2041"><a href="2041.html">Paultje en het paarse krijtje</a>. Paultje en het paarse krijtje laat een kind zijn eigen wereld tekenen; Alfabet keert die verhouding om en geeft het kind een reeds getekende wereld om zelf in te ontdekken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

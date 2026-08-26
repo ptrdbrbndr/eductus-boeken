@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scaling Up &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Harnish stelt dat de meeste bedrijven niet vastlopen door een gebrek aan groeikansen, maar door het ontbreken van vaste gewoontes die mensen, strategie,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2072">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2072 &middot; Geld en ondernemen</p>
+    <h1>Scaling Up</h1>
+    <p class="lede">Verne Harnish, 2014</p>
+    <p class="stats">
+      <span><b>1479</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2072"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Harnish stelt dat de meeste bedrijven niet vastlopen door een gebrek aan groeikansen, maar door het ontbreken van vaste gewoontes die mensen, strategie, uitvoering en cash op elkaar afstemmen zodra een bedrijf van een klein team naar een organisatie met tientallen of honderden medewerkers groeit. Zijn stelling is dat groei zelf de grootste bedreiging voor een bedrijf vormt, omdat de informele afspraken die op tien man werkten instorten zodra er vijftig mensen zijn, en dat alleen een vast ritme van planning en vergaderen die instorting voorkomt. Het boek levert daarvoor geen inspiratie maar gereedschap: werkbladen, checklists en formats die een managementteam letterlijk kan invullen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom groei een bedrijf breekt</h3>
+      <p>Harnish opent met de waarneming dat de meeste ondernemers denken dat meer omzet en meer mensen een probleem oplossen, terwijl groei in zijn ervaring als adviseur en oprichter van het netwerk Entrepreneurs' Organization vaker het probleem veroorzaakt. Zodra een bedrijf van een handvol medewerkers naar tientallen groeit, vallen de informele afspraken weg waarop het tot dan toe draaide: iedereen kende elkaar, besliste snel en corrigeerde onderweg. Boven een bepaalde omvang werkt dat niet meer, en ontstaat er ruis tussen wat het bedrijf wil en wat er werkelijk gebeurt.</p>
+      <p>Zijn antwoord is niet een nieuwe visie maar een vaste routine. Hij onderscheidt vier gebieden waarin een managementteam beslissingen moet nemen, mensen, strategie, uitvoering en cash, en stelt dat een bedrijf pas kan opschalen als het voor elk van die vier een terugkerend proces heeft ingericht in plaats van steeds opnieuw te improviseren.</p>
+      <h3>Mensen</h3>
+      <p>Onder people beschrijft Harnish hoe een groeiend bedrijf moet vastleggen wie waarvoor verantwoordelijk is voordat het aantal medewerkers de overzichtelijkheid van een klein team te boven gaat. Het hulpmiddel dat hij daarvoor aanreikt is het functieoverzicht (Functional Accountability Chart, afgekort FACe), waarin niet de hiërarchie maar de resultaatgebieden leidend zijn: voor elke functie staat wie de eigenaar is van welk resultaat, in plaats van een lijstje taken.</p>
+      <p>Daarnaast besteedt hij aandacht aan kernwaarden als aannamecriterium: een bedrijf moet volgens hem drie tot vijf waarden benoemen die het al daadwerkelijk naleeft, en die vervolgens gebruiken om nieuwe mensen te selecteren en zittende mensen op aan te spreken. Waarden die alleen op de website staan, noemt hij zonder functie.</p>
+      <h3>Strategie</h3>
+      <p>Het strategiedeel draait om het onderscheid maken tussen wat een bedrijf zegt en wat het werkelijk anders doet dan concurrenten. Harnish werkt dat uit in het one-page strategic plan, een sjabloon waarop een team kernwaarden, een BHAG (Big Hairy Audacious Goal, een doel voor tien tot vijfentwintig jaar), een merkbelofte en de belangrijkste actiepunten van het lopende kwartaal naast elkaar zet.</p>
+      <p>Voor de onderbouwing van een strategie introduceert hij de zeven lagen (7 Strata of Strategy): van kernwaarden en doel via een geloofwaardige merkbelofte tot een X-factor, een tijdelijk voordeel waarmee het bedrijf zich onderscheidt zolang concurrenten dat nog niet hebben nagedaan. Het instrument dwingt een team om abstracte ambities te vertalen naar een zin die een klant zou kunnen navertellen.</p>
+      <h3>Uitvoering</h3>
+      <p>Onder execution staat de Rockefeller Habits Checklist centraal, een lijst gewoontes die Harnish ontleende aan de manier waarop John D. Rockefeller Standard Oil bestuurde: een klein aantal prioriteiten per kwartaal, gedeelde data die iedereen kan zien, en een vast ritme van vergaderingen, dagelijks kort, wekelijks iets langer, maandelijks over voortgang en jaarlijks over strategie.</p>
+      <p>Harnish benadrukt dat de inhoud van die vergaderingen minder telt dan de herhaling zelf: routine, schrijft hij, maakt een team vrij om zich met de uitzonderingen bezig te houden in plaats van steeds opnieuw het gewone werk te bespreken.</p>
+      <h3>Cash</h3>
+      <p>Het laatste gebied gaat over de cash conversion cycle, de tijd tussen het uitgeven van geld aan voorraad of personeel en het binnenkrijgen van betaling van een klant. Harnish stelt dat een groeiend bedrijf sneller aan zijn cash dan aan zijn winst ten onder kan gaan, omdat groei extra werkkapitaal vraagt voordat de extra omzet is geïnd.</p>
+      <p>Daarnaast introduceert hij de Power of One, een rekenmodel waarmee een team laat zien hoeveel extra winst een kleine verbetering in prijs, volume, kosten of betalingstermijn oplevert. Het idee is dat kleine, losse ingrepen op verschillende knoppen samen een groter verschil maken dan één grote reorganisatie.</p>
+      <h3>Het geheel in de praktijk</h3>
+      <p>De laatste hoofdstukken laten zien hoe de vier gebieden samenkomen in het jaarritme van een bedrijf: een jaarplan dat neerslaat op het ene vel van het one-page strategic plan, per kwartaal vertaald naar prioriteiten, wekelijks gevolgd in korte vergaderingen en dagelijks bijgehouden met een klein aantal getallen. Harnish onderbouwt dat met voorbeelden van bedrijven die hij als adviseur of via zijn netwerk Gazelles heeft begeleid, zonder dat het boek die voorbeelden met onafhankelijk cijfermateriaal staaft.</p>
+      <p>Harnish herhaalt in dit slotdeel ook een uitgangspunt dat hij eerder in het boek al liet doorschemeren: de vier gebieden zijn geen keuzemenu. Een bedrijf dat wel aan strategie werkt maar de gewoontes rond cash overslaat, loopt volgens hem alsnog vast, ook als de strategie op zich klopt, omdat het dan de tijd niet krijgt om die strategie uit te voeren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">BHAG</td><td>Een doel voor tien tot vijfentwintig jaar, zo groot en concreet geformuleerd dat het een team zonder nadere uitleg richting geeft.</td></tr>
+          <tr><td class="term">One-Page Strategic Plan</td><td>Het sjabloon van één bladzijde waarop kernwaarden, doel, BHAG, merkbelofte en de prioriteiten van het kwartaal samenkomen.</td></tr>
+          <tr><td class="term">Rockefeller Habits Checklist</td><td>De lijst gewoontes rond prioriteiten, data en vergaderritme, genoemd naar de manier waarop Rockefeller Standard Oil bestuurde.</td></tr>
+          <tr><td class="term">Functional Accountability Chart (FACe)</td><td>Het functieoverzicht waarin resultaatgebieden in plaats van functietitels de eigenaar van een taak aanwijzen.</td></tr>
+          <tr><td class="term">Cash Conversion Cycle</td><td>De tijd tussen het uitgeven van geld aan een product en het ontvangen van betaling van de klant ervoor.</td></tr>
+          <tr><td class="term">Power of One</td><td>Het rekenmodel waarmee het effect van een kleine aanpassing in prijs, volume, kosten of betalingstermijn op de winst zichtbaar wordt.</td></tr>
+          <tr><td class="term">X-Factor</td><td>Het tijdelijke onderscheidende voordeel van een bedrijf, geldig zolang concurrenten het nog niet hebben nagedaan.</td></tr>
+          <tr><td class="term">7 Strata of Strategy</td><td>De zeven lagen waarmee Harnish een strategie opbouwt, van kernwaarden tot X-factor.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Harnish bouwt het boek niet op onderzoek maar op eigen praktijk: hij richtte in 1997 het adviesbureau Gazelles op en werkte als adviseur en spreker voor het wereldwijde netwerk Entrepreneurs' Organization, waar hij naar eigen zeggen duizenden groeiende bedrijven begeleidde. De Rockefeller Habits Checklist zelf gaat terug op zijn eerdere boek uit 2002 en is in de jaren daarna binnen dat netwerk herhaaldelijk bijgesteld.</p>
+      <p>De voorbeelden in het boek zijn bedrijven die met Harnish of zijn netwerk hebben samengewerkt en die de methode dus al hadden omarmd voor ze in het boek terechtkwamen; onafhankelijke metingen van hoeveel toepassers daadwerkelijk sneller groeiden dan vergelijkbare bedrijven zonder de methode ontbreken. Wel te controleren is de omvang van het bereik: Scaling Up wordt aangehaald als een van de meest gebruikte groeikaders in het Amerikaanse mkb-adviescircuit, en de bijbehorende software en certificeringen worden wereldwijd door coaches toegepast.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is een verzameling gereedschappen, geen argumentatie, en presenteert de tools zonder de aannames erachter te bevragen. Dat een BHAG van tien tot vijfentwintig jaar een team blijvend richting geeft, wordt verondersteld, niet getoetst; hetzelfde geldt voor de suggestie dat drie tot vijf kernwaarden een aannamebeleid kunnen dragen.</p>
+      <p>De voorbeeldbedrijven zijn stuk voor stuk bedrijven die zijn blijven bestaan en gegroeid zijn; over bedrijven die de methode toepasten en alsnog vastliepen, schrijft Harnish niet. Dat maakt het boek gevoelig voor overlevingsbias: de lezer ziet alleen de gevallen waarin het raamwerk samenviel met succes.</p>
+      <p>De taal van het boek, doorspekt met Engelse afkortingen als BHAG en FACe, komt rechtstreeks uit de Amerikaanse managementcultuur van de Rockefeller Habits en sluit minder aan bij kleinere Nederlandse bedrijven zonder eigen managementteam of stafafdeling; de Nederlandse editie voegt daarom lokale voorbeelden toe, maar de kern van het instrumentarium blijft ontworpen voor bedrijven die al een zekere schaal hebben bereikt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf voor je eigen bedrijf in een enkele zin een BHAG voor de komende tien tot vijfentwintig jaar en toets die tegen je bestaande kernwaarden.</li>
+        <li>Maak een functieoverzicht waarin voor elke rol één resultaatgebied als eigenaar wordt aangewezen, in plaats van een lijst taken.</li>
+        <li>Bereken de cash conversion cycle van je bedrijf voordat je een groeiplan maakt.</li>
+        <li>Voer een vast vergaderritme in: kort en dagelijks, uitgebreider wekelijks, over voortgang maandelijks en over strategie jaarlijks.</li>
+        <li>Loop de vier gebieden, mensen, strategie, uitvoering en cash, elk kwartaal na en stel vast welk gebied achterblijft voordat je aan een nieuw plan begint.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Scaling Up: How a Few Companies Make It...and Why the Rest Don't (Rockefeller Habits 2.0)</i> (Gazelles Inc., 2014, ISBN 9780986019524), een herziening en uitbreiding van Harnish' eerdere <i>Mastering the Rockefeller Habits</i> (2002). Een eerste Nederlandse vertaling verscheen op 20 oktober 2015 bij Business Contact, Amsterdam (277 blz., ISBN 9789047008705), aangevuld met Nederlandse cases door Kees de Jong en Pieter van Osch. Een herziene editie, <i>Scaling Up: De groeiformule</i>, verscheen op 26 april 2021 bij Atlas Contact, Amsterdam (288 blz., ISBN 9789047015611), vertaald door Elles Assink-Kroon.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Harnish onderscheidt vier gebieden waarin een groeiend bedrijf beslissingen moet nemen: mensen, strategie, uitvoering en cash. Het boek werkt die vier gebieden uit in werkbladen en checklists die een managementteam periodiek doorloopt, van een strategisch plan op één bladzijde tot een vast ritme van dagelijkse, wekelijkse, maandelijkse en jaarlijkse vergaderingen.</p><p>De kerngedachte is dat groei zelf de grootste bedreiging voor een bedrijf vormt: de informele afspraken die op een klein team werken, houden geen stand zodra er tientallen of honderden mensen bijkomen. Harnish biedt daarvoor geen nieuwe visie maar een set gewoontes, ontleend aan de manier waarop hij zelf duizenden bedrijven als adviseur begeleidde.</p><p>Het boek is geschreven als naslagwerk met sjablonen en formats, niet als lopend betoog; het is daardoor eerder bedoeld om mee te werken dan om in één keer uit te lezen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>scaling up</li><li>verne harnish</li><li>groeistrategie</li><li>ondernemerschap</li><li>rockefeller habits</li><li>management</li><li>bedrijfsvoering</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="353"><a href="353.html">Good to Great</a>. Collins onderzoekt met vergelijkingsgroepen wat succesvolle bedrijven anders doen dan vergelijkbare bedrijven die niet doorbreken; Harnish levert het instrumentarium waarmee zo'n omslag praktisch wordt gemaakt.</li>
+          <li value="904"><a href="904.html">Het doel</a>. Goldratt beschrijft in romanvorm dezelfde overtuiging dat een organisatie op een klein aantal knelpunten moet sturen in plaats van overal tegelijk te verbeteren.</li>
+          <li value="1877"><a href="1877.html">The E-Myth Revisited</a>. Gerber richt zich op het kleinere bedrijf dat nog om de oprichter draait; Scaling Up begint waar diens boek ophoudt, bij het bedrijf dat die afhankelijkheid al achter zich heeft gelaten.</li>
+          <li value="906"><a href="906.html">The Founder's Dilemmas</a>. Wasserman onderzoekt de keuzes van oprichters over aandeelhouderschap en zeggenschap die aan de vraag naar groei voorafgaan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

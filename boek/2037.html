@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deeper Dating &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Page stelt dat de kwaliteit van iemands liefdesleven niet wordt bepaald door hoeveel spelletjes hij beheerst, maar door hoe hij omgaat met de eigen Core…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2037">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2037 &middot; Samenwerken en gesprek</p>
+    <h1>Deeper Dating</h1>
+    <p class="lede">Ken Page, 2014</p>
+    <p class="stats">
+      <span><b>1400</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2037"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Page stelt dat de kwaliteit van iemands liefdesleven niet wordt bepaald door hoeveel spelletjes hij beheerst, maar door hoe hij omgaat met de eigen Core Gifts: de plekken van gevoeligheid en verlangen die vaak samenvallen met wat iemand het meest beschaamt. Wie die kwaliteiten verbergt of bestrijdt, trekt volgens hem mensen aan die er niet goed mee omgaan, een patroon dat hij een attractie van deprivatie noemt. Wie ze erkent en met waardigheid laat zien, trekt mensen aan die er wel op reageren: een attractie van inspiratie. Dating is in dit model geen vaardigheid om iemand te overtuigen, maar een oefening in jezelf blijven zien terwijl een ander kijkt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Core Gifts: de schaamte omdraaien</h3>
+      <p>Page opent met het idee dat de eigenschappen waar iemand zich het meest voor schaamt vaak dezelfde zijn als de eigenschappen van waaruit hij het diepst kan liefhebben. Iemand die zich schaamt voor overgevoeligheid draagt volgens hem juist een groot vermogen tot empathie; iemand die zich schaamt voor de behoefte aan stilte draagt een vermogen tot aandacht dat weinig mensen opbrengen.</p>
+      <p>De eerste oefeningen van het boek zijn erop gericht die kwaliteiten te benoemen zonder ze meteen te verdedigen of te verklaren. Page laat cliëntvoorbeelden zien waarin het enkel uitspreken van een Core Gift al een merkbaar effect heeft op hoe iemand zich voordoet in een eerste ontmoeting.</p>
+      <p>Page onderscheidt Core Gifts nadrukkelijk van talenten of vaardigheden. Een talent kun je tonen om indruk te maken; een Core Gift toon je juist door je kwetsbaar op te stellen, en dat verschil is volgens hem de reden dat mensen hun Core Gifts eerder verbergen dan uitdragen, ook als ze weten dat ze er goed in zijn.</p>
+      <h3>Attracties van deprivatie herkennen</h3>
+      <p>In het volgende deel beschrijft Page een patroon dat hij bij zichzelf en zijn cliënten herkende: de aantrekkingskracht van iemand die je Core Gifts negeert of zelfs bespot, wat een intensiteit oplevert die op verliefdheid lijkt maar in werkelijkheid op onzekerheid draait. Hij noemt dat een attractie van deprivatie: hoe minder bevestiging, hoe harder iemand zijn best doet.</p>
+      <p>Daartegenover zet hij de attractie van inspiratie, een aantrekkingskracht die rustiger aanvoelt en juist ontstaat wanneer iemand zich gezien voelt in precies de kwaliteiten waar hij zich normaal voor verstopt. Page erkent dat die vorm van aantrekking in het begin minder spannend kan aanvoelen, juist omdat er geen onzekerheid aan te pas komt.</p>
+      <h3>Dating zonder het spel</h3>
+      <p>Het middelste deel van het boek behandelt praktische vaardigheden: hoe je een tijdlijn voor een relatie eerlijk bespreekt, hoe je merkt dat je jezelf aanpast aan wat de ander lijkt te willen, en hoe je een afspraak beëindigt zonder onduidelijkheid te laten hangen.</p>
+      <p>Page onderscheidt daarbij expliciet zelfbescherming van spel: iemand die om zichzelf te beschermen langzaam vertrouwen opbouwt, doet dat volgens hem niet uit berekening. Wie berekent hoe hij overkomt, is volgens hem juist bezig zijn Core Gifts te verstoppen in plaats van te tonen.</p>
+      <h3>Intimiteit opbouwen als het wel klikt</h3>
+      <p>In de latere hoofdstukken richt het boek zich op wat er gebeurt zodra een attractie van inspiratie standhoudt: hoe emotionele, romantische en seksuele intimiteit zich tot elkaar verhouden en waarom ze zich niet noodzakelijk in dezelfde volgorde ontwikkelen.</p>
+      <p>Page waarschuwt hier voor het omgekeerde risico: mensen die eindelijk een attractie van inspiratie treffen en daarna toch oude patronen van zelfverkleining herhalen, uit gewoonte meer dan uit noodzaak. Hij pleit ervoor de vaardigheden uit het eerdere deel van het boek juist in een goede relatie te blijven toepassen.</p>
+      <h3>Kwetsbaarheid als vaardigheid, niet als toeval</h3>
+      <p>Het boek sluit af met het idee dat kwetsbaarheid tonen geen eigenschap is die iemand wel of niet heeft, maar een vaardigheid die te oefenen valt, net als een andere sociale vaardigheid. Page herhaalt door het hele boek dat dit oefenen ongemakkelijk blijft, ook voor wie het al langer doet.</p>
+      <p>Zijn slotpunt is dat de manier waarop iemand daten benadert, een spiegel is van hoe hij zichzelf behandelt: wie zijn Core Gifts respecteert in een zoektocht naar liefde, doet dat volgens Page ook makkelijker op andere plekken in het leven.</p>
+      <h3>Eenzaamheid tussen relaties door</h3>
+      <p>Page besteedt afzonderlijke aandacht aan de periode zonder partner, die hij niet beschrijft als een wachtruimte maar als tijd waarin iemand zijn Core Gifts kan oefenen zonder de druk van een lopende relatie: in vriendschappen, werk of alleen zijn.</p>
+      <p>Hij keert zich tegen het idee dat een leven pas compleet is met een partner erbij. Wie zijn Core Gifts alleen laat zien om een relatie te verdienen, mist volgens Page het punt: de kwaliteiten zijn de moeite waard om te tonen, ongeacht of daar op dat moment een relatie tegenover staat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Core Gifts</td><td>De eigenschappen van diepste gevoeligheid en verlangen bij iemand, vaak dezelfde eigenschappen waarvoor hij zich het meest schaamt.</td></tr>
+          <tr><td class="term">Attractie van deprivatie</td><td>Een aantrekkingskracht die ontstaat doordat iemand de Core Gifts van de ander negeert, wat een intensiteit oplevert die op onzekerheid draait.</td></tr>
+          <tr><td class="term">Attractie van inspiratie</td><td>Een aantrekkingskracht die ontstaat uit wederzijdse waardering van elkaars Core Gifts, rustiger dan een attractie van deprivatie.</td></tr>
+          <tr><td class="term">Dating met waardigheid</td><td>Pages benadering waarin iemand zichzelf laat zien zonder zich te verkopen of aan te passen aan wat de ander lijkt te willen.</td></tr>
+          <tr><td class="term">Zelfverkleining</td><td>Het gedrag waarbij iemand zijn eigen wensen of grenzen laat wegvallen om een ander niet te verliezen, ook in een relatie die verder goed gaat.</td></tr>
+          <tr><td class="term">Kwetsbaarheid als vaardigheid</td><td>Het uitgangspunt dat het tonen van gevoel te oefenen valt, in plaats van een eigenschap die iemand toevallig wel of niet heeft.</td></tr>
+          <tr><td class="term">Schaamte over gevoeligheid</td><td>Het patroon waarbij iemand precies de eigenschap verbergt die hem het meest zou kunnen verbinden met een ander, uit angst er ooit om afgewezen te zijn.</td></tr>
+          <tr><td class="term">Talent versus Core Gift</td><td>Pages onderscheid tussen een vaardigheid die iemand toont om indruk te maken en een kwaliteit die iemand alleen toont door zich kwetsbaar op te stellen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Page bouwt zijn model op decennia werk als psychotherapeut, gespecialiseerd in relaties en gehechtheid, en op eigen ervaring met daten die hij in het boek openlijk deelt, tot en met mislukte pogingen.</p>
+      <p>Het boek onderbouwt zijn stellingen niet met gecontroleerd onderzoek maar met cliëntcasussen en Pages eigen praktijkervaring; het sluit aan bij gehechtheidstheorie zoals die ook in ander werk over relaties wordt gebruikt, zonder dat Page zelf naar die onderzoekstraditie verwijst.</p>
+      <p>Het begrip Core Gifts is niet overgenomen uit bestaande psychologische literatuur maar door Page zelf ontwikkeld en later ook gebruikt in zijn podcast en workshops, wat de herkenning ervan bij lezers heeft vergroot los van de vraag of het als klinisch begrip stand houdt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek werkt met een tweedeling, deprivatie tegenover inspiratie, die in de praktijk van daten minder scherp uitpakt dan op papier: aantrekking bestaat zelden zuiver uit het één of het ander, en het boek biedt weinig houvast voor de gevallen waarin beide tegelijk spelen.</p>
+      <p>Lezers en recensenten noemen het boek uitgebreid en op onderdelen herhalend; de kernboodschap, jezelf tonen in plaats van jezelf verkopen, wordt in vrijwel elk hoofdstuk opnieuw uitgewerkt, wat de leeservaring dichter bij een cursus dan bij een doorlopend betoog brengt.</p>
+      <p>Het boek is geschreven vanuit Pages eigen praktijk met vooral heteroseksuele cliënten in de Verenigde Staten; de voorbeelden en casussen weerspiegelen dat, ook waar de kernideeën breder toepasbaar lijken.</p>
+      <p>De term Core Gifts suggereert iets vasts en aangeboren, terwijl Page tegelijk beschrijft hoe die kwaliteiten pas zichtbaar worden na jaren van schaamte en verberging. Het boek maakt niet volledig hard of een Core Gift een kenmerk van iemands karakter is of vooral een verhaal dat iemand na therapie over zichzelf leert vertellen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf op waar je je voor schaamt in jezelf, en onderzoek of dat tegelijk een kwaliteit is waarmee je goed voor een ander zorgt.</li>
+        <li>Merk het verschil tussen onrust en interesse: een attractie die vooral onzeker maakt, is niet vanzelf een teken van iets goeds.</li>
+        <li>Bespreek verwachtingen over een relatie vroeg, in plaats van ze pas te noemen zodra er al veel op het spel staat.</li>
+        <li>Blijf de vaardigheden uit dit boek toepassen zodra een relatie eenmaal goed gaat, in plaats van ze alleen tijdens het daten te gebruiken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Deeper Dating: How to Drop the Games of Seduction and Discover the Power of Intimacy</i> (Shambhala Publications, Boston, 2014, 264 blz., ISBN 9781611801224). Een Nederlandse vertaling is niet verschenen; van Page, psychotherapeut en presentator van de podcast Deeper Dating, is verder geen ander boek in het Nederlands uitgebracht.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Page, jarenlang psychotherapeut voor cliënten met relatievragen, stelt dat de meeste datingadviezen over technieken gaan: hoe je aantrekkelijker overkomt, hoe je een gesprek stuurt, hoe je een tweede afspraak binnenhaalt. Zijn boek gaat over iets anders: de plekken in jezelf waar je het meest gevoelig, kwetsbaar en toegewijd bent, die hij Core Gifts noemt.</p><p>Die kwaliteiten zijn volgens Page vaak precies de dingen waar iemand zich voor schaamt of die hij probeert te verbergen: te veel gevoel, te veel behoefte aan diepgang, te veel stilte. Zolang iemand die kwaliteiten verstopt, trekt hij mensen aan die er niet goed mee omgaan, een aantrekking die voelt als een verslaving maar geen wederkerigheid biedt en die Page een attractie van deprivatie noemt.</p><p>Het tweede deel van het boek beschrijft de concrete vaardigheden om anders te daten: hoe je iemand leert kennen zonder jezelf te verkopen, hoe je grenzen stelt zonder een spel te spelen, en hoe je intimiteit opbouwt zodra iemand wel aansluit bij wat Page een attractie van inspiratie noemt, waarin waardering wederzijds is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dating</li><li>intimiteit</li><li>gehechtheid</li><li>zelfhulp</li><li>kwetsbaarheid</li><li>relaties</li><li>core gifts</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="152"><a href="152.html">Attached</a>. Levine en Heller verklaren aantrekkingspatronen vanuit gehechtingsstijlen; Page beschrijft een verwant mechanisme vanuit schaamte over de eigen gevoeligheid.</li>
+          <li value="164"><a href="164.html">Mating in Captivity</a>. Perel onderzoekt waarom intimiteit en verlangen elkaar in de weg kunnen zitten binnen een bestaande relatie, waar Page zich vooral op de fase daarvoor richt.</li>
+          <li value="2036"><a href="2036.html">No Bad Parts</a>. Schwartz beschrijft hoe delen van de geest schaamte vasthouden en verbergen; Page laat zien wat dat mechanisme met iemands liefdesleven doet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

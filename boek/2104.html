@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bewegen als medicijn &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Heel stelt dat bewegen werkt als een medicijn wanneer het verspreid over de dag in korte doses wordt toegediend, en dat de manier waarop mensen in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2104">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2104 &middot; Brein en lichaam</p>
+    <h1>Bewegen als medicijn</h1>
+    <p class="lede">John van Heel, 2019</p>
+    <p class="stats">
+      <span><b>1419</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2104"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Heel stelt dat bewegen werkt als een medicijn wanneer het verspreid over de dag in korte doses wordt toegediend, en dat de manier waarop mensen in Nederland tegen bewegen aankijken, als iets wat je in een uur in de sportschool afwerkt, de kern van het probleem is. Zijn stelling is dat de beweegrichtlijnen van de Gezondheidsraad uit 2017 een andere aanpak vragen dan de gangbare fitnesscultuur biedt: niet een piek van inspanning eenmaal per week, maar een regelmaat van korte, telkens terugkerende momenten die de stofwisseling gedurende de dag actief houden. Hij voert dat aan als verklaring voor waarom veel mensen ondanks goede intenties inactief blijven, en presenteert de 21/7 Leefstijl Switch als antwoord daarop.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom stilzitten ziek maakt</h3>
+      <p>Van Heel opent met de gevolgen van een zittende leefstijl: een verhoogd risico op hart- en vaatziekten, diabetes type 2 en overgewicht, en een sterfterisico dat volgens de onderzoeken waarnaar hij verwijst nauwelijks daalt door één keer per week te sporten als de rest van de week grotendeels zittend wordt doorgebracht.</p>
+      <p>Hij plaatst dat naast de beweegrichtlijnen die de Gezondheidsraad in 2017 vaststelde, gebaseerd op internationale meta-onderzoeken, waaronder werk van het American College of Sports Medicine en de Wereldgezondheidsorganisatie.</p>
+      <p>Van Heel schrijft dit hoofdstuk vanuit zijn eigen praktijk als opleider: hij ziet bij cursisten en hun cliënten een kloof tussen het weten dat bewegen goed is en het daadwerkelijk anders inrichten van de dag, en die kloof is voor hem het startpunt van het hele boek.</p>
+      <h3>De beweegrichtlijnen als uitgangspunt</h3>
+      <p>De Gezondheidsraad adviseert volwassenen wekelijks minstens honderdvijftig minuten matig intensieve inspanning, aangevuld met spier- en botversterkende activiteiten, en raadt aan langdurig stilzitten te vermijden. Van Heel neemt deze richtlijn als basis en werkt uit wat ze in de praktijk van een werkdag betekent.</p>
+      <p>Hij besteedt aandacht aan hoe weinig mensen deze richtlijn kennen en volgen, en aan het verschil tussen bewegen als verplichting en bewegen als terugkerend onderdeel van de dag.</p>
+      <p>Het hoofdstuk bespreekt ook waarom een richtlijn op zichzelf weinig verandert: mensen kennen het advies vaak wel, maar vertalen het niet naar een concreet dagschema. Van Heel gebruikt dat als opstap naar zijn eigen methode in het volgende hoofdstuk.</p>
+      <h3>De 21/7 Leefstijl Switch</h3>
+      <p>Van Heel introduceert zijn eigen methode: eenentwintig beweegmomenten per week, verdeeld over meerdere korte sessies per dag in plaats van een enkele lange training. Het idee is dat de stofwisseling vaker geactiveerd wordt dan bij één keer per week intensief sporten.</p>
+      <p>Hij onderbouwt dit met de gedachte dat consistentie zwaarder weegt dan intensiteit, en dat een laagdrempelig ritme makkelijker vol te houden is dan een sportschoolbezoek dat concurreert met werk en gezin.</p>
+      <p>De methode is bedoeld als brug tussen de richtlijn van de Gezondheidsraad en het dagelijks leven van iemand die niet aan sport doet: geen abonnement of uitrusting nodig, maar een vast moment in de ochtend, de middag en de avond.</p>
+      <h3>Bewegen bij ziekte</h3>
+      <p>Een groot deel van het boek gaat over toepassing bij specifieke aandoeningen: hart- en vaatziekten, overgewicht, diabetes, kanker en reuma. Van Heel beschrijft per aandoening waarom en hoe bewegen aanvullend op reguliere zorg kan werken, zonder de medische behandeling te vervangen.</p>
+      <p>Hij richt zich daarbij op wat leefstijlcoaches en trainers kunnen doen binnen de grenzen van hun vak, met verwijzing naar de arts of fysiotherapeut waar dat nodig is.</p>
+      <p>Bij kanker en reuma benadrukt hij dat bewegen niet bedoeld is om klachten te ontkennen, maar om het lichaam binnen de mogelijkheden die er zijn actief te houden; hij waarschuwt uitdrukkelijk tegen het opleggen van een vast programma zonder overleg met de behandelend arts.</p>
+      <h3>Bewegen door de levensfasen</h3>
+      <p>Aparte aandacht gaat naar kinderen, bij wie beweeggewoontes zich vormen, en naar vijftigplussers, bij wie spierbehoud en valpreventie belangrijker worden. Van Heel beschrijft hoe de 21/7-aanpak zich naar beide groepen laat vertalen.</p>
+      <p>Bij kinderen ligt de nadruk op spel en gewoontevorming in het gezin; bij ouderen op het combineren van beweegmomenten met evenwichtsoefeningen, omdat vallen volgens Van Heel een van de grootste risico's voor zelfstandigheid op oudere leeftijd is.</p>
+      <h3>Van kennis naar gewoonte</h3>
+      <p>Het boek sluit ieder hoofdstuk af met opdrachten, gericht op de lezer die als professional met cliënten werkt. Van Heel benadrukt dat kennis van de richtlijnen niets oplevert zolang die niet wordt omgezet in een dagelijks ritme, en dat de rol van de coach is dat ritme haalbaar te maken.</p>
+      <p>De opdrachten vragen de lezer telkens om een eigen dagschema te schetsen en te toetsen op haalbaarheid, zodat het boek niet alleen kennis overdraagt maar ook oefent met de toepassing ervan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">21/7 Leefstijl Switch</td><td>Van Heels methode om eenentwintig keer per week te bewegen, verspreid over korte momenten op de dag in plaats van één lange sportsessie per week.</td></tr>
+          <tr><td class="term">Beweegrichtlijnen 2017</td><td>Het advies van de Gezondheidsraad voor volwassenen: minstens honderdvijftig minuten matig intensieve inspanning per week, aangevuld met spier- en botversterkende activiteiten.</td></tr>
+          <tr><td class="term">Leefstijl als medicijn</td><td>De overkoepelende naam van Van Heels trilogie, waarin bewegen, voeding en mentale gezondheid als aanvulling op reguliere zorg worden gepresenteerd.</td></tr>
+          <tr><td class="term">Dagdeel</td><td>De eenheid waarin Van Heel de dag verdeelt om beweegmomenten te plannen, in plaats van te rekenen in uren per week.</td></tr>
+          <tr><td class="term">Stofwisseling activeren</td><td>Het effect dat Van Heel toeschrijft aan meerdere korte beweegmomenten per dag, tegenover één keer per week een lange inspanning.</td></tr>
+          <tr><td class="term">Inactiviteit</td><td>De zittende leefstijl die Van Heel als startpunt van het boek neemt, met de daaraan gekoppelde gezondheidsrisico's.</td></tr>
+          <tr><td class="term">Leefstijlswitch</td><td>De omslag van beweeggedrag als uitzondering naar beweeggedrag als vast onderdeel van de dag, het doel waar de 21/7-methode naartoe werkt.</td></tr>
+          <tr><td class="term">Valpreventie</td><td>Het voorkomen van vallen bij ouderen door evenwicht en spierkracht te trainen, een van de toepassingen die Van Heel bij de doelgroep vijftigplussers bespreekt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De kern van het boek steunt op de beweegrichtlijnen die de Gezondheidsraad in 2017 vaststelde, een instantie die onafhankelijk wetenschappelijk advies geeft aan de Nederlandse overheid en zich daarbij baseert op internationale meta-analyses. Van Heel verwijst daarnaast naar werk van het American College of Sports Medicine en de Wereldgezondheidsorganisatie, beide gezaghebbende bronnen op het gebied van beweegadvies.</p>
+      <p>Voor de 21/7 Leefstijl Switch zelf, het idee dat verspreide korte beweegmomenten meer opleveren dan één lange sessie per week, geeft het boek geen eigen onderzoek of meetgegevens. Het is een praktische vertaling van de richtlijnen naar een dagritme, niet een methode die zelf in een studie is getoetst.</p>
+      <p>Van Heels gezag ligt in vijfendertig jaar ervaring als opleider van fitnesstrainers en leefstijlcoaches, niet in wetenschappelijk onderzoek dat hij zelf heeft uitgevoerd. Het boek functioneert als vertaalslag tussen bestaande richtlijnen en de praktijk van de trainingsvloer.</p>
+      <p>Bij de toepassing op aandoeningen als kanker en reuma leunt het boek op de algemene lijn dat lichaamsbeweging ondersteunend kan werken naast een behandeling, een positie die breed wordt gedeeld in de sportgeneeskunde, zonder dat het boek daarbij per aandoening een specifieke studie citeert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek presenteert de 21/7 Leefstijl Switch als een noemenswaardig eigen concept, maar de onderliggende claim, dat meerdere korte beweegmomenten per dag beter werken dan één lange sessie per week, wordt niet met een aparte bronvermelding of getal onderbouwd. De lezer moet Van Heel op zijn woord geloven waar het om de exacte verdeling van tijd gaat.</p>
+      <p>Als studieboek is het gericht op de opleiding van trainers en coaches, met opdrachten na elk hoofdstuk; voor wie alleen geïnteresseerd is in de inhoud zonder de didactische opzet, voegt dat weinig toe.</p>
+      <p>Het boek behandelt een breed scala aan aandoeningen in een beperkt aantal bladzijden, met als gevolg dat de bespreking per aandoening kort blijft en vooral een overzicht geeft, geen diepgaande onderbouwing per ziektebeeld.</p>
+      <p>Doordat Van Heel zowel opleider als auteur is, ontbreekt een kritische buitenstaandersblik op de eigen methode; het boek citeert geen onafhankelijke evaluatie van de 21/7 Leefstijl Switch zelf, alleen van de onderliggende beweegrichtlijnen waarop de methode voortbouwt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Verdeel beweegmomenten over de dag in plaats van één keer per week te sporten.</li>
+        <li>Gebruik de beweegrichtlijnen van de Gezondheidsraad als ondergrens, niet als doel op zich.</li>
+        <li>Bouw bij een aandoening eerst overleg met arts of fysiotherapeut in voordat een beweegprogramma wordt gestart.</li>
+        <li>Zet kennis van richtlijnen om in een vast dagritme in plaats van incidentele voornemens.</li>
+        <li>Combineer bij ouderen korte beweegmomenten met evenwichtsoefeningen ter voorkoming van vallen.</li>
+        <li>Laat kinderen bewegen aanleren als spel binnen het gezin in plaats van als aparte oefening.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Bewegen als medicijn: Hoe doe je dat?</i>, eerste deel van de trilogie <i>Leefstijl als medicijn</i>. Uitgeverij Elmar, Delft, 2019, 160 blz., ISBN 9789038927121. Nederlandstalig geschreven, geen vertaling. Van dezelfde auteur verschenen in dezelfde reeks <i>Voeding als medicijn</i> (2020) en <i>Je brein als medicijn</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>John van Heel richtte in 1983 een sport- en leefstijlinstituut op en startte in 1988 de EFAA-opleiding voor fitnesstrainers, personal trainers en leefstijlcoaches. In <i>Bewegen als medicijn</i> zet hij de beweegrichtlijnen van de Gezondheidsraad uit 2017 om in een praktisch programma, aansluitend op onderzoek van het American College of Sports Medicine en de Wereldgezondheidsorganisatie.</p><p>Centraal staat wat hij de 21/7 Leefstijl Switch noemt: eenentwintig keer per week bewegen, verspreid over meerdere korte momenten op een dag, in plaats van één lange sportsessie per week. Van Heel werkt dat uit voor uiteenlopende situaties, van hart- en vaatziekten en overgewicht tot reuma en het ouder worden.</p><p>Het boek is opgezet als studieboek, met opdrachten aan het eind van de hoofdstukken, gericht op professionals die cliënten begeleiden naar een actievere leefstijl.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bewegen</li><li>leefstijl</li><li>gezondheid</li><li>preventie</li><li>beweegrichtlijnen</li><li>leefstijlcoaching</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2105"><a href="2105.html">Voeding als medicijn</a>. Het tweede deel van dezelfde trilogie, waarin Van Heel dezelfde aanpak toepast op voeding in plaats van beweging.</li>
+          <li value="2088"><a href="2088.html">Guérir</a>. Servan-Schreiber onderbouwt een vergelijkbare 'als medicijn'-claim voor het brein met eigen klinisch onderzoek, wat een scherper contrast geeft met Van Heels praktijkgerichte aanpak.</li>
+          <li value="1630"><a href="1630.html">Van bewust bewegen naar bewust Zijn</a>. Dolstra benadert bewegen vanuit bewustzijn in plaats van richtlijnen, een andere ingang tot hetzelfde onderwerp.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

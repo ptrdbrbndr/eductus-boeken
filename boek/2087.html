@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In ongenade &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Coetzee stelt de vraag wat er overblijft van eer, gezag en zelfbeeld wanneer die drie tegelijk instorten, en hij plaatst die vraag opzettelijk in het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2087">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2087 &middot; Roman en memoir</p>
+    <h1>In ongenade</h1>
+    <p class="lede">J.M. Coetzee, 1999</p>
+    <p class="stats">
+      <span><b>1205</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2087"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Coetzee stelt de vraag wat er overblijft van eer, gezag en zelfbeeld wanneer die drie tegelijk instorten, en hij plaatst die vraag opzettelijk in het Zuid-Afrika vlak na apartheid, waar dezelfde vraag zich op nationale schaal stelt. Lurie ziet zichzelf als een man die alleen zijn verlangens volgt en daarin niemand iets verschuldigd is; het boek ontmantelt die zelfopvatting stap voor stap, eerst door de aanklacht van Melanie, dan door de aanranding van Lucy, waarbij Lurie voor het eerst ervaart wat het is om macht te ondergaan in plaats van uit te oefenen. Coetzee biedt geen boetedoening die het verleden ongedaan maakt. Wat Lurie aan het eind rest, is een vorm van dienstbaarheid zonder aanzien, belichaamd in het werk in het dierenasiel, en de roman laat in het midden of dat verlossing is of alleen overleven.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Kaapstad: Melanie</h3>
+      <p>Lurie regelt zijn seksleven wekelijks bij een prostituee tot hij haar toevallig op straat tegenkomt met haar kinderen, waarna hij overstapt op een verhouding met zijn studente Melanie Isaacs. De verhouding is vanaf het begin ongelijk: hij is haar docent en ruim dertig jaar ouder, en op een beslissend moment initieert hij seks terwijl zij niet duidelijk instemt.</p>
+      <p>Wanneer Melanie's vriend en later haar vader de zaak aan het licht brengen, volgt een formele klacht. Lurie pleit voor de universiteitscommissie schuldig aan de feiten, maar weigert de innerlijke spijt te veinzen die de commissie als voorwaarde voor clementie stelt. Hij wordt ontslagen.</p>
+      <h3>Lucy's boerderij</h3>
+      <p>Lurie trekt in bij zijn dochter Lucy, die alleen woont op een klein landbouwbedrijf in de Oost-Kaap, met een kennel voor honden en een marktkraam. Haar buurman Petrus, ooit haar hulp, is via een overheidsregeling mede-eigenaar van een deel van haar land geworden en bouwt er een eigen huis.</p>
+      <p>Vader en dochter staan met de ruggen tegen elkaar: Lurie ziet Lucy's soberheid als een vorm van berusting, Lucy ziet in haar vaders verontwaardiging over zijn eigen val vooral onvermogen om te veranderen.</p>
+      <h3>De overval</h3>
+      <p>Drie mannen dringen de boerderij binnen, sluiten Lurie op in een toilet en steken hem in brand, schieten Lucy's honden dood en verkrachten haar. Coetzee vertelt de aanval vanuit Luries beperkte, opgesloten perspectief: hij hoort meer dan hij ziet, en beseft na afloop dat hij Lucy niet heeft kunnen beschermen.</p>
+      <p>Lucy weigert de verkrachting bij de politie te melden als apart delict en wil alleen aangifte doen van de roof. Voor Lurie, die eer en herstel in juridische termen denkt, is die weigering onbegrijpelijk.</p>
+      <h3>Wat Lucy kiest</h3>
+      <p>Lucy blijkt zwanger van de verkrachting en besluit het kind te houden. Zij biedt Petrus aan haar land in ruil voor zijn bescherming grotendeels over te dragen, in wat neerkomt op een informeel huwelijk zonder liefde. Lurie ziet daarin vernedering; Lucy ziet het als de enige realistische manier om te blijven wonen waar zij wil wonen.</p>
+      <p>Het meningsverschil tussen vader en dochter over deze keuze wordt nooit opgelost. Coetzee laat beide posities naast elkaar staan zonder de lezer te vertellen wie er gelijk heeft.</p>
+      <h3>Het dierenasiel</h3>
+      <p>Lurie gaat helpen bij Bev Shaw, die in een dierenasiel gewonde en ongewenste honden verzorgt en, vaker, laat inslapen. Hij neemt op zich de kadavers persoonlijk naar de crematieoven te brengen in plaats van ze als afval te laten ophalen, een taak die niemand van hem vraagt en die niets oplevert.</p>
+      <p>Parallel daaraan werkt hij aan een kameropera over de laatste jaren van Byron in Italie, een project dat nooit een duidelijke vorm krijgt en dat Coetzee gebruikt om Luries verlangen naar romantische grootsheid te laten doodlopen.</p>
+      <h3>Slot</h3>
+      <p>Het boek eindigt niet met verzoening tussen Lurie en Lucy, noch met gerechtigheid voor de overval. Lurie brengt in de laatste scene een geliefde, kreupele hond naar de operatietafel om hem te laten inslapen, een handeling zonder aanzien die Coetzee naast Luries vroegere zelfbeeld als man van aanzien zet.</p>
+      <p>De roman sluit op die soberheid af: geen les, geen herstel, alleen een man die is gaan doen wat gedaan moet worden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Ongenade</td><td>De titelgevende staat waarin Lurie na zijn ontslag verkeert, en die Coetzee laat overslaan naar Lucy en naar het land als geheel.</td></tr>
+          <tr><td class="term">Wet 55.9</td><td>De disciplinaire procedure van de universiteit die van Lurie een formele spijtbetuiging verlangt, wat hij weigert te geven omdat hij niet oprecht spijt zegt te voelen.</td></tr>
+          <tr><td class="term">Petrus</td><td>Lucy's voormalige hulp en latere mede-eigenaar van haar land, wiens opkomst de verschuivende machtsverhoudingen in het post-apartheid Zuid-Afrika belichaamt.</td></tr>
+          <tr><td class="term">Het dierenasiel</td><td>De plek waar Bev Shaw ongewenste honden laat inslapen en waar Lurie zich vrijwillig aan een taak zonder erkenning verbindt.</td></tr>
+          <tr><td class="term">De Byron-opera</td><td>Luries onafgemaakte compositieproject over Byrons laatste jaren, dat zijn romantische zelfbeeld weerspiegelt en nooit tot een uitvoerbaar werk wordt.</td></tr>
+          <tr><td class="term">Communicatiewetenschappen</td><td>Het vak dat Lurie doceert nadat zijn oorspronkelijke leerstoel in de moderne talen door de universiteit is opgeheven, een detail dat zijn verminderde status voor de romanhandeling al aangeeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Coetzee schreef <i>Disgrace</i> vlak na het einde van apartheid en de eerste jaren van de Waarheids- en Verzoeningscommissie; de weigering van Lucy om haar verkrachting publiek te maken staat in scherp contrast met het model van openbare getuigenis dat die commissie voorstond, en critici hebben dat contrast gelezen als een bewuste stellingname van de roman.</p>
+      <p>De roman werd bekroond met de Booker Prize in 1999, Coetzees tweede na <i>Life &amp; Times of Michael K</i>, en gold mede als aanleiding voor zijn Nobelprijs in 2003. Het Zuid-Afrikaanse ANC bekritiseerde het boek destijds in een officiele notitie aan de Waarheids- en Verzoeningscommissie omdat het zwarte personages overwegend als daders van geweld zou neerzetten.</p>
+      <p>Coetzees eigen achtergrond als hoogleraar literatuurwetenschap in Kaapstad, met een leerstoel die net als die van Lurie onder druk kwam te staan door de herstructurering van Zuid-Afrikaanse universiteiten, geeft het decor van het eerste deel een herkenbare precisie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kritiek van het ANC, dat de roman zwarte personages louter als bedreiging voor blanke vrouwen zou neerzetten, is door andere lezers bestreden met het argument dat het boek evengoed Luries eigen kijk ondermijnt, maar het bezwaar raakt een reeel punt: Petrus en de drie overvallers krijgen nauwelijks een eigen binnenperspectief, terwijl Lurie het hele boek focaliseert.</p>
+      <p>Lucy's weigering om aangifte te doen van de verkrachting is door sommige critici gelezen als een vorm van symbolische boetedoening die haar eigen wil ondergeschikt maakt aan het grotere verhaal dat de roman wil vertellen over Zuid-Afrika, wat haar minder een zelfstandig personage maakt en meer een instrument van Coetzees these.</p>
+      <p>Het boek biedt geen uitzicht op herstel voor Lurie dat verder gaat dan een houding van berusting; wie een ontwikkeling naar inzicht of verandering verwacht zoals in een klassieke roman van vorming, vindt aan het eind vooral een man die is gestopt met verzet, niet een man die iets geleerd heeft.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Disgrace</i> (Secker &amp; Warburg, Londen, 1999), bekroond met de Booker Prize van dat jaar; Coetzee kreeg in 2003 de Nobelprijs voor literatuur. De Nederlandse vertaling van Peter Bergsma verscheen voor het eerst in 2000 bij Uitgeverij Contact; de huidige uitgave bij Cossee, Amsterdam, verscheen in 2020 (253 blz., ISBN 9789059368927). Van Coetzee zijn vrijwel al zijn romans in het Nederlands verschenen, waaronder <i>Wachten op de barbaren</i> en <i>Elizabeth Costello</i>, eveneens bij Cossee.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Lurie, tweeenvijftigjarige hoogleraar communicatiewetenschappen in Kaapstad, begint een verhouding met zijn studente Melanie Isaacs. Als zij een klacht tegen hem indient, pleit hij schuldig zonder de aanklacht te lezen en weigert hij de spijtbetuiging die de universiteitscommissie van hem verlangt. Hij verliest zijn baan.</p><p>Lurie trekt in bij zijn dochter Lucy, die een klein landbouwbedrijf runt in de Oost-Kaap. Daar wordt hij geconfronteerd met een land dat zijn gezag niet meer erkent: drie mannen overvallen de boerderij, schieten Lucy's honden dood, verkrachten haar en steken Lurie in brand. Lucy weigert aangifte te doen en besluit het kind dat uit de verkrachting voortkomt te houden.</p><p>Wat volgt is geen herstel maar een reeks aanpassingen: Lucy biedt haar land aan Petrus, de zwarte buurman die haar mede-eigenaar wordt, in ruil voor bescherming. Lurie zelf gaat werken in een dierenasiel bij Bev Shaw, waar hij vooral leert hoe je dieren met waardigheid laat inslapen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Zuid-Afrika</li><li>post-apartheid</li><li>schuld</li><li>seksualiteit</li><li>geweld</li><li>eer</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="255"><a href="255.html">Everything Is F*cked</a>. Dostojevski onderzoekt eveneens wat er overblijft van een zelfbeeld na een daad die niet meer ongedaan te maken is, al kiest Coetzee voor berusting waar Raskolnikov naar boetedoening zoekt.</li>
+          <li value="1518"><a href="1518.html">De kleur paars</a>. Walker plaatst ras en seksueel geweld in de Amerikaanse zuidelijke staten centraal, net zoals Coetzee dat doet voor het post-apartheid Zuid-Afrika, maar vanuit het perspectief van het slachtoffer zelf in plaats van vanuit de vader.</li>
+          <li value="2086"><a href="2086.html">Crossroads</a>. Franzen onderzoekt in een heel andere setting dezelfde vraag die bij Lurie speelt: wat een op het oog moreel mens zichzelf toestaat te doen en hoe hij dat voor zichzelf verantwoordt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

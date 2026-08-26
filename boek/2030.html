@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tijdwinst - Elke dag om 15.00 uur klaar &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Deusings stelt dat de meeste mensen niet te veel werk hebben, maar een systeem missen om binnenkomend werk direct op de juiste plek te zetten, waardoor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2030">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2030 &middot; Werk en aandacht</p>
+    <h1>Tijdwinst - Elke dag om 15.00 uur klaar</h1>
+    <p class="lede">Björn Deusings, 2021</p>
+    <p class="stats">
+      <span><b>1415</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2030"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Deusings stelt dat de meeste mensen niet te veel werk hebben, maar een systeem missen om binnenkomend werk direct op de juiste plek te zetten, waardoor het zich opstapelt tot een gevoel van blijvende achterstand. Zijn these is dat wie zijn keuzes vooraf maakt, het binnenkomende werk volgens een vaste workflow verwerkt en dat systeem onderhoudt, structureel eerder klaar is, tot en met de door hem genoemde deadline van drie uur 's middags. Dat vereist volgens hem discipline aan het begin, niet blijvend meer inspanning.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom drukte geen productiviteit is</h3>
+      <p>Deusings opent met het onderscheid tussen bezig zijn en iets afkrijgen. Voortdurende e-mails, vergaderingen en onderbrekingen geven het gevoel van een volle dag, terwijl het eigenlijke, belangrijke werk vaak blijft liggen tot na kantoortijd.</p>
+      <p>Hij herleidt dat naar het ontbreken van een systeem: zonder vaste plek voor binnenkomend werk beslist iedere onderbreking zelf hoeveel aandacht ze krijgt, in plaats van dat degene die werkt dat bepaalt.</p>
+      <p>Deusings noemt dit reactief werken tegenover proactief werken, en stelt dat de meeste kantoormedewerkers een groot deel van hun dag reactief doorbrengen zonder dat zij dat als een keuze ervaren, terwijl het volgens hem wel degelijk een keuze is.</p>
+      <h3>Deel een: keuzes maken</h3>
+      <p>In het eerste deel behandelt Deusings hoe het brein met keuzes en prikkels omgaat, en waarom te veel open opties uitputtender werken dan een beperkt aantal vaste keuzes. Hij vraagt de lezer vooraf te bepalen welk soort werk wel en niet de moeite waard is om op te pakken.</p>
+      <p>Die keuzes worden de basis voor het filteren van binnenkomend werk in de rest van het boek: wat niet aan de vooraf gestelde criteria voldoet, hoeft niet dezelfde aandacht te krijgen als wat er wel aan voldoet.</p>
+      <p>Deusings besteedt in dit deel ook aandacht aan uitstelgedrag: hij herleidt uitstel niet naar luiheid, maar naar een taak die te vaag of te groot is geformuleerd om meteen aan te beginnen, en adviseert elke taak zo klein te maken dat de eerste stap binnen enkele minuten te zetten is.</p>
+      <h3>Deel twee: een waterdichte workflow</h3>
+      <p>Het tweede en omvangrijkste deel beschrijft hoe binnenkomend werk, van e-mail tot verzoeken van collega's, via een vaste route wordt verwerkt: registreren, beoordelen, en meteen ergens onderbrengen in plaats van het te laten liggen voor later.</p>
+      <p>Deusings besteedt hierin aandacht aan het beheersen van e-mail en vergaderingen als de twee grootste tijdvreters, met concrete regels voor wanneer een vergadering wel nodig is en wanneer een e-mail meteen, later of nooit een antwoord verdient.</p>
+      <p>Hij werkt ook uit hoe complexe, meerdaagse taken binnen deze workflow passen: niet als één post op een lijst, maar opgeknipt in stappen die elk apart worden ingepland, zodat een groot project niet blijft liggen tot er toevallig een vrije dag ontstaat.</p>
+      <p>Voor vergaderingen geeft Deusings een concrete vuistregel: geen vergadering zonder vooraf vastgestelde agenda en beoogde uitkomst, en een vaste eindtijd die niet wordt verlengd, ook niet als de agenda nog niet is afgerond.</p>
+      <h3>Deel drie: onderhoud en planning</h3>
+      <p>Een systeem dat eenmaal is opgezet, verwatert volgens Deusings zonder onderhoud. Dit deel gaat over vaste, terugkerende momenten om de planning bij te werken, oude toezeggingen te herzien en losse eindjes op te ruimen voordat ze opnieuw een achterstand vormen.</p>
+      <p>Hij benadrukt dat deze onderhoudsmomenten net zo vast moeten staan als een afspraak met een ander, omdat ze anders als eerste sneuvelen zodra de agenda vol raakt.</p>
+      <p>Deusings bespreekt in dit deel ook wat te doen als het systeem toch weer verwaterd is: niet in één keer alles reorganiseren, maar terug naar het laatste onderhoudsmoment dat wel goed werkte, en van daaruit opnieuw opbouwen.</p>
+      <h3>Deel vier: losse tips</h3>
+      <p>Het laatste deel bundelt kortere, op zichzelf staande adviezen: hoe om te gaan met de smartphone tijdens geconcentreerd werk, hoe sneller te lezen zonder de inhoud te missen, en hoe onderbrekingen door collega's te beperken zonder onbereikbaar te worden.</p>
+      <p>Deusings presenteert deze tips uitdrukkelijk als aanvulling op het systeem uit de eerdere delen, niet als vervanging ervan: zonder de workflow uit deel twee lossen losse tips volgens hem weinig op.</p>
+      <p>Onder de tips staat ook een advies over meldingen op telefoon en computer: die staan volgens Deusings bij de meeste mensen standaard te ruim ingesteld, waardoor werk dat net is opgepakt binnen enkele minuten weer wordt onderbroken door iets dat niet dezelfde urgentie heeft.</p>
+      <h3>De belofte van drie uur</h3>
+      <p>Het boek sluit af bij de titelbelofte: een werkdag die ruim voor het einde van de middag klaar is. Deusings erkent dat dit niet voor elke functie haalbaar is, maar houdt vast aan het uitgangspunt dat de meeste kantoorwerkdagen meer onbenutte tijd bevatten dan mensen beseffen, verstopt in onderbrekingen en ondoelmatige vergaderingen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Waterdichte workflow</td><td>Deusings' term voor een vaste route waarlangs binnenkomend werk wordt geregistreerd, beoordeeld en direct ergens ondergebracht.</td></tr>
+          <tr><td class="term">De 15.00 uur-belofte</td><td>Het uitgangspunt dat een werkdag bij voldoende systeem ruim voor het einde van de middag inhoudelijk klaar kan zijn.</td></tr>
+          <tr><td class="term">Keuzes maken</td><td>Het eerste deel van het boek, waarin vooraf wordt bepaald welk soort werk wel en niet de moeite waard is om op te pakken.</td></tr>
+          <tr><td class="term">Onderhoudsmoment</td><td>Een vast terugkerend tijdstip om de planning bij te werken en losse eindjes op te ruimen voordat ze een achterstand vormen.</td></tr>
+          <tr><td class="term">E-mail- en vergaderregels</td><td>Concrete criteria voor wanneer een vergadering nodig is en wanneer een e-mail meteen, later of nooit een reactie verdient.</td></tr>
+          <tr><td class="term">Smartphonebeheer</td><td>Adviezen om de telefoon tijdens geconcentreerd werk te beperken zonder volledig onbereikbaar te worden.</td></tr>
+          <tr><td class="term">Snellezen</td><td>Een van de losse tips uit het vierde deel, gericht op sneller lezen zonder de inhoud te missen.</td></tr>
+          <tr><td class="term">Reactief werken</td><td>Deusings' aanduiding voor een werkdag die wordt bepaald door binnenkomende onderbrekingen in plaats van door eigen keuzes.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is gebaseerd op Deusings' twintig jaar trainingservaring en de reacties van deelnemers aan zijn cursussen, niet op onafhankelijk onderzoek naar productiviteit. Er worden geen studies aangehaald ter onderbouwing van de zes-urige werkdag als algemeen haalbaar doel.</p>
+      <p>Wat wel is na te gaan, is de ontvangst: het boek stond langdurig hoog op de Managementboek Top 100 en werd door meerdere Nederlandse boekhandels en podcasts besproken, wat wijst op praktische herkenbaarheid bij een breed publiek van kantoorwerkers.</p>
+      <p>Deusings onderbouwt losse claims, zoals de invloed van te veel keuzemogelijkheden op vermoeidheid, met een enkele verwijzing naar gedragswetenschap, maar het boek werkt dat niet uit tot een doorlopend notenapparaat waarmee elke bewering te herleiden is naar een bron.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Een terugkerend punt in recensies is de omvang: het boek is met tweehonderdveertig bladzijden langer dan de eenvoud die het zelf aanprijst, en de audioversie beslaat meer dan acht uur. Sommige lezers adviseren de latere hoofdstukken over te slaan en alleen de samenvattingen te lezen.</p>
+      <p>De belofte van klaar zijn om drie uur geldt vooral voor werk met veel eigen regie over de agenda. Voor functies waarin vergaderingen, klantcontact of ploegendiensten het grootste deel van de dag bepalen, is de belofte zelf minder houdbaar dan het systeem eromheen.</p>
+      <p>Het boek gaat er verder van uit dat een individuele medewerker zijn eigen workflow kan aanpassen, terwijl vergaderingen, reactietijden op e-mail en gedeelde deadlines in de praktijk vaak worden bepaald door collega's of leidinggevenden die het systeem niet kennen. Deusings erkent dat, maar biedt geen uitgewerkte aanpak voor een team dat niet gezamenlijk overstapt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf drie criteria op waaraan werk moet voldoen voordat je het serieus oppakt, en toets daaraan wat er deze week binnenkomt.</li>
+        <li>Zet een vast onderhoudsmoment van twintig minuten per week in je agenda om de planning bij te werken, net zo vast als een afspraak met een collega.</li>
+        <li>Stel voor e-mail drie categorieën in: meteen beantwoorden, later beantwoorden op een vast moment, of nooit beantwoorden, en behandel elk bericht bij binnenkomst volgens die indeling.</li>
+        <li>Knip een taak die je al langer voor je uit schuift op in stappen die elk binnen een kwartier te doen zijn, en plan alleen de eerstvolgende stap concreet in.</li>
+        <li>Zet voor je volgende vergadering vooraf de agenda en de beoogde uitkomst op papier, en spreek een eindtijd af die niet wordt verlengd.</li>
+        <li>Stel de meldingen op je telefoon en computer voor één werkdag strenger in dan gebruikelijk, en noteer aan het eind van de dag hoeveel keer je daardoor niet werd onderbroken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel: <i>Tijdwinst: elke dag om 15.00 uur klaar</i> (Kosmos Uitgevers, Utrecht, 2021, 240 blz., ISBN 9789021582382); ook verschenen als e-book (236 blz., ISBN 9789021582399) en als luisterboek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Björn Deusings is directeur van Tijdwinst.com en geeft al ruim twintig jaar trainingen in timemanagement. In dit boek werkt hij zijn aanpak uit tot een systeem waarmee, zo stelt hij, een reguliere werkdag ruim voor het einde van de middag klaar kan zijn, zonder dat er structureel wordt overgewerkt.</p><p>Het boek is opgebouwd uit vier delen: keuzes maken over wat wel en niet de moeite waard is, een waterdichte workflow voor het verwerken van binnenkomend werk, onderhoud en planning om het systeem vol te houden, en een slotdeel met losse tips over e-mail, vergaderingen, de telefoon en lezen.</p><p>Deusings schrijft vanuit zijn eigen trainingspraktijk en richt zich op Nederlandse kantoormedewerkers die vooral last hebben van onderbrekingen, een overvolle inbox en vergaderingen die langer duren dan nodig.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>timemanagement</li><li>productiviteit</li><li>workflow</li><li>concentratie</li><li>planning</li><li>Nederland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2029"><a href="2029.html">Do It Tomorrow and Other Secrets of Time Management</a>. Forster werkte twintig jaar eerder al met een vergelijkbare knip tussen wat vandaag wordt afgehandeld en wat naar morgen gaat, zij het met minder nadruk op e-mail en vergaderingen.</li>
+          <li value="2053"><a href="2053.html">Getting Things Done</a>. Allen biedt een uitgebreider categoriseringssysteem voor hetzelfde probleem van binnenkomend werk dat zich opstapelt.</li>
+          <li value="311"><a href="311.html">Eat That Frog!</a>. Tracy benadrukt, net als Deusings, het belang van vooraf kiezen welke taak de meeste aandacht verdient, in plaats van willekeurig te beginnen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

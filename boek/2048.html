@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kees de jongen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thijssen laat zien hoe een kind zich staande houdt in een wereld die het weinig te bieden heeft, door zichzelf de hoofdrol toe te dichten die het leven…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2048">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2048 &middot; Roman en memoir</p>
+    <h1>Kees de jongen</h1>
+    <p class="lede">Theo Thijssen, 1923</p>
+    <p class="stats">
+      <span><b>1268</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2048"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thijssen laat zien hoe een kind zich staande houdt in een wereld die het weinig te bieden heeft, door zichzelf de hoofdrol toe te dichten die het leven hem onthoudt. Zijn stelling is dat die fantasie geen ontsnapping is maar een overlevingsvorm, nodig voor een jongen uit een gezin zonder geld en zonder aanzien, en dat de werkelijkheid uiteindelijk wint. De dood van de vader en het vroegtijdige einde van Kees' schooltijd zijn geen toevallige tegenslagen maar de uitkomst waar het boek van meet af aan naartoe werkt: armoede beslist wanneer een jeugd eindigt, niet het kind zelf. Thijssen schrijft dat zonder sentiment, in een verteltrant die Kees' overdrijvingen net zo serieus neemt als de feiten eromheen, zodat de lezer voortdurend zelf moet uitmaken wat er echt gebeurt en wat Kees zich verbeeldt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een schoenwinkel die niet loopt</h3>
+      <p>Het boek opent met een korte, ironische proloog waarin de verteller zich distantieert van zijn eigen hoofdpersoon, voordat het verhaal overgaat op Kees zelf. Het gezin Bakels woont boven en achter de schoenenzaak van vader Jan Bakels, een goedmoedige man wiens klantenkring wegblijft; moeder Bakels houdt het huishouden en de zaak met zuinigheid draaiende.</p>
+      <p>Kees, twaalf jaar, blond en tenger, compenseert de krapte thuis met een innerlijk leven waarin hij de jongen is naar wie iedereen op straat kijkt. Die twee werelden, de armoedige werkelijkheid en de opgeblazen verbeelding, worden vanaf de eerste bladzijden naast elkaar gezet zonder dat de verteller een van beide corrigeert.</p>
+      <h3>Rosa Overbeek</h3>
+      <p>Op school raakt Kees gefascineerd door Rosa Overbeek, een blond meisje uit een gezin dat het duidelijk beter heeft dan het zijne. Zijn verliefdheid verloopt vooral in gedachten: hij bedenkt scenario's waarin hij haar imponeert, terwijl hij in haar bijzijn vooral onhandig en verlegen is.</p>
+      <p>Het standsverschil tussen de twee gezinnen blijft de hele roman op de achtergrond meespelen. Rosa is nooit onaardig tegen Kees, maar de afstand tussen hen wordt door Thijssen nooit weggeschreven; ze hoort bij een wereld waar Kees alleen in zijn verbeelding bij kan.</p>
+      <h3>De zwembadpas en andere jongensstreken</h3>
+      <p>Met zijn klasgenoten beleeft Kees de kleine, herkenbare episodes van een straatjeugd: pesterijen, spelletjes, schoolstraffen en het soort overmoed dat op een blauwe maandag misloopt. Deze hoofdstukken zijn losser van opzet dan de rest van het boek en tonen vooral hoe Kees zich in de groep staande houdt.</p>
+      <p>Karakteristiek is de zwembadpas, de wijdbeense, deinende manier van lopen die Kees aanneemt zodra hij zich voorstelt dat hij bewonderd wordt. Het lichaam verraadt hier wat de fantasie doet: Kees loopt zijn eigen roem tegemoet, ook als er geen publiek is.</p>
+      <h3>Mevrouw Dubois trekt in</h3>
+      <p>Om de huishuur te kunnen betalen, neemt het gezin een kostgangster in huis, mevrouw Dubois. Haar aanwezigheid maakt de geldnood tastbaar in plaats van iets dat alleen tussen de ouders wordt besproken; Kees moet de vreemde in huis dulden en ruimte afstaan.</p>
+      <p>Tegelijk is mevrouw Dubois niet louter een last: ze schenkt Kees op een gegeven moment een riem, een klein gebaar van aandacht dat in het krappe huishouden opvalt. Thijssen laat zien dat armoede en welwillendheid elkaar niet uitsluiten.</p>
+      <h3>De ziekte van vader Bakels</h3>
+      <p>Vader Bakels wordt ziek, herstelt gedeeltelijk en wordt daarna opnieuw getroffen. De zaak, die het al niet goed deed, komt vrijwel stil te liggen. Voor Kees verschuift de aandacht van straat en school naar het ziekbed, zonder dat hij de ernst van de situatie meteen volledig doorziet.</p>
+      <p>In deze fase van het boek wordt de toon zwaarder. De fantasiewereld van Kees blijft aanwezig, maar krijgt steeds minder ruimte naast de zorgen van zijn moeder en de stilte in huis.</p>
+      <h3>De dood van de vader</h3>
+      <p>Vader Bakels sterft. Thijssen beschrijft dat moment sober, zonder de uitweidingen die elders in het boek Kees' fantasie kenmerken; juist het ontbreken van verbeelding op dit punt markeert hoe hard de werkelijkheid nu doorkomt.</p>
+      <p>Voor het gezin betekent de dood behalve verdriet vooral een financiële ramp. De schoenwinkel houdt op te bestaan en er moet een kleinere woning worden gevonden.</p>
+      <h3>Afscheid van school</h3>
+      <p>Kees moet de lagere school voortijdig verlaten om te gaan werken en bij te dragen aan het gezinsinkomen. Daarmee valt de plek weg waar zijn fantasie het meest te doen had: de klas, de pauzes, Rosa.</p>
+      <p>Het boek eindigt met een afscheid tussen Kees en Rosa waarbij zij hem kust. Het is een klein, terloops moment, maar het is ook het enige waarop de gedroomde erkenning die Kees het hele boek zoekt, heel even werkelijkheid wordt, net op het moment dat zijn jeugd voorbij is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Zwembadpas</td><td>De wijdbeense, huppelende manier van lopen die Kees aanneemt wanneer hij zich verbeeldt dat hij bewonderd wordt; in het Nederlands een gevleugelde uitdrukking geworden voor opschepperig zelfvertoon.</td></tr>
+          <tr><td class="term">Vrije indirecte rede</td><td>De verteltechniek waarmee Thijssen Kees' gedachten en fantasieën ononderscheiden laat overlopen in het vertellersverhaal, zodat de lezer voortdurend moet uitmaken wat er werkelijk gebeurt.</td></tr>
+          <tr><td class="term">De Jordaan</td><td>De Amsterdamse volksbuurt waar Thijssen zelf opgroeide en die als sociaal decor van het boek dient, met de bijbehorende armoede en volkstaal.</td></tr>
+          <tr><td class="term">Mevrouw Dubois</td><td>De kostgangster die vanwege de geldnood bij de familie Bakels intrekt, een figuur die de vernedering en de kleine vriendelijkheden van armoede tegelijk zichtbaar maakt.</td></tr>
+          <tr><td class="term">Proloog</td><td>Het korte, ironische inleidende hoofdstuk waarin de verteller zich van zijn hoofdpersoon distantieert en de licht spottende toon zet die de rest van het boek blijft doorklinken.</td></tr>
+          <tr><td class="term">In de ochtend van het leven</td><td>Thijssens latere, uitgesproken autobiografische roman waarin dezelfde jeugd nogmaals en directer wordt beschreven, en die helpt te zien wat in Kees de jongen verzonnen is en wat niet.</td></tr>
+          <tr><td class="term">Schoenwinkel Bakels</td><td>De zaak van Kees' vader waarvan de neergang de economische ondertoon van het hele boek vormt en die na zijn dood wordt opgeheven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Thijssen was zelf onderwijzer in een arbeidersbuurt en afkomstig uit een weinig bemiddeld schoenmakersgezin in de Jordaan; die achtergrond verklaart waarom armoede, schoolleven en de volkstaal van Amsterdam met precisie en zonder afstand worden weergegeven, ook al noemde hij het boek zelf geen autobiografie.</p>
+      <p>Dat het boek de tand des tijds heeft doorstaan, blijkt uit de uitgavegeschiedenis: sinds 1923 nooit uit druk, met heruitgaven, een toneelstuk (1970), een film (2003), een rockopera (2011) en een beeldroman (2012). De term zwembadpas leeft voort in het gewone Nederlands, los van wie het boek gelezen heeft.</p>
+      <p>De roman staat opgenomen als venster in de Amsterdamse canon, wat aangeeft dat de plaatsbeschrijving en het tijdsbeeld door historici en literatuurdocenten als betrouwbaar voor het fin de siècle worden beschouwd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De taal is inmiddels ruim honderd jaar oud en bevat woordvormen en zinsconstructies die voor jonge lezers zonder toelichting lastig zijn; de geïllustreerde editie van 2024 kreeg van recensenten het verwijt dat de plaatjes de armoede en de bijtende ironie van de tekst verzachten in plaats van ondersteunen.</p>
+      <p>Het boek heeft nauwelijks plot in de gebruikelijke zin: het is een reeks episodes rond een vast thema, zonder duidelijke climax voor de dood van de vader. Wie een doorlopend verhaal met oplopende spanning verwacht, vindt vooral een aaneenschakeling van scenes.</p>
+      <p>De lijn met Rosa Overbeek blijft dun en wordt vanuit Kees' perspectief verteld; Rosa krijgt zelf nauwelijks een eigen binnenkant en functioneert vooral als projectiescherm voor Kees' verlangen naar erkenning, iets wat bij een hedendaagse lezer sneller opvalt dan bij het publiek van 1923.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk verschenen bij Van Dishoeck, Bussum, 1923, en sindsdien nooit uit druk geweest. Er bestaan tientallen edities, onder meer bij Querido (Salamander Klassiek, 1999) en een geïllustreerde uitgave bij Van Oorschot (2024, illustraties van Dick Matena, 374 blz., ISBN 9789028232099). Van Thijssen zijn verder onder meer het schoolboek <i>De gelukkige klas</i> (1926) en de postume, autobiografische roman <i>In de ochtend van het leven</i> (1938) bekend, waarin hij zijn eigen jeugd in de Jordaan directer beschrijft dan in deze roman.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kees Bakels groeit eind negentiende eeuw op in Amsterdam als zoon van een schoenwinkelier wiens zaak slecht loopt. Hij leeft voor een groot deel in zijn fantasie, waarin hij de held is die door iedereen wordt opgemerkt, terwijl hij in werkelijkheid een onopvallende jongen op de lagere school is.</p><p>Hij is verliefd op zijn klasgenote Rosa Overbeek, een meisje uit een welgestelder gezin, en beleeft met vrienden de kleine avonturen van een Amsterdamse jeugd: schoolstreken, straatspelletjes en de beroemd geworden zwembadpas, de wijdbeense huppelgang waarmee Kees zich verbeeldt dat de hele straat naar hem kijkt.</p><p>Als zijn vader ernstig ziek wordt en sterft, stort dat fantasieleven ineen onder het gewicht van de werkelijkheid. Het gezin moet inkrimpen en Kees moet de school verlaten om te gaan werken. Rosa geeft hem bij het afscheid een kus, het enige moment waarop fantasie en werkelijkheid even samenvallen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Amsterdam</li><li>Jordaan</li><li>jeugd</li><li>armoede</li><li>schoolleven</li><li>fantasie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="4"><a href="04.html">The Tender Bar</a>. Moehringer beschrijft, net als Thijssen, een jongen die opgroeit zonder een aanwezige vader en zijn wereld vult met verhalen en helden uit zijn eigen omgeving.</li>
+          <li value="45"><a href="45.html">Educated</a>. Westover moet, net als Kees, vroeg de schoolbanken verlaten door de omstandigheden van haar familie, maar vecht zich juist terug naar het onderwijs dat Kees wordt ontzegd.</li>
+          <li value="358"><a href="358.html">Herinneringen, dromen, gedachten</a>. Jung beschrijft in zijn memoires eenzelfde rijk innerlijk fantasieleven van een kind dat de buitenwereld nog niet aankan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

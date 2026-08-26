@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sinds ik niet meer drink &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hanssen documenteert vijfhonderd dagen zonder alcohol als dagboek en komt tot de conclusie dat nuchter blijven minder een lichamelijke opgave is dan een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2098">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2098 &middot; Overleven en getuigen</p>
+    <h1>Sinds ik niet meer drink</h1>
+    <p class="lede">Evi Hanssen, 2021</p>
+    <p class="stats">
+      <span><b>1135</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2098"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hanssen documenteert vijfhonderd dagen zonder alcohol als dagboek en komt tot de conclusie dat nuchter blijven minder een lichamelijke opgave is dan een sociale: alcohol zit zo diep verweven in vriendschap, werk en zelfbeeld dat het wegvallen ervan zichtbaar maakt hoeveel van het sociale leven om het glas heen is gebouwd. Haar term sober schaamte vat dat samen: het ongemak van de enige nuchtere aan tafel te zijn, ook wanneer niemand daar iets over zegt. Het boek voert die stelling niet aan als betoog maar laat haar groeien uit vijfhonderd losse dagen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De beslissing</h3>
+      <p>Hanssen beschrijft waarom ze stopt: een verlangen naar controle en een gezonder leven, niet een aanwijsbare crisis. Ze begint een dagboek om zichzelf aan de beslissing te houden en om, naar eigen zeggen, te zien wat er gebeurt als ze het volhoudt.</p>
+      <p>Ze schrijft nadrukkelijk niet vanuit een verhaal van bodemloos verval; dat onderscheid stelt ze zelf vroeg in het boek, om te voorkomen dat lezers haar vergelijken met een klassiek verslavingsrelaas terwijl haar aanleiding een andere is.</p>
+      <h3>De eerste weken: lichaam en gewoonte</h3>
+      <p>De vroege dagboekbladzijden gaan over het lichamelijke: slaap, energie, de automatische reflex om bij een feestje een glas te pakken. Ze beschrijft hoe diep die reflex zit, los van enige behoefte aan de smaak of het effect van alcohol zelf.</p>
+      <p>Juist die automatische kant, de hand die naar een glas grijpt zonder dat er een bewuste keuze aan voorafgaat, verrast haar volgens het dagboek het meest in de eerste weken; het maakt haar duidelijk hoezeer de gewoonte los is komen te staan van enige behoefte.</p>
+      <h3>Sociale kring: vriendschap en sober schaamte</h3>
+      <p>Naarmate de weken vorderen, verschuift de aandacht naar vriendschappen. Hanssen merkt hoe vaak drinken de vorm is waarin sociaal contact wordt gegoten, en introduceert de term sober schaamte voor het ongemak van als enige geen alcohol te drinken in gezelschap.</p>
+      <p>Ze beschrijft situaties waarin vrienden ongevraagd uitleg van haar verwachten, of waarin een avond zonder alcohol voor haarzelf langer en stiller aanvoelt dan voorheen, niet omdat de mensen om haar heen veranderen, maar omdat haar eigen rol in het gezelschap verschuift.</p>
+      <h3>Relatie en werk</h3>
+      <p>Ook haar relatie en haar werk als televisiepersoonlijkheid, met de borrels en recepties die daarbij horen, blijken doortrokken van drinkgewoontes. Ze beschrijft spanningen die daaruit ontstaan zonder de mensen om haar heen als schuldige neer te zetten.</p>
+      <p>In het werkdeel gaat het vooral om de vraag hoe ze zich op feestjes en recepties staande houdt zonder het middel dat daar impliciet bij hoort, en hoe ze daarin haar eigen grenzen leert bewaken tegenover collega's en gastheren die dat gewoontegedrag niet kennen.</p>
+      <h3>Zelfbeeld: wie ben ik zonder het glas</h3>
+      <p>De latere dagboekbladzijden keren naar binnen: wie is ze, als presentatrice bekend om haar gezelligheid, zonder het glas dat daar sociaal aan vastzit. Dat is volgens haar de vraag die langer bleef hangen dan de fysieke gewenning.</p>
+      <p>Ze beschrijft dat de fysieke aanpassing binnen enkele weken voorbij was, terwijl de vraag naar haar eigen identiteit los van die sociale rol het grootste deel van de vijfhonderd dagen bleef terugkeren.</p>
+      <h3>Vijfhonderd dagen verder</h3>
+      <p>Het boek sluit bij het einde van de vijfhonderd dagen, zonder de belofte dat de vraag daarmee is opgelost. Het verhaal kreeg na het boek een vervolg op het toneel, waar Hanssen vanaf 2022 met een theatervoorstelling over hetzelfde onderwerp door Nederland en België toerde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sober schaamte</td><td>De term die Hanssen zelf lanceert voor het ongemak van als enige niet te drinken in gezelschap, ook wanneer niemand daar iets over zegt.</td></tr>
+          <tr><td class="term">Vijfhonderd dagen</td><td>De tijdspanne van het dagboek en de structuur van het boek, dag na dag opgebouwd in plaats van achteraf verteld.</td></tr>
+          <tr><td class="term">Dagboekvorm</td><td>De schrijfvorm die Hanssen kiest om directe reacties vast te leggen in plaats van een terugblik achteraf te reconstrueren.</td></tr>
+          <tr><td class="term">Het gezellige glas</td><td>Terugkerende aanduiding voor het sociale ritueel van een drankje als teken van gezelligheid, dat Hanssen doorheen het boek bevraagt.</td></tr>
+          <tr><td class="term">Zelfbeeld zonder alcohol</td><td>De vraag die het boek in de latere hoofdstukken centraal stelt: wie iemand is los van de sociale rol die drinken meebrengt.</td></tr>
+          <tr><td class="term">Nuchtere blik zonder moralisme</td><td>De toon die de uitgever aan het boek toeschrijft: geen pleidooi tegen alcohol, maar een vaststelling van wat er verandert.</td></tr>
+          <tr><td class="term">Theatervoorstelling</td><td>De latere podiumbewerking van hetzelfde verhaal, waarmee Hanssen vanaf 2022 door Nederland en België toerde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De dagboekvorm functioneert als eigen bewijsvoering: Hanssen noteert reacties gedurende vijfhonderd dagen in plaats van ze achteraf te reconstrueren, wat het risico op vertekening door terugblikkende zelfrechtvaardiging beperkt, al sluit het dat risico niet volledig uit.</p>
+      <p>Het commerciële succes, tienduizenden verkochte exemplaren en een theatertournee van 2022 tot 2023, wijst erop dat het verhaal bij een breed publiek herkenning opriep. Dat zegt iets over de weerklank van het boek, niets over de juistheid van een individuele bewering erin.</p>
+      <p>Het boek citeert geen verslavingsonderzoek of klinische literatuur; het gezag ervan berust volledig op het persoonlijke relaas, iets wat de uitgever zelf onderstreept door het nadrukkelijk geen moreel pleidooi te noemen.</p>
+      <p>Dat het verhaal een tweede leven kreeg als theatervoorstelling, waarin Hanssen volgens aankondigingen van diverse podia grappige anekdotes afwisselt met wetenschappelijke en historische duiding over wat er in haar lichaam en omgeving veranderde, wijst erop dat ze het persoonlijke relaas gaandeweg is gaan aanvullen met bredere context, ook al staat die context niet in het boek zelf.</p>
+      <p>Het boek verscheen kort na haar debuut <i>Ergens onderweg</i> en bouwt op dezelfde persoonlijke schrijfstijl voort, maar met een strakkere tijdlijn: waar het debuut losse levensthema's rond een reis groepeert, volgt dit boek één doorlopende verandering dag na dag.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als dagboek van één specifieke sociale kring, de Belgische televisie- en entertainmentwereld, is de beschreven drinkcultuur niet zonder meer representatief voor lezers in andere beroepen of landen. Het boek claimt dat ook niet, maar de specificiteit verdient opmerking.</p>
+      <p>Omdat Hanssen een publiek figuur is die over haar eigen leven schrijft voor een breed lezerspubliek, houdt het relaas een zekere zelfbewustheid: wat een dagboek voor uitgave gereedmaakt, is zelden het onbewerkte origineel, en details over partner of vrienden zullen daardoor gefilterd zijn.</p>
+      <p>Het boek maakt geen klinisch onderscheid tussen matig sociaal drinken en een drankprobleem. Hanssen kadert haar beslissing als een experiment in controle, niet als herstel van afhankelijkheid, wat lichter van gewicht is dan wat de aanduiding verslavingsmemoir bij sommige lezers zou wekken.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Horizon (Overamstel Uitgevers), Antwerpen, 22 november 2021, 256 blz., ISBN 9789463962735 (paperback) en 9789463962742 (e-boek). Het boek verscheen na haar debuut <i>Ergens onderweg</i> (2020) en werd in Nederland en België een bestseller met tienduizenden verkochte exemplaren; Hanssen bracht het verhaal vanaf 2022 ook als theatervoorstelling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Evi Hanssen besluit geen alcohol meer te drinken en houdt daar vijfhonderd dagen lang een dagboek van bij. Ze schrijft openhartig over wat het haar oplevert en kost: fysiek, in haar vriendschappen, in haar relatie, op haar werk en in haar zelfbeeld.</p><p>Het boek is geen pleidooi tegen drinken maar een nuchtere blik op wat er verandert wanneer het gezellige glas wegvalt uit een leven waarin het overal bij hoort, van etentjes tot televisieborrels. Daarbij introduceert ze de term sober schaamte voor het ongemak van als enige nuchter aan tafel te zitten.</p><p>Met humor en zonder moralisme onderzoekt Hanssen wie ze is zonder het glas in de hand, een vraag die haar leven na het boek nog een tijd bleef achtervolgen, tot en met een theatertournee.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>dagboek</li><li>alcohol</li><li>verslaving</li><li>zelfbeeld</li><li>nuchterheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1733"><a href="1733.html">De verslaving voorbij</a>. Geurtz beschrijft het loslaten van verslaving vanuit een radicalere breuk; Hanssens boek is milder van toon maar raakt dezelfde vraag naar wie je bent zonder het middel.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke geeft het neurobiologische kader voor waarom een dagelijks glas moeilijk los te laten is, waar Hanssen het sociale en persoonlijke kader beschrijft.</li>
+          <li value="1719"><a href="1719.html">In the Realm of Hungry Ghosts</a>. Maté onderzoekt verslaving als antwoord op pijn in plaats van een keuze, een steviger tegenwicht voor wie Hanssens lichtere toon te makkelijk vindt.</li>
+          <li value="1721"><a href="1721.html">Je bent het waard</a>. Van der Wouden schrijft over eigenwaarde zonder de omweg van een verslavingsverhaal, en sluit aan bij het zelfbeeld-hoofdstuk in Hanssens boek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

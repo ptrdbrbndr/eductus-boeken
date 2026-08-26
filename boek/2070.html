@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 8th Habit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Coveys stelling is dat het industriële-eeuwdenken, waarin mensen als kostenposten en uitvoerders worden gezien, mensen systematisch onder hun niveau laat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2070">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2070 &middot; Gewoontes en denken</p>
+    <h1>The 8th Habit</h1>
+    <p class="lede">Stephen R. Covey, 2004</p>
+    <p class="stats">
+      <span><b>1413</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2070"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Coveys stelling is dat het industriële-eeuwdenken, waarin mensen als kostenposten en uitvoerders worden gezien, mensen systematisch onder hun niveau laat werken, ook wanneer organisaties zelf spreken over kennis en talent. Effectiviteit alleen, de belofte van zijn eerdere boek, is volgens hem niet meer genoeg om dat probleem op te lossen; er is een achtste eigenschap nodig die niet over doen gaat maar over zijn: het ontdekken van de eigen stem, waar talent, hartstocht, behoefte en geweten elkaar raken, en het helpen van anderen om hetzelfde te doen. Covey voert die stelling uit in twee lagen tegelijk, een persoonlijke over de eigen stem en een organisatorische over leiderschap, en stelt dat de tweede niet lukt zonder de eerste.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het probleem van het effectiviteitstijdperk</h3>
+      <p>Covey opent met de constatering dat effectiviteit, zijn eigen thema van vijftien jaar eerder, niet meer volstaat in een informatietijdperk waarin kennis het belangrijkste kapitaal is geworden. Organisaties zijn volgens hem blijven werken met managementmodellen uit het industriële tijdperk, gericht op controle en meetbare output, terwijl het werk zelf is veranderd.</p>
+      <p>Hij onderbouwt dit met eigen onderzoek onder kenniswerkers, waaruit naar voren komt dat een groot deel van hen zegt zijn volledige talent niet te kunnen inzetten in zijn functie. Dat gat tussen wat mensen kunnen en wat organisaties van hen vragen, noemt hij het uitgangspunt van het boek.</p>
+      <h3>De eigen stem vinden</h3>
+      <p>Covey definieert de "stem" als het snijpunt van vier elementen: talent, wat iemand van nature goed kan; hartstocht, wat iemand energie geeft; behoefte, wat de omgeving nodig heeft en ervoor wil betalen; en geweten, het innerlijke besef van wat juist is. Werk dat op dat snijpunt ligt, noemt hij vervulling in plaats van alleen inkomen.</p>
+      <p>Hij werkt dit uit met opdrachten waarin de lezer deze vier elementen voor zichzelf in kaart brengt, als voorbereiding op het bredere leiderschapsdeel van het boek.</p>
+      <h3>De vier intelligenties</h3>
+      <p>Het boek onderscheidt vier vormen van intelligentie: het lichamelijke vermogen tot zelfregulatie, het verstandelijke vermogen tot analyse, het emotionele vermogen tot zelfkennis en empathie, en het spirituele vermogen dat zoekt naar betekenis en richting geeft aan de andere drie. Covey plaatst de spirituele intelligentie nadrukkelijk niet als religieus maar als de laag die bepaalt waarom de andere drie worden ingezet.</p>
+      <p>Aan elke intelligentie koppelt hij een eigenschap: discipline aan het lichamelijke, visie aan het mentale, hartstocht aan het emotionele en geweten aan het spirituele, als brug naar het volgende deel over leiderschap.</p>
+      <h3>De vier rollen van leiderschap</h3>
+      <p>Covey vertaalt de vier eigenschappen naar vier rollen die een leidinggevende kan vervullen: modelleren, het opbouwen van vertrouwen door zelf het voorbeeld te geven, geworteld in geweten; koersbepaling, het samen met anderen vaststellen van een gedeelde richting, geworteld in visie; afstemming, het inrichten van systemen die de gekozen waarden ondersteunen in plaats van tegenwerken, geworteld in discipline; en vrijmaking, het weghalen van obstakels en het overlaten van de uitvoering aan de medewerker, geworteld in hartstocht.</p>
+      <p>Deze vier rollen vormen volgens Covey het tegengif voor vier chronische problemen in organisaties: wantrouwen, gebrek aan gedeelde richting, verkeerd afgestemde systemen en onderbenut talent.</p>
+      <h3>Anderen hun stem laten vinden</h3>
+      <p>In het laatste deel beschrijft Covey vijf manieren waarop een leider anderen kan helpen hun eigen stem te vinden: door voorbeeldgedrag, door relaties op te bouwen, door structuren zo in te richten dat talent tot zijn recht komt, en door open communicatie te stimuleren binnen die structuren. Hij illustreert dit met praktijkcasussen uit organisaties die met FranklinCovey samenwerkten.</p>
+      <p>Het boek sluit af met een reeks veelgestelde vragen en bijlagen over leiderschapstheorieën, bedoeld om de toepassing in de eigen praktijk te ondersteunen.</p>
+      <h3>Wijsheid en uitvoering</h3>
+      <p>In de laatste hoofdstukken keert Covey terug naar het onderscheid tussen weten en doen. Hij stelt dat organisaties vaak al beschikken over de juiste inzichten, maar vastlopen bij de uitvoering ervan, omdat systemen en gewoonten uit het oude denken blijven meetellen naast de nieuwe woorden over talent en potentieel.</p>
+      <p>Hij pleit voor wat hij "uitvoeringsdiscipline" noemt: het herhaaldelijk terugkomen op dezelfde paar prioriteiten in plaats van steeds nieuwe programma's te starten, als voorwaarde om de eerder beschreven vier rollen daadwerkelijk te laten landen.</p>
+      <p>Covey onderscheidt daarbij wat hij de klok en het kompas noemt: de klok staat voor de dagelijkse planning en agenda, het kompas voor de richting en de waarden waarnaar die planning zou moeten wijzen. Zijn punt is dat veel organisaties de klok goed op orde hebben, met agenda's en deadlines die kloppen, maar het kompas kwijtraken zodra de waan van de dag toeslaat en de oorspronkelijke richting uit het zicht raakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Stem (voice)</td><td>Het snijpunt van talent, hartstocht, behoefte en geweten, door Covey aangewezen als de plek waar werk vervulling geeft in plaats van alleen inkomen.</td></tr>
+          <tr><td class="term">De vier intelligenties</td><td>Het fysieke, het mentale, het emotionele en het spirituele vermogen, waarbij het spirituele volgens Covey de andere drie richting geeft.</td></tr>
+          <tr><td class="term">Modelleren</td><td>De leiderschapsrol waarin vertrouwen wordt opgebouwd door zelf het voorbeeld te geven, gekoppeld aan geweten.</td></tr>
+          <tr><td class="term">Koersbepaling (pathfinding)</td><td>De leiderschapsrol waarin samen met anderen een gedeelde richting wordt vastgesteld, gekoppeld aan visie.</td></tr>
+          <tr><td class="term">Afstemming (aligning)</td><td>De leiderschapsrol waarin systemen en structuren worden ingericht die de gekozen waarden ondersteunen, gekoppeld aan discipline.</td></tr>
+          <tr><td class="term">Vrijmaking (empowering)</td><td>De leiderschapsrol waarin obstakels worden weggenomen en de uitvoering aan de medewerker wordt overgelaten, gekoppeld aan hartstocht.</td></tr>
+          <tr><td class="term">Industrietijdperk-denken</td><td>De blik op medewerkers als kostenpost en uitvoerder in plaats van als drager van talent, die Covey als achterhaald maar hardnekkig beschrijft.</td></tr>
+          <tr><td class="term">Geweten</td><td>Het innerlijke besef van wat juist is, door Covey aangewezen als de kern van de spirituele intelligentie en van de stem.</td></tr>
+          <tr><td class="term">Uitvoeringsdiscipline</td><td>Het herhaaldelijk vasthouden aan een beperkt aantal prioriteiten, door Covey aangewezen als voorwaarde om de vier leiderschapsrollen in de praktijk te laten werken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Covey onderbouwt zijn stelling over onderbenut potentieel met eigen onderzoek van FranklinCovey onder kenniswerkers, waaronder de zogeheten xQ-enquête, waarin werknemers zelf aangaven hoeveel van hun capaciteiten zij naar eigen inschatting inzetten op het werk. Dat onderzoek is uitgevoerd door het bedrijf dat het boek en de bijbehorende trainingen verkoopt, wat de onafhankelijkheid ervan beperkt.</p>
+      <p>De praktijkvoorbeelden komen grotendeels uit organisaties die klant waren van FranklinCovey en het model al hadden ingevoerd, wat de vraag oproept hoe representatief de beschreven resultaten zijn voor bedrijven die het model niet volgen.</p>
+      <p>Covey onderbouwt zijn indeling in vier intelligenties niet met verwijzingen naar psychologisch of neurowetenschappelijk onderzoek van derden; het is een eigen model, opgebouwd uit zijn ervaring als consultant en uit bredere managementliteratuur, gepresenteerd als kader, niet als getoetste theorie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek herhaalt voor een groot deel de toon en structuur van The 7 Habits en voegt daar vooral een extra laag begrippen aan toe; lezers die het eerdere boek kennen, vinden weinig fundamenteel nieuws, eerder een uitbreiding met organisatiegerichte taal.</p>
+      <p>De vier intelligenties en vier rollen vormen een overzichtelijk schema, maar het boek onderbouwt de indeling zelf niet met onafhankelijk onderzoek naar deze specifieke categorieën; het is een ordeningsmodel van de auteur, geen uitkomst van extern gevalideerd onderzoek.</p>
+      <p>De voorbeelden zijn vrijwel allemaal ontleend aan grote Amerikaanse bedrijven en overheidsorganisaties die met FranklinCovey samenwerkten, waardoor het boek weinig laat zien over hoe het model werkt buiten die context, bijvoorbeeld in kleine organisaties of buiten de Verenigde Staten.</p>
+      <p>Met 368 bladzijden voor in de kern één samenhangend idee wordt het boek door verschillende recensenten langdradig genoemd; de kernboodschap, je stem vinden en die van anderen, laat zich compacter samenvatten dan het boek doet.</p>
+      <p>De term "spiritueel" in de vier intelligenties kan bij een deel van de lezers weerstand oproepen; Covey bedoelt er geen geloofsovertuiging mee, maar het woord suggereert dat wel, en het boek besteedt weinig ruimte aan het wegnemen van die verwarring voordat het verder bouwt op het begrip.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng voor jezelf in kaart waar je talent, je hartstocht, de behoefte van je omgeving en je geweten elkaar raken.</li>
+        <li>Geef als leidinggevende eerst zelf het voorbeeld voordat je verandering van anderen verwacht.</li>
+        <li>Richt systemen en beoordelingen zo in dat ze de waarden ondersteunen die je uitdraagt, niet ondermijnen.</li>
+        <li>Laat medewerkers de uitvoering van hun werk zelf bepalen en beperk je tot het wegnemen van obstakels.</li>
+        <li>Kies een beperkt aantal prioriteiten en blijf daar herhaaldelijk op terugkomen in plaats van steeds nieuwe programma's te starten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The 8th Habit: From Effectiveness to Greatness</i> (Free Press, New York, 2004), het vervolg op <i>The 7 Habits of Highly Effective People</i> (1989, zie nr 1776). De Nederlandse vertaling verscheen als <i>De 8ste eigenschap: Van effectiviteit naar inspiratie</i> bij Business Contact, Amsterdam; de vijftiende druk (27 mei 2014) telt 368 blz., ISBN 9789047007760, een eerdere druk droeg ISBN 9789047000211. Het boek verkocht wereldwijd naar schatting bijna vierhonderdduizend exemplaren.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Stephen Covey schreef The 8th Habit vijftien jaar na zijn bestseller The 7 Habits of Highly Effective People als vervolg, niet als vervanging. Waar de zeven eigenschappen gaan over persoonlijke en zakelijke effectiviteit, gaat de achtste volgens Covey over de stap daarna: het vinden van je eigen stem, en anderen helpen hun stem te vinden.</p><p>Covey bouwt het boek op rond vier menselijke intelligenties, fysiek, mentaal, emotioneel en spiritueel, en leidt daaruit vier rollen van leiderschap af waarmee een organisatie het onbenutte potentieel van medewerkers kan aanspreken.</p><p>Het boek is geschreven vanuit Coveys werk als consultant en oprichter van FranklinCovey, en leunt sterk op voorbeelden uit het Amerikaanse bedrijfsleven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>innerlijke stem</li><li>effectiviteit</li><li>potentieel</li><li>coaching</li><li>organisatieontwikkeling</li><li>vertrouwen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1776"><a href="1776.html">The 7 Habits of Highly Effective People</a>. Covey's eigen eerdere boek, waarop dit boek uitdrukkelijk voortbouwt: van persoonlijke effectiviteit naar het vinden van de eigen stem.</li>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth onderzoekt vasthoudendheid en hartstocht voor een doel empirischer dan Covey doet, met gecontroleerd onderzoek in plaats van bedrijfscasussen.</li>
+          <li value="50"><a href="50.html">So Good They Can't Ignore You</a>. Newport bestrijdt vrijwel rechtstreeks Coveys idee van een aangeboren "stem" die je hoeft te ontdekken, en pleit voor het opbouwen van vaardigheid als basis voor voldoening in werk.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

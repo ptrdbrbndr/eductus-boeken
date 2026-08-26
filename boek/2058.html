@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Knee of Listening &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Adi Da stelt dat hij als kind al geboren was in een volledige staat van bewustzijn, die hij het Bright noemt, en dat hij die staat vrijwillig opgaf om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2058">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2058 &middot; Filosofie en mystiek</p>
+    <h1>The Knee of Listening</h1>
+    <p class="lede">Adi Da (geboren Franklin Albert Jones), 1972; herziene edities tot 2004</p>
+    <p class="stats">
+      <span><b>1200</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2058"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Adi Da stelt dat hij als kind al geboren was in een volledige staat van bewustzijn, die hij het Bright noemt, en dat hij die staat vrijwillig opgaf om vervolgens dezelfde weg te gaan als andere zoekers: verlies van die staat, jarenlange training bij leraren, en uiteindelijk een bewuste terugkeer ernaar. Zijn stelling is dat deze terugkeer, die hij in 1970 in een tempel in Hollywood beschrijft, geen episode van persoonlijke groei is maar een gebeurtenis met betekenis voor iedereen die het boek leest, omdat hij zichzelf vanaf dat moment als leraar van een definitieve, eerder onbereikte staat beschouwt. Het boek voert die claim niet aan als hypothese maar als vaststaand gegeven waarop de rest van zijn werk voortbouwt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Jeugd op Long Island: het Bright</h3>
+      <p>Jones beschrijft zijn jeugd in een gezin van een verkoper en een huisvrouw op Long Island, waarin hij als kind een staat van licht en vervulling ervoer die hij later het Bright noemt. Volgens het boek verdween die staat geleidelijk naarmate hij ouder werd en zich meer ging identificeren met een afzonderlijk, zoekend zelf.</p>
+      <h3>Columbia en Stanford</h3>
+      <p>Aan Columbia University studeert hij filosofie, waar hij afstudeert in 1961; aan Stanford behaalt hij in 1963 een mastergraad in Engelse letterkunde, onder begeleiding van schrijver Wallace Stegner, met een scriptie over het modernisme rond Gertrude Stein. Het boek beschrijft deze jaren als een periode van intellectuele en existentiële onrust, waarin de herinnering aan het Bright wegzakt.</p>
+      <h3>Rudi als eerste leraar</h3>
+      <p>In 1964 wordt Jones in New York leerling van Albert Rudolph, bekend als Rudi, bij wie hij fysieke en spirituele discipline leert. Het boek beschrijft die training als noodzakelijk maar onvoldoende: Rudi opent een weg, maar geeft niet de ervaring die Jones zoekt.</p>
+      <p>Jones beschrijft deze periode als een leerschool in doorzettingsvermogen: dagelijkse oefening, onderwerping aan de aanwijzingen van een leraar, en een eerste, nog onvolledig, besef dat verandering niet vanuit het intellect komt maar vanuit het lichaam en de aandacht.</p>
+      <h3>Swami Muktananda en de shaktipat</h3>
+      <p>Via Rudi komt Jones in contact met de Indiase goeroe Swami Muktananda, van wie hij in 1968 shaktipat-inwijding ontvangt, een overdracht van energie die volgens de traditie een innerlijk ontwaken op gang brengt. Het boek beschrijft intense ervaringen tijdens meditatie in deze periode, die Jones zelf als voorbereidend beschouwt op wat nog moet komen.</p>
+      <p>Hij reist in deze jaren ook naar India en beschrijft daar verdere ervaringen bij Muktananda's ashram. Het boek benadrukt telkens dat deze ervaringen, hoe intens ook, achteraf gezien nog niet de blijvende staat waren die Jones als kind al kende en die hij nog moest terugvinden.</p>
+      <h3>De tempel in Hollywood, 1970</h3>
+      <p>In september 1970 bezoekt Jones een Vedanta-tempel in Hollywood, waar hij naar eigen zeggen de blijvende, definitieve staat van het Bright hervindt. Het boek beschrijft dit moment als het einde van dertig jaar zoeken en als het punt waarop hij zichzelf niet langer als zoeker maar als leraar gaat zien.</p>
+      <h3>Van Franklin Jones naar leraar</h3>
+      <p>Na 1970 opent Jones in Los Angeles Ashram Books, later Dawn Horse Press, en trekt hij eerste leerlingen aan. Het boek eindigt met de aankondiging van een gemeenschap rond zijn onderricht, die uitgroeit tot wat later Adidam heet, en met de eerste van een reeks naamswisselingen: van Franklin Jones via Bubba Free John en Da Free John naar uiteindelijk Adi Da Samraj.</p>
+      <p>De slotbladzijden presenteren de weg die het boek beschrijft, van kind met een verdwenen staat van licht tot leraar die beweert die staat blijvend te hebben teruggevonden, als voltooid: wat volgt na 1970 is in de eerste editie nog nauwelijks uitgewerkt en wordt pas in de latere, sterk uitgebreide versies verder beschreven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het Bright</td><td>De staat van volledig, onafgescheiden bewustzijn die Adi Da naar eigen zeggen als kind ervoer, kwijtraakte en in 1970 blijvend hervond.</td></tr>
+          <tr><td class="term">Shaktipat</td><td>De overdracht van spirituele energie door een leraar, in dit boek ontvangen van Swami Muktananda in 1968.</td></tr>
+          <tr><td class="term">Avataric Incarnation of Conscious Light</td><td>De aanduiding waarmee Adi Da in latere edities van het boek zijn eigen status omschrijft, als incarnatie van bewust licht.</td></tr>
+          <tr><td class="term">Dawn Horse Press</td><td>De uitgeverij die Jones na 1970 opzet, eerst als Ashram Books, van waaruit zijn werk verschijnt.</td></tr>
+          <tr><td class="term">Adidam</td><td>De religieuze beweging die voortkomt uit de gemeenschap rond Jones' onderricht na de gebeurtenis in de tempel van 1970.</td></tr>
+          <tr><td class="term">Ruchira Avatar</td><td>Een van de titels die Adi Da zichzelf later toekent, gebruikt in de ondertitel van de laatste editie van dit boek.</td></tr>
+          <tr><td class="term">Crazy Wisdom</td><td>De aanduiding voor de periode 1973 tot 1983 waarin Jones' onderricht seksuele en gedragsexperimenten met volgelingen omvatte, en die tot latere beschuldigingen leidde.</td></tr>
+          <tr><td class="term">Rudi (Albert Rudolph)</td><td>De eerste leraar van Jones in New York, bij wie hij vanaf 1964 fysieke en spirituele discipline oefent voordat hij bij Muktananda terechtkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De biografische kern van het boek, zijn opleiding aan Columbia en Stanford, zijn leerlingschap bij Rudi en Muktananda, is extern te verifiëren en past in een herkenbare lijn van westerse zoekers die zich in de jaren zestig tot Indiase leraren wendden. Alan Watts, een gevestigd auteur over vergelijkende religie, schreef het voorwoord bij de eerste editie, wat het boek destijds enig extern gezag gaf.</p>
+      <p>De centrale claim van het boek, dat Jones als kind al in een volmaakte staat verkeerde en die in 1970 blijvend hervond, is niet extern te toetsen en rust volledig op zijn eigen verslag. Het boek presenteert die claim niettemin als vaststaand feit waarop de rest van het onderricht voortbouwt.</p>
+      <p>Dat Jones daadwerkelijk jarenlang serieuze training bij erkende leraren als Rudi en Muktananda doorliep, onderscheidt zijn verhaal van een zuiver plotselinge claim: de weg die het boek beschrijft, volgt een bekend patroon uit de yogatraditie, ook al is het eindpunt dat Jones eraan verbindt, zijn eigen status als voor anderen onbereikbaar, niet uit die traditie zelf af te leiden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>In 1985 verschenen in de Amerikaanse pers, met de San Francisco Chronicle voorop, uitgebreide berichten over beschuldigingen van voormalige volgelingen van psychologisch, seksueel en fysiek misbruik tijdens de Crazy Wisdom-periode. Er werden twee rechtszaken aangespannen; een ervan werd afgewezen, de andere eindigde in een schikking. Geen van de beschuldigingen is in een rechtszaak wettelijk bewezen, maar de berichtgeving bracht landelijke media-aandacht, onder meer op de Today Show van NBC.</p>
+      <p>Ken Wilber, aanvankelijk een bewonderaar van Adi Da's geschriften, schreef later dat andere kanten van diens persoonlijkheid ver achterbleven bij de momenten die Wilber als buitengewoon beschouwde. Religiehistoricus Scott Lowe beschreef bij Adi Da terugkerende patronen van grensoverschrijdend, manipulatief en zelfzuchtig gedrag.</p>
+      <p>Dat de tekst van 271 naar 821 bladzijden groeide over verschillende herziene edities, wordt door sommige lezers gelezen als verduidelijking, maar door anderen als een proces waarin de auteur zijn eigen status in elke volgende versie zwaarder aanzet. De beweging die uit het boek voortkwam, bleef klein, ongeveer duizend leden wereldwijd, wat in schril contrast staat met de universele claims die het boek voor zichzelf maakt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Knee of Listening: The Early Life and Radical Spiritual Teachings of Franklin Jones</i> (The Dawn Horse Press, Los Angeles, 1972, 271 blz.), met een voorwoord van Alan Watts. De auteur herzag de tekst herhaaldelijk (1973, 1978, 1984, 1992, 1995, 2004); de laatste editie verscheen als <i>The Knee of Listening: The Divine Ordeal of the Avataric Incarnation of Conscious Light</i> (821 blz.), met een aanvullend voorwoord van religiewetenschapper Jeffrey J. Kripal. Een vroege Nederlandse vertaling verscheen in 1987 bij The Dawn Horse Press Nederland, Amsterdam, onder de toenmalige auteursnaam Da Love-Ananda; een latere vertaling verscheen als <i>De knie van luisteren</i> bij Altamira, Amsterdam (1995, 618 blz., ISBN 9789069633688), gebaseerd op een versie van vóór de latere herzieningen. Van Adi Da verschenen meer dan vijfenzeventig boeken, waarvan slechts een klein deel in het Nederlands vertaald is.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Franklin Jones, later bekend als Adi Da, beschrijft zijn jeugd, studie en spirituele zoektocht, die volgens hem uitmondt in een blijvende staat van verlichting in 1970, in een tempel in Hollywood. Het boek vertelt hoe hij als kind al een toestand ervoer die hij later 'het Bright' noemt, hoe hij die kwijtraakte, en hoe hij die na jaren van training bij verschillende leraren definitief hervond.</p><p>Onderweg werkt hij met de New Yorkse leraar Rudi en ontvangt hij shaktipat-inwijding van de Indiase goeroe Swami Muktananda. Het boek presenteert zijn eigen ervaring als hoger dan die van zijn leraren, en eindigt met de aankondiging van wat later zijn beweging Adidam wordt.</p><p>Jones herschreef het boek in de decennia na de eerste uitgave herhaaldelijk en breidde het sterk uit, tot een editie van meer dan achthonderd bladzijden waarin zijn claims over zijn eigen status zwaarder worden aangezet dan in de oorspronkelijke versie uit 1972.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spiritualiteit</li><li>autobiografie</li><li>verlichting</li><li>goeroe</li><li>mystiek</li><li>Verenigde Staten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Yogananda's autobiografie volgt een vergelijkbare vorm, van zoektocht naar leraren tot eigen realisatie, maar zonder de latere beschuldigingen die Adi Da's verhaal begeleiden.</li>
+          <li value="2017"><a href="2017.html">Inwijding</a>. Haich beschrijft eigen inwijdingservaringen in een vergelijkbare vorm van spirituele autobiografie, geschreven vanuit een andere traditie en een ander leven.</li>
+          <li value="2031"><a href="2031.html">The Diamond in Your Pocket</a>. Gangaji presenteert zich, net als Adi Da, als leraar die spreekt vanuit een eigen doorbraakervaring, zonder de institutionele geschiedenis en de beschuldigingen die Adidam kent.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

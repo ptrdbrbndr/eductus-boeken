@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Niet-helpen voor hulpverleners &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wijnbergs stelling is dat de gangbare houding van hulpverleners, zoveel mogelijk begrip tonen en zoveel mogelijk oplossingen aandragen, cliënten juist…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2106">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2106 &middot; Naslag en praktijk</p>
+    <h1>Niet-helpen voor hulpverleners</h1>
+    <p class="lede">Jeffrey Wijnberg, 2019</p>
+    <p class="stats">
+      <span><b>1235</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2106"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wijnbergs stelling is dat de gangbare houding van hulpverleners, zoveel mogelijk begrip tonen en zoveel mogelijk oplossingen aandragen, cliënten juist passief houdt, terwijl verandering ontstaat op het moment dat iemand zelf de verantwoordelijkheid draagt. Hij keert de rolverdeling om: niet de hulpverlener die zich inspant om te helpen, maar de hulpverlener die zich provocatief terughoudend of tegendraads opstelt zodat de cliënt wel iets moet doen. Dat is volgens hem geen onverschilligheid, maar een actieve vorm van niet-helpen die precies afgestemd moet worden op de cliënt, met humor als voorwaarde om het contact niet te verliezen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Dat is geen probleem</h3>
+      <p>Wijnberg opent met de eerste provocatieve stap: het probleem van de cliënt niet als probleem behandelen. Door een klacht luchtig of overdreven te relativeren, ontstaat er ruimte voor de cliënt om er zelf tegenin te gaan.</p>
+      <p>Waar een klassieke hulpverlener een klacht bevestigt door er serieus op in te gaan, laat Wijnberg zien hoe het tegenovergestelde, de klacht wegwuiven, de cliënt juist aanzet om te bewijzen dat het probleem wel degelijk ernstig is, en daarmee eigen argumenten voor verandering te formuleren.</p>
+      <h3>Oplossingen weigeren</h3>
+      <p>Waar veel hulpverleners getraind zijn om snel met oplossingen te komen, bepleit Wijnberg het tegenovergestelde: bewust geen oplossing aanreiken, zodat de cliënt gedwongen wordt zelf naar een uitweg te zoeken.</p>
+      <p>Hij beschrijft dit als een van de moeilijkste technieken voor hulpverleners om vol te houden, omdat de neiging om te helpen diep verankerd zit in de beroepsopleiding en in de identiteit van veel hulpverleners zelf.</p>
+      <h3>Ongeschiktheid benadrukken en dommetje spelen</h3>
+      <p>In twee samenhangende hoofdstukken beschrijft Wijnberg technieken waarbij de hulpverlener zichzelf als minder capabel voordoet dan de cliënt, of bewust naïef reageert op wat er verteld wordt. Dat dwingt de cliënt om zelf de expert over zijn eigen situatie te worden.</p>
+      <p>Door zich dommer voor te doen dan hij is, verschuift de hulpverlener de vraag 'wat moet ik doen' terug naar de cliënt, die vervolgens zelf moet uitleggen wat er aan de hand is en wat daaraan te doen valt.</p>
+      <h3>Het voordeel van het nadeel</h3>
+      <p>Wijnberg werkt uit hoe een klacht of gewoonte ook functie kan hebben voor de cliënt, en hoe het benoemen van dat voordeel, in plaats van er alleen de nadelen van te bespreken, weerstand losmaakt.</p>
+      <p>Een cliënt die hoort dat zijn klacht ook iets oplevert, voelt zich volgens Wijnberg minder in het defensief gedrukt dan een cliënt die alleen te horen krijgt dat iets slecht voor hem is, en kan van daaruit zelf een afweging maken.</p>
+      <h3>Het provocatieve effect en lachwekkend absurd</h3>
+      <p>Deze hoofdstukken beschrijven waarom overdrijving en absurditeit een cliënt aan het denken zetten waar een serieuze confrontatie dat niet doet. Humor werkt hier als middel om iets te zeggen dat anders te hard zou aankomen.</p>
+      <p>Wijnberg legt uit dat het provocatieve effect alleen werkt binnen een goede verstandhouding: dezelfde overdrijving die bij een goed contact grappig aankomt, kan bij een verstoorde verstandhouding als spot worden opgevat.</p>
+      <h3>Specifieke interventies en actief niet-helpen</h3>
+      <p>Wijnberg geeft concrete interventies waarmee provocatief werken in gesprekken toegepast kan worden, en onderscheidt actief niet-helpen, een bewuste keuze om niet in te grijpen, van passief niets doen.</p>
+      <p>Het verschil zit volgens hem in de intentie: actief niet-helpen is een doelgerichte interventie die de cliënt in beweging moet brengen, terwijl passiviteit simpelweg het uitblijven van betrokkenheid is.</p>
+      <h3>Het leven zelf</h3>
+      <p>Het slothoofdstuk keert terug naar het uitgangspunt van het boek: het leven levert vanzelf tegenslagen en lessen op, en de hulpverlener hoeft dat proces niet te vervangen maar hooguit te versnellen door de cliënt niet in de weg te zitten.</p>
+      <p>Wijnberg sluit af met de gedachte dat de grootste dienst die een hulpverlener kan bewijzen, is zichzelf op termijn overbodig te maken, in plaats van de cliënt afhankelijk te houden van voortdurende begeleiding.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Niet-helpen</td><td>Wijnbergs kernbegrip: een actieve, bewust ingezette vorm van terughoudendheid waarmee de hulpverlener de cliënt dwingt zelf verantwoordelijkheid te nemen.</td></tr>
+          <tr><td class="term">Provocatieve therapie</td><td>De therapierichting, in Nederland mede door Wijnberg en Jaap Hollander geïntroduceerd, die humor en tegendraadsheid inzet om verandering los te maken.</td></tr>
+          <tr><td class="term">Actief niet-helpen</td><td>Het onderscheid dat Wijnberg maakt tussen bewust niet ingrijpen als interventie en louter passief niets doen.</td></tr>
+          <tr><td class="term">Het voordeel van het nadeel</td><td>Het benoemen van de functie die een klacht voor de cliënt heeft, als opstap naar verandering in plaats van directe bestrijding van de klacht.</td></tr>
+          <tr><td class="term">Ongeschiktheid benadrukken</td><td>Een techniek waarbij de hulpverlener zich minder capabel voordoet dan de cliënt, om de cliënt tot eigen inzicht te dwingen.</td></tr>
+          <tr><td class="term">Dommetje spelen</td><td>Bewust naïef reageren op wat de cliënt vertelt, zodat de cliënt zelf de uitleg en de oplossing moet formuleren.</td></tr>
+          <tr><td class="term">Het leven zelf</td><td>Wijnbergs uitgangspunt dat het leven vanzelf voldoende therapeutische prikkels biedt, waardoor de hulpverlener zich overbodig moet maken.</td></tr>
+          <tr><td class="term">Provocatief effect</td><td>Het moment waarop overdrijving of tegenspraak de cliënt uitlokt om zelf stelling te nemen, de kern van waarom de provocatieve technieken volgens Wijnberg werken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Wijnberg bouwt voort op de provocatieve therapie zoals die in de jaren zeventig in de Verenigde Staten is ontwikkeld en die hij, samen met Jaap Hollander, in Nederland heeft geïntroduceerd. Zijn ervaring als psycholoog en psychotherapeut sinds 1977 vormt de basis van de voorbeelden in het boek.</p>
+      <p>Het boek bevat geen apart onderzoek naar de effectiviteit van provocatief werken; het presenteert de methode vanuit klinische ervaring en illustreert die met korte casusbeschrijvingen, niet met vergelijkend onderzoek tussen een provocatieve en een niet-provocatieve aanpak.</p>
+      <p>Wat het boek wel biedt, is een consistente uitwerking van tien onderling samenhangende technieken, waarmee de lezer een compleet beeld krijgt van hoe de provocatieve stijl in de praktijk wordt opgebouwd, van het relativeren van een klacht tot het actief niet ingrijpen.</p>
+      <p>Wijnbergs jarenlange rol als opleider binnen de provocatieve traditie in Nederland geeft de technieken gewicht als beroepspraktijk, ook al ontbreekt in dit specifieke boek een aparte literatuurlijst met wetenschappelijke bronnen over de werkzaamheid van de methode.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De provocatieve stijl leunt zwaar op timing, toon en de klik tussen hulpverlener en cliënt; het boek beschrijft de technieken helder, maar kan niet garanderen dat een lezer zonder training in provocatief werken dezelfde technieken veilig toepast. Verkeerd ingezet kan overdrijving of relativering als kwetsend overkomen in plaats van bevrijdend.</p>
+      <p>Het boek is geschreven vanuit het perspectief dat oplossingsgericht en empathisch werken de cliënt passief houdt; die aanname wordt niet naast andere therapeutische stromingen gelegd die juist wel bewijs van effectiviteit hebben opgebouwd, zoals cognitieve gedragstherapie.</p>
+      <p>Als praktijkboek van honderdzestig bladzijden blijft de onderbouwing per techniek kort; wie op zoek is naar een uitgebreide theoretische verantwoording van provocatieve therapie als geheel, vindt in dit boek vooral de toepassing, niet het onderliggend kader.</p>
+      <p>Het boek richt zich op hulpverleners in brede zin, maar bespreekt niet expliciet bij welke cliënten of problematiek provocatief werken juist ongeschikt of riskant is, bijvoorbeeld bij ernstige psychiatrische kwetsbaarheid, waar overdrijving en relativering eerder schade dan opening kunnen geven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Benoem de functie die een klacht voor de cliënt heeft voordat je de klacht bestrijdt.</li>
+        <li>Wacht met het aandragen van een oplossing tot de cliënt er zelf naar heeft gezocht.</li>
+        <li>Gebruik overdrijving of relativering alleen wanneer het contact met de cliënt dat toelaat.</li>
+        <li>Onderscheid bewust niet ingrijpen als interventie van passief niets doen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Niet-helpen voor hulpverleners: Waarom het leven al therapeutisch genoeg is</i>. Uitgeverij Scriptum, Schiedam, 2019, 160 blz., met illustraties van Peter de Wit. ISBN 9789463191876 (gedrukte editie), ISBN 9789463191883 (e-book). Nederlandstalig geschreven, geen vertaling. Van Wijnberg verschenen daarnaast tientallen boeken over provocatieve psychologie, waaronder werk samen met Jaap Hollander, met wie hij de provocatieve therapie in Nederland introduceerde.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jeffrey Wijnberg is sinds 1977 werkzaam als psycholoog en psychotherapeut en introduceerde samen met Jaap Hollander de provocatieve therapie in Nederland. In dit boek keert hij zich tegen de reflex van hulpverleners om problemen voor cliënten op te lossen.</p><p>Zijn uitgangspunt is dat het leven zelf al genoeg therapeutische prikkels bevat, en dat een hulpverlener zich daarom zo snel mogelijk overbodig moet maken in plaats van zich onmisbaar te maken. In tien hoofdstukken werkt hij uit wat provocatief 'niet-helpen' in de praktijk betekent.</p><p>Het boek richt zich op hulpverleners die merken dat aardig en oplossingsgericht zijn niet altijd verandering oplevert, en biedt daar met humor en tegendraadsheid een alternatief voor.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>provocatieve therapie</li><li>hulpverlening</li><li>psychologie</li><li>coaching</li><li>humor</li><li>zelfredzaamheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1554"><a href="1554.html">Morita Therapy and the True Nature of Anxiety-Based Disorders</a>. Morita's therapie deelt het uitgangspunt dat het gewone leven al genoeg gelegenheid tot verandering biedt, uitgewerkt vanuit een heel andere, meer aanvaardingsgerichte traditie.</li>
+          <li value="1655"><a href="1655.html">The Polyvagal Theory in Therapy</a>. Dana benadert verandering vanuit het lichaam en het zenuwstelsel, een tegenpool van Wijnbergs nadruk op gesprekstechniek en houding.</li>
+          <li value="1530"><a href="1530.html">De NLP-Coach als inspirator</a>. Bespreekt coaching vanuit een oplossingsgerichte hoek, precies de aanpak waar Wijnberg zich in dit boek tegen afzet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

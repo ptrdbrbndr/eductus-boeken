@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Druks &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Regelink stelt dat AD(H)D bij volwassenen zelden zichtbaar is als de klassieke hyperactiviteit uit de kindertijd, maar zich verplaatst naar een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2005">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2005 &middot; Brein en lichaam</p>
+    <h1>Druks</h1>
+    <p class="lede">Francien Regelink met Marloes Berghege, 2020</p>
+    <p class="stats">
+      <span><b>1403</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2005"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Regelink stelt dat AD(H)D bij volwassenen zelden zichtbaar is als de klassieke hyperactiviteit uit de kindertijd, maar zich verplaatst naar een voortdurend beheer van prikkels, uitstel en overprikkeling dat van buitenaf nauwelijks opvalt. Haar boek voert aan dat veel mensen met AD(H)D daardoor lang ongediagnosticeerd blijven of worden afgedaan als chaotisch, terwijl het onderliggende patroon een vaste, herkenbare vorm heeft zodra je weet waarnaar je moet kijken. Door haar eigen dagelijkse worstelingen naast de uitleg van een AD(H)D-deskundige te zetten, probeert het boek dat patroon zichtbaar te maken voor lezers die zichzelf of iemand in hun omgeving erin herkennen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Boodschappen doen en andere gewone dingen</h3>
+      <p>Regelink opent met een alledaags voorbeeld: een boodschappenlijst waar ze niet aan kan vasthouden, omdat elk schap in de supermarkt een nieuwe afleiding oplevert. Dat voorbeeld zet de toon voor de rest van het boek: geen grote crisis, maar een opeenstapeling van kleine, uitputtende beslissingen.</p>
+      <p>Ze beschrijft hoe een simpele boodschap kan uitlopen tot een middag, hoe ze halverwege vergeet waarom ze een bepaald gangpad in liep, en hoe vermoeiend het is om daar steeds weer uitleg over te moeten geven aan mensen die het patroon niet herkennen. Dat soort kleine, herhaalde frictie vormt volgens haar een groter deel van het dagelijkse leven met AD(H)D dan de zichtbare uitschieters.</p>
+      <h3>De diagnose</h3>
+      <p>Wildervanck legt uit hoe een AD(H)D-diagnose bij volwassenen tot stand komt, welke vragenlijsten en gesprekken daarbij horen en waarom de diagnose bij vrouwen vaak later wordt gesteld dan bij mannen, omdat de symptomen zich anders uiten dan het klassieke beeld van een hyperactieve jongen.</p>
+      <p>Regelink beschrijft haar eigen traject naar de diagnose: de jaren waarin ze zichzelf chaotisch of lui noemde, de aanleiding die haar uiteindelijk naar een psychiater bracht, en de opluchting die de diagnose gaf, gevolgd door de vraag wat ze er nu mee moest doen.</p>
+      <h3>Medicatie</h3>
+      <p>Regelink beschrijft haar eigen afweging rond medicatie: wat het wel en niet oplost, en de dagen waarop de werking uitdooft. Wildervanck vult dat aan met uitleg over hoe stimulerende medicatie werkt en welke overwegingen een arts en patiënt samen maken voordat ze eraan beginnen.</p>
+      <p>Het hoofdstuk gaat ook in op de twijfel die aan medicatiegebruik voorafgaat: de angst dat een pil iets aan je persoonlijkheid verandert, de praktische kant van innametijden, en de manier waarop Regelink leerde onderscheiden welke eigenschappen bij haarzelf horen en welke bij onbehandelde AD(H)D.</p>
+      <h3>Werk en het trapgat</h3>
+      <p>Op kantoor blijkt een open werkplek voor Regelink onwerkbaar: te veel geluid en beweging om zich te kunnen concentreren. Ze verhuist haar bureau naar de ruimte onder de trap, een prikkelarme plek die ze nodig heeft om haar werk af te krijgen, en beschrijft hoe lastig het was die aanpassing op de werkvloer bespreekbaar te maken.</p>
+      <p>Ze beschrijft ook de reacties van collega's, van begrip tot onbegrip, en hoe ze uiteindelijk leerde om vooraf uit te leggen wat ze nodig had in plaats van te wachten tot iemand er zelf een opmerking over maakte.</p>
+      <h3>Relaties en intimiteit</h3>
+      <p>Een hoofdstuk gaat over hoe AD(H)D doorwerkt in relaties: vergeten afspraken, impulsieve reacties in ruzies en de moeite om bij een gesprek te blijven als de aandacht afdwaalt. Regelink beschrijft hoe ze dat met haar partner heeft leren benoemen in plaats van verzwijgen.</p>
+      <p>Wildervanck licht toe dat onbegrip over deze patronen vaak tot herhaalde conflicten leidt wanneer een partner het gedrag als desinteresse leest in plaats van als een aandachtspatroon; benoemen wat er speelt, verandert volgens haar het gesprek van verwijt naar uitleg.</p>
+      <h3>Schaamte en zelfbeeld</h3>
+      <p>Voor de diagnose vertaalde Regelink haar gedrag jarenlang naar karaktergebreken: lui, chaotisch, onbetrouwbaar in afspraken. Ze beschrijft hoe die zelfbeelden zich vastzetten, ook nadat de diagnose een verklaring bood, en hoe lang het duurde voordat ze het onderscheid kon maken tussen wie ze is en wat het gevolg is van onbehandelde AD(H)D.</p>
+      <p>Wildervanck licht toe dat dit patroon van zelfverwijt bij volwassenen met een late diagnose vaker voorkomt: jarenlange corrigerende reacties van de omgeving leiden tot een zelfbeeld dat moeilijk te herzien is, ook als de diagnose achteraf een consistente verklaring biedt.</p>
+      <h3>Wat wel helpt</h3>
+      <p>Het laatste deel bundelt praktische strategieën die Wildervanck aandraagt: vaste routines, prikkelarme werkplekken en het gericht inzetten van hyperfocus, naast Regelinks eigen ervaring met wat voor haar wel en niet werkt.</p>
+      <p>Het boek besluit niet met de belofte dat AD(H)D op te lossen is, maar met het idee dat een leven eromheen te organiseren valt zodra je begrijpt welk patroon je voor je hebt, in plaats van te blijven vechten tegen een norm die op een ander soort brein is toegesneden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">AD(H)D</td><td>De aandachtstekortstoornis met of zonder hyperactiviteit die het boek van twee kanten belicht: Regelinks ervaring en Wildervancks uitleg.</td></tr>
+          <tr><td class="term">Prikkelverwerking</td><td>De manier waarop een AD(H)D-brein binnenkomende signalen ordent, in het boek de verklaring voor overprikkeling in drukke omgevingen zoals een supermarkt.</td></tr>
+          <tr><td class="term">Hyperfocus</td><td>De staat waarin iemand met AD(H)D volledig opgaat in één taak en de omgeving daarbij wegvalt.</td></tr>
+          <tr><td class="term">Uitstelgedrag</td><td>Het herhaaldelijk verschuiven van taken die niet direct belonend zijn, een terugkerend thema in Regelinks anekdotes.</td></tr>
+          <tr><td class="term">Executieve functies</td><td>De vaardigheden om te plannen, prioriteiten te stellen en impulsen te reguleren, die het boek als anders werkend bij AD(H)D beschrijft.</td></tr>
+          <tr><td class="term">Uitwerking van medicatie</td><td>De terugval in klachten die optreedt zodra AD(H)D-medicatie is uitgewerkt, besproken in het hoofdstuk over medicijngebruik.</td></tr>
+          <tr><td class="term">Maskering</td><td>Het compenseren van AD(H)D-symptomen om in een omgeving niet op te vallen, wat het boek als uitputtend beschrijft.</td></tr>
+          <tr><td class="term">Prikkelarme werkplek</td><td>De aangepaste werkplek, in Regelinks geval een bureau onder de trap, die ze nodig heeft om te kunnen functioneren.</td></tr>
+          <tr><td class="term">Late diagnose</td><td>Het patroon waarbij AD(H)D bij vrouwen vaker pas op volwassen leeftijd wordt herkend, doordat de symptomen minder op het klassieke, aan jongens ontleende beeld lijken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek combineert twee soorten onderbouwing: Regelinks eigen ervaring, niet gecontroleerd of representatief, en de vakkennis van Cathelijne Wildervanck, die als directeur van AD(H)D Nederland de klinische kant van diagnose en behandeling beschrijft.</p>
+      <p>Wildervancks bijdragen volgen de gangbare psychiatrische omschrijving van AD(H)D als aandachtstekortstoornis met of zonder hyperactiviteit en plaatsen Regelinks anekdotes zo in een breder, herkenbaar kader in plaats van als een op zichzelf staand verhaal.</p>
+      <p>Dat het boek navolging kreeg in een tweede deel, Druks 2 in 2023, wijst erop dat de combinatie van persoonlijk verhaal en deskundige uitleg bij lezers aansloeg genoeg om een vervolg te rechtvaardigen, wat op zichzelf iets zegt over herkenbaarheid maar niets over klinische juistheid.</p>
+      <p>Het boek verschijnt bij Blossom Books in de reeks Hoofdzaken, waarin een persoonlijk verhaal steeds wordt gecombineerd met een vakinhoudelijke stem; die vaste opzet plaatst Druks binnen een herhaald format waarvan de uitgever kennelijk verwacht dat het bij een breder publiek werkt dan alleen bij lezers met AD(H)D.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is geen wetenschappelijke publicatie en presenteert zichzelf ook niet als zodanig; de persoonlijke hoofdstukken vertellen één ervaring die niet voor iedereen met AD(H)D hetzelfde hoeft te gelden, zonder dat het boek daar nadrukkelijk voor waarschuwt.</p>
+      <p>Doordat de expertdelen kort zijn, blijft de uitleg over medicatie en diagnosestelling algemeen; wie een uitgebreide klinische onderbouwing zoekt, met verwijzingen naar onderzoek, moet daarvoor elders zijn.</p>
+      <p>De luchtige toon die recensenten prijzen, maakt de zwaardere gevolgen van AD(H)D, zoals werkverlies, schulden of aanhoudende relatieproblemen, ondergeschikt aan de herkenbare, humoristische anekdotes; wie zelf met die zwaardere gevolgen kampt, herkent zich er mogelijk minder in dan wie er vooral last van heeft in het dagelijkse gedoe.</p>
+      <p>Het boek beschrijft Regelinks eigen ervaring als vrouw bij wie de diagnose relatief laat werd gesteld, maar gaat niet uitgebreid in op hoe dat patroon van late diagnose bij vrouwen precies ontstaat of hoe vaak het voorkomt; die vraag wordt aangestipt, niet uitgewerkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek voor een boodschappenlijst of planning een vaste, korte routine, zodat er geen ruimte overblijft voor uitstel op het moment zelf.</li>
+        <li>Richt een prikkelarme plek in om te werken, ook als die klein is, in plaats van te vechten tegen een omgeving die niet past.</li>
+        <li>Bespreek een vermoeden van AD(H)D met een deskundige in plaats van symptomen jarenlang te maskeren.</li>
+        <li>Leg vast op welke momenten hyperfocus optreedt en gebruik die uren gericht voor taken die concentratie vragen.</li>
+        <li>Benoem tegenover een partner of collega concreet wat een prikkel doet, in plaats van achteraf uit te leggen waarom iets niet lukte.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Volledige titel <i>Druks: mijn (on)rustige leven met AD(H)D</i> (Blossom Books, Amsterdam, 2020, 288 blz., ISBN 9789463491181), in de reeks Hoofdzaken. Regelink schrijft de persoonlijke hoofdstukken; Cathelijne Wildervanck, directeur van AD(H)D Nederland, licht in vijf hoofdstukken de medische en praktische kant toe. Een vervolg, <i>Druks 2</i>, verscheen in 2023 bij dezelfde uitgeverij (ISBN 9789090369419).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Regelink beschrijft in Druks hoe AD(H)D haar dagelijks leven bepaalt: van de chaos van boodschappen doen tot het werken onder een trapgat op kantoor, omdat een gewone werkplek te veel prikkels geeft.</p><p>In vijf hoofdstukken vult AD(H)D-deskundige Cathelijne Wildervanck haar verhaal aan met uitleg over diagnose, medicatie en de manier waarop een brein dat sneller schakelt zich verhoudt tot een wereld die op een gemiddeld tempo is ingericht.</p><p>Het boek combineert persoonlijke anekdotes met feitelijke uitleg en richt zich op mensen met AD(H)D, mensen die vermoeden dat ze het hebben, en mensen die iemand met AD(H)D beter willen begrijpen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ADHD</li><li>concentratie</li><li>brein</li><li>zelfhulp</li><li>Nederland</li><li>memoir</li><li>neurodiversiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1302"><a href="1302.html">NeuroDiversity: The Birth of an Idea</a>. Singer introduceerde het begrip neurodiversiteit waarmee AD(H)D tegenwoordig vaker wordt geduid, als variatie in plaats van louter stoornis.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke beschrijft de dopaminehuishouding die verklaart waarom een AD(H)D-brein snel op zoek gaat naar nieuwe prikkels.</li>
+          <li value="118"><a href="118.html">Coping Skills</a>. Harper geeft praktische technieken voor emotieregulatie die aansluiten bij de prikkelverwerking waar Regelink over schrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Das geheime Leben der Bäume &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wohllebens stelling is dat een bos geen verzameling op zichzelf staande organismen is die om licht en water concurreren, maar een netwerk waarin bomen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2077">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2077 &middot; Natuur en wetenschap</p>
+    <h1>Das geheime Leben der Bäume</h1>
+    <p class="lede">Peter Wohlleben, 2015; vert. Bonella van Beusekom</p>
+    <p class="stats">
+      <span><b>1297</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2077"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wohllebens stelling is dat een bos geen verzameling op zichzelf staande organismen is die om licht en water concurreren, maar een netwerk waarin bomen elkaar via wortels en schimmeldraden ondersteunen, waarschuwen en soms zelfs voeden. Hij trekt daaruit de praktische conclusie dat bosbeheer dat bomen als individuele, uitwisselbare eenheden behandelt de manier waarop een bos werkelijk functioneert miskent. Om die boodschap te laten landen bij een breed publiek, beschrijft hij bomen voortdurend in menselijke termen, als wezens met vriendschappen, voorkeuren en gevoelens van pijn en angst. Daarmee ligt de kracht van het boek en het bezwaar dat wetenschappers ertegen hebben dicht bij elkaar: dezelfde beeldspraak die het toegankelijk maakt, wordt door vakgenoten aangewezen als te ver gaand.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vriendschappen onder de grond</h3>
+      <p>Wohlleben opent met de waarneming die zijn boek draagt: een oude, verrotte beukenstronk in zijn bos bleek nog chlorofyl te bevatten, wat betekent dat naburige bomen hem via de wortels van suikers voorzagen. Hij leidt daaruit af dat bomen in een bos elkaar in leven kunnen houden, ook als een individuele boom zelf niets meer kan fotosynthetiseren.</p>
+      <h3>Het netwerk onder de bodem</h3>
+      <p>Schimmeldraden verbinden de wortels van verschillende bomen, ook van verschillende soorten, tot wat Wohlleben een ondergronds netwerk noemt waarlangs suikers en signalen worden uitgewisseld. Hij beschrijft onderzoek waarin wetenschappers van de Universiteit van Turijn vaststelden dat planten hun eigen wortels van vreemde wortels kunnen onderscheiden, en trillingen in wortels op een frequentie van 220 hertz waarop zaailingen reageren.</p>
+      <h3>Communicatie boven de grond</h3>
+      <p>Bomen die door insecten worden aangevreten, geven geurstoffen af die soortgenoten in de omgeving waarschuwen, waarna die soortgenoten stoffen aanmaken om zich te weren. Wohlleben beschrijft ook geluid: metingen van ultrasone trillingen in stammen van door droogte gestreste bomen, die de betrokken wetenschappers zelf als mechanisch verklaarden en die Wohlleben in zijn tekst omschrijft als bomen die van dorst zouden kunnen 'gillen'.</p>
+      <h3>Opgroeien in de schaduw</h3>
+      <p>Jonge bomen die opgroeien in de schaduw van oudere exemplaren, groeien volgens Wohlleben bewust langzaam: minder licht betekent minder groei, maar ook een dichtere houtstructuur die de boom later sterker maakt. Bomen die geïsoleerd staan, zonder buren die hen afschermen tegen wind en extreme temperaturen, verouderen sneller en leven volgens hem korter.</p>
+      <p>Hij vergelijkt de opvoeding van jonge bomen daarmee met een streng, maar volgens hem uiteindelijk gunstig regime: te veel licht en ruimte in de jeugd van een boom leidt tot snelle, losse groei die de boom later kwetsbaarder maakt voor storm en droogte.</p>
+      <h3>Verdediging en herstel</h3>
+      <p>Het boek beschrijft hoe bomen wonden aan de bast afsluiten, hoe ze bij aanhoudende droogte reserves aanspreken, en hoe sommige soorten in een jaar met weinig regen minder zaden produceren, wat Wohlleben aanduidt als een strategie om herten en ander wild niet aan te trekken.</p>
+      <p>Ook het thema tijd komt terug: bomen groeien en reageren op een tijdschaal van jaren tot decennia, waardoor veranderingen die voor een mens onzichtbaar blijven, in het bos wel degelijk plaatsvinden. Wohlleben gebruikt dat verschil in tempo om uit te leggen waarom kortetermijnbeheer, gericht op snelle houtopbrengst, volgens hem niet bij de aard van een bos past.</p>
+      <h3>Bosbeheer in de praktijk</h3>
+      <p>Als boswachter verbindt Wohlleben zijn waarnemingen aan een pleidooi voor ander bosbeheer: minder kaalkap, meer ruimte voor gemengde en oude bossen, en meer vertrouwen in het vermogen van een bos om zichzelf in stand te houden zonder voortdurend menselijk ingrijpen.</p>
+      <h3>Van boswachter tot bestseller</h3>
+      <p>Wohlleben werkte meer dan twintig jaar in de bosbouw in het Rijnland voordat hij boswachter werd in de Eifel, waar hij een eigen, minder op houtproductie gerichte manier van bosbeheer mocht uitproberen. Zijn boeken over bos en natuur zijn in meer dan zesenveertig landen verschenen en verkochten samen meer dan drie miljoen exemplaren, wat het boek tot een van de invloedrijkste populair-wetenschappelijke natuurboeken van de afgelopen tien jaar maakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het wortelnetwerk</td><td>De schimmeldraden die de wortels van verschillende bomen verbinden en waarlangs suikers en signalen worden uitgewisseld.</td></tr>
+          <tr><td class="term">Moederboom</td><td>Een oudere, dominante boom die jonge bomen in de eigen schaduw laat opgroeien en daarmee volgens Wohlleben hun groei vertraagt en verstevigt.</td></tr>
+          <tr><td class="term">Geursignalen</td><td>Stoffen die aangevreten bomen afgeven en waarmee soortgenoten worden gewaarschuwd voor insectenplagen.</td></tr>
+          <tr><td class="term">220 hertz</td><td>De frequentie waarop wortels volgens het door Wohlleben aangehaalde onderzoek trillen en waarop zaailingen reageren.</td></tr>
+          <tr><td class="term">Zaadmastjaar</td><td>Een jaar waarin bomen veel zaden produceren, afgewisseld met jaren van weinig productie, wat Wohlleben uitlegt als een strategie tegen zaadeters.</td></tr>
+          <tr><td class="term">Kaalkap</td><td>Het in één keer wegkappen van een heel bosperceel, een praktijk waar Wohlleben zich tegen keert.</td></tr>
+          <tr><td class="term">Wood wide web</td><td>De term waarmee het ondergrondse schimmelnetwerk tussen bomen in de populaire verslaggeving over Wohllebens werk vaak wordt aangeduid.</td></tr>
+          <tr><td class="term">Mycorrhiza</td><td>De schimmelsoorten die een symbiotische relatie met boomwortels aangaan en zo de verbindingen tussen bomen in het bos vormen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een deel van wat Wohlleben beschrijft, komt overeen met gepubliceerd onderzoek: de rol van mycorrhizaschimmels bij de uitwisseling van voedingsstoffen tussen bomen is in de bosecologie een erkend onderwerp, en het werk van onderzoekers als Suzanne Simard naar zulke netwerken gaat aan zijn boek vooraf. De waarneming van chlorofyl in een oude stronk en de metingen aan wortels van de Universiteit van Turijn zijn concrete, natrekbare bevindingen.</p>
+      <p>Wohlleben is zelf boswachter, geen laboratoriumonderzoeker, en presenteert het boek uitdrukkelijk als verslag van wat hij in zijn eigen bos ziet, aangevuld met wetenschappelijke literatuur die hij las. Hij trekt daarbij herhaaldelijk de stap van een gemeten verschijnsel naar een geestelijke interpretatie, zoals bij de ultrasone trillingen die als 'gillen' worden omschreven, terwijl de onderzoekers die het geluid maten het zelf als een mechanisch effect van luchtbelletjes in het hout beschreven.</p>
+      <p>Dat bomen in een groep langer leven dan geïsoleerde exemplaren is een waarneming die Wohlleben onderbouwt met zijn eigen jarenlange observaties als boswachter; hoeveel daarvan specifiek aan onderlinge ondersteuning ligt en hoeveel aan bijvoorbeeld gedeelde beschutting tegen wind, laat het boek in het midden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek werd na verschijnen door Duitse bosecologen bekritiseerd; wetenschappers van de universiteit van Göttingen protesteerden tegen een optreden van Wohlleben op een literair festival onder de leus 'feiten, geen sprookjes'. De kern van hun bezwaar is dat Wohlleben resultaten die voorzichtig geformuleerd zijn, zoals mechanische trillingen bij droogtestress, vertaalt naar emotionele en intentionele taal die het onderzoek niet dekt.</p>
+      <p>De Amerikaanse wetenschapshistoricus Sharon Kingsland wees erop dat Wohlleben plantenwetenschap voorstelt als een onderontwikkeld vakgebied, terwijl er decennia aan onderzoek aan vooraf zijn gegaan; door dat werk te presenteren als recente ontdekking, doet het boek volgens haar afbreuk aan het bestaande vakgebied.</p>
+      <p>Het herhaaldelijke gebruik van menselijke termen (vriendschap, angst, zorg) maakt het voor een lezer moeilijk te onderscheiden wat aangetoond gedrag is en wat Wohllebens eigen interpretatie. Claims dat bomen 'vooraf afspreken' om niet elk jaar te bloeien, of uit 'angst' voor herten minder zaden maken, suggereren een planvermogen dat in het onderzoek dat hij aanhaalt niet wordt aangetoond.</p>
+      <p>In de Nederlandse vertaling zijn daarnaast fouten in plantennamen gesignaleerd, wat bij een boek dat zijn gezag juist ontleent aan precieze waarneming een storend soort onnauwkeurigheid is: het maakt de lezer alerter op de vraag welke andere details in de vertaalslag zijn verschoven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de emotionele termen (vriendschap, angst, zorg) als beeldspraak voor een gemeten verschijnsel, en ga zelf na wat het onderliggende onderzoek wel en niet aantoont.</li>
+        <li>Kijk bij een volgend bosbezoek naar de omgeving van een boom: staat hij tussen soortgenoten of alleen, en wat zegt dat over zijn conditie.</li>
+        <li>Wees terughoudend met kaalkap of het rooien van geïsoleerde bomen als andere opties beschikbaar zijn.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Das geheime Leben der Bäume</i> (Ludwig Verlag, München, 2015). De Nederlandse vertaling van Bonella van Beusekom verscheen als <i>Het verborgen leven van bomen</i> bij A.W. Bruna Uitgevers/Lev., Amsterdam, 2016 (ca. 224-256 blz. afhankelijk van de druk, ISBN 9789400507326). Van Wohlleben verschenen in het Nederlands verder onder meer <i>Het verborgen netwerk van de natuur</i> en <i>Het geheime leven van dieren</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Peter Wohlleben, bosbouwkundige en boswachter in de Eifel, beschrijft wat hij in decennia bosbeheer heeft gezien: bomen die via schimmeldraden onder de grond met elkaar verbonden zijn, oude exemplaren die verzwakte soortgenoten van voedingsstoffen voorzien, en bossen die zich als geheel beter staande houden dan een verzameling losse bomen.</p><p>Hij vertelt over de manier waarop bomen op aanvallen van insecten reageren met geurstoffen die soortgenoten waarschuwen, over de trage groeisnelheid van bomen die in de schaduw van een moederboom opgroeien, en over de ultrasone trillingen die wetenschappers in wortels van door droogte gestreste bomen hebben gemeten.</p><p>Het boek presenteert dat materiaal in toegankelijke, beeldende taal, en beschrijft bomen daarbij voortdurend in termen die aan mensen of dieren doen denken: vriendschap, zorg, angst. Die keuze maakte het boek populair en bezorgde het tegelijk kritiek van vakwetenschappers.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bomen</li><li>bos</li><li>bosbeheer</li><li>communicatie</li><li>ecologie</li><li>duitsland</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1578"><a href="1578.html">Braiding Sweetgrass</a>. Kimmerer beschrijft eveneens planten als deel van een netwerk van wederkerigheid, maar vanuit inheemse kennis naast wetenschap in plaats van vanuit een boswachterspraktijk.</li>
+          <li value="1262"><a href="1262.html">De zee</a>. Carson beschrijft de zee met eenzelfde combinatie van precieze waarneming en gevoel voor het wonderlijke die Wohlleben voor het bos gebruikt.</li>
+          <li value="1675"><a href="1675.html">Different</a>. De Waal onderzoekt vanuit de gedragsbiologie hoe ver het is toegestaan om dieren menselijke eigenschappen toe te schrijven, dezelfde vraag die bij Wohllebens bomen speelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

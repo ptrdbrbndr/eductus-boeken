@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guérir &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Servan-Schreiber stelt dat depressie, angst en chronische stress vaker een ontregeling van het emotionele brein zijn dan een tekort aan rationeel inzicht,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2088">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2088 &middot; Brein en lichaam</p>
+    <h1>Guérir</h1>
+    <p class="lede">David Servan-Schreiber, 2003</p>
+    <p class="stats">
+      <span><b>1462</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2088"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Servan-Schreiber stelt dat depressie, angst en chronische stress vaker een ontregeling van het emotionele brein zijn dan een tekort aan rationeel inzicht, en dat praattherapie en medicatie dat daarom maar ten dele verhelpen. Zijn stelling is dat het limbisch systeem, de laag hersenweefsel die gevoelens en lichaamsfuncties regelt, met eigen, niet-talige middelen benaderd moet worden: oogbewegingen, ademhaling, licht, voeding, beweging en verbondenheid met anderen. Wie alleen over een probleem praat, spreekt volgens hem vooral de neocortex aan en laat het emotionele brein grotendeels onaangeroerd. Het boek voert die stelling niet aan als losse gedachte maar als praktijk: zeven methoden die hij zelf als arts heeft toegepast en waarvoor hij telkens gepubliceerd onderzoek aanhaalt, met wisselende overtuigingskracht per methode.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het emotionele brein</h3>
+      <p>Servan-Schreiber opent met het onderscheid tussen het limbisch systeem, dat hij kortweg het emotionele brein noemt, en de neocortex, de buitenste laag die taal en redeneren mogelijk maakt. Het emotionele brein reageert volgens hem sneller dan het bewuste denken en stuurt hartslag, spijsvertering en hormoonhuishouding rechtstreeks aan, los van wat iemand zichzelf wijsmaakt.</p>
+      <p>Hij illustreert dit met patiënten bij wie jarenlange gesprekstherapie weinig veranderde aan paniekaanvallen of chronische vermoeidheid, terwijl een fysiologische ingreep, zoals een ademoefening of EMDR-sessie, wel verandering gaf. Dat verschil in resultaat vormt voor hem het bewijs dat er twee aparte systemen aan het werk zijn die elk hun eigen aanpak vragen.</p>
+      <h3>EMDR: een oud litteken laten helen</h3>
+      <p>EMDR, Eye Movement Desensitization and Reprocessing, laat een patiënt aan een pijnlijke herinnering denken terwijl de behandelaar de ogen laat volgen aan snelle, ritmische bewegingen. Servan-Schreiber, die de methode aanvankelijk ongeloofwaardig vond, beschrijft hoe hij haar bij zichzelf en bij patiënten met verkeersongevallen en oorlogstrauma's zag werken binnen enkele sessies.</p>
+      <p>Hij plaatst de methode in de traditie van Francine Shapiro, die haar in 1987 toevallig ontdekte tijdens een wandeling, en bespreekt de theorie dat de bewegingen eenzelfde verwerkingsproces oproepen als de remslaap, waardoor een herinnering van lading verliest zonder dat de patiënt de gebeurtenis opnieuw in woorden hoeft te vatten.</p>
+      <h3>Hartcoherentie: ademhaling als stuurknop</h3>
+      <p>De tweede methode is langzame, regelmatige ademhaling, ongeveer zes ademteugen per minuut, waarmee hartslag en ademhaling in fase komen te lopen. Servan-Schreiber noemt dit hartcoherentie en verbindt het aan onderzoek naar hartslagvariabiliteit, waarbij een grotere variabiliteit samengaat met een beter functionerend autonoom zenuwstelsel.</p>
+      <p>Hij beschrijft eenvoudige oefeningen die patiënten enkele minuten per dag kunnen doen en stelt dat dit sneller aangrijpt op angst en stress dan een gesprek, omdat het rechtstreeks op de fysiologie werkt in plaats van op de gedachten erover. Hij noemt hartcoherentie de methode die het snelst een meetbaar effect geeft, al is dat effect meestal tijdelijk en vraagt het herhaling om aan te houden.</p>
+      <h3>De biologische klok: licht en ritme</h3>
+      <p>Blootstelling aan fel daglicht, vooral in de ochtend, kan volgens Servan-Schreiber het interne ritme van slaap, hormonen en stemming bijstellen. Hij bespreekt lichttherapie bij winterdepressie en bij verstoorde slaap-waakritmes, en adviseert een vaste, vroege blootstelling aan buitenlicht als eenvoudige, dagelijkse ingreep.</p>
+      <p>De redenering sluit aan bij het hoofdstuk over het emotionele brein: het ritme van licht en donker werkt in op hersengebieden die niet met taal te bereiken zijn, en verandering daar zet volgens hem stemming en energie in beweging voordat er één gesprek over is gevoerd.</p>
+      <h3>Voeding, beweging en acupunctuur</h3>
+      <p>Servan-Schreiber pleit voor voldoende omega-3-vetzuren, uit vette vis of supplementen, omdat celmembranen van hersencellen daar volgens hem baat bij hebben, en voor regelmatige matige inspanning, die hij als even effectief tegen milde depressie beschrijft als medicatie. Acupunctuur behandelt hij voorzichtiger, als methode waarvan de werking nog niet volledig verklaard is maar waarvan hij in de praktijk effect zag bij pijn en angst.</p>
+      <p>Bij elke methode herhaalt hij hetzelfde stramien: een korte casus, een verwijzing naar onderzoek en een praktische aanwijzing, zodat de lezer de stap van uitleg naar toepassing zelf kan zetten. Bij acupunctuur benadrukt hij dat afwezigheid van een sluitende verklaring niet hetzelfde is als afwezigheid van effect, een onderscheid dat hij bij de andere, beter onderzochte methoden minder nodig heeft.</p>
+      <h3>De zevende methode: verbondenheid</h3>
+      <p>Het laatste hoofdstuk gaat over sociale relaties en gemeenschapszin. Servan-Schreiber beschrijft onderzoek waarin eenzaamheid en isolement samenhangen met een verhoogd risico op hart- en vaatziekten en depressie, en stelt dat het onderhouden van betekenisvolle contacten net zo'n rechtstreeks effect op het emotionele brein heeft als de zes andere methoden.</p>
+      <p>Hij sluit af met de opmerking dat geen van de zeven methoden op zichzelf een wondermiddel is, maar dat ze elkaar volgens hem versterken omdat ze allemaal op hetzelfde punt aangrijpen: het lichaam als ingang tot een brein dat woorden niet altijd volgt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Emotioneel brein</td><td>Servan-Schreibers term voor het limbisch systeem, het hersendeel dat gevoelens en lichaamsfuncties stuurt, los van bewust redeneren.</td></tr>
+          <tr><td class="term">Neocortex</td><td>De buitenste, rationele laag van de hersenen waarop praattherapie zich volgens de auteur vooral richt.</td></tr>
+          <tr><td class="term">EMDR</td><td>Eye Movement Desensitization and Reprocessing, een therapie waarbij ritmische oogbewegingen een vastgelopen herinnering helpen verwerken.</td></tr>
+          <tr><td class="term">Hartcoherentie</td><td>Een toestand waarin hartslag en ademhaling synchroon lopen, opgewekt met langzame ademhaling, die het zenuwstelsel tot rust brengt.</td></tr>
+          <tr><td class="term">Hartslagvariabiliteit</td><td>De mate waarin de tijd tussen hartslagen wisselt, door de auteur gebruikt als maat voor de gezondheid van het autonome zenuwstelsel.</td></tr>
+          <tr><td class="term">Biologische klok</td><td>Het inwendige ritme van slaap, hormonen en stemming, dat door daglicht wordt bijgesteld.</td></tr>
+          <tr><td class="term">Omega-3-vetzuren</td><td>Vetzuren uit vis en lijnzaad die volgens de auteur bijdragen aan de opbouw van hersencelmembranen.</td></tr>
+          <tr><td class="term">Emotionele coherentie</td><td>De auteur's term voor de staat waarin lichaam en emotioneel brein op elkaar zijn afgestemd, het doel van alle zeven methoden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Servan-Schreiber werkte als psychiater en onderzoeker aan de universiteit van Pittsburgh en beschrijft de zeven methoden vanuit eigen klinische ervaring, aangevuld met een literatuurlijst van gepubliceerde studies per hoofdstuk. Hij nam EMDR pas in zijn praktijk op nadat hij het bij zichzelf en collega's had gezien werken, wat hij zelf als zijn eigen omslagpunt beschrijft.</p>
+      <p>Voor de afzonderlijke methoden bestaat gepubliceerd onderzoek van uiteenlopende kwaliteit. EMDR werd in 1987 ontwikkeld door Francine Shapiro en was ten tijde van het boek nog een omstreden, relatief nieuwe behandeling; hartcoherentie steunt op onderzoek naar hartslagvariabiliteit; lichttherapie bij winterdepressie was destijds al goed gedocumenteerd.</p>
+      <p>Een terugblik in het British Journal of General Practice, twintig jaar na verschijnen, concludeert dat EMDR inmiddels een erkende traumabehandeling is binnen de Britse gezondheidszorg, en dat het advies over beweging en sociale verbondenheid overeind blijft staan in latere richtlijnen.</p>
+      <p>Diezelfde terugblik noemt Servan-Schreibers academische geloofwaardigheid niet ter discussie en wijst op de uitgebreide bibliografie achter in het boek, waarin per hoofdstuk naar de onderliggende publicaties wordt verwezen, iets wat destijds niet gebruikelijk was bij een boek voor een breed publiek over dit onderwerp.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De strengste kritiek geldt de tweedeling zelf. Het emotionele brein en de neocortex worden in het boek als twee aparte systemen behandeld die elk hun eigen ingang vragen, terwijl neurowetenschappelijk onderzoek juist uitgebreide, wederkerige bekabeling tussen limbisch systeem en cortex laat zien. De scherpe scheiding maakt het verhaal begrijpelijk, maar is een vereenvoudiging van hoe hersenen werken.</p>
+      <p>De zeven methoden verschillen sterk in bewijskracht, maar worden in dezelfde toon van klinisch vertrouwen gepresenteerd. EMDR en beweging steunen op stevig onderzoek, acupunctuur en omega-3 op zwakker en later deels weerlegd bewijs; de Britse gezondheidsdienst NHS raadt omega-3 tegen depressie inmiddels niet meer aan. Een lezer die het boek voor het eerst leest, kan dat verschil in de tekst zelf niet goed onderscheiden.</p>
+      <p>Het boek is geschreven vóór Servan-Schreiber zelf de diagnose hersentumor kreeg, een ervaring die zijn latere werk kleurde. Wie <i>Guérir</i> pas leest na kennis van die ziektegeschiedenis, projecteert er licht een persoonlijk overlevingsverhaal op dat in deze, algemenere tekst nog niet aanwezig is.</p>
+      <p>Het boek richt zich op stress, milde angst en depressie in de spreekkamer van een huisarts of psychiater, niet op ernstige, chronische psychiatrische aandoeningen. Servan-Schreiber waarschuwt daar zelf voor tussen de regels door, maar een lezer die met een zwaardere aandoening kampt, kan uit de zelfverzekerde toon van het boek ten onrechte afleiden dat medicatie of intensieve behandeling gemist kan worden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Adem enkele minuten vijf tellen in en vijf tellen uit om hartslag en ademhaling in fase te brengen.</li>
+        <li>Zoek bij een terugkerende, vastgelopen herinnering een behandelaar die met EMDR werkt in plaats van er alleen herhaaldelijk over te praten.</li>
+        <li>Zorg in de eerste uren na het opstaan voor blootstelling aan daglicht, bij voorkeur buiten.</li>
+        <li>Eet twee tot drie keer per week vette vis of overweeg een omega-3-supplement in overleg met een arts.</li>
+        <li>Bouw wekelijks vaste, betekenisvolle contactmomenten met anderen in, los van de drukte van de dag.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Guérir le stress, l'anxiété et la dépression sans médicaments ni psychanalyse</i> (Éditions Robert Laffont, Parijs, 2003). De Engelse editie verscheen als <i>The Instinct to Heal: Curing Depression, Anxiety and Stress Without Drugs and Without Talk Therapy</i> (Rodale Books, 2004/2005, 304 blz., ISBN 9781594861581). De Nederlandse vertaling van Dick van Alkemade verscheen als <i>Uw brein als medicijn</i>, eerste druk 2007 bij uitgeverij Lifetime; een latere druk verschijnt bij Lev., Utrecht (ISBN 9789021565248). Van Servan-Schreiber is ook <i>Anticancer: A New Way of Life</i> (2007) in het Nederlands vertaald, geschreven na zijn eigen diagnose van een hersentumor.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Servan-Schreiber, arts en neurowetenschapper, beschrijft zeven methoden waarmee stress, angst en depressie behandeld kunnen worden zonder medicijnen en zonder praattherapie. Zijn uitgangspunt is dat het limbisch systeem, dat hij het emotionele brein noemt, gevoelens en lichaamsfuncties op een andere manier verwerkt dan de rationele neocortex, en dus ook anders behandeld moet worden.</p><p>De methoden lopen uiteen van oogbewegingstherapie (EMDR) voor vastgelopen herinneringen tot ademhalingsoefeningen die hartslag en zenuwstelsel synchroniseren, van blootstelling aan daglicht tot voeding, beweging, acupunctuur en het onderhouden van betekenisvolle relaties. Elk hoofdstuk combineert een korte uitleg van de werking met verwijzingen naar onderzoek en met voorbeelden uit zijn eigen spreekkamer.</p><p>Het boek presenteert zich nadrukkelijk als op onderzoek gebaseerd, geschreven door een arts die zelf aanvankelijk sceptisch was over de aanpakken die hij beschrijft. Twintig jaar later blijkt een deel van de claims beter stand te houden dan andere.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hersenen</li><li>emotioneel brein</li><li>stress</li><li>EMDR</li><li>hartcoherentie</li><li>zelfhulp</li><li>psychiatrie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk beschrijft vanuit traumabehandeling dezelfde overtuiging dat het lichaam vasthoudt wat woorden niet oplossen, met een uitgebreidere onderbouwing van de hersenwetenschap erachter.</li>
+          <li value="2104"><a href="2104.html">Bewegen als medicijn</a>. Van Heel werkt de gedachte dat beweging als medicijn werkt verder uit, met dezelfde nadruk op het lichaam als ingang tot gezondheid.</li>
+          <li value="2105"><a href="2105.html">Voeding als medicijn</a>. Van Heel behandelt voeding als medicijn breder dan het ene hoofdstuk dat Servan-Schreiber eraan wijdt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

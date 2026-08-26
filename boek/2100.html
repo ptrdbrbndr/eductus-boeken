@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Looking Inward &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Purnachaitanya's stelling is dat onrust in deze tijd geen persoonlijk tekort is maar het gevolg van een wereld die zich in een aanhoudende staat van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2100">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2100 &middot; Levenskunst</p>
+    <h1>Looking Inward</h1>
+    <p class="lede">Swami Purnachaitanya, 2021</p>
+    <p class="stats">
+      <span><b>1005</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2100"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Purnachaitanya's stelling is dat onrust in deze tijd geen persoonlijk tekort is maar het gevolg van een wereld die zich in een aanhoudende staat van crisis bevindt, van pandemie tot klimaatverandering tot een stroom tegenstrijdig nieuws. Meditatie noemt hij daarom geen luxe maar een vaardigheid om overeind te blijven. Zijn these is dat een korte, dagelijkse oefening van ongeveer tien minuten volstaat om een innerlijke reserve op te bouwen waarmee die onrust hanteerbaar wordt, mits de oefening volgehouden wordt en niet verward wordt met alleen maar ontspannen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom onrust bij deze tijd hoort</h3>
+      <p>Het boek opent met de constatering dat rusteloosheid, afleiding en een gevoel van controleverlies bij een groot deel van de bevolking voorkomen, en dat de gebruikelijke remedies (afleiding zoeken, meer werken, nieuws bijhouden) het probleem eerder voeden dan oplossen. Purnachaitanya plaatst zijn eigen jeugd in Nederland en zijn latere leven in India als twee kanten van dezelfde zoektocht naar houvast.</p>
+      <p>Hij onderscheidt uitwendige onrust, veroorzaakt door gebeurtenissen buiten iemands invloed, van inwendige onrust, de manier waarop het lichaam en de geest op die gebeurtenissen reageren. Het boek richt zich uitsluitend op het tweede.</p>
+      <h3>Mindfulness en meditatie</h3>
+      <p>De auteur maakt onderscheid tussen mindfulness, het aandachtig opmerken van wat er in het moment gebeurt, en meditatie, een gerichte oefening met een vaste vorm die uit een traditie komt. Mindfulness kan overal worden toegepast, meditatie vraagt om een vaste tijd en plek en, in zijn ogen, om een techniek die niet zelf is uitgevonden maar is doorgegeven.</p>
+      <p>Hij wijst dat onderscheid aan als reden waarom losse ontspanningsoefeningen op termijn minder opleveren dan een meditatiepraktijk die uit een lijn van leraren komt.</p>
+      <h3>Een leraar en een lijn van overlevering</h3>
+      <p>Een terugkerend thema is het belang van een leraar. Purnachaitanya beschrijft zijn eigen ontmoeting met Sri Sri Ravi Shankar op zestienjarige leeftijd en zijn latere studie sanskriet en indologie in India als de reden waarom hij vertrouwen heeft in de technieken die hij aanreikt: ze zijn hem voorgedaan, niet door hemzelf bedacht.</p>
+      <p>Ademtechnieken als die van Art of Living, de organisatie waarvoor hij programma's leidt, komen in dat licht terug: niet als een van de vele methodes, maar als een praktijk met een herkenbare herkomst.</p>
+      <h3>De oefening van tien minuten</h3>
+      <p>Elk hoofdstuk sluit af met een korte oefening: een ademtechniek, een stiltemoment of een korte visualisatie. De opbouw is steeds gelijk, van een korte inleiding via een voorbeeld naar de oefening zelf, zodat een lezer een hoofdstuk per dag kan volgen.</p>
+      <p>Purnachaitanya benadrukt dat de oefeningen kort moeten blijven om vol te houden te zijn, en dat de waarde ervan pas na herhaling merkbaar wordt, niet na een enkele sessie.</p>
+      <h3>Van beginner naar routine</h3>
+      <p>Het slot van het boek gaat over het opbouwen van een eigen routine buiten de hoofdstukken om: een vast tijdstip, een vaste plek en een geleidelijke uitbreiding van de duur. De schrijver waarschuwt tegen het najagen van een bijzondere ervaring tijdens het mediteren en pleit voor een nuchtere, herhaalbare gewoonte.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Looking inward</td><td>De titelmetafoor: het naar binnen keren van de aandacht als tegenwicht tegen voortdurende prikkels van buitenaf.</td></tr>
+          <tr><td class="term">Uitwendige en inwendige onrust</td><td>Het onderscheid tussen gebeurtenissen die onrust veroorzaken en de reactie van lichaam en geest daarop, waarop het boek zich richt.</td></tr>
+          <tr><td class="term">Tien-minuten-oefening</td><td>Het vaste onderdeel aan het eind van elk hoofdstuk, een korte, uitvoerbare adem- of stilte-oefening.</td></tr>
+          <tr><td class="term">Mindfulness versus meditatie</td><td>Het onderscheid tussen los aandachtig aanwezig zijn en een gerichte, uit een traditie afkomstige oefening met een vaste vorm.</td></tr>
+          <tr><td class="term">Lijn van overlevering</td><td>De gedachte dat een techniek gewicht ontleent aan de reeks leraren die haar hebben doorgegeven, in plaats van aan een individuele uitvinder.</td></tr>
+          <tr><td class="term">Innerlijke reserve</td><td>Het beeld dat de auteur gebruikt voor het vermogen om tegenslag op te vangen zonder uitgeput te raken.</td></tr>
+          <tr><td class="term">Art of Living</td><td>De internationale organisatie van Sri Sri Ravi Shankar waarvoor de auteur programma's leidt en waaraan de ademtechnieken in het boek zijn ontleend.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Purnachaitanya onderbouwt zijn boek niet met onderzoek naar meditatie. Hij verwijst naar eigen ervaring en naar de autoriteit van zijn leraar en de traditie van Art of Living, waarbinnen ademtechnieken als de Sudarshan Kriya al decennia worden onderwezen. Studies naar het effect van die specifieke techniek zijn beperkt in aantal en vaak verbonden aan de organisatie zelf; het boek verwijst er niet naar en beroept zich op overlevering en praktijkervaring, niet op gepubliceerd onderzoek.</p>
+      <p>Wat wel te controleren is, is de biografie van de auteur: geboren in Nederland, sanskriet en indologie gestudeerd, sinds 2012 door Sri Sri Ravi Shankar tot swami benoemd. Die achtergrond geeft het boek gezag binnen de traditie waarin het staat, en zegt weinig over de werkzaamheid van de oefeningen daarbuiten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek gaat niet in op tegenargumenten. Onderzoek naar meditatie laat gemiddeld kleine tot matige effecten zien op stress en welbevinden, met grote individuele verschillen en een publicatiebias richting positieve uitkomsten; van die nuance staat in het boek niets.</p>
+      <p>De diagnose dat onrust vooral van buitenaf komt (pandemie, klimaat, nieuws) laat de vraag onbeantwoord of dezelfde oefeningen ook helpen bij onrust met een andere oorzaak, zoals een angststoornis. Het boek maakt dat onderscheid niet en verwijst nergens door naar professionele hulp.</p>
+      <p>Doordat elk hoofdstuk dezelfde opbouw volgt, van anekdote via uitleg naar oefening, wordt het patroon na een paar hoofdstukken voorspelbaar; wie de eerste vier gelezen heeft, kent de vorm van de rest.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe de tien-minuten-oefening uit het eerste hoofdstuk voordat je verder leest.</li>
+        <li>Kies een vast tijdstip, bijvoorbeeld direct na het opstaan, in plaats van te wachten op een rustig moment dat zich vanzelf aandient.</li>
+        <li>Ga na of je onrust ervaart die met ademhaling en aandacht te verzachten is, of onrust die om professionele hulp vraagt, en zoek die hulp in het tweede geval.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Looking Inward: How to Find Calm in a Chaotic World</i> (Lagom/Bonnier Books, Londen, 2021), ook uitgegeven in India als <i>Looking Inward: Meditating to Survive in a Changing World</i> (Penguin, New Delhi, 2021, 182 blz., ISBN 9780143452089). De Nederlandse vertaling verscheen als <i>Vind je innerlijke kracht</i> bij Spectrum/Unieboek, Amsterdam, april 2022 (208 blz., ISBN 9789000380527), met een e-book onder ISBN 9789000380534. Van Purnachaitanya is verder niets in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Swami Purnachaitanya, geboren in Nederland als Alexander en in 2012 door zijn leraar Sri Sri Ravi Shankar als eerste westerling tot swami benoemd, schrijft een praktische gids voor mediteren in een tijd van aanhoudende crises. Elk hoofdstuk combineert een persoonlijk verhaal met een oefening van ongeveer tien minuten.</p><p>Hij behandelt het verschil tussen mindfulness en meditatie, de rol van traditie en een leraar, en de vraag waarom ademhaling en aandacht volgens hem een uitweg bieden tegen een onrust die niet in het individu zit maar in de aard van deze tijd: pandemie, klimaatverandering en een overvloed aan tegenstrijdig nieuws.</p><p>Het boek richt zich op beginners. Er wordt geen voorkennis van yoga of Vedische filosofie verondersteld, en de nadruk ligt op een routine die vol te houden is naast een gewone werkweek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>meditatie</li><li>mindfulness</li><li>spiritualiteit</li><li>zelfhulp</li><li>ademhaling</li><li>aandacht</li><li>Art of Living</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="149"><a href="149.html">The Power of Now</a>. Tolle beschrijft dezelfde beweging naar het huidige moment, maar bouwt die op vanuit een andere, meer filosofische traditie dan de ademtechnieken van Purnachaitanya.</li>
+          <li value="1560"><a href="1560.html">Handbook for Hard Times</a>. Thubten is net als Purnachaitanya een westerling die binnen een oosterse traditie meditatie onderwijst, met een vergelijkbare nadruk op een korte, dagelijkse oefening.</li>
+          <li value="1912"><a href="1912.html">The Presence Process</a>. Brown biedt een ander stapsgewijs zelfhulpprogramma tegen onrust, met eveneens een vaste routine als kern van de methode.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

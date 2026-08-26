@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De terugkeer van de koning &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van der Kroon stelt dat mannen in de westerse cultuur het contact met een innerlijk kompas zijn kwijtgeraakt doordat het initiatieproces van jongen naar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2074">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2074 &middot; Mannen, vriendschap, verbinding</p>
+    <h1>De terugkeer van de koning</h1>
+    <p class="lede">Ton van der Kroon, 1996</p>
+    <p class="stats">
+      <span><b>1422</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2074"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van der Kroon stelt dat mannen in de westerse cultuur het contact met een innerlijk kompas zijn kwijtgeraakt doordat het initiatieproces van jongen naar man, dat in oudere culturen door oudere mannen en rituelen werd begeleid, grotendeels is weggevallen. Zijn stelling is dat de afwezige vader hierdoor niet alleen een persoonlijk gemis is maar een cultureel patroon, en dat mannen daardoor blijven hangen in gedrag dat is aangeleerd vanuit hoofd of onderbuik in plaats van vanuit het hart. Hij onderbouwt dat met eeuwenoude initiatiemythen naast recente films, in de overtuiging dat een archetype zijn geldigheid niet verliest zodra het verhaal een ander jasje krijgt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De afwezige vader</h3>
+      <p>Van der Kroon begint bij wat hij als het centrale gemis van de hedendaagse man beschouwt: een vader die er wel fysiek was, maar niet als gids voor de overgang van jongen naar man. Hij onderscheidt dat van een vader die letterlijk ontbreekt; het gaat hem vooral om de afwezigheid van een bewust doorgegeven initiatie, een rol die in traditionele culturen door oudere mannen en rituelen werd vervuld en die volgens hem in de westerse cultuur grotendeels is weggevallen.</p>
+      <p>Die leegte, stelt hij, vullen jongens op met imitatie van beelden uit media en groepsdruk in plaats van met een overgedragen besef van wat mannelijkheid inhoudt, waardoor volwassen mannen als grote jongens door het leven gaan zonder een innerlijk kompas te hebben ontwikkeld.</p>
+      <h3>Lust en liefde</h3>
+      <p>Een terugkerend thema is de manier waarop lust en liefde bij mannen uit elkaar zijn gegroeid: seksueel verlangen dat losstaat van verbondenheid, en liefde die verstoken blijft van lichamelijkheid. Van der Kroon beschrijft dat niet als een individueel probleem maar als een patroon dat teruggaat op dezelfde gemiste initiatie: een jongen die niet heeft geleerd zijn verlangen te dragen, zoekt naar bevrediging in plaats van naar verbinding.</p>
+      <p>Hij werkt dit thema uit aan de hand van mythologische figuren waarin beide kanten wel samenkomen, en stelt dat het samenbrengen van lust en liefde een van de beproevingen is die iedere man in zijn leven moet doorstaan.</p>
+      <h3>Macht en kracht</h3>
+      <p>Een tweede as in het boek is het onderscheid tussen macht, die volgens Van der Kroon van buitenaf over anderen wordt uitgeoefend, en kracht, die van binnenuit komt en niet afhankelijk is van controle over anderen. Mannen die nooit geïnitieerd zijn, grijpen naar macht omdat kracht hun onbekend is gebleven; het boek roept op tot de omgekeerde beweging.</p>
+      <p>Deze as loopt door de rest van het boek heen en keert terug bij de bespreking van vrijwel elk mythologisch verhaal dat hij aanhaalt.</p>
+      <h3>Initiatiemythen: Parsifal en Dionysus</h3>
+      <p>Als voorbeeld van een geslaagde initiatie gebruikt Van der Kroon de middeleeuwse graallegende van Parsifal, die als naïeve jongen zonder vader opgroeit, faalt bij zijn eerste ontmoeting met de gewonde Visserkoning omdat hij de juiste vraag niet stelt, en pas na jaren van omzwerving leert wat er werkelijk gevraagd moet worden. Hij leest dat verhaal als een beeld voor de weg die elke man moet afleggen: eerst onwetend en vol zelfvertrouwen de wereld intrekken, dan falen, en pas daarna leren wat initiatie werkelijk vraagt.</p>
+      <p>Naast Parsifal bespreekt hij de mythe van Dionysus, de god die tussen de werelden van orde en extase beweegt, als tegenhanger van een te eenzijdig op beheersing gerichte mannelijkheid.</p>
+      <h3>Spiegels in film</h3>
+      <p>Om de mythen actueel te maken, legt Van der Kroon ze naast populaire films: The Matrix als beeld voor het ontwaken uit een schijnwerkelijkheid, In de Ban van de Ring voor de tocht die een groep mannen samen aflegt, en The Lion King voor de terugkeer van een zoon naar de plaats die zijn vader hem had toebedacht, nadat hij eerst is weggevlucht. De vergelijking dient om te laten zien dat het archetype van de koning in elke tijd een nieuw verhaal vindt.</p>
+      <p>Hij ordent zijn boek naar eigen zeggen rond acht koningsverhalen, telkens gekoppeld aan een beproeving die volgens hem bij het leven van iedere man hoort.</p>
+      <h3>Terugkeer naar het hart</h3>
+      <p>Het boek sluit af met een oproep in plaats van een samenvatting: mannen moeten volgens Van der Kroon leren leven vanuit het hart in plaats van vanuit het hoofd, dat overweegt en uitstelt, of vanuit de onderbuik, die reageert zonder na te denken. Die derde weg noemt hij het koningschap: niet heersen over anderen, maar een innerlijke autoriteit die eigen keuzes durft te dragen.</p>
+      <p>Concrete oefeningen staan in het boek zelf beperkt; de auteur verwijst voor de praktische kant naar de mannengroepen en meerdaagse bijeenkomsten die hij sindsdien onder dezelfde titel is blijven organiseren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Initiatie</td><td>De begeleide overgang van jongen naar man die volgens Van der Kroon in de westerse cultuur grotendeels is weggevallen.</td></tr>
+          <tr><td class="term">De afwezige vader</td><td>Het begrip waarmee hij het gemis van een vader als gids voor die initiatie aanduidt, los van of de vader fysiek aanwezig was.</td></tr>
+          <tr><td class="term">Macht en kracht</td><td>Het onderscheid tussen van buitenaf uitgeoefende controle over anderen en een van binnenuit komende, niet op anderen gerichte innerlijke autoriteit.</td></tr>
+          <tr><td class="term">Parsifal</td><td>De middeleeuwse ridder uit de graallegende die na een aanvankelijk falen leert de juiste vraag te stellen, in het boek gelezen als beeld voor mannelijke initiatie.</td></tr>
+          <tr><td class="term">Dionysus</td><td>De Griekse god die tussen orde en extase beweegt, door Van der Kroon gebruikt als tegenwicht tegen een eenzijdig op beheersing gerichte mannelijkheid.</td></tr>
+          <tr><td class="term">Koningschap</td><td>De innerlijke autoriteit waarnaar de titel verwijst, niet heerschappij over anderen maar het dragen van eigen keuzes vanuit het hart.</td></tr>
+          <tr><td class="term">Leven vanuit hoofd, buik of hart</td><td>Het onderscheid waarmee Van der Kroon drie manieren van reageren naast elkaar zet, met het hart als de weg die hij bepleit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Van der Kroon onderbouwt zijn stelling niet met onderzoek maar met twee soorten materiaal: eeuwenoude initiatiemythen uit uiteenlopende culturen, en zijn eigen ervaring uit meer dan vijfentwintig jaar mannengroepen en -weekenden. Dat laatste is aantoonbaar: het boek is sinds 1996 in druk gebleven en de bijbehorende bijeenkomsten worden nog altijd georganiseerd, wat wijst op een blijvende groep mannen die zich in het aangereikte beeld herkent.</p>
+      <p>Dat mythen als Parsifal en Dionysus eeuwenoud zijn en in verschillende culturen terugkerende motieven bevatten, is op zichzelf niet te betwisten; waar geen bewijs voor bestaat, is de sprong die het boek maakt van die motieven naar een uitspraak over wat mannen nu, biologisch of psychologisch, nodig hebben. Die sprong steunt op herkenning bij lezers en deelnemers, niet op een toetsbare claim.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek werkt met het soort archetypentheorie dat teruggaat op Carl Jung en dat in de psychologie al decennia wordt bekritiseerd omdat het nauwelijks te toetsen is: elk verhaal, van een middeleeuwse graallegende tot een animatiefilm uit 1994, kan achteraf worden gelezen als bevestiging van hetzelfde patroon, zonder dat er een verhaal denkbaar is dat het patroon zou weerleggen.</p>
+      <p>De aanname dat mannelijkheid een vaste, van vrouwelijkheid te onderscheiden kern heeft die via initiatie moet worden aangeboord, is een positie waar de gender- en mannenstudies van de afgelopen decennia kritisch tegenover staan; het boek gaat op die kritiek niet in en veronderstelt het bestaan van zo'n kern als uitgangspunt in plaats van als these.</p>
+      <p>Doordat het boek achtereenvolgens mythen en films naast elkaar legt zonder telkens te verantwoorden waarom precies dit verhaal bij dit thema hoort, blijft de indruk bestaan dat de voorbeelden zijn gekozen omdat ze passen bij een these die al vaststond, eerder dan dat de these uit de voorbeelden is opgebouwd.</p>
+      <p>Het boek richt zich vrijwel uitsluitend op heteroseksuele mannen in vaste relaties; homoseksuele mannen of mannen die niet naar een vrouw op zoek zijn, komen in de voorbeelden nauwelijks voor, terwijl de these over lust en liefde wel als algemeen geldig wordt gepresenteerd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na waar je vader wel aanwezig was maar geen gids is geweest bij een overgang in je leven, en benoem wat je daar nog van mist.</li>
+        <li>Kies bij een volgende beslissing bewust tussen een reactie vanuit macht en een reactie vanuit kracht.</li>
+        <li>Zoek een mannengroep, mentor of gelijkwaardige omgeving op als plek om ervaringen te delen die je niet alleen hoeft te dragen.</li>
+        <li>Herlees een mythe of film die je als kind aansprak en ga na welk deel van het verhaal destijds precies raakte.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Eerste druk verscheen in 1996 bij Ankh-Hermes, Deventer, met als ondertitel "het boek voor mannen over liefde, lust en leiderschap". Het boek is sindsdien meer dan vijfentwintig jaar in druk gebleven; latere drukken en een e-boek verschenen eveneens bij Ankh-Hermes, onder meer onder ISBN 9789020217902 en 9789020208603. Van Van der Kroon verscheen eerder <i>Het labyrint van de tijd</i>, over zijn reizen langs mythologische verhalen en spirituele tradities; hij geeft daarnaast al decennia mannenweekenden en -driedaagsen onder dezelfde titel als het boek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Van der Kroon, een van de pioniers van het Nederlandse mannenwerk, beschrijft aan de hand van initiatiemythen als die van Parsifal en Dionysus, en van moderne films als The Matrix, In de Ban van de Ring en The Lion King, wat er volgens hem misgaat als een jongen zonder begeleide overgang naar man opgroeit.</p><p>Centrale thema's zijn de afwezige vader, de verbinding tussen lust en liefde, en de keuze tussen macht en kracht. Het boek is een oproep aan mannen om hun plek in te nemen en te leven vanuit het hart in plaats van vanuit hoofd of onderbuik.</p><p>Het boek richt zich op mannen, maar is volgens de uitgever evengoed te lezen door vrouwen die nieuwsgierig zijn naar de binnenkant van mannelijke psychologie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mannenwerk</li><li>archetypen</li><li>mythologie</li><li>vaderschap</li><li>initiatie</li><li>mannelijkheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="407"><a href="407.html">King, Warrior, Magician, Lover</a>. Moore en Gillette werken hetzelfde soort mannelijke archetypen uit in een vaste indeling van vier, waar Van der Kroon met mythische koningsverhalen werkt.</li>
+          <li value="408"><a href="408.html">He: Understanding Masculine Psychology</a>. Johnson leest dezelfde Parsifal-mythe uitgebreider als sleutel tot mannelijke psychologie, vanuit een Jungiaanse traditie waar ook Van der Kroon in staat.</li>
+          <li value="1500"><a href="1500.html">The Way of the Superior Man</a>. Deida bepleit vanuit een vergelijkbare overtuiging dat mannen vanuit een dieper gevoelde kern moeten leven in plaats van vanuit aangeleerd gedrag.</li>
+          <li value="1874"><a href="1874.html">Het is tijd man</a>. Biegstraaten, Van Drunen en Schop schrijven een recentere Nederlandse variant van dezelfde oproep aan mannen om zich niet langer te verstoppen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

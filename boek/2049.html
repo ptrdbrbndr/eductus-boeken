@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fear of Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lowens stelling is dat wat in de psychiatrie neurose heet, in de kern angst voor het leven zelf is: angst om te voelen, om te verlangen, om gezien te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2049">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2049 &middot; Levenskunst</p>
+    <h1>Fear of Life</h1>
+    <p class="lede">Alexander Lowen, 1980</p>
+    <p class="stats">
+      <span><b>1418</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2049"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lowens stelling is dat wat in de psychiatrie neurose heet, in de kern angst voor het leven zelf is: angst om te voelen, om te verlangen, om gezien te worden en om te falen. Die angst wordt in de kindertijd aangeleerd, meestal binnen een gezin dat spontaniteit afstraft, en slaat zich neer in het lichaam als spierspanning, een ingehouden adem en een verstijfde houding. Het karakter dat daaruit ontstaat werkt als bescherming, maar de prijs is dat de volwassene afgesneden raakt van zijn eigen gevoel en dus, in Lowens woorden, niet werkelijk leeft. Genezing is voor hem daarom geen kwestie van beter denken over jezelf, maar van het lichaam weer toestaan te voelen wat het lang heeft afgeweerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De neurotische persoonlijkheid</h3>
+      <p>Lowen opent met een beschrijving van wat hij de neurotische persoonlijkheid noemt: iemand die functioneert, presteert en sociaal aangepast is, maar van binnen leeg blijft omdat zijn gevoelsleven grotendeels is afgesloten. Dat beeld zet hij af tegen de gangbare psychiatrische opvatting dat neurose vooral een verzameling symptomen is.</p>
+      <p>Voor Lowen is de neurotische persoonlijkheid eerder een levensstijl dan een ziekte: een manier om functioneel te blijven terwijl de diepere angst voor het leven onaangeroerd blijft. Hij benadrukt dat dit patroon niet beperkt is tot mensen die in therapie belanden; hij ziet het als een wijdverbreide manier van functioneren in een cultuur die prestatie en zelfbeheersing beloont boven gevoel.</p>
+      <h3>Lot, karakter en zijn</h3>
+      <p>In het middendeel werkt Lowen uit hoe karakter en lot met elkaar samenhangen. Karakter is voor hem de vaste manier waarop iemand met de wereld omgaat, gevormd in de vroege jeugd; dat karakter bepaalt vervolgens welke situaties iemand aantrekt en hoe hij erop reageert, zodat het lot minder toeval lijkt dan het karakter dat het produceert.</p>
+      <p>Tegenover karakter als aangeleerde structuur plaatst hij zijn, het rechtstreekse, ongefilterde contact met het eigen bestaan dat volgens hem bij de geboorte aanwezig is en door opvoeding wordt ingeperkt. Hoe strenger die inperking, betoogt Lowen, hoe voorspelbaarder en hoe minder vrij het latere leven van iemand verloopt, ook al ervaart die persoon zijn eigen keuzes als vrijwillig.</p>
+      <h3>De angst om te zijn</h3>
+      <p>Kernhoofdstuk van het boek: de angst om te zijn, ontstaan doordat een kind leert dat zijn spontane uitingen, huilen, boosheid, verlangen naar aanraking, niet welkom zijn. Om de band met de ouders te behouden, onderdrukt het kind die uitingen, en die onderdrukking wordt met de jaren automatisch en lichamelijk.</p>
+      <p>Lowen beschrijft hoe die onderdrukking zich uit in aanhoudende spierspanning, een oppervlakkige ademhaling en een lichaam dat zich letterlijk terugtrekt van de grond, wat hij grounding noemt: het gebrek aan stevig, gevoeld contact met de eigen benen en voeten. Hij geeft voorbeelden van houding en gang, zoals opgetrokken schouders of een stijve rug, die hij leest als bevroren spierreacties op een oorspronkelijk verlangen of een oorspronkelijke pijn.</p>
+      <h3>Een therapie voor het zijn</h3>
+      <p>Lowen beschrijft vervolgens zijn eigen bioenergetische analyse als antwoord op die angst: een combinatie van lichaamswerk, ademhalingsoefeningen en gesprekstherapie, gericht op het weer toelaten van gevoel in plaats van het analyseren ervan.</p>
+      <p>Belangrijk daarbij is zijn stelling dat inzicht alleen weinig verandert; pas wanneer het lichaam de onderdrukte emotie fysiek doormaakt, huilen, trillen, schreeuwen, ontstaat er ruimte voor verandering. Lowen benadrukt dat de therapeut daarbij niet stuurt welke emotie naar boven komt, maar vooral de lichamelijke voorwaarden schept, houding, ademhaling, beweging, waaronder een onderdrukt gevoel zich weer kan aandienen.</p>
+      <h3>Een heroïsche houding tegenover het leven</h3>
+      <p>In de latere hoofdstukken werkt Lowen zijn ideaal uit: niet de afwezigheid van angst, maar de bereidheid om ondanks angst te blijven voelen en handelen. Die houding noemt hij heroïsch, in tegenstelling tot de valse moed van wie zijn angst simpelweg wegdrukt.</p>
+      <p>Hij verbindt dit met het oedipale conflict, dat hij herleest als een blijvend spanningsveld tussen verlangen naar nabijheid en de angst voor de gevolgen daarvan, niet als een eenmalige fase uit de vroege kindertijd. Volgens Lowen keert dat spanningsveld op volwassen leeftijd terug in relaties, werk en ambitie, telkens in de vorm van dezelfde vraag: hoeveel van zichzelf iemand durft te laten zien zonder de band met de ander te verliezen.</p>
+      <h3>De wijsheid van het falen</h3>
+      <p>Het slothoofdstuk keert de gangbare waardering van succes om: falen is voor Lowen de plek waar iemand met zijn eigen beperking en angst in aanraking komt, iets wat aanhoudend succesvol functioneren juist kan verhullen.</p>
+      <p>Wie leert falen te verdragen zonder zichzelf daarvoor te straffen, komt volgens hem dichter bij het leven dat het boek als titel draagt: een leven zonder de voortdurende dwang om de angst te overwinnen door haar te ontkennen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Karakterpantser</td><td>Het patroon van vaste, lichamelijke en psychische afweer waarmee iemand zich beschermt tegen gevoelens die in de jeugd onveilig bleken; overgenomen van Lowens leermeester Wilhelm Reich.</td></tr>
+          <tr><td class="term">Grounding</td><td>De mate van gevoeld, stevig contact tussen de voeten en de grond; voor Lowen een lichamelijke maat voor hoeveel iemand werkelijk in zijn leven en gevoel staat.</td></tr>
+          <tr><td class="term">Bioenergetische analyse</td><td>De therapievorm die Lowen samen met John Pierrakos ontwikkelde, waarin lichaamswerk en ademhaling worden gecombineerd met karakteranalyse.</td></tr>
+          <tr><td class="term">De neurotische persoonlijkheid</td><td>Lowens term voor een functionerende, sociaal aangepaste volwassene wiens gevoelsleven grotendeels is afgesloten, in plaats van een persoon met duidelijke symptomen.</td></tr>
+          <tr><td class="term">Zijn (being)</td><td>Het rechtstreekse, ongefilterde contact met het eigen bestaan dat volgens Lowen bij de geboorte aanwezig is en door aangeleerd karakter wordt ingeperkt.</td></tr>
+          <tr><td class="term">Het oedipale conflict</td><td>Bij Lowen geen eenmalige jeugdfase maar een blijvend spanningsveld tussen het verlangen naar nabijheid en de angst voor de gevolgen daarvan.</td></tr>
+          <tr><td class="term">Heroïsche houding</td><td>Lowens ideaal: niet de afwezigheid van angst, maar de bereidheid om ondanks angst te blijven voelen en handelen.</td></tr>
+          <tr><td class="term">De wijsheid van het falen</td><td>Lowens omkering van de gangbare succeswaardering: falen als de plek waar iemand zijn eigen beperking en angst onder ogen kan zien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Lowens uitspraken steunen op decennia klinische praktijk als leerling van Wilhelm Reich en later als medeoprichter van het International Institute for Bioenergetic Analysis in New York, waar hij duizenden patiënten met lichaamsgerichte therapie behandelde.</p>
+      <p>Zijn observaties over de samenhang tussen ademhaling, spierspanning en emotie sluiten aan bij latere, breder onderzochte inzichten uit de somatische traumatherapie, die eveneens uitgaan van een lichamelijke opslag van onverwerkte spanning.</p>
+      <p>Het boek zelf bevat echter geen gecontroleerde studies, metingen of vervolgonderzoek naar patiënten; de onderbouwing bestaat uit klinische observatie en casusbeschrijving, de gebruikelijke bewijsvorm binnen de psychoanalytische traditie waarin Lowen werkte. Zijn voorbeelden zijn doorgaans eigen patiënten uit zijn praktijk, beschreven zonder vergelijkingsgroep en zonder navolgbare meetmethode voor wat als verbetering telt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Lowens these dat specifieke spanningspatronen corresponderen met specifieke onderdrukte emoties is in het boek zelf niet toetsbaar gemaakt: er zijn geen criteria waarmee een lezer kan nagaan wanneer de interpretatie klopt en wanneer niet, wat de these buiten het bereik van weerlegging plaatst.</p>
+      <p>De afkomst van zijn ideeën uit het werk van Wilhelm Reich is een belasting: Reichs latere theorieën over orgonenergie worden buiten de bioenergetische traditie algemeen als ongefundeerd beschouwd, en dat kleurt hoe kritisch buitenstaanders naar de bredere Reichiaanse school kijken, ook waar Lowen zich daarvan probeert te onderscheiden.</p>
+      <p>Het boek gebruikt veel eigen vaktaal (karakterpantser, grounding, zijn) die binnen Lowens werk consistent is maar buiten die kring nauwelijks aansluit bij gangbare klinisch-psychologische begrippen, waardoor toetsing aan ander onderzoek lastig blijft.</p>
+      <p>Bioenergetische analyse als geheel is nooit onderwerp geweest van de gerandomiseerde effectstudies die voor cognitieve gedragstherapie of EMDR wel bestaan; wie het boek als praktische gids leest, moet zich dat gebrek aan onafhankelijke toetsing realiseren. Lowen schrijft bovendien met een zekere stelligheid over wat lichaamshoudingen 'betekenen', terwijl diezelfde houding bij een andere patiënt evengoed een andere oorzaak kan hebben.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let op de eigen ademhaling in gespannen situaties: een ondiepe, hoge ademhaling wijst volgens Lowen op onderdrukte spanning.</li>
+        <li>Onderscheid tussen inzicht en gevoel: besef dat begrijpen waarom je iets voelt niet hetzelfde is als het toelaten van dat gevoel.</li>
+        <li>Zoek bij chronische, onverklaarde lichamelijke spanning niet alleen een fysieke maar ook een emotionele verklaring, zonder de fysieke oorzaak over te slaan.</li>
+        <li>Wees terughoudend met bioenergetische oefeningen zonder begeleiding; het boek beschrijft een therapiemethode, geen doe-het-zelfprogramma.</li>
+        <li>Vraag jezelf bij aanhoudend succesvol functioneren af of dat samengaat met werkelijk gevoeld plezier, of vooral met het vermijden van falen en afwijzing.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Fear of Life</i> (Macmillan, New York, 1980). De Nederlandse vertaling verscheen als <i>Leven zonder angst</i>, aanvankelijk bij Bert Bakker, Amsterdam; een latere druk van 306 blz. is uitgegeven door Servire/Atlas Contact, ISBN 9789063253721. De naam van de vertaler is in de geraadpleegde bronnen niet met zekerheid vast te stellen. Van Lowen zijn in het Nederlands verder onder meer <i>Bio-energetica</i> (oorspronkelijk <i>Bioenergetics</i>, 1975) en <i>De taal van het lichaam</i> (oorspronkelijk <i>The Language of the Body</i>, 1958) verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lowen, arts en jarenlang leerling van Wilhelm Reich, stelt dat neurotisch gedrag voortkomt uit een grondangst om te leven. Mensen leren als kind hun spontane gevoelens, verlangens en pijn weg te drukken en bouwen daaromheen een karakter dat hen beschermt tegen die angst, maar dat hen ook afsnijdt van zichzelf.</p><p>Die bescherming zit volgens Lowen niet alleen in het denken maar letterlijk in het lichaam: chronische spierspanning, oppervlakkige ademhaling en een verstoorde verbinding met de grond onder de voeten vormen de lichamelijke kant van wat hij het karakterpantser noemt.</p><p>Herstel begint volgens hem niet met inzicht maar met voelen. Pas wie de opgesloten pijn, het verdriet en de woede weer toelaat, krijgt de energie terug die eerder in afweer werd gestoken, en kan zo komen tot wat Lowen een heroïsche houding tegenover het leven noemt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>angst</li><li>bioenergetica</li><li>psychotherapie</li><li>lichaam</li><li>karakter</li><li>Wilhelm Reich</li><li>ademhaling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="386"><a href="386.html">The Body Keeps the Score</a>. Van der Kolk onderbouwt vanuit de moderne traumawetenschap wat Lowen decennia eerder klinisch beschreef: dat angst en trauma zich in het lichaam vastzetten en niet alleen met praten oplosbaar zijn.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Becker beschrijft de angst voor het leven als in wezen angst voor de dood; Lowen werkt diezelfde grondangst uit in lichaamstaal en spierspanning.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown onderzoekt vanuit schaamte en kwetsbaarheid dezelfde vraag die Lowen bioenergetisch stelt: wat het afweren van gevoel iemand kost.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

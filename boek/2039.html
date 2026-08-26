@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De I Tjing voor de 21ste eeuw &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Boering stelt dat de I Tjing geen instrument is om de toekomst te voorspellen, maar een raadgever die een vraag terugkaatst naar wie hem stelt: niet wat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2039">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2039 &middot; Filosofie en mystiek</p>
+    <h1>De I Tjing voor de 21ste eeuw</h1>
+    <p class="lede">Han Boering, 2001</p>
+    <p class="stats">
+      <span><b>1409</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2039"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Boering stelt dat de I Tjing geen instrument is om de toekomst te voorspellen, maar een raadgever die een vraag terugkaatst naar wie hem stelt: niet wat er gaat gebeuren, maar wat iemands eigen handelen of het uitblijven daarvan in een situatie betekent. Zijn stelling tegenover de gangbare westerse ingang tot het boek, de vertaling van Richard Wilhelm uit 1924, is dat die inmiddels te ver afstaat van het leven van een hedendaagse lezer om nog goed te werken als spiegel. Een orakel functioneert volgens hem alleen als de beelden erin aansluiten bij de wereld van wie ze raadpleegt, en daarom herschrijft hij de vierenzestig hexagrammen in een taal en met voorbeelden die bij nu passen, zonder de kern van de oorspronkelijke tekst los te laten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een orakel dat geen toekomst voorspelt</h3>
+      <p>Boering opent met een afbakening: de I Tjing is volgens hem geen waarzeggerij die vertelt wat er gaat gebeuren, maar een raadgever die een situatie beschrijft en een houding voorstelt. Wie het orakel raadpleegt, krijgt geen antwoord los van zijn eigen handelen; de tekst wijst er juist op dat gedrag, of het bewust achterwege laten daarvan, mede bepaalt hoe een situatie zich ontwikkelt.</p>
+      <p>Die positie plaatst het boek dichter bij een gespreksgenoot dan bij een voorspeller. Boering benadrukt dat de I Tjing raadplegen geen vervanging is van een eigen beslissing, maar een manier om een vraag scherper te stellen voordat je die beslissing neemt.</p>
+      <p>Hij noemt dit uitgangspunt zelf de bijsluiter van het leven: net zoals een bijsluiter geen ziekte geneest maar wijst op wat een middel wel en niet doet, wijst een hexagram volgens hem op wat er in een situatie speelt zonder de uitkomst voor de raadpleger te bepalen.</p>
+      <h3>Trigrammen en hexagrammen</h3>
+      <p>De basis van het orakel zijn de acht trigrammen, elk opgebouwd uit drie gebroken of ongebroken lijnen die yin en yang voorstellen. Twee trigrammen samen vormen een hexagram, van de vierenzestig mogelijke combinaties, elk met een eigen naam, een korte spreuk en verdiepende commentaren.</p>
+      <p>Boering wijdt een groot deel van het boek aan de opbouw van elk hexagram, van de betekenis van de losse trigrammen tot de manier waarop een veranderende lijn een hexagram in een ander hexagram kan doen overgaan, wat in de klassieke I Tjing-praktijk wijst op een situatie die zich al aan het ontwikkelen is naar iets anders.</p>
+      <h3>Tegenover Richard Wilhelm</h3>
+      <p>Boering stelt zich uitdrukkelijk op tegenover de vertaling die de Duitse sinoloog Richard Wilhelm in 1924 publiceerde en die met een voorwoord van Carl Gustav Jung decennialang de belangrijkste westerse ingang tot de I Tjing vormde. Volgens Boering paste die vertaling bij een wereld zonder telefoon, radio of beeldscherm, en spreken de beelden daaruit een hedendaagse lezer minder aan.</p>
+      <p>Zijn oplossing is niet een nieuwe vertaling van Wilhelms Duitse tekst, maar een eigen interpretatie die hij zegt te baseren op de Chinese brontekst zelf, aangevuld met commentaren die aansluiten bij situaties uit het leven van nu: werk, relaties en verandering, in plaats van bijvoorbeeld een keizerlijk hof.</p>
+      <h3>Een gelaagde opbouw</h3>
+      <p>Het boek is zo ingericht dat een lezer op meerdere niveaus kan lezen. Wie snel een antwoord zoekt bij een concrete vraag, kan bij elk hexagram de praktische laag raadplegen: wat betekent dit voor de situatie waarin je nu zit. Wie zich wil verdiepen, vindt daaronder filosofische en symbolische uitleg over hoe het hexagram is opgebouwd en waar het vandaan komt.</p>
+      <p>Die opzet maakt het boek tegelijk een naslagwerk voor losse raadplegingen en een leerboek voor wie de I Tjing als geheel wil begrijpen, met als gevolg dat het met 544 bladzijden aanmerkelijk omvangrijker is dan de klassieke vertalingen die het bekritiseert.</p>
+      <h3>Handelen als kern van het orakel</h3>
+      <p>Het boek keert voortdurend terug naar het uitgangspunt waarmee het opent: dat een hexagram geen lot beschrijft maar een uitnodiging is om na te denken over eigen handelen. Boering herhaalt bij vrijwel elk hexagram de vraag wat de raadpleger zelf kan doen, of juist beter kan laten, in plaats van te wachten op wat de uitkomst zogenaamd voorspelt.</p>
+      <p>Daarmee sluit het boek af zoals het begint: als instrument voor zelfreflectie eerder dan als voorspellingssysteem, ook al is de vorm, het werpen van munten of staafjes om een hexagram te bepalen, ontleend aan een eeuwenoude waarzeggerspraktijk.</p>
+      <h3>Waarom Boering zich hierin specialiseerde</h3>
+      <p>Boering, van huis uit grafisch kunstenaar, verdiepte zich vanaf de jaren zeventig in de I Tjing en publiceerde eerder <i>I Tjing essenties</i>, waarin hij de filosofische achtergrond en de opbouw van trigrammen en hexagrammen uitwerkte, en ontwierp daarnaast een kaartspel gebaseerd op het orakel.</p>
+      <p><i>De I Tjing voor de 21ste eeuw</i> bouwt op dat eerdere werk voort, maar is nadrukkelijker op de raadpleger zelf gericht: waar het eerdere boek vooral de achtergrond van het systeem uitlegt, biedt dit boek per hexagram commentaar dat direct op een concrete levensvraag is toegesneden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hexagram</td><td>Een figuur van zes gebroken of ongebroken lijnen, opgebouwd uit twee trigrammen, de basiseenheid waarmee de I Tjing een situatie beschrijft.</td></tr>
+          <tr><td class="term">Trigram</td><td>Een figuur van drie gebroken of ongebroken lijnen die samen met een tweede trigram een hexagram vormen.</td></tr>
+          <tr><td class="term">Yin en yang</td><td>De gebroken en ongebroken lijn, de twee tegengestelde en aanvullende krachten waaruit elk trigram en hexagram is opgebouwd.</td></tr>
+          <tr><td class="term">Veranderende lijn</td><td>Een lijn binnen een hexagram die op het punt staat om te kantelen, waardoor het geraadpleegde hexagram overgaat in een ander hexagram.</td></tr>
+          <tr><td class="term">Boek der Veranderingen</td><td>De letterlijke vertaling van I Tjing, de naam waaronder het orakel al zo'n drieduizend jaar bekendstaat.</td></tr>
+          <tr><td class="term">Raadgever, geen waarzegger</td><td>Boerings eigen omschrijving van hoe de I Tjing volgens hem functioneert: als spiegel voor eigen handelen, niet als voorspelling van een vaststaande toekomst.</td></tr>
+          <tr><td class="term">Gelaagde opbouw</td><td>De indeling van het boek waarbij elk hexagram eerst praktisch en daarna filosofisch wordt toegelicht, zodat het zowel als naslagwerk als als leerboek te gebruiken is.</td></tr>
+          <tr><td class="term">De bijsluiter van het leven</td><td>Boerings eigen beeld voor de functie van het boek: het wijst op wat er in een situatie speelt, zonder de uitkomst voor de raadpleger te bepalen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basistekst van de I Tjing en de bijbehorende hexagrammen zijn onderdeel van een documenteerbare Chinese traditie van rond de eerste helft van het eerste millennium voor Christus, met latere commentaartradities die er eeuwenlang aan zijn toegevoegd; dat de tekst oud en gelaagd is, staat buiten kijf.</p>
+      <p>Dat Boerings interpretatie rechtstreeks uit het Chinees zou zijn gedestilleerd, is een claim van de auteur zelf; het boek bevat geen wetenschappelijke verantwoording van vertaalkeuzes of bronnen waarmee een lezer dat kan narekenen, in tegenstelling tot academische edities van sinologen.</p>
+      <p>Boering bouwde zijn interpretatie op eerder werk, waaronder een verdiepend handboek over de I Tjing en een eigen kaartspel gebaseerd op de hexagrammen, wat wijst op een langdurige, zij het niet-academische, bezigheid met het onderwerp.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale claim van het boek, dat het dichter bij de Chinese brontekst staat dan de vertaling van Wilhelm, is niet onafhankelijk te toetsen zonder Boerings eigen bronnen te kunnen inzien; het boek presenteert zich als herinterpretatie zonder de wetenschappelijke transparantie die zo'n claim normaal vereist.</p>
+      <p>Als orakel deelt het boek een bezwaar met elk ander I Tjing-werk: de uitkomst van een raadpleging hangt af van hoe een vraag wordt geformuleerd en hoe een antwoord wordt gelezen, waardoor het systeem in de praktijk moeilijk te onderscheiden is van projectie op een willekeurige tekst.</p>
+      <p>Het boek is met 544 bladzijden aanzienlijk omvangrijker dan de klassieke vertalingen; dat maakt het bruikbaar als naslagwerk, maar minder geschikt als eerste kennismaking voor wie snel wil begrijpen hoe de I Tjing in de kern werkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer een vraag aan de I Tjing zo concreet mogelijk voordat je een hexagram bepaalt, in plaats van een vaag verlangen naar duidelijkheid.</li>
+        <li>Lees eerst de praktische laag van een hexagram voordat je naar de filosofische toelichting gaat, om te voorkomen dat symboliek de eigenlijke vraag overschaduwt.</li>
+        <li>Neem een veranderende lijn serieus als teken dat een situatie al in beweging is, niet als een extra losstaand antwoord.</li>
+        <li>Gebruik de uitkomst als aanleiding om je eigen handelen te onderzoeken, niet als vaststaand oordeel over wat er gaat gebeuren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk Nederlandstalig werk van Han Boering (1943-2015), verschenen bij Kosmos Uitgevers, Utrecht, 2001, met een herziene vierde druk in 2011 (544 blz., hardback, ISBN 9789021550077). Boering presenteert het boek als een eigen interpretatie vanuit de Chinese brontekst, niet als vertaling van de invloedrijke Duitse editie van Richard Wilhelm uit 1924. Van Boering verscheen eerder <i>I Tjing essenties</i>, een verdiepend handboek over de trigrammen en hexagrammen; een Engelse of andere vertaling van dit boek is niet bekend.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De I Tjing, het Boek der Veranderingen, is een Chinees orakelboek waarvan de kern zo'n drieduizend jaar oud is: vierenzestig hexagrammen, elk opgebouwd uit twee van de acht trigrammen, met bijbehorende teksten die een vraag over een levenssituatie beantwoorden. Boering presenteert in dit boek zijn eigen, uitgebreide interpretatie van die hexagrammen, bedoeld als naslagwerk voor wie het orakel raadpleegt.</p><p>Boering plaatst zich uitdrukkelijk tegenover de vertaling van de Duitse sinoloog Richard Wilhelm uit 1924, die decennialang de gangbare westerse ingang tot de I Tjing was. Volgens Boering is die vertaling gedateerd geraakt, geschreven voor een cultuur zonder telefoon of beeldscherm, en heeft een hedendaagse lezer andere beelden nodig om de hexagrammen te kunnen toepassen op het eigen leven.</p><p>Het boek is gelaagd opgebouwd: wie snel een antwoord zoekt op een concrete vraag kan bij de praktische laag van elk hexagram terecht, wie zich verder wil verdiepen vindt daaronder filosofische en symbolische toelichting. Boering noemt de I Tjing zelf geen waarzeggerij maar een raadgever, die niet voorspelt wat er gebeurt maar wijst op wat iemands eigen handelen, of juist het uitblijven daarvan, in een situatie kan betekenen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>i tjing</li><li>orakel</li><li>boek der veranderingen</li><li>hexagrammen</li><li>chinese filosofie</li><li>zelfreflectie</li><li>naslagwerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="394"><a href="394.html">Tao Te Ching</a>. De Tao Te Ching komt uit dezelfde Chinese traditie van yin en yang; Boering past die manier van denken toe op een raadplegingssysteem in plaats van op een doorlopende tekst.</li>
+          <li value="1105"><a href="1105.html">Zhuang Zi</a>. Zhuang Zi werkt de tegenstelling en aanvulling van yin en yang uit in verhalen en gedachte-experimenten, waar de I Tjing dezelfde logica in een orakelvorm giet.</li>
+          <li value="2015"><a href="2015.html">Stillness Speaks</a>. Tolle's boek staat net als dit werk in de Nederlandse spirituele boekhandel; waar Tolle een doorlopend betoog voert, biedt Boering een naslagwerk om steeds opnieuw te raadplegen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

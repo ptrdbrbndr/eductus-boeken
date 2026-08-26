@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worden wij wakker? &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Messings stelling is dat de wereldgeschiedenis van de laatste decennia, en met name de periode sinds 11 september 2001, beter te begrijpen is als een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2023">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2023 &middot; Filosofie en mystiek</p>
+    <h1>Worden wij wakker?</h1>
+    <p class="lede">Marcel Messing, 2006</p>
+    <p class="stats">
+      <span><b>1430</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2023"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Messings stelling is dat de wereldgeschiedenis van de laatste decennia, en met name de periode sinds 11 september 2001, beter te begrijpen is als een reeks bewust georganiseerde stappen richting één wereldwijd controlesysteem dan als een opeenvolging van losse gebeurtenissen. Techniek die als veiligheidsmaatregel wordt gepresenteerd, camera's, biometrie, DNA-registratie, een toekomstige chip, is volgens hem in werkelijkheid infrastructuur voor die controle, en de aanslagen van 9/11 vormen in zijn lezing het scharniermoment waarop grootschalige acceptatie van die infrastructuur mogelijk werd gemaakt. Daartegenover plaatst hij een tweede, spirituele stelling: dat bewustwording bij het individu de enige werkzame tegenkracht is, omdat een wakker mens zich naar zijn overtuiging niet laat sturen door angst.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een overgangstijd</h3>
+      <p>Messing opent met de vraag of de mensheid aan het begin van een overgangstijd staat of aan het einde van een tijdperk, en plaatst recente ontwikkelingen, van technologische versnelling tot geopolitieke spanning, in dat kader. Hij benoemt vanaf de eerste bladzijden zijn uitgangspunt dat er een klein aantal machtscentra bestaat wier belangen niet parallel lopen aan die van de bredere bevolking.</p>
+      <p>Voor de herdruk van 2021 schreef hij een nieuw voorwoord waarin hij terugblikt op de eerste druk uit 2006 en betoogt dat een deel van wat hij toen als mogelijkheid beschreef, inmiddels volgens hem werkelijkheid is geworden, met name rond gezondheidsmaatregelen en digitale identificatie.</p>
+      <h3>11 september 2001</h3>
+      <p>Het langste deel van het boek ontleedt de aanslagen op het World Trade Center en het Pentagon. Messing bespreekt onder meer de instortingswijze van de gebouwen, de rol van luchtverdediging die volgens de officiële tijdlijn te laat reageerde, en de vraag wie garen spon bij de daaropvolgende oorlogen in Afghanistan en Irak, en concludeert dat de officiële toedracht onvoldoende verklaart wat er die dag gebeurde.</p>
+      <p>Hij bespreekt in dit deel ook de economische en juridische gevolgen die kort na de aanslagen werden doorgevoerd, zoals uitbreiding van opsporingsbevoegdheden en nieuwe veiligheidswetgeving, en leest de snelheid waarmee die maatregelen werden aangenomen als aanwijzing dat zij al gereed lagen voordat de aanslagen plaatsvonden.</p>
+      <h3>Bewakingstechnologie en controlemiddelen</h3>
+      <p>Vanuit de aanslagen bouwt Messing een overzicht op van wat volgens hem de daaropvolgende uitbreiding van controlemiddelen is: cameratoezicht, satellietobservatie, biometrische paspoorten, DNA-databanken en drones. Hij bespreekt deze technieken telkens in samenhang, als opeenvolgende stappen in dezelfde richting eerder dan als losstaande beleidskeuzes.</p>
+      <p>Hij besteedt in dit deel ook aandacht aan de rol van particuliere technologiebedrijven bij het verzamelen en koppelen van deze gegevens, en stelt dat de scheidslijn tussen commerciële dataverzameling en overheidscontrole in zijn ogen steeds verder vervaagt.</p>
+      <h3>De chip en het internet der dingen</h3>
+      <p>Een apart deel gaat over het vooruitzicht van een onderhuidse chip die volgens Messing op termijn gekoppeld zou kunnen worden aan het internet der dingen, met als uiterste consequentie een vorm van bewustzijnscontrole. Hij bespreekt bestaande toepassingen van implanteerbare chips in dieren en, in beperkte experimentele vorm, mensen, als aanwijzing voor de richting waarin de techniek zich volgens hem ontwikkelt.</p>
+      <p>Messing plaatst dit onderwerp nadrukkelijk in de toekomende tijd: hij stelt niet dat een verplichte chip al bestaat, maar dat de combinatie van bestaande technologieën, biometrie, 5G-netwerken en het internet der dingen, de technische voorwaarden ervoor volgens hem al schept.</p>
+      <h3>Verborgen machtsstructuren</h3>
+      <p>Messing bespreekt organisaties en overlegvormen die hij als knooppunten van deze macht ziet, en plaatst die naast financiële instellingen en mediaconcentratie. Hij benadrukt daarbij dat hij geen enkele, centraal aangestuurde samenzwering veronderstelt, maar een overlappend netwerk van belangen die in dezelfde richting werken.</p>
+      <p>In dit deel gaat hij ook in op de rol van internationale overlegorganen bij het harmoniseren van beleid tussen landen, en betoogt hij dat dergelijke harmonisatie weliswaar democratisch tot stand komt, maar in de praktijk weinig ruimte laat voor afwijkend nationaal beleid.</p>
+      <h3>Bewustwording als tegenkracht</h3>
+      <p>In het laatste deel verschuift de toon van analyse naar aansporing. Messing bepleit persoonlijke bewustwording, informatie zoeken buiten de gangbare media, en het cultiveren van innerlijke rust, als manier om weerbaar te blijven tegen wat hij als toenemende externe sturing beschrijft. Het boek sluit af met een meditatieve tekst.</p>
+      <p>Hij besteedt in dit slotdeel ook aandacht aan wat hij als praktische stappen ziet: het spreiden van informatiebronnen, het onderhouden van lokale gemeenschap en het bewaren van innerlijke rust als voorwaarde om, in zijn eigen woorden, niet vanuit angst maar vanuit helderheid te handelen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nieuwe wereldorde</td><td>De term waarmee Messing het veronderstelde einddoel aanduidt van gecentraliseerde, wereldwijde controle door een klein aantal machtscentra.</td></tr>
+          <tr><td class="term">Rampenkapitalisme-achtige scharniermomenten</td><td>Messings eigen benadrukking van 9/11 als moment waarop grootschalige acceptatie van controlemaatregelen volgens hem mogelijk werd gemaakt.</td></tr>
+          <tr><td class="term">Internet der dingen</td><td>Het netwerk van onderling verbonden apparaten en sensoren dat Messing ziet als de technische infrastructuur waarop een toekomstige chipimplantatie zou kunnen aansluiten.</td></tr>
+          <tr><td class="term">Biometrie</td><td>Identificatie op basis van lichaamskenmerken zoals vingerafdruk of irisscan, door Messing besproken als onderdeel van de uitbreidende controle-infrastructuur.</td></tr>
+          <tr><td class="term">Bewustwording</td><td>Messings term voor het individuele proces van kritisch nadenken en innerlijke ontwikkeling dat hij als tegenwicht tegen externe sturing voorstelt.</td></tr>
+          <tr><td class="term">Machtscentra</td><td>Messings verzamelnaam voor de combinatie van financiële instellingen, overlegorganen en mediaconcentratie die volgens hem gezamenlijk richting geven aan het beschreven proces.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Messing citeert volgens recensenten uitgebreid uit bronnen en voorziet het boek van een notenapparaat en trefwoordenregister, wat de indruk van gedegen documentatie geeft. Voor de feitelijke basisgegevens, het bestaan van massasurveillance, de opmars van biometrische identificatie, experimenten met implanteerbare chips bij dieren, is die documentatie navolgbaar en komt overeen met wat onafhankelijk bekend is over de uitbreiding van veiligheidstechnologie na 2001.</p>
+      <p>Voor het centrale betoog, dat deze afzonderlijke ontwikkelingen het resultaat zijn van doelbewuste sturing door een beperkte groep richting één wereldorde, en voor de these dat de officiële lezing van 9/11 onjuist is, bestaat geen vergelijkbaar controleerbaar bewijs. Onderzoekscommissies, forensisch onderzoek naar de ingestorte gebouwen en luchtvaartexperts hebben de door Messing aangehaalde ongerijmdheden in de officiële toedracht weerlegd of van een technische verklaring voorzien, zonder dat dit in latere drukken van het boek tot herziening van de hoofdstelling heeft geleid.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek behandelt uiteenlopende fenomenen, technologische surveillance, geopolitiek, financiële macht en de aanslagen van 9/11, als uitingen van hetzelfde plan, terwijl elk van die terreinen eigen, onafhankelijk documenteerbare verklaringen kent die niet noodzakelijk naar één sturende hand wijzen. Die neiging om losse ontwikkelingen tot bewijs van een onderliggend plan te maken is het kernbezwaar tegen het boek.</p>
+      <p>Voor de 9/11-hoofdstukken specifiek geldt dat de door Messing aangehaalde technische ongerijmdheden in onafhankelijk, door vakspecialisten uitgevoerd onderzoek zijn weerlegd; het boek gaat daar niet inhoudelijk op in.</p>
+      <p>Het boek is in de eerste plaats geschreven vanuit overtuiging, niet vanuit een poging de eigen these te weerleggen: tegenargumenten worden zelden in hun sterkste vorm besproken, en waar bronnen elkaar tegenspreken kiest Messing steevast de lezing die zijn these ondersteunt.</p>
+      <p>Een recensent wees er bovendien op dat het boek volgens hem overdrijft en op punten met weinig onderbouwde stellingen komt die dicht bij doemdenken liggen; die kritiek komt niet van tegenstanders van Messings algemene project, maar van een lezer die het boek verder waardeerde.</p>
+      <p>Doordat de herdruk van 2021 gebeurtenissen uit de jaren daarna als bevestiging van de oorspronkelijke these presenteert, ontstaat het risico dat elke nieuwe ontwikkeling op voorhand als bewijs wordt gelezen in plaats van als iets dat de these ook zou kunnen tegenspreken; een these die vooraf al vaststaat, is op die manier bijna niet meer te weerleggen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg de technische claims over 9/11 in dit boek naast onafhankelijk, door vakspecialisten uitgevoerd onderzoek voordat je er een oordeel over vormt.</li>
+        <li>Onderscheid bij het lezen tussen wat aantoonbaar is (de uitbreiding van bewakingstechnologie) en wat een interpretatie is (dat die uitbreiding een doelbewust plan volgt).</li>
+        <li>Gebruik het pleidooi voor bewustwording als aanleiding om je eigen informatiebronnen te spreiden, niet als reden om één alternatieve bron voor waar aan te nemen.</li>
+        <li>Beoordeel elke afzonderlijke claim in het boek op de bronnen die Messing er zelf bij noemt, in plaats van claims te laten meeliften op de geloofwaardigheid van andere, beter onderbouwde delen van het boek.</li>
+        <li>Vraag bij elke stap in het door Messing beschreven proces, van cameratoezicht tot een toekomstige chip, wat de kleinste, meest concrete aanwijzing is waarop die stap steunt, en houd dat gescheiden van het bredere verhaal waarin hij die stap plaatst. Toets vooral de stappen die nog in de toekomst liggen op wat er werkelijk al bestaat, en wat nog vooral vooruitzicht is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Worden wij wakker? Over de verborgen krachten achter het wereldtoneel</i> (Ankh-Hermes, Deventer, eerste druk 2006; herziene en aangevulde herdruk 2021, ISBN 9789493071780/9789493071797). Van Messing, antropoloog en filosoof, verschenen circa vijfentwintig andere titels, waaronder werk over de katharen en over oosterse en westerse wijsheidstradities; een Engelse vertaling van dit boek is niet gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Messing, opgeleid als antropoloog en filosoof en jarenlang onderzoeker aan de Bibliotheca Philosophica Hermetica, betoogt dat er achter de zichtbare politiek een klein aantal machtige groepen opereert dat toewerkt naar wereldwijde, gecentraliseerde controle. Hij noemt dat streven een nieuwe wereldorde en onderbouwt zijn these met een reeks gebeurtenissen en trends die hij als aanwijzingen leest.</p><p>Een groot deel van het boek gaat over de aanslagen van 11 september 2001: Messing zet de officiële toedracht naast wat hij inconsistenties noemt, en concludeert dat de gangbare verklaring niet compleet is. Vandaaruit bespreekt hij de uitbreiding van bewakingstechnologie na 2001, van camera's en satellieten tot biometrie, DNA-databanken en het vooruitzicht van een onderhuidse chip gekoppeld aan het internet der dingen.</p><p>Het boek combineert die maatschappijkritische lezing met een spirituele, waarin bewustwording en innerlijke vrijheid als tegenwicht tegen de beschreven controle worden aangedragen. Messing sluit af met een oproep tot alertheid en met een meditatieve tekst gericht op persoonlijke rust temidden van wat hij als een beslissende overgangstijd beschrijft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>complotdenken</li><li>controlemaatschappij</li><li>9/11</li><li>surveillance</li><li>new world order</li><li>bewustwording</li><li>privacy</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2022"><a href="2022.html">The Shock Doctrine</a>. Naomi Kleins The Shock Doctrine beschrijft een vergelijkbaar patroon van machtsuitoefening na crises, maar dan gedocumenteerd met naspeurbare economische bronnen in plaats van een complotkader.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Carl Sagans The Demon-Haunted World biedt het kritische instrumentarium waarmee claims als die van Messing te beoordelen zijn.</li>
+          <li value="2015"><a href="2015.html">Stillness Speaks</a>. Eckhart Tolles De stilte spreekt werkt de spirituele kant van Messings tegenkracht, bewustwording als antwoord op angst, verder uit los van het complotkader.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

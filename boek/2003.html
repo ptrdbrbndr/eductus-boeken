@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Million Little Pieces &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Frey presenteert zijn boek als een ongefilterd verslag van drie maanden in een afkickkliniek, waarin hij weigert zichzelf machteloos tegenover verslaving…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2003">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2003 &middot; Roman en memoir</p>
+    <h1>A Million Little Pieces</h1>
+    <p class="lede">James Frey, 2003</p>
+    <p class="stats">
+      <span><b>1151</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2003"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Frey presenteert zijn boek als een ongefilterd verslag van drie maanden in een afkickkliniek, waarin hij weigert zichzelf machteloos tegenover verslaving te noemen en in plaats daarvan met pure wilskracht clean wordt. Die stelling staat lijnrecht tegenover de kern van het twaalfstappenprogramma dat in dezelfde kliniek wordt onderwezen, waarin overgave aan een hogere macht de eerste stap is. Frey voert zijn stelling op in een stijl zonder aanhalingstekens en met weinig komma's tussen hoofdzinnen, wat de tekst het karakter geeft van een opgejaagde, ononderbroken monoloog. Het probleem met deze stelling bleek na publicatie dat een aanzienlijk deel van de gebeurtenissen waarop zij steunt niet had plaatsgevonden zoals beschreven: Frey had feiten verzonnen en aangedikt in een boek dat als feitelijke memoir werd verkocht.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Aankomst</h3>
+      <p>De verteller wordt wakker in een vliegtuig op weg naar Chicago, onder het bloed, met gebroken tanden en een gebroken neus, zonder herinnering aan wat er de afgelopen dagen is gebeurd. Zijn broer haalt hem op en brengt hem rechtstreeks naar een afkickkliniek in Minnesota, in het boek niet bij naam genoemd.</p>
+      <p>Bij binnenkomst wordt hij gediagnosticeerd als verslaafd aan alcohol sinds zijn tiende en aan crack en andere drugs sinds zijn tienerjaren. De kliniek werkt volgens het twaalfstappenmodel van de Anonieme Alcoholisten.</p>
+      <h3>De tandartsstoel</h3>
+      <p>Vanwege zijn medische voorgeschiedenis krijgt hij geen verdoving voor een dubbele wortelkanaalbehandeling en ondergaat hij de ingreep met alleen twee tennisballen om op te bijten. De scène wordt uitvoerig beschreven en functioneert in het boek als eerste bewijs van de wilskracht die hij zichzelf toeschrijft.</p>
+      <p>Deze episode zet meteen de toon voor het boek: pijn wordt niet vermeden of verdoofd maar doorstaan, als bewijs dat hij zichzelf kan beheersen zonder hulp van buitenaf.</p>
+      <h3>Het conflict met de twaalf stappen</h3>
+      <p>In de kliniek weigert de verteller herhaaldelijk het idee van een hogere macht te aanvaarden dat centraal staat in het twaalfstappenprogramma. In plaats daarvan ontwikkelt hij zijn eigen methode, die hij Fury noemt: een zelf opgewekte woede die hem in staat moet stellen nooit meer te drinken of te gebruiken.</p>
+      <p>Die weigering brengt hem herhaaldelijk in conflict met de kliniekstaf en andere patiënten, die zijn aanpak als arrogant en gevaarlijk beschouwen. Het boek presenteert dat conflict als het morele middelpunt van het verhaal.</p>
+      <h3>Leonard en Lilly</h3>
+      <p>In de kliniek sluit de verteller vriendschap met Leonard, een oudere man met banden met de georganiseerde misdaad, die als vaderfiguur en beschermer optreedt. Tegelijk ontstaat een verboden relatie met Lilly, een medepatiënte met een verleden als crackverslaafde en stripper.</p>
+      <p>Beide relaties overtreden de regels van de kliniek, die contact tussen patiënten buiten de groepssessies om verbiedt. Het boek stelt deze bindingen voor als wat de verteller uiteindelijk overeind houdt, meer dan het officiële programma.</p>
+      <h3>Vertrek en epiloog</h3>
+      <p>De verteller verlaat de kliniek naar eigen zeggen clean en blijft dat volgens het boek ook. Een korte epiloog vertelt wat er van de andere patiënten is geworden, onder wie Lilly, van wie wordt gemeld dat ze later aan haar verslaving is overleden.</p>
+      <p>Het boek eindigt zonder de twijfel die de rest van het verhaal beheerst: de verteller presenteert zijn eigen uitkomst als bevestiging dat zijn weigering van het twaalfstappenmodel gewerkt heeft.</p>
+      <h3>De ontmaskering</h3>
+      <p>In januari 2006 publiceerde de onderzoekssite The Smoking Gun het rapport A Million Little Lies, waarin met politie- en rechtbankdocumenten werd aangetoond dat delen van het verhaal verzonnen of sterk overdreven waren, waaronder de duur van een gevangenisstraf die Frey zichzelf toeschreef.</p>
+      <p>Oprah Winfrey, die het boek in september 2005 tot boekenclubkeuze had gemaakt en Frey aanvankelijk had verdedigd, confronteerde hem in januari 2006 live in haar show met de bevindingen. Uitgeverij Random House voegde later een verklaring aan nieuwe drukken toe waarin werd erkend dat scènes waren aangedikt, en trof een schikking waarbij lezers die zich bedrogen voelden hun geld konden terugvragen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Fury</td><td>Freys eigen term voor de zelf opgewekte woede die hij als vervanging gebruikt voor de overgave aan een hogere macht uit het twaalfstappenprogramma.</td></tr>
+          <tr><td class="term">Twaalfstappenprogramma</td><td>Het op Anonieme Alcoholisten gebaseerde herstelmodel dat in de kliniek wordt onderwezen en dat de verteller in het boek afwijst.</td></tr>
+          <tr><td class="term">Hogere macht</td><td>Het concept uit het twaalfstappenprogramma waarbij een verslaafde erkent zelf niet in staat te zijn de verslaving te overwinnen; de kern van wat de verteller weigert.</td></tr>
+          <tr><td class="term">Wortelkanaalbehandeling zonder verdoving</td><td>De vroege scène in het boek die model staat voor de wilskracht die de verteller zichzelf toeschrijft.</td></tr>
+          <tr><td class="term">A Million Little Lies</td><td>Titel van het onderzoeksrapport dat The Smoking Gun in januari 2006 publiceerde en dat de fabricaties in het boek blootlegde.</td></tr>
+          <tr><td class="term">Publisher's note</td><td>De verklaring die Random House aan latere drukken toevoegde, waarin wordt erkend dat delen van het boek zijn aangedikt of verzonnen.</td></tr>
+          <tr><td class="term">Memoir versus roman</td><td>De genredispuut die na de onthullingen ontstond: het boek werd als feitelijke memoir verkocht terwijl delen ervan fictief bleken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het onderzoek van The Smoking Gun in januari 2006 baseerde zich op politierapporten en rechtbankdossiers en toonde aan dat gebeurtenissen die Frey als feitelijk presenteerde, waaronder de duur van een gevangenisstraf en de ernst van een verkeersongeval, niet overeenkwamen met de officiële documentatie.</p>
+      <p>Oprah Winfrey koos het boek in september 2005 als boekenclubtitel en verdedigde Frey aanvankelijk publiekelijk tegen de eerste twijfels; in januari 2006 confronteerde ze hem live op televisie met de bevindingen van The Smoking Gun, een omslag die zelf uitgebreid gedocumenteerd is in de Amerikaanse pers van die tijd.</p>
+      <p>Random House voegde na de onthullingen een verklaring toe aan nieuwe drukken en trof een schikking in een class-action rechtszaak waarbij lezers die het boek als feitelijke memoir hadden gekocht hun aankoopbedrag konden terugvragen; dit is een juridisch vastgelegd feit, geen interpretatie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De belangrijkste kritiek raakt de kern van het boek zelf: het werd verkocht en gelezen als feitelijke memoir, terwijl aantoonbaar delen ervan verzonnen of sterk aangedikt waren. Dat is geen kwestie van literaire vrijheid maar van misleiding van lezers die emotioneel reageerden op lijden dat in de beschreven vorm niet had plaatsgevonden.</p>
+      <p>Los van de feitelijke kwestie is de stijl zelf, geen aanhalingstekens, herhaalde hoofdletters voor nadruk, korte hameremde zinnen, door critici zowel geprezen als vermoeiend genoemd over de volledige lengte van het boek.</p>
+      <p>De boodschap dat verslaving met pure wilskracht te overwinnen is, staat haaks op de klinische consensus over verslavingsbehandeling, waarin gestructureerde programma's en erkenning van controleverlies doorgaans effectiever blijken dan een beroep op wilskracht alleen; verslavingsonderzoekers wezen daar destijds op als een gevaarlijke boodschap voor lezers die zelf worstelen met verslaving.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>A Million Little Pieces</i> (Nan A. Talese/Doubleday, New York, 2003, 432 blz., ISBN 9780385507757), gepresenteerd als memoir over Freys eigen verslaving en verblijf in een afkickkliniek. De Nederlandse vertaling van Sjaak de Jong verscheen als <i>In duizend stukjes</i> bij Prometheus, Amsterdam, 2003 (383 blz., ISBN 9789035125858). Frey schreef een vervolg, <i>My Friend Leonard</i> (2005), over zijn leven na de kliniek.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een drieëntwintigjarige man wordt wakker in een vliegtuig, onder het bloed, zonder tanden, zonder herinnering aan de laatste dagen. Zijn ouders brengen hem naar een afkickkliniek in Minnesota, waar hij als verslaafd aan alcohol en crack wordt gediagnosticeerd.</p><p>In de kliniek weigert hij het twaalfstappenprogramma en de daarin centrale erkenning van eigen machteloosheid; hij wil alleen op eigen wilskracht clean worden. Hij ondergaat onder meer een wortelkanaalbehandeling zonder verdoving en bouwt vriendschappen op met de aan de georganiseerde misdaad gelieerde Leonard en de verslaafde Lilly.</p><p>Bij verschijnen in 2003 werd het boek een bestseller en Oprahs boekenclubkeuze. In januari 2006 bracht onderzoeksjournalistiek van The Smoking Gun aan het licht dat grote delen van het verhaal verzonnen of sterk aangedikt waren, wat leidde tot een publieke confrontatie met Oprah Winfrey en een schikking met lezers.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>verslaving</li><li>afkicken</li><li>controverse</li><li>Oprah Winfrey</li><li>twaalf stappen</li><li>waarheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke beschrijft de neurologie van verslaving vanuit onderzoek; dat kader zet vraagtekens bij Freys claim dat wilskracht alleen voldoende is om van verslaving af te komen.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl schrijft eveneens een op eigen ervaring gebaseerd verslag van extreem lijden en de wil om te overleven; het contrast met Freys aangedikte verslag laat zien wat er op het spel staat wanneer zo'n verslag feitelijk onjuist blijkt.</li>
+          <li value="45"><a href="45.html">Educated</a>. Westovers Educated werd, net als Freys boek, na publicatie door familieleden op onderdelen betwist; beide gevallen laten zien hoe kwetsbaar de status van memoir als feitelijk genre is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

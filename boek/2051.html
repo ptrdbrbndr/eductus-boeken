@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life on the Edge &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De stelling van het boek is dat leven op sommige plaatsen gebruikmaakt van specifiek kwantummechanische verschijnselen, zoals superpositie, tunneling en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2051">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2051 &middot; Natuur en wetenschap</p>
+    <h1>Life on the Edge</h1>
+    <p class="lede">Jim Al-Khalili en Johnjoe McFadden, 2014</p>
+    <p class="stats">
+      <span><b>1404</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2051"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De stelling van het boek is dat leven op sommige plaatsen gebruikmaakt van specifiek kwantummechanische verschijnselen, zoals superpositie, tunneling en verstrengeling, in plaats van uitsluitend klassieke natuurkunde, en dat evolutie deze verschijnselen in de loop van miljoenen jaren heeft leren benutten voor efficiëntie die met klassieke chemie alleen niet te bereiken is. Dat is een aanvulling op, geen vervanging van, de gangbare biochemie: de auteurs beweren niet dat cellen kleine kwantumcomputers zijn, maar dat bepaalde knelpunten, energieoverdracht bij fotosynthese, reactiesnelheid in enzymen, gevoeligheid voor magnetische velden, beter verklaard worden zodra kwantumeffecten worden meegerekend. Het boek voert dat aan als een jong maar groeiend onderzoeksveld, met sterker bewijs voor de vroege hoofdstukken dan voor het laatste, over bewustzijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat leven anders maakt</h3>
+      <p>De auteurs openen met Erwin Schrödingers essay What Is Life? uit 1944, waarin de natuurkundige zich al afvroeg of de wetten van de kwantummechanica iets kunnen zeggen over erfelijkheid en leven. Vanuit dat historische startpunt leggen ze uit wat kwantumbiologie inhoudt: niet de triviale constatering dat atomen aan kwantumregels gehoorzamen, maar de vraag of specifiek kwantumgedrag, zoals superpositie en verstrengeling, op de schaal van een cel of molecuul een functionele rol speelt.</p>
+      <p>Ze benadrukken meteen de grote horde voor dat idee: levende cellen zijn warm, nat en druk, precies de omstandigheden waarin kwantumeffecten volgens de klassieke natuurkunde vrijwel onmiddellijk uiteenvallen, een proces dat decoherentie heet. Juist omdat natuurkundigen en bioloog lange tijd langs elkaar heen werkten, betogen de auteurs, is deze mogelijke overlap decennialang grotendeels onopgemerkt gebleven.</p>
+      <h3>Fotosynthese en kwantumcoherentie</h3>
+      <p>Bij fotosynthese wordt lichtenergie in bacteriën en planten met opvallend weinig verlies naar een reactiecentrum geleid. De auteurs bespreken experimenten aan het FMO-eiwitcomplex van zwavelbacteriën, waarin metingen suggereerden dat energie zich niet als een klassiek deeltje via één route verplaatst, maar tegelijk meerdere routes lijkt te 'proberen' via kwantumcoherentie, om zo de snelste weg te vinden.</p>
+      <p>Ze wijzen erop dat dit onderzoek destijds als sensationeel gold, maar ook dat latere metingen de oorspronkelijke interpretatie hebben genuanceerd: een deel van de waargenomen signalen bleek mogelijk eerder molecuultrillingen dan langdurige elektronische coherentie te weerspiegelen.</p>
+      <h3>Enzymen en kwantumtunneling</h3>
+      <p>In het hoofdstuk over enzymen leggen Al-Khalili en McFadden uit hoe deze eiwitten chemische reacties soms miljoenen keren sneller laten verlopen dan zonder katalysator mogelijk zou zijn. Een deel van die snelheid komt volgens onderzoek naar kinetische isotoopeffecten doordat protonen niet over een energiebarrière heen hoeven, maar er via kwantumtunneling doorheen kunnen 'verdwijnen en verschijnen'.</p>
+      <p>De auteurs presenteren dit als een van de best onderbouwde onderdelen van kwantumbiologie, met meetbare, herhaalde experimentele steun uit meerdere laboratoria. Ze leggen uit dat dit soort tunneling ook meespeelt bij fotosynthese en ademhaling, twee processen waarbij protonen en elektronen op vergelijkbare wijze barrières lijken te omzeilen.</p>
+      <h3>Het kompas van de roodborst</h3>
+      <p>Het hoofdstuk over vogeltrek beschrijft hoe Europese roodborstjes zich lijken te oriënteren op het magnetisch veld van de aarde via een eiwit met de naam cryptochroom in hun oog. Licht zou daarin een paar elektronen in een kwantumtoestand brengen die gevoelig is voor de hoek van het magneetveld, het zogeheten radicaalparenmechanisme.</p>
+      <p>De auteurs bespreken gedragsexperimenten van onder meer het echtpaar Wiltschko, waarin het oriëntatievermogen van de vogels verstoord raakte door zwakke radiofrequente velden, iets wat volgens hen moeilijk anders dan met een kwantummechanisme te verklaren is. Ze wijzen erop dat dit een van de weinige plekken in de biologie is waar een kwantumeffect zich rechtstreeks in het gedrag van een heel dier laat aflezen, in plaats van alleen in een reageerbuis of een computersimulatie.</p>
+      <h3>Reuk, mutaties en de oorsprong van het leven</h3>
+      <p>Verder bespreken de auteurs de omstreden kwantum-trillingstheorie van geur, waarin reukreceptoren niet alleen op de vorm maar ook op moleculaire trillingen zouden reageren, en de mogelijkheid dat protontunneling in DNA-basenparen bijdraagt aan het ontstaan van mutaties.</p>
+      <p>Ze koppelen dit aan speculatie over het ontstaan van leven zelf: of kwantumeffecten bepaalde chemische stappen in de vroege aarde waarschijnlijker maakten dan klassieke chemie alleen zou voorspellen. Beide onderwerpen presenteren de auteurs nadrukkelijk als minder stevig onderbouwd dan de hoofdstukken over enzymen en fotosynthese, met de reuktheorie als het meest omstreden voorbeeld binnen het boek zelf.</p>
+      <h3>Kwantumbewustzijn: het onzekerste hoofdstuk</h3>
+      <p>Het laatste hoofdstuk bespreekt de hypothese van Roger Penrose en Stuart Hameroff dat bewustzijn voortkomt uit kwantumprocessen in microtubuli, kleine eiwitstructuren in hersencellen. De auteurs presenteren dit uitdrukkelijk als het meest speculatieve deel van het boek en benadrukken dat de meerderheid van neurowetenschappers deze hypothese niet onderschrijft.</p>
+      <p>Door dit hoofdstuk als apart en onzekerder te markeren, proberen Al-Khalili en McFadden te voorkomen dat de stevigere hoofdstukken over fotosynthese en enzymen worden meegesleept in het wantrouwen dat de bewustzijnsclaim oproept. Ze sluiten het boek af met de constatering dat kwantumbiologie als veld nog volop in ontwikkeling is en dat toekomstig onderzoek net zo goed onderdelen van hun eigen betoog kan bijstellen als bevestigen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kwantumcoherentie</td><td>De toestand waarin kwantumdeeltjes zich als golven gedragen die met elkaar interfereren, waardoor bijvoorbeeld energie tegelijk meerdere routes lijkt te volgen.</td></tr>
+          <tr><td class="term">Kwantumtunneling</td><td>Het verschijnsel waarbij een deeltje een energiebarrière lijkt te 'doorkruisen' zonder er overheen te gaan, met een kans die klassiek onmogelijk zou zijn.</td></tr>
+          <tr><td class="term">Decoherentie</td><td>Het proces waarbij kwantumeffecten door interactie met een warme, drukke omgeving snel verdwijnen; de belangrijkste tegenwerping tegen kwantumbiologie.</td></tr>
+          <tr><td class="term">Radicaalparenmechanisme</td><td>Het voorgestelde mechanisme achter het magnetisch kompas van vogels, waarbij een paar elektronen in cryptochroom gevoelig wordt voor de hoek van het aardmagnetisch veld.</td></tr>
+          <tr><td class="term">FMO-complex</td><td>Het eiwitcomplex van zwavelbacteriën waarin experimenten met fotosynthese-energieoverdracht aanwijzingen voor kwantumcoherentie leken te tonen.</td></tr>
+          <tr><td class="term">Kinetisch isotoopeffect</td><td>Het meetbare verschil in reactiesnelheid tussen normale en zwaardere isotopen van waterstof, gebruikt als aanwijzing voor kwantumtunneling in enzymen.</td></tr>
+          <tr><td class="term">Orch-OR</td><td>De hypothese van Penrose en Hameroff over kwantumprocessen in microtubuli als bron van bewustzijn, door de auteurs als speculatief bestempeld.</td></tr>
+          <tr><td class="term">Kwantum-trillingstheorie van geur</td><td>De omstreden hypothese dat reukreceptoren niet alleen op moleculaire vorm maar ook op trillingsfrequenties van geurmoleculen reageren.</td></tr>
+          <tr><td class="term">Microtubuli</td><td>Kleine, buisvormige eiwitstructuren in cellen die volgens Penrose en Hameroff een fysiek substraat voor kwantumprocessen in hersencellen zouden kunnen vormen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste bewijs in het boek betreft enzymen: kinetische isotoopeffecten die wijzen op protontunneling zijn in meerdere onafhankelijke laboratoria gemeten en zijn binnen de biochemie relatief breed geaccepteerd als aanwijzing voor kwantumgedrag tijdens katalyse.</p>
+      <p>Voor het roodborstkompas bestaat gedragsbewijs uit tientallen jaren experimenteel werk van onder meer de Wiltschko's, aangevuld met biochemisch onderzoek naar cryptochroom-eiwitten die de vereiste kwantumgevoelige elektronenparen kunnen vormen.</p>
+      <p>Het fotosynthese-onderzoek naar het FMO-complex, gepubliceerd in onder meer Nature in 2007, gold destijds als een doorbraak voor het veld en zette kwantumbiologie op de kaart als serieus onderzoeksgebied, maar is sindsdien het onderwerp geworden van doorlopend debat over de juiste interpretatie van de gemeten signalen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale tegenwerping tegen kwantumbiologie als geheel is decoherentie: critici wijzen erop dat cellen warm, nat en chemisch druk zijn, omstandigheden waarin kwantumcoherentie theoretisch binnen femtoseconden zou moeten verdwijnen, terwijl de biologische processen waarover het boek gaat vele ordes van grootte langzamer verlopen.</p>
+      <p>Vervolgonderzoek na de publicatie van dit boek heeft een deel van het fotosynthese-bewijs genuanceerd: verschillende groepen concludeerden dat de oorspronkelijk als elektronische kwantumcoherentie geïnterpreteerde signalen deels beter verklaard worden door gewone molecuultrillingen, zonder dat dit de functionele efficiëntie van fotosynthese wegneemt.</p>
+      <p>Het slothoofdstuk over kwantumbewustzijn wordt door de meerderheid van neurowetenschappers als weinig onderbouwd beschouwd; microtubuli zijn niet aangetoond als drager van de vereiste kwantumtoestanden, en het boek erkent dat zelf ook, wat de vraag oproept waarom dit hoofdstuk toch is opgenomen.</p>
+      <p>Het boek is geschreven voor een breed publiek en versimpelt op plaatsen de wiskundige onzekerheid rond metingen; wie de onderliggende vakartikelen leest, treft vaker voorzichtige formuleringen aan dan de stelligere toon die de populaire versie soms aanneemt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij het lezen tussen de goed onderbouwde hoofdstukken, enzymen en het roodborstkompas, en het uitdrukkelijk speculatieve laatste hoofdstuk over bewustzijn.</li>
+        <li>Zoek bij interesse in een specifiek onderwerp, zoals magnetoreceptie of enzymkatalyse, de recentere vakliteratuur op; het onderzoeksveld is sinds 2014 verder ontwikkeld.</li>
+        <li>Gebruik het boek als kader om te begrijpen waarom bepaalde biologische processen efficiënter zijn dan klassieke chemie alleen verklaart, niet als bewijs dat cellen kwantumcomputers zijn.</li>
+        <li>Houd het onderscheid vast tussen kwantumbiologie als opkomend onderzoeksveld en kwantumbewustzijn als losse, veel omstredener hypothese, ook al staan ze in hetzelfde boek naast elkaar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Life on the Edge: The Coming of Age of Quantum Biology</i> (Bantam Press, Londen, 2014; Amerikaanse editie bij Crown, ISBN 9780307986825). Het boek werd genomineerd voor de Royal Society Winton Prize (2015) en door The Economist, de Financial Times en The Independent tot boek van het jaar gerekend. Er bestaat, voor zover in deze bronnen te achterhalen, geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Natuurkundige Jim Al-Khalili en moleculair bioloog Johnjoe McFadden onderzoeken of kwantummechanica, doorgaans gedacht als een verschijnsel van de allerkleinste schaal, ook een rol speelt in levende organismen. Ze beginnen elk hoofdstuk bij een raadsel dat gewone biologie niet goed verklaart, zoals hoe trekvogels de weg vinden of hoe fotosynthese zo efficiënt kan zijn.</p><p>Achtereenvolgens behandelen ze fotosynthese, waarbij energie zich mogelijk via kwantumcoherentie door een eiwitcomplex verplaatst, enzymen die reacties versnellen via kwantumtunneling, het kompas van roodborstjes dat mogelijk op kwantumverstrengeling van elektronen berust, en de precisie van DNA-kopiëren.</p><p>Het boek eindigt met een voorzichtiger, uitdrukkelijk speculatiever hoofdstuk over de vraag of kwantumeffecten ook een rol spelen bij bewustzijn, waarbij de auteurs zelf aangeven dat dit deel van het veld veel minder stevig staat dan de eerdere hoofdstukken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kwantumbiologie</li><li>fotosynthese</li><li>enzymen</li><li>vogeltrek</li><li>magnetoreceptie</li><li>DNA</li><li>oorsprong van het leven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="322"><a href="322.html">An Immense World</a>. Yong beschrijft dezelfde vogeltrek en magnetoreceptie vanuit de zintuigbiologie, waar Al-Khalili en McFadden de kwantummechanica achter dat kompas zoeken.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawking legt kwantummechanica uit op kosmische schaal; Al-Khalili en McFadden passen dezelfde natuurkunde toe op het leven zelf.</li>
+          <li value="413"><a href="413.html">A Crack in Creation</a>. Doudna beschrijft de precisie van DNA-herstel vanuit de moleculaire biologie, het domein waarin dit boek een kwantummechanische verklaring zoekt voor kopieerfouten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

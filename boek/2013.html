@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golven van geluk &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dronkers-Steijn stelt dat de mens niet passief ondergaat wat het leven brengt, maar actief meebepaalt wat er gebeurt, via het observatie-effect dat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2013">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2013 &middot; Positief denken en manifesteren</p>
+    <h1>Golven van geluk</h1>
+    <p class="lede">Linda Dronkers-Steijn, 2020</p>
+    <p class="stats">
+      <span><b>1405</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2013"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dronkers-Steijn stelt dat de mens niet passief ondergaat wat het leven brengt, maar actief meebepaalt wat er gebeurt, via het observatie-effect dat de kwantumfysica bij subatomaire deeltjes heeft blootgelegd en via de plooibaarheid van het brein die de neurowetenschap beschrijft. Haar redenering loopt van het kleine naar het grote: als waarneming op deeltjesniveau uitkomsten beinvloedt en het brein grotendeels op automatische, onbewuste patronen draait, dan is bewuste aandacht volgens haar de hefboom waarmee iemand een ander leven kan inrichten. Dat is een overtuiging die de fysica ver voorbij haar eigen grenzen trekt, en het boek presenteert die stap niet als hypothese maar als vaststaand gegeven. Wat het boek onderscheidt van veel vergelijkbare titels, is dat het die stap expliciet aan twee wetenschappelijke velden koppelt in plaats van aan een vage verwijzing naar energie of het universum, waardoor de claim concreter wordt en tegelijk gemakkelijker te toetsen op de plek waar ze het zwakst is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Jij bent een magneet: het uitgangspunt</h3>
+      <p>Het boek opent met de vraag welke wensen op het gebied van tijd, rust, werk en relaties onvervuld zijn gebleven, en met de stelling dat de manier waarop iemand denkt, praat, droomt en voelt bepaalt hoe het leven eruitziet. Dronkers-Steijn presenteert zichzelf als ervaringsdeskundige die het model eerst op haar eigen leven toepaste voor ze het als coachmethode ging aanbieden.</p>
+      <p>Ze beschrijft daarbij een periode waarin ze zelf vastliep in werk en relaties, en stelt dat de omslag pas kwam toen ze haar aandacht verlegde van wat ontbrak naar wat ze wilde laten groeien. Die persoonlijke aanleiding gebruikt ze doorgaand als bewijslast voor de methode die in de rest van het boek volgt.</p>
+      <h3>Het dubbele-spletenexperiment als fundament</h3>
+      <p>Ze legt het bekende natuurkundige experiment uit waarbij lichtdeeltjes zich als golf gedragen zolang niemand kijkt, en als deeltje zodra er een waarneming plaatsvindt. Daaruit trekt ze de conclusie dat de werkelijkheid uit mogelijkheden bestaat die door aandacht worden vastgezet, en dat een kwantumveld alles met elkaar verbindt.</p>
+      <h3>Het onbewuste brein</h3>
+      <p>Het tweede fundament is neurowetenschappelijk: mensen handelen het grootste deel van de dag vanuit automatische patronen, niet vanuit bewuste keuzes. Dronkers-Steijn stelt dat die patronen aangeleerd zijn en dus met herhaling ook weer af te leren zijn, wat de basis vormt voor de oefeningen die volgen.</p>
+      <h3>Het driestappenmodel</h3>
+      <p>De kern van het boek is een methode in drie stappen: eerst de huidige situatie en de gewenste situatie naast elkaar zetten, dan onderzoeken welke onbewuste overtuiging de gewenste situatie in de weg staat, en ten slotte de gewenste toekomst inoefenen met een vision board, affirmaties, gerichte aandacht en meditatie.</p>
+      <h3>Toepassing op werk, geld, relaties en stress</h3>
+      <p>De laatste hoofdstukken werken het model uit voor vier levensgebieden: werk vinden dat voldoening geeft en toch financieel voldoende oplevert, een relatie aantrekken en vasthouden, financiele groei, en het verminderen van stress en gebrek aan zelfvertrouwen. Elk terrein krijgt een eigen set oefeningen in het verlengde van het driestappenmodel.</p>
+      <p>Bij werk en geld ligt de nadruk op het loslaten van overtuigingen over schaarste, bij relaties op het herkennen van patronen die eerdere verbindingen lieten mislukken, en bij stress op het onderscheiden van een gedachte over een probleem van het probleem zelf. Dronkers-Steijn herhaalt in elk hoofdstuk dat de volgorde vaststaat: eerst het innerlijke beeld, dan pas het zichtbare resultaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dubbele-spletenexperiment</td><td>Het natuurkundige experiment waarin lichtdeeltjes zich anders gedragen zodra ze worden waargenomen; door de auteur gebruikt als bewijs dat aandacht de werkelijkheid meevormt.</td></tr>
+          <tr><td class="term">Kwantumveld</td><td>Het veld waarin volgens de auteur alles met elkaar verbonden is en waarin mogelijkheden bestaan tot ze door waarneming worden vastgelegd.</td></tr>
+          <tr><td class="term">Onbewuste overtuiging</td><td>Een aangeleerd, automatisch patroon dat buiten het bewustzijn om het gedrag stuurt en dat volgens het boek eerst zichtbaar gemaakt moet worden voor het te veranderen is.</td></tr>
+          <tr><td class="term">Envision Your Future-model</td><td>De naam van het driestappenmodel en van de coachpraktijk van de auteur: huidige situatie in kaart brengen, overtuigingen onderzoeken, gewenste toekomst inoefenen.</td></tr>
+          <tr><td class="term">Vision board</td><td>Een bord met beelden van de gewenste toekomst, in het boek een van de hulpmiddelen om de gewenste situatie dagelijks voor ogen te houden.</td></tr>
+          <tr><td class="term">Neuroplasticiteit</td><td>Het vermogen van het brein om aangeleerde patronen te veranderen door herhaalde oefening, de neurowetenschappelijke pijler onder het boek.</td></tr>
+          <tr><td class="term">Affirmatie</td><td>Een herhaalde bevestigende zin die volgens het boek helpt om een nieuw denkpatroon in te slijpen.</td></tr>
+          <tr><td class="term">Observatie-effect</td><td>Het verschijnsel dat het meten van een deeltje het gedrag ervan lijkt te beinvloeden; door de auteur uitgebreid naar de invloed van menselijke aandacht op de eigen levensomstandigheden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek citeert geen gecontroleerd onderzoek dat de kernclaim toetst, namelijk dat bewuste aandacht op de manier die het model beschrijft de levensuitkomsten van een lezer verandert. De onderbouwing bestaat uit een uitleg van het dubbele-spletenexperiment, een algemene beschrijving van hoe het brein automatische patronen aanleert, en de eigen ervaring van de auteur en haar coachcliënten.</p>
+      <p>Het dubbele-spletenexperiment zelf is een erkend en herhaald natuurkundig resultaat. Wat niet is aangetoond, en in het boek ook niet wordt onderbouwd met verwijzingen naar vakliteratuur, is de sprong van het gedrag van subatomaire deeltjes onder gecontroleerde laboratoriumomstandigheden naar de bewering dat menselijke aandacht op vergelijkbare wijze de uitkomst van een sollicitatie, een relatie of een ziekte beinvloedt.</p>
+      <p>Het boek werd voor een breder publiek gedragen door aanbevelingen van bekende Nederlanders zoals Giel Beelen en auteur Mark Tigchelaar, en kreeg aandacht in regionale media en podcasts. Dat zegt iets over het bereik, niet over de juistheid van de onderliggende claim.</p>
+      <p>Het neurowetenschappelijke deel van het boek staat op steviger grond dan het kwantumfysische deel. Dat gedrag voor een groot deel automatisch en onbewust verloopt en dat herhaling van nieuw gedrag bestaande patronen kan bijstellen, is breed onderzocht terrein binnen de gedragswetenschap; het boek verbindt dat gegeven echter zonder scheiding aan te brengen met de veel speculatievere kwantumfysische claim, waardoor de twee fundamenten in de tekst evenveel gewicht krijgen terwijl hun onderbouwing sterk uiteenloopt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale redeneerstap, van het observatie-effect in de kwantummechanica naar bewuste levensverandering, is de bekendste zwakte van dit hele genre boeken. Natuurkundigen wijzen er sinds jaren op dat het observatie-effect optreedt bij interactie tussen meetapparatuur en subatomaire deeltjes, en niets zegt over de invloed van menselijke intentie op gebeurtenissen op menselijke schaal. Het boek behandelt die overgang als vanzelfsprekend in plaats van als de zwakste schakel in het betoog.</p>
+      <p>Een recensent van het boek, Nicole Orriëns, formuleerde de vraag die de methode oproept: als aandacht en overtuiging levensuitkomsten bepalen, ligt tegenslag dan bij de persoon die hem overkomt? Zij noemde als voorbeeld de vraag of visualisatie een overleden ouder kan terugbrengen of een pandemie kan afwenden, en bleef daar zelf sceptisch over, ook al vond ze het boek op andere punten een aanzet tot nadenken over eigen aannames.</p>
+      <p>Het boek bouwt op eigen coachervaring en op enkele voorbeelden van cliënten, niet op een onderzoek onder een grotere groep met een controlegroep. Waar het driestappenmodel voor de auteur zelf en de aangehaalde cliënten werkte, is niet na te gaan hoe representatief die uitkomsten zijn voor lezers in het algemeen.</p>
+      <p>Doordat het boek stress, ziekte en tegenslag telkens terugvoert op de eigen overtuigingen en het eigen aandachtsveld, ligt de vraag naar eigen verantwoordelijkheid voor wat iemand overkomt voortdurend op de loer. De auteur benoemt dat risico zelf niet uitdrukkelijk, waardoor het aan de lezer wordt overgelaten om de grens te trekken tussen invloed hebben op de toekomst en verantwoordelijk worden gehouden voor wat al gebeurd is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Breng de huidige situatie en de gewenste situatie naast elkaar in kaart, op het gebied dat het meest knelt: werk, geld, relatie of gemoedsrust.</li>
+        <li>Onderzoek welke overtuiging onder de huidige situatie ligt voor je verder gaat met een oefening; verander eerst de aanname voor je het gedrag verandert.</li>
+        <li>Stel een vision board samen met concrete beelden van de gewenste situatie en bekijk het dagelijks op een vast moment.</li>
+        <li>Kies een affirmatie die bij de gewenste situatie past en herhaal die hardop, niet alleen in gedachten.</li>
+        <li>Benoem bij tegenslag eerst wat feitelijk is gebeurd voor je op zoek gaat naar de overtuiging erachter, om te voorkomen dat de methode in schuldgevoel verandert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Nederlandstalig origineel <i>Golven van geluk</i> (Vrije Uitgevers/S2 Uitgevers, Amsterdam, 9 juni 2020, 192 blz., ISBN 9789492528810). Het boek is het enige dat Dronkers-Steijn tot nu toe publiceerde; er bestaat geen vertaling, in geen enkele richting, omdat er geen tweede titel van haar hand is.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Linda Dronkers-Steijn combineert kwantumfysica en neurowetenschap tot een verklaring waarom denken, spreken, dromen en voelen volgens haar bepalen hoe een leven eruitziet. Ze bouwt daarop een driestappenmodel: de huidige en de gewenste situatie in kaart brengen, de onbewuste overtuigingen daaronder blootleggen, en de gewenste toekomst inoefenen met aandacht, een vision board, affirmaties en meditatie.</p><p>Het dubbele-spletenexperiment uit de kwantummechanica dient als vertrekpunt: deeltjes gedragen zich anders zodra ze worden waargenomen, en Dronkers-Steijn leest daarin dat waarneming en aandacht de werkelijkheid mee vormgeven. Daarnaast wijst ze op het gegeven dat het brein het grootste deel van de tijd op automatische piloot werkt, en dat die patronen met oefening om te buigen zijn.</p><p>De praktijk werkt ze uit op vier terreinen: werk dat voldoening geeft en toch geld oplevert, een relatie aantrekken en onderhouden, financiële groei, en het verminderen van stress en zelftwijfel. Het boek is geschreven vanuit haar eigen coachpraktijk Envision Your Future en bevat oefeningen om per terrein aan de slag te gaan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kwantumfysica</li><li>manifesteren</li><li>onbewuste overtuigingen</li><li>neurowetenschap</li><li>visualisatie</li><li>zelfhulp</li><li>Nederlands</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1910"><a href="1910.html">Ask and It Is Given</a>. Hicks werkt met dezelfde kern, wat je aandacht geeft groeit, maar zonder de kwantumfysische inkleding die Dronkers-Steijn aan haar model toevoegt.</li>
+          <li value="2103"><a href="2103.html">The Seven Spiritual Laws of Success</a>. Chopra combineert net als Dronkers-Steijn natuurwetenschappelijke taal met spirituele wetten van succes, uit dezelfde traditie van populaire kwantummystiek.</li>
+          <li value="22"><a href="22.html">Atomic Habits</a>. Clear beschrijft gedragsverandering vanuit gewoontevorming en omgeving, een nuchtere tegenhanger van het kwantumfysische verklaringsmodel dat dit boek kiest.</li>
+          <li value="2014"><a href="2014.html">The Science of Getting Rich</a>. Wattles trekt honderd jaar eerder een vergelijkbare lijn van gedachte naar uitkomst, toen nog zonder de taal van de kwantumfysica.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

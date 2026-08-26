@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Midnight Library &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Haig voert het idee door dat spijt zelf de vergissing is, niet de keuzes waarover je spijt hebt. Zijn stelling is dat geen enkel alternatief leven…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2001">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2001 &middot; Roman en memoir</p>
+    <h1>The Midnight Library</h1>
+    <p class="lede">Matt Haig, 2020</p>
+    <p class="stats">
+      <span><b>1275</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>26 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2001"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Haig voert het idee door dat spijt zelf de vergissing is, niet de keuzes waarover je spijt hebt. Zijn stelling is dat geen enkel alternatief leven objectief beter is dan het leven dat je al leidt, het is alleen anders, met zijn eigen verliezen die vanuit het huidige leven onzichtbaar blijven. Het boek zet die stelling op scherp door Nora niet één alternatief leven te geven maar er tientallen, telkens compleet met een nieuw verdriet dat in haar oorspronkelijke leven niet bestond. Waar troostliteratuur vaak belooft dat een andere keuze gelukkiger had gemaakt, beweert Haig het omgekeerde: wat werkelijk verschilt tussen de levens is de vorm van het ongeluk, en de vraag verschuift van welk leven het beste is naar of je bereid bent het leven dat je al hebt opnieuw te proberen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De laatste dag</h3>
+      <p>Nora Seed werkt in een muziekwinkel in Bedford en verliest op één dag haar baan, haar laatste pianoleerling zegt af en haar kat Voltaire wordt dood gevonden. Terugblikkend ziet ze een reeks eerdere mislukkingen: een zwemcarrière die ze opgaf, een band met haar broer Joe die ze verliet vlak voor een doorbraak, een verloving met Dan die ze afbrak enkele dagen voor de bruiloft.</p>
+      <p>Ze neemt een overdosis. Op het moment tussen leven en dood, middernacht op de klok die niet verder tikt, verschijnt ze in een oneindige bibliotheek.</p>
+      <h3>De Middernachtbibliotheek</h3>
+      <p>De bibliotheek wordt beheerd door mevrouw Elm, de schoolbibliothecaris die vroeger aardig voor haar was toen ze als kind haar vader verloor. In het midden van de zaal ligt een groen boek, het Boek met Spijt, dat voortdurend van dikte verandert naarmate Nora aan nieuwe spijt denkt.</p>
+      <p>Elke andere plank bevat een boek dat een leven is dat Nora had kunnen leiden als ze op een bepaald moment anders had gekozen. Mevrouw Elm legt uit dat Nora zolang in de bibliotheek blijft als ze wil, en dat elk leven dat ze binnenstapt eindigt zodra ze er spijt van krijgt of er tevreden mee is.</p>
+      <h3>Levens uitproberen</h3>
+      <p>Nora stapt achtereenvolgens in levens waarin ze wel met Dan trouwde en een pub op het platteland runt, waarin ze olympisch zwemster werd, en waarin ze met haar broer in de band The Labyrinths doorbrak. Elk leven blijkt bij nader inzien zijn eigen, voor haar onzichtbare, problemen te hebben: het huwelijk met Dan is ongelukkig, het zwemsucces gaat gepaard met een isolement dat ze niet had voorzien.</p>
+      <p>De levens worden korter en talrijker naarmate het verhaal vordert: moeder in een buitenwijk, glaciologe op Spitsbergen die onderzoek doet naar smeltend ijs, eigenaar van een wijnbar in Australië. Geen van die levens biedt het soort geluk dat de spijt in het Boek met Spijt beloofde.</p>
+      <h3>Hugo</h3>
+      <p>In een van de levens ontmoet Nora Hugo, een man die hetzelfde overkomt als zij: ook hij glijdt tussen mogelijke levens door, en ook hij heeft een eigen versie van de bibliotheek. Via hun gesprekken introduceert het boek de veeldwereldeninterpretatie van de kwantumfysica als verklarend kader, het idee dat elke keuze een aftakking van de werkelijkheid creëert waarin alle uitkomsten ergens bestaan.</p>
+      <p>Hugo stelt voor dat zij samen voor altijd van leven naar leven zouden kunnen blijven springen, op zoek naar het perfecte bestaan. Nora's groeiende onbehagen bij dat vooruitzicht is het eerste teken dat ze eigenlijk op zoek is naar een leven waarin ze wil blijven, en niet naar het best denkbare leven.</p>
+      <h3>Het wortelleven</h3>
+      <p>Naarmate Nora meer levens uitprobeert, blijkt haar oorspronkelijke, wortelleven, het leven in Bedford waarin ze de overdosis nam, telkens weer bereikbaar en instabieler te worden: de bibliotheek zelf begint te verkruimelen. Mevrouw Elm maakt duidelijk dat de tijd waarin Nora kan kiezen niet oneindig is.</p>
+      <p>In een laatste, kort leven waarin bijna alles verkeerd loopt, realiseert Nora zich dat ze wil verdergaan in het leven dat ze al had, met de mensen die daarin nog aanwezig zijn, in plaats van te blijven zoeken naar een betere versie van zichzelf.</p>
+      <h3>Terug in Bedford</h3>
+      <p>Nora wordt wakker in het ziekenhuis, de overdosis heeft haar niet gedood. Het laatste deel van het boek volgt een aantal concrete, kleine stappen in plaats van een plotselinge genezing: het contact met haar buurman herstellen, terugbellen naar een vriendin, opnieuw naar de begrafenis van haar kat kijken en niet wegkijken.</p>
+      <p>Het boek eindigt niet met een uitleg van wat er precies gebeurd is, de bibliotheek zelf blijft in het midden of die werkelijk bestond of een crisis van Nora's eigen brein was. Wat blijft is haar besluit om te blijven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">De Middernachtbibliotheek</td><td>De ruimte tussen leven en dood waarin Nora terechtkomt, met een oneindig aantal boeken die elk een ander mogelijk leven van haar zijn.</td></tr>
+          <tr><td class="term">Het Boek met Spijt</td><td>Het groene boek in het midden van de bibliotheek waarin elk moment staat dat Nora anders had willen laten aflopen.</td></tr>
+          <tr><td class="term">Mevrouw Elm</td><td>Nora's voormalige schoolbibliothecaris, die in de Middernachtbibliotheek als gids optreedt.</td></tr>
+          <tr><td class="term">Wortelleven</td><td>De term voor Nora's oorspronkelijke leven in Bedford, waarnaar de bibliotheek haar steeds weer terugbrengt.</td></tr>
+          <tr><td class="term">Hugo</td><td>Een man die Nora in een van haar levens ontmoet en die net als zij tussen mogelijke levens beweegt, met een eigen versie van de bibliotheek.</td></tr>
+          <tr><td class="term">Veeldwereldeninterpretatie</td><td>Het kwantumfysische idee, in gesprekken tussen Nora en Hugo aangehaald, dat elke keuze een aftakking van de werkelijkheid schept waarin alle uitkomsten ergens bestaan.</td></tr>
+          <tr><td class="term">The Labyrinths</td><td>De band waarin Nora en haar broer Joe samen speelden voor ze stopte, en die ze in een van de alternatieve levens wel tot een doorbraak brengt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Haig heeft in zijn non-fictieboek Reasons to Stay Alive (2015) zijn eigen depressie en zelfmoordpoging beschreven, en heeft in interviews gezegd dat Midnight Library uit diezelfde ervaring is voortgekomen. Het boek is daarmee geen los bedachte plot maar een fictionalisering van vragen die de auteur zelf eerder non-fictief behandelde.</p>
+      <p>De veeldwereldeninterpretatie waarop de gesprekken tussen Nora en Hugo steunen, is een bestaande, serieus bediscussieerde interpretatie van de kwantummechanica, voor het eerst voorgesteld door de natuurkundige Hugh Everett in de jaren vijftig; het boek gebruikt haar als metafoor, niet als bewezen fysica.</p>
+      <p>Het boek werd na verschijnen in 2020 een internationale bestseller, won de Goodreads Choice Award voor fictie van dat jaar en stond wekenlang op de bestsellerlijsten van zowel de Sunday Times als de New York Times.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De boodschap van het boek, dat geen leven objectief beter is en dat tevredenheid een kwestie van perspectief is, wordt vaak letterlijk uitgesproken in dialogen tussen Nora en mevrouw Elm of Hugo, in plaats van alleen te blijken uit het verhaal zelf. Dat maakt delen van het boek dichter bij een zelfhulpboek in romanvorm dan bij literaire fictie.</p>
+      <p>De opeenvolging van tientallen korte, uitgeprobeerde levens is bedoeld om herhaling te tonen, maar heeft ook een keerzijde: geen van die levens krijgt genoeg ruimte om als volwaardig personage-universum te functioneren, de mensen die Nora er ontmoet blijven schetsen.</p>
+      <p>Het boek behandelt een zelfmoordpoging en een depressieve crisis, en kiest daarbij voor een oplossing waarin de hoofdpersoon na een reeks vergelijkingen zelf beslist om te leven. Dat volgt de gangbare richtlijnen voor verantwoorde weergave van suïcidaliteit in fictie, maar het maakt de aanloop ernaar ook overzichtelijker dan een daadwerkelijke depressieve crisis meestal verloopt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Midnight Library</i> (Canongate Books, Edinburgh, 2020, 288 blz., ISBN 9781786892706). De Nederlandse vertaling van Monique ter Berg verscheen als <i>Middernachtbibliotheek</i> bij Lebowski Publishers, Amsterdam, 15 april 2021 (ISBN 9789048860067). Van Haig is vrijwel het hele oeuvre in het Nederlands vertaald, waaronder zijn non-fictieboek over zijn eigen depressie en zelfmoordpoging, <i>Reasons to Stay Alive</i> (2015).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nora Seed, negenentwintig jaar en vastgelopen in Bedford, verliest op één dag haar baan, haar kat en haar laatste piano-leerling, en besluit een einde aan haar leven te maken. Tussen leven en dood komt ze terecht in een bibliotheek zonder einde, waar elk boek een ander leven is dat ze had kunnen leiden.</p><p>De bibliotheek wordt beheerd door mevrouw Elm, haar vriendelijke schoolbibliothecaris van vroeger. In het midden ligt het Boek met Spijt, waarin elk moment staat dat Nora anders had willen laten aflopen: niet trouwen met Dan, stoppen met zwemmen, de band met haar broer opgeven.</p><p>Nora krijgt de kans elk van die levens uit te proberen, olympisch zwemster, kroegbazin op het platteland, rockmuzikante, glaciologe in het noorden, tot ze in een van die levens een man tegenkomt die hetzelfde overkomt en die haar helpt begrijpen wat ze eigenlijk zoekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>spijt</li><li>zelfmoordpoging</li><li>parallelle levens</li><li>kwantumfysica</li><li>bibliotheek</li><li>depressie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman schrijft over de eindigheid van de tijd als reden om te kiezen in plaats van alles te willen; Nora's tocht door haar alternatieve levens is een fictieve uitwerking van precies dat probleem.</li>
+          <li value="416"><a href="416.html">Being Mortal</a>. Gawande onderzoekt hoe mensen omgaan met de grenzen van hun leven aan het einde ervan; Haigs roman stelt dezelfde vraag naar wat een leven de moeite waard maakt, vanuit een jongere hoofdpersoon.</li>
+          <li value="515"><a href="515.html">The Pathless Path</a>. Millerd beschrijft het opgeven van één vastgelegd levenspad voor onzekerheid; Nora's reis door de bibliotheek is een fictieve versie van diezelfde twijfel over welk pad het juiste is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
