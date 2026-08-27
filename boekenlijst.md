@@ -328754,3 +328754,69 @@ materialisme in de hersenwetenschap een vooronderstelling vooraf is en geen
 uitkomst van onderzoek. Wie ze naast elkaar legt ziet vooral hoe hetzelfde
 scanmateriaal twee kanten op wordt gelezen, en hoe zwaar de uitgangsvraag
 weegt bij een onderwerp waar geen proef de zaak beslecht.
+
+**Pentesten van verkenning tot rapport** (2302, 2300, 2303, 2308, 2314). 
+Vijf boeken die samen de gang van een pentest volgen. Weidman (2302) opent met
+de stelling dat tool-kennis zonder begrip van geheugen en netwerk niet
+beklijft, en legt zo de basis. DeForge (2300) werkt de eerste fase uit: zonder
+een juist opgezette Nmap-scan staat de rest van de test los te bungelen.
+Sharma (2303) voegt het lezen van het ruwe netwerkverkeer zelf toe, in plaats
+van te vertrouwen op een kant-en-klare detectietool. Met die verkenning binnen
+bereik volgt de exploitatiefase bij de auteurs van Metasploit (2308), die de
+losse trucs van verkenning tot uitbuiting in een gestructureerde methode
+zetten. Li (2314) sluit de cirkel met wat er na een gevonden kwetsbaarheid
+moet gebeuren: systematisch zoeken en, minstens zo belangrijk, correct
+rapporteren.
+
+**Zelf tools schrijven: drie scripttalen voor pentesters** (2313, 2306, 2316). 
+Drie boeken over dezelfde overtuiging in drie verschillende talen: een
+pentester die zelf tools kan schrijven, is niet afhankelijk van wat een
+bestaand programma toevallig aanbiedt. Seitz en Arnold (2313) laten dat in
+Python zien, van een eigen sniffer tot maatwerk rond bestaande exploits. Aleks
+en Farhi (2306) doen hetzelfde in bash, met het argument dat elke
+Linux-machine de taal al aan boord heeft, wat een script direct inzetbaar
+maakt zonder iets te hoeven installeren. Heyes (2316) tenslotte leest
+JavaScript niet als bouwmateriaal voor interfaces maar als een verzameling
+impliciete regels die een aanvaller kan ombuigen, in de browser waar de andere
+twee talen niet komen.
+
+**De mens en de infrastructuur achter een red-teamoperatie** (2310, 2304, 2311). 
+Drie boeken die een aanval opbouwen van de zwakste schakel naar de organisatie
+erachter. Hadnagy (2310) behandelt social engineering als een vak met
+herhaalbare stappen, van informatie verzamelen tot een pretext bouwen, en niet
+als improvisatietalent. Allsopp (2304) laat zien hoe dat soort menselijke
+aanvalslijnen samenkomt in scenario's die tegen een realistischer
+dreigingsmodel zijn opgezet dan een gecertificeerde test met een paar dagen
+tijd en generieke tools. Erdmann (2311) legt ten slotte uit wat zo'n operatie
+op de achtergrond draaiende houdt: niet de aanvalstechniek zelf, maar de
+geautomatiseerde, verhulde infrastructuur eromheen, wat volgens hem het
+eigenlijke verschil is tussen een pentester en een red-teamoperator.
+
+**Specialistische doelen: web, API's en Windows-domeinen** (2312, 2305, 2315). 
+Drie boeken die elk een eigen aanvalsoppervlak claimen buiten de generieke
+netwerkpentest. Baloch (2312) stelt dat een webapplicatietest niet ophoudt bij
+de bekende OWASP-lijst, en dat de businesslogica van een applicatie minstens
+zo veel oplevert. Ball (2305) wijst op API's als apart terrein: ze
+communiceren zonder gebruikersinterface en blijven daardoor vaak buiten het
+zicht van de gangbare webtestaanpak. Isakov (2315) verlaat het web helemaal en
+behandelt Active Directory als het zenuwstelsel van een Windows-netwerk, de
+dienst die vastlegt wie welk systeem mag benaderen.
+
+**Van geheugenfout tot zero-day: exploitatie op laag niveau** (2317, 2307). 
+Twee boeken over hoe een kwetsbaarheid werkelijk ontstaat, in plaats van hoe
+je een bestaande exploit toepast. Erickson (2317) legt het fundament:
+exploitatie is een rechtstreeks gevolg van hoe computers geheugen, processen
+en netwerken beheren, en wie dat kent kan zelf nieuwe kwetsbaarheden
+herkennen. Lim (2307) bouwt daarop voort met de methode van modern
+vulnerabilityresearch, die begint met nagaan waar externe invoer een programma
+binnenkomt, in plaats van blind een fuzzer los te laten.
+
+**Twee brede inleidingen tot ethical hacking, tien jaar uit elkaar** (2302, 2309). 
+Weidman (2302) en Graham (2309) schreven allebei een volledige inleiding tot
+ethical hacking die bij nul begint, maar met een decennium ertussen en een net
+iets andere nadruk. Weidmans stelling is dat tool-kennis zonder begrip van
+geheugen en netwerk niet beklijft; Graham stelt dat ethisch hacken pas
+beklijft wanneer de lezer een aanval zelf laat draaien in een omgeving die hij
+begrijpt, niet wanneer hij er een beschrijving van leest. Wie allebei leest,
+ziet hoe dezelfde overtuiging, leren door zelf te doen, in twee generaties
+leermateriaal is uitgewerkt.
