@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logic: A Complete Introduction &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lee gaat uit van dezelfde aanname als andere inleidende logicaboeken: de geldigheid van een redenering staat los van de vraag of de conclusie uitkomt, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-2120">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">2120 &middot; Naslag en praktijk</p>
+    <h1>Logic: A Complete Introduction</h1>
+    <p class="lede">Siu-Fan Lee, 2015</p>
+    <p class="stats">
+      <span><b>1405</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>27 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="2120"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lee gaat uit van dezelfde aanname als andere inleidende logicaboeken: de geldigheid van een redenering staat los van de vraag of de conclusie uitkomt, en wie de vorm van een argument leert herkennen, kan dat onderscheid zelf maken. Het boek onderscheidt zich niet door een andere claim over logica, maar door het publiek: het is geschreven voor wie zichzelf de stof eigen wil maken zonder college of docent, met kortere hoofdstukken en toetsvragen die in een universitair studieboek meestal ontbreken of apart in een werkboek staan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Argumenten, geldigheid en deugdelijkheid</h3>
+      <p>De eerste hoofdstukken voeren het onderscheid in tussen een argument en een losse bewering: een argument bestaat uit premissen die een conclusie moeten dragen. Lee behandelt het verschil tussen deductieve argumenten, die aanspraak maken op zekerheid, en inductieve argumenten, die een conclusie hooguit waarschijnlijk maken, en koppelt daaraan de begrippen geldigheid en deugdelijkheid: een argument is geldig als de vorm klopt, ongeacht de waarheid van de premissen, en deugdelijk als het bovendien geldig is met premissen die waar zijn.</p>
+      <p>Dit deel bevat ook oefeningen in het herkennen van een argument in lopende tekst, waar signaalwoorden als "dus" en "omdat" een premisse van een conclusie scheiden. Lee besteedt daarbij aandacht aan het verschil tussen een argument en een uitleg: een uitleg veronderstelt dat de conclusie al vaststaat en geeft er een reden voor, terwijl een argument die conclusie juist moet vestigen. Dat onderscheid keert in de latere hoofdstukken terug telkens wanneer een voorbeeldzin op het eerste gezicht als argument oogt maar bij nader inzien alleen een gebeurtenis verklaart.</p>
+      <h3>Informele drogredenen</h3>
+      <p>Het boek katalogiseert de bekendste informele drogredenen: redeneerfouten die niet in de logische vorm zitten maar in de inhoud of het gebruik van taal, zoals de ad hominem, het stropoppenargument en het beroep op ontoereikend gezag. Elke drogreden krijgt een naam, een korte uitleg en voorbeeldzinnen die de lezer moet beoordelen.</p>
+      <p>Zoals in vergelijkbare studieboeken is dit het onderdeel dat het makkelijkst los van de rest van het boek wordt gebruikt, in cursussen kritisch denken die niet naar de formele hoofdstukken doorlopen.</p>
+      <h3>Propositielogica</h3>
+      <p>Vanaf hier werkt het boek met symbolische notatie: en, of, als-dan en niet krijgen elk een teken, en waarheidstabellen leggen voor elke combinatie van waar en onwaar vast wat een samengestelde zin oplevert. Geldigheid wordt hier mechanisch controleerbaar: een argument is geldig als er geen rij in de waarheidstabel is waarin de premissen waar zijn en de conclusie onwaar.</p>
+      <p>Lee bouwt dit op in kleine stappen, met telkens een paar nieuwe symbolen per hoofdstukdeel, wat het tempo lager houdt dan in een studieboek dat in één hoofdstuk de volledige propositielogica behandelt.</p>
+      <h3>Predikaten- en categorische logica</h3>
+      <p>Categorische logica behandelt uitspraken van de vorm "alle A zijn B" of "geen A is B" en syllogismen die uit twee zulke premissen een derde afleiden, met Venn-diagrammen als controlemiddel. Predikatenlogica breidt de propositielogica uit met kwantoren voor "alle" en "sommige" en met symbolen voor eigenschappen, waarmee argumenten over specifieke personen en hun relaties preciezer te noteren zijn dan in de categorische logica.</p>
+      <p>Dit deel is het formeel zwaarste van het boek en leunt het dichtst aan tegen de stof van een universitair studieboek als Hurley of Howard-Snyder, al blijft de oefenstof beperkter.</p>
+      <h3>Zelftoetsing als vaste structuur</h3>
+      <p>Elk hoofdstuk sluit af met een set toetsvragen waarmee een lezer zonder docent kan nagaan of de stof is blijven hangen, een vast kenmerk van de Teach Yourself-reeks. Dat compenseert deels het ontbreken van een docent die feedback geeft op een zelfgemaakte afleiding, maar vervangt geen begeleide oefensessie waarin een fout in een bewijs wordt uitgelegd in plaats van alleen aangewezen.</p>
+      <p>De reeks is opgezet in drie lagen per boek, van kennismaking naar toepassing naar een blik op wat verder ligt. Bij een vakgebied als logica valt die derde laag beperkt uit: waar een universitair studieboek een heel semester besteedt aan formele bewijzen, blijft hier de nadruk liggen op herkennen en navolgen van uitgewerkte voorbeelden, niet op het zelf construeren van een bewijs voor een onbekend argument zonder aanwijzingen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Geldigheid</td><td>De eigenschap van een deductief argument waarbij de conclusie logisch noodzakelijk volgt uit de premissen, ongeacht of die premissen waar zijn.</td></tr>
+          <tr><td class="term">Deugdelijkheid</td><td>Een geldig argument met uitsluitend ware premissen, de striktste maatstaf voor een deductief argument.</td></tr>
+          <tr><td class="term">Deductief argument</td><td>Een argument dat aanspraak maakt op zekerheid: als de premissen waar zijn, is de conclusie dat ook.</td></tr>
+          <tr><td class="term">Inductief argument</td><td>Een argument dat een conclusie slechts waarschijnlijk maakt op basis van de premissen, zonder zekerheid te claimen.</td></tr>
+          <tr><td class="term">Informele drogreden</td><td>Een redeneerfout in gewone taal die overtuigt zonder de logische structuur van het argument te steunen.</td></tr>
+          <tr><td class="term">Propositielogica</td><td>Het formele systeem dat hele uitspraken door letters vervangt en met symbolen voor en, of, als-dan en niet verbindt.</td></tr>
+          <tr><td class="term">Predikatenlogica</td><td>Een uitbreiding van de propositielogica met kwantoren voor alle en sommige en symbolen voor eigenschappen en relaties.</td></tr>
+          <tr><td class="term">Categorisch syllogisme</td><td>Een deductief argument van twee premissen en een conclusie, elk een uitspraak over hele of gedeeltelijke klassen.</td></tr>
+          <tr><td class="term">Kwantor</td><td>Het symbool in de predikatenlogica voor alle of sommige, waarmee uitspraken over groepen individuen worden vastgelegd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bewijst niets in de zin van een empirische claim over de wereld; het legt formele systemen uit waarvan de geldigheid intern is vastgesteld. De categorische logica gaat terug op Aristoteles, de propositie- en predikatenlogica bouwen voort op het werk van Gottlob Frege en Bertrand Russell rond 1900. Dat fundament is hetzelfde als in een universitair studieboek: Lee voegt er geen eigen logisch systeem aan toe, ze herschikt en vereenvoudigt bestaande stof voor een lezer zonder docent.</p>
+      <p>De toetsvragen na elk hoofdstuk zijn de enige vorm van zelfcontrole die het boek aanreikt. Ze tonen of een antwoord goed of fout is, maar niet, zoals een docent dat wel doet, waarom een foute afleiding misgaat op de stap zelf.</p>
+      <p>Voor de indeling van de informele drogredenen geldt dezelfde kanttekening als bij andere logicaboeken: het is een didactische ordening, geen onafhankelijk getoetst systeem. Verschillende auteurs delen dezelfde drogreden soms in een andere hoofdgroep in, en Lees indeling wijkt op onderdelen af van die van Hurley zonder dat een van beide indelingen als de juiste geldt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als studieboek geldt hier dezelfde beperking als bij Hurley of Howard-Snyder: er is geen these om te weerleggen, alleen een systeem om te leren toepassen, en kritiek raakt dus de reikwijdte en de didactiek, niet de logica zelf. Vergeleken met die twee, decennialang in de collegezaal bijgeschaafd op basis van waar studenten vastliepen, mist dit boek die geschiedenis van herziening: het is in één druk voor een algemeen publiek geschreven, zonder de jarenlange terugkoppeling van docenten die een universitair studieboek bijstuurt.</p>
+      <p>De opzet voor zelfstudie brengt een compromis met zich mee: waar Hurley en Howard-Snyder honderden geordende oefeningen per hoofdstuk bieden, blijft de oefenstof hier beperkter tot een reeks toetsvragen die vooral controleren of een begrip is opgepikt, niet of een lezer een lastige afleiding zelfstandig kan opzetten. Wie na dit boek een formeel bewijs in de predikatenlogica moet construeren zonder voorbeeld, heeft mogelijk minder geoefend dan de omvang van het boek doet vermoeden.</p>
+      <p>Een derde punt geldt de reikwijdte: het boek behandelt de klassieke kernstof, propositielogica, categorische en predikatenlogica, informele drogredenen, maar niet de latere uitbreidingen die in de filosofie van de logica ter sprake komen, zoals modale logica of de vraag wat een logisch systeem eigenlijk waar maakt. Wie na dit boek verder wil dan de toepassing van bestaande regels, naar de vraag waarom die regels zelf geldig zijn, moet daarvoor een ander boek raadplegen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Maak de toetsvragen aan het einde van elk hoofdstuk voordat je verdergaat, ook als de stof duidelijk lijkt.</li>
+        <li>Herformuleer bij een nieuwsartikel of opiniestuk het argument in premissen en conclusie, en ga na of het deductief of inductief bedoeld is.</li>
+        <li>Bouw bij de propositielogica eerst een waarheidstabel voor een eigen samengestelde zin voordat je op formele bewijzen overstapt.</li>
+        <li>Zoek bij de lijst met drogredenen een eigen voorbeeld uit een krant of gesprek, in plaats van alleen de boekvoorbeelden te herkennen.</li>
+        <li>Controleer bij een gemaakte oefening niet alleen of het antwoord goed of fout was, maar zoek de stap op waar de eigen redenering van het boek afweek voordat je verdergaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Verschenen in de Teach Yourself-reeks Complete Introduction bij John Murray Learning/Hodder Education (Londen, 2015). Lee doceert filosofie en kritisch denken en schreef het boek voor zelfstudie buiten een universitair vak, met toetsvragen na elk hoofdstuk. Geen Nederlandse vertaling nagekeken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Siu-Fan Lee schreef dit boek voor de Teach Yourself-reeks Complete Introduction, gericht op wie zichzelf logica wil leren buiten een collegezaal. Het behandelt dezelfde kernstof als een universitair inleidend logicaboek: het onderscheid tussen deductieve en inductieve argumenten, informele drogredenen, propositielogica met waarheidstabellen, en predikaten- en categorische logica met syllogismen. Elk hoofdstuk sluit af met toetsvragen waarmee een lezer zonder docent kan nagaan of de stof beklijft.</p><p>Het boek voert geen eigen these buiten de bruikbaarheid van logica zelf en wordt hier daarom net als vergelijkbare studieboeken behandeld: als een overzicht van wat het onderwijst, hoe het is opgebouwd voor zelfstudie, en wat een lezer ermee wint en mist vergeleken met een dikker, aan een universiteit gebruikt studieboek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>logica</li><li>argumentatie</li><li>studieboek</li><li>zelfstudie</li><li>drogredenen</li><li>propositielogica</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="421"><a href="421.html">The Power of Logic</a>. Howard-Snyder, Howard-Snyder en Wasserman behandelen dezelfde stof als universitair studieboek, met meer oefenstof dan Lees versie voor zelfstudie.</li>
+          <li value="437"><a href="437.html">A Concise Introduction to Logic</a>. Hurley bouwt dezelfde opbouw van informele naar formele logica uit tot het meest gebruikte inleidende logicaboek van Noord-Amerika, met een omvang die dit boek voor zelfstudie bewust mist.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagans baloney-detectiekit werkt in alledaagse taal wat dit boek met formele notatie doet: nagaan of een redenering standhoudt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

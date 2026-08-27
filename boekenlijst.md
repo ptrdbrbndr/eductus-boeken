@@ -1,8 +1,8 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 26
-augustus 2026: 1521 titels in 21 rubrieken.
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 27
+augustus 2026: 1522 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -30,7 +30,7 @@ bij de volgende build verloren.
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155, 1201, 1225, 1226, 1233, 1240, 1245, 1246, 1247, 1248, 1249, 1250, 1251, 1252, 1253, 1254, 1255, 1264, 1269, 1289, 1290, 1291, 1293, 1298, 1345, 1611, 1619, 1659, 1701, 1702, 1707, 1715, 1859, 1875, 2022, 2024, 2035 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762, 805, 818, 820, 823, 938, 941, 944, 945, 946, 947, 948, 949, 950, 951, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263, 1265, 1267, 1270, 1271, 1272, 1273, 1274, 1275, 1276, 1277, 1278, 1282, 1318, 1344, 1578, 1592, 1593, 1603, 1651, 1658, 1675, 1676, 1677, 1678, 1708, 1714, 1815, 1839, 1841, 1854, 2050, 2051, 2077 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560, 768, 1505, 1507, 1531, 1584, 1586, 1663, 1671, 1689, 1703, 1704, 1705, 1748, 1760, 1779, 1818, 1832, 1849, 1889, 1890, 1896, 1898, 1909, 1910, 2013, 2014, 2018, 2103 |
-| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243, 1530, 1533, 1546, 1554, 1605, 1623, 1630, 1655, 1698, 1804, 1844, 1846, 1869, 1914, 2002, 2007, 2027, 2043, 2044, 2059, 2084, 2106, 2111 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137, 1243, 1530, 1533, 1546, 1554, 1605, 1623, 1630, 1655, 1698, 1804, 1844, 1846, 1869, 1914, 2002, 2007, 2027, 2043, 2044, 2059, 2084, 2106, 2111, 2120 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122, 1123, 1124, 1125, 1126, 1139, 1140, 1141, 1142, 1143, 1144, 1147, 1149, 1150, 1151, 1152, 1154, 1156, 1157, 1158, 1161, 1163, 1164, 1165, 1166, 1167, 1169, 1170, 1207, 1214, 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1227, 1228, 1229, 1230, 1231, 1232, 1234, 1235, 1236, 1237, 1238, 1239, 1241, 1242, 1244, 1266, 1268, 1296, 1300, 1324, 1502, 1504, 1508, 1520, 1535, 1536, 1537, 1540, 1551, 1552, 1555, 1558, 1559, 1568, 1569, 1575, 1577, 1579, 1580, 1606, 1607, 1608, 1612, 1621, 1624, 1629, 1640, 1644, 1650, 1652, 1660, 1661, 1662, 1684, 1690, 1697, 1717, 1727, 1734, 1735, 1741, 1742, 1754, 1763, 1770, 1773, 1774, 1775, 1800, 1805, 1806, 1819, 1820, 1821, 1826, 1845, 1847, 1848, 1856, 1867, 1876, 1891, 1892, 1904, 1908, 1911, 1917, 2000, 2015, 2017, 2020, 2021, 2023, 2025, 2031, 2039, 2045, 2046, 2058, 2060, 2065, 2067, 2078, 2080, 2101, 2115, 2116 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 826, 827, 910, 935, 1332, 1333, 1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1657, 1900, 2033, 2114 |
 
@@ -317334,6 +317334,203 @@ bundel, vanuit psychologie in plaats van poëzie.
 één lichamelijke transformatie die de hoofdpersoon buiten de gewone sociale
 orde plaatst.
 
+## 2120. Logic: A Complete Introduction
+
+Siu-Fan Lee, 2015. Verschenen in de Teach Yourself-reeks Complete Introduction
+bij John Murray Learning/Hodder Education (Londen, 2015). Lee doceert
+filosofie en kritisch denken en schreef het boek voor zelfstudie buiten een
+universitair vak, met toetsvragen na elk hoofdstuk. Geen Nederlandse vertaling
+nagekeken. Rubriek: naslag en praktijk.
+Tags: `logica`, `argumentatie`, `studieboek`, `zelfstudie`, `drogredenen`,
+`propositielogica`
+
+Siu-Fan Lee schreef dit boek voor de Teach Yourself-reeks Complete
+Introduction, gericht op wie zichzelf logica wil leren buiten een collegezaal.
+Het behandelt dezelfde kernstof als een universitair inleidend logicaboek: het
+onderscheid tussen deductieve en inductieve argumenten, informele drogredenen,
+propositielogica met waarheidstabellen, en predikaten- en categorische logica
+met syllogismen. Elk hoofdstuk sluit af met toetsvragen waarmee een lezer
+zonder docent kan nagaan of de stof beklijft.
+
+Het boek voert geen eigen these buiten de bruikbaarheid van logica zelf en
+wordt hier daarom net als vergelijkbare studieboeken behandeld: als een
+overzicht van wat het onderwijst, hoe het is opgebouwd voor zelfstudie, en wat
+een lezer ermee wint en mist vergeleken met een dikker, aan een universiteit
+gebruikt studieboek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lee gaat uit van dezelfde aanname als andere inleidende
+logicaboeken: de geldigheid van een redenering staat los van de vraag of de
+conclusie uitkomt, en wie de vorm van een argument leert herkennen, kan dat
+onderscheid zelf maken. Het boek onderscheidt zich niet door een andere claim
+over logica, maar door het publiek: het is geschreven voor wie zichzelf de
+stof eigen wil maken zonder college of docent, met kortere hoofdstukken en
+toetsvragen die in een universitair studieboek meestal ontbreken of apart in
+een werkboek staan.
+
+#### De gang van het boek
+
+**Argumenten, geldigheid en deugdelijkheid**
+
+De eerste hoofdstukken voeren het onderscheid in tussen een argument en een
+losse bewering: een argument bestaat uit premissen die een conclusie moeten
+dragen. Lee behandelt het verschil tussen deductieve argumenten, die aanspraak
+maken op zekerheid, en inductieve argumenten, die een conclusie hooguit
+waarschijnlijk maken, en koppelt daaraan de begrippen geldigheid en
+deugdelijkheid: een argument is geldig als de vorm klopt, ongeacht de waarheid
+van de premissen, en deugdelijk als het bovendien geldig is met premissen die
+waar zijn.
+
+Dit deel bevat ook oefeningen in het herkennen van een argument in lopende
+tekst, waar signaalwoorden als "dus" en "omdat" een premisse van een conclusie
+scheiden. Lee besteedt daarbij aandacht aan het verschil tussen een argument
+en een uitleg: een uitleg veronderstelt dat de conclusie al vaststaat en geeft
+er een reden voor, terwijl een argument die conclusie juist moet vestigen. Dat
+onderscheid keert in de latere hoofdstukken terug telkens wanneer een
+voorbeeldzin op het eerste gezicht als argument oogt maar bij nader inzien
+alleen een gebeurtenis verklaart.
+
+**Informele drogredenen**
+
+Het boek katalogiseert de bekendste informele drogredenen: redeneerfouten die
+niet in de logische vorm zitten maar in de inhoud of het gebruik van taal,
+zoals de ad hominem, het stropoppenargument en het beroep op ontoereikend
+gezag. Elke drogreden krijgt een naam, een korte uitleg en voorbeeldzinnen die
+de lezer moet beoordelen.
+
+Zoals in vergelijkbare studieboeken is dit het onderdeel dat het makkelijkst
+los van de rest van het boek wordt gebruikt, in cursussen kritisch denken die
+niet naar de formele hoofdstukken doorlopen.
+
+**Propositielogica**
+
+Vanaf hier werkt het boek met symbolische notatie: en, of, als-dan en niet
+krijgen elk een teken, en waarheidstabellen leggen voor elke combinatie van
+waar en onwaar vast wat een samengestelde zin oplevert. Geldigheid wordt hier
+mechanisch controleerbaar: een argument is geldig als er geen rij in de
+waarheidstabel is waarin de premissen waar zijn en de conclusie onwaar.
+
+Lee bouwt dit op in kleine stappen, met telkens een paar nieuwe symbolen per
+hoofdstukdeel, wat het tempo lager houdt dan in een studieboek dat in één
+hoofdstuk de volledige propositielogica behandelt.
+
+**Predikaten- en categorische logica**
+
+Categorische logica behandelt uitspraken van de vorm "alle A zijn B" of "geen
+A is B" en syllogismen die uit twee zulke premissen een derde afleiden, met
+Venn-diagrammen als controlemiddel. Predikatenlogica breidt de
+propositielogica uit met kwantoren voor "alle" en "sommige" en met symbolen
+voor eigenschappen, waarmee argumenten over specifieke personen en hun
+relaties preciezer te noteren zijn dan in de categorische logica.
+
+Dit deel is het formeel zwaarste van het boek en leunt het dichtst aan tegen
+de stof van een universitair studieboek als Hurley of Howard-Snyder, al blijft
+de oefenstof beperkter.
+
+**Zelftoetsing als vaste structuur**
+
+Elk hoofdstuk sluit af met een set toetsvragen waarmee een lezer zonder docent
+kan nagaan of de stof is blijven hangen, een vast kenmerk van de Teach
+Yourself-reeks. Dat compenseert deels het ontbreken van een docent die
+feedback geeft op een zelfgemaakte afleiding, maar vervangt geen begeleide
+oefensessie waarin een fout in een bewijs wordt uitgelegd in plaats van alleen
+aangewezen.
+
+De reeks is opgezet in drie lagen per boek, van kennismaking naar toepassing
+naar een blik op wat verder ligt. Bij een vakgebied als logica valt die derde
+laag beperkt uit: waar een universitair studieboek een heel semester besteedt
+aan formele bewijzen, blijft hier de nadruk liggen op herkennen en navolgen
+van uitgewerkte voorbeelden, niet op het zelf construeren van een bewijs voor
+een onbekend argument zonder aanwijzingen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Geldigheid | De eigenschap van een deductief argument waarbij de conclusie logisch noodzakelijk volgt uit de premissen, ongeacht of die premissen waar zijn. |
+| Deugdelijkheid | Een geldig argument met uitsluitend ware premissen, de striktste maatstaf voor een deductief argument. |
+| Deductief argument | Een argument dat aanspraak maakt op zekerheid: als de premissen waar zijn, is de conclusie dat ook. |
+| Inductief argument | Een argument dat een conclusie slechts waarschijnlijk maakt op basis van de premissen, zonder zekerheid te claimen. |
+| Informele drogreden | Een redeneerfout in gewone taal die overtuigt zonder de logische structuur van het argument te steunen. |
+| Propositielogica | Het formele systeem dat hele uitspraken door letters vervangt en met symbolen voor en, of, als-dan en niet verbindt. |
+| Predikatenlogica | Een uitbreiding van de propositielogica met kwantoren voor alle en sommige en symbolen voor eigenschappen en relaties. |
+| Categorisch syllogisme | Een deductief argument van twee premissen en een conclusie, elk een uitspraak over hele of gedeeltelijke klassen. |
+| Kwantor | Het symbool in de predikatenlogica voor alle of sommige, waarmee uitspraken over groepen individuen worden vastgelegd. |
+
+#### Waar het argument op rust
+
+Het boek bewijst niets in de zin van een empirische claim over de wereld; het
+legt formele systemen uit waarvan de geldigheid intern is vastgesteld. De
+categorische logica gaat terug op Aristoteles, de propositie- en
+predikatenlogica bouwen voort op het werk van Gottlob Frege en Bertrand
+Russell rond 1900. Dat fundament is hetzelfde als in een universitair
+studieboek: Lee voegt er geen eigen logisch systeem aan toe, ze herschikt en
+vereenvoudigt bestaande stof voor een lezer zonder docent.
+
+De toetsvragen na elk hoofdstuk zijn de enige vorm van zelfcontrole die het
+boek aanreikt. Ze tonen of een antwoord goed of fout is, maar niet, zoals een
+docent dat wel doet, waarom een foute afleiding misgaat op de stap zelf.
+
+Voor de indeling van de informele drogredenen geldt dezelfde kanttekening als
+bij andere logicaboeken: het is een didactische ordening, geen onafhankelijk
+getoetst systeem. Verschillende auteurs delen dezelfde drogreden soms in een
+andere hoofdgroep in, en Lees indeling wijkt op onderdelen af van die van
+Hurley zonder dat een van beide indelingen als de juiste geldt.
+
+#### Wat er tegen in te brengen valt
+
+Als studieboek geldt hier dezelfde beperking als bij Hurley of Howard-Snyder:
+er is geen these om te weerleggen, alleen een systeem om te leren toepassen,
+en kritiek raakt dus de reikwijdte en de didactiek, niet de logica zelf.
+Vergeleken met die twee, decennialang in de collegezaal bijgeschaafd op basis
+van waar studenten vastliepen, mist dit boek die geschiedenis van herziening:
+het is in één druk voor een algemeen publiek geschreven, zonder de jarenlange
+terugkoppeling van docenten die een universitair studieboek bijstuurt.
+
+De opzet voor zelfstudie brengt een compromis met zich mee: waar Hurley en
+Howard-Snyder honderden geordende oefeningen per hoofdstuk bieden, blijft de
+oefenstof hier beperkter tot een reeks toetsvragen die vooral controleren of
+een begrip is opgepikt, niet of een lezer een lastige afleiding zelfstandig
+kan opzetten. Wie na dit boek een formeel bewijs in de predikatenlogica moet
+construeren zonder voorbeeld, heeft mogelijk minder geoefend dan de omvang van
+het boek doet vermoeden.
+
+Een derde punt geldt de reikwijdte: het boek behandelt de klassieke kernstof,
+propositielogica, categorische en predikatenlogica, informele drogredenen,
+maar niet de latere uitbreidingen die in de filosofie van de logica ter sprake
+komen, zoals modale logica of de vraag wat een logisch systeem eigenlijk waar
+maakt. Wie na dit boek verder wil dan de toepassing van bestaande regels, naar
+de vraag waarom die regels zelf geldig zijn, moet daarvoor een ander boek
+raadplegen.
+
+#### Wat er concreet mee te doen is
+
+- Maak de toetsvragen aan het einde van elk hoofdstuk voordat je verdergaat,
+ook als de stof duidelijk lijkt.
+- Herformuleer bij een nieuwsartikel of opiniestuk het argument in premissen
+en conclusie, en ga na of het deductief of inductief bedoeld is.
+- Bouw bij de propositielogica eerst een waarheidstabel voor een eigen
+samengestelde zin voordat je op formele bewijzen overstapt.
+- Zoek bij de lijst met drogredenen een eigen voorbeeld uit een krant of
+gesprek, in plaats van alleen de boekvoorbeelden te herkennen.
+- Controleer bij een gemaakte oefening niet alleen of het antwoord goed of
+fout was, maar zoek de stap op waar de eigen redenering van het boek afweek
+voordat je verdergaat.
+
+#### Wat je hierna leest
+
+- 421. The Power of Logic. Howard-Snyder, Howard-Snyder en Wasserman
+behandelen dezelfde stof als universitair studieboek, met meer oefenstof dan
+Lees versie voor zelfstudie.
+- 437. A Concise Introduction to Logic. Hurley bouwt dezelfde opbouw van
+informele naar formele logica uit tot het meest gebruikte inleidende
+logicaboek van Noord-Amerika, met een omvang die dit boek voor zelfstudie
+bewust mist.
+- 63. The Demon-Haunted World. Sagans baloney-detectiekit werkt in alledaagse
+taal wat dit boek met formele notatie doet: nagaan of een redenering
+standhoudt.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -317398,91 +317595,92 @@ racisme` 1619 · `alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631,
 173, 297, 390, 905, 1264, 1301 · `arbeidsethos` 266, 1901 · `archeologie` 600,
 762, 1117, 1139, 1149, 1155, 1219, 1225, 1240, 1611, 1823 · `archetype` 360,
 1845 · `archetypen` 357, 404, 407, 409, 410, 1123, 1614, 2074 · `architectuur`
-1772 · `Argentinië` 521, 1209 · `argumentatie` 421, 437, 511 · `argumenten` 63
-· `argumenteren` 438 · `Aristoteles` 438 · `Arjuna` 1551 · `armoede` 26, 234,
-254, 1557, 1694, 1765, 2048 · `Art of Living` 1552, 2100 · `Arthashastra` 370
-· `assertiviteit` 162, 1670 · `astrologie` 632, 836, 1118, 1119, 1123, 1229,
-1242, 1243, 1250, 1251, 1252, 1690 · `asymmetrie` 282 · `atheïsme` 1678 ·
-`Athene` 1725 · `Atlantis` 1821, 1856 · `atletiek` 31 · `atomisme` 281 ·
-`attitudinal healing` 1515 · `aura` 1660 · `Auschwitz` 48, 1539, 2091 ·
-`Australië` 447 · `authenticiteit` 1730 · `authenticiteitsdebat` 1608 ·
-`autisme` 1302, 1303, 1304, 1305, 1306, 1307, 1312 · `auto-immuunziekte` 1722
-· `autobiografie` 358, 440, 1108, 1303, 1570, 1908, 2017, 2058 ·
-`autobiografisch` 1746 · `autobiografische roman` 1856 · `automatisering` 297,
-539, 1264 · `automatismen` 1803 · `autonomie` 6, 50 · `autoritarisme` 1900 ·
-`autoriteit` 215 · `autotelie` 200 · `avontuur` 1625, 1686, 2041 · `ayahuasca`
-759 · `Ayla` 1823 · `ayurveda` 1605 · `Ayurveda` 2103 · `Azië` 2089 ·
-`backtesten` 482, 502 · `bagno` 1850 · `Bali` 1534, 1767 · `ballingschap` 1522
-· `bandha` 1698 · `banken en verzekeraars` 497 · `bankwezen` 1332 · `bardo`
-1754, 1847 · `barok` 216 · `basisbehoeften` 107 · `basisinkomen` 1901 · `bbc`
-82 · `bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270, 1610 ·
-`bedrijfsfilosofie` 1744 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293, 903
-· `bedrijfsmodel` 2112 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 ·
-`bedrijfsvoering` 1877, 2072 · `beeldcultuur` 563, 828 · `beeldend boek` 2078
-· `beeldroman` 1725 · `beeldverhaal` 561 · `begeleiding` 2044 · `beginners`
-112 · `behoeften` 35 · `behoeftigheid` 1602 · `beinvloeding` 123, 126 ·
-`beïnvloeding` 399 · `bekentenis` 60 · `bekering` 1664 · `bekkenbodem` 1831 ·
-`belangenverstrengeling` 138, 752 · `belasting` 1855 · `beleggen` 21, 64, 144,
-233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486,
-489, 490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807, 808,
-810, 811, 812, 813, 814, 815, 816, 817, 1281, 1283, 1288 · `beleid` 65 ·
-`Belgie` 1865 · `belichaamde cognitie` 755 · `Bell` 1658 · `beloningssysteem`
-418 · `bemiddeling` 35, 1641 · `bergsport` 1744 · `beroemdheden` 128 ·
-`beroemdheid` 563 · `beroepshouding` 1720, 1914 · `beroepskeuze` 1292 · `Bert
-Hellinger` 1510, 2043, 2044 · `beschadigd-bestand` 115, 130 · `beschaving` 57,
-593, 820, 939, 1659 · `beslissen` 55 · `beslissingen` 197 · `besluiten` 47,
-59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293,
-299, 364, 396, 423, 424, 426, 450, 451, 468, 475, 510, 906, 908, 909, 1258,
-1287, 2090 · `besluitvorming onder druk` 2062 · `bestseller` 8, 37, 250, 1591
-· `betekenis` 143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488, 814,
-1284 · `beurshandel` 487 · `beurskrach` 809 · `beursrendement` 353 ·
-`beweegrichtlijnen` 2104 · `bewegen` 1822, 2104 · `beweging` 77, 84, 1131,
-1564, 1630, 1631, 1688, 1759, 1855, 1915, 2052, 2069 · `bewijs` 63, 658, 660 ·
-`bewijslast` 1611 · `bewijsvoering` 1545 · `bewust ego` 1693 · `bewustwording`
-103, 2023 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585, 652,
-663, 759, 760, 761, 763, 767, 918, 927, 928, 1156, 1158, 1159, 1160, 1161,
-1162, 1163, 1164, 1165, 1166, 1167, 1171, 1172, 1173, 1174, 1256, 1268, 1311,
-1316, 1317, 1318, 1319, 1320, 1324, 1327, 1328, 1329, 1504, 1506, 1524, 1531,
-1650, 1652, 1661, 1703, 1742, 1779, 1814, 1815, 1821, 1891, 1917, 2015, 2020,
-2045, 2065, 2067, 2090, 2101, 2116 · `bewustzijnsniveaus` 449, 1705 ·
-`bewustzijnsontwikkeling` 1614 · `bezit` 37 · `bhagavad gita` 569, 2060 ·
-`Bhagavad Gita` 1508, 1551 · `bias` 209 · `bibliotheek` 2001 · `bijbel` 1568,
-1811 · `bijbeluitleg` 1703 · `bijeenkomsten` 304 · `bijgeloof` 63 ·
-`bijna-dood ervaring` 1524 · `bijna-doodervaring` 585, 1174, 1506, 1596, 1601,
-1667, 1847, 2021 · `bijnieren` 1864 · `Bildungsroman` 1571 · `bindingsangst`
-1517, 1549, 1737 · `bindingspatronen` 1541 · `bioenergetica` 2049 ·
-`biofotonen` 1531, 1815 · `biofysica` 2050 · `biografie` 31, 46, 189, 231,
-240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649,
-658, 659, 689, 821, 905, 1124, 1153, 1220, 1229, 1252, 1265, 1315, 1331, 1581,
-1749, 2046 · `biohacking` 316, 2117 · `biologie` 66, 88, 89, 90, 91, 322, 663,
-818, 823, 941, 949, 950, 1120, 1259, 1262, 1273, 1275, 1344, 1675, 1677 ·
-`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 · `biomechanica`
-1855 · `biotechnologie` 236, 413 · `bipedie` 1708 · `bipolaire stoornis` 1315
-· `blackjack` 505 · `blessures` 1858 · `bloedlijnen` 1532 · `bloedvaten` 86 ·
-`bloedwaarden` 313 · `bloemlezing` 758, 1640, 1643 · `blokkade` 14 · `bodem`
-1592 · `bodhichitta` 1662 · `Boeddha` 2046 · `boeddhisme` 111, 287, 333, 341,
-401, 528, 755, 1106, 1109, 1110, 1124, 1125, 1168, 1556, 1558, 1559, 1560,
-1561, 1606, 1645, 1664, 1665, 1685, 1713, 1717, 1734, 1735, 1754, 1775, 1800,
-1829, 1847, 1878, 2046 · `boek der veranderingen` 2039 · `bogomilen` 1702 ·
-`boksen` 1835 · `Bombay` 1401, 1502, 1837 · `bomen` 2077 · `bonobo` 1675 ·
-`boosheid` 1584 · `bootstrapping` 369 · `bos` 1597, 2077 · `bosbeheer` 2077 ·
-`botanie` 1578 · `Boulder` 1559 · `boulimie` 1620 · `brainstormen` 33 ·
-`branding` 443 · `brein` 414, 1564, 1627, 1907, 2005, 2109 · `Bretagne` 1886 ·
-`Bridgeman Ademmethode` 1756 · `brieven` 292, 517, 1210 · `brievenroman` 1518
-· `Britse zelfhulp` 1870 · `broederliefde` 2071 · `broer en zus` 1618 ·
-`broers` 10 · `bronnenkritiek` 691, 1143, 1146, 1701 · `bronnenuitgave` 641,
-1223 · `Bruce Greyson` 1506 · `budgetteren` 159, 233, 464, 1752 · `buitenaards
-leven` 1856 · `buitenlandse hulp` 221 · `buitenstaander` 1823 · `bureaucratie`
-1339, 1901 · `burgerlijk verzet` 617 · `burgerlijke ongehoorzaamheid` 2033 ·
-`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552, 1503, 1594, 1669,
-1683, 1800, 1816, 1833, 1866, 1895, 2047, 2079, 2094 · `Burning Man` 1610 ·
-`bushido` 535 · `business model canvas` 2112 · `cabaret` 1765 · `cadeauboek`
-1672 · `cafébrand` 1512 · `cafeïne` 52 · `Californië` 10 · `Camus` 1727 ·
-`canon` 1568 · `Caputo` 1579 · `cardiologie` 1524 · `cariës` 1854 · `carl
-jung` 258 · `Carnegie Mellon` 1691 · `carrière` 146, 158, 388, 1278 · `cases`
-40 · `cashflow` 37 · `casuïstiek` 1674 · `CE Delft` 1651 · `celbiologie` 419,
-1273, 1588 · `Celestijnse belofte` 1827 · `celgeheugen` 2008, 2009 · `censuur`
-685, 1522 · `ceremonie` 1753 · `chakra's` 432, 1520, 1605, 1660, 2007 ·
+1772 · `Argentinië` 521, 1209 · `argumentatie` 421, 437, 511, 2120 ·
+`argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 · `Arjuna` 1551 ·
+`armoede` 26, 234, 254, 1557, 1694, 1765, 2048 · `Art of Living` 1552, 2100 ·
+`Arthashastra` 370 · `assertiviteit` 162, 1670 · `astrologie` 632, 836, 1118,
+1119, 1123, 1229, 1242, 1243, 1250, 1251, 1252, 1690 · `asymmetrie` 282 ·
+`atheïsme` 1678 · `Athene` 1725 · `Atlantis` 1821, 1856 · `atletiek` 31 ·
+`atomisme` 281 · `attitudinal healing` 1515 · `aura` 1660 · `Auschwitz` 48,
+1539, 2091 · `Australië` 447 · `authenticiteit` 1730 · `authenticiteitsdebat`
+1608 · `autisme` 1302, 1303, 1304, 1305, 1306, 1307, 1312 ·
+`auto-immuunziekte` 1722 · `autobiografie` 358, 440, 1108, 1303, 1570, 1908,
+2017, 2058 · `autobiografisch` 1746 · `autobiografische roman` 1856 ·
+`automatisering` 297, 539, 1264 · `automatismen` 1803 · `autonomie` 6, 50 ·
+`autoritarisme` 1900 · `autoriteit` 215 · `autotelie` 200 · `avontuur` 1625,
+1686, 2041 · `ayahuasca` 759 · `Ayla` 1823 · `ayurveda` 1605 · `Ayurveda` 2103
+· `Azië` 2089 · `backtesten` 482, 502 · `bagno` 1850 · `Bali` 1534, 1767 ·
+`ballingschap` 1522 · `bandha` 1698 · `banken en verzekeraars` 497 ·
+`bankwezen` 1332 · `bardo` 1754, 1847 · `barok` 216 · `basisbehoeften` 107 ·
+`basisinkomen` 1901 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
+170, 257, 270, 1610 · `bedrijfsfilosofie` 1744 · `bedrijfsgroei` 350 ·
+`bedrijfsleven` 209, 293, 903 · `bedrijfsmodel` 2112 · `bedrijfsonderzoek` 353
+· `bedrijfssystemen` 264 · `bedrijfsvoering` 1877, 2072 · `beeldcultuur` 563,
+828 · `beeldend boek` 2078 · `beeldroman` 1725 · `beeldverhaal` 561 ·
+`begeleiding` 2044 · `beginners` 112 · `behoeften` 35 · `behoeftigheid` 1602 ·
+`beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 · `bekering`
+1664 · `bekkenbodem` 1831 · `belangenverstrengeling` 138, 752 · `belasting`
+1855 · `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480,
+481, 482, 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502,
+503, 504, 505, 804, 807, 808, 810, 811, 812, 813, 814, 815, 816, 817, 1281,
+1283, 1288 · `beleid` 65 · `Belgie` 1865 · `belichaamde cognitie` 755 · `Bell`
+1658 · `beloningssysteem` 418 · `bemiddeling` 35, 1641 · `bergsport` 1744 ·
+`beroemdheden` 128 · `beroemdheid` 563 · `beroepshouding` 1720, 1914 ·
+`beroepskeuze` 1292 · `Bert Hellinger` 1510, 2043, 2044 · `beschadigd-bestand`
+115, 130 · `beschaving` 57, 593, 820, 939, 1659 · `beslissen` 55 ·
+`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
+170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
+468, 475, 510, 906, 908, 909, 1258, 1287, 2090 · `besluitvorming onder druk`
+2062 · `bestseller` 8, 37, 250, 1591 · `betekenis` 143 · `bethel` 559 ·
+`betrokkenheid` 472 · `beurs` 80, 488, 814, 1284 · `beurshandel` 487 ·
+`beurskrach` 809 · `beursrendement` 353 · `beweegrichtlijnen` 2104 · `bewegen`
+1822, 2104 · `beweging` 77, 84, 1131, 1564, 1630, 1631, 1688, 1759, 1855,
+1915, 2052, 2069 · `bewijs` 63, 658, 660 · `bewijslast` 1611 · `bewijsvoering`
+1545 · `bewust ego` 1693 · `bewustwording` 103, 2023 · `bewustzijn` 148, 169,
+200, 275, 340, 377, 518, 580, 585, 652, 663, 759, 760, 761, 763, 767, 918,
+927, 928, 1156, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167,
+1171, 1172, 1173, 1174, 1256, 1268, 1311, 1316, 1317, 1318, 1319, 1320, 1324,
+1327, 1328, 1329, 1504, 1506, 1524, 1531, 1650, 1652, 1661, 1703, 1742, 1779,
+1814, 1815, 1821, 1891, 1917, 2015, 2020, 2045, 2065, 2067, 2090, 2101, 2116 ·
+`bewustzijnsniveaus` 449, 1705 · `bewustzijnsontwikkeling` 1614 · `bezit` 37 ·
+`bhagavad gita` 569, 2060 · `Bhagavad Gita` 1508, 1551 · `bias` 209 ·
+`bibliotheek` 2001 · `bijbel` 1568, 1811 · `bijbeluitleg` 1703 ·
+`bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-dood ervaring` 1524 ·
+`bijna-doodervaring` 585, 1174, 1506, 1596, 1601, 1667, 1847, 2021 ·
+`bijnieren` 1864 · `Bildungsroman` 1571 · `bindingsangst` 1517, 1549, 1737 ·
+`bindingspatronen` 1541 · `bioenergetica` 2049 · `biofotonen` 1531, 1815 ·
+`biofysica` 2050 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267,
+269, 320, 328, 402, 454, 514, 537, 558, 649, 658, 659, 689, 821, 905, 1124,
+1153, 1220, 1229, 1252, 1265, 1315, 1331, 1581, 1749, 2046 · `biohacking` 316,
+2117 · `biologie` 66, 88, 89, 90, 91, 322, 663, 818, 823, 941, 949, 950, 1120,
+1259, 1262, 1273, 1275, 1344, 1675, 1677 · `biologie van gedrag` 273 ·
+`biologische klok` 326, 329, 552 · `biomechanica` 1855 · `biotechnologie` 236,
+413 · `bipedie` 1708 · `bipolaire stoornis` 1315 · `blackjack` 505 ·
+`blessures` 1858 · `bloedlijnen` 1532 · `bloedvaten` 86 · `bloedwaarden` 313 ·
+`bloemlezing` 758, 1640, 1643 · `blokkade` 14 · `bodem` 1592 · `bodhichitta`
+1662 · `Boeddha` 2046 · `boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106,
+1109, 1110, 1124, 1125, 1168, 1556, 1558, 1559, 1560, 1561, 1606, 1645, 1664,
+1665, 1685, 1713, 1717, 1734, 1735, 1754, 1775, 1800, 1829, 1847, 1878, 2046 ·
+`boek der veranderingen` 2039 · `bogomilen` 1702 · `boksen` 1835 · `Bombay`
+1401, 1502, 1837 · `bomen` 2077 · `bonobo` 1675 · `boosheid` 1584 ·
+`bootstrapping` 369 · `bos` 1597, 2077 · `bosbeheer` 2077 · `botanie` 1578 ·
+`Boulder` 1559 · `boulimie` 1620 · `brainstormen` 33 · `branding` 443 ·
+`brein` 414, 1564, 1627, 1907, 2005, 2109 · `Bretagne` 1886 · `Bridgeman
+Ademmethode` 1756 · `brieven` 292, 517, 1210 · `brievenroman` 1518 · `Britse
+zelfhulp` 1870 · `broederliefde` 2071 · `broer en zus` 1618 · `broers` 10 ·
+`bronnenkritiek` 691, 1143, 1146, 1701 · `bronnenuitgave` 641, 1223 · `Bruce
+Greyson` 1506 · `budgetteren` 159, 233, 464, 1752 · `buitenaards leven` 1856 ·
+`buitenlandse hulp` 221 · `buitenstaander` 1823 · `bureaucratie` 1339, 1901 ·
+`burgerlijk verzet` 617 · `burgerlijke ongehoorzaamheid` 2033 · `burgerschap`
+243 · `burn-out` 135, 207, 400, 551, 552, 1503, 1594, 1669, 1683, 1800, 1816,
+1833, 1866, 1895, 2047, 2079, 2094 · `Burning Man` 1610 · `bushido` 535 ·
+`business model canvas` 2112 · `cabaret` 1765 · `cadeauboek` 1672 ·
+`cafébrand` 1512 · `cafeïne` 52 · `Californië` 10 · `Camus` 1727 · `canon`
+1568 · `Caputo` 1579 · `cardiologie` 1524 · `cariës` 1854 · `carl jung` 258 ·
+`Carnegie Mellon` 1691 · `carrière` 146, 158, 388, 1278 · `cases` 40 ·
+`cashflow` 37 · `casuïstiek` 1674 · `CE Delft` 1651 · `celbiologie` 419, 1273,
+1588 · `Celestijnse belofte` 1827 · `celgeheugen` 2008, 2009 · `censuur` 685,
+1522 · `ceremonie` 1753 · `chakra's` 432, 1520, 1605, 1660, 2007 ·
 `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679, 768,
 1122, 1221, 1222, 1535, 1537, 1585, 1629, 1661, 1819, 1890, 1891, 1898, 1910,
 2020, 2021 · `chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom`
@@ -317566,9 +317764,9 @@ commedia` 2092 · `divinatie` 2080 · `Divine Revelation` 1896 · `DNA` 419,
 `doorzetten` 20, 1766 · `doorzettingsvermogen` 185, 249, 289, 324, 2040 ·
 `dopamine` 314, 418, 2093 · `dorp` 1851 · `dosha's` 1605 · `dramaturgie` 1201
 · `drankindustrie` 1906 · `Dresden` 1771 · `drie-eenheid` 1836 · `drogredenen`
-421, 1918 · `dromen` 52, 357, 358, 359, 360, 646, 1121, 1324, 1325, 1326,
-1327, 1328, 1329, 1624, 1684, 1917, 2115 · `droom` 1626 · `droomduiding` 1624
-· `drugs` 568 · `drugsbeleid` 1714, 1719 · `duitse literatuur` 1202 ·
+421, 1918, 2120 · `dromen` 52, 357, 358, 359, 360, 646, 1121, 1324, 1325,
+1326, 1327, 1328, 1329, 1624, 1684, 1917, 2115 · `droom` 1626 · `droomduiding`
+1624 · `drugs` 568 · `drugsbeleid` 1714, 1719 · `duitse literatuur` 1202 ·
 `duitsland` 2077 · `Duitsland` 1632, 1884 · `Duivelseiland` 1850 · `dummies`
 112 · `durfkapitaal` 47 · `duurzaamheid` 92, 1257, 1276, 1651 ·
 `dwangmatigheid` 1733 · `dyslexie` 1310 · `dystopie` 61, 618, 1757 ·
@@ -317928,14 +318126,14 @@ analyse` 498 · `kwantitatieve financiën` 485, 503, 816, 1286 ·
 1726, 1734, 1849, 1870, 2065 · `liefdesroman` 180 · `liefdestaal` 2056 ·
 `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390, 1300, 1836 · `Lima` 1570 ·
 `Limburg` 1888 · `Lipton` 1659 · `list` 531 · `literair` 110 · `literatuur`
-49, 934, 1113, 1299, 1330 · `logica` 421, 437, 1256, 1266, 1271 · `logische
-niveaus` 1543 · `logotherapie` 48 · `lojong` 1556, 1560, 1662 · `Londen` 1557,
-2089, 2119 · `Long Beach` 2083 · `Long-Island` 4 · `longevity` 415 ·
-`loopbaan` 50, 51, 150, 349, 515, 547, 803, 1501, 1740, 1766 · `lopen` 1855 ·
-`loslaten` 377, 449, 1507, 1637, 1671, 1840 · `losmaken` 45 · `lotsbestemming`
-261 · `louteringsberg` 2092 · `lsd` 750 · `LSD` 1841 · `luchtvaart` 422 ·
-`luisteren` 24, 35, 305, 444, 1642, 1919 · `Luke Howard` 1839 ·
-`lymfeklierkanker` 1596 · `maakbaarheid` 1769 · `maankalender` 1908 ·
+49, 934, 1113, 1299, 1330 · `logica` 421, 437, 1256, 1266, 1271, 2120 ·
+`logische niveaus` 1543 · `logotherapie` 48 · `lojong` 1556, 1560, 1662 ·
+`Londen` 1557, 2089, 2119 · `Long Beach` 2083 · `Long-Island` 4 · `longevity`
+415 · `loopbaan` 50, 51, 150, 349, 515, 547, 803, 1501, 1740, 1766 · `lopen`
+1855 · `loslaten` 377, 449, 1507, 1637, 1671, 1840 · `losmaken` 45 ·
+`lotsbestemming` 261 · `louteringsberg` 2092 · `lsd` 750 · `LSD` 1841 ·
+`luchtvaart` 422 · `luisteren` 24, 35, 305, 444, 1642, 1919 · `Luke Howard`
+1839 · `lymfeklierkanker` 1596 · `maakbaarheid` 1769 · `maankalender` 1908 ·
 `maatschappijkritiek` 674, 826, 1731 · `machinaal leren` 484, 485, 486, 503 ·
 `machine learning` 2035 · `macht` 212, 250, 263, 381, 388, 440, 617, 622, 683,
 684, 685, 753, 935, 1145, 1146, 1289, 1562, 1567, 1634 · `machtspolitiek` 220,
@@ -318187,7 +318385,7 @@ studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 ·
 276, 278, 290, 311, 400, 434, 442, 448, 512, 552, 802, 904, 1879, 1913, 2029,
 2030, 2053 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 ·
 `proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
-`propaganda` 60, 384, 562, 566, 686, 1757 · `propositielogica` 437 ·
+`propaganda` 60, 384, 562, 566, 686, 1757 · `propositielogica` 437, 2120 ·
 `protestantisme` 1577 · `protocol` 69 · `provocatieve therapie` 2106 ·
 `prozagedicht` 1540 · `pseudokennis` 126 · `pseudoniem` 378 ·
 `pseudowetenschap` 673, 1120, 1139, 1152, 1156, 1219, 1240, 1243, 1531, 1607,
@@ -318340,7 +318538,7 @@ roken` 1638, 1733 · `storytelling` 253, 279, 1682 · `strategie` 212, 217, 218,
 1732, 1768, 1803, 1816, 1833, 1863, 1866, 1913, 2042, 2088, 2094, 2109, 2111 ·
 `stressfysiologie` 2062 · `stressmanagement` 153, 2063 · `stressregulatie` 372
 · `stressvermindering` 2053 · `strip` 452 · `structuur` 82, 511 ·
-`studiebijbel` 1811 · `studieboek` 421, 437, 497, 498, 507, 831 ·
+`studiebijbel` 1811 · `studieboek` 421, 437, 497, 498, 507, 831, 2120 ·
 `studietechniek` 420 · `subcultuur` 834 · `subpersoonlijkheden` 1693 ·
 `succes` 75, 76, 274, 1766, 2103 · `suggestie` 1513 · `superkrachten` 203 ·
 `supplementen` 171, 316, 1865, 1866, 1894, 1895 · `Suriname` 1509 ·
@@ -318557,9 +318755,9 @@ nidra` 1732 · `young adult` 192 · `youtube` 245 · `Zaire` 1835 · `zakelijk`
 `zelfregulatie` 153, 165, 177, 541, 542, 1628 · `zelfrespect` 2099 ·
 `zelfsabotage` 161, 344, 1598 · `zelfspot` 19 · `zelfspraak` 439 ·
 `zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
-198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168, 1776, 1857 ·
-`zelfuitgegeven` 123, 124, 125, 126, 1302 · `zelfverbetering` 243 ·
-`zelfvergeving` 1615 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441, 1594,
+198 · `zelfstandig starten` 210 · `zelfstudie` 2120 · `zelfsturing` 142, 168,
+1776, 1857 · `zelfuitgegeven` 123, 124, 125, 126, 1302 · `zelfverbetering` 243
+· `zelfvergeving` 1615 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441, 1594,
 1721, 1768, 1832, 1852, 1872, 2099 · `zelfwaarde` 168, 1667 · `zelfwaardering`
 121, 1645 · `zelfzorg` 109, 225, 466, 1127, 1648, 1712, 1720, 1817, 1830,
 1894, 2096 · `zen` 141, 346, 441, 517, 528, 576, 769, 800, 952, 1106, 1504,
@@ -319232,13 +319430,14 @@ tweede stap aan toevoegt: iemand er ongemerkt mee beïnvloeden. Twee
 toepassingen van dezelfde waarneming, met een andere grens aan wat ermee mag
 gebeuren.
 
-**Formele logica, twee studieboeken** (421, 437). 
-Twee inleidende studieboeken logica zonder eigen these over de wereld, gebouwd
+**Formele logica, drie studieboeken** (421, 437, 2120). 
+Drie inleidende studieboeken logica zonder eigen these over de wereld, gebouwd
 van informele drogredenen naar categorische, propositie- en predikatenlogica:
-Howard-Snyder, Howard-Snyder en Wasserman, en Hurley, sinds 1982 het meest
-gebruikte inleidende logicaboek van Noord-Amerika. Wie een van de twee van
-kaft tot kaft doorwerkt met de oefeningen, heeft het gereedschap van de ander
-ook in huis.
+Howard-Snyder, Howard-Snyder en Wasserman, Hurley, sinds 1982 het meest
+gebruikte inleidende logicaboek van Noord-Amerika, en Lee, geschreven voor
+zelfstudie buiten een universitair vak. Wie Lee eerst leest voor het
+overzicht, vindt in de andere twee de oefenstof die haar boek voor zelfstudie
+bewust beperkt houdt.
 
 **Levenswijsheid in aforismen, van de Tao tot Silicon Valley** (394, 216, 228, 473). 
 Vier verzamelingen korte levenswijsheid, zonder doorlopend betoog, uit vier
