@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 27
-augustus 2026: 1536 titels in 21 rubrieken.
+augustus 2026: 1535 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -12,7 +12,7 @@ bij de volgende build verloren.
 
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
-| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800, 1301, 2057, 2127 |
+| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800, 1301, 2057 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586, 1168, 1206, 1208, 1503, 1509, 1510, 1514, 1515, 1517, 1525, 1527, 1543, 1549, 1556, 1560, 1561, 1566, 1572, 1582, 1583, 1594, 1595, 1602, 1614, 1615, 1636, 1637, 1643, 1645, 1648, 1653, 1654, 1665, 1667, 1669, 1670, 1672, 1673, 1685, 1710, 1713, 1716, 1721, 1723, 1724, 1726, 1728, 1736, 1737, 1739, 1743, 1753, 1761, 1764, 1768, 1769, 1777, 1814, 1817, 1829, 1838, 1840, 1852, 1870, 1878, 1882, 1893, 1912, 2006, 2008, 2009, 2019, 2028, 2032, 2042, 2049, 2063, 2064, 2073, 2075, 2076, 2079, 2095, 2097, 2099, 2100, 2118 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408, 1500, 1598, 1730, 1811, 1874, 2074 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 819, 830, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942, 1114, 1200, 1202, 1204, 1205, 1209, 1211, 1212, 1213, 1312, 1327, 1400, 1401, 1402, 1512, 1518, 1519, 1534, 1538, 1542, 1557, 1562, 1567, 1570, 1571, 1573, 1585, 1591, 1597, 1600, 1601, 1617, 1618, 1620, 1622, 1625, 1626, 1632, 1633, 1634, 1649, 1664, 1666, 1681, 1686, 1687, 1691, 1694, 1695, 1700, 1706, 1725, 1746, 1757, 1758, 1765, 1767, 1771, 1772, 1823, 1827, 1834, 1835, 1836, 1837, 1851, 1884, 1885, 1886, 1887, 1888, 2001, 2003, 2004, 2040, 2041, 2047, 2048, 2071, 2086, 2087, 2089, 2092, 2119 |
@@ -318489,150 +318489,6 @@ van de individuele positie invult.
 doorgroeien en verliezers op tijd te verkopen komt sterk overeen met wat
 Freeman-Shors kenners in de praktijk bleken te doen.
 
-## 2127. The Practicing Mind
-
-Thomas M. Sterner, 2006. Volledige titel *The Practicing Mind: Developing
-Focus and Discipline in Your Life*. Sterner gaf het boek voor het eerst in
-eigen beheer uit; New World Library (Novato, Californië) bracht een herziene
-editie uit in 2010. Sterner is jazzpianist, golfer en bouwde het boek op eigen
-oefenervaring in beide disciplines. Precieze eerste-drukgegevens niet
-nagekeken. Nederlandse vertaling niet nagekeken. Rubriek: vakmanschap en
-aandacht.
-Tags: `discipline`, `geduld`, `focus`, `gewoontevorming`, `zelfhulp`
-
-Thomas Sterner betoogt dat mensen zichzelf onnodig frustreren door zich op een
-doel te richten in plaats van op het proces dat naar dat doel leidt: wie leert
-pianospelen of golfen en alleen naar het eindresultaat kijkt, ervaart elke
-oefensessie als een tekortkoming ten opzichte van een nog niet bereikte staat.
-Zijn oplossing is een omslag naar procesgerichtheid, waarbij de handeling van
-het oefenen zelf het doel wordt in plaats van een middel ernaartoe.
-
-Het boek is kort en persoonlijk geschreven, opgebouwd uit Sterners eigen
-ervaring als jazzpianist en golfer, en biedt geen onderzoek maar een reeks
-praktische technieken om die procesgerichtheid vast te houden.
-
-### Uitgebreide samenvatting
-
-**De stelling.** Sterners stelling is dat geduld en discipline niet aangeboren
-eigenschappen zijn maar vaardigheden die ontstaan uit een verschuiving in
-perceptie: wie een handeling als product beoordeelt, product namelijk of het
-doel al is bereikt, ervaart elke tussenstap als falen, terwijl wie dezelfde
-handeling als proces beoordeelt, elke tussenstap als de handeling zelf
-ervaart. Die verschuiving is volgens hem aan te leren met concrete technieken,
-en niet afhankelijk van karakter of aanleg.
-
-#### De gang van het boek
-
-**Van product naar proces**
-
-Sterner opent met het onderscheid tussen productgerichtheid, het beoordelen
-van een handeling op basis van het bereikte resultaat, en procesgerichtheid,
-het beoordelen van een handeling op basis van de aandacht die eraan is
-besteed. Aan de hand van zijn eigen pianolessen en golfrondes laat hij zien
-hoe productgerichtheid een oefensessie in een aaneenschakeling van
-mislukkingen verandert, terwijl procesgerichtheid dezelfde sessie in een reeks
-voltooide momenten verandert.
-
-**De cirkel van geduld en discipline**
-
-Sterner wijst op een paradox: het ontwikkelen van geduld vraagt discipline, en
-het ontwikkelen van discipline vraagt geduld, waardoor iemand zonder een van
-beide moeilijk aan een van beide kan beginnen. Hij doorbreekt die cirkel door
-te stellen dat een kleine perceptieverschuiving, het accepteren dat een
-vaardigheid nooit af is maar altijd in ontwikkeling blijft, allebei tegelijk
-vrijmaakt.
-
-**Gewoontes bewust vormen**
-
-Een gewoonte is volgens Sterner niets anders dan een herhaalde handeling
-waaraan de aandacht is ontsnapt: zodra iemand een handeling zonder nadenken
-uitvoert, is die een gewoonte geworden, in positieve of negatieve zin. Om een
-nieuwe gewoonte te vormen, moet de aandacht dus bewust bij de handeling
-blijven tot herhaling haar vanzelf verankert, in plaats van te wachten op
-motivatie die vanzelf aanhoudt.
-
-**De vier S-woorden**
-
-Sterner geeft vier praktische regels om een oefening behapbaar te houden:
-simplify, de handeling tot haar kern terugbrengen, small, in kleine stappen
-werken, short, in korte sessies, en slow, in een tempo waarin fouten opvallen
-voordat ze zich inslijten. Samen houden deze vier de aandacht bij het proces
-in plaats van bij het nog verre eindresultaat.
-
-**Equanimiteit en DOC**
-
-Het slothoofdstuk introduceert wat Sterner DOC noemt, een afstandelijke,
-oordeelvrije manier van naar de eigen oefening kijken: fouten worden
-geregistreerd als informatie in plaats van als reden tot frustratie. Die
-houding, gecombineerd met de vier S-woorden, moet volgens Sterner de
-gelijkmoedigheid opleveren waarmee oefenen een blijvende bezigheid wordt in
-plaats van een opeenvolging van korte pogingen die telkens worden opgegeven.
-
-#### Kernbegrippen
-
-| Begrip | Wat de auteur ermee bedoelt |
-| --- | --- |
-| Procesgerichtheid | Het beoordelen van een handeling op basis van de aandacht die eraan is besteed, in plaats van op basis van het bereikte resultaat. |
-| Perceptieverschuiving | De verandering in hoe een handeling wordt beoordeeld, van product naar proces, die volgens Sterner geduld en discipline tegelijk vrijmaakt. |
-| De vier S-woorden | Sterners vier regels om te oefenen: simplify, small, short en slow, samen bedoeld om de aandacht bij het proces te houden. |
-| DOC | Sterners term voor een afstandelijke, oordeelvrije manier van naar de eigen oefening kijken, waarbij fouten als informatie worden geregistreerd. |
-| Equanimiteit | De gelijkmoedigheid die volgens Sterner ontstaat uit de combinatie van procesgerichtheid en oordeelvrije zelfobservatie. |
-
-#### Waar het argument op rust
-
-Sterner onderbouwt zijn methode met eigen ervaring als jazzpianist en golfer,
-niet met onderzoek of citaten uit de psychologie van vaardigheidsverwerving.
-Het boek noemt geen studies en bevat geen literatuurlijst; de
-overtuigingskracht zit in de herkenbaarheid van de voorbeelden, niet in een
-onafhankelijke toets van de methode.
-
-De kernclaim, dat procesgerichtheid frustratie vermindert en
-doorzettingsvermogen vergroot, sluit aan bij bredere literatuur over
-doeloriëntatie in de psychologie, maar Sterner verwijst daar zelf niet naar en
-presenteert zijn inzicht als persoonlijke ontdekking uit eigen oefenpraktijk.
-
-#### Wat er tegen in te brengen valt
-
-Het boek generaliseert van twee disciplines die Sterner zelf beoefende, muziek
-en golf, naar vaardigheidsontwikkeling in het algemeen, zonder te toetsen of
-dezelfde procesgerichte aanpak evengoed werkt bij vaardigheden met een andere
-structuur, zoals sociale vaardigheden of complexe kennisvakken. De vier
-S-woorden en DOC zijn Sterners eigen vocabulaire voor ideeën die in oudere
-contemplatieve tradities, waaronder het zenboeddhisme, al eeuwenlang bestaan,
-zonder dat het boek die herkomst benoemt.
-
-Het boek is kort en herhaalt dezelfde kernboodschap, proces boven product, in
-verschillende bewoordingen door de hoofdstukken heen, wat het meer een
-uitgewerkt essay maakt dan een stapsgewijze methode met aantoonbaar nieuwe
-technieken per hoofdstuk. Wie al bekend is met begrippen als mindfulness of
-aandachtig handelen uit andere bronnen, vindt in Sterners versie vooral een
-nieuwe woordkeuze voor een bestaand idee, toegepast op oefenen in plaats van
-op meditatie in brede zin.
-
-#### Wat er concreet mee te doen is
-
-- Beoordeel een oefensessie na afloop op de aandacht die je eraan besteedde,
-niet op hoe dicht je bij het einddoel kwam.
-- Pas bij een nieuwe vaardigheid de vier S-woorden toe: vereenvoudig de
-handeling, werk in kleine stappen, houd sessies kort, en vertraag het tempo
-tot fouten opvallen.
-- Registreer een fout tijdens het oefenen als informatie in plaats van als
-aanleiding tot frustratie, en ga direct door met de volgende herhaling.
-- Merk op wanneer een gewoonte zich zonder nadenken voltrekt, en bepaal bewust
-of die aandachtsvrije herhaling een gewoonte versterkt die je wilt behouden of
-juist wilt afleren.
-
-#### Wat je hierna leest
-
-- 376. Talent Is Overrated. Colvin onderbouwt met onderzoek naar doelgericht
-oefenen wat Sterner op basis van eigen ervaring beschrijft, met minder
-anekdote en meer verwijzing naar studies.
-- 29. Grit. Duckworth beschrijft doorzettingsvermogen als meetbare eigenschap
-met onderzoek erachter, waar Sterner een praktische techniek aanreikt om
-hetzelfde vol te houden.
-- 70. Deep Work. Newport past een vergelijkbare focus op het proces toe op
-kenniswerk in plaats van op muziek en sport.
-
 ## 2128. The Science of Rapid Skill Acquisition
 
 Peter Hollins. Volledige titel *The Science of Rapid Skill Acquisition:
@@ -318773,7 +318629,7 @@ stoppen.
 
 #### Wat je hierna leest
 
-- 2127. The Practicing Mind. Sterner beschrijft vanuit eigen ervaring dezelfde
+- 800. The Practicing Mind. Sterner beschrijft vanuit eigen ervaring dezelfde
 nadruk op doelgericht, aandachtig oefenen die Hollins hier als synthese van
 bestaand onderzoek presenteert.
 - 376. Talent Is Overrated. Colvin werkt het begrip doelgericht oefenen dat
@@ -319748,9 +319604,9 @@ controle` 194 · `dichtwerk` 524 · `dictatuur` 221 · `dieet` 1807, 1865, 2108 
 `dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `Dina` 1542 ·
 `diplomatie` 243 · `Dipsaus` 1619 · `direct response` 350 · `direct-marketing`
 695, 697, 698, 699 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133,
-137, 146, 445, 462, 480, 481, 482, 487, 488, 545, 800, 1749, 2028, 2064, 2127
-· `discours` 628 · `disruptie` 293 · `divina commedia` 2092 · `divinatie` 2080
-· `Divine Revelation` 1896 · `DNA` 419, 1904, 2051 · `docenten` 116 ·
+137, 146, 445, 462, 480, 481, 482, 487, 488, 545, 800, 1749, 2028, 2064 ·
+`discours` 628 · `disruptie` 293 · `divina commedia` 2092 · `divinatie` 2080 ·
+`Divine Revelation` 1896 · `DNA` 419, 1904, 2051 · `docenten` 116 ·
 `doe-het-zelf` 1801 · `doeboek` 1872 · `doelen` 58, 136, 158, 542 · `doelen
 stellen` 367, 427, 448, 1501, 1543, 2073 · `doelgericht oefenen` 2128 ·
 `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 · `dogma`
@@ -319848,7 +319704,7 @@ industrie` 752 · `farmacologie` 1714 · `fascisme` 753 · `fawnen` 1617 · `FBI
 wiskunde` 497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395,
 425 · `financiering` 172 · `fitgirls` 1807 · `fitness` 2068 · `fitnessbranche`
 307, 544 · `flitshandel` 499 · `Florence` 2114 · `flow` 78, 187, 200, 1563,
-1610, 1723, 2109 · `fobie` 1533 · `focus` 175, 197, 448, 513, 1857, 2127 ·
+1610, 1723, 2109 · `fobie` 1533 · `focus` 175, 197, 448, 513, 1857 ·
 `folklore` 615, 669, 1216, 1245 · `fondsbeheer` 2123, 2126 · `fotoboek` 189 ·
 `fotografie` 1313 · `fotosynthese` 2051 · `Foucault` 1774 · `foutcultuur` 422
 · `fouten maken` 509 · `fractals` 811 · `fragmenten` 1200 · `franchise` 544,
@@ -319866,8 +319722,8 @@ uitdaging` 323 · `fysiologie` 318, 412, 458, 1128, 1130, 2066 ·
 `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie`
 294, 817, 2126 · `gedragstherapie` 1526, 1842 · `gedragstypen` 156 ·
 `gedragsverandering` 238, 290, 457, 469, 1565, 1907, 2108 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800, 2127
-· `geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
+`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
+`geest` 584, 652, 1167 · `geestelijke gezondheid` 193 · `geestelijke
 gezondheidszorg` 1525 · `geestelijke oefeningen` 586 · `geestelijke
 verzorging` 1575 · `geestestraining` 1556, 1662 · `gegevensanalyse` 486 ·
 `gehechtheid` 166, 2037, 2056 · `geheim genootschap` 202 · `geheime diensten`
@@ -319910,7 +319766,7 @@ communicatie` 1641, 1642 · `geweten` 1637 · `gewicht` 138 · `gewichtsverlies`
 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557, 1561, 1563,
 1582, 1638, 1648, 1653, 1654, 1688, 1709, 1760, 1761, 1822, 1825, 1853, 1857,
 1860, 1868, 1883, 1907, 2019, 2029, 2073, 2076 · `gewoontevorming` 146, 161,
-168, 188, 244, 291, 294, 396, 397, 411, 540, 2127 · `gezag` 62 ·
+168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 ·
 `gezichtsuitdrukking` 1902 · `gezin` 547, 1613, 2056 · `gezinnen` 327 ·
 `gezinsdynamiek` 1595 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332,
 412, 414, 415, 823, 1128, 1129, 1131, 1133, 1134, 1138, 1564, 1647, 1688,
@@ -320746,42 +320602,68 @@ en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653,
 1843, 1852, 1860, 1866, 1868, 1870, 1873, 1882, 1889, 1893, 1896, 1909, 1910,
 1912, 2005, 2006, 2007, 2008, 2009, 2013, 2018, 2028, 2036, 2037, 2042, 2052,
 2056, 2059, 2064, 2073, 2076, 2079, 2080, 2088, 2095, 2099, 2100, 2103, 2108,
-2111, 2127, 2128, 2129, 2130, 2131 · `zelfhulpkritiek` 1769 · `zelfkennis`
-258, 260, 361, 519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 ·
-`zelfleiderschap` 1598, 1669 · `zelfliefde` 190, 195, 204, 380, 403, 549,
-1517, 1549, 1739, 1817 · `zelfmoord` 1727 · `zelfmoordpoging` 2001 ·
-`zelfonderzoek` 315, 470, 520, 527, 579, 1101, 1203, 1208, 1502, 1534, 1572,
-1612, 1624, 1652, 1665, 1673, 1838, 1878, 1917, 2031 · `zelfontdekking` 2047 ·
-`zelfontplooiing` 393, 1234, 1614 · `zelfontwikkeling` 179, 2115 ·
-`zelforganisatie` 1274, 1861 · `zelfpraat` 161 · `zelfpromotie` 388 ·
-`zelfpublicatie` 174 · `zelfrapportage` 1610 · `zelfrealisatie` 2060 ·
-`zelfredzaamheid` 2106 · `zelfreferentie` 656 · `zelfreflectie` 2039, 2097 ·
-`zelfregulatie` 153, 165, 177, 541, 542, 1628 · `zelfrespect` 2099 ·
-`zelfsabotage` 161, 344, 1598, 2131 · `zelfspot` 19 · `zelfspraak` 439 ·
-`zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
-198 · `zelfstandig starten` 210 · `zelfstudie` 2120, 2128 · `zelfsturing` 142,
-168, 1776, 1857 · `zelfuitgegeven` 123, 124, 125, 126, 1302 ·
-`zelfverbetering` 243 · `zelfvergeving` 1615 · `zelfvertrouwen` 157, 187, 312,
-365, 440, 441, 1594, 1721, 1768, 1832, 1852, 1872, 2099 · `zelfwaarde` 168,
-1667 · `zelfwaardering` 121, 1645 · `zelfzorg` 109, 225, 466, 1127, 1648,
-1712, 1720, 1817, 1830, 1894, 2096 · `zen` 141, 346, 441, 517, 528, 576, 769,
-800, 952, 1106, 1504, 1536, 1554, 1555, 1556, 1558, 1713, 1777 · `Zen.nl` 1555
-· `zenboeddhisme` 205, 379 · `zenmeditatie` 2027 · `zentraining` 2027 ·
-`zenuwstelsel` 87, 1599, 1622, 1623, 1628, 1655, 1656, 1668, 1732, 1813, 2067
-· `zestiende eeuw` 573 · `zeven dagen` 1743 · `zeven-stappen` 129 ·
-`zeventiende eeuw` 1888 · `ziekte` 74, 180, 295, 823, 1313 · `ziel` 1697, 2101
-· `zielsplan` 1911 · `zingen` 1699 · `zingeving` 9, 48, 77, 91, 160, 183, 200,
-201, 237, 245, 255, 515, 547, 1323, 1566, 1572, 1575, 1727, 1736, 1764, 1915,
-2019, 2118 · `zinloos werk` 1901 · `zintuigen` 582 · `zitten` 84, 1855 ·
-`zoekplaat` 2002 · `zorg` 96, 1720 · `Zuid-Afrika` 26, 266, 523, 2087 ·
-`Zuiden` 1519 · `zuinigheid` 39 · `zuivere ervaring` 576 · `zusters` 1518 ·
-`zwaar` 143 · `zwaardvechten` 346, 517 · `zwangerschap` 1136, 1750 · `zwart
-bewustzijn` 523 · `zwarte gaten` 99, 262, 651 · `Zwarte Piet` 1619 · `Zweden`
-1217, 1597, 2071 · `zwijgen` 1618 · `Zwitserland` 1650, 1891
+2111, 2128, 2129, 2130, 2131 · `zelfhulpkritiek` 1769 · `zelfkennis` 258, 260,
+361, 519, 526, 1640, 1778 · `zelfkritiek` 1645, 1693 · `zelfleiderschap` 1598,
+1669 · `zelfliefde` 190, 195, 204, 380, 403, 549, 1517, 1549, 1739, 1817 ·
+`zelfmoord` 1727 · `zelfmoordpoging` 2001 · `zelfonderzoek` 315, 470, 520,
+527, 579, 1101, 1203, 1208, 1502, 1534, 1572, 1612, 1624, 1652, 1665, 1673,
+1838, 1878, 1917, 2031 · `zelfontdekking` 2047 · `zelfontplooiing` 393, 1234,
+1614 · `zelfontwikkeling` 179, 2115 · `zelforganisatie` 1274, 1861 ·
+`zelfpraat` 161 · `zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfrapportage`
+1610 · `zelfrealisatie` 2060 · `zelfredzaamheid` 2106 · `zelfreferentie` 656 ·
+`zelfreflectie` 2039, 2097 · `zelfregulatie` 153, 165, 177, 541, 542, 1628 ·
+`zelfrespect` 2099 · `zelfsabotage` 161, 344, 1598, 2131 · `zelfspot` 19 ·
+`zelfspraak` 439 · `zelfstandig` 40, 515 · `zelfstandig denken` 211 ·
+`zelfstandig ondernemen` 198 · `zelfstandig starten` 210 · `zelfstudie` 2120,
+2128 · `zelfsturing` 142, 168, 1776, 1857 · `zelfuitgegeven` 123, 124, 125,
+126, 1302 · `zelfverbetering` 243 · `zelfvergeving` 1615 · `zelfvertrouwen`
+157, 187, 312, 365, 440, 441, 1594, 1721, 1768, 1832, 1852, 1872, 2099 ·
+`zelfwaarde` 168, 1667 · `zelfwaardering` 121, 1645 · `zelfzorg` 109, 225,
+466, 1127, 1648, 1712, 1720, 1817, 1830, 1894, 2096 · `zen` 141, 346, 441,
+517, 528, 576, 769, 800, 952, 1106, 1504, 1536, 1554, 1555, 1556, 1558, 1713,
+1777 · `Zen.nl` 1555 · `zenboeddhisme` 205, 379 · `zenmeditatie` 2027 ·
+`zentraining` 2027 · `zenuwstelsel` 87, 1599, 1622, 1623, 1628, 1655, 1656,
+1668, 1732, 1813, 2067 · `zestiende eeuw` 573 · `zeven dagen` 1743 ·
+`zeven-stappen` 129 · `zeventiende eeuw` 1888 · `ziekte` 74, 180, 295, 823,
+1313 · `ziel` 1697, 2101 · `zielsplan` 1911 · `zingen` 1699 · `zingeving` 9,
+48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547, 1323, 1566, 1572,
+1575, 1727, 1736, 1764, 1915, 2019, 2118 · `zinloos werk` 1901 · `zintuigen`
+582 · `zitten` 84, 1855 · `zoekplaat` 2002 · `zorg` 96, 1720 · `Zuid-Afrika`
+26, 266, 523, 2087 · `Zuiden` 1519 · `zuinigheid` 39 · `zuivere ervaring` 576
+· `zusters` 1518 · `zwaar` 143 · `zwaardvechten` 346, 517 · `zwangerschap`
+1136, 1750 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262, 651 · `Zwarte
+Piet` 1619 · `Zweden` 1217, 1597, 2071 · `zwijgen` 1618 · `Zwitserland` 1650,
+1891
 
 ## Leesroutes
 
 Lijnen die door meer dan één titel heen lopen.
+
+**Beleggen: aandeel, gedrag, cyclus en beleid** (2123, 2126, 2125, 2124). 
+Vier boeken die samen het hele traject van een belegging volgen. Lynch (2123)
+begint bij de selectie: welk aandeel, uit welke van zes categorieën, en welk
+verhaal moet de cijfers bevestigen. Freeman-Shor (2126) volgt wat er na de
+aankoop gebeurt, met een dataset van 1866 posities die laat zien dat gedrag na
+de koop het rendement meer bepaalt dan de trefzekerheid van de selectie zelf.
+Marks (2125) tilt de vraag naar het niveau van de bredere markt: niet
+voorspellen wat er gebeurt, maar bepalen waar de markt ongeveer staat in haar
+cyclus en de risicohouding daarop afstemmen. Koo (2124) legt ten slotte de
+macro-economische bodem onder diezelfde kredietcyclus, vanuit het perspectief
+van centrale banken en overheden in plaats van vanuit de individuele belegger.
+Van het individuele aandeel tot het monetaire beleid erachter, in vier
+onafhankelijk geschreven boeken die elkaar zonder overleg aanvullen.
+
+**Genegeerde vaardigheden, twee keer hetzelfde boek** (2129, 2130). 
+Twee boeken met vrijwel dezelfde titel en dezelfde belofte, over stille
+vermogens die succes zouden bepalen zonder dat opleiding of loopbaanadvies er
+aandacht aan besteedt, maar met verschillende inhoud. Tripathi (2129) werkt
+negen vaardigheden uit, van waarneming tot voorspelling, elk met historische
+voorbeelden. Rizvi (2130), een titel waarover publiek nauwelijks iets bekend
+is, richt zich op vier andere vermogens: diepe observatie, strategische rust,
+het verdragen van verveling en het nadenken over het eigen denken. Wie op de
+titel afgaat, verwacht een vervolg of een variant; wie beide boeken naast
+elkaar legt, ziet vooral hoe gewild dezelfde belofte in dit genre is, ongeacht
+welke negen of vier vaardigheden er precies achter schuilgaan.
 
 **De wiskunde achter taalmodellen, drie boeken** (2132, 2133, 2134). 
 Drie recente boeken over dezelfde wiskunde achter grote taalmodellen, geen van
@@ -321703,18 +321585,21 @@ History (57) uit 1968 is het dunne slotessay waarin het echtpaar opschrijft
 wat al die arbeid aan bruikbare lessen heeft opgeleverd. Beginpunt en eindpunt
 van hetzelfde schrijversleven.
 
-**Hoe een vaardigheid erin komt** (376, 296, 397, 175, 800). 
+**Hoe een vaardigheid erin komt** (376, 296, 397, 175, 800, 2128). 
 Colvin (376) bracht het onderzoek naar deliberate practice naar het grote
 publiek: de kwaliteit van de oefening bepaalt wie de top haalt, aanleg veel
-minder. Vier latere boeken werken datzelfde terrein elk anders uit. Young
+minder. Vijf latere boeken werken datzelfde terrein elk anders uit. Young
 (296) herleidt vooruitgang tot drie voorwaarden: een goed voorbeeld, oefening
 van het juiste soort en feedback die klopt. Velasquez (397) beschrijft het
 biologische proces onder het leren en welke eisen oefening moet vervullen om
 het in gang te zetten. Sterner (800) haalt de aandacht juist weg bij het doel
 en legt haar bij de handeling zelf, met het aanleren van een instrument als
 voorbeeld: wie tijdens het oefenen aan het resultaat denkt, oefent slechter.
-Kwik (175) is de populairste en lichtste van de vijf, met zijn eigen
-geschiedenis van hersenletsel als voornaamste bewijs.
+Kwik (175) is de populairste en lichtste van de zes, met zijn eigen
+geschiedenis van hersenletsel als voornaamste bewijs. Hollins (2128) bundelt
+hetzelfde onderzoeksterrein tot een praktische checklist, van de juiste
+vaardigheid kiezen tot vaardigheden combineren, met minder diepgang per stap
+dan de andere vijf maar met de meest directe vertaling naar een leerschema.
 
 **Twee oprichters over de vraag of het vak te noteren valt** (270, 47). 
 Dalio (270) en Horowitz (47) leidden allebei een bedrijf door zware jaren en
@@ -322071,15 +321956,18 @@ gereedschap om DNA te herschrijven, en waarom de toegankelijkheid van die
 techniek belofte en gevaar tegelijk is. Wat het genoom zelf bewaakt, en wat de
 mens er inmiddels aan kan veranderen.
 
-**Complexiteit: de school en de toepassing** (347, 300). 
+**Complexiteit: de school, de toepassing en het begrippenkader** (347, 300, 2121). 
 Waldrop (347) beschrijft hoe economen, biologen, natuurkundigen en informatici
 zich vanaf 1984 rond het Santa Fe Institute verzamelden met de stelling dat
 complexe systemen een gedeelde onderliggende logica hebben. Ball (300) laat
 zien wat er gebeurt als die benadering op de samenleving wordt losgelaten:
 files, wijksegregatie, beurskoersen en menigten vertonen patronen die dezelfde
 wiskunde volgen als faseovergangen in de natuurkunde, zonder dat de bedoeling
-van de enkeling ze verklaart. De geschiedenis van het vakgebied en het
-vakgebied aan het werk.
+van de enkeling ze verklaart. Meadows (2121) levert het begrippenkader waarmee
+die patronen te ontleden zijn, voorraden, stromen en feedbacklussen, en de
+hefboompunten waarmee een systeem daadwerkelijk is bij te sturen. De
+geschiedenis van het vakgebied, het vakgebied aan het werk, en het gereedschap
+om er zelf mee te werken.
 
 **Hindoemythologie als fantasy** (202, 203, 192). 
 Drie hedendaagse Indiase fantasyboeken die op hindoeïstische mythologie
@@ -322196,14 +322084,17 @@ stapelt zich op omdat niemand de prijs van het opruimen wil betalen, en
 vereenvoudigen vraagt meer moed dan vernieuwen. Individu en organisatie,
 dezelfde les.
 
-**Het hoofd dat blijft doorpraten** (177, 176). 
-Tweemaal dezelfde zelfhulpredenering, in eigen beheer uitgegeven. Meurisse
+**Het hoofd dat blijft doorpraten** (177, 176, 2131). 
+Drie keer dezelfde zelfhulpredenering, in eigen beheer uitgegeven. Meurisse
 (177) stelt dat een emotie zelden rechtstreeks uit een gebeurtenis komt en
 vrijwel altijd uit de interpretatie en het verhaal dat het ego eraan
 vastknoopt. Kapoor (176) stelt dat piekeren niet over de situatie gaat maar
 over het commentaar dat het hoofd erbij levert, en dat rust al aanwezig is
-zodra dat gepraat stilvalt. Dezelfde claim die de grote namen van het genre
-dragen, hier in de compacte doe-het-zelfversie, zonder onderzoek.
+zodra dat gepraat stilvalt. Trenton (2131) past dezelfde claim toe op sociale
+situaties specifiek: niet de ander maakt een gesprek moeilijk, maar het
+commentaar dat na afloop over dat gesprek blijft doorlopen. Dezelfde claim die
+de grote namen van het genre dragen, hier in de compacte doe-het-zelfversie,
+zonder onderzoek.
 
 **Vaders en dochters** (178, 226). 
 Twee boeken over dezelfde band, in tegengestelde kijkrichting. Sinatra (178)
@@ -323555,7 +323446,7 @@ daar het tegendeel van een sprint naast: Peter en Rosemary Grant meten sinds
 1977 lag de gemiddelde snavel meetbaar hoger. Twee ontdekkers over dezelfde
 weken, en een verslaggever over twintig jaar meten.
 
-**Waar de nieuwe natuurkunde op uitliep** (94, 944). 
+**Waar de nieuwe natuurkunde op uitliep** (94, 944, 2122). 
 Hürter (94) vertelt de natuurkundigen tussen 1900 en 1945 als groepsportret,
 met Planck, Einstein, Bohr, Heisenberg, Schrödinger, Curie en Meitner, en met
 de jarenlange onzekerheid over hun eigen gelijk als verhaallijn. Rhodes (944)
@@ -323566,7 +323457,11 @@ maanlicht verkoopt, en volgt die gedachte in 886 bladzijden tot Hiroshima.
 Dezelfde mensen, dezelfde jaren, en in het tweede boek de uitkomst, met
 ooggetuigenverslagen in de slothoofdstukken. Rhodes betoogt dat de bom
 voortkwam uit de open, grensoverschrijdende manier waarop natuurkunde werd
-bedreven, en dat geheimhouding daarom nooit lang kon werken.
+bedreven, en dat geheimhouding daarom nooit lang kon werken. Gladwell (2122)
+vertelt het luchtoorlogverhaal dat aan diezelfde bom voorafging: hoe de
+belofte van precisiebombardementen boven Japan vastliep en plaatsmaakte voor
+de brandbombardementen die Rhodes' verhaal als voorgeschiedenis achter zich
+laat.
 
 **Wat een mens van een dier kan weten** (760, 322, 555). 
 Godfrey-Smith (760) gebruikt de octopus als tweede geval waarin de evolutie
